@@ -1,5 +1,5 @@
 import Decimal from "break_eternity.js"
-import {SaveSerializer} from "./serializer"
+import {saveSerializer} from "./serializer"
 import {reactive} from "vue"
 
 const SAVEID = "RBN-rewritten"
@@ -35,14 +35,18 @@ export let player: Player = getInitialPlayerData();
 export function loadSaves() {
   player = getInitialPlayerData();
   const saveContent = localStorage.getItem(SAVEID);
-  if (saveContent) {
-    let deserialized = SaveSerializer.deserialize(saveContent);
-    rewriteDecimalValues(deserialized);
-    Object.assign(player, deserialized);
+  try{
+    if (saveContent) {
+      let deserialized = saveSerializer.deserialize(saveContent);
+      rewriteDecimalValues(deserialized);
+      Object.assign(player, deserialized);
+    }
+  } catch {
+    console.error("Cannot load save")
   }
   player = reactive(player);
 }
 
 export function save(){
-  localStorage.setItem(SAVEID, SaveSerializer.serialize(player))
+  localStorage.setItem(SAVEID, saveSerializer.serialize(player))
 }

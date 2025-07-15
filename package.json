@@ -12,7 +12,9 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@types/pako": "^2.0.3",
     "break_eternity.js": "^2.1.2",
+    "pako": "^2.1.0",
     "vue": "^3.5.17"
   },
   "devDependencies": {
