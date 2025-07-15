@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import Decimal from 'break_eternity.js';
+import {player} from './core/save';
+
 </script>
 
 <template>
@@ -43,6 +46,9 @@
       <div class="background">
         <div class="main">
           PLACEHOLDER
+          {{JSON.stringify([new Decimal(114513)])}}
+          <br> {{player.lastUpdated}}
+          <br> {{player.saveCreateTime}}
         </div>
       </div>
     </div>
