@@ -4,17 +4,36 @@ import {reactive} from "vue"
 
 const SAVEID = "RBN-rewritten"
 
+const zero = new Decimal(0);
+
 export interface Player{
   number: Decimal
   lastUpdated: number
   saveCreateTime: number
+  upgrades: {
+	'11': boolean
+	'12': boolean
+  }
+  buyables: {
+	'11': Decimal
+  }
+  automationCD: {
+	next: 0,
+  }
 }
 
 function getInitialPlayerData(): Player {
   return {
-    number: new Decimal(0),
+    number: zero,
     lastUpdated: Date.now(),
     saveCreateTime: Date.now(),
+	upgrades: {
+		'11': false,
+		'12': false,
+	},
+	buyables: {
+		'11': zero,
+	},
   }
 }
 
