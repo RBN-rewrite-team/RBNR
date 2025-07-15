@@ -1,4 +1,4 @@
-import {player} from "./save";
+import {player, feature} from'./global.ts';
 
 export let diff = 0;
 
