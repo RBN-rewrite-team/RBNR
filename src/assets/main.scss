@@ -57,6 +57,7 @@ table {
 html, body {
   height: 100%;
   margin: 0;
+  touch-action: manipulation; // disable doubleclick zooming
 }
 
 #app {
