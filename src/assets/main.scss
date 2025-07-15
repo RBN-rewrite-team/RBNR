@@ -1,0 +1,738 @@
+@font-face {
+    font-family: 思源黑体Regular;
+    src: url("./思源黑体Regular.ttf");
+}
+
+@keyframes large {
+    0% {transform: scale(1);color: #8e8e8e;text-shadow: #c9c9c9 1px 1px 2px;}
+    100% {transform: scale(1.8);color: #ff6a11;text-shadow: #db8f63 1px 1px 2px;}
+}
+
+@-webkit-keyframes large {
+    0% {transform: scale(1);color: #8e8e8e;text-shadow: #c9c9c9 1px 1px 2px;}
+    100% {transform: scale(1.8);color: #ff6a11;text-shadow: #db8f63 1px 1px 2px;}
+}
+
+:root {
+    --red: #ff0000;
+}
+
+* {
+    -moz-user-select: none;
+    -o-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    -webkit-tap-highlight-color: #00000000;
+    border: none;
+    outline: none;
+    font-family: "思源黑体Regular"; 
+    transition: all 0.25s;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+::-webkit-scrollbar {
+    width: 3.5px;
+    height: 3.5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #e2e2e2;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #d0d0d0;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background-color: #c9c9c9;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+#app {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    margin: 0px;
+    flex-direction: row;
+    background-color: #f3f3f3;
+    zoom: 1
+}
+
+.side {
+    display: flex;
+    width: 215px;
+    height: 100%;
+    margin: 0px 15px 0px 20px;
+    flex-grow: 0;
+    flex-direction: column;
+}
+
+.content {
+    display: flex;
+    width: 0px;
+    height: 100%;
+    margin: 0px 10px 0px 0px;
+    flex-grow: 1;
+    flex-direction: column;
+}
+
+.title_box {
+    width: 100%;
+    height: 105px;
+    margin: 20px 0px 15px 0px;
+    flex-grow: 0;
+}
+
+.menu {
+    width: 100%;
+    height: 0px;
+    margin: 0px 0px 10px 0px;
+    flex-grow: 1;
+}
+
+.news {
+    width: 100%;
+    height: 50px;
+    margin: 20px 0px 0px 0px;
+    flex-grow: 0;
+}
+
+.resources {
+    width: 100%;
+    height: 65px;
+    margin: 15px 0px 15px 0px;
+    flex-grow: 0;
+}
+
+.main-content {
+    width: 100%;
+    height: 0px;
+    margin: 0px 0px 10px 0px;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.background {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin-left: -5px;
+    margin-top: -5px;
+    background-color: #fdfdfd;
+    border: 1px solid #d0d0d0;
+    border-radius: 8px;
+    box-shadow: #d0d0d0 1px 1px 2px 1px;
+}
+
+.title {
+    text-align: center;
+    margin: 20.5px 0px;
+    color: #8e8e8e;
+    text-shadow: #c9c9c9 1px 1px 2px;
+}
+
+.title:hover {
+    animation: large 30s;
+    animation-timing-function: ease-in-out;
+    -webkit-animation: large 30s;
+    -webkit-animation-timing-function: ease-in-out;
+}
+
+.menu1 {
+    width: 100px;
+    margin-top: 15px;
+    margin-left: 30px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.menu2 {
+    width: 130px;
+    height: 38px;
+    margin-top: 5px;
+    margin-left: 35px;
+    padding-left: 15px;
+    font-size: 17px;
+    line-height: 38px;
+    border-radius: 4px;
+    color: #000000;
+    background-color: #fdfdfd;
+}
+
+.menu2:hover {
+    background-color: #e2e2e2; 
+}
+
+.menu2:active {
+    background-color: #c9c9c9;
+}
+
+.menu2_focus {
+    width: 130px;
+    height: 38px;
+    margin-top: 5px;
+    margin-left: 35px;
+    padding-left: 15px;
+    font-size: 17px;
+    line-height: 38px;
+    border-radius: 4px;
+    color: #ffffff;
+    background-color: #4f4f4f;
+}
+
+.menu2_focus:hover {
+    background-color: #666666; 
+}
+
+.menu2_focus:active {
+    background-color: #7b7b7b;
+}
+
+.menu_line {
+    width: 175px;
+    height: 1.5px;
+    margin-top: 5px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    background-color: #d0d0d0;
+}
+
+.reset1 {
+    position: absolute;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    right: 15px;
+    top: 7.5px;
+    overflow: hidden;
+    font-size: 50px;
+    font-weight: bold;
+    line-height: 45px;
+    color: #009dd9;
+    text-shadow: #5acaff 1.5px 1.5px 3px;
+    border-radius: 4px;
+}
+
+.reset1:hover {
+    background-color: #c1ebff;
+}
+
+.reset1:active {
+    background-color: #8fdcff;
+}
+
+.main {
+    height: 100%;
+    overflow: auto;
+}
+
+.upgrade {
+    display: flex;
+    width: 100%;
+    height: 40px;
+    margin-top: 10px;
+    font-size: 17px;
+    line-height: 40px;
+    text-align: center;
+    justify-content: center;
+}
+
+.upgrade_button1 {
+    position: relative;
+    display: block;
+    width: 175px;
+    height: 36px;
+    background-color: #fdfdfd;
+    border: 2px solid #c9c9c9;
+    text-align: center;
+    line-height: 36px;
+    box-shadow: #d0d0d0 1px 1px 2px 1px;
+}
+
+.upgrade_button1:hover {
+    background-color: #e2e2e2;
+}
+
+.upgrade_button1:active {
+    background-color: #d0d0d0;
+}
+
+.upgrade_button1_unable {
+    position: relative;
+    display: block;
+    width: 175px;
+    height: 36px;
+    background-color: #fdfdfd;
+    border: 2px solid #ffa1a1;
+    text-align: center;
+    line-height: 36px;
+}
+
+.upgrade_button1_unable:hover {
+    background-color: #ffd1d1;
+}
+
+.upgrade_line {
+    position: relative;
+    width: 600px;
+    height: 1.5px;
+    top: 5px;
+    background-color: #d0d0d0;
+}
+
+.research1 {
+    display: flex;
+    width: 100%;
+    height: 176px;
+    margin-top: 10px;
+    font-size: 16px;
+    text-align: center;
+    justify-content: center;
+}
+
+.research_button1 {
+    position: relative;
+    display: block;
+    width: 113px;
+    height: 172px;
+    padding: 0px 4px;
+    margin: 0px 6px;
+    background-color: #fdfdfd;
+    border: 2px solid #c9c9c9;
+    text-align: center;
+    line-height: 24px;
+    box-shadow: #d0d0d0 1px 1px 2px 1px;
+}
+
+.research_button1:hover {
+    background-color: #e2e2e2;
+}
+
+.research_button1:active {
+    background-color: #d0d0d0;
+}
+
+.research_button1_unable {
+    position: relative;
+    display: block;
+    width: 113px;
+    height: 172px;
+    padding: 0px 4px;
+    margin: 0px 6px;
+    background-color: #fdfdfd;
+    border: 2px solid #ffa1a1;
+    text-align: center;
+    line-height: 24px;
+}
+
+.research_button1_unable:hover {
+    background-color: #ffd1d1;
+}
+
+.research_button1_bought {
+    position: relative;
+    display: block;
+    width: 113px;
+    height: 172px;
+    padding: 0px 4px;
+    margin: 0px 6px;
+    background-color: #83ec70;
+    border: 2px solid #169500;
+    text-align: center;
+    line-height: 24px;
+}
+
+.research_button1_bought:hover {
+    background-color: #4bd433;
+}
+
+.research2 {
+    display: flex;
+    font-size: 16px;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.research_button2 {
+    position: relative;
+    display: block;
+    width: 113px;
+    height: 148px;
+    padding: 0px 4px;
+    margin: 0px 8px 12px;
+    background-color: #fdfdfd;
+    border: 2px solid #c9c9c9;
+    text-align: center;
+    line-height: 24px;
+    box-shadow: #d0d0d0 1px 1px 2px 1px;
+}
+
+.research_button2:hover {
+    background-color: #e2e2e2;
+}
+
+.research_button2:active {
+    background-color: #d0d0d0;
+}
+
+.table {
+    display: flex;
+    width: 290px;
+    height: 309px;
+    font-size: 17px;
+    line-height: 30px;
+    color: #8e8e8e;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.table_text {
+    border-bottom: 1px solid #d0d0d0;
+}
+
+.milestone1 {
+    display: flex;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 16px;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.milestone_button1 {
+    position: relative;
+    display: block;
+    width: 300px;
+    height: 50px;
+    padding: 0px 4px;
+    margin: 6px 0px;
+    background-color: #fdfdfd;
+    border: 2px solid #ffa1a1;
+    text-align: center;
+    line-height: 24px;
+}
+
+.milestone_button1:hover {
+    background-color: #ffd1d1;
+}
+
+.milestone_button1_bought {
+    position: relative;
+    display: block;
+    width: 300px;
+    height: 50px;
+    padding: 0px 4px;
+    margin: 6px 0px;
+    background-color: #83ec70;
+    border: 2px solid #169500;
+    text-align: center;
+    line-height: 24px;
+}
+
+.milestone_button1_bought:hover {
+    background-color: #4bd433;
+}
+
+.autobuyer {
+    position: relative;
+    display: block;
+    width: 142px;
+    height: 150px;
+    padding: 0px 4px;
+    margin: 0px 6px 12px;
+    background-color: #fdfdfd;
+    border: 2px solid #c9c9c9;
+    text-align: center;
+    line-height: 36px;
+}
+
+.autobuyer_close {
+    position: relative;
+    display: block;
+    width: 142px;
+    height: 150px;
+    padding: 0px 4px;
+    margin: 0px 6px 12px;
+    background-color: #fdfdfd;
+    border: 2px solid #ffa1a1;
+    text-align: center;
+    line-height: 36px;
+}
+
+.autobuyer_bought {
+    position: relative;
+    display: block;
+    width: 142px;
+    height: 150px;
+    padding: 0px 4px;
+    margin: 0px 6px 12px;
+    background-color: #83ec70;
+    border: 2px solid #4bd433;
+    text-align: center;
+    line-height: 36px;
+}
+
+.autobuyer_button {
+    position: relative;
+    display: block;
+    width: 90px;
+    height: 32px;
+    margin: 65px auto;
+    background-color: #fdfdfd;
+    border: 2px solid #c9c9c9;
+    text-align: center;
+    font-size: 16px;
+    line-height: 32px;
+    box-shadow: #d0d0d0 1px 1px 2px 1px;
+}
+
+.autobuyer_button:hover {
+    background-color: #e2e2e2;
+}
+
+.autobuyer_button:active {
+    background-color: #d0d0d0;
+}
+
+.autobuyer_input {
+    width: 100px;
+    height: 19px;
+    margin: 7px 5px 0px 10px;
+    resize: none;
+    border-bottom: 1.5px solid #c9c9c9;
+    font-size: 17px;
+    line-height: 17px;
+}
+
+.autobuyer_input:hover {
+    border-bottom: 1.5px solid #8e8e8e;
+}
+
+.autobuyer_input:focus {
+    border-bottom: 1.5px solid #4f4f4f;
+}
+
+.challenge {
+    position: relative;
+    display: block;
+    width: 202px;
+    height: 210px;
+    padding: 0px 4px;
+    margin: 0px 6px;
+    background-color: #fdfdfd;
+    border: 2px solid #d0d0d0;
+    text-align: center;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.challenge_button {
+    position: relative;
+    display: block;
+    width: 100px;
+    height: 32px;
+    margin: 15px auto;
+    background-color: #fdfdfd;
+    border: 2px solid #c9c9c9;
+    text-align: center;
+    font-size: 16px;
+    line-height: 32px;
+    box-shadow: #d0d0d0 1px 1px 2px 1px;
+}
+
+.challenge_button:hover {
+    background-color: #e2e2e2;
+}
+
+.challenge_button:active {
+    background-color: #d0d0d0;
+}
+
+.achievement_button {
+    position: relative;
+    display: block;
+    width: 50px;
+    height: 50px;
+    margin: 0px 5px;
+    background-color: #fdfdfd;
+    border: 2px solid #c9c9c9;
+    text-align: center;
+    font-size: 16px;
+    line-height: 50px;
+    box-shadow: #d0d0d0 1px 1px 2px 1px;
+}
+
+.achievement_button:hover {
+    background-color: #e2e2e2;
+}
+
+.achievement_button:active {
+    background-color: #d0d0d0;
+}
+
+.achievement_button_bought {
+    position: relative;
+    display: block;
+    width: 50px;
+    height: 50px;
+    margin: 0px 5px;
+    background-color: #83ec70;
+    border: 2px solid #169500;
+    text-align: center;
+    font-size: 16px;
+    line-height: 50px;
+}
+
+.achievement_button_bought:hover {
+    background-color: #4bd433;
+}
+
+.achievement_button_unable {
+    position: relative;
+    display: block;
+    width: 50px;
+    height: 50px;
+    margin: 0px 5px;
+    background-color: #fdfdfd;
+    border: 2px solid #ffa1a1;
+    text-align: center;
+    font-size: 16px;
+    line-height: 50px;
+}
+
+.achievement_button_unable:hover {
+    background-color: #ffd1d1;
+}
+
+.setting_button {
+    position: relative;
+    display: inline-block;
+    width: 90px;
+    height: 32px;
+    margin: 0px 5px;
+    background-color: #fdfdfd;
+    border: 2px solid #c9c9c9;
+    text-align: center;
+    font-size: 16px;
+    line-height: 32px;
+    box-shadow: #d0d0d0 1px 1px 2px 1px;
+}
+
+.setting_button:hover {
+    background-color: #e2e2e2;
+}
+
+.setting_button:active {
+    background-color: #d0d0d0;
+}
+
+.hard_reset {
+    position: relative;
+    display: inline-block;
+    width: 70px;
+    height: 32px;
+    margin: 0px 5px;
+    background-color: #fdfdfd;
+    border: 2px solid #ff6868;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 32px;
+    color: #ff6868;
+    box-shadow: #ffa1a1 1px 1px 2px 1px;
+}
+
+.hard_reset:hover {
+    background-color: #ffd1d1;
+}
+
+.hard_reset:active {
+    background-color: #ffa1a1;
+}
+
+.dialog_backgroud {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: #00000066;
+}
+
+.dialog {
+    position: absolute;
+    width: 460px;
+    height: 350px;
+    top: 50%;
+    left: 50%;
+    background-color: #fdfdfd;
+    border: 2px solid #c9c9c9;
+    border-radius: 8px;
+    font-size: 17px;
+    line-height: 25px;
+    text-align: center;
+    margin: -197px -252px;
+    padding: 20px 20px;
+}
+
+.upgrade_button2 {
+    position: relative;
+    display: block;
+    width: 340px;
+    height: 48px;
+    margin: 10px 0px;
+    background-color: #fdfdfd;
+    border: 2px solid #c9c9c9;
+    font-size: 17px;
+    text-align: center;
+    line-height: 48px;
+    box-shadow: #d0d0d0 1px 1px 2px 1px;
+}
+
+.upgrade_button2:hover {
+    background-color: #e2e2e2;
+}
+
+.upgrade_button2:active {
+    background-color: #d0d0d0;
+}
+
+.versionText {
+    display: inline;
+    color: #4f4f4f;
+    font-weight: bold;
+}
+
+.firstVersionText {
+    position: relative;
+    display: inline;
+    border: 1.5px solid #c9c9c9;
+    padding: 0px 2px;
+    text-align: center;
+    line-height: 36px;
+}
+
+.firstVersionText:hover {
+    background-color: #e2e2e2;
+}
+
+.firstVersionText:active {
+    background-color: #d0d0d0;
+}
