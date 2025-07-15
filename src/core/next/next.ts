@@ -1,4 +1,5 @@
 import {player} from "../save";
+import Decimal from "break_eternity.js";
 
 export const NEXT = {
 	doNext(){

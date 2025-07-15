@@ -18,7 +18,7 @@ export interface Player{
 	'11': Decimal
   }
   automationCD: {
-	next: 0,
+	next: number,
   }
 }
 
@@ -34,6 +34,9 @@ function getInitialPlayerData(): Player {
 	buyables: {
 		'11': zero,
 	},
+    automationCD: {
+      next: 0,
+    }
   }
 }
 
