@@ -8,11 +8,13 @@ const zero = new Decimal(0);
 
 export interface Player{
   number: Decimal
+  totalNumber: Decimal
   lastUpdated: number
   saveCreateTime: number
   upgrades: {
 	'11': boolean
 	'12': boolean
+	'13': boolean
   }
   buyables: {
 	'11': Decimal
@@ -25,11 +27,13 @@ export interface Player{
 function getInitialPlayerData(): Player {
   return {
     number: zero,
+	totalNumber: zero,
     lastUpdated: Date.now(),
     saveCreateTime: Date.now(),
 	upgrades: {
 		'11': false,
 		'12': false,
+		'13': false,
 	},
 	buyables: {
 		'11': zero,

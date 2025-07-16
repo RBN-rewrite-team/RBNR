@@ -2,6 +2,7 @@
 import Decimal from 'break_eternity.js';
 import {format, formatWhole} from "@/utils/format";
 import {player, feature} from './core/global.ts';
+import {UPGRADES, BUYABLES} from './core/mechanic.ts';
 </script>
 
 <template>
@@ -38,7 +39,7 @@ import {player, feature} from './core/global.ts';
             数值&nbsp;{{formatWhole(player.number)}}
           </div>
           <div style="font-size: 17px;color: #8e8e8e;">
-            (+PLACEHOLDER/s)
+            (需要通过后继获得)
           </div>
         </div>
       </div>
@@ -46,7 +47,13 @@ import {player, feature} from './core/global.ts';
     <div class="main-content">
       <div class="background">
         <div class="main">
-			<div class="clickable"><div class="clickable_button" @mousedown="feature.NEXT.doNext">后继</div></div>
+			<div class="clickable"><div class="clickable_button" @mousedown="feature.NEXT.doNext">后继x{{feature.NEXT.nextBulk()}}<span v-if="BUYABLES.lock('11').unlocked">(自动{{formatWhole(feature.NEXT.autoNextPerSecond())}}/s)</span></div></div>
+			<table align="center">
+			<td v-if="UPGRADES.lock('11').show"><div class="upgrade" @mousedown="UPGRADES.buy('11')" v-html="UPGRADES.singleHTML('11')"></div></td>
+			<td v-if="UPGRADES.lock('12').show"><div class="upgrade" @mousedown="UPGRADES.buy('12')" v-html="UPGRADES.singleHTML('12')"></div></td>
+			<td v-if="UPGRADES.lock('13').show"><div class="upgrade" @mousedown="UPGRADES.buy('13')" v-html="UPGRADES.singleHTML('13')"></div></td>
+			<td v-if="BUYABLES.lock('11').show"><div class="upgrade" @mousedown="BUYABLES.buy('11')" v-html="BUYABLES.singleHTML('11')"></div></td>
+			</table>
         </div>
       </div>
     </div>
