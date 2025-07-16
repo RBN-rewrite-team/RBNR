@@ -47,7 +47,7 @@ import {UPGRADES, BUYABLES} from './core/mechanic.ts';
     <div class="main-content">
       <div class="background">
         <div class="main">
-			<div class="clickable"><div class="clickable_button" @mousedown="feature.NEXT.doNext">后继x{{feature.NEXT.nextBulk()}}<span v-if="BUYABLES.lock('11').unlocked">(自动{{formatWhole(feature.NEXT.autoNextPerSecond())}}/s)</span></div></div>
+          <div class="clickable"><div class="clickable_button" @mousedown="()=>{feature.NEXT.doNext()}">后继x{{feature.NEXT.nextBulk()}}<span v-if="BUYABLES.lock('11').unlocked">(自动{{formatWhole(feature.NEXT.autoNextPerSecond())}}/s)</span></div></div>
 			<table align="center">
 			<td v-if="UPGRADES.lock('11').show"><div class="upgrade" @mousedown="UPGRADES.buy('11')" v-html="UPGRADES.singleHTML('11')"></div></td>
 			<td v-if="UPGRADES.lock('12').show"><div class="upgrade" @mousedown="UPGRADES.buy('12')" v-html="UPGRADES.singleHTML('12')"></div></td>

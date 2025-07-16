@@ -1,5 +1,5 @@
 import {player} from "../save";
-import {UPGRADES, BUYABLES, upgrades, buyables} from '../mechanic.ts';
+import {UPGRADES, BUYABLES, upgrades, buyables, type singleReq} from '../mechanic.ts';
 import Decimal from "break_eternity.js";
 import {format, formatWhole} from "@/utils/format";
 
@@ -10,7 +10,18 @@ export const NEXT = {
 			cost: new Decimal(10),
 			canAfford(){return player.number.gte(this.cost);},
 			buy(){player.number = player.number.sub(this.cost);},
-			get requirement(){return [['达到10累计数值', function(){return player.totalNumber.gte(upgrades['11'].cost);}, [formatWhole(player.totalNumber), upgrades['11'].cost]]];},
+      get requirement(){
+        return [
+          [ 
+            '达到10累计数值',
+            function(){return player.totalNumber.gte(upgrades['11'].cost);},
+            [
+              formatWhole(player.totalNumber), 
+              upgrades['11'].cost
+            ]
+          ] as singleReq
+        ];
+      },
 			show: function(){return true;},
 		});
 		UPGRADES.create('12', {
@@ -22,11 +33,11 @@ export const NEXT = {
 				if(player.upgrades['13']) base = base.add(1);
 				return base;
 			},
-			effD(){return '+' + formatWhole(this.effect());},
+			effD(){return '+' + formatWhole(this.effect?.());},
 			cost: new Decimal(100),
 			canAfford(){return player.number.gte(this.cost);},
 			buy(){player.number = player.number.sub(this.cost);},
-			get requirement(){return [['达到100累计数值', function(){return player.totalNumber.gte(upgrades['12'].cost);}, [formatWhole(player.totalNumber), upgrades['12'].cost]]];},
+			get requirement(){return [['达到100累计数值', function(){return player.totalNumber.gte(upgrades['12'].cost);}, [formatWhole(player.totalNumber), upgrades['12'].cost]] as singleReq];},
 			show: function(){return true;},
 		});
 		UPGRADES.create('13', {
@@ -34,7 +45,7 @@ export const NEXT = {
 			cost: new Decimal(1000),
 			canAfford(){return player.number.gte(this.cost);},
 			buy(){player.number = player.number.sub(this.cost);},
-			get requirement(){return [['达到1000累计数值', function(){return player.totalNumber.gte(upgrades['13'].cost);}, [formatWhole(player.totalNumber), upgrades['13'].cost]]];},
+			get requirement(){return [['达到1000累计数值', function(){return player.totalNumber.gte(upgrades['13'].cost);}, [formatWhole(player.totalNumber), upgrades['13'].cost]] as singleReq];},
 			show: function(){return true;},
 		});
 		BUYABLES.create('11', {
@@ -47,7 +58,7 @@ export const NEXT = {
 			canAfford(x){return player.number.gte(this.cost(x));},
 			buy(x){player.number = player.number.sub(this.cost(x));},
 			capped(){return player.buyables['11'].gte(50);},
-			get requirement(){return [['购买U11', function(){return player.upgrades['11'];}]];},
+			get requirement(){return [['购买U11', function(){return player.upgrades['11'];}] as singleReq];},
 			show: function(){return true;},
 		});
 	},
@@ -64,7 +75,7 @@ export const NEXT = {
 	},
 	nextBulk(){
 		let base = new Decimal(1);
-		if(player.upgrades['12']) base = base.add(upgrades['12'].effect());
+    if(player.upgrades['12']) base = base.add(upgrades['12'].effect?.() ?? 0 );
 		return base;
 	},
 };
