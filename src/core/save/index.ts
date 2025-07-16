@@ -15,14 +15,24 @@ export interface Player {
     '11': boolean;
     '12': boolean;
     '13': boolean;
+    '21': boolean;
+    '22': boolean;
+    '23': boolean;
+    '24': boolean;
+    '25': boolean;
+    '26': boolean;
+    
   };
   buyables: {
     '11': Decimal;
+    '21': Decimal;
   };
   automationCD: {
-    next: number;
+    successor: number;
   };
-  currentTab: number
+  currentTab: number;
+  addpower: Decimal;
+  totalAddpower: Decimal;
 }
 
 function getInitialPlayerData(): Player {
@@ -31,18 +41,27 @@ function getInitialPlayerData(): Player {
     totalNumber: zero,
     lastUpdated: Date.now(),
     saveCreateTime: Date.now(),
+    addpower: zero,
     upgrades: {
       '11': false,
       '12': false,
       '13': false,
+      '21': false,
+      '22': false,
+      '23': false,
+      '24': false,
+      '25': false,
+      '26': false,
     },
     buyables: {
       '11': zero,
+      '21': zero,
     },
     automationCD: {
-      next: 0,
+      successor: 0,
     },
-    currentTab: 0
+    currentTab: 0,
+    totalAddpower: zero,
   };
 }
 
