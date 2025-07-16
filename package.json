@@ -15,7 +15,7 @@
     "@types/pako": "^2.0.3",
     "break_eternity.js": "^2.1.2",
     "pako": "^2.1.0",
-    "vue": "^3.5.17"
+    "vue": "^3.6.0-alpha.1"
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.2",
