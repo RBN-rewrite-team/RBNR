@@ -1,6 +1,6 @@
 import './assets/main.scss';
 
-import { createApp, vaporInteropPlugin } from 'vue';
+import { createApp } from 'vue';
 import App from './App.vue';
 import { loadSaves, player, save, type Player } from './core/save';
 import { gameLoop } from './core/game-loop';
@@ -14,7 +14,6 @@ setInterval(gameLoop, 40);
 setInterval(save, 3000);
 const app = createApp(App);
 
-app.use(vaporInteropPlugin);
 app.mount('#app');
 
 declare global {
