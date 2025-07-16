@@ -1,16 +1,16 @@
-import { deflate, inflate } from 'pako'
+import { deflate, inflate } from 'pako';
 
 export interface SaveSerializer {
-  encoder: TextEncoder
-  decoder: TextDecoder
-  startString: string
-  endString: string
+  encoder: TextEncoder;
+  decoder: TextDecoder;
+  startString: string;
+  endString: string;
   steps: {
-    serialize: (x: any) => any
-    deserialize: (x: any) => any
-  }[]
-  serialize: (s: any) => any
-  deserialize: (s: any) => any
+    serialize: (x: any) => any;
+    deserialize: (x: any) => any;
+  }[];
+  serialize: (s: any) => any;
+  deserialize: (s: any) => any;
 }
 
 export const saveSerializer: SaveSerializer = {
@@ -35,10 +35,10 @@ export const saveSerializer: SaveSerializer = {
       serialize: function (x: Uint8Array): string {
         return Array.from(x)
           .map((byte: number) => String.fromCharCode(byte))
-          .join('')
+          .join('');
       },
       deserialize: function (x: string): Uint8Array {
-        return Uint8Array.from(Array.from(x).map((char: string) => char.charCodeAt(0)))
+        return Uint8Array.from(Array.from(x).map((char: string) => char.charCodeAt(0)));
       },
     },
     {
@@ -57,9 +57,9 @@ export const saveSerializer: SaveSerializer = {
     },
   ],
   serialize(s) {
-    return this.steps.reduce((x, f) => f.serialize(x), s)
+    return this.steps.reduce((x, f) => f.serialize(x), s);
   },
   deserialize(s) {
-    return this.steps.reduceRight((x, f) => f.deserialize(x), s)
+    return this.steps.reduceRight((x, f) => f.deserialize(x), s);
   },
-}
+};
