@@ -58,14 +58,18 @@ function rewriteDecimalValues(pl: any) {
 
 export let player: Player = getInitialPlayerData();
 
+export function loadFromString(saveContent: string) {
+  let deserialized = saveSerializer.deserialize(saveContent);
+  rewriteDecimalValues(deserialized);
+  Object.assign(player, deserialized);
+}
+
 export function loadSaves() {
   player = getInitialPlayerData();
   const saveContent = localStorage.getItem(SAVEID);
   try {
     if (saveContent) {
-      let deserialized = saveSerializer.deserialize(saveContent);
-      rewriteDecimalValues(deserialized);
-      Object.assign(player, deserialized);
+      loadFromString(saveContent)
     }
   } catch {
     console.error('Cannot load save');
