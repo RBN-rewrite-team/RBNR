@@ -1,35 +1,38 @@
-name: Deploy release
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ develop ]
-  workflow_dispatch:
+    branches: [develop]
 
 jobs:
-  build:
-    name: Deploy 🚀
+  build-and-deploy:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4 
+        uses: actions/setup-node@v4
         with:
-          node-version: 24          
-          cache: npm               
+          node-version: 24
 
       - name: Install dependencies
-        run: npm install               
+        run: npm install
 
       - name: Build project
         run: npm run build
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3 
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GH_PUBLISH_TOKEN }} 
-          publish_dir: ./dist
-          destination_dir: ./      
-          keep_files: false        
-          force_orphan: true       
+          path: dist/
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
+        if: success()
