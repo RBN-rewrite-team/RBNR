@@ -318,6 +318,61 @@ html, body {
     background-color: #ffd1d1;
 }
 
+.upgrade_buttonbig {
+    position: relative;
+    display: block;
+    width: 175px;
+    height: 175px;
+    background-color: #fdfdfd;
+    border: 2px solid #c9c9c9;
+    text-align: center;
+    line-height: 36px;
+    box-shadow: #d0d0d0 1px 1px 2px 1px;
+}
+
+.upgrade_buttonbig:hover {
+    background-color: #e2e2e2;
+}
+
+.upgrade_buttonbig:active {
+    background-color: #d0d0d0;
+}
+
+.upgrade_buttonbig_complete {
+    position: relative;
+    display: block;
+    width: 175px;
+    height: 175px;
+    background-color: #fdfdfd;
+    border: 2px solid green;
+    text-align: center;
+    line-height: 36px;
+    box-shadow: #lightgreen 1px 1px 2px 1px;
+}
+
+.upgrade_buttonbig_complete:hover {
+    background-color: #e2e2e2;
+}
+
+.upgrade_buttonbig_complete:active {
+    background-color: #d0d0d0;
+}
+
+.upgrade_buttonbig_unable {
+    position: relative;
+    display: block;
+    width: 175px;
+    height: 175px;
+    background-color: #fdfdfd;
+    border: 2px solid #ffa1a1;
+    text-align: center;
+    line-height: 36px;
+}
+
+.upgrade_buttonbig_unable:hover {
+    background-color: #ffd1d1;
+}
+
 .upgrade_line {
     position: relative;
     width: 600px;
