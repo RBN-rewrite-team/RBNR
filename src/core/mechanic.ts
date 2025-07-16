@@ -53,7 +53,7 @@ export const UPGRADES = {
       str += '暂未解锁<br>';
       let req = upgrades[id].requirement;
       for (let j in req) {
-        if (j) str += ',<br>';
+        if (j!="0") str += ',<br>';
         if (req[j][1]()) str += '<span style="color: green; font-weight: bold">';
         else str += '<span style="color: red; font-weight: bold">';
         str += req[j][0];
@@ -115,8 +115,9 @@ export const BUYABLES = {
     if (!this.lock(id).unlocked) {
       str += '暂未解锁<br>';
       let req = buyables[id].requirement;
+      let first=true
       for (let j in req) {
-        if (j) str += ',<br>';
+        if (j!="0") str += ',<br>';
         if (req[j][1]()) str += '<span style="color: green; font-weight: bold">';
         else str += '<span style="color: red; font-weight: bold">';
         str += req[j][0];

@@ -22,6 +22,7 @@ export interface Player {
   automationCD: {
     next: number;
   };
+  currentTab: number
 }
 
 function getInitialPlayerData(): Player {
@@ -41,6 +42,7 @@ function getInitialPlayerData(): Player {
     automationCD: {
       next: 0,
     },
+    currentTab: 0
   };
 }
 
@@ -79,4 +81,10 @@ export function loadSaves() {
 
 export function save() {
   localStorage.setItem(SAVEID, saveSerializer.serialize(player));
+}
+
+export function hardReset() {
+  player = getInitialPlayerData();
+  save();
+  location.reload();
 }

@@ -1,4 +1,5 @@
-import {loadFromString} from "."
+import ModalService from "@/utils/Modal"
+import {hardReset, loadFromString} from "."
 
 export function UILoadSaveFromFile() {
   const a = document.createElement('input')
@@ -22,4 +23,14 @@ export function UILoadSaveFromFile() {
     }
     fr.readAsText(a.files[0])
   }
+}
+
+export function UIHardReset() {
+  ModalService.show({
+    title: "硬重置?",
+    content: "!?!?!?",
+    onConfirm() {
+      hardReset();
+    },
+  })
 }

@@ -3,29 +3,14 @@ import Decimal from 'break_eternity.js';
 import { format, formatWhole, formatGain } from '@/utils/format';
 import { player, feature, getPointGen } from './core/global.ts';
 import { UPGRADES, BUYABLES } from './core/mechanic.ts';
+
+import Side from './components/Side.vue';
+import {save} from './core/save/index.ts';
+import { UIHardReset } from './core/save/saveui.ts';
 </script>
 
 <template>
-  <div class="side">
-    <div class="title_box">
-      <div class="background">
-        <div class="title">
-          <div style="font-size: 24px; color: #000000; text-shadow: #8e8e8e 1px 1px 2px">
-            大数之路重制版
-          </div>
-          <div style="font-size: 20px">v0.0</div>
-        </div>
-      </div>
-    </div>
-    <div class="menu">
-      <div class="background" style="overflow: auto">
-        <div class="main">
-          <div class="menu1">后继</div>
-          <div class="menu2">后继</div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <Side />
   <div class="content">
     <div class="news">
       <div class="background">
@@ -47,7 +32,7 @@ import { UPGRADES, BUYABLES } from './core/mechanic.ts';
     </div>
     <div class="main-content">
       <div class="background">
-        <div class="main">
+        <div class="main" v-if="player.currentTab === 0">
           <div class="clickable">
             <div
               class="clickable_button"
@@ -91,6 +76,10 @@ import { UPGRADES, BUYABLES } from './core/mechanic.ts';
               ></div>
             </td>
           </table>
+        </div>
+        <div class="main" v-if="player.currentTab === 1">
+          <div class="setting_button" @click="save()">手动保存</div>
+          <div class="hard_reset" @click="UIHardReset">硬重置</div>
         </div>
       </div>
     </div>
