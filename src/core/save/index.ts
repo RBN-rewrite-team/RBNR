@@ -22,6 +22,7 @@ export interface Player {
   automationCD: {
     next: number;
   };
+  currentTab: number
 }
 
 function getInitialPlayerData(): Player {
@@ -41,6 +42,7 @@ function getInitialPlayerData(): Player {
     automationCD: {
       next: 0,
     },
+    currentTab: 0
   };
 }
 
@@ -58,14 +60,18 @@ function rewriteDecimalValues(pl: any) {
 
 export let player: Player = getInitialPlayerData();
 
+export function loadFromString(saveContent: string) {
+  let deserialized = saveSerializer.deserialize(saveContent);
+  rewriteDecimalValues(deserialized);
+  Object.assign(player, deserialized);
+}
+
 export function loadSaves() {
   player = getInitialPlayerData();
   const saveContent = localStorage.getItem(SAVEID);
   try {
     if (saveContent) {
-      let deserialized = saveSerializer.deserialize(saveContent);
-      rewriteDecimalValues(deserialized);
-      Object.assign(player, deserialized);
+      loadFromString(saveContent)
     }
   } catch {
     console.error('Cannot load save');
@@ -75,4 +81,10 @@ export function loadSaves() {
 
 export function save() {
   localStorage.setItem(SAVEID, saveSerializer.serialize(player));
+}
+
+export function hardReset() {
+  player = getInitialPlayerData();
+  save();
+  location.reload();
 }
