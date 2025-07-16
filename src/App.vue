@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import Decimal from 'break_eternity.js';
 import { format, formatWhole, formatGain } from '@/utils/format';
 import { player, feature, getPointGen } from './core/global.ts';
