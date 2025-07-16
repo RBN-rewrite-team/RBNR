@@ -26,7 +26,7 @@ import { UIHardReset } from './core/save/saveui.ts';
             数值&nbsp;{{ formatWhole(player.number) }}
           </div>
           <div style="font-size: 17px; color: #8e8e8e" v-if="feature.NEXT.autoNextPerSecond().eq(0)">(需要通过后继获得)</div>
-          <div style="font-size: 17px; color: #8e8e8e" v-html="'(+'+formatGain(player.number, getPointGen(), '')+'/s'" v-else />
+          <div style="font-size: 17px; color: #8e8e8e" v-html="formatGain(player.number, getPointGen(), '')" v-else />
         </div>
       </div>
     </div>
