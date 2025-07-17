@@ -20,11 +20,16 @@ import { player } from '@/core/save';
           <div class="menu1">后继</div>
           <div class="menu_line"></div>
           <div class="menu2" :class="{focus: player.currentTab==0}" @click="player.currentTab=0">后继</div>
-          <span v-if="player.upgrades[13]">
+          <template v-if="player.upgrades[13]">
             <div class="menu1">加法</div>
             <div class="menu_line"></div>
             <div class="menu2" :class="{focus: player.currentTab==2}" @click="player.currentTab=2">加法</div>
-          </span>
+          </template>
+          <template v-if="player.upgrades[26]">
+            <div class="menu1">乘法</div>
+            <div class="menu_line"></div>
+            <div class="menu2" :class="{focus: player.currentTab==4}" @click="player.currentTab=4">乘法</div>
+          </template>
           <div class="menu1">杂项</div>
           <div class="menu_line"></div>
           <div class="menu2" :class="{focus: player.currentTab==1}" @click="player.currentTab=1">存档</div>

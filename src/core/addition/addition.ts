@@ -89,6 +89,52 @@ export const Addition = {
         return true;
       },
     });
+    UPGRADES.create('25', {
+      description: '后继运算升级为加法运算， 在每次加法重置后保留10系列升级',
+      cost: new Decimal(625),
+      canAfford() {
+        return player.addpower.gte(this.cost);
+      },
+      buy() {
+        player.addpower = player.addpower.sub(this.cost);
+      },
+      get requirement() {
+        return [
+
+          [
+            '获得625加法能量',
+            () => player.totalAddpower.gte(625),
+            [formatWhole(player.totalAddpower), formatWhole(upgrades[25].cost)],
+          ] as singleReq,
+        ];
+      },
+      show: function () {
+        return true;
+      },
+    });
+    UPGRADES.create('26', {
+      description: '解锁乘法层',
+      cost: new Decimal(3125),
+      canAfford() {
+        return player.addpower.gte(this.cost);
+      },
+      buy() {
+        player.addpower = player.addpower.sub(this.cost);
+      },
+      get requirement() {
+        return [
+
+          [
+            '获得3125加法能量',
+            () => player.totalAddpower.gte(3125),
+            [formatWhole(player.totalAddpower), formatWhole(upgrades[26].cost)],
+          ] as singleReq,
+        ];
+      },
+      show: function () {
+        return true;
+      },
+    });
     BUYABLES.create('21', {
       description: '每次加法重置后获得免费的购买项11（算在上限之内）',
       effect(x) {
@@ -130,8 +176,10 @@ export const Addition = {
     if (this.gain().gt(0)) {
       player.addpower = player.addpower.add(this.gain());
       player.totalAddpower = player.totalAddpower.add(this.gain());
-      player.upgrades[11] = false;
-      player.upgrades[12] = false;
+      if (!player.upgrades[25]) {
+        player.upgrades[11] = false;
+        player.upgrades[12] = false;
+      }
       player.buyables[11] = new Decimal(0);
       player.totalNumber = new Decimal(0);
       player.number = new Decimal(0);
@@ -155,4 +203,8 @@ export const Addition = {
   gain() {
     return player.totalNumber.div(1000).floor().max(0);
   },
+  U25effect() {
+    if (!player.upgrades[25]) return new Decimal(0)
+    return player.totalAddpower.root(4).add(1).floor()
+  }
 };

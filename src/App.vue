@@ -50,6 +50,7 @@ import { UIHardReset } from './core/save/saveui.ts';
           </div>
           <div style="font-size: 17px; color: #5acaff">
             (+{{ formatWhole(feature.ADDITION.gain()) }})
+            (!{{ formatWhole(player.totalAddpower) }})
           </div>
         </div>
       </div>
@@ -142,6 +143,20 @@ import { UIHardReset } from './core/save/saveui.ts';
                       class="upgrade"
                       @mousedown="BUYABLES.buy('21')"
                       v-html="BUYABLES.singleHTML('21')"
+                    ></div>
+                  </td>
+                  <td v-if="UPGRADES.lock('25').show">
+                    <div
+                      class="upgrade"
+                      @mousedown="UPGRADES.buy('25')"
+                      v-html="UPGRADES.singleHTML('25')"
+                    ></div>
+                  </td>
+                  <td v-if="UPGRADES.lock('26').show">
+                    <div
+                      class="upgrade"
+                      @mousedown="UPGRADES.buy('26')"
+                      v-html="UPGRADES.singleHTML('26')"
                     ></div>
                   </td>
                 </tr>
