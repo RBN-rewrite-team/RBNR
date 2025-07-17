@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Decimal from 'break_eternity.js';
 import { format, formatWhole, formatGain } from '@/utils/format';
-import { player, feature, getPointGen } from './core/global.ts';
+import { player, feature, getNumberGen } from './core/global.ts';
 import { UPGRADES, BUYABLES } from './core/mechanic.ts';
 
 import Side from './components/Side.vue';
@@ -25,8 +25,8 @@ import { UIHardReset } from './core/save/saveui.ts';
           <div style="font-weight: bold; color: #4f4f4f">
             数值&nbsp;{{ formatWhole(player.number) }}
           </div>
-          <div style="font-size: 17px; color: #8e8e8e" v-if="feature.successor.autosuccessorPerSecond().eq(0)">(需要通过后继获得)</div>
-          <div style="font-size: 17px; color: #8e8e8e" v-html="formatGain(player.number, getPointGen(), '')" v-else />
+          <div style="font-size: 17px; color: #8e8e8e" v-if="feature.SUCCESSOR.autoSuccessPerSecond().eq(0)">(需要通过后继获得)</div>
+          <div style="font-size: 17px; color: #8e8e8e" v-html="formatGain(player.number, getNumberGen(), '')" v-else />
         </div>
         <div style="position: absolute;margin-left: 215px;margin-top: 5px;" id="showMP" v-if="player.upgrades[13]">
           <div style="font-weight: bold;color: #009dd9;">
@@ -46,12 +46,12 @@ import { UIHardReset } from './core/save/saveui.ts';
             <div
               class="clickable_button"
               @mousedown="
-                  feature.successor.dosuccessor()
+                  feature.SUCCESSOR.success()
               "
             >
-              后继x{{ feature.successor.successorBulk()
+              后继x{{ feature.SUCCESSOR.successorBulk()
               }}<span v-if="BUYABLES.lock('11').unlocked"
-                >(自动{{ formatWhole(feature.successor.autosuccessorPerSecond()) }}/s)</span
+                >(自动{{ formatWhole(feature.SUCCESSOR.autoSuccessPerSecond()) }}/s)</span
               >
             </div>
           </div>
@@ -140,7 +140,7 @@ import { UIHardReset } from './core/save/saveui.ts';
         </div>
         <div class="main" v-if="player.currentTab === 3">
           <h1>大数之路重制版</h1>
-          版本：v0.1.1<br>
+          版本: v0.1.1<br>
           制作组名单(排名不分先后)：<br>
           静火Ω<br>
           VeryrrDefine<br>
