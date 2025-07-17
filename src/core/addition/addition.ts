@@ -35,7 +35,7 @@ export const Addition = {
       },
       get requirement() {
         return [
-          ["获得5加法能量", ()=>player.totalAddpower.gte(5), ['5',player.totalAddpower]] as singleReq
+          ["获得5加法能量", ()=>player.totalAddpower.gte(5), [player.totalAddpower, '5']] as singleReq
         ];
       },
       show: function () {
@@ -53,7 +53,7 @@ export const Addition = {
       },
       get requirement() {
         return [
-          ["获得25加法能量", ()=>player.totalAddpower.gte(25), ['25', player.totalAddpower]] as singleReq
+          ["获得25加法能量", ()=>player.totalAddpower.gte(25), [player.totalAddpower, '25']] as singleReq
         ];
       },
       show: function () {
@@ -71,7 +71,7 @@ export const Addition = {
       },
       get requirement() {
         return [
-          ["获得125加法能量", ()=>player.totalAddpower.gte(125), ['125', player.totalAddpower]] as singleReq
+          ["获得125加法能量", ()=>player.totalAddpower.gte(125), [player.totalAddpower, '125']] as singleReq
         ];
       },
       show: function () {
