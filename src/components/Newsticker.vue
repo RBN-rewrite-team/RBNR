@@ -72,7 +72,7 @@ const prepareNextMessage = () => {
 
   // console.log(news.filter(canShow))
 
-  currentNews.value = randomElement(news.filter(canShow))
+  currentNews.value = randomElement(news!.filter(canShow))
   // currentNews.value = news[7]
 
   if (!currentNews.value) return
