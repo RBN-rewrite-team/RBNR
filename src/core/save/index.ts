@@ -21,12 +21,12 @@ export interface Player {
     '24': boolean;
     '25': boolean;
     '26': boolean;
-    
   };
   buyables: {
     '11': Decimal;
     '21': Decimal;
   };
+  buyable11More: Decimal;
   automationCD: {
     successor: number;
   };
@@ -57,6 +57,7 @@ function getInitialPlayerData(): Player {
       '11': zero,
       '21': zero,
     },
+    buyable11More: zero,
     automationCD: {
       successor: 0,
     },
@@ -90,7 +91,7 @@ export function loadSaves() {
   const saveContent = localStorage.getItem(SAVEID);
   try {
     if (saveContent) {
-      loadFromString(saveContent)
+      loadFromString(saveContent);
     }
   } catch {
     console.error('Cannot load save');

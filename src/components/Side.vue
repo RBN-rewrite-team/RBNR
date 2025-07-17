@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import {player} from '@/core/save';
-
+import { player } from '@/core/save';
 </script>
 
 <template>
@@ -19,13 +18,13 @@ import {player} from '@/core/save';
       <div class="background" style="overflow: auto">
         <div class="main">
           <div class="menu1">后继</div>
-          <div class="menu2" @click="player.currentTab=0">后继</div>
+          <div class="menu2" @click="player.currentTab = 0">后继</div>
           <div class="menu_line"></div>
           <div class="menu1">加法</div>
-          <div class="menu2" @click="player.currentTab=2">加法</div>
+          <div class="menu2" @click="player.currentTab = 2">加法</div>
           <div class="menu_line"></div>
           <div class="menu1">杂项</div>
-          <div class="menu2" @click="player.currentTab=1">存档</div>
+          <div class="menu2" @click="player.currentTab = 1">存档</div>
           <div class="menu_line"></div>
         </div>
       </div>
