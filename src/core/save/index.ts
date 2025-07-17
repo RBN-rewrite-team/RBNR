@@ -64,7 +64,7 @@ function getInitialPlayerData(): Player {
     },
     currentTab: 0,
     totalAddpower: zero,
-    firstResetBit: number
+    firstResetBit: 0
   };
 }
 
