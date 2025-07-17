@@ -16,7 +16,7 @@ export const PrimeFactor = {
 				prev: Number(pf) == 2 ? 0 : Number(pflist[Number(i) - 1]),
 				pprev: Number(pf) <= 3 ? 0 : Number(pflist[Number(i) - 2]),
 				n: Number(i),
-        currency: "UNKNOWN",
+        currency: "乘法能量",
 				
 				description: '质因数' + pf + ',倍增因数能量',
 				effect(x) {
