@@ -10,6 +10,7 @@ export const Multiplication = {
 		UPGRADES.create('31', {
 			description: '所有后继升级保持为可购买状态',
 			cost: new Decimal(1),
+      currency: "乘法能量",
 			canAfford() {
 				return player.multiplication.mulpower.gte(this.cost);
 			},
@@ -32,10 +33,10 @@ export const Multiplication = {
 		if (this.gain().gt(0)) {
 		  player.multiplication.mulpower = player.multiplication.mulpower.add(this.gain());
 		  player.multiplication.totalMulpower = player.multiplication.totalMulpower.add(this.gain());
-		  let reset_upgrades = [21, 22, 23, 24, 25];
+      let reset_upgrades: Array<keyof typeof player.upgrades> = [21, 22, 23, 24, 25].map(x=>x.toString() as keyof typeof player.upgrades);
 		  for(let i in reset_upgrades) player.upgrades[reset_upgrades[i]] = false;
 		  player.buyables[21] = new Decimal(0);
-		  player.multiplication.pftime = new Decimal(0);
+		  player.multiplication.pfTime = new Decimal(0);
 		  Addition.reset();
 		  player.totalAddpower = new Decimal(0);
 		  player.addpower = new Decimal(0);
