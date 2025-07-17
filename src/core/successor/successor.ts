@@ -2,6 +2,7 @@ import { player } from '../save';
 import { UPGRADES, BUYABLES, upgrades, buyables, type singleReq } from '../mechanic.ts';
 import Decimal from 'break_eternity.js';
 import { format, formatWhole } from '@/utils/format';
+import {feature} from '../global.ts';
 
 export const Successor = {
   initMechanics() {
@@ -139,7 +140,7 @@ export const Successor = {
   },
   autoSuccessPerSecond() {
     let base = new Decimal(0);
-    if (player.buyables['11'].gte(1)) base = base.add(buyables['11'].effect(player.buyables['11']));
+    base = base.add(buyables['11'].effect(player.buyables['11']));
     return base;
   },
   successorBulk() {
@@ -153,6 +154,7 @@ export const Successor = {
       base = base.add(count);
     }
     if (player.upgrades[21]) base = base.mul(4);
+    if (player.upgrades[25]) base = base.mul(feature.ADDITION.U25effect())
     return base;
   },
 };
