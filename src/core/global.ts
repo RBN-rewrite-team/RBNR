@@ -18,5 +18,5 @@ const feature = {
 export { player, feature };
 
 export function getNumberGen() {
-  return feature.SUCCESSOR.successorBulk().mul(feature.SUCCESSOR.autoSuccessPerSecond())
+  return feature.SUCCESSOR.successorBulk().mul(feature.SUCCESSOR.autoSuccessPerSecond());
 }

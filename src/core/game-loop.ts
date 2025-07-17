@@ -19,16 +19,13 @@ export function gameLoop() {
       feature.SUCCESSOR.success(bulk);
     }
   }
-  
-  for(let i in upgrades)
-  {
-	if(upgrades[i].keep != null && upgrades[i].keep())
-	{
-		player.upgrades[i as keyof typeof player.upgrades] = true;
-	}
+
+  for (let i in upgrades) {
+    if (upgrades[i].keep != null && upgrades[i].keep()) {
+      player.upgrades[i as keyof typeof player.upgrades] = true;
+    }
   }
-  if(player.firstResetBit & 0b10)
-  {
-	player.multiplication.pfTime = player.multiplication.pfTime.add(diff);
+  if (player.firstResetBit & 0b10) {
+    player.multiplication.pfTime = player.multiplication.pfTime.add(diff);
   }
 }
