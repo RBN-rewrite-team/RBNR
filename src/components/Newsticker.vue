@@ -83,7 +83,6 @@ const prepareNextMessage = () => {
   // }
 
   currentNews.value.reset?.()
-  console.log(ticker.value.clientWidth)
 
   line.value.innerHTML = currentNews.value.text
   line.value.style.transitionDuration = '0ms'
