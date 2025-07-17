@@ -24,11 +24,11 @@ export function gameLoop() {
   {
 	if(upgrades[i].keep != null && upgrades[i].keep())
 	{
-		player.upgrades[i] = true;
+		player.upgrades[i as keyof typeof player.upgrades] = true;
 	}
   }
   if(player.firstResetBit & 0b10)
   {
-	player.multiplication.pftime = player.multiplication.pftime.add(diff);
+	player.multiplication.pfTime = player.multiplication.pfTime.add(diff);
   }
 }
