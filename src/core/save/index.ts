@@ -21,24 +21,24 @@ export interface Player {
     '24': boolean;
     '25': boolean;
     '26': boolean;
-	'31': boolean;
-	'32': boolean;
-	'33': boolean;
-	'34': boolean;
-	'35': boolean;
+    '31': boolean;
+    '32': boolean;
+    '33': boolean;
+    '34': boolean;
+    '35': boolean;
   };
   buyables: {
     '11': Decimal;
     '21': Decimal;
-	'31': Decimal;
-	'pf2': Decimal;
-	'pf3': Decimal;
-	'pf5': Decimal;
-	'pf7': Decimal;
-	'pf11': Decimal;
-	'pf13': Decimal;
-	'pf17': Decimal;
-	'pf19': Decimal;
+    '31': Decimal;
+    pf2: Decimal;
+    pf3: Decimal;
+    pf5: Decimal;
+    pf7: Decimal;
+    pf11: Decimal;
+    pf13: Decimal;
+    pf17: Decimal;
+    pf19: Decimal;
   };
   buyable11More: Decimal;
   automationCD: {
@@ -49,9 +49,9 @@ export interface Player {
   totalAddpower: Decimal;
   firstResetBit: number;
   multiplication: {
-	  mulpower: Decimal;
-	  totalMulpower: Decimal;
-	  pfTime: Decimal;
+    mulpower: Decimal;
+    totalMulpower: Decimal;
+    pfTime: Decimal;
   };
 }
 function getInitialPlayerData(): Player {
@@ -71,24 +71,24 @@ function getInitialPlayerData(): Player {
       '24': false,
       '25': false,
       '26': false,
-	  '31': false,
-	  '32': false,
-	  '33': false,
-	  '34': false,
-	  '35': false,
+      '31': false,
+      '32': false,
+      '33': false,
+      '34': false,
+      '35': false,
     },
     buyables: {
       '11': zero,
       '21': zero,
-	  '31': zero,
-	  'pf2': zero,
-	  'pf3': zero,
-	  'pf5': zero,
-	  'pf7': zero,
-	  'pf11': zero,
-	  'pf13': zero,
-	  'pf17': zero,
-	  'pf19': zero,
+      '31': zero,
+      pf2: zero,
+      pf3: zero,
+      pf5: zero,
+      pf7: zero,
+      pf11: zero,
+      pf13: zero,
+      pf17: zero,
+      pf19: zero,
     },
     buyable11More: zero,
     automationCD: {
@@ -97,11 +97,11 @@ function getInitialPlayerData(): Player {
     currentTab: 0,
     totalAddpower: zero,
     firstResetBit: 0,
-	  multiplication: {
-		  mulpower: zero,
-		  totalMulpower: zero,
-		  pfTime: zero,
-	  },
+    multiplication: {
+      mulpower: zero,
+      totalMulpower: zero,
+      pfTime: zero,
+    },
   };
 }
 
@@ -132,13 +132,13 @@ export function deepCopyProps(source: any, target: any) {
           target[key] == null ||
           Array.isArray(source[key]) !== Array.isArray(target[key])
         ) {
-          target[key] = Array.isArray(source[key]) ? [] : {}
+          target[key] = Array.isArray(source[key]) ? [] : {};
         }
         // 递归复制属性
-        deepCopyProps(source[key], target[key])
+        deepCopyProps(source[key], target[key]);
       } else {
         // 如果属性不是对象或数组，则直接复制
-        target[key] = source[key]
+        target[key] = source[key];
       }
     }
   }

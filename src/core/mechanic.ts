@@ -19,7 +19,7 @@ type IUpgrade = {
   //requirement: [string, ()=>boolean, [string, Decimal/*jindutiao*/]?][]
   requirement: singleReq[];
   show: () => boolean;
-  keep? () : boolean;
+  keep?(): boolean;
 } & (
   | {
       effect(): any;
@@ -49,7 +49,7 @@ export const UPGRADES = {
     if (player.upgrades[id]) useclass = 'upgrade_buttonbig_complete';
     else if (!this.lock(id).unlocked || !upgrades[id].canAfford())
       useclass = 'upgrade_buttonbig_unable';
-	let permanent = (upgrades[id].keep != null && upgrades[id].keep());
+    let permanent = upgrades[id].keep != null && upgrades[id].keep();
     let str = '<div class="' + useclass + '">';
     str += '<span sytle="font-weight: bold">U' + id + '</span><br>';
     if (!this.lock(id).unlocked && !permanent) {
@@ -66,8 +66,8 @@ export const UPGRADES = {
     } else {
       str += upgrades[id].description + '<br>';
       if (upgrades[id].effect) str += '效果：' + upgrades[id].effD() + '<br>';
-      if(!permanent) str += '价格：' + format(upgrades[id].cost) + upgrades[id].currency + '<br>';
-	  else str += '<span style="color: green; font-weight: bold">保持持有<br>';
+      if (!permanent) str += '价格：' + format(upgrades[id].cost) + upgrades[id].currency + '<br>';
+      else str += '<span style="color: green; font-weight: bold">保持持有<br>';
     }
     str += '</div>';
     return str;
@@ -91,12 +91,12 @@ type IBuyable = {
   requirement: singleReq[];
   show(): boolean;
   more?(): Decimal;
-} & ({
+} & {
   pfid?: number;
   prev?: number;
   pprev?: number;
   n?: number;
-});
+};
 export const BUYABLES = {
   create(id: keyof typeof player.buyables, info: IBuyable) {
     buyables[id] = info;
@@ -151,7 +151,8 @@ export const BUYABLES = {
           '→' +
           buyables[id].effD(player.buyables[id].add(1)) +
           '<br>';
-      str += '价格：' + format(buyables[id].cost(player.buyables[id]))+ buyables[id].currency + '<br>';
+      str +=
+        '价格：' + format(buyables[id].cost(player.buyables[id])) + buyables[id].currency + '<br>';
     }
     str += '</div>';
     return str;
