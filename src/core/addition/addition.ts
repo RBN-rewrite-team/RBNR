@@ -1,5 +1,5 @@
 import Decimal from 'break_eternity.js';
-import { BUYABLES, UPGRADES, type singleReq } from '../mechanic';
+import { BUYABLES, upgrades, UPGRADES, type singleReq } from '../mechanic';
 import { player } from '../save';
 import ModalService from '@/utils/Modal';
 import { formatWhole } from '@/utils/format';
@@ -36,7 +36,7 @@ export const Addition = {
           [
             '获得5加法能量',
             () => player.totalAddpower.gte(5),
-            ['5', player.totalAddpower],
+            [formatWhole(player.totalAddpower), upgrades[22].cost],
           ] as singleReq,
         ];
       },
@@ -58,7 +58,7 @@ export const Addition = {
           [
             '获得25加法能量',
             () => player.totalAddpower.gte(25),
-            ['25', player.totalAddpower],
+            [formatWhole(player.totalAddpower), upgrades[23].cost],
           ] as singleReq,
         ];
       },
@@ -80,7 +80,7 @@ export const Addition = {
           [
             '获得125加法能量',
             () => player.totalAddpower.gte(125),
-            ['125', player.totalAddpower],
+            [formatWhole(player.totalAddpower), upgrades[24].cost],
           ] as singleReq,
         ];
       },
