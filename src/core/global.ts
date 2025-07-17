@@ -6,17 +6,17 @@ import { Multiplication } from './multiplication/multiplication.ts';
 import { PrimeFactor } from './multiplication/pf.ts';
 
 const feature = {
-  mechanic: { UPGRADES: UPGRADES, BUYABLES: BUYABLES },
-  upgrades: upgrades,
-  buyables: buyables,
-  SUCCESSOR: Successor,
-  ADDITION: Addition,
-  MULTIPLICATION: Multiplication,
-  PrimeFactor: PrimeFactor,
+	mechanic: { UPGRADES: UPGRADES, BUYABLES: BUYABLES },
+	upgrades: upgrades,
+	buyables: buyables,
+	SUCCESSOR: Successor,
+	ADDITION: Addition,
+	MULTIPLICATION: Multiplication,
+	PrimeFactor: PrimeFactor,
 };
 
 export { player, feature };
 
 export function getNumberGen() {
-  return feature.SUCCESSOR.successorBulk().mul(feature.SUCCESSOR.autoSuccessPerSecond());
+	return feature.SUCCESSOR.successorBulk().mul(feature.SUCCESSOR.autoSuccessPerSecond());
 }
