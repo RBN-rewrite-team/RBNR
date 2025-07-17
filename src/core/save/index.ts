@@ -15,14 +15,24 @@ export interface Player {
     '11': boolean;
     '12': boolean;
     '13': boolean;
+    '21': boolean;
+    '22': boolean;
+    '23': boolean;
+    '24': boolean;
+    '25': boolean;
+    '26': boolean;
   };
   buyables: {
     '11': Decimal;
+    '21': Decimal;
   };
+  buyable11More: Decimal;
   automationCD: {
-    next: number;
+    successor: number;
   };
-  currentTab: number
+  currentTab: number;
+  addpower: Decimal;
+  totalAddpower: Decimal;
 }
 
 function getInitialPlayerData(): Player {
@@ -31,18 +41,28 @@ function getInitialPlayerData(): Player {
     totalNumber: zero,
     lastUpdated: Date.now(),
     saveCreateTime: Date.now(),
+    addpower: zero,
     upgrades: {
       '11': false,
       '12': false,
       '13': false,
+      '21': false,
+      '22': false,
+      '23': false,
+      '24': false,
+      '25': false,
+      '26': false,
     },
     buyables: {
       '11': zero,
+      '21': zero,
     },
+    buyable11More: zero,
     automationCD: {
-      next: 0,
+      successor: 0,
     },
-    currentTab: 0
+    currentTab: 0,
+    totalAddpower: zero,
   };
 }
 
@@ -58,12 +78,38 @@ function rewriteDecimalValues(pl: any) {
   }
 }
 
+export function deepCopyProps(source: any, target: any) {
+  for (const key in source) {
+    if (source.hasOwnProperty(key)) {
+      // 如果源对象的属性是对象或数组，则递归复制
+      if (
+        typeof source[key] === 'object' &&
+        !(source[key] instanceof Decimal) &&
+        source[key] !== null
+      ) {
+        // 如果目标对象没有这个属性，或者属性是null，则创建一个新的
+        if (
+          !target.hasOwnProperty(key) ||
+          target[key] == null ||
+          Array.isArray(source[key]) !== Array.isArray(target[key])
+        ) {
+          target[key] = Array.isArray(source[key]) ? [] : {}
+        }
+        // 递归复制属性
+        deepCopyProps(source[key], target[key])
+      } else {
+        // 如果属性不是对象或数组，则直接复制
+        target[key] = source[key]
+      }
+    }
+  }
+}
 export let player: Player = getInitialPlayerData();
 
 export function loadFromString(saveContent: string) {
   let deserialized = saveSerializer.deserialize(saveContent);
   rewriteDecimalValues(deserialized);
-  Object.assign(player, deserialized);
+  deepCopyProps(deserialized, player);
 }
 
 export function loadSaves() {
@@ -71,7 +117,7 @@ export function loadSaves() {
   const saveContent = localStorage.getItem(SAVEID);
   try {
     if (saveContent) {
-      loadFromString(saveContent)
+      loadFromString(saveContent);
     }
   } catch {
     console.error('Cannot load save');

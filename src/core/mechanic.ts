@@ -9,7 +9,7 @@ var upgrades: {
   buyables: {
     [key: string]: IBuyable;
   } = {};
-export type singleReq = [string, () => boolean, [string, Decimal]?];
+export type singleReq = [string, () => boolean, [string, string]?];
 type IUpgrade = {
   description: string;
   cost: Decimal;
@@ -53,7 +53,7 @@ export const UPGRADES = {
       str += '暂未解锁<br>';
       let req = upgrades[id].requirement;
       for (let j in req) {
-        if (j!="0") str += ',<br>';
+        if (j != '0') str += ',<br>';
         if (req[j][1]()) str += '<span style="color: green; font-weight: bold">';
         else str += '<span style="color: red; font-weight: bold">';
         str += req[j][0];
@@ -77,14 +77,15 @@ export const UPGRADES = {
 };
 type IBuyable = {
   description: string;
-  effect(x: any): any;
-  effD(x: any): string;
+  effect(x: Decimal): Decimal;
+  effD(x: Decimal): string;
   cost(x: Decimal): Decimal;
   canAfford(x: Decimal): boolean;
   buy(x: Decimal): void;
   capped(): boolean;
   requirement: singleReq[];
   show(): boolean;
+  more?(): Decimal;
 };
 export const BUYABLES = {
   create(id: keyof typeof player.buyables, info: IBuyable) {
@@ -111,13 +112,20 @@ export const BUYABLES = {
       id +
       '(' +
       formatWhole(player.buyables[id]) +
+      (buyables[id].more
+        ? (function () {
+            let a = buyables[id].more();
+            if (a.gte(1)) return '+' + formatWhole(a);
+            return '';
+          })()
+        : '') +
       ')</span><br>';
     if (!this.lock(id).unlocked) {
       str += '暂未解锁<br>';
       let req = buyables[id].requirement;
-      let first=true
+      let first = true;
       for (let j in req) {
-        if (j!="0") str += ',<br>';
+        if (j != '0') str += ',<br>';
         if (req[j][1]()) str += '<span style="color: green; font-weight: bold">';
         else str += '<span style="color: red; font-weight: bold">';
         str += req[j][0];

@@ -1,6 +1,6 @@
 @font-face {
   font-family: 思源黑体Regular;
-  src: url('./思源黑体Regular.ttf');
+  src: url('./NotoSansCJKsc-Regular.otf');
 }
 
 @keyframes large {
@@ -114,6 +114,7 @@ body {
   height: 105px;
   margin: 20px 0px 15px 0px;
   flex-grow: 0;
+  z-index: 1;
 }
 
 .menu {
@@ -200,7 +201,7 @@ body {
   background-color: #c9c9c9;
 }
 
-.menu2_focus {
+.menu2.focus {
   width: 130px;
   height: 38px;
   margin-top: 5px;
@@ -213,11 +214,11 @@ body {
   background-color: #4f4f4f;
 }
 
-.menu2_focus:hover {
+.menu2.focus:hover {
   background-color: #666666;
 }
 
-.menu2_focus:active {
+.menu2.focus:active {
   background-color: #7b7b7b;
 }
 
@@ -238,7 +239,7 @@ body {
   right: 15px;
   top: 7.5px;
   overflow: hidden;
-  font-size: 50px;
+  /*  font-size: 50px;*/
   font-weight: bold;
   line-height: 45px;
   color: #009dd9;
