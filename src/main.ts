@@ -10,6 +10,8 @@ import ModalService from './utils/Modal.ts';
 loadSaves();
 feature.SUCCESSOR.initMechanics();
 feature.ADDITION.initMechanics();
+feature.MULTIPLICATION.initMechanics();
+feature.PrimeFactor.initMechanics();
 
 setInterval(gameLoop, 40);
 setInterval(save, 3000);

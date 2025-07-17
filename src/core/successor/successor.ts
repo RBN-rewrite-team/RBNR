@@ -30,6 +30,7 @@ export const Successor = {
       show: function () {
         return true;
       },
+	  keep(){return player.upgrades['31'];},
     });
     UPGRADES.create('12', {
       description: '每次购买U0系列升级都使后继按钮批量+1',
@@ -65,6 +66,7 @@ export const Successor = {
         return true;
       },
       currency: "数值",
+	  keep(){return player.upgrades['31'];},
     });
     UPGRADES.create('13', {
       description: '解锁加法层',
@@ -90,6 +92,7 @@ export const Successor = {
         return true;
       },
       currency: "数值",
+	  keep(){return player.upgrades['31'];},
     });
     BUYABLES.create('11', {
       description: '每秒进行一次后继运算',
@@ -159,6 +162,8 @@ export const Successor = {
     }
     if (player.upgrades[21]) base = base.mul(4);
     if (player.upgrades[25]) base = base.mul(feature.ADDITION.U25effect())
+	if(player.firstResetBit & 0b10) base = base.mul(feature.MULTIPLICATION.powerEff());
+	if(player.firstResetBit & 0b10) base = base.mul(feature.PrimeFactor.powerEff());
     return base;
   },
 };
