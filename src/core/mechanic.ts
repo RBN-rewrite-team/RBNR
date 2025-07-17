@@ -19,7 +19,7 @@ type IUpgrade = {
   //requirement: [string, ()=>boolean, [string, Decimal/*jindutiao*/]?][]
   requirement: singleReq[];
   show: () => boolean;
-  keep?: () => boolean;
+  keep? () : boolean;
 } & (
   | {
       effect(): any;
@@ -91,12 +91,12 @@ type IBuyable = {
   requirement: singleReq[];
   show(): boolean;
   more?(): Decimal;
-
+} & ({
   pfid?: number;
   prev?: number;
   pprev?: number;
   n?: number;
-};
+});
 export const BUYABLES = {
   create(id: keyof typeof player.buyables, info: IBuyable) {
     buyables[id] = info;

@@ -100,7 +100,7 @@ export const Addition = {
 	  {
 		return player.totalAddpower.root(4).add(1).floor();
 	  },
-	  effD(){return '+' + formatWhole(this.effect()) + '/c';},
+	  effD(){return '+' + formatWhole(this?.effect?.() ?? 0) + '/c';},
       cost: new Decimal(625),
       currency: "加法能量",
       canAfford() {
@@ -222,6 +222,6 @@ export const Addition = {
   },
   U25effect() {
     if (!player.upgrades[25]) return new Decimal(0)
-	return upgrades['25'].effect();
+	return upgrades[25]?.effect?.() ?? new Decimal(0);
   }
 };
