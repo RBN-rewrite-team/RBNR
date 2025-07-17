@@ -36,7 +36,7 @@ export const Addition = {
           [
             '获得5加法能量',
             () => player.totalAddpower.gte(5),
-            [formatWhole(player.totalAddpower), upgrades[22].cost],
+            [formatWhole(player.totalAddpower), formatWhole(upgrades[22].cost)],
           ] as singleReq,
         ];
       },
@@ -58,10 +58,8 @@ export const Addition = {
           [
             '获得25加法能量',
             () => player.totalAddpower.gte(25),
-            [formatWhole(player.totalAddpower), upgrades[23].cost],
+            [formatWhole(player.totalAddpower), formatWhole(upgrades[23].cost)],
           ] as singleReq,
-
-          ["获得25加法能量", ()=>player.totalAddpower.gte(25), [player.totalAddpower, '25']] as singleReq
         ];
       },
       show: function () {
@@ -83,7 +81,7 @@ export const Addition = {
           [
             '获得125加法能量',
             () => player.totalAddpower.gte(125),
-            [formatWhole(player.totalAddpower), upgrades[24].cost],
+            [formatWhole(player.totalAddpower), formatWhole(upgrades[24].cost)],
           ] as singleReq,
         ];
       },

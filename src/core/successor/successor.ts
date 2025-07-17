@@ -21,7 +21,7 @@ export const Successor = {
             function () {
               return player.totalNumber.gte(upgrades['11'].cost);
             },
-            [formatWhole(player.totalNumber), upgrades['11'].cost],
+            [formatWhole(player.totalNumber), formatWhole(upgrades['11'].cost)],
           ] as singleReq,
         ];
       },
@@ -55,7 +55,7 @@ export const Successor = {
             function () {
               return player.totalNumber.gte(upgrades['12'].cost);
             },
-            [formatWhole(player.totalNumber), upgrades['12'].cost],
+            [formatWhole(player.totalNumber), formatWhole(upgrades['12'].cost)],
           ] as singleReq,
         ];
       },
@@ -79,7 +79,7 @@ export const Successor = {
             function () {
               return player.totalNumber.gte(upgrades['13'].cost);
             },
-            [formatWhole(player.totalNumber), upgrades['13'].cost],
+            [formatWhole(player.totalNumber), formatWhole(upgrades['13'].cost)],
           ] as singleReq,
         ];
       },
