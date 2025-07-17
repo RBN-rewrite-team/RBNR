@@ -1,5 +1,6 @@
 import ModalService from '@/utils/Modal';
 import { hardReset, loadFromString } from '.';
+import { saveInterval } from "@/main.ts"
 
 export function UILoadSaveFromFile() {
   const a = document.createElement('input');
@@ -31,6 +32,7 @@ export function UIHardReset() {
     content: '!?!?!?',
     onConfirm() {
       hardReset();
+      clearInterval(saveInterval)
     },
   });
 }
