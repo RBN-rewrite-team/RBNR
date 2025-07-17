@@ -138,6 +138,17 @@ import { UIHardReset } from './core/save/saveui.ts';
           </table>
           </div>
         </div>
+        <div class="main" v-if="player.currentTab === 3">
+          <h1>大数之路重制版</h1>
+          版本：v0.1.1<br>
+          制作组名单(排名不分先后)：<br>
+          静火Ω<br>
+          VeryrrDefine<br>
+          010000000a7<br>
+          Seanxlx<br>
+          EdenGameMaster<br>
+          6左爷6<br>
+        </div>
       </div>
     </div>
   </div>
