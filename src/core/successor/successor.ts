@@ -8,6 +8,7 @@ export const Successor = {
   initMechanics() {
     UPGRADES.create('11', {
       description: '解锁B0-1',
+      currency: "数值",
       cost: new Decimal(10),
       canAfford() {
         return player.number.gte(this.cost);
@@ -63,6 +64,7 @@ export const Successor = {
       show: function () {
         return true;
       },
+      currency: "数值",
     });
     UPGRADES.create('13', {
       description: '解锁加法层',
@@ -87,6 +89,7 @@ export const Successor = {
       show: function () {
         return true;
       },
+      currency: "数值",
     });
     BUYABLES.create('11', {
       description: '每秒进行一次后继运算',
@@ -129,7 +132,8 @@ export const Successor = {
         let a = new Decimal(0);
         a = a.add(player.buyable11More)
         return a;
-      }
+      },
+      currency: "数值",
     });
   },
 

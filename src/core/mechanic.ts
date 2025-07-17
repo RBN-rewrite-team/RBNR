@@ -12,6 +12,7 @@ var upgrades: {
 export type singleReq = [string, () => boolean, [string, string]?];
 type IUpgrade = {
   description: string;
+  currency: string;
   cost: Decimal;
   canAfford(): boolean;
   buy(): void;
@@ -63,7 +64,7 @@ export const UPGRADES = {
     } else {
       str += upgrades[id].description + '<br>';
       if (upgrades[id].effect) str += '效果：' + upgrades[id].effD() + '<br>';
-      str += '价格：' + format(upgrades[id].cost) + '<br>';
+      str += '价格：' + format(upgrades[id].cost) + upgrades[id].currency+ '<br>';
     }
     str += '</div>';
     return str;
@@ -77,6 +78,7 @@ export const UPGRADES = {
 };
 type IBuyable = {
   description: string;
+  currency: string;
   effect(x: Decimal): Decimal;
   effD(x: Decimal): string;
   cost(x: Decimal): Decimal;
@@ -141,7 +143,7 @@ export const BUYABLES = {
           '→' +
           buyables[id].effD(player.buyables[id].add(1)) +
           '<br>';
-      str += '价格：' + format(buyables[id].cost(player.buyables[id])) + '<br>';
+      str += '价格：' + format(buyables[id].cost(player.buyables[id]))+ buyables[id].currency + '<br>';
     }
     str += '</div>';
     return str;
