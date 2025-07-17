@@ -10,13 +10,13 @@ export function gameLoop() {
 
   player.lastUpdated = Date.now();
 
-  if (feature.successor.autosuccessorPerSecond().gte(0.001)) {
+  if (feature.SUCCESSOR.autoSuccessPerSecond().gte(0.001)) {
     player.automationCD.successor += diff;
-    let cd = new Decimal(1000).div(feature.successor.autosuccessorPerSecond());
+    let cd = new Decimal(1000).div(feature.SUCCESSOR.autoSuccessPerSecond());
     if (cd.lt(player.automationCD.successor)) {
       let bulk = Math.floor(player.automationCD.successor / Number(cd));
       player.automationCD.successor %= Number(cd);
-      feature.successor.dosuccessor(bulk);
+      feature.SUCCESSOR.success(bulk);
     }
   }
 }
