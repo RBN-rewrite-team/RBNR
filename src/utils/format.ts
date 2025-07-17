@@ -4,7 +4,7 @@ import { diff } from '@/core/game-loop';
 function exponentialFormat(num: Decimal, precision: number, mantissa = true): string {
   let e = num.log10().floor();
   let m = num.div(Decimal.pow(10, e));
-  if (num.gte('ee9')) mantissa = false;
+  if (num.abs().gte('ee9')) mantissa = false;
   if (m.toStringWithDecimalPlaces(precision) == (10).toFixed(precision)) {
     m = new Decimal(1);
     e = e.add(1);

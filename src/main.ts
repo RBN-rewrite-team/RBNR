@@ -1,4 +1,5 @@
 import './assets/main.scss';
+import "./core/anti-cheat.ts";
 
 import { createApp } from 'vue';
 import App from './App.vue';
@@ -13,20 +14,8 @@ feature.ADDITION.initMechanics();
 feature.MULTIPLICATION.initMechanics();
 feature.PrimeFactor.initMechanics();
 
-setInterval(gameLoop, 40);
-setInterval(save, 3000);
+export let loopInterval = setInterval(gameLoop, 40);
+export let saveInterval = setInterval(save, 3000);
 const app = createApp(App);
 
 app.mount('#app');
-
-declare global {
-  interface Window {
-    player?: Player;
-    ModalService?: typeof ModalService;
-  }
-}
-
-if (import.meta.env.DEV) {
-  window.player = player;
-  window.ModalService = ModalService;
-}
