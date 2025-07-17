@@ -29,6 +29,7 @@ import { player } from '@/core/save';
             <div class="menu1">乘法</div>
             <div class="menu_line"></div>
             <div class="menu2" :class="{focus: player.currentTab==4}" @click="player.currentTab=4">乘法</div>
+			<div class="menu2" :class="{focus: player.currentTab == 5}" @click="player.currentTab = 5" v-if="player.firstResetBit & 0b10">质因数</div>
           </template>
           <div class="menu1">杂项</div>
           <div class="menu_line"></div>
