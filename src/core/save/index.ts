@@ -47,7 +47,7 @@ export interface Player {
   currentTab: number;
   addpower: Decimal;
   totalAddpower: Decimal;
-  firstResetBit: 0;
+  firstResetBit: number;
   multiplication: {
 	mulpower: Decimal;
 	totalMulpower: Decimal;
@@ -97,6 +97,7 @@ function getInitialPlayerData(): Player {
     },
     currentTab: 0,
     totalAddpower: zero,
+	firstResetBit: 0,
 	multiplication: {
 		mulpower: zero,
 		totalMulpower: zero,
