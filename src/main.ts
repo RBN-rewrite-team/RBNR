@@ -1,5 +1,5 @@
 import './assets/main.scss';
-import "./core/anti-cheat.ts";
+import './core/anti-cheat.ts';
 
 import { createApp } from 'vue';
 import App from './App.vue';
