@@ -96,7 +96,7 @@ function getInitialPlayerData(): Player {
     },
     currentTab: 0,
     totalAddpower: zero,
-    firstResetBit: 0
+    firstResetBit: 0,
 	  multiplication: {
 		  mulpower: zero,
 		  totalMulpower: zero,
