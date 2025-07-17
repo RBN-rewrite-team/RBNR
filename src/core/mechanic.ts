@@ -96,7 +96,6 @@ type IBuyable = {
   prev?: number;
   pprev?: number;
   n?: number;
-
 });
 export const BUYABLES = {
   create(id: keyof typeof player.buyables, info: IBuyable) {
