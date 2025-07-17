@@ -47,14 +47,13 @@ export interface Player {
   currentTab: number;
   addpower: Decimal;
   totalAddpower: Decimal;
-  firstResetBit: 0;
+  firstResetBit: number;
   multiplication: {
-	mulpower: Decimal;
-	totalMulpower: Decimal;
-	pfTime: Decimal;
+	  mulpower: Decimal;
+	  totalMulpower: Decimal;
+	  pfTime: Decimal;
   };
 }
-
 function getInitialPlayerData(): Player {
   return {
     number: zero,
@@ -97,11 +96,12 @@ function getInitialPlayerData(): Player {
     },
     currentTab: 0,
     totalAddpower: zero,
-	multiplication: {
-		mulpower: zero,
-		totalMulpower: zero,
-		pfTime: zero,
-	},
+    firstResetBit: 0
+	  multiplication: {
+		  mulpower: zero,
+		  totalMulpower: zero,
+		  pfTime: zero,
+	  },
   };
 }
 
