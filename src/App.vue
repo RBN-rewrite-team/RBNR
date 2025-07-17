@@ -33,7 +33,7 @@ import { UIHardReset } from './core/save/saveui.ts';
           </div>
           <div
             style="font-size: 17px; color: #8e8e8e"
-            v-html="formatGain(player.number, geNumberGen(), '')"
+            v-html="formatGain(player.number, getNumberGen(), '')"
             v-else
           />
         </div>

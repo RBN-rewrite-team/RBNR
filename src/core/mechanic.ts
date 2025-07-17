@@ -9,7 +9,7 @@ var upgrades: {
   buyables: {
     [key: string]: IBuyable;
   } = {};
-export type singleReq = [string, () => boolean, [string, Decimal]?];
+export type singleReq = [string, () => boolean, [string, string]?];
 type IUpgrade = {
   description: string;
   cost: Decimal;
