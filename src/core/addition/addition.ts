@@ -141,14 +141,16 @@ export const Addition = {
   },
   UIreset() {
     const gain = this.gain;
+    if (player.firstResetBit & 0b1) return void Addition.reset();
     ModalService.show({
       title: '加法重置',
       content:
-        '确实要重置？会重置你的数字，11、12升级和11购买项。<br>你将获得 ' +
+        '你真的要重置吗？这将重置你之前的数字、大部分升级和购买项。<br>你将获得 ' +
         formatWhole(gain()) +
         ' 加法能量。',
       onConfirm() {
         Addition.reset();
+        player.firstResetBit |= 0b1
       },
     });
   },
