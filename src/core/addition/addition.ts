@@ -1,8 +1,8 @@
-import Decimal from "break_eternity.js";
-import {BUYABLES, UPGRADES, type singleReq} from "../mechanic";
-import {player} from "../save";
-import ModalService from "@/utils/Modal";
-import {formatWhole} from "@/utils/format";
+import Decimal from 'break_eternity.js';
+import { BUYABLES, upgrades, UPGRADES, type singleReq } from '../mechanic';
+import { player } from '../save';
+import ModalService from '@/utils/Modal';
+import { formatWhole } from '@/utils/format';
 
 export const Addition = {
   initMechanics() {
@@ -16,9 +16,7 @@ export const Addition = {
         player.addpower = player.addpower.sub(this.cost);
       },
       get requirement() {
-        return [
-          ["获得1加法能量", ()=>player.totalAddpower.gte(1)] as singleReq
-        ];
+        return [['获得1加法能量', () => player.totalAddpower.gte(1)] as singleReq];
       },
       show: function () {
         return true;
@@ -35,7 +33,11 @@ export const Addition = {
       },
       get requirement() {
         return [
-          ["获得5加法能量", ()=>player.totalAddpower.gte(5), [player.totalAddpower, '5']] as singleReq
+          [
+            '获得5加法能量',
+            () => player.totalAddpower.gte(5),
+            [formatWhole(player.totalAddpower), upgrades[22].cost],
+          ] as singleReq,
         ];
       },
       show: function () {
@@ -53,6 +55,12 @@ export const Addition = {
       },
       get requirement() {
         return [
+          [
+            '获得25加法能量',
+            () => player.totalAddpower.gte(25),
+            [formatWhole(player.totalAddpower), upgrades[23].cost],
+          ] as singleReq,
+
           ["获得25加法能量", ()=>player.totalAddpower.gte(25), [player.totalAddpower, '25']] as singleReq
         ];
       },
@@ -71,7 +79,12 @@ export const Addition = {
       },
       get requirement() {
         return [
-          ["获得125加法能量", ()=>player.totalAddpower.gte(125), [player.totalAddpower, '125']] as singleReq
+
+          [
+            '获得125加法能量',
+            () => player.totalAddpower.gte(125),
+            [formatWhole(player.totalAddpower), upgrades[24].cost],
+          ] as singleReq,
         ];
       },
       show: function () {
@@ -84,11 +97,11 @@ export const Addition = {
         return x;
       },
       effD(x) {
-        return "+"+formatWhole(this.effect(x));
+        return '+' + formatWhole(this.effect(x));
       },
       cost(x) {
         let a = x.mul(1000);
-        return a
+        return a;
       },
       canAfford(x) {
         return player.number.gte(this.cost(x));
@@ -117,27 +130,31 @@ export const Addition = {
   },
   reset() {
     if (this.gain().gt(0)) {
-      player.addpower = player.addpower.add(this.gain())
-      player.totalAddpower = player.totalAddpower.add(this.gain())
-      player.upgrades[11] = false
-      player.upgrades[12] = false
-      player.buyables[11] = new Decimal(0)
-      player.totalNumber = new Decimal(0)
-      player.number = new Decimal(0)
+      player.addpower = player.addpower.add(this.gain());
+      player.totalAddpower = player.totalAddpower.add(this.gain());
+      player.upgrades[11] = false;
+      player.upgrades[12] = false;
+      player.buyables[11] = new Decimal(0);
+      player.totalNumber = new Decimal(0);
+      player.number = new Decimal(0);
 
+      player.buyable11More = player.buyables[21]
     }
   },
   UIreset() {
     const gain = this.gain;
     ModalService.show({
-      title: "加法重置",
-      content: "确实要重置？会重置你的数字，11、12升级和11购买项。<br>你将获得 "+formatWhole(gain())+" 加法能量。",
+      title: '加法重置',
+      content:
+        '确实要重置？会重置你的数字，11、12升级和11购买项。<br>你将获得 ' +
+        formatWhole(gain()) +
+        ' 加法能量。',
       onConfirm() {
-        Addition.reset()
-      }
-    })
+        Addition.reset();
+      },
+    });
   },
   gain() {
-    return player.totalNumber.div(1000).floor().max(0)
-  }
-}
+    return player.totalNumber.div(1000).floor().max(0);
+  },
+};

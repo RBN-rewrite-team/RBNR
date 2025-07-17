@@ -1,6 +1,6 @@
 import Decimal from 'break_eternity.js';
 import type { DecimalSource } from 'break_eternity.js';
-import { diff } from "@/core/game-loop"
+import { diff } from '@/core/game-loop';
 function exponentialFormat(num: Decimal, precision: number, mantissa = true): string {
   let e = num.log10().floor();
   let m = num.div(Decimal.pow(10, e));
@@ -121,38 +121,44 @@ export function formatTime(s: number) {
 }
 
 export function formatGain(a: DecimalSource, e: DecimalSource, resourceName: string = '') {
-  a = new Decimal(a)
-  e = new Decimal(e)
-  const FPS = 1000 / (diff || 40)
-  const g = Decimal.add(a, e.div(FPS))
+  a = new Decimal(a);
+  e = new Decimal(e);
+  const FPS = 1000 / (diff || 40);
+  const g = Decimal.add(a, e.div(FPS));
 
   if (g.neq(a)) {
     if (a.gte(Decimal.tetrate(10, 6))) {
-      var oom = new Decimal(g).slog(10).sub(new Decimal(a).slog(10)).mul(FPS)
-      if (oom.gte(1e-3)) return "(+" + format(oom) + '数量级<sup>数量级</sup>' + "/s)"
+      var oom = new Decimal(g).slog(10).sub(new Decimal(a).slog(10)).mul(FPS);
+      if (oom.gte(1e-3)) return '(+' + format(oom) + '数量级<sup>数量级</sup>' + '/s)';
     }
 
     if (a.gte('ee100')) {
-      let tower = Math.floor(new Decimal(a).slog(10).toNumber() - 1.3010299956639813)
+      let tower = Math.floor(new Decimal(a).slog(10).toNumber() - 1.3010299956639813);
 
-      var oom = new Decimal(g).iteratedlog(10, tower).sub(new Decimal(a).iteratedlog(10, tower)).mul(FPS),
-        rated = false
+      var oom = new Decimal(g)
+          .iteratedlog(10, tower)
+          .sub(new Decimal(a).iteratedlog(10, tower))
+          .mul(FPS),
+        rated = false;
 
-      if (oom.gte(1)) rated = true
+      if (oom.gte(1)) rated = true;
       else if (tower > 2) {
-        tower--
-        oom = new Decimal(g).iteratedlog(10, tower).sub(new Decimal(a).iteratedlog(10, tower)).mul(FPS)
-        if (oom.gte(1)) rated = true
+        tower--;
+        oom = new Decimal(g)
+          .iteratedlog(10, tower)
+          .sub(new Decimal(a).iteratedlog(10, tower))
+          .mul(FPS);
+        if (oom.gte(1)) rated = true;
       }
 
-      if (rated) return "(+" + format(oom) + '数量级<sup>' + tower + "</sup>" + "/s)"
+      if (rated) return '(+' + format(oom) + '数量级<sup>' + tower + '</sup>' + '/s)';
     }
 
     if (a.gte(1e100)) {
-      const oom = g.div(a).log10().mul(FPS)
-      if (oom.gte(1)) return "(+" + format(oom) + '数量级' + "/s)"
+      const oom = g.div(a).log10().mul(FPS);
+      if (oom.gte(1)) return '(+' + format(oom) + '数量级' + '/s)';
     }
   }
 
-  return "("+ (e.sign >= 0 ? "+" : "") + format(e) + resourceName + "/s)"
+  return '(' + (e.sign >= 0 ? '+' : '') + format(e) + resourceName + '/s)';
 }

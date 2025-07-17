@@ -1,7 +1,7 @@
 import { player } from './save';
 import { Successor } from './successor/successor.ts';
 import { upgrades, buyables, UPGRADES, BUYABLES } from './mechanic.ts';
-import {Addition} from './addition/addition.ts';
+import { Addition } from './addition/addition.ts';
 
 const feature = {
   mechanic: { UPGRADES: UPGRADES, BUYABLES: BUYABLES },

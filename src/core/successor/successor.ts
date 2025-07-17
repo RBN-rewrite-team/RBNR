@@ -90,15 +90,15 @@ export const Successor = {
     BUYABLES.create('11', {
       description: '每秒进行一次后继运算',
       effect(x) {
-        return x;
+        return x.add(this.more?.() ?? 0);
       },
       effD(x) {
         return formatWhole(this.effect(x)) + '/s';
       },
       cost(x) {
         let a = x.mul(10).add(10);
-        if (player.upgrades[23]) a = a.sub(10)
-        return a
+        if (player.upgrades[23]) a = a.sub(10);
+        return a;
       },
       canAfford(x) {
         return player.number.gte(this.cost(x));
@@ -108,8 +108,8 @@ export const Successor = {
       },
       capped() {
         let capc = 50;
-        if (player.upgrades[23]) capc+=50
-        return player.buyables['11'].gte(capc);
+        if (player.upgrades[23]) capc += 50;
+        return player.buyables['11'].add(this.more?.() ?? 0).gte(capc);
       },
       get requirement() {
         return [
@@ -124,6 +124,11 @@ export const Successor = {
       show: function () {
         return true;
       },
+      more() {
+        let a = new Decimal(0);
+        a = a.add(player.buyable11More)
+        return a;
+      }
     });
   },
 
@@ -141,13 +146,13 @@ export const Successor = {
     let base = new Decimal(1);
     if (player.upgrades['12']) base = base.add(upgrades['12'].effect?.() ?? 0);
     if (player.upgrades[21]) {
-      let count = 0
-      for (const i of [21,22,23,24,25,26])  {
-        if(player.upgrades[i.toString() as '21'|'22'|'23'|'24'|'25'|'26']) count++
+      let count = 0;
+      for (const i of [21, 22, 23, 24, 25, 26]) {
+        if (player.upgrades[i.toString() as '21' | '22' | '23' | '24' | '25' | '26']) count++;
       }
-      base = base.add(count)
+      base = base.add(count);
     }
-    if (player.upgrades[21]) base = base.mul(4)
+    if (player.upgrades[21]) base = base.mul(4);
     return base;
   },
 };

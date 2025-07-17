@@ -61,27 +61,27 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, watch } from 'vue'
-import type { Component } from 'vue'
-import type { FieldConfig, ButtonConfig } from '../utils/Modal'
+import { ref, computed, watch } from 'vue';
+import type { Component } from 'vue';
+import type { FieldConfig, ButtonConfig } from '../utils/Modal';
 
 interface Props {
-  title?: string
-  content?: string
-  visible: boolean
-  icon?: Component
-  fields?: FieldConfig[]
-  showCancelButton?: boolean
-  showConfirmButton?: boolean
-  cancelText?: string
-  confirmText?: string
-  modalWidth?: string
-  closeOnClickMask?: boolean
-  validateOnChange?: boolean
-  loading?: boolean
-  customButtons?: ButtonConfig[]
-  showProgress?: boolean
-  progress?: number
+  title?: string;
+  content?: string;
+  visible: boolean;
+  icon?: Component;
+  fields?: FieldConfig[];
+  showCancelButton?: boolean;
+  showConfirmButton?: boolean;
+  cancelText?: string;
+  confirmText?: string;
+  modalWidth?: string;
+  closeOnClickMask?: boolean;
+  validateOnChange?: boolean;
+  loading?: boolean;
+  customButtons?: ButtonConfig[];
+  showProgress?: boolean;
+  progress?: number;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -99,9 +99,9 @@ const props = withDefaults(defineProps<Props>(), {
   customButtons: () => [],
   showProgress: false,
   progress: 0,
-})
+});
 
-const emit = defineEmits(['update:visible', 'confirm', 'cancel', 'update:values'])
+const emit = defineEmits(['update:visible', 'confirm', 'cancel', 'update:values']);
 
 // 响应式数据
 const inputValues = ref(
@@ -109,13 +109,13 @@ const inputValues = ref(
     value: field.defaultValue || '',
     touched: false,
   })),
-)
-const errors = ref<string[]>([])
+);
+const errors = ref<string[]>([]);
 
 // 计算属性
-const hasErrors = computed(() => errors.value.some(Boolean))
+const hasErrors = computed(() => errors.value.some(Boolean));
 const processedButtons = computed(() => {
-  const buttons: ButtonConfig[] = [...props.customButtons]
+  const buttons: ButtonConfig[] = [...props.customButtons];
 
   if (props.showCancelButton && !props.showProgress) {
     buttons.push({
@@ -123,7 +123,7 @@ const processedButtons = computed(() => {
       handler: handleCancel,
       class: 'cancel-btn',
       disabled: props.loading,
-    })
+    });
   }
 
   if (!props.showProgress && props.showConfirmButton) {
@@ -132,94 +132,94 @@ const processedButtons = computed(() => {
       handler: handleConfirm,
       class: 'confirm-btn',
       disabled: hasErrors.value || props.loading,
-    })
+    });
   }
 
-  return buttons
-})
+  return buttons;
+});
 
 // 方法实现
 const getInputType = (type?: string) => {
-  const types = ['text', 'password', 'email', 'number', 'tel']
-  return type && types.includes(type) ? type : 'text'
-}
+  const types = ['text', 'password', 'email', 'number', 'tel'];
+  return type && types.includes(type) ? type : 'text';
+};
 
 const validateFields = (): boolean => {
-  let isValid = true
+  let isValid = true;
   errors.value = props.fields.map((field, index) => {
-    const value = inputValues.value[index]?.value || ''
-    let error = ''
+    const value = inputValues.value[index]?.value || '';
+    let error = '';
 
     if (field.required && !value.trim()) {
-      error = field.errorMessage || '此字段为必填项'
+      error = field.errorMessage || '此字段为必填项';
     } else if (field.validation) {
       if (typeof field.validation === 'function' && !field.validation(value)) {
-        error = field.errorMessage || '输入内容无效'
+        error = field.errorMessage || '输入内容无效';
       } else if (field.validation instanceof RegExp && !field.validation.test(value)) {
-        error = field.errorMessage || '格式不正确'
+        error = field.errorMessage || '格式不正确';
       }
     }
 
-    if (error) isValid = false
-    return error
-  })
-  return isValid
-}
+    if (error) isValid = false;
+    return error;
+  });
+  return isValid;
+};
 
 const updateValue = (index: number, value: string) => {
-  const newValues = [...inputValues.value]
+  const newValues = [...inputValues.value];
   newValues[index] = {
     ...newValues[index],
     value,
     touched: true,
-  }
-  inputValues.value = newValues
-}
+  };
+  inputValues.value = newValues;
+};
 
 const handleBlur = (index: number) => {
-  inputValues.value[index].touched = true
-  validateFields()
-}
+  inputValues.value[index].touched = true;
+  validateFields();
+};
 
 const handleConfirm = async () => {
   inputValues.value.forEach((_, index) => {
-    inputValues.value[index].touched = true
-  })
+    inputValues.value[index].touched = true;
+  });
 
-  if (!validateFields()) return
+  if (!validateFields()) return;
   emit(
     'confirm',
     inputValues.value.map((item) => item.value),
-  )
-}
+  );
+};
 
 const handleCancel = () => {
-  emit('cancel')
-  close()
-}
+  emit('cancel');
+  close();
+};
 
 const handleMaskClick = () => {
-  if (props.closeOnClickMask) close()
-}
+  if (props.closeOnClickMask) close();
+};
 
 const close = () => {
-  emit('update:visible', false)
-}
+  emit('update:visible', false);
+};
 
 // 监听器
 watch(
   () => inputValues.value.map((item) => item.value),
   (newValues) => {
-    emit('update:values', newValues)
-    if (props.validateOnChange) validateFields()
+    emit('update:values', newValues);
+    if (props.validateOnChange) validateFields();
   },
   { deep: true },
-)
+);
 
 defineExpose({
   handleConfirm,
   handleCancel,
-})
+});
 </script>
 
 <style scoped lang="scss">
@@ -251,7 +251,7 @@ defineExpose({
 
 .modal-header {
   padding: 5px;
-  padding-left:20px;
+  padding-left: 20px;
   border-bottom: 1px solid #aaa;
   display: flex;
   align-items: center;

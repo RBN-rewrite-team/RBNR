@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import {player} from '@/core/save';
-
+import { player } from '@/core/save';
 </script>
 
 <template>
