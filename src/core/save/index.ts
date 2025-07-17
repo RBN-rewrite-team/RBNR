@@ -33,7 +33,7 @@ export interface Player {
   currentTab: number;
   addpower: Decimal;
   totalAddpower: Decimal;
-  firstResetBit: 0;
+  firstResetBit: number;
 }
 
 function getInitialPlayerData(): Player {
@@ -64,6 +64,7 @@ function getInitialPlayerData(): Player {
     },
     currentTab: 0,
     totalAddpower: zero,
+    firstResetBit: number
   };
 }
 
