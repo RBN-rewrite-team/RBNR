@@ -47,9 +47,10 @@ export const UPGRADES = {
     if (player.upgrades[id]) useclass = 'upgrade_buttonbig_complete';
     else if (!this.lock(id).unlocked || !upgrades[id].canAfford())
       useclass = 'upgrade_buttonbig_unable';
+	let permanent = (upgrades[id].keep != null && upgrades[id].keep());
     let str = '<div class="' + useclass + '">';
     str += '<span sytle="font-weight: bold">U' + id + '</span><br>';
-    if (!this.lock(id).unlocked) {
+    if (!this.lock(id).unlocked && !permanent) {
       str += '暂未解锁<br>';
       let req = upgrades[id].requirement;
       for (let j in req) {
@@ -63,7 +64,8 @@ export const UPGRADES = {
     } else {
       str += upgrades[id].description + '<br>';
       if (upgrades[id].effect) str += '效果：' + upgrades[id].effD() + '<br>';
-      str += '价格：' + format(upgrades[id].cost) + '<br>';
+      if(!permanent) str += '价格：' + format(upgrades[id].cost) + '<br>';
+	  else str += '<span style="color: green; font-weight: bold">保持持有<br>';
     }
     str += '</div>';
     return str;

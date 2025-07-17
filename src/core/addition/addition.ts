@@ -3,6 +3,7 @@ import { BUYABLES, upgrades, UPGRADES, type singleReq } from '../mechanic';
 import { player } from '../save';
 import ModalService from '@/utils/Modal';
 import { formatWhole } from '@/utils/format';
+import { feature } from '../global.ts';
 
 export const Addition = {
   initMechanics() {
@@ -91,6 +92,11 @@ export const Addition = {
     });
     UPGRADES.create('25', {
       description: '后继运算升级为加法运算， 在每次加法重置后保留10系列升级',
+	  effect()
+	  {
+		return player.totalAddpower.root(4).add(1).floor();
+	  },
+	  effD(){return '+' + formatWhole(this.effect()) + '/c';},
       cost: new Decimal(625),
       canAfford() {
         return player.addpower.gte(this.cost);
@@ -203,10 +209,12 @@ export const Addition = {
     });
   },
   gain() {
-    return player.totalNumber.div(1000).floor().max(0);
+    let base = player.totalNumber.div(1000).floor().max(0);
+	if(player.firstResetBit & 0b10) base = base.mul(feature.PrimeFactor.powerEff());
+	return base;
   },
   U25effect() {
     if (!player.upgrades[25]) return new Decimal(0)
-    return player.totalAddpower.root(4).add(1).floor()
+	return upgrades['25'].effect();
   }
 };

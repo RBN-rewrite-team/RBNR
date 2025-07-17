@@ -1,6 +1,6 @@
 import { player, feature } from './global.ts';
 import { nextTick } from 'vue';
-import { UPGRADES, BUYABLES } from './mechanic.ts';
+import { UPGRADES, BUYABLES, upgrades, buyables } from './mechanic.ts';
 import Decimal from 'break_eternity.js';
 
 export let diff = 0;
@@ -18,5 +18,17 @@ export function gameLoop() {
       player.automationCD.successor %= Number(cd);
       feature.SUCCESSOR.success(bulk);
     }
+  }
+  
+  for(let i in upgrades)
+  {
+	if(upgrades[i].keep != null && upgrades[i].keep())
+	{
+		player.upgrades[i] = true;
+	}
+  }
+  if(player.firstResetBit & 0b10)
+  {
+	player.multiplication.pftime = player.multiplication.pftime.add(diff);
   }
 }
