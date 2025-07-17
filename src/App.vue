@@ -9,6 +9,7 @@ import NewsTicker from './components/Newsticker.vue';
 import { save } from './core/save/index.ts';
 import { UIHardReset } from './core/save/saveui.ts';
 import TDUpgrade from './components/TDUpgrade.vue';
+import TDBuyable from './components/TDBuyable.vue';
 </script>
 
 <template>
@@ -95,13 +96,7 @@ import TDUpgrade from './components/TDUpgrade.vue';
             <TDUpgrade upgid="11" />
             <TDUpgrade upgid="12" />
             <TDUpgrade upgid="13" />
-            <td v-if="BUYABLES.lock('11').show">
-              <div
-                class="upgrade"
-                @mousedown="BUYABLES.buy('11')"
-                v-html="BUYABLES.singleHTML('11')"
-              ></div>
-            </td>
+			<TDBuyable bylid="11" />
           </table>
         </div>
         <div class="main" v-if="player.currentTab === 1">
@@ -123,13 +118,7 @@ import TDUpgrade from './components/TDUpgrade.vue';
                   <TDUpgrade upgid="24"/>
                 </tr>
                 <tr style="transform: translateY(160px)">
-                  <td v-if="BUYABLES.lock('21').show">
-                    <div
-                      class="upgrade"
-                      @mousedown="BUYABLES.buy('21')"
-                      v-html="BUYABLES.singleHTML('21')"
-                    ></div>
-                  </td>
+                  <TDBuyable bylid="21"/>
                   <TDUpgrade upgid="25"/>
                   <TDUpgrade upgid="26"/>
                 </tr>
@@ -180,65 +169,17 @@ import TDUpgrade from './components/TDUpgrade.vue';
             <table align="center">
               <tbody>
                 <tr>
-                  <td v-if="BUYABLES.lock('pf2').show">
-                    <div
-                      class="upgrade"
-                      @mousedown="BUYABLES.buy('pf2')"
-                      v-html="BUYABLES.singleHTML('pf2')"
-                    ></div>
-                  </td>
-                  <td v-if="BUYABLES.lock('pf3').show">
-                    <div
-                      class="upgrade"
-                      @mousedown="BUYABLES.buy('pf3')"
-                      v-html="BUYABLES.singleHTML('pf3')"
-                    ></div>
-                  </td>
-                  <td v-if="BUYABLES.lock('pf5').show">
-                    <div
-                      class="upgrade"
-                      @mousedown="BUYABLES.buy('pf5')"
-                      v-html="BUYABLES.singleHTML('pf5')"
-                    ></div>
-                  </td>
-                  <td v-if="BUYABLES.lock('pf7').show">
-                    <div
-                      class="upgrade"
-                      @mousedown="BUYABLES.buy('pf7')"
-                      v-html="BUYABLES.singleHTML('pf7')"
-                    ></div>
-                  </td>
+					<TDBuyable bylid="pf2" />
+					<TDBuyable bylid="pf3" />
+					<TDBuyable bylid="pf5" />
+					<TDBuyable bylid="pf7" />
                 </tr>
-                <tr>
-                  <td v-if="BUYABLES.lock('pf11').show">
-                    <div
-                      class="upgrade"
-                      @mousedown="BUYABLES.buy('pf11')"
-                      v-html="BUYABLES.singleHTML('pf11')"
-                    ></div>
-                  </td>
-                  <td v-if="BUYABLES.lock('pf13').show">
-                    <div
-                      class="upgrade"
-                      @mousedown="BUYABLES.buy('pf13')"
-                      v-html="BUYABLES.singleHTML('pf13')"
-                    ></div>
-                  </td>
-                  <td v-if="BUYABLES.lock('pf17').show">
-                    <div
-                      class="upgrade"
-                      @mousedown="BUYABLES.buy('pf17')"
-                      v-html="BUYABLES.singleHTML('pf17')"
-                    ></div>
-                  </td>
-                  <td v-if="BUYABLES.lock('pf19').show">
-                    <div
-                      class="upgrade"
-                      @mousedown="BUYABLES.buy('pf19')"
-                      v-html="BUYABLES.singleHTML('pf19')"
-                    ></div>
-                  </td>
-                </tr>
+				<tr style="transform: translateY(160px)">
+					<TDBuyable bylid="pf11" />
+					<TDBuyable bylid="pf13" />
+					<TDBuyable bylid="pf17" />
+					<TDBuyable bylid="pf19" />
+				</tr>
               </tbody>
             </table>
           </div>
