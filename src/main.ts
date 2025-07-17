@@ -8,7 +8,7 @@ import { feature } from './core/global.ts';
 import ModalService from './utils/Modal.ts';
 
 loadSaves();
-feature.successor.initMechanics();
+feature.SUCCESSOR.initMechanics();
 feature.ADDITION.initMechanics();
 
 setInterval(gameLoop, 40);

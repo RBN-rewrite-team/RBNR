@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Decimal from 'break_eternity.js';
 import { format, formatWhole, formatGain } from '@/utils/format';
-import { player, feature, getPointGen } from './core/global.ts';
+import { player, feature, getNumberGen } from './core/global.ts';
 import { UPGRADES, BUYABLES } from './core/mechanic.ts';
 
 import Side from './components/Side.vue';
@@ -27,13 +27,13 @@ import { UIHardReset } from './core/save/saveui.ts';
           </div>
           <div
             style="font-size: 17px; color: #8e8e8e"
-            v-if="feature.successor.autosuccessorPerSecond().eq(0)"
+            v-if="feature.SUCCESSOR.autoSuccessPerSecond().eq(0)"
           >
             (需要通过后继获得)
           </div>
           <div
             style="font-size: 17px; color: #8e8e8e"
-            v-html="formatGain(player.number, getPointGen(), '')"
+            v-html="formatGain(player.number, geNumberGen(), '')"
             v-else
           />
         </div>
@@ -58,10 +58,11 @@ import { UIHardReset } from './core/save/saveui.ts';
       <div class="background">
         <div class="main" v-if="player.currentTab === 0">
           <div class="clickable">
-            <div class="clickable_button" @mousedown="feature.successor.dosuccessor()">
-              后继x{{ feature.successor.successorBulk()
+
+            <div class="clickable_button" @mousedown="feature.SUCCESSOR.success()">
+              后继x{{ feature.SUCCESSOR.successorBulk()
               }}<span v-if="BUYABLES.lock('11').unlocked"
-                >(自动{{ formatWhole(feature.successor.autosuccessorPerSecond()) }}/s)</span
+                >(自动{{ formatWhole(feature.SUCCESSOR.autoSuccessPerSecond()) }}/s)</span
               >
             </div>
           </div>
@@ -147,6 +148,17 @@ import { UIHardReset } from './core/save/saveui.ts';
               </tbody>
             </table>
           </div>
+        </div>
+        <div class="main" v-if="player.currentTab === 3">
+          <h1>大数之路重制版</h1>
+          版本: v0.1.1<br>
+          制作组名单(排名不分先后)：<br>
+          静火Ω<br>
+          VeryrrDefine<br>
+          010000000a7<br>
+          Seanxlx<br>
+          EdenGameMaster<br>
+          6左爷6<br>
         </div>
       </div>
     </div>

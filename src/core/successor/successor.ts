@@ -3,7 +3,7 @@ import { UPGRADES, BUYABLES, upgrades, buyables, type singleReq } from '../mecha
 import Decimal from 'break_eternity.js';
 import { format, formatWhole } from '@/utils/format';
 
-export const successor = {
+export const Successor = {
   initMechanics() {
     UPGRADES.create('11', {
       description: '解锁B0-1',
@@ -132,12 +132,12 @@ export const successor = {
     });
   },
 
-  dosuccessor(bulk = 1) {
+  success(bulk = 1) {
     let adding = this.successorBulk().mul(bulk);
     player.number = player.number.add(adding);
     player.totalNumber = player.totalNumber.add(adding);
   },
-  autosuccessorPerSecond() {
+  autoSuccessPerSecond() {
     let base = new Decimal(0);
     if (player.buyables['11'].gte(1)) base = base.add(buyables['11'].effect(player.buyables['11']));
     return base;
