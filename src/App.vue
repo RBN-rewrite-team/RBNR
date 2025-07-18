@@ -269,6 +269,13 @@ const validNotations = computed(() =>
               <b>x=floor({{format(player.numbertheory.euler.x)}})</b>
 						
             </div>
+          <table align="center">
+            <tbody>
+              <tr>
+                <TDBuyable bylid="31R" />
+              </tr>
+            </tbody>
+          </table>
 					</div>
 				</div>
 				<div class="main" v-if="player.currentTab === 3">
