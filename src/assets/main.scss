@@ -6,7 +6,7 @@
 @keyframes large {
 	0% {
 		transform: scale(1);
-		color: #8e8e8e;
+		color: var(--title-color);
 		text-shadow: #c9c9c9 1px 1px 2px;
 	}
 	100% {
@@ -19,7 +19,7 @@
 @-webkit-keyframes large {
 	0% {
 		transform: scale(1);
-		color: #8e8e8e;
+		color: var(--title-color);
 		text-shadow: #c9c9c9 1px 1px 2px;
 	}
 	100% {
@@ -31,6 +31,14 @@
 
 :root {
 	--red: #ff0000;
+	
+	--app-background-color: #f3f3f3;
+	--background-color: #fdfdfd;
+	--color: #000000;
+	--suptitle-color: #4f4f4f;
+	--title-color: #8e8e8e;
+	--border-color: #d0d0d0;
+	--hover-color: #e2e2e2;
 }
 
 * {
@@ -62,11 +70,11 @@ table {
 }
 
 ::-webkit-scrollbar-thumb {
-	background-color: #e2e2e2;
+	background-color: var(--hover-color);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	background-color: #d0d0d0;
+	background-color: var(--border-color);
 }
 
 ::-webkit-scrollbar-thumb:active {
@@ -90,7 +98,8 @@ body {
 	top: 0px;
 	margin: 0px;
 	flex-direction: row;
-	background-color: #f3f3f3;
+	background-color: var(--app-background-color);
+	color: var(--color);
 	zoom: 1;
 }
 
@@ -155,16 +164,16 @@ body {
 	height: 100%;
 	margin-left: -5px;
 	margin-top: -5px;
-	background-color: #fdfdfd;
-	border: 1px solid #d0d0d0;
+	background-color: var(--background-color);
+	border: 1px solid var(--border-color);
 	border-radius: 8px;
-	box-shadow: #d0d0d0 1px 1px 2px 1px;
+	box-shadow: var(--border-color) 1px 1px 2px 1px;
 }
 
 .title {
 	text-align: center;
 	margin: 20.5px 0px;
-	color: #8e8e8e;
+	color: var(--title-color);
 	text-shadow: #c9c9c9 1px 1px 2px;
 }
 
@@ -192,12 +201,12 @@ body {
 	font-size: 17px;
 	line-height: 38px;
 	border-radius: 4px;
-	color: #000000;
-	background-color: #fdfdfd;
+	color: var(--color);
+	background-color: var(--background-color);
 }
 
 .menu2:hover {
-	background-color: #e2e2e2;
+	background-color: var(--hover-color);
 }
 
 .menu2:active {
@@ -231,7 +240,7 @@ body {
 	margin-top: 5px;
 	margin-left: 20px;
 	margin-bottom: 10px;
-	background-color: #d0d0d0;
+	background-color: var(--border-color);
 }
 
 .reset1 {
@@ -279,19 +288,19 @@ body {
 	display: block;
 	width: 175px;
 	height: 36px;
-	background-color: #fdfdfd;
+	background-color: var(--background-color);
 	border: 2px solid #c9c9c9;
 	text-align: center;
 	line-height: 36px;
-	box-shadow: #d0d0d0 1px 1px 2px 1px;
+	box-shadow: var(--border-color) 1px 1px 2px 1px;
 }
 
 .clickable_button:hover {
-	background-color: #e2e2e2;
+	background-color: var(--hover-color);
 }
 
 .clickable_button:active {
-	background-color: #d0d0d0;
+	background-color: var(--border-color);
 }
 
 .upgrade {
@@ -310,19 +319,19 @@ body {
 	display: block;
 	width: 175px;
 	height: 36px;
-	background-color: #fdfdfd;
+	background-color: var(--background-color);
 	border: 2px solid #c9c9c9;
 	text-align: center;
 	line-height: 36px;
-	box-shadow: #d0d0d0 1px 1px 2px 1px;
+	box-shadow: var(--border-color) 1px 1px 2px 1px;
 }
 
 .upgrade_button1:hover {
-	background-color: #e2e2e2;
+	background-color: var(--hover-color);
 }
 
 .upgrade_button1:active {
-	background-color: #d0d0d0;
+	background-color: var(--border-color);
 }
 
 .upgrade_button1_unable {
@@ -330,7 +339,7 @@ body {
 	display: block;
 	width: 175px;
 	height: 36px;
-	background-color: #fdfdfd;
+	background-color: var(--background-color);
 	border: 2px solid #ffa1a1;
 	text-align: center;
 	line-height: 36px;
@@ -345,19 +354,19 @@ body {
 	display: block;
 	width: 175px;
 	height: 175px;
-	background-color: #fdfdfd;
+	background-color: var(--background-color);
 	border: 2px solid #c9c9c9;
 	text-align: center;
 	line-height: 30px;
-	box-shadow: #d0d0d0 1px 1px 2px 1px;
+	box-shadow: var(--border-color) 1px 1px 2px 1px;
 }
 
 .upgrade_buttonbig:hover {
-	background-color: #e2e2e2;
+	background-color: var(--hover-color);
 }
 
 .upgrade_buttonbig:active {
-	background-color: #d0d0d0;
+	background-color: var(--border-color);
 }
 
 .upgrade_buttonbig_complete {
@@ -365,7 +374,7 @@ body {
 	display: block;
 	width: 175px;
 	height: 175px;
-	background-color: #fdfdfd;
+	background-color: var(--background-color);
 	border: 2px solid green;
 	text-align: center;
 	line-height: 30px;
@@ -373,11 +382,11 @@ body {
 }
 
 .upgrade_buttonbig_complete:hover {
-	background-color: #e2e2e2;
+	background-color: var(--hover-color);
 }
 
 .upgrade_buttonbig_complete:active {
-	background-color: #d0d0d0;
+	background-color: var(--border-color);
 }
 
 .upgrade_buttonbig_unable {
@@ -385,7 +394,7 @@ body {
 	display: block;
 	width: 175px;
 	height: 175px;
-	background-color: #fdfdfd;
+	background-color: var(--background-color);
 	border: 2px solid #ffa1a1;
 	text-align: center;
 	line-height: 30px;
@@ -400,7 +409,7 @@ body {
 	width: 600px;
 	height: 1.5px;
 	top: 5px;
-	background-color: #d0d0d0;
+	background-color: var(--border-color);
 }
 
 .center_line {
@@ -408,7 +417,7 @@ body {
 	height: 1.5px;
 	top: 5px;
 	margin-bottom: 15px;
-	background-color: #d0d0d0;
+	background-color: var(--border-color);
 	position: relative;
 	left: 10%;
 }
@@ -430,19 +439,19 @@ body {
 	height: 172px;
 	padding: 0px 4px;
 	margin: 0px 6px;
-	background-color: #fdfdfd;
+	background-color: var(--background-color);
 	border: 2px solid #c9c9c9;
 	text-align: center;
 	line-height: 24px;
-	box-shadow: #d0d0d0 1px 1px 2px 1px;
+	box-shadow: var(--border-color) 1px 1px 2px 1px;
 }
 
 .research_button1:hover {
-	background-color: #e2e2e2;
+	background-color: var(--hover-color);
 }
 
 .research_button1:active {
-	background-color: #d0d0d0;
+	background-color: var(--border-color);
 }
 
 .research_button1_unable {
@@ -452,7 +461,7 @@ body {
 	height: 172px;
 	padding: 0px 4px;
 	margin: 0px 6px;
-	background-color: #fdfdfd;
+	background-color: var(--background-color);
 	border: 2px solid #ffa1a1;
 	text-align: center;
 	line-height: 24px;
@@ -494,19 +503,19 @@ body {
 	height: 148px;
 	padding: 0px 4px;
 	margin: 0px 8px 12px;
-	background-color: #fdfdfd;
+	background-color: var(--background-color);
 	border: 2px solid #c9c9c9;
 	text-align: center;
 	line-height: 24px;
-	box-shadow: #d0d0d0 1px 1px 2px 1px;
+	box-shadow: var(--border-color) 1px 1px 2px 1px;
 }
 
 .research_button2:hover {
-	background-color: #e2e2e2;
+	background-color: var(--hover-color);
 }
 
 .research_button2:active {
-	background-color: #d0d0d0;
+	background-color: var(--border-color);
 }
 
 .table {
@@ -515,14 +524,14 @@ body {
 	height: 309px;
 	font-size: 17px;
 	line-height: 30px;
-	color: #8e8e8e;
+	color: var(--title-color);
 	text-align: center;
 	justify-content: center;
 	flex-direction: column;
 }
 
 .table_text {
-	border-bottom: 1px solid #d0d0d0;
+	border-bottom: 1px solid var(--border-color);
 }
 
 .milestone1 {
@@ -543,7 +552,7 @@ body {
 	height: 50px;
 	padding: 0px 4px;
 	margin: 6px 0px;
-	background-color: #fdfdfd;
+	background-color: var(--background-color);
 	border: 2px solid #ffa1a1;
 	text-align: center;
 	line-height: 24px;
@@ -577,7 +586,7 @@ body {
 	height: 150px;
 	padding: 0px 4px;
 	margin: 0px 6px 12px;
-	background-color: #fdfdfd;
+	background-color: var(--background-color);
 	border: 2px solid #c9c9c9;
 	text-align: center;
 	line-height: 36px;
@@ -590,7 +599,7 @@ body {
 	height: 150px;
 	padding: 0px 4px;
 	margin: 0px 6px 12px;
-	background-color: #fdfdfd;
+	background-color: var(--background-color);
 	border: 2px solid #ffa1a1;
 	text-align: center;
 	line-height: 36px;
@@ -615,20 +624,20 @@ body {
 	width: 90px;
 	height: 32px;
 	margin: 65px auto;
-	background-color: #fdfdfd;
+	background-color: var(--background-color);
 	border: 2px solid #c9c9c9;
 	text-align: center;
 	font-size: 16px;
 	line-height: 32px;
-	box-shadow: #d0d0d0 1px 1px 2px 1px;
+	box-shadow: var(--border-color) 1px 1px 2px 1px;
 }
 
 .autobuyer_button:hover {
-	background-color: #e2e2e2;
+	background-color: var(--hover-color);
 }
 
 .autobuyer_button:active {
-	background-color: #d0d0d0;
+	background-color: var(--border-color);
 }
 
 .autobuyer_input {
@@ -642,7 +651,7 @@ body {
 }
 
 .autobuyer_input:hover {
-	border-bottom: 1.5px solid #8e8e8e;
+	border-bottom: 1.5px solid var(--title-color);
 }
 
 .autobuyer_input:focus {
@@ -656,8 +665,8 @@ body {
 	height: 210px;
 	padding: 0px 4px;
 	margin: 0px 6px;
-	background-color: #fdfdfd;
-	border: 2px solid #d0d0d0;
+	background-color: var(--background-color);
+	border: 2px solid var(--border-color);
 	text-align: center;
 	font-size: 16px;
 	line-height: 24px;
@@ -669,20 +678,20 @@ body {
 	width: 100px;
 	height: 32px;
 	margin: 15px auto;
-	background-color: #fdfdfd;
+	background-color: var(--background-color);
 	border: 2px solid #c9c9c9;
 	text-align: center;
 	font-size: 16px;
 	line-height: 32px;
-	box-shadow: #d0d0d0 1px 1px 2px 1px;
+	box-shadow: var(--border-color) 1px 1px 2px 1px;
 }
 
 .challenge_button:hover {
-	background-color: #e2e2e2;
+	background-color: var(--hover-color);
 }
 
 .challenge_button:active {
-	background-color: #d0d0d0;
+	background-color: var(--border-color);
 }
 
 .achievement_button {
@@ -691,20 +700,20 @@ body {
 	width: 50px;
 	height: 50px;
 	margin: 0px 5px;
-	background-color: #fdfdfd;
+	background-color: var(--background-color);
 	border: 2px solid #c9c9c9;
 	text-align: center;
 	font-size: 16px;
 	line-height: 50px;
-	box-shadow: #d0d0d0 1px 1px 2px 1px;
+	box-shadow: var(--border-color) 1px 1px 2px 1px;
 }
 
 .achievement_button:hover {
-	background-color: #e2e2e2;
+	background-color: var(--hover-color);
 }
 
 .achievement_button:active {
-	background-color: #d0d0d0;
+	background-color: var(--border-color);
 }
 
 .achievement_button_bought {
@@ -730,7 +739,7 @@ body {
 	width: 50px;
 	height: 50px;
 	margin: 0px 5px;
-	background-color: #fdfdfd;
+	background-color: var(--background-color);
 	border: 2px solid #ffa1a1;
 	text-align: center;
 	font-size: 16px;
@@ -747,20 +756,21 @@ body {
 	width: fit-content;
 	margin: 0px 5px;
 	padding: 0px 7px;
-	background-color: #fdfdfd;
-	border: 2px solid #c9c9c9;
+	background-color: var(--background-color);
+	border: 2px solid var(--border-color);
+	color: var(--color);
 	text-align: center;
 	font-size: 16px;
 	line-height: 32px;
-	box-shadow: #d0d0d0 1px 1px 2px 1px;
+	box-shadow: var(--border-color) 1px 1px 2px 1px;
 }
 
 .setting_button:hover {
-	background-color: #e2e2e2;
+	background-color: var(--hover-color);
 }
 
 .setting_button:active {
-	background-color: #d0d0d0;
+	background-color: var(--border-color);
 }
 
 .hard_reset {
@@ -769,7 +779,7 @@ body {
 	width: 70px;
 	height: 32px;
 	margin: 0px 5px;
-	background-color: #fdfdfd;
+	background-color: var(--background-color);
 	border: 2px solid #ff6868;
 	text-align: center;
 	font-size: 16px;
@@ -792,7 +802,7 @@ body {
 	width: 100%;
 	height: 100%;
 	z-index: 1;
-	background-color: #00000066;
+	background-color: var(--color)66;
 }
 
 .dialog {
@@ -801,7 +811,7 @@ body {
 	left: 50%;
 	width: 460px;
 	height: 350px;
-	background-color: #fdfdfd;
+	background-color: var(--background-color);
 	border: 2px solid #c9c9c9;
 	border-radius: 8px;
 	font-size: 17px;
@@ -817,20 +827,20 @@ body {
 	width: 340px;
 	height: 48px;
 	margin: 10px 0px;
-	background-color: #fdfdfd;
+	background-color: var(--background-color);
 	border: 2px solid #c9c9c9;
 	font-size: 17px;
 	text-align: center;
 	line-height: 48px;
-	box-shadow: #d0d0d0 1px 1px 2px 1px;
+	box-shadow: var(--border-color) 1px 1px 2px 1px;
 }
 
 .upgrade_button2:hover {
-	background-color: #e2e2e2;
+	background-color: var(--hover-color);
 }
 
 .upgrade_button2:active {
-	background-color: #d0d0d0;
+	background-color: var(--border-color);
 }
 
 .versionText {
@@ -849,11 +859,11 @@ body {
 }
 
 .firstVersionText:hover {
-	background-color: #e2e2e2;
+	background-color: var(--hover-color);
 }
 
 .firstVersionText:active {
-	background-color: #d0d0d0;
+	background-color: var(--border-color);
 }
 
 h3, h4, h5, h6 {
