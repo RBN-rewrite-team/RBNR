@@ -261,8 +261,8 @@ const validNotations = computed(() =>
 					</button>
 					<div style="transform: translateY(60px)">
 						<div align="center">
-              <h3>数论研究</h3>
-              <h4>研究 1： 欧拉函数</h4>
+              <h1>数论研究</h1>
+              <h2>研究 1： 欧拉函数</h2>
               <vue-latex expression="\varphi(n) = n \prod_{p | n} \left(1 - \frac{1}{p}\right)" display-mode />
               <vue-latex expression="S(x) = \sum_{k = 1}^{x} \varphi(k)" display-mode />
               <vue-latex :expression="'\\tau_1 =S(x)=\\text{' + formatWhole(NUMTHEORY.funcS()) + '}'" display-mode />

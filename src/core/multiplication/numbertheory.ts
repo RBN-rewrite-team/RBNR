@@ -23,12 +23,12 @@ export const NUMTHEORY = {
       requirement: [],
     })
     BUYABLES.create('32R', {
-      description: "x值增速×+1",
+      description: "x值增速+×1",
       cost(x) {
         return x.pow_base(10).mul(100);
       },
       effect(x) { return x.add(1)},
-      effD(x){return `×+${formatWhole(x)}`},
+      effD(x){return `×${formatWhole(x.add(1))}`},
       canAfford(x) {return this.cost(x).lte(player.multiplication.mulpower)},
       buy(x) {
         
