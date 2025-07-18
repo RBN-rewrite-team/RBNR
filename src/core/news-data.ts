@@ -12,7 +12,7 @@ export default [{id: "news1", text: "不会做增量游戏怎么办？看风灵�
 {id: "news11", text: "@艾斯亿诶嗯叉了叉"},
 {id: "news12", text: "要是ADE有我们这个开发速度已经到被粉碎的现实了。"},
 {id: "news13", text: "完成第-1层（成就）的时间等于通关这个游戏的时间，完成第-2层（新闻）的时间取决于写新闻代码的人添加了多少奇怪的条件"},
-{id: "news14", text: "unicode命名法：String.fromCharCode(初始名字.charCodeAt() + n)，很多游戏重置层取名都参考这玩意儿"},
+{id: "news14", text: "unicode命名法：String.fromCharCode(初始名字.charCodeAt() + n)，只有《风灵作成》重置层取名参考这玩意儿"},
 {id: "news15", text: "Breaking News! 等待10秒，用代码实现Fake news!"},
 ] as {
 	id: string;
