@@ -3,6 +3,7 @@ import { UPGRADES, BUYABLES, upgrades, buyables, type singleReq } from '../mecha
 import Decimal from 'break_eternity.js';
 import { format, formatWhole } from '@/utils/format';
 import { feature } from '../global.ts';
+import {NUMTHEORY} from '../multiplication/numbertheory.ts';
 
 export const Successor = {
 	initMechanics() {
@@ -182,6 +183,7 @@ export const Successor = {
 		if (player.upgrades[25]) base = base.mul(feature.ADDITION.U25effect());
 		if (player.firstResetBit & 0b10) base = base.mul(feature.MULTIPLICATION.powerEff());
 		if (player.firstResetBit & 0b10) base = base.mul(feature.PrimeFactor.powerEff());
+		if (player.firstResetBit & 0b10) base = base.mul(NUMTHEORY.funcS().max(1));
 		return base;
 	},
 };

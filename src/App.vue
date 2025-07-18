@@ -123,7 +123,7 @@ const validNotations = computed(() =>
 						<TDBuyable bylid="11" />
 					</table>
 				</div>
-				<div class="main" v-if="player.currentTab === 1" style="text-align='center'">
+				<div class="main" v-if="player.currentTab === 1" style="text-align: center">
 				  <h3>存档设置</h3>
 					<div class="setting_button" @click="save()">手动保存</div>
 					<div class="hard_reset" @click="UIHardReset">硬重置</div>
@@ -265,14 +265,16 @@ const validNotations = computed(() =>
               <h4>研究 1 欧拉函数</h4>
               \phi(x) = <br>
               S(x) = sum of (for k in 1..x: \phi(k))<br>
-              \tau_1 =S(x)= {{NUMTHEORY.funcS()}}<br>
+              \tau_1 =S(x) {{player.numbertheory.euler.x.gte(300) ? "≈" : "="}} {{format(NUMTHEORY.funcS())}}<br>
               <b>x=floor({{format(player.numbertheory.euler.x)}})</b>
 						
+              <p style="font-size: 120%"><b>研究1加成：将数值增长乘以\tau_1</b></p>
             </div>
           <table align="center">
             <tbody>
               <tr>
                 <TDBuyable bylid="31R" />
+                <TDBuyable bylid="32R" />
               </tr>
             </tbody>
           </table>

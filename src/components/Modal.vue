@@ -8,7 +8,7 @@
 							<component :is="icon" />
 						</div>
 					</slot>
-					<h3>{{ title }}</h3>
+					<h2>{{ title }}</h2>
 				</div>
 
 				<div class="modal-body">
