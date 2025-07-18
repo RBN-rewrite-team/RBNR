@@ -262,12 +262,11 @@ const validNotations = computed(() =>
 					<div style="transform: translateY(60px)">
 						<div align="center">
               <h3>数论研究</h3>
-              <h4>研究 1 欧拉函数</h4>
-              \phi(x) = <br>
-              S(x) = sum of (for k in 1..x: \phi(k))<br>
-              \tau_1 =S(x)= {{NUMTHEORY.funcS()}}<br>
-              <b>x=floor({{format(player.numbertheory.euler.x)}})</b>
-						
+              <h4>研究 1： 欧拉函数</h4>
+              <vue-latex expression="\varphi(n) = n \prod_{p | n} \left(1 - \frac{1}{p}\right)" display-mode />
+              <vue-latex expression="S(x) = \sum_{k = 1}^{x} \varphi(k)" display-mode />
+              <vue-latex :expression="'\\tau_1 =S(x)=' + NUMTHEORY.funcS()" display-mode />
+              <vue-latex :expression="'x = \\text{' + formatWhole(player.numbertheory.euler.x.floor()) + '}'" display-mode />
             </div>
           <table align="center">
             <tbody>

@@ -14,7 +14,9 @@
   "dependencies": {
     "@types/pako": "^2.0.3",
     "break_eternity.js": "^2.1.2",
+    "katex": "^0.13.24",
     "pako": "^2.1.0",
+    "vatex": "^0.1.0",
     "vue": "^3.5.17"
   },
   "devDependencies": {
