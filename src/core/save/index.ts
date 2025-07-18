@@ -22,6 +22,11 @@ export interface Player {
 	automationCD: {
 		successor: number;
 	};
+  numbertheory: {
+    euler: {
+      x: Decimal
+    }
+  }
 	currentTab: number;
 	addpower: Decimal;
 	totalAddpower: Decimal;
@@ -75,6 +80,11 @@ function getInitialPlayerData(): Player {
 		automationCD: {
 			successor: 0,
 		},
+    numbertheory: {
+      euler: {
+        x: new Decimal(1)
+      }
+    },
 		currentTab: 0,
 		totalAddpower: zero,
 		firstResetBit: 0,
