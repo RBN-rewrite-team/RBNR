@@ -123,7 +123,7 @@ const validNotations = computed(() =>
 						<TDBuyable bylid="11" />
 					</table>
 				</div>
-				<div class="main" v-if="player.currentTab === 1" style="text-align='center'">
+				<div class="main" v-if="player.currentTab === 1" style="text-align: center">
 				  <h3>存档设置</h3>
 					<div class="setting_button" @click="save()">手动保存</div>
 					<div class="hard_reset" @click="UIHardReset">硬重置</div>
@@ -274,6 +274,7 @@ const validNotations = computed(() =>
             <tbody>
               <tr>
                 <TDBuyable bylid="31R" />
+                <TDBuyable bylid="32R" />
               </tr>
             </tbody>
           </table>
