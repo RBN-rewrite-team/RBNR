@@ -1,6 +1,7 @@
 import Decimal from 'break_eternity.js';
 import { saveSerializer } from './serializer';
 import { reactive } from 'vue';
+import { notations } from '@/utils/format'
 
 const SAVEID = 'RBN-rewritten';
 
@@ -35,6 +36,9 @@ export interface Player {
 		totalMulpower: Decimal;
 		pfTime: Decimal;
 	};
+	options: {
+	  notation: notations
+	}
 }
 function getInitialPlayerData(): Player {
 	return {
@@ -89,6 +93,9 @@ function getInitialPlayerData(): Player {
 			totalMulpower: zero,
 			pfTime: zero,
 		},
+		options: {
+		  notation: notations.SCIENTIFIC
+		}
 	};
 }
 

@@ -400,6 +400,16 @@ body {
 	background-color: #d0d0d0;
 }
 
+.center_line {
+	width: 80%;
+	height: 1.5px;
+	top: 5px;
+	margin-bottom: 15px;
+	background-color: #d0d0d0;
+	position: relative;
+	left: 10%;
+}
+
 .research1 {
 	display: flex;
 	width: 100%;
@@ -731,9 +741,9 @@ body {
 .setting_button {
 	position: relative;
 	display: inline-block;
-	width: 90px;
-	height: 32px;
+	width: fit-content;
 	margin: 0px 5px;
+	padding: 0px 7px;
 	background-color: #fdfdfd;
 	border: 2px solid #c9c9c9;
 	text-align: center;
