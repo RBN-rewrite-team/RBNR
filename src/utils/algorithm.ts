@@ -62,7 +62,7 @@ console.log(isCoprime(-4, 9));   // true (负数也可以互质)
  */
 export function eulerFunction(a: number) {
   let c= 0;
-  for (let i = 1; i<a; i++) {
+  for (let i = 1; i<=a; i++) {
     c+=isCoprime(a, i) ? 1 : 0;
   }
   return c;
