@@ -18,8 +18,15 @@ export const PrimeFactor = {
 				currency: '乘法能量',
 
 				description: '质因数' + pf + ',倍增因数能量',
+        more() {
+          if (player.upgrades[36] && Number(i) !== pflist.length-1) {
+            return player.buyables["pf"+pflist[Number(i)+1]].div(2).floor()
+          }
+          return new Decimal(0)
+        },
 				effect(x) {
-					return new Decimal(this.pfid).pow(x);
+					return new Decimal(this.pfid).pow(x.add(this.more?.() ?? 0));
+
 				},
 				effD(x) {
 					return 'x' + formatWhole(this.effect(x));

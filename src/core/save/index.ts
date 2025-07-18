@@ -5,11 +5,12 @@ import { notations } from '@/utils/format'
 import { themes } from '@/utils/themes';
 
 const SAVEID = 'RBN-rewritten';
-
+const version = 3 as const
 const zero = new Decimal(0);
 
 export interface Player {
 	number: Decimal;
+  version: typeof version;
 	totalNumber: Decimal;
 	lastUpdated: number;
 	saveCreateTime: number;
@@ -46,6 +47,7 @@ export interface Player {
 }
 function getInitialPlayerData(): Player {
 	return {
+    version: version,
 		number: zero,
 		totalNumber: zero,
 		lastUpdated: Date.now(),
@@ -66,11 +68,14 @@ function getInitialPlayerData(): Player {
 			'33': false,
 			'34': false,
 			'35': false,
+			'36': false,
+			'37': false,
 		},
 		buyables: {
 			'11': zero,
 			'21': zero,
 			'31': zero,
+			'32': zero,
 			'31R': zero,
 			'32R': zero,
 			pf2: zero,
@@ -152,6 +157,7 @@ export function loadFromString(saveContent: string) {
 	let deserialized = saveSerializer.deserialize(saveContent);
 	rewriteDecimalValues(deserialized);
 	deepCopyProps(deserialized, player);
+  player.version = version;
 }
 
 export function loadSaves() {

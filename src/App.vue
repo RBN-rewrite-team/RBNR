@@ -168,7 +168,7 @@ const validThemes = computed(() =>
 									<TDUpgrade upgid="23" />
 									<TDUpgrade upgid="24" />
 								</tr>
-								<tr style="transform: translateY(160px)">
+                <tr>
 									<TDBuyable bylid="21" />
 									<TDUpgrade upgid="25" />
 									<TDUpgrade upgid="26" />
@@ -206,9 +206,15 @@ const validThemes = computed(() =>
 									<TDUpgrade upgid="33" />
 									<TDUpgrade upgid="34" />
 								</tr>
-								<tr style="transform: translateY(160px)">
+								<tr>
 									<TDUpgrade upgid="35" />
+									<TDUpgrade upgid="36" />
+									<TDUpgrade upgid="37" />
 								</tr>
+                <tr>
+                  <TDBuyable bylid="31" />
+                  <TDBuyable bylid="32" />
+                </tr>
 							</tbody>
 						</table>
 					</div>
@@ -245,7 +251,7 @@ const validThemes = computed(() =>
 									<TDBuyable bylid="pf5" />
 									<TDBuyable bylid="pf7" />
 								</tr>
-								<tr style="transform: translateY(160px)">
+								<tr>
 									<TDBuyable bylid="pf11" />
 									<TDBuyable bylid="pf13" />
 									<TDBuyable bylid="pf17" />
@@ -285,6 +291,7 @@ const validThemes = computed(() =>
               <tr>
                 <TDBuyable bylid="31R" />
                 <TDBuyable bylid="32R" />
+                <TDUpgrade upgid="31R" />
               </tr>
             </tbody>
           </table>
@@ -305,3 +312,9 @@ const validThemes = computed(() =>
 		</div>
 	</div>
 </template>
+
+<style>
+tr {
+  height: 180px;
+}
+</style>
