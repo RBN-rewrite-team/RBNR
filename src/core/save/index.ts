@@ -2,6 +2,7 @@ import Decimal from 'break_eternity.js';
 import { saveSerializer } from './serializer';
 import { reactive } from 'vue';
 import { notations } from '@/utils/format'
+import { themes } from '@/utils/themes';
 
 const SAVEID = 'RBN-rewritten';
 
@@ -37,8 +38,11 @@ export interface Player {
 		pfTime: Decimal;
 	};
 	options: {
-	  notation: notations
-	}
+	  notation: notations;
+	  ui: {
+		theme: themes;
+	  };
+	};
 }
 function getInitialPlayerData(): Player {
 	return {
@@ -96,7 +100,10 @@ function getInitialPlayerData(): Player {
 			pfTime: zero,
 		},
 		options: {
-		  notation: notations.SCIENTIFIC
+		  notation: notations.SCIENTIFIC,
+		  ui: {
+			theme: themes.CLASSIC,
+		  },
 		}
 	};
 }

@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import Decimal from 'break_eternity.js';
 import { format, formatWhole, formatGain, notations, notationNamesMap } from '@/utils/format';
+import { themes, themeDetailsMap } from '@/utils/themes';
 import { player, feature, getNumberGen } from './core/global.ts';
 import { UPGRADES, BUYABLES } from './core/mechanic.ts';
 
@@ -16,6 +17,10 @@ import {eulerFunction} from './utils/algorithm.ts';
 
 const validNotations = computed(() => 
   Object.values(notations).filter(v => typeof v === 'number')
+);
+
+const validThemes = computed(() =>
+	Object.values(themes).filter(v => typeof v == 'number')
 );
 </script>
 
@@ -37,17 +42,17 @@ const validNotations = computed(() =>
 						margin-top: 5px;
 					"
 				>
-					<div style="font-weight: bold; color: #4f4f4f">
+					<div style="font-weight: bold; color: var(--suptitle-color)">
 						数值&nbsp;{{ formatWhole(player.number) }}
 					</div>
 					<div
-						style="font-size: 17px; color: #8e8e8e"
+						style="font-size: 17px; color: var(--title-color)"
 						v-if="feature.SUCCESSOR.autoSuccessPerSecond().eq(0)"
 					>
 						(需要通过后继获得)
 					</div>
 					<div
-						style="font-size: 17px; color: #8e8e8e"
+						style="font-size: 17px; color: var(--title-color)"
 						v-html="formatGain(player.number, getNumberGen(), '')"
 						v-else
 					/>
@@ -131,6 +136,11 @@ const validNotations = computed(() =>
 					<h3>记数法</h3>
 					<button @click="player.options.notation = notation" v-for="notation in validNotations" class="setting_button" >
 					  {{ notationNamesMap.get(notation) }}
+					</button>
+					<br><div class="center_line" />
+					<h3>主题</h3>
+					<button v-for="theme in validThemes" class="setting_button" @click="player.options.ui.theme = themes[themes[theme]]">
+						{{ themeDetailsMap.get(theme).name }}
 					</button>
 				</div>
 				<div class="main" v-if="player.currentTab === 2">

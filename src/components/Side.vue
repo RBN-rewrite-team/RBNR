@@ -7,7 +7,7 @@ import { player } from '@/core/save';
 		<div class="title_box">
 			<div class="background">
 				<div class="title">
-					<div style="font-size: 24px; color: #000000; text-shadow: #8e8e8e 1px 1px 2px">
+					<div style="font-size: 24px; color: var(--color); text-shadow: var(--title-color) 1px 1px 2px">
 						大数之路重制版
 					</div>
 					<div style="font-size: 20px">v0.1.1</div>

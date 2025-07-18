@@ -4,12 +4,16 @@ import { UPGRADES, BUYABLES, upgrades, buyables } from './mechanic.ts';
 import Decimal from 'break_eternity.js';
 import {NUMTHEORY} from './multiplication/numbertheory.ts';
 
+import {updateTheme} from '@/utils/themes';
+
 export let diff = 0;
 
 export function gameLoop() {
 	diff = Date.now() - player.lastUpdated;
 
 	player.lastUpdated = Date.now();
+	
+	updateTheme();
 
 	if (feature.SUCCESSOR.autoSuccessPerSecond().gte(0.001)) {
 		player.automationCD.successor += diff;
