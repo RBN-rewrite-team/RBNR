@@ -10,7 +10,7 @@ export const Multiplication = {
 		UPGRADES.create('31', {
 			description: '所有后继升级保持为可购买状态',
 			cost: new Decimal(1),
-			displayName: "U2-1",
+			displayName: 'U2-1',
 			currency: '乘法能量',
 			canAfford() {
 				return player.multiplication.mulpower.gte(this.cost);
@@ -32,7 +32,7 @@ export const Multiplication = {
 		});
 		UPGRADES.create('32', {
 			description: 'U2系列升级购买数量的平方同样作用于U0-2的效果',
-			displayName: "U2-2",
+			displayName: 'U2-2',
 			currency: '乘法能量',
 			cost: new Decimal(2),
 			canAfford() {
@@ -55,7 +55,7 @@ export const Multiplication = {
 		});
 		UPGRADES.create('33', {
 			description: '在每次乘法重置后保留B1-1',
-			displayName: "U2-3",
+			displayName: 'U2-3',
 			currency: '乘法能量',
 			cost: new Decimal(3),
 			canAfford() {
@@ -78,7 +78,7 @@ export const Multiplication = {
 		});
 		UPGRADES.create('34', {
 			description: '解锁数论研究',
-			displayName: "U2-4",
+			displayName: 'U2-4',
 			currency: '乘法能量',
 			cost: new Decimal(47),
 			canAfford() {

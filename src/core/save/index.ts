@@ -12,10 +12,10 @@ export interface Player {
 	lastUpdated: number;
 	saveCreateTime: number;
 	upgrades: {
-	  [key: string]: boolean;
+		[key: string]: boolean;
 	};
 	buyables: {
-	  [key: string]: Decimal;
+		[key: string]: Decimal;
 	};
 	buyable11More: Decimal;
 	automationCD: {

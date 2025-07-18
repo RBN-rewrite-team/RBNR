@@ -11,7 +11,7 @@ export const Addition = {
 			description: 'U1系列升级购买数量同样作用于U12的效果',
 			currency: '加法能量',
 			cost: new Decimal(1),
-			displayName: "U1-1",
+			displayName: 'U1-1',
 			canAfford() {
 				return player.addpower.gte(this.cost);
 			},
@@ -29,7 +29,7 @@ export const Addition = {
 			description: '后继批量提高到4倍',
 			currency: '加法能量',
 			cost: new Decimal(5),
-			displayName: "U1-2",
+			displayName: 'U1-2',
 			canAfford() {
 				return player.addpower.gte(this.cost);
 			},
@@ -52,7 +52,7 @@ export const Addition = {
 		UPGRADES.create('23', {
 			description: '移除B0-1价格的常数项，B0-1最多购买次数+50',
 			cost: new Decimal(25),
-			displayName: "U1-3",
+			displayName: 'U1-3',
 			currency: '加法能量',
 			canAfford() {
 				return player.addpower.gte(this.cost);
@@ -76,7 +76,7 @@ export const Addition = {
 		UPGRADES.create('24', {
 			description: '解锁B1-1',
 			cost: new Decimal(125),
-			displayName: "U1-4",
+			displayName: 'U1-4',
 			currency: '加法能量',
 			canAfford() {
 				return player.addpower.gte(this.cost);
@@ -99,7 +99,7 @@ export const Addition = {
 		});
 		UPGRADES.create('25', {
 			description: '后继运算升级为加法运算， 在每次加法重置后保留U0系列升级',
-			displayName: "U1-5",
+			displayName: 'U1-5',
 			effect() {
 				return player.totalAddpower.root(4).add(1).floor();
 			},
@@ -130,7 +130,7 @@ export const Addition = {
 		UPGRADES.create('26', {
 			description: '解锁乘法层',
 			cost: new Decimal(3125),
-			displayName: "U1-6",
+			displayName: 'U1-6',
 			currency: '加法能量',
 			canAfford() {
 				return player.addpower.gte(this.cost);
@@ -153,7 +153,7 @@ export const Addition = {
 		});
 		BUYABLES.create('21', {
 			description: '每次加法重置后获得免费的购买项11（算在上限之内）',
-			displayName: "B1-1",
+			displayName: 'B1-1',
 			currency: '数值',
 			effect(x) {
 				return x;

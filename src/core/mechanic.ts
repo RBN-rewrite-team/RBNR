@@ -52,7 +52,10 @@ export const UPGRADES = {
 			useclass = 'upgrade_buttonbig_unable';
 		let permanent = upgrades[id].keep != null && upgrades[id].keep();
 		let str = '<div class="' + useclass + '">';
-		str += '<span sytle="font-weight: bold">' + (upgrades[id].displayName ?? "U" + id) + '</span><br>';
+		str +=
+			'<span sytle="font-weight: bold">' +
+			(upgrades[id].displayName ?? 'U' + id) +
+			'</span><br>';
 		if (!this.lock(id).unlocked && !permanent) {
 			str += '暂未解锁<br>';
 			let req = upgrades[id].requirement;
@@ -122,7 +125,7 @@ export const BUYABLES = {
 		let str = '<div class="' + useclass + '">';
 		str +=
 			'<span sytle="font-weight: bold">' +
-			(buyables[id].displayName ?? "B" + id) +
+			(buyables[id].displayName ?? 'B' + id) +
 			'(' +
 			formatWhole(player.buyables[id]) +
 			(buyables[id].more

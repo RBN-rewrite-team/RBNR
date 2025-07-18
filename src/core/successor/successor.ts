@@ -10,7 +10,7 @@ export const Successor = {
 			description: '解锁B0-1',
 			currency: '数值',
 			cost: new Decimal(10),
-			displayName: "U0-1",
+			displayName: 'U0-1',
 			canAfford() {
 				return player.number.gte(this.cost);
 			},
@@ -48,7 +48,7 @@ export const Successor = {
 				return '+' + formatWhole(this.effect?.());
 			},
 			cost: new Decimal(100),
-			displayName: "U0-2",
+			displayName: 'U0-2',
 			canAfford() {
 				return player.number.gte(this.cost);
 			},
@@ -77,7 +77,7 @@ export const Successor = {
 		UPGRADES.create('13', {
 			description: '解锁加法层',
 			cost: new Decimal(1000),
-			displayName: "U0-3",
+			displayName: 'U0-3',
 			canAfford() {
 				return player.number.gte(this.cost);
 			},
@@ -105,7 +105,7 @@ export const Successor = {
 		});
 		BUYABLES.create('11', {
 			description: '每秒进行一次后继运算',
-			displayName: "B0-1",
+			displayName: 'B0-1',
 			effect(x) {
 				return x.add(this.more?.() ?? 0);
 			},
