@@ -74,7 +74,7 @@ const prepareNextMessage = () => {
 	// console.log(news.filter(canShow))
 
 	currentNews.value = randomElement(news!.filter(canShow)) ?? null;
-	// currentNews.value = news[7]
+	// currentNews.value = news[4]
 
 	if (!currentNews.value) return;
 
@@ -147,6 +147,8 @@ onBeforeUnmount(() => {
 		vertical-align: bottom;
 		position: relative;
 		bottom: 6px;
+		width: 18px;
+		height: 18px;
 	}
 }
 
