@@ -2,6 +2,7 @@ import { player, feature } from './global.ts';
 import { nextTick } from 'vue';
 import { UPGRADES, BUYABLES, upgrades, buyables } from './mechanic.ts';
 import Decimal from 'break_eternity.js';
+import {NUMTHEORY} from './multiplication/numbertheory.ts';
 
 export let diff = 0;
 
@@ -20,6 +21,8 @@ export function gameLoop() {
 		}
 	}
 
+  
+
 	for (let i in upgrades) {
 		if (upgrades[i].keep != null && upgrades[i].keep()) {
 			player.upgrades[i as keyof typeof player.upgrades] = true;
@@ -27,5 +30,6 @@ export function gameLoop() {
 	}
 	if (player.firstResetBit & 0b10) {
 		player.multiplication.pfTime = player.multiplication.pfTime.add(diff);
+    player.numbertheory.euler.x = player.numbertheory.euler.x.add(NUMTHEORY.varXgain().mul(diff).mul(1e-3));
 	}
 }
