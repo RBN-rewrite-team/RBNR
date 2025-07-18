@@ -63,7 +63,7 @@ import { player } from '@/core/save';
 						:class="{ focus: player.currentTab == 1 }"
 						@click="player.currentTab = 1"
 					>
-						存档
+						设置
 					</div>
 					<div
 						class="menu2"
