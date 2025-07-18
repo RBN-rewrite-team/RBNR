@@ -15,7 +15,6 @@ export const NUMTHEORY = {
       effD(x){return `+${formatWhole(x)}/s`},
       canAfford(x) {return this.cost(x).lte(player.multiplication.mulpower)},
       buy(x) {
-        
 				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost(x));
       },
       capped(){ return false},

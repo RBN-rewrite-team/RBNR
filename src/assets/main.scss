@@ -44,8 +44,11 @@
 	-webkit-tap-highlight-color: #00000000;
 	border: none;
 	outline: none;
-	font-family: '思源黑体Regular';
 	transition: all 0.25s;
+	
+	&:not(.katex):not(.katex *) {
+	  font-family: "思源黑体Regular";
+	}
 }
 
 table {
