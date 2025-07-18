@@ -9,7 +9,6 @@ import { gameLoop } from './core/game-loop';
 import { feature } from './core/global.ts';
 import ModalService from './utils/Modal.ts';
 import {NUMTHEORY} from './core/multiplication/numbertheory.ts';
-
 loadSaves();
 feature.SUCCESSOR.initMechanics();
 feature.ADDITION.initMechanics();

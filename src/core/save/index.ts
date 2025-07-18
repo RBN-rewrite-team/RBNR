@@ -68,6 +68,7 @@ function getInitialPlayerData(): Player {
 			'21': zero,
 			'31': zero,
 			'31R': zero,
+			'32R': zero,
 			pf2: zero,
 			pf3: zero,
 			pf5: zero,
