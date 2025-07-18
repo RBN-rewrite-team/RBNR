@@ -41,7 +41,7 @@ export const NUMTHEORY = {
   },
   funcS(x = player.numbertheory.euler.x.floor()) {
     if (x.gte(1000)) {return x.pow(2).mul(3/Math.PI**2)}
-    return Decimal.fromNumber(sumEulers[x.toString()]);
+    return Decimal.fromNumber(sumEulers[x.toNumber()]);
   },
   varXgain() {
     let x = new Decimal(0);

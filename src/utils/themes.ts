@@ -24,9 +24,9 @@ export const themeDetailsMap = new Map([
 			'--title-color': '#8e8e8e',
 			'--border-color': '#d0d0d0',
 			'--hover-color': '#e2e2e2',
-		},
+		} as const,
 		other: {
-		}
+		} as const,
 	}],
 	[themes.DARK, {
 		name: '深色',
@@ -38,9 +38,9 @@ export const themeDetailsMap = new Map([
 			'--title-color': '#717171',
 			'--border-color': '#2f2f2f',
 			'--hover-color': '#1d1d1d',
-		},
+		} as const,
 		other: {
-		}
+		} as const,
 	}],
 	[themes.SUN, {
 		name: '太阳',
@@ -52,9 +52,9 @@ export const themeDetailsMap = new Map([
 			'--title-color': '#ff6633',
 			'--border-color': '#ffcc99',
 			'--hover-color': '#ff6633',
-		},
+		} as const,
 		other: {
-		}
+		} as const,
 	}],
 	[themes.OCEAN, {
 		name: '海洋',
@@ -66,10 +66,10 @@ export const themeDetailsMap = new Map([
 			'--title-color': '#003333',
 			'--border-color': '#006699',
 			'--hover-color': '#0099cc',
-		},
+		} as const,
 		other: {
 			filter: 'hue-rotate(15deg) brightness(1.2) contrast(0.9)',
-		}
+		} as const
 	}],
 ]);
 
@@ -77,10 +77,11 @@ const root = document.documentElement;
 
 export function updateTheme(){
 	let theme = themeDetailsMap.get(player.options.ui.theme);
+  if (!theme) return;
 	let ordinary = theme.ordinary;
 	for(let i in ordinary)
 	{
-		root.style.setProperty(i, ordinary[i]);
+		root.style.setProperty(i as keyof typeof ordinary, ordinary[i as keyof typeof ordinary]);
 	}
 	let other = theme.other;
 	if(other.filter)
