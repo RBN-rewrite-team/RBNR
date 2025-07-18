@@ -129,7 +129,7 @@ const validNotations = computed(() =>
 					<div class="hard_reset" @click="UIHardReset">硬重置</div>
 					<br><div class="center_line" />
 					<h3>记数法</h3>
-					<button v-for="notation in validNotations" class="setting_button" >
+					<button @click="player.options.notation = notation" v-for="notation in validNotations" class="setting_button" >
 					  {{ notationNamesMap.get(notation) }}
 					</button>
 				</div>
