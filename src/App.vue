@@ -267,7 +267,7 @@ const validNotations = computed(() =>
               <vue-latex expression="S(x) = \sum_{k = 1}^{x} \varphi(k)" display-mode />
               <vue-latex :expression="'\\tau_1 =S(x)=\\text{' + formatWhole(NUMTHEORY.funcS()) + '}'" display-mode />
               <vue-latex :expression="'x = \\text{' + formatWhole(player.numbertheory.euler.x.floor()) + '}'" display-mode />					
-              <p style="font-size: 120%"><b>研究1加成：将数值增长乘以\tau_1</b></p>
+              <p style="font-size: 120%"><b>研究1加成：加法效果×<vue-latex expression="\tau_1" /></b></p>
             </div>
           <table align="center">
             <tbody>
