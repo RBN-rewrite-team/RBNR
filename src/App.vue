@@ -139,8 +139,9 @@ const validThemes = computed(() =>
 					</button>
 					<br><div class="center_line" />
 					<h3>主题</h3>
-					<button v-for="theme in validThemes" class="setting_button" @click="player.options.ui.theme = themes[themes[theme]]">
-						{{ themeDetailsMap.get(theme).name }}
+					<button v-for="theme in validThemes" class="setting_button" @click="player.options.ui.theme = theme">
+						{{ themeDetailsMap.get(theme)?.name ?? "unknown" }}
+            {{theme}}
 					</button>
 				</div>
 				<div class="main" v-if="player.currentTab === 2">
