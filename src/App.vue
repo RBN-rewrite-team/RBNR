@@ -265,7 +265,7 @@ const validNotations = computed(() =>
               <h4>研究 1： 欧拉函数</h4>
               <vue-latex expression="\varphi(n) = n \prod_{p | n} \left(1 - \frac{1}{p}\right)" display-mode />
               <vue-latex expression="S(x) = \sum_{k = 1}^{x} \varphi(k)" display-mode />
-              <vue-latex :expression="'\\tau_1 =S(x)=' + NUMTHEORY.funcS()" display-mode />
+              <vue-latex :expression="'\\tau_1 =S(x)=\\text{' + formatWhole(NUMTHEORY.funcS()) + '}'" display-mode />
               <vue-latex :expression="'x = \\text{' + formatWhole(player.numbertheory.euler.x.floor()) + '}'" display-mode />					
               <p style="font-size: 120%"><b>研究1加成：将数值增长乘以\tau_1</b></p>
             </div>
