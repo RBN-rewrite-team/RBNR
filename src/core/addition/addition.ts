@@ -204,7 +204,7 @@ export const Addition = {
 			},
 		});
 	},
-	addpower_gain(bulk = 1) {
+	addpower_gain(bulk = new Decimal(1)) {
 		let adding = this.gain().mul(bulk);
 		let softcap = feature.resourceGain.addpower().softcap;
 		if(softcap >= 1)
