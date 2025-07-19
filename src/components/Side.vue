@@ -59,7 +59,7 @@ import { player } from '@/core/save';
 							class="menu2"
 							:class="{ focus: player.currentTab == 6 }"
 							@click="player.currentTab = 6"
-							v-if="player.upgrades[34]"
+							v-if="player.upgrades[35]"
 						>
 							数论研究
 						</div>

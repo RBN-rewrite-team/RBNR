@@ -134,13 +134,14 @@ const validThemes = computed(() =>
 					<div class="hard_reset" @click="UIHardReset">硬重置</div>
 					<br><div class="center_line" />
 					<h3>记数法</h3>
-					<button v-for="notation in validNotations" class="setting_button" >
+					<button @click="player.options.notation = notation" v-for="notation in validNotations" class="setting_button" >
 					  {{ notationNamesMap.get(notation) }}
 					</button>
 					<br><div class="center_line" />
 					<h3>主题</h3>
-					<button v-for="theme in validThemes" class="setting_button" @click="player.options.ui.theme = themes[themes[theme]]">
-						{{ themeDetailsMap.get(theme).name }}
+					<button v-for="theme in validThemes" class="setting_button" @click="player.options.ui.theme = theme">
+						{{ themeDetailsMap.get(theme)?.name ?? "unknown" }}
+            {{theme}}
 					</button>
 				</div>
 				<div class="main" v-if="player.currentTab === 2">
@@ -167,7 +168,7 @@ const validThemes = computed(() =>
 									<TDUpgrade upgid="23" />
 									<TDUpgrade upgid="24" />
 								</tr>
-								<tr style="transform: translateY(160px)">
+                <tr>
 									<TDBuyable bylid="21" />
 									<TDUpgrade upgid="25" />
 									<TDUpgrade upgid="26" />
@@ -205,9 +206,15 @@ const validThemes = computed(() =>
 									<TDUpgrade upgid="33" />
 									<TDUpgrade upgid="34" />
 								</tr>
-								<tr style="transform: translateY(160px)">
+								<tr>
 									<TDUpgrade upgid="35" />
+									<TDUpgrade upgid="36" />
+									<TDUpgrade upgid="37" />
 								</tr>
+                <tr>
+                  <TDBuyable bylid="31" />
+                  <TDBuyable bylid="32" />
+                </tr>
 							</tbody>
 						</table>
 					</div>
@@ -244,7 +251,7 @@ const validThemes = computed(() =>
 									<TDBuyable bylid="pf5" />
 									<TDBuyable bylid="pf7" />
 								</tr>
-								<tr style="transform: translateY(160px)">
+								<tr>
 									<TDBuyable bylid="pf11" />
 									<TDBuyable bylid="pf13" />
 									<TDBuyable bylid="pf17" />
@@ -271,19 +278,20 @@ const validThemes = computed(() =>
 					</button>
 					<div style="transform: translateY(60px)">
 						<div align="center">
-              <h3>数论研究</h3>
-              <h4>研究 1： 欧拉函数</h4>
+              <h1>数论研究</h1>
+              <h2>研究 1： 欧拉函数</h2>
               <vue-latex expression="\varphi(n) = n \prod_{p | n} \left(1 - \frac{1}{p}\right)" display-mode />
               <vue-latex expression="S(x) = \sum_{k = 1}^{x} \varphi(k)" display-mode />
-              <vue-latex :expression="'\\tau_1 =S(x)=' + NUMTHEORY.funcS()" display-mode />
+              <vue-latex :expression="'\\tau_1 =S(x)=\\text{' + formatWhole(NUMTHEORY.funcS()) + '}'" display-mode />
               <vue-latex :expression="'x = \\text{' + formatWhole(player.numbertheory.euler.x.floor()) + '}'" display-mode />					
-              <p style="font-size: 120%"><b>研究1加成：将数值增长乘以\tau_1</b></p>
+              <p style="font-size: 120%"><b>研究1加成：加法效果×<vue-latex expression="\tau_1" /></b></p>
             </div>
           <table align="center">
             <tbody>
               <tr>
                 <TDBuyable bylid="31R" />
                 <TDBuyable bylid="32R" />
+                <TDUpgrade upgid="31R" />
               </tr>
             </tbody>
           </table>
@@ -304,3 +312,9 @@ const validThemes = computed(() =>
 		</div>
 	</div>
 </template>
+
+<style>
+tr {
+  height: 180px;
+}
+</style>
