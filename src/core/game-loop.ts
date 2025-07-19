@@ -24,6 +24,13 @@ export function gameLoop() {
 			feature.SUCCESSOR.success(bulk);
 		}
 	}
+	
+	if(player.upgrades[38])
+	{
+		let bulk = new Decimal(diff / 1000);
+		player.addpower = player.addpower.add(feature.ADDITION.passiveGain().mul(bulk));
+		player.totalAddpower = player.totalAddpower.add(feature.ADDITION.passiveGain().mul(bulk));
+	}
 
   
 

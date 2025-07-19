@@ -80,9 +80,11 @@ export const PrimeFactor = {
 	},
 	powerEff() {
 		let sec = player.multiplication.pfTime.div(1000);
+		let exp = new Decimal(0.99);
+		if(!player.buyables['33'].eq(0)) exp = exp.sub(buyables['33'].effect());
 		let base = this.power()
 			.root(2)
-			.pow(new Decimal(1).sub(new Decimal(0.99).pow(sec)));
+			.pow(new Decimal(1).sub(exp.pow(sec)));
 		return base;
 	},
 };

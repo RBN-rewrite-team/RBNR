@@ -69,7 +69,13 @@ const validThemes = computed(() =>
 						</div>
 					</div>
 					<div style="font-size: 17px; color: #5acaff">
-						(+{{ formatWhole(feature.ADDITION.gain()) }}) (!{{
+						<span v-if="!player.upgrades[38]">
+							(+{{ formatWhole(feature.ADDITION.gain()) }})
+						</span>
+						<span v-else>	
+							(+{{ formatWhole(feature.ADDITION.passiveGain()) }}/s)
+						</span>
+						(!{{
 							formatWhole(player.totalAddpower)
 						}})
 					</div>
@@ -168,7 +174,7 @@ const validThemes = computed(() =>
 									<TDUpgrade upgid="23" />
 									<TDUpgrade upgid="24" />
 								</tr>
-                <tr>
+								<tr>
 									<TDBuyable bylid="21" />
 									<TDUpgrade upgid="25" />
 									<TDUpgrade upgid="26" />
@@ -210,11 +216,14 @@ const validThemes = computed(() =>
 									<TDUpgrade upgid="35" />
 									<TDUpgrade upgid="36" />
 									<TDUpgrade upgid="37" />
+									<TDUpgrade upgid="38" />
 								</tr>
-                <tr>
-                  <TDBuyable bylid="31" />
-                  <TDBuyable bylid="32" />
-                </tr>
+								<tr>
+									<TDUpgrade upgid="39" />
+									<TDBuyable bylid="31" />
+									<TDBuyable bylid="32" />
+									<TDBuyable bylid="33" />
+								</tr>
 							</tbody>
 						</table>
 					</div>
