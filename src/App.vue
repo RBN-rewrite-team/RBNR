@@ -4,7 +4,7 @@ import Decimal from 'break_eternity.js';
 import { format, formatWhole, formatGain, formatLaTeX, formatLaTeXWhole, notations, notationNamesMap } from '@/utils/format';
 import { themes, themeDetailsMap, reverseUiOptions } from '@/utils/themes';
 import { player, feature } from './core/global.ts';
-import { UPGRADES, BUYABLES } from './core/mechanic.ts';
+import { UPGRADES, BUYABLES, buyables } from './core/mechanic.ts';
 
 import Side from './components/Side.vue';
 import NewsTicker from './components/Newsticker.vue';
@@ -22,6 +22,9 @@ const validNotations = computed(() =>
 const validThemes = computed(() =>
 	Object.values(themes).filter(v => typeof v == 'number')
 );
+
+let pflist = ['2', '3', '5', '7', '11', '13', '17', '19'];
+
 </script>
 
 <template>
@@ -275,7 +278,11 @@ const validThemes = computed(() =>
 						<div align="center">
 							你有<span style="color: #cc33ff; font-weight: bold"
 								>x{{ formatWhole(feature.PrimeFactor.power()) }}</span
-							>因数能量 <br />基于本次乘法重置耗时提供<span
+							>因数能量<br />
+							(<span v-for="pf in pflist" >
+							  <span style="color: #cc33ff; font-weight: bold">{{ pf }}<sup>{{ player.buyables["pf" + pf].add(buyables["pf" + pf].more()) }}</sup></span><span v-if="pf != 19"> × </span>
+							</span>)<br>
+							基于本次乘法重置耗时提供<span
 								style="color: #cc33ff; font-weight: bold"
 								>x{{ format(feature.PrimeFactor.powerEff()) }}</span
 							>数值和加法能量增益
@@ -321,6 +328,7 @@ const validThemes = computed(() =>
               <vue-latex expression="S(x) = \sum_{k = 1}^{x} \varphi(k)" display-mode />
               <vue-latex :expression="'\\tau_1 =S(x)=' + formatLaTeXWhole(NUMTHEORY.funcS())" display-mode />
               <vue-latex :expression="'x = ' + formatLaTeXWhole(player.numbertheory.euler.x.floor())" display-mode />					
+              <vue-latex :expression="'\\dot{x} = ' + formatLaTeX(NUMTHEORY.varXgain())" display-mode />             					
               <p style="font-size: 120%"><b>研究1加成：加法效果×<vue-latex expression="\tau_1" /></b></p>
             </div>
           <table align="center">
