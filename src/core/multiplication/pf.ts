@@ -17,7 +17,7 @@ export const PrimeFactor = {
 				n: Number(i),
 				currency: '乘法能量',
 
-				description: '质因数' + pf + ',倍增因数能量',
+				description: '因数能量×'+pf,
         more() {
           if (player.upgrades[36] && Number(i) !== pflist.length-1) {
             return player.buyables["pf"+pflist[Number(i)+1]].div(2).floor()
