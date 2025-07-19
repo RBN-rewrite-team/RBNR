@@ -181,6 +181,13 @@ const validThemes = computed(() =>
 								</tr>
 							</tbody>
 						</table>
+            <div align="center" v-if="player.upgrades[31]" style="transform: translateY(65px);">
+              你可以选择将U1-2, U1-3, U1-4, U1-5中的一个升级，将其的价格降为1，但会进行一次乘法重置。<br>
+              <button @click="feature.ADDITION.setUPGc1(2)">2</button>
+              <button @click="feature.ADDITION.setUPGc1(3)">3</button>
+              <button @click="feature.ADDITION.setUPGc1(4)">4</button>
+              <button @click="feature.ADDITION.setUPGc1(5)">5</button>
+            </div>
 					</div>
 				</div>
 				<div class="main" v-if="player.currentTab == 4">
