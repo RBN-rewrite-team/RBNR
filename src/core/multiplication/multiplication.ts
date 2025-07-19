@@ -194,9 +194,9 @@ export const Multiplication = {
 		});
 		UPGRADES.create('39', {
 			description: '解锁乘法挑战',
-      displayName: "U2-9",
+			displayName: "U2-9",
 			currency: '乘法能量',
-			cost: new Decimal(1e6),
+			cost: new Decimal(1e21),
 			canAfford() {
 				return player.multiplication.mulpower.gte(this.cost);
 			},
@@ -206,8 +206,8 @@ export const Multiplication = {
 			get requirement() {
 				return [
 					[
-						'获得1,000,000乘法能量',
-						() => player.multiplication.totalMulpower.gte(1000000),
+						'获得1.00e21乘法能量',
+						() => player.multiplication.totalMulpower.gte(1e21),
 					] as singleReq,
 				];
 			},

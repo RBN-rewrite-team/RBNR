@@ -10,6 +10,8 @@ export let diff = 0;
 
 export function gameLoop() {
 	diff = Date.now() - player.lastUpdated;
+	
+	diff *= 10;
 
 	player.lastUpdated = Date.now();
 	
@@ -27,12 +29,9 @@ export function gameLoop() {
 	
 	if(player.upgrades[38])
 	{
-		let bulk = new Decimal(diff / 1000);
-		player.addpower = player.addpower.add(feature.ADDITION.passiveGain().mul(bulk));
-		player.totalAddpower = player.totalAddpower.add(feature.ADDITION.passiveGain().mul(bulk));
+		let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.addpower().passive);
+		feature.ADDITION.addpower_gain(bulk);
 	}
-
-  
 
 	for (let i in upgrades) {
 		if (upgrades[i].keep != null && upgrades[i].keep()) {
