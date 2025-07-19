@@ -56,7 +56,7 @@ export const UPGRADES = {
 			'<span sytle="font-weight: bold">' +
 			(upgrades[id].displayName ?? 'U' + id) +
 			'</span><br>';
-		if (!this.lock(id).unlocked && !permanent) {
+		if (!this.lock(id).unlocked && !permanent && !player.upgrades[id]) {
 			str += '暂未解锁<br>';
 			let req = upgrades[id].requirement;
 			for (let j in req) {
@@ -136,7 +136,7 @@ export const BUYABLES = {
 					})()
 				: '') +
 			')</span><br>';
-		if (!this.lock(id).unlocked) {
+		if (!this.lock(id).unlocked && player.buyables[id].eq(0)) {
 			str += '暂未解锁<br>';
 			let req = buyables[id].requirement;
 			let first = true;

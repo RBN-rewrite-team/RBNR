@@ -226,6 +226,12 @@ export const Addition = {
     if (player.buyables[31].gt(0)) base = base.mul(buyables[31].effect(player.buyables[31]))
 		return base;
 	},
+	passiveGain() {
+		let gain = this.gain();
+		let multiply = new Decimal(0.01);
+		let base = gain.mul(multiply);
+		return base;
+	},
 	U25effect() {
 		if (!player.upgrades[25]) return new Decimal(0);
 		return upgrades[25]?.effect?.() ?? new Decimal(0);

@@ -2,8 +2,9 @@ import Decimal from 'break_eternity.js';
 import { buyables, BUYABLES, upgrades, UPGRADES, type singleReq } from '../mechanic';
 import { player } from '../save';
 import ModalService from '@/utils/Modal';
-import { formatWhole } from '@/utils/format';
+import { format, formatWhole } from '@/utils/format';
 import { Addition } from '../addition/addition.ts';
+import { PrimeFactor } from './pf.ts';
 
 export const Multiplication = {
 	initMechanics() {
@@ -146,8 +147,54 @@ export const Multiplication = {
 			},
 		});
 		UPGRADES.create('37', {
+			description: '乘法重置保留加法升级',
+			displayName: "U2-7",
+			currency: '乘法能量',
+			cost: new Decimal(1000),
+			canAfford() {
+				return player.multiplication.mulpower.gte(this.cost);
+			},
+			buy() {
+				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost);
+			},
+			get requirement() {
+				return [
+					[
+						'获得1,000乘法能量',
+						() => player.multiplication.totalMulpower.gte(1000),
+					] as singleReq,
+				];
+			},
+			show: function () {
+				return true;
+			},
+		});
+		UPGRADES.create('38', {
+			description: '每秒自动获取重置获取加法能量的1%',
+			displayName: "U2-8",
+			currency: '乘法能量',
+			cost: new Decimal(10000),
+			canAfford() {
+				return player.multiplication.mulpower.gte(this.cost);
+			},
+			buy() {
+				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost);
+			},
+			get requirement() {
+				return [
+					[
+						'获得10,000乘法能量',
+						() => player.multiplication.totalMulpower.gte(10000),
+					] as singleReq,
+				];
+			},
+			show: function () {
+				return true;
+			},
+		});
+		UPGRADES.create('39', {
 			description: '解锁乘法挑战',
-      displayName: "U2-7",
+      displayName: "U2-9",
 			currency: '乘法能量',
 			cost: new Decimal(1e6),
 			canAfford() {
@@ -176,7 +223,7 @@ export const Multiplication = {
         return x.mul(0.5).add(1);
 			},
 			effD(x) {
-				return '*' + formatWhole(this.effect(x));
+				return '*' + format(this.effect(x));
 			},
 			cost(x) {
 				let a = x.mul(1000).add(10);
@@ -231,6 +278,43 @@ export const Multiplication = {
 				return true;
 			},
 		});
+		BUYABLES.create('33', {
+			description: '质因数公式变得更好',
+			displayName: 'B2-3',
+			currency: '乘法能量',
+			effect(x){
+				return new Decimal(0.01).mul(x);
+			},
+			effD(x){
+				return format(this.effect(x));
+			},
+			cost(x) {
+				let a = new Decimal(15).pow(x.add(1));
+				return a;
+			},
+			canAfford(x) {
+				return player.multiplication.mulpower.gte(this.cost(x));
+			},
+			buy(x) {
+				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost(x));
+			},
+			capped() {
+				let capc = 99;
+				return player.buyables['33'].gte(capc);
+			},
+			get requirement() {
+				return [
+					[
+						'获得10000因数能量',
+						() => PrimeFactor.power().gte(10000),
+						[formatWhole(PrimeFactor.power()), formatWhole(10000)],
+					] as singleReq,
+				];
+			},
+			show: function () {
+				return true;
+			},
+		});
 	},
 	powerEff() {
 		let base = player.multiplication.totalMulpower.add(1);
@@ -245,7 +329,7 @@ export const Multiplication = {
 			let reset_upgrades: Array<keyof typeof player.upgrades> = [21, 22, 23, 24, 25].map(
 				(x) => x.toString() as keyof typeof player.upgrades,
 			);
-			for (let i in reset_upgrades) player.upgrades[reset_upgrades[i]] = false;
+			if(!player.upgrades[37]) for (let i in reset_upgrades) player.upgrades[reset_upgrades[i]] = false;
 			if (!player.upgrades[33]) player.buyables[21] = new Decimal(0);
 			player.multiplication.pfTime = new Decimal(0);
 			Addition.reset();
