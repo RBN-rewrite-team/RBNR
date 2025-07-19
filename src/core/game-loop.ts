@@ -10,8 +10,6 @@ export let diff = 0;
 
 export function gameLoop() {
 	diff = Date.now() - player.lastUpdated;
-	
-	diff *= 10;
 
 	player.lastUpdated = Date.now();
 	
