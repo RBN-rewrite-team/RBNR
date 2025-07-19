@@ -215,6 +215,7 @@ export const Addition = {
 		}
 		player.addpower = player.addpower.add(adding);
 		player.totalAddpower = player.totalAddpower.add(adding);
+		player.stat.totalAddpower = player.stat.totalAddpower.add(adding);
 	},
 	reset() {
 		if (this.gain().gt(0)) {

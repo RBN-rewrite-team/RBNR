@@ -50,6 +50,14 @@ export interface Player {
 		titlebar: boolean;
 	  };
 	};
+  stat: {
+    totalNumber: Decimal;
+    highestNumber: Decimal;
+    totalMulpower: Decimal;
+    highestMulpower: Decimal;
+    totalAddpower: Decimal;
+    hightestAddpower: Decimal;
+  };
 }
 function getInitialPlayerData(): Player {
 	return {
@@ -127,7 +135,15 @@ function getInitialPlayerData(): Player {
 			newsbar: true,
 			titlebar: true,
 		  },
-		}
+		},
+    stat: {
+      totalNumber: zero,
+      highestNumber: zero,
+      totalMulpower: zero,
+      highestMulpower: zero,
+      totalAddpower: zero,
+      hightestAddpower: zero
+    }
 	};
 }
 
