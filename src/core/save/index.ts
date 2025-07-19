@@ -200,3 +200,35 @@ export function hardReset() {
 	save();
 	location.reload();
 }
+
+export function import_file(): void {
+  let a = document.createElement('input')
+  a.setAttribute('type', 'file')
+  a.setAttribute('accept', 'text/plain')
+  a.click()
+  a.onchange = () => {
+    let fr = new FileReader()
+    if (a.files == null) return void alert('未选择文件')
+    fr.onload = () => {
+      let save = fr.result
+      try {
+        loadFromString(save)
+      } catch (e) {
+        console.error('Cannot import save');
+      }
+    }
+    fr.readAsText(a.files[0])
+  }
+}
+
+export function export_file(): void {
+  let str = saveSerializer.serialize(player)
+  let file = new Blob([str], {
+    type: 'text/plain',
+  })
+  window.URL = window.URL || window.webkitURL
+  let a = document.createElement('a')
+  a.href = window.URL.createObjectURL(file)
+  a.download = 'Road of Big Number Rewritten Save - ' + getCurrentBeijingTime() + '.txt'
+  a.click()
+}
