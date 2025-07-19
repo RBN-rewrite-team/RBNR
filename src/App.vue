@@ -227,7 +227,7 @@ const validThemes = computed(() =>
 					<div style="transform: translateY(60px)">
 						<div align="center" v-if="player.firstResetBit & 0b10">
 							累计乘法能量提供了<span style="color: #cc33ff; font-weight: bold"
-								>x{{ feature.MULTIPLICATION.powerEff() }}</span
+								>x{{ format(feature.MULTIPLICATION.powerEff()) }}</span
 							>数值增益
 						</div>
 						<table align="center">
