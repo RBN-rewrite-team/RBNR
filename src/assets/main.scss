@@ -287,6 +287,7 @@ body {
 	position: relative;
 	display: block;
 	width: fit-content;
+	min-width: 36px;
 	height: 36px;
 	padding: 0px 5px;
 	background-color: var(--background-color);
