@@ -68,7 +68,7 @@ export const themeDetailsMap = new Map([
 			'--hover-color': '#0099cc',
 		} as const,
 		other: {
-			filter: 'hue-rotate(15deg) brightness(1.2) contrast(0.9)',
+			filter: 'hue-rotate(15deg) brightness(0.8) contrast(0.9)',
 		} as const
 	}],
 ]);
@@ -77,7 +77,7 @@ const root = document.documentElement;
 
 export function updateTheme(){
 	let theme = themeDetailsMap.get(player.options.ui.theme);
-  if (!theme) return;
+	if(!theme) return;
 	let ordinary = theme.ordinary;
 	for(let i in ordinary)
 	{
@@ -89,4 +89,12 @@ export function updateTheme(){
 		root.style.filter = other.filter;
 	}
 	else root.style.filter = '';
+	if(player.options.ui.otherwise['color_inversion']) root.style.filter += ' hue-rotate(180deg)';
+	if(player.options.ui.otherwise['full_gray']) root.style.filter += ' grayscale(100%)';
+	if(player.options.ui.otherwise['blur']) root.style.filter += ' blur(5px)';
+	if(player.options.ui.otherwise['sepia']) root.style.filter += ' sepia(100%) brightness(0.8)';
+}
+
+export function reverseUiOptions(x){
+	player.options.ui.otherwise[x] = !player.options.ui.otherwise[x];
 }

@@ -4,7 +4,7 @@ import { player } from '@/core/save';
 
 <template>
 	<div class="side">
-		<div class="title_box">
+		<div class="title_box" v-if="player.options.ui.titlebar">
 			<div class="background">
 				<div class="title">
 					<div style="font-size: 24px; color: var(--color); text-shadow: var(--title-color) 1px 1px 2px">

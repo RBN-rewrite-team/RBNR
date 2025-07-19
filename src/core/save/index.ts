@@ -43,6 +43,11 @@ export interface Player {
 	  notation: notations;
 	  ui: {
 		theme: themes;
+		otherwise: {
+			[key: string]: boolean;
+		};
+		newsbar: boolean;
+		titlebar: boolean;
 	  };
 	};
 }
@@ -113,6 +118,14 @@ function getInitialPlayerData(): Player {
 		  notation: notations.SCIENTIFIC,
 		  ui: {
 			theme: themes.CLASSIC,
+			otherwise: {
+				'color_inversion': false,
+				'full_gray': false,
+				'blur': false,
+				'sepia': false,
+			},
+			newsbar: true,
+			titlebar: true,
 		  },
 		}
 	};
