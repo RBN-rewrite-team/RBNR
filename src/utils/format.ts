@@ -26,10 +26,10 @@ export enum notations {
   BASE_PHI,
   BASE_E,
   BASE_PI,
-  OMEGA_META_ZERO,
   FGH,
   HH,
-  OMEGA
+  OMEGA,
+  POWEROF1
 }
 
 export const notationNamesMap = new Map([
@@ -49,16 +49,16 @@ export const notationNamesMap = new Map([
   [notations.HEXADECIMAL, "十六进制计数法"],
   [notations.BASE36, "三十六进制计数法"],
   [notations.BASE62, "六十二进制计数法"],
-  [notations.BALANCED_TERNARY, "平滑三进制计数法"],
+  [notations.BALANCED_TERNARY, "平衡三进制计数法"],
   [notations.BIJECTIVE_DECIMAL, "双射十进制计数法"],
   [notations.BASE_THREE_HALVES, "1.5进制计数法"],
   [notations.BASE_PHI, "Φ进制计数法"],
   [notations.BASE_E, "e进制计数法"],
   [notations.BASE_PI, "π进制计数法"],
-  [notations.OMEGA_META_ZERO, "Omega Meta Zero"],
   [notations.FGH, "快速增长层级"],
   [notations.HH, "Hardy层级"],
   [notations.OMEGA, "欧米伽记数法"],
+  [notations.POWEROF1, "1的指数"],
 ])
 
 function exponentialFormat(num: Decimal, precision: number, mantissa = true): string {
@@ -125,8 +125,8 @@ export function format(decimal: DecimalSource, precision = 4): string {
       return precision == 0 ? BalancedTernary.format(decimal) : BalancedTernaryWhole.format(decimal)
     case notations.BIJECTIVE_DECIMAL:
       return BijectiveDecimal.format(decimal)
-    case notations.OMEGA_META_ZERO:
-      return OmegaMetaZero.format(decimal)
+    // case notations.OMEGA_META_ZERO:
+    //  return OmegaMetaZero.format(decimal)
     case notations.FGH:
       return FastGrowingHierarchy.format(decimal)
     case notations.HH:
@@ -141,6 +141,8 @@ export function format(decimal: DecimalSource, precision = 4): string {
       return BaseE.format(decimal)
     case notations.OMEGA:
       return Omega.format(decimal)
+    case notations.POWEROF1:
+      return 1 .toFixed(precision)
   }
   decimal = new Decimal(decimal)
   if (decimal.sign < 0) return '-' + format(decimal.neg(), precision)
@@ -256,6 +258,29 @@ export function formatWhole(decimal: DecimalSource): string {
   return format(decimal, 0)
 }
 
+export function formatLaTeX(decimal: DecimalSource) {
+  switch (player.options.notation) {
+    case notations.FGH:
+      return FGHLatex.format(decimal)
+    case notations.HH:
+      return HHLatex.format(decimal)
+    case notations.OMEGA:
+      return OmegaLaTex.format(decimal)
+    default: return "\\text{" + format(decimal) + "}"
+  }
+}
+
+export function formatLaTeXWhole(decimal: DecimalSource) {
+  switch (player.options.notation) {
+    case notations.FGH:
+      return FGHLatex.format(decimal)
+    case notations.HH:
+      return HHLatex.format(decimal)
+    case notations.OMEGA:
+      return OmegaLaTex.format(decimal)
+    default: return "\\text{" + formatWhole(decimal) + "}"
+  }
+}
 // https://github.com/MathCookie17/Eternal-Notations/blob/main/src/notations/physicalScale.ts
 
 function toDecimal(value: DecimalSource): Decimal {
@@ -3795,98 +3820,164 @@ export class HyperscientificNotation extends Notation {
 
   }
 
-let OMZPlain = new OmegaMetaZeroNotation(
-  [
-    [
-      'α',
-      'β',
-      'γ',
-      'δ',
-      'ε',
-      'ζ',
-      'η',
-      'θ',
-      'ι',
-      'κ',
-      'λ',
-      'μ',
-      'ν',
-      'ξ',
-      'ο',
-      'π',
-      'ρ',
-      'σ',
-      'τ',
-      'υ',
-      'φ',
-      'χ',
-      'ψ',
-      'ω',
-      'Α',
-      'Β',
-      'Γ',
-      'Δ',
-      'Ε',
-      'Ζ',
-      'Η',
-      'Θ',
-      'Ι',
-      'Κ',
-      'Λ',
-      'Μ',
-      'Ν',
-      'Ξ',
-      'Ο',
-      'Π',
-      'Ρ',
-      'Σ',
-      'Τ',
-      'Υ',
-      'Φ',
-      'Χ',
-      'Ψ',
-      'Ω',
-    ],
-    ['ϝ', 'ϛ', 'ͱ', 'ϻ', 'ϙ', 'ͳ', 'ϸ'],
-    ['☿', '♀', '♁', '♂', '♃', '♄', '♅', '♆', '♇'],
-  ],
-  5,
-  [false],
-  5,
-  [
-    ['((Ω^)^', ')', false, new DefaultNotation()],
-    ['((ϸ^)^', ')', false, new DefaultNotation()],
-    ['((♇^)^', ')', false, new DefaultNotation()],
-  ],
-)
-
-let OMZPlain2 = new ConditionalNotation(
-  false,
-  [OMZPlain, (value) => value.lte('eeee9e15')],
-  [
-    new HyperscientificNotation(
-      Infinity,
-      ...[, , ,],
-      Decimal.slog('9e15', 10, true).sub(1),
-      ...[, ,],
-      [
-        ['<|', '|>:'],
-        ['<|', '|>:'],
-        ['<<', '>>'],
-      ],
-      undefined,
-      true,
-      false,
-      false,
-      ...[, ,],
-      OMZPlain,
-    ),
-    (value) => true,
-  ],
-).setName('Omega Meta Zero')
-
-const OmegaMetaZero = recipBelow(OMZPlain2, 1, ['/', '']).setName('Omega Meta Zero')
-
+// let OMZPlain = new OmegaMetaZeroNotation(
+//   [
+//     [
+//       'α',
+//       'β',
+//       'γ',
+//       'δ',
+//       'ε',
+//       'ζ',
+//       'η',
+//       'θ',
+//       'ι',
+//       'κ',
+//       'λ',
+//       'μ',
+//       'ν',
+//       'ξ',
+//       'ο',
+//       'π',
+//       'ρ',
+//       'σ',
+//       'τ',
+//       'υ',
+//       'φ',
+//       'χ',
+//       'ψ',
+//       'ω',
+//       'Α',
+//       'Β',
+//       'Γ',
+//       'Δ',
+//       'Ε',
+//       'Ζ',
+//       'Η',
+//       'Θ',
+//       'Ι',
+//       'Κ',
+//       'Λ',
+//       'Μ',
+//       'Ν',
+//       'Ξ',
+//       'Ο',
+//       'Π',
+//       'Ρ',
+//       'Σ',
+//       'Τ',
+//       'Υ',
+//       'Φ',
+//       'Χ',
+//       'Ψ',
+//       'Ω',
+//     ],
+//     ['ϝ', 'ϛ', 'ͱ', 'ϻ', 'ϙ', 'ͳ', 'ϸ'],
+//     ['☿', '♀', '♁', '♂', '♃', '♄', '♅', '♆', '♇'],
+//   ],
+//   5,
+//   [false],
+//   5,
+//   [
+//     ['((Ω^)^', ')', false, new DefaultNotation()],
+//     ['((ϸ^)^', ')', false, new DefaultNotation()],
+//     ['((♇^)^', ')', false, new DefaultNotation()],
+//   ],
+// )
+// 
+// let OMZPlain2 = new ConditionalNotation(
+//   false,
+//   [OMZPlain, (value) => value.lte('eeee9e15')],
+//   [
+//     new HyperscientificNotation(
+//       Infinity,
+//       ...[, , ,],
+//       Decimal.slog('9e15', 10, true).sub(1),
+//       ...[, ,],
+//       [
+//         ['<|', '|>:'],
+//         ['<|', '|>:'],
+//         ['<<', '>>'],
+//       ],
+//       undefined,
+//       true,
+//       false,
+//       false,
+//       ...[, ,],
+//       OMZPlain,
+//     ),
+//     (value) => true,
+//   ],
+// ).setName('Omega Meta Zero')
+// 
+// let OMZLatex = new OmegaMetaZeroNotation(
+//   [
+//     [
+//       '\\alpha',
+//       '\\beta',
+//       '\\gamma',
+//       '\\delta',
+//       '\\varepsilon',
+//       '\\zeta',
+//       '\\eta',
+//       '\\theta',
+//       '\\iota',
+//       '\\kappa',
+//       '\\lambda',
+//       '\\mu',
+//       '\\nu',
+//       '\\xi',
+//       '\\omicron',
+//       '\\pi',
+//       '\\rho',
+//       '\\sigma',
+//       '\\tau',
+//       '\\upsilon',
+//       '\\phi',
+//       '\\chi',
+//       '\\psi',
+//       '\\omega',
+//       'A',
+//       'B',
+//       '\\Gamma',
+//       '\\Delta',
+//       'E',
+//       'Z',
+//       'H',
+//       '\\Theta',
+//       'I',
+//       'K',
+//       '\\Lambda',
+//       'M',
+//       'N',
+//       '\\Xi',
+//       'O',
+//       '\\Pi',
+//       'P',
+//       '\\Sigma',
+//       'T',
+//       '\\Upsilon',
+//       '\\Phi',
+//       'X',
+//       '\\Psi',
+//       '\\Omega',
+//     ],
+//     ['\\digamma', 'ϛ', 'ͱ', 'ϻ', 'ϙ', 'ͳ', 'ϸ'],
+//     ['☿', '♀', '♁', '♂', '♃', '♄', '♅', '♆', '♇'],
+//   ],
+//   5,
+//   [false],
+//   5,
+//   [
+//     ['((Ω^)^', ')', false, new DefaultNotation()],
+//     ['((ϸ^)^', ')', false, new DefaultNotation()],
+//     ['((♇^)^', ')', false, new DefaultNotation()],
+//   ],
+// )
+// 
+// const OmegaMetaZero = recipBelow(OMZPlain2, 1, ['/', '']).setName('Omega Meta Zero')
+// 
+// 
 
 /**
  * f0(n) in the Fast-Growing Hierarchy. This is the successor function, f0(n) = n + 1.
@@ -4623,6 +4714,10 @@ export class FastGrowingHierarchyNotation extends Notation {
 
 const FastGrowingHierarchy = recipBelow(new FastGrowingHierarchyNotation(...[,,,,,,,], 1e-4), 1).setName("Fast-Growing Hierarchy");
 const HardyHierarchy = recipBelow(new FastGrowingHierarchyNotation([1, 10, 5120, "(e^9)1544.461457532905"], [["", ""], ["ω + ", ""], ["ω^2 + ", ""], ["ω^3 + ", ""]], 1, [["", "", ""], ["ω", " + ", ""], ["ω^2*", " + ", ""], ["ω^3*", " + ", ""]], [false], ["H[", "", false], ["](", ")", false], 1e-4, ...[,,,], [new DefaultNotation(), new DefaultNotation()], [value => true, value => value.gt(0)]), 1).setName("Hardy Hierarchy");
+
+const FGHLatex = recipBelow(new FastGrowingHierarchyNotation(undefined, [["f_0(", ")"], ["f_1(", ")"], ["f_2(", ")"], ["f_3(", ")"], ["f_4(", ")"]], ...[,,,,,], 1e-4), 1).setName("Fast-Growing Hierarchy");
+const HHLatex = recipBelow(new FastGrowingHierarchyNotation([1, 10, 5120, "(e^9)1544.461457532905"], undefined, -1, [["", "", ""], ["\\omega", "+", ""], ["\\omega^2", "+", ""], ["\\omega^3", "+", ""]], [false], ["H_{", "", false], ["}(", ")", false], 1e-4, ...[,,,], [new DefaultNotation(), new ConditionalNotation(true, [new PredeterminedNotation(""), value => value.lte(1)], [new DefaultNotation(), value => true])], [value => true, value => value.gt(0)]), 1).setName("Hardy Hierarchy")
+
 
     /**
      * The progression of this notation is similar to Default notation: unabbreviated, then scientific, then hyperscientific. However, this notation is not itself a default: instead, it lets you customize the process.
@@ -6531,6 +6626,30 @@ const Omega = new IncreasingOperatorNotation(
         [7000, "ω<", ">", "", "", (value) => true, new DefaultNotation(0, 0)],
     ], undefined, [], undefined, new DefaultNotation(0, 0), new DefaultNotation(0, 0), 1, ["Ʊ(", ")"]
 ).setNotationGlobals(undefined, "Ω").setName("Omega")
+const OmegaLaTex = new IncreasingOperatorNotation(
+    8000,
+    [8000, Infinity, Infinity, 0, Infinity, 0],
+    [
+        [["\\omega^{", "}"], ["\\omega^{", "}"], ["", ""], ["\\omega(", ")\\text{\\char`\\^}"]],
+        [["\\omega(", ")"], ["\\omega(", ")"], ["(", ")"], ["\\omega[", "]"]],
+        [["", ""], ["", ""], ["", ""], ["", ""]],
+        [["\\omega[", "]"], ["\\omega[", "]"], ["[", "]"], ["\\omega{", "}"]]
+    ], 
+    [
+        [0, 8000, 3, 10, 5],
+        [0, 8000, 0, 100, 5]
+    ], null, null, undefined,
+    [
+        [0, "\\beta_{", "}", "", "", (value) => true, new DefaultNotation(0, 0)],
+        [1000, "\\zeta_{", "}", "", "", (value) => true, new DefaultNotation(0, 0)],
+        [2000, "\\lambda_{", "}", "", "", (value) => true, new DefaultNotation(0, 0)],
+        [3000, "\\psi_{", "}", "", "", (value) => true, new DefaultNotation(0, 0)],
+        [4000, "\\Sigma_{", "}", "", "", (value) => true, new DefaultNotation(0, 0)],
+        [5000, "\\Theta_{", "}", "", "", (value) => true, new DefaultNotation(0, 0)],
+        [6000, "\\Psi_{", "}", "", "", (value) => true, new DefaultNotation(0, 0)],
+        [7000, "\\omega_{", "}", "", "", (value) => true, new DefaultNotation(0, 0)],
+    ], undefined, [], undefined, new DefaultNotation(0, 0), new DefaultNotation(0, 0), 1, ["Ʊ(", ")"]
+).setNotationGlobals(undefined, "\\Omega").setName("Omega")
 
   /**
    * Scientific notation. Abbreviates 9 as "9e0" and 10^50 as "1e50". For larger numbers, switches to abbreviations like "e1e17" and eventually "(e^7)1e6", similarly to break_eternity's default toString.
