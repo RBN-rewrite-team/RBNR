@@ -2,7 +2,7 @@
 import { computed } from "vue";
 import Decimal from 'break_eternity.js';
 import { format, formatWhole, formatGain, formatLaTeX, formatLaTeXWhole, notations, notationNamesMap } from '@/utils/format';
-import { themes, themeDetailsMap } from '@/utils/themes';
+import { themes, themeDetailsMap, reverseUiOptions } from '@/utils/themes';
 import { player, feature, getNumberGen } from './core/global.ts';
 import { UPGRADES, BUYABLES } from './core/mechanic.ts';
 
