@@ -73,7 +73,7 @@ const validThemes = computed(() =>
 							(+{{ formatWhole(feature.ADDITION.gain()) }})
 						</span>
 						<span v-else>	
-							(+{{ formatWhole(feature.ADDITION.passiveGain()) }}/s)
+					    {{ formatGain(player.addpower, feature.ADDITION.passiveGain()) }}
 						</span>
 						(!{{
 							formatWhole(player.totalAddpower)
