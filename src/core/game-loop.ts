@@ -8,6 +8,11 @@ import {updateTheme} from '@/utils/themes';
 
 export let diff = 0;
 
+export function updateHighestStat() {
+  player.stat.highestNumber = player.stat.highestNumber.max(player.number);
+  player.stat.highestMulpower = player.stat.highestMulpower.max(player.multiplication.mulpower);
+  player.stat.hightestAddpower = player.stat.hightestAddpower.max(player.addpower);
+}
 export function gameLoop() {
 	diff = Date.now() - player.lastUpdated;
 
@@ -39,5 +44,7 @@ export function gameLoop() {
 	if (player.firstResetBit & 0b10) {
 		player.multiplication.pfTime = player.multiplication.pfTime.add(diff);
     player.numbertheory.euler.x = player.numbertheory.euler.x.add(NUMTHEORY.varXgain().mul(diff).mul(1e-3));
-	}
+  }
+
+  updateHighestStat()
 }

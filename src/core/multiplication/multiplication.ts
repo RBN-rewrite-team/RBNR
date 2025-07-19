@@ -326,6 +326,9 @@ export const Multiplication = {
 			player.multiplication.totalMulpower = player.multiplication.totalMulpower.add(
 				this.gain(),
 			);
+			player.stat.totalMulpower = player.stat.totalMulpower.add(
+        this.gain(),
+      );
 			let reset_upgrades: Array<keyof typeof player.upgrades> = [21, 22, 23, 24, 25].map(
 				(x) => x.toString() as keyof typeof player.upgrades,
 			);

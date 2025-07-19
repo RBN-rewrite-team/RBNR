@@ -80,6 +80,13 @@ import { player } from '@/core/save';
 					>
 						关于游戏
 					</div>
+					<div
+						class="menu2"
+						:class="{ focus: player.currentTab == 7 }"
+						@click="player.currentTab = 7"
+					>
+					 统计	
+					</div>
 				</div>
 			</div>
 		</div>

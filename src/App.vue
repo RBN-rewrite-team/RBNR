@@ -334,6 +334,14 @@ const validThemes = computed(() =>
           </table>
 					</div>
 				</div>
+        <div class="main" v-if="player.currentTab == 7">
+          <p>你最高的数字是: {{format(player.stat.highestNumber)}}</p>
+          <p>你最高的加法能量是: {{format(player.stat.hightestAddpower)}}</p>
+          <p>你最高的乘法能量是: {{format(player.stat.highestMulpower)}}</p>
+          <p>你产生了 {{format(player.stat.totalNumber)}} 数字</p>
+          <p>你产生了 {{format(player.stat.totalAddpower)}} 加法能量</p>
+          <p>你产生了 {{format(player.stat.totalMulpower)}} 乘法能量</p>
+        </div>
 				<div class="main" v-if="player.currentTab === 3">
 					<h1>大数之路重制版</h1>
 					版本: v0.1.1<br />
