@@ -37,6 +37,7 @@ export interface Player {
 		mulpower: Decimal;
 		totalMulpower: Decimal;
 		pfTime: Decimal;
+    B1seriesC1: 0|2|3|4|5;
 	};
 	options: {
 	  notation: notations;
@@ -103,6 +104,7 @@ function getInitialPlayerData(): Player {
 			mulpower: zero,
 			totalMulpower: zero,
 			pfTime: zero,
+      B1seriesC1: 0,
 		},
 		options: {
 		  notation: notations.SCIENTIFIC,

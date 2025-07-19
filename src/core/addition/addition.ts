@@ -10,7 +10,9 @@ export const Addition = {
 		UPGRADES.create('21', {
 			description: 'U1系列升级购买数量同样作用于U12的效果',
 			currency: '加法能量',
-			cost: new Decimal(1),
+      get cost() {
+        return new Decimal(1)
+      },
 			displayName: 'U1-1',
 			canAfford() {
 				return player.addpower.gte(this.cost);
@@ -28,8 +30,11 @@ export const Addition = {
 		UPGRADES.create('22', {
 			description: '后继批量提高到4倍',
 			currency: '加法能量',
-			cost: new Decimal(5),
-			displayName: 'U1-2',
+      get cost() {
+        if (player.multiplication.B1seriesC1 == 2) return new Decimal(1)
+        return new Decimal(5)
+      },
+      displayName: 'U1-2',
 			canAfford() {
 				return player.addpower.gte(this.cost);
 			},
@@ -51,7 +56,10 @@ export const Addition = {
 		});
 		UPGRADES.create('23', {
 			description: '移除B0-1价格的常数项，B0-1最多购买次数+50',
-			cost: new Decimal(25),
+      get cost() {
+        if (player.multiplication.B1seriesC1 == 3) return new Decimal(1)
+        return new Decimal(25)
+      },
 			displayName: 'U1-3',
 			currency: '加法能量',
 			canAfford() {
@@ -75,7 +83,10 @@ export const Addition = {
 		});
 		UPGRADES.create('24', {
 			description: '解锁B1-1',
-			cost: new Decimal(125),
+      get cost() {
+        if (player.multiplication.B1seriesC1 == 4) return new Decimal(1)
+        return new Decimal(125)
+      },
 			displayName: 'U1-4',
 			currency: '加法能量',
 			canAfford() {
@@ -106,7 +117,10 @@ export const Addition = {
 			effD() {
 				return '+' + formatWhole(this?.effect?.() ?? 0) + '/c';
 			},
-			cost: new Decimal(625),
+      get cost() {
+        if (player.multiplication.B1seriesC1 == 5) return new Decimal(1)
+        return new Decimal(625)
+      },
 			currency: '加法能量',
 			canAfford() {
 				return player.addpower.gte(this.cost);
@@ -230,4 +244,10 @@ export const Addition = {
 		if (!player.upgrades[25]) return new Decimal(0);
 		return upgrades[25]?.effect?.() ?? new Decimal(0);
 	},
+  setUPGc1(x: 2|3|4|5) {
+    if (player.multiplication.B1seriesC1!==x) {
+      player.multiplication.B1seriesC1=x;
+      feature.MULTIPLICATION.reset()
+    }
+  }
 };
