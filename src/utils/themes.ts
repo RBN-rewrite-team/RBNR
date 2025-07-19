@@ -95,6 +95,6 @@ export function updateTheme(){
 	if(player.options.ui.otherwise['sepia']) root.style.filter += ' sepia(100%) brightness(0.8)';
 }
 
-export function reverseUiOptions(x){
+export function reverseUiOptions(x: string){
 	player.options.ui.otherwise[x] = !player.options.ui.otherwise[x];
 }

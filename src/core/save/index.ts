@@ -200,3 +200,53 @@ export function hardReset() {
 	save();
 	location.reload();
 }
+
+export function import_file(): void {
+  let a = document.createElement('input')
+  a.setAttribute('type', 'file')
+  a.setAttribute('accept', 'text/plain')
+  a.click()
+  a.onchange = () => {
+    let fr = new FileReader()
+    if (a.files == null) return void alert('未选择文件')
+    fr.onload = () => {
+      let save = fr.result
+      if (typeof save == "string") {
+        try {
+        loadFromString(save)
+        } catch (e) {
+        console.error('Cannot import save');
+      }
+      }
+    }
+    fr.readAsText(a.files[0])
+  }
+}
+
+export function export_file(): void {
+  let str = saveSerializer.serialize(player)
+  let file = new Blob([str], {
+    type: 'text/plain',
+  })
+  window.URL = window.URL || window.webkitURL
+  let a = document.createElement('a')
+  a.href = window.URL.createObjectURL(file)
+  a.download = 'Road of Big Number Rewritten Save - ' + getCurrentBeijingTime() + '.txt'
+  a.click()
+}
+
+function getCurrentBeijingTime(): string {
+  const t = new Date(),
+    e = t.getUTCFullYear(),
+    r = String(t.getUTCMonth() + 1).padStart(2, '0'),
+    a = String(t.getUTCDate()).padStart(2, '0'),
+    n = t.getUTCHours(),
+    g = t.getUTCMinutes(),
+    i = t.getUTCSeconds(),
+    S = t.getUTCMilliseconds()
+  let o = (n + 8) % 24
+  return (
+    o < 0 && (t.setUTCDate(t.getUTCDate() + 1), (o += 24)),
+    `${e}-${r}-${a} ${o.toString().padStart(2, '0')}:${g.toString().padStart(2, '0')}:${i.toString().padStart(2, '0')}.${S.toString().padStart(3, '0')}`
+  )
+}

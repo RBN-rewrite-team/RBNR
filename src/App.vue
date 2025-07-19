@@ -2,13 +2,13 @@
 import { computed } from "vue";
 import Decimal from 'break_eternity.js';
 import { format, formatWhole, formatGain, formatLaTeX, formatLaTeXWhole, notations, notationNamesMap } from '@/utils/format';
-import { themes, themeDetailsMap } from '@/utils/themes';
+import { themes, themeDetailsMap, reverseUiOptions } from '@/utils/themes';
 import { player, feature, getNumberGen } from './core/global.ts';
 import { UPGRADES, BUYABLES } from './core/mechanic.ts';
 
 import Side from './components/Side.vue';
 import NewsTicker from './components/Newsticker.vue';
-import { save } from './core/save/index.ts';
+import { save, import_file, export_file } from './core/save/index.ts';
 import { UIHardReset } from './core/save/saveui.ts';
 import TDUpgrade from './components/TDUpgrade.vue';
 import TDBuyable from './components/TDBuyable.vue';
@@ -73,7 +73,7 @@ const validThemes = computed(() =>
 							(+{{ formatWhole(feature.ADDITION.gain()) }})
 						</span>
 						<span v-else>	
-							(+{{ formatWhole(feature.ADDITION.passiveGain()) }}/s)
+					    {{ formatGain(player.addpower, feature.ADDITION.passiveGain()) }}
 						</span>
 						(!{{
 							formatWhole(player.totalAddpower)
@@ -137,6 +137,8 @@ const validThemes = computed(() =>
 				<div class="main" v-if="player.currentTab === 1" style="text-align: center">
 				  <h3>存档设置</h3>
 					<div class="setting_button" @click="save()">手动保存</div>
+					<div class="setting_button" @click="import_file()">导入存档</div>
+					<div class="setting_button" @click="export_file()">导出存档</div>
 					<div class="hard_reset" @click="UIHardReset">硬重置</div>
 					<br><div class="center_line" />
 					<h3>记数法</h3>
@@ -227,7 +229,7 @@ const validThemes = computed(() =>
 					<div style="transform: translateY(60px)">
 						<div align="center" v-if="player.firstResetBit & 0b10">
 							累计乘法能量提供了<span style="color: #cc33ff; font-weight: bold"
-								>x{{ feature.MULTIPLICATION.powerEff() }}</span
+								>x{{ format(feature.MULTIPLICATION.powerEff()) }}</span
 							>数值增益
 						</div>
 						<table align="center">
