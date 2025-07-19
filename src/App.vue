@@ -137,8 +137,8 @@ const validThemes = computed(() =>
 				<div class="main" v-if="player.currentTab === 1" style="text-align: center">
 				  <h3>存档设置</h3>
 					<div class="setting_button" @click="save()">手动保存</div>
-					<div class="setting_button" @click="import_file()">导出存档</div>
-					<div class="setting_button" @click="export_file()">导入存档</div>
+					<div class="setting_button" @click="import_file()">导入存档</div>
+					<div class="setting_button" @click="export_file()">导出存档</div>
 					<div class="hard_reset" @click="UIHardReset">硬重置</div>
 					<br><div class="center_line" />
 					<h3>记数法</h3>

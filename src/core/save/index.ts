@@ -232,3 +232,19 @@ export function export_file(): void {
   a.download = 'Road of Big Number Rewritten Save - ' + getCurrentBeijingTime() + '.txt'
   a.click()
 }
+
+function getCurrentBeijingTime(): string {
+  const t = new Date(),
+    e = t.getUTCFullYear(),
+    r = String(t.getUTCMonth() + 1).padStart(2, '0'),
+    a = String(t.getUTCDate()).padStart(2, '0'),
+    n = t.getUTCHours(),
+    g = t.getUTCMinutes(),
+    i = t.getUTCSeconds(),
+    S = t.getUTCMilliseconds()
+  let o = (n + 8) % 24
+  return (
+    o < 0 && (t.setUTCDate(t.getUTCDate() + 1), (o += 24)),
+    `${e}-${r}-${a} ${o.toString().padStart(2, '0')}:${g.toString().padStart(2, '0')}:${i.toString().padStart(2, '0')}.${S.toString().padStart(3, '0')}`
+  )
+}
