@@ -280,7 +280,7 @@ const pflist = ['2', '3', '5', '7', '11', '13', '17', '19'] as const;
 								>x{{ formatWhole(feature.PrimeFactor.power()) }}</span
 							>因数能量<br />
 							(<span v-for="pf in pflist" >
-							  <span style="color: #cc33ff; font-weight: bold">{{ pf }}<sup>{{ player.buyables["pf" + pf].add(buyables?.["pf" + pf]?.more() ?? 0) }}</sup></span><span v-if="pf != '19'"> × </span>
+							  <span style="color: #cc33ff; font-weight: bold">{{ pf }}<sup>{{ player.buyables["pf" + pf].add(buyables?.["pf" + pf]?.more?.() ?? 0) }}</sup></span><span v-if="pf != '19'"> × </span>
 							</span>)<br>
 							基于本次乘法重置耗时提供<span
 								style="color: #cc33ff; font-weight: bold"
