@@ -211,10 +211,12 @@ export function import_file(): void {
     if (a.files == null) return void alert('未选择文件')
     fr.onload = () => {
       let save = fr.result
-      try {
+      if (typeof save == "string") {
+        try {
         loadFromString(save)
-      } catch (e) {
+        } catch (e) {
         console.error('Cannot import save');
+      }
       }
     }
     fr.readAsText(a.files[0])
