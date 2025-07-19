@@ -124,7 +124,7 @@ export const Multiplication = {
 			},
 		});
 		UPGRADES.create('36', {
-			description: '每2个质因数pn免费赠送一个pn-1',
+			description: '每2个质因数p<sub>n</sub>免费赠送一个p<sub>n-1</sub>',
 			displayName: 'U2-6',
 			currency: '乘法能量',
 			cost: new Decimal(101),

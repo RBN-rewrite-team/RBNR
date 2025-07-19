@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import Decimal from 'break_eternity.js';
-import { format, formatWhole, formatGain, notations, notationNamesMap } from '@/utils/format';
-import { themes, themeDetailsMap, reverseUiOptions } from '@/utils/themes';
+import { format, formatWhole, formatGain, formatLaTeX, formatLaTeXWhole, notations, notationNamesMap } from '@/utils/format';
+import { themes, themeDetailsMap } from '@/utils/themes';
 import { player, feature, getNumberGen } from './core/global.ts';
 import { UPGRADES, BUYABLES } from './core/mechanic.ts';
 
@@ -200,6 +200,13 @@ const validThemes = computed(() =>
 								</tr>
 							</tbody>
 						</table>
+            <div align="center" v-if="player.upgrades[31]" style="transform: translateY(65px);">
+              你可以选择将U1-2, U1-3, U1-4, U1-5中的一个升级，将其的价格降为1，但会进行一次乘法重置。<br>
+              <button @click="feature.ADDITION.setUPGc1(2)">2</button>
+              <button @click="feature.ADDITION.setUPGc1(3)">3</button>
+              <button @click="feature.ADDITION.setUPGc1(4)">4</button>
+              <button @click="feature.ADDITION.setUPGc1(5)">5</button>
+            </div>
 					</div>
 				</div>
 				<div class="main" v-if="player.currentTab == 4">
@@ -310,8 +317,8 @@ const validThemes = computed(() =>
               <h2>研究 1： 欧拉函数</h2>
               <vue-latex expression="\varphi(n) = n \prod_{p | n} \left(1 - \frac{1}{p}\right)" display-mode />
               <vue-latex expression="S(x) = \sum_{k = 1}^{x} \varphi(k)" display-mode />
-              <vue-latex :expression="'\\tau_1 =S(x)=\\text{' + formatWhole(NUMTHEORY.funcS()) + '}'" display-mode />
-              <vue-latex :expression="'x = \\text{' + formatWhole(player.numbertheory.euler.x.floor()) + '}'" display-mode />					
+              <vue-latex :expression="'\\tau_1 =S(x)=' + formatLaTeXWhole(NUMTHEORY.funcS())" display-mode />
+              <vue-latex :expression="'x = ' + formatLaTeXWhole(player.numbertheory.euler.x.floor())" display-mode />					
               <p style="font-size: 120%"><b>研究1加成：加法效果×<vue-latex expression="\tau_1" /></b></p>
             </div>
           <table align="center">
