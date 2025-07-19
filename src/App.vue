@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import Decimal from 'break_eternity.js';
-import { format, formatWhole, formatGain, notations, notationNamesMap } from '@/utils/format';
+import { format, formatWhole, formatGain, formatLaTeX, formatLaTeXWhole, notations, notationNamesMap } from '@/utils/format';
 import { themes, themeDetailsMap } from '@/utils/themes';
 import { player, feature, getNumberGen } from './core/global.ts';
 import { UPGRADES, BUYABLES } from './core/mechanic.ts';
@@ -282,8 +282,8 @@ const validThemes = computed(() =>
               <h2>研究 1： 欧拉函数</h2>
               <vue-latex expression="\varphi(n) = n \prod_{p | n} \left(1 - \frac{1}{p}\right)" display-mode />
               <vue-latex expression="S(x) = \sum_{k = 1}^{x} \varphi(k)" display-mode />
-              <vue-latex :expression="'\\tau_1 =S(x)=\\text{' + formatWhole(NUMTHEORY.funcS()) + '}'" display-mode />
-              <vue-latex :expression="'x = \\text{' + formatWhole(player.numbertheory.euler.x.floor()) + '}'" display-mode />					
+              <vue-latex :expression="'\\tau_1 =S(x)=' + formatLaTeXWhole(NUMTHEORY.funcS())" display-mode />
+              <vue-latex :expression="'x = ' + formatLaTeXWhole(player.numbertheory.euler.x.floor())" display-mode />					
               <p style="font-size: 120%"><b>研究1加成：加法效果×<vue-latex expression="\tau_1" /></b></p>
             </div>
           <table align="center">
