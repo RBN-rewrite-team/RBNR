@@ -320,8 +320,8 @@ export const Multiplication = {
 		let base = player.multiplication.totalMulpower.add(1);
 		return base;
 	},
-	reset() {
-		if (this.gain().gt(0)) {
+	reset(force=false) {
+		if (this.gain().gt(0) || force) {
 			player.multiplication.mulpower = player.multiplication.mulpower.add(this.gain());
 			player.multiplication.totalMulpower = player.multiplication.totalMulpower.add(
 				this.gain(),
@@ -329,8 +329,8 @@ export const Multiplication = {
 			let reset_upgrades: Array<keyof typeof player.upgrades> = [21, 22, 23, 24, 25].map(
 				(x) => x.toString() as keyof typeof player.upgrades,
 			);
-			if(!player.upgrades[37]) for (let i in reset_upgrades) player.upgrades[reset_upgrades[i]] = false;
-			if (!player.upgrades[33]) player.buyables[21] = new Decimal(0);
+			if(!player.upgrades[37] || force) for (let i in reset_upgrades) player.upgrades[reset_upgrades[i]] = false;
+      if (!player.upgrades[33] || force) player.buyables[21] = new Decimal(0);
 			player.multiplication.pfTime = new Decimal(0);
 			Addition.reset();
 			player.totalAddpower = new Decimal(0);
