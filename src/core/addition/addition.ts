@@ -204,10 +204,21 @@ export const Addition = {
 			},
 		});
 	},
+	addpower_gain(bulk = 1) {
+		let adding = this.gain().mul(bulk);
+		let softcap = feature.resourceGain.addpower().softcap;
+		if(softcap >= 1)
+		{
+			let sc1 = new Decimal(2).pow(384);
+			let exp = new Decimal(0.75);
+			adding = sc1.mul(player.addpower.div(sc1).root(exp).add(adding.div(sc1)).pow(exp)).sub(player.addpower);
+		}
+		player.addpower = player.addpower.add(adding);
+		player.totalAddpower = player.totalAddpower.add(adding);
+	},
 	reset() {
 		if (this.gain().gt(0)) {
-			player.addpower = player.addpower.add(this.gain());
-			player.totalAddpower = player.totalAddpower.add(this.gain());
+			this.addpower_gain();
 			if (!player.upgrades[25]) {
 				player.upgrades[11] = false;
 				player.upgrades[12] = false;
@@ -237,13 +248,7 @@ export const Addition = {
 	gain() {
 		let base = player.totalNumber.div(1000).floor().max(0);
 		if (player.firstResetBit & 0b10) base = base.mul(feature.PrimeFactor.powerEff());
-    if (player.buyables[31].gt(0)) base = base.mul(buyables[31].effect(player.buyables[31]))
-		return base;
-	},
-	passiveGain() {
-		let gain = this.gain();
-		let multiply = new Decimal(0.01);
-		let base = gain.mul(multiply);
+		if (player.buyables[31].gt(0)) base = base.mul(buyables[31].effect(player.buyables[31]))
 		return base;
 	},
 	U25effect() {

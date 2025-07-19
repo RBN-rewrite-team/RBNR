@@ -3,7 +3,7 @@ import { computed } from "vue";
 import Decimal from 'break_eternity.js';
 import { format, formatWhole, formatGain, formatLaTeX, formatLaTeXWhole, notations, notationNamesMap } from '@/utils/format';
 import { themes, themeDetailsMap, reverseUiOptions } from '@/utils/themes';
-import { player, feature, getNumberGen } from './core/global.ts';
+import { player, feature } from './core/global.ts';
 import { UPGRADES, BUYABLES } from './core/mechanic.ts';
 
 import Side from './components/Side.vue';
@@ -43,22 +43,19 @@ const validThemes = computed(() =>
 					"
 				>
 					<div style="font-weight: bold; color: var(--suptitle-color)">
-						数值&nbsp;{{ formatWhole(player.number) }}
+						数值&nbsp;
+						{{ formatWhole(player.number) }}
 					</div>
-					<div
-						style="font-size: 17px; color: var(--title-color)"
-						v-if="feature.SUCCESSOR.autoSuccessPerSecond().eq(0)"
-					>
-						(需要通过后继获得)
+					<div style="font-size: 17px; color: var(--title-color)">
+						<span v-if="feature.SUCCESSOR.autoSuccessPerSecond().eq(0)">(需要通过后继获得)</span>
+						<span v-else v-html="formatGain(player.number, feature.resourceGain.number().value, '')"></span>
+						<br>
+						<span v-if="feature.resourceGain.number().softcap == 1">(受软上限限制)</span>
+						<span v-if="feature.resourceGain.number().softcap == 2">(受二重软上限限制)</span>
 					</div>
-					<div
-						style="font-size: 17px; color: var(--title-color)"
-						v-html="formatGain(player.number, getNumberGen(), '')"
-						v-else
-					/>
 				</div>
 				<div
-					style="position: absolute; margin-left: 215px; margin-top: 5px"
+					style="position: absolute; margin-left: 265px; margin-top: 5px"
 					id="showMP"
 					v-if="player.upgrades[13]"
 				>
@@ -70,18 +67,20 @@ const validThemes = computed(() =>
 					</div>
 					<div style="font-size: 17px; color: #5acaff">
 						<span v-if="!player.upgrades[38]">
-							(+{{ formatWhole(feature.ADDITION.gain()) }})
+							(+{{ formatWhole(feature.resourceGain.addpower().value) }})
 						</span>
 						<span v-else>	
-					    {{ formatGain(player.addpower, feature.ADDITION.passiveGain()) }}
+					    {{ formatGain(player.addpower, feature.resourceGain.addpower().passive.mul(feature.resourceGain.addpower().value)) }}
 						</span>
 						(!{{
 							formatWhole(player.totalAddpower)
 						}})
+						<br>
+						<span v-if="feature.resourceGain.addpower().softcap == 1">(受软上限限制)</span>
 					</div>
 				</div>
 				<div
-					style="position: absolute; margin-left: 415px; margin-top: 5px"
+					style="position: absolute; margin-left: 515px; margin-top: 5px"
 					v-if="player.upgrades[26]"
 				>
 					<div style="font-weight: bold; color: #cc33ff">
@@ -91,7 +90,7 @@ const validThemes = computed(() =>
 						</div>
 					</div>
 					<div style="font-size: 17px; color: #dd77dd">
-						(+{{ formatWhole(feature.MULTIPLICATION.gain()) }}) (!{{
+						(+{{ formatWhole(feature.resourceGain.mulpower().value) }}) (!{{
 							formatWhole(player.multiplication.totalMulpower)
 						}})
 					</div>
@@ -203,7 +202,7 @@ const validThemes = computed(() =>
 							</tbody>
 						</table>
 						<br>
-            <div v-if="player.upgrades[31]" style="transform: translateY(65px);">
+            <div align="center" v-if="player.upgrades[31]" style="transform: translateY(65px);">
               你可以选择将U1-2, U1-3, U1-4, U1-5中的一个升级，将其的价格降为1，但会进行一次乘法重置。<br>
               <button @click="feature.ADDITION.setUPGc1(2)" class="clickable_button" style="display: inline-block;">2</button>
               <button @click="feature.ADDITION.setUPGc1(3)" class="clickable_button" style="display: inline-block;">3</button>

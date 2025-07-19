@@ -37,7 +37,7 @@ export interface Player {
 		mulpower: Decimal;
 		totalMulpower: Decimal;
 		pfTime: Decimal;
-    B1seriesC1: 0|2|3|4|5;
+		B1seriesC1: 0|2|3|4|5;
 	};
 	options: {
 	  notation: notations;
