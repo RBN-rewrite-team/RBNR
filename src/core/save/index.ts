@@ -1,16 +1,16 @@
 import Decimal from 'break_eternity.js';
 import { saveSerializer } from './serializer';
 import { reactive } from 'vue';
-import { notations } from '@/utils/format'
+import { notations } from '@/utils/format';
 import { themes } from '@/utils/themes';
 
 const SAVEID = 'RBN-rewritten';
-const version = 3 as const
+const version = 3 as const;
 const zero = new Decimal(0);
 
 export interface Player {
 	number: Decimal;
-  version: typeof version;
+	version: typeof version;
 	totalNumber: Decimal;
 	lastUpdated: number;
 	saveCreateTime: number;
@@ -24,46 +24,46 @@ export interface Player {
 	automationCD: {
 		successor: number;
 	};
-  numbertheory: {
-    euler: {
-      x: Decimal
-    }
-  }
+	numbertheory: {
+		euler: {
+			x: Decimal;
+		};
+	};
 	currentTab: number;
 	addpower: Decimal;
 	totalAddpower: Decimal;
 	firstResetBit: number;
-  challenges: Decimal[][];
+	challenges: Decimal[][];
 	multiplication: {
 		mulpower: Decimal;
 		totalMulpower: Decimal;
 		pfTime: Decimal;
-		B1seriesC1: 0|2|3|4|5;
+		B1seriesC1: 0 | 2 | 3 | 4 | 5;
 	};
 	options: {
-	  notation: notations;
-	  ui: {
-		theme: themes;
-		otherwise: {
-			[key: string]: boolean;
+		notation: notations;
+		ui: {
+			theme: themes;
+			otherwise: {
+				[key: string]: boolean;
+			};
+			newsbar: boolean;
+			titlebar: boolean;
 		};
-		newsbar: boolean;
-		titlebar: boolean;
-	  };
 	};
-  stat: {
-    totalNumber: Decimal;
-    highestNumber: Decimal;
-    totalMulpower: Decimal;
-    highestMulpower: Decimal;
-    totalAddpower: Decimal;
-    hightestAddpower: Decimal;
-  };
-  challengein: [number,number];
+	stat: {
+		totalNumber: Decimal;
+		highestNumber: Decimal;
+		totalMulpower: Decimal;
+		highestMulpower: Decimal;
+		totalAddpower: Decimal;
+		hightestAddpower: Decimal;
+	};
+	challengein: [number, number];
 }
 function getInitialPlayerData(): Player {
 	return {
-    version: version,
+		version: version,
 		number: zero,
 		totalNumber: zero,
 		lastUpdated: Date.now(),
@@ -110,11 +110,11 @@ function getInitialPlayerData(): Player {
 		automationCD: {
 			successor: 0,
 		},
-    numbertheory: {
-      euler: {
-        x: new Decimal(1)
-      }
-    },
+		numbertheory: {
+			euler: {
+				x: new Decimal(1),
+			},
+		},
 		currentTab: 0,
 		totalAddpower: zero,
 		firstResetBit: 0,
@@ -122,34 +122,32 @@ function getInitialPlayerData(): Player {
 			mulpower: zero,
 			totalMulpower: zero,
 			pfTime: zero,
-      B1seriesC1: 0,
+			B1seriesC1: 0,
 		},
 		options: {
-		  notation: notations.SCIENTIFIC,
-		  ui: {
-			theme: themes.CLASSIC,
-			otherwise: {
-				'color_inversion': false,
-				'full_gray': false,
-				'blur': false,
-				'sepia': false,
+			notation: notations.SCIENTIFIC,
+			ui: {
+				theme: themes.CLASSIC,
+				otherwise: {
+					color_inversion: false,
+					full_gray: false,
+					blur: false,
+					sepia: false,
+				},
+				newsbar: true,
+				titlebar: true,
 			},
-			newsbar: true,
-			titlebar: true,
-		  },
 		},
-    stat: {
-      totalNumber: zero,
-      highestNumber: zero,
-      totalMulpower: zero,
-      highestMulpower: zero,
-      totalAddpower: zero,
-      hightestAddpower: zero
-    },
-    challenges: [
-      [zero, zero, zero, zero, zero]
-    ],
-    challengein: [-1, -1],
+		stat: {
+			totalNumber: zero,
+			highestNumber: zero,
+			totalMulpower: zero,
+			highestMulpower: zero,
+			totalAddpower: zero,
+			hightestAddpower: zero,
+		},
+		challenges: [[zero, zero, zero, zero, zero]],
+		challengein: [-1, -1],
 	};
 }
 
@@ -197,7 +195,7 @@ export function loadFromString(saveContent: string) {
 	let deserialized = saveSerializer.deserialize(saveContent);
 	rewriteDecimalValues(deserialized);
 	deepCopyProps(deserialized, player);
-  player.version = version;
+	player.version = version;
 }
 
 export function loadSaves() {
@@ -224,51 +222,51 @@ export function hardReset() {
 }
 
 export function import_file(): void {
-  let a = document.createElement('input')
-  a.setAttribute('type', 'file')
-  a.setAttribute('accept', 'text/plain')
-  a.click()
-  a.onchange = () => {
-    let fr = new FileReader()
-    if (a.files == null) return void alert('未选择文件')
-    fr.onload = () => {
-      let save = fr.result
-      if (typeof save == "string") {
-        try {
-        loadFromString(save)
-        } catch (e) {
-        console.error('Cannot import save');
-      }
-      }
-    }
-    fr.readAsText(a.files[0])
-  }
+	let a = document.createElement('input');
+	a.setAttribute('type', 'file');
+	a.setAttribute('accept', 'text/plain');
+	a.click();
+	a.onchange = () => {
+		let fr = new FileReader();
+		if (a.files == null) return void alert('未选择文件');
+		fr.onload = () => {
+			let save = fr.result;
+			if (typeof save == 'string') {
+				try {
+					loadFromString(save);
+				} catch (e) {
+					console.error('Cannot import save');
+				}
+			}
+		};
+		fr.readAsText(a.files[0]);
+	};
 }
 
 export function export_file(): void {
-  let str = saveSerializer.serialize(player)
-  let file = new Blob([str], {
-    type: 'text/plain',
-  })
-  window.URL = window.URL || window.webkitURL
-  let a = document.createElement('a')
-  a.href = window.URL.createObjectURL(file)
-  a.download = 'Road of Big Number Rewritten Save - ' + getCurrentBeijingTime() + '.txt'
-  a.click()
+	let str = saveSerializer.serialize(player);
+	let file = new Blob([str], {
+		type: 'text/plain',
+	});
+	window.URL = window.URL || window.webkitURL;
+	let a = document.createElement('a');
+	a.href = window.URL.createObjectURL(file);
+	a.download = 'Road of Big Number Rewritten Save - ' + getCurrentBeijingTime() + '.txt';
+	a.click();
 }
 
 function getCurrentBeijingTime(): string {
-  const t = new Date(),
-    e = t.getUTCFullYear(),
-    r = String(t.getUTCMonth() + 1).padStart(2, '0'),
-    a = String(t.getUTCDate()).padStart(2, '0'),
-    n = t.getUTCHours(),
-    g = t.getUTCMinutes(),
-    i = t.getUTCSeconds(),
-    S = t.getUTCMilliseconds()
-  let o = (n + 8) % 24
-  return (
-    o < 0 && (t.setUTCDate(t.getUTCDate() + 1), (o += 24)),
-    `${e}-${r}-${a} ${o.toString().padStart(2, '0')}:${g.toString().padStart(2, '0')}:${i.toString().padStart(2, '0')}.${S.toString().padStart(3, '0')}`
-  )
+	const t = new Date(),
+		e = t.getUTCFullYear(),
+		r = String(t.getUTCMonth() + 1).padStart(2, '0'),
+		a = String(t.getUTCDate()).padStart(2, '0'),
+		n = t.getUTCHours(),
+		g = t.getUTCMinutes(),
+		i = t.getUTCSeconds(),
+		S = t.getUTCMilliseconds();
+	let o = (n + 8) % 24;
+	return (
+		o < 0 && (t.setUTCDate(t.getUTCDate() + 1), (o += 24)),
+		`${e}-${r}-${a} ${o.toString().padStart(2, '0')}:${g.toString().padStart(2, '0')}:${i.toString().padStart(2, '0')}.${S.toString().padStart(3, '0')}`
+	);
 }

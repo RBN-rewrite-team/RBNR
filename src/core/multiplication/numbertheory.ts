@@ -1,54 +1,74 @@
-import {eulerFunction} from "@/utils/algorithm";
-import {BUYABLES, upgrades, UPGRADES} from "../mechanic"
-import {player} from "../save";
-import {format, formatWhole} from "@/utils/format";
-import Decimal from "break_eternity.js";
+import { eulerFunction } from '@/utils/algorithm';
+import { BUYABLES, upgrades, UPGRADES } from '../mechanic';
+import { player } from '../save';
+import { format, formatWhole } from '@/utils/format';
+import Decimal from 'break_eternity.js';
 
 export const NUMTHEORY = {
-  initMechanics() {
-    BUYABLES.create('31R', {
-      description: "x每秒增加1",
-      cost(x) {
-        return x.pow_base(2).mul(10);
-      },
-      effect(x) { return x},
-      effD(x){return `+${formatWhole(x)}/s`},
-      canAfford(x) {return this.cost(x).lte(player.multiplication.mulpower)},
-      buy(x) {
+	initMechanics() {
+		BUYABLES.create('31R', {
+			description: 'x每秒增加1',
+			cost(x) {
+				return x.pow_base(2).mul(10);
+			},
+			effect(x) {
+				return x;
+			},
+			effD(x) {
+				return `+${formatWhole(x)}/s`;
+			},
+			canAfford(x) {
+				return this.cost(x).lte(player.multiplication.mulpower);
+			},
+			buy(x) {
 				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost(x));
-      },
-      capped(){ return false},
-      currency: "乘法能量",
-      show(){return true;},
-      requirement: [],
-    })
-    BUYABLES.create('32R', {
-      description: "x值增速+×1",
-      cost(x) {
-        return x.pow_base(10).mul(100);
-      },
-      effect(x) { return x.add(1)},
-      effD(x){return `×${formatWhole(x.add(1))}`},
-      canAfford(x) {return this.cost(x).lte(player.multiplication.mulpower)},
-      buy(x) {
+			},
+			capped() {
+				return false;
+			},
+			currency: '乘法能量',
+			show() {
+				return true;
+			},
+			requirement: [],
+		});
+		BUYABLES.create('32R', {
+			description: 'x值增速+×1',
+			cost(x) {
+				return x.pow_base(10).mul(100);
+			},
+			effect(x) {
+				return x.add(1);
+			},
+			effD(x) {
+				return `×${formatWhole(x.add(1))}`;
+			},
+			canAfford(x) {
+				return this.cost(x).lte(player.multiplication.mulpower);
+			},
+			buy(x) {
 				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost(x));
-      },
-      capped(){ return false},
-      currency: "乘法能量",
-      show(){return true;},
-      requirement: [],
-    })
+			},
+			capped() {
+				return false;
+			},
+			currency: '乘法能量',
+			show() {
+				return true;
+			},
+			requirement: [],
+		});
 		UPGRADES.create('31R', {
 			description: 'x值获取速度增加',
-      displayName: "U2-R1-1",
+			displayName: 'U2-R1-1',
 			currency: '乘法能量',
 			cost: new Decimal(1e4),
-      effect(){
-        return player.multiplication.mulpower.add(Math.E).ln().floor().max(1)
-      },
-      effD() {
-        return `*${format(this.effect?.() ?? 1)}`
-      },
+			effect() {
+				return player.multiplication.mulpower.add(Math.E).ln().floor().max(1);
+			},
+			effD() {
+				return `*${format(this.effect?.() ?? 1)}`;
+			},
 			canAfford() {
 				return player.multiplication.mulpower.gte(this.cost);
 			},
@@ -56,26 +76,27 @@ export const NUMTHEORY = {
 				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost);
 			},
 			get requirement() {
-				return [
-				];
+				return [];
 			},
 			show: function () {
 				return true;
 			},
 		});
-  },
-  funcS(x = player.numbertheory.euler.x.floor()) {
-    if (x.gte(1000)) {return x.pow(2).mul(3/Math.PI**2)}
-    return Decimal.fromNumber(sumEulers[x.toNumber()]);
-  },
-  varXgain() {
-    let x = new Decimal(0);
-    if (player.buyables["31R"].gte(1)) x = x.add(player.buyables["31R"])
-    if (player.buyables["32R"].gte(1)) x = x.mul(player.buyables["32R"].add(1))
-    if (player.upgrades["31R"]) x = x.mul(upgrades["31R"].effect?.() ?? 1)
-    return x;
-  }
-}
+	},
+	funcS(x = player.numbertheory.euler.x.floor()) {
+		if (x.gte(1000)) {
+			return x.pow(2).mul(3 / Math.PI ** 2);
+		}
+		return Decimal.fromNumber(sumEulers[x.toNumber()]);
+	},
+	varXgain() {
+		let x = new Decimal(0);
+		if (player.buyables['31R'].gte(1)) x = x.add(player.buyables['31R']);
+		if (player.buyables['32R'].gte(1)) x = x.mul(player.buyables['32R'].add(1));
+		if (player.upgrades['31R']) x = x.mul(upgrades['31R'].effect?.() ?? 1);
+		return x;
+	},
+};
 
 // prettier-ignore
 const sumEulers = [
