@@ -122,7 +122,7 @@ export const Addition = {
 				)
 					exp = exp.add(a);
 
-				return player.totalAddpower.pow(a).add(1).floor();
+				return player.totalAddpower.pow(exp).add(1).floor();
 			},
 			effD() {
 				return '+' + formatWhole(this?.effect?.() ?? 0) + '/c';
