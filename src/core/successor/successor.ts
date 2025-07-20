@@ -153,7 +153,7 @@ export const Successor = {
 
 	success(bulk = 1) {
 		let adding = this.successorBulk().mul(bulk);
-		let softcap = feature.resourceGain.number().softcap;
+		let softcap = feature.resourceGain.number(player.number.add(adding)).softcap;
 		if(softcap >= 1)
 		{
 			let sc1 = new Decimal(2).pow(256);
