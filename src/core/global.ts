@@ -26,7 +26,7 @@ const feature = {
 			{
 				let exp = new Decimal(1).div(0.75).sub(1);
 				base = base.div(num.div(sc1).pow(exp));
-				num = num.div(num.div(sc1).pow(exp));
+				num = num.add(base);
 				softcap = 1;
 			}
 			if(num.gte(sc2))
