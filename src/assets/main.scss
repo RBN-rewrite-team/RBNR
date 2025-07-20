@@ -53,6 +53,8 @@
 	border: none;
 	outline: none;
 	transition: all 0.25s;
+	touch-action: manipulation; // disable doubleclick zooming
+	text-size-adjust: none;
 	
 	&:not(.katex):not(.katex *) {
 	  font-family: "思源黑体Regular";
@@ -85,8 +87,6 @@ html,
 body {
 	height: 100%;
 	margin: 0;
-	touch-action: manipulation; // disable doubleclick zooming
-	text-size-adjust: none;
 }
 
 #app {

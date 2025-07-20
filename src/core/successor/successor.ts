@@ -168,6 +168,7 @@ export const Successor = {
 		}
 		player.number = player.number.add(adding);
 		player.totalNumber = player.totalNumber.add(adding);
+		player.stat.totalNumber = player.stat.totalNumber.add(adding);
 	},
 	autoSuccessPerSecond() {
 		let base = new Decimal(0);
