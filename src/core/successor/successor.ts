@@ -163,12 +163,19 @@ export const Successor = {
 			start: new Decimal(2).pow(1024),
 			exponent: new Decimal(0.75),
 		});
+		SOFTCAPS.create('number_C1', {
+			name: 'number_C1',
+			fluid: true,
+			start: new Decimal(1),
+			exponent: new Decimal(0.5),
+		});
 	},
 
 	success(bulk = 1) {
 		let adding = this.successorBulk().mul(bulk);
 		adding = SOFTCAPS.fluidComputed('number^1', adding, player.number);
 		adding = SOFTCAPS.fluidComputed('number^2', adding, player.number);
+		if(CHALLENGE.inChallenge(0, 2)) adding = SOFTCAPS.fluidComputed('number_C1', adding, player.number);
 		player.number = player.number.add(adding);
 		player.totalNumber = player.totalNumber.add(adding);
 		player.stat.totalNumber = player.stat.totalNumber.add(adding);
@@ -202,12 +209,9 @@ export const Successor = {
 		if (player.firstResetBit & 0b10) base = base.mul(feature.PrimeFactor.powerEff());
 		if (player.firstResetBit & 0b10) base = base.mul(NUMTHEORY.funcS().max(1));
 
-    if (CHALLENGE.inChallenge(0, 2)) {
-      base = base.div(player.number.max(1))
-    }
-    if (CHALLENGE.amountChallenge(0, 1).gt(0)) {
-      base = base.mul(MULTI_CHALS[1].effect?.(player.challenges[0][1]) ?? 1)
-    }
+		if (CHALLENGE.amountChallenge(0, 1).gt(0)) {
+		  base = base.mul(MULTI_CHALS[1].effect?.(player.challenges[0][1]) ?? 1)
+		}
 		return base;
 	},
 };
