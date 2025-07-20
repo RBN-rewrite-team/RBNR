@@ -20,7 +20,7 @@ import TDBuyable from '../TDBuyable.vue';
 				/>
 				<vue-latex expression="S(x) = \sum_{k = 1}^{x} \varphi(k)" display-mode />
 				<vue-latex
-					:expression="'\\tau_1 =S(x)=' + formatLaTeXWhole(NUMTHEORY.funcS())"
+					:expression="'\\tau_1 = S(x) = ' + formatLaTeXWhole(NUMTHEORY.funcS())"
 					display-mode
 				/>
 				<vue-latex
@@ -28,7 +28,7 @@ import TDBuyable from '../TDBuyable.vue';
 					display-mode
 				/>
 				<vue-latex
-					:expression="'\\dot{x} = ' + formatLaTeX(NUMTHEORY.varXgain())"
+					:expression="`\\dot{x} = b_1b_2${player.upgrades['31R']?'u_1':''} = ` + formatLaTeX(NUMTHEORY.varXgain())"
 					display-mode
 				/>
 				<p style="font-size: 120%">
