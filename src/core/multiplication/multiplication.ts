@@ -148,7 +148,7 @@ export const Multiplication = {
 		});
 		UPGRADES.create('37', {
 			description: '乘法重置保留加法升级',
-			displayName: "U2-7",
+			displayName: 'U2-7',
 			currency: '乘法能量',
 			cost: new Decimal(1000),
 			canAfford() {
@@ -171,7 +171,7 @@ export const Multiplication = {
 		});
 		UPGRADES.create('38', {
 			description: '每秒自动获取重置获取加法能量的1%',
-			displayName: "U2-8",
+			displayName: 'U2-8',
 			currency: '乘法能量',
 			cost: new Decimal(10000),
 			canAfford() {
@@ -194,7 +194,7 @@ export const Multiplication = {
 		});
 		UPGRADES.create('39', {
 			description: '解锁乘法挑战',
-			displayName: "U2-9",
+			displayName: 'U2-9',
 			currency: '乘法能量',
 			cost: new Decimal(1e21),
 			canAfford() {
@@ -220,7 +220,7 @@ export const Multiplication = {
 			displayName: 'B2-1',
 			currency: '乘法能量',
 			effect(x) {
-        return x.mul(0.5).add(1);
+				return x.mul(0.5).add(1);
 			},
 			effD(x) {
 				return '*' + format(this.effect(x));
@@ -228,7 +228,7 @@ export const Multiplication = {
 			cost(x) {
 				let a = x.mul(1000).add(10);
 				return a;
-      },
+			},
 			canAfford(x) {
 				return player.multiplication.mulpower.gte(this.cost(x));
 			},
@@ -240,8 +240,7 @@ export const Multiplication = {
 				return player.buyables['31'].gte(capc);
 			},
 			get requirement() {
-				return [
-				];
+				return [];
 			},
 			show: function () {
 				return true;
@@ -252,7 +251,7 @@ export const Multiplication = {
 			displayName: 'B2-2',
 			currency: '乘法能量',
 			effect(x) {
-        return x.pow_base(2);
+				return x.pow_base(2);
 			},
 			effD(x) {
 				return '*' + formatWhole(this.effect(x));
@@ -260,7 +259,7 @@ export const Multiplication = {
 			cost(x) {
 				let a = x.add(1).pow10();
 				return a;
-      },
+			},
 			canAfford(x) {
 				return player.multiplication.mulpower.gte(this.cost(x));
 			},
@@ -268,11 +267,10 @@ export const Multiplication = {
 				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost(x));
 			},
 			capped() {
-        return false
+				return false;
 			},
 			get requirement() {
-				return [
-				];
+				return [];
 			},
 			show: function () {
 				return true;
@@ -282,10 +280,10 @@ export const Multiplication = {
 			description: '质因数公式变得更好',
 			displayName: 'B2-3',
 			currency: '乘法能量',
-			effect(x){
+			effect(x) {
 				return new Decimal(0.01).mul(x);
 			},
-			effD(x){
+			effD(x) {
 				return format(this.effect(x));
 			},
 			cost(x) {
@@ -320,20 +318,19 @@ export const Multiplication = {
 		let base = player.multiplication.totalMulpower.add(1);
 		return base;
 	},
-	reset(force=false) {
+	reset(force = false) {
 		if (this.gain().gt(0) || force) {
 			player.multiplication.mulpower = player.multiplication.mulpower.add(this.gain());
 			player.multiplication.totalMulpower = player.multiplication.totalMulpower.add(
 				this.gain(),
 			);
-			player.stat.totalMulpower = player.stat.totalMulpower.add(
-        this.gain(),
-      );
+			player.stat.totalMulpower = player.stat.totalMulpower.add(this.gain());
 			let reset_upgrades: Array<keyof typeof player.upgrades> = [21, 22, 23, 24, 25].map(
 				(x) => x.toString() as keyof typeof player.upgrades,
 			);
-			if(!player.upgrades[37] || force) for (let i in reset_upgrades) player.upgrades[reset_upgrades[i]] = false;
-      if (!player.upgrades[33] || force) player.buyables[21] = new Decimal(0);
+			if (!player.upgrades[37] || force)
+				for (let i in reset_upgrades) player.upgrades[reset_upgrades[i]] = false;
+			if (!player.upgrades[33] || force) player.buyables[21] = new Decimal(0);
 			player.multiplication.pfTime = new Decimal(0);
 			Addition.reset();
 			player.totalAddpower = new Decimal(0);
@@ -358,7 +355,7 @@ export const Multiplication = {
 	gain() {
 		if (player.totalAddpower.lt(3125)) return new Decimal(0);
 		let base = player.totalAddpower.sub(3125).pow(0.1);
-    if (player.buyables[32].gt(0)) base = base.mul(buyables[32].effect(player.buyables[32]))
+		if (player.buyables[32].gt(0)) base = base.mul(buyables[32].effect(player.buyables[32]));
 		return base.floor();
 	},
 };

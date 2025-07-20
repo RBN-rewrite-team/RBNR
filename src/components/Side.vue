@@ -7,7 +7,13 @@ import { player } from '@/core/save';
 		<div class="title_box" v-if="player.options.ui.titlebar">
 			<div class="background">
 				<div class="title">
-					<div style="font-size: 24px; color: var(--color); text-shadow: var(--title-color) 1px 1px 2px">
+					<div
+						style="
+							font-size: 24px;
+							color: var(--color);
+							text-shadow: var(--title-color) 1px 1px 2px;
+						"
+					>
 						大数之路重制版
 					</div>
 					<div style="font-size: 20px">v0.1.1</div>
@@ -63,6 +69,14 @@ import { player } from '@/core/save';
 						>
 							数论研究
 						</div>
+						<div
+							class="menu2"
+							:class="{ focus: player.currentTab == 8 }"
+							@click="player.currentTab = 8"
+							v-if="player.upgrades[39]"
+						>
+							乘法挑战
+						</div>
 					</template>
 					<div class="menu1">杂项</div>
 					<div class="menu_line"></div>
@@ -85,7 +99,7 @@ import { player } from '@/core/save';
 						:class="{ focus: player.currentTab == 7 }"
 						@click="player.currentTab = 7"
 					>
-					 统计	
+						统计
 					</div>
 				</div>
 			</div>

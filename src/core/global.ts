@@ -14,16 +14,17 @@ const feature = {
 	ADDITION: Addition,
 	MULTIPLICATION: Multiplication,
 	PrimeFactor: PrimeFactor,
-	
+
 	resourceGain: {
-		number(){
+
+		number(num = player.number){
 			let base = feature.SUCCESSOR.successorBulk();
 			base = base.mul(feature.SUCCESSOR.autoSuccessPerSecond());
 			base = SOFTCAPS.fluidComputed('number^1', base, player.number);
 			base = SOFTCAPS.fluidComputed('number^2', base, player.number);
 			return {value: base};
 		},
-		addpower(){
+		addpower() {
 			let base = feature.ADDITION.gain();
 			let softcap = 0;
 			let sc1 = new Decimal(2).pow(384);
@@ -31,9 +32,9 @@ const feature = {
 			let passive = new Decimal(0.01);
 			return {value: base, passive: passive};
 		},
-		mulpower(){
+		mulpower() {
 			let base = feature.MULTIPLICATION.gain();
-			return {value: base};
+			return { value: base };
 		},
 	},
 };

@@ -1,7 +1,7 @@
 import { player } from '@/core/global.ts';
 import { loopInterval } from '@/main.ts';
 import ModalService from '@/utils/Modal';
-import type {Player} from './save';
+import type { Player } from './save';
 declare global {
 	interface Window {
 		game: object;
@@ -22,7 +22,6 @@ Object.defineProperty(window, 'game', {
 	enumerable: false,
 	configurable: false,
 });
-
 
 let cheat = false;
 

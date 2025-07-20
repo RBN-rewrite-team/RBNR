@@ -3,7 +3,9 @@ import { UPGRADES, BUYABLES, SOFTCAPS, upgrades, buyables, softcaps, type single
 import Decimal from 'break_eternity.js';
 import { format, formatWhole } from '@/utils/format';
 import { feature } from '../global.ts';
-import {NUMTHEORY} from '../multiplication/numbertheory.ts';
+import { NUMTHEORY } from '../multiplication/numbertheory.ts';
+import {CHALLENGE} from '../challenge.ts';
+import {MULTI_CHALS} from '../multiplication/challenges.ts';
 
 export const Successor = {
 	initMechanics() {
@@ -199,7 +201,13 @@ export const Successor = {
 		if (player.firstResetBit & 0b10) base = base.mul(feature.MULTIPLICATION.powerEff());
 		if (player.firstResetBit & 0b10) base = base.mul(feature.PrimeFactor.powerEff());
 		if (player.firstResetBit & 0b10) base = base.mul(NUMTHEORY.funcS().max(1));
-		
+
+    if (CHALLENGE.inChallenge(0, 2)) {
+      base = base.div(player.number.max(1))
+    }
+    if (CHALLENGE.amountChallenge(0, 1).gt(0)) {
+      base = base.mul(MULTI_CHALS[1].effect?.(player.challenges[0][1]) ?? 1)
+    }
 		return base;
 	},
 };
