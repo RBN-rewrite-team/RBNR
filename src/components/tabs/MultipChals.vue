@@ -12,6 +12,7 @@ import MultipResetButton from '../MultipResetButton.vue';
 				<tr>
 					<TDChallenge :layer="0" :chid="0" />
 					<TDChallenge :layer="0" :chid="1" />
+					<TDChallenge :layer="0" :chid="2" />
 				</tr>
 			</tbody>
 		</table>
