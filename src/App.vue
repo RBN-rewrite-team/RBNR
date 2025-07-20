@@ -4,7 +4,7 @@ import Decimal from 'break_eternity.js';
 import { format, formatWhole, formatGain, formatLaTeX, formatLaTeXWhole, notations, notationNamesMap } from '@/utils/format';
 import { themes, themeDetailsMap, reverseUiOptions } from '@/utils/themes';
 import { player, feature } from './core/global.ts';
-import { UPGRADES, BUYABLES, buyables } from './core/mechanic.ts';
+import { UPGRADES, BUYABLES, SOFTCAPS, buyables } from './core/mechanic.ts';
 
 import Side from './components/Side.vue';
 import NewsTicker from './components/Newsticker.vue';
@@ -53,8 +53,8 @@ const pflist = ['2', '3', '5', '7', '11', '13', '17', '19'] as const;
 						<span v-if="feature.SUCCESSOR.autoSuccessPerSecond().eq(0)">(需要通过后继获得)</span>
 						<span v-else v-html="formatGain(player.number, feature.resourceGain.number().value, '')"></span>
 						<br>
-						<span v-if="feature.resourceGain.number().softcap == 1">(受软上限限制)</span>
-						<span v-if="feature.resourceGain.number().softcap == 2">(受二重软上限限制)</span>
+						<span v-if="SOFTCAPS.reach('number^1', player.number) && !SOFTCAPS.reach('number^2', player.number)">(受软上限限制)</span>
+						<span v-if="SOFTCAPS.reach('number^2', player.number)">(受二重软上限限制)</span>
 					</div>
 				</div>
 				<div
@@ -79,7 +79,7 @@ const pflist = ['2', '3', '5', '7', '11', '13', '17', '19'] as const;
 							formatWhole(player.totalAddpower)
 						}})
 						<br>
-						<span v-if="feature.resourceGain.addpower().softcap == 1">(受软上限限制)</span>
+						<span v-if="SOFTCAPS.reach('addpower^1', player.addpower)">(受软上限限制)</span>
 					</div>
 				</div>
 				<div
