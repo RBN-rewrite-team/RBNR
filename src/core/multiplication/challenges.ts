@@ -8,7 +8,7 @@ export const MULTI_CHALS: SingleChallenge[] = [
 		descEasy: '加法运算似了，挂机越久加法能量上限越低',
 		descHard: '你永远无法升级成加法运算。 加法能量上限从100000开始，每秒减少1000',
 		effect(x) {
-			return x.sub(1000).max(0).add(1).log10().mul(0);
+			return x.sub(1000).max(0).add(1).log10().max(1).log10().mul(0.3).max(0);
 		},
 		effD(x) {
 			return `加法运算指数+${format(x)}`;
