@@ -5,6 +5,7 @@ import { upgrades, buyables, softcaps, UPGRADES, BUYABLES, SOFTCAPS } from './me
 import { Addition } from './addition/addition.ts';
 import { Multiplication } from './multiplication/multiplication.ts';
 import { PrimeFactor } from './multiplication/pf.ts';
+import { CHALLENGE } from './challenge.ts';
 
 const feature = {
 	mechanic: { UPGRADES: UPGRADES, BUYABLES: BUYABLES },
@@ -22,6 +23,7 @@ const feature = {
 			base = base.mul(feature.SUCCESSOR.autoSuccessPerSecond());
 			base = SOFTCAPS.fluidComputed('number^1', base, player.number);
 			base = SOFTCAPS.fluidComputed('number^2', base, player.number);
+			if(CHALLENGE.inChallenge(0, 2)) base = SOFTCAPS.fluidComputed('number_C1', base, player.number);
 			return {value: base};
 		},
 		addpower() {
