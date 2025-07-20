@@ -14,43 +14,45 @@ const feature = {
 	ADDITION: Addition,
 	MULTIPLICATION: Multiplication,
 	PrimeFactor: PrimeFactor,
-	
+
 	resourceGain: {
-		number(){
+
+		number(num = player.number){
 			let base = feature.SUCCESSOR.successorBulk();
 			base = base.mul(feature.SUCCESSOR.autoSuccessPerSecond());
 			let softcap = 0;
 			let sc1 = new Decimal(2).pow(256), sc2 = new Decimal(2).pow(1024);
-			if(player.number.gte(sc1))
+			if(num.gte(sc1))
 			{
 				let exp = new Decimal(1).div(0.75).sub(1);
-				base = base.div(player.number.div(sc1).pow(exp));
+				base = base.div(num.div(sc1).pow(exp));
+				num = num.add(base);
 				softcap = 1;
 			}
-			if(player.number.gte(sc2))
+			if(num.gte(sc2))
 			{
 				let exp = new Decimal(1).div(0.75).sub(1);
-				base = base.div(player.number.div(sc2).pow(exp));
+				base = base.div(num.div(sc2).pow(exp));
 				softcap = 2;
 			}
-			return {value: base, softcap: softcap};
+			return { value: base, softcap: softcap };
 		},
-		addpower(){
+		addpower() {
 			let base = feature.ADDITION.gain();
 			let softcap = 0;
 			let sc1 = new Decimal(2).pow(384);
-			if(player.addpower.gte(sc1))
+			if(player.addpower.add(base).gte(sc1))
 			{
 				let exp = new Decimal(1).div(0.75).sub(1);
 				base = base.div(player.addpower.div(sc1).pow(exp));
 				softcap = 1;
 			}
 			let passive = new Decimal(0.01);
-			return {value: base, passive: passive, softcap: softcap};
+			return { value: base, passive: passive, softcap: softcap };
 		},
-		mulpower(){
+		mulpower() {
 			let base = feature.MULTIPLICATION.gain();
-			return {value: base};
+			return { value: base };
 		},
 	},
 };
