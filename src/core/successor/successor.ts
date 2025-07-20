@@ -3,7 +3,7 @@ import { UPGRADES, BUYABLES, upgrades, buyables, type singleReq } from '../mecha
 import Decimal from 'break_eternity.js';
 import { format, formatWhole } from '@/utils/format';
 import { feature } from '../global.ts';
-import {NUMTHEORY} from '../multiplication/numbertheory.ts';
+import { NUMTHEORY } from '../multiplication/numbertheory.ts';
 
 export const Successor = {
 	initMechanics() {
@@ -154,17 +154,19 @@ export const Successor = {
 	success(bulk = 1) {
 		let adding = this.successorBulk().mul(bulk);
 		let softcap = feature.resourceGain.number().softcap;
-		if(softcap >= 1)
-		{
+		if (softcap >= 1) {
 			let sc1 = new Decimal(2).pow(256);
 			let exp = new Decimal(0.75);
-			adding = sc1.mul(player.number.div(sc1).root(exp).add(adding.div(sc1)).pow(exp)).sub(player.number);
+			adding = sc1
+				.mul(player.number.div(sc1).root(exp).add(adding.div(sc1)).pow(exp))
+				.sub(player.number);
 		}
-		if(softcap >= 2)
-		{
+		if (softcap >= 2) {
 			let sc2 = new Decimal(2).pow(1024);
 			let exp = new Decimal(0.75);
-			adding = sc2.mul(player.number.div(sc2).root(exp).add(adding.div(sc2)).pow(exp)).sub(player.number);
+			adding = sc2
+				.mul(player.number.div(sc2).root(exp).add(adding.div(sc2)).pow(exp))
+				.sub(player.number);
 		}
 		player.number = player.number.add(adding);
 		player.totalNumber = player.totalNumber.add(adding);
@@ -198,7 +200,7 @@ export const Successor = {
 		if (player.firstResetBit & 0b10) base = base.mul(feature.MULTIPLICATION.powerEff());
 		if (player.firstResetBit & 0b10) base = base.mul(feature.PrimeFactor.powerEff());
 		if (player.firstResetBit & 0b10) base = base.mul(NUMTHEORY.funcS().max(1));
-		
+
 		return base;
 	},
 };

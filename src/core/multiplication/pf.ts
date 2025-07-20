@@ -17,16 +17,15 @@ export const PrimeFactor = {
 				n: Number(i),
 				currency: '乘法能量',
 
-				description: '因数能量×'+pf,
-        more() {
-          if (player.upgrades[36] && Number(i) !== pflist.length-1) {
-            return player.buyables["pf"+pflist[Number(i)+1]].div(2).floor()
-          }
-          return new Decimal(0)
-        },
+				description: '因数能量×' + pf,
+				more() {
+					if (player.upgrades[36] && Number(i) !== pflist.length - 1) {
+						return player.buyables['pf' + pflist[Number(i) + 1]].div(2).floor();
+					}
+					return new Decimal(0);
+				},
 				effect(x) {
 					return new Decimal(this.pfid).pow(x.add(this.more?.() ?? 0));
-
 				},
 				effD(x) {
 					return 'x' + formatWhole(this.effect(x));
@@ -81,7 +80,8 @@ export const PrimeFactor = {
 	powerEff() {
 		let sec = player.multiplication.pfTime.div(1000);
 		let exp = new Decimal(0.99);
-		if(!player.buyables['33'].eq(0)) exp = exp.sub(buyables['33'].effect(player.buyables['33']));
+		if (!player.buyables['33'].eq(0))
+			exp = exp.sub(buyables['33'].effect(player.buyables['33']));
 		let base = this.power()
 			.root(2)
 			.pow(new Decimal(1).sub(exp.pow(sec)));

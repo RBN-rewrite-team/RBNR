@@ -5,15 +5,15 @@
  * @returns 两个数字的最大公约数
  */
 export function gcd(x: number, y: number): number {
-  if (x<y) [x,y]=[y,x];
-  const cacheKey = `${x},${y}`;
-        
-  // 检查缓存
-  if (gcdCache.has(cacheKey)) {
-    return gcdCache.get(cacheKey)!;
-  }
-  let originalX = x;
-  let originalY = y;
+	if (x < y) [x, y] = [y, x];
+	const cacheKey = `${x},${y}`;
+
+	// 检查缓存
+	if (gcdCache.has(cacheKey)) {
+		return gcdCache.get(cacheKey)!;
+	}
+	let originalX = x;
+	let originalY = y;
 	// 使用欧几里得算法
 	while (y !== 0) {
 		const temp = y;
@@ -55,15 +55,14 @@ console.log(isCoprime(0, 5));    // false
 console.log(isCoprime(-4, 9));   // true (负数也可以互质)
 */
 
-
 /**
  * 计算1到a中与a互质的数的个数
  * @returns 互质的数的个数
  */
 export function eulerFunction(a: number) {
-  let c= 0;
-  for (let i = 1; i<=a; i++) {
-    c+=isCoprime(a, i) ? 1 : 0;
-  }
-  return c;
+	let c = 0;
+	for (let i = 1; i <= a; i++) {
+		c += isCoprime(a, i) ? 1 : 0;
+	}
+	return c;
 }

@@ -31,7 +31,7 @@
 
 :root {
 	--red: #ff0000;
-	
+
 	--app-background-color: #f3f3f3;
 	--background-color: #fdfdfd;
 	--color: #000000;
@@ -55,9 +55,9 @@
 	transition: all 0.25s;
 	touch-action: manipulation; // disable doubleclick zooming
 	text-size-adjust: none;
-	
+
 	&:not(.katex):not(.katex *) {
-	  font-family: "思源黑体Regular";
+		font-family: '思源黑体Regular';
 	}
 }
 
@@ -804,7 +804,7 @@ body {
 	width: 100%;
 	height: 100%;
 	z-index: 1;
-	background-color: var(--color)66;
+	background-color: var(--color) 66;
 }
 
 .dialog {
@@ -868,6 +868,11 @@ body {
 	background-color: var(--border-color);
 }
 
-h1, h2, h3, h4, h5, h6 {
-  margin: 0
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
 }
