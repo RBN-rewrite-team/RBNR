@@ -1,5 +1,5 @@
 import { player } from '../save';
-import { UPGRADES, BUYABLES, upgrades, buyables, type singleReq } from '../mechanic.ts';
+import { UPGRADES, BUYABLES, SOFTCAPS, upgrades, buyables, softcaps, type singleReq } from '../mechanic.ts';
 import Decimal from 'break_eternity.js';
 import { format, formatWhole } from '@/utils/format';
 import { feature } from '../global.ts';
@@ -151,30 +151,24 @@ export const Successor = {
 			},
 			currency: '数值',
 		});
+		SOFTCAPS.create('number^1', {
+			name: 'number^1',
+			fluid: true,
+			start: new Decimal(2).pow(256),
+			exponent: new Decimal(0.75),
+		});
+		SOFTCAPS.create('number^2', {
+			name: 'number^2',
+			fluid: true,
+			start: new Decimal(2).pow(1024),
+			exponent: new Decimal(0.75),
+		});
 	},
 
 	success(bulk = 1) {
 		let adding = this.successorBulk().mul(bulk);
-
-		let softcap = feature.resourceGain.number(player.number.add(adding)).softcap;
-		if(softcap >= 1)
-		{
-			let sc1 = new Decimal(2).pow(256);
-			let exp = new Decimal(0.75);
-			adding = sc1
-				.mul(player.number.div(sc1).root(exp).add(adding.div(sc1)).pow(exp))
-				.sub(player.number);
-		}
-		if (softcap >= 2) {
-			let sc2 = new Decimal(2).pow(1024);
-			let exp = new Decimal(0.75);
-			adding = sc2
-				.mul(player.number.div(sc2).root(exp).add(adding.div(sc2)).pow(exp))
-				.sub(player.number);
-		}
-    if (CHALLENGE.inChallenge(0, 1)) {
-      adding = adding.div(2**128);
-    }
+		adding = SOFTCAPS.fluidComputed('number^1', adding, player.number);
+		adding = SOFTCAPS.fluidComputed('number^2', adding, player.number);
 		player.number = player.number.add(adding);
 		player.totalNumber = player.totalNumber.add(adding);
 		player.stat.totalNumber = player.stat.totalNumber.add(adding);

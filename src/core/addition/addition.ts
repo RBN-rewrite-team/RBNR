@@ -1,5 +1,5 @@
 import Decimal from 'break_eternity.js';
-import { buyables, BUYABLES, upgrades, UPGRADES, type singleReq } from '../mechanic';
+import { buyables, BUYABLES, upgrades, UPGRADES, softcaps, SOFTCAPS, type singleReq } from '../mechanic';
 import { player } from '../save';
 import ModalService from '@/utils/Modal';
 import { formatWhole } from '@/utils/format';
@@ -214,23 +214,17 @@ export const Addition = {
 				return true;
 			},
 		});
+		SOFTCAPS.create('addpower^1', {
+			name: 'addpower^1',
+			fluid: true,
+			start: new Decimal(2).pow(384),
+			exponent: new Decimal(0.75),
+		});
 	},
 	addpower_gain(bulk = new Decimal(1)) {
 		let adding = this.gain().mul(bulk);
-		let softcap = feature.resourceGain.addpower().softcap;
-		if (softcap >= 1) {
-			let sc1 = new Decimal(2).pow(384);
-			let exp = new Decimal(0.75);
-			adding = sc1
-				.mul(player.addpower.div(sc1).root(exp).add(adding.div(sc1)).pow(exp))
-				.sub(player.addpower);
-		}
-    if (CHALLENGE.inChallenge(0, 1)) {
-      adding = adding.div(2**128);
-    }
-		player.addpower = player.addpower
-			.add(adding)
-			.min(CHALLENGE.inChallenge(0, 0) ? C11cap() : Infinity);
+		adding = SOFTCAPS.fluidComputed('addpower^1', adding, player.addpower);
+		player.addpower = player.addpower.add(adding);
 		player.totalAddpower = player.totalAddpower.add(adding);
 		player.stat.totalAddpower = player.stat.totalAddpower.add(adding);
 	},
