@@ -4,6 +4,8 @@ import Decimal from 'break_eternity.js';
 import { format, formatWhole } from '@/utils/format';
 import { feature } from '../global.ts';
 import { NUMTHEORY } from '../multiplication/numbertheory.ts';
+import {CHALLENGE} from '../challenge.ts';
+import {MULTI_CHALS} from '../multiplication/challenges.ts';
 
 export const Successor = {
 	initMechanics() {
@@ -168,6 +170,9 @@ export const Successor = {
 				.mul(player.number.div(sc2).root(exp).add(adding.div(sc2)).pow(exp))
 				.sub(player.number);
 		}
+    if (CHALLENGE.inChallenge(0, 1)) {
+      adding = adding.div(2**128);
+    }
 		player.number = player.number.add(adding);
 		player.totalNumber = player.totalNumber.add(adding);
 		player.stat.totalNumber = player.stat.totalNumber.add(adding);
@@ -201,6 +206,9 @@ export const Successor = {
 		if (player.firstResetBit & 0b10) base = base.mul(feature.PrimeFactor.powerEff());
 		if (player.firstResetBit & 0b10) base = base.mul(NUMTHEORY.funcS().max(1));
 
+    if (CHALLENGE.amountChallenge(0, 1).gt(0)) {
+      base = base.mul(MULTI_CHALS[1].effect?.(player.challenges[0][1]) ?? 1)
+    }
 		return base;
 	},
 };

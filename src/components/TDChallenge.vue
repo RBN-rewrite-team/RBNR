@@ -14,11 +14,18 @@ function challengeButton() {
 		CHALLENGE.enterChallenge(props.layer, props.chid);
 	else CHALLENGE.exitChallenge();
 }
+
+function chalClass(){
+  return {
+    "in": CHALLENGE.inChallenge(props.layer, props.chid),
+  }
+}
+
 </script>
 
 <template>
 	<td>
-		<div class="challenge" @click="challengeButton">
+    <div class="challenge" :class="chalClass()" @click="challengeButton">
 			<p><b v-html="chal.name"></b></p>
 			<p v-html="chal.descEasy"></p>
 			<div v-if="chal.effect && chal.effD">
@@ -35,5 +42,10 @@ function challengeButton() {
 <style scoped>
 p {
 	margin: 0;
+}
+
+.in {
+	border: 2px solid #808000;
+	box-shadow: #ee0 1px 1px 2px 1px;
 }
 </style>
