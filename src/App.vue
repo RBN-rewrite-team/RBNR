@@ -14,6 +14,7 @@ import TDUpgrade from './components/TDUpgrade.vue';
 import TDBuyable from './components/TDBuyable.vue';
 import {NUMTHEORY} from './core/multiplication/numbertheory.ts';
 import {eulerFunction} from './utils/algorithm.ts';
+import TDChallenge from "./components/TDChallenge.vue";
 
 const validNotations = computed(() => 
   Object.values(notations).filter(v => typeof v === 'number')
@@ -349,6 +350,15 @@ const pflist = ['2', '3', '5', '7', '11', '13', '17', '19'] as const;
           <p>你产生了 {{format(player.stat.totalNumber)}} 数字</p>
           <p>你产生了 {{format(player.stat.totalAddpower)}} 加法能量</p>
           <p>你产生了 {{format(player.stat.totalMulpower)}} 乘法能量</p>
+        </div>
+        <div class="main" v-if="player.currentTab == 8">
+          <table>
+            <tbody>
+              <tr>
+                <TDChallenge :layer="0" :chid="0" />
+              </tr>
+            </tbody>
+          </table>
         </div>
 				<div class="main" v-if="player.currentTab === 3">
 					<h1>大数之路重制版</h1>

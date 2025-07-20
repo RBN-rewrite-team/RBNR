@@ -5,6 +5,7 @@ import Decimal from 'break_eternity.js';
 import {NUMTHEORY} from './multiplication/numbertheory.ts';
 
 import {updateTheme} from '@/utils/themes';
+import {CHALLENGE} from './challenge.ts';
 
 export let diff = 0;
 
@@ -19,7 +20,7 @@ export function gameLoop() {
 	player.lastUpdated = Date.now();
 	
 	updateTheme();
-
+  CHALLENGE.challengeLoop()
 	if (feature.SUCCESSOR.autoSuccessPerSecond().gte(0.001)) {
 		player.automationCD.successor += diff;
 		let cd = new Decimal(1000).div(feature.SUCCESSOR.autoSuccessPerSecond());

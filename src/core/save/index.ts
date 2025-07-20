@@ -33,6 +33,7 @@ export interface Player {
 	addpower: Decimal;
 	totalAddpower: Decimal;
 	firstResetBit: number;
+  challenges: Decimal[][];
 	multiplication: {
 		mulpower: Decimal;
 		totalMulpower: Decimal;
@@ -58,6 +59,7 @@ export interface Player {
     totalAddpower: Decimal;
     hightestAddpower: Decimal;
   };
+  challengein: [number,number];
 }
 function getInitialPlayerData(): Player {
 	return {
@@ -143,7 +145,11 @@ function getInitialPlayerData(): Player {
       highestMulpower: zero,
       totalAddpower: zero,
       hightestAddpower: zero
-    }
+    },
+    challenges: [
+      [zero, zero, zero, zero, zero]
+    ],
+    challengein: [-1, -1],
 	};
 }
 

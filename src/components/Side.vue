@@ -63,6 +63,14 @@ import { player } from '@/core/save';
 						>
 							数论研究
 						</div>
+						<div
+							class="menu2"
+							:class="{ focus: player.currentTab == 8 }"
+							@click="player.currentTab = 8"
+							v-if="player.upgrades[39]"
+						>
+							乘法挑战
+						</div>
 					</template>
 					<div class="menu1">杂项</div>
 					<div class="menu_line"></div>

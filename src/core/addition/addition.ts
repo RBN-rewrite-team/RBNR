@@ -4,6 +4,8 @@ import { player } from '../save';
 import ModalService from '@/utils/Modal';
 import { formatWhole } from '@/utils/format';
 import { feature } from '../global.ts';
+import {CHALLENGE} from '../challenge.ts';
+import {C11cap, MULTI_CHALS} from '../multiplication/challenges.ts';
 
 export const Addition = {
 	initMechanics() {
@@ -111,13 +113,18 @@ export const Addition = {
 		UPGRADES.create('25', {
 			description: '后继运算升级为加法运算， 在每次加法重置后保留U0系列升级',
 			displayName: 'U1-5',
-			effect() {
-				return player.totalAddpower.root(4).add(1).floor();
+      effect() {
+        let exp = new Decimal(0.25);
+        let a;
+        if (a = MULTI_CHALS[0].effect?.(player.challenges[0][0])??new Decimal(0), a.gt(0)) exp = exp.add(a);
+
+				return player.totalAddpower.pow(a).add(1).floor();
 			},
 			effD() {
 				return '+' + formatWhole(this?.effect?.() ?? 0) + '/c';
 			},
       get cost() {
+        if (CHALLENGE.inChallenge(0, 0)) return new Decimal(Infinity)
         if (player.multiplication.B1seriesC1 == 5) return new Decimal(1)
         return new Decimal(625)
       },
@@ -213,7 +220,7 @@ export const Addition = {
 			let exp = new Decimal(0.75);
 			adding = sc1.mul(player.addpower.div(sc1).root(exp).add(adding.div(sc1)).pow(exp)).sub(player.addpower);
 		}
-		player.addpower = player.addpower.add(adding);
+    player.addpower = player.addpower.add(adding).min(CHALLENGE.inChallenge(0, 0) ? C11cap() : Infinity);
 		player.totalAddpower = player.totalAddpower.add(adding);
 		player.stat.totalAddpower = player.stat.totalAddpower.add(adding);
 	},
@@ -250,6 +257,7 @@ export const Addition = {
 		let base = player.totalNumber.div(1000).floor().max(0);
 		if (player.firstResetBit & 0b10) base = base.mul(feature.PrimeFactor.powerEff());
 		if (player.buyables[31].gt(0)) base = base.mul(buyables[31].effect(player.buyables[31]))
+
 		return base;
 	},
 	U25effect() {
