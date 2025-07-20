@@ -7,7 +7,7 @@ import Decimal from 'break_eternity.js';
 export const NUMTHEORY = {
 	initMechanics() {
 		BUYABLES.create('31R', {
-			description: 'x每秒增加1',
+			description: '设置b<sub>1</sub>的值',
 			cost(x) {
 				return x.pow_base(2).mul(10);
 			},
@@ -15,7 +15,7 @@ export const NUMTHEORY = {
 				return x;
 			},
 			effD(x) {
-				return `+${formatWhole(x)}/s`;
+				return `b<sub>1</sub> = ${formatWhole(x)}`;
 			},
 			canAfford(x) {
 				return this.cost(x).lte(player.multiplication.mulpower);
@@ -33,7 +33,7 @@ export const NUMTHEORY = {
 			requirement: [],
 		});
 		BUYABLES.create('32R', {
-			description: 'x值增速+×1',
+			description: '设置b<sub>2</sub>的值',
 			cost(x) {
 				return x.pow_base(10).mul(100);
 			},
@@ -41,7 +41,7 @@ export const NUMTHEORY = {
 				return x.add(1);
 			},
 			effD(x) {
-				return `×${formatWhole(x.add(1))}`;
+				return `b<sub>2</sub> = ${formatWhole(x.add(1))}`;
 			},
 			canAfford(x) {
 				return this.cost(x).lte(player.multiplication.mulpower);
@@ -59,7 +59,7 @@ export const NUMTHEORY = {
 			requirement: [],
 		});
 		UPGRADES.create('31R', {
-			description: 'x值获取速度增加',
+			description: '将u<sub>1</sub>加入x获取速度公式',
 			displayName: 'U2-R1-1',
 			currency: '乘法能量',
 			cost: new Decimal(1e4),
@@ -67,7 +67,7 @@ export const NUMTHEORY = {
 				return player.multiplication.mulpower.add(Math.E).ln().floor().max(1);
 			},
 			effD() {
-				return `*${format(this.effect?.() ?? 1)}`;
+				return `u<sub>1</sub> = ${formatWhole(this.effect?.() ?? 1)}`;
 			},
 			canAfford() {
 				return player.multiplication.mulpower.gte(this.cost);
