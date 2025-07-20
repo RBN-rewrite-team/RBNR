@@ -208,6 +208,9 @@ export const Successor = {
 		if (player.firstResetBit & 0b10) base = base.mul(feature.PrimeFactor.powerEff());
 		if (player.firstResetBit & 0b10) base = base.mul(NUMTHEORY.funcS().max(1));
 
+    if (CHALLENGE.inChallenge(0, 2)) {
+      base = base.div(player.number.max(1))
+    }
     if (CHALLENGE.amountChallenge(0, 1).gt(0)) {
       base = base.mul(MULTI_CHALS[1].effect?.(player.challenges[0][1]) ?? 1)
     }

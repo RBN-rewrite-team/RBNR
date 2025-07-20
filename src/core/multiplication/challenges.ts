@@ -33,6 +33,22 @@ export const MULTI_CHALS: SingleChallenge[] = [
 			player.challenges[0][1] = player.challenges[0][1].max(player.number);
 		},
 	},
+	{
+		name: '燃烧',
+    descEasy: '数值增长速度除以已有数值',
+    get descHard(){
+      return '数值增长速度除以当前已经拥有的数值数量'
+    },
+		effect(x) {
+      return x.pow(0.1).max(1);
+		},
+		effD(x) {
+			return `数值获取速度*${format(x)}`;
+		},
+		loop() {
+			player.challenges[0][2] = player.challenges[0][2].max(player.number);
+		},
+	},
 ] as const;
 
 export function C11cap() {
