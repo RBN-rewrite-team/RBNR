@@ -46,6 +46,15 @@ export function gameLoop() {
 		player.numbertheory.euler.x = player.numbertheory.euler.x.add(
 			NUMTHEORY.varXgain().mul(diff).mul(1e-3),
 		);
+		player.numbertheory.euler.y = player.numbertheory.euler.y.add(
+			NUMTHEORY.varYgain().mul(diff).mul(1e-3),
+		);
+		player.numbertheory.euler.z = player.numbertheory.euler.z.add(
+			NUMTHEORY.varZgain().mul(diff).mul(1e-3),
+		);
+		player.numbertheory.euler.s = player.numbertheory.euler.s.add(
+			NUMTHEORY.tickspeedGain().mul(diff).mul(1e-3),
+		);
 	}
 
 	updateHighestStat();
