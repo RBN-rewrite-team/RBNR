@@ -1,6 +1,5 @@
 import { eulerFunction } from '@/utils/algorithm';
 import { BUYABLES, buyables, upgrades, UPGRADES } from '../mechanic';
-import { buyables, BUYABLES, upgrades, UPGRADES } from '../mechanic';
 import { player } from '../save';
 import { format, formatWhole } from '@/utils/format';
 import Decimal from 'break_eternity.js';
