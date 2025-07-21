@@ -6,6 +6,7 @@ import { format, formatWhole } from '@/utils/format';
 import { Addition } from '../addition/addition.ts';
 import { PrimeFactor } from './pf.ts';
 import {CHALLENGE} from '../challenge.ts';
+import { MULTI_CHALS } from './challenges.ts';
 const D179E308 = Decimal.pow(2, 1024)
 export const Multiplication = {
 	initMechanics() {
@@ -252,7 +253,7 @@ export const Multiplication = {
 			displayName: 'B2-2',
 			currency: '乘法能量',
 			effect(x) {
-				return x.pow_base(2);
+				return x.pow_base(CHALLENGE.inChallenge(0, 3) ? 1 : 2);
 			},
 			effD(x) {
 				return '*' + formatWhole(this.effect(x));
@@ -326,10 +327,9 @@ export const Multiplication = {
 				this.gain(),
 			);
 			player.stat.totalMulpower = player.stat.totalMulpower.add(this.gain());
-      if (CHALLENGE.inChallenge(0, 3)) {
-
-        player.challenges[0][3] = player.challenges[0][3].add(this.gain())
-      }
+			if (CHALLENGE.inChallenge(0, 3)) {
+			    player.challenges[0][3] = player.challenges[0][3].add(this.gain())
+			}
 			let reset_upgrades: Array<keyof typeof player.upgrades> = [21, 22, 23, 24, 25].map(
 				(x) => x.toString() as keyof typeof player.upgrades,
 			);
@@ -359,10 +359,13 @@ export const Multiplication = {
 	},
 	gain() {
 		if (player.totalAddpower.lt(3125)) return new Decimal(0);
-    if (CHALLENGE.inChallenge(0, 3) && player.totalAddpower.lt(D179E308)) return new Decimal(0);
-    let base = player.totalAddpower.sub(3125).pow(0.1);
-    if (CHALLENGE.inChallenge(0, 3))base= player.totalAddpower.div(D179E308).pow(1/1024);
+		if (CHALLENGE.inChallenge(0, 3) && player.totalAddpower.lt(D179E308)) return new Decimal(0);
+		let base = player.totalAddpower.sub(3125).pow(0.1);
+		if (CHALLENGE.inChallenge(0, 3)) base = player.totalAddpower.div(D179E308).pow(1/1024);
 		if (player.buyables[32].gt(0)) base = base.mul(buyables[32].effect(player.buyables[32]));
+		if (CHALLENGE.amountChallenge(0, 3).gt(0) && !CHALLENGE.inChallenge(0, 3)) {
+			base = base.mul(MULTI_CHALS[3].effect?.(player.challenges[0][3]) ?? 1);
+		}
 		return base.floor();
 	},
 };

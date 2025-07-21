@@ -56,8 +56,8 @@ export const MULTI_CHALS: SingleChallenge[] = [
 		},
 	},
 	{
-		name: '逆转',//裁判 异议
-		descEasy: '反转一半资源生产，提升乘法重置难度',
+		name: '逆转',
+		descEasy: '反转一半资源生产，提升乘法重置难度，禁用B2-2',
 		get descHard() {
 			return this.descEasy;
 		},

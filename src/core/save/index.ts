@@ -43,6 +43,10 @@ export interface Player {
 		pfTime: Decimal;
 		B1seriesC1: 0 | 2 | 3 | 4 | 5;
 	};
+	exponention: {
+		exppower: Decimal;
+		totalExppower: Decimal;
+	};
 	options: {
 		notation: notations;
 		ui: {
@@ -61,6 +65,8 @@ export interface Player {
 		highestMulpower: Decimal;
 		totalAddpower: Decimal;
 		hightestAddpower: Decimal;
+		totalExppower: Decimal;
+		highestExppower: Decimal;
 	};
 	challengein: [number, number];
 }
@@ -139,6 +145,10 @@ function getInitialPlayerData(): Player {
 			pfTime: zero,
 			B1seriesC1: 0,
 		},
+		exponention: {
+			exppower: zero,
+			totalExppower: zero,
+		},
 		options: {
 			notation: notations.SCIENTIFIC,
 			ui: {
@@ -160,6 +170,8 @@ function getInitialPlayerData(): Player {
 			highestMulpower: zero,
 			totalAddpower: zero,
 			hightestAddpower: zero,
+			totalExppower: zero,
+			highestExppower: zero,
 		},
 		challenges: [[zero, zero, zero, zero, zero]],
 		challengein: [-1, -1],
