@@ -250,6 +250,12 @@ export const Addition = {
 			start: new Decimal(2).pow(384),
 			exponent: new Decimal(0.75),
 		});
+		SOFTCAPS.create('addpower^2', {
+			name: 'addpower^2',
+			fluid: true,
+			start: new Decimal(2).pow(4096),
+			exponent: new Decimal(0.5),
+		});
 	},
 	addpower_gain(bulk = new Decimal(1)) {
 		let adding = this.gain().mul(bulk);

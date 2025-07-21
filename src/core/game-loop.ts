@@ -4,6 +4,7 @@ import { simulateTime } from './offline';
 import { UPGRADES, BUYABLES, upgrades, buyables } from './mechanic.ts';
 import Decimal from 'break_eternity.js';
 import { NUMTHEORY } from './multiplication/numbertheory.ts';
+import { predictableRandom } from '@/utils/algorithm.ts';
 
 import { updateTheme } from '@/utils/themes';
 import { CHALLENGE } from './challenge.ts';
@@ -14,6 +15,7 @@ export function updateHighestStat() {
 	player.stat.highestNumber = player.stat.highestNumber.max(player.number);
 	player.stat.highestMulpower = player.stat.highestMulpower.max(player.multiplication.mulpower);
 	player.stat.hightestAddpower = player.stat.hightestAddpower.max(player.addpower);
+	player.stat.highestExppower = player.stat.highestExppower.max(player.exponention.exppower);
 }
 export function gameLoop() {
 	diff = Date.now() - player.lastUpdated;
@@ -56,7 +58,12 @@ export function simulate(diff: number) {
 	}
 
 	if (player.firstResetBit & 0b10) {
-		player.multiplication.pfTime = player.multiplication.pfTime.add(diff);
+		let dPfTime = diff;
+		if(CHALLENGE.inChallenge(0, 3))
+		{
+			dPfTime *= predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1;
+		}
+		player.multiplication.pfTime = player.multiplication.pfTime.add(dPfTime).max(0);
 		player.numbertheory.euler.x = player.numbertheory.euler.x.add(
 			NUMTHEORY.varXgain().mul(diff).mul(1e-3),
 		);

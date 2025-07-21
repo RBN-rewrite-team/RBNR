@@ -252,7 +252,7 @@ export const Multiplication = {
 			displayName: 'B2-2',
 			currency: '乘法能量',
 			effect(x) {
-				return x.pow_base(2);
+				return x.pow_base(CHALLENGE.inChallenge(0, 3) ? 1 : 2);
 			},
 			effD(x) {
 				return '*' + formatWhole(this.effect(x));
@@ -362,6 +362,9 @@ export const Multiplication = {
 		let base = player.totalAddpower.sub(3125).pow(0.1);
 		if (CHALLENGE.inChallenge(0, 3)) base = player.totalAddpower.div(D179E308).pow(1 / 1024);
 		if (player.buyables[32].gt(0)) base = base.mul(buyables[32].effect(player.buyables[32]));
+		if (CHALLENGE.amountChallenge(0, 3).gt(0) && !CHALLENGE.inChallenge(0, 3)) {
+			base = base.mul(MULTI_CHALS[3].effect?.(player.challenges[0][3]) ?? 1);
+		}
 		return base.floor();
 	},
 };

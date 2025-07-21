@@ -5,6 +5,7 @@ import { upgrades, buyables, softcaps, UPGRADES, BUYABLES, SOFTCAPS } from './me
 import { Addition } from './addition/addition.ts';
 import { Multiplication } from './multiplication/multiplication.ts';
 import { PrimeFactor } from './multiplication/pf.ts';
+import { Exponention } from './exponention/exponention.ts';
 import { CHALLENGE } from './challenge.ts';
 
 const feature = {
@@ -15,6 +16,7 @@ const feature = {
 	ADDITION: Addition,
 	MULTIPLICATION: Multiplication,
 	PrimeFactor: PrimeFactor,
+	EXPONENTION: Exponention,
 
 	resourceGain: {
 		number(num = player.number) {
@@ -36,6 +38,10 @@ const feature = {
 		},
 		mulpower() {
 			let base = feature.MULTIPLICATION.gain();
+			return { value: base };
+		},
+		exppower() {
+			let base = feature.EXPONENTION.gain();
 			return { value: base };
 		},
 	},
