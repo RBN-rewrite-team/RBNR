@@ -25,7 +25,7 @@ import MultipChals from './components/tabs/MultipChals.vue';
 
 import AdditionResetButton from './components/AdditionResetButton.vue';
 import MultipResetButton from './components/MultipResetButton.vue';
-import {predictableRandom} from './utils/algorithm.ts';
+import { predictableRandom } from './utils/algorithm.ts';
 </script>
 
 <template>

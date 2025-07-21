@@ -14,7 +14,7 @@ import { formatWhole } from '@/utils/format';
 import { feature } from '../global.ts';
 import { CHALLENGE } from '../challenge.ts';
 import { C11cap, MULTI_CHALS } from '../multiplication/challenges.ts';
-import {predictableRandom} from '@/utils/algorithm.ts';
+import { predictableRandom } from '@/utils/algorithm.ts';
 
 export const Addition = {
 	initMechanics() {
@@ -56,7 +56,8 @@ export const Addition = {
 				return [
 					[
 						'获得5加法能量',
-						() => player.totalAddpower.gte(player.multiplication.B1seriesC1 == 2?1:5),
+						() =>
+							player.totalAddpower.gte(player.multiplication.B1seriesC1 == 2 ? 1 : 5),
 						[formatWhole(player.totalAddpower), formatWhole(upgrades[22].cost)],
 					] as singleReq,
 				];
@@ -83,7 +84,10 @@ export const Addition = {
 				return [
 					[
 						'获得25加法能量',
-						() => player.totalAddpower.gte(player.multiplication.B1seriesC1 == 3?1:25),
+						() =>
+							player.totalAddpower.gte(
+								player.multiplication.B1seriesC1 == 3 ? 1 : 25,
+							),
 						[formatWhole(player.totalAddpower), formatWhole(upgrades[23].cost)],
 					] as singleReq,
 				];
@@ -110,7 +114,10 @@ export const Addition = {
 				return [
 					[
 						'获得125加法能量',
-						() => player.totalAddpower.gte(player.multiplication.B1seriesC1 == 4?1:125),
+						() =>
+							player.totalAddpower.gte(
+								player.multiplication.B1seriesC1 == 4 ? 1 : 125,
+							),
 						[formatWhole(player.totalAddpower), formatWhole(upgrades[24].cost)],
 					] as singleReq,
 				];
@@ -152,7 +159,10 @@ export const Addition = {
 				return [
 					[
 						'获得625加法能量',
-						() => player.totalAddpower.gte(player.multiplication.B1seriesC1 == 5?1:625),
+						() =>
+							player.totalAddpower.gte(
+								player.multiplication.B1seriesC1 == 5 ? 1 : 625,
+							),
 						[formatWhole(player.totalAddpower), formatWhole(upgrades[25].cost)],
 					] as singleReq,
 				];
@@ -222,9 +232,16 @@ export const Addition = {
 			show: function () {
 				return true;
 			},
-			canBuyMax() {return player.upgrades[39];},
+			canBuyMax() {
+				return player.upgrades[39];
+			},
 			buyMax() {
-				player.buyables[21] = player.number.sub(10).div(1000).floor().max(player.buyables[21]).min(100);
+				player.buyables[21] = player.number
+					.sub(10)
+					.div(1000)
+					.floor()
+					.max(player.buyables[21])
+					.min(100);
 			},
 		});
 		SOFTCAPS.create('addpower^1', {
@@ -237,9 +254,9 @@ export const Addition = {
 	addpower_gain(bulk = new Decimal(1)) {
 		let adding = this.gain().mul(bulk);
 		adding = SOFTCAPS.fluidComputed('addpower^1', adding, player.addpower);
-    if (CHALLENGE.inChallenge(0, 3)) {
-      adding = adding.mul(predictableRandom(Math.floor(Date.now()/40))>0.5? -1 : 1);
-    }
+		if (CHALLENGE.inChallenge(0, 3)) {
+			adding = adding.mul(predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1);
+		}
 		player.addpower = player.addpower.add(adding).max(0);
 		player.totalAddpower = player.totalAddpower.add(adding.max(0));
 		player.stat.totalAddpower = player.stat.totalAddpower.add(adding.max(0));

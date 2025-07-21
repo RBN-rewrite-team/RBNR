@@ -1,6 +1,6 @@
 import { player, feature } from './global.ts';
 import { nextTick } from 'vue';
-import { simulateTime } from './offline'
+import { simulateTime } from './offline';
 import { UPGRADES, BUYABLES, upgrades, buyables } from './mechanic.ts';
 import Decimal from 'break_eternity.js';
 import { NUMTHEORY } from './multiplication/numbertheory.ts';
@@ -16,15 +16,15 @@ export function updateHighestStat() {
 	player.stat.hightestAddpower = player.stat.hightestAddpower.max(player.addpower);
 }
 export function gameLoop() {
-  diff = Date.now() - player.lastUpdated;
+	diff = Date.now() - player.lastUpdated;
 	updateTheme();
 	if (diff < 0) return;
 	player.lastUpdated = Date.now();
-	simulate(diff)
+	simulate(diff);
 	if (diff > 1000) {
-    simulateTime(diff)
-    return
-  }
+		simulateTime(diff);
+		return;
+	}
 }
 export function simulate(diff: number) {
 	CHALLENGE.challengeLoop();
@@ -48,13 +48,13 @@ export function simulate(diff: number) {
 			player.upgrades[i as keyof typeof player.upgrades] = true;
 		}
 	}
-	
-	for(let i in buyables) {
+
+	for (let i in buyables) {
 		if (buyables[i].canBuyMax != null && buyables[i].canBuyMax()) {
-			if(buyables[i].buyMax != null) buyables[i].buyMax();
+			if (buyables[i].buyMax != null) buyables[i].buyMax();
 		}
 	}
-	
+
 	if (player.firstResetBit & 0b10) {
 		player.multiplication.pfTime = player.multiplication.pfTime.add(diff);
 		player.numbertheory.euler.x = player.numbertheory.euler.x.add(
