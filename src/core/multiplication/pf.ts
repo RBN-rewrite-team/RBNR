@@ -4,7 +4,7 @@ import { player } from '../save';
 import ModalService from '@/utils/Modal';
 import { formatWhole } from '@/utils/format';
 import { Addition } from '../addition/addition.ts';
-import {CHALLENGE} from '../challenge.ts';
+import { CHALLENGE } from '../challenge.ts';
 
 export const PrimeFactor = {
 	initMechanics() {
@@ -86,9 +86,9 @@ export const PrimeFactor = {
 		let base = this.power()
 			.root(2)
 			.pow(new Decimal(1).sub(exp.pow(sec)));
-    if (CHALLENGE.inChallenge(0, 1)) {
-      base = this.power().root(2).pow(sec.pow_base(0.99999).neg().add(1));
-    }
+		if (CHALLENGE.inChallenge(0, 1)) {
+			base = this.power().root(2).pow(sec.pow_base(0.99999).neg().add(1));
+		}
 		return base;
 	},
 };

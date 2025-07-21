@@ -17,14 +17,14 @@ const feature = {
 	PrimeFactor: PrimeFactor,
 
 	resourceGain: {
-
-		number(num = player.number){
+		number(num = player.number) {
 			let base = feature.SUCCESSOR.successorBulk();
 			base = base.mul(feature.SUCCESSOR.autoSuccessPerSecond());
 			base = SOFTCAPS.fluidComputed('number^1', base, player.number);
 			base = SOFTCAPS.fluidComputed('number^2', base, player.number);
-			if(CHALLENGE.inChallenge(0, 2)) base = SOFTCAPS.fluidComputed('number_C1', base, player.number);
-			return {value: base};
+			if (CHALLENGE.inChallenge(0, 2))
+				base = SOFTCAPS.fluidComputed('number_C1', base, player.number);
+			return { value: base };
 		},
 		addpower() {
 			let base = feature.ADDITION.gain();
@@ -32,7 +32,7 @@ const feature = {
 			let sc1 = new Decimal(2).pow(384);
 			base = SOFTCAPS.fluidComputed('addpower^1', base, player.addpower);
 			let passive = new Decimal(0.01);
-			return {value: base, passive: passive};
+			return { value: base, passive: passive };
 		},
 		mulpower() {
 			let base = feature.MULTIPLICATION.gain();

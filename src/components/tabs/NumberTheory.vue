@@ -5,6 +5,26 @@ import { formatLaTeX, formatLaTeXWhole } from '@/utils/format';
 import { player } from '@/core/save';
 import TDUpgrade from '../TDUpgrade.vue';
 import TDBuyable from '../TDBuyable.vue';
+
+function xGainLatex() {
+	return (
+		`\\dot{x} = sx_1${player.upgrades['32R'] ? '^{1.05}' : ''}x_2${player.upgrades['31R'] ? 'u_1' : ''}y = ` +
+		formatLaTeX(NUMTHEORY.varXgain())
+	);
+}
+
+function yGainLatex() {
+	return (
+		`\\dot{y} = sy_1${player.upgrades['33R'] ? '^{1.05}' : ''}z = ` +
+		formatLaTeX(NUMTHEORY.varYgain())
+	);
+}
+function zGainLatex() {
+	return `\\dot{z} = sz_1 = ` + formatLaTeX(NUMTHEORY.varZgain());
+}
+function sGainLatex() {
+	return `\\dot{s} = s_1 = ` + formatLaTeX(NUMTHEORY.tickspeedGain());
+}
 </script>
 
 <template>
@@ -27,10 +47,22 @@ import TDBuyable from '../TDBuyable.vue';
 					:expression="'x = ' + formatLaTeXWhole(player.numbertheory.euler.x.floor())"
 					display-mode
 				/>
+				<vue-latex :expression="xGainLatex()" display-mode />
 				<vue-latex
-					:expression="`\\dot{x} = b_1b_2${player.upgrades['31R']?'u_1':''} = ` + formatLaTeX(NUMTHEORY.varXgain())"
+					:expression="'y = ' + formatLaTeXWhole(player.numbertheory.euler.y.floor())"
 					display-mode
 				/>
+				<vue-latex :expression="yGainLatex()" display-mode />
+				<vue-latex
+					:expression="'z = ' + formatLaTeXWhole(player.numbertheory.euler.z.floor())"
+					display-mode
+				/>
+				<vue-latex :expression="zGainLatex()" display-mode />
+				<vue-latex
+					:expression="'s = ' + formatLaTeX(player.numbertheory.euler.s)"
+					display-mode
+				/>
+				<vue-latex :expression="sGainLatex()" display-mode />
 				<p style="font-size: 120%">
 					<b>研究1加成：加法效果×<vue-latex expression="\tau_1" /></b>
 				</p>
@@ -40,7 +72,14 @@ import TDBuyable from '../TDBuyable.vue';
 					<tr>
 						<TDBuyable bylid="31R" />
 						<TDBuyable bylid="32R" />
+						<TDBuyable bylid="33R" />
+						<TDBuyable bylid="34R" />
+					</tr>
+					<tr>
 						<TDUpgrade upgid="31R" />
+						<TDUpgrade upgid="32R" />
+						<TDUpgrade upgid="33R" />
+						<TDBuyable bylid="35R" />
 					</tr>
 				</tbody>
 			</table>
