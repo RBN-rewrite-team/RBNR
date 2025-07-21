@@ -66,3 +66,20 @@ export function eulerFunction(a: number) {
 	}
 	return c;
 }
+
+/**
+ * Generate random X from a number
+ * @param x 
+ *
+ * @returns 
+ */
+export function predictableRandom(x: number) {
+    let start = Math.pow(x % 97, 4.3) * 232344573;
+    const a = 15485863;
+    const b = 521791;
+    start = (start * a) % b;
+    for (let i = 0; i < (x * x) % 90 + 90; i++) {
+        start = (start * a) % b;
+    }
+    return start / b;
+}

@@ -1,5 +1,5 @@
 import { format } from '@/utils/format';
-import type { SingleChallenge } from '../challenge';
+import { CHALLENGE, type SingleChallenge } from '../challenge';
 import { player } from '../save';
 import Decimal from 'break_eternity.js';
 
@@ -53,6 +53,22 @@ export const MULTI_CHALS: SingleChallenge[] = [
 		},
 		loop() {
 			player.challenges[0][2] = player.challenges[0][2].max(player.number);
+		},
+	},
+	{
+		name: '逆转',//裁判 异议
+		descEasy: '反转一半资源生产，提升乘法重置难度',
+		get descHard() {
+			return this.descEasy;
+		},
+    effect(x) {
+      if (CHALLENGE.inChallenge(0, 3)) return new Decimal(1)
+			return x.add(1).pow(64).max(1);
+		},
+		effD(x) {
+			return `乘法能量获取速度*${format(x)}`;
+		},
+		loop() {
 		},
 	},
 ] as const;
