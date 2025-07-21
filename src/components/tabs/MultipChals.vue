@@ -6,8 +6,8 @@ import MultipResetButton from '../MultipResetButton.vue';
 
 <template>
 	<div class="main" v-if="player.currentTab == 8">
-    <MultipResetButton />
-		<table style="transform: translateY(60px);">
+		<MultipResetButton />
+		<table style="transform: translateY(60px)">
 			<tbody>
 				<tr>
 					<TDChallenge :layer="0" :chid="0" />
