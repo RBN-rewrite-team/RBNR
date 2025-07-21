@@ -7,15 +7,16 @@ import Decimal from 'break_eternity.js';
 export const NUMTHEORY = {
 	initMechanics() {
 		BUYABLES.create('31R', {
-			description: '设置b<sub>1</sub>的值',
+			description: 'x<sub>1</sub>→x<sub>1</sub>+1',
 			cost(x) {
 				return x.pow_base(2).mul(10);
 			},
+			displayName: 'B2-R1-1',
 			effect(x) {
 				return x;
 			},
 			effD(x) {
-				return `b<sub>1</sub> = ${formatWhole(x)}`;
+				return `x<sub>1</sub> = ${formatWhole(x)}`;
 			},
 			canAfford(x) {
 				return this.cost(x).lte(player.multiplication.mulpower);
@@ -33,15 +34,97 @@ export const NUMTHEORY = {
 			requirement: [],
 		});
 		BUYABLES.create('32R', {
-			description: '设置b<sub>2</sub>的值',
+			description: 'x<sub>2</sub>→x<sub>2</sub>+1',
 			cost(x) {
 				return x.pow_base(10).mul(100);
 			},
+			displayName: 'B2-R1-2',
 			effect(x) {
 				return x.add(1);
 			},
 			effD(x) {
-				return `b<sub>2</sub> = ${formatWhole(x.add(1))}`;
+				return `x<sub>2</sub> = ${formatWhole(x.add(1))}`;
+			},
+			canAfford(x) {
+				return this.cost(x).lte(player.multiplication.mulpower);
+			},
+			buy(x) {
+				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost(x));
+			},
+			capped() {
+				return false;
+			},
+			currency: '乘法能量',
+			show() {
+				return true;
+			},
+			requirement: [],
+		});
+		BUYABLES.create('33R', {
+			description: 'y<sub>1</sub>→y<sub>1</sub>+1',
+			cost(x) {
+				return x.pow_base(100).mul(1e28);
+			},
+			displayName: 'B2-R1-3',
+			effect(x) {
+				return x;
+			},
+			effD(x) {
+				return `y<sub>1</sub> = ${formatWhole(x)}`;
+			},
+			canAfford(x) {
+				return this.cost(x).lte(player.multiplication.mulpower);
+			},
+			buy(x) {
+				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost(x));
+			},
+			capped() {
+				return false;
+			},
+			currency: '乘法能量',
+			show() {
+				return true;
+			},
+			requirement: [],
+		});
+		BUYABLES.create('34R', {
+			description: 'z<sub>1</sub>→z<sub>1</sub>+1',
+			cost(x) {
+				return x.pow_base(1000).mul(1e30);
+			},
+			displayName: 'B2-R1-4',
+			effect(x) {
+				return x;
+			},
+			effD(x) {
+				return `z<sub>1</sub> = ${formatWhole(x)}`;
+			},
+			canAfford(x) {
+				return this.cost(x).lte(player.multiplication.mulpower);
+			},
+			buy(x) {
+				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost(x));
+			},
+			capped() {
+				return false;
+			},
+			currency: '乘法能量',
+			show() {
+				return true;
+			},
+			requirement: [],
+		});
+		BUYABLES.create('35R', {
+			description: 's<sub>1</sub>→s<sub>1</sub>+1',
+			cost(x) {
+				return x.pow_base(1e9).mul(1e36);
+			},
+			displayName: 'B2-R1-5',
+			effect(x) {
+				return x;
+			},
+			effD(x) {
+				return `s<sub>1</sub> = ${formatWhole(x)}`;
 			},
 			canAfford(x) {
 				return this.cost(x).lte(player.multiplication.mulpower);
@@ -82,6 +165,42 @@ export const NUMTHEORY = {
 				return true;
 			},
 		});
+		UPGRADES.create('32R', {
+			description: 'x<sub>1</sub>的指数+0.05',
+			displayName: 'U2-R1-2',
+			currency: '乘法能量',
+			cost: new Decimal(1e30),
+			canAfford() {
+				return player.multiplication.mulpower.gte(this.cost);
+			},
+			buy() {
+				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost);
+			},
+			get requirement() {
+				return [];
+			},
+			show: function () {
+				return true;
+			},
+		});
+		UPGRADES.create('33R', {
+			description: 'y<sub>1</sub>的指数+0.05',
+			displayName: 'U2-R1-2',
+			currency: '乘法能量',
+			cost: new Decimal(1e35),
+			canAfford() {
+				return player.multiplication.mulpower.gte(this.cost);
+			},
+			buy() {
+				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost);
+			},
+			get requirement() {
+				return [];
+			},
+			show: function () {
+				return true;
+			},
+		});
 	},
 	funcS(x = player.numbertheory.euler.x.floor()) {
 		if (x.gte(1000)) {
@@ -91,11 +210,26 @@ export const NUMTHEORY = {
 	},
 	varXgain() {
 		let x = new Decimal(0);
-		if (player.buyables['31R'].gte(1)) x = x.add(player.buyables['31R']);
+		if (player.buyables['31R'].gte(1)) x = x.add(player.buyables['31R'].pow(player.upgrades['32R']?1.05:1));
 		if (player.buyables['32R'].gte(1)) x = x.mul(player.buyables['32R'].add(1));
 		if (player.upgrades['31R']) x = x.mul(upgrades['31R'].effect?.() ?? 1);
-		return x;
+		return x.mul(player.numbertheory.euler.y.floor()).mul(player.numbertheory.euler.s);
 	},
+	varYgain() {
+		let y = new Decimal(0);
+		if (player.buyables['33R'].gte(1)) y = y.add(player.buyables['33R'].pow(player.upgrades['32R']?1.05:1));
+		return y.mul(player.numbertheory.euler.z.floor()).mul(player.numbertheory.euler.s);
+	},
+	varZgain() {
+		let z = new Decimal(0);
+		if (player.buyables['34R'].gte(1)) z = z.add(player.buyables['34R']);
+		return z.mul(player.numbertheory.euler.s);
+	},
+	tickspeedGain() {
+	  let base = new Decimal(0);
+	  if (player.buyables['35R'].gte(1)) base = base.add(player.buyables['35R']);
+	  return base
+	}
 };
 
 // prettier-ignore

@@ -27,6 +27,9 @@ export interface Player {
 	numbertheory: {
 		euler: {
 			x: Decimal;
+			y: Decimal;
+			z: Decimal;
+			s: Decimal;
 		};
 	};
 	currentTab: number;
@@ -88,6 +91,9 @@ function getInitialPlayerData(): Player {
 			'37': false,
 			'38': false,
 			'39': false,
+			'31R': false,
+			'32R': false,
+			'33R': false,
 		},
 		buyables: {
 			'11': zero,
@@ -97,6 +103,9 @@ function getInitialPlayerData(): Player {
 			'33': zero,
 			'31R': zero,
 			'32R': zero,
+			'33R': zero,
+			'34R': zero,
+			'35R': zero,
 			pf2: zero,
 			pf3: zero,
 			pf5: zero,
@@ -113,6 +122,9 @@ function getInitialPlayerData(): Player {
 		numbertheory: {
 			euler: {
 				x: new Decimal(1),
+				y: new Decimal(1),
+				z: new Decimal(1),
+				s: new Decimal(1),
 			},
 		},
 		currentTab: 0,
