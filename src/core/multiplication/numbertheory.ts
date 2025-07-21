@@ -143,16 +143,16 @@ export const NUMTHEORY = {
 			requirement: [],
 		});
 		BUYABLES.create('36R', {
-			description: 'x<sub>1</sub>指数+0.01',
+			description: 'x<sub>1</sub>指数+0.085',
 			cost(x) {
 				return x.pow_base(1e16).mul(1e32);
 			},
 			displayName: 'B2-R1-6',
 			effect(x) {
-				return x.mul(0.01);
+				return x.mul(0.085);
 			},
 			effD(x) {
-				return `+${format(x.mul(0.01))}`;
+				return `+${format(x.mul(0.085))}`;
 			},
 			canAfford(x) {
 				return this.cost(x).lte(player.multiplication.mulpower);
@@ -171,16 +171,16 @@ export const NUMTHEORY = {
 			requirement: [],
 		});
 		BUYABLES.create('37R', {
-			description: 'y<sub>1</sub>指数+0.01',
+			description: 'y<sub>1</sub>指数+0.085',
 			cost(x) {
 				return x.pow_base(1e20).mul(1e40);
 			},
 			displayName: 'B2-R1-7',
 			effect(x) {
-				return x.mul(0.01);
+				return x.mul(0.085);
 			},
 			effD(x) {
-				return `+${format(x.mul(0.01))}`;
+				return `+${format(x.mul(0.085))}`;
 			},
 			canAfford(x) {
 				return this.cost(x).lte(player.multiplication.mulpower);
