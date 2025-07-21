@@ -314,7 +314,7 @@ export const NUMTHEORY = {
 		let x = new Decimal(0);
 	  let exp = new Decimal(1);
 	  if (player.upgrades['32R']) exp = exp.add(0.3)
-	  if (player.buyables['36R'].gte(1)) exp = exp.add(player.buyables['36R'].mul(0.01));
+	  if (player.buyables['36R'].gte(1)) exp = exp.add(player.buyables['36R'].mul(0.085));
 		if (player.buyables['31R'].gte(1))
 			x = x.add(player.buyables['31R'].pow(exp));
 		if (player.buyables['32R'].gte(1)) x = x.mul(player.buyables['32R'].add(1));
@@ -325,7 +325,7 @@ export const NUMTHEORY = {
 		let y = new Decimal(0);
 	  let exp = new Decimal(1);
 	  if (player.upgrades['33R']) exp = exp.add(0.3)
-	  if (player.buyables['37R'].gte(1)) exp = exp.add(player.buyables['36R'].mul(0.01));
+	  if (player.buyables['37R'].gte(1)) exp = exp.add(player.buyables['36R'].mul(0.085));
 		if (player.buyables['33R'].gte(1))
 			y = y.add(player.buyables['33R'].pow(exp));
 		return y.mul(player.numbertheory.euler.z.floor()).mul(player.numbertheory.euler.s);
