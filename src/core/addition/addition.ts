@@ -233,13 +233,20 @@ export const Addition = {
 			start: new Decimal(2).pow(384),
 			exponent: new Decimal(0.75),
 		});
+		SOFTCAPS.create('addpower^2', {
+			name: 'addpower^2',
+			fluid: true,
+			start: new Decimal(2).pow(4096),
+			exponent: new Decimal(0.5),
+		});
 	},
 	addpower_gain(bulk = new Decimal(1)) {
 		let adding = this.gain().mul(bulk);
 		adding = SOFTCAPS.fluidComputed('addpower^1', adding, player.addpower);
-    if (CHALLENGE.inChallenge(0, 3)) {
-      adding = adding.mul(predictableRandom(Math.floor(Date.now()/40))>0.5? -1 : 1);
-    }
+		adding = SOFTCAPS.fluidComputed('addpower^2', adding, player.addpower);
+		if (CHALLENGE.inChallenge(0, 3)) {
+		  adding = adding.mul(predictableRandom(Math.floor(Date.now()/40))>0.5? -1 : 1);
+		}
 		player.addpower = player.addpower.add(adding).max(0);
 		player.totalAddpower = player.totalAddpower.add(adding.max(0));
 		player.stat.totalAddpower = player.stat.totalAddpower.add(adding.max(0));

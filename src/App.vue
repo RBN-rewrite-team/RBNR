@@ -10,6 +10,7 @@ import {
 } from '@/utils/format';
 import { player, feature } from './core/global.ts';
 import { UPGRADES, BUYABLES, SOFTCAPS, buyables } from './core/mechanic.ts';
+import Decimal from 'break_eternity.js';
 
 import Side from './components/Side.vue';
 import NewsTicker from './components/Newsticker.vue';
@@ -100,9 +101,12 @@ import {predictableRandom} from './utils/algorithm.ts';
 						</span>
 						(!{{ formatWhole(player.totalAddpower) }})
 						<br />
-						<span v-if="SOFTCAPS.reach('addpower^1', player.addpower)"
+						<span v-if="SOFTCAPS.reach('addpower^1', player.addpower)
+						&& !SOFTCAPS.reach('addpower^2', player.addpower)"
 							>(受软上限限制)</span
 						>
+						<span v-if="SOFTCAPS.reach('addpower^2', player.addpower)">
+							(受二重软上限限制)</span>
 					</div>
 				</div>
 				<div
@@ -118,6 +122,22 @@ import {predictableRandom} from './utils/algorithm.ts';
 					<div style="font-size: 17px; color: #dd77dd">
 						(+{{ formatWhole(feature.resourceGain.mulpower().value) }}) (!{{
 							formatWhole(player.multiplication.totalMulpower)
+						}})
+					</div>
+				</div>
+				<div
+					style="position: absolute; margin-left: 755px; margin-top: 5px"
+					v-if="player.stat.highestMulpower.gte(new Decimal(2).pow(1024))"
+				>
+					<div style="font-weight: bold; color: rgb(0, 40, 255)">
+						指数能量&nbsp;
+						<div style="display: inline; text-shadow: rgb(0, 20, 127) 1px 1px 2px">
+							{{ formatWhole(player.exponention.exppower) }}
+						</div>
+					</div>
+					<div style="font-size: 17px; color: rgb(0, 20, 127)">
+						(+{{ formatWhole(feature.resourceGain.exppower().value) }}) (!{{
+							formatWhole(player.exponention.totalExppower)
 						}})
 					</div>
 				</div>
