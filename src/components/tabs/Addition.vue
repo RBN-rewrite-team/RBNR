@@ -10,7 +10,6 @@ import AdditionResetButton from '../AdditionResetButton.vue';
 
 <template>
 	<div class="main">
-		<AdditionResetButton />
 		<div style="transform: translateY(60px)">
 			<table align="center">
 				<tbody>

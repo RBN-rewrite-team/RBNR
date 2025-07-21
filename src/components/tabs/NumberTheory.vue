@@ -29,7 +29,6 @@ function sGainLatex() {
 
 <template>
 	<div class="main">
-		<MultipResetButton />
 		<div style="transform: translateY(60px)">
 			<div align="center">
 				<h1>数论研究</h1>
