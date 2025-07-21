@@ -25,6 +25,7 @@ import MultipChals from './components/tabs/MultipChals.vue';
 
 import AdditionResetButton from './components/AdditionResetButton.vue';
 import MultipResetButton from './components/MultipResetButton.vue';
+import {predictableRandom} from './utils/algorithm.ts';
 </script>
 
 <template>
@@ -120,12 +121,12 @@ import MultipResetButton from './components/MultipResetButton.vue';
 						}})
 					</div>
 				</div>
-				<AdditionResetButton />
-				<MultipResetButton />
 			</div>
 		</div>
 		<div class="main-content">
 			<div class="background">
+				<AdditionResetButton />
+				<MultipResetButton />
 				<Successor v-if="player.currentTab === 0" />
 				<Settings v-if="player.currentTab === 1" />
 				<Addition v-if="player.currentTab === 2" />

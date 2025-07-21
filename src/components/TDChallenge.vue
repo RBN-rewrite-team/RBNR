@@ -2,6 +2,7 @@
 import { CHALLENGE } from '@/core/challenge';
 import { BUYABLES } from '@/core/mechanic';
 import { player } from '@/core/save';
+import {format} from '@/utils/format';
 const props = defineProps<{
 	layer: number;
 	chid: number;
@@ -25,7 +26,7 @@ function chalClass() {
 <template>
 	<td>
 		<div class="challenge" :class="chalClass()" @click="challengeButton">
-			<p><b v-html="chal.name"></b></p>
+      <p><b v-html="chal.name"></b>({{format(CHALLENGE.amountChallenge(layer, chid))}})</p>
 			<p v-html="chal.descEasy"></p>
 			<div v-if="chal.effect && chal.effD">
 				<p
