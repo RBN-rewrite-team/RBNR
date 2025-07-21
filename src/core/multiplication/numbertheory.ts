@@ -237,12 +237,12 @@ export const NUMTHEORY = {
 	varYgain() {
 		let y = new Decimal(0);
 		if (player.buyables['33R'].gte(1))
-			y = y.add(player.buyables['33R'].pow(player.upgrades['32R'] ? 1.05 : 1));
+			y = y.add(player.buyables['33R'].pow(player.upgrades['33R'] ? 1.05 : 1));
 		return y.mul(player.numbertheory.euler.z.floor()).mul(player.numbertheory.euler.s);
 	},
 	varZgain() {
 		let z = new Decimal(0);
-		if (player.buyables['34R'].gte(1)) z = z.add(player.buyables['34R']);
+		if (player.buyables['34R'].gte(1)) z = z.add(player.buyables['34R'].pow(player.upgrades['34R'] ? 1.05 : 1)));
 		return z.mul(player.numbertheory.euler.s);
 	},
 	tickspeedGain() {
