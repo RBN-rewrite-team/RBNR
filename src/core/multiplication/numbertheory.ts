@@ -166,7 +166,7 @@ export const NUMTHEORY = {
 			},
 		});
 		UPGRADES.create('32R', {
-			description: 'x<sub>1</sub>的指数+0.05',
+			description: 'x<sub>1</sub>的指数+0.3',
 			displayName: 'U2-R1-2',
 			currency: '乘法能量',
 			cost: new Decimal(1e30),
@@ -184,7 +184,7 @@ export const NUMTHEORY = {
 			},
 		});
 		UPGRADES.create('33R', {
-			description: 'y<sub>1</sub>的指数+0.05',
+			description: 'y<sub>1</sub>的指数+0.3',
 			displayName: 'U2-R1-3',
 			currency: '乘法能量',
 			cost: new Decimal(1e35),
@@ -202,7 +202,7 @@ export const NUMTHEORY = {
 			},
 		});
 		UPGRADES.create('34R', {
-			description: 'z<sub>1</sub>的指数+0.05',
+			description: 'z<sub>1</sub>的指数+0.3',
 			displayName: 'U2-R1-4',
 			currency: '乘法能量',
 			cost: new Decimal(1e40),
@@ -229,7 +229,7 @@ export const NUMTHEORY = {
 	varXgain() {
 		let x = new Decimal(0);
 		if (player.buyables['31R'].gte(1))
-			x = x.add(player.buyables['31R'].pow(player.upgrades['32R'] ? 1.05 : 1));
+			x = x.add(player.buyables['31R'].pow(player.upgrades['32R'] ? 1.3 : 1));
 		if (player.buyables['32R'].gte(1)) x = x.mul(player.buyables['32R'].add(1));
 		if (player.upgrades['31R']) x = x.mul(upgrades['31R'].effect?.() ?? 1);
 		return x.mul(player.numbertheory.euler.y.floor()).mul(player.numbertheory.euler.s);
@@ -237,12 +237,13 @@ export const NUMTHEORY = {
 	varYgain() {
 		let y = new Decimal(0);
 		if (player.buyables['33R'].gte(1))
-			y = y.add(player.buyables['33R'].pow(player.upgrades['33R'] ? 1.05 : 1));
+			y = y.add(player.buyables['33R'].pow(player.upgrades['33R'] ? 1.3 : 1));
 		return y.mul(player.numbertheory.euler.z.floor()).mul(player.numbertheory.euler.s);
 	},
 	varZgain() {
 		let z = new Decimal(0);
-		if (player.buyables['34R'].gte(1)) z = z.add(player.buyables['34R'].pow(player.upgrades['34R'] ? 1.05 : 1));
+		if (player.buyables['34R'].gte(1))
+			z = z.add(player.buyables['34R'].pow(player.upgrades['34R'] ? 1.3 : 1));
 		return z.mul(player.numbertheory.euler.s);
 	},
 	tickspeedGain() {

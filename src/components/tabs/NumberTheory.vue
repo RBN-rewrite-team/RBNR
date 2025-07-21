@@ -8,19 +8,19 @@ import TDBuyable from '../TDBuyable.vue';
 
 function xGainLatex() {
 	return (
-		`\\dot{x} = sx_1${player.upgrades['32R'] ? '^{1.05}' : ''}x_2${player.upgrades['31R'] ? 'u_1' : ''}y = ` +
+		`\\dot{x} = sx_1${player.upgrades['32R'] ? '^{1.3}' : ''}x_2${player.upgrades['31R'] ? 'u_1' : ''}y = ` +
 		formatLaTeX(NUMTHEORY.varXgain())
 	);
 }
 
 function yGainLatex() {
 	return (
-		`\\dot{y} = sy_1${player.upgrades['33R'] ? '^{1.05}' : ''}z = ` +
+		`\\dot{y} = sy_1${player.upgrades['33R'] ? '^{1.3}' : ''}z = ` +
 		formatLaTeX(NUMTHEORY.varYgain())
 	);
 }
 function zGainLatex() {
-	return `\\dot{z} = sz_1 = ` + formatLaTeX(NUMTHEORY.varZgain());
+	return `\\dot{z} = sz_1${player.upgrades['34R'] ? '^{1.3}' : ''} = ` + formatLaTeX(NUMTHEORY.varZgain());
 }
 function sGainLatex() {
 	return `\\dot{s} = s_1 = ` + formatLaTeX(NUMTHEORY.tickspeedGain());
