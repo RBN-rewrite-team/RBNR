@@ -5,8 +5,7 @@ import { feature } from '@/core/global';
 </script>
 
 <template>
-	<button class="reset1" @click="feature.MULTIPLICATION.UIreset"
-	style="right: 80px">
+	<button class="reset1" @click="feature.MULTIPLICATION.UIreset" style="right: 80px">
 		<!-- prettier-ignore !-->
 		<svg style="margin-top: 5px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
 			<!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->

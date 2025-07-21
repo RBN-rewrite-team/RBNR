@@ -14,11 +14,11 @@ export let loopInterval = NaN;
 export let saveInterval = setInterval(save, 3000);
 
 export function startGameLoop() {
-  loopInterval = setInterval(gameLoop, 40)
+	loopInterval = setInterval(gameLoop, 40);
 }
 
 export function stopGameLoop() {
-  clearInterval(loopInterval)
+	clearInterval(loopInterval);
 }
 
 loadSaves();
@@ -27,7 +27,7 @@ feature.ADDITION.initMechanics();
 feature.MULTIPLICATION.initMechanics();
 feature.PrimeFactor.initMechanics();
 NUMTHEORY.initMechanics();
-startGameLoop()
+startGameLoop();
 const app = createApp(App);
 
 app.use(VueLatex).mount('#app');

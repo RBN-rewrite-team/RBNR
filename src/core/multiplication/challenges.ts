@@ -10,7 +10,7 @@ export const MULTI_CHALS: SingleChallenge[] = [
 		descHard: '你永远无法升级成加法运算。 加法能量上限从100000开始，每秒减少1000',
 		effect(x) {
 			let base = x.sub(1000).max(0).add(1).log10().mul(0.0001);
-			if(base.gte(0.25)) base = new Decimal(0.25);
+			if (base.gte(0.25)) base = new Decimal(0.25);
 			return base;
 		},
 		effD(x) {
@@ -56,20 +56,19 @@ export const MULTI_CHALS: SingleChallenge[] = [
 		},
 	},
 	{
-		name: '逆转',
-		descEasy: '反转一半资源生产，提升乘法重置难度，禁用B2-2',
+		name: '逆转', //裁判 异议
+		descEasy: '反转一半资源生产，提升乘法重置难度',
 		get descHard() {
 			return this.descEasy;
 		},
-    effect(x) {
-      if (CHALLENGE.inChallenge(0, 3)) return new Decimal(1)
+		effect(x) {
+			if (CHALLENGE.inChallenge(0, 3)) return new Decimal(1);
 			return x.add(1).pow(64).max(1);
 		},
 		effD(x) {
 			return `乘法能量获取速度*${format(x)}`;
 		},
-		loop() {
-		},
+		loop() {},
 	},
 ] as const;
 

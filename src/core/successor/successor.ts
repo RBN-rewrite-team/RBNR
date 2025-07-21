@@ -14,7 +14,7 @@ import { feature } from '../global.ts';
 import { NUMTHEORY } from '../multiplication/numbertheory.ts';
 import { CHALLENGE } from '../challenge.ts';
 import { MULTI_CHALS } from '../multiplication/challenges.ts';
-import {predictableRandom} from '@/utils/algorithm.ts';
+import { predictableRandom } from '@/utils/algorithm.ts';
 
 export const Successor = {
 	initMechanics() {
@@ -159,9 +159,16 @@ export const Successor = {
 				return a;
 			},
 			currency: '数值',
-			canBuyMax() {return player.upgrades[39];},
+			canBuyMax() {
+				return player.upgrades[39];
+			},
 			buyMax() {
-				player.buyables[11] = player.number.sub(10).div(10).floor().max(player.buyables[11]).min(100);
+				player.buyables[11] = player.number
+					.sub(10)
+					.div(10)
+					.floor()
+					.max(player.buyables[11])
+					.min(100);
 			},
 		});
 		SOFTCAPS.create('number^1', {
@@ -190,9 +197,9 @@ export const Successor = {
 		adding = SOFTCAPS.fluidComputed('number^2', adding, player.number);
 		if (CHALLENGE.inChallenge(0, 2))
 			adding = SOFTCAPS.fluidComputed('number_C1', adding, player.number);
-    if (CHALLENGE.inChallenge(0, 3)) {
-      adding = adding.mul(predictableRandom(Math.floor(Date.now()/40))>0.5? -1 : 1);
-    }
+		if (CHALLENGE.inChallenge(0, 3)) {
+			adding = adding.mul(predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1);
+		}
 		player.number = player.number.add(adding).max(0);
 		player.totalNumber = player.totalNumber.add(adding.max(0));
 		player.stat.totalNumber = player.stat.totalNumber.add(adding.max(0));
