@@ -242,7 +242,7 @@ export const NUMTHEORY = {
 	},
 	varZgain() {
 		let z = new Decimal(0);
-		if (player.buyables['34R'].gte(1)) z = z.add(player.buyables['34R'].pow(player.upgrades['34R'] ? 1.05 : 1)));
+		if (player.buyables['34R'].gte(1)) z = z.add(player.buyables['34R'].pow(player.upgrades['34R'] ? 1.05 : 1));
 		return z.mul(player.numbertheory.euler.s);
 	},
 	tickspeedGain() {
