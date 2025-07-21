@@ -105,7 +105,16 @@ type IBuyable = {
 	prev?: number;
 	pprev?: number;
 	n?: number;
-};
+} & (
+	| {
+			canBuyMax(): boolean;
+			buyMax(): any;
+	  }
+	| {
+			canBuyMax?: never;
+			buyMax?: never;
+	  }
+);
 export const BUYABLES = {
 	create(id: keyof typeof player.buyables, info: IBuyable) {
 		buyables[id] = info;
