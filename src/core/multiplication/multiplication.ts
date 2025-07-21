@@ -5,7 +5,8 @@ import ModalService from '@/utils/Modal';
 import { format, formatWhole } from '@/utils/format';
 import { Addition } from '../addition/addition.ts';
 import { PrimeFactor } from './pf.ts';
-
+import {CHALLENGE} from '../challenge.ts';
+const D179E308 = Decimal.pow(2, 1024)
 export const Multiplication = {
 	initMechanics() {
 		UPGRADES.create('31', {
@@ -325,6 +326,10 @@ export const Multiplication = {
 				this.gain(),
 			);
 			player.stat.totalMulpower = player.stat.totalMulpower.add(this.gain());
+      if (CHALLENGE.inChallenge(0, 3)) {
+
+        player.challenges[0][3] = player.challenges[0][3].add(this.gain())
+      }
 			let reset_upgrades: Array<keyof typeof player.upgrades> = [21, 22, 23, 24, 25].map(
 				(x) => x.toString() as keyof typeof player.upgrades,
 			);
@@ -354,7 +359,9 @@ export const Multiplication = {
 	},
 	gain() {
 		if (player.totalAddpower.lt(3125)) return new Decimal(0);
-		let base = player.totalAddpower.sub(3125).pow(0.1);
+    if (CHALLENGE.inChallenge(0, 3) && player.totalAddpower.lt(D179E308)) return new Decimal(0);
+    let base = player.totalAddpower.sub(3125).pow(0.1);
+    if (CHALLENGE.inChallenge(0, 3))base= player.totalAddpower.div(D179E308).pow(1/1024);
 		if (player.buyables[32].gt(0)) base = base.mul(buyables[32].effect(player.buyables[32]));
 		return base.floor();
 	},

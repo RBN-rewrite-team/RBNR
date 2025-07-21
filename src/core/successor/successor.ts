@@ -14,6 +14,7 @@ import { feature } from '../global.ts';
 import { NUMTHEORY } from '../multiplication/numbertheory.ts';
 import { CHALLENGE } from '../challenge.ts';
 import { MULTI_CHALS } from '../multiplication/challenges.ts';
+import {predictableRandom} from '@/utils/algorithm.ts';
 
 export const Successor = {
 	initMechanics() {
@@ -189,9 +190,12 @@ export const Successor = {
 		adding = SOFTCAPS.fluidComputed('number^2', adding, player.number);
 		if (CHALLENGE.inChallenge(0, 2))
 			adding = SOFTCAPS.fluidComputed('number_C1', adding, player.number);
-		player.number = player.number.add(adding);
-		player.totalNumber = player.totalNumber.add(adding);
-		player.stat.totalNumber = player.stat.totalNumber.add(adding);
+    if (CHALLENGE.inChallenge(0, 3)) {
+      adding = adding.mul(predictableRandom(Math.floor(Date.now()/40))>0.5? -1 : 1);
+    }
+		player.number = player.number.add(adding).max(0);
+		player.totalNumber = player.totalNumber.add(adding.max(0));
+		player.stat.totalNumber = player.stat.totalNumber.add(adding.max(0));
 	},
 	autoSuccessPerSecond() {
 		let base = new Decimal(0);

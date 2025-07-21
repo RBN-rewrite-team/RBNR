@@ -14,6 +14,7 @@ import { formatWhole } from '@/utils/format';
 import { feature } from '../global.ts';
 import { CHALLENGE } from '../challenge.ts';
 import { C11cap, MULTI_CHALS } from '../multiplication/challenges.ts';
+import {predictableRandom} from '@/utils/algorithm.ts';
 
 export const Addition = {
 	initMechanics() {
@@ -236,9 +237,12 @@ export const Addition = {
 	addpower_gain(bulk = new Decimal(1)) {
 		let adding = this.gain().mul(bulk);
 		adding = SOFTCAPS.fluidComputed('addpower^1', adding, player.addpower);
-		player.addpower = player.addpower.add(adding);
-		player.totalAddpower = player.totalAddpower.add(adding);
-		player.stat.totalAddpower = player.stat.totalAddpower.add(adding);
+    if (CHALLENGE.inChallenge(0, 3)) {
+      adding = adding.mul(predictableRandom(Math.floor(Date.now()/40))>0.5? -1 : 1);
+    }
+		player.addpower = player.addpower.add(adding).max(0);
+		player.totalAddpower = player.totalAddpower.add(adding.max(0));
+		player.stat.totalAddpower = player.stat.totalAddpower.add(adding.max(0));
 	},
 	reset() {
 		if (this.gain().gt(0)) {
