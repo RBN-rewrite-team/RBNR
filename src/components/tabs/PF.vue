@@ -9,7 +9,6 @@ import TDBuyable from '../TDBuyable.vue';
 
 <template>
 	<div class="main">
-		<MultipResetButton />
 		<div style="transform: translateY(60px)">
 			<div align="center">
 				你有<span style="color: #cc33ff; font-weight: bold"

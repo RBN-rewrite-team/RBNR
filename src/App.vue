@@ -22,6 +22,9 @@ import PF from './components/tabs/PF.vue';
 import NumberTheory from './components/tabs/NumberTheory.vue';
 import Stat from './components/tabs/Stat.vue';
 import MultipChals from './components/tabs/MultipChals.vue';
+
+import AdditionResetButton from './components/AdditionResetButton.vue';
+import MultipResetButton from './components/MultipResetButton.vue';
 </script>
 
 <template>
@@ -117,6 +120,8 @@ import MultipChals from './components/tabs/MultipChals.vue';
 						}})
 					</div>
 				</div>
+				<AdditionResetButton />
+				<MultipResetButton />
 			</div>
 		</div>
 		<div class="main-content">

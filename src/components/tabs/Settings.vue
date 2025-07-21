@@ -34,16 +34,16 @@ const validThemes = computed(() => Object.values(themes).filter((v) => typeof v 
 		<div class="center_line" />
 		<h3>主题</h3>
 		<button class="setting_button" @click="reverseUiOptions('color_inversion')">
-			颜色{{ player.options.ui.otherwise['color_inversion'] ? '反转' : '正常' }}
+			颜色反转：{{ player.options.ui.otherwise['color_inversion'] ? '开' : '关' }}
 		</button>
 		<button class="setting_button" @click="reverseUiOptions('full_gray')">
-			{{ player.options.ui.otherwise['full_gray'] ? '全灰度' : '正常颜色' }}
+			全灰度：{{ player.options.ui.otherwise['full_gray'] ? '开' : '关' }}
 		</button>
 		<button class="setting_button" @click="reverseUiOptions('blur')">
-			{{ player.options.ui.otherwise['blur'] ? '模糊' : '清晰' }}
+			模糊：{{ player.options.ui.otherwise['blur'] ? '开' : '关' }}
 		</button>
 		<button class="setting_button" @click="reverseUiOptions('sepia')">
-			{{ player.options.ui.otherwise['sepia'] ? '旧相片开启' : '旧相片关闭' }}
+			旧相片：{{ player.options.ui.otherwise['sepia'] ? '开' : '关' }}
 		</button>
 		<br />
 		<button
@@ -58,13 +58,13 @@ const validThemes = computed(() => Object.values(themes).filter((v) => typeof v 
 			class="setting_button"
 			@click="player.options.ui.newsbar = !player.options.ui.newsbar"
 		>
-			{{ player.options.ui.newsbar ? '新闻栏开启' : '新闻栏关闭' }}
+			新闻栏：{{ player.options.ui.newsbar ? '开' : '关' }}
 		</button>
 		<button
 			class="setting_button"
 			@click="player.options.ui.titlebar = !player.options.ui.titlebar"
 		>
-			{{ player.options.ui.titlebar ? '标题栏开启' : '标题栏关闭' }}
+			标题栏：{{ player.options.ui.titlebar ? '开' : '关' }}
 		</button>
 	</div>
 	<!-- code... -->
