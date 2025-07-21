@@ -76,7 +76,7 @@ export const themeDetailsMap = new Map([
 				'--hover-color': '#0099cc',
 			} as const,
 			other: {
-				filter: 'hue-rotate(15deg) brightness(0.8) contrast(0.9)',
+				filter: 'hue-rotate(15deg) brightness(0.8)',
 			} as const,
 		},
 	],
