@@ -9,7 +9,7 @@ import Decimal from 'break_eternity.js';
 
 function xGainLatex() {
 	let exp = new Decimal(1);
-	if (player.upgrades['32R']) exp = exp.add(0.05)
+	if (player.upgrades['32R']) exp = exp.add(0.3)
 	if (player.buyables['36R'].gte(1)) exp = exp.add(player.buyables['36R'].mul(0.01));
 	return (
 		`\\dot{x} = sx_1${exp.neq(1) ? `^{${formatLaTeX(exp)}}` : ''}x_2${player.upgrades['31R'] ? 'u_1' : ''}y = ` +
@@ -19,7 +19,7 @@ function xGainLatex() {
 
 function yGainLatex() {
 	let exp = new Decimal(1);
-	if (player.upgrades['33R']) exp = exp.add(0.05)
+	if (player.upgrades['33R']) exp = exp.add(0.3)
 	if (player.buyables['37R'].gte(1)) exp = exp.add(player.buyables['37R'].mul(0.01));
 	return (
 		`\\dot{y} = sy_1${exp.neq(1) ? `^{${formatLaTeX(exp)}}` : ''}z = ` +
@@ -27,6 +27,8 @@ function yGainLatex() {
 	);
 }
 function zGainLatex() {
+	let exp = new Decimal(1);
+	if (player.upgrades['34R']) exp = exp.add(0.3)
 	return `\\dot{z} = sz_1 = ` + formatLaTeX(NUMTHEORY.varZgain());
 }
 function sGainLatex() {
