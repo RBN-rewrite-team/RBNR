@@ -5,22 +5,31 @@ import { formatLaTeX, formatLaTeXWhole } from '@/utils/format';
 import { player } from '@/core/save';
 import TDUpgrade from '../TDUpgrade.vue';
 import TDBuyable from '../TDBuyable.vue';
+import Decimal from 'break_eternity.js';
 
 function xGainLatex() {
+	let exp = new Decimal(1);
+	if (player.upgrades['32R']) exp = exp.add(0.3)
+	if (player.buyables['36R'].gte(1)) exp = exp.add(player.buyables['36R'].mul(0.01));
 	return (
-		`\\dot{x} = sx_1${player.upgrades['32R'] ? '^{1.3}' : ''}x_2${player.upgrades['31R'] ? 'u_1' : ''}y = ` +
+		`\\dot{x} = sx_1${exp.neq(1) ? `^{${formatLaTeX(exp)}}` : ''}x_2${player.upgrades['31R'] ? 'u_1' : ''}y = ` +
 		formatLaTeX(NUMTHEORY.varXgain())
 	);
 }
 
 function yGainLatex() {
+	let exp = new Decimal(1);
+	if (player.upgrades['33R']) exp = exp.add(0.3)
+	if (player.buyables['37R'].gte(1)) exp = exp.add(player.buyables['37R'].mul(0.01));
 	return (
-		`\\dot{y} = sy_1${player.upgrades['33R'] ? '^{1.3}' : ''}z = ` +
+		`\\dot{y} = sy_1${exp.neq(1) ? `^{${formatLaTeX(exp)}}` : ''}z = ` +
 		formatLaTeX(NUMTHEORY.varYgain())
 	);
 }
 function zGainLatex() {
-	return `\\dot{z} = sz_1${player.upgrades['34R'] ? '^{1.3}' : ''} = ` + formatLaTeX(NUMTHEORY.varZgain());
+	let exp = new Decimal(1);
+	if (player.upgrades['34R']) exp = exp.add(0.3)
+	return `\\dot{z} = sz_1 = ` + formatLaTeX(NUMTHEORY.varZgain());
 }
 function sGainLatex() {
 	return `\\dot{s} = s_1 = ` + formatLaTeX(NUMTHEORY.tickspeedGain());
@@ -76,7 +85,9 @@ function sGainLatex() {
 					</tr>
 					<tr>
 						<TDBuyable bylid="35R" />
-					  
+						<TDBuyable bylid="36R" />
+						<TDBuyable bylid="37R" />
+						<TDBuyable bylid="38R" />
 					</tr>
 					<tr>
 						<TDUpgrade upgid="31R" />
