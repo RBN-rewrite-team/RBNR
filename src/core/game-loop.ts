@@ -43,7 +43,7 @@ export function gameLoop() {
 	}
 	
 	for(let i in buyables) {
-		if (buyables[i].canBuyMax != null && buyables[i].canBuyMax) {
+		if (buyables[i].canBuyMax != null && buyables[i].canBuyMax()) {
 			if(buyables[i].buyMax != null) buyables[i].buyMax();
 		}
 	}
