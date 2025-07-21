@@ -76,10 +76,14 @@ function sGainLatex() {
 						<TDBuyable bylid="34R" />
 					</tr>
 					<tr>
+						<TDBuyable bylid="35R" />
+					  
+					</tr>
+					<tr>
 						<TDUpgrade upgid="31R" />
 						<TDUpgrade upgid="32R" />
 						<TDUpgrade upgid="33R" />
-						<TDBuyable bylid="35R" />
+						<TDUpgrade upgid="34R" />
 					</tr>
 				</tbody>
 			</table>
