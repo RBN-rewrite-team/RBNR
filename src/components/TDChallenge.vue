@@ -15,17 +15,16 @@ function challengeButton() {
 	else CHALLENGE.exitChallenge();
 }
 
-function chalClass(){
-  return {
-    "in": CHALLENGE.inChallenge(props.layer, props.chid),
-  }
+function chalClass() {
+	return {
+		in: CHALLENGE.inChallenge(props.layer, props.chid),
+	};
 }
-
 </script>
 
 <template>
 	<td>
-    <div class="challenge" :class="chalClass()" @click="challengeButton">
+		<div class="challenge" :class="chalClass()" @click="challengeButton">
 			<p><b v-html="chal.name"></b></p>
 			<p v-html="chal.descEasy"></p>
 			<div v-if="chal.effect && chal.effD">

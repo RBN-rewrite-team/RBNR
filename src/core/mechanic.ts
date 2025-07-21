@@ -196,23 +196,22 @@ export const SOFTCAPS = {
 		return existing.gte(softcaps[id].start);
 	},
 	fluidComputed(id: string, getting: Decimal, existing: Decimal) {
-		if(!this.reach(id, existing))
-		{
-			if(this.reach(id, existing.add(getting)))
-			{
+		if (!this.reach(id, existing)) {
+			if (this.reach(id, existing.add(getting))) {
 				getting = getting.sub(softcaps[id].start.sub(existing));
 				existing = softcaps[id].start;
-			}
-			else return getting;
+			} else return getting;
 		}
-		if(!softcaps[id].fluid) throw new Error('type error');
+		if (!softcaps[id].fluid) throw new Error('type error');
 		let s = softcaps[id];
-		let base = s.start.mul(existing.div(s.start).root(s.exponent).add(getting.div(s.start)).pow(s.exponent)).sub(existing);
+		let base = s.start
+			.mul(existing.div(s.start).root(s.exponent).add(getting.div(s.start)).pow(s.exponent))
+			.sub(existing);
 		return base;
 	},
 	staticComputed(id: string, getting: Decimal) {
-		if(!this.reach(id, getting)) return getting;
-		if(softcaps[id].fluid) throw new Error('type error');
+		if (!this.reach(id, getting)) return getting;
+		if (softcaps[id].fluid) throw new Error('type error');
 		let s = softcaps[id];
 		let base = s.start.mul(getting.div(s.start).pow(s.exponent));
 		return base;

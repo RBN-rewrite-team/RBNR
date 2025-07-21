@@ -1,11 +1,19 @@
 import { player } from '../save';
-import { UPGRADES, BUYABLES, SOFTCAPS, upgrades, buyables, softcaps, type singleReq } from '../mechanic.ts';
+import {
+	UPGRADES,
+	BUYABLES,
+	SOFTCAPS,
+	upgrades,
+	buyables,
+	softcaps,
+	type singleReq,
+} from '../mechanic.ts';
 import Decimal from 'break_eternity.js';
 import { format, formatWhole } from '@/utils/format';
 import { feature } from '../global.ts';
 import { NUMTHEORY } from '../multiplication/numbertheory.ts';
-import {CHALLENGE} from '../challenge.ts';
-import {MULTI_CHALS} from '../multiplication/challenges.ts';
+import { CHALLENGE } from '../challenge.ts';
+import { MULTI_CHALS } from '../multiplication/challenges.ts';
 
 export const Successor = {
 	initMechanics() {
@@ -175,7 +183,8 @@ export const Successor = {
 		let adding = this.successorBulk().mul(bulk);
 		adding = SOFTCAPS.fluidComputed('number^1', adding, player.number);
 		adding = SOFTCAPS.fluidComputed('number^2', adding, player.number);
-		if(CHALLENGE.inChallenge(0, 2)) adding = SOFTCAPS.fluidComputed('number_C1', adding, player.number);
+		if (CHALLENGE.inChallenge(0, 2))
+			adding = SOFTCAPS.fluidComputed('number_C1', adding, player.number);
 		player.number = player.number.add(adding);
 		player.totalNumber = player.totalNumber.add(adding);
 		player.stat.totalNumber = player.stat.totalNumber.add(adding);
@@ -210,7 +219,7 @@ export const Successor = {
 		if (player.firstResetBit & 0b10) base = base.mul(NUMTHEORY.funcS().max(1));
 
 		if (CHALLENGE.amountChallenge(0, 1).gt(0)) {
-		  base = base.mul(MULTI_CHALS[1].effect?.(player.challenges[0][1]) ?? 1)
+			base = base.mul(MULTI_CHALS[1].effect?.(player.challenges[0][1]) ?? 1);
 		}
 		return base;
 	},

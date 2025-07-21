@@ -210,14 +210,16 @@ export const NUMTHEORY = {
 	},
 	varXgain() {
 		let x = new Decimal(0);
-		if (player.buyables['31R'].gte(1)) x = x.add(player.buyables['31R'].pow(player.upgrades['32R']?1.05:1));
+		if (player.buyables['31R'].gte(1))
+			x = x.add(player.buyables['31R'].pow(player.upgrades['32R'] ? 1.05 : 1));
 		if (player.buyables['32R'].gte(1)) x = x.mul(player.buyables['32R'].add(1));
 		if (player.upgrades['31R']) x = x.mul(upgrades['31R'].effect?.() ?? 1);
 		return x.mul(player.numbertheory.euler.y.floor()).mul(player.numbertheory.euler.s);
 	},
 	varYgain() {
 		let y = new Decimal(0);
-		if (player.buyables['33R'].gte(1)) y = y.add(player.buyables['33R'].pow(player.upgrades['32R']?1.05:1));
+		if (player.buyables['33R'].gte(1))
+			y = y.add(player.buyables['33R'].pow(player.upgrades['32R'] ? 1.05 : 1));
 		return y.mul(player.numbertheory.euler.z.floor()).mul(player.numbertheory.euler.s);
 	},
 	varZgain() {
@@ -226,10 +228,10 @@ export const NUMTHEORY = {
 		return z.mul(player.numbertheory.euler.s);
 	},
 	tickspeedGain() {
-	  let base = new Decimal(0);
-	  if (player.buyables['35R'].gte(1)) base = base.add(player.buyables['35R']);
-	  return base
-	}
+		let base = new Decimal(0);
+		if (player.buyables['35R'].gte(1)) base = base.add(player.buyables['35R']);
+		return base;
+	},
 };
 
 // prettier-ignore

@@ -1,5 +1,13 @@
 import Decimal from 'break_eternity.js';
-import { buyables, BUYABLES, upgrades, UPGRADES, softcaps, SOFTCAPS, type singleReq } from '../mechanic';
+import {
+	buyables,
+	BUYABLES,
+	upgrades,
+	UPGRADES,
+	softcaps,
+	SOFTCAPS,
+	type singleReq,
+} from '../mechanic';
 import { player } from '../save';
 import ModalService from '@/utils/Modal';
 import { formatWhole } from '@/utils/format';
@@ -261,7 +269,6 @@ export const Addition = {
 		let base = player.totalNumber.div(1000).floor().max(0);
 		if (player.firstResetBit & 0b10) base = base.mul(feature.PrimeFactor.powerEff());
 		if (player.buyables[31].gt(0)) base = base.mul(buyables[31].effect(player.buyables[31]));
-
 
 		return base;
 	},

@@ -47,11 +47,26 @@ import MultipChals from './components/tabs/MultipChals.vue';
 						{{ formatWhole(player.number) }}
 					</div>
 					<div style="font-size: 17px; color: var(--title-color)">
-						<span v-if="feature.SUCCESSOR.autoSuccessPerSecond().eq(0)">(需要通过后继获得)</span>
-						<span v-else v-html="formatGain(player.number, feature.resourceGain.number().value, '')"></span>
-						<br>
-						<span v-if="SOFTCAPS.reach('number^1', player.number) && !SOFTCAPS.reach('number^2', player.number)">(受软上限限制)</span>
-						<span v-if="SOFTCAPS.reach('number^2', player.number)">(受二重软上限限制)</span>
+						<span v-if="feature.SUCCESSOR.autoSuccessPerSecond().eq(0)"
+							>(需要通过后继获得)</span
+						>
+						<span
+							v-else
+							v-html="
+								formatGain(player.number, feature.resourceGain.number().value, '')
+							"
+						></span>
+						<br />
+						<span
+							v-if="
+								SOFTCAPS.reach('number^1', player.number) &&
+								!SOFTCAPS.reach('number^2', player.number)
+							"
+							>(受软上限限制)</span
+						>
+						<span v-if="SOFTCAPS.reach('number^2', player.number)"
+							>(受二重软上限限制)</span
+						>
 					</div>
 				</div>
 				<div
@@ -79,11 +94,11 @@ import MultipChals from './components/tabs/MultipChals.vue';
 								)
 							}}
 						</span>
-						(!{{
-							formatWhole(player.totalAddpower)
-						}})
-						<br>
-						<span v-if="SOFTCAPS.reach('addpower^1', player.addpower)">(受软上限限制)</span>
+						(!{{ formatWhole(player.totalAddpower) }})
+						<br />
+						<span v-if="SOFTCAPS.reach('addpower^1', player.addpower)"
+							>(受软上限限制)</span
+						>
 					</div>
 				</div>
 				<div
