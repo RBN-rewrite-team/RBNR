@@ -41,6 +41,13 @@ export function gameLoop() {
 			player.upgrades[i as keyof typeof player.upgrades] = true;
 		}
 	}
+	
+	for(let i in buyables) {
+		if (buyables[i].canBuyMax != null && buyables[i].canBuyMax) {
+			if(buyables[i].buyMax != null) buyables[i].buyMax();
+		}
+	}
+	
 	if (player.firstResetBit & 0b10) {
 		player.multiplication.pfTime = player.multiplication.pfTime.add(diff);
 		player.numbertheory.euler.x = player.numbertheory.euler.x.add(

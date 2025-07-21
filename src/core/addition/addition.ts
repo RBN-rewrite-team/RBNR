@@ -221,6 +221,10 @@ export const Addition = {
 			show: function () {
 				return true;
 			},
+			canBuyMax() {return player.upgrades[39];},
+			buyMax() {
+				player.buyables[21] = player.number.sub(10).div(1000).floor().max(player.buyables[21]).min(100);
+			},
 		});
 		SOFTCAPS.create('addpower^1', {
 			name: 'addpower^1',

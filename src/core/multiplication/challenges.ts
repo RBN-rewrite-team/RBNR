@@ -1,6 +1,7 @@
 import { format } from '@/utils/format';
 import type { SingleChallenge } from '../challenge';
 import { player } from '../save';
+import Decimal from 'break_eternity.js';
 
 export const MULTI_CHALS: SingleChallenge[] = [
 	{

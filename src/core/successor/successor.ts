@@ -158,6 +158,10 @@ export const Successor = {
 				return a;
 			},
 			currency: '数值',
+			canBuyMax() {return player.upgrades[39];},
+			buyMax() {
+				player.buyables[11] = player.number.sub(10).div(10).floor().max(player.buyables[11]).min(100);
+			},
 		});
 		SOFTCAPS.create('number^1', {
 			name: 'number^1',
