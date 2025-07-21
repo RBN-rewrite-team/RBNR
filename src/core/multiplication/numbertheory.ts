@@ -187,7 +187,25 @@ export const NUMTHEORY = {
 			description: 'y<sub>1</sub>的指数+0.05',
 			displayName: 'U2-R1-3',
 			currency: '乘法能量',
-			cost: new Decimal(1e33),
+			cost: new Decimal(1e35),
+			canAfford() {
+				return player.multiplication.mulpower.gte(this.cost);
+			},
+			buy() {
+				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost);
+			},
+			get requirement() {
+				return [];
+			},
+			show: function () {
+				return true;
+			},
+		});
+		UPGRADES.create('34R', {
+			description: 'z<sub>1</sub>的指数+0.05',
+			displayName: 'U2-R1-4',
+			currency: '乘法能量',
+			cost: new Decimal(1e40),
 			canAfford() {
 				return player.multiplication.mulpower.gte(this.cost);
 			},
