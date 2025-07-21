@@ -9,15 +9,25 @@ import { gameLoop } from './core/game-loop';
 import { feature } from './core/global.ts';
 import ModalService from './utils/Modal.ts';
 import { NUMTHEORY } from './core/multiplication/numbertheory.ts';
+
+export let loopInterval = NaN;
+export let saveInterval = setInterval(save, 3000);
+
+export function startGameLoop() {
+  loopInterval = setInterval(gameLoop, 40)
+}
+
+export function stopGameLoop() {
+  clearInterval(loopInterval)
+}
+
 loadSaves();
 feature.SUCCESSOR.initMechanics();
 feature.ADDITION.initMechanics();
 feature.MULTIPLICATION.initMechanics();
 feature.PrimeFactor.initMechanics();
 NUMTHEORY.initMechanics();
-
-export let loopInterval = setInterval(gameLoop, 40);
-export let saveInterval = setInterval(save, 3000);
+startGameLoop()
 const app = createApp(App);
 
 app.use(VueLatex).mount('#app');

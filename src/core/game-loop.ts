@@ -1,5 +1,6 @@
 import { player, feature } from './global.ts';
 import { nextTick } from 'vue';
+import { simulateTime } from './offline'
 import { UPGRADES, BUYABLES, upgrades, buyables } from './mechanic.ts';
 import Decimal from 'break_eternity.js';
 import { NUMTHEORY } from './multiplication/numbertheory.ts';
@@ -8,7 +9,7 @@ import { predictableRandom } from '@/utils/algorithm.ts';
 import { updateTheme } from '@/utils/themes';
 import { CHALLENGE } from './challenge.ts';
 
-export let diff = 0;
+export let diff = 40;
 
 export function updateHighestStat() {
 	player.stat.highestNumber = player.stat.highestNumber.max(player.number);
@@ -17,11 +18,17 @@ export function updateHighestStat() {
 	player.stat.highestExppower = player.stat.highestExppower.max(player.exponention.exppower);
 }
 export function gameLoop() {
-	diff = Date.now() - player.lastUpdated;
-
-	player.lastUpdated = Date.now();
-
+  diff = Date.now() - player.lastUpdated;
 	updateTheme();
+	if (diff < 0) return;
+	player.lastUpdated = Date.now();
+	simulate(diff)
+	if (diff > 1000) {
+    simulateTime(diff)
+    return
+  }
+}
+export function simulate(diff: number) {
 	CHALLENGE.challengeLoop();
 	if (feature.SUCCESSOR.autoSuccessPerSecond().gte(0.001)) {
 		player.automationCD.successor += diff;
