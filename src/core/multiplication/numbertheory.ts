@@ -117,7 +117,7 @@ export const NUMTHEORY = {
 		BUYABLES.create('35R', {
 			description: 's<sub>1</sub>→s<sub>1</sub>+1',
 			cost(x) {
-				return x.pow_base(1e9).mul(1e36);
+				return x.pow_base(1e8).mul(1e32);
 			},
 			displayName: 'B2-R1-5',
 			effect(x) {
@@ -185,9 +185,9 @@ export const NUMTHEORY = {
 		});
 		UPGRADES.create('33R', {
 			description: 'y<sub>1</sub>的指数+0.05',
-			displayName: 'U2-R1-2',
+			displayName: 'U2-R1-3',
 			currency: '乘法能量',
-			cost: new Decimal(1e35),
+			cost: new Decimal(1e33),
 			canAfford() {
 				return player.multiplication.mulpower.gte(this.cost);
 			},
