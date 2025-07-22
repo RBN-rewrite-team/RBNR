@@ -13,7 +13,7 @@ export const NUMTHEORY = {
 			},
 			displayName: 'B2-R1-1',
 			effect(x) {
-				return x.mul(buyables["38R"].effect(player.buyables["38R"]));
+				return x.mul(buyables['38R'].effect(player.buyables['38R']));
 			},
 			effD(x) {
 				return `x<sub>1</sub> = ${formatWhole(x)}`;
@@ -40,7 +40,7 @@ export const NUMTHEORY = {
 			},
 			displayName: 'B2-R1-2',
 			effect(x) {
-				return x.add(1).mul(buyables["38R"].effect(player.buyables["38R"]));
+				return x.add(1).mul(buyables['38R'].effect(player.buyables['38R']));
 			},
 			effD(x) {
 				return `x<sub>2</sub> = ${formatWhole(x.add(1))}`;
@@ -67,7 +67,7 @@ export const NUMTHEORY = {
 			},
 			displayName: 'B2-R1-3',
 			effect(x) {
-				return x.mul(buyables["38R"].effect(player.buyables["38R"]));
+				return x.mul(buyables['38R'].effect(player.buyables['38R']));
 			},
 			effD(x) {
 				return `y<sub>1</sub> = ${formatWhole(x)}`;
@@ -94,7 +94,7 @@ export const NUMTHEORY = {
 			},
 			displayName: 'B2-R1-4',
 			effect(x) {
-				return x.mul(buyables["38R"].effect(player.buyables["38R"]));
+				return x.mul(buyables['38R'].effect(player.buyables['38R']));
 			},
 			effD(x) {
 				return `z<sub>1</sub> = ${formatWhole(x)}`;
@@ -160,7 +160,7 @@ export const NUMTHEORY = {
 				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost(x));
 			},
 			capped() {
-			  let capc = 20;
+				let capc = 20;
 				return player.buyables['36R'].gte(capc);
 			},
 			currency: '乘法能量',
@@ -188,7 +188,7 @@ export const NUMTHEORY = {
 				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost(x));
 			},
 			capped() {
-			  let capc = 20;
+				let capc = 20;
 				return player.buyables['37R'].gte(capc);
 			},
 			currency: '乘法能量',
@@ -216,7 +216,7 @@ export const NUMTHEORY = {
 				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost(x));
 			},
 			capped() {
-			  let capc = 20;
+				let capc = 20;
 				return player.buyables['37R'].gte(capc);
 			},
 			currency: '乘法能量',
@@ -312,28 +312,26 @@ export const NUMTHEORY = {
 	},
 	varXgain() {
 		let x = new Decimal(0);
-	  let exp = new Decimal(1);
-	  if (player.upgrades['32R']) exp = exp.add(0.3)
-	  if (player.buyables['36R'].gte(1)) exp = exp.add(player.buyables['36R'].mul(0.085));
-		if (player.buyables['31R'].gte(1))
-			x = x.add(player.buyables['31R'].pow(exp));
+		let exp = new Decimal(1);
+		if (player.upgrades['32R']) exp = exp.add(0.3);
+		if (player.buyables['36R'].gte(1)) exp = exp.add(player.buyables['36R'].mul(0.085));
+		if (player.buyables['31R'].gte(1)) x = x.add(player.buyables['31R'].pow(exp));
 		if (player.buyables['32R'].gte(1)) x = x.mul(player.buyables['32R'].add(1));
 		if (player.upgrades['31R']) x = x.mul(upgrades['31R'].effect?.() ?? 1);
 		return x.mul(player.numbertheory.euler.y.floor()).mul(player.numbertheory.euler.s);
 	},
 	varYgain() {
 		let y = new Decimal(0);
-	  let exp = new Decimal(1);
-	  if (player.upgrades['33R']) exp = exp.add(0.3)
-	  if (player.buyables['37R'].gte(1)) exp = exp.add(player.buyables['36R'].mul(0.085));
-		if (player.buyables['33R'].gte(1))
-			y = y.add(player.buyables['33R'].pow(exp));
+		let exp = new Decimal(1);
+		if (player.upgrades['33R']) exp = exp.add(0.3);
+		if (player.buyables['37R'].gte(1)) exp = exp.add(player.buyables['36R'].mul(0.085));
+		if (player.buyables['33R'].gte(1)) y = y.add(player.buyables['33R'].pow(exp));
 		return y.mul(player.numbertheory.euler.z.floor()).mul(player.numbertheory.euler.s);
 	},
 	varZgain() {
 		let z = new Decimal(0);
-	  let exp = new Decimal(1);
-	  if (player.upgrades['34R']) exp = exp.add(0.3)
+		let exp = new Decimal(1);
+		if (player.upgrades['34R']) exp = exp.add(0.3);
 		if (player.buyables['34R'].gte(1)) z = z.add(player.buyables['34R'].pow(exp));
 		return z.mul(player.numbertheory.euler.s);
 	},

@@ -1,5 +1,6 @@
 import { player, feature } from './global.ts';
 import { nextTick } from 'vue';
+import { simulateTime } from './offline';
 import { UPGRADES, BUYABLES, upgrades, buyables } from './mechanic.ts';
 import Decimal from 'break_eternity.js';
 import { NUMTHEORY } from './multiplication/numbertheory.ts';
@@ -8,7 +9,7 @@ import { predictableRandom } from '@/utils/algorithm.ts';
 import { updateTheme } from '@/utils/themes';
 import { CHALLENGE } from './challenge.ts';
 
-export let diff = 0;
+export let diff = 40;
 
 export function updateHighestStat() {
 	player.stat.highestNumber = player.stat.highestNumber.max(player.number);
@@ -18,10 +19,16 @@ export function updateHighestStat() {
 }
 export function gameLoop() {
 	diff = Date.now() - player.lastUpdated;
-
-	player.lastUpdated = Date.now();
-
 	updateTheme();
+	if (diff < 0) return;
+	player.lastUpdated = Date.now();
+	simulate(diff);
+	if (diff > 1000) {
+		simulateTime(diff);
+		return;
+	}
+}
+export function simulate(diff: number) {
 	CHALLENGE.challengeLoop();
 	if (feature.SUCCESSOR.autoSuccessPerSecond().gte(0.001)) {
 		player.automationCD.successor += diff;
@@ -43,13 +50,13 @@ export function gameLoop() {
 			player.upgrades[i as keyof typeof player.upgrades] = true;
 		}
 	}
-	
-	for(let i in buyables) {
+
+	for (let i in buyables) {
 		if (buyables[i].canBuyMax != null && buyables[i].canBuyMax()) {
-			if(buyables[i].buyMax != null) buyables[i].buyMax();
+			if (buyables[i].buyMax != null) buyables[i].buyMax();
 		}
 	}
-	
+
 	if (player.firstResetBit & 0b10) {
 		let dPfTime = diff;
 		if(CHALLENGE.inChallenge(0, 3))
