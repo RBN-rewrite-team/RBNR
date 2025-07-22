@@ -158,9 +158,8 @@ export const BUYABLES = {
 			}
 		} else {
 			let canBuy = new Decimal(0);
-			if(buyables[id].canBuyMax != null && buyables[id].canBuyMax())
-			{
-				if(buyables[id].canBuy != null) canBuy = buyables[id].canBuy();
+			if (buyables[id].canBuyMax != null && buyables[id].canBuyMax()) {
+				if (buyables[id].canBuy != null) canBuy = buyables[id].canBuy();
 			}
 			str += buyables[id].description + '<br>';
 			if (buyables[id].effect != null)
@@ -173,7 +172,8 @@ export const BUYABLES = {
 			str +=
 				'价格：' +
 				format(buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0)))) +
-				buyables[id].currency + (canBuy.gt(0) ? '(买' + formatWhole(canBuy) + '个)' : '') + 
+				buyables[id].currency +
+				(canBuy.gt(0) ? '(买' + formatWhole(canBuy) + '个)' : '') +
 				'<br>';
 		}
 		str += '</div>';
@@ -185,12 +185,13 @@ export const BUYABLES = {
 			this.lock(id).unlocked &&
 			buyables[id].canAfford(player.buyables[id])
 		) {
-			if(buyables[id].buyMax != null && buyables[id].canBuyMax != null && buyables[id].canBuyMax())
-			{
+			if (
+				buyables[id].buyMax != null &&
+				buyables[id].canBuyMax != null &&
+				buyables[id].canBuyMax()
+			) {
 				buyables[id].buyMax();
-			}
-			else
-			{
+			} else {
 				buyables[id].buy(player.buyables[id]);
 				player.buyables[id] = player.buyables[id].add(1);
 			}
