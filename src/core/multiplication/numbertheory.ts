@@ -121,7 +121,7 @@ export const NUMTHEORY = {
 			},
 			displayName: 'B2-R1-5',
 			effect(x) {
-				return x;
+				return x.add(1);
 			},
 			effD(x) {
 				return `s<sub>1</sub> = ${formatWhole(x)}`;

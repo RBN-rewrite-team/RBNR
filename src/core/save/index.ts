@@ -7,19 +7,26 @@ import { themes } from '@/utils/themes';
 const SAVEID = 'RBN-rewritten';
 const version = 3 as const;
 const zero = new Decimal(0);
-
+type Upgrades = Record<
+  '11'|'12'|'13'|
+	'21'|'22'|'23'|'24'|'25'|'26'|
+	'31'|'32'|'33'|'34'|'35'|'36'|'37'|'38'|'39'|
+  '31R'|'32R'|'33R'|'34R'|
+  '41'|'42'|'43'|'44', boolean>
+  export type PrimeFactorTypes = 'pf2'|'pf3'|'pf5'|'pf7'|'pf11'|'pf13'|'pf17'|'pf19';
+type Buyables = Record<
+  '11'|'21'|'31'|'32'|'33'|
+	'31R'|'32R'|'33R'|'34R'|'35R'|'36R'|'37R'|'38R'|
+  PrimeFactorTypes|
+  '41'|'42'|'43'|'44', Decimal>;
 export interface Player {
 	number: Decimal;
 	version: typeof version;
 	totalNumber: Decimal;
 	lastUpdated: number;
 	saveCreateTime: number;
-	upgrades: {
-		[key: string]: boolean;
-	};
-	buyables: {
-		[key: string]: Decimal;
-	};
+	upgrades: Upgrades;
+	buyables: Buyables;
 	buyable11More: Decimal;
 	automationCD: {
 		successor: number;
@@ -99,7 +106,12 @@ function getInitialPlayerData(): Player {
 			'39': false,
 			'31R': false,
 			'32R': false,
-			'33R': false,
+      '33R': false,
+      '34R': false,
+      '41': false,
+      '42': false,
+      '43': false,
+      '44': false,
 		},
 		buyables: {
 			'11': zero,
@@ -115,6 +127,10 @@ function getInitialPlayerData(): Player {
 			'36R': zero,
 			'37R': zero,
 			'38R': zero,
+			'41': zero,
+			'42': zero,
+			'43': zero,
+			'44': zero,
 			pf2: zero,
 			pf3: zero,
 			pf5: zero,

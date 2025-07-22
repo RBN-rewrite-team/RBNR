@@ -29,10 +29,11 @@ import MultipResetButton from './components/MultipResetButton.vue';
 import ExpResetButton from './components/ExpResetButton.vue';
 import { predictableRandom } from './utils/algorithm.ts';
 import Resources from './components/Resources.vue';
+import ExpUpgrades from './components/tabs/ExpUpgrades.vue';
 </script>
 
 <template>
-	<Side />
+  <Side />
 	<div class="content">
 		<div class="news" v-if="player.options.ui.newsbar">
 			<div class="background">
@@ -53,6 +54,7 @@ import Resources from './components/Resources.vue';
 				<NumberTheory v-if="player.currentTab === 6" />
 				<Stat v-if="player.currentTab === 7" />
 				<MultipChals v-if="player.currentTab === 8" />
+        <ExpUpgrades v-if="player.currentTab === 9" />
 				<div class="main" v-if="player.currentTab === 3">
 					<h1>大数之路重制版</h1>
 					版本: v0.1.1<br />
