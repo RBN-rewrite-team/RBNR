@@ -68,16 +68,16 @@ export function simulate(diff: number) {
 		player.multiplication.pfTime = player.multiplication.pfTime.add(dPfTime).max(0);
 		player.numbertheory.euler.x = player.numbertheory.euler.x.add(
 			NUMTHEORY.varXgain().mul(diff).mul(1e-3),
-		);
+		).max(1);
 		player.numbertheory.euler.y = player.numbertheory.euler.y.add(
 			NUMTHEORY.varYgain().mul(diff).mul(1e-3),
-		);
+		).max(1);
 		player.numbertheory.euler.z = player.numbertheory.euler.z.add(
 			NUMTHEORY.varZgain().mul(diff).mul(1e-3),
-		);
+		).max(1);
 		player.numbertheory.euler.s = player.numbertheory.euler.s.add(
 			NUMTHEORY.tickspeedGain().mul(diff).mul(1e-3),
-		);
+		).max(1);
 	}
 
 	updateHighestStat();

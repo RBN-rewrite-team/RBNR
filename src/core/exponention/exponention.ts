@@ -109,10 +109,10 @@ export const Exponention = {
       player.multiplication.mulpower = new Decimal(0);
       player.multiplication.B1seriesC1 = 0;
       player.multiplication.totalMulpower = new Decimal(0);
-      player.numbertheory.euler.x = new Decimal(0);
-      player.numbertheory.euler.y = new Decimal(0);
-      player.numbertheory.euler.z = new Decimal(0);
-      player.numbertheory.euler.s = new Decimal(0);
+      player.numbertheory.euler.x = new Decimal(1);
+      player.numbertheory.euler.y = new Decimal(1);
+      player.numbertheory.euler.z = new Decimal(1);
+      player.numbertheory.euler.s = new Decimal(1);
 
       player.challenges[0] = [new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0)]
 		}
