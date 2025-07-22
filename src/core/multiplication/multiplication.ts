@@ -6,6 +6,7 @@ import { format, formatWhole } from '@/utils/format';
 import { Addition } from '../addition/addition.ts';
 import { PrimeFactor } from './pf.ts';
 import { CHALLENGE } from '../challenge.ts';
+import { MULTI_CHALS } from './challenges.ts';
 const D179E308 = Decimal.pow(2, 1024);
 export const Multiplication = {
 	initMechanics() {
