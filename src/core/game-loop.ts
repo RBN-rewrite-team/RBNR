@@ -53,7 +53,7 @@ export function simulate(diff: number) {
 
 	for (let i in buyables) {
 		if (buyables[i].canBuyMax != null && buyables[i].canBuyMax()) {
-			if(buyables[i].autoBuyMax != null && buyables[i].autoBuyMax()) {
+			if (buyables[i].autoBuyMax != null && buyables[i].autoBuyMax()) {
 				if (buyables[i].buyMax != null) buyables[i].buyMax();
 			}
 		}
@@ -61,8 +61,7 @@ export function simulate(diff: number) {
 
 	if (player.firstResetBit & 0b10) {
 		let dPfTime = diff;
-		if(CHALLENGE.inChallenge(0, 3))
-		{
+		if (CHALLENGE.inChallenge(0, 3)) {
 			dPfTime *= predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1;
 		}
 		player.multiplication.pfTime = player.multiplication.pfTime.add(dPfTime).max(0);

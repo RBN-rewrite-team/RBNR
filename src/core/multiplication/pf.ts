@@ -73,8 +73,8 @@ export const PrimeFactor = {
 				canBuy() {
 					return player.multiplication.mulpower
 						.max(1)
-						.log((this.pfid ?? 0))
-						.sub((this.n ?? 0))
+						.log(this.pfid ?? 0)
+						.sub(this.n ?? 0)
 						.div(2)
 						.add(1)
 						.floor()
@@ -82,8 +82,9 @@ export const PrimeFactor = {
 				},
 				buyMax() {
 					player.buyables[('pf' + this.pfid) as keyof typeof player.buyables] =
-						player.buyables[('pf' + this.pfid) as keyof typeof player.buyables]
-						.add(this?.canBuy?.() ?? 0);
+						player.buyables[('pf' + this.pfid) as keyof typeof player.buyables].add(
+							this?.canBuy?.() ?? 0,
+						);
 				},
 			});
 		}
