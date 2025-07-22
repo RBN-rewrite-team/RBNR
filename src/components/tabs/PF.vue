@@ -5,6 +5,7 @@ import { feature, player } from '@/core/global';
 import { buyables } from '@/core/mechanic';
 const pflist = ['2', '3', '5', '7', '11', '13', '17', '19'] as const;
 import TDBuyable from '../TDBuyable.vue';
+import type {PrimeFactorTypes} from '@/core/save';
 </script>
 
 <template>
@@ -18,7 +19,7 @@ import TDBuyable from '../TDBuyable.vue';
 					<span style="color: #cc33ff; font-weight: bold"
 						>{{ pf
 						}}<sup>{{
-							player.buyables['pf' + pf].add(buyables?.['pf' + pf]?.more?.() ?? 0)
+							player.buyables[('pf' + pf) as PrimeFactorTypes].add(buyables?.['pf' + pf]?.more?.() ?? 0)
 						}}</sup></span
 					><span v-if="pf != '19'"> × </span> </span
 				>)<br />

@@ -183,8 +183,13 @@ export const Successor = {
 		SOFTCAPS.create('number^2', {
 			name: 'number^2',
 			fluid: true,
-			start: new Decimal(2).pow(1024),
-			exponent: new Decimal(0.75),
+      get start(){
+        let base = new Decimal(2).pow(1024);
+        
+        if (player.upgrades[43]) base = base.pow(2)
+        return base;
+      },
+      exponent: new Decimal(0.75),
 		});
 		SOFTCAPS.create('number_C1', {
 			name: 'number_C1',
@@ -210,6 +215,7 @@ export const Successor = {
 	autoSuccessPerSecond() {
 		let base = new Decimal(0);
 		base = base.add(buyables['11'].effect(player.buyables['11']));
+    if (player.upgrades[42]) base = base.pow(1.1);
 		return base;
 	},
 	successorBulk() {
@@ -239,6 +245,7 @@ export const Successor = {
 		if (CHALLENGE.amountChallenge(0, 1).gt(0)) {
 			base = base.mul(MULTI_CHALS[1].effect?.(player.challenges[0][1]) ?? 1);
 		}
+    if (player.upgrades[42]) base = base.pow(1.1);
 		return base;
 	},
 };
