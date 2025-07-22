@@ -73,7 +73,7 @@ export const PrimeFactor = {
 				canBuy() {
 					return player.multiplication.mulpower
 						.max(1)
-						.log(this.pfid)
+						.log((this.pfid ?? 0))
 						.sub((this.n ?? 0))
 						.div(2)
 						.add(1)
