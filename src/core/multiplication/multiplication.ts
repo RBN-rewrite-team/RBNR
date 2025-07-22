@@ -195,7 +195,7 @@ export const Multiplication = {
 			},
 		});
 		UPGRADES.create('39', {
-			description: '解锁乘法挑战',
+			description: '解锁乘法挑战，自动最大购买后继、加法购买项，最大购买乘法购买项',
 			displayName: 'U2-9',
 			currency: '乘法能量',
 			cost: new Decimal(1e21),
@@ -276,6 +276,22 @@ export const Multiplication = {
 			},
 			show: function () {
 				return true;
+			},
+			canBuyMax() {
+				return player.upgrades[39];
+			},
+			autoBuyMax() {
+				return false;
+			},
+			canBuy() {
+				return player.multiplication.mulpower
+					.max(1)
+					.log10()
+					.floor()
+					.sub(player.buyables[32]);
+			},
+			buyMax() {
+				player.buyables[32] = player.buyables[32].add(this?.canBuy?.() ?? 0);
 			},
 		});
 		BUYABLES.create('33', {

@@ -26,6 +26,7 @@ import MultipChals from './components/tabs/MultipChals.vue';
 
 import AdditionResetButton from './components/AdditionResetButton.vue';
 import MultipResetButton from './components/MultipResetButton.vue';
+import ExpResetButton from './components/ExpResetButton.vue';
 import { predictableRandom } from './utils/algorithm.ts';
 </script>
 
@@ -129,13 +130,13 @@ import { predictableRandom } from './utils/algorithm.ts';
 					style="position: absolute; margin-left: 755px; margin-top: 5px"
 					v-if="player.stat.highestMulpower.gte(new Decimal(2).pow(1024))"
 				>
-					<div style="font-weight: bold; color: rgb(0, 40, 255)">
+					<div style="font-weight: bold; color: rgb(127, 127, 255)">
 						指数能量&nbsp;
 						<div style="display: inline; text-shadow: rgb(0, 20, 127) 1px 1px 2px">
 							{{ formatWhole(player.exponention.exppower) }}
 						</div>
 					</div>
-					<div style="font-size: 17px; color: rgb(0, 20, 127)">
+					<div style="font-size: 17px; color: rgb(63, 63, 127)">
 						(+{{ formatWhole(feature.resourceGain.exppower().value) }}) (!{{
 							formatWhole(player.exponention.totalExppower)
 						}})
@@ -145,8 +146,9 @@ import { predictableRandom } from './utils/algorithm.ts';
 		</div>
 		<div class="main-content">
 			<div class="background">
-				<AdditionResetButton />
-				<MultipResetButton />
+				<AdditionResetButton v-if="player.upgrades[13]"/>
+				<MultipResetButton v-if="player.upgrades[26]"/>
+				<ExpResetButton v-if="player.stat.highestMulpower.gte(new Decimal(2).pow(1024))"/>
 				<Successor v-if="player.currentTab === 0" />
 				<Settings v-if="player.currentTab === 1" />
 				<Addition v-if="player.currentTab === 2" />

@@ -64,6 +64,27 @@ export const PrimeFactor = {
 						player.buyables[('pf' + this.pprev) as keyof typeof player.buyables].gte(1)
 					);
 				},
+				canBuyMax() {
+					return player.upgrades[39];
+				},
+				autoBuyMax() {
+					return false;
+				},
+				canBuy() {
+					return player.multiplication.mulpower
+						.max(1)
+						.log(this.pfid)
+						.sub((this.n ?? 0))
+						.div(2)
+						.add(1)
+						.floor()
+						.sub(player.buyables[('pf' + this.pfid) as keyof typeof player.buyables]);
+				},
+				buyMax() {
+					player.buyables[('pf' + this.pfid) as keyof typeof player.buyables] =
+						player.buyables[('pf' + this.pfid) as keyof typeof player.buyables]
+						.add(this?.canBuy?.() ?? 0);
+				},
 			});
 		}
 	},

@@ -162,6 +162,9 @@ export const Successor = {
 			canBuyMax() {
 				return player.upgrades[39];
 			},
+			autoBuyMax() {
+				return player.upgrades[39];
+			},
 			buyMax() {
 				player.buyables[11] = player.number
 					.sub(10)

@@ -7,7 +7,7 @@ import { formatTime } from '@/utils/format';
 export function simulateTime(miliseconds: number): void {
 	if (miliseconds < 0) throw new Error('?');
 	let ticks = Math.floor(miliseconds / 40);
-	ticks = Math.min(ticks, 100000);
+	ticks = Math.min(ticks, 10000);
 	let remaining = miliseconds;
 	const startTime = Date.now();
 	const loopFn = () => {
