@@ -53,7 +53,9 @@ export function simulate(diff: number) {
 
 	for (let i in buyables) {
 		if (buyables[i].canBuyMax != null && buyables[i].canBuyMax()) {
-			if (buyables[i].buyMax != null) buyables[i].buyMax();
+			if(buyables[i].autoBuyMax != null && buyables[i].autoBuyMax()) {
+				if (buyables[i].buyMax != null) buyables[i].buyMax();
+			}
 		}
 	}
 

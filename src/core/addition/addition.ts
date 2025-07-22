@@ -235,12 +235,20 @@ export const Addition = {
 			canBuyMax() {
 				return player.upgrades[39];
 			},
-			buyMax() {
-				player.buyables[21] = player.number
+			autoBuyMax() {
+				return player.upgrades[39];
+			},
+			canBuy() {
+				return player.number
 					.sub(10)
 					.div(1000)
 					.floor()
-					.max(player.buyables[21])
+					.sub(player.buyables[21])
+					.max(0);
+			},
+			buyMax() {
+				player.buyables[21] = player.buyables[21]
+					.add(this?.canBuy?.() ?? 0)
 					.min(100);
 			},
 		});

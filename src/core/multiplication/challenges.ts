@@ -66,7 +66,7 @@ export const MULTI_CHALS: SingleChallenge[] = [
 			return x.add(1).pow(64).max(1);
 		},
 		effD(x) {
-			return `乘法能量获取速度*${format(x)}`;
+			return `首次乘法重置解锁指数层<br>乘法能量获取速度*${format(x)}`;
 		},
 		loop() {},
 	},

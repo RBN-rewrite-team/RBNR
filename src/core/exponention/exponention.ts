@@ -26,10 +26,10 @@ export const Exponention = {
 			content:
 				'你真的要重置吗？这将重置你之前大部分内容。<br>你将获得 ' +
 				formatWhole(gain()) +
-				' 指数能量。',
+				' 指数能量和 ' + formatWhole(new Decimal(3)) + ' 生活质量点。',
 			onConfirm() {
 				Exponention.reset();
-				player.firstResetBit |= 0b100;
+				//player.firstResetBit |= 0b100;
 			},
 		});
 	},
