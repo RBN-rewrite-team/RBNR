@@ -136,7 +136,7 @@ export const Exponention = {
 	gain() {
 		if (player.multiplication.totalMulpower.lt(D179E308)) return new Decimal(0);
 		let base = player.multiplication.totalMulpower.log(2).root(2).div(32);
-		return base;
+		return base.floor();
 	},
 	powerEff() {
 		return player.exponention.totalExppower.div(1000).add(1);
