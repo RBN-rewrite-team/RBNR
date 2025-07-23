@@ -19,9 +19,7 @@ import TDBuyable from '../TDBuyable.vue';
 			>
 				后继x{{ format(feature.SUCCESSOR.successorBulk())
 				}}
-				<span v-if="feature.SUCCESSOR.successorPow().gt(1)">
-					<sup>{{ format(feature.SUCCESSOR.successorPow()) }}</sup>
-				</span>
+				<sup v-if="feature.SUCCESSOR.successorPow().gt(1)">{{ format(feature.SUCCESSOR.successorPow()) }}</sup>
 				<span v-if="BUYABLES.lock('11').unlocked"
 					>(自动{{ formatWhole(feature.SUCCESSOR.autoSuccessPerSecond()) }}/s)</span
 				>
