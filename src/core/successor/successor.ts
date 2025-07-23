@@ -200,7 +200,7 @@ export const Successor = {
 	},
 
 	success(bulk = 1) {
-		let adding = this.successorBulk().mul(bulk);
+		let adding = this.successorBulk().pow(this.successorPow())mul(bulk);
 		adding = SOFTCAPS.fluidComputed('number^1', adding, player.number);
 		adding = SOFTCAPS.fluidComputed('number^2', adding, player.number);
 		if (CHALLENGE.inChallenge(0, 2))
@@ -215,7 +215,6 @@ export const Successor = {
 	autoSuccessPerSecond() {
 		let base = new Decimal(0);
 		base = base.add(buyables['11'].effect(player.buyables['11']));
-    if (player.upgrades[42]) base = base.pow(1.1);
 		return base;
 	},
 	successorBulk() {
@@ -245,7 +244,18 @@ export const Successor = {
 		if (CHALLENGE.amountChallenge(0, 1).gt(0)) {
 			base = base.mul(MULTI_CHALS[1].effect?.(player.challenges[0][1]) ?? 1);
 		}
-    if (player.upgrades[42]) base = base.pow(1.1);
+		
+		if (CHALLENGE.amountChallenge(0, 2).gt(0) && !CHALLENGE.inChallenge(0, 3)) {
+			base = base.mul(MULTI_CHALS[2].effect?.(player.challenges[0][2]) ?? 1);
+		}
+		
+		if(player.firstResetBit & 0b100) base = base.pow(feature.EXPONENTION.powerEff());
+		if(player.firstResetBit & 0b100) base = base.pow(1.03);
+		return base;
+	},
+	successorPow() {
+		let base = new Decimal(1);
+		if(player.upgrades[42]) base = base.add(0.1);
 		return base;
 	},
 };

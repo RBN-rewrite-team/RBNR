@@ -247,6 +247,23 @@ export const Multiplication = {
 			show: function () {
 				return true;
 			},
+			canBuyMax() {
+				return player.upgrades[39];
+			},
+			autoBuyMax() {
+				return false;
+			},
+			canBuy() {
+				return player.multiplication.mulpower
+					.max(1)
+					.div(1000)
+					.floor()
+					.min(500)
+					.sub(player.buyables[31]);
+			},
+			buyMax() {
+				player.buyables[31] = player.buyables[31].add(this?.canBuy?.() ?? 0);
+			},
 		});
 		BUYABLES.create('32', {
 			description: '每级将乘法能量获取*2',
@@ -329,6 +346,23 @@ export const Multiplication = {
 			},
 			show: function () {
 				return true;
+			},
+			canBuyMax() {
+				return player.upgrades[39];
+			},
+			autoBuyMax() {
+				return false;
+			},
+			canBuy() {
+				return player.multiplication.mulpower
+					.max(1)
+					.log(15)
+					.floor()
+					.min(99)
+					.sub(player.buyables[33]);
+			},
+			buyMax() {
+				player.buyables[33] = player.buyables[33].add(this?.canBuy?.() ?? 0);
 			},
 		});
 	},

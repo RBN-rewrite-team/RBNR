@@ -20,7 +20,7 @@ const feature = {
 
 	resourceGain: {
 		number(num = player.number) {
-			let base = feature.SUCCESSOR.successorBulk();
+			let base = feature.SUCCESSOR.successorBulk().pow(feature.SUCCESSOR.successorPow());
 			base = base.mul(feature.SUCCESSOR.autoSuccessPerSecond());
 			base = SOFTCAPS.fluidComputed('number^1', base, player.number);
 			base = SOFTCAPS.fluidComputed('number^2', base, player.number);

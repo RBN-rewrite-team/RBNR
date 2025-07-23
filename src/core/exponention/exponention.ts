@@ -68,7 +68,6 @@ export const Exponention = {
   },
 	reset(force = false) {
 		if(this.gain().gt(0) || force) {
-      player.firstResetBit |= 0b100;
 			player.exponention.exppower = player.exponention.exppower.add(this.gain());
 			player.exponention.totalExppower = player.exponention.totalExppower.add(this.gain());
 			player.stat.totalExppower = player.stat.totalExppower.add(this.gain());
@@ -130,7 +129,7 @@ export const Exponention = {
 				' 生活质量点。',
 			onConfirm() {
 				Exponention.reset();
-				//player.firstResetBit |= 0b100;
+				player.firstResetBit |= 0b100;
 			},
 		});
 	},
@@ -138,5 +137,8 @@ export const Exponention = {
 		if (player.multiplication.totalMulpower.lt(D179E308)) return new Decimal(0);
 		let base = player.multiplication.totalMulpower.log(2).root(2).div(32);
 		return base;
+	},
+	powerEff() {
+		return player.exponention.totalExppower.div(1000).add(1);
 	},
 };

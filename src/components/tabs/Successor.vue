@@ -13,11 +13,16 @@ import TDBuyable from '../TDBuyable.vue';
 		<div class="clickable">
 			<div
 				class="clickable_button"
+				style="width: 240px"
 				@mousedown="feature.SUCCESSOR.success()"
 				v-if="!player.upgrades['25']"
 			>
 				后继x{{ format(feature.SUCCESSOR.successorBulk())
-				}}<span v-if="BUYABLES.lock('11').unlocked"
+				}}
+				<span v-if="feature.SUCCESSOR.successorPow().gt(1)">
+					<sup>{{ format(feature.SUCCESSOR.successorPow()) }}</sup>
+				</span>
+				<span v-if="BUYABLES.lock('11').unlocked"
 					>(自动{{ formatWhole(feature.SUCCESSOR.autoSuccessPerSecond()) }}/s)</span
 				>
 			</div>
