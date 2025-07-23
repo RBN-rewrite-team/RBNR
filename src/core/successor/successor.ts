@@ -200,7 +200,7 @@ export const Successor = {
 	},
 
 	success(bulk = 1) {
-		let adding = this.successorBulk().pow(this.successorPow())mul(bulk);
+		let adding = this.successorBulk().pow(this.successorPow()).mul(bulk);
 		adding = SOFTCAPS.fluidComputed('number^1', adding, player.number);
 		adding = SOFTCAPS.fluidComputed('number^2', adding, player.number);
 		if (CHALLENGE.inChallenge(0, 2))
