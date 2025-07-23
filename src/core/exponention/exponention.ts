@@ -115,6 +115,8 @@ export const Exponention = {
       player.numbertheory.euler.s = new Decimal(1);
 
       player.challenges[0] = [new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0)]
+
+      player.exponention.qolpoints = player.exponention.qolpoints.add(3);
 		}
 	},
 	UIreset() {

@@ -4,7 +4,9 @@ import { player } from '@/core/save';
 const props = defineProps<{
 	upgid: keyof typeof player.upgrades;
 }>();
-// code...
+function curupg(){
+  return 'upgrade'; 
+}
 </script>
 
 <template>
@@ -18,5 +20,4 @@ const props = defineProps<{
 </template>
 
 <style scoped>
-/* code... */
 </style>

@@ -10,6 +10,7 @@ import { feature } from './core/global.ts';
 import ModalService from './utils/Modal.ts';
 import { NUMTHEORY } from './core/multiplication/numbertheory.ts';
 import {Exponention} from './core/exponention/exponention.ts';
+import {QolUpgrades} from './core/exponention/qolupg.ts';
 
 export let loopInterval = NaN;
 export let saveInterval = setInterval(save, 3000);
@@ -29,6 +30,7 @@ feature.MULTIPLICATION.initMechanics();
 feature.PrimeFactor.initMechanics();
 NUMTHEORY.initMechanics();
 Exponention.initMechanics();
+QolUpgrades.initMechanics();
 startGameLoop();
 const app = createApp(App);
 
