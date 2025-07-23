@@ -239,7 +239,7 @@ export const Addition = {
 				return player.upgrades[39];
 			},
 			canBuy() {
-				return player.number.sub(10).div(1000).floor().sub(player.buyables[21]).max(0);
+				return player.number.sub(10).div(1000).floor().min(100).sub(player.buyables[21]).max(0);
 			},
 			buyMax() {
 				player.buyables[21] = player.buyables[21].add(this?.canBuy?.() ?? 0).min(100);
@@ -303,13 +303,13 @@ export const Addition = {
 		});
 	},
 	gain() {
-		let base = player.totalNumber.div(1000).floor().max(0);
+		let base = player.totalNumber.div(1000).max(0);
 		if (player.firstResetBit & 0b10) base = base.mul(feature.PrimeFactor.powerEff());
 		if (player.buyables[31].gt(0)) base = base.mul(buyables[31].effect(player.buyables[31]));
 
-    if (player.upgrades[41]) base = base.mul(10);
+		if (player.upgrades[41]) base = base.mul(10);
 
-		return base;
+		return base.floor();
 	},
 	U25effect() {
 		if (!player.upgrades[25]) return new Decimal(0);
