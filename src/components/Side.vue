@@ -78,6 +78,14 @@ import { player } from '@/core/save';
 							乘法挑战
 						</div>
 					</template>
+          <template v-if="player.firstResetBit & 0b100">
+            <div class="menu1">指数</div>
+					  <div class="menu_line"></div>
+            <div class="menu2"
+              :class="{ focus: player.currentTab == 9 }"
+							@click="player.currentTab = 9"
+            >指数升级</div>
+          </template>
 					<div class="menu1">杂项</div>
 					<div class="menu_line"></div>
 					<div

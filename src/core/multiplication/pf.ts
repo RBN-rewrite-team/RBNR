@@ -1,6 +1,6 @@
 import Decimal from 'break_eternity.js';
 import { BUYABLES, upgrades, UPGRADES, buyables, type singleReq } from '../mechanic';
-import { player } from '../save';
+import { player, type PrimeFactorTypes } from '../save';
 import ModalService from '@/utils/Modal';
 import { formatWhole } from '@/utils/format';
 import { Addition } from '../addition/addition.ts';
@@ -21,7 +21,7 @@ export const PrimeFactor = {
 				description: '因数能量×' + pf,
 				more() {
 					if (player.upgrades[36] && Number(i) !== pflist.length - 1) {
-						return player.buyables['pf' + pflist[Number(i) + 1]].div(2).floor();
+						return player.buyables['pf' + pflist[Number(i) + 1] as PrimeFactorTypes].div(2).floor();
 					}
 					return new Decimal(0);
 				},
@@ -73,8 +73,8 @@ export const PrimeFactor = {
 				canBuy() {
 					return player.multiplication.mulpower
 						.max(1)
-						.log((this.pfid ?? 0))
-						.sub((this.n ?? 0))
+						.log(this.pfid ?? 0)
+						.sub(this.n ?? 0)
 						.div(2)
 						.add(1)
 						.floor()
@@ -82,8 +82,9 @@ export const PrimeFactor = {
 				},
 				buyMax() {
 					player.buyables[('pf' + this.pfid) as keyof typeof player.buyables] =
-						player.buyables[('pf' + this.pfid) as keyof typeof player.buyables]
-						.add(this?.canBuy?.() ?? 0);
+						player.buyables[('pf' + this.pfid) as keyof typeof player.buyables].add(
+							this?.canBuy?.() ?? 0,
+						);
 				},
 			});
 		}

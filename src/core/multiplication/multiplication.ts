@@ -382,6 +382,7 @@ export const Multiplication = {
 		if (CHALLENGE.amountChallenge(0, 3).gt(0) && !CHALLENGE.inChallenge(0, 3)) {
 			base = base.mul(MULTI_CHALS[3].effect?.(player.challenges[0][3]) ?? 1);
 		}
+    if (player.upgrades[41]) base = base.mul(10);
 		return base.floor();
 	},
 };
