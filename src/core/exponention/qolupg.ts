@@ -128,5 +128,70 @@ export const QolUpgrades = {
       ],
       show() {return true}
     })
+    UPGRADES.create('431q', {
+      displayName: "4-QOL-31",
+      description: "指数不重置U2-3和U2-4。",
+      canAfford() { return player.exponention.qolpoints.gte(1)},
+      currency: "生活质量点",
+      cost: new Decimal(1),
+      buy() {player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost)},
+      requirement: [
+        ["购买4-QOL-21", () => player.upgrades['421q']] as singleReq
+      ],
+      show: QolUpgrades.row1AllUnlocked
+    })
+    UPGRADES.create('432q', {
+      displayName: "4-QOL-32",
+      description: "B1-1的增幅立即生效，无需加法重置。",
+      canAfford() { return player.exponention.qolpoints.gte(1)},
+      currency: "生活质量点",
+      cost: new Decimal(1),
+      buy() {player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost)},
+      requirement: [
+        ["购买4-QOL-22", () => player.upgrades['422q']] as singleReq
+      ],
+      show: QolUpgrades.row1AllUnlocked
+    })
+    UPGRADES.create('433q', {
+      displayName: "4-QOL-33",
+      description: "指数不重置挑战3的奖励。",
+      canAfford() { return player.exponention.qolpoints.gte(1)},
+      currency: "生活质量点",
+      cost: new Decimal(1),
+      buy() {player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost)},
+      requirement: [
+        ["购买4-QOL-23", () => player.upgrades['423q']] as singleReq
+      ],
+      show: QolUpgrades.row1AllUnlocked
+    })
+    UPGRADES.create('434q', {
+      displayName: "4-QOL-34",
+      description: "指数不重置B2-R1-2。",
+      canAfford() { return player.exponention.qolpoints.gte(1)},
+      currency: "生活质量点",
+      cost: new Decimal(1),
+      buy() {player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost)},
+      requirement: [
+        ["购买4-QOL-24", () => player.upgrades['424q']] as singleReq
+      ],
+      show: QolUpgrades.row1AllUnlocked
+    })
+    UPGRADES.create('435q', {
+      displayName: "4-QOL-35",
+      description: "乘法不重置质因数时间。",
+      canAfford() { return player.exponention.qolpoints.gte(1)},
+      currency: "生活质量点",
+      cost: new Decimal(1),
+      buy() {player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost)},
+      requirement: [
+        ["购买4-QOL-25", () => player.upgrades['425q']] as singleReq
+      ],
+      show: QolUpgrades.row1AllUnlocked
+    })
+    
+    
+  },
+  row1AllUnlocked() {
+    return player.upgrades['411q'] && player.upgrades['412q'] && player.upgrades['413q'] && player.upgrades['414q'] && player.upgrades['415q'] 
   }
 }
