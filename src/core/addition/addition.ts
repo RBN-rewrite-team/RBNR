@@ -37,6 +37,9 @@ export const Addition = {
 			show: function () {
 				return true;
 			},
+			keep() {
+				return player.upgrades['421q'];
+			},
 		});
 		UPGRADES.create('22', {
 			description: '后继批量提高到4倍',
@@ -64,6 +67,9 @@ export const Addition = {
 			},
 			show: function () {
 				return true;
+			},
+			keep() {
+				return player.upgrades['421q'];
 			},
 		});
 		UPGRADES.create('23', {
@@ -95,6 +101,9 @@ export const Addition = {
 			show: function () {
 				return true;
 			},
+			keep() {
+				return player.upgrades['421q'];
+			},
 		});
 		UPGRADES.create('24', {
 			description: '解锁B1-1',
@@ -124,6 +133,9 @@ export const Addition = {
 			},
 			show: function () {
 				return true;
+			},
+			keep() {
+				return player.upgrades['421q'];
 			},
 		});
 		UPGRADES.create('25', {
@@ -170,6 +182,9 @@ export const Addition = {
 			show: function () {
 				return true;
 			},
+			keep() {
+				return player.upgrades['421q'];
+			},
 		});
 		UPGRADES.create('26', {
 			description: '解锁乘法层',
@@ -193,6 +208,9 @@ export const Addition = {
 			},
 			show: function () {
 				return true;
+			},
+			keep() {
+				return player.upgrades['421q'];
 			},
 		});
 		BUYABLES.create('21', {
