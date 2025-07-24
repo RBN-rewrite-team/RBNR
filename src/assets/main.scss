@@ -316,17 +316,58 @@ body {
 	text-align: center;
 	justify-content: center;
 }
-
-.upgrade_button1 {
+.upgrade_button_parent {
 	position: relative;
 	display: block;
-	width: 175px;
-	height: 36px;
 	background-color: var(--background-color);
 	border: 2px solid #c9c9c9;
 	text-align: center;
-	line-height: 36px;
+	line-height: 28px;
 	box-shadow: var(--border-color) 1px 1px 2px 1px;
+  
+}
+.upgrade_buttonsmall {
+  @extend .upgrade_button_parent;
+	width: 130px;
+  height: 130px;
+  line-height: 24px;
+  font-size: 12px;
+}
+
+.upgrade_buttonsmall:hover {
+	background-color: var(--hover-color);
+}
+
+.upgrade_buttonsmall:active {
+	background-color: var(--border-color);
+}
+
+.upgrade_buttonsmall_unable {
+  @extend .upgrade_buttonsmall;
+	border: 2px solid #ffa1a1;
+  box-shadow: none;
+}
+
+.upgrade_buttonsmall_complete {
+  @extend .upgrade_buttonsmall;
+	border: 2px solid green;
+	box-shadow: lightgreen 1px 1px 2px 1px;
+}
+
+.upgrade_buttonsmall_complete:hover {
+	background-color: var(--hover-color);
+}
+
+.upgrade_buttonsmall_complete:active {
+	background-color: var(--border-color);
+}
+.upgrade_buttonsmall_unable:hover {
+	background-color: #ffd1d1;
+}
+.upgrade_button1 {
+  @extend .upgrade_button_parent;
+	width: 175px;
+  height:175px;
 }
 
 .upgrade_button1:hover {
@@ -338,14 +379,9 @@ body {
 }
 
 .upgrade_button1_unable {
-	position: relative;
-	display: block;
-	width: 175px;
-	height: 36px;
-	background-color: var(--background-color);
+  @extend .upgrade_button1;
 	border: 2px solid #ffa1a1;
-	text-align: center;
-	line-height: 36px;
+  box-shadow: none;
 }
 
 .upgrade_button1_unable:hover {
@@ -353,15 +389,9 @@ body {
 }
 
 .upgrade_buttonbig {
-	position: relative;
-	display: block;
+  @extend .upgrade_button_parent;
 	width: 175px;
 	height: 175px;
-	background-color: var(--background-color);
-	border: 2px solid #c9c9c9;
-	text-align: center;
-	line-height: 30px;
-	box-shadow: var(--border-color) 1px 1px 2px 1px;
 }
 
 .upgrade_buttonbig:hover {
@@ -373,14 +403,8 @@ body {
 }
 
 .upgrade_buttonbig_complete {
-	position: relative;
-	display: block;
-	width: 175px;
-	height: 175px;
-	background-color: var(--background-color);
+  @extend .upgrade_buttonbig;
 	border: 2px solid green;
-	text-align: center;
-	line-height: 30px;
 	box-shadow: lightgreen 1px 1px 2px 1px;
 }
 
@@ -393,14 +417,9 @@ body {
 }
 
 .upgrade_buttonbig_unable {
-	position: relative;
-	display: block;
-	width: 175px;
-	height: 175px;
-	background-color: var(--background-color);
+  @extend .upgrade_buttonbig;
 	border: 2px solid #ffa1a1;
-	text-align: center;
-	line-height: 30px;
+	box-shadow: none;
 }
 
 .upgrade_buttonbig_unable:hover {

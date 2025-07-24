@@ -65,10 +65,10 @@ export const PrimeFactor = {
 					);
 				},
 				canBuyMax() {
-					return player.upgrades[39];
+					return player.upgrades[39] || player.upgrades['415q'];
 				},
 				autoBuyMax() {
-					return false;
+					return player.upgrades['415q'];
 				},
 				canBuy() {
 					return player.multiplication.mulpower

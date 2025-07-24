@@ -88,7 +88,8 @@ export const Exponention = {
       player.buyables[31] = new Decimal(0);
       player.buyables[32] = new Decimal(0);
       player.buyables[33] = new Decimal(0);
-      player.buyables['31R'] = new Decimal(0);
+      if (!player.upgrades['413q'])
+        player.buyables['31R'] = new Decimal(0);
       player.buyables['32R'] = new Decimal(0);
       player.buyables['33R'] = new Decimal(0);
       player.buyables['34R'] = new Decimal(0);
@@ -113,7 +114,14 @@ export const Exponention = {
       player.numbertheory.euler.z = new Decimal(1);
       player.numbertheory.euler.s = new Decimal(1);
 
-      player.challenges[0] = [new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0)]
+      if (!player.upgrades['413q'])
+        player.challenges[0][0] = new Decimal(0);
+      player.challenges[0][1] = new Decimal(0);
+      player.challenges[0][2] = new Decimal(0);
+      player.challenges[0][3] = new Decimal(0);
+      player.challenges[0][4] = new Decimal(0);
+
+      player.exponention.qolpoints = player.exponention.qolpoints.add(3);
 		}
 	},
 	UIreset() {
