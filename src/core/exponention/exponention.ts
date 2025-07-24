@@ -88,9 +88,9 @@ export const Exponention = {
       player.buyables[31] = new Decimal(0);
       player.buyables[32] = new Decimal(0);
       player.buyables[33] = new Decimal(0);
-      if (!player.upgrades['413q'])
+      if (!player.upgrades['414q'])
         player.buyables['31R'] = new Decimal(0);
-      if (!player.upgrades['423q'])
+      if (!player.upgrades['424q'])
         player.buyables['32R'] = new Decimal(0);
       player.buyables['33R'] = new Decimal(0);
       player.buyables['34R'] = new Decimal(0);
