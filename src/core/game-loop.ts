@@ -21,7 +21,6 @@ export function gameLoop() {
 	diff = Date.now() - player.lastUpdated;
 	updateTheme();
 	if (diff < 0) return;
-  if (player.exponention.exppower.gte(1)) player.firstResetBit |= 0b100;
 	player.lastUpdated = Date.now();
 	simulate(diff);
 	if (diff > 1000) {

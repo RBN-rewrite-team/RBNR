@@ -254,6 +254,23 @@ export const Multiplication = {
 			show: function () {
 				return true;
 			},
+			canBuyMax() {
+				return player.upgrades[39];
+			},
+			autoBuyMax() {
+				return false;
+			},
+			canBuy() {
+				return player.multiplication.mulpower
+					.max(1)
+					.div(1000)
+					.floor()
+					.min(500)
+					.sub(player.buyables[31]);
+			},
+			buyMax() {
+				player.buyables[31] = player.buyables[31].add(this?.canBuy?.() ?? 0);
+			},
 		});
 		BUYABLES.create('32', {
 			description: '每级将乘法能量获取*2',
@@ -337,6 +354,23 @@ export const Multiplication = {
 			show: function () {
 				return true;
 			},
+			canBuyMax() {
+				return player.upgrades[39];
+			},
+			autoBuyMax() {
+				return false;
+			},
+			canBuy() {
+				return player.multiplication.mulpower
+					.max(1)
+					.log(15)
+					.floor()
+					.min(99)
+					.sub(player.buyables[33]);
+			},
+			buyMax() {
+				player.buyables[33] = player.buyables[33].add(this?.canBuy?.() ?? 0);
+			},
 		});
 	},
 	powerEff() {
@@ -389,7 +423,7 @@ export const Multiplication = {
 		if (CHALLENGE.amountChallenge(0, 3).gt(0) && !CHALLENGE.inChallenge(0, 3)) {
 			base = base.mul(MULTI_CHALS[3].effect?.(player.challenges[0][3]) ?? 1);
 		}
-    if (player.upgrades[41]) base = base.mul(10);
+		if (player.upgrades[41]) base = base.mul(10);
 		return base.floor();
 	},
 };

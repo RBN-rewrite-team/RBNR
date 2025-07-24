@@ -32,6 +32,24 @@ export const NUMTHEORY = {
 				return true;
 			},
 			requirement: [],
+			canBuyMax() {
+				return player.upgrades[39];
+			},
+			autoBuyMax() {
+				return false;
+			},
+			canBuy() {
+				return player.multiplication.mulpower
+					.div(10)
+					.max(1)
+					.log(2)
+					.add(1)
+					.floor()
+					.sub(player.buyables['31R']);
+			},
+			buyMax() {
+				player.buyables['31R'] = player.buyables['31R'].add(this?.canBuy?.() ?? 0);
+			},
 		});
 		BUYABLES.create('32R', {
 			description: 'x<sub>2</sub>→x<sub>2</sub>+1',
@@ -59,6 +77,24 @@ export const NUMTHEORY = {
 				return true;
 			},
 			requirement: [],
+			canBuyMax() {
+				return player.upgrades[39];
+			},
+			autoBuyMax() {
+				return false;
+			},
+			canBuy() {
+				return player.multiplication.mulpower
+					.div(100)
+					.max(1)
+					.log10()
+					.add(1)
+					.floor()
+					.sub(player.buyables['32R']);
+			},
+			buyMax() {
+				player.buyables['32R'] = player.buyables['32R'].add(this?.canBuy?.() ?? 0);
+			},
 		});
 		BUYABLES.create('33R', {
 			description: 'y<sub>1</sub>→y<sub>1</sub>+1',
@@ -86,6 +122,24 @@ export const NUMTHEORY = {
 				return true;
 			},
 			requirement: [],
+			canBuyMax() {
+				return player.upgrades[39];
+			},
+			autoBuyMax() {
+				return false;
+			},
+			canBuy() {
+				return player.multiplication.mulpower
+					.div(1e28)
+					.max(1)
+					.log(100)
+					.add(1)
+					.floor()
+					.sub(player.buyables['33R']);
+			},
+			buyMax() {
+				player.buyables['33R'] = player.buyables['33R'].add(this?.canBuy?.() ?? 0);
+			},
 		});
 		BUYABLES.create('34R', {
 			description: 'z<sub>1</sub>→z<sub>1</sub>+1',
@@ -113,6 +167,24 @@ export const NUMTHEORY = {
 				return true;
 			},
 			requirement: [],
+			canBuyMax() {
+				return player.upgrades[39];
+			},
+			autoBuyMax() {
+				return false;
+			},
+			canBuy() {
+				return player.multiplication.mulpower
+					.div(1e30)
+					.max(1)
+					.log(1000)
+					.add(1)
+					.floor()
+					.sub(player.buyables['34R']);
+			},
+			buyMax() {
+				player.buyables['34R'] = player.buyables['34R'].add(this?.canBuy?.() ?? 0);
+			},
 		});
 		BUYABLES.create('35R', {
 			description: 's<sub>1</sub>→s<sub>1</sub>+1',
@@ -140,6 +212,24 @@ export const NUMTHEORY = {
 				return true;
 			},
 			requirement: [],
+			canBuyMax() {
+				return player.upgrades[39];
+			},
+			autoBuyMax() {
+				return false;
+			},
+			canBuy() {
+				return player.multiplication.mulpower
+					.div(1e32)
+					.max(1)
+					.log(1e8)
+					.add(1)
+					.floor()
+					.sub(player.buyables['35R']);
+			},
+			buyMax() {
+				player.buyables['35R'] = player.buyables['35R'].add(this?.canBuy?.() ?? 0);
+			},
 		});
 		BUYABLES.create('36R', {
 			description: 'x<sub>1</sub>指数+0.085',
@@ -168,6 +258,25 @@ export const NUMTHEORY = {
 				return true;
 			},
 			requirement: [],
+			canBuyMax() {
+				return player.upgrades[39];
+			},
+			autoBuyMax() {
+				return false;
+			},
+			canBuy() {
+				return player.multiplication.mulpower
+					.div(1e32)
+					.max(1)
+					.log(1e16)
+					.add(1)
+					.floor()
+					.min(20)
+					.sub(player.buyables['36R']);
+			},
+			buyMax() {
+				player.buyables['36R'] = player.buyables['36R'].add(this?.canBuy?.() ?? 0);
+			},
 		});
 		BUYABLES.create('37R', {
 			description: 'y<sub>1</sub>指数+0.085',
@@ -196,6 +305,25 @@ export const NUMTHEORY = {
 				return true;
 			},
 			requirement: [],
+			canBuyMax() {
+				return player.upgrades[39];
+			},
+			autoBuyMax() {
+				return false;
+			},
+			canBuy() {
+				return player.multiplication.mulpower
+					.div(1e40)
+					.max(1)
+					.log(1e20)
+					.add(1)
+					.floor()
+					.min(20)
+					.sub(player.buyables['37R']);
+			},
+			buyMax() {
+				player.buyables['37R'] = player.buyables['37R'].add(this?.canBuy?.() ?? 0);
+			},
 		});
 		BUYABLES.create('38R', {
 			description: 'B2-R1-1~4的效果+2.5%(叠乘)',
@@ -207,7 +335,7 @@ export const NUMTHEORY = {
 				return new Decimal(1.025).pow(x);
 			},
 			effD(x) {
-				return `+${format(this.effect(x).sub(1))}`;
+				return `x${format(this.effect(x))}`;
 			},
 			canAfford(x) {
 				return this.cost(x).lte(player.multiplication.mulpower);
@@ -216,14 +344,31 @@ export const NUMTHEORY = {
 				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost(x));
 			},
 			capped() {
-				let capc = 20;
-				return player.buyables['37R'].gte(capc);
+				return false;
 			},
 			currency: '乘法能量',
 			show() {
 				return true;
 			},
 			requirement: [],
+			canBuyMax() {
+				return player.upgrades[39];
+			},
+			autoBuyMax() {
+				return false;
+			},
+			canBuy() {
+				return player.multiplication.mulpower
+					.div(1e50)
+					.max(1)
+					.log(1e25)
+					.add(1)
+					.floor()
+					.sub(player.buyables['38R']);
+			},
+			buyMax() {
+				player.buyables['38R'] = player.buyables['38R'].add(this?.canBuy?.() ?? 0);
+			},
 		});
 		UPGRADES.create('31R', {
 			description: '将u<sub>1</sub>加入x获取速度公式',
