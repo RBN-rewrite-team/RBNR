@@ -23,6 +23,13 @@ import TDUpgrade from '../TDUpgrade.vue';
         <tr>
             <TDUpgrade upgid="400q" />
         </tr>
+        <tr>
+            <TDUpgrade upgid="411q" />
+            <TDUpgrade upgid="412q" />
+            <TDUpgrade upgid="413q" />
+            <TDUpgrade upgid="414q" />
+            <TDUpgrade upgid="415q" />
+        </tr>
       </tbody>
     </table>
   </div>

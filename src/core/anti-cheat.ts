@@ -5,6 +5,7 @@ import type { Player } from './save';
 declare global {
 	interface Window {
 		game: object;
+		player: Player;
 	}
 }
 
@@ -22,7 +23,13 @@ Object.defineProperty(window, 'game', {
 	enumerable: false,
 	configurable: false,
 });
+document.addEventListener("DOMContentLoaded", function (){
 
+	if (import.meta.env.DEV) {
+		window.player = player;
+	}
+
+})
 let cheat = false;
 
 function detectTimerHooker(): void {

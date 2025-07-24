@@ -59,6 +59,9 @@ export const Multiplication = {
 			show: function () {
 				return true;
 			},
+			keep() {
+				return player.upgrades['411q']
+			},
 		});
 		UPGRADES.create('33', {
 			description: 'U2系列升级购买数量的平方同样作用于U0-2的效果',
