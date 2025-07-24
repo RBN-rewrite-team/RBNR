@@ -51,6 +51,7 @@ export interface Player {
 		totalMulpower: Decimal;
 		pfTime: Decimal;
 		B1seriesC1: 0 | 2 | 3 | 4 | 5;
+		B1seriesC1400q: 0 | 2 | 3 | 4 | 5;
 	};
 	exponention: {
 		exppower: Decimal;
@@ -136,11 +137,6 @@ function getInitialPlayerData(): Player {
       '443q': false,
       '444q': false,
       '445q': false,
-      '451q': false,
-      '452q': false,
-      '453q': false,
-      '454q': false,
-      '455q': false,
 		},
 		buyables: {
 			'11': zero,
@@ -189,6 +185,7 @@ function getInitialPlayerData(): Player {
 			totalMulpower: zero,
 			pfTime: zero,
 			B1seriesC1: 0,
+      B1seriesC1400q: 0,
 		},
 		exponention: {
 			exppower: zero,

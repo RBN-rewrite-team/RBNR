@@ -11,7 +11,11 @@ const D179E308 = Decimal.pow(2, 1024);
 export const Multiplication = {
 	initMechanics() {
 		UPGRADES.create('31', {
-			description: '你可以选择一个U1系列升级将其价格降低到1加法能量，改变选择将进行乘法重置',
+      get description() {
+        let counts = "1";
+        if (player.upgrades["400q"]) counts = "<span style='font-size: 19px;'><b>2</b></span>"
+        return '你可以选择'+counts+'个U1系列升级将其价格降低到1加法能量，改变选择将进行乘法重置'
+      },
 			cost: new Decimal(0),
 			displayName: 'U2-1',
 			currency: '乘法能量',
