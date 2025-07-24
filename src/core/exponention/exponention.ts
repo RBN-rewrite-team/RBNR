@@ -74,14 +74,17 @@ export const Exponention = {
       Multiplication.reset(true);
       player.upgrades[31] = false;
       player.upgrades[32] = false;
-      player.upgrades[33] = false;
-      player.upgrades[34] = false;
+      if (!player.upgrades['431q']){
+        player.upgrades[33] = false;
+        player.upgrades[34] = false;
+      }
       player.upgrades[35] = false;
       player.upgrades[36] = false;
       player.upgrades[37] = false;
       player.upgrades[38] = false;
       player.upgrades[39] = false;
-      player.upgrades['31R'] = false;
+      if (!player.upgrades['424q'])
+        player.upgrades['31R'] = false;
       player.upgrades['32R'] = false;
       player.upgrades['33R'] = false;
       player.upgrades['34R'] = false;
@@ -90,7 +93,7 @@ export const Exponention = {
       player.buyables[33] = new Decimal(0);
       if (!player.upgrades['414q'])
         player.buyables['31R'] = new Decimal(0);
-      if (!player.upgrades['424q'])
+      if (!player.upgrades['434q'])
         player.buyables['32R'] = new Decimal(0);
       player.buyables['33R'] = new Decimal(0);
       player.buyables['34R'] = new Decimal(0);
@@ -117,8 +120,10 @@ export const Exponention = {
 
       if (!player.upgrades['413q'])
         player.challenges[0][0] = new Decimal(0);
-      player.challenges[0][1] = new Decimal(0);
-      player.challenges[0][2] = new Decimal(0);
+      if (!player.upgrades['423q'])
+        player.challenges[0][1] = new Decimal(0);
+      if (!player.upgrades['433q'])
+        player.challenges[0][2] = new Decimal(0);
       player.challenges[0][3] = new Decimal(0);
       player.challenges[0][4] = new Decimal(0);
 

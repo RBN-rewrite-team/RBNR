@@ -64,6 +64,9 @@ export function simulate(diff: number) {
 	if (player.upgrades['422q']) {
 		player.buyables[11] = player.buyables[11].max(10)
 	}
+	if (player.upgrades['432q']) {
+		player.buyable11More = player.buyables[21];
+	}
 	if (player.firstResetBit & 0b10) {
 		let dPfTime = diff;
 		if (CHALLENGE.inChallenge(0, 3)) {

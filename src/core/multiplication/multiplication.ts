@@ -393,7 +393,8 @@ export const Multiplication = {
 			if (!player.upgrades[37] || force)
 				for (let i in reset_upgrades) player.upgrades[reset_upgrades[i]] = false;
 			if (!player.upgrades[33] || force) player.buyables[21] = new Decimal(0);
-			player.multiplication.pfTime = new Decimal(0);
+			if (!player.upgrades['435q'])
+				player.multiplication.pfTime = new Decimal(0);
 			Addition.reset();
 			player.totalAddpower = new Decimal(0);
 			player.addpower = new Decimal(0);
