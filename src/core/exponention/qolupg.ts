@@ -116,5 +116,17 @@ export const QolUpgrades = {
       ],
       show() {return true}
     })
+    UPGRADES.create('425q', {
+      displayName: "4-QOL-25",
+      description: "自动购买质因数11、13、17、19",
+      canAfford() { return player.exponention.qolpoints.gte(1)},
+      currency: "生活质量点",
+      cost: new Decimal(1),
+      buy() {player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost)},
+      requirement: [
+        ["购买4-QOL-15", () => player.upgrades['415q']] as singleReq
+      ],
+      show() {return true}
+    })
   }
 }
