@@ -8,7 +8,7 @@ import Decimal from 'break_eternity.js';
 </script>
 
 <template>
-  <div>
+  <div class="main">
     <span v-if="player.firstResetBit & 0b100">
 			累计指数能量提供了<span style="color: rgb(127, 127, 255)">^{{format(feature.EXPONENTION.powerEff())}}</span>
 			数值增益<br>
@@ -29,7 +29,7 @@ import Decimal from 'break_eternity.js';
     </table>
     <h2>QoL点数升级</h2>
     <table align="center">
-      <tbody>
+      <tbody class="smaller">
         <tr>
             <TDUpgrade upgid="400q" />
         </tr>
@@ -40,10 +40,18 @@ import Decimal from 'break_eternity.js';
             <TDUpgrade upgid="414q" />
             <TDUpgrade upgid="415q" />
         </tr>
+        <tr>
+            <TDUpgrade upgid="421q" />
+            <TDUpgrade upgid="422q" />
+            <TDUpgrade upgid="423q" />
+        </tr>
       </tbody>
     </table>
   </div>
 </template>
 
 <style scoped>
+tbody.smaller > tr {
+  height: 135px;
+}
 </style>

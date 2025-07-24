@@ -1,5 +1,5 @@
 import Decimal from "break_eternity.js"
-import {UPGRADES} from "../mechanic"
+import {UPGRADES, type singleReq} from "../mechanic"
 import {player} from "../save";
 type onetwofive = 1|2|3|4|5;
 type onetwofour = 1|2|3|4;
@@ -68,6 +68,41 @@ export const QolUpgrades = {
       requirement: [],
       show() {return true}
     })
-    
+    UPGRADES.create('421q', {
+      displayName: "4-QOL-21",
+      description: "保持加法升级。",
+      canAfford() { return player.exponention.qolpoints.gte(1)},
+      currency: "生活质量点",
+      cost: new Decimal(1),
+      buy() {player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost)},
+      requirement: [
+        ["购买4-QOL-11", () => player.upgrades['411q']] as singleReq
+      ],
+      show() {return true}
+    })
+    UPGRADES.create('422q', {
+      displayName: "4-QOL-22",
+      description: "B0-1的数量不会少于10个。",
+      canAfford() { return player.exponention.qolpoints.gte(1)},
+      currency: "生活质量点",
+      cost: new Decimal(1),
+      buy() {player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost)},
+      requirement: [
+        ["购买4-QOL-12", () => player.upgrades['412q']] as singleReq
+      ],
+      show() {return true}
+    })
+    UPGRADES.create('423q', {
+      displayName: "4-QOL-23",
+      description: "指数不重置挑战2的奖励。",
+      canAfford() { return player.exponention.qolpoints.gte(1)},
+      currency: "生活质量点",
+      cost: new Decimal(1),
+      buy() {player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost)},
+      requirement: [
+        ["购买4-QOL-13", () => player.upgrades['413q']] as singleReq
+      ],
+      show() {return true}
+    })
   }
 }
