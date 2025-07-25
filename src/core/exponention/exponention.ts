@@ -91,25 +91,6 @@ export const Exponention = {
 	BUYABLES.create('41', {
 		displayName: 'B3-1',
 		description: '因数能量^1.05',
-		cost(x) {
-			return x.pow_base(10).mul(2);
-		},
-		currency: '指数能量',
-		canAfford(x) {
-			return player.exponention.exppower.gte(this.cost(x));
-		},
-		requirement: [],
-		show() {return true;},
-		buy(x) {
-			player.exponention.exppower = player.exponention.exppower.sub(this.cost(x));
-		},
-		capped() {
-			return false;
-		},
-	});
-	BUYABLES.create('41', {
-		displayName: 'B3-1',
-		description: '因数能量^1.05',
 		effect(x) {
 			return x.pow_base(1.05);
 		},
