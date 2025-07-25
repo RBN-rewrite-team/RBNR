@@ -22,7 +22,9 @@ import type {PrimeFactorTypes} from '@/core/save';
 							player.buyables[('pf' + pf) as PrimeFactorTypes].add(buyables?.['pf' + pf]?.more?.() ?? 0)
 						}}</sup></span
 					><span v-if="pf != '19'"> × </span> </span
-				>)<br />
+				>)<span style="color: rgb(127, 127, 255)" v-if="feature.PrimeFactor.powerpow().gt(1)"><sup>{{
+					format(feature.PrimeFactor.powerpow())
+				}}</sup></span><br />
 				基于本次乘法重置耗时提供<span style="color: #cc33ff; font-weight: bold"
 					>x{{ format(feature.PrimeFactor.powerEff()) }}</span
 				>数值和加法能量增益

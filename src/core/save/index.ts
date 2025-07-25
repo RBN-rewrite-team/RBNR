@@ -13,7 +13,7 @@ type Upgrades = Record<
 	'21'|'22'|'23'|'24'|'25'|'26'|
 	'31'|'32'|'33'|'34'|'35'|'36'|'37'|'38'|'39'|
   '31R'|'32R'|'33R'|'34R'|
-  '41'|'42'|'43'|'44'|
+  '41'|'42'|'43'|'44'|'45'|
   qolUpgs, boolean>
   export type PrimeFactorTypes = 'pf2'|'pf3'|'pf5'|'pf7'|'pf11'|'pf13'|'pf17'|'pf19';
 type Buyables = Record<
@@ -116,6 +116,7 @@ function getInitialPlayerData(): Player {
       '42': false,
       '43': false,
       '44': false,
+	  '45': false,
       '400q': false,
       '411q': false,
       '412q': false,

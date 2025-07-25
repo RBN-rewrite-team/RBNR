@@ -2,6 +2,7 @@
 import { player } from '@/core/save';
 import { feature } from '@/core/global.ts';
 import TDUpgrade from '../TDUpgrade.vue';
+import TDBuyable from '../TDBuyable.vue';
 import { format, formatWhole } from '@/utils/format.ts';
 import Decimal from 'break_eternity.js';
 
@@ -16,6 +17,8 @@ import Decimal from 'break_eternity.js';
 			数值增益
 		</span>
 		<br>
+		<br>
+	<h2 style="color: rgb(127, 127, 255)">普通升级</h2>
     <table align="center">
       <tbody>
         <tr>
@@ -24,10 +27,19 @@ import Decimal from 'break_eternity.js';
           <TDUpgrade upgid="43"/>
           <TDUpgrade upgid="44"/>
         </tr>
-        <tr></tr>
+		<tr>
+			<TDUpgrade upgid="45"/>
+		</tr>
+        <tr>
+			<TDBuyable bylid="41"/>
+			<TDBuyable bylid="42"/>
+			<TDBuyable bylid="43"/>
+			<TDBuyable bylid="44"/>
+		</tr>
       </tbody>
     </table>
-    <h2>QoL点数升级</h2>
+    <h2 style="color: rgb(255, 127, 255)">QoL点数升级</h2>
+	<span>你有 <span style="color: rgb(255, 127, 255)">{{ formatWhole(player.exponention.qolpoints) }}</span> Qol点数</span>
     <table align="center">
       <tbody class="smaller">
         <tr>

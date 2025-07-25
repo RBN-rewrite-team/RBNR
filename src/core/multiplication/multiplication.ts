@@ -446,6 +446,9 @@ export const Multiplication = {
 			base = base.mul(MULTI_CHALS[3].effect?.(player.challenges[0][3]) ?? 1);
 		}
 		if (player.upgrades[41]) base = base.mul(10);
+		
+		if(player.firstResetBit & 0b100) base = base.pow(buyables[44].effect(player.buyables[44]));
+		
 		return base.floor();
 	},
 };

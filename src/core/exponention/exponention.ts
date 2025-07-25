@@ -21,7 +21,7 @@ export const Exponention = {
       show() { return true; },
       buy (){
         player.exponention.exppower = player.exponention.exppower.sub(this.cost);
-      }
+      },
     });
     UPGRADES.create('42', {
       displayName: "U3-12",
@@ -35,7 +35,7 @@ export const Exponention = {
       show() { return true; },
       buy (){
         player.exponention.exppower = player.exponention.exppower.sub(this.cost);
-      }
+      },
     });
     UPGRADES.create('43', {
       displayName: "U3-13",
@@ -49,7 +49,7 @@ export const Exponention = {
       show() { return true; },
       buy (){
         player.exponention.exppower = player.exponention.exppower.sub(this.cost);
-      }
+      },
     });
     UPGRADES.create('44', {
       displayName: "U3-14",
@@ -63,8 +63,150 @@ export const Exponention = {
       show() { return true; },
       buy (){
         player.exponention.exppower = player.exponention.exppower.sub(this.cost);
-      }
+      },
     });
+	UPGRADES.create('45', {
+		displayName: 'U3-21',
+		description: '解锁数论研究2',
+		cost: new Decimal(10),
+		currency: '指数能量',
+		canAfford() {
+			return player.exponention.exppower.gte(this.cost);
+		},
+		get requirement() {
+			return [
+					[
+						'获得100指数能量',
+						() =>
+							player.exponention.totalExppower.gte(100),
+						[formatWhole(player.exponention.totalExppower), formatWhole(new Decimal(100))],
+					] as singleReq,
+				];
+		},
+		show() {return true;},
+		buy() {
+			player.exponention.exppower = player.exponention.exppower.sub(this.cost);
+		},
+	});
+	BUYABLES.create('41', {
+		displayName: 'B3-1',
+		description: '因数能量^1.05',
+		cost(x) {
+			return x.pow_base(10).mul(2);
+		},
+		currency: '指数能量',
+		canAfford(x) {
+			return player.exponention.exppower.gte(this.cost(x));
+		},
+		requirement: [],
+		show() {return true;},
+		buy(x) {
+			player.exponention.exppower = player.exponention.exppower.sub(this.cost(x));
+		},
+		capped() {
+			return false;
+		},
+	});
+	BUYABLES.create('41', {
+		displayName: 'B3-1',
+		description: '因数能量^1.05',
+		effect(x) {
+			return x.pow_base(1.05);
+		},
+		effD(x) {
+			return '^' + format(this.effect(x));
+		},
+		cost(x) {
+			return x.pow_base(10).mul(2);
+		},
+		currency: '指数能量',
+		canAfford(x) {
+			return player.exponention.exppower.gte(this.cost(x));
+		},
+		requirement: [],
+		show() {return true;},
+		buy(x) {
+			player.exponention.exppower = player.exponention.exppower.sub(this.cost(x));
+		},
+		capped() {
+			return false;
+		},
+	});
+	BUYABLES.create('42', {
+		displayName: 'B3-2',
+		description: '数值获取^1.05',
+		effect(x) {
+			return x.pow_base(1.05);
+		},
+		effD(x) {
+			return '^' + format(this.effect(x));
+		},
+		cost(x) {
+			return x.pow_base(10).mul(3);
+		},
+		currency: '指数能量',
+		canAfford(x) {
+			return player.exponention.exppower.gte(this.cost(x));
+		},
+		requirement: [],
+		show() {return true;},
+		buy(x) {
+			player.exponention.exppower = player.exponention.exppower.sub(this.cost(x));
+		},
+		capped() {
+			return false;
+		},
+	});
+	BUYABLES.create('43', {
+		displayName: 'B3-3',
+		description: '加法能量获取^1.03',
+		effect(x) {
+			return x.pow_base(1.03);
+		},
+		effD(x) {
+			return '^' + format(this.effect(x));
+		},
+		cost(x) {
+			return x.pow_base(10).mul(5);
+		},
+		currency: '指数能量',
+		canAfford(x) {
+			return player.exponention.exppower.gte(this.cost(x));
+		},
+		requirement: [],
+		show() {return true;},
+		buy(x) {
+			player.exponention.exppower = player.exponention.exppower.sub(this.cost(x));
+		},
+		capped() {
+			return false;
+		},
+	});
+	BUYABLES.create('44', {
+		displayName: 'B3-4',
+		description: '乘法能量获取^1.01',
+		effect(x) {
+			return x.pow_base(1.01);
+		},
+		effD(x) {
+			return '^' + format(this.effect(x));
+		},
+		cost(x) {
+			return x.pow_base(10).mul(7);
+		},
+		currency: '指数能量',
+		canAfford(x) {
+			return player.exponention.exppower.gte(this.cost(x));
+		},
+		requirement: [],
+		show() {return true;},
+		buy(x) {
+			player.exponention.exppower = player.exponention.exppower.sub(this.cost(x));
+		},
+		capped() {
+			return false;
+		},
+	});
   },
 	reset(force = false) {
 		if(this.gain().gt(0) || force) {
