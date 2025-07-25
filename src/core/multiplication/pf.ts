@@ -96,7 +96,7 @@ export const PrimeFactor = {
 		for (let i in pflist)
 			base = base.mul(
 				buyables['pf' + pflist[i]].effect(
-					player.buyables[('pf' + pflist[i]) as keyof typeof player.buyables],
+					player.buyables[('pf' + pflist[i]) as keyof typeof player.buyables].max(0),
 				),
 			);
 		base = base.pow(this.powerpow());
