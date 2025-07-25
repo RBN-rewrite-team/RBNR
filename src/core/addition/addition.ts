@@ -37,12 +37,15 @@ export const Addition = {
 			show: function () {
 				return true;
 			},
+			keep() {
+				return player.upgrades['421q'];
+			},
 		});
 		UPGRADES.create('22', {
 			description: '后继批量提高到4倍',
 			currency: '加法能量',
 			get cost() {
-				if (player.multiplication.B1seriesC1 == 2) return new Decimal(1);
+				if (player.multiplication.B1seriesC1 == 2 || player.multiplication.B1seriesC1400q==2) return new Decimal(1);
 				return new Decimal(5);
 			},
 			displayName: 'U1-2',
@@ -65,11 +68,14 @@ export const Addition = {
 			show: function () {
 				return true;
 			},
+			keep() {
+				return player.upgrades['421q'];
+			},
 		});
 		UPGRADES.create('23', {
 			description: '移除B0-1价格的常数项，B0-1最多购买次数+50',
 			get cost() {
-				if (player.multiplication.B1seriesC1 == 3) return new Decimal(1);
+				if (player.multiplication.B1seriesC1 == 3 || player.multiplication.B1seriesC1400q == 3) return new Decimal(1);
 				return new Decimal(25);
 			},
 			displayName: 'U1-3',
@@ -95,11 +101,14 @@ export const Addition = {
 			show: function () {
 				return true;
 			},
+			keep() {
+				return player.upgrades['421q'];
+			},
 		});
 		UPGRADES.create('24', {
 			description: '解锁B1-1',
 			get cost() {
-				if (player.multiplication.B1seriesC1 == 4) return new Decimal(1);
+				if (player.multiplication.B1seriesC1 == 4 || player.multiplication.B1seriesC1400q == 4) return new Decimal(1);
 				return new Decimal(125);
 			},
 			displayName: 'U1-4',
@@ -125,6 +134,9 @@ export const Addition = {
 			show: function () {
 				return true;
 			},
+			keep() {
+				return player.upgrades['421q'];
+			},
 		});
 		UPGRADES.create('25', {
 			description: '后继运算升级为加法运算， 在每次加法重置后保留U0系列升级',
@@ -145,7 +157,7 @@ export const Addition = {
 			},
 			get cost() {
 				if (CHALLENGE.inChallenge(0, 0)) return new Decimal(Infinity);
-				if (player.multiplication.B1seriesC1 == 5) return new Decimal(1);
+				if (player.multiplication.B1seriesC1 == 5 || player.multiplication.B1seriesC1400q == 5) return new Decimal(1);
 				return new Decimal(625);
 			},
 			currency: '加法能量',
@@ -170,6 +182,9 @@ export const Addition = {
 			show: function () {
 				return true;
 			},
+			keep() {
+				return player.upgrades['421q'];
+			},
 		});
 		UPGRADES.create('26', {
 			description: '解锁乘法层',
@@ -193,6 +208,9 @@ export const Addition = {
 			},
 			show: function () {
 				return true;
+			},
+			keep() {
+				return player.upgrades['421q'];
 			},
 		});
 		BUYABLES.create('21', {
@@ -318,6 +336,12 @@ export const Addition = {
 	setUPGc1(x: 2 | 3 | 4 | 5) {
 		if (player.multiplication.B1seriesC1 !== x) {
 			player.multiplication.B1seriesC1 = x;
+			feature.MULTIPLICATION.reset();
+		}
+	},
+	setUPGc2(x: 2 | 3 | 4 | 5) {
+		if (player.multiplication.B1seriesC1400q !== x) {
+			player.multiplication.B1seriesC1400q = x;
 			feature.MULTIPLICATION.reset();
 		}
 	},

@@ -11,7 +11,7 @@ const props = defineProps<{
 	<td v-if="BUYABLES.lock(bylid).show">
 		<div
 			class="upgrade"
-			@mousedown="BUYABLES.buy(bylid)"
+			@click="BUYABLES.buy(bylid)"
 			v-html="BUYABLES.singleHTML(bylid)"
 		></div>
 	</td>

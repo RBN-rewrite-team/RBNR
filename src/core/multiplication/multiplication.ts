@@ -11,7 +11,11 @@ const D179E308 = Decimal.pow(2, 1024);
 export const Multiplication = {
 	initMechanics() {
 		UPGRADES.create('31', {
-			description: '你可以选择一个U1系列升级将其价格降低到1加法能量，改变选择将进行乘法重置',
+      get description() {
+        let counts = "1";
+        if (player.upgrades["400q"]) counts = "<span style='font-size: 19px;'><b>2</b></span>"
+        return '你可以选择'+counts+'个U1系列升级将其价格降低到1加法能量，改变选择将进行乘法重置'
+      },
 			cost: new Decimal(0),
 			displayName: 'U2-1',
 			currency: '乘法能量',
@@ -54,6 +58,9 @@ export const Multiplication = {
 			},
 			show: function () {
 				return true;
+			},
+			keep() {
+				return player.upgrades['411q']
 			},
 		});
 		UPGRADES.create('33', {
@@ -322,7 +329,7 @@ export const Multiplication = {
 				return format(this.effect(x));
 			},
 			cost(x) {
-				let a = new Decimal(15).pow(x.add(1));
+				let a = new Decimal(5).pow(x.add(1));
 				return a;
 			},
 			canAfford(x) {
@@ -356,7 +363,7 @@ export const Multiplication = {
 			canBuy() {
 				return player.multiplication.mulpower
 					.max(1)
-					.log(15)
+					.log(5)
 					.floor()
 					.min(99)
 					.sub(player.buyables[33]);
@@ -386,7 +393,8 @@ export const Multiplication = {
 			if (!player.upgrades[37] || force)
 				for (let i in reset_upgrades) player.upgrades[reset_upgrades[i]] = false;
 			if (!player.upgrades[33] || force) player.buyables[21] = new Decimal(0);
-			player.multiplication.pfTime = new Decimal(0);
+			if (!player.upgrades['435q'])
+				player.multiplication.pfTime = new Decimal(0);
 			Addition.reset();
 			player.totalAddpower = new Decimal(0);
 			player.addpower = new Decimal(0);

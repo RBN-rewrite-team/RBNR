@@ -3,6 +3,7 @@ import { saveSerializer } from './serializer';
 import { reactive } from 'vue';
 import { notations } from '@/utils/format';
 import { themes } from '@/utils/themes';
+import type {qolUpgs} from '../exponention/qolupg';
 
 const SAVEID = 'RBN-rewritten';
 const version = 3 as const;
@@ -12,7 +13,8 @@ type Upgrades = Record<
 	'21'|'22'|'23'|'24'|'25'|'26'|
 	'31'|'32'|'33'|'34'|'35'|'36'|'37'|'38'|'39'|
   '31R'|'32R'|'33R'|'34R'|
-  '41'|'42'|'43'|'44', boolean>
+  '41'|'42'|'43'|'44'|
+  qolUpgs, boolean>
   export type PrimeFactorTypes = 'pf2'|'pf3'|'pf5'|'pf7'|'pf11'|'pf13'|'pf17'|'pf19';
 type Buyables = Record<
   '11'|'21'|'31'|'32'|'33'|
@@ -49,10 +51,12 @@ export interface Player {
 		totalMulpower: Decimal;
 		pfTime: Decimal;
 		B1seriesC1: 0 | 2 | 3 | 4 | 5;
+		B1seriesC1400q: 0 | 2 | 3 | 4 | 5;
 	};
 	exponention: {
 		exppower: Decimal;
 		totalExppower: Decimal;
+    qolpoints: Decimal;
 	};
 	options: {
 		notation: notations;
@@ -112,6 +116,27 @@ function getInitialPlayerData(): Player {
       '42': false,
       '43': false,
       '44': false,
+      '400q': false,
+      '411q': false,
+      '412q': false,
+      '413q': false,
+      '414q': false,
+      '415q': false,
+      '421q': false,
+      '422q': false,
+      '423q': false,
+      '424q': false,
+      '425q': false,
+      '431q': false,
+      '432q': false,
+      '433q': false,
+      '434q': false,
+      '435q': false,
+      '441q': false,
+      '442q': false,
+      '443q': false,
+      '444q': false,
+      '445q': false,
 		},
 		buyables: {
 			'11': zero,
@@ -160,10 +185,12 @@ function getInitialPlayerData(): Player {
 			totalMulpower: zero,
 			pfTime: zero,
 			B1seriesC1: 0,
+      B1seriesC1400q: 0,
 		},
 		exponention: {
 			exppower: zero,
 			totalExppower: zero,
+      qolpoints: zero,
 		},
 		options: {
 			notation: notations.SCIENTIFIC,
