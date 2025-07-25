@@ -113,6 +113,8 @@ export const Exponention = {
       player.multiplication.mulpower = new Decimal(0);
       player.multiplication.B1seriesC1 = 0;
       player.multiplication.totalMulpower = new Decimal(0);
+	  if(!player.upgrades['445q'])
+		player.multiplication.pfTime = new Decimal(0);
       player.numbertheory.euler.x = new Decimal(1);
       player.numbertheory.euler.y = new Decimal(1);
       player.numbertheory.euler.z = new Decimal(1);
@@ -125,7 +127,6 @@ export const Exponention = {
       if (!player.upgrades['433q'])
         player.challenges[0][2] = new Decimal(0);
       player.challenges[0][3] = new Decimal(0);
-      player.challenges[0][4] = new Decimal(0);
 
       player.exponention.qolpoints = player.exponention.qolpoints.add(3);
 		}

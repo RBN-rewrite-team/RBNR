@@ -54,6 +54,20 @@ import Decimal from 'break_eternity.js';
             <TDUpgrade upgid="434q" />
             <TDUpgrade upgid="435q" />
         </tr>
+        <tr>
+            <TDUpgrade upgid="441q" />
+            <TDUpgrade upgid="442q" />
+            <TDUpgrade upgid="443q" />
+            <TDUpgrade upgid="444q" />
+            <TDUpgrade upgid="445q" />
+        </tr>
+        <tr>
+            <TDUpgrade upgid="451q" />
+            <TDUpgrade upgid="452q" />
+            <TDUpgrade upgid="453q" />
+            <TDUpgrade upgid="454q" />
+            <TDUpgrade upgid="455q" />
+        </tr>
       </tbody>
     </table>
   </div>

@@ -278,12 +278,19 @@ export const Addition = {
         if (player.upgrades[43]) base = base.pow(2)
         return base;
       },
+			exponent: new Decimal(0.75),
+		});
+		SOFTCAPS.create('addpower^3', {
+			name: 'addpower^3',
+			fluid: true,
+			start: new Decimal('e40000'),
 			exponent: new Decimal(0.5),
 		});
 	},
 	addpower_gain(bulk = new Decimal(1)) {
 		let adding = this.gain().mul(bulk);
 		adding = SOFTCAPS.fluidComputed('addpower^1', adding, player.addpower);
+		adding = SOFTCAPS.fluidComputed('addpower^2', adding, player.addpower);
 		if (CHALLENGE.inChallenge(0, 3)) {
 			adding = adding.mul(predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1);
 		}

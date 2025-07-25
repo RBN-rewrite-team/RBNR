@@ -137,6 +137,11 @@ function getInitialPlayerData(): Player {
       '443q': false,
       '444q': false,
       '445q': false,
+      '451q': false,
+      '452q': false,
+      '453q': false,
+      '454q': false,
+      '455q': false,
 		},
 		buyables: {
 			'11': zero,

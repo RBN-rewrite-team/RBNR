@@ -36,7 +36,7 @@ export const NUMTHEORY = {
 				return player.upgrades[39];
 			},
 			autoBuyMax() {
-				return false;
+				return player.upgrades['444q'];
 			},
 			canBuy() {
 				return player.multiplication.mulpower
@@ -81,7 +81,7 @@ export const NUMTHEORY = {
 				return player.upgrades[39];
 			},
 			autoBuyMax() {
-				return false;
+				return player.upgrades['444q'];
 			},
 			canBuy() {
 				return player.multiplication.mulpower
@@ -126,7 +126,7 @@ export const NUMTHEORY = {
 				return player.upgrades[39];
 			},
 			autoBuyMax() {
-				return false;
+				return player.upgrades['444q'];
 			},
 			canBuy() {
 				return player.multiplication.mulpower
@@ -171,7 +171,7 @@ export const NUMTHEORY = {
 				return player.upgrades[39];
 			},
 			autoBuyMax() {
-				return false;
+				return player.upgrades['444q'];
 			},
 			canBuy() {
 				return player.multiplication.mulpower
@@ -216,7 +216,7 @@ export const NUMTHEORY = {
 				return player.upgrades[39];
 			},
 			autoBuyMax() {
-				return false;
+				return player.upgrades['444q'];
 			},
 			canBuy() {
 				return player.multiplication.mulpower
@@ -262,7 +262,7 @@ export const NUMTHEORY = {
 				return player.upgrades[39];
 			},
 			autoBuyMax() {
-				return false;
+				return player.upgrades['444q'];
 			},
 			canBuy() {
 				return player.multiplication.mulpower
@@ -309,7 +309,7 @@ export const NUMTHEORY = {
 				return player.upgrades[39];
 			},
 			autoBuyMax() {
-				return false;
+				return player.upgrades['444q'];
 			},
 			canBuy() {
 				return player.multiplication.mulpower
@@ -355,7 +355,7 @@ export const NUMTHEORY = {
 				return player.upgrades[39];
 			},
 			autoBuyMax() {
-				return false;
+				return player.upgrades['444q'];
 			},
 			canBuy() {
 				return player.multiplication.mulpower
@@ -393,6 +393,9 @@ export const NUMTHEORY = {
 			show: function () {
 				return true;
 			},
+			keep() {
+				return player.upgrades['454q'];
+			},
 		});
 		UPGRADES.create('32R', {
 			description: 'x<sub>1</sub>的指数+0.3',
@@ -410,6 +413,9 @@ export const NUMTHEORY = {
 			},
 			show: function () {
 				return true;
+			},
+			keep() {
+				return player.upgrades['454q'];
 			},
 		});
 		UPGRADES.create('33R', {
@@ -429,6 +435,9 @@ export const NUMTHEORY = {
 			show: function () {
 				return true;
 			},
+			keep() {
+				return player.upgrades['454q'];
+			},
 		});
 		UPGRADES.create('34R', {
 			description: 'z<sub>1</sub>的指数+0.3',
@@ -446,6 +455,9 @@ export const NUMTHEORY = {
 			},
 			show: function () {
 				return true;
+			},
+			keep() {
+				return player.upgrades['454q'];
 			},
 		});
 	},

@@ -36,6 +36,9 @@ export const Multiplication = {
 			show: function () {
 				return true;
 			},
+			keep() {
+				return player.upgrades['451q'];
+			},
 		});
 		UPGRADES.create('32', {
 			description: '所有后继升级保持为可购买状态',
@@ -108,6 +111,9 @@ export const Multiplication = {
 			show: function () {
 				return true;
 			},
+			keep() {
+				return player.upgrades['451q'];
+			},
 		});
 		UPGRADES.create('35', {
 			description: '解锁数论研究',
@@ -130,6 +136,9 @@ export const Multiplication = {
 			},
 			show: function () {
 				return true;
+			},
+			keep() {
+				return player.upgrades['451q'];
 			},
 		});
 		UPGRADES.create('36', {
@@ -154,6 +163,9 @@ export const Multiplication = {
 			show: function () {
 				return true;
 			},
+			keep() {
+				return player.upgrades['451q'];
+			},
 		});
 		UPGRADES.create('37', {
 			description: '乘法重置保留加法升级',
@@ -176,6 +188,9 @@ export const Multiplication = {
 			},
 			show: function () {
 				return true;
+			},
+			keep() {
+				return player.upgrades['451q'];
 			},
 		});
 		UPGRADES.create('38', {
@@ -200,6 +215,9 @@ export const Multiplication = {
 			show: function () {
 				return true;
 			},
+			keep() {
+				return player.upgrades['451q'];
+			},
 		});
 		UPGRADES.create('39', {
 			description: '解锁乘法挑战，自动最大购买后继、加法购买项，最大购买乘法购买项',
@@ -222,6 +240,9 @@ export const Multiplication = {
 			},
 			show: function () {
 				return true;
+			},
+			keep() {
+				return player.upgrades['451q'];
 			},
 		});
 		BUYABLES.create('31', {
@@ -258,7 +279,7 @@ export const Multiplication = {
 				return player.upgrades[39];
 			},
 			autoBuyMax() {
-				return false;
+				return player.upgrades['452q'];
 			},
 			canBuy() {
 				return player.multiplication.mulpower
@@ -305,7 +326,7 @@ export const Multiplication = {
 				return player.upgrades[39];
 			},
 			autoBuyMax() {
-				return false;
+				return player.upgrades['452q'];
 			},
 			canBuy() {
 				return player.multiplication.mulpower

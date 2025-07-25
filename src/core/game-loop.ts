@@ -17,11 +17,36 @@ export function updateHighestStat() {
 	player.stat.hightestAddpower = player.stat.hightestAddpower.max(player.addpower);
 	player.stat.highestExppower = player.stat.highestExppower.max(player.exponention.exppower);
 }
+export function qolLoop() {
+	if (player.upgrades['412q']) {
+		player.buyables[11] = player.buyables[11].max(1)
+	}
+	if (player.upgrades['422q']) {
+		player.buyables[11] = player.buyables[11].max(10)
+	}
+	if (player.upgrades['432q']) {
+		player.buyable11More = player.buyables[21];
+	}
+	if (player.upgrades['442q']) {
+		player.buyables[11] = new Decimal(100);
+	}
+	if (player.upgrades['443q']) {
+		player.challenges[0][3] = player.challenges[0][3].max(player.multiplication.totalMulpower.pow(0.001));
+	}
+	if (player.upgrades['453q']) {
+		for(let i = 0;i < 3;i++)
+			player.challenges[0][i] = player.challenges[0][i].max(player.totalNumber);
+	}
+	if (player.upgrades['455q']) {
+		player.buyables[33] = new Decimal(99);
+	}
+}
 export function gameLoop() {
 	diff = Date.now() - player.lastUpdated;
 	updateTheme();
 	if (diff < 0) return;
 	player.lastUpdated = Date.now();
+	qolLoop();
 	simulate(diff);
 	if (diff > 1000) {
 		simulateTime(diff);
@@ -40,7 +65,7 @@ export function simulate(diff: number) {
 		}
 	}
 
-	if (player.upgrades[38]) {
+	if (feature.resourceGain.addpower().passive.gt(0)) {
 		let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.addpower().passive);
 		feature.ADDITION.addpower_gain(bulk);
 	}
@@ -58,15 +83,7 @@ export function simulate(diff: number) {
 			}
 		}
 	}
-	if (player.upgrades['412q']) {
-		player.buyables[11] = player.buyables[11].max(1)
-	}
-	if (player.upgrades['422q']) {
-		player.buyables[11] = player.buyables[11].max(10)
-	}
-	if (player.upgrades['432q']) {
-		player.buyable11More = player.buyables[21];
-	}
+	
 	if (player.firstResetBit & 0b10) {
 		let dPfTime = diff;
 		if (CHALLENGE.inChallenge(0, 3)) {

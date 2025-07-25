@@ -44,7 +44,7 @@ export const Successor = {
 				return true;
 			},
 			keep() {
-				return player.upgrades['31'];
+				return player.upgrades['32'];
 			},
 		});
 		UPGRADES.create('12', {
@@ -83,7 +83,7 @@ export const Successor = {
 			},
 			currency: '数值',
 			keep() {
-				return player.upgrades['31'];
+				return player.upgrades['32'];
 			},
 		});
 		UPGRADES.create('13', {
@@ -112,7 +112,7 @@ export const Successor = {
 			},
 			currency: '数值',
 			keep() {
-				return player.upgrades['31'];
+				return player.upgrades['32'];
 			},
 		});
 		BUYABLES.create('11', {
@@ -197,12 +197,19 @@ export const Successor = {
 			start: new Decimal(1),
 			exponent: new Decimal(0.5),
 		});
+		SOFTCAPS.create('number^3', {
+			name: 'number^3',
+			fluid: true,
+			start: new Decimal('e20000'),
+			exponent: new Decimal(0.5),
+		});
 	},
 
 	success(bulk = 1) {
 		let adding = this.successorBulk().pow(this.successorPow()).mul(bulk);
 		adding = SOFTCAPS.fluidComputed('number^1', adding, player.number);
 		adding = SOFTCAPS.fluidComputed('number^2', adding, player.number);
+		adding = SOFTCAPS.fluidComputed('number^3', adding, player.number);
 		if (CHALLENGE.inChallenge(0, 2))
 			adding = SOFTCAPS.fluidComputed('number_C1', adding, player.number);
 		if (CHALLENGE.inChallenge(0, 3)) {
