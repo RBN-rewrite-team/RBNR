@@ -54,6 +54,7 @@ export function gameLoop() {
 	}
 }
 export function simulate(diff: number) {
+	player.multiplication.mulpower=new Decimal(1)
 	CHALLENGE.challengeLoop();
 	if (feature.SUCCESSOR.autoSuccessPerSecond().gte(0.001)) {
 		player.automationCD.successor += diff;
