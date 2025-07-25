@@ -63,7 +63,7 @@ export const MULTI_CHALS: SingleChallenge[] = [
 		},
 		effect(x) {
 			if (CHALLENGE.inChallenge(0, 3)) return new Decimal(1);
-			return x.add(1).pow(64).max(1);
+			return x.add(1).pow(64).max(1).min(new Decimal('e1000'));
 		},
 		effD(x) {
 			return `首次乘法重置解锁指数层<br>乘法能量获取速度*${format(x)}`;

@@ -27,14 +27,9 @@ import Decimal from 'break_eternity.js';
 						v-html="formatGain(player.number, feature.resourceGain.number().value, '')"
 					></span>
 					<br />
-					<span
-						v-if="
-							SOFTCAPS.reach('number^1', player.number) &&
-							!SOFTCAPS.reach('number^2', player.number)
-						"
-						>(受软上限限制)</span
-					>
-					<span v-if="SOFTCAPS.reach('number^2', player.number)">(受二重软上限限制)</span>
+					<span v-if="feature.resourceGain.number().softcaps > 0">
+						(受{{feature.resourceGain.number().softcaps}}个软上限限制)
+					</span>
 				</div>
 			</div>
 			<div
@@ -50,7 +45,7 @@ import Decimal from 'break_eternity.js';
 					</div>
 				</div>
 				<div style="font-size: 17px; color: #5acaff">
-					<span v-if="!player.upgrades[38]">
+					<span v-if="feature.resourceGain.addpower().passive.eq(0)">
 						(+{{ formatWhole(feature.resourceGain.addpower().value) }})
 					</span>
 					<span v-else>
@@ -65,16 +60,9 @@ import Decimal from 'break_eternity.js';
 					</span>
 					(!{{ formatWhole(player.totalAddpower) }})
 					<br />
-					<span
-						v-if="
-							SOFTCAPS.reach('addpower^1', player.addpower) &&
-							!SOFTCAPS.reach('addpower^2', player.addpower)
-						"
-						>(受软上限限制)</span
-					>
-					<span v-if="SOFTCAPS.reach('addpower^2', player.addpower)">
-						(受二重软上限限制)</span
-					>
+					<span v-if="feature.resourceGain.addpower().softcaps > 0">
+						(受{{feature.resourceGain.addpower().softcaps}}个软上限限制)
+					</span>
 				</div>
 			</div>
 			<div
