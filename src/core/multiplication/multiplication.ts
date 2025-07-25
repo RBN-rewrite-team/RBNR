@@ -329,7 +329,7 @@ export const Multiplication = {
 				return format(this.effect(x));
 			},
 			cost(x) {
-				let a = new Decimal(15).pow(x.add(1));
+				let a = new Decimal(5).pow(x.add(1));
 				return a;
 			},
 			canAfford(x) {
@@ -363,7 +363,7 @@ export const Multiplication = {
 			canBuy() {
 				return player.multiplication.mulpower
 					.max(1)
-					.log(15)
+					.log(5)
 					.floor()
 					.min(99)
 					.sub(player.buyables[33]);
