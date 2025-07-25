@@ -99,6 +99,12 @@ export const PrimeFactor = {
 					player.buyables[('pf' + pflist[i]) as keyof typeof player.buyables],
 				),
 			);
+		base = base.pow(this.powerpow());
+		return base;
+	},
+	powerpow() {
+		let base = new Decimal(1);
+		if(player.firstResetBit & 0b100) base = base.mul(buyables[41].effect(player.buyables[41]));
 		return base;
 	},
 	powerEff() {

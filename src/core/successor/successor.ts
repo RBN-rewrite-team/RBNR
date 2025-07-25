@@ -258,6 +258,7 @@ export const Successor = {
 		
 		if(player.firstResetBit & 0b100) base = base.pow(feature.EXPONENTION.powerEff());
 		if(player.firstResetBit & 0b100) base = base.pow(1.03);
+		if(player.firstResetBit & 0b100) base = base.pow(buyables[42].effect(player.buyables[42]));
 		return base;
 	},
 	successorPow() {
