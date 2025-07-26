@@ -5,6 +5,7 @@ import ModalService from '@/utils/Modal';
 import { formatWhole } from '@/utils/format';
 import { Addition } from '../addition/addition.ts';
 import { CHALLENGE } from '../challenge.ts';
+import { NUMTHEORY } from '@/core/multiplication/numbertheory';
 
 export const PrimeFactor = {
 	initMechanics() {
@@ -21,7 +22,9 @@ export const PrimeFactor = {
 				description: '因数能量×' + pf,
 				more() {
 					if (player.upgrades[36] && Number(i) !== pflist.length - 1) {
-						return player.buyables['pf' + pflist[Number(i) + 1] as PrimeFactorTypes].div(2).floor();
+						return player.buyables[('pf' + pflist[Number(i) + 1]) as PrimeFactorTypes]
+							.div(2)
+							.floor();
 					}
 					return new Decimal(0);
 				},
@@ -65,14 +68,21 @@ export const PrimeFactor = {
 					);
 				},
 				canBuyMax() {
-					return player.upgrades[39] || (player.upgrades['415q']&&Number(i)<= 3)|| (player.upgrades['425q']&&Number(i)<= 7);
+					return (
+						player.upgrades[39] ||
+						(player.upgrades['415q'] && Number(i) <= 3) ||
+						(player.upgrades['425q'] && Number(i) <= 7)
+					);
 				},
 				autoBuyMax() {
-					return (player.upgrades['415q']&&Number(i)<= 3)|| (player.upgrades['425q']&&Number(i)<= 7);
+					return (
+						(player.upgrades['415q'] && Number(i) <= 3) ||
+						(player.upgrades['425q'] && Number(i) <= 7)
+					);
 				},
 				canBuy() {
 					return player.multiplication.mulpower
-						.max(.99)
+						.max(0.99)
 						.log(this.pfid ?? 0)
 						.sub(this.n ?? 0)
 						.div(2)
@@ -104,7 +114,8 @@ export const PrimeFactor = {
 	},
 	powerpow() {
 		let base = new Decimal(1);
-		if(player.firstResetBit & 0b100) base = base.mul(buyables[41].effect(player.buyables[41]));
+		if (player.firstResetBit & 0b100) base = base.mul(buyables[41].effect(player.buyables[41]));
+		if (player.upgrades[45]) base = base.mul(NUMTHEORY.tau2());
 		return base;
 	},
 	powerEff() {

@@ -8,12 +8,7 @@ import Decimal from 'break_eternity.js';
 <template>
 	<div class="resources" style="font-size: 20px">
 		<div class="background">
-			<div
-				style="
-          margin-left: 15px;
-				"
-        class="resource"
-			>
+			<div style="margin-left: 15px" class="resource">
 				<div style="font-weight: bold; color: var(--suptitle-color)">
 					数值&nbsp;
 					{{ formatWhole(player.number) }}
@@ -28,16 +23,11 @@ import Decimal from 'break_eternity.js';
 					></span>
 					<br />
 					<span v-if="feature.resourceGain.number().softcaps > 0">
-						(受{{feature.resourceGain.number().softcaps}}个软上限限制)
+						(受{{ feature.resourceGain.number().softcaps }}个软上限限制)
 					</span>
 				</div>
 			</div>
-			<div
-				style="margin-left: 265px;"
-        class="resource"
-				id="showMP"
-				v-if="player.upgrades[13]"
-			>
+			<div style="margin-left: 265px" class="resource" id="showMP" v-if="player.upgrades[13]">
 				<div style="font-weight: bold; color: #009dd9">
 					加法能量&nbsp;
 					<div style="display: inline; text-shadow: #5acaff 1px 1px 2px">
@@ -61,15 +51,11 @@ import Decimal from 'break_eternity.js';
 					(!{{ formatWhole(player.totalAddpower) }})
 					<br />
 					<span v-if="feature.resourceGain.addpower().softcaps > 0">
-						(受{{feature.resourceGain.addpower().softcaps}}个软上限限制)
+						(受{{ feature.resourceGain.addpower().softcaps }}个软上限限制)
 					</span>
 				</div>
 			</div>
-			<div
-				style="margin-left: 515px;"
-        class="resource"
-				v-if="player.upgrades[26]"
-			>
+			<div style="margin-left: 515px" class="resource" v-if="player.upgrades[26]">
 				<div style="font-weight: bold; color: #cc33ff">
 					乘法能量&nbsp;
 					<div style="display: inline; text-shadow: #dd77dd 1px 1px 2px">
@@ -83,8 +69,8 @@ import Decimal from 'break_eternity.js';
 				</div>
 			</div>
 			<div
-        style="margin-left: 755px;"
-        class="resource"
+				style="margin-left: 755px"
+				class="resource"
 				v-if="player.stat.highestMulpower.gte(new Decimal(2).pow(1024))"
 			>
 				<div style="font-weight: bold; color: rgb(127, 127, 255)">
@@ -106,15 +92,13 @@ import Decimal from 'break_eternity.js';
 <style scoped>
 .resource {
 	position: absolute;
-  margin-top: 5px;
+	margin-top: 5px;
 }
 .background {
-  width: 100%;
-  overflow:scroll;
-
+	width: 100%;
+	overflow: scroll;
 }
-*{
-  white-space: nowrap;
+* {
+	white-space: nowrap;
 }
-
 </style>

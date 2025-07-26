@@ -22,11 +22,10 @@ const feature = {
 		number(num = player.number) {
 			let base = feature.SUCCESSOR.successorBulk().pow(feature.SUCCESSOR.successorPow());
 			base = base.mul(feature.SUCCESSOR.autoSuccessPerSecond());
-			let softcaps = 0, scList = ['number^1', 'number^2', 'number^3'];
-			for(let i = 0;i < scList.length;i++)
-			{
-				if(SOFTCAPS.reach(scList[i], player.number))
-				{
+			let softcaps = 0,
+				scList = ['number^1', 'number^2', 'number^3'];
+			for (let i = 0; i < scList.length; i++) {
+				if (SOFTCAPS.reach(scList[i], player.number)) {
 					softcaps++;
 					base = SOFTCAPS.fluidComputed(scList[i], base, player.number);
 				}
@@ -37,18 +36,17 @@ const feature = {
 		},
 		addpower() {
 			let base = feature.ADDITION.gain();
-			let softcaps = 0, scList = ['addpower^1', 'addpower^2', 'addpower^3'];
-			for(let i = 0;i < scList.length;i++)
-			{
-				if(SOFTCAPS.reach(scList[i], player.addpower))
-				{
+			let softcaps = 0,
+				scList = ['addpower^1', 'addpower^2', 'addpower^3'];
+			for (let i = 0; i < scList.length; i++) {
+				if (SOFTCAPS.reach(scList[i], player.addpower)) {
 					softcaps++;
 					base = SOFTCAPS.fluidComputed(scList[i], base, player.addpower);
 				}
 			}
 			let passive = new Decimal(0);
-			if(player.upgrades[38]) passive = passive.add(0.01);
-			if(player.upgrades['441q']) passive = passive.add(1);
+			if (player.upgrades[38]) passive = passive.add(0.01);
+			if (player.upgrades['441q']) passive = passive.add(1);
 			return { value: base, passive: passive, softcaps: softcaps };
 		},
 		mulpower() {

@@ -18,10 +18,10 @@ export function updateHighestStat() {
 }
 export function qolLoop() {
 	if (player.upgrades['412q']) {
-		player.buyables[11] = player.buyables[11].max(1)
+		player.buyables[11] = player.buyables[11].max(1);
 	}
 	if (player.upgrades['422q']) {
-		player.buyables[11] = player.buyables[11].max(10)
+		player.buyables[11] = player.buyables[11].max(10);
 	}
 	if (player.upgrades['432q']) {
 		player.buyable11More = player.buyables[21];
@@ -30,10 +30,12 @@ export function qolLoop() {
 		player.buyables[11] = new Decimal(100);
 	}
 	if (player.upgrades['443q']) {
-		player.challenges[0][3] = player.challenges[0][3].max(player.multiplication.totalMulpower.pow(0.001));
+		player.challenges[0][3] = player.challenges[0][3].max(
+			player.multiplication.totalMulpower.pow(0.001),
+		);
 	}
 	if (player.upgrades['453q']) {
-		for(let i = 0;i < 3;i++)
+		for (let i = 0; i < 3; i++)
 			player.challenges[0][i] = player.challenges[0][i].max(player.totalNumber);
 	}
 	if (player.upgrades['455q']) {
@@ -46,9 +48,9 @@ export function gameLoop() {
 	player.lastUpdated = Date.now();
 	qolLoop();
 	simulate(diff);
-	if (diff > 1000) {
-		simulateTime(diff);
+	if (diff > 60000) {
 		return;
+		simulateTime(diff);
 	}
 }
 export function simulate(diff: number) {
@@ -81,25 +83,27 @@ export function simulate(diff: number) {
 			}
 		}
 	}
-	
+
 	if (player.firstResetBit & 0b10) {
 		let dPfTime = diff;
 		if (CHALLENGE.inChallenge(0, 3)) {
 			dPfTime *= predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1;
 		}
-		player.multiplication.pfTime = player.multiplication.pfTime.add(dPfTime).max(0);
-		player.numbertheory.euler.x = player.numbertheory.euler.x.add(
-			NUMTHEORY.varXgain().mul(diff).mul(1e-3),
-		).max(1);
-		player.numbertheory.euler.y = player.numbertheory.euler.y.add(
-			NUMTHEORY.varYgain().mul(diff).mul(1e-3),
-		).max(1);
-		player.numbertheory.euler.z = player.numbertheory.euler.z.add(
-			NUMTHEORY.varZgain().mul(diff).mul(1e-3),
-		).max(1);
-		player.numbertheory.euler.s = player.numbertheory.euler.s.add(
-			NUMTHEORY.tickspeedGain().mul(diff).mul(1e-3),
-		).max(1);
+		let dPfTimeDecimal = new Decimal(dPfTime);
+		if (player.upgrades[45]) dPfTimeDecimal = dPfTimeDecimal.mul(NUMTHEORY.tau2().pow(4));
+		player.multiplication.pfTime = player.multiplication.pfTime.add(dPfTimeDecimal).max(0);
+		player.numbertheory.euler.x = player.numbertheory.euler.x
+			.add(NUMTHEORY.varXgain().mul(diff).mul(1e-3))
+			.max(1);
+		player.numbertheory.euler.y = player.numbertheory.euler.y
+			.add(NUMTHEORY.varYgain().mul(diff).mul(1e-3))
+			.max(1);
+		player.numbertheory.euler.z = player.numbertheory.euler.z
+			.add(NUMTHEORY.varZgain().mul(diff).mul(1e-3))
+			.max(1);
+		player.numbertheory.euler.s = player.numbertheory.euler.s
+			.add(NUMTHEORY.tickspeedGain().mul(diff).mul(1e-3))
+			.max(1);
 	}
 
 	updateHighestStat();

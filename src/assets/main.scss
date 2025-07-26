@@ -251,7 +251,7 @@ body {
 	right: 15px;
 	top: 7.5px;
 	overflow: hidden;
-  z-index: 5;
+	z-index: 5;
 	/*  font-size: 50px;*/
 	font-weight: bold;
 	line-height: 45px;
@@ -324,14 +324,13 @@ body {
 	text-align: center;
 	line-height: 28px;
 	box-shadow: var(--border-color) 1px 1px 2px 1px;
-  
 }
 .upgrade_buttonsmall {
-  @extend .upgrade_button_parent;
+	@extend .upgrade_button_parent;
 	width: 130px;
-  height: 130px;
-  line-height: 24px;
-  font-size: 12px;
+	height: 130px;
+	line-height: 24px;
+	font-size: 12px;
 }
 
 .upgrade_buttonsmall:hover {
@@ -343,13 +342,13 @@ body {
 }
 
 .upgrade_buttonsmall_unable {
-  @extend .upgrade_buttonsmall;
+	@extend .upgrade_buttonsmall;
 	border: 2px solid #ffa1a1;
-  box-shadow: none;
+	box-shadow: none;
 }
 
 .upgrade_buttonsmall_complete {
-  @extend .upgrade_buttonsmall;
+	@extend .upgrade_buttonsmall;
 	border: 2px solid green;
 	box-shadow: lightgreen 1px 1px 2px 1px;
 }
@@ -365,9 +364,9 @@ body {
 	background-color: #ffd1d1;
 }
 .upgrade_button1 {
-  @extend .upgrade_button_parent;
+	@extend .upgrade_button_parent;
 	width: 175px;
-  height:175px;
+	height: 175px;
 }
 
 .upgrade_button1:hover {
@@ -379,9 +378,9 @@ body {
 }
 
 .upgrade_button1_unable {
-  @extend .upgrade_button1;
+	@extend .upgrade_button1;
 	border: 2px solid #ffa1a1;
-  box-shadow: none;
+	box-shadow: none;
 }
 
 .upgrade_button1_unable:hover {
@@ -389,7 +388,7 @@ body {
 }
 
 .upgrade_buttonbig {
-  @extend .upgrade_button_parent;
+	@extend .upgrade_button_parent;
 	width: 175px;
 	height: 175px;
 }
@@ -403,7 +402,7 @@ body {
 }
 
 .upgrade_buttonbig_complete {
-  @extend .upgrade_buttonbig;
+	@extend .upgrade_buttonbig;
 	border: 2px solid green;
 	box-shadow: lightgreen 1px 1px 2px 1px;
 }
@@ -417,7 +416,7 @@ body {
 }
 
 .upgrade_buttonbig_unable {
-  @extend .upgrade_buttonbig;
+	@extend .upgrade_buttonbig;
 	border: 2px solid #ffa1a1;
 	box-shadow: none;
 }
@@ -441,7 +440,6 @@ body {
 	margin-bottom: 15px;
 	background-color: var(--border-color);
 	position: relative;
-	left: 10%;
 }
 
 .research1 {

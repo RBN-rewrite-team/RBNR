@@ -45,7 +45,11 @@ export const Addition = {
 			description: '后继批量提高到4倍',
 			currency: '加法能量',
 			get cost() {
-				if (player.multiplication.B1seriesC1 == 2 || player.multiplication.B1seriesC1400q==2) return new Decimal(1);
+				if (
+					player.multiplication.B1seriesC1 == 2 ||
+					player.multiplication.B1seriesC1400q == 2
+				)
+					return new Decimal(1);
 				return new Decimal(5);
 			},
 			displayName: 'U1-2',
@@ -75,7 +79,11 @@ export const Addition = {
 		UPGRADES.create('23', {
 			description: '移除B0-1价格的常数项，B0-1最多购买次数+50',
 			get cost() {
-				if (player.multiplication.B1seriesC1 == 3 || player.multiplication.B1seriesC1400q == 3) return new Decimal(1);
+				if (
+					player.multiplication.B1seriesC1 == 3 ||
+					player.multiplication.B1seriesC1400q == 3
+				)
+					return new Decimal(1);
 				return new Decimal(25);
 			},
 			displayName: 'U1-3',
@@ -108,7 +116,11 @@ export const Addition = {
 		UPGRADES.create('24', {
 			description: '解锁B1-1',
 			get cost() {
-				if (player.multiplication.B1seriesC1 == 4 || player.multiplication.B1seriesC1400q == 4) return new Decimal(1);
+				if (
+					player.multiplication.B1seriesC1 == 4 ||
+					player.multiplication.B1seriesC1400q == 4
+				)
+					return new Decimal(1);
 				return new Decimal(125);
 			},
 			displayName: 'U1-4',
@@ -157,7 +169,11 @@ export const Addition = {
 			},
 			get cost() {
 				if (CHALLENGE.inChallenge(0, 0)) return new Decimal(Infinity);
-				if (player.multiplication.B1seriesC1 == 5 || player.multiplication.B1seriesC1400q == 5) return new Decimal(1);
+				if (
+					player.multiplication.B1seriesC1 == 5 ||
+					player.multiplication.B1seriesC1400q == 5
+				)
+					return new Decimal(1);
 				return new Decimal(625);
 			},
 			currency: '加法能量',
@@ -257,7 +273,13 @@ export const Addition = {
 				return player.upgrades[39];
 			},
 			canBuy() {
-				return player.number.sub(10).div(1000).floor().min(100).sub(player.buyables[21]).max(0);
+				return player.number
+					.sub(10)
+					.div(1000)
+					.floor()
+					.min(100)
+					.sub(player.buyables[21])
+					.max(0);
 			},
 			buyMax() {
 				player.buyables[21] = player.buyables[21].add(this?.canBuy?.() ?? 0).min(100);
@@ -272,12 +294,12 @@ export const Addition = {
 		SOFTCAPS.create('addpower^2', {
 			name: 'addpower^2',
 			fluid: true,
-      get start(){
-        let base = new Decimal(2).pow(4096);
-        
-        if (player.upgrades[43]) base = base.pow(2)
-        return base;
-      },
+			get start() {
+				let base = new Decimal(2).pow(4096);
+
+				if (player.upgrades[43]) base = base.pow(2);
+				return base;
+			},
 			exponent: new Decimal(0.75),
 		});
 		SOFTCAPS.create('addpower^3', {
@@ -334,8 +356,8 @@ export const Addition = {
 		if (player.buyables[31].gt(0)) base = base.mul(buyables[31].effect(player.buyables[31]));
 
 		if (player.upgrades[41]) base = base.mul(10);
-		
-		if(player.firstResetBit & 0b100) base = base.pow(buyables[43].effect(player.buyables[43]));
+
+		if (player.firstResetBit & 0b100) base = base.pow(buyables[43].effect(player.buyables[43]));
 
 		return base.floor();
 	},

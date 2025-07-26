@@ -14,7 +14,7 @@ const validThemes = computed(() => Object.values(themes).filter((v) => typeof v 
 </script>
 
 <template>
-	<div class="main" v-if="player.currentTab === 1" style="text-align: center">
+	<div class="main" v-if="player.currentTab === 1" align="center">
 		<h3>存档设置</h3>
 		<div class="setting_button" @click="save()">手动保存</div>
 		<div class="setting_button" @click="import_file()">导入存档</div>

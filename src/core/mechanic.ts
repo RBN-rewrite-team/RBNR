@@ -50,10 +50,9 @@ export const UPGRADES = {
 	},
 	singleHTML(id: keyof typeof player.upgrades) {
 		let useclass = 'upgrade_buttonbig';
-    if (id.startsWith('4') && id.endsWith('q')) useclass="upgrade_buttonsmall"
+		if (id.startsWith('4') && id.endsWith('q')) useclass = 'upgrade_buttonsmall';
 		if (player.upgrades[id]) useclass += '_complete';
-		else if (!this.lock(id).unlocked || !upgrades[id].canAfford())
-			useclass += '_unable';
+		else if (!this.lock(id).unlocked || !upgrades[id].canAfford()) useclass += '_unable';
 		let permanent = upgrades[id].keep != null && upgrades[id].keep();
 		let str = '<div class="' + useclass + '">';
 		str +=
