@@ -8,30 +8,9 @@ on:
     branches: [develop]
 
 jobs:
-  type-check-and-build:
-    name: Type Check & Build
+  build-and-deploy:
     runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24
-          
-      - name: Install dependencies
-        run: npm install
-        
-      - name: Build Project
-        run: npm run build
-        
-  deploy-to-pages:
-    name: Deploy to GitHub Pages
-    needs: type-check-and-build
-    runs-on: ubuntu-latest
-    
+
     permissions:
       contents: write
       pages: write
@@ -41,12 +20,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Upload Build Artifact
-        uses: actions/upload-artifact@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          name: build-artifact
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
           path: dist/
-          
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/develop' }}
+
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
-        if: success()
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/develop' && success() }}
