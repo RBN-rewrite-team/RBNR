@@ -1,0 +1,35 @@
+name: Auto Type Check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    branches: [develop]
+
+jobs:
+  type-check:
+    name: Type Check Guard
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          
+      - name: Install dependencies
+        run: npm i
+        
+      - name: Run Type Check
+        run: npm run type-check
+        
+      - name: Create check status
+        uses: LouisBrunner/checks-action@v1
+        if: always()
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: Type Check Status
+          status: ${{ job.status }}
+          conclusion: ${{ job.status == 'success' && 'success' || 'failure' }}
