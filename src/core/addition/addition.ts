@@ -308,12 +308,20 @@ export const Addition = {
 			start: new Decimal('e40000'),
 			exponent: new Decimal(0.5),
 		});
+		SOFTCAPS.create('addpower^4', {
+			name: 'addpower^4',
+			fluid: true,
+			start: new Decimal('ee5'),
+			exponent: new Decimal(0.5),
+			meta: 1
+		});
 	},
 	addpower_gain(bulk = new Decimal(1)) {
 		let adding = this.gain().mul(bulk);
 		adding = SOFTCAPS.fluidComputed('addpower^1', adding, player.addpower);
 		adding = SOFTCAPS.fluidComputed('addpower^2', adding, player.addpower);
 		adding = SOFTCAPS.fluidComputed('addpower^3', adding, player.addpower);
+		adding = SOFTCAPS.fluidComputed('addpower^4', adding, player.addpower);
 		if (CHALLENGE.inChallenge(0, 3)) {
 			adding = adding.mul(predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1);
 		}

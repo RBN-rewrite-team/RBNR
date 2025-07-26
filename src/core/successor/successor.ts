@@ -203,6 +203,13 @@ export const Successor = {
 			start: new Decimal('e20000'),
 			exponent: new Decimal(0.5),
 		});
+		SOFTCAPS.create('number^4', {
+			name: 'number^4',
+			fluid: true,
+			start: new Decimal('ee5'),
+			exponent: new Decimal(0.5),
+			meta: 1
+		});
 	},
 
 	success(bulk = 1) {
@@ -210,6 +217,7 @@ export const Successor = {
 		adding = SOFTCAPS.fluidComputed('number^1', adding, player.number);
 		adding = SOFTCAPS.fluidComputed('number^2', adding, player.number);
 		adding = SOFTCAPS.fluidComputed('number^3', adding, player.number);
+		adding = SOFTCAPS.fluidComputed('number^4', adding, player.number);
 		if (CHALLENGE.inChallenge(0, 2))
 			adding = SOFTCAPS.fluidComputed('number_C1', adding, player.number);
 		if (CHALLENGE.inChallenge(0, 3)) {
