@@ -24,12 +24,3 @@ jobs:
         
       - name: Run Type Check
         run: npm run type-check
-        
-      - name: Create check status
-        uses: LouisBrunner/checks-action@v1
-        if: always()
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          name: Type Check Status
-          status: ${{ job.status }}
-          conclusion: ${{ job.status == 'success' && 'success' || 'failure' }}
