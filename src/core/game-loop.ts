@@ -89,9 +89,9 @@ export function simulate(diff: number) {
 		if (CHALLENGE.inChallenge(0, 3)) {
 			dPfTime *= predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1;
 		}
-		dPfTime = new Decimal(dPfTime);
-		if (player.upgrades[45]) base = dPfTime.mul(NUMTHEORY.tau2().pow(4));
-		player.multiplication.pfTime = player.multiplication.pfTime.add(dPfTime).max(0);
+		let dPfTimeDecimal = new Decimal(dPfTime);
+		if (player.upgrades[45]) dPfTimeDecimal = dPfTimeDecimal.mul(NUMTHEORY.tau2().pow(4));
+		player.multiplication.pfTime = player.multiplication.pfTime.add(dPfTimeDecimal).max(0);
 		player.numbertheory.euler.x = player.numbertheory.euler.x
 			.add(NUMTHEORY.varXgain().mul(diff).mul(1e-3))
 			.max(1);
