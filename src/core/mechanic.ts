@@ -1,4 +1,5 @@
 import Decimal from 'break_eternity.js';
+import type { DecimalSource } from 'break_eternity.js';
 import { player } from './save';
 import { feature } from './global.ts';
 import { format, formatWhole } from '@/utils/format';
@@ -204,7 +205,44 @@ type ISoftcap = {
 	fluid: boolean;
 	start: Decimal;
 	exponent: Decimal;
+	meta?: number;
 };
+
+function overflow(number: Decimal, start: DecimalSource, power: DecimalSource, meta=1) {
+	if (isNaN(number.mag)) return new Decimal(0)
+	start = new Decimal(start)
+
+	if (number.gt(start)) {
+	  if (meta == 0) {
+	    number = number.div(start).pow(power).mul(start)
+	  } else if (meta == 1) {
+			let s = start.log10()
+			number = number.log10().div(s).pow(power).mul(s).pow10()
+		} else {
+			let s = start.iteratedlog(10,meta)
+			number = Decimal.iteratedexp(10,meta,number.iteratedlog(10,meta).div(s).pow(power).mul(s));
+		}
+	}
+	return number;
+}
+
+function overflowInversed(number: Decimal, start: DecimalSource, power: DecimalSource, meta=1) {
+	if (isNaN(number.mag)) return new Decimal(0)
+	start = new Decimal(start)
+
+	if (number.gt(start)) {
+		if (meta == 0) {
+	    number = number.div(start).root(power).mul(start)
+	  } else if (meta == 1) {
+			let s = start.log10()
+			number = number.log10().div(s).root(power).mul(s).pow10()
+		} else {
+			let s = start.iteratedlog(10,meta)
+			number = Decimal.iteratedexp(10,meta,number.iteratedlog(10,meta).div(s).root(power).mul(s));
+		}
+	}
+	return number;
+}
 
 export const SOFTCAPS = {
 	create(id: string, info: ISoftcap) {
@@ -222,17 +260,14 @@ export const SOFTCAPS = {
 		}
 		if (!softcaps[id].fluid) throw new Error('type error');
 		let s = softcaps[id];
-		let base = s.start
-			.mul(existing.div(s.start).root(s.exponent).add(getting.div(s.start)).pow(s.exponent))
-			.sub(existing);
-		return base;
+		let base = overflowInversed(existing, s.start, s.exponent, s.meta ?? 0)
+		return overflow(base.add(getting), s.start, s.exponent, s.meta ?? 0).sub(existing);
 	},
 	staticComputed(id: string, getting: Decimal) {
 		if (!this.reach(id, getting)) return getting;
 		if (softcaps[id].fluid) throw new Error('type error');
 		let s = softcaps[id];
-		let base = s.start.mul(getting.div(s.start).pow(s.exponent));
-		return base;
+		return overflow(getting, s.start, s.exponent, s.meta ?? 0);;
 	},
 };
 

@@ -23,7 +23,7 @@ const feature = {
 			let base = feature.SUCCESSOR.successorBulk().pow(feature.SUCCESSOR.successorPow());
 			base = base.mul(feature.SUCCESSOR.autoSuccessPerSecond());
 			let softcaps = 0,
-				scList = ['number^1', 'number^2', 'number^3'];
+				scList = ['number^1', 'number^2', 'number^3', 'number^4'];
 			for (let i = 0; i < scList.length; i++) {
 				if (SOFTCAPS.reach(scList[i], player.number)) {
 					softcaps++;
@@ -37,7 +37,7 @@ const feature = {
 		addpower() {
 			let base = feature.ADDITION.gain();
 			let softcaps = 0,
-				scList = ['addpower^1', 'addpower^2', 'addpower^3'];
+				scList = ['addpower^1', 'addpower^2', 'addpower^3', 'addpower^4'];
 			for (let i = 0; i < scList.length; i++) {
 				if (SOFTCAPS.reach(scList[i], player.addpower)) {
 					softcaps++;
