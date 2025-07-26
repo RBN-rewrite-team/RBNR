@@ -214,14 +214,6 @@ body {
 }
 
 .menu2.focus {
-	width: 130px;
-	height: 38px;
-	margin-top: 5px;
-	margin-left: 35px;
-	padding-left: 15px;
-	font-size: 17px;
-	line-height: 38px;
-	border-radius: 4px;
 	color: #ffffff;
 	background-color: #4f4f4f;
 }
@@ -492,16 +484,9 @@ body {
 }
 
 .research_button1_bought {
-	position: relative;
-	display: block;
-	width: 113px;
-	height: 172px;
-	padding: 0px 4px;
-	margin: 0px 6px;
+	@extend .research_button1_unable;
 	background-color: #83ec70;
 	border: 2px solid #169500;
-	text-align: center;
-	line-height: 24px;
 }
 
 .research_button1_bought:hover {
