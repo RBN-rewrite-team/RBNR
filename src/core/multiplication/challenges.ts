@@ -6,8 +6,8 @@ import Decimal from 'break_eternity.js';
 export const MULTI_CHALS: SingleChallenge[] = [
 	{
 		name: '退化',
-		descEasy: '加法运算似了，挂机越久加法能量上限越低',
-		descHard: '你永远无法升级成加法运算。 加法能量上限从100000开始，每秒减少1000',
+		descEasy: '你不能进行加法运算。',
+		descHard: '你永远无法升级成加法运算。',
 		effect(x) {
 			let base = x.sub(1000).max(0).add(1).log10().mul(0.0001);
 			if (base.gte(0.25)) base = new Decimal(0.25);
@@ -22,7 +22,7 @@ export const MULTI_CHALS: SingleChallenge[] = [
 	},
 	{
 		name: '除法',
-		descEasy: '数值，加法能量和因数效果被做除法运算',
+		descEasy: '数值、加法能量获取被做除法，因数能量效果随时间而降低',
 		get descHard() {
 			return (
 				'数值和加法能量产量除以' +
@@ -57,7 +57,8 @@ export const MULTI_CHALS: SingleChallenge[] = [
 	},
 	{
 		name: '逆转',
-		descEasy: '反转一半资源生产，提升乘法重置难度，禁用B2-2、挑战3',
+		descEasy:
+			'每次生产前乘法层资源时有一半的概率被反转(下限为0)，提升乘法重置难度，禁用B2-2、挑战3',
 		get descHard() {
 			return this.descEasy;
 		},

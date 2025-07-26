@@ -80,6 +80,10 @@ export interface Player {
 			z: Decimal;
 			s: Decimal;
 		};
+		rational_approx: {
+			n: Decimal;
+			m: Decimal;
+		};
 	};
 	currentTab: number;
 	addpower: Decimal;
@@ -108,6 +112,7 @@ export interface Player {
 			newsbar: boolean;
 			titlebar: boolean;
 		};
+		challengeDetial: boolean;
 	};
 	stat: {
 		totalNumber: Decimal;
@@ -222,6 +227,10 @@ function getInitialPlayerData(): Player {
 				z: new Decimal(1),
 				s: new Decimal(1),
 			},
+			rational_approx: {
+				n: new Decimal(1),
+				m: new Decimal(1),
+			},
 		},
 		currentTab: 0,
 		totalAddpower: zero,
@@ -251,6 +260,7 @@ function getInitialPlayerData(): Player {
 				newsbar: true,
 				titlebar: true,
 			},
+			challengeDetial: false,
 		},
 		stat: {
 			totalNumber: zero,

@@ -48,9 +48,9 @@ export function gameLoop() {
 	player.lastUpdated = Date.now();
 	qolLoop();
 	simulate(diff);
-	if (diff > 1000) {
-		simulateTime(diff);
+	if (diff > 60000) {
 		return;
+		simulateTime(diff);
 	}
 }
 export function simulate(diff: number) {
@@ -89,6 +89,8 @@ export function simulate(diff: number) {
 		if (CHALLENGE.inChallenge(0, 3)) {
 			dPfTime *= predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1;
 		}
+		dPfTime = new Decimal(dPfTime);
+		if (player.upgrades[45]) base = dPfTime.mul(NUMTHEORY.tau2().pow(4));
 		player.multiplication.pfTime = player.multiplication.pfTime.add(dPfTime).max(0);
 		player.numbertheory.euler.x = player.numbertheory.euler.x
 			.add(NUMTHEORY.varXgain().mul(diff).mul(1e-3))

@@ -40,7 +40,7 @@ import AdditionResetButton from '../AdditionResetButton.vue';
 						{{ c }}
 					</button> </template
 				><br />
-				<template v-for="c in [2, 3, 4, 5]">
+				<template v-for="c in [2, 3, 4, 5]" v-if="player.upgrades['400q']">
 					<button
 						@click="feature.ADDITION.setUPGc2(c as 2 | 3 | 4 | 5)"
 						class="clickable_button"

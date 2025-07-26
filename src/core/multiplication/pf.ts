@@ -5,6 +5,7 @@ import ModalService from '@/utils/Modal';
 import { formatWhole } from '@/utils/format';
 import { Addition } from '../addition/addition.ts';
 import { CHALLENGE } from '../challenge.ts';
+import { NUMTHEORY } from '@/core/multiplication/numbertheory';
 
 export const PrimeFactor = {
 	initMechanics() {
@@ -114,6 +115,7 @@ export const PrimeFactor = {
 	powerpow() {
 		let base = new Decimal(1);
 		if (player.firstResetBit & 0b100) base = base.mul(buyables[41].effect(player.buyables[41]));
+		if (player.upgrades[45]) base = base.mul(NUMTHEORY.tau2());
 		return base;
 	},
 	powerEff() {

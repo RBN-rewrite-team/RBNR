@@ -22,8 +22,7 @@ const req = upgrades[id].requirement;
 	<td v-if="UPGRADES.lock(upgid).show">
 		<div class="upgrade" @mousedown="UPGRADES.buy(upgid)">
 			<div :class="useClass()">
-				<span style="font-weight: bold">
-					{{ upgrades[id].displayName ?? 'U' + id }} </span
+				<span style="font-weight: bold"> {{ upgrades[id].displayName ?? 'U' + id }} </span
 				><br />
 				<template v-if="!UPGRADES.lock(id).unlocked && !permanent && !player.upgrades[id]">
 					暂未解锁<br />

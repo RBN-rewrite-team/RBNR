@@ -39,9 +39,10 @@ function sGainLatex() {
 <template>
 	<div class="main">
 		<div style="transform: translateY(60px)">
-			<div align="center">
-				<h1>数论研究</h1>
-				<h2>研究 1： 欧拉函数</h2>
+			<h1>数论研究</h1>
+			<div class="center_line" />
+			<div>
+				<h2>研究 1：欧拉函数</h2>
 				<vue-latex
 					expression="\varphi(n) = n \prod_{p | n} \left(1 - \frac{1}{p}\right)"
 					display-mode
@@ -74,29 +75,65 @@ function sGainLatex() {
 				<p style="font-size: 120%">
 					<b>研究1加成：加法效果×<vue-latex expression="\tau_1" /></b>
 				</p>
+				<table align="center">
+					<tbody>
+						<tr>
+							<TDBuyable bylid="31R" />
+							<TDBuyable bylid="32R" />
+							<TDBuyable bylid="33R" />
+							<TDBuyable bylid="34R" />
+						</tr>
+						<tr>
+							<TDBuyable bylid="35R" />
+							<TDBuyable bylid="36R" />
+							<TDBuyable bylid="37R" />
+							<TDBuyable bylid="38R" />
+						</tr>
+						<tr>
+							<TDUpgrade upgid="31R" />
+							<TDUpgrade upgid="32R" />
+							<TDUpgrade upgid="33R" />
+							<TDUpgrade upgid="34R" />
+						</tr>
+					</tbody>
+				</table>
 			</div>
-			<table align="center">
-				<tbody>
-					<tr>
-						<TDBuyable bylid="31R" />
-						<TDBuyable bylid="32R" />
-						<TDBuyable bylid="33R" />
-						<TDBuyable bylid="34R" />
-					</tr>
-					<tr>
-						<TDBuyable bylid="35R" />
-						<TDBuyable bylid="36R" />
-						<TDBuyable bylid="37R" />
-						<TDBuyable bylid="38R" />
-					</tr>
-					<tr>
-						<TDUpgrade upgid="31R" />
-						<TDUpgrade upgid="32R" />
-						<TDUpgrade upgid="33R" />
-						<TDUpgrade upgid="34R" />
-					</tr>
-				</tbody>
-			</table>
+			<div v-if="player.upgrades[45]" style="transform: translateY(100px)" align="center">
+				<div class="center_line" />
+				<h2>研究 2：有理逼近</h2>
+				<vue-latex expression="a_1 = 1, a_n = \frac{a_{n-1}+2}{a_{n-1}+1}" display-mode />
+				<vue-latex
+					:expression="'\\tau_{2} = \\tau_{2A} = ' + formatLaTeX(NUMTHEORY.tau2())"
+					display-mode
+				/>
+				<vue-latex
+					:expression="
+						'\\tau_{2A} = 1-\\frac{\\lg\\left|\\sqrt2-a_n\\right|}{100} = ' +
+						formatLaTeX(NUMTHEORY.tau2A())
+					"
+					display-mode
+				/>
+				<vue-latex
+					:expression="'n = ' + formatLaTeXWhole(player.numbertheory.rational_approx.n)"
+					display-mode
+				/>
+				<p style="font-size: 120%">
+					<b
+						>研究2加成：质因数效果^<vue-latex
+							expression="\tau_2" />，质因数速度×<vue-latex expression="\tau_2^4"
+					/></b>
+				</p>
+				<button
+					class="clickable_button"
+					@click="
+						player.numbertheory.rational_approx.n =
+							player.numbertheory.rational_approx.n.add(1)
+					"
+				>
+					增加n的数值
+				</button>
+			</div>
 		</div>
+		<br />
 	</div>
 </template>
