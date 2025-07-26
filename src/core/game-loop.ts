@@ -6,7 +6,6 @@ import Decimal from 'break_eternity.js';
 import { NUMTHEORY } from './multiplication/numbertheory.ts';
 import { predictableRandom } from '@/utils/algorithm.ts';
 
-import { updateTheme } from '@/utils/themes';
 import { CHALLENGE } from './challenge.ts';
 
 export let diff = 40;
@@ -43,7 +42,6 @@ export function qolLoop() {
 }
 export function gameLoop() {
 	diff = Date.now() - player.lastUpdated;
-	updateTheme();
 	if (diff < 0) return;
 	player.lastUpdated = Date.now();
 	qolLoop();
