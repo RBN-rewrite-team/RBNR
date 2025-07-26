@@ -1,5 +1,5 @@
 import Decimal from 'break_eternity.js';
-import { BUYABLES, upgrades, UPGRADES, buyables, type singleReq } from '../mechanic';
+import { BUYABLES, upgrades, UPGRADES, buyables, type singleReq, overflow } from '../mechanic';
 import { player, type PrimeFactorTypes } from '../save';
 import ModalService from '@/utils/Modal';
 import { formatWhole } from '@/utils/format';
@@ -116,7 +116,7 @@ export const PrimeFactor = {
 		let base = new Decimal(1);
 		if (player.firstResetBit & 0b100) base = base.mul(buyables[41].effect(player.buyables[41]));
 		if (player.upgrades[45]) base = base.mul(NUMTHEORY.tau2());
-		return base;
+		return overflow(base, 60, 0.5);
 	},
 	powerEff() {
 		let sec = player.multiplication.pfTime.div(1000);

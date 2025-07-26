@@ -208,37 +208,45 @@ type ISoftcap = {
 	meta?: number;
 };
 
-function overflow(number: Decimal, start: DecimalSource, power: DecimalSource, meta=1) {
-	if (isNaN(number.mag)) return new Decimal(0)
-	start = new Decimal(start)
+export function overflow(number: Decimal, start: DecimalSource, power: DecimalSource, meta = 1) {
+	if (isNaN(number.mag)) return new Decimal(0);
+	start = new Decimal(start);
 
 	if (number.gt(start)) {
-	  if (meta == 0) {
-	    number = number.div(start).pow(power).mul(start)
-	  } else if (meta == 1) {
-			let s = start.log10()
-			number = number.log10().div(s).pow(power).mul(s).pow10()
+		if (meta == 0) {
+			number = number.div(start).pow(power).mul(start);
+		} else if (meta == 1) {
+			let s = start.log10();
+			number = number.log10().div(s).pow(power).mul(s).pow10();
 		} else {
-			let s = start.iteratedlog(10,meta)
-			number = Decimal.iteratedexp(10,meta,number.iteratedlog(10,meta).div(s).pow(power).mul(s));
+			let s = start.iteratedlog(10, meta);
+			number = Decimal.iteratedexp(
+				10,
+				meta,
+				number.iteratedlog(10, meta).div(s).pow(power).mul(s),
+			);
 		}
 	}
 	return number;
 }
 
-function overflowInversed(number: Decimal, start: DecimalSource, power: DecimalSource, meta=1) {
-	if (isNaN(number.mag)) return new Decimal(0)
-	start = new Decimal(start)
+function overflowInversed(number: Decimal, start: DecimalSource, power: DecimalSource, meta = 1) {
+	if (isNaN(number.mag)) return new Decimal(0);
+	start = new Decimal(start);
 
 	if (number.gt(start)) {
 		if (meta == 0) {
-	    number = number.div(start).root(power).mul(start)
-	  } else if (meta == 1) {
-			let s = start.log10()
-			number = number.log10().div(s).root(power).mul(s).pow10()
+			number = number.div(start).root(power).mul(start);
+		} else if (meta == 1) {
+			let s = start.log10();
+			number = number.log10().div(s).root(power).mul(s).pow10();
 		} else {
-			let s = start.iteratedlog(10,meta)
-			number = Decimal.iteratedexp(10,meta,number.iteratedlog(10,meta).div(s).root(power).mul(s));
+			let s = start.iteratedlog(10, meta);
+			number = Decimal.iteratedexp(
+				10,
+				meta,
+				number.iteratedlog(10, meta).div(s).root(power).mul(s),
+			);
 		}
 	}
 	return number;
@@ -260,14 +268,14 @@ export const SOFTCAPS = {
 		}
 		if (!softcaps[id].fluid) throw new Error('type error');
 		let s = softcaps[id];
-		let base = overflowInversed(existing, s.start, s.exponent, s.meta ?? 0)
+		let base = overflowInversed(existing, s.start, s.exponent, s.meta ?? 0);
 		return overflow(base.add(getting), s.start, s.exponent, s.meta ?? 0).sub(existing);
 	},
 	staticComputed(id: string, getting: Decimal) {
 		if (!this.reach(id, getting)) return getting;
 		if (softcaps[id].fluid) throw new Error('type error');
 		let s = softcaps[id];
-		return overflow(getting, s.start, s.exponent, s.meta ?? 0);;
+		return overflow(getting, s.start, s.exponent, s.meta ?? 0);
 	},
 };
 

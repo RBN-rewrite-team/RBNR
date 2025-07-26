@@ -313,7 +313,7 @@ export const Addition = {
 			fluid: true,
 			start: new Decimal('ee5'),
 			exponent: new Decimal(0.5),
-			meta: 1
+			meta: 1,
 		});
 	},
 	addpower_gain(bulk = new Decimal(1)) {

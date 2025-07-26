@@ -208,7 +208,7 @@ export const Successor = {
 			fluid: true,
 			start: new Decimal('ee5'),
 			exponent: new Decimal(0.5),
-			meta: 1
+			meta: 1,
 		});
 	},
 
