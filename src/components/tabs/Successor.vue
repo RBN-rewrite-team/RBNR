@@ -18,13 +18,19 @@ import TDBuyable from '../TDBuyable.vue';
 				v-if="!player.upgrades['25']"
 			>
 				后继x{{ format(feature.SUCCESSOR.successorBulk())
-				}}<sup v-if="feature.SUCCESSOR.successorPow().gt(1)">{{ format(feature.SUCCESSOR.successorPow()) }}</sup><span v-if="BUYABLES.lock('11').unlocked"
+				}}<sup v-if="feature.SUCCESSOR.successorPow().gt(1)">{{
+					format(feature.SUCCESSOR.successorPow())
+				}}</sup
+				><span v-if="BUYABLES.lock('11').unlocked"
 					>(自动{{ formatWhole(feature.SUCCESSOR.autoSuccessPerSecond()) }}/s)</span
 				>
 			</div>
 			<div class="clickable_button" @mousedown="feature.SUCCESSOR.success()" v-else>
 				加法+{{ formatWhole(feature.SUCCESSOR.successorBulk())
-				}}<sup v-if="feature.SUCCESSOR.successorPow().gt(1)">{{ format(feature.SUCCESSOR.successorPow()) }}</sup><span v-if="BUYABLES.lock('11').unlocked"
+				}}<sup v-if="feature.SUCCESSOR.successorPow().gt(1)">{{
+					format(feature.SUCCESSOR.successorPow())
+				}}</sup
+				><span v-if="BUYABLES.lock('11').unlocked"
 					>(自动{{ formatWhole(feature.SUCCESSOR.autoSuccessPerSecond()) }}/s)</span
 				>
 			</div>

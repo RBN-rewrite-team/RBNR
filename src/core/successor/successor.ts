@@ -183,13 +183,13 @@ export const Successor = {
 		SOFTCAPS.create('number^2', {
 			name: 'number^2',
 			fluid: true,
-      get start(){
-        let base = new Decimal(2).pow(1024);
-        
-        if (player.upgrades[43]) base = base.pow(2)
-        return base;
-      },
-      exponent: new Decimal(0.75),
+			get start() {
+				let base = new Decimal(2).pow(1024);
+
+				if (player.upgrades[43]) base = base.pow(2);
+				return base;
+			},
+			exponent: new Decimal(0.75),
 		});
 		SOFTCAPS.create('number_C1', {
 			name: 'number_C1',
@@ -251,19 +251,19 @@ export const Successor = {
 		if (CHALLENGE.amountChallenge(0, 1).gt(0)) {
 			base = base.mul(MULTI_CHALS[1].effect?.(player.challenges[0][1]) ?? 1);
 		}
-		
+
 		if (CHALLENGE.amountChallenge(0, 2).gt(0) && !CHALLENGE.inChallenge(0, 3)) {
 			base = base.mul(MULTI_CHALS[2].effect?.(player.challenges[0][2]) ?? 1);
 		}
-		
-		if(player.firstResetBit & 0b100) base = base.pow(feature.EXPONENTION.powerEff());
-		if(player.firstResetBit & 0b100) base = base.pow(1.03);
-		if(player.firstResetBit & 0b100) base = base.pow(buyables[42].effect(player.buyables[42]));
+
+		if (player.firstResetBit & 0b100) base = base.pow(feature.EXPONENTION.powerEff());
+		if (player.firstResetBit & 0b100) base = base.pow(1.03);
+		if (player.firstResetBit & 0b100) base = base.pow(buyables[42].effect(player.buyables[42]));
 		return base;
 	},
 	successorPow() {
 		let base = new Decimal(1);
-		if(player.upgrades[42]) base = base.add(0.1);
+		if (player.upgrades[42]) base = base.add(0.1);
 		return base;
 	},
 };

@@ -9,8 +9,8 @@ import { gameLoop } from './core/game-loop';
 import { feature } from './core/global.ts';
 import ModalService from './utils/Modal.ts';
 import { NUMTHEORY } from './core/multiplication/numbertheory.ts';
-import {Exponention} from './core/exponention/exponention.ts';
-import {QolUpgrades} from './core/exponention/qolupg.ts';
+import { Exponention } from './core/exponention/exponention.ts';
+import { QolUpgrades } from './core/exponention/qolupg.ts';
 
 export let loopInterval = NaN;
 export let saveInterval = setInterval(save, 3000);

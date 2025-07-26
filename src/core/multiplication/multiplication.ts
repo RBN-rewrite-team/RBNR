@@ -11,11 +11,16 @@ const D179E308 = Decimal.pow(2, 1024);
 export const Multiplication = {
 	initMechanics() {
 		UPGRADES.create('31', {
-      get description() {
-        let counts = "1";
-        if (player.upgrades["400q"]) counts = "<span style='font-size: 19px;'><b>2</b></span>"
-        return '你可以选择'+counts+'个U1系列升级将其价格降低到1加法能量，改变选择将进行乘法重置'
-      },
+			get description() {
+				let counts = '1';
+				if (player.upgrades['400q'])
+					counts = "<span style='font-size: 19px;'><b>2</b></span>";
+				return (
+					'你可以选择' +
+					counts +
+					'个U1系列升级将其价格降低到1加法能量，改变选择将进行乘法重置'
+				);
+			},
 			cost: new Decimal(0),
 			displayName: 'U2-1',
 			currency: '乘法能量',
@@ -63,7 +68,7 @@ export const Multiplication = {
 				return true;
 			},
 			keep() {
-				return player.upgrades['411q']
+				return player.upgrades['411q'];
 			},
 		});
 		UPGRADES.create('33', {
@@ -414,8 +419,7 @@ export const Multiplication = {
 			if (!player.upgrades[37] || force)
 				for (let i in reset_upgrades) player.upgrades[reset_upgrades[i]] = false;
 			if (!player.upgrades[33] || force) player.buyables[21] = new Decimal(0);
-			if (!player.upgrades['435q'])
-				player.multiplication.pfTime = new Decimal(0);
+			if (!player.upgrades['435q']) player.multiplication.pfTime = new Decimal(0);
 			Addition.reset();
 			player.totalAddpower = new Decimal(0);
 			player.addpower = new Decimal(0);
@@ -446,9 +450,9 @@ export const Multiplication = {
 			base = base.mul(MULTI_CHALS[3].effect?.(player.challenges[0][3]) ?? 1);
 		}
 		if (player.upgrades[41]) base = base.mul(10);
-		
-		if(player.firstResetBit & 0b100) base = base.pow(buyables[44].effect(player.buyables[44]));
-		
+
+		if (player.firstResetBit & 0b100) base = base.pow(buyables[44].effect(player.buyables[44]));
+
 		return base.floor();
 	},
 };

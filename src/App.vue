@@ -11,7 +11,7 @@ import {
 import { player, feature } from './core/global.ts';
 import { UPGRADES, BUYABLES, SOFTCAPS, buyables } from './core/mechanic.ts';
 import Decimal from 'break_eternity.js';
-import { computedTheme } from "./utils/themes.ts";
+import { computedTheme } from './utils/themes.ts';
 
 import Side from './components/Side.vue';
 import NewsTicker from './components/Newsticker.vue';
@@ -34,14 +34,14 @@ import ExpUpgrades from './components/tabs/ExpUpgrades.vue';
 </script>
 
 <template>
-  <Side />
+	<Side />
 	<div class="content">
 		<div class="news" v-if="player.options.ui.newsbar">
 			<div class="background">
 				<NewsTicker />
 			</div>
 		</div>
-    <Resources />
+		<Resources />
 		<div class="main-content">
 			<div class="background">
 				<AdditionResetButton v-if="player.upgrades[13]" />
@@ -55,7 +55,7 @@ import ExpUpgrades from './components/tabs/ExpUpgrades.vue';
 				<NumberTheory v-if="player.currentTab === 6" />
 				<Stat v-if="player.currentTab === 7" />
 				<MultipChals v-if="player.currentTab === 8" />
-        <ExpUpgrades v-if="player.currentTab === 9" />
+				<ExpUpgrades v-if="player.currentTab === 9" />
 				<div class="main" v-if="player.currentTab === 3">
 					<h1>大数之路重制版</h1>
 					版本: v0.1.1<br />
