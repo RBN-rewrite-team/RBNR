@@ -88,7 +88,7 @@ export function reverseUiOptions(x: string) {
 }
 
 export const computedTheme = computed(function() {
-  let theme = themeDetailsMap.get(player.options.ui.theme);
+  let theme = themeDetailsMap.get(player.options.ui.theme)!;
   let other = theme.other;
   let filter = "";
   if (other.filter) {
