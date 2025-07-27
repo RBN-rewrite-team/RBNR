@@ -93,9 +93,9 @@ export function simulate(diff: number) {
 		}
 	}
 	
-	for (let i as keyof typeof player.milestones in milestones) {
+	for (let i in milestones) {
 		if (milestones[i].canDone) {
-			player.milestones[i] = true
+			player.milestones[i as keyof typeof player.milestones] = true
 		}
 	}
 
