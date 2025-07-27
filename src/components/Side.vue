@@ -112,6 +112,13 @@ import { player } from '@/core/save';
 					>
 						统计
 					</div>
+					<div
+						class="menu2"
+						:class="{ focus: player.currentTab == 10 }"
+						@click="player.currentTab = 10"
+					>
+						成就
+					</div>
 				</div>
 			</div>
 		</div>
