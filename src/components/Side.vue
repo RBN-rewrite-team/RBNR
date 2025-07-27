@@ -95,6 +95,13 @@ import { player } from '@/core/save';
 						>
 							棋盘
 						</div>
+						<div
+							class="menu2"
+							:class="{ focus: player.currentTab == 12}"
+							@click="player.currentTab = 12"
+						>
+							对数运算
+						</div>
 					</template>
 					<div class="menu1">杂项</div>
 					<div class="menu_line"></div>

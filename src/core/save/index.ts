@@ -61,7 +61,9 @@ type Buyables = Record<
 	| '42'
 	| '43'
 	| '44'
-	| 'cb1',
+	| 'cb1'
+	| 'lgr_emp'
+	| 'lgr_impr',
 	Decimal
 >;
 export interface Player {
@@ -221,6 +223,8 @@ function getInitialPlayerData(): Player {
 			pf13: zero,
 			pf17: zero,
 			pf19: zero,
+			lgr_emp: zero,
+			lgr_impr: zero,
 		},
 		buyable11More: zero,
 		automationCD: {
