@@ -6,13 +6,13 @@ import { player } from '@/core/global';
 const props = defineProps<{
 	id: keyof typeof milestones;
 }>();
-const id = props.id;
+const id = props.id as keyof typeof player.milestones;
 </script>
 
 <template>
   <tr>
     <td>
-      <div class="milestone" :class="{done:player.milestones[id]}">
+      <div class="milestone" :class="{done: player.milestones[id]}">
         <h3 style="display: inline-block">{{ milestones[id].displayName }}: {{ format(milestones[id].requirement) }} {{ milestones[id].currency }}</h3><br>
         {{ milestones[id].description }}
       </div>
