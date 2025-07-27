@@ -47,7 +47,11 @@ export function gameLoop() {
 	if (diff < 0) return;
 	player.lastUpdated = Date.now();
 	qolLoop();
-	simulate(diff);
+	try {
+	  simulate(diff)
+	} catch (e) {
+	  throw e
+	};
 	if (diff > 60000) {
 		return;
 		simulateTime(diff);
@@ -68,6 +72,14 @@ export function simulate(diff: number) {
 	if (feature.resourceGain.addpower().passive.gt(0)) {
 		let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.addpower().passive);
 		feature.ADDITION.addpower_gain(bulk);
+	}
+	
+	if (feature.resourceGain.mulpower().passive.gt(0)) {
+		let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.mulpower().passive);
+		player.multiplication.mulpower = player.multiplication.mulpower.add(feature.MULTIPLICATION.gain().mul(bulk));
+		player.multiplication.totalMulpower = player.multiplication.totalMulpower.add(
+			feature.MULTIPLICATION.gain().mul(bulk),
+		);
 	}
 
 	for (let i in upgrades) {

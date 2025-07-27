@@ -6,6 +6,7 @@ import { Addition } from './addition/addition.ts';
 import { Multiplication } from './multiplication/multiplication.ts';
 import { PrimeFactor } from './multiplication/pf.ts';
 import { Exponention } from './exponention/exponention.ts';
+import * as ChessBoard from './exponention/chessboard.ts';
 import { CHALLENGE } from './challenge.ts';
 
 const feature = {
@@ -17,6 +18,7 @@ const feature = {
 	MULTIPLICATION: Multiplication,
 	PrimeFactor: PrimeFactor,
 	EXPONENTION: Exponention,
+	ChessBoard: ChessBoard,
 
 	resourceGain: {
 		number(num = player.number) {
@@ -51,7 +53,9 @@ const feature = {
 		},
 		mulpower() {
 			let base = feature.MULTIPLICATION.gain();
-			return { value: base };
+			let passive = new Decimal(0);
+			if (player.upgrades[46]) passive = passive.add(0.01);
+			return { value: base, passive, softcaps: 0 };
 		},
 		exppower() {
 			let base = feature.EXPONENTION.gain();

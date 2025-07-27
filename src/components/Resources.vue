@@ -62,10 +62,25 @@ import Decimal from 'break_eternity.js';
 						{{ formatWhole(player.multiplication.mulpower) }}
 					</div>
 				</div>
-				<div style="font-size: 17px; color: #dd77dd">
-					(+{{ formatWhole(feature.resourceGain.mulpower().value) }}) (!{{
-						formatWhole(player.multiplication.totalMulpower)
-					}})
+				<div style="font-size: 17px; color: #cc33ff">
+					<span v-if="feature.resourceGain.mulpower().passive.eq(0)">
+						(+{{ formatWhole(feature.resourceGain.mulpower().value) }})
+					</span>
+					<span v-else>
+						{{
+							formatGain(
+								player.multiplication.mulpower,
+								feature.resourceGain
+									.mulpower()
+									.passive.mul(feature.resourceGain.mulpower().value),
+							)
+						}}
+					</span>
+					(!{{ formatWhole(player.multiplication.totalMulpower) }})
+					<br />
+					<span v-if="feature.resourceGain.mulpower().softcaps > 0">
+						(受{{ feature.resourceGain.mulpower().softcaps }}个软上限限制)
+					</span>
 				</div>
 			</div>
 			<div

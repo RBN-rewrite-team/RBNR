@@ -31,6 +31,7 @@ feature.PrimeFactor.initMechanics();
 NUMTHEORY.initMechanics();
 Exponention.initMechanics();
 QolUpgrades.initMechanics();
+feature.ChessBoard.initMechanics();
 startGameLoop();
 const app = createApp(App);
 

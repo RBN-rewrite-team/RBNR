@@ -364,8 +364,10 @@ export const Addition = {
 		if (player.buyables[31].gt(0)) base = base.mul(buyables[31].effect(player.buyables[31]));
 
 		if (player.upgrades[41]) base = base.mul(10);
+		if (player.upgrades[47]) base = base.mul(feature.ChessBoard.wgEffect()[3]);
 
 		if (player.firstResetBit & 0b100) base = base.pow(buyables[43].effect(player.buyables[43]));
+		if (player.upgrades[47]) base = base.pow(feature.ChessBoard.wgEffect()[1]);
 
 		return base.floor();
 	},
