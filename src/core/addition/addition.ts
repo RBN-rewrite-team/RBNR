@@ -19,7 +19,7 @@ import { predictableRandom } from '@/utils/algorithm.ts';
 export const Addition = {
 	initMechanics() {
 		UPGRADES.create('21', {
-			description: 'U1系列升级购买数量同样作用于U12的效果',
+			description: 'U1系列升级购买数量同样作用于U0-2的效果',
 			currency: '加法能量',
 			get cost() {
 				return new Decimal(1);
