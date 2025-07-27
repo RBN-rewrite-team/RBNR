@@ -4,6 +4,7 @@ import { reactive } from 'vue';
 import { notations } from '@/utils/format';
 import { themes } from '@/utils/themes';
 import type { qolUpgs } from '../exponention/qolupg';
+import type { IAstronomer } from '../exponention/logarithm';
 
 const SAVEID = 'RBN-rewritten';
 const version = 3 as const;
@@ -61,7 +62,9 @@ type Buyables = Record<
 	| '42'
 	| '43'
 	| '44'
-	| 'cb1',
+	| 'cb1'
+	| 'lgr_emp'
+	| 'lgr_impr',
 	Decimal
 >;
 type Milestones = Record<
@@ -109,6 +112,11 @@ export interface Player {
 		exppower: Decimal;
 		totalExppower: Decimal;
 		qolpoints: Decimal;
+		logarithm: {
+			observe_datas: Decimal;
+			calculate_datas: Decimal;
+			astronomers: IAstronomer[];
+		}
 	};
 	options: {
 		notation: notations;
@@ -226,6 +234,8 @@ function getInitialPlayerData(): Player {
 			pf13: zero,
 			pf17: zero,
 			pf19: zero,
+			lgr_emp: zero,
+			lgr_impr: zero,
 		},
 		milestones: {
 		  "cb1": false
@@ -260,6 +270,11 @@ function getInitialPlayerData(): Player {
 			exppower: zero,
 			totalExppower: zero,
 			qolpoints: zero,
+			logarithm: {
+				observe_datas: zero,
+				calculate_datas: zero,
+				astronomers: []
+			}
 		},
 		options: {
 			notation: notations.SCIENTIFIC,
