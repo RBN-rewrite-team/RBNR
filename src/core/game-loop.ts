@@ -7,6 +7,7 @@ import { NUMTHEORY } from './multiplication/numbertheory.ts';
 import { predictableRandom } from '@/utils/algorithm.ts';
 
 import { CHALLENGE } from './challenge.ts';
+import { Logarithm } from './exponention/logarithm.ts';
 
 export let diff = 40;
 
@@ -117,6 +118,6 @@ export function simulate(diff: number) {
 			.add(NUMTHEORY.tickspeedGain().mul(diff).mul(1e-3))
 			.max(1);
 	}
-
+	Logarithm.astronomerUpdate();
 	updateHighestStat();
 }

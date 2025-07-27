@@ -4,6 +4,7 @@ import { reactive } from 'vue';
 import { notations } from '@/utils/format';
 import { themes } from '@/utils/themes';
 import type { qolUpgs } from '../exponention/qolupg';
+import type { IAstronomer } from '../exponention/logarithm';
 
 const SAVEID = 'RBN-rewritten';
 const version = 3 as const;
@@ -106,6 +107,11 @@ export interface Player {
 		exppower: Decimal;
 		totalExppower: Decimal;
 		qolpoints: Decimal;
+		logarithm: {
+			observe_datas: Decimal;
+			calculate_datas: Decimal;
+			astronomers: IAstronomer[];
+		}
 	};
 	options: {
 		notation: notations;
@@ -256,6 +262,11 @@ function getInitialPlayerData(): Player {
 			exppower: zero,
 			totalExppower: zero,
 			qolpoints: zero,
+			logarithm: {
+				observe_datas: zero,
+				calculate_datas: zero,
+				astronomers: []
+			}
 		},
 		options: {
 			notation: notations.SCIENTIFIC,
