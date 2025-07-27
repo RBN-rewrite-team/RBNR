@@ -31,6 +31,7 @@ import ExpResetButton from './components/ExpResetButton.vue';
 import { predictableRandom } from './utils/algorithm.ts';
 import Resources from './components/Resources.vue';
 import ExpUpgrades from './components/tabs/ExpUpgrades.vue';
+import Achievements from './components/tabs/Achievements.vue';
 import ChessBoard from './components/tabs/ChessBoard.vue';
 import Logarithm from './components/tabs/Logarithm.vue';
 </script>
@@ -59,6 +60,7 @@ import Logarithm from './components/tabs/Logarithm.vue';
 				<MultipChals v-if="player.currentTab === 8" />
 				<ExpUpgrades v-if="player.currentTab === 9" />
 				<ChessBoard v-if="player.currentTab === 10" />
+				<Achievements v-if="player.currentTab === 11" />
 				<Logarithm v-if="player.currentTab === 12" />
 				<div class="main" v-if="player.currentTab === 3">
 					<h1>大数之路重制版</h1>
@@ -78,13 +80,13 @@ import Logarithm from './components/tabs/Logarithm.vue';
 
 <style scoped>
 #app {
-	--app-background-color: v-bind(computedTheme.AppBackgroundColor);
-	--background-color: v-bind(computedTheme.BackgroundColor);
-	--color: v-bind(computedTheme.Color);
-	--suptitle-color: v-bind(computedTheme.SuptitleColor);
-	--title-color: v-bind(computedTheme.TitleColor);
-	--border-color: v-bind(computedTheme.BorderColor);
-	--hover-color: v-bind(computedTheme.HoverColor);
-	filter: v-bind(computedTheme.filter);
+	--app-background-color: v-bind('computedTheme.AppBackgroundColor');
+	--background-color: v-bind('computedTheme.BackgroundColor');
+	--color: v-bind('computedTheme.Color');
+	--suptitle-color: v-bind('computedTheme.SuptitleColor');
+	--title-color: v-bind('computedTheme.TitleColor');
+	--border-color: v-bind('computedTheme.BorderColor');
+	--hover-color: v-bind('computedTheme.HoverColor');
+	filter: v-bind('computedTheme.filter');
 }
 </style>
