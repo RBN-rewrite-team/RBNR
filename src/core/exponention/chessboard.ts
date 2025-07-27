@@ -1,10 +1,11 @@
 import Decimal from 'break_eternity.js';
 import { feature, player } from '@/core/global';
-import { buyables, BUYABLES, upgrades, UPGRADES, type singleReq } from '../mechanic';
+import { buyables, BUYABLES, upgrades, UPGRADES, MILESTONES, type singleReq } from '../mechanic';
 import { format, formatWhole } from '@/utils/format';
 
 export function base() {
   let base = new Decimal(2)
+  if (player.milestones.cb1) base = new Decimal(3)
   return base
 }
   
@@ -40,6 +41,16 @@ export function initMechanics() {
 				return false;
 			},
 		});
+	MILESTONES.create("cb1", {
+	  displayName: "M-CB-1",
+	  description: "麦粒底数 2 → 3",
+	  requirement: new Decimal(250),
+	  get canDone() {
+	    return wheatGrain().gte(this.requirement)
+	  },
+	  show: true,
+	  currency: "麦粒"
+	})
 }
 
 export function wheatGrain() {

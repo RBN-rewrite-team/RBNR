@@ -55,7 +55,15 @@ const feature = {
 			let base = feature.MULTIPLICATION.gain();
 			let passive = new Decimal(0);
 			if (player.upgrades[46]) passive = passive.add(0.01);
-			return { value: base, passive, softcaps: 0 };
+			let softcaps = 0,
+				scList = ['mulpower^1',];
+			for (let i = 0; i < scList.length; i++) {
+				if (SOFTCAPS.reach(scList[i], player.multiplication.mulpower)) {
+					softcaps++;
+					base = SOFTCAPS.fluidComputed(scList[i], base, player.multiplication.mulpower);
+				}
+			}
+			return { value: base, passive, softcaps };
 		},
 		exppower() {
 			let base = feature.EXPONENTION.gain();

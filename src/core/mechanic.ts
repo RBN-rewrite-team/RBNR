@@ -271,4 +271,23 @@ export const SOFTCAPS = {
 	},
 };
 
+type IMilestone = {
+  requirement: Decimal,
+  currency: string,
+  displayName: string,
+  show: boolean;
+  description: string;
+  canDone: boolean;
+}
+
+export const milestones: {
+  [key: string]: IMilestone;
+} = {}
+
+export const MILESTONES = {
+  create(id: keyof typeof player.milestones, info: IMilestone) {
+		milestones[id] = info;
+	},
+}
+
 export { upgrades, buyables, softcaps };

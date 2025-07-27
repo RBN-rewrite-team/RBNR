@@ -10,7 +10,7 @@ export const QolUpgrades = {
 	initMechanics() {
 		UPGRADES.create('400q', {
 			displayName: '4-QOL-00',
-			description: 'U2-1的效果*2',
+			description: 'U2-1的效果*2，解锁一个新的数论研究1升级',
 			canAfford() {
 				return Boolean(player.firstResetBit & 0b100);
 			},

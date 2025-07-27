@@ -2,6 +2,7 @@
 import { format, formatWhole } from '@/utils/format';
 import { feature, player } from '@/core/global';
 import TDBuyable from '../TDBuyable.vue';
+import TRMilestone from '../TRMilestone.vue';
 </script>
 
 <template>
@@ -45,6 +46,11 @@ import TDBuyable from '../TDBuyable.vue';
         <tr>
           <TDBuyable bylid="cb1" />
         </tr>
+      </tbody>
+    </table><br><br>
+    <table>
+      <tbody>
+        <TRMilestone id="cb1" />
       </tbody>
     </table>
   </div>
