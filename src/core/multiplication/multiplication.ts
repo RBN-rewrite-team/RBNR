@@ -1,5 +1,5 @@
 import Decimal from 'break_eternity.js';
-import { buyables, BUYABLES, upgrades, UPGRADES, type singleReq } from '../mechanic';
+import { buyables, BUYABLES, upgrades, UPGRADES, type singleReq, SOFTCAPS } from '../mechanic';
 import { player } from '../save';
 import ModalService from '@/utils/Modal';
 import { format, formatWhole } from '@/utils/format';
@@ -7,6 +7,7 @@ import { Addition } from '../addition/addition.ts';
 import { PrimeFactor } from './pf.ts';
 import { CHALLENGE } from '../challenge.ts';
 import { MULTI_CHALS } from './challenges.ts';
+import { feature } from '../global.ts';
 const D179E308 = Decimal.pow(2, 1024);
 export const Multiplication = {
 	initMechanics() {
@@ -398,6 +399,22 @@ export const Multiplication = {
 				player.buyables[33] = player.buyables[33].add(this?.canBuy?.() ?? 0);
 			},
 		});
+		
+		SOFTCAPS.create('mulpower^1', {
+			name: 'mulpower^1',
+			fluid: true,
+			start: new Decimal("e5e6"),
+			exponent: new Decimal(0.4),
+			meta: 1
+		});
+	},
+	mulpower_gain(bulk = new Decimal(1)) {
+	  let adding = this.gain().mul(bulk);
+	  adding = SOFTCAPS.fluidComputed('mulpower^1', adding, player.multiplication.mulpower);
+	  player.multiplication.mulpower = player.multiplication.mulpower.add(adding);
+		player.multiplication.totalMulpower = player.multiplication.totalMulpower.add(
+			adding
+		);
 	},
 	powerEff() {
 		let base = player.multiplication.totalMulpower.add(1);
@@ -405,11 +422,7 @@ export const Multiplication = {
 	},
 	reset(force = false) {
 		if (this.gain().gt(0) || force) {
-			player.multiplication.mulpower = player.multiplication.mulpower.add(this.gain());
-			player.multiplication.totalMulpower = player.multiplication.totalMulpower.add(
-				this.gain(),
-			);
-			player.stat.totalMulpower = player.stat.totalMulpower.add(this.gain());
+			this.mulpower_gain()
 			if (CHALLENGE.inChallenge(0, 3)) {
 				player.challenges[0][3] = player.challenges[0][3].add(this.gain());
 			}
@@ -452,6 +465,7 @@ export const Multiplication = {
 		if (player.upgrades[41]) base = base.mul(10);
 
 		if (player.firstResetBit & 0b100) base = base.pow(buyables[44].effect(player.buyables[44]));
+		if (player.upgrades[47]) base = base.pow(feature.ChessBoard.wgEffect()[0]);
 
 		return base.floor();
 	},

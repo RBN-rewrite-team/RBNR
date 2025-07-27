@@ -8,7 +8,7 @@ interface NewsMessage {
 	text: string;
 	unlocked?: boolean;
 	dynamic?: boolean;
-	reset?: () => void;
+	reset?: () => any;
 	onClick?: () => string | undefined;
 }
 
@@ -74,7 +74,7 @@ const prepareNextMessage = () => {
 	// console.log(news.filter(canShow))
 
 	currentNews.value = randomElement(news!.filter(canShow)) ?? null;
-	// currentNews.value = news[4]
+	//currentNews.value = news[news.length-1]
 
 	if (!currentNews.value) return;
 

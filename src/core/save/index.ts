@@ -4,6 +4,7 @@ import { reactive } from 'vue';
 import { notations } from '@/utils/format';
 import { themes } from '@/utils/themes';
 import type { qolUpgs } from '../exponention/qolupg';
+import type { IAstronomer } from '../exponention/logarithm';
 
 const SAVEID = 'RBN-rewritten';
 const version = 3 as const;
@@ -36,6 +37,8 @@ type Upgrades = Record<
 	| '43'
 	| '44'
 	| '45'
+	| '46'
+	| '47'
 	| qolUpgs,
 	boolean
 >;
@@ -58,8 +61,15 @@ type Buyables = Record<
 	| '41'
 	| '42'
 	| '43'
-	| '44',
+	| '44'
+	| 'cb1'
+	| 'lgr_emp'
+	| 'lgr_impr',
 	Decimal
+>;
+type Milestones = Record<
+  "cb1",
+	boolean
 >;
 export interface Player {
 	number: Decimal;
@@ -69,6 +79,7 @@ export interface Player {
 	saveCreateTime: number;
 	upgrades: Upgrades;
 	buyables: Buyables;
+	milestones: Milestones;
 	buyable11More: Decimal;
 	automationCD: {
 		successor: number;
@@ -101,6 +112,11 @@ export interface Player {
 		exppower: Decimal;
 		totalExppower: Decimal;
 		qolpoints: Decimal;
+		logarithm: {
+			observe_datas: Decimal;
+			calculate_datas: Decimal;
+			astronomers: IAstronomer[];
+		}
 	};
 	options: {
 		notation: notations;
@@ -162,6 +178,8 @@ function getInitialPlayerData(): Player {
 			'43': false,
 			'44': false,
 			'45': false,
+			'46': false,
+			'47': false,
 			'400q': false,
 			'411q': false,
 			'412q': false,
@@ -207,6 +225,7 @@ function getInitialPlayerData(): Player {
 			'42': zero,
 			'43': zero,
 			'44': zero,
+			'cb1': zero,
 			pf2: zero,
 			pf3: zero,
 			pf5: zero,
@@ -215,6 +234,11 @@ function getInitialPlayerData(): Player {
 			pf13: zero,
 			pf17: zero,
 			pf19: zero,
+			lgr_emp: zero,
+			lgr_impr: zero,
+		},
+		milestones: {
+		  "cb1": false
 		},
 		buyable11More: zero,
 		automationCD: {
@@ -246,6 +270,11 @@ function getInitialPlayerData(): Player {
 			exppower: zero,
 			totalExppower: zero,
 			qolpoints: zero,
+			logarithm: {
+				observe_datas: zero,
+				calculate_datas: zero,
+				astronomers: []
+			}
 		},
 		options: {
 			notation: notations.SCIENTIFIC,

@@ -1,12 +1,13 @@
 import { player, feature } from './global.ts';
 import { nextTick } from 'vue';
 import { simulateTime } from './offline';
-import { UPGRADES, BUYABLES, upgrades, buyables } from './mechanic.ts';
+import { UPGRADES, BUYABLES, upgrades, buyables, milestones } from './mechanic.ts';
 import Decimal from 'break_eternity.js';
 import { NUMTHEORY } from './multiplication/numbertheory.ts';
 import { predictableRandom } from '@/utils/algorithm.ts';
 
 import { CHALLENGE } from './challenge.ts';
+import { Logarithm } from './exponention/logarithm.ts';
 
 export let diff = 40;
 
@@ -47,7 +48,11 @@ export function gameLoop() {
 	if (diff < 0) return;
 	player.lastUpdated = Date.now();
 	qolLoop();
-	simulate(diff);
+	try {
+	  simulate(diff)
+	} catch (e) {
+	  throw e
+	};
 	if (diff > 60000) {
 		return;
 		simulateTime(diff);
@@ -69,6 +74,11 @@ export function simulate(diff: number) {
 		let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.addpower().passive);
 		feature.ADDITION.addpower_gain(bulk);
 	}
+	
+	if (feature.resourceGain.mulpower().passive.gt(0)) {
+		let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.mulpower().passive);
+		feature.MULTIPLICATION.mulpower_gain(bulk)
+	}
 
 	for (let i in upgrades) {
 		if (upgrades[i].keep != null && upgrades[i].keep()) {
@@ -81,6 +91,12 @@ export function simulate(diff: number) {
 			if (buyables[i].autoBuyMax != null && buyables[i].autoBuyMax()) {
 				if (buyables[i].buyMax != null) buyables[i].buyMax();
 			}
+		}
+	}
+	
+	for (let i in milestones) {
+		if (milestones[i].canDone) {
+			player.milestones[i as keyof typeof player.milestones] = true
 		}
 	}
 
@@ -105,6 +121,6 @@ export function simulate(diff: number) {
 			.add(NUMTHEORY.tickspeedGain().mul(diff).mul(1e-3))
 			.max(1);
 	}
-
+	Logarithm.astronomerUpdate();
 	updateHighestStat();
 }

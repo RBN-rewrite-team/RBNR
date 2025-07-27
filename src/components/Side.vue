@@ -16,7 +16,7 @@ import { player } from '@/core/save';
 					>
 						大数之路重制版
 					</div>
-					<div style="font-size: 20px">v0.1.1</div>
+					<div style="font-size: 20px">v0.3</div>
 				</div>
 			</div>
 		</div>
@@ -87,6 +87,21 @@ import { player } from '@/core/save';
 							@click="player.currentTab = 9"
 						>
 							指数升级
+						</div>
+						<div
+							class="menu2"
+							:class="{ focus: player.currentTab == 10 }"
+							@click="player.currentTab = 10"
+						>
+							棋盘
+						</div>
+						<div
+							class="menu2"
+							:class="{ focus: player.currentTab == 12}"
+							@click="player.currentTab = 12"
+							v-if="false"
+						>
+							对数运算
 						</div>
 					</template>
 					<div class="menu1">杂项</div>

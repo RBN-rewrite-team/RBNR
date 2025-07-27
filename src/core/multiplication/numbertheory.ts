@@ -16,7 +16,7 @@ export const NUMTHEORY = {
 				return x.mul(buyables['38R'].effect(player.buyables['38R']));
 			},
 			effD(x) {
-				return `x<sub>1</sub> = ${formatWhole(x)}`;
+				return `x<sub>1</sub> = ${format(this.effect(player.buyables["31R"]))}`;
 			},
 			canAfford(x) {
 				return this.cost(x).lte(player.multiplication.mulpower);
@@ -61,7 +61,7 @@ export const NUMTHEORY = {
 				return x.add(1).mul(buyables['38R'].effect(player.buyables['38R']));
 			},
 			effD(x) {
-				return `x<sub>2</sub> = ${formatWhole(x.add(1))}`;
+				return `x<sub>2</sub> = ${format(this.effect(player.buyables["32R"]))}`;
 			},
 			canAfford(x) {
 				return this.cost(x).lte(player.multiplication.mulpower);
@@ -106,7 +106,7 @@ export const NUMTHEORY = {
 				return x.mul(buyables['38R'].effect(player.buyables['38R']));
 			},
 			effD(x) {
-				return `y<sub>1</sub> = ${formatWhole(x)}`;
+				return `y<sub>1</sub> = ${format(this.effect(player.buyables["31R"]))}`;
 			},
 			canAfford(x) {
 				return this.cost(x).lte(player.multiplication.mulpower);
@@ -151,7 +151,7 @@ export const NUMTHEORY = {
 				return x.mul(buyables['38R'].effect(player.buyables['38R']));
 			},
 			effD(x) {
-				return `z<sub>1</sub> = ${formatWhole(x)}`;
+				return `z<sub>1</sub> = ${format(this.effect(player.buyables["31R"]))}`;
 			},
 			canAfford(x) {
 				return this.cost(x).lte(player.multiplication.mulpower);
@@ -196,7 +196,7 @@ export const NUMTHEORY = {
 				return x.add(1);
 			},
 			effD(x) {
-				return `s<sub>1</sub> = ${formatWhole(x)}`;
+				return `s<sub>1</sub> = ${formatWhole(x.add(1))}`;
 			},
 			canAfford(x) {
 				return this.cost(x).lte(player.multiplication.mulpower);
@@ -348,14 +348,14 @@ export const NUMTHEORY = {
 			},
 			currency: '乘法能量',
 			show() {
-				return true;
+				return player.upgrades['400q'];
 			},
 			requirement: [],
 			canBuyMax() {
-				return player.upgrades[39];
+				return player.upgrades[39] && player.upgrades['400q'];
 			},
 			autoBuyMax() {
-				return player.upgrades['444q'];
+				return player.upgrades['444q'] && player.upgrades['400q'];
 			},
 			canBuy() {
 				return player.multiplication.mulpower
@@ -472,8 +472,8 @@ export const NUMTHEORY = {
 		let exp = new Decimal(1);
 		if (player.upgrades['32R']) exp = exp.add(0.3);
 		if (player.buyables['36R'].gte(1)) exp = exp.add(player.buyables['36R'].mul(0.085));
-		if (player.buyables['31R'].gte(1)) x = x.add(player.buyables['31R'].pow(exp));
-		if (player.buyables['32R'].gte(1)) x = x.mul(player.buyables['32R'].add(1));
+		if (player.buyables['31R'].gte(1)) x = x.add(buyables["31R"].effect(player.buyables['31R']).pow(exp));
+		if (player.buyables['32R'].gte(1)) x = x.mul(buyables["32R"].effect(player.buyables['32R']));
 		if (player.upgrades['31R']) x = x.mul(upgrades['31R'].effect?.() ?? 1);
 		return x.mul(player.numbertheory.euler.y.floor()).mul(player.numbertheory.euler.s);
 	},
@@ -482,14 +482,14 @@ export const NUMTHEORY = {
 		let exp = new Decimal(1);
 		if (player.upgrades['33R']) exp = exp.add(0.3);
 		if (player.buyables['37R'].gte(1)) exp = exp.add(player.buyables['36R'].mul(0.085));
-		if (player.buyables['33R'].gte(1)) y = y.add(player.buyables['33R'].pow(exp));
+		if (player.buyables['33R'].gte(1)) y = y.add(buyables["33R"].effect(player.buyables['33R']).pow(exp));
 		return y.mul(player.numbertheory.euler.z.floor()).mul(player.numbertheory.euler.s);
 	},
 	varZgain() {
 		let z = new Decimal(0);
 		let exp = new Decimal(1);
 		if (player.upgrades['34R']) exp = exp.add(0.3);
-		if (player.buyables['34R'].gte(1)) z = z.add(player.buyables['34R'].pow(exp));
+		if (player.buyables['34R'].gte(1)) z = z.add(buyables["34R"].effect(player.buyables['34R']).pow(exp));
 		return z.mul(player.numbertheory.euler.s);
 	},
 	tickspeedGain() {

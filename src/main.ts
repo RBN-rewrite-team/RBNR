@@ -11,6 +11,7 @@ import ModalService from './utils/Modal.ts';
 import { NUMTHEORY } from './core/multiplication/numbertheory.ts';
 import { Exponention } from './core/exponention/exponention.ts';
 import { QolUpgrades } from './core/exponention/qolupg.ts';
+import { Logarithm } from './core/exponention/logarithm.ts';
 
 export let loopInterval = NaN;
 export let saveInterval = setInterval(save, 3000);
@@ -31,6 +32,8 @@ feature.PrimeFactor.initMechanics();
 NUMTHEORY.initMechanics();
 Exponention.initMechanics();
 QolUpgrades.initMechanics();
+feature.ChessBoard.initMechanics();
+Logarithm.initMechanics();
 startGameLoop();
 const app = createApp(App);
 
