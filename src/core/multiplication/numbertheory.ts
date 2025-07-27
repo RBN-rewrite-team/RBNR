@@ -358,7 +358,7 @@ export const NUMTHEORY = {
 				return player.upgrades['444q'] && player.upgrades['400q'];
 			},
 			canBuy() {
-				return player.upgrades['400q'] && player.multiplication.mulpower
+				return player.multiplication.mulpower
 					.div(1e50)
 					.max(1)
 					.log(1e25)
