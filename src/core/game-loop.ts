@@ -1,7 +1,7 @@
 import { player, feature } from './global.ts';
 import { nextTick } from 'vue';
 import { simulateTime } from './offline';
-import { UPGRADES, BUYABLES, upgrades, buyables } from './mechanic.ts';
+import { UPGRADES, BUYABLES, upgrades, buyables, milestones } from './mechanic.ts';
 import Decimal from 'break_eternity.js';
 import { NUMTHEORY } from './multiplication/numbertheory.ts';
 import { predictableRandom } from '@/utils/algorithm.ts';
@@ -76,10 +76,7 @@ export function simulate(diff: number) {
 	
 	if (feature.resourceGain.mulpower().passive.gt(0)) {
 		let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.mulpower().passive);
-		player.multiplication.mulpower = player.multiplication.mulpower.add(feature.MULTIPLICATION.gain().mul(bulk));
-		player.multiplication.totalMulpower = player.multiplication.totalMulpower.add(
-			feature.MULTIPLICATION.gain().mul(bulk),
-		);
+		feature.MULTIPLICATION.mulpower_gain(bulk)
 	}
 
 	for (let i in upgrades) {
@@ -93,6 +90,12 @@ export function simulate(diff: number) {
 			if (buyables[i].autoBuyMax != null && buyables[i].autoBuyMax()) {
 				if (buyables[i].buyMax != null) buyables[i].buyMax();
 			}
+		}
+	}
+	
+	for (let i in milestones) {
+		if (milestones[i].canDone) {
+			player.milestones[i] = true
 		}
 	}
 

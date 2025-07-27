@@ -64,6 +64,10 @@ type Buyables = Record<
 	| 'cb1',
 	Decimal
 >;
+type Milestones = Record<
+  "cb1",
+	boolean
+>;
 export interface Player {
 	number: Decimal;
 	version: typeof version;
@@ -72,6 +76,7 @@ export interface Player {
 	saveCreateTime: number;
 	upgrades: Upgrades;
 	buyables: Buyables;
+	milestones: Milestones;
 	buyable11More: Decimal;
 	automationCD: {
 		successor: number;
@@ -221,6 +226,9 @@ function getInitialPlayerData(): Player {
 			pf13: zero,
 			pf17: zero,
 			pf19: zero,
+		},
+		milestones: {
+		  "cb1": false
 		},
 		buyable11More: zero,
 		automationCD: {

@@ -16,7 +16,7 @@ import { player } from '@/core/save';
 					>
 						大数之路重制版
 					</div>
-					<div style="font-size: 20px">v0.1.1</div>
+					<div style="font-size: 20px">v0.3</div>
 				</div>
 			</div>
 		</div>
