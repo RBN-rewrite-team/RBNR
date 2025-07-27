@@ -5,7 +5,7 @@ import { player } from '@/core/save';
 import { format, formatWhole } from '@/utils/format';
 import TDUpgrade from '../TDUpgrade.vue';
 import TDBuyable from '../TDBuyable.vue';
-// code...
+
 </script>
 
 <template>

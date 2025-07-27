@@ -7,6 +7,7 @@ import { Addition } from '../addition/addition.ts';
 import { PrimeFactor } from './pf.ts';
 import { CHALLENGE } from '../challenge.ts';
 import { MULTI_CHALS } from './challenges.ts';
+import { feature } from '../global.ts';
 const D179E308 = Decimal.pow(2, 1024);
 export const Multiplication = {
 	initMechanics() {
@@ -452,6 +453,7 @@ export const Multiplication = {
 		if (player.upgrades[41]) base = base.mul(10);
 
 		if (player.firstResetBit & 0b100) base = base.pow(buyables[44].effect(player.buyables[44]));
+		if (player.upgrades[47]) base = base.pow(feature.ChessBoard.wgEffect()[0]);
 
 		return base.floor();
 	},

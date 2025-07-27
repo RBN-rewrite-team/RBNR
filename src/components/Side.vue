@@ -88,6 +88,13 @@ import { player } from '@/core/save';
 						>
 							指数升级
 						</div>
+						<div
+							class="menu2"
+							:class="{ focus: player.currentTab == 10 }"
+							@click="player.currentTab = 10"
+						>
+							棋盘
+						</div>
 					</template>
 					<div class="menu1">杂项</div>
 					<div class="menu_line"></div>

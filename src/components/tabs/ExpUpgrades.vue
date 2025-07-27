@@ -32,6 +32,8 @@ import Decimal from 'break_eternity.js';
 				</tr>
 				<tr>
 					<TDUpgrade upgid="45" />
+					<TDUpgrade upgid="46" />
+					<TDUpgrade upgid="47" />
 				</tr>
 				<tr>
 					<TDBuyable bylid="41" />

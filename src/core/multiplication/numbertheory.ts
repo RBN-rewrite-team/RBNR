@@ -16,7 +16,7 @@ export const NUMTHEORY = {
 				return x.mul(buyables['38R'].effect(player.buyables['38R']));
 			},
 			effD(x) {
-				return `x<sub>1</sub> = ${formatWhole(x)}`;
+				return `x<sub>1</sub> = ${format(this.effect(player.buyables["31R"]))}`;
 			},
 			canAfford(x) {
 				return this.cost(x).lte(player.multiplication.mulpower);
@@ -61,7 +61,7 @@ export const NUMTHEORY = {
 				return x.add(1).mul(buyables['38R'].effect(player.buyables['38R']));
 			},
 			effD(x) {
-				return `x<sub>2</sub> = ${formatWhole(x.add(1))}`;
+				return `x<sub>2</sub> = ${format(this.effect(player.buyables["32R"]))}`;
 			},
 			canAfford(x) {
 				return this.cost(x).lte(player.multiplication.mulpower);
@@ -106,7 +106,7 @@ export const NUMTHEORY = {
 				return x.mul(buyables['38R'].effect(player.buyables['38R']));
 			},
 			effD(x) {
-				return `y<sub>1</sub> = ${formatWhole(x)}`;
+				return `y<sub>1</sub> = ${format(this.effect(player.buyables["31R"]))}`;
 			},
 			canAfford(x) {
 				return this.cost(x).lte(player.multiplication.mulpower);
@@ -151,7 +151,7 @@ export const NUMTHEORY = {
 				return x.mul(buyables['38R'].effect(player.buyables['38R']));
 			},
 			effD(x) {
-				return `z<sub>1</sub> = ${formatWhole(x)}`;
+				return `z<sub>1</sub> = ${format(this.effect(player.buyables["31R"]))}`;
 			},
 			canAfford(x) {
 				return this.cost(x).lte(player.multiplication.mulpower);
@@ -196,7 +196,7 @@ export const NUMTHEORY = {
 				return x.add(1);
 			},
 			effD(x) {
-				return `s<sub>1</sub> = ${formatWhole(x)}`;
+				return `s<sub>1</sub> = ${formatWhole(x.add(1))}`;
 			},
 			canAfford(x) {
 				return this.cost(x).lte(player.multiplication.mulpower);

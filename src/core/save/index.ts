@@ -36,6 +36,8 @@ type Upgrades = Record<
 	| '43'
 	| '44'
 	| '45'
+	| '46'
+	| '47'
 	| qolUpgs,
 	boolean
 >;
@@ -58,7 +60,8 @@ type Buyables = Record<
 	| '41'
 	| '42'
 	| '43'
-	| '44',
+	| '44'
+	| 'cb1',
 	Decimal
 >;
 export interface Player {
@@ -162,6 +165,8 @@ function getInitialPlayerData(): Player {
 			'43': false,
 			'44': false,
 			'45': false,
+			'46': false,
+			'47': false,
 			'400q': false,
 			'411q': false,
 			'412q': false,
@@ -207,6 +212,7 @@ function getInitialPlayerData(): Player {
 			'42': zero,
 			'43': zero,
 			'44': zero,
+			'cb1': zero,
 			pf2: zero,
 			pf3: zero,
 			pf5: zero,

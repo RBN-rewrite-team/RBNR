@@ -27,7 +27,7 @@ export const Exponention = {
 		});
 		UPGRADES.create('42', {
 			displayName: 'U3-12',
-			description: '后继运算指数+0.1',
+			description: '后继/加法运算指数+0.1',
 			cost: new Decimal(1),
 			currency: '指数能量',
 			canAfford() {
@@ -89,6 +89,60 @@ export const Exponention = {
 						[
 							formatWhole(player.exponention.totalExppower),
 							formatWhole(new Decimal(100)),
+						],
+					] as singleReq,
+				];
+			},
+			show() {
+				return true;
+			},
+			buy() {
+				player.exponention.exppower = player.exponention.exppower.sub(this.cost);
+			},
+		});
+		UPGRADES.create('46', {
+			displayName: 'U3-22',
+			description: '每秒获得1%重置时的乘法能量',
+			cost: new Decimal(100),
+			currency: '指数能量',
+			canAfford() {
+				return player.exponention.exppower.gte(this.cost);
+			},
+			get requirement() {
+				return [
+					[
+						'获得100指数能量',
+						() => player.exponention.totalExppower.gte(100),
+						[
+							formatWhole(player.exponention.totalExppower),
+							formatWhole(new Decimal(100)),
+						],
+					] as singleReq,
+				];
+			},
+			show() {
+				return true;
+			},
+			buy() {
+				player.exponention.exppower = player.exponention.exppower.sub(this.cost);
+			},
+		});
+		UPGRADES.create('47', {
+			displayName: 'U3-23',
+			description: '解锁棋盘',
+			cost: new Decimal(150),
+			currency: '指数能量',
+			canAfford() {
+				return player.exponention.exppower.gte(this.cost);
+			},
+			get requirement() {
+				return [
+					[
+						'获得300指数能量',
+						() => player.exponention.totalExppower.gte(100),
+						[
+							formatWhole(player.exponention.totalExppower),
+							formatWhole(new Decimal(300)),
 						],
 					] as singleReq,
 				];
