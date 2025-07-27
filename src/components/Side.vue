@@ -114,8 +114,8 @@ import { player } from '@/core/save';
 					</div>
 					<div
 						class="menu2"
-						:class="{ focus: player.currentTab == 10 }"
-						@click="player.currentTab = 10"
+						:class="{ focus: player.currentTab == 11 }"
+						@click="player.currentTab = 11"
 					>
 						成就
 					</div>

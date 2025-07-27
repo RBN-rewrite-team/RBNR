@@ -57,7 +57,7 @@ import Achievements from './components/tabs/Achievements.vue';
 				<Stat v-if="player.currentTab === 7" />
 				<MultipChals v-if="player.currentTab === 8" />
 				<ExpUpgrades v-if="player.currentTab === 9" />
-				<Achievements v-if="player.currentTab === 10" />
+				<Achievements v-if="player.currentTab === 11" />
 				<div class="main" v-if="player.currentTab === 3">
 					<h1>大数之路重制版</h1>
 					版本: v0.1.1<br />
