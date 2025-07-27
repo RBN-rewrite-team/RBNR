@@ -68,7 +68,8 @@ type Buyables = Record<
 	Decimal
 >;
 type Milestones = Record<
-  "cb1",
+  "cb1"|"cb2"|"cb3"|"cb4"|"cb5"
+  |"log_law1",
 	boolean
 >;
 export interface Player {
@@ -238,7 +239,12 @@ function getInitialPlayerData(): Player {
 			lgr_impr: zero,
 		},
 		milestones: {
-		  "cb1": false
+		  "cb1": false,
+		  "cb2": false,
+		  "cb3": false,
+		  "cb4": false,
+		  "cb5": false,
+		  "log_law1": false,
 		},
 		buyable11More: zero,
 		automationCD: {
