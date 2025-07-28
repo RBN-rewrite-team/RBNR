@@ -39,6 +39,7 @@ type Upgrades = Record<
 	| '45'
 	| '46'
 	| '47'
+	| '48'
 	| qolUpgs,
 	boolean
 >;
@@ -68,7 +69,8 @@ type Buyables = Record<
 	Decimal
 >;
 type Milestones = Record<
-  "cb1",
+  "cb1"|"cb2"|"cb3"|"cb4"|"cb5"
+  |"log_law1",
 	boolean
 >;
 export interface Player {
@@ -180,6 +182,7 @@ function getInitialPlayerData(): Player {
 			'45': false,
 			'46': false,
 			'47': false,
+			'48': false,
 			'400q': false,
 			'411q': false,
 			'412q': false,
@@ -238,7 +241,12 @@ function getInitialPlayerData(): Player {
 			lgr_impr: zero,
 		},
 		milestones: {
-		  "cb1": false
+		  "cb1": false,
+		  "cb2": false,
+		  "cb3": false,
+		  "cb4": false,
+		  "cb5": false,
+		  "log_law1": false,
 		},
 		buyable11More: zero,
 		automationCD: {

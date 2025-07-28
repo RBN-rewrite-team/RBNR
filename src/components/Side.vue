@@ -99,7 +99,7 @@ import { player } from '@/core/save';
 							class="menu2"
 							:class="{ focus: player.currentTab == 12}"
 							@click="player.currentTab = 12"
-							v-if="false"
+							v-if="player.milestones.cb5"
 						>
 							对数运算
 						</div>
