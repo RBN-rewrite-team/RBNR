@@ -211,7 +211,9 @@ export const Successor = {
 			meta: 1
 		});
 	},
-
+	/**
+	 * @param bulk 点击多少次后继按钮，默认为1就是用户手动点击
+	 */
 	success(bulk = 1) {
 		let adding = this.successorBulk().pow(this.successorPow()).mul(bulk);
 		if (player.exponention.logarithm.in_dilate) {
@@ -230,11 +232,18 @@ export const Successor = {
 		player.totalNumber = player.totalNumber.add(adding.max(0));
 		player.stat.totalNumber = player.stat.totalNumber.add(adding.max(0));
 	},
+	/**
+	 * @returns 每秒点击多少次后继按钮
+	 */
 	autoSuccessPerSecond() {
 		let base = new Decimal(0);
 		base = base.add(buyables['11'].effect(player.buyables['11']));
 		return base;
 	},
+	/**
+	 * successorBulk函数，
+	 * 获取每点击一次获得多少
+	 */
 	successorBulk() {
 		let base = new Decimal(1);
 		if (player.upgrades['12']) base = base.add(upgrades['12'].effect?.() ?? 0);
@@ -273,6 +282,10 @@ export const Successor = {
 		if (player.upgrades[47]) base = base.pow(feature.ChessBoard.wgEffect()[0]);
 		return base;
 	},
+	/**
+	 * 
+	 * @returns 对数值获取取多少次方
+	 */
 	successorPow() {
 		let base = new Decimal(1);
 		if (player.upgrades[42]) base = base.add(0.1);

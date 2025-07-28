@@ -43,6 +43,9 @@ export function qolLoop() {
 		player.buyables[33] = new Decimal(99);
 	}
 }
+/**
+ * 游戏的循环函数（并不是主要的）
+ */
 export function gameLoop() {
 	if(player.frozen && !player.run_a_tick_and_froze) return;
 	diff = Date.now() - player.lastUpdated;
@@ -67,11 +70,18 @@ export function gameLoop() {
 		player.run_a_tick_and_froze=false;
 	}
 }
+/**
+ * 游戏的主要循环函数，
+ * @param diff 毫秒数，游戏要运行多少毫秒
+ */
 export function simulate(diff: number) {
 	CHALLENGE.challengeLoop();
 	if (feature.SUCCESSOR.autoSuccessPerSecond().gte(0.001)) {
 		player.automationCD.successor += diff;
+
+		//每几秒点击一次后继按钮
 		let cd = new Decimal(1000).div(feature.SUCCESSOR.autoSuccessPerSecond());
+
 		if (cd.lt(player.automationCD.successor)) {
 			let bulk = Math.floor(player.automationCD.successor / Number(cd));
 			player.automationCD.successor %= Number(cd);
@@ -79,12 +89,12 @@ export function simulate(diff: number) {
 		}
 	}
 
-	if (feature.resourceGain.addpower().passive.gt(0) &&!player.exponention.logarithm.in_dilate) {
+	if (feature.resourceGain.addpower().passive.gt(0)) {
 		let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.addpower().passive);
 		feature.ADDITION.addpower_gain(bulk);
 	}
 	
-	if (feature.resourceGain.mulpower().passive.gt(0) &&!player.exponention.logarithm.in_dilate) {
+	if (feature.resourceGain.mulpower().passive.gt(0)) {
 		let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.mulpower().passive);
 		feature.MULTIPLICATION.mulpower_gain(bulk)
 	}
