@@ -9,11 +9,7 @@ import TRMilestone from '../TRMilestone.vue';
   <div class="main">
     <p style="color: grey; table-align: center">古时候，有一位国王想要犒赏一位聪明的大臣，奖赏他发明了国际象棋……</p>
       你有 <b style="color: rgb(127, 127, 255); font-size: 25px">{{ formatWhole(feature.ChessBoard.wheatGrain().round()) }}</b> 麦粒，
-<<<<<<< HEAD
       使数值^<b style="color: rgb(127, 127, 255);">{{ format(feature.ChessBoard.wgEffect()[0]) }}</b>, 加法能量×<b style="color: rgb(127, 127, 255);">{{ format(feature.ChessBoard.wgEffect()[3]) }}</b>,^<b style="color: rgb(127, 127, 255);">{{ format(feature.ChessBoard.wgEffect()[1]) }}</b>, 乘法能量^<b style="color: rgb(127, 127, 255);">{{ format(feature.ChessBoard.wgEffect()[2]) }}</b>，乘法能量溢出的效果×<b style="color: rgb(127,127,255);">{{format(feature.ChessBoard.wgEffect()[4])}}</b>
-=======
-      使数值^<b style="color: rgb(127, 127, 255);">{{ format(feature.ChessBoard.wgEffect()[0]) }}</b>, 加法能量×<b style="color: rgb(127, 127, 255);">{{ format(feature.ChessBoard.wgEffect()[3]) }}</b>,^<b style="color: rgb(127, 127, 255);">{{ format(feature.ChessBoard.wgEffect()[1]) }}</b>, 乘法能量^<b style="color: rgb(127, 127, 255);">{{ format(feature.ChessBoard.wgEffect()[2]) }}</b>
->>>>>>> origin/develop
     <p align="center">当前格子底数：{{format(feature.ChessBoard.base())}}</p>
     <div align="center">
       <table>
@@ -62,6 +58,10 @@ import TRMilestone from '../TRMilestone.vue';
           <TRMilestone id="cb4" />
           <TRMilestone id="cb5" />
           <TRMilestone id="cb6" />
+          <TRMilestone id="cb7" />
+          <TRMilestone id="cb8" />
+          <TRMilestone id="cb9" />
+          <TRMilestone id="cb10" />
         </tbody>
       </table>
     </div>
