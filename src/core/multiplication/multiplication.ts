@@ -5,6 +5,7 @@ import ModalService from '@/utils/Modal';
 import { format, formatWhole } from '@/utils/format';
 import { Addition } from '../addition/addition.ts';
 import { PrimeFactor } from './pf.ts';
+import { wgEffect } from '../exponention/chessboard.ts';
 import { CHALLENGE } from '../challenge.ts';
 import { MULTI_CHALS } from './challenges.ts';
 import { feature } from '../global.ts';
@@ -404,7 +405,11 @@ export const Multiplication = {
 			name: 'mulpower^1',
 			fluid: true,
 			start: new Decimal("e5e6"),
-			exponent: new Decimal(0.4),
+			get exponent(){
+			    let base = new Decimal(2.5);
+			    if(player.upgrades[47]) base = base.pow(wgEffect()[4]);
+			    return new Decimal(1).div(base);
+			},
 			meta: 1
 		});
 	},

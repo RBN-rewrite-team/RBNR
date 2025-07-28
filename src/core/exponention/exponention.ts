@@ -294,6 +294,7 @@ export const Exponention = {
 	},
 	reset(force = false, dilate=false) {
 		if (this.gain().gt(0) || force) {
+		    let gain = this.gain();
 			player.exponention.exppower = player.exponention.exppower.add(this.gain());
 			player.exponention.totalExppower = player.exponention.totalExppower.add(this.gain());
 			player.stat.totalExppower = player.stat.totalExppower.add(this.gain());
