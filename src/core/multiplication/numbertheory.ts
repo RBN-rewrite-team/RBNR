@@ -370,6 +370,97 @@ export const NUMTHEORY = {
 				player.buyables['38R'] = player.buyables['38R'].add(this?.canBuy?.() ?? 0);
 			},
 		});
+  BUYABLES.create('41R', {
+			description: 'x<sub>2,1</sub> += 等级',
+			cost(x) {
+				return x.pow_base(1.5).mul(10);
+			},
+			displayName: 'B3-R1-1',
+			effect(x) {
+				return x.mul(x.add(1)).div(2);
+			},
+			effD(x) {
+				return `x<sub>2,1</sub> = ${format(this.effect(x))}`;
+			},
+			canAfford(x) {
+				return this.cost(x).lte(player.exponention.exppower);
+			},
+			buy(x) {
+				player.exponention.exppower = player.exponention.exppower.sub(this.cost(x));
+			},
+			capped() {
+				return false;
+			},
+			currency: '指数能量',
+			show() {
+				return true;
+			},
+			requirement: [],
+			canBuyMax() {
+				return false;
+			},
+			autoBuyMax() {
+				return false;
+			},
+			canBuy() {
+				return player.exponention.exppower
+					.div(10)
+					.max(1)
+					.log(1.5)
+					.add(1)
+					.floor()
+					.sub(player.buyables['41R']);
+			},
+			buyMax() {
+				player.buyables['41R'] = player.buyables['41R'].add(this?.canBuy?.() ?? 0);
+			},
+		});
+		BUYABLES.create('42R', {
+			description: 'x<sub>2,2</sub>→x<sub>2,2</sub>+0.2',
+			cost(x) {
+				return x.pow(2).pow_base(3).mul(4000);
+			},
+			displayName: 'B3-R1-2',
+			effect(x) {
+				return x.mul(0.2).add(1)
+			},
+			effD(x) {
+				return `x<sub>2,2</sub> = ${format(this.effect(x))}`;
+			},
+			canAfford(x) {
+				return this.cost(x).lte(player.exponention.exppower);
+			},
+			buy(x) {
+				player.exponention.exppower = player.exponention.exppower.sub(this.cost(x));
+			},
+			capped() {
+				return false;
+			},
+			currency: '指数能量',
+			show() {
+				return true;
+			},
+			requirement: [],
+			canBuyMax() {
+				return false;
+			},
+			autoBuyMax() {
+				return false;
+			},
+			canBuy() {
+				return player.exponention.exppower
+					.div(4000)
+					.max(1)
+					.log(3)
+					.root(2)
+					.add(1)
+					.floor()
+					.sub(player.buyables['42R']);
+			},
+			buyMax() {
+				player.buyables['42R'] = player.buyables['42R'].add(this?.canBuy?.() ?? 0);
+			},
+		});
 		UPGRADES.create('31R', {
 			description: '将u<sub>1</sub>加入x获取速度公式',
 			displayName: 'U2-R1-1',
@@ -510,6 +601,11 @@ export const NUMTHEORY = {
 	},
 	tau2() {
 		return this.tau2A();
+	},
+	varX2gain() {
+	    let base = new Decimal(0);
+	    if(player.buyables['41R'].gte(1)) base = base.add(buyables['41R'].effect(player.buyables['41R'])).pow(buyables['42R'].effect(player.buyables['42R']));
+	    return base;
 	},
 };
 

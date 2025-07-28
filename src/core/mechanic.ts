@@ -37,9 +37,19 @@ type IUpgrade = {
 	  }
 );
 export const UPGRADES = {
+	/**
+	 * 创建一个升级
+	 * @param id 升级的id
+	 * @param info 升级的信息，传入IUpgrade
+	 */
 	create(id: keyof typeof player.upgrades, info: IUpgrade) {
 		upgrades[id] = info;
 	},
+	/**
+	 * 判断页面显示逻辑用的函数
+	 * @param id 升级的id
+	 * @returns 一个对象，字段show是这个函数是否显示，unlocked是是否解锁，字段reach是是否达到解锁要求
+	 */
 	lock(id: keyof typeof player.upgrades) {
 		let req = upgrades[id].requirement;
 		let reach: { [key: string]: boolean } = {},
@@ -50,6 +60,11 @@ export const UPGRADES = {
 		}
 		return { show: upgrades[id].show(), unlocked: flag, reach: reach };
 	},
+	/**
+	 * @param id 升级的id
+	 * @returns 返回升级对应的html
+	 * @deprecated 此函数已被分裂至src/components/TDUpgrade.vue
+	 */
 	singleHTML(id: keyof typeof player.upgrades) {
 		let useclass = 'upgrade_buttonbig';
 		if (id.startsWith('4') && id.endsWith('q')) useclass = 'upgrade_buttonsmall';
@@ -82,6 +97,10 @@ export const UPGRADES = {
 		str += '</div>';
 		return str;
 	},
+	/**
+	 * 购买一个函数
+	 * @param id 升级的id
+	 */
 	buy(id: keyof typeof player.upgrades) {
 		if (!player.upgrades[id] && this.lock(id).unlocked && upgrades[id].canAfford()) {
 			upgrades[id].buy();
@@ -175,7 +194,7 @@ export const BUYABLES = {
 				'价格：' +
 				format(buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0)))) +
 				buyables[id].currency +
-				(canBuy.gt(0) ? '(买' + formatWhole(canBuy) + '个)' : '') +
+				(canBuy.gte(1) ? '(买' + formatWhole(canBuy) + '个)' : '') +
 				'<br>';
 		}
 		str += '</div>';
@@ -209,6 +228,14 @@ type ISoftcap = {
 	meta?: number;
 };
 
+/**
+ * 计算数值溢出
+ * @param number 被溢出的数
+ * @param start 从哪里开始溢出
+ * @param power 溢出的效果
+ * @param meta 不知道
+ * @returns 溢出后的数
+ */
 function overflow(number: Decimal, start: DecimalSource, power: DecimalSource, meta=1) {
 	if (isNaN(number.mag)) return new Decimal(0)
 	start = new Decimal(start)
@@ -249,9 +276,22 @@ export const SOFTCAPS = {
 	create(id: string, info: ISoftcap) {
 		softcaps[id] = info;
 	},
+	/**
+	 * 是否达到软上限
+	 * @param id 软上限对应的id
+	 * @param existing 被软上限的数值
+	 * @returns 是否达到软上限
+	 */
 	reach(id: string, existing: Decimal) {
 		return existing.gte(softcaps[id].start);
 	},
+	/**
+	 * 基于获取和当前数值的软上限
+	 * @param id 软上限id
+	 * @param getting 获取数值
+	 * @param existing 当前数值
+	 * @returns 被软上线获取数值
+	 */
 	fluidComputed(id: string, getting: Decimal, existing: Decimal) {
 		if (!this.reach(id, existing)) {
 			if (this.reach(id, existing.add(getting))) {
@@ -264,6 +304,12 @@ export const SOFTCAPS = {
 		let base = overflowInversed(existing, s.start, s.exponent, s.meta ?? 0)
 		return overflow(base.add(getting), s.start, s.exponent, s.meta ?? 0).sub(existing);
 	},
+	/**
+	 * 基于获取的软上限
+	 * @param id 软上限id
+	 * @param getting 获取数值
+	 * @returns 被软上线获取数值
+	 */
 	staticComputed(id: string, getting: Decimal) {
 		if (!this.reach(id, getting)) return getting;
 		if (softcaps[id].fluid) throw new Error('type error');

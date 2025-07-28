@@ -58,6 +58,8 @@ type Buyables = Record<
 	| '36R'
 	| '37R'
 	| '38R'
+    | '41R'
+    | '42R'
 	| PrimeFactorTypes
 	| '41'
 	| '42'
@@ -87,6 +89,7 @@ export interface Player {
 		successor: number;
 	};
 	numbertheory: {
+	    visiting: number;
 		euler: {
 			x: Decimal;
 			y: Decimal;
@@ -229,6 +232,8 @@ function getInitialPlayerData(): Player {
 			'36R': zero,
 			'37R': zero,
 			'38R': zero,
+			'41R': zero,
+			'42R': zero,
 			'41': zero,
 			'42': zero,
 			'43': zero,
@@ -262,6 +267,7 @@ function getInitialPlayerData(): Player {
 			successor: 0,
 		},
 		numbertheory: {
+		    visiting: 1,
 			euler: {
 				x: new Decimal(1),
 				y: new Decimal(1),
