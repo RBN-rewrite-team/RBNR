@@ -11,7 +11,9 @@ export function base() {
 }
   
 export function maxBlocks() {
-  return player.buyables.cb1.add(1)
+  let mb = player.buyables.cb1.add(1)
+	if (player.milestones.cb6) mb = mb.mul(player.exponention.exppower.pow(0.666).add(10).log10().log10().add(1).floor())
+  return mb;
 }
 
 export function initMechanics() {
@@ -98,6 +100,18 @@ export function initMechanics() {
 		return "解锁对数运算"
 	  } ,
 	  requirement: new Decimal(1e11),
+	  get canDone() {
+	    return wheatGrain().gte(this.requirement)
+	  },
+	  show: true,
+	  currency: "麦粒"
+	})
+	MILESTONES.create("cb6", {
+	  displayName: "M-CB-6",
+	  get description(){
+		return "棋盘格数×floor(log^2_10(指数能量^0.5＋10))"
+	  } ,
+	  requirement: new Decimal(1e18),
 	  get canDone() {
 	    return wheatGrain().gte(this.requirement)
 	  },

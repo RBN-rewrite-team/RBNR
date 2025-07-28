@@ -5,6 +5,7 @@ import ModalService from '@/utils/Modal';
 import { format, formatWhole } from '@/utils/format';
 import { Multiplication } from '../multiplication/multiplication.ts';
 import { CHALLENGE } from '../challenge.ts';
+import { Logarithm } from './logarithm.ts';
 const D179E308 = Decimal.pow(2, 1024);
 
 export const Exponention = {
@@ -371,6 +372,7 @@ export const Exponention = {
 		if (player.upgrades[48]) exp = new Decimal(0.6)
 		let base = player.multiplication.totalMulpower.log(2).pow(exp).div(32);
 		if (player.milestones.cb4) base = base.mul(10)
+		if (player.milestones.log_law2) base = base.mul(Logarithm.logarithm.calculate_datas.log2())
 		return base.floor();
 	},
 	powerEff() {

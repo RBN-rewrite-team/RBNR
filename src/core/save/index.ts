@@ -69,8 +69,8 @@ type Buyables = Record<
 	Decimal
 >;
 type Milestones = Record<
-  "cb1"|"cb2"|"cb3"|"cb4"|"cb5"
-  |"log_law1",
+  "cb1"|"cb2"|"cb3"|"cb4"|"cb5"|"cb6"
+  |"log_law1"|"log_law2"|"log_law3",
 	boolean
 >;
 export interface Player {
@@ -246,7 +246,10 @@ function getInitialPlayerData(): Player {
 		  "cb3": false,
 		  "cb4": false,
 		  "cb5": false,
+		  "cb6": false,
 		  "log_law1": false,
+		  "log_law2": false,
+		  "log_law3": false,
 		},
 		buyable11More: zero,
 		automationCD: {
