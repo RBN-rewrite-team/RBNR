@@ -3,6 +3,7 @@ import type { DecimalSource } from 'break_eternity.js';
 import { player } from './save';
 import { feature } from './global.ts';
 import { format, formatWhole } from '@/utils/format';
+import { reactive } from "vue"
 
 var upgrades: {
 		[key: string]: IUpgrade;
@@ -174,7 +175,7 @@ export const BUYABLES = {
 				'价格：' +
 				format(buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0)))) +
 				buyables[id].currency +
-				(canBuy.gt(0) ? '(买' + formatWhole(canBuy) + '个)' : '') +
+				(canBuy.gte(1) ? '(买' + formatWhole(canBuy) + '个)' : '') +
 				'<br>';
 		}
 		str += '</div>';

@@ -39,6 +39,7 @@ type Upgrades = Record<
 	| '45'
 	| '46'
 	| '47'
+	| '48'
 	| qolUpgs,
 	boolean
 >;
@@ -57,6 +58,8 @@ type Buyables = Record<
 	| '36R'
 	| '37R'
 	| '38R'
+    | '41R'
+    | '42R'
 	| PrimeFactorTypes
 	| '41'
 	| '42'
@@ -68,7 +71,8 @@ type Buyables = Record<
 	Decimal
 >;
 type Milestones = Record<
-  "cb1",
+  "cb1"|"cb2"|"cb3"|"cb4"|"cb5"
+  |"log_law1",
 	boolean
 >;
 export interface Player {
@@ -85,6 +89,7 @@ export interface Player {
 		successor: number;
 	};
 	numbertheory: {
+	    visiting: number;
 		euler: {
 			x: Decimal;
 			y: Decimal;
@@ -180,6 +185,7 @@ function getInitialPlayerData(): Player {
 			'45': false,
 			'46': false,
 			'47': false,
+			'48': false,
 			'400q': false,
 			'411q': false,
 			'412q': false,
@@ -221,6 +227,8 @@ function getInitialPlayerData(): Player {
 			'36R': zero,
 			'37R': zero,
 			'38R': zero,
+			'41R': zero,
+			'42R': zero,
 			'41': zero,
 			'42': zero,
 			'43': zero,
@@ -238,13 +246,19 @@ function getInitialPlayerData(): Player {
 			lgr_impr: zero,
 		},
 		milestones: {
-		  "cb1": false
+		  "cb1": false,
+		  "cb2": false,
+		  "cb3": false,
+		  "cb4": false,
+		  "cb5": false,
+		  "log_law1": false,
 		},
 		buyable11More: zero,
 		automationCD: {
 			successor: 0,
 		},
 		numbertheory: {
+		    visiting: 1,
 			euler: {
 				x: new Decimal(1),
 				y: new Decimal(1),

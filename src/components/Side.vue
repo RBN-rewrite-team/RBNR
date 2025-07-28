@@ -92,6 +92,7 @@ import { player } from '@/core/save';
 							class="menu2"
 							:class="{ focus: player.currentTab == 10 }"
 							@click="player.currentTab = 10"
+							v-if="player.upgrades[47]"
 						>
 							棋盘
 						</div>
@@ -99,7 +100,7 @@ import { player } from '@/core/save';
 							class="menu2"
 							:class="{ focus: player.currentTab == 12}"
 							@click="player.currentTab = 12"
-							v-if="false"
+							v-if="player.milestones.cb5"
 						>
 							对数运算
 						</div>

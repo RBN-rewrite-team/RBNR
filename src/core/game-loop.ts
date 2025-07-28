@@ -47,18 +47,19 @@ export function gameLoop() {
 	diff = Date.now() - player.lastUpdated;
 	if (diff < 0) return;
 	player.lastUpdated = Date.now();
-	qolLoop();
+	
 	try {
 	  simulate(diff)
 	} catch (e) {
 	  throw e
 	};
 	if (diff > 60000) {
-		return;
 		simulateTime(diff);
+		return;
 	}
 }
 export function simulate(diff: number) {
+    qolLoop();
 	CHALLENGE.challengeLoop();
 	if (feature.SUCCESSOR.autoSuccessPerSecond().gte(0.001)) {
 		player.automationCD.successor += diff;
@@ -120,6 +121,10 @@ export function simulate(diff: number) {
 		player.numbertheory.euler.s = player.numbertheory.euler.s
 			.add(NUMTHEORY.tickspeedGain().mul(diff).mul(1e-3))
 			.max(1);
+	}
+	if (player.upgrades[45]) {
+	    let dPf2TimeDecimal = new Decimal(diff);
+	    player.numbertheory.rational_approx.n = player.numbertheory.rational_approx.n.add(NUMTHEORY.varX2gain().mul(diff).mul(1e-3)).max(1);
 	}
 	Logarithm.astronomerUpdate();
 	updateHighestStat();

@@ -154,6 +154,33 @@ export const Exponention = {
 				player.exponention.exppower = player.exponention.exppower.sub(this.cost);
 			},
 		});
+		UPGRADES.create('48', {
+			displayName: 'U3-24',
+			description: '改进指数能量获取公式',
+			cost: new Decimal(10000),
+			currency: '指数能量',
+			canAfford() {
+				return player.exponention.exppower.gte(this.cost);
+			},
+			get requirement() {
+				return [
+					[
+						'获得10000指数能量',
+						() => player.exponention.totalExppower.gte(1e4),
+						[
+							formatWhole(player.exponention.totalExppower),
+							formatWhole(new Decimal(1e4)),
+						],
+					] as singleReq,
+				];
+			},
+			show() {
+				return true;
+			},
+			buy() {
+				player.exponention.exppower = player.exponention.exppower.sub(this.cost);
+			},
+		});
 		BUYABLES.create('41', {
 			displayName: 'B3-1',
 			description: '因数能量^1.05',
@@ -265,6 +292,7 @@ export const Exponention = {
 	},
 	reset(force = false) {
 		if (this.gain().gt(0) || force) {
+		    let gain = this.gain();
 			player.exponention.exppower = player.exponention.exppower.add(this.gain());
 			player.exponention.totalExppower = player.exponention.totalExppower.add(this.gain());
 			player.stat.totalExppower = player.stat.totalExppower.add(this.gain());
@@ -340,7 +368,10 @@ export const Exponention = {
 	},
 	gain() {
 		if (player.multiplication.totalMulpower.lt(D179E308)) return new Decimal(0);
-		let base = player.multiplication.totalMulpower.log(2).root(2).div(32);
+		let exp = new Decimal(0.5)
+		if (player.upgrades[48]) exp = new Decimal(0.6)
+		let base = player.multiplication.totalMulpower.log(2).pow(exp).div(32);
+		if (player.milestones.cb4) base = base.mul(10)
 		return base.floor();
 	},
 	powerEff() {

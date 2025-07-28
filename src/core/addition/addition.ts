@@ -315,6 +315,13 @@ export const Addition = {
 			exponent: new Decimal(0.5),
 			meta: 1
 		});
+		SOFTCAPS.create('addpower^5', {
+			name: 'addpower^5',
+			fluid: true,
+			start: new Decimal('ee14'),
+			exponent: new Decimal(0.5),
+			meta: 1
+		});
 	},
 	addpower_gain(bulk = new Decimal(1)) {
 		let adding = this.gain().mul(bulk);
@@ -322,6 +329,7 @@ export const Addition = {
 		adding = SOFTCAPS.fluidComputed('addpower^2', adding, player.addpower);
 		adding = SOFTCAPS.fluidComputed('addpower^3', adding, player.addpower);
 		adding = SOFTCAPS.fluidComputed('addpower^4', adding, player.addpower);
+		adding = SOFTCAPS.fluidComputed('addpower^5', adding, player.addpower);
 		if (CHALLENGE.inChallenge(0, 3)) {
 			adding = adding.mul(predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1);
 		}

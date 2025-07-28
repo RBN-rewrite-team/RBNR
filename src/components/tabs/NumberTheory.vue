@@ -34,15 +34,27 @@ function zGainLatex() {
 function sGainLatex() {
 	return `\\dot{s} = s_1 = ` + formatLaTeX(NUMTHEORY.tickspeedGain());
 }
+function x2GainLatex() {
+    return '\\dot{n} = x_{2,1}^{x_{2,2}} = ' + formatLaTeX(NUMTHEORY.varX2gain());
+}
 </script>
 
 <template>
 	<div class="main">
 		<div style="transform: translateY(60px)">
-			<h1>数论研究</h1>
+			
+			<div class="clickable_button" style="position: absolute"
+			@mousedown="player.numbertheory.visiting = Math.max(player.numbertheory.visiting - 1, 1)">
+			    -
+			</div>
+		    <div class="clickable_button" style="position: absolute; left: 60px"
+		    @mousedown="player.numbertheory.visiting = Math.min(player.numbertheory.visiting + 1, 9)">
+			    +
+			</div>
+			<h1>数论研究{{player.numbertheory.visiting}}</h1>
 			<div class="center_line" />
-			<div>
-				<h2>研究 1：欧拉函数</h2>
+			<div v-if="player.numbertheory.visiting == 1">
+				<h2>欧拉函数</h2>
 				<vue-latex
 					expression="\varphi(n) = n \prod_{p | n} \left(1 - \frac{1}{p}\right)"
 					display-mode
@@ -98,9 +110,8 @@ function sGainLatex() {
 					</tbody>
 				</table>
 			</div>
-			<div v-if="player.upgrades[45]" style="transform: translateY(100px)" align="center">
-				<div class="center_line" />
-				<h2>研究 2：有理逼近</h2>
+			<div v-if="player.upgrades[45] && player.numbertheory.visiting == 2" align="center">
+				<h2>有理逼近</h2>
 				<vue-latex expression="a_1 = 1, a_n = \frac{a_{n-1}+2}{a_{n-1}+1}" display-mode />
 				<vue-latex
 					:expression="'\\tau_{2} = \\tau_{2A} = ' + formatLaTeX(NUMTHEORY.tau2())"
@@ -117,6 +128,7 @@ function sGainLatex() {
 					:expression="'n = ' + formatLaTeXWhole(player.numbertheory.rational_approx.n)"
 					display-mode
 				/>
+				<vue-latex :expression="x2GainLatex()" display-mode />
 				<p style="font-size: 120%">
 					<b
 						>研究2加成：质因数效果^<vue-latex
@@ -132,6 +144,12 @@ function sGainLatex() {
 				>
 					增加n的数值
 				</button>
+				<table>
+				    <tr>
+				        <TDBuyable bylid="41R" />
+				        <TDBuyable bylid="42R" />
+				    </tr>
+				</table>
 			</div>
 		</div>
 		<br />

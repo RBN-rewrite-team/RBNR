@@ -39,7 +39,7 @@ const feature = {
 		addpower() {
 			let base = feature.ADDITION.gain();
 			let softcaps = 0,
-				scList = ['addpower^1', 'addpower^2', 'addpower^3', 'addpower^4'];
+				scList = ['addpower^1', 'addpower^2', 'addpower^3', 'addpower^4', 'addpower^5'];
 			for (let i = 0; i < scList.length; i++) {
 				if (SOFTCAPS.reach(scList[i], player.addpower)) {
 					softcaps++;

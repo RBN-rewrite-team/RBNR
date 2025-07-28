@@ -6,6 +6,7 @@ import { format, formatWhole } from '@/utils/format';
 export function base() {
   let base = new Decimal(2)
   if (player.milestones.cb1) base = new Decimal(3)
+	if (player.milestones.cb3) base = base.add(buyables.cb1.effect(player.buyables.cb1).pow(0.15).sub(1).max(0))
   return base
 }
   
@@ -24,7 +25,11 @@ export function initMechanics() {
 				return formatWhole(this.effect(x));
 			},
 			cost(x) {
-				return x.pow_base(2).mul(100);
+				let c = x.pow_base(2).mul(100);
+				if (player.milestones.cb2) {
+					c = x.pow(0.99).pow_base(1.85).mul(100);
+				}
+				return c;
 			},
 			currency: '指数能量',
 			canAfford(x) {
@@ -51,6 +56,54 @@ export function initMechanics() {
 	  show: true,
 	  currency: "麦粒"
 	})
+	MILESTONES.create("cb2", {
+	  displayName: "M-CB-2",
+	  get description(){
+		return "更好的棋盘格价格公式"
+	  } ,
+	  requirement: new Decimal(8000),
+	  get canDone() {
+	    return wheatGrain().gte(this.requirement)
+	  },
+	  show: true,
+	  currency: "麦粒"
+	})
+	MILESTONES.create("cb3", {
+	  displayName: "M-CB-3",
+	  get description(){
+		return "基于格子数加成麦粒数量底数"
+	  } ,
+	  requirement: new Decimal(8e5),
+	  get canDone() {
+	    return wheatGrain().gte(this.requirement)
+	  },
+	  show: true,
+	  currency: "麦粒"
+	})
+	MILESTONES.create("cb4", {
+	  displayName: "M-CB-4",
+	  get description(){
+		return "倍增指数能量x10"
+	  } ,
+	  requirement: new Decimal(1e10),
+	  get canDone() {
+	    return wheatGrain().gte(this.requirement)
+	  },
+	  show: true,
+	  currency: "麦粒"
+	})
+	MILESTONES.create("cb5", {
+	  displayName: "M-CB-5",
+	  get description(){
+		return "解锁对数运算"
+	  } ,
+	  requirement: new Decimal(1e11),
+	  get canDone() {
+	    return wheatGrain().gte(this.requirement)
+	  },
+	  show: true,
+	  currency: "麦粒"
+	})
 }
 
 export function wheatGrain() {
@@ -67,7 +120,8 @@ export function wgEffect() {
   let eff2 = wg.log10().div(5).add(1)
   let eff3 = wg.log10().div(10).add(1).pow(5)
   let eff4 = wg.pow(2).pow_base(4)
+  let eff5 = new Decimal(1).div(wg.add(1).ln().add(1).ln().root(2).div(1.5).add(1))
   if (eff1.gte(4)) eff1 = eff1.div(4).pow(0.5).mul(4)
-  if (eff3.gte(3)) eff1 = eff1.div(3).pow(0.3).mul(3)
-  return [eff1, eff2, eff3, eff4]
+  if (eff3.gte(3)) eff3 = eff3.div(3).pow(0.3).mul(3)
+  return [eff1, eff2, eff3, eff4, eff5]
 }
