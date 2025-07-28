@@ -415,9 +415,6 @@ export const Multiplication = {
 	},
 	mulpower_gain(bulk = new Decimal(1)) {
 	  let adding = this.gain().mul(bulk);
-		if (player.exponention.logarithm.in_dilate) {
-			adding = adding.add(10).ln().ln()
-		}
 	  adding = SOFTCAPS.fluidComputed('mulpower^1', adding, player.multiplication.mulpower);
 	  player.multiplication.mulpower = player.multiplication.mulpower.add(adding);
 		player.multiplication.totalMulpower = player.multiplication.totalMulpower.add(
@@ -474,6 +471,10 @@ export const Multiplication = {
 
 		if (player.firstResetBit & 0b100) base = base.pow(buyables[44].effect(player.buyables[44]));
 		if (player.upgrades[47]) base = base.pow(feature.ChessBoard.wgEffect()[0]);
+
+		if (player.exponention.logarithm.in_dilate) {
+			base = base.add(10).ln()
+		}
 
 		return base.floor();
 	},

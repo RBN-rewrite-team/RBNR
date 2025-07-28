@@ -326,7 +326,7 @@ export const Addition = {
 	addpower_gain(bulk = new Decimal(1)) {
 		let adding = this.gain().mul(bulk);
 		if (player.exponention.logarithm.in_dilate) {
-			adding = adding.add(10).ln().ln()
+			adding = adding.add(10).ln().ln().mul(10)
 		}
 		adding = SOFTCAPS.fluidComputed('addpower^1', adding, player.addpower);
 		adding = SOFTCAPS.fluidComputed('addpower^2', adding, player.addpower);

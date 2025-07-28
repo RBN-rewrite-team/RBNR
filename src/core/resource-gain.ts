@@ -30,7 +30,7 @@ export const resourceGain = {
     addpower() {
         let base = feature.ADDITION.gain();
 		if (player.exponention.logarithm.in_dilate) {
-			base = base.add(10).ln().ln()
+			base = base.add(10).ln().ln().mul(10)
 		}
         let softcaps = 0,
             scList = ['addpower^1', 'addpower^2', 'addpower^3', 'addpower^4', 'addpower^5'];
