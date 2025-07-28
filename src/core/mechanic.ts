@@ -3,6 +3,7 @@ import type { DecimalSource } from 'break_eternity.js';
 import { player } from './save';
 import { feature } from './global.ts';
 import { format, formatWhole } from '@/utils/format';
+import { reactive } from "vue"
 
 var upgrades: {
 		[key: string]: IUpgrade;

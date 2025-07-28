@@ -456,7 +456,7 @@ export const Multiplication = {
 	gain() {
 		if (player.totalAddpower.lt(3125)) return new Decimal(0);
 		if (CHALLENGE.inChallenge(0, 3) && player.totalAddpower.lt(D179E308)) return new Decimal(0);
-		let base = player.totalAddpower.sub(3125).pow(0.1);
+		let base = player.totalAddpower.sub(3124).pow(0.1);
 		if (CHALLENGE.inChallenge(0, 3)) base = player.totalAddpower.div(D179E308).pow(1 / 1024);
 		if (player.buyables[32].gt(0)) base = base.mul(buyables[32].effect(player.buyables[32]));
 		if (CHALLENGE.amountChallenge(0, 3).gt(0) && !CHALLENGE.inChallenge(0, 3)) {
