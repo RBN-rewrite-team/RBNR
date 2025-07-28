@@ -11,7 +11,9 @@ export function base() {
 }
   
 export function maxBlocks() {
-  return player.buyables.cb1.add(1)
+  let mb = player.buyables.cb1.add(1)
+	if (player.milestones.cb6) mb = mb.mul(player.exponention.exppower.pow(0.666).add(10).log10().log10().add(1).floor())
+  return mb;
 }
 
 export function initMechanics() {
@@ -104,6 +106,18 @@ export function initMechanics() {
 	  show: true,
 	  currency: "麦粒"
 	})
+	MILESTONES.create("cb6", {
+	  displayName: "M-CB-6",
+	  get description(){
+		return "棋盘格数×floor(log^2_10(指数能量^0.5＋10))"
+	  } ,
+	  requirement: new Decimal(1e18),
+	  get canDone() {
+	    return wheatGrain().gte(this.requirement)
+	  },
+	  show: true,
+	  currency: "麦粒"
+	})
 }
 
 export function wheatGrain() {
@@ -123,5 +137,8 @@ export function wgEffect() {
   let eff5 = new Decimal(1).div(wg.add(1).ln().add(1).ln().root(2).div(1.5).add(1))
   if (eff1.gte(4)) eff1 = eff1.div(4).pow(0.5).mul(4)
   if (eff3.gte(3)) eff3 = eff3.div(3).pow(0.3).mul(3)
+  if (player.exponention.logarithm.in_dilate) {
+      eff4 = eff4.max(1e10).log10().log10();
+  }
   return [eff1, eff2, eff3, eff4, eff5]
 }

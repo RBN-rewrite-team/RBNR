@@ -34,6 +34,7 @@ import ExpUpgrades from './components/tabs/ExpUpgrades.vue';
 import Achievements from './components/tabs/Achievements.vue';
 import ChessBoard from './components/tabs/ChessBoard.vue';
 import Logarithm from './components/tabs/Logarithm.vue';
+import LogDilate from './components/tabs/LogDilate.vue';
 </script>
 
 <template>
@@ -62,6 +63,7 @@ import Logarithm from './components/tabs/Logarithm.vue';
 				<ChessBoard v-if="player.currentTab === 10" />
 				<Achievements v-if="player.currentTab === 11" />
 				<Logarithm v-if="player.currentTab === 12" />
+				<LogDilate v-if="player.currentTab === 13" />
 				<div class="main" v-if="player.currentTab === 3">
 					<h1>大数之路重制版</h1>
 					版本: v0.1.1<br />
