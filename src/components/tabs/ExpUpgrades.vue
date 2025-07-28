@@ -55,7 +55,7 @@ import Decimal from 'break_eternity.js';
 		<table align="center">
 			<tbody class="smaller">
 				<tr>
-					<TDUpgrade upgid="400q" />
+					<TDUpgrade upgid="400q" style="opacity: 0" onclick="alert(1)" />
 				</tr>
 				<tr>
 					<TDUpgrade upgid="411q" />

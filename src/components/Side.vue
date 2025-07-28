@@ -92,6 +92,7 @@ import { player } from '@/core/save';
 							class="menu2"
 							:class="{ focus: player.currentTab == 10 }"
 							@click="player.currentTab = 10"
+							v-if="player.upgrades[47]"
 						>
 							棋盘
 						</div>
