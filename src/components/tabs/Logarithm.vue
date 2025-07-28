@@ -40,8 +40,8 @@ import ObserveButton from '../ObserveButton.vue';
             <div @click="Logarithm.observeConvert"><ObserveButton  style="font-size: 15px">使用对数表进行计算</ObserveButton></div>
         </div>
         <div class="phys_law">
-            <h1>定律 1.79e308</h1>
-            行星绕太阳运行的轨道是椭圆，太阳位于椭圆的一个焦点上。拜谢增量为什么还不更新
+            <h1>定律 1</h1>
+            行星绕太阳运行的轨道是椭圆，太阳位于椭圆的一个焦点上。
             <div class="requirement">需求： 2000 计算数据</div>
             <div class="effect">提升10x运算速度及5x观测速度，并减少天文学家、对数表价格底数、指数4（最多减少到1）
 </div>
