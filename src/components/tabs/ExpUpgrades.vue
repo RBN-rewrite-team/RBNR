@@ -44,6 +44,10 @@ import Decimal from 'break_eternity.js';
 				</tr>
 			</tbody>
 		</table>
+		<br>
+		<br>
+		<br>
+		<br>
 		<h2 style="color: rgb(255, 127, 255)">QoL点数升级</h2>
 		<span
 			>你有
@@ -55,7 +59,7 @@ import Decimal from 'break_eternity.js';
 		<table align="center">
 			<tbody class="smaller">
 				<tr>
-					<TDUpgrade upgid="400q" style="opacity: 0" onclick="alert(1)" />
+					<TDUpgrade upgid="400q" :style="{opacity: player.upgrades['400q']?1:0}" />
 				</tr>
 				<tr>
 					<TDUpgrade upgid="411q" />
