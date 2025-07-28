@@ -214,6 +214,9 @@ export const Successor = {
 
 	success(bulk = 1) {
 		let adding = this.successorBulk().pow(this.successorPow()).mul(bulk);
+		if (player.exponention.logarithm.in_dilate) {
+			adding = adding.add(10).ln().ln().div(100)
+		}
 		adding = SOFTCAPS.fluidComputed('number^1', adding, player.number);
 		adding = SOFTCAPS.fluidComputed('number^2', adding, player.number);
 		adding = SOFTCAPS.fluidComputed('number^3', adding, player.number);

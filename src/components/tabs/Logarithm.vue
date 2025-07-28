@@ -58,6 +58,12 @@ import ObserveButton from '../ObserveButton.vue';
             <div class="effect">
                 对数表、天文学家价格底数、指数基于计算数据降低
             </div>
+            <h1>{{ player.milestones.log_G ? "万有引力" : "？？？？"}}定律</h1>
+            {{ player.milestones.log_G ? "！！！" : "？？？"}}
+            <div class="requirement">需求： 10000000 计算数据</div>
+            <div class="effect">
+                对数表、天文学家价格底数、指数基于计算数据降低
+            </div>
         </div>
     </div>
 </template>
@@ -67,7 +73,7 @@ import ObserveButton from '../ObserveButton.vue';
     border: 2px solid blue;
     border-radius: 36px;
     width: 500px;
-    height: 500px;
+    height: 650px;
     padding-left: 70px;
     padding-top: 30px;
     padding-right: 70px;

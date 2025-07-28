@@ -70,7 +70,7 @@ type Buyables = Record<
 >;
 type Milestones = Record<
   "cb1"|"cb2"|"cb3"|"cb4"|"cb5"|"cb6"
-  |"log_law1"|"log_law2"|"log_law3",
+  |"log_law1"|"log_law2"|"log_law3"|"log_G",
 	boolean
 >;
 export interface Player {
@@ -118,6 +118,7 @@ export interface Player {
 			observe_datas: Decimal;
 			calculate_datas: Decimal;
 			astronomers: IAstronomer[];
+			in_dilate: boolean;
 		}
 	};
 	options: {
@@ -143,11 +144,15 @@ export interface Player {
 		highestExppower: Decimal;
 	};
 	challengein: [number, number];
+	frozen: boolean;
+	run_a_tick_and_froze: boolean;
 }
 function getInitialPlayerData(): Player {
 	return {
 		version: version,
 		number: zero,
+		frozen:false,
+		run_a_tick_and_froze: false,
 		totalNumber: zero,
 		lastUpdated: Date.now(),
 		saveCreateTime: Date.now(),
@@ -250,6 +255,7 @@ function getInitialPlayerData(): Player {
 		  "log_law1": false,
 		  "log_law2": false,
 		  "log_law3": false,
+		  "log_G": false,
 		},
 		buyable11More: zero,
 		automationCD: {
@@ -284,7 +290,8 @@ function getInitialPlayerData(): Player {
 			logarithm: {
 				observe_datas: zero,
 				calculate_datas: zero,
-				astronomers: []
+				astronomers: [],
+				in_dilate: false
 			}
 		},
 		options: {

@@ -44,9 +44,14 @@ export function qolLoop() {
 	}
 }
 export function gameLoop() {
+	if(player.frozen && !player.run_a_tick_and_froze) return;
 	diff = Date.now() - player.lastUpdated;
+	if (player.run_a_tick_and_froze) diff=33
 	if (diff < 0) return;
-	player.lastUpdated = Date.now();
+	if (!player.run_a_tick_and_froze)
+		player.lastUpdated = Date.now();
+	else 
+		player.lastUpdated+=33;
 	qolLoop();
 	try {
 	  simulate(diff)
@@ -56,6 +61,10 @@ export function gameLoop() {
 	if (diff > 60000) {
 		simulateTime(diff);
 		return;
+	}
+	if (player.run_a_tick_and_froze) {
+		player.frozen=true;
+		player.run_a_tick_and_froze=false;
 	}
 }
 export function simulate(diff: number) {
@@ -70,12 +79,12 @@ export function simulate(diff: number) {
 		}
 	}
 
-	if (feature.resourceGain.addpower().passive.gt(0)) {
+	if (feature.resourceGain.addpower().passive.gt(0) &&!player.exponention.logarithm.in_dilate) {
 		let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.addpower().passive);
 		feature.ADDITION.addpower_gain(bulk);
 	}
 	
-	if (feature.resourceGain.mulpower().passive.gt(0)) {
+	if (feature.resourceGain.mulpower().passive.gt(0) &&!player.exponention.logarithm.in_dilate) {
 		let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.mulpower().passive);
 		feature.MULTIPLICATION.mulpower_gain(bulk)
 	}

@@ -136,5 +136,8 @@ export function wgEffect() {
   let eff4 = wg.pow(2).pow_base(4)
   if (eff1.gte(4)) eff1 = eff1.div(4).pow(0.5).mul(4)
   if (eff3.gte(3)) eff1 = eff1.div(3).pow(0.3).mul(3)
+	if (player.exponention.logarithm.in_dilate) {
+		eff4 = eff4.max(1e10).log10().log10()
+	}
   return [eff1, eff2, eff3, eff4]
 }

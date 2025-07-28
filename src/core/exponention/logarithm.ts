@@ -112,6 +112,18 @@ export const Logarithm = {
             show: true,
             currency: "麦粒"
         })
+        MILESTONES.create("log_G", {
+            displayName: "M-LAW-G",
+            get description(){
+                return "Actually, this milestone is hidden, you shouldn't see it"
+            } ,
+            requirement: new Decimal(10000000),
+            get canDone() {
+                return Logarithm.logarithm.calculate_datas.gte(this.requirement)
+            },
+            show: true,
+            currency: "麦粒"
+        })
     },
     astronomerLife(): [number, Decimal]{
         let life = new Decimal(100);
