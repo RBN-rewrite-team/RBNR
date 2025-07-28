@@ -5,41 +5,22 @@ import { notations } from '@/utils/format';
 import { themes } from '@/utils/themes';
 import type { qolUpgs } from '../exponention/qolupg';
 import type { IAstronomer } from '../exponention/logarithm';
+import type { IntRange } from 'type-fest';
+
+
 
 const SAVEID = 'RBN-rewritten';
 const version = 3 as const;
 const zero = new Decimal(0);
 type Upgrades = Record<
-	| '11'
-	| '12'
-	| '13'
-	| '21'
-	| '22'
-	| '23'
-	| '24'
-	| '25'
-	| '26'
-	| '31'
-	| '32'
-	| '33'
-	| '34'
-	| '35'
-	| '36'
-	| '37'
-	| '38'
-	| '39'
+	| IntRange<11, 14>
+	| IntRange<21, 27>
+	| IntRange<31, 40>
 	| '31R'
 	| '32R'
 	| '33R'
 	| '34R'
-	| '41'
-	| '42'
-	| '43'
-	| '44'
-	| '45'
-	| '46'
-	| '47'
-	| '48'
+	| IntRange<41, 49>
 	| qolUpgs,
 	boolean
 >;
@@ -50,14 +31,7 @@ type Buyables = Record<
 	| '31'
 	| '32'
 	| '33'
-	| '31R'
-	| '32R'
-	| '33R'
-	| '34R'
-	| '35R'
-	| '36R'
-	| '37R'
-	| '38R'
+	| `${IntRange<31,39>}R`
     | '41R'
     | '42R'
 	| PrimeFactorTypes
@@ -71,8 +45,7 @@ type Buyables = Record<
 	Decimal
 >;
 type Milestones = Record<
-  "cb1"|"cb2"|"cb3"|"cb4"|"cb5"|"cb6"
-  |"log_law1"|"log_law2"|"log_law3"|"log_G",
+  `cb${IntRange<1,21>}`  |"log_law1"|"log_law2"|"log_law3"|"log_G",
 	boolean
 >;
 export interface Player {
@@ -257,6 +230,20 @@ function getInitialPlayerData(): Player {
 		  "cb4": false,
 		  "cb5": false,
 		  "cb6": false,
+		  "cb7": false,
+		  "cb8": false,
+		  "cb9": false,
+		  "cb10": false,
+		  "cb11": false,
+		  "cb12": false,
+		  "cb13": false,
+		  "cb14": false,
+		  "cb15": false,
+		  "cb16": false,
+		  "cb17": false,
+		  "cb18": false,
+		  "cb19": false,
+		  "cb20": false,
 		  "log_law1": false,
 		  "log_law2": false,
 		  "log_law3": false,
