@@ -256,7 +256,6 @@ function getInitialPlayerData(): Player {
 		  "cb3": false,
 		  "cb4": false,
 		  "cb5": false,
-		  "log_law1": false,
 		  "cb6": false,
 		  "log_law1": false,
 		  "log_law2": false,
