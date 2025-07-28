@@ -1,0 +1,68 @@
+import Decimal from "break_eternity.js";
+import { feature } from "./global";
+import { SOFTCAPS } from "./mechanic";
+import { player } from "./save";
+import { CHALLENGE } from "./challenge";
+
+export const resourceGain = {
+    /**
+     * 用于给用户界面展示用的函数
+     * @returns value: 每秒获取数值, softcaps: 有多少个cap
+     */
+    number(num = player.number) {
+        let base = feature.SUCCESSOR.successorBulk().pow(feature.SUCCESSOR.successorPow());
+        base = base.mul(feature.SUCCESSOR.autoSuccessPerSecond());
+		if (player.exponention.logarithm.in_dilate) {
+			base = base.add(10).ln().ln().div(10)
+		}
+        let softcaps = 0,
+            scList = ['number^1', 'number^2', 'number^3', 'number^4'];
+        for (let i = 0; i < scList.length; i++) {
+            if (SOFTCAPS.reach(scList[i], player.number)) {
+                softcaps++;
+                base = SOFTCAPS.fluidComputed(scList[i], base, player.number);
+            }
+        }
+        if (CHALLENGE.inChallenge(0, 2))
+            base = SOFTCAPS.fluidComputed('number_C1', base, player.number);
+        return { value: base, softcaps: softcaps };
+    },
+    addpower() {
+        let base = feature.ADDITION.gain();
+		if (player.exponention.logarithm.in_dilate) {
+			base = base.add(10).ln().ln()
+		}
+        let softcaps = 0,
+            scList = ['addpower^1', 'addpower^2', 'addpower^3', 'addpower^4', 'addpower^5'];
+        for (let i = 0; i < scList.length; i++) {
+            if (SOFTCAPS.reach(scList[i], player.addpower)) {
+                softcaps++;
+                base = SOFTCAPS.fluidComputed(scList[i], base, player.addpower);
+            }
+        }
+        let passive = new Decimal(0);
+        if (player.upgrades[38]) passive = passive.add(0.01);
+        if (player.upgrades['441q']) passive = passive.add(1);
+        if (player.exponention.logarithm.in_dilate) passive = new Decimal(0)
+        return { value: base, passive: passive, softcaps: softcaps };
+    },
+    mulpower() {
+        let base = feature.MULTIPLICATION.gain();
+        let passive = new Decimal(0);
+        if (player.upgrades[46]) passive = passive.add(0.01);
+        if (player.exponention.logarithm.in_dilate) passive = new Decimal(0)
+        let softcaps = 0,
+            scList = ['mulpower^1',];
+        for (let i = 0; i < scList.length; i++) {
+            if (SOFTCAPS.reach(scList[i], player.multiplication.mulpower)) {
+                softcaps++;
+                base = SOFTCAPS.fluidComputed(scList[i], base, player.multiplication.mulpower);
+            }
+        }
+        return { value: base, passive, softcaps };
+    },
+    exppower() {
+        let base = feature.EXPONENTION.gain();
+        return { value: base };
+    },
+}
