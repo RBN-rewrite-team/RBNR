@@ -54,8 +54,8 @@ export function gameLoop() {
 	  throw e
 	};
 	if (diff > 60000) {
-		return;
 		simulateTime(diff);
+		return;
 	}
 }
 export function simulate(diff: number) {
