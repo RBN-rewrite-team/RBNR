@@ -316,7 +316,7 @@ export const Addition = {
 			meta: 1
 		});
 		SOFTCAPS.create('addpower^5', {
-			name: 'addpower^4',
+			name: 'addpower^5',
 			fluid: true,
 			start: new Decimal('ee14'),
 			exponent: new Decimal(0.5),
