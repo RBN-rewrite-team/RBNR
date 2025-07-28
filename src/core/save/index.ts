@@ -12,16 +12,17 @@ import type { IntRange } from 'type-fest';
 const SAVEID = 'RBN-rewritten';
 const version = 3 as const;
 const zero = new Decimal(0);
-type Upgrades = Record<
-	| IntRange<11, 14>
+export type UpgIds = `${IntRange<11, 14>
 	| IntRange<21, 27>
-	| IntRange<31, 40>
+	| IntRange<31, 40>}`
 	| '31R'
 	| '32R'
 	| '33R'
 	| '34R'
-	| IntRange<41, 49>
-	| qolUpgs,
+	| `${IntRange<41, 49>}`
+	| qolUpgs
+export type Upgrades = Record<
+	UpgIds,
 	boolean
 >;
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
@@ -95,6 +96,7 @@ export interface Player {
 			calculate_datas: Decimal;
 			astronomers: IAstronomer[];
 			in_dilate: boolean;
+			upgrades_in_dilated: UpgIds[];
 		}
 	};
 	options: {
@@ -284,7 +286,8 @@ function getInitialPlayerData(): Player {
 				observe_datas: zero,
 				calculate_datas: zero,
 				astronomers: [],
-				in_dilate: false
+				in_dilate: false,
+				upgrades_in_dilated: [],
 			}
 		},
 		options: {
@@ -319,6 +322,7 @@ function getInitialPlayerData(): Player {
 
 function rewriteDecimalValues(pl: any) {
 	for (const key in pl) {
+		if (key==="upgrades_in_dilated") continue;
 		if (typeof pl[key] === 'string') {
 			if (!Decimal.isNaN(pl[key])) {
 				pl[key] = new Decimal(pl[key]);
