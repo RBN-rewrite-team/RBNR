@@ -43,7 +43,7 @@ export const Multiplication = {
 				return true;
 			},
 			keep() {
-				return player.upgrades['451q'];
+				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
 			},
 		});
 		UPGRADES.create('32', {
@@ -69,7 +69,7 @@ export const Multiplication = {
 				return true;
 			},
 			keep() {
-				return player.upgrades['411q'];
+				return player.upgrades['411q'] && !player.exponention.logarithm.in_dilate;
 			},
 		});
 		UPGRADES.create('33', {
@@ -118,7 +118,7 @@ export const Multiplication = {
 				return true;
 			},
 			keep() {
-				return player.upgrades['451q'];
+				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
 			},
 		});
 		UPGRADES.create('35', {
@@ -144,7 +144,7 @@ export const Multiplication = {
 				return true;
 			},
 			keep() {
-				return player.upgrades['451q'];
+				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
 			},
 		});
 		UPGRADES.create('36', {
@@ -170,7 +170,7 @@ export const Multiplication = {
 				return true;
 			},
 			keep() {
-				return player.upgrades['451q'];
+				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
 			},
 		});
 		UPGRADES.create('37', {
@@ -196,7 +196,7 @@ export const Multiplication = {
 				return true;
 			},
 			keep() {
-				return player.upgrades['451q'];
+				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
 			},
 		});
 		UPGRADES.create('38', {
@@ -222,7 +222,7 @@ export const Multiplication = {
 				return true;
 			},
 			keep() {
-				return player.upgrades['451q'];
+				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
 			},
 		});
 		UPGRADES.create('39', {
@@ -248,7 +248,7 @@ export const Multiplication = {
 				return true;
 			},
 			keep() {
-				return player.upgrades['451q'];
+				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
 			},
 		});
 		BUYABLES.create('31', {
@@ -410,6 +410,9 @@ export const Multiplication = {
 	},
 	mulpower_gain(bulk = new Decimal(1)) {
 	  let adding = this.gain().mul(bulk);
+		if (player.exponention.logarithm.in_dilate) {
+			adding = adding.add(10).ln().ln()
+		}
 	  adding = SOFTCAPS.fluidComputed('mulpower^1', adding, player.multiplication.mulpower);
 	  player.multiplication.mulpower = player.multiplication.mulpower.add(adding);
 		player.multiplication.totalMulpower = player.multiplication.totalMulpower.add(

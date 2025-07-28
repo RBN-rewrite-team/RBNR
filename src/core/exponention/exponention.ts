@@ -6,6 +6,7 @@ import { format, formatWhole } from '@/utils/format';
 import { Multiplication } from '../multiplication/multiplication.ts';
 import { CHALLENGE } from '../challenge.ts';
 import { Logarithm } from './logarithm.ts';
+import { feature } from '../global.ts';
 const D179E308 = Decimal.pow(2, 1024);
 
 export const Exponention = {
@@ -291,7 +292,7 @@ export const Exponention = {
 			},
 		});
 	},
-	reset(force = false) {
+	reset(force = false, dilate=false) {
 		if (this.gain().gt(0) || force) {
 			player.exponention.exppower = player.exponention.exppower.add(this.gain());
 			player.exponention.totalExppower = player.exponention.totalExppower.add(this.gain());
@@ -299,7 +300,7 @@ export const Exponention = {
 			Multiplication.reset(true);
 			player.upgrades[31] = false;
 			player.upgrades[32] = false;
-			if (!player.upgrades['431q']) {
+			if (!player.upgrades['431q'] || dilate) {
 				player.upgrades[33] = false;
 				player.upgrades[34] = false;
 			}
@@ -308,15 +309,15 @@ export const Exponention = {
 			player.upgrades[37] = false;
 			player.upgrades[38] = false;
 			player.upgrades[39] = false;
-			if (!player.upgrades['424q']) player.upgrades['31R'] = false;
+			if (!player.upgrades['424q'] || dilate) player.upgrades['31R'] = false;
 			player.upgrades['32R'] = false;
 			player.upgrades['33R'] = false;
 			player.upgrades['34R'] = false;
 			player.buyables[31] = new Decimal(0);
 			player.buyables[32] = new Decimal(0);
 			player.buyables[33] = new Decimal(0);
-			if (!player.upgrades['414q']) player.buyables['31R'] = new Decimal(0);
-			if (!player.upgrades['434q']) player.buyables['32R'] = new Decimal(0);
+			if (!player.upgrades['414q'] || dilate) player.buyables['31R'] = new Decimal(0);
+			if (!player.upgrades['434q'] || dilate) player.buyables['32R'] = new Decimal(0);
 			player.buyables['33R'] = new Decimal(0);
 			player.buyables['34R'] = new Decimal(0);
 			player.buyables['35R'] = new Decimal(0);
@@ -335,15 +336,15 @@ export const Exponention = {
 			player.multiplication.mulpower = new Decimal(0);
 			player.multiplication.B1seriesC1 = 0;
 			player.multiplication.totalMulpower = new Decimal(0);
-			if (!player.upgrades['445q']) player.multiplication.pfTime = new Decimal(0);
+			if (!player.upgrades['445q'] || dilate) player.multiplication.pfTime = new Decimal(0);
 			player.numbertheory.euler.x = new Decimal(1);
 			player.numbertheory.euler.y = new Decimal(1);
 			player.numbertheory.euler.z = new Decimal(1);
 			player.numbertheory.euler.s = new Decimal(1);
 
-			if (!player.upgrades['413q']) player.challenges[0][0] = new Decimal(0);
-			if (!player.upgrades['423q']) player.challenges[0][1] = new Decimal(0);
-			if (!player.upgrades['433q']) player.challenges[0][2] = new Decimal(0);
+			if (!player.upgrades['413q'] || dilate) player.challenges[0][0] = new Decimal(0);
+			if (!player.upgrades['423q'] || dilate) player.challenges[0][1] = new Decimal(0);
+			if (!player.upgrades['433q'] || dilate) player.challenges[0][2] = new Decimal(0);
 			player.challenges[0][3] = new Decimal(0);
 
 			player.exponention.qolpoints = player.exponention.qolpoints.add(3);
@@ -378,4 +379,8 @@ export const Exponention = {
 	powerEff() {
 		return player.exponention.totalExppower.div(1000).add(1);
 	},
+	toggleDilate() {
+		feature.EXPONENTION.reset(true, true);
+		player.exponention.logarithm.in_dilate = !player.exponention.logarithm.in_dilate
+	}
 };

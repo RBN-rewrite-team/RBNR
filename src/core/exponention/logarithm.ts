@@ -21,8 +21,8 @@ export const Logarithm = {
             currency: "指数能量",
             cost(x) {
                 let base = new Decimal(10);
-                if (player.milestones.log_law3)base = base.sub(Logarithm.logarithm.calculate_datas.log10().pow(0.7).min(4))
-                return Decimal.pow(base, Decimal.pow(x, 2).sub(Logarithm.logarithm.calculate_datas.log10().pow(0.7).min(4)))
+                if (player.milestones.log_law3)base = base.sub(Logarithm.logarithm.calculate_datas.max(1).log10().pow(0.7).min(4))
+                return Decimal.pow(base, Decimal.pow(x, 2).sub(Logarithm.logarithm.calculate_datas.max(1).log10().pow(0.7).min(4)))
             },
             canAfford(x) {
                 return player.exponention.exppower.gte(this.cost(x));
@@ -53,8 +53,8 @@ export const Logarithm = {
             currency: "指数能量",
             cost(x) {
                 let base = new Decimal(10);
-                if (player.milestones.log_law3) base = base.sub(Logarithm.logarithm.calculate_datas.log10().pow(0.7).min(4))
-                return Decimal.pow(10, Decimal.pow(x, x).sub(Logarithm.logarithm.calculate_datas.log10().pow(0.7).min(4)))
+                if (player.milestones.log_law3) base = base.sub(Logarithm.logarithm.calculate_datas.max(1).log10().pow(0.7).min(4))
+                return Decimal.pow(10, Decimal.pow(x, x).sub(Logarithm.logarithm.calculate_datas.max(1).log10().pow(0.7).min(4)))
             },
             canAfford(x) {
                 return player.exponention.exppower.gte(this.cost(x));
@@ -106,6 +106,18 @@ export const Logarithm = {
                 return "Actually, this milestone is hidden, you shouldn't see it"
             } ,
             requirement: new Decimal(1000000),
+            get canDone() {
+                return Logarithm.logarithm.calculate_datas.gte(this.requirement)
+            },
+            show: true,
+            currency: "麦粒"
+        })
+        MILESTONES.create("log_G", {
+            displayName: "M-LAW-G",
+            get description(){
+                return "Actually, this milestone is hidden, you shouldn't see it"
+            } ,
+            requirement: new Decimal(10000000),
             get canDone() {
                 return Logarithm.logarithm.calculate_datas.gte(this.requirement)
             },

@@ -38,7 +38,7 @@ export const Addition = {
 				return true;
 			},
 			keep() {
-				return player.upgrades['421q'];
+				return player.upgrades['421q']&&!player.exponention.logarithm.in_dilate;
 			},
 		});
 		UPGRADES.create('22', {
@@ -64,7 +64,7 @@ export const Addition = {
 					[
 						'获得5加法能量',
 						() =>
-							player.totalAddpower.gte(player.multiplication.B1seriesC1 == 2 ? 1 : 5),
+							player.totalAddpower.gte(player.multiplication.B1seriesC1 == 2 || player.multiplication.B1seriesC1400q == 2 ? 1 : 5),
 						[formatWhole(player.totalAddpower), formatWhole(upgrades[22].cost)],
 					] as singleReq,
 				];
@@ -73,7 +73,7 @@ export const Addition = {
 				return true;
 			},
 			keep() {
-				return player.upgrades['421q'];
+				return player.upgrades['421q']&&!player.exponention.logarithm.in_dilate;
 			},
 		});
 		UPGRADES.create('23', {
@@ -100,7 +100,7 @@ export const Addition = {
 						'获得25加法能量',
 						() =>
 							player.totalAddpower.gte(
-								player.multiplication.B1seriesC1 == 3 ? 1 : 25,
+								player.multiplication.B1seriesC1 == 3|| player.multiplication.B1seriesC1400q == 3 ? 1 : 25,
 							),
 						[formatWhole(player.totalAddpower), formatWhole(upgrades[23].cost)],
 					] as singleReq,
@@ -110,7 +110,7 @@ export const Addition = {
 				return true;
 			},
 			keep() {
-				return player.upgrades['421q'];
+				return player.upgrades['421q']&&!player.exponention.logarithm.in_dilate;
 			},
 		});
 		UPGRADES.create('24', {
@@ -137,7 +137,7 @@ export const Addition = {
 						'获得125加法能量',
 						() =>
 							player.totalAddpower.gte(
-								player.multiplication.B1seriesC1 == 4 ? 1 : 125,
+								player.multiplication.B1seriesC1 == 4 || player.multiplication.B1seriesC1400q == 4? 1 : 125,
 							),
 						[formatWhole(player.totalAddpower), formatWhole(upgrades[24].cost)],
 					] as singleReq,
@@ -147,7 +147,7 @@ export const Addition = {
 				return true;
 			},
 			keep() {
-				return player.upgrades['421q'];
+				return player.upgrades['421q']&&!player.exponention.logarithm.in_dilate;
 			},
 		});
 		UPGRADES.create('25', {
@@ -189,7 +189,7 @@ export const Addition = {
 						'获得625加法能量',
 						() =>
 							player.totalAddpower.gte(
-								player.multiplication.B1seriesC1 == 5 ? 1 : 625,
+								player.multiplication.B1seriesC1 == 5 || player.multiplication.B1seriesC1400q == 5 ? 1 : 625,
 							),
 						[formatWhole(player.totalAddpower), formatWhole(upgrades[25].cost)],
 					] as singleReq,
@@ -199,7 +199,7 @@ export const Addition = {
 				return true;
 			},
 			keep() {
-				return player.upgrades['421q'];
+				return player.upgrades['421q']&&!player.exponention.logarithm.in_dilate;
 			},
 		});
 		UPGRADES.create('26', {
@@ -226,7 +226,7 @@ export const Addition = {
 				return true;
 			},
 			keep() {
-				return player.upgrades['421q'];
+				return player.upgrades['421q']&&!player.exponention.logarithm.in_dilate;
 			},
 		});
 		BUYABLES.create('21', {
@@ -325,6 +325,9 @@ export const Addition = {
 	},
 	addpower_gain(bulk = new Decimal(1)) {
 		let adding = this.gain().mul(bulk);
+		if (player.exponention.logarithm.in_dilate) {
+			adding = adding.add(10).ln().ln()
+		}
 		adding = SOFTCAPS.fluidComputed('addpower^1', adding, player.addpower);
 		adding = SOFTCAPS.fluidComputed('addpower^2', adding, player.addpower);
 		adding = SOFTCAPS.fluidComputed('addpower^3', adding, player.addpower);

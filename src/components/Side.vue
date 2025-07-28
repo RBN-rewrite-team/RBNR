@@ -104,6 +104,14 @@ import { player } from '@/core/save';
 						>
 							对数运算
 						</div>
+						<div
+							class="menu2"
+							:class="{ focus: player.currentTab == 13}"
+							@click="player.currentTab = 13"
+							v-if="player.milestones.log_G"
+						>
+							对数膨胀<img src="../../public/baixie.png" class="textbaixie"/>
+						</div>
 					</template>
 					<div class="menu1">杂项</div>
 					<div class="menu_line"></div>
