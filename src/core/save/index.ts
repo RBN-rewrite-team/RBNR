@@ -39,6 +39,7 @@ type Upgrades = Record<
 	| '45'
 	| '46'
 	| '47'
+	| '48'
 	| qolUpgs,
 	boolean
 >;
@@ -181,6 +182,7 @@ function getInitialPlayerData(): Player {
 			'45': false,
 			'46': false,
 			'47': false,
+			'48': false,
 			'400q': false,
 			'411q': false,
 			'412q': false,
