@@ -195,7 +195,7 @@ export const BUYABLES = {
 				str +=
 					'效果：' +
 					buyables[id].effD(player.buyables[id]) +
-					'→' +
+					'→<br>' +
 					buyables[id].effD(player.buyables[id].add(canBuy.max(1))) +
 					'<br>';
 			str +=
