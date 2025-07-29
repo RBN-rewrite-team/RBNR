@@ -12,7 +12,7 @@ import { feature } from '@/core/global';
             <div @click="feature.EXPONENTION.toggleDilate()">
                 <DilateButton style="font-size: 18px;" :class="{
                     dilate_activate: player.exponention.logarithm.in_dilate
-                }">666大黑太膨胀了</DilateButton>
+                }">进入膨胀</DilateButton>
             </div>
         </div>
     </div>

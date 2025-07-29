@@ -397,8 +397,19 @@ export const NUMTHEORY = {
 		}
 		return new Decimal(1).sub(error.log(10).div(100));
 	},
+	tau2B() {
+	  let m = player.numbertheory.rational_approx.m.floor().max(1);
+		let error = new Decimal(2.236067977499789696)
+		  .div(
+		    Decimal.pow(1.618033988749894848, m.mul(2)).
+		      sub(m.mod(2).eq(1) ? -1 : 1)
+		  )
+		return new Decimal(1).sub(error.log(10).div(100));
+	},
 	tau2() {
-		return this.tau2A();
+		return this.tau2A().mul(
+		  player.milestones.cb8 ? this.tau2B() : 1
+		)
 	},
 	varX2gain() {
 	    let base = new Decimal(0);

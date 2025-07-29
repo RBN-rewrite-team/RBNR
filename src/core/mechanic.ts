@@ -118,7 +118,7 @@ export const BUYABLES = {
 				str +=
 					'效果：' +
 					buyables[id].effectDescription(buyables[id].effect(player.buyables[id])) +
-					'→' +
+					'&nbsp;→' +
 					buyables[id].effectDescription(buyables[id].effect(player.buyables[id].add(canBuy.max(1)))) +
 					'<br>';
 			str +=

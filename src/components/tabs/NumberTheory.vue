@@ -113,8 +113,9 @@ function x2GainLatex() {
 			<div v-if="player.upgrades[45] && player.numbertheory.visiting == 2" align="center">
 				<h2>有理逼近</h2>
 				<vue-latex expression="a_1 = 1, a_n = \frac{a_{n-1}+2}{a_{n-1}+1}" display-mode />
+				<vue-latex expression="F_0 = 0, F_1 = 1, F_n = F_{n-1}+F_{n-2}" display-mode v-if="player.milestones.cb8" />
 				<vue-latex
-					:expression="'\\tau_{2} = \\tau_{2A} = ' + formatLaTeX(NUMTHEORY.tau2())"
+					:expression="'\\tau_{2} = \\tau_{2A}' + (player.milestones.cb8 ? '\\tau_{2B}':'') + ' = ' + formatLaTeX(NUMTHEORY.tau2())"
 					display-mode
 				/>
 				<vue-latex
@@ -125,8 +126,20 @@ function x2GainLatex() {
 					display-mode
 				/>
 				<vue-latex
+					:expression="
+						'\\tau_{2B} = 1-\\frac{\\lg\\left|\\phi-\\frac{F_{m+1}}{F_m}\\right|}{100} = ' + formatLaTeX(NUMTHEORY.tau2B())
+					"
+					display-mode
+					v-if="player.milestones.cb8"
+				/>
+				<vue-latex
 					:expression="'n = ' + formatLaTeXWhole(player.numbertheory.rational_approx.n)"
 					display-mode
+				/>
+				<vue-latex
+					:expression="'m = ' + formatLaTeXWhole(player.numbertheory.rational_approx.m)"
+					display-mode
+					v-if="player.milestones.cb8"
 				/>
 				<vue-latex :expression="x2GainLatex()" display-mode />
 				<p style="font-size: 120%">
@@ -134,15 +147,27 @@ function x2GainLatex() {
 						>研究2加成：质因数效果^<vue-latex
 							expression="\tau_2" />，质因数速度×<vue-latex expression="\tau_2^4"
 					/></b>
-				</p>
+				</p><br>
 				<button
 					class="clickable_button"
 					@click="
 						player.numbertheory.rational_approx.n =
 							player.numbertheory.rational_approx.n.add(1)
 					"
+					style="display: inline-block; margin: 5px"
 				>
 					增加n的数值
+				</button>
+				<button
+					class="clickable_button"
+					@click="
+						player.numbertheory.rational_approx.m =
+							player.numbertheory.rational_approx.m.add(1)
+					"
+					v-if="player.milestones.cb8"
+					style="display: inline-block; margin: 5px"
+				>
+					增加m的数值
 				</button>
 				<table>
 				    <tr>

@@ -14,7 +14,7 @@ const id = props.id as keyof typeof player.milestones;
     <td>
       <div class="milestone" :class="{done: player.milestones[id]}">
         <h3 style="display: inline-block">{{ milestones[id].displayName }}: {{ format(milestones[id].requirement) }} {{ milestones[id].currency }}</h3><br>
-        {{ milestones[id].description }}
+        <span v-html="milestones[id].description" />
       </div>
     </td>
   </tr>
