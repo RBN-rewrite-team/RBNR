@@ -16,7 +16,7 @@ export const resourceGain = {
 			base = base.add(10).ln().ln().div(10)
 		}
         let softcaps = 0,
-            scList = ['number^1', 'number^2', 'number^3', 'number^4'];
+            scList = ['number^1', 'number^2', 'number^3', 'number^4', 'number^5', 'number^6', 'number^7', 'number^8'];
         for (let i = 0; i < scList.length; i++) {
             if (SOFTCAPS.reach(scList[i], player.number)) {
                 softcaps++;
@@ -52,7 +52,7 @@ export const resourceGain = {
         if (player.upgrades[46]) passive = passive.add(0.01);
         if (player.exponention.logarithm.in_dilate) passive = new Decimal(0)
         let softcaps = 0,
-            scList = ['mulpower^1',];
+            scList = ['mulpower^1','mulpower^2'];
         for (let i = 0; i < scList.length; i++) {
             if (SOFTCAPS.reach(scList[i], player.multiplication.mulpower)) {
                 softcaps++;
