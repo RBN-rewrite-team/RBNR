@@ -210,34 +210,6 @@ export const Successor = {
 			exponent: new Decimal(0.5),
 			meta: 1
 		});
-		SOFTCAPS.create('number^5', {
-			name: 'number^5',
-			fluid: true,
-			start: new Decimal('ee20'),
-			exponent: new Decimal(0.5),
-			meta: 1
-		});
-		SOFTCAPS.create('number^6', {
-			name: 'number^6',
-			fluid: true,
-			start: new Decimal('ee100'),
-			exponent: new Decimal(0.75),
-			meta: 2
-		});
-		SOFTCAPS.create('number^7', {
-			name: 'number^7',
-			fluid: true,
-			start: new Decimal('eee5'),
-			exponent: new Decimal(0.25),
-			meta: 2
-		});
-		SOFTCAPS.create('number^8', {
-			name: 'number^8',
-			fluid: true,
-			start: new Decimal('eee15'),
-			exponent: new Decimal(0.75),
-			meta: 3
-		});
 	},
 	/**
 	 * @param bulk 点击多少次后继按钮，默认为1就是用户手动点击
@@ -247,8 +219,10 @@ export const Successor = {
 		if (player.exponention.logarithm.in_dilate) {
 			adding = adding.add(10).ln().ln().div(10)
 		}
-		for(let i = 1; i <= 8; i++)
-		    adding = SOFTCAPS.fluidComputed('number^' + i, adding, player.number);
+		adding = SOFTCAPS.fluidComputed('number^1', adding, player.number);
+		adding = SOFTCAPS.fluidComputed('number^2', adding, player.number);
+		adding = SOFTCAPS.fluidComputed('number^3', adding, player.number);
+		adding = SOFTCAPS.fluidComputed('number^4', adding, player.number);
 		if (CHALLENGE.inChallenge(0, 2))
 			adding = SOFTCAPS.fluidComputed('number_C1', adding, player.number);
 		if (CHALLENGE.inChallenge(0, 3)) {
