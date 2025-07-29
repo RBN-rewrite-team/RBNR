@@ -6,20 +6,28 @@ import { formatWhole } from '@/utils/format';
 import { Addition } from '../addition/addition.ts';
 import { CHALLENGE } from '../challenge.ts';
 import { NUMTHEORY } from '@/core/multiplication/numbertheory';
+import { Upgrade, UpgradeWithEffect } from '../upgrade.ts';
+import { Currencies } from '../currencies.ts';
+import { Buyable } from '../buyable.ts';
+import { Requirement } from '../requirements.ts';
+
+type PrimeList = '2'|'3'|'5'|'7'|'11'|'13'|'17'|'19';
 
 export const PrimeFactor = {
-	initMechanics() {
-		let pflist = ['2', '3', '5', '7', '11', '13', '17', '19'];
+	upgrades: (function (){
+		// @ts-ignore
+		const PFList: Record<`pf${PrimeList}`,Buyable<Decimal>> = {};
+		let pflist = ['2', '3', '5', '7', '11', '13', '17', '19'] as const;
 		for (let i in pflist) {
+			i=i;
 			let pf = pflist[i];
-			BUYABLES.create(('pf' + pf) as keyof typeof player.buyables, {
-				pfid: Number(pf),
-				prev: Number(pf) == 2 ? 0 : Number(pflist[Number(i) - 1]),
-				pprev: Number(pf) <= 3 ? 0 : Number(pflist[Number(i) - 2]),
-				n: Number(i),
-				currency: '乘法能量',
-
-				description: '因数能量×' + pf,
+			PFList["pf"+pflist[i] as `pf${PrimeList}`] = new class extends Buyable<Decimal> {
+				pfid= Number(pf)
+				prev= Number(pf) == 2 ? 0 : Number(pflist[Number(i) - 1])
+				pprev= Number(pf) <= 3 ? 0 : Number(pflist[Number(i) - 2])
+				n= Number(i)
+				currency: Currencies = Currencies.MULTIPLICATION_POWER;
+				description= '因数能量×' + pf;
 				more() {
 					if (player.upgrades[36] && Number(i) !== pflist.length - 1) {
 						return player.buyables[('pf' + pflist[Number(i) + 1]) as PrimeFactorTypes]
@@ -27,85 +35,74 @@ export const PrimeFactor = {
 							.floor();
 					}
 					return new Decimal(0);
-				},
-				effect(x) {
+				}
+				effect(x: Decimal) {
 					return new Decimal(this.pfid).pow(x.add(this.more?.() ?? 0));
-				},
-				effD(x) {
+				}
+				effectDescription(x: Decimal) {
 					return 'x' + formatWhole(this.effect(x));
-				},
-				cost(x) {
+				}
+				cost(x: Decimal) {
 					return new Decimal(this.pfid).pow(x.mul(2).add(this.n ?? 0));
-				},
-				canAfford(x) {
-					return player.multiplication.mulpower.gte(this.cost(x));
-				},
-				buy(x) {
-					player.multiplication.mulpower = player.multiplication.mulpower.sub(
-						this.cost(x),
-					);
-				},
+				}
 				capped() {
 					return false;
-				},
-				get requirement() {
+				}
+				requirements() {
 					if (this.pfid == 2) return [];
 					return [
-						[
-							'购买质因数' + this.prev,
-							() => {
+						new class extends Requirement {
+							reachedReq(): boolean {
 								return player.buyables[
-									('pf' + this.prev) as keyof typeof player.buyables
-								].gte(1);
-							},
-						] as singleReq,
+									('pf' + (Number(pf) == 2 ? 0 : Number(pflist[Number(i) - 1]))) as keyof typeof player.buyables
+								].gte(1)
+							}
+							reqDescription(): string {
+								return '购买质因数' + (Number(pf) == 2 ? 0 : Number(pflist[Number(i) - 1]));
+							}
+						}
 					];
-				},
+				}
 				show() {
 					return (
 						(this.pfid ?? 1) <= 3 ||
 						player.buyables[('pf' + this.pprev) as keyof typeof player.buyables].gte(1)
 					);
-				},
+				}
 				canBuyMax() {
 					return (
 						player.upgrades[39] ||
 						(player.upgrades['415q'] && Number(i) <= 3) ||
 						(player.upgrades['425q'] && Number(i) <= 7)
 					);
-				},
+				}
 				autoBuyMax() {
 					return (
 						(player.upgrades['415q'] && Number(i) <= 3) ||
 						(player.upgrades['425q'] && Number(i) <= 7)
 					);
-				},
-				canBuy() {
-					return player.multiplication.mulpower
+				}
+				costInverse(x: Decimal) {
+					return x
 						.max(0.99)
 						.log(this.pfid ?? 0)
 						.sub(this.n ?? 0)
 						.div(2)
 						.add(1)
 						.floor()
-						.sub(player.buyables[('pf' + this.pfid) as keyof typeof player.buyables])
-						.max(0);
-				},
-				buyMax() {
-					player.buyables[('pf' + this.pfid) as keyof typeof player.buyables] =
-						player.buyables[('pf' + this.pfid) as keyof typeof player.buyables].add(
-							this?.canBuy?.() ?? 0,
-						);
-				},
-			});
+				}
+			}
 		}
+		return PFList
+	})() as Record<`pf${PrimeList}`, Buyable<Decimal>>,
+	initMechanics() {
 	},
 	power() {
-		let pflist = ['2', '3', '5', '7', '11', '13', '17', '19'];
+		let pflist = ['2', '3', '5', '7', '11', '13', '17', '19'] as const;
 		let base = new Decimal(1);
 		for (let i in pflist)
 			base = base.mul(
-				buyables['pf' + pflist[i]].effect(
+				buyables['pf' + (pflist[i]) as `pf${PrimeList}`].effect(
 					player.buyables[('pf' + pflist[i]) as keyof typeof player.buyables].max(0),
 				),
 			);

@@ -5,6 +5,7 @@ import { format, formatWhole } from '@/utils/format';
 import Decimal from 'break_eternity.js';
 import { Buyable } from '../buyable';
 import { Currencies } from '../currencies';
+import { Upgrade, UpgradeWithEffect } from '../upgrade';
 
 export const NUMTHEORY = {
 	buyables: {
@@ -299,97 +300,55 @@ export const NUMTHEORY = {
 			}
 		},
 	} as const,
-	initMechanics() {
-		UPGRADES.create('31R', {
-			description: '将u<sub>1</sub>加入x获取速度公式',
-			displayName: 'U2-R1-1',
-			currency: '乘法能量',
-			cost: new Decimal(1e4),
+	upgrades: {
+		'31R': new class U31R extends UpgradeWithEffect<Decimal>{
+			// @ts-ignore
+			description: string = "将u<sub>1</sub>加入x获取速度公式";
+			cost= new Decimal(1e4)
+			name= 'U2-R1-1'
+			currency: Currencies = Currencies.MULTIPLICATION_POWER;
+			keep() {
+				return player.upgrades['454q'];
+			}
 			effect() {
 				return player.multiplication.mulpower.add(Math.E).ln().floor().max(1);
-			},
-			effD() {
-				return `u<sub>1</sub> = ${formatWhole(this.effect?.() ?? 1)}`;
-			},
-			canAfford() {
-				return player.multiplication.mulpower.gte(this.cost);
-			},
-			buy() {
-				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost);
-			},
-			get requirement() {
-				return [];
-			},
-			show: function () {
-				return true;
-			},
+			}
+			effectDescription(x: Decimal) {
+				return `u<sub>1</sub> = ${formatWhole(x)}`;
+			}
+		},
+		'32R': new class U32R extends Upgrade{
+			// @ts-ignore
+			description: string = "x<sub>1</sub>的指数+0.3";
+			cost= new Decimal(1e30)
+			name= 'U2-R1-2'
+			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			keep() {
 				return player.upgrades['454q'];
-			},
-		});
-		UPGRADES.create('32R', {
-			description: 'x<sub>1</sub>的指数+0.3',
-			displayName: 'U2-R1-2',
-			currency: '乘法能量',
-			cost: new Decimal(1e30),
-			canAfford() {
-				return player.multiplication.mulpower.gte(this.cost);
-			},
-			buy() {
-				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost);
-			},
-			get requirement() {
-				return [];
-			},
-			show: function () {
-				return true;
-			},
+			}
+		},
+		'33R': new class U33R extends Upgrade{
+			// @ts-ignore
+			description: string = "y<sub>1</sub>的指数+0.3";
+			cost= new Decimal(1e35)
+			name= 'U2-R1-3'
+			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			keep() {
 				return player.upgrades['454q'];
-			},
-		});
-		UPGRADES.create('33R', {
-			description: 'y<sub>1</sub>的指数+0.3',
-			displayName: 'U2-R1-3',
-			currency: '乘法能量',
-			cost: new Decimal(1e35),
-			canAfford() {
-				return player.multiplication.mulpower.gte(this.cost);
-			},
-			buy() {
-				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost);
-			},
-			get requirement() {
-				return [];
-			},
-			show: function () {
-				return true;
-			},
+			}
+		},
+		'34R': new class U34R extends Upgrade{
+			// @ts-ignore
+			description: string = "z<sub>1</sub>的指数+0.3";
+			cost= new Decimal(1e40)
+			name= 'U2-R1-4'
+			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			keep() {
 				return player.upgrades['454q'];
-			},
-		});
-		UPGRADES.create('34R', {
-			description: 'z<sub>1</sub>的指数+0.3',
-			displayName: 'U2-R1-4',
-			currency: '乘法能量',
-			cost: new Decimal(1e40),
-			canAfford() {
-				return player.multiplication.mulpower.gte(this.cost);
-			},
-			buy() {
-				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost);
-			},
-			get requirement() {
-				return [];
-			},
-			show: function () {
-				return true;
-			},
-			keep() {
-				return player.upgrades['454q'];
-			},
-		});
+			}
+		},
+	} as const,
+	initMechanics() {
 	},
 	funcS(x = player.numbertheory.euler.x.floor()) {
 		if (x.gte(1000)) {

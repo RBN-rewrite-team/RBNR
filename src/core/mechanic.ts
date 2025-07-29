@@ -8,17 +8,20 @@ import { decreaseCurrency, setCurrency } from './currencies.ts';
 import { Addition } from './addition/addition.ts';
 import { Multiplication } from './multiplication/multiplication.ts';
 import { NUMTHEORY } from './multiplication/numbertheory.ts';
+import { PrimeFactor } from './multiplication/pf.ts';
 
 var upgrades = {
 	...Successor.upgrades,
 	...Addition.upgrades,
 	...Multiplication.upgrades,
+	...NUMTHEORY.upgrades,
 } as const
 var buyables = {
 	...Successor.buyables,
 	...Addition.buyables,
 	...Multiplication.buyables,
 	...NUMTHEORY.buyables,
+	...PrimeFactor.upgrades,
 } as const
 var softcaps: {
 	[key: string]: ISoftcap;

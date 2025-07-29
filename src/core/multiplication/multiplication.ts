@@ -31,7 +31,7 @@ export const Multiplication = {
 			cost= new Decimal(0)
 			name= 'U2-1'
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
-			get requirement() {
+			requirements() {
 				return [
 					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(1))
 				];
@@ -46,7 +46,7 @@ export const Multiplication = {
 			cost= new Decimal(1)
 			name= 'U2-2'
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
-			get requirement() {
+			requirements() {
 				return [
 					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(1))
 				];
@@ -61,7 +61,7 @@ export const Multiplication = {
 			cost= new Decimal(2)
 			name= 'U2-3'
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
-			get requirement() {
+			requirements() {
 				return [
 					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(2))
 				];
@@ -73,7 +73,7 @@ export const Multiplication = {
 			cost= new Decimal(3)
 			name= 'U2-4'
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
-			get requirement() {
+			requirements() {
 				return [
 					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(3))
 				];
@@ -88,7 +88,7 @@ export const Multiplication = {
 			cost= new Decimal(47)
 			name= 'U2-5'
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
-			get requirement() {
+			requirements() {
 				return [
 					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(47))
 				];
@@ -103,7 +103,7 @@ export const Multiplication = {
 			cost= new Decimal(101)
 			name= 'U2-6'
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
-			get requirement() {
+			requirements() {
 				return [
 					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(101))
 				];
@@ -118,7 +118,7 @@ export const Multiplication = {
 			cost= new Decimal(1000)
 			name= 'U2-7'
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
-			get requirement() {
+			requirements() {
 				return [
 					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(1000))
 				];
@@ -133,7 +133,7 @@ export const Multiplication = {
 			cost= new Decimal(10000)
 			name= 'U2-8'
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
-			get requirement() {
+			requirements() {
 				return [
 					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(10000))
 				];
@@ -148,7 +148,7 @@ export const Multiplication = {
 			cost= new Decimal(1e21)
 			name= 'U2-9'
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
-			get requirement() {
+			requirements() {
 				return [
 					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(1e21))
 				];
