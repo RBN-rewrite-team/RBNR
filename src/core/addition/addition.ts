@@ -34,7 +34,7 @@ export const Addition = {
 			cost= new Decimal(1)
 			name= "U1-1"
 			currency = Currencies.ADDITION_POWER
-			keep() {
+			keep(): boolean {
 				return player.upgrades['421q']&&!player.exponention.logarithm.in_dilate;
 			}
 			requirements() {
@@ -55,7 +55,7 @@ export const Addition = {
 				return new Decimal(5);
 			}
 			name= "U1-2"
-			keep() {
+			keep(): boolean {
 				return player.upgrades['421q']&&!player.exponention.logarithm.in_dilate;
 			}
 			requirements() {
@@ -76,7 +76,7 @@ export const Addition = {
 				return new Decimal(25);
 			}
 			name= "U1-3"
-			keep() {
+			keep() :boolean {
 				return player.upgrades['421q']&&!player.exponention.logarithm.in_dilate;
 			}
 			requirements() {
@@ -89,7 +89,7 @@ export const Addition = {
 			description= '解锁B1-1'
 			cost=new Decimal(125)
 			name= "U1-4"
-			keep() {
+			keep(): boolean {
 				return player.upgrades['421q']&&!player.exponention.logarithm.in_dilate;
 			}
 			requirements() {
@@ -105,7 +105,7 @@ export const Addition = {
 				return new Decimal(625);
 			}
 			name= "U1-5"
-			keep() {
+			keep(): boolean {
 				return player.upgrades['421q']&&!player.exponention.logarithm.in_dilate;
 			}
 			requirements() {
@@ -135,7 +135,7 @@ export const Addition = {
 				return new Decimal(3125);
 			}
 			name= "U1-6"
-			keep() {
+			keep():boolean {
 				return player.upgrades['421q']&&!player.exponention.logarithm.in_dilate;
 			}
 			requirements() {
