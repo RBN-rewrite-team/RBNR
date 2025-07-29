@@ -5,42 +5,24 @@ import { notations } from '@/utils/format';
 import { themes } from '@/utils/themes';
 import type { qolUpgs } from '../exponention/qolupg';
 import type { IAstronomer } from '../exponention/logarithm';
+import type { IntRange } from 'type-fest';
+
+
 
 const SAVEID = 'RBN-rewritten';
 const version = 3 as const;
 const zero = new Decimal(0);
-type Upgrades = Record<
-	| '11'
-	| '12'
-	| '13'
-	| '21'
-	| '22'
-	| '23'
-	| '24'
-	| '25'
-	| '26'
-	| '31'
-	| '32'
-	| '33'
-	| '34'
-	| '35'
-	| '36'
-	| '37'
-	| '38'
-	| '39'
+export type UpgIds = `${IntRange<11, 14>
+	| IntRange<21, 27>
+	| IntRange<31, 40>}`
 	| '31R'
 	| '32R'
 	| '33R'
 	| '34R'
-	| '41'
-	| '42'
-	| '43'
-	| '44'
-	| '45'
-	| '46'
-	| '47'
-	| '48'
-	| qolUpgs,
+	| `${IntRange<41, 49>}`
+	| qolUpgs
+export type Upgrades = Record<
+	UpgIds,
 	boolean
 >;
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
@@ -50,14 +32,7 @@ type Buyables = Record<
 	| '31'
 	| '32'
 	| '33'
-	| '31R'
-	| '32R'
-	| '33R'
-	| '34R'
-	| '35R'
-	| '36R'
-	| '37R'
-	| '38R'
+	| `${IntRange<31,39>}R`
     | '41R'
     | '42R'
 	| PrimeFactorTypes
@@ -71,8 +46,7 @@ type Buyables = Record<
 	Decimal
 >;
 type Milestones = Record<
-  "cb1"|"cb2"|"cb3"|"cb4"|"cb5"|"cb6"
-  |"log_law1"|"log_law2"|"log_law3"|"log_G",
+  `cb${IntRange<1,21>}`  |"log_law1"|"log_law2"|"log_law3"|"log_G",
 	boolean
 >;
 export interface Player {
@@ -122,6 +96,7 @@ export interface Player {
 			calculate_datas: Decimal;
 			astronomers: IAstronomer[];
 			in_dilate: boolean;
+			upgrades_in_dilated: UpgIds[];
 		}
 	};
 	options: {
@@ -257,6 +232,20 @@ function getInitialPlayerData(): Player {
 		  "cb4": false,
 		  "cb5": false,
 		  "cb6": false,
+		  "cb7": false,
+		  "cb8": false,
+		  "cb9": false,
+		  "cb10": false,
+		  "cb11": false,
+		  "cb12": false,
+		  "cb13": false,
+		  "cb14": false,
+		  "cb15": false,
+		  "cb16": false,
+		  "cb17": false,
+		  "cb18": false,
+		  "cb19": false,
+		  "cb20": false,
 		  "log_law1": false,
 		  "log_law2": false,
 		  "log_law3": false,
@@ -297,7 +286,8 @@ function getInitialPlayerData(): Player {
 				observe_datas: zero,
 				calculate_datas: zero,
 				astronomers: [],
-				in_dilate: false
+				in_dilate: false,
+				upgrades_in_dilated: [],
 			}
 		},
 		options: {
@@ -332,6 +322,7 @@ function getInitialPlayerData(): Player {
 
 function rewriteDecimalValues(pl: any) {
 	for (const key in pl) {
+		if (key==="upgrades_in_dilated") continue;
 		if (typeof pl[key] === 'string') {
 			if (!Decimal.isNaN(pl[key])) {
 				pl[key] = new Decimal(pl[key]);

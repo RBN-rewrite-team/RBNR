@@ -8,6 +8,7 @@ import { predictableRandom } from '@/utils/algorithm.ts';
 
 import { CHALLENGE } from './challenge.ts';
 import { Logarithm } from './exponention/logarithm.ts';
+import type { Upgrades } from './save/index.ts';
 
 export let diff = 40;
 
@@ -100,7 +101,7 @@ export function simulate(diff: number) {
 	}
 
 	for (let i in upgrades) {
-		if (upgrades[i].keep != null && upgrades[i].keep()) {
+		if (upgrades[i] && upgrades[i].keep != null && upgrades[i].keep()) {
 			player.upgrades[i as keyof typeof player.upgrades] = true;
 		}
 	}

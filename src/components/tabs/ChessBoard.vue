@@ -58,7 +58,11 @@ import TRMilestone from '../TRMilestone.vue';
           <TRMilestone id="cb4" />
           <TRMilestone id="cb5" />
           <TRMilestone id="cb6" />
-        </tbody>
+          <TRMilestone id="cb7" />
+          <TRMilestone id="cb8" />
+          <TRMilestone id="cb9" />
+          <TRMilestone id="cb10" />
+       </tbody>
       </table>
     </div>
   </div>

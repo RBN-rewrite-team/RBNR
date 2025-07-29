@@ -18,6 +18,7 @@ export function maxBlocks() {
 
 function getMCB6Effect() {
   return player.exponention.exppower.pow(0.666).add(1e10).log10().log10().add(1).floor()
+    .mul(player.milestones.cb7?2:1)
 }
 
 export function initMechanics() {
@@ -116,6 +117,54 @@ export function initMechanics() {
 		  return "棋盘格数×"+formatWhole(getMCB6Effect())
 	  } ,
 	  requirement: new Decimal(1e18),
+	  get canDone() {
+	    return wheatGrain().gte(this.requirement)
+	  },
+	  show: true,
+	  currency: "麦粒"
+	})
+	MILESTONES.create("cb7", {
+	  displayName: "M-CB-7",
+	  get description(){
+		return "里程碑6的效果加倍(×2)"
+	  } ,
+	  requirement: new Decimal(1e25),
+	  get canDone() {
+	    return wheatGrain().gte(this.requirement)
+	  },
+	  show: true,
+	  currency: "麦粒"
+	})
+	MILESTONES.create("cb8", {
+	  displayName: "M-CB-8",
+	  get description(){
+		return "解锁τ<sub>2B</sub>"
+	  } ,
+	  requirement: new Decimal(1e35),
+	  get canDone() {
+	    return wheatGrain().gte(this.requirement)
+	  },
+	  show: true,
+	  currency: "麦粒"
+	})
+	MILESTONES.create("cb9", {
+	  displayName: "M-CB-9",
+	  get description(){
+		return "棋盘每个格子提升观测数据基础获取量×+0.01"
+	  } ,
+	  requirement: new Decimal(1e50),
+	  get canDone() {
+	    return wheatGrain().gte(this.requirement)
+	  },
+	  show: true,
+	  currency: "麦粒"
+	})
+	MILESTONES.create("cb10", {
+	  displayName: "M-CB-10",
+	  get description(){
+		return "每个行星运动定律使麦粒^1.05"
+	  } ,
+	  requirement: new Decimal(1e70),
 	  get canDone() {
 	    return wheatGrain().gte(this.requirement)
 	  },
