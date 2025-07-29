@@ -81,7 +81,7 @@ export const Successor = {
 				let a = x;
 				if (player.upgrades[23]) a = a.add(10);
 				a = a.sub(10).div(10);
-				return a;
+				return a.min(x.add(this.more()));
 			};
 			requirements(): Requirement[] {
 				return [

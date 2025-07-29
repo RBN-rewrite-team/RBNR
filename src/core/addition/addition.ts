@@ -15,11 +15,15 @@ import { feature } from '../global.ts';
 import { CHALLENGE } from '../challenge.ts';
 import { C11cap, MULTI_CHALS } from '../multiplication/challenges.ts';
 import { predictableRandom } from '@/utils/algorithm.ts';
-import { Upgrade } from '../upgrade.ts';
+import { Upgrade, UpgradeWithEffect } from '../upgrade.ts';
 import { Currencies } from '../currencies.ts';
-import { CurrencyRequirement } from '../requirements.ts';
+import { CurrencyRequirement, Requirement, UpgradeRequirement } from '../requirements.ts';
+import { Buyable } from '../buyable.ts';
 
 export class AdditionUpgrade extends Upgrade {
+	currency = Currencies.ADDITION_POWER
+}
+export class AdditionUpgradeWithEffect extends UpgradeWithEffect {
 	currency = Currencies.ADDITION_POWER
 }
 
@@ -83,22 +87,32 @@ export const Addition = {
 		'24': new class U14 extends AdditionUpgrade {
 			description= '解锁B1-1'
 			// @ts-ignore
-			cost=new Decimal(3125)
+			cost=new Decimal(125)
 			name= "U1-4"
 			keep() {
 				return player.upgrades['421q']&&!player.exponention.logarithm.in_dilate;
 			}
 			requirements() {
 				return [
-					new CurrencyRequirement(Currencies.ADDITION_POWER, new Decimal(3125))
+					new CurrencyRequirement(Currencies.ADDITION_POWER, new Decimal(125))
 				]
 			}
 		},
-	} as const ,
-	initMechanics() {
-		UPGRADES.create('25', {
-			description: '后继运算升级为加法运算， 在每次加法重置后保留U0系列升级',
-			displayName: 'U1-5',
+		'25': new class U15 extends AdditionUpgradeWithEffect {
+			description= '后继运算升级为加法运算， 在每次加法重置后保留U0系列升级'
+			// @ts-ignore
+			get cost() {
+				return new Decimal(625);
+			}
+			name= "U1-5"
+			keep() {
+				return player.upgrades['421q']&&!player.exponention.logarithm.in_dilate;
+			}
+			requirements() {
+				return [
+					new CurrencyRequirement(Currencies.ADDITION_POWER, new Decimal(625))
+				]
+			}
 			effect() {
 				let exp = new Decimal(0.25);
 				let a;
@@ -109,128 +123,64 @@ export const Addition = {
 					exp = exp.add(a);
 
 				return player.totalAddpower.pow(exp).add(1).floor();
-			},
-			effD() {
+			}
+			effectDescription() {
 				return '+' + formatWhole(this?.effect?.() ?? 0) + '/c';
-			},
+			}
+		},
+		'26': new class U16 extends AdditionUpgrade {
+			description= '解锁乘法层'
+			// @ts-ignore
 			get cost() {
-				if (CHALLENGE.inChallenge(0, 0)) return new Decimal(Infinity);
-				if (
-					player.multiplication.B1seriesC1 == 5 ||
-					player.multiplication.B1seriesC1400q == 5
-				)
-					return new Decimal(1);
-				return new Decimal(625);
-			},
-			currency: '加法能量',
-			canAfford() {
-				return player.addpower.gte(this.cost);
-			},
-			buy() {
-				player.addpower = player.addpower.sub(this.cost);
-			},
-			get requirement() {
-				return [
-					[
-						'获得625加法能量',
-						() =>
-							player.totalAddpower.gte(
-								player.multiplication.B1seriesC1 == 5 || player.multiplication.B1seriesC1400q == 5 ? 1 : 625,
-							),
-						[formatWhole(player.totalAddpower), formatWhole(upgrades[25].cost)],
-					] as singleReq,
-				];
-			},
-			show: function () {
-				return true;
-			},
+				return new Decimal(3125);
+			}
+			name= "U1-6"
 			keep() {
 				return player.upgrades['421q']&&!player.exponention.logarithm.in_dilate;
-			},
-		});
-		UPGRADES.create('26', {
-			description: '解锁乘法层',
-			cost: new Decimal(3125),
-			displayName: 'U1-6',
-			currency: '加法能量',
-			canAfford() {
-				return player.addpower.gte(this.cost);
-			},
-			buy() {
-				player.addpower = player.addpower.sub(this.cost);
-			},
-			get requirement() {
+			}
+			requirements() {
 				return [
-					[
-						'获得3125加法能量',
-						() => player.totalAddpower.gte(3125),
-						[formatWhole(player.totalAddpower), formatWhole(upgrades[26].cost)],
-					] as singleReq,
-				];
-			},
-			show: function () {
-				return true;
-			},
-			keep() {
-				return player.upgrades['421q']&&!player.exponention.logarithm.in_dilate;
-			},
-		});
-		BUYABLES.create('21', {
-			description: '每次加法重置后获得免费的购买项11（算在上限之内）',
-			displayName: 'B1-1',
-			currency: '数值',
-			effect(x) {
-				return x;
-			},
-			effD(x) {
-				return '+' + formatWhole(this.effect(x));
-			},
-			cost(x) {
+					new CurrencyRequirement(Currencies.ADDITION_POWER, new Decimal(625))
+				]
+			}
+		},
+	} as const ,
+	buyables: {
+		'21': new class B11 extends Buyable<Decimal> {
+			description: string="每次加法重置后获得免费的购买项11（算在上限之内）";
+			name: string="B1-1";
+			currency: Currencies=Currencies.NUMBER;
+			cost(x: Decimal) {
 				let a = x.mul(1000);
 				return a;
-			},
-			canAfford(x) {
-				return player.number.gte(this.cost(x));
-			},
-			buy(x) {
-				player.number = player.number.sub(this.cost(x));
-			},
+			}
 			capped() {
 				let capc = 100;
 				return player.buyables['21'].gte(capc);
-			},
-			get requirement() {
+			}
+			requirements(): Requirement[]{
 				return [
-					[
-						'购买U1-4',
-						function () {
-							return player.upgrades['24'];
-						},
-					] as singleReq,
-				];
-			},
-			show: function () {
-				return true;
-			},
+					new UpgradeRequirement('24')
+				]
+			}
 			canBuyMax() {
 				return player.upgrades[39];
-			},
+			}
 			autoBuyMax() {
 				return player.upgrades[39];
-			},
-			canBuy() {
-				return player.number
+			}
+			costInverse(x: Decimal) {
+				return x
 					.sub(10)
 					.div(1000)
 					.floor()
 					.min(100)
 					.sub(player.buyables[21])
-					.max(0);
-			},
-			buyMax() {
-				player.buyables[21] = player.buyables[21].add(this?.canBuy?.() ?? 0).min(100);
-			},
-		});
+					.max(0).min(100);
+			}
+		}
+	} as const,
+	initMechanics() {
 		SOFTCAPS.create('addpower^1', {
 			name: 'addpower^1',
 			fluid: true,

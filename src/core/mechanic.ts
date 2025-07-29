@@ -6,13 +6,19 @@ import { Logarithm } from './exponention/logarithm.ts';
 import { Successor } from './successor/successor.ts';
 import { decreaseCurrency, setCurrency } from './currencies.ts';
 import { Addition } from './addition/addition.ts';
+import { Multiplication } from './multiplication/multiplication.ts';
+import { NUMTHEORY } from './multiplication/numbertheory.ts';
 
 var upgrades = {
 	...Successor.upgrades,
 	...Addition.upgrades,
+	...Multiplication.upgrades,
 } as const
 var buyables = {
-	...Successor.buyables
+	...Successor.buyables,
+	...Addition.buyables,
+	...Multiplication.buyables,
+	...NUMTHEORY.buyables,
 } as const
 var softcaps: {
 	[key: string]: ISoftcap;

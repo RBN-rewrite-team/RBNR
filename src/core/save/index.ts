@@ -9,7 +9,7 @@ import type { IntRange } from 'type-fest';
 
 
 
-const SAVEID = 'RBN-rewritten';
+const SAVEID = 'RBN-rewritten-powerful-refactor-test';
 const version = 3 as const;
 const zero = new Decimal(0);
 export type UpgIds = `${IntRange<11, 14>
