@@ -136,12 +136,9 @@ export function wgEffect() {
   let eff4 = wg.pow(2).pow_base(4)
   let eff5 = new Decimal(1).div(wg.add(1).ln().add(1).ln().root(2).div(1.5).add(1))
   if (eff1.gte(4)) eff1 = eff1.div(4).pow(0.5).mul(4)
-  if (eff2.gte(50)) eff2 = eff2.div(50).pow(0.4).mul(50)
   if (eff3.gte(3)) eff3 = eff3.div(3).pow(0.3).mul(3)
-  if (eff4.gte('ee100')) eff4 = eff4.log10().div(1e100).pow(0.1).mul(1e100).pow_base(10)
   if (player.exponention.logarithm.in_dilate) {
       eff4 = eff4.max(1e10).log10().log10();
   }
-  if (eff5.lt(1 / 3)) eff5 = new Decimal(1).div(new Decimal(1).div(eff5).sub(2).pow(0.5).add(2))
   return [eff1, eff2, eff3, eff4, eff5]
 }

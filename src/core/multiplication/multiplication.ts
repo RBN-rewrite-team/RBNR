@@ -412,18 +412,10 @@ export const Multiplication = {
 			},
 			meta: 1
 		});
-		SOFTCAPS.create('mulpower^2', {
-			name: 'mulpower^2',
-			fluid: true,
-			start: new Decimal("ee15"),
-			exponent: new Decimal(0.5),
-			meta: 1
-		});
 	},
 	mulpower_gain(bulk = new Decimal(1)) {
 	  let adding = this.gain().mul(bulk);
 	  adding = SOFTCAPS.fluidComputed('mulpower^1', adding, player.multiplication.mulpower);
-	  adding = SOFTCAPS.fluidComputed('mulpower^2', adding, player.multiplication.mulpower);
 	  player.multiplication.mulpower = player.multiplication.mulpower.add(adding);
 		player.multiplication.totalMulpower = player.multiplication.totalMulpower.add(
 			adding
