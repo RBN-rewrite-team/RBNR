@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Logarithm } from '@/core/exponention/logarithm';
 import { buyables, upgrades, UPGRADES } from '@/core/mechanic';
 import { player } from '@/core/save';
 import { format } from '@/utils/format';
@@ -9,9 +10,13 @@ const id = props.upgid as keyof typeof player.upgrades;
 // code...
 function useClass() {
 	let useclass = 'upgrade_buttonbig';
-	if (id.startsWith('4') && id.endsWith('q')) useclass = 'upgrade_buttonsmall';
+	if (id.toString().startsWith('4') && id.toString().endsWith('q')) useclass = 'upgrade_buttonsmall';
 	if (player.upgrades[id]) useclass += '_complete';
 	else if (!UPGRADES.lock(id).unlocked || !upgrades[id].canAfford()) useclass += '_unable';
+
+	if (player.upgrades[id] && Logarithm.logarithm.upgrades_in_dilated.includes(id)) {
+		useclass += " upgrade_dilated"
+	}
 	return useclass;
 }
 const permanent = upgrades[id].keep != null && upgrades[id].keep();
@@ -41,7 +46,7 @@ const req = upgrades[id].requirement;
 					<br />
 				</template>
 				<template v-else>
-					<span v-html="upgrades[id].description"></span><br />
+					<span v-html="(Logarithm.logarithm.upgrades_in_dilated.includes(id)&&upgrades[id].dilated) ? upgrades[id].dilated : upgrades[id].description"></span><br />
 					<template v-if="upgrades[id].effect">
 						效果：<span v-html="upgrades[id].effD?.()"></span><br />
 					</template>

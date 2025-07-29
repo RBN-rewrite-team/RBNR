@@ -8,6 +8,7 @@ import { predictableRandom } from '@/utils/algorithm.ts';
 
 import { CHALLENGE } from './challenge.ts';
 import { Logarithm } from './exponention/logarithm.ts';
+import type { Upgrades } from './save/index.ts';
 
 export let diff = 40;
 
@@ -18,6 +19,7 @@ export function updateHighestStat() {
 	player.stat.highestExppower = player.stat.highestExppower.max(player.exponention.exppower);
 }
 export function qolLoop() {
+  if (!player.exponention.logarithm.in_dilate) {
 	if (player.upgrades['412q']) {
 		player.buyables[11] = player.buyables[11].max(1);
 	}
@@ -28,8 +30,12 @@ export function qolLoop() {
 		player.buyable11More = player.buyables[21];
 	}
 	if (player.upgrades['442q']) {
-		player.buyables[11] = new Decimal(100);
+		player.buyables[11] = player.buyables[11].max(100);
 	}
+	if (player.upgrades['455q']) {
+		player.buyables[33] = new Decimal(99);
+	}
+  }
 	if (player.upgrades['443q']) {
 		player.challenges[0][3] = player.challenges[0][3].max(
 			player.multiplication.totalMulpower.pow(0.001),
@@ -38,9 +44,6 @@ export function qolLoop() {
 	if (player.upgrades['453q']) {
 		for (let i = 0; i < 3; i++)
 			player.challenges[0][i] = player.challenges[0][i].max(player.totalNumber);
-	}
-	if (player.upgrades['455q']) {
-		player.buyables[33] = new Decimal(99);
 	}
 }
 /**
@@ -61,8 +64,8 @@ export function gameLoop() {
 	  throw e
 	};
 	if (diff > 60000) {
-		simulateTime(diff);
 		return;
+		simulateTime(diff);
 	}
 	if (player.run_a_tick_and_froze) {
 		player.frozen=true;
@@ -100,7 +103,7 @@ export function simulate(diff: number) {
 	}
 
 	for (let i in upgrades) {
-		if (upgrades[i].keep != null && upgrades[i].keep()) {
+		if (upgrades[i] && upgrades[i].keep != null && upgrades[i].keep()) {
 			player.upgrades[i as keyof typeof player.upgrades] = true;
 		}
 	}

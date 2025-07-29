@@ -42,8 +42,8 @@ export const resourceGain = {
         }
         let passive = new Decimal(0);
         if (player.upgrades[38]) passive = passive.add(0.01);
-        if (player.upgrades['441q']) passive = passive.add(1);
-        if (player.exponention.logarithm.in_dilate) passive = new Decimal(0)
+        if (player.upgrades['441q'] && !player.exponention.logarithm.in_dilate) passive = passive.add(1);
+        
         return { value: base, passive: passive, softcaps: softcaps };
     },
     mulpower() {

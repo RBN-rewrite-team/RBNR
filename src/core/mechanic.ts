@@ -4,6 +4,7 @@ import { player } from './save';
 import { feature } from './global.ts';
 import { format, formatWhole } from '@/utils/format';
 import { reactive } from "vue"
+import { Logarithm } from './exponention/logarithm.ts';
 
 var upgrades: {
 		[key: string]: IUpgrade;
@@ -35,7 +36,9 @@ type IUpgrade = {
 			effect?: never;
 			effD?: never;
 	  }
-);
+) & {
+	dilated?: string;
+};
 export const UPGRADES = {
 	/**
 	 * 创建一个升级
@@ -67,7 +70,7 @@ export const UPGRADES = {
 	 */
 	singleHTML(id: keyof typeof player.upgrades) {
 		let useclass = 'upgrade_buttonbig';
-		if (id.startsWith('4') && id.endsWith('q')) useclass = 'upgrade_buttonsmall';
+		if (id.toString().startsWith('4') && id.toString().endsWith('q')) useclass = 'upgrade_buttonsmall';
 		if (player.upgrades[id]) useclass += '_complete';
 		else if (!this.lock(id).unlocked || !upgrades[id].canAfford()) useclass += '_unable';
 		let permanent = upgrades[id].keep != null && upgrades[id].keep();
@@ -105,6 +108,11 @@ export const UPGRADES = {
 		if (!player.upgrades[id] && this.lock(id).unlocked && upgrades[id].canAfford()) {
 			upgrades[id].buy();
 			player.upgrades[id] = true;
+			
+			if (Logarithm.logarithm.in_dilate) {
+				Logarithm.logarithm.upgrades_in_dilated.push(id)
+				Logarithm.logarithm.upgrades_in_dilated = [...new Set(Logarithm.logarithm.upgrades_in_dilated)]
+			}
 		}
 	},
 };
@@ -187,7 +195,7 @@ export const BUYABLES = {
 				str +=
 					'效果：' +
 					buyables[id].effD(player.buyables[id]) +
-					'→' +
+					'&nbsp;→ ' +
 					buyables[id].effD(player.buyables[id].add(canBuy.max(1))) +
 					'<br>';
 			str +=
