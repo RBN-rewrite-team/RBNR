@@ -2,396 +2,60 @@ import Decimal from 'break_eternity.js';
 import { UPGRADES, type singleReq } from '../mechanic';
 import { player } from '../save';
 import { format, formatWhole } from '@/utils/format';
+import { Upgrade } from '../upgrade';
+import { Currencies } from '../currencies';
+import { UpgradeRequirement, type Requirement } from '../requirements';
 type onetwofive = 1 | 2 | 3 | 4 | 5;
-type onetwofour = 1 | 2 | 3 | 4;
 export type qolUpgs = `${4}${onetwofive}${onetwofive}q` | '400q';
-
+class QolUpg extends Upgrade {
+	name="4-QOL-xx"
+	description: string = '';
+	cost= new Decimal(1);
+	currency: Currencies = Currencies.QOL_POINTS;
+	constructor(description: string, id:`${onetwofive}${onetwofive}`|'00', r?:()=>Requirement[], s?:()=>boolean, c?:Decimal){
+		super();
+		this.description = description;
+		this.name = "4-QOL-"+id;
+		if (r)this.requirements = r;
+		if (s)this.show = s;
+		if (c)this.cost = c;
+	}
+}
 export const QolUpgrades = {
+	upgrades: {
+		'400q': new class extends QolUpg {
+			cost = new Decimal(0);
+			constructor() {
+				super('U2-1的效果*2，解锁一个新的数论研究1升级','00');
+			}
+		},
+		'411q': new QolUpg('保持后继升级和U2-2。', '11'),
+		'412q': new QolUpg('B0-1的数量不会少于1个。', '12'),
+		'413q': new QolUpg('指数不重置挑战1的奖励。', '13'),
+		'414q': new QolUpg('指数不重置U2-R1-1。', '14'),
+		'415q': new QolUpg('自动购买质因数2、3、5、7。', '15'),
+		'421q': new QolUpg('保持加法升级。', '21', ():[UpgradeRequirement]=>[new UpgradeRequirement('411q')]),
+		'422q': new QolUpg('B0-1的数量不会少于10个。', '22', ():[UpgradeRequirement]=>[new UpgradeRequirement('412q')]),
+		'423q': new QolUpg('指数不重置挑战2的奖励。', '23', ():[UpgradeRequirement]=>[new UpgradeRequirement('413q')]),
+		'424q': new QolUpg('指数不重置B2-R1-1。', '24', ():[UpgradeRequirement]=>[new UpgradeRequirement('414q')]),
+		'425q': new QolUpg('自动购买质因数11、13、17、19', '25', ():[UpgradeRequirement]=>[new UpgradeRequirement('415q')]),
+		'431q': new QolUpg('指数不重置U2-3和U2-4。', '31', ():[UpgradeRequirement]=>[new UpgradeRequirement('421q')], (): boolean=>QolUpgrades.row1AllUnlocked() ),
+		'432q': new QolUpg('B1-1的增幅立即生效，无需加法重置。', '32', ():[UpgradeRequirement]=>[new UpgradeRequirement('422q')], (): boolean=>QolUpgrades.row1AllUnlocked() ),
+		'433q': new QolUpg('指数不重置挑战3的奖励。', '33', ():[UpgradeRequirement]=>[new UpgradeRequirement('423q')], (): boolean=>QolUpgrades.row1AllUnlocked() ),
+		'434q': new QolUpg('指数不重置B2-R1-2。', '34', ():[UpgradeRequirement]=>[new UpgradeRequirement('424q')], (): boolean=>QolUpgrades.row1AllUnlocked() ),
+		'435q': new QolUpg('乘法不重置质因数时间。', '35', ():[UpgradeRequirement]=>[new UpgradeRequirement('425q')], (): boolean=>QolUpgrades.row1AllUnlocked() ),
+		'441q': new QolUpg('每秒自动获得100%重置时可获得的加法能量。', '41', ():[UpgradeRequirement]=>[new UpgradeRequirement('431q')], (): boolean=>QolUpgrades.row2AllUnlocked() ),
+		'442q': new QolUpg('B0-1的数量保持在100个。', '42', ():[UpgradeRequirement]=>[new UpgradeRequirement('432q')], (): boolean=>QolUpgrades.row2AllUnlocked() ),
+		'443q': new QolUpg('挑战4纪录不低于本指数内累计乘法能量^' + format(new Decimal(0.001)) + '。', '43', ():[UpgradeRequirement]=>[new UpgradeRequirement('433q')], (): boolean=>QolUpgrades.row2AllUnlocked() ),
+		'444q': new QolUpg('自动化数论研究1的购买项。', '44', ():[UpgradeRequirement]=>[new UpgradeRequirement('434q')], (): boolean=>QolUpgrades.row2AllUnlocked() ),
+		'445q': new QolUpg('指数不重置质因数时间。', '45', ():[UpgradeRequirement]=>[new UpgradeRequirement('435q')], (): boolean=>QolUpgrades.row2AllUnlocked() ),
+		'451q': new QolUpg('保持乘法升级。', '51', ():[UpgradeRequirement]=>[new UpgradeRequirement('441q')], (): boolean=>QolUpgrades.row3AllUnlocked(), new Decimal(5)),
+		'452q': new QolUpg('自动化B2-1和B2-2。', '52', ():[UpgradeRequirement]=>[new UpgradeRequirement('442q')], (): boolean=>QolUpgrades.row3AllUnlocked(), new Decimal(5)),
+		'453q': new QolUpg('前3个挑战的纪录保持为本次指数的最高数值。', '53', ():[UpgradeRequirement]=>[new UpgradeRequirement('443q')], (): boolean=>QolUpgrades.row3AllUnlocked(), new Decimal(5)),
+		'454q': new QolUpg('保持数论研究1的升级。', '54', ():[UpgradeRequirement]=>[new UpgradeRequirement('444q')], (): boolean=>QolUpgrades.row3AllUnlocked(), new Decimal(5)),
+		'455q': new QolUpg('B2-3的数量保持在99个。', '55', ():[UpgradeRequirement]=>[new UpgradeRequirement('445q')], (): boolean=>QolUpgrades.row3AllUnlocked(), new Decimal(5)),
+	},
 	initMechanics() {
-		UPGRADES.create('400q', {
-			displayName: '4-QOL-00',
-			description: 'U2-1的效果*2，解锁一个新的数论研究1升级',
-			canAfford() {
-				return Boolean(player.firstResetBit & 0b100);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(0),
-			buy() {},
-			requirement: [],
-			show() {
-				return true;
-			},
-		});
-		UPGRADES.create('411q', {
-			displayName: '4-QOL-11',
-			description: '保持后继升级和U2-2。',
-			canAfford() {
-				return player.exponention.qolpoints.gte(1);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(1),
-			buy() {
-				player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost);
-			},
-			requirement: [],
-			show() {
-				return true;
-			},
-		});
-		UPGRADES.create('412q', {
-			displayName: '4-QOL-12',
-			description: 'B0-1的数量不会少于1个。',
-			canAfford() {
-				return player.exponention.qolpoints.gte(1);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(1),
-			buy() {
-				player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost);
-			},
-			requirement: [],
-			show() {
-				return true;
-			},
-		});
-		UPGRADES.create('413q', {
-			displayName: '4-QOL-13',
-			description: '指数不重置挑战1的奖励。',
-			canAfford() {
-				return player.exponention.qolpoints.gte(1);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(1),
-			buy() {
-				player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost);
-			},
-			requirement: [],
-			show() {
-				return true;
-			},
-		});
-		UPGRADES.create('414q', {
-			displayName: '4-QOL-14',
-			description: '指数不重置U2-R1-1。',
-			canAfford() {
-				return player.exponention.qolpoints.gte(1);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(1),
-			buy() {
-				player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost);
-			},
-			requirement: [],
-			show() {
-				return true;
-			},
-		});
-		UPGRADES.create('415q', {
-			displayName: '4-QOL-15',
-			description: '自动购买质因数2、3、5、7。',
-			canAfford() {
-				return player.exponention.qolpoints.gte(1);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(1),
-			buy() {
-				player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost);
-			},
-			requirement: [],
-			show() {
-				return true;
-			},
-		});
-		UPGRADES.create('421q', {
-			displayName: '4-QOL-21',
-			description: '保持加法升级。',
-			canAfford() {
-				return player.exponention.qolpoints.gte(1);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(1),
-			buy() {
-				player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost);
-			},
-			requirement: [['购买4-QOL-11', () => player.upgrades['411q']] as singleReq],
-			show() {
-				return true;
-			},
-		});
-		UPGRADES.create('422q', {
-			displayName: '4-QOL-22',
-			description: 'B0-1的数量不会少于10个。',
-			canAfford() {
-				return player.exponention.qolpoints.gte(1);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(1),
-			buy() {
-				player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost);
-			},
-			requirement: [['购买4-QOL-12', () => player.upgrades['412q']] as singleReq],
-			show() {
-				return true;
-			},
-		});
-		UPGRADES.create('423q', {
-			displayName: '4-QOL-23',
-			description: '指数不重置挑战2的奖励。',
-			canAfford() {
-				return player.exponention.qolpoints.gte(1);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(1),
-			buy() {
-				player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost);
-			},
-			requirement: [['购买4-QOL-13', () => player.upgrades['413q']] as singleReq],
-			show() {
-				return true;
-			},
-		});
-		UPGRADES.create('424q', {
-			displayName: '4-QOL-24',
-			description: '指数不重置B2-R1-1。',
-			canAfford() {
-				return player.exponention.qolpoints.gte(1);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(1),
-			buy() {
-				player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost);
-			},
-			requirement: [['购买4-QOL-14', () => player.upgrades['414q']] as singleReq],
-			show() {
-				return true;
-			},
-		});
-		UPGRADES.create('425q', {
-			displayName: '4-QOL-25',
-			description: '自动购买质因数11、13、17、19',
-			canAfford() {
-				return player.exponention.qolpoints.gte(1);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(1),
-			buy() {
-				player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost);
-			},
-			requirement: [['购买4-QOL-15', () => player.upgrades['415q']] as singleReq],
-			show() {
-				return true;
-			},
-		});
-		UPGRADES.create('431q', {
-			displayName: '4-QOL-31',
-			description: '指数不重置U2-3和U2-4。',
-			canAfford() {
-				return player.exponention.qolpoints.gte(1);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(1),
-			buy() {
-				player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost);
-			},
-			requirement: [['购买4-QOL-21', () => player.upgrades['421q']] as singleReq],
-			show: QolUpgrades.row1AllUnlocked,
-		});
-		UPGRADES.create('432q', {
-			displayName: '4-QOL-32',
-			description: 'B1-1的增幅立即生效，无需加法重置。',
-			canAfford() {
-				return player.exponention.qolpoints.gte(1);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(1),
-			buy() {
-				player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost);
-			},
-			requirement: [['购买4-QOL-22', () => player.upgrades['422q']] as singleReq],
-			show: QolUpgrades.row1AllUnlocked,
-		});
-		UPGRADES.create('433q', {
-			displayName: '4-QOL-33',
-			description: '指数不重置挑战3的奖励。',
-			canAfford() {
-				return player.exponention.qolpoints.gte(1);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(1),
-			buy() {
-				player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost);
-			},
-			requirement: [['购买4-QOL-23', () => player.upgrades['423q']] as singleReq],
-			show: QolUpgrades.row1AllUnlocked,
-		});
-		UPGRADES.create('434q', {
-			displayName: '4-QOL-34',
-			description: '指数不重置B2-R1-2。',
-			canAfford() {
-				return player.exponention.qolpoints.gte(1);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(1),
-			buy() {
-				player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost);
-			},
-			requirement: [['购买4-QOL-24', () => player.upgrades['424q']] as singleReq],
-			show: QolUpgrades.row1AllUnlocked,
-		});
-		UPGRADES.create('435q', {
-			displayName: '4-QOL-35',
-			description: '乘法不重置质因数时间。',
-			canAfford() {
-				return player.exponention.qolpoints.gte(1);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(1),
-			buy() {
-				player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost);
-			},
-			requirement: [['购买4-QOL-25', () => player.upgrades['425q']] as singleReq],
-			show: QolUpgrades.row1AllUnlocked,
-		});
-		UPGRADES.create('441q', {
-			displayName: '4-QOL-41',
-			description: '每秒自动获得100%重置时可获得的加法能量。',
-			canAfford() {
-				return player.exponention.qolpoints.gte(1);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(1),
-			buy() {
-				player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost);
-			},
-			requirement: [['购买4-QOL-31', () => player.upgrades['431q']] as singleReq],
-			show: QolUpgrades.row2AllUnlocked,
-		});
-		UPGRADES.create('442q', {
-			displayName: '4-QOL-42',
-			description: 'B0-1的数量保持在100个。',
-			canAfford() {
-				return player.exponention.qolpoints.gte(1);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(1),
-			buy() {
-				player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost);
-			},
-			requirement: [['购买4-QOL-32', () => player.upgrades['432q']] as singleReq],
-			show: QolUpgrades.row2AllUnlocked,
-		});
-		UPGRADES.create('443q', {
-			displayName: '4-QOL-43',
-			description: '挑战4纪录不低于本指数内累计乘法能量^' + format(new Decimal(0.001)) + '。',
-			canAfford() {
-				return player.exponention.qolpoints.gte(1);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(1),
-			buy() {
-				player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost);
-			},
-			requirement: [['购买4-QOL-33', () => player.upgrades['433q']] as singleReq],
-			show: QolUpgrades.row2AllUnlocked,
-		});
-		UPGRADES.create('444q', {
-			displayName: '4-QOL-44',
-			description: '自动化数论研究1的购买项。',
-			canAfford() {
-				return player.exponention.qolpoints.gte(1);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(1),
-			buy() {
-				player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost);
-			},
-			requirement: [['购买4-QOL-34', () => player.upgrades['434q']] as singleReq],
-			show: QolUpgrades.row2AllUnlocked,
-		});
-		UPGRADES.create('445q', {
-			displayName: '4-QOL-45',
-			description: '指数不重置质因数时间。',
-			canAfford() {
-				return player.exponention.qolpoints.gte(1);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(1),
-			buy() {
-				player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost);
-			},
-			requirement: [['购买4-QOL-35', () => player.upgrades['435q']] as singleReq],
-			show: QolUpgrades.row2AllUnlocked,
-		});
-		UPGRADES.create('451q', {
-			displayName: '4-QOL-51',
-			description: '保持乘法升级。',
-			canAfford() {
-				return player.exponention.qolpoints.gte(5);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(5),
-			buy() {
-				player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost);
-			},
-			requirement: [['购买4-QOL-41', () => player.upgrades['441q']] as singleReq],
-			show: QolUpgrades.row3AllUnlocked,
-		});
-		UPGRADES.create('452q', {
-			displayName: '4-QOL-52',
-			description: '自动化B2-1和B2-2。',
-			canAfford() {
-				return player.exponention.qolpoints.gte(5);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(5),
-			buy() {
-				player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost);
-			},
-			requirement: [['购买4-QOL-42', () => player.upgrades['442q']] as singleReq],
-			show: QolUpgrades.row3AllUnlocked,
-		});
-		UPGRADES.create('453q', {
-			displayName: '4-QOL-53',
-			description: '前3个挑战的纪录保持为本次指数的最高数值。',
-			canAfford() {
-				return player.exponention.qolpoints.gte(5);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(5),
-			buy() {
-				player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost);
-			},
-			requirement: [['购买4-QOL-43', () => player.upgrades['443q']] as singleReq],
-			show: QolUpgrades.row3AllUnlocked,
-		});
-		UPGRADES.create('454q', {
-			displayName: '4-QOL-54',
-			description: '保持数论研究1的升级。',
-			canAfford() {
-				return player.exponention.qolpoints.gte(5);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(5),
-			buy() {
-				player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost);
-			},
-			requirement: [['购买4-QOL-44', () => player.upgrades['444q']] as singleReq],
-			show: QolUpgrades.row3AllUnlocked,
-		});
-		UPGRADES.create('455q', {
-			displayName: '4-QOL-55',
-			description: 'B2-3的数量保持在99个。',
-			canAfford() {
-				return player.exponention.qolpoints.gte(5);
-			},
-			currency: '生活质量点',
-			cost: new Decimal(5),
-			buy() {
-				player.exponention.qolpoints = player.exponention.qolpoints.sub(this.cost);
-			},
-			requirement: [['购买4-QOL-45', () => player.upgrades['445q']] as singleReq],
-			show: QolUpgrades.row3AllUnlocked,
-		});
 	},
 	row1AllUnlocked() {
 		return (

@@ -16,7 +16,7 @@ export const NUMTHEORY = {
 				return x.pow_base(1e8).mul(1e32);
 			}
 			name= 'B2-R1-5'
-			effect(x: Decimal) {
+			effect(x: Decimal): Decimal {
 				return x.add(1);
 			}
 			effectDescription(x: Decimal) {
@@ -45,7 +45,7 @@ export const NUMTHEORY = {
 				return x.pow_base(1e16).mul(1e32);
 			}
 			name= 'B2-R1-6'
-			effect(x: Decimal) {
+			effect(x: Decimal): Decimal {
 				return x.mul(0.085);
 			}
 			effectDescription(x: Decimal) {
@@ -79,7 +79,7 @@ export const NUMTHEORY = {
 				return x.pow_base(1e20).mul(1e40);
 			}
 			name= 'B2-R1-7'
-			effect(x: Decimal) {
+			effect(x: Decimal): Decimal {
 				return x.mul(0.085);
 			}
 			effectDescription(x: Decimal) {
@@ -113,7 +113,7 @@ export const NUMTHEORY = {
 				return x.pow_base(1e25).mul(1e50);
 			}
 			name= 'B2-R1-8'
-			effect(x: Decimal) {
+			effect(x: Decimal): Decimal {
 				return new Decimal(1.025).pow(x);
 			}
 			effectDescription(x: Decimal) {
@@ -146,7 +146,7 @@ export const NUMTHEORY = {
 				return x.pow_base(2).mul(10);
 			}
 			name= 'B2-R1-1'
-			effect(x: Decimal) {
+			effect(x: Decimal): Decimal {
 				return x.mul(buyables['38R'].effect(player.buyables['38R']));
 			}
 			effectDescription(x: Decimal) {
@@ -175,7 +175,7 @@ export const NUMTHEORY = {
 				return x.pow_base(10).mul(100);
 			}
 			name= 'B2-R1-2'
-			effect(x: Decimal) {
+			effect(x: Decimal): Decimal {
 				return x.mul(buyables['38R'].effect(player.buyables['38R']));
 			}
 			effectDescription(x: Decimal) {
@@ -204,7 +204,7 @@ export const NUMTHEORY = {
 				return x.pow_base(100).mul(1e28);
 			}
 			name= 'B2-R1-3'
-			effect(x: Decimal) {
+			effect(x: Decimal): Decimal {
 				return x.mul(buyables['38R'].effect(player.buyables['38R']));
 			}
 			effectDescription(x: Decimal) {
@@ -232,7 +232,7 @@ export const NUMTHEORY = {
 				return x.pow_base(1000).mul(1e30);
 			}
 			name= 'B2-R1-3'
-			effect(x: Decimal) {
+			effect(x: Decimal): Decimal {
 				return x.mul(buyables['38R'].effect(player.buyables['38R']));
 			}
 			effectDescription(x: Decimal) {
@@ -260,7 +260,7 @@ export const NUMTHEORY = {
 				return x.pow_base(1.5).mul(10);
 			}
 			name= 'B3-R1-1'
-			effect(x: Decimal) {
+			effect(x: Decimal): Decimal {
 				return x.mul(x.add(1)).div(2);
 			}
 			effectDescription(x: Decimal) {
@@ -282,7 +282,7 @@ export const NUMTHEORY = {
 				return x.pow(2).pow_base(3).mul(4000);
 			}
 			name= 'B3-R1-2'
-			effect(x: Decimal) {
+			effect(x: Decimal): Decimal {
 				return x.mul(0.2).add(1)
 			}
 			effectDescription(x: Decimal) {

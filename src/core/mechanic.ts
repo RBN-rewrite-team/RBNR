@@ -9,19 +9,24 @@ import { Addition } from './addition/addition.ts';
 import { Multiplication } from './multiplication/multiplication.ts';
 import { NUMTHEORY } from './multiplication/numbertheory.ts';
 import { PrimeFactor } from './multiplication/pf.ts';
+import { Exponention } from './exponention/exponention.ts';
+import { QolUpgrades } from './exponention/qolupg.ts';
 
 var upgrades = {
 	...Successor.upgrades,
 	...Addition.upgrades,
 	...Multiplication.upgrades,
 	...NUMTHEORY.upgrades,
+	...Exponention.upgrades,
+	...QolUpgrades.upgrades,
 } as const
 var buyables = {
 	...Successor.buyables,
 	...Addition.buyables,
 	...Multiplication.buyables,
 	...NUMTHEORY.buyables,
-	...PrimeFactor.upgrades,
+	...PrimeFactor.upgrades,// this code write 'upgrades', but it is actually 'buyables'.
+	...Exponention.buyables,
 } as const
 var softcaps: {
 	[key: string]: ISoftcap;
