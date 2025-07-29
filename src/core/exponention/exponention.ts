@@ -7,290 +7,144 @@ import { Multiplication } from '../multiplication/multiplication.ts';
 import { CHALLENGE } from '../challenge.ts';
 import { Logarithm } from './logarithm.ts';
 import { feature } from '../global.ts';
+import { Currencies } from '../currencies.ts';
+import { Upgrade } from '../upgrade.ts';
+import { CurrencyRequirement, type Requirement } from '../requirements.ts';
+import { Buyable } from '../buyable.ts';
 const D179E308 = Decimal.pow(2, 1024);
 
 export const Exponention = {
-	initMechanics() {
-		UPGRADES.create('41', {
-			displayName: 'U3-11',
-			description: '加法能量乘法能量获取速度*10',
-			cost: new Decimal(1),
-			currency: '指数能量',
-			canAfford() {
-				return player.exponention.exppower.gte(this.cost);
-			},
-			requirement: [],
-			show() {
-				return true;
-			},
-			buy() {
-				player.exponention.exppower = player.exponention.exppower.sub(this.cost);
-			},
-		});
-		UPGRADES.create('42', {
-			displayName: 'U3-12',
-			description: '后继/加法运算指数+0.1',
-			cost: new Decimal(1),
-			currency: '指数能量',
-			canAfford() {
-				return player.exponention.exppower.gte(this.cost);
-			},
-			requirement: [],
-			show() {
-				return true;
-			},
-			buy() {
-				player.exponention.exppower = player.exponention.exppower.sub(this.cost);
-			},
-		});
-		UPGRADES.create('43', {
-			displayName: 'U3-13',
-			description: '数值二重软上限开始处^2',
-			cost: new Decimal(1),
-			currency: '指数能量',
-			canAfford() {
-				return player.exponention.exppower.gte(this.cost);
-			},
-			requirement: [],
-			show() {
-				return true;
-			},
-			buy() {
-				player.exponention.exppower = player.exponention.exppower.sub(this.cost);
-			},
-		});
-		UPGRADES.create('44', {
-			displayName: 'U3-14',
-			description: '加法能量二重软上限开始处^2',
-			cost: new Decimal(1),
-			currency: '指数能量',
-			canAfford() {
-				return player.exponention.exppower.gte(this.cost);
-			},
-			requirement: [],
-			show() {
-				return true;
-			},
-			buy() {
-				player.exponention.exppower = player.exponention.exppower.sub(this.cost);
-			},
-		});
-		UPGRADES.create('45', {
-			displayName: 'U3-21',
-			description: '解锁数论研究2',
-			cost: new Decimal(10),
-			currency: '指数能量',
-			canAfford() {
-				return player.exponention.exppower.gte(this.cost);
-			},
-			get requirement() {
+	upgrades: {
+		'41': new class U31 extends Upgrade{
+			
+			description = '加法能量乘法能量获取速度*10'
+			cost= new Decimal(1)
+			name= 'U3-11'
+			currency: Currencies = Currencies.EXPONENTION_POWER;
+		},
+		'42': new class U32 extends Upgrade{
+			
+			description = '后继/加法运算指数+0.1'
+			cost= new Decimal(1)
+			name= 'U3-12'
+			currency: Currencies = Currencies.EXPONENTION_POWER;
+		},
+		'43': new class U33 extends Upgrade{
+			description = '数值二重软上限开始处^2'
+			cost= new Decimal(1)
+			name= 'U3-13'
+			currency: Currencies = Currencies.EXPONENTION_POWER;
+		},
+		'44': new class U34 extends Upgrade{
+			description = '加法能量二重软上限开始处^2'
+			cost= new Decimal(1)
+			name= 'U3-14'
+			currency: Currencies = Currencies.EXPONENTION_POWER;
+		},
+		'45': new class U35 extends Upgrade{
+			description = '解锁数论研究2'
+			cost= new Decimal(10)
+			name= 'U3-21'
+			currency: Currencies = Currencies.EXPONENTION_POWER;
+			requirements(): Requirement[] {
 				return [
-					[
-						'获得100指数能量',
-						() => player.exponention.totalExppower.gte(100),
-						[
-							formatWhole(player.exponention.totalExppower),
-							formatWhole(new Decimal(100)),
-						],
-					] as singleReq,
-				];
-			},
-			show() {
-				return true;
-			},
-			buy() {
-				player.exponention.exppower = player.exponention.exppower.sub(this.cost);
-			},
-		});
-		UPGRADES.create('46', {
-			displayName: 'U3-22',
-			description: '每秒获得1%重置时的乘法能量',
-			cost: new Decimal(100),
-			currency: '指数能量',
-			canAfford() {
-				return player.exponention.exppower.gte(this.cost);
-			},
-			get requirement() {
+					new CurrencyRequirement(Currencies.EXPONENTION_POWER, new Decimal(100))
+				]
+			}
+		},
+		'46': new class U36 extends Upgrade{
+			description = '每秒获得1%重置时的乘法能量'
+			cost= new Decimal(10)
+			name= 'U3-22'
+			currency: Currencies = Currencies.EXPONENTION_POWER;
+			requirements(): Requirement[] {
 				return [
-					[
-						'获得100指数能量',
-						() => player.exponention.totalExppower.gte(100),
-						[
-							formatWhole(player.exponention.totalExppower),
-							formatWhole(new Decimal(100)),
-						],
-					] as singleReq,
-				];
-			},
-			show() {
-				return true;
-			},
-			buy() {
-				player.exponention.exppower = player.exponention.exppower.sub(this.cost);
-			},
-		});
-		UPGRADES.create('47', {
-			displayName: 'U3-23',
-			description: '解锁棋盘',
-			cost: new Decimal(150),
-			currency: '指数能量',
-			canAfford() {
-				return player.exponention.exppower.gte(this.cost);
-			},
-			get requirement() {
+					new CurrencyRequirement(Currencies.EXPONENTION_POWER, new Decimal(100))
+				]
+			}
+		},
+		'47': new class U37 extends Upgrade{
+			description = '解锁棋盘'
+			cost= new Decimal(150)
+			name= 'U3-23'
+			currency: Currencies = Currencies.EXPONENTION_POWER;
+			requirements(): Requirement[] {
 				return [
-					[
-						'获得300指数能量',
-						() => player.exponention.totalExppower.gte(100),
-						[
-							formatWhole(player.exponention.totalExppower),
-							formatWhole(new Decimal(300)),
-						],
-					] as singleReq,
-				];
-			},
-			show() {
-				return true;
-			},
-			buy() {
-				player.exponention.exppower = player.exponention.exppower.sub(this.cost);
-			},
-		});
-		UPGRADES.create('48', {
-			displayName: 'U3-24',
-			description: '改进指数能量获取公式',
-			cost: new Decimal(10000),
-			currency: '指数能量',
-			canAfford() {
-				return player.exponention.exppower.gte(this.cost);
-			},
-			get requirement() {
+					new CurrencyRequirement(Currencies.EXPONENTION_POWER, new Decimal(300))
+				]
+			}
+		},
+		'48': new class U38 extends Upgrade{
+			description = '改进指数能量获取公式'
+			cost= new Decimal(1e4)
+			name= 'U3-24'
+			currency: Currencies = Currencies.EXPONENTION_POWER;
+			requirements(): Requirement[] {
 				return [
-					[
-						'获得10000指数能量',
-						() => player.exponention.totalExppower.gte(1e4),
-						[
-							formatWhole(player.exponention.totalExppower),
-							formatWhole(new Decimal(1e4)),
-						],
-					] as singleReq,
-				];
-			},
-			show() {
-				return true;
-			},
-			buy() {
-				player.exponention.exppower = player.exponention.exppower.sub(this.cost);
-			},
-		});
-		BUYABLES.create('41', {
-			displayName: 'B3-1',
-			description: '因数能量^1.05',
-			effect(x) {
+					new CurrencyRequirement(Currencies.EXPONENTION_POWER, new Decimal(1e4))
+				]
+			}
+		},
+	} as const,
+	buyables: {
+		'41': new class B31 extends Buyable<Decimal> {
+			name="B3-1"
+			description: string = '因数能量^1.05';
+			effect(x: Decimal) {
 				return x.pow_base(1.05);
-			},
-			effD(x) {
+			}
+			effectDescription(x: Decimal) {
 				return '^' + format(this.effect(x));
-			},
-			cost(x) {
+			}
+			cost(x: Decimal) {
 				return x.pow_base(10).mul(2);
-			},
-			currency: '指数能量',
-			canAfford(x) {
-				return player.exponention.exppower.gte(this.cost(x));
-			},
-			requirement: [],
-			show() {
-				return true;
-			},
-			buy(x) {
-				player.exponention.exppower = player.exponention.exppower.sub(this.cost(x));
-			},
-			capped() {
-				return false;
-			},
-		});
-		BUYABLES.create('42', {
-			displayName: 'B3-2',
-			description: '数值获取^1.05',
-			effect(x) {
+			}
+			currency: Currencies = Currencies.EXPONENTION_POWER;
+		},
+		'42': new class B32 extends Buyable<Decimal> {
+			name="B3-2"
+			description: string = '数值能量^1.05';
+			effect(x: Decimal) {
 				return x.pow_base(1.05);
-			},
-			effD(x) {
+			}
+			effectDescription(x: Decimal) {
 				return '^' + format(this.effect(x));
-			},
-			cost(x) {
+			}
+			cost(x: Decimal) {
 				return x.pow_base(10).mul(3);
-			},
-			currency: '指数能量',
-			canAfford(x) {
-				return player.exponention.exppower.gte(this.cost(x));
-			},
-			requirement: [],
-			show() {
-				return true;
-			},
-			buy(x) {
-				player.exponention.exppower = player.exponention.exppower.sub(this.cost(x));
-			},
-			capped() {
-				return false;
-			},
-		});
-		BUYABLES.create('43', {
-			displayName: 'B3-3',
-			description: '加法能量获取^1.03',
-			effect(x) {
+			}
+			currency: Currencies = Currencies.EXPONENTION_POWER;
+		},
+		'43': new class B33 extends Buyable<Decimal> {
+			name="B3-3"
+			description: string = '加法能量获取^1.03';
+			effect(x: Decimal) {
 				return x.pow_base(1.03);
-			},
-			effD(x) {
+			}
+			effectDescription(x: Decimal) {
 				return '^' + format(this.effect(x));
-			},
-			cost(x) {
+			}
+			cost(x: Decimal) {
 				return x.pow_base(10).mul(5);
-			},
-			currency: '指数能量',
-			canAfford(x) {
-				return player.exponention.exppower.gte(this.cost(x));
-			},
-			requirement: [],
-			show() {
-				return true;
-			},
-			buy(x) {
-				player.exponention.exppower = player.exponention.exppower.sub(this.cost(x));
-			},
-			capped() {
-				return false;
-			},
-		});
-		BUYABLES.create('44', {
-			displayName: 'B3-4',
-			description: '乘法能量获取^1.01',
-			effect(x) {
+			}
+			currency: Currencies = Currencies.EXPONENTION_POWER;
+		},
+		'44': new class B34 extends Buyable<Decimal> {
+			name="B3-4"
+			description: string = '乘法能量获取^1.01';
+			effect(x: Decimal) {
 				return x.pow_base(1.01);
-			},
-			effD(x) {
+			}
+			effectDescription(x: Decimal) {
 				return '^' + format(this.effect(x));
-			},
-			cost(x) {
+			}
+			cost(x: Decimal) {
 				return x.pow_base(10).mul(7);
-			},
-			currency: '指数能量',
-			canAfford(x) {
-				return player.exponention.exppower.gte(this.cost(x));
-			},
-			requirement: [],
-			show() {
-				return true;
-			},
-			buy(x) {
-				player.exponention.exppower = player.exponention.exppower.sub(this.cost(x));
-			},
-			capped() {
-				return false;
-			},
-		});
+			}
+			currency: Currencies = Currencies.EXPONENTION_POWER;
+		},
+	} as const,
+	initMechanics() {
 	},
 	reset(force = false, dilate=false) {
 		if (this.gain().gt(0) || force) {
@@ -347,6 +201,8 @@ export const Exponention = {
 			if (!player.upgrades['423q'] || dilate) player.challenges[0][1] = new Decimal(0);
 			if (!player.upgrades['433q'] || dilate) player.challenges[0][2] = new Decimal(0);
 			player.challenges[0][3] = new Decimal(0);
+
+			player.challengein = [0, 0];
 
 			player.exponention.qolpoints = player.exponention.qolpoints.add(3);
 		}

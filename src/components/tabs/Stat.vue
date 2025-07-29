@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { player } from '@/core/save';
-import { format } from '@/utils/format';
+import { format, physicalScale } from '@/utils/format';
 </script>
 
 <template>
@@ -11,5 +11,6 @@ import { format } from '@/utils/format';
 		<p>你产生了 {{ format(player.stat.totalNumber) }} 数字</p>
 		<p>你产生了 {{ format(player.stat.totalAddpower) }} 加法能量</p>
 		<p>你产生了 {{ format(player.stat.totalMulpower) }} 乘法能量</p>
+		<p v-html="physicalScale(player.number)"></p>
 	</div>
 </template>

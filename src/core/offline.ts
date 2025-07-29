@@ -1,6 +1,5 @@
 import Async from '@/utils/asyncs';
-import { startGameLoop, stopGameLoop } from '../main';
-import { simulate } from './game-loop';
+import { simulate, startGameLoop, stopGameLoop } from './game-loop';
 import { save } from '@/core/save/';
 import Modal from '@/utils/Modal';
 import { formatTime } from '@/utils/format';
