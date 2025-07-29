@@ -23,10 +23,10 @@ export const NUMTHEORY = {
 				return `s<sub>1</sub> = ${formatWhole(x)}`;
 			}
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
-			canBuyMax() {
+			canBuyMax(): boolean {
 				return player.upgrades[39];
 			}
-			autoBuyMax() {
+			autoBuyMax(): boolean {
 				return player.upgrades['444q'];
 			}
 			costInverse(x: Decimal) {
@@ -52,10 +52,10 @@ export const NUMTHEORY = {
 				return `+${format(x)}`;
 			}
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
-			canBuyMax() {
+			canBuyMax(): boolean {
 				return player.upgrades[39];
 			}
-			autoBuyMax() {
+			autoBuyMax(): boolean {
 				return player.upgrades['444q'];
 			}
 			costInverse(x: Decimal) {
@@ -67,7 +67,7 @@ export const NUMTHEORY = {
 					.floor()
 					.min(20);
 			}
-			capped() {
+			capped(): boolean {
 				let capc = 20;
 				return player.buyables['36R'].gte(capc);
 			}
@@ -86,10 +86,10 @@ export const NUMTHEORY = {
 				return `+${format(x)}`;
 			}
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
-			canBuyMax() {
+			canBuyMax(): boolean {
 				return player.upgrades[39];
 			}
-			autoBuyMax() {
+			autoBuyMax(): boolean {
 				return player.upgrades['444q'];
 			}
 			costInverse(x: Decimal) {
@@ -101,7 +101,7 @@ export const NUMTHEORY = {
 					.floor()
 					.min(20);
 			}
-			capped() {
+			capped(): boolean {
 				let capc = 20;
 				return player.buyables['37R'].gte(capc);
 			}
@@ -120,10 +120,10 @@ export const NUMTHEORY = {
 				return `*${format(x)}`;
 			}
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
-			canBuyMax() {
+			canBuyMax(): boolean {
 				return player.upgrades[39] && player.upgrades['400q'];
 			}
-			autoBuyMax() {
+			autoBuyMax(): boolean {
 				return player.upgrades['444q'] && player.upgrades['400q'];
 			}
 			costInverse(x: Decimal) {
@@ -134,7 +134,7 @@ export const NUMTHEORY = {
 					.add(1)
 					.floor().min(20);
 			}
-			capped() {
+			capped(): boolean {
 				let capc = 20;
 				return player.buyables['38R'].gte(capc);
 			}
@@ -153,10 +153,10 @@ export const NUMTHEORY = {
 				return `x<sub>1</sub> = ${format(x)}`;
 			}
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
-			canBuyMax() {
+			canBuyMax(): boolean {
 				return player.upgrades[39];
 			}
-			autoBuyMax() {
+			autoBuyMax(): boolean {
 				return player.upgrades['444q'];
 			}
 			costInverse(x: Decimal) {
@@ -182,10 +182,10 @@ export const NUMTHEORY = {
 				return `x<sub>2</sub> = ${format(x)}`;
 			}
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
-			canBuyMax() {
+			canBuyMax(): boolean {
 				return player.upgrades[39];
 			}
-			autoBuyMax() {
+			autoBuyMax(): boolean {
 				return player.upgrades['444q'];
 			}
 			costInverse(x: Decimal) {
@@ -211,10 +211,10 @@ export const NUMTHEORY = {
 				return `y<sub>1</sub> = ${format(x)}`;
 			}
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
-			canBuyMax() {
+			canBuyMax(): boolean {
 				return player.upgrades[39];
 			}
-			autoBuyMax() {
+			autoBuyMax(): boolean {
 				return player.upgrades['444q'];
 			}
 			costInverse(x: Decimal) {
@@ -239,10 +239,10 @@ export const NUMTHEORY = {
 				return `z<sub>1</sub> = ${format(x)}`;
 			}
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
-			canBuyMax() {
+			canBuyMax(): boolean {
 				return player.upgrades[39];
 			}
-			autoBuyMax() {
+			autoBuyMax(): boolean {
 				return player.upgrades['444q'];
 			}
 			costInverse(x: Decimal) {

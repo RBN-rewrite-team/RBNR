@@ -154,7 +154,7 @@ export const Addition = {
 				let a = x.mul(1000);
 				return a;
 			}
-			capped() {
+			capped(): boolean {
 				let capc = 100;
 				return player.buyables['21'].gte(capc);
 			}
@@ -163,13 +163,13 @@ export const Addition = {
 					new UpgradeRequirement('24')
 				]
 			}
-			canBuyMax() {
+			canBuyMax(): boolean {
 				return player.upgrades[39];
 			}
-			autoBuyMax() {
+			autoBuyMax(): boolean {
 				return player.upgrades[39];
 			}
-			costInverse(x: Decimal) {
+			costInverse(x: Decimal): Decimal {
 				return x
 					.sub(10)
 					.div(1000)

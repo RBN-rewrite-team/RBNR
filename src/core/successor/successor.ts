@@ -71,7 +71,6 @@ export const Successor = {
 
 			description: string = "每秒进行一次后继运算";
 			name: string = "B0-1";
-			id: keyof typeof player.buyables = "11";
 			cost(x: Decimal) {
 				let a = x.mul(10).add(10);
 				if (player.upgrades[23]) a = a.sub(10);
@@ -99,10 +98,10 @@ export const Successor = {
 				a = a.add(player.buyable11More);
 				return a;
 			}
-			canBuyMax() {
+			canBuyMax(): boolean {
 				return player.upgrades[39];
 			}
-			autoBuyMax() {
+			autoBuyMax(): boolean{
 				return player.upgrades[39];
 			}
 			capped(x: Decimal) {

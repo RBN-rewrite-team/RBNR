@@ -54,7 +54,7 @@ export const QolUpgrades = {
 		'453q': new QolUpg('前3个挑战的纪录保持为本次指数的最高数值。', '53', ():[UpgradeRequirement]=>[new UpgradeRequirement('443q')], (): boolean=>QolUpgrades.row3AllUnlocked(), new Decimal(5)),
 		'454q': new QolUpg('保持数论研究1的升级。', '54', ():[UpgradeRequirement]=>[new UpgradeRequirement('444q')], (): boolean=>QolUpgrades.row3AllUnlocked(), new Decimal(5)),
 		'455q': new QolUpg('B2-3的数量保持在99个。', '55', ():[UpgradeRequirement]=>[new UpgradeRequirement('445q')], (): boolean=>QolUpgrades.row3AllUnlocked(), new Decimal(5)),
-	},
+	} as const,
 	initMechanics() {
 	},
 	row1AllUnlocked() {

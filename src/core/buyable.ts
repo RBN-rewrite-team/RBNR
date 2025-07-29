@@ -8,7 +8,6 @@ export abstract class Buyable<T> {
     
     description: string = "基于xxx增加数值xx";
     name: string = "B0-114514";
-    id: keyof typeof player.buyables = "11";
     
     /**
      * 
@@ -30,7 +29,7 @@ export abstract class Buyable<T> {
     postBuy() {
     }
     canAfford() :boolean {
-        return getCurrency(this.currency).gte(this.cost(player.buyables[this.id]));
+        return true;
     }
     /**
      * @param x 当前购买想的数量（包含more()函数的内容）
@@ -66,8 +65,13 @@ export abstract class Buyable<T> {
     capped(x:Decimal): boolean {
         return false
     }
-    canBuy(): Decimal{
-        return this.costInverse(getCurrency(this.currency)).sub(player.buyables[this.id]);
+    /**
+     * 
+     * @param x player.buyables[this.id]
+     * @returns 
+     */
+    canBuy(x: Decimal): Decimal{
+        return this.costInverse(getCurrency(this.currency));
     }
     postBuyMax() {
 

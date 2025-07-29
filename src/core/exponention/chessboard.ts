@@ -2,6 +2,9 @@ import Decimal from 'break_eternity.js';
 import { feature, player } from '@/core/global';
 import { buyables, BUYABLES, upgrades, UPGRADES, MILESTONES, type singleReq } from '../mechanic';
 import { format, formatWhole } from '@/utils/format';
+import { UpgradeWithEffect } from '../upgrade';
+import { Currencies } from '../currencies';
+import { Buyable } from '../buyable';
 
 export function base() {
   let base = new Decimal(2)
@@ -17,39 +20,25 @@ export function maxBlocks() {
 	))
   return mb;
 }
-
+export const cb1 = new class extends Buyable<Decimal> {
+	name = "B-CB-1";
+	description: string = '增加一个棋盘格';
+	currency: Currencies = Currencies.EXPONENTION_POWER;
+	effect(x: Decimal) {
+		return x.add(1);
+	}
+	effectDescription(x: Decimal) {
+		return formatWhole(x);
+	}
+	cost(x:Decimal) {
+		let c = x.pow_base(2).mul(100);
+		if (player.milestones.cb2) {
+			c = x.pow(0.99).pow_base(1.85).mul(100);
+		}
+		return c;
+	}
+}
 export function initMechanics() {
-  BUYABLES.create('cb1', {
-			displayName: 'B-CB-1',
-			description: '增加一个棋盘格',
-			effect(x) {
-				return x.add(1);
-			},
-			effD(x) {
-				return formatWhole(this.effect(x));
-			},
-			cost(x) {
-				let c = x.pow_base(2).mul(100);
-				if (player.milestones.cb2) {
-					c = x.pow(0.99).pow_base(1.85).mul(100);
-				}
-				return c;
-			},
-			currency: '指数能量',
-			canAfford(x) {
-				return player.exponention.exppower.gte(this.cost(x));
-			},
-			requirement: [],
-			show() {
-				return true;
-			},
-			buy(x) {
-				player.exponention.exppower = player.exponention.exppower.sub(this.cost(x));
-			},
-			capped() {
-				return false;
-			},
-		});
 	MILESTONES.create("cb1", {
 	  displayName: "M-CB-1",
 	  description: "麦粒底数 2 → 3",

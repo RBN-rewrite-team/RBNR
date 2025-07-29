@@ -4,13 +4,14 @@ import { player } from './save';
 import { format, formatWhole } from '@/utils/format';
 import { Logarithm } from './exponention/logarithm.ts';
 import { Successor } from './successor/successor.ts';
-import { decreaseCurrency, setCurrency } from './currencies.ts';
+import { decreaseCurrency, getCurrency, setCurrency } from './currencies.ts';
 import { Addition } from './addition/addition.ts';
 import { Multiplication } from './multiplication/multiplication.ts';
 import { NUMTHEORY } from './multiplication/numbertheory.ts';
 import { PrimeFactor } from './multiplication/pf.ts';
 import { Exponention } from './exponention/exponention.ts';
 import { QolUpgrades } from './exponention/qolupg.ts';
+import { cb1 } from './exponention/chessboard.ts';
 
 var upgrades = {
 	...Successor.upgrades,
@@ -27,6 +28,8 @@ var buyables = {
 	...NUMTHEORY.buyables,
 	...PrimeFactor.upgrades,// this code write 'upgrades', but it is actually 'buyables'.
 	...Exponention.buyables,
+	cb1,
+	...Logarithm.buyables,
 } as const
 var softcaps: {
 	[key: string]: ISoftcap;
@@ -84,7 +87,7 @@ export const BUYABLES = {
 		let str = '<div class="' + useclass + '">';
 		str +=
 			'<span sytle="font-weight: bold">' +
-			(buyables[id].name ?? 'B' + id) +
+			(buyables[id].name) +
 			'(' +
 			formatWhole(player.buyables[id]) +
 			((function () {
@@ -108,7 +111,7 @@ export const BUYABLES = {
 		} else {
 			let canBuy = new Decimal(0);
 			if (buyables[id].canBuyMax != null && buyables[id].canBuyMax()) {
-				if (buyables[id].canBuy != null) canBuy = buyables[id].canBuy();
+				if (buyables[id].canBuy != null) canBuy = buyables[id].canBuy(player.buyables[id]);
 			}
 			str += buyables[id].description + '<br>';
 			if (buyables[id].effect != null)
@@ -132,6 +135,7 @@ export const BUYABLES = {
 		if (
 			!buyables[id].capped(player.buyables[id]) &&
 			this.lock(id).unlocked &&
+			buyables[id].cost(player.buyables[id]).lte(getCurrency(buyables[id].currency)) &&
 			buyables[id].canAfford()
 		) {
 			if (

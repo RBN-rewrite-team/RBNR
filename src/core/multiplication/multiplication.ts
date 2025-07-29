@@ -177,10 +177,10 @@ export const Multiplication = {
 				let capc = 500;
 				return x.gte(capc);
 			}
-			canBuyMax() {
+			canBuyMax(): boolean {
 				return player.upgrades[39];
 			}
-			autoBuyMax() {
+			autoBuyMax(): boolean {
 				return player.upgrades['452q'];
 			}
 			costInverse(x: Decimal): Decimal {
@@ -204,10 +204,10 @@ export const Multiplication = {
 				let a = x.add(1).pow10();
 				return a;
 			}
-			canBuyMax() {
+			canBuyMax(): boolean {
 				return player.upgrades[39];
 			}
-			autoBuyMax() {
+			autoBuyMax(): boolean {
 				return player.upgrades['452q'];
 			}
 			costInverse(x: Decimal): Decimal {
@@ -228,10 +228,10 @@ export const Multiplication = {
 				let a = new Decimal(5).pow(x.add(1));
 				return a;
 			}
-			canBuyMax() {
+			canBuyMax(): boolean {
 				return player.upgrades[39];
 			}
-			autoBuyMax() {
+			autoBuyMax(): boolean {
 				return player.upgrades['452q'];
 			}
 			costInverse(x: Decimal): Decimal {

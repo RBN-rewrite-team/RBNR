@@ -8,7 +8,7 @@ import { predictableRandom } from '@/utils/algorithm.ts';
 
 import { CHALLENGE } from './challenge.ts';
 import { Logarithm } from './exponention/logarithm.ts';
-import { save, type Upgrades } from './save/index.ts';
+import { save } from './save/index.ts';
 
 export let diff = 40;
 export let loopInterval = NaN;
@@ -110,15 +110,20 @@ export function simulate(diff: number) {
 		feature.MULTIPLICATION.mulpower_gain(bulk)
 	}
 
+	// There is very ok, dont remove @ts-ignore, because Element dont implicitly have an 'any type' 😂😂😂😂
 	for (let i in upgrades) {
+		// @ts-ignore
 		if (upgrades[i] && upgrades[i].keep != null && upgrades[i].keep()) {
 			player.upgrades[i as keyof typeof player.upgrades] = true;
 		}
 	}
 
 	for (let i in buyables) {
+		// @ts-ignore
 		if (buyables[i].canBuyMax != null && buyables[i].canBuyMax()) {
+		// @ts-ignore
 			if (buyables[i].autoBuyMax != null && buyables[i].autoBuyMax()) {
+		// @ts-ignore
 				if (buyables[i].buyMax != null) buyables[i].buyMax();
 			}
 		}

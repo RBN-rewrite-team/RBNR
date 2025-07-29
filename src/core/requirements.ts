@@ -40,7 +40,7 @@ export class CurrencyRequirement extends Requirement {
 
 export class UpgradeRequirement extends Requirement {
     upgid: keyof typeof upgrades;
-    reachedReq() {
+    reachedReq():boolean {
         return player.upgrades[this.upgid];
     }
     reqDescription(): string {
