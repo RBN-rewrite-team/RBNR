@@ -110,7 +110,7 @@ import { player } from '@/core/save';
 							@click="player.currentTab = 13"
 							v-if="player.milestones.log_G"
 						>
-							对数膨胀<img src="../../public/baixie.png" class="textbaixie"/>
+							对数膨胀
 						</div>
 					</template>
 					<div class="menu1">杂项</div>
