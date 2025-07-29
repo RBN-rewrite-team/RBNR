@@ -8,9 +8,19 @@ import { predictableRandom } from '@/utils/algorithm.ts';
 
 import { CHALLENGE } from './challenge.ts';
 import { Logarithm } from './exponention/logarithm.ts';
-import type { Upgrades } from './save/index.ts';
+import { save, type Upgrades } from './save/index.ts';
 
 export let diff = 40;
+export let loopInterval = NaN;
+export let saveInterval = setInterval(save, 3000);
+
+export function startGameLoop() {
+	loopInterval = setInterval(gameLoop, 40);
+}
+
+export function stopGameLoop() {
+	clearInterval(loopInterval);
+}
 
 export function updateHighestStat() {
 	player.stat.highestNumber = player.stat.highestNumber.max(player.number);

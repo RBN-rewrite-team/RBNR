@@ -15,32 +15,52 @@ import { feature } from '../global.ts';
 import { CHALLENGE } from '../challenge.ts';
 import { C11cap, MULTI_CHALS } from '../multiplication/challenges.ts';
 import { predictableRandom } from '@/utils/algorithm.ts';
+import { Upgrade } from '../upgrade.ts';
+import { Currencies } from '../currencies.ts';
+import { CurrencyRequirement } from '../requirements.ts';
+
+export class AdditionUpgrade extends Upgrade {
+	currency = Currencies.ADDITION_POWER
+}
 
 export const Addition = {
-	initMechanics() {
-		UPGRADES.create('21', {
-			description: 'U1系列升级购买数量同样作用于U0-2的效果',
-			currency: '加法能量',
-			get cost() {
-				return new Decimal(1);
-			},
-			displayName: 'U1-1',
-			canAfford() {
-				return player.addpower.gte(this.cost);
-			},
-			buy() {
-				player.addpower = player.addpower.sub(this.cost);
-			},
-			get requirement() {
-				return [['获得1加法能量', () => player.totalAddpower.gte(1)] as singleReq];
-			},
-			show: function () {
-				return true;
-			},
+	upgrades: {
+		'21': new class U11 extends AdditionUpgrade {
+			description= 'U1系列升级购买数量同样作用于U0-2的效果'
+			cost= new Decimal(1)
+			name= "U1-1"
 			keep() {
 				return player.upgrades['421q']&&!player.exponention.logarithm.in_dilate;
-			},
-		});
+			}
+			requirements() {
+				return [
+					new CurrencyRequirement(Currencies.ADDITION_POWER, new Decimal(1))
+				]
+			}
+		},
+		'22': new class U12 extends AdditionUpgrade {
+			description= 'U1系列升级购买数量同样作用于U0-2的效果'
+			// @ts-ignore
+			get cost() {
+				if (
+					player.multiplication.B1seriesC1 == 2 ||
+					player.multiplication.B1seriesC1400q == 2
+				)
+					return new Decimal(1);
+				return new Decimal(5);
+			}
+			name= "U1-2"
+			keep() {
+				return player.upgrades['421q']&&!player.exponention.logarithm.in_dilate;
+			}
+			requirements() {
+				return [
+					new CurrencyRequirement(Currencies.ADDITION_POWER, new Decimal(1))
+				]
+			}
+		},
+	},
+	initMechanics() {
 		UPGRADES.create('22', {
 			description: '后继批量提高到4倍',
 			currency: '加法能量',
