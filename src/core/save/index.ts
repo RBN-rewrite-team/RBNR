@@ -6,45 +6,14 @@ import { themes } from '@/utils/themes';
 import type { qolUpgs } from '../exponention/qolupg';
 import type { IAstronomer } from '../exponention/logarithm';
 import type { IntRange } from 'type-fest';
+import { buyables, upgrades } from '../mechanic';
 
 
-
-const SAVEID = 'RBN-rewritten';
+const SAVEID = 'RBN-rewritten-powerful-refactor-test';
 const version = 3 as const;
 const zero = new Decimal(0);
-export type UpgIds = `${IntRange<11, 14>
-	| IntRange<21, 27>
-	| IntRange<31, 40>}`
-	| '31R'
-	| '32R'
-	| '33R'
-	| '34R'
-	| `${IntRange<41, 49>}`
-	| qolUpgs
-export type Upgrades = Record<
-	UpgIds,
-	boolean
->;
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
-type Buyables = Record<
-	| '11'
-	| '21'
-	| '31'
-	| '32'
-	| '33'
-	| `${IntRange<31,39>}R`
-    | '41R'
-    | '42R'
-	| PrimeFactorTypes
-	| '41'
-	| '42'
-	| '43'
-	| '44'
-	| 'cb1'
-	| 'lgr_emp'
-	| 'lgr_impr',
-	Decimal
->;
+
 type Milestones = Record<
   `cb${IntRange<1,21>}`  |"log_law1"|"log_law2"|"log_law3"|"log_G",
 	boolean
@@ -55,8 +24,8 @@ export interface Player {
 	totalNumber: Decimal;
 	lastUpdated: number;
 	saveCreateTime: number;
-	upgrades: Upgrades;
-	buyables: Buyables;
+	upgrades: Record<keyof typeof upgrades,boolean>;
+	buyables: Record<keyof typeof buyables, Decimal>;
 	milestones: Milestones;
 	buyable11More: Decimal;
 	automationCD: {
@@ -96,7 +65,7 @@ export interface Player {
 			calculate_datas: Decimal;
 			astronomers: IAstronomer[];
 			in_dilate: boolean;
-			upgrades_in_dilated: UpgIds[];
+			upgrades_in_dilated: (keyof typeof upgrades)[];
 		}
 	};
 	options: {

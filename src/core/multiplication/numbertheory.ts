@@ -3,554 +3,352 @@ import { BUYABLES, buyables, upgrades, UPGRADES } from '../mechanic';
 import { player } from '../save';
 import { format, formatWhole } from '@/utils/format';
 import Decimal from 'break_eternity.js';
+import { Buyable } from '../buyable';
+import { Currencies } from '../currencies';
+import { Upgrade, UpgradeWithEffect } from '../upgrade';
 
 export const NUMTHEORY = {
-	initMechanics() {
-		BUYABLES.create('31R', {
-			description: 'x<sub>1</sub>→x<sub>1</sub>+1',
-			cost(x) {
-				return x.pow_base(2).mul(10);
-			},
-			displayName: 'B2-R1-1',
-			effect(x) {
-				return x.mul(buyables['38R'].effect(player.buyables['38R']));
-			},
-			effD(x) {
-				return `x<sub>1</sub> = ${format(this.effect(player.buyables["31R"]))}`;
-			},
-			canAfford(x) {
-				return this.cost(x).lte(player.multiplication.mulpower);
-			},
-			buy(x) {
-				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost(x));
-			},
-			capped() {
-				return false;
-			},
-			currency: '乘法能量',
-			show() {
-				return true;
-			},
-			requirement: [],
-			canBuyMax() {
-				return player.upgrades[39];
-			},
-			autoBuyMax() {
-				return player.upgrades['444q'];
-			},
-			canBuy() {
-				return player.multiplication.mulpower
-					.div(10)
-					.max(1)
-					.log(2)
-					.add(1)
-					.floor()
-					.sub(player.buyables['31R']);
-			},
-			buyMax() {
-				player.buyables['31R'] = player.buyables['31R'].add(this?.canBuy?.() ?? 0);
-			},
-		});
-		BUYABLES.create('32R', {
-			description: 'x<sub>2</sub>→x<sub>2</sub>+1',
-			cost(x) {
-				return x.pow_base(10).mul(100);
-			},
-			displayName: 'B2-R1-2',
-			effect(x) {
-				return x.add(1).mul(buyables['38R'].effect(player.buyables['38R']));
-			},
-			effD(x) {
-				return `x<sub>2</sub> = ${format(this.effect(player.buyables["32R"]))}`;
-			},
-			canAfford(x) {
-				return this.cost(x).lte(player.multiplication.mulpower);
-			},
-			buy(x) {
-				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost(x));
-			},
-			capped() {
-				return false;
-			},
-			currency: '乘法能量',
-			show() {
-				return true;
-			},
-			requirement: [],
-			canBuyMax() {
-				return player.upgrades[39];
-			},
-			autoBuyMax() {
-				return player.upgrades['444q'];
-			},
-			canBuy() {
-				return player.multiplication.mulpower
-					.div(100)
-					.max(1)
-					.log10()
-					.add(1)
-					.floor()
-					.sub(player.buyables['32R']);
-			},
-			buyMax() {
-				player.buyables['32R'] = player.buyables['32R'].add(this?.canBuy?.() ?? 0);
-			},
-		});
-		BUYABLES.create('33R', {
-			description: 'y<sub>1</sub>→y<sub>1</sub>+1',
-			cost(x) {
-				return x.pow_base(100).mul(1e28);
-			},
-			displayName: 'B2-R1-3',
-			effect(x) {
-				return x.mul(buyables['38R'].effect(player.buyables['38R']));
-			},
-			effD(x) {
-				return `y<sub>1</sub> = ${format(this.effect(player.buyables["31R"]))}`;
-			},
-			canAfford(x) {
-				return this.cost(x).lte(player.multiplication.mulpower);
-			},
-			buy(x) {
-				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost(x));
-			},
-			capped() {
-				return false;
-			},
-			currency: '乘法能量',
-			show() {
-				return true;
-			},
-			requirement: [],
-			canBuyMax() {
-				return player.upgrades[39];
-			},
-			autoBuyMax() {
-				return player.upgrades['444q'];
-			},
-			canBuy() {
-				return player.multiplication.mulpower
-					.div(1e28)
-					.max(1)
-					.log(100)
-					.add(1)
-					.floor()
-					.sub(player.buyables['33R']);
-			},
-			buyMax() {
-				player.buyables['33R'] = player.buyables['33R'].add(this?.canBuy?.() ?? 0);
-			},
-		});
-		BUYABLES.create('34R', {
-			description: 'z<sub>1</sub>→z<sub>1</sub>+1',
-			cost(x) {
-				return x.pow_base(1000).mul(1e30);
-			},
-			displayName: 'B2-R1-4',
-			effect(x) {
-				return x.mul(buyables['38R'].effect(player.buyables['38R']));
-			},
-			effD(x) {
-				return `z<sub>1</sub> = ${format(this.effect(player.buyables["31R"]))}`;
-			},
-			canAfford(x) {
-				return this.cost(x).lte(player.multiplication.mulpower);
-			},
-			buy(x) {
-				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost(x));
-			},
-			capped() {
-				return false;
-			},
-			currency: '乘法能量',
-			show() {
-				return true;
-			},
-			requirement: [],
-			canBuyMax() {
-				return player.upgrades[39];
-			},
-			autoBuyMax() {
-				return player.upgrades['444q'];
-			},
-			canBuy() {
-				return player.multiplication.mulpower
-					.div(1e30)
-					.max(1)
-					.log(1000)
-					.add(1)
-					.floor()
-					.sub(player.buyables['34R']);
-			},
-			buyMax() {
-				player.buyables['34R'] = player.buyables['34R'].add(this?.canBuy?.() ?? 0);
-			},
-		});
-		BUYABLES.create('35R', {
-			description: 's<sub>1</sub>→s<sub>1</sub>+1',
-			cost(x) {
+	buyables: {
+		'35R': new class B35R extends Buyable<Decimal>{
+			
+			description = 's<sub>1</sub>→s<sub>1</sub>+1'
+			cost(x: Decimal) {
 				return x.pow_base(1e8).mul(1e32);
-			},
-			displayName: 'B2-R1-5',
-			effect(x) {
+			}
+			name= 'B2-R1-5'
+			effect(x: Decimal): Decimal {
 				return x.add(1);
-			},
-			effD(x) {
-				return `s<sub>1</sub> = ${formatWhole(x.add(1))}`;
-			},
-			canAfford(x) {
-				return this.cost(x).lte(player.multiplication.mulpower);
-			},
-			buy(x) {
-				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost(x));
-			},
-			capped() {
-				return false;
-			},
-			currency: '乘法能量',
-			show() {
-				return true;
-			},
-			requirement: [],
-			canBuyMax() {
+			}
+			effectDescription(x: Decimal) {
+				return `s<sub>1</sub> = ${formatWhole(x)}`;
+			}
+			currency: Currencies = Currencies.MULTIPLICATION_POWER;
+			canBuyMax(): boolean {
 				return player.upgrades[39];
-			},
-			autoBuyMax() {
+			}
+			autoBuyMax(): boolean {
 				return player.upgrades['444q'];
-			},
-			canBuy() {
-				return player.multiplication.mulpower
+			}
+			costInverse(x: Decimal) {
+				return x
 					.div(1e32)
 					.max(1)
 					.log(1e8)
 					.add(1)
-					.floor()
-					.sub(player.buyables['35R']);
-			},
-			buyMax() {
-				player.buyables['35R'] = player.buyables['35R'].add(this?.canBuy?.() ?? 0);
-			},
-		});
-		BUYABLES.create('36R', {
-			description: 'x<sub>1</sub>指数+0.085',
-			cost(x) {
+					.floor();
+			}
+		},
+		'36R': new class B36R extends Buyable<Decimal>{
+			
+			description = 'x<sub>1</sub>指数+0.085'
+			cost(x: Decimal) {
 				return x.pow_base(1e16).mul(1e32);
-			},
-			displayName: 'B2-R1-6',
-			effect(x) {
+			}
+			name= 'B2-R1-6'
+			effect(x: Decimal): Decimal {
 				return x.mul(0.085);
-			},
-			effD(x) {
-				return `+${format(x.mul(0.085))}`;
-			},
-			canAfford(x) {
-				return this.cost(x).lte(player.multiplication.mulpower);
-			},
-			buy(x) {
-				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost(x));
-			},
-			capped() {
-				let capc = 20;
-				return player.buyables['36R'].gte(capc);
-			},
-			currency: '乘法能量',
-			show() {
-				return true;
-			},
-			requirement: [],
-			canBuyMax() {
+			}
+			effectDescription(x: Decimal) {
+				return `+${format(x)}`;
+			}
+			currency: Currencies = Currencies.MULTIPLICATION_POWER;
+			canBuyMax(): boolean {
 				return player.upgrades[39];
-			},
-			autoBuyMax() {
+			}
+			autoBuyMax(): boolean {
 				return player.upgrades['444q'];
-			},
-			canBuy() {
-				return player.multiplication.mulpower
+			}
+			costInverse(x: Decimal) {
+				return x
 					.div(1e32)
 					.max(1)
 					.log(1e16)
 					.add(1)
 					.floor()
-					.min(20)
-					.sub(player.buyables['36R']);
-			},
-			buyMax() {
-				player.buyables['36R'] = player.buyables['36R'].add(this?.canBuy?.() ?? 0);
-			},
-		});
-		BUYABLES.create('37R', {
-			description: 'y<sub>1</sub>指数+0.085',
-			cost(x) {
-				return x.pow_base(1e20).mul(1e40);
-			},
-			displayName: 'B2-R1-7',
-			effect(x) {
-				return x.mul(0.085);
-			},
-			effD(x) {
-				return `+${format(x.mul(0.085))}`;
-			},
-			canAfford(x) {
-				return this.cost(x).lte(player.multiplication.mulpower);
-			},
-			buy(x) {
-				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost(x));
-			},
-			capped() {
+					.min(20);
+			}
+			capped(): boolean {
 				let capc = 20;
-				return player.buyables['37R'].gte(capc);
-			},
-			currency: '乘法能量',
-			show() {
-				return true;
-			},
-			requirement: [],
-			canBuyMax() {
+				return player.buyables['36R'].gte(capc);
+			}
+		},
+		'37R': new class B37R extends Buyable<Decimal>{
+			
+			description = 'y<sub>1</sub>指数+0.085'
+			cost(x: Decimal) {
+				return x.pow_base(1e20).mul(1e40);
+			}
+			name= 'B2-R1-7'
+			effect(x: Decimal): Decimal {
+				return x.mul(0.085);
+			}
+			effectDescription(x: Decimal) {
+				return `+${format(x)}`;
+			}
+			currency: Currencies = Currencies.MULTIPLICATION_POWER;
+			canBuyMax(): boolean {
 				return player.upgrades[39];
-			},
-			autoBuyMax() {
+			}
+			autoBuyMax(): boolean {
 				return player.upgrades['444q'];
-			},
-			canBuy() {
-				return player.multiplication.mulpower
-					.div(1e40)
+			}
+			costInverse(x: Decimal) {
+				return x
+					.div(1e32)
 					.max(1)
-					.log(1e20)
+					.log(1e16)
 					.add(1)
 					.floor()
-					.min(20)
-					.sub(player.buyables['37R']);
-			},
-			buyMax() {
-				player.buyables['37R'] = player.buyables['37R'].add(this?.canBuy?.() ?? 0);
-			},
-		});
-		BUYABLES.create('38R', {
-			description: 'B2-R1-1~4的效果+2.5%(叠乘)',
-			cost(x) {
+					.min(20);
+			}
+			capped(): boolean {
+				let capc = 20;
+				return player.buyables['37R'].gte(capc);
+			}
+		},
+		'38R': new class B38R extends Buyable<Decimal>{
+			
+			description = 'B2-R1-1~4的效果+2.5%(叠乘)'
+			cost(x: Decimal) {
 				return x.pow_base(1e25).mul(1e50);
-			},
-			displayName: 'B2-R1-8',
-			effect(x) {
+			}
+			name= 'B2-R1-8'
+			effect(x: Decimal): Decimal {
 				return new Decimal(1.025).pow(x);
-			},
-			effD(x) {
-				return `x${format(this.effect(x))}`;
-			},
-			canAfford(x) {
-				return this.cost(x).lte(player.multiplication.mulpower);
-			},
-			buy(x) {
-				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost(x));
-			},
-			capped() {
-				return false;
-			},
-			currency: '乘法能量',
-			show() {
-				return player.upgrades['400q'];
-			},
-			requirement: [],
-			canBuyMax() {
+			}
+			effectDescription(x: Decimal) {
+				return `*${format(x)}`;
+			}
+			currency: Currencies = Currencies.MULTIPLICATION_POWER;
+			canBuyMax(): boolean {
 				return player.upgrades[39] && player.upgrades['400q'];
-			},
-			autoBuyMax() {
+			}
+			autoBuyMax(): boolean {
 				return player.upgrades['444q'] && player.upgrades['400q'];
-			},
-			canBuy() {
-				return player.multiplication.mulpower
+			}
+			costInverse(x: Decimal) {
+				return x
 					.div(1e50)
 					.max(1)
 					.log(1e25)
 					.add(1)
+					.floor().min(20);
+			}
+			capped(): boolean {
+				let capc = 20;
+				return player.buyables['38R'].gte(capc);
+			}
+		},
+		'31R': new class B31R extends Buyable<Decimal>{
+			
+			description = 'x<sub>1</sub>→x<sub>1</sub>+1'
+			cost(x: Decimal) {
+				return x.pow_base(2).mul(10);
+			}
+			name= 'B2-R1-1'
+			effect(x: Decimal): Decimal {
+				return x.mul(buyables['38R'].effect(player.buyables['38R']));
+			}
+			effectDescription(x: Decimal) {
+				return `x<sub>1</sub> = ${format(x)}`;
+			}
+			currency: Currencies = Currencies.MULTIPLICATION_POWER;
+			canBuyMax(): boolean {
+				return player.upgrades[39];
+			}
+			autoBuyMax(): boolean {
+				return player.upgrades['444q'];
+			}
+			costInverse(x: Decimal) {
+				return x
+					.div(10)
+					.max(1)
+					.log(2)
+					.add(1)
+					.floor();
+			}
+		},
+		'32R': new class B32R extends Buyable<Decimal>{
+			
+			description = 'x<sub>2</sub>→x<sub>2</sub>+1'
+			cost(x: Decimal) {
+				return x.pow_base(10).mul(100);
+			}
+			name= 'B2-R1-2'
+			effect(x: Decimal): Decimal {
+				return x.mul(buyables['38R'].effect(player.buyables['38R']));
+			}
+			effectDescription(x: Decimal) {
+				return `x<sub>2</sub> = ${format(x)}`;
+			}
+			currency: Currencies = Currencies.MULTIPLICATION_POWER;
+			canBuyMax(): boolean {
+				return player.upgrades[39];
+			}
+			autoBuyMax(): boolean {
+				return player.upgrades['444q'];
+			}
+			costInverse(x: Decimal) {
+				return x
+					.div(100)
+					.max(1)
+					.log(10)
+					.add(1)
+					.floor();
+			}
+		},
+		'33R': new class B33R extends Buyable<Decimal>{
+			
+			description = 'y<sub>1</sub>→y<sub>1</sub>+1'
+			cost(x: Decimal) {
+				return x.pow_base(100).mul(1e28);
+			}
+			name= 'B2-R1-3'
+			effect(x: Decimal): Decimal {
+				return x.mul(buyables['38R'].effect(player.buyables['38R']));
+			}
+			effectDescription(x: Decimal) {
+				return `y<sub>1</sub> = ${format(x)}`;
+			}
+			currency: Currencies = Currencies.MULTIPLICATION_POWER;
+			canBuyMax(): boolean {
+				return player.upgrades[39];
+			}
+			autoBuyMax(): boolean {
+				return player.upgrades['444q'];
+			}
+			costInverse(x: Decimal) {
+				return x
+					.div(1e28)
+					.max(1)
+					.log(100)
+					.floor();
+			}
+		},
+		'34R': new class B34R extends Buyable<Decimal>{
+			
+			description = 'z<sub>1</sub>→z<sub>1</sub>+1'
+			cost(x: Decimal) {
+				return x.pow_base(1000).mul(1e30);
+			}
+			name= 'B2-R1-3'
+			effect(x: Decimal): Decimal {
+				return x.mul(buyables['38R'].effect(player.buyables['38R']));
+			}
+			effectDescription(x: Decimal) {
+				return `z<sub>1</sub> = ${format(x)}`;
+			}
+			currency: Currencies = Currencies.MULTIPLICATION_POWER;
+			canBuyMax(): boolean {
+				return player.upgrades[39];
+			}
+			autoBuyMax(): boolean {
+				return player.upgrades['444q'];
+			}
+			costInverse(x: Decimal) {
+				return x
+					.div(1e30)
+					.max(1)
+					.log(1000)
+					.add(1)
 					.floor()
-					.sub(player.buyables['38R']);
-			},
-			buyMax() {
-				player.buyables['38R'] = player.buyables['38R'].add(this?.canBuy?.() ?? 0);
-			},
-		});
-  BUYABLES.create('41R', {
-			description: 'x<sub>2,1</sub> += 等级',
-			cost(x) {
+			}
+		},
+		'41R': new class B41R extends Buyable<Decimal>{
+			description= 'x<sub>2,1</sub> += 等级'
+			cost(x: Decimal) {
 				return x.pow_base(1.5).mul(10);
-			},
-			displayName: 'B3-R1-1',
-			effect(x) {
+			}
+			name= 'B3-R1-1'
+			effect(x: Decimal): Decimal {
 				return x.mul(x.add(1)).div(2);
-			},
-			effD(x) {
-				return `x<sub>2,1</sub> = ${format(this.effect(x))}`;
-			},
-			canAfford(x) {
-				return this.cost(x).lte(player.exponention.exppower);
-			},
-			buy(x) {
-				player.exponention.exppower = player.exponention.exppower.sub(this.cost(x));
-			},
-			capped() {
-				return false;
-			},
-			currency: '指数能量',
-			show() {
-				return true;
-			},
-			requirement: [],
-			canBuyMax() {
-				return false;
-			},
-			autoBuyMax() {
-				return false;
-			},
-			canBuy() {
-				return player.exponention.exppower
+			}
+			effectDescription(x: Decimal) {
+				return `x<sub>2,1</sub> = ${format(x)}`;
+			}
+			currency: Currencies = Currencies.EXPONENTION_POWER;
+			costInverse(x: Decimal) {
+				return x
 					.div(10)
 					.max(1)
 					.log(1.5)
 					.add(1)
 					.floor()
-					.sub(player.buyables['41R']);
-			},
-			buyMax() {
-				player.buyables['41R'] = player.buyables['41R'].add(this?.canBuy?.() ?? 0);
-			},
-		});
-		BUYABLES.create('42R', {
-			description: 'x<sub>2,2</sub>→x<sub>2,2</sub>+0.2',
-			cost(x) {
+			}
+		},
+		'42R': new class B42R extends Buyable<Decimal>{
+			description= 'x<sub>2,2</sub>→x<sub>2,2</sub>+0.2'
+			cost(x: Decimal) {
 				return x.pow(2).pow_base(3).mul(4000);
-			},
-			displayName: 'B3-R1-2',
-			effect(x) {
+			}
+			name= 'B3-R1-2'
+			effect(x: Decimal): Decimal {
 				return x.mul(0.2).add(1)
-			},
-			effD(x) {
-				return `x<sub>2,2</sub> = ${format(this.effect(x))}`;
-			},
-			canAfford(x) {
-				return this.cost(x).lte(player.exponention.exppower);
-			},
-			buy(x) {
-				player.exponention.exppower = player.exponention.exppower.sub(this.cost(x));
-			},
-			capped() {
-				return false;
-			},
-			currency: '指数能量',
-			show() {
-				return true;
-			},
-			requirement: [],
-			canBuyMax() {
-				return false;
-			},
-			autoBuyMax() {
-				return false;
-			},
-			canBuy() {
-				return player.exponention.exppower
+			}
+			effectDescription(x: Decimal) {
+				return `x<sub>2,2</sub> = ${format(x)}`;
+			}
+			currency: Currencies = Currencies.EXPONENTION_POWER;
+			costInverse(x: Decimal) {
+				return x
 					.div(4000)
 					.max(1)
 					.log(3)
 					.root(2)
 					.add(1)
 					.floor()
-					.sub(player.buyables['42R']);
-			},
-			buyMax() {
-				player.buyables['42R'] = player.buyables['42R'].add(this?.canBuy?.() ?? 0);
-			},
-		});
-		UPGRADES.create('31R', {
-			description: '将u<sub>1</sub>加入x获取速度公式',
-			displayName: 'U2-R1-1',
-			currency: '乘法能量',
-			cost: new Decimal(1e4),
+			}
+		},
+	} as const,
+	upgrades: {
+		'31R': new class U31R extends UpgradeWithEffect<Decimal>{
+			// @ts-ignore
+			description: string = "将u<sub>1</sub>加入x获取速度公式";
+			cost= new Decimal(1e4)
+			name= 'U2-R1-1'
+			currency: Currencies = Currencies.MULTIPLICATION_POWER;
+			keep() {
+				return player.upgrades['454q'];
+			}
 			effect() {
 				return player.multiplication.mulpower.add(Math.E).ln().floor().max(1);
-			},
-			effD() {
-				return `u<sub>1</sub> = ${formatWhole(this.effect?.() ?? 1)}`;
-			},
-			canAfford() {
-				return player.multiplication.mulpower.gte(this.cost);
-			},
-			buy() {
-				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost);
-			},
-			get requirement() {
-				return [];
-			},
-			show: function () {
-				return true;
-			},
+			}
+			effectDescription(x: Decimal) {
+				return `u<sub>1</sub> = ${formatWhole(x)}`;
+			}
+		},
+		'32R': new class U32R extends Upgrade{
+			// @ts-ignore
+			description: string = "x<sub>1</sub>的指数+0.3";
+			cost= new Decimal(1e30)
+			name= 'U2-R1-2'
+			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			keep() {
 				return player.upgrades['454q'];
-			},
-		});
-		UPGRADES.create('32R', {
-			description: 'x<sub>1</sub>的指数+0.3',
-			displayName: 'U2-R1-2',
-			currency: '乘法能量',
-			cost: new Decimal(1e30),
-			canAfford() {
-				return player.multiplication.mulpower.gte(this.cost);
-			},
-			buy() {
-				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost);
-			},
-			get requirement() {
-				return [];
-			},
-			show: function () {
-				return true;
-			},
+			}
+		},
+		'33R': new class U33R extends Upgrade{
+			// @ts-ignore
+			description: string = "y<sub>1</sub>的指数+0.3";
+			cost= new Decimal(1e35)
+			name= 'U2-R1-3'
+			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			keep() {
 				return player.upgrades['454q'];
-			},
-		});
-		UPGRADES.create('33R', {
-			description: 'y<sub>1</sub>的指数+0.3',
-			displayName: 'U2-R1-3',
-			currency: '乘法能量',
-			cost: new Decimal(1e35),
-			canAfford() {
-				return player.multiplication.mulpower.gte(this.cost);
-			},
-			buy() {
-				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost);
-			},
-			get requirement() {
-				return [];
-			},
-			show: function () {
-				return true;
-			},
+			}
+		},
+		'34R': new class U34R extends Upgrade{
+			// @ts-ignore
+			description: string = "z<sub>1</sub>的指数+0.3";
+			cost= new Decimal(1e40)
+			name= 'U2-R1-4'
+			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			keep() {
 				return player.upgrades['454q'];
-			},
-		});
-		UPGRADES.create('34R', {
-			description: 'z<sub>1</sub>的指数+0.3',
-			displayName: 'U2-R1-4',
-			currency: '乘法能量',
-			cost: new Decimal(1e40),
-			canAfford() {
-				return player.multiplication.mulpower.gte(this.cost);
-			},
-			buy() {
-				player.multiplication.mulpower = player.multiplication.mulpower.sub(this.cost);
-			},
-			get requirement() {
-				return [];
-			},
-			show: function () {
-				return true;
-			},
-			keep() {
-				return player.upgrades['454q'];
-			},
-		});
+			}
+		},
+	} as const,
+	initMechanics() {
 	},
 	funcS(x = player.numbertheory.euler.x.floor()) {
 		if (x.gte(1000)) {

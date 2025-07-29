@@ -20,7 +20,7 @@ import type { PrimeFactorTypes } from '@/core/save';
 						>{{ pf
 						}}<sup>{{
 							player.buyables[('pf' + pf) as PrimeFactorTypes].add(
-								buyables?.['pf' + pf]?.more?.() ?? 0,
+								buyables['pf' + pf as PrimeFactorTypes].more(),
 							)
 						}}</sup></span
 					><span v-if="pf != '19'"> × </span> </span
