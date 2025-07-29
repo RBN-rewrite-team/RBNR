@@ -127,7 +127,7 @@ function x2GainLatex() {
 				/>
 				<vue-latex
 					:expression="
-						'\\tau_{2B} = 1-\\frac{\\lg\\left|\\phi-\\frac{F_{n+1}}{F_m}\\right|}{100} = ' + formatLaTeX(NUMTHEORY.tau2B())
+						'\\tau_{2B} = 1-\\frac{\\lg\\left|\\phi-\\frac{F_{m+1}}{F_m}\\right|}{100} = ' + formatLaTeX(NUMTHEORY.tau2B())
 					"
 					display-mode
 					v-if="player.milestones.cb8"
