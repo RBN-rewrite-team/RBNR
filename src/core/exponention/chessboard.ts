@@ -12,8 +12,12 @@ export function base() {
   
 export function maxBlocks() {
   let mb = player.buyables.cb1.add(1)
-	if (player.milestones.cb6) mb = mb.mul(player.exponention.exppower.pow(0.666).add(10).log10().log10().add(1).floor())
+	if (player.milestones.cb6) mb = mb.mul(getMCB6Effect())
   return mb;
+}
+
+function getMCB6Effect() {
+  return player.exponention.exppower.pow(0.666).add(1e10).log10().log10().add(1).floor()
 }
 
 export function initMechanics() {
@@ -109,7 +113,7 @@ export function initMechanics() {
 	MILESTONES.create("cb6", {
 	  displayName: "M-CB-6",
 	  get description(){
-		return "棋盘格数×floor(log^2_10(指数能量^0.5＋10))"
+		  return "棋盘格数×"+formatWhole(getMCB6Effect())
 	  } ,
 	  requirement: new Decimal(1e18),
 	  get canDone() {
