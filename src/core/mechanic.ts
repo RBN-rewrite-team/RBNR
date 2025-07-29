@@ -58,7 +58,7 @@ export const UPGRADES = {
 	 */
 	buy(id: keyof typeof upgrades) {
 		if (!player.upgrades[id] && this.lock(id).unlocked && upgrades[id].canAfford()) {
-			decreaseCurrency(upgrades[id].currency, upgrades[id].cost);
+			decreaseCurrency(upgrades[id].currency, typeof upgrades[id].cost === "function" ? upgrades[id].cost() : upgrades[id].cost);
 			player.upgrades[id] = true;
 			
 			if (Logarithm.logarithm.in_dilate) {

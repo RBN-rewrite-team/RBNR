@@ -60,7 +60,7 @@ export const Successor = {
 				return player.upgrades['32']
 			}
 		},
-		'13': new class U03 extends UpgradeWithEffect<Decimal> {
+		'13': new class U03 extends Upgrade {
 			currency = Currencies.NUMBER;
 			name = "U0-3";
 			cost = new Decimal(1000);

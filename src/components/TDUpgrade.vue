@@ -57,7 +57,7 @@ const req = curupg.requirements();
 					</template>
 				</template>
 				<template v-if="!permanent">
-					价格：{{ format(curupg.cost) + currencyName(curupg.currency) }} <br />
+					价格：{{ format(typeof curupg.cost==="function" ? curupg.cost() : curupg.cost) + currencyName(curupg.currency) }} <br />
 				</template>
 				<span v-else style="color: green; font-weight: bold"> 保持持有<br /> </span>
 			</div>

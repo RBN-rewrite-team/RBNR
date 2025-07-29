@@ -7,7 +7,7 @@ export abstract class Upgrade {
     
     description: string = "数值获取×114514";
     name: string = "U0-114514";
-    cost: Decimal = new Decimal(114514);
+    cost: Decimal|(()=>Decimal) = new Decimal(114514);
     requirements(): Requirement[] {
         return [];
     }
@@ -20,7 +20,7 @@ export abstract class Upgrade {
     postBuy() {
     }
     canAfford() :boolean {
-        return getCurrency(this.currency).gte(this.cost);
+        return getCurrency(this.currency).gte(typeof this.cost === "function" ? this.cost() : this.cost);
     }
 }
 

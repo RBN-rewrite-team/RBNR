@@ -33,6 +33,7 @@ export const Addition = {
 			description= 'U1系列升级购买数量同样作用于U0-2的效果'
 			cost= new Decimal(1)
 			name= "U1-1"
+			currency = Currencies.ADDITION_POWER
 			keep() {
 				return player.upgrades['421q']&&!player.exponention.logarithm.in_dilate;
 			}
@@ -44,8 +45,8 @@ export const Addition = {
 		},
 		'22': new class U12 extends AdditionUpgrade {
 			description= 'U1系列升级购买数量同样作用于U0-2的效果'
-			// @ts-ignore
-			get cost() {
+			
+			cost: Decimal|(()=>Decimal) = function() {
 				if (
 					player.multiplication.B1seriesC1 == 2 ||
 					player.multiplication.B1seriesC1400q == 2
@@ -65,8 +66,8 @@ export const Addition = {
 		},
 		'23': new class U13 extends AdditionUpgrade {
 			description= '移除B0-1价格的常数项，B0-1最多购买次数+50'
-			// @ts-ignore
-			get cost() {
+			
+			cost: Decimal|(()=>Decimal) = function() {
 				if (
 					player.multiplication.B1seriesC1 == 3 ||
 					player.multiplication.B1seriesC1400q == 3
@@ -86,7 +87,6 @@ export const Addition = {
 		},
 		'24': new class U14 extends AdditionUpgrade {
 			description= '解锁B1-1'
-			// @ts-ignore
 			cost=new Decimal(125)
 			name= "U1-4"
 			keep() {
@@ -100,8 +100,8 @@ export const Addition = {
 		},
 		'25': new class U15 extends AdditionUpgradeWithEffect {
 			description= '后继运算升级为加法运算， 在每次加法重置后保留U0系列升级'
-			// @ts-ignore
-			get cost() {
+		
+			cost: Decimal|(()=>Decimal) = function() {
 				return new Decimal(625);
 			}
 			name= "U1-5"
@@ -131,7 +131,7 @@ export const Addition = {
 		'26': new class U16 extends AdditionUpgrade {
 			description= '解锁乘法层'
 			// @ts-ignore
-			get cost() {
+			cost: Decimal|(()=>Decimal) = function() {
 				return new Decimal(3125);
 			}
 			name= "U1-6"
