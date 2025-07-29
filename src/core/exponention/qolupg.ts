@@ -46,7 +46,7 @@ export const QolUpgrades = {
 		'435q': new QolUpg('乘法不重置质因数时间。', '35', ():[UpgradeRequirement]=>[new UpgradeRequirement('425q')], (): boolean=>QolUpgrades.row1AllUnlocked() ),
 		'441q': new QolUpg('每秒自动获得100%重置时可获得的加法能量。', '41', ():[UpgradeRequirement]=>[new UpgradeRequirement('431q')], (): boolean=>QolUpgrades.row2AllUnlocked() ),
 		'442q': new QolUpg('B0-1的数量保持在100个。', '42', ():[UpgradeRequirement]=>[new UpgradeRequirement('432q')], (): boolean=>QolUpgrades.row2AllUnlocked() ),
-		'443q': new QolUpg('挑战4纪录不低于本指数内累计乘法能量^' + format(new Decimal(0.001)) + '。', '43', ():[UpgradeRequirement]=>[new UpgradeRequirement('433q')], (): boolean=>QolUpgrades.row2AllUnlocked() ),
+		'443q': new QolUpg('挑战4纪录不低于本指数内累计乘法能量^0.001。', '43', ():[UpgradeRequirement]=>[new UpgradeRequirement('433q')], (): boolean=>QolUpgrades.row2AllUnlocked() ),
 		'444q': new QolUpg('自动化数论研究1的购买项。', '44', ():[UpgradeRequirement]=>[new UpgradeRequirement('434q')], (): boolean=>QolUpgrades.row2AllUnlocked() ),
 		'445q': new QolUpg('指数不重置质因数时间。', '45', ():[UpgradeRequirement]=>[new UpgradeRequirement('435q')], (): boolean=>QolUpgrades.row2AllUnlocked() ),
 		'451q': new QolUpg('保持乘法升级。', '51', ():[UpgradeRequirement]=>[new UpgradeRequirement('441q')], (): boolean=>QolUpgrades.row3AllUnlocked(), new Decimal(5)),

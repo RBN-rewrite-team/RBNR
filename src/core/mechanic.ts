@@ -4,7 +4,7 @@ import { player } from './save';
 import { format, formatWhole } from '@/utils/format';
 import { Logarithm } from './exponention/logarithm.ts';
 import { Successor } from './successor/successor.ts';
-import { decreaseCurrency, getCurrency, setCurrency } from './currencies.ts';
+import { currencyName, decreaseCurrency, getCurrency, setCurrency } from './currencies.ts';
 import { Addition } from './addition/addition.ts';
 import { Multiplication } from './multiplication/multiplication.ts';
 import { NUMTHEORY } from './multiplication/numbertheory.ts';
@@ -82,7 +82,7 @@ export const BUYABLES = {
 	singleHTML(id: keyof typeof buyables) {
 		let useclass = 'upgrade_buttonbig';
 		if (buyables[id].capped(player.buyables[id])) useclass = 'upgrade_buttonbig_complete';
-		else if (!this.lock(id).unlocked || !buyables[id].canAfford())
+		else if (!this.lock(id).unlocked || !buyables[id].canAfford() || !buyables[id].cost(player.buyables[id]).lte(getCurrency(buyables[id].currency)))
 			useclass = 'upgrade_buttonbig_unable';
 		let str = '<div class="' + useclass + '">';
 		str +=
@@ -104,7 +104,7 @@ export const BUYABLES = {
 				if (j != '0') str += ',<br>';
 				if (req[j].reachedReq()) str += '<span style="color: green; font-weight: bold">';
 				else str += '<span style="color: red; font-weight: bold">';
-				str += req[j].reqDescription;
+				str += req[j].reqDescription();
 				if (!req[j].reachedReq() && req[j].progress) str += '(' + req[j].progress().join("/") + ')';
 				str += '</span>';
 			}
@@ -124,7 +124,7 @@ export const BUYABLES = {
 			str +=
 				'价格：' +
 				format(buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0)))) +
-				buyables[id].currency +
+				currencyName(buyables[id].currency) +
 				(canBuy.gte(1) ? '(买' + formatWhole(canBuy) + '个)' : '') +
 				'<br>';
 		}

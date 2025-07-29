@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { currencyName } from '@/core/currencies';
 import { Logarithm } from '@/core/exponention/logarithm';
 import { buyables, upgrades, UPGRADES } from '@/core/mechanic';
 import { player } from '@/core/save';
@@ -40,7 +41,7 @@ const req = curupg.requirements();
 							style="font-weight: bold"
 							:style="{ color: sreq[1].reachedReq() ? 'green' : 'red' }"
 						>
-							{{ sreq[1].reqDescription }}
+							{{ sreq[1].reqDescription() }}
 							<span v-if="!sreq[1].reachedReq() && sreq[1].progress">
 								({{ sreq[1].progress().join("/") }})
 							</span>
@@ -56,7 +57,7 @@ const req = curupg.requirements();
 					</template>
 				</template>
 				<template v-if="!permanent">
-					价格：{{ format(curupg.cost) + curupg.currency }} <br />
+					价格：{{ format(curupg.cost) + currencyName(curupg.currency) }} <br />
 				</template>
 				<span v-else style="color: green; font-weight: bold"> 保持持有<br /> </span>
 			</div>

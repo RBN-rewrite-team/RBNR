@@ -46,6 +46,16 @@ export const Successor = {
 					new CurrencyRequirement(Currencies.NUMBER, new Decimal(100))
 				]
 			}
+			effect(): Decimal {
+				let base = new Decimal(0);
+				if (player.upgrades['11']) base = base.add(1);
+				if (player.upgrades['12']) base = base.add(1);
+				if (player.upgrades['13']) base = base.add(1);
+				return base;
+			}
+			effectDescription(values: Decimal): string {
+				return `+${formatWhole(values)}`
+			}
 			keep() {
 				return player.upgrades['32']
 			}

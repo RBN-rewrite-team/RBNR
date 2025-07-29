@@ -31,6 +31,9 @@ export class CurrencyRequirement extends Requirement {
     reqDescription(): string {
         return `获得${format(this.cost)}${currencyName(this.currency)}`;
     }
+    progress(): [string, string] {
+        return [`${format(getCurrency(this.currency))}`, `${format(this.cost)}`]
+    }
     constructor(currency: Currencies, cost: Decimal) {
         super();
         this.currency = currency;
@@ -46,6 +49,7 @@ export class UpgradeRequirement extends Requirement {
     reqDescription(): string {
         return `获得${upgrades[this.upgid].name}`;
     }
+    progress=undefined;
     constructor(upgid: keyof typeof upgrades) {
         super();
         this.upgid = upgid;

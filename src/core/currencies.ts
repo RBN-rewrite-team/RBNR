@@ -10,7 +10,7 @@ export enum Currencies {
 }
 
 abstract class Currency {
-    name: string = "未定义货币";
+    static name: string = "未定义货币";
     static set current(x: Decimal) {
         throw new ReferenceError("Undefined currency.")
     }
@@ -21,7 +21,7 @@ abstract class Currency {
 }
 
 class NumberCurrency extends Currency {
-    name = "数值";
+    static name = "数值";
     static set current(x: Decimal) {
         player.number=x;
     }
@@ -32,7 +32,7 @@ class NumberCurrency extends Currency {
 }
 
 class AdditionPowerCurrency extends Currency {
-    name = "加法能量";
+    static name = "加法能量";
     static set current(x: Decimal) {
         player.addpower=x;
     }
@@ -43,7 +43,7 @@ class AdditionPowerCurrency extends Currency {
 }
 
 class MultiplicationPowerCurrency extends Currency {
-    name = "乘法能量";
+    static name = "乘法能量";
     static set current(x: Decimal) {
         player.multiplication.mulpower=x;
     }
@@ -54,7 +54,7 @@ class MultiplicationPowerCurrency extends Currency {
 }
 
 class ExponentionPowerCurrency extends Currency {
-    name = "指数能量";
+    static name = "指数能量";
     static set current(x: Decimal) {
         player.exponention.exppower=x;
     }
@@ -65,7 +65,7 @@ class ExponentionPowerCurrency extends Currency {
 }
 
 class QolPointsCurrency extends Currency {
-    name = "生活点数";
+    static name = "生活点数";
     static set current(x: Decimal) {
         player.exponention.qolpoints=x;
     }
