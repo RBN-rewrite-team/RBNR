@@ -5,9 +5,11 @@ import { format, formatWhole } from '@/utils/format';
 import { Logarithm } from './exponention/logarithm.ts';
 import { Successor } from './successor/successor.ts';
 import { decreaseCurrency, setCurrency } from './currencies.ts';
+import { Addition } from './addition/addition.ts';
 
 var upgrades = {
 	...Successor.upgrades,
+	...Addition.upgrades,
 } as const
 var buyables = {
 	...Successor.buyables
