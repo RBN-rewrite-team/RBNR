@@ -62,8 +62,8 @@ export function gameLoop() {
 	  throw e
 	};
 	if (diff > 60000) {
-		simulateTime(diff);
 		return;
+		simulateTime(diff);
 	}
 	if (player.run_a_tick_and_froze) {
 		player.frozen=true;
