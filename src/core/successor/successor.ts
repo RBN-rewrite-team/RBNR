@@ -98,7 +98,7 @@ export const Successor = {
 				];
 			};
 			effect(x: Decimal): Decimal {
-				return x;
+				return x.add(this.more());
 			}
 			effectDescription(values: Decimal): string {
 				return `${formatWhole(values)}/s`;

@@ -32,7 +32,7 @@ export abstract class Buyable<T> {
         return true;
     }
     /**
-     * @param x 当前购买想的数量（包含more()函数的内容）
+     * @param x 当前购买想的数量（不包含more()函数的内容）
      */
     effect(x: Decimal): T {
         throw new ReferenceError("Undefined effect")

@@ -178,6 +178,12 @@ export const Addition = {
 					.sub(player.buyables[21])
 					.max(0).min(100);
 			}
+			effect(x: Decimal): Decimal {
+				return x
+			}
+			effectDescription(values: Decimal): string {
+				return `+${formatWhole(values)}`
+			}
 		}
 	} as const,
 	initMechanics() {
