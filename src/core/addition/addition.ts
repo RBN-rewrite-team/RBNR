@@ -44,7 +44,7 @@ export const Addition = {
 			}
 		},
 		'22': new class U12 extends AdditionUpgrade {
-			description= 'U1系列升级购买数量同样作用于U0-2的效果'
+			description= '后继批量提高到4倍'
 			
 			cost: Decimal|(()=>Decimal) = function() {
 				if (

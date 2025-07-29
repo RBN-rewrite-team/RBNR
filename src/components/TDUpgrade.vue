@@ -51,7 +51,7 @@ const req = curupg.requirements();
 				</template>
 				<template v-else>
 					<!-- (Logarithm.logarithm.upgrades_in_dilated.includes(id)&&curupg.dilated) ? curupg.dilated :  -->
-					<span v-html="curupg.description"></span><br />
+					<span v-html="typeof curupg.description === 'function' ? curupg.description() : curupg.description"></span><br />
 					<template v-if="UpgradeWithEffect.isWithEffect<any>(curupg)">
 						效果：<span v-html="curupg.effectDescription(curupg.effect())"></span><br />
 					</template>

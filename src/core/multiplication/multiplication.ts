@@ -17,8 +17,7 @@ const D179E308 = Decimal.pow(2, 1024);
 export const Multiplication = {
 	upgrades: {
 		'31': new class U21 extends Upgrade{
-			// @ts-ignore
-			get description() {
+			description = function() {
 				let counts = '1';
 				if (player.upgrades['400q'])
 					counts = "<span style='font-size: 19px;'><b>2</b></span>";
@@ -222,7 +221,7 @@ export const Multiplication = {
 				return new Decimal(0.01).mul(x);
 			}
 			effectDescription(x: Decimal) {
-				return '*' + formatWhole(x);
+				return '+' + format(x);
 			}
 			cost(x:Decimal) {
 				let a = new Decimal(5).pow(x.add(1));

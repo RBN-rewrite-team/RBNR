@@ -61,6 +61,7 @@ export const PrimeFactor = {
 							reqDescription(): string {
 								return '购买质因数' + (Number(pf) == 2 ? 0 : Number(pflist[Number(i) - 1]));
 							}
+							progress=undefined;
 						}
 					];
 				}
