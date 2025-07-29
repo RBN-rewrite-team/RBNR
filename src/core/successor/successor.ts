@@ -68,7 +68,7 @@ export const Successor = {
 				player.number = player.number.sub(this.cost);
 			},
 			get dilated() {
-				return this.description+"<br>!每次购买U0系列升级使后继按钮指数*1.05"
+				return this.description+"<br>每次购买U0系列升级使后继按钮指数*1.05"
 			},
 			get requirement() {
 				return [
