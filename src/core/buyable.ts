@@ -71,7 +71,7 @@ export abstract class Buyable<T> {
      * @returns 
      */
     canBuy(x: Decimal): Decimal{
-        return this.costInverse(getCurrency(this.currency));
+        return this.costInverse(getCurrency(this.currency)).sub(x);
     }
     postBuyMax() {
 

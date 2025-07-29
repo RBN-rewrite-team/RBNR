@@ -13,7 +13,7 @@ import { Exponention } from './exponention/exponention.ts';
 import { QolUpgrades } from './exponention/qolupg.ts';
 import { cb1 } from './exponention/chessboard.ts';
 
-var upgrades = {
+const upgrades = {
 	...Successor.upgrades,
 	...Addition.upgrades,
 	...Multiplication.upgrades,
@@ -21,7 +21,7 @@ var upgrades = {
 	...Exponention.upgrades,
 	...QolUpgrades.upgrades,
 } as const
-var buyables = {
+const buyables = {
 	...Successor.buyables,
 	...Addition.buyables,
 	...Multiplication.buyables,
@@ -143,6 +143,7 @@ export const BUYABLES = {
 				buyables[id].canBuyMax()
 			) {
 				buyables[id].postBuyMax();
+				player.buyables[id] = Decimal.max(player.buyables[id], buyables[id].costInverse(getCurrency(buyables[id].currency)))
 			} else {
 				buyables[id].postBuy();
 				decreaseCurrency(buyables[id].currency, buyables[id].cost(player.buyables[id]))

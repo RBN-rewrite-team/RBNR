@@ -28,6 +28,7 @@ export const PrimeFactor = {
 				n= Number(i)
 				currency: Currencies = Currencies.MULTIPLICATION_POWER;
 				description= '因数能量×' + pf;
+				name="质因数"+pf;
 				more() {
 					if (player.upgrades[36] && Number(i) !== pflist.length - 1) {
 						return player.buyables[('pf' + pflist[Number(i) + 1]) as PrimeFactorTypes]
@@ -40,7 +41,7 @@ export const PrimeFactor = {
 					return new Decimal(this.pfid).pow(x.add(this.more?.() ?? 0));
 				}
 				effectDescription(x: Decimal) {
-					return 'x' + formatWhole(this.effect(x));
+					return '*' + formatWhole(x);
 				}
 				cost(x: Decimal) {
 					return new Decimal(this.pfid).pow(x.mul(2).add(this.n ?? 0));

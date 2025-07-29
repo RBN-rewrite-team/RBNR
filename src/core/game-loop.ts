@@ -9,6 +9,7 @@ import { predictableRandom } from '@/utils/algorithm.ts';
 import { CHALLENGE } from './challenge.ts';
 import { Logarithm } from './exponention/logarithm.ts';
 import { save } from './save/index.ts';
+import { getCurrency } from './currencies.ts';
 
 export let diff = 40;
 export let loopInterval = NaN;
@@ -111,20 +112,22 @@ export function simulate(diff: number) {
 	}
 
 	// There is very ok, dont remove @ts-ignore, because Element dont implicitly have an 'any type' 😂😂😂😂
-	for (let i in upgrades) {
-		// @ts-ignore
+	for (const upg_i in upgrades) {
+		
+		const i = upg_i as keyof typeof upgrades
 		if (upgrades[i] && upgrades[i].keep != null && upgrades[i].keep()) {
 			player.upgrades[i as keyof typeof player.upgrades] = true;
 		}
 	}
 
-	for (let i in buyables) {
-		// @ts-ignore
+	for (const byl_i in buyables) {
+		const i = byl_i as keyof typeof buyables
 		if (buyables[i].canBuyMax != null && buyables[i].canBuyMax()) {
-		// @ts-ignore
+		
 			if (buyables[i].autoBuyMax != null && buyables[i].autoBuyMax()) {
-		// @ts-ignore
-				if (buyables[i].buyMax != null) buyables[i].buyMax();
+		
+				buyables[i].postBuyMax();
+				player.buyables[i] = Decimal.max(player.buyables[i], buyables[i].costInverse(getCurrency(buyables[i].currency)))
 			}
 		}
 	}

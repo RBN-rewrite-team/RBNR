@@ -198,7 +198,7 @@ export const Multiplication = {
 				return x.pow_base(CHALLENGE.inChallenge(0, 3) ? 1 : 2);
 			}
 			effectDescription(x: Decimal) {
-				return '*' + formatWhole(this.effect(x));
+				return '*' + formatWhole(x);
 			}
 			cost(x:Decimal) {
 				let a = x.add(1).pow10();
@@ -222,7 +222,7 @@ export const Multiplication = {
 				return new Decimal(0.01).mul(x);
 			}
 			effectDescription(x: Decimal) {
-				return '*' + formatWhole(this.effect(x));
+				return '*' + formatWhole(x);
 			}
 			cost(x:Decimal) {
 				let a = new Decimal(5).pow(x.add(1));
