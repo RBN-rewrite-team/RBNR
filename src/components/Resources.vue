@@ -20,7 +20,7 @@ import Decimal from 'break_eternity.js';
 					<span
 						v-else
 						v-html="formatGain(player.number, feature.resourceGain.number().value, '')"
-					></span>
+					></span>({{ formatWhole(player.totalNumber) }})
 					<br />
 					<span v-if="feature.resourceGain.number().softcaps > 0">
 						(受{{ feature.resourceGain.number().softcaps }}个软上限限制)
