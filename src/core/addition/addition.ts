@@ -233,7 +233,7 @@ export const Addition = {
 	addpower_gain(bulk = new Decimal(1)) {
 		let adding = this.gain().mul(bulk);
 		if (player.exponention.logarithm.in_dilate) {
-			adding = adding.add(10).ln().ln().mul(10)
+			adding = adding.add(Math.E).ln().ln().mul(10)
 		}
 		if (player.buyables[31].gt(0) && Logarithm.logarithm.upgrades_in_dilated.includes("31")) adding = adding.mul(buyables[31].effect(player.buyables[31]));
 		adding = SOFTCAPS.fluidComputed('addpower^1', adding, player.addpower);
