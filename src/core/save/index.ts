@@ -133,6 +133,7 @@ function getInitialPlayerData(): Player {
 			'41R': false,
 			'42R': false,
 			'43R': false,
+			//'44R': false,
 			'41': false,
 			'42': false,
 			'43': false,
