@@ -238,7 +238,7 @@ export const Successor = {
 	successorBulk() {
 		let base = new Decimal(1);
 		if (player.upgrades['12']) base = base.add(upgrades['12'].effect());
-		if (player.upgrades[21]) {
+		if (player.upgrades['12'] && player.upgrades[21]) {
 			let count = 0;
 			for (const i of [21, 22, 23, 24, 25, 26]) {
 				if (player.upgrades[i.toString() as '21' | '22' | '23' | '24' | '25' | '26'])
@@ -246,7 +246,7 @@ export const Successor = {
 			}
 			base = base.add(count);
 		}
-		if (player.upgrades[32]) {
+		if (player.upgrades['12'] && player.upgrades[32]) {
 			let count = 0;
 			for (const i of [31, 32, 33, 34, 35] as const) {
 				if (player.upgrades[i.toString() as '31' | '32' | '33' | '34' | '35']) count++;
