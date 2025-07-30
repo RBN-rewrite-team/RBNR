@@ -264,7 +264,7 @@ export const NUMTHEORY = {
 				return x.mul(x.add(1)).div(2);
 			}
 			effectDescription(x: Decimal) {
-				return `x<sub>2,1</sub> = ${format(x)}`;
+				return `x<sub>2,1</sub> = ` + formatWhole(this.effect(x));
 			}
 			currency: Currencies = Currencies.EXPONENTION_POWER;
 			costInverse(x: Decimal) {
@@ -286,7 +286,7 @@ export const NUMTHEORY = {
 				return x.mul(0.2).add(1)
 			}
 			effectDescription(x: Decimal) {
-				return `x<sub>2,2</sub> = ${format(x)}`;
+				return `x<sub>2,2</sub> = ` + format(this.effect(x));
 			}
 			currency: Currencies = Currencies.EXPONENTION_POWER;
 			costInverse(x: Decimal) {
@@ -295,6 +295,51 @@ export const NUMTHEORY = {
 					.max(1)
 					.log(3)
 					.root(2)
+					.add(1)
+					.floor()
+			}
+		},
+		'43R': new class B43R extends Buyable<Decimal>{
+			description= 'y<sub>2,1</sub> += 等级'
+			cost(x: Decimal) {
+				return x.pow_base(2.5).mul(100000);
+			}
+			name= 'B3-R1-3'
+			effect(x: Decimal): Decimal {
+				return x.mul(x.add(1)).div(2);
+			}
+			effectDescription(x: Decimal) {
+				return `y<sub>2,1</sub> = ` + formatWhole(this.effect(x));
+			}
+			currency: Currencies = Currencies.EXPONENTION_POWER;
+			costInverse(x: Decimal) {
+				return x
+					.div(1000000)
+					.max(1)
+					.log(2.5)
+					.add(1)
+					.floor()
+			}
+		},
+		'44R': new class B44R extends Buyable<Decimal>{
+			description= 'y<sub>2,2</sub>→y<sub>2,2</sub>+0.2'
+			cost(x: Decimal) {
+				return x.pow(3).pow_base(10).mul(1e9);
+			}
+			name= 'B3-R1-4'
+			effect(x: Decimal): Decimal {
+				return x.mul(0.16).add(0.8)
+			}
+			effectDescription(x: Decimal) {
+				return `y<sub>2,2</sub> = ` + format(this.effect(x));
+			}
+			currency: Currencies = Currencies.EXPONENTION_POWER;
+			costInverse(x: Decimal) {
+				return x
+					.div(1e9)
+					.max(1)
+					.log(10)
+					.root(3)
 					.add(1)
 					.floor()
 			}
@@ -414,6 +459,12 @@ export const NUMTHEORY = {
 	varX2gain() {
 	    let base = new Decimal(0);
 	    if(player.buyables['41R'].gte(1)) base = base.add(buyables['41R'].effect(player.buyables['41R'])).pow(buyables['42R'].effect(player.buyables['42R']));
+	    base = base.mul(player.numbertheory.rational_approx.y);
+	    return base;
+	},
+	varY2gain() {
+	    let base = new Decimal(0);
+	    if(player.buyables['43R'].gte(1)) base = base.add(buyables['43R'].effect(player.buyables['43R'])).pow(buyables['44R'].effect(player.buyables['44R']));
 	    return base;
 	},
 };

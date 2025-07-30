@@ -35,7 +35,10 @@ function sGainLatex() {
 	return `\\dot{s} = s_1 = ` + formatLaTeX(NUMTHEORY.tickspeedGain());
 }
 function x2GainLatex() {
-    return '\\dot{n} = x_{2,1}^{x_{2,2}} = ' + formatLaTeX(NUMTHEORY.varX2gain());
+    return '\\dot{n} = x_{2,1}^{x_{2,2}}y = ' + formatLaTeX(NUMTHEORY.varX2gain());
+}
+function y2GainLatex() {
+    return '\\dot{y} = y_{2,1}^{y_{2,2}} = ' + formatLaTeX(NUMTHEORY.varY2gain());
 }
 </script>
 
@@ -141,7 +144,12 @@ function x2GainLatex() {
 					display-mode
 					v-if="player.milestones.cb8"
 				/>
+				<vue-latex
+					:expression="'y = ' + formatLaTeXWhole(player.numbertheory.rational_approx.y)"
+					display-mode
+				/>
 				<vue-latex :expression="x2GainLatex()" display-mode />
+				<vue-latex :expression="y2GainLatex()" display-mode />
 				<p style="font-size: 120%">
 					<b
 						>研究2加成：质因数效果^<vue-latex
@@ -173,6 +181,8 @@ function x2GainLatex() {
 				    <tr>
 				        <TDBuyable bylid="41R" />
 				        <TDBuyable bylid="42R" />
+				        <TDBuyable bylid="43R" />
+				        <TDBuyable bylid="44R" />
 				    </tr>
 				</table>
 			</div>

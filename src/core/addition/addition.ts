@@ -214,14 +214,18 @@ export const Addition = {
 			name: 'addpower^4',
 			fluid: true,
 			start: new Decimal('ee5'),
-			exponent: new Decimal(0.5),
+			get exponent() {
+			    let base = new Decimal(4);
+			    if(player.milestones.cb6) base = base.pow(0.5);
+			    return base.pow(-1);
+			},
 			meta: 1
 		});
 		SOFTCAPS.create('addpower^5', {
 			name: 'addpower^5',
 			fluid: true,
 			start: new Decimal('ee14'),
-			exponent: new Decimal(0.5),
+			exponent: new Decimal(0.25),
 			meta: 1
 		});
 	},

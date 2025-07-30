@@ -117,9 +117,9 @@ export const BUYABLES = {
 			if (buyables[id].effect != null)
 				str +=
 					'效果：' +
-					buyables[id].effectDescription(buyables[id].effect(player.buyables[id])) +
+					buyables[id].effectDescription(player.buyables[id]) +
 					'&nbsp;→' +
-					buyables[id].effectDescription(buyables[id].effect(player.buyables[id].add(canBuy.max(1)))) +
+					buyables[id].effectDescription(player.buyables[id].add(canBuy.max(1))) +
 					'<br>';
 			str +=
 				'价格：' +
@@ -169,40 +169,15 @@ type ISoftcap = {
  * @param meta 不知道
  * @returns 溢出后的数
  */
-function overflow(number: Decimal, start: DecimalSource, power: DecimalSource, meta=1) {
-	if (isNaN(number.mag)) return new Decimal(0)
-	start = new Decimal(start)
+function overflow() {/* 废弃 */}
 
-	if (number.gt(start)) {
-	  if (meta == 0) {
-	    number = number.div(start).pow(power).mul(start)
-	  } else if (meta == 1) {
-			let s = start.log10()
-			number = number.log10().div(s).pow(power).mul(s).pow10()
-		} else {
-			let s = start.iteratedlog(10,meta)
-			number = Decimal.iteratedexp(10,meta,number.iteratedlog(10,meta).div(s).pow(power).mul(s));
-		}
-	}
-	return number;
-}
-
-function overflowInversed(number: Decimal, start: DecimalSource, power: DecimalSource, meta=1) {
-	if (isNaN(number.mag)) return new Decimal(0)
-	start = new Decimal(start)
-
-	if (number.gt(start)) {
-		if (meta == 0) {
-	    number = number.div(start).root(power).mul(start)
-	  } else if (meta == 1) {
-			let s = start.log10()
-			number = number.log10().div(s).root(power).mul(s).pow10()
-		} else {
-			let s = start.iteratedlog(10,meta)
-			number = Decimal.iteratedexp(10,meta,number.iteratedlog(10,meta).div(s).root(power).mul(s));
-		}
-	}
-	return number;
+function overflow_v2(getting: Decimal, existing: Decimal, s: object)
+{
+    let start = s.start, power = s.exponent, meta = s.meta ?? 0;
+    let safe = Decimal.iteratedexp(10, meta, 1);
+    let stm = start.iteratedlog(10, meta), gem = getting.max(safe).iteratedlog(10, meta), exm = existing.iteratedlog(10, meta);
+    let logged = stm.mul(exm.div(stm).root(power).add(gem.div(stm)).pow(power));
+    return Decimal.iteratedexp(10, meta, logged);
 }
 
 export const SOFTCAPS = {
@@ -234,8 +209,7 @@ export const SOFTCAPS = {
 		}
 		if (!softcaps[id].fluid) throw new Error('type error');
 		let s = softcaps[id];
-		let base = overflowInversed(existing, s.start, s.exponent, s.meta ?? 0)
-		return overflow(base.add(getting), s.start, s.exponent, s.meta ?? 0).sub(existing);
+		return overflow_v2(getting, existing, s);
 	},
 	/**
 	 * 基于获取的软上限
@@ -247,7 +221,7 @@ export const SOFTCAPS = {
 		if (!this.reach(id, getting)) return getting;
 		if (softcaps[id].fluid) throw new Error('type error');
 		let s = softcaps[id];
-		return overflow(getting, s.start, s.exponent, s.meta ?? 0);;
+		return overflow_v2(new Decimal(0), getting, s);
 	},
 };
 
