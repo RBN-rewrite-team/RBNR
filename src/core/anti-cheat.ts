@@ -1,5 +1,5 @@
 import { player } from '@/core/global.ts';
-import { loopInterval } from '@/main.ts';
+import { loopInterval } from '@/core/game-loop';
 import ModalService from '@/utils/Modal';
 import type { Player } from './save';
 declare global {

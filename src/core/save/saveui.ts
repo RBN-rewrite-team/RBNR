@@ -1,6 +1,6 @@
 import ModalService from '@/utils/Modal';
 import { hardReset, loadFromString } from '.';
-import { saveInterval } from '@/main.ts';
+import { saveInterval } from '@/core/game-loop';
 
 export function UILoadSaveFromFile() {
 	const a = document.createElement('input');

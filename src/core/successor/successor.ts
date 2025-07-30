@@ -15,168 +15,113 @@ import { NUMTHEORY } from '../multiplication/numbertheory.ts';
 import { CHALLENGE } from '../challenge.ts';
 import { MULTI_CHALS } from '../multiplication/challenges.ts';
 import { predictableRandom } from '@/utils/algorithm.ts';
+import { Upgrade, UpgradeWithEffect } from '../upgrade.ts';
+import { Currencies } from '../currencies.ts';
+import { CurrencyRequirement, Requirement, UpgradeRequirement } from '../requirements.ts';
+import { Buyable } from '../buyable.ts';
 
 export const Successor = {
-	initMechanics() {
-		UPGRADES.create('11', {
-			description: '解锁B0-1',
-			currency: '数值',
-			cost: new Decimal(10),
-			displayName: 'U0-1',
-			canAfford() {
-				return player.number.gte(this.cost);
-			},
-			buy() {
-				player.number = player.number.sub(this.cost);
-			},
-			get requirement() {
+	upgrades: {
+		'11': new class U01 extends Upgrade {
+			currency = Currencies.NUMBER;
+			name = "U0-1";
+			cost = new Decimal(10);
+			description = "解锁B0-1";
+			requirements(): Requirement[] {
 				return [
-					[
-						'达到10累计数值',
-						function () {
-							return player.totalNumber.gte(upgrades['11'].cost);
-						},
-						[formatWhole(player.totalNumber), formatWhole(upgrades['11'].cost)],
-					] as singleReq,
-				];
-			},
-			show: function () {
-				return true;
-			},
+					new CurrencyRequirement(Currencies.NUMBER, new Decimal(10))
+				]
+			}
 			keep() {
-				return player.upgrades['32'];
-			},
-		});
-		UPGRADES.create('12', {
-			description: '每次购买U0系列升级都使后继按钮批量+1',
-			effect() {
+				return player.upgrades['32']
+			}
+		},
+		'12': new class U02 extends UpgradeWithEffect<Decimal> {
+			currency = Currencies.NUMBER;
+			name = "U0-2";
+			cost = new Decimal(100);
+			description = "每次购买U0系列升级都使后继按钮批量+1";
+			requirements(): Requirement[] {
+				return [
+					new CurrencyRequirement(Currencies.NUMBER, new Decimal(100))
+				]
+			}
+			effect(): Decimal {
 				let base = new Decimal(0);
 				if (player.upgrades['11']) base = base.add(1);
 				if (player.upgrades['12']) base = base.add(1);
 				if (player.upgrades['13']) base = base.add(1);
 				return base;
-			},
-			effD() {
-				return '+' + formatWhole(this.effect?.());
-			},
-			cost: new Decimal(100),
-			displayName: 'U0-2',
-			canAfford() {
-				return player.number.gte(this.cost);
-			},
-			buy() {
-				player.number = player.number.sub(this.cost);
-			},
-			get dilated() {
-				return this.description+"<br>每次购买U0系列升级使后继按钮指数*1.05"
-			},
-			get requirement() {
-				return [
-					[
-						'达到100累计数值',
-						function () {
-							return player.totalNumber.gte(upgrades['12'].cost);
-						},
-						[formatWhole(player.totalNumber), formatWhole(upgrades['12'].cost)],
-					] as singleReq,
-				];
-			},
-			show: function () {
-				return true;
-			},
-			currency: '数值',
+			}
+			effectDescription(values: Decimal): string {
+				return `+${formatWhole(values)}`
+			}
 			keep() {
-				return player.upgrades['32'];
-			},
-		});
-		UPGRADES.create('13', {
-			description: '解锁加法层',
-			cost: new Decimal(1000),
-			displayName: 'U0-3',
-			canAfford() {
-				return player.number.gte(this.cost);
-			},
-			buy() {
-				player.number = player.number.sub(this.cost);
-			},
-			get requirement() {
+				return player.upgrades['32']
+			}
+		},
+		'13': new class U03 extends Upgrade {
+			currency = Currencies.NUMBER;
+			name = "U0-3";
+			cost = new Decimal(1000);
+			description = "解锁加法层";
+			requirements(): Requirement[] {
 				return [
-					[
-						'达到1000累计数值',
-						function () {
-							return player.totalNumber.gte(upgrades['13'].cost);
-						},
-						[formatWhole(player.totalNumber), formatWhole(upgrades['13'].cost)],
-					] as singleReq,
-				];
-			},
-			show: function () {
-				return true;
-			},
-			currency: '数值',
+					new CurrencyRequirement(Currencies.NUMBER, new Decimal(1000))
+				]
+			}
 			keep() {
-				return player.upgrades['32'];
-			},
-		});
-		BUYABLES.create('11', {
-			description: '每秒进行一次后继运算',
-			displayName: 'B0-1',
-			effect(x) {
-				return x.add(this.more?.() ?? 0);
-			},
-			effD(x) {
-				return formatWhole(this.effect(x)) + '/s';
-			},
-			cost(x) {
+				return player.upgrades['32']
+			}
+		},
+	} as const,
+	buyables: {
+		'11': new class B01 extends Buyable<Decimal> {
+			currency: Currencies = Currencies.NUMBER;
+
+			description: string = "每秒进行一次后继运算";
+			name: string = "B0-1";
+			cost(x: Decimal) {
 				let a = x.mul(10).add(10);
 				if (player.upgrades[23]) a = a.sub(10);
 				return a;
-			},
-			canAfford(x) {
-				return player.number.gte(this.cost(x));
-			},
-			buy(x) {
-				player.number = player.number.sub(this.cost(x));
-			},
-			capped() {
-				let capc = 50;
-				if (player.upgrades[23]) capc += 50;
-				return player.buyables['11'].add(this.more?.() ?? 0).gte(capc);
-			},
-			get requirement() {
+			};
+			costInverse(x: Decimal) {
+				let a = x;
+				if (player.upgrades[23]) a = a.add(10);
+				a = a.sub(10).div(10);
+				return a.min(100);
+			};
+			requirements(): Requirement[] {
 				return [
-					[
-						'购买U11',
-						function () {
-							return player.upgrades['11'];
-						},
-					] as singleReq,
+					new UpgradeRequirement('11')
 				];
-			},
-			show: function () {
-				return true;
-			},
+			};
+			effect(x: Decimal): Decimal {
+				return x.add(this.more());
+			}
+			effectDescription(values: Decimal): string {
+				return `${formatWhole(values)}/s`;
+			}
 			more() {
 				let a = new Decimal(0);
 				a = a.add(player.buyable11More);
 				return a;
-			},
-			currency: '数值',
-			canBuyMax() {
+			}
+			canBuyMax(): boolean {
 				return player.upgrades[39];
-			},
-			autoBuyMax() {
+			}
+			autoBuyMax(): boolean{
 				return player.upgrades[39];
-			},
-			buyMax() {
-				player.buyables[11] = player.number
-					.sub(10)
-					.div(10)
-					.floor()
-					.max(player.buyables[11])
-					.min(100);
-			},
-		});
+			}
+			capped(x: Decimal) {
+				let capc = 50;
+				if (player.upgrades[23]) capc += 50;
+				return x.add(this.more()).gte(capc);
+			}
+		}
+	} as const,
+	initMechanics() {
 		SOFTCAPS.create('number^1', {
 			name: 'number^1',
 			fluid: true,
@@ -275,7 +220,7 @@ export const Successor = {
 	 */
 	successorBulk() {
 		let base = new Decimal(1);
-		if (player.upgrades['12']) base = base.add(upgrades['12'].effect?.() ?? 0);
+		if (player.upgrades['12']) base = base.add(upgrades['12'].effect());
 		if (player.upgrades[21]) {
 			let count = 0;
 			for (const i of [21, 22, 23, 24, 25, 26]) {
@@ -286,7 +231,7 @@ export const Successor = {
 		}
 		if (player.upgrades[32]) {
 			let count = 0;
-			for (const i of [31, 32, 33, 34, 35]) {
+			for (const i of [31, 32, 33, 34, 35] as const) {
 				if (player.upgrades[i.toString() as '31' | '32' | '33' | '34' | '35']) count++;
 			}
 			base = base.add(count ** 2);

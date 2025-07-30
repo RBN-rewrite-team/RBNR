@@ -3,6 +3,8 @@ import { buyables, BUYABLES, MILESTONES } from "../mechanic"
 import { player } from "../save"
 import { format, formatWhole } from "@/utils/format"
 import { diff } from "../game-loop";
+import { Buyable } from "../buyable";
+import { Currencies } from "../currencies";
 export interface IAstronomer {
     life: number;
     boost: Decimal;
@@ -14,68 +16,52 @@ export const Logarithm = {
     get astronomers() {
         return this.logarithm.astronomers;
     },
-    initMechanics() {
-        BUYABLES.create("lgr_emp", {
-            displayName: "B-LG-EMP",
-            description: "雇佣一名天文学家",
-            currency: "指数能量",
-            cost(x) {
+    buyables: {
+        'lgr_emp': new class extends Buyable<Decimal> {
+            name="B-LG-EMP"
+            description: string="雇佣一名天文学家";
+            currency: Currencies = Currencies.EXPONENTION_POWER;
+            cost(x: Decimal): Decimal {
                 let base = new Decimal(10);
                 if (player.milestones.log_law3)base = base.sub(Logarithm.logarithm.calculate_datas.max(1).log10().pow(0.7).min(4))
                 return Decimal.pow(base, Decimal.pow(x.add(4), 2).sub(Logarithm.logarithm.calculate_datas.max(1).log10().pow(0.7).min(4)))
-            },
-            canAfford(x) {
-                return player.exponention.exppower.gte(this.cost(x));
-            },
-            buy(x){
-                player.exponention.exppower = player.exponention.exppower.sub(this.cost(x));
+            }
+            postBuy(): void {
                 const life = Logarithm.astronomerLife();
                 Logarithm.astronomers.push({
                     life: life[0],
                     boost: life[1],
                 })
-            },
-            requirement: [],
-            show(){ return true },
-            capped() {
+            }
+            capped(): boolean {
                 return player.buyables.lgr_emp.gte(50);
-            },
-            effD(x) {
+            }
+            effectDescription(x: Decimal) {
                 return `+${format(this.effect(x))}`
-            },
-            effect(x) {
+            }
+            effect(x:Decimal) {
                 return x;
-            },
-        })
-        BUYABLES.create("lgr_impr", {
-            displayName: "B-LG-IMPR",
-            description: "改进对数表，提升天文学家的寿命和运算速度",
-            currency: "指数能量",
-            cost(x) {
+            }
+        },
+        'lgr_impr': new class extends Buyable<Decimal> {
+            name="B-LG-EMP"
+            description: string="雇佣一名天文学家";
+            currency: Currencies = Currencies.EXPONENTION_POWER;
+            cost(x: Decimal): Decimal {
                 let base = new Decimal(10);
                 if (player.milestones.log_law3) base = base.sub(Logarithm.logarithm.calculate_datas.max(1).log10().pow(0.7).min(4))
                 return Decimal.pow(10, Decimal.pow(x.add(2), x.add(2)).sub(Logarithm.logarithm.calculate_datas.max(1).log10().pow(0.7).min(4)))
-            },
-            canAfford(x) {
-                return player.exponention.exppower.gte(this.cost(x));
-            },
-            buy(x){
-                player.exponention.exppower = player.exponention.exppower.sub(this.cost(x));
-            },
-            requirement: [],
-            show(){ return true },
-            capped() {
-                return false
-            },
-            effD(x) {
+            }
+            effectDescription(x: Decimal) {
                 return `×${format(this.effect(x))}`
-            },
-            effect(x) {
+            }
+            effect(x:Decimal) {
                 if (x.eq(0)) return new Decimal(1);
                 return x.root(10).pow_base(x).div(10).add(1);
-            },
-        })
-
+            }
+        },
+    } as const,
+    initMechanics() {
         MILESTONES.create("log_law1", {
             displayName: "M-LAW-1",
             get description(){

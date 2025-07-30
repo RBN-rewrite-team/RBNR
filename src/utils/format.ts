@@ -157,6 +157,7 @@ export function format(decimal: DecimalSource, precision = 4): string {
 		case notations.POWEROF1:
 			return (1).toFixed(precision);
 	}
+	// 科学计数法
 	decimal = new Decimal(decimal);
 	if (decimal.sign < 0) return '-' + format(decimal.neg(), precision);
 	if (decimal.isNan()) return 'NaN';
@@ -191,7 +192,12 @@ export function format(decimal: DecimalSource, precision = 4): string {
 	} else return (0).toFixed(precision);
 }
 const DT = Decimal.tetrate(10, 6);
-
+/**
+ * 增长资源显示
+ * @param a 当前已存在的资源
+ * @param e 当前每秒增长的资源
+ * @param resourceName 资源名
+ */
 export function formatGain(a: DecimalSource, e: DecimalSource, resourceName: string = '') {
 	a = new Decimal(a);
 	e = new Decimal(e);
@@ -234,6 +240,13 @@ export function formatGain(a: DecimalSource, e: DecimalSource, resourceName: str
 
 	return '(' + (e.sign >= 0 ? '+' : '') + format(e) + resourceName + '/s)';
 }
+
+/**
+ * 时间显示
+ * @param ex 时间（以秒为单位）
+ * @param acc 单位秒的时间精度
+ * @param type 不知道
+ */
 export function formatTime(ex: DecimalSource, acc = 3, type = 's'): string {
 	ex = new Decimal(ex);
 	if (ex.mag == Infinity) return '5更新时';
@@ -966,6 +979,7 @@ abstract class Notation {
 		return this.negativeString[0] + this.formatDecimal(value) + this.negativeString[1];
 	}
 
+	// 主要的格式化数的地方
 	public abstract formatDecimal(value: Decimal): string;
 
 	//Parameter stuff
