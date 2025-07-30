@@ -209,6 +209,9 @@ export const Successor = {
 		if (player.exponention.logarithm.in_dilate) {
 			adding = adding.add(10).ln().ln().div(10)
 		}
+		if (player.exponention.logarithm.upgrades_in_dilated.includes("31")) {
+			adding = adding.pow(3)
+		}
 		for(let i = 1; i <= 8; i++)
 		    adding = SOFTCAPS.fluidComputed('number^' + i, adding, player.number);
 		if (CHALLENGE.inChallenge(0, 2))
@@ -283,7 +286,7 @@ export const Successor = {
 				player.exponention.logarithm.upgrades_in_dilated.includes("21") ? 1.5 : 1
 			))
 		}
-		if (player.exponention.logarithm.upgrades_in_dilated.includes("21")) {
+		if (player.exponention.logarithm.upgrades_in_dilated.includes("22")) {
 			base = base.add(0.2);
 		}
 		if (Logarithm.logarithm.buyables_in_dilated.includes("11")) {

@@ -13,11 +13,12 @@ import { Upgrade } from '../upgrade.ts';
 import { Currencies } from '../currencies.ts';
 import { CurrencyRequirement, Requirement } from '../requirements.ts';
 import { Buyable } from '../buyable.ts';
+import { Logarithm } from '../exponention/logarithm.ts';
 const D179E308 = Decimal.pow(2, 1024);
 export const Multiplication = {
 	upgrades: {
 		'31': new class U21 extends Upgrade{
-			description = function() {
+			description: ()=>string = function() {
 				let counts = '1';
 				if (player.upgrades['400q'])
 					counts = "<span style='font-size: 19px;'><b>2</b></span>";
@@ -25,6 +26,12 @@ export const Multiplication = {
 					'你可以选择' +
 					counts +
 					'个U1系列升级将其价格降低到1加法能量，改变选择将进行乘法重置'
+					+ (function (){
+						if (player.exponention.logarithm.upgrades_in_dilated.includes("31")) {
+							return "数值在对数膨胀后增长^3"
+						} 
+						return ""
+					})()
 				);
 			}
 			cost= new Decimal(0)
@@ -83,7 +90,7 @@ export const Multiplication = {
 		},
 		'35': new class U25 extends Upgrade{
 			// @ts-ignore
-			description: string = "解锁数论研究";
+			description: ()=>string = Logarithm.dilated("解锁数论研究", "数论研究1中x，y的指数3->4", "35");
 			cost= new Decimal(47)
 			name= 'U2-5'
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
@@ -98,7 +105,7 @@ export const Multiplication = {
 		},
 		'36': new class U26 extends Upgrade{
 			// @ts-ignore
-			description: string = "每2个质因数p<sub>n</sub>免费赠送一个p<sub>n-1</sub>";
+			description: ()=>string = Logarithm.dilated("每2个质因数p<sub>n</sub>免费赠送一个p<sub>n-1</sub>", "每4个p_n免费赠送1个p_（n+1）", "36");
 			cost= new Decimal(101)
 			name= 'U2-6'
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
@@ -167,6 +174,9 @@ export const Multiplication = {
 			}
 			effectDescription(x: Decimal) {
 				return '*' + format(this.effect(x));
+			}
+			effectDilated(value: Decimal): [Decimal, string] {
+				return [this.effect(value), "在对数膨胀后增加加法能量获取"]
 			}
 			cost(x:Decimal) {
 				let a = x.mul(1000).add(10);

@@ -87,7 +87,7 @@ export const Addition = {
 			}
 		},
 		'24': new class U14 extends AdditionUpgrade {
-			description= '解锁B1-1'
+			description:()=>string= Logarithm.dilated('解锁B1-1', "使B1-1加成b0-1  效果^(1+log（b1-1）/3）", '24')
 			cost=new Decimal(125)
 			name= "U1-4"
 			keep(): boolean {
@@ -100,7 +100,7 @@ export const Addition = {
 			}
 		},
 		'25': new class U15 extends AdditionUpgradeWithEffect {
-			description= '后继运算升级为加法运算， 在每次加法重置后保留U0系列升级'
+			description= Logarithm.dilated('后继运算升级为加法运算， 在每次加法重置后保留U0系列升级', "挑战1效果上限从0.25到0.4", '24')
 		
 			cost: Decimal|(()=>Decimal) = function() {
 				return new Decimal(625);
@@ -235,6 +235,7 @@ export const Addition = {
 		if (player.exponention.logarithm.in_dilate) {
 			adding = adding.add(10).ln().ln().mul(10)
 		}
+		if (player.buyables[31].gt(0) && Logarithm.logarithm.upgrades_in_dilated.includes("31")) adding = adding.mul(buyables[31].effect(player.buyables[31]));
 		adding = SOFTCAPS.fluidComputed('addpower^1', adding, player.addpower);
 		adding = SOFTCAPS.fluidComputed('addpower^2', adding, player.addpower);
 		adding = SOFTCAPS.fluidComputed('addpower^3', adding, player.addpower);

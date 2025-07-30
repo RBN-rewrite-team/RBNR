@@ -206,6 +206,9 @@ export const Exponention = {
 			if (dilate) {
 				player.upgrades['13'] = false;
 				player.upgrades['26'] = false;
+				player.upgrades['35'] = false;
+				player.upgrades['38'] = false;
+				player.upgrades['39'] = false;
 
 				for (const upg_i of player.exponention.logarithm.upgrades_in_dilated) {
 					player.upgrades[upg_i] = true;
