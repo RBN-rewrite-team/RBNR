@@ -35,7 +35,7 @@ export const Multiplication = {
 					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(1))
 				];
 			}
-			keep() {
+			keep(): boolean {
 				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
 			}
 		},

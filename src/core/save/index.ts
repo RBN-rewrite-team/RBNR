@@ -42,6 +42,7 @@ export interface Player {
 		rational_approx: {
 			n: Decimal;
 			m: Decimal;
+			y: Decimal;
 		};
 	};
 	currentTab: number;
@@ -66,6 +67,7 @@ export interface Player {
 			astronomers: IAstronomer[];
 			in_dilate: boolean;
 			upgrades_in_dilated: (keyof typeof upgrades)[];
+			buyables_in_dilated: (keyof typeof buyables)[];
 		}
 	};
 	options: {
@@ -260,6 +262,7 @@ function getInitialPlayerData(): Player {
 				astronomers: [],
 				in_dilate: false,
 				upgrades_in_dilated: [],
+				buyables_in_dilated: [],
 			}
 		},
 		options: {
@@ -294,7 +297,7 @@ function getInitialPlayerData(): Player {
 
 function rewriteDecimalValues(pl: any) {
 	for (const key in pl) {
-		if (key==="upgrades_in_dilated") continue;
+		if (key==="upgrades_in_dilated" || key==="buyables_in_dilated") continue;
 		if (typeof pl[key] === 'string') {
 			if (!Decimal.isNaN(pl[key])) {
 				pl[key] = new Decimal(pl[key]);

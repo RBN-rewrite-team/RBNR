@@ -7,6 +7,7 @@ export abstract class Buyable<T> {
     currency: Currencies = Currencies.NUMBER;
     
     description: string = "基于xxx增加数值xx";
+    descriptionDilated: string = "";
     name: string = "B0-114514";
     
     /**
@@ -40,6 +41,9 @@ export abstract class Buyable<T> {
     effectDescription(values: T): string {
         throw new ReferenceError("Undefined effect")
     }
+    effectDilated(value: Decimal): [Decimal, string] {
+        return [new Decimal(0), "nothing"]
+    };
 
     more() :Decimal {
         return new Decimal(0);
