@@ -27,7 +27,7 @@ import Decimal from 'break_eternity.js';
 					</span>
 				</div>
 			</div>
-			<div style="margin-left: 265px" class="resource" id="showMP" v-if="player.upgrades[13]">
+			<div style="margin-left: 265px" class="resource" id="showMP" v-if="player.upgrades[13] || player.exponention.logarithm.in_dilate">
 				<div style="font-weight: bold; color: #009dd9">
 					加法能量&nbsp;
 					<div style="display: inline; text-shadow: #5acaff 1px 1px 2px">
@@ -55,7 +55,7 @@ import Decimal from 'break_eternity.js';
 					</span>
 				</div>
 			</div>
-			<div style="margin-left: 515px" class="resource" v-if="player.upgrades[26]">
+			<div style="margin-left: 515px" class="resource" v-if="player.upgrades[26] || player.exponention.logarithm.in_dilate">
 				<div style="font-weight: bold; color: #cc33ff">
 					乘法能量&nbsp;
 					<div style="display: inline; text-shadow: #dd77dd 1px 1px 2px">
