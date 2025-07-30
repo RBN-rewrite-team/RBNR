@@ -2,7 +2,7 @@ import Decimal from 'break_eternity.js';
 import { BUYABLES, upgrades, UPGRADES, buyables, type singleReq } from '../mechanic';
 import { player, type PrimeFactorTypes } from '../save';
 import ModalService from '@/utils/Modal';
-import { formatWhole } from '@/utils/format';
+import { format, formatWhole } from '@/utils/format';
 import { Addition } from '../addition/addition.ts';
 import { CHALLENGE } from '../challenge.ts';
 import { NUMTHEORY } from '@/core/multiplication/numbertheory';
@@ -44,13 +44,13 @@ export const PrimeFactor = {
 					return new Decimal(0);
 				}
 				effect(x: Decimal) {
-					return new Decimal(this.pfid).pow(x.add(this.more?.() ?? 0));
+					return new Decimal(this.pfid).pow(x.add(this.more()));
 				}
 				effectDescription(x: Decimal) {
-					return '*' + formatWhole(x);
+					return '*' + formatWhole(this.effect(x));
 				}
 				cost(x: Decimal) {
-					return new Decimal(this.pfid).pow(x.mul(2).add(this.n ?? 0));
+					return new Decimal(this.pfid).pow(x.mul(2).add(this.n));
 				}
 				capped() {
 					return false;
