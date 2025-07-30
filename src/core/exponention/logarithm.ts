@@ -96,7 +96,7 @@ export const Logarithm = {
             get description(){
                 return "Actually, this milestone is hidden, you shouldn't see it"
             } ,
-            requirement: new Decimal(1000000),
+            requirement: new Decimal(3e6),
             get canDone() {
                 return Logarithm.logarithm.calculate_datas.gte(this.requirement)
             },
@@ -108,7 +108,7 @@ export const Logarithm = {
             get description(){
                 return "Actually, this milestone is hidden, you shouldn't see it"
             } ,
-            requirement: new Decimal(10000000),
+            requirement: new Decimal(5e6),
             get canDone() {
                 return Logarithm.logarithm.calculate_datas.gte(this.requirement)
             },
@@ -131,11 +131,19 @@ export const Logarithm = {
         return [life.toNumber()-40, boost]
     },
     astronomerProduce(i: number) {
-        return new Decimal(25).mul(
+        return new Decimal(5)
+        
+        .mul(
             Decimal.pow(new Decimal(1.5).mul(this.astronomers[i].boost), i)
-        ).mul(buyables.lgr_impr.effect(player.buyables.lgr_impr))
-        .mul(player.milestones.log_law1 ? 10 : 1)
-        .mul(player.milestones.log_law1 ? 5 : 1);
+        )
+        .mul(player.milestones.log_law1 ? 5 : 1)
+        .mul(this.observeDataConvert());
+    },
+    observeDataConvert() {
+        let convertgain = new Decimal(5);
+        convertgain = convertgain.mul(player.milestones.log_law1 ? 10 : 1);
+        convertgain = convertgain.mul(buyables.lgr_impr.effect(player.buyables.lgr_impr))
+        return convertgain
     },
     astronomerUpdate() {
         for (let i = 0; i<this.astronomers.length; i++){
@@ -152,15 +160,20 @@ export const Logarithm = {
                 player.buyables.lgr_emp = player.buyables.lgr_emp.sub(1)
             }
         }
+        if (this.logarithm.in_dilate) {
+            this.logarithm.highest_dilate = this.logarithm.highest_dilate.max(player.number);
+        }
     },
     observe() {
         this.logarithm.observe_datas = this.logarithm.observe_datas.add(1)
     },
     observeConvert() {
         if (this.logarithm.observe_datas.lte(0)) return;
-        this.logarithm.observe_datas = this.logarithm.observe_datas.sub(1)
-        let convertgain = new Decimal(5);
-        convertgain = convertgain.mul(player.milestones.log_law1 ? 10 : 1);
-        this.logarithm.calculate_datas = this.logarithm.calculate_datas.add(convertgain)
+        this.logarithm.calculate_datas = this.logarithm.calculate_datas.add(this.observeDataConvert().mul(this.logarithm.observe_datas))
+        this.logarithm.observe_datas = new Decimal(0)
+    },
+
+    dilateEffect(): [num: Decimal, expo: Decimal] {
+        return [this.logarithm.highest_dilate.pow(0.5), this.logarithm.highest_dilate.pow(0.75)]
     }
 }

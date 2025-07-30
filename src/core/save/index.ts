@@ -68,6 +68,7 @@ export interface Player {
 			in_dilate: boolean;
 			upgrades_in_dilated: (keyof typeof upgrades)[];
 			buyables_in_dilated: (keyof typeof buyables)[];
+			highest_dilate: Decimal;
 		}
 	};
 	options: {
@@ -263,6 +264,7 @@ function getInitialPlayerData(): Player {
 				in_dilate: false,
 				upgrades_in_dilated: [],
 				buyables_in_dilated: [],
+				highest_dilate: new Decimal(1),
 			}
 		},
 		options: {
