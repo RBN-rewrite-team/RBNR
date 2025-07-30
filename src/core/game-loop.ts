@@ -164,6 +164,7 @@ export function simulate(diff: number) {
 	if (player.upgrades[45]) {
 	    let dPf2TimeDecimal = new Decimal(diff);
 	    player.numbertheory.rational_approx.n = player.numbertheory.rational_approx.n.add(NUMTHEORY.varX2gain().mul(diff).mul(1e-3)).max(1);
+	    player.numbertheory.rational_approx.m = player.numbertheory.rational_approx.m.add(NUMTHEORY.varM2gain().mul(diff).mul(1e-3)).max(1);
 	    player.numbertheory.rational_approx.y = player.numbertheory.rational_approx.y.add(NUMTHEORY.varY2gain().mul(diff).mul(1e-3)).max(1);
 	}
 	Logarithm.astronomerUpdate();

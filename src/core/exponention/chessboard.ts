@@ -11,6 +11,7 @@ export function base() {
   if (player.milestones.cb1) base = new Decimal(3)
   if (player.milestones.cb3) base = base.add(buyables.cb1.effect(player.buyables.cb1).pow(0.15).sub(1).max(0))
   if (player.milestones.cb6) base = base.mul(getMCB6Effect())
+  if (player.upgrades['43R']) base = base.mul(upgrades['43R'].effect())
   return base
 }
   
@@ -140,7 +141,7 @@ export function initMechanics() {
 	MILESTONES.create("cb9", {
 	  displayName: "M-CB-9",
 	  get description(){
-		return "棋盘每个格子提升观测数据基础获取量×+0.01"
+		return "棋盘每个格子提升观测数据基础获取量×+0.01，同时削弱麦粒三个指数效果的软上限"
 	  } ,
 	  requirement: new Decimal(1e50),
 	  get canDone() {
@@ -178,10 +179,12 @@ export function wgEffect() {
   let eff3 = wg.log10().div(10).add(1).pow(5)
   let eff4 = wg.pow(2).pow_base(4)
   let eff5 = new Decimal(1).div(wg.add(1).ln().add(1).ln().root(2).div(1.5).add(1))
-  if (eff1.gte(4)) eff1 = eff1.div(4).pow(0.5).mul(4)
-  if (eff2.gte(50)) eff2 = eff2.div(50).pow(0.4).mul(50)
-  if (eff3.gte(3)) eff3 = eff3.div(3).pow(0.3).mul(3)
-  if (eff4.gte('ee100')) eff4 = eff4.log10().div(1e100).pow(0.1).mul(1e100).pow_base(10)
+  let scp = [0.5, 0.4, 0.3];
+  if(player.milestones.cb9) scp = [0.75, 0.65, 0.55];
+  if (eff1.gte(4)) eff1 = eff1.div(4).pow(scp[0]).mul(4)
+  if (eff2.gte(50)) eff2 = eff2.div(50).pow(scp[1]).mul(50)
+  if (eff3.gte(3)) eff3 = eff3.div(3).pow(scp[2]).mul(3)
+  if (eff4.gte('ee100')) eff4 = eff4.log10().div(1e100).pow(0.01).mul(1e100).pow_base(10)
   if (player.exponention.logarithm.in_dilate) {
       eff4 = eff4.max(1e10).log10().log10();
   }

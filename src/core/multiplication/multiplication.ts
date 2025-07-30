@@ -220,7 +220,7 @@ export const Multiplication = {
 				return player.upgrades['452q'];
 			}
 			costInverse(x: Decimal): Decimal {
-				return x.log10().sub(1);
+				return x.max(10).log10().sub(1);
 			}
 		},
 		'33': new class B23 extends Buyable<Decimal> {
