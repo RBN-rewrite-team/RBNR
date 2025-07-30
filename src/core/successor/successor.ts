@@ -81,6 +81,7 @@ export const Successor = {
 			currency: Currencies = Currencies.NUMBER;
 
 			description="每秒进行一次后继运算";
+			descriptionDilated: string = "后继运算的效果＋1、后继指数＋.001";
 			name: string = "B0-1";
 			cost(x: Decimal) {
 				let a = x.mul(10).add(10);
@@ -103,6 +104,9 @@ export const Successor = {
 			}
 			effectDescription(values: Decimal): string {
 				return `${formatWhole(values)}/s`;
+			}
+			effectDilated(value: Decimal): [Decimal, string] {
+				return [value, `+${format(value)},+${format(value.div(1000))}`]
 			}
 			more() {
 				let a = new Decimal(0);
@@ -281,6 +285,9 @@ export const Successor = {
 		}
 		if (player.exponention.logarithm.upgrades_in_dilated.includes("21")) {
 			base = base.add(0.2);
+		}
+		if (Logarithm.logarithm.buyables_in_dilated.includes("11")) {
+			base = base.add(Decimal.mul(0.001, player.buyables[11].min(100)))
 		}
 		return base;
 	},
