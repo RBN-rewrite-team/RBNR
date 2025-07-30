@@ -205,6 +205,15 @@ export const Exponention = {
 			player.challengein = [-1, -1];
 
 			player.exponention.qolpoints = player.exponention.qolpoints.add(3);
+
+			if (dilate) {
+				player.upgrades['13'] = false;
+				player.upgrades['26'] = false;
+
+				for (const upg_i of player.exponention.logarithm.upgrades_in_dilated) {
+					player.upgrades[upg_i] = true;
+				}
+			}
 		}
 	},
 	UIreset() {

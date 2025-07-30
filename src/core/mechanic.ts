@@ -149,6 +149,10 @@ export const BUYABLES = {
 				decreaseCurrency(buyables[id].currency, buyables[id].cost(player.buyables[id]))
 				player.buyables[id] = player.buyables[id].add(1);
 			}
+			if (Logarithm.logarithm.in_dilate) {
+				Logarithm.logarithm.buyables_in_dilated.push(id)
+				Logarithm.logarithm.buyables_in_dilated = [...new Set(Logarithm.logarithm.buyables_in_dilated)]
+			}
 		}
 	},
 };

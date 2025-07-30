@@ -19,6 +19,7 @@ import { Upgrade, UpgradeWithEffect } from '../upgrade.ts';
 import { Currencies } from '../currencies.ts';
 import { CurrencyRequirement, Requirement, UpgradeRequirement } from '../requirements.ts';
 import { Buyable } from '../buyable.ts';
+import { Logarithm } from '../exponention/logarithm.ts';
 
 export class AdditionUpgrade extends Upgrade {
 	currency = Currencies.ADDITION_POWER
@@ -30,7 +31,7 @@ export class AdditionUpgradeWithEffect extends UpgradeWithEffect {
 export const Addition = {
 	upgrades: {
 		'21': new class U11 extends AdditionUpgrade {
-			description= 'U1系列升级购买数量同样作用于U0-2的效果'
+			description:()=>string= Logarithm.dilated('U1系列升级购买数量同样作用于U0-2的效果', "使U0-2效果^1.5", '21')
 			cost= new Decimal(1)
 			name= "U1-1"
 			currency = Currencies.ADDITION_POWER
@@ -44,7 +45,7 @@ export const Addition = {
 			}
 		},
 		'22': new class U12 extends AdditionUpgrade {
-			description= '后继批量提高到4倍'
+			description:()=>string= Logarithm.dilated('后继批量提高到4倍', "后继指数＋0.2", "22");
 			
 			cost: Decimal|(()=>Decimal) = function() {
 				if (
@@ -281,8 +282,15 @@ export const Addition = {
 
 		if (player.firstResetBit & 0b100) base = base.pow(buyables[43].effect(player.buyables[43]));
 		if (player.upgrades[47]) base = base.pow(feature.ChessBoard.wgEffect()[1]);
-
+		base = base.pow(this.gainExponent());
 		return base.floor();
+	},
+	gainExponent(): Decimal {
+		let base = new Decimal(1);
+		if (player.exponention.logarithm.upgrades_in_dilated.includes("13")) {
+			base = base.add(0.1);
+		}
+		return base
 	},
 	U25effect() {
 		if (!player.upgrades[25]) return new Decimal(0);

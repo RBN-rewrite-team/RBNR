@@ -1,5 +1,5 @@
 import Decimal from "break_eternity.js"
-import { buyables, BUYABLES, MILESTONES } from "../mechanic"
+import { buyables, BUYABLES, MILESTONES, upgrades } from "../mechanic"
 import { player } from "../save"
 import { format, formatWhole } from "@/utils/format"
 import { diff } from "../game-loop";
@@ -15,6 +15,11 @@ export const Logarithm = {
     },
     get astronomers() {
         return this.logarithm.astronomers;
+    },
+    dilated(text:string, dilated: string, id:keyof typeof upgrades): ()=>string{
+        return function(){
+				return text+(Logarithm.logarithm.upgrades_in_dilated.includes(id) ? "<br>"+dilated : "")
+		};
     },
     buyables: {
         'lgr_emp': new class extends Buyable<Decimal> {

@@ -19,6 +19,7 @@ import { Upgrade, UpgradeWithEffect } from '../upgrade.ts';
 import { Currencies } from '../currencies.ts';
 import { CurrencyRequirement, Requirement, UpgradeRequirement } from '../requirements.ts';
 import { Buyable } from '../buyable.ts';
+import { Logarithm } from '../exponention/logarithm.ts';
 
 export const Successor = {
 	upgrades: {
@@ -26,13 +27,13 @@ export const Successor = {
 			currency = Currencies.NUMBER;
 			name = "U0-1";
 			cost = new Decimal(10);
-			description = "解锁B0-1";
+			description:()=>string = Logarithm.dilated("解锁B0-1","B0-1购买次数上限改为1000", "11");
 			requirements(): Requirement[] {
 				return [
 					new CurrencyRequirement(Currencies.NUMBER, new Decimal(10))
 				]
 			}
-			keep() {
+			keep(): boolean {
 				return player.upgrades['32']
 			}
 		},
@@ -40,7 +41,7 @@ export const Successor = {
 			currency = Currencies.NUMBER;
 			name = "U0-2";
 			cost = new Decimal(100);
-			description = "每次购买U0系列升级都使后继按钮批量+1";
+			description :()=>string= Logarithm.dilated("每次购买U0系列升级都使后继按钮批量+1", "每次购买U0系列升级使后继按钮指数*1.1", "12");
 			requirements(): Requirement[] {
 				return [
 					new CurrencyRequirement(Currencies.NUMBER, new Decimal(100))
@@ -56,7 +57,7 @@ export const Successor = {
 			effectDescription(values: Decimal): string {
 				return `+${formatWhole(values)}`
 			}
-			keep() {
+			keep(): boolean {
 				return player.upgrades['32']
 			}
 		},
@@ -64,13 +65,13 @@ export const Successor = {
 			currency = Currencies.NUMBER;
 			name = "U0-3";
 			cost = new Decimal(1000);
-			description = "解锁加法层";
+			description :()=>string= Logarithm.dilated("解锁加法层","加法能量获取指数+0.1","13");
 			requirements(): Requirement[] {
 				return [
 					new CurrencyRequirement(Currencies.NUMBER, new Decimal(1000))
 				]
 			}
-			keep() {
+			keep():boolean {
 				return player.upgrades['32']
 			}
 		},
@@ -79,7 +80,7 @@ export const Successor = {
 		'11': new class B01 extends Buyable<Decimal> {
 			currency: Currencies = Currencies.NUMBER;
 
-			description: string = "每秒进行一次后继运算";
+			description="每秒进行一次后继运算";
 			name: string = "B0-1";
 			cost(x: Decimal) {
 				let a = x.mul(10).add(10);
@@ -90,7 +91,7 @@ export const Successor = {
 				let a = x;
 				if (player.upgrades[23]) a = a.add(10);
 				a = a.sub(10).div(10);
-				return a.min(100);
+				return a.min(this.getCap());
 			};
 			requirements(): Requirement[] {
 				return [
@@ -114,10 +115,15 @@ export const Successor = {
 			autoBuyMax(): boolean{
 				return player.upgrades[39];
 			}
-			capped(x: Decimal) {
+			getCap(): Decimal{
 				let capc = 50;
 				if (player.upgrades[23]) capc += 50;
-				return x.add(this.more()).gte(capc);
+				if (Logarithm.logarithm.upgrades_in_dilated.includes("11")) capc=1000;
+				return new Decimal(capc);
+
+			}
+			capped(x: Decimal) {
+				return x.add(this.more()).gte(this.getCap());
 			}
 		}
 	} as const,
@@ -263,6 +269,15 @@ export const Successor = {
 	successorPow() {
 		let base = new Decimal(1);
 		if (player.upgrades[42]) base = base.add(0.1);
+
+		if (player.exponention.logarithm.upgrades_in_dilated.includes("12")) {
+			base = base.mul(Decimal.pow(1.1,this.upgrades[12].effect()).pow(
+				player.exponention.logarithm.upgrades_in_dilated.includes("21") ? 1.5 : 1
+			))
+		}
+		if (player.exponention.logarithm.upgrades_in_dilated.includes("21")) {
+			base = base.add(0.2);
+		}
 		return base;
 	},
 };

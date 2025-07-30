@@ -66,6 +66,7 @@ export interface Player {
 			astronomers: IAstronomer[];
 			in_dilate: boolean;
 			upgrades_in_dilated: (keyof typeof upgrades)[];
+			buyables_in_dilated: (keyof typeof buyables)[];
 		}
 	};
 	options: {
@@ -257,6 +258,7 @@ function getInitialPlayerData(): Player {
 				astronomers: [],
 				in_dilate: false,
 				upgrades_in_dilated: [],
+				buyables_in_dilated: [],
 			}
 		},
 		options: {
