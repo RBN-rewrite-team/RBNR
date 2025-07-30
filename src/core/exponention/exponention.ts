@@ -202,7 +202,7 @@ export const Exponention = {
 			if (!player.upgrades['433q'] || dilate) player.challenges[0][2] = new Decimal(0);
 			player.challenges[0][3] = new Decimal(0);
 
-			player.challengein = [0, 0];
+			player.challengein = [-1, -1];
 
 			player.exponention.qolpoints = player.exponention.qolpoints.add(3);
 		}
