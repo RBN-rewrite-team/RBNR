@@ -30,6 +30,7 @@ export enum notations {
 	HH,
 	OMEGA,
 	POWEROF1,
+	SGH,
 }
 
 export const notationNamesMap = new Map([
@@ -59,6 +60,7 @@ export const notationNamesMap = new Map([
 	[notations.HH, 'Hardy层级'],
 	[notations.OMEGA, '欧米伽记数法'],
 	[notations.POWEROF1, '1的指数'],
+	[notations.SGH, '慢速增长层级'],
 ]);
 
 function exponentialFormat(num: Decimal, precision: number, mantissa = true): string {
@@ -156,6 +158,8 @@ export function format(decimal: DecimalSource, precision = 4): string {
 			return Omega.format(decimal);
 		case notations.POWEROF1:
 			return (1).toFixed(precision);
+		case notations.SGH:
+			return SGH.format(decimal);
 	}
 	// 科学计数法
 	decimal = new Decimal(decimal);
@@ -310,6 +314,8 @@ export function formatLaTeX(decimal: DecimalSource) {
 			return HHLatex.format(decimal);
 		case notations.OMEGA:
 			return OmegaLaTex.format(decimal);
+		case notations.SGH:
+			return SGH.format(decimal, true);
 		default:
 			return '\\text{' + format(decimal) + '}';
 	}
@@ -323,6 +329,8 @@ export function formatLaTeXWhole(decimal: DecimalSource) {
 			return HHLatex.format(decimal);
 		case notations.OMEGA:
 			return OmegaLaTex.format(decimal);
+		case notations.SGH:
+			return SGH.format(decimal, true);
 		default:
 			return '\\text{' + formatWhole(decimal) + '}';
 	}
@@ -10556,3 +10564,69 @@ export class LettersNotation extends Notation {
 }
 
 const Letters = new LettersNotation(...[, ,], defaultRound).setName('Letters');
+
+
+class SGHNotation extends Notation {
+	//Notation stuff
+	public format(value: DecimalSource, latex=false): string {
+		let decimal = toDecimal(value);
+
+		if (decimal.isNan()) return this.NaNString;
+
+		if (this.isInfinite(decimal)) {
+			return decimal.sgn() < 0 ? this.negativeInfinite : this.infinite;
+		}
+
+		if (decimal.neq(0) && this.isInfinite(decimal.recip())) {
+			return this.format(0);
+		}
+
+		return decimal.sgn() < 0
+			? this.formatNegativeDecimal(decimal.abs(), latex)
+			: this.formatDecimal(decimal, latex);
+	}
+
+	public formatNegativeDecimal(value: Decimal, latex=false): string {
+		return this.negativeString[0] + this.formatDecimal(value, latex) + this.negativeString[1];
+	}
+
+	// 主要的格式化数的地方
+	public formatDecimal(value: Decimal, latex=false, base=10000): string {
+		if (!latex)
+			return `g_[${this.SGH(value, 7, latex, base)}](${base})`
+		else 
+			return `g_{${this.SGH(value, 7, latex, base)}}(${base})`
+	};
+
+	public infinityString: string = 'ω';
+	public NaNString: string = '!';
+
+	public SGH(value: Decimal, recursion = 23, latex=false, base=10): string{
+		if (value.lt(base)) return Math.floor(value.toNumber()).toString();
+		if (value.gte(Decimal.tetrate(base, base))) {
+			player.options.notation = notations.SCIENTIFIC;
+			return '摆了'
+		}
+		if (recursion<=0) return '...';
+		let exponent = value.log(base).floor();
+		let multip = value.div(Decimal.pow(base, exponent)).floor();
+		let rest = value.sub(multip.mul(Decimal.pow(base, exponent)));
+		let displayRest = !rest.lt(1)&& value.lt("e9e15");
+		let displayMult = (!multip.lte(1)) && value.lt("e9e15");
+		let displayExpo = (!exponent.lte(1) );
+		if (!latex){
+			return `ω${displayExpo ? `^(${this.SGH(exponent, recursion-1, latex,base)})` : ""}${
+			displayMult ? `×${this.SGH(multip, recursion-1, latex,base)}` : ""
+			
+			}${displayRest ? `+${this.SGH(rest, recursion-1, latex,base)}`: ""}`
+		}
+		else{
+			return `\\omega${displayExpo ? `^{${this.SGH(exponent, recursion-1, latex,base)}}` : ""}${
+			displayMult ? `\\times${this.SGH(multip, recursion-1, latex,base)}` : ""
+			
+			}${displayRest ? `+${this.SGH(rest, recursion-1, latex,base)}`: ""}`
+		}
+	}
+}
+
+const SGH = new SGHNotation().setName("SGH")
