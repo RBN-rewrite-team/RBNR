@@ -35,6 +35,12 @@ export const PrimeFactor = {
 							.div(2)
 							.floor();
 					}
+					if (player.exponention.logarithm.upgrades_in_dilated.includes("36") 
+						&& Number(i) !== 0) {
+						return player.buyables[('pf' + pflist[Number(i) - 1]) as PrimeFactorTypes]
+							.div(4)
+							.floor();
+					}
 					return new Decimal(0);
 				}
 				effect(x: Decimal) {

@@ -1,8 +1,9 @@
 import Decimal from "break_eternity.js";
 import { feature } from "./global";
-import { SOFTCAPS } from "./mechanic";
+import { buyables, SOFTCAPS } from "./mechanic";
 import { player } from "./save";
 import { CHALLENGE } from "./challenge";
+import { Logarithm } from "./exponention/logarithm";
 
 export const resourceGain = {
     /**
@@ -14,6 +15,11 @@ export const resourceGain = {
         base = base.mul(feature.SUCCESSOR.autoSuccessPerSecond());
 		if (player.exponention.logarithm.in_dilate) {
 			base = base.add(10).ln().ln().div(10)
+		}
+        if (player.buyables[31].gt(0) && Logarithm.logarithm.buyables_in_dilated.includes("31")) base = base.mul(buyables[31].effect(player.buyables[31]));
+		
+		if (player.exponention.logarithm.upgrades_in_dilated.includes("31")) {
+			base = base.pow(3)
 		}
         let softcaps = 0,
             scList = ['number^1', 'number^2', 'number^3', 'number^4', 'number^5', 'number^6', 'number^7', 'number^8'];
