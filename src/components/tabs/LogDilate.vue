@@ -3,6 +3,7 @@ import { player } from '@/core/save';
 import DilateButton from '../DilateButton.vue';
 import { Logarithm } from '@/core/exponention/logarithm';
 import { feature } from '@/core/global';
+import { format } from '@/utils/format';
 </script>
 
 <template>
@@ -14,6 +15,9 @@ import { feature } from '@/core/global';
                     dilate_activate: player.exponention.logarithm.in_dilate
                 }">进入膨胀</DilateButton>
             </div>
+            <p>
+                对数膨胀内获得的最高数值{{format(Logarithm.logarithm.highest_dilate)}}会增加对 数值（^{{format(Logarithm.dilateEffect()[0])}}），指数能量(*{{format(Logarithm.dilateEffect()[1])}})的获取
+            </p>
         </div>
     </div>
 </template>

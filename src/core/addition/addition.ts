@@ -100,7 +100,7 @@ export const Addition = {
 			}
 		},
 		'25': new class U15 extends AdditionUpgradeWithEffect {
-			description= Logarithm.dilated('后继运算升级为加法运算， 在每次加法重置后保留U0系列升级', "挑战1效果上限从0.25到0.4", '24')
+			description:()=>string= Logarithm.dilated('后继运算升级为加法运算， 在每次加法重置后保留U0系列升级', "挑战1效果上限从0.25到0.4", '24')
 		
 			cost: Decimal|(()=>Decimal) = function() {
 				return new Decimal(625);
@@ -287,7 +287,7 @@ export const Addition = {
 
 		if (player.firstResetBit & 0b100) base = base.pow(buyables[43].effect(player.buyables[43]));
 		if (player.upgrades[47]) base = base.pow(feature.ChessBoard.wgEffect()[1]);
-		base = base.pow(this.gainExponent());
+		base = base.pow(Addition.gainExponent());
 		return base.floor();
 	},
 	gainExponent(): Decimal {

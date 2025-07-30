@@ -34,6 +34,9 @@ export const cb1 = new class extends Buyable<Decimal> {
 		if (player.milestones.cb2) {
 			c = x.pow(0.99).pow_base(1.85).mul(100);
 		}
+		if (player.milestones.cb12) {
+			c = x.div(player.exponention.logarithm.calculate_datas.pow(0.25))
+		}
 		return c;
 	}
 }
@@ -71,7 +74,7 @@ export function initMechanics() {
 	  get description(){
 		return "基于格子数加成麦粒数量底数"
 	  } ,
-	  requirement: new Decimal(8e5),
+	  requirement: new Decimal(4e5),
 	  get canDone() {
 	    return wheatGrain().gte(this.requirement)
 	  },
@@ -107,7 +110,7 @@ export function initMechanics() {
 	  get description(){
 		  return "基于指数能量，棋盘底数×"+format(getMCB6Effect()) + "，并使数值和加法能量溢出效果减半";
 	  } ,
-	  requirement: new Decimal(5e14),
+	  requirement: new Decimal(1e18),
 	  get canDone() {
 	    return wheatGrain().gte(this.requirement)
 	  },
@@ -119,7 +122,7 @@ export function initMechanics() {
 	  get description(){
 		return "里程碑6的效果加倍(×2)"
 	  } ,
-	  requirement: new Decimal(1e24),
+	  requirement: new Decimal(1e50),
 	  get canDone() {
 	    return wheatGrain().gte(this.requirement)
 	  },
@@ -131,7 +134,7 @@ export function initMechanics() {
 	  get description(){
 		return "解锁τ<sub>2B</sub>"
 	  } ,
-	  requirement: new Decimal(1e35),
+	  requirement: new Decimal(1e105),
 	  get canDone() {
 	    return wheatGrain().gte(this.requirement)
 	  },
@@ -143,7 +146,7 @@ export function initMechanics() {
 	  get description(){
 		return "棋盘每个格子提升观测数据基础获取量×+0.01，同时削弱麦粒三个指数效果的软上限"
 	  } ,
-	  requirement: new Decimal(1e50),
+	  requirement: new Decimal(1e110),
 	  get canDone() {
 	    return wheatGrain().gte(this.requirement)
 	  },
@@ -155,7 +158,31 @@ export function initMechanics() {
 	  get description(){
 		return "每个行星运动定律使麦粒^1.05"
 	  } ,
-	  requirement: new Decimal(1e70),
+	  requirement: new Decimal(1e115),
+	  get canDone() {
+	    return wheatGrain().gte(this.requirement)
+	  },
+	  show: true,
+	  currency: "麦粒"
+	})
+	MILESTONES.create("cb11", {
+	  displayName: "M-CB-11",
+	  get description(){
+		return "基础麦粒公式中的3改为4"
+	  } ,
+	  requirement: new Decimal(1e135),
+	  get canDone() {
+	    return wheatGrain().gte(this.requirement)
+	  },
+	  show: true,
+	  currency: "麦粒"
+	})
+	MILESTONES.create("cb12", {
+	  displayName: "M-CB-12",
+	  get description(){
+		return "计算数据以÷x^0.25降低棋盘格子购买项的价格"
+	  } ,
+	  requirement: new Decimal(1e170),
 	  get canDone() {
 	    return wheatGrain().gte(this.requirement)
 	  },

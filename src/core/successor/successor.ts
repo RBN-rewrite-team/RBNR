@@ -271,6 +271,8 @@ export const Successor = {
 		if (player.firstResetBit & 0b100) base = base.pow(1.03);
 		if (player.firstResetBit & 0b100) base = base.pow(buyables[42].effect(player.buyables[42]));
 		if (player.upgrades[47]) base = base.pow(feature.ChessBoard.wgEffect()[0]);
+
+		base = base.pow(Logarithm.dilateEffect()[0])
 		return base;
 	},
 	/**

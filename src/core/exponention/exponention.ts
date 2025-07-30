@@ -240,6 +240,8 @@ export const Exponention = {
 		let base = player.multiplication.totalMulpower.log(2).pow(exp).div(32);
 		if (player.milestones.cb4) base = base.mul(10)
 		if (player.milestones.log_law2) base = base.mul(Logarithm.logarithm.calculate_datas.root(3))
+		
+		base = base.mul(Logarithm.dilateEffect()[1])
 		return base.floor();
 	},
 	powerEff() {
