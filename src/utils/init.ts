@@ -1,7 +1,7 @@
 import { createApp, watch } from 'vue';
 import App from '@/App.vue';
 import VueLatex from 'vatex';
-import { loadSaves, save, type Player } from '@/core/save';
+import { loadSaves, player, save, type Player } from '@/core/save';
 import { feature } from '@/core/global.ts';
 import { NUMTHEORY } from '@/core/multiplication/numbertheory.ts';
 import { Exponention } from '@/core/exponention/exponention.ts';
@@ -13,6 +13,8 @@ import { gameLoop, startGameLoop } from '@/core/game-loop';
 
 export function init(){
     loadSaves();
+    player.frozen = false;
+	player.run_a_tick_and_froze = false;
     feature.SUCCESSOR.initMechanics();
     feature.ADDITION.initMechanics();
     feature.MULTIPLICATION.initMechanics();

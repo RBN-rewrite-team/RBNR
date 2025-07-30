@@ -356,6 +356,8 @@ export function save() {
 
 export function hardReset() {
 	player = getInitialPlayerData();
+	
+					
 	save();
 	location.reload();
 }
@@ -373,7 +375,6 @@ export function import_file(): void {
 			if (typeof save == 'string') {
 				try {
 					loadFromString(save);
-					player.frozen = true;
 				} catch (e) {
 					console.error('Cannot import save');
 				}
