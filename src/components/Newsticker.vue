@@ -8,7 +8,7 @@ interface NewsMessage {
 	text: string;
 	unlocked?: boolean;
 	dynamic?: boolean;
-	reset?: () => any;
+	reset?: () => void;
 	onClick?: () => string | undefined;
 }
 
