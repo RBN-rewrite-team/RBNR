@@ -91,7 +91,7 @@ export const Exponention = {
 			name="B3-1"
 			description: string = '因数能量^1.05';
 			effect(x: Decimal) {
-				return x.pow_base(1.05);
+				return new Decimal(1.05).pow(x);
 			}
 			effectDescription(x: Decimal) {
 				return '^' + format(this.effect(x));
@@ -105,7 +105,7 @@ export const Exponention = {
 			name="B3-2"
 			description: string = '数值能量^1.05';
 			effect(x: Decimal) {
-				return x.pow_base(1.05);
+				return new Decimal(1.05).pow(x);
 			}
 			effectDescription(x: Decimal) {
 				return '^' + format(this.effect(x));
@@ -119,7 +119,7 @@ export const Exponention = {
 			name="B3-3"
 			description: string = '加法能量获取^1.03';
 			effect(x: Decimal) {
-				return x.pow_base(1.03);
+				return new Decimal(1.03).pow(x);
 			}
 			effectDescription(x: Decimal) {
 				return '^' + format(this.effect(x));
@@ -133,7 +133,7 @@ export const Exponention = {
 			name="B3-4"
 			description: string = '乘法能量获取^1.01';
 			effect(x: Decimal) {
-				return x.pow_base(1.01);
+				return new Decimal(1.01).pow(x);
 			}
 			effectDescription(x: Decimal) {
 				return '^' + format(this.effect(x));
@@ -159,11 +159,8 @@ export const Exponention = {
 				player.upgrades[33] = false;
 				player.upgrades[34] = false;
 			}
-			player.upgrades[35] = false;
 			player.upgrades[36] = false;
 			player.upgrades[37] = false;
-			player.upgrades[38] = false;
-			player.upgrades[39] = false;
 			if (!player.upgrades['424q'] || dilate) player.upgrades['31R'] = false;
 			player.upgrades['32R'] = false;
 			player.upgrades['33R'] = false;
@@ -239,7 +236,7 @@ export const Exponention = {
 		if (player.upgrades[48]) exp = new Decimal(0.6)
 		let base = player.multiplication.totalMulpower.log(2).pow(exp).div(32);
 		if (player.milestones.cb4) base = base.mul(10)
-		if (player.milestones.log_law2) base = base.mul(Logarithm.logarithm.calculate_datas.log2())
+		if (player.milestones.log_law2) base = base.mul(Logarithm.logarithm.calculate_datas.root(3))
 		return base.floor();
 	},
 	powerEff() {

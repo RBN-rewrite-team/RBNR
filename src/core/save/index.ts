@@ -179,6 +179,8 @@ function getInitialPlayerData(): Player {
 			'38R': zero,
 			'41R': zero,
 			'42R': zero,
+			'43R': zero,
+			'44R': zero,
 			'41': zero,
 			'42': zero,
 			'43': zero,
@@ -236,6 +238,7 @@ function getInitialPlayerData(): Player {
 			rational_approx: {
 				n: new Decimal(1),
 				m: new Decimal(1),
+				y: new Decimal(1),
 			},
 		},
 		currentTab: 0,

@@ -161,35 +161,39 @@ export const Successor = {
 			name: 'number^4',
 			fluid: true,
 			start: new Decimal('ee5'),
-			exponent: new Decimal(0.5),
+			get exponent() {
+			    let base = new Decimal(4);
+			    if(player.milestones.cb6) base = base.pow(0.5);
+			    return base.pow(-1);
+			},
 			meta: 1
 		});
 		SOFTCAPS.create('number^5', {
 			name: 'number^5',
 			fluid: true,
 			start: new Decimal('ee20'),
-			exponent: new Decimal(0.5),
+			exponent: new Decimal(0.1),
 			meta: 1
 		});
 		SOFTCAPS.create('number^6', {
 			name: 'number^6',
 			fluid: true,
 			start: new Decimal('ee100'),
-			exponent: new Decimal(0.75),
+			exponent: new Decimal(0.25),
 			meta: 2
 		});
 		SOFTCAPS.create('number^7', {
 			name: 'number^7',
 			fluid: true,
 			start: new Decimal('eee5'),
-			exponent: new Decimal(0.25),
+			exponent: new Decimal(0.1),
 			meta: 2
 		});
 		SOFTCAPS.create('number^8', {
 			name: 'number^8',
 			fluid: true,
 			start: new Decimal('eee15'),
-			exponent: new Decimal(0.75),
+			exponent: new Decimal(0.25),
 			meta: 3
 		});
 	},

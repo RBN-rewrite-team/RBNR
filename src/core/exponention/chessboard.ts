@@ -9,13 +9,13 @@ import { Buyable } from '../buyable';
 export function base() {
   let base = new Decimal(2)
   if (player.milestones.cb1) base = new Decimal(3)
-	if (player.milestones.cb3) base = base.add(buyables.cb1.effect(player.buyables.cb1).pow(0.15).sub(1).max(0))
+  if (player.milestones.cb3) base = base.add(buyables.cb1.effect(player.buyables.cb1).pow(0.15).sub(1).max(0))
+  if (player.milestones.cb6) base = base.mul(getMCB6Effect())
   return base
 }
   
 export function maxBlocks() {
   let mb = player.buyables.cb1.add(1)
-	if (player.milestones.cb6) mb = mb.mul(getMCB6Effect())
   return mb;
 }
 export const cb1 = new class extends Buyable<Decimal> {
@@ -46,7 +46,7 @@ export function initMechanics() {
 	MILESTONES.create("cb1", {
 	  displayName: "M-CB-1",
 	  description: "麦粒底数 2 → 3",
-	  requirement: new Decimal(250),
+	  requirement: new Decimal(125),
 	  get canDone() {
 	    return wheatGrain().gte(this.requirement)
 	  },
@@ -58,7 +58,7 @@ export function initMechanics() {
 	  get description(){
 		return "更好的棋盘格价格公式"
 	  } ,
-	  requirement: new Decimal(8000),
+	  requirement: new Decimal(3000),
 	  get canDone() {
 	    return wheatGrain().gte(this.requirement)
 	  },
@@ -82,7 +82,7 @@ export function initMechanics() {
 	  get description(){
 		return "倍增指数能量x10"
 	  } ,
-	  requirement: new Decimal(1e10),
+	  requirement: new Decimal(8e8),
 	  get canDone() {
 	    return wheatGrain().gte(this.requirement)
 	  },
@@ -94,7 +94,7 @@ export function initMechanics() {
 	  get description(){
 		return "解锁对数运算"
 	  } ,
-	  requirement: new Decimal(1e11),
+	  requirement: new Decimal(1e10),
 	  get canDone() {
 	    return wheatGrain().gte(this.requirement)
 	  },
@@ -104,9 +104,9 @@ export function initMechanics() {
 	MILESTONES.create("cb6", {
 	  displayName: "M-CB-6",
 	  get description(){
-		  return "棋盘格数×"+formatWhole(getMCB6Effect())
+		  return "基于指数能量，棋盘底数×"+format(getMCB6Effect()) + "，并使数值和加法能量溢出效果减半";
 	  } ,
-	  requirement: new Decimal(1e18),
+	  requirement: new Decimal(5e14),
 	  get canDone() {
 	    return wheatGrain().gte(this.requirement)
 	  },
@@ -118,7 +118,7 @@ export function initMechanics() {
 	  get description(){
 		return "里程碑6的效果加倍(×2)"
 	  } ,
-	  requirement: new Decimal(1e25),
+	  requirement: new Decimal(1e24),
 	  get canDone() {
 	    return wheatGrain().gte(this.requirement)
 	  },
@@ -185,6 +185,6 @@ export function wgEffect() {
   if (player.exponention.logarithm.in_dilate) {
       eff4 = eff4.max(1e10).log10().log10();
   }
-  if (eff5.lt(1 / 3)) eff5 = new Decimal(1).div(new Decimal(1).div(eff5).sub(2).pow(0.5).add(2))
+  if (eff5.lt(1 / 3)) eff5 = new Decimal(1).div(new Decimal(1).div(eff5).sub(2).pow(0.5).add(2)).max(0.25)
   return [eff1, eff2, eff3, eff4, eff5]
 }

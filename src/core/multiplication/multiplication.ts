@@ -197,7 +197,7 @@ export const Multiplication = {
 				return x.pow_base(CHALLENGE.inChallenge(0, 3) ? 1 : 2);
 			}
 			effectDescription(x: Decimal) {
-				return '*' + formatWhole(x);
+				return '*' + formatWhole(this.effect(x));
 			}
 			cost(x:Decimal) {
 				let a = x.add(1).pow10();
@@ -221,7 +221,7 @@ export const Multiplication = {
 				return new Decimal(0.01).mul(x);
 			}
 			effectDescription(x: Decimal) {
-				return '+' + format(x);
+				return '+' + format(this.effect(x));
 			}
 			cost(x:Decimal) {
 				let a = new Decimal(5).pow(x.add(1));
@@ -277,8 +277,8 @@ export const Multiplication = {
 		SOFTCAPS.create('mulpower^2', {
 			name: 'mulpower^2',
 			fluid: true,
-			start: new Decimal("ee15"),
-			exponent: new Decimal(0.5),
+			start: new Decimal("ee9"),
+			exponent: new Decimal(0.25),
 			meta: 1
 		});
 	},
