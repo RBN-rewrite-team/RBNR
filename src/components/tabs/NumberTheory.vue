@@ -40,6 +40,9 @@ function x2GainLatex() {
 function y2GainLatex() {
     return '\\dot{y} = y_{2,1}^{y_{2,2}} = ' + formatLaTeX(NUMTHEORY.varY2gain());
 }
+function m2GainLatex() {
+    return player.upgrades['41R'] ? '\\dot{m} = y^{' + formatLaTeX(NUMTHEORY.Y2toM2Exp()) + '} = ' + formatLaTeX(NUMTHEORY.varM2gain()) : '';
+}
 </script>
 
 <template>
@@ -149,6 +152,7 @@ function y2GainLatex() {
 					display-mode
 				/>
 				<vue-latex :expression="x2GainLatex()" display-mode />
+				<vue-latex :expression="m2GainLatex()" display-mode />
 				<vue-latex :expression="y2GainLatex()" display-mode />
 				<p style="font-size: 120%">
 					<b
@@ -183,6 +187,11 @@ function y2GainLatex() {
 				        <TDBuyable bylid="42R" />
 				        <TDBuyable bylid="43R" />
 				        <TDBuyable bylid="44R" />
+				    </tr>
+				    <tr>
+				        <TDUpgrade upgid="41R" />
+				        <TDUpgrade upgid="42R" />
+				        <TDUpgrade upgid="43R" />
 				    </tr>
 				</table>
 			</div>

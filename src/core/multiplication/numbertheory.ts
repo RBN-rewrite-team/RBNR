@@ -117,7 +117,7 @@ export const NUMTHEORY = {
 				return new Decimal(1.025).pow(x);
 			}
 			effectDescription(x: Decimal) {
-				return `*${format(x)}`;
+				return '×' + format(this.effect(x));
 			}
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			canBuyMax(): boolean {
@@ -132,11 +132,10 @@ export const NUMTHEORY = {
 					.max(1)
 					.log(1e25)
 					.add(1)
-					.floor().min(20);
+					.floor();
 			}
 			capped(): boolean {
-				let capc = 20;
-				return player.buyables['38R'].gte(capc);
+				return false;
 			}
 		},
 		'31R': new class B31R extends Buyable<Decimal>{
@@ -324,7 +323,7 @@ export const NUMTHEORY = {
 		'44R': new class B44R extends Buyable<Decimal>{
 			description= 'y<sub>2,2</sub>→y<sub>2,2</sub>+0.2'
 			cost(x: Decimal) {
-				return x.pow(3).pow_base(10).mul(1e9);
+				return x.pow(2).pow_base(10).mul(1e9);
 			}
 			name= 'B3-R1-4'
 			effect(x: Decimal): Decimal {
@@ -339,7 +338,7 @@ export const NUMTHEORY = {
 					.div(1e9)
 					.max(1)
 					.log(10)
-					.root(3)
+					.root(2)
 					.add(1)
 					.floor()
 			}
@@ -391,6 +390,42 @@ export const NUMTHEORY = {
 			keep() {
 				return player.upgrades['454q'];
 			}
+		},
+		'41R': new class U41R extends Upgrade{
+		    // @ts-ignore
+		    description: string = '将y加入m的增长率公式中，但指数降低到1/2';
+		    cost = new Decimal(3e10);
+		    name = 'U3-R1-1'
+		    currency: Currencies = Currencies.EXPONENTION_POWER;
+		    keep() {
+		        return false;
+		    }
+		},
+		'42R': new class U42R extends Upgrade{
+		    // @ts-ignore
+		    description: string = '将y在m增长率公式中的指数增加到3/4';
+		    cost = new Decimal(6e10);
+		    name = 'U3-R1-2'
+		    currency: Currencies = Currencies.EXPONENTION_POWER;
+		    keep() {
+		        return false;
+		    }
+		},
+		'43R': new class U43R extends UpgradeWithEffect<Decimal>{
+		    // @ts-ignore
+		    description: string = 'm增加麦粒底数';
+		    cost = new Decimal(6e10);
+		    name = 'U3-R1-3'
+		    currency: Currencies = Currencies.EXPONENTION_POWER;
+		    keep() {
+		        return false;
+		    }
+		    effect() {
+		        return player.numbertheory.rational_approx.m.sub(5000000).max(1).root(20).ln().add(1);
+		    }
+		    effectDescription(x: Decimal) {
+		        return '×' + format(x);
+		    }
 		},
 	} as const,
 	initMechanics() {
@@ -465,6 +500,16 @@ export const NUMTHEORY = {
 	varY2gain() {
 	    let base = new Decimal(0);
 	    if(player.buyables['43R'].gte(1)) base = base.add(buyables['43R'].effect(player.buyables['43R'])).pow(buyables['44R'].effect(player.buyables['44R']));
+	    return base;
+	},
+	Y2toM2Exp() {
+	    let base = new Decimal(0.5);
+	    if(player.upgrades['42R']) base = new Decimal(0.75);
+	    return base;
+	},
+	varM2gain() {
+	    let base = new Decimal(0);
+	    if(player.upgrades['41R']) base = base.add(player.numbertheory.rational_approx.y.pow(this.Y2toM2Exp()));
 	    return base;
 	},
 };
