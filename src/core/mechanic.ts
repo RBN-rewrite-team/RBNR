@@ -12,6 +12,7 @@ import { PrimeFactor } from './multiplication/pf.ts';
 import { Exponention } from './exponention/exponention.ts';
 import { QolUpgrades } from './exponention/qolupg.ts';
 import { cb1 } from './exponention/chessboard.ts';
+import { Buyable } from './buyable.ts';
 
 const upgrades = {
 	...Successor.upgrades,
@@ -31,6 +32,7 @@ const buyables = {
 	cb1,
 	...Logarithm.buyables,
 } as const
+const preExponent = Object.keys(Addition.buyables).concat(Object.keys(Successor.buyables)).concat(Object.keys(Multiplication.buyables)).concat(Object.keys(NUMTHEORY.buyables));
 var softcaps: {
 	[key: string]: ISoftcap;
 } = {};
@@ -114,12 +116,21 @@ export const BUYABLES = {
 				if (buyables[id].canBuy != null) canBuy = buyables[id].canBuy(player.buyables[id]);
 			}
 			str += buyables[id].description + '<br>';
+			if (buyables[id].descriptionDilated && Logarithm.logarithm.buyables_in_dilated.includes(id)) 
+				str += buyables[id].descriptionDilated + "<br>"
 			if (buyables[id].effect != null)
 				str +=
 					'效果：' +
 					buyables[id].effectDescription(buyables[id].effect(player.buyables[id])) +
 					'&nbsp;→' +
 					buyables[id].effectDescription(buyables[id].effect(player.buyables[id].add(canBuy.max(1)))) +
+					'<br>';
+			if (player.exponention.logarithm.buyables_in_dilated.includes(id) &&   buyables[id].effectDilated !== Buyable.prototype.effectDilated)
+				str +=
+					'膨胀效果：' +
+					buyables[id].effectDilated(player.buyables[id])[1] +
+					'&nbsp;→' +
+					buyables[id].effectDilated(player.buyables[id].add(canBuy.max(1)))[1] +
 					'<br>';
 			str +=
 				'价格：' +
@@ -150,8 +161,10 @@ export const BUYABLES = {
 				player.buyables[id] = player.buyables[id].add(1);
 			}
 			if (Logarithm.logarithm.in_dilate) {
-				Logarithm.logarithm.buyables_in_dilated.push(id)
-				Logarithm.logarithm.buyables_in_dilated = [...new Set(Logarithm.logarithm.buyables_in_dilated)]
+				if (preExponent.includes(id)){
+					Logarithm.logarithm.buyables_in_dilated.push(id)
+					Logarithm.logarithm.buyables_in_dilated = [...new Set(Logarithm.logarithm.buyables_in_dilated)]
+				}
 			}
 		}
 	},

@@ -293,7 +293,7 @@ function getInitialPlayerData(): Player {
 
 function rewriteDecimalValues(pl: any) {
 	for (const key in pl) {
-		if (key==="upgrades_in_dilated") continue;
+		if (key==="upgrades_in_dilated" || key==="buyables_in_dilated") continue;
 		if (typeof pl[key] === 'string') {
 			if (!Decimal.isNaN(pl[key])) {
 				pl[key] = new Decimal(pl[key]);
