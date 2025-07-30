@@ -182,6 +182,7 @@ function m2GainLatex() {
 					增加m的数值
 				</button>
 				<table>
+				  <tbody>
 				    <tr>
 				        <TDBuyable bylid="41R" />
 				        <TDBuyable bylid="42R" />
@@ -193,6 +194,7 @@ function m2GainLatex() {
 				        <TDUpgrade upgid="42R" />
 				        <TDUpgrade upgid="43R" />
 				    </tr>
+				  </tbody>
 				</table>
 			</div>
 		</div>
