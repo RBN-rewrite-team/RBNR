@@ -188,10 +188,10 @@ type ISoftcap = {
  */
 function overflow() {/* 废弃 */}
 
-function overflow_v2(getting: Decimal, existing: Decimal, s: object)
+function overflow_v2(getting: Decimal, existing: Decimal, s: any)
 {
     let start = s.start, power = s.exponent, meta = s.meta ?? 0;
-    let safe = Decimal.iteratedexp(10, meta, 1);
+    let safe = Decimal.iteratedexp(10, meta, new Decimal(1));
     let stm = start.iteratedlog(10, meta), gem = getting.max(safe).iteratedlog(10, meta), exm = existing.iteratedlog(10, meta);
     let logged = stm.mul(exm.div(stm).root(power).add(gem.div(stm)).pow(power));
     return Decimal.iteratedexp(10, meta, logged);

@@ -42,6 +42,7 @@ export interface Player {
 		rational_approx: {
 			n: Decimal;
 			m: Decimal;
+			y: Decimal;
 		};
 	};
 	currentTab: number;
