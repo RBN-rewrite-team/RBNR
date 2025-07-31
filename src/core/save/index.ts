@@ -326,7 +326,7 @@ function rewriteDecimalValues<T>(source: T, target: DeepPartial<T>): T {
     }) as T
   }
   
-  const result: any = { ...source };
+  const result: { [K in keyof T]: T[K] } = { ...source };
 
   for (const key in source) {
     if (!(source as object).hasOwnProperty(key)) continue;
@@ -340,11 +340,11 @@ function rewriteDecimalValues<T>(source: T, target: DeepPartial<T>): T {
       result[key] = rewriteDecimalValues(
         sourceValue as object,
         targetValue as object
-      )
+      ) as T[Extract<keyof T, string>]
     } else if (sourceValue instanceof Decimal) {
-      result[key] = new Decimal(targetValue as DecimalSource);
+      result[key] = new Decimal(targetValue as DecimalSource) as T[Extract<keyof T, string>];
     } else {
-      result[key] = targetValue !== undefined ? targetValue : sourceValue;
+      result[key] = (targetValue !== undefined ? targetValue : sourceValue) as T[Extract<keyof T, string>];
     }
   }
 
@@ -378,8 +378,6 @@ export function save() {
 
 export function hardReset() {
 	player = getInitialPlayerData();
-	
-					
 	save();
 	location.reload();
 }
