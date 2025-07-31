@@ -47,7 +47,7 @@ export const Multiplication = {
 			}
 		},
 		'32': new class U22 extends Upgrade{
-			// @ts-ignore
+
 			description: string = "所有后继升级保持为可购买状态";
 			cost= new Decimal(1)
 			name= 'U2-2'
@@ -62,7 +62,7 @@ export const Multiplication = {
 			}
 		},
 		'33': new class U23 extends Upgrade{
-			// @ts-ignore
+
 			description: string = "U2系列升级购买数量的平方同样作用于U0-2的效果";
 			cost= new Decimal(2)
 			name= 'U2-3'
@@ -74,7 +74,7 @@ export const Multiplication = {
 			}
 		},
 		'34': new class U24 extends Upgrade{
-			// @ts-ignore
+
 			description: string = "在每次乘法重置后保留B1-1";
 			cost= new Decimal(3)
 			name= 'U2-4'
@@ -89,7 +89,7 @@ export const Multiplication = {
 			}
 		},
 		'35': new class U25 extends Upgrade{
-			// @ts-ignore
+
 			description: ()=>string = Logarithm.dilated("解锁数论研究", "数论研究1中x，y的指数3->4", "35");
 			cost= new Decimal(47)
 			name= 'U2-5'
@@ -104,7 +104,7 @@ export const Multiplication = {
 			}
 		},
 		'36': new class U26 extends Upgrade{
-			// @ts-ignore
+
 			description: ()=>string = Logarithm.dilated("每2个质因数p<sub>n</sub>免费赠送一个p<sub>n-1</sub>", "每4个p_n免费赠送1个p_（n+1）", "36");
 			cost= new Decimal(101)
 			name= 'U2-6'
@@ -119,7 +119,7 @@ export const Multiplication = {
 			}
 		},
 		'37': new class U27 extends Upgrade{
-			// @ts-ignore
+
 			description: string = "乘法重置保留加法升级";
 			cost= new Decimal(1000)
 			name= 'U2-7'
@@ -134,7 +134,7 @@ export const Multiplication = {
 			}
 		},
 		'38': new class U28 extends Upgrade{
-			// @ts-ignore
+
 			description: string = "每秒自动获取重置获取加法能量的1%";
 			cost= new Decimal(10000)
 			name= 'U2-8'
@@ -149,7 +149,7 @@ export const Multiplication = {
 			}
 		},
 		'39': new class U28 extends Upgrade{
-			// @ts-ignore
+
 			description: string = "解锁乘法挑战，自动最大购买后继、加法购买项，最大购买乘法购买项";
 			cost= new Decimal(1e21)
 			name= 'U2-9'
@@ -256,7 +256,6 @@ export const Multiplication = {
 			requirements(): Requirement[] {
 				return [
 					new class extends Requirement {
-						
 						reachedReq(): boolean {
 							return PrimeFactor.power().gte(10000);
 						}

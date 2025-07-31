@@ -15,8 +15,7 @@ type PrimeList = '2'|'3'|'5'|'7'|'11'|'13'|'17'|'19';
 
 export const PrimeFactor = {
 	upgrades: (function (){
-		// @ts-ignore
-		const PFList: Record<`pf${PrimeList}`,Buyable<Decimal>> = {};
+		const PFList: Partial<Record<`pf${PrimeList}`,Buyable<Decimal>>> = {};
 		let pflist = ['2', '3', '5', '7', '11', '13', '17', '19'] as const;
 		for (let i in pflist) {
 			i=i;

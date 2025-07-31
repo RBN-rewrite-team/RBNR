@@ -131,7 +131,6 @@ export const Addition = {
 		},
 		'26': new class U16 extends AdditionUpgrade {
 			description= '解锁乘法层'
-			// @ts-ignore
 			cost: Decimal|(()=>Decimal) = function() {
 				return new Decimal(3125);
 			}

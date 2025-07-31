@@ -7,7 +7,7 @@ import { themes } from '@/utils/themes';
 import type { qolUpgs } from '../exponention/qolupg';
 import type { IAstronomer } from '../exponention/logarithm';
 import type { IntRange } from 'type-fest';
-import { buyables, upgrades } from '../mechanic';
+import { buyables, upgrades, milestones } from '../mechanic';
 
 
 const SAVEID = 'RBN-rewritten-powerful-refactor-test';
@@ -28,7 +28,7 @@ export interface Player {
 	saveCreateTime: number;
 	upgrades: Record<keyof typeof upgrades,boolean>;
 	buyables: Record<keyof typeof buyables, Decimal>;
-	milestones: Milestones;
+	milestones: Record<keyof typeof milestones, boolean>;
 	buyable11More: Decimal;
 	automationCD: {
 		successor: number;
