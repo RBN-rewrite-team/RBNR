@@ -113,7 +113,6 @@ export function simulate(diff: number) {
 		feature.MULTIPLICATION.mulpower_gain(bulk)
 	}
 
-	// There is very ok, dont remove @ts-ignore, because Element dont implicitly have an 'any type' 😂😂😂😂
 	for (const upg_i in upgrades) {
 		
 		const i = upg_i as keyof typeof upgrades

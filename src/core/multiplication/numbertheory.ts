@@ -10,7 +10,6 @@ import { Upgrade, UpgradeWithEffect } from '../upgrade';
 export const NUMTHEORY = {
 	buyables: {
 		'35R': new class B35R extends Buyable<Decimal>{
-			
 			description = 's<sub>1</sub>→s<sub>1</sub>+1'
 			cost(x: Decimal) {
 				return x.pow_base(1e8).mul(1e32);
@@ -39,7 +38,6 @@ export const NUMTHEORY = {
 			}
 		},
 		'36R': new class B36R extends Buyable<Decimal>{
-			
 			description = 'x<sub>1</sub>指数+0.085'
 			cost(x: Decimal) {
 				return x.pow_base(1e16).mul(1e32);
@@ -73,7 +71,6 @@ export const NUMTHEORY = {
 			}
 		},
 		'37R': new class B37R extends Buyable<Decimal>{
-			
 			description = 'y<sub>1</sub>指数+0.085'
 			cost(x: Decimal) {
 				return x.pow_base(1e20).mul(1e40);
@@ -346,7 +343,6 @@ export const NUMTHEORY = {
 	} as const,
 	upgrades: {
 		'31R': new class U31R extends UpgradeWithEffect<Decimal>{
-			// @ts-ignore
 			description: string = "将u<sub>1</sub>加入x获取速度公式";
 			cost= new Decimal(1e4)
 			name= 'U2-R1-1'
@@ -362,7 +358,6 @@ export const NUMTHEORY = {
 			}
 		},
 		'32R': new class U32R extends Upgrade{
-			// @ts-ignore
 			description: string = "x<sub>1</sub>的指数+0.3";
 			cost= new Decimal(1e30)
 			name= 'U2-R1-2'
@@ -372,7 +367,6 @@ export const NUMTHEORY = {
 			}
 		},
 		'33R': new class U33R extends Upgrade{
-			// @ts-ignore
 			description: string = "y<sub>1</sub>的指数+0.3";
 			cost= new Decimal(1e35)
 			name= 'U2-R1-3'
@@ -382,7 +376,6 @@ export const NUMTHEORY = {
 			}
 		},
 		'34R': new class U34R extends Upgrade{
-			// @ts-ignore
 			description: string = "z<sub>1</sub>的指数+0.3";
 			cost= new Decimal(1e40)
 			name= 'U2-R1-4'
@@ -392,7 +385,6 @@ export const NUMTHEORY = {
 			}
 		},
 		'41R': new class U41R extends Upgrade{
-		    // @ts-ignore
 		    description: string = '将y加入m的增长率公式中，但指数降低到1/2';
 		    cost = new Decimal(3e10);
 		    name = 'U3-R1-1'
@@ -402,7 +394,6 @@ export const NUMTHEORY = {
 		    }
 		},
 		'42R': new class U42R extends Upgrade{
-		    // @ts-ignore
 		    description: string = '将y在m增长率公式中的指数增加到3/4';
 		    cost = new Decimal(6e10);
 		    name = 'U3-R1-2'
@@ -412,7 +403,6 @@ export const NUMTHEORY = {
 		    }
 		},
 		'43R': new class U43R extends UpgradeWithEffect<Decimal>{
-		    // @ts-ignore
 		    description: string = 'm增加麦粒底数';
 		    cost = new Decimal(6e10);
 		    name = 'U3-R1-3'
