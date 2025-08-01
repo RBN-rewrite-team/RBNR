@@ -72,6 +72,9 @@ export const Multiplication = {
 					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(2))
 				];
 			}
+			keep() {
+				return player.upgrades['411q'] && !player.exponention.logarithm.in_dilate;
+			}
 		},
 		'34': new class U24 extends Upgrade{
 

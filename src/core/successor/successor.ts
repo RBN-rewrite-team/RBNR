@@ -292,7 +292,7 @@ export const Successor = {
 			base = base.add(0.2);
 		}
 		if (Logarithm.logarithm.buyables_in_dilated.includes("11")) {
-			base = base.add(Decimal.mul(0.001, player.buyables[11].min(100)))
+			base = base.add(Decimal.mul(0.001, player.buyables[11].min(1000)))
 		}
 		return base;
 	},

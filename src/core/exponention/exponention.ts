@@ -100,6 +100,15 @@ export const Exponention = {
 				return x.pow_base(10).mul(2);
 			}
 			currency: Currencies = Currencies.EXPONENTION_POWER;
+			canBuyMax(): boolean {
+			    return player.milestones['dil_1'];
+			}
+			autoBuyMax(): boolean {
+			    return player.milestones['dil_1'];
+			}
+			costInverse(x: Decimal): Decimal {
+			    return x.div(2).max(1).log(10).add(1).floor();
+			}
 		},
 		'42': new class B32 extends Buyable<Decimal> {
 			name="B3-2"
@@ -114,6 +123,15 @@ export const Exponention = {
 				return x.pow_base(10).mul(3);
 			}
 			currency: Currencies = Currencies.EXPONENTION_POWER;
+			canBuyMax(): boolean {
+			    return player.milestones['dil_1'];
+			}
+			autoBuyMax(): boolean {
+			    return player.milestones['dil_1'];
+			}
+			costInverse(x: Decimal): Decimal {
+			    return x.div(3).max(1).log(10).add(1).floor();
+			}
 		},
 		'43': new class B33 extends Buyable<Decimal> {
 			name="B3-3"
@@ -128,6 +146,15 @@ export const Exponention = {
 				return x.pow_base(10).mul(5);
 			}
 			currency: Currencies = Currencies.EXPONENTION_POWER;
+			canBuyMax(): boolean {
+			    return player.milestones['dil_1'];
+			}
+			autoBuyMax(): boolean {
+			    return player.milestones['dil_1'];
+			}
+			costInverse(x: Decimal): Decimal {
+			    return x.div(5).max(1).log(10).add(1).floor();
+			}
 		},
 		'44': new class B34 extends Buyable<Decimal> {
 			name="B3-4"
@@ -142,6 +169,15 @@ export const Exponention = {
 				return x.pow_base(10).mul(7);
 			}
 			currency: Currencies = Currencies.EXPONENTION_POWER;
+			canBuyMax(): boolean {
+			    return player.milestones['dil_1'];
+			}
+			autoBuyMax(): boolean {
+			    return player.milestones['dil_1'];
+			}
+			costInverse(x: Decimal): Decimal {
+			    return x.div(7).max(1).log(10).add(1).floor();
+			}
 		},
 	} as const,
 	initMechanics() {
