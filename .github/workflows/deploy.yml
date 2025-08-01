@@ -1,9 +1,6 @@
 name: Type Check, Build & Deploy
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
-    branches: [develop]
   push:
     branches: [develop]
 
