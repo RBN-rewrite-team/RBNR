@@ -100,7 +100,7 @@ export const Addition = {
 			}
 		},
 		'25': new class U15 extends AdditionUpgradeWithEffect {
-			description:()=>string= Logarithm.dilated('后继运算升级为加法运算， 在每次加法重置后保留U0系列升级', "挑战1效果上限从0.25到0.4", '24')
+			description:()=>string= Logarithm.dilated('后继运算升级为加法运算， 在每次加法重置后保留U0系列升级', "挑战1效果不再有上限，但在1以上有软上限", '25')
 		
 			cost: Decimal|(()=>Decimal) = function() {
 				return new Decimal(625);

@@ -122,7 +122,7 @@ export function initMechanics() {
 	  get description(){
 		return "里程碑6的效果加倍(×2)"
 	  } ,
-	  requirement: new Decimal(1e50),
+	  requirement: new Decimal(1e25),
 	  get canDone() {
 	    return wheatGrain().gte(this.requirement)
 	  },
@@ -134,7 +134,7 @@ export function initMechanics() {
 	  get description(){
 		return "解锁τ<sub>2B</sub>"
 	  } ,
-	  requirement: new Decimal(1e105),
+	  requirement: new Decimal(1e35),
 	  get canDone() {
 	    return wheatGrain().gte(this.requirement)
 	  },
@@ -146,7 +146,7 @@ export function initMechanics() {
 	  get description(){
 		return "棋盘每个格子提升观测数据基础获取量×+0.01，同时削弱麦粒三个指数效果的软上限"
 	  } ,
-	  requirement: new Decimal(1e110),
+	  requirement: new Decimal(1e50),
 	  get canDone() {
 	    return wheatGrain().gte(this.requirement)
 	  },

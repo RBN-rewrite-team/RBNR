@@ -4,6 +4,8 @@ import DilateButton from '../DilateButton.vue';
 import { Logarithm } from '@/core/exponention/logarithm';
 import { feature } from '@/core/global';
 import { format } from '@/utils/format';
+import Decimal from 'break_eternity.js';
+import TRMilestone from '../TRMilestone.vue';
 </script>
 
 <template>
@@ -16,8 +18,21 @@ import { format } from '@/utils/format';
                 }">进入膨胀</DilateButton>
             </div>
             <p>
-                对数膨胀内获得的最高数值{{format(Logarithm.logarithm.highest_dilate)}}会增加对 数值（^{{format(Logarithm.dilateEffect()[0])}}），指数能量(*{{format(Logarithm.dilateEffect()[1])}})的获取
+                进入对数膨胀会导致数值变成原来的{{format(new Decimal(2))}}层对数。同时，大部分生活质量升级失效，部分加成减弱。
             </p>
+            <p>
+                在膨胀中购买升级和购买项会永久提升它们的效果。
+            </p>
+            <p>
+                对数膨胀内获得的最高数值{{format(Logarithm.logarithm.highest_dilate)}}会增加对 数值（^{{format(Logarithm.dilateEffect()[0])}}），指数能量(*{{format(Logarithm.dilateEffect()[1])}})的获取。
+            </p>
+            <table>
+                <tbody class="milestones">
+                    <TRMilestone id='dil_1' />
+                    <TRMilestone id='dil_2' />
+                    <TRMilestone id='dil_3' />
+                </tbody>
+            </table>
         </div>
     </div>
 </template>

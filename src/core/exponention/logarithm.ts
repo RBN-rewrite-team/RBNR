@@ -18,7 +18,7 @@ export const Logarithm = {
     },
     dilated(text:string, dilated: string, id:keyof typeof upgrades): ()=>string{
         return function(){
-				return text+(Logarithm.logarithm.upgrades_in_dilated.includes(id) ? "<br>"+dilated : "")
+				return text+(Logarithm.logarithm.upgrades_in_dilated.includes(id) ? "<span style='color: rgb(127, 127, 255)'><br>"+dilated + "</span>" : "")
 		};
     },
     buyables: {
@@ -115,6 +115,37 @@ export const Logarithm = {
             show: true,
             currency: "麦粒"
         })
+        
+        MILESTONES.create('dil_1', {
+            displayName: 'M-Dil-1',
+            description: '最大化和自动化指数购买项',
+            requirement: new Decimal(1000),
+            get canDone() {
+                return player.exponention.logarithm.highest_dilate.gte(this.requirement);
+            },
+            show: true,
+            currency: '膨胀中数值',
+        });
+        MILESTONES.create('dil_2', {
+            displayName: 'M-Dil-2',
+            description: '最大化和自动化棋盘格子购买项',
+            requirement: new Decimal(1e5),
+            get canDone() {
+                return player.exponention.logarithm.highest_dilate.gte(this.requirement);
+            },
+            show: true,
+            currency: '膨胀中数值',
+        });
+        MILESTONES.create('dil_3', {
+            displayName: 'M-Dil-3',
+            description: '最大化和自动化数论研究2购买项',
+            requirement: new Decimal(1e10),
+            get canDone() {
+                return player.exponention.logarithm.highest_dilate.gte(this.requirement);
+            },
+            show: true,
+            currency: '膨胀中数值',
+        });
     },
     astronomerLife(): [number, Decimal]{
         let life = new Decimal(100);
@@ -146,6 +177,7 @@ export const Logarithm = {
         return convertgain
     },
     astronomerUpdate() {
+        player.buyables.lgr_emp = new Decimal(0);
         for (let i = 0; i<this.astronomers.length; i++){
             this.astronomers[i].life = this.astronomers[i].life - diff/1000;
             let actualtime = diff/1000;
@@ -153,12 +185,12 @@ export const Logarithm = {
                 actualtime = this.astronomers[i].life+actualtime;
             } 
             this.logarithm.calculate_datas = this.logarithm.calculate_datas
-            .add(this.astronomerProduce(i).mul(actualtime))
+            .add(this.astronomerProduce(i).mul(actualtime));
             if (this.astronomers[i].life<=0) {
                 this.astronomers.splice(i, 1);
                 i--;
-                player.buyables.lgr_emp = player.buyables.lgr_emp.sub(1)
             }
+            else player.buyables.lgr_emp = player.buyables.lgr_emp.add(1);
         }
         if (this.logarithm.in_dilate) {
             this.logarithm.highest_dilate = this.logarithm.highest_dilate.max(player.number);

@@ -230,6 +230,9 @@ function getInitialPlayerData(): Player {
 		  "log_law2": false,
 		  "log_law3": false,
 		  "log_G": false,
+		  'dil_1': false,
+		  'dil_2': false,
+		  'dil_3': false,
 		},
 		buyable11More: zero,
 		automationCD: {
