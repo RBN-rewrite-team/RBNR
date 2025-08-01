@@ -206,6 +206,9 @@ export const Exponention = {
 			if (dilate) {
 				player.upgrades['13'] = false;
 				player.upgrades['26'] = false;
+				player.upgrades['35'] = false;
+				player.upgrades['38'] = false;
+				player.upgrades['39'] = false;
 
 				for (const upg_i of player.exponention.logarithm.upgrades_in_dilated) {
 					player.upgrades[upg_i] = true;
@@ -237,6 +240,8 @@ export const Exponention = {
 		let base = player.multiplication.totalMulpower.log(2).pow(exp).div(32);
 		if (player.milestones.cb4) base = base.mul(10)
 		if (player.milestones.log_law2) base = base.mul(Logarithm.logarithm.calculate_datas.root(3))
+		
+		base = base.mul(Logarithm.dilateEffect()[1])
 		return base.floor();
 	},
 	powerEff() {

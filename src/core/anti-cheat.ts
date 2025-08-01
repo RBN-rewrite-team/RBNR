@@ -6,6 +6,7 @@ declare global {
 	interface Window {
 		game: object;
 		player: Player;
+		Modal: typeof ModalService;
 	}
 }
 
@@ -26,6 +27,7 @@ Object.defineProperty(window, 'game', {
 document.addEventListener('DOMContentLoaded', function () {
 	if (import.meta.env.DEV) {
 		window.player = player;
+		window.Modal = ModalService;
 	}
 });
 let cheat = false;

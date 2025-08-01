@@ -1,4 +1,5 @@
 import Decimal from 'break_eternity.js';
+import { type DecimalSource } from 'break_eternity.js';
 import { saveSerializer } from './serializer';
 import { reactive } from 'vue';
 import { notations } from '@/utils/format';
@@ -6,7 +7,7 @@ import { themes } from '@/utils/themes';
 import type { qolUpgs } from '../exponention/qolupg';
 import type { IAstronomer } from '../exponention/logarithm';
 import type { IntRange } from 'type-fest';
-import { buyables, upgrades } from '../mechanic';
+import { buyables, upgrades, milestones } from '../mechanic';
 
 
 const SAVEID = 'RBN-rewritten-powerful-refactor-test';
@@ -18,6 +19,7 @@ type Milestones = Record<
   `cb${IntRange<1,21>}`  |"log_law1"|"log_law2"|"log_law3"|"log_G",
 	boolean
 >;
+
 export interface Player {
 	number: Decimal;
 	version: typeof version;
@@ -26,7 +28,7 @@ export interface Player {
 	saveCreateTime: number;
 	upgrades: Record<keyof typeof upgrades,boolean>;
 	buyables: Record<keyof typeof buyables, Decimal>;
-	milestones: Milestones;
+	milestones: Record<keyof typeof milestones, boolean>;
 	buyable11More: Decimal;
 	automationCD: {
 		successor: number;
@@ -68,6 +70,7 @@ export interface Player {
 			in_dilate: boolean;
 			upgrades_in_dilated: (keyof typeof upgrades)[];
 			buyables_in_dilated: (keyof typeof buyables)[];
+			highest_dilate: Decimal;
 		}
 	};
 	options: {
@@ -132,7 +135,7 @@ function getInitialPlayerData(): Player {
 			'41R': false,
 			'42R': false,
 			'43R': false,
-			'44R': false,
+			//'44R': false,
 			'41': false,
 			'42': false,
 			'43': false,
@@ -267,6 +270,7 @@ function getInitialPlayerData(): Player {
 				in_dilate: false,
 				upgrades_in_dilated: [],
 				buyables_in_dilated: [],
+				highest_dilate: new Decimal(1),
 			}
 		},
 		options: {
@@ -299,51 +303,59 @@ function getInitialPlayerData(): Player {
 	};
 }
 
-function rewriteDecimalValues(pl: any) {
-	for (const key in pl) {
-		if (key==="upgrades_in_dilated" || key==="buyables_in_dilated") continue;
-		if (typeof pl[key] === 'string') {
-			if (!Decimal.isNaN(pl[key])) {
-				pl[key] = new Decimal(pl[key]);
-			}
-		} else if (typeof pl[key] === 'object') {
-			rewriteDecimalValues(pl[key]);
-		}
-	}
+type DeepPartial<T> = T extends (infer U)[]
+  ? DeepPartial<U>[] | undefined
+  : T extends object
+  ? { [P in keyof T]?: DeepPartial<T[P]> }
+  : T;
+
+function rewriteDecimalValues<T extends object>(source: T, target: DeepPartial<T>): T;
+function rewriteDecimalValues<T extends unknown[]>(source: T, target: DeepPartial<T>): T;
+function rewriteDecimalValues<T>(source: T, target: DeepPartial<T>): T {
+  if (Array.isArray(source)) {
+    return source.map((item: unknown, index) => {
+      if (target[index as keyof DeepPartial<T>] === undefined || item === null) {
+        return item
+      } else if (typeof item == "object" && !(item instanceof Decimal)) {
+        return rewriteDecimalValues(item, target[index as keyof DeepPartial<T>] ?? {})
+      } else if (item instanceof Decimal) {
+        return new Decimal(target[index as keyof DeepPartial<T>] as DecimalSource)
+      } else {
+        return target[index as keyof DeepPartial<T>] !== undefined ? target[index as keyof DeepPartial<T>] : item;
+      }
+    }) as T
+  }
+  
+  const result: { [K in keyof T]: T[K] } = { ...source };
+
+  for (const key in source) {
+    if (!(source as object).hasOwnProperty(key)) continue;
+
+    const sourceValue = source[key];
+    const targetValue = target[key as keyof DeepPartial<T>];
+
+    if (targetValue === undefined || targetValue === null) {
+      continue;
+    } else if (typeof sourceValue === 'object' && !(sourceValue instanceof Decimal)) {
+      result[key] = rewriteDecimalValues(
+        sourceValue as object,
+        targetValue as object
+      ) as T[Extract<keyof T, string>]
+    } else if (sourceValue instanceof Decimal) {
+      result[key] = new Decimal(targetValue as DecimalSource) as T[Extract<keyof T, string>];
+    } else {
+      result[key] = (targetValue !== undefined ? targetValue : sourceValue) as T[Extract<keyof T, string>];
+    }
+  }
+
+  return result as T;
 }
 
-export function deepCopyProps(source: any, target: any) {
-	for (const key in source) {
-		if (source.hasOwnProperty(key)) {
-			// 如果源对象的属性是对象或数组，则递归复制
-			if (
-				typeof source[key] === 'object' &&
-				!(source[key] instanceof Decimal) &&
-				source[key] !== null
-			) {
-				// 如果目标对象没有这个属性，或者属性是null，则创建一个新的
-				if (
-					!target.hasOwnProperty(key) ||
-					target[key] == null ||
-					Array.isArray(source[key]) !== Array.isArray(target[key])
-				) {
-					target[key] = Array.isArray(source[key]) ? [] : {};
-				}
-				// 递归复制属性
-				deepCopyProps(source[key], target[key]);
-			} else {
-				// 如果属性不是对象或数组，则直接复制
-				target[key] = source[key];
-			}
-		}
-	}
-}
 export let player: Player = getInitialPlayerData();
 
 export function loadFromString(saveContent: string) {
 	let deserialized = saveSerializer.deserialize(saveContent);
-	rewriteDecimalValues(deserialized);
-	deepCopyProps(deserialized, player);
+	player = rewriteDecimalValues(player, deserialized);
 	player.version = version;
 }
 
@@ -366,8 +378,6 @@ export function save() {
 
 export function hardReset() {
 	player = getInitialPlayerData();
-	
-					
 	save();
 	location.reload();
 }

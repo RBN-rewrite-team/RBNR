@@ -26,7 +26,9 @@ import ObserveButton from '../ObserveButton.vue';
             <p v-for="astr in Object.entries(player.exponention.logarithm.astronomers)">
                 天文学家 {{ astr[0] }}: 工作时长 {{ formatTime(astr[1].life) }} {{formatGain( Logarithm.logarithm.calculate_datas, Logarithm.astronomerProduce(Number(astr[0])), "计算数据") }}
             </p>
+
         </div>
+        <p>1 观测数据 -> {{ format(Logarithm.observeDataConvert()) }} 计算数据</p>
         <table align="center">
             <tbody>
                 <tr>
@@ -54,15 +56,15 @@ import ObserveButton from '../ObserveButton.vue';
             </div>
             <h1>定律 3</h1>
             {{ player.milestones.log_law3 ? "行星轨道半长轴的三次方与公转周期的平方成正比。" : "行星轨道？？？？？？？与公转周期的？？？？？。"}}
-            <div class="requirement">需求： 1000000 计算数据</div>
+            <div class="requirement">需求： 3000000 计算数据</div>
             <div class="effect">
                 对数表、天文学家价格底数、指数基于计算数据降低
             </div>
             <h1>{{ player.milestones.log_G ? "万有引力" : "？？？？"}}定律</h1>
             {{ player.milestones.log_G ? "！！！" : "？？？"}}
-            <div class="requirement">需求： 10000000 计算数据</div>
+            <div class="requirement">需求： 5000000 计算数据</div>
             <div class="effect">
-                对数表、天文学家价格底数、指数基于计算数据降低
+                解锁对数膨胀
             </div>
         </div>
     </div>

@@ -209,6 +209,9 @@ export const Successor = {
 		if (player.exponention.logarithm.in_dilate) {
 			adding = adding.add(10).ln().ln().div(10)
 		}
+		if (player.exponention.logarithm.upgrades_in_dilated.includes("31")) {
+			adding = adding.pow(3)
+		}
 		for(let i = 1; i <= 8; i++)
 		    adding = SOFTCAPS.fluidComputed('number^' + i, adding, player.number);
 		if (CHALLENGE.inChallenge(0, 2))
@@ -235,7 +238,7 @@ export const Successor = {
 	successorBulk() {
 		let base = new Decimal(1);
 		if (player.upgrades['12']) base = base.add(upgrades['12'].effect());
-		if (player.upgrades[21]) {
+		if (player.upgrades['12'] && player.upgrades[21]) {
 			let count = 0;
 			for (const i of [21, 22, 23, 24, 25, 26]) {
 				if (player.upgrades[i.toString() as '21' | '22' | '23' | '24' | '25' | '26'])
@@ -243,7 +246,7 @@ export const Successor = {
 			}
 			base = base.add(count);
 		}
-		if (player.upgrades[32]) {
+		if (player.upgrades['12'] && player.upgrades[32]) {
 			let count = 0;
 			for (const i of [31, 32, 33, 34, 35] as const) {
 				if (player.upgrades[i.toString() as '31' | '32' | '33' | '34' | '35']) count++;
@@ -268,6 +271,8 @@ export const Successor = {
 		if (player.firstResetBit & 0b100) base = base.pow(1.03);
 		if (player.firstResetBit & 0b100) base = base.pow(buyables[42].effect(player.buyables[42]));
 		if (player.upgrades[47]) base = base.pow(feature.ChessBoard.wgEffect()[0]);
+
+		base = base.pow(Logarithm.dilateEffect()[0])
 		return base;
 	},
 	/**
@@ -283,7 +288,7 @@ export const Successor = {
 				player.exponention.logarithm.upgrades_in_dilated.includes("21") ? 1.5 : 1
 			))
 		}
-		if (player.exponention.logarithm.upgrades_in_dilated.includes("21")) {
+		if (player.exponention.logarithm.upgrades_in_dilated.includes("22")) {
 			base = base.add(0.2);
 		}
 		if (Logarithm.logarithm.buyables_in_dilated.includes("11")) {

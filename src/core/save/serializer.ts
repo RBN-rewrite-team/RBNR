@@ -1,35 +1,22 @@
 import { deflate, inflate } from 'pako';
 
-export interface SaveSerializer {
-	encoder: TextEncoder;
-	decoder: TextDecoder;
-	startString: string;
-	endString: string;
-	steps: {
-		serialize: (x: any) => any;
-		deserialize: (x: any) => any;
-	}[];
-	serialize: (s: any) => any;
-	deserialize: (s: any) => any;
-}
-
-export const saveSerializer: SaveSerializer = {
+export const saveSerializer = {
 	encoder: new TextEncoder(),
 	decoder: new TextDecoder(),
 	startString: 'RBNSaveFile',
 	endString: 'EndOfSaveFile',
 	steps: [
 		{
-			serialize: (x) => JSON.stringify(x),
-			deserialize: (x) => JSON.parse(x),
+			serialize: (x: object | unknown[] | string) => JSON.stringify(x),
+			deserialize: (x: string) => JSON.parse(x),
 		},
 		{
-			serialize: (x) => saveSerializer.encoder.encode(x),
-			deserialize: (x) => saveSerializer.decoder.decode(x),
+			serialize: (x: string) => saveSerializer.encoder.encode(x),
+			deserialize: (x: Uint8Array) => saveSerializer.decoder.decode(x),
 		},
 		{
-			serialize: (x) => deflate(x),
-			deserialize: (x) => inflate(x),
+			serialize: (x: Uint8Array) => deflate(x),
+			deserialize: (x: Uint8Array) => inflate(x),
 		},
 		{
 			serialize: function (x: Uint8Array): string {
@@ -42,24 +29,24 @@ export const saveSerializer: SaveSerializer = {
 			},
 		},
 		{
-			serialize: (x) => btoa(x),
-			deserialize: (x) => atob(x),
+			serialize: (x: string) => btoa(x),
+			deserialize: (x: string) => atob(x),
 		},
 		{
-			serialize: (x) =>
+			serialize: (x: string) =>
 				x.replace(/=+$/g, '').replace(/0/g, '0a').replace(/\+/g, '0b').replace(/\//g, '0c'),
-			deserialize: (x) => x.replace(/0b/g, '+').replace(/0c/g, '/').replace(/0a/g, '0'),
+			deserialize: (x: string) => x.replace(/0b/g, '+').replace(/0c/g, '/').replace(/0a/g, '0'),
 		},
 		{
-			serialize: (x) => saveSerializer.startString + x + saveSerializer.endString,
-			deserialize: (x) =>
+			serialize: (x: string) => saveSerializer.startString + x + saveSerializer.endString,
+			deserialize: (x: string) =>
 				x.slice(saveSerializer.startString.length, -saveSerializer.endString.length),
 		},
 	],
-	serialize(s) {
+	serialize(s: any) {
 		return this.steps.reduce((x, f) => f.serialize(x), s);
 	},
-	deserialize(s) {
+	deserialize(s: any) {
 		return this.steps.reduceRight((x, f) => f.deserialize(x), s);
 	},
-};
+} as const;

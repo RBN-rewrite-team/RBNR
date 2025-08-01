@@ -2,7 +2,7 @@ import Decimal from 'break_eternity.js';
 import { BUYABLES, upgrades, UPGRADES, buyables, type singleReq } from '../mechanic';
 import { player, type PrimeFactorTypes } from '../save';
 import ModalService from '@/utils/Modal';
-import { formatWhole } from '@/utils/format';
+import { format, formatWhole } from '@/utils/format';
 import { Addition } from '../addition/addition.ts';
 import { CHALLENGE } from '../challenge.ts';
 import { NUMTHEORY } from '@/core/multiplication/numbertheory';
@@ -15,8 +15,7 @@ type PrimeList = '2'|'3'|'5'|'7'|'11'|'13'|'17'|'19';
 
 export const PrimeFactor = {
 	upgrades: (function (){
-		// @ts-ignore
-		const PFList: Record<`pf${PrimeList}`,Buyable<Decimal>> = {};
+		const PFList: Partial<Record<`pf${PrimeList}`,Buyable<Decimal>>> = {};
 		let pflist = ['2', '3', '5', '7', '11', '13', '17', '19'] as const;
 		for (let i in pflist) {
 			i=i;
@@ -35,16 +34,22 @@ export const PrimeFactor = {
 							.div(2)
 							.floor();
 					}
+					if (player.exponention.logarithm.upgrades_in_dilated.includes("36") 
+						&& Number(i) !== 0) {
+						return player.buyables[('pf' + pflist[Number(i) - 1]) as PrimeFactorTypes]
+							.div(4)
+							.floor();
+					}
 					return new Decimal(0);
 				}
 				effect(x: Decimal) {
-					return new Decimal(this.pfid).pow(x.add(this.more?.() ?? 0));
+					return new Decimal(this.pfid).pow(x.add(this.more()));
 				}
 				effectDescription(x: Decimal) {
-					return '*' + formatWhole(x);
+					return '*' + formatWhole(this.effect(x));
 				}
 				cost(x: Decimal) {
-					return new Decimal(this.pfid).pow(x.mul(2).add(this.n ?? 0));
+					return new Decimal(this.pfid).pow(x.mul(2).add(this.n));
 				}
 				capped() {
 					return false;
