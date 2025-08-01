@@ -207,7 +207,7 @@ export const Successor = {
 	success(bulk = 1) {
 		let adding = this.successorBulk().pow(this.successorPow()).mul(bulk);
 		if (player.exponention.logarithm.in_dilate) {
-			adding = adding.add(10).iteratedlog(Math.E, Logarithm.dilateNerf()).div(10)
+			adding = adding.add(10).iteratedlog(Math.E, Logarithm.dilateNerf().toNumber()).div(10)
 		}
 		if (player.exponention.logarithm.upgrades_in_dilated.includes("31")) {
 			adding = adding.pow(3)
