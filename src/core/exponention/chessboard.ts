@@ -39,6 +39,16 @@ export const cb1 = new class extends Buyable<Decimal> {
 		}
 		return c;
 	}
+	canBuyMax(): boolean {
+	    return player.milestones.dil_2;
+	}
+	autoBuyMax(): boolean {
+	    return player.milestones.dil_2;
+	}
+	costInverse(x: Decimal): Decimal {
+	    let cb12eff = player.milestones.cb12 ? player.exponention.logarithm.calculate_datas.pow(0.25) : new Decimal(1);
+	    return x.mul(cb12eff).div(100).max(1).log(player.milestones.cb2 ? 1.85 : 2).root(player.milestones.cb2 ? 0.99 : 1).add(1).floor();
+	}
 }
 
 function getMCB6Effect() {
