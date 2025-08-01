@@ -12,7 +12,7 @@ import { save } from './save';
 import { getCurrency } from './currencies';
 
 export let diff = 40;
-export let loopInterval: NodeJS.Timeout;
+export let loopInterval: number;
 export let saveInterval = setInterval(save, 3000);
 
 export function startGameLoop() {
