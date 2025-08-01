@@ -357,7 +357,7 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
       if (!source.hasOwnProperty(key)) continue;
 
       const sourceValue = source[key];
-      const targetValue = (target as any)?.[key]; // 安全访问属性
+      const targetValue = target[key as keyof typeof target];
 
       if (targetValue === undefined || targetValue === null) {
         continue;
