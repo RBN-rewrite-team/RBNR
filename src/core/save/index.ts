@@ -309,53 +309,97 @@ type DeepPartial<T> = T extends (infer U)[]
   ? { [P in keyof T]?: DeepPartial<T[P]> }
   : T;
 
-function rewriteDecimalValues<T extends object>(source: T, target: DeepPartial<T>): T;
-function rewriteDecimalValues<T extends unknown[]>(source: T, target: DeepPartial<T>): T;
-function rewriteDecimalValues<T>(source: T, target: DeepPartial<T>): T {
+function deepMerge<T extends object>(source: T, target: object): T;
+function deepMerge<T extends unknown[]>(source: T, target: unknown[]): T;
+function deepMerge<T>(source: T, target: DeepPartial<T>): T {
   if (Array.isArray(source)) {
-    return source.map((item: unknown, index) => {
-      if (target[index as keyof DeepPartial<T>] === undefined || item === null) {
-        return item
-      } else if (typeof item == "object" && !(item instanceof Decimal)) {
-        return rewriteDecimalValues(item, target[index as keyof DeepPartial<T>] ?? {})
-      } else if (item instanceof Decimal) {
-        return new Decimal(target[index as keyof DeepPartial<T>] as DecimalSource)
-      } else {
-        return target[index as keyof DeepPartial<T>] !== undefined ? target[index as keyof DeepPartial<T>] : item;
+    const targetArray = Array.isArray(target) ? target : [];
+    const maxLength = Math.max(source.length, targetArray.length);
+    const result: unknown[] = [];
+
+    for (let i = 0; i < maxLength; i++) {
+      const sourceItem = i < source.length ? source[i] : undefined;
+      const targetItem = i < targetArray.length ? targetArray[i] : undefined;
+
+      if (
+        targetItem !== undefined &&
+        targetItem !== null &&
+        sourceItem !== null &&
+        typeof sourceItem === "object" &&
+        !(sourceItem instanceof Decimal)
+      ) {
+        result[i] = deepMerge(
+          sourceItem,
+          targetItem as DeepPartial<typeof sourceItem>
+        );
       }
-    }) as T
-  }
-  
-  const result: { [K in keyof T]: T[K] } = { ...source };
 
-  for (const key in source) {
-    if (!(source as object).hasOwnProperty(key)) continue;
+      else if (sourceItem instanceof Decimal) {
+        result[i] = new Decimal(targetItem as DecimalSource);
+      }
 
-    const sourceValue = source[key];
-    const targetValue = target[key as keyof DeepPartial<T>];
+      else if (sourceItem === undefined && targetItem !== undefined) {
+        result[i] = targetItem;
+      }
 
-    if (targetValue === undefined || targetValue === null) {
-      continue;
-    } else if (typeof sourceValue === 'object' && !(sourceValue instanceof Decimal)) {
-      result[key] = rewriteDecimalValues(
-        sourceValue as object,
-        targetValue as object
-      ) as T[Extract<keyof T, string>]
-    } else if (sourceValue instanceof Decimal) {
-      result[key] = new Decimal(targetValue as DecimalSource) as T[Extract<keyof T, string>];
-    } else {
-      result[key] = (targetValue !== undefined ? targetValue : sourceValue) as T[Extract<keyof T, string>];
+      else {
+        result[i] = targetItem !== undefined ? targetItem : sourceItem;
+      }
     }
+
+    return result as T;
   }
 
-  return result as T;
-}
+  if (typeof source === "object" && source !== null) {
+    const result = { ...source } as { [K in keyof T]: T[K] };
 
+    for (const key in source) {
+      if (!source.hasOwnProperty(key)) continue;
+
+      const sourceValue = source[key];
+      const targetValue = (target as any)?.[key]; // 安全访问属性
+
+      if (targetValue === undefined || targetValue === null) {
+        continue;
+      }
+
+      if (
+        sourceValue !== null &&
+        typeof sourceValue === "object" &&
+        !(sourceValue instanceof Decimal)
+      ) {
+        result[key] = deepMerge(
+          sourceValue,
+          targetValue
+        ) as T[Extract<keyof T, string>];
+      }
+
+      else if (sourceValue instanceof Decimal) {
+        result[key] = new Decimal(targetValue as DecimalSource) as T[Extract<
+          keyof T,
+          string
+        >];
+      }
+
+      else {
+        result[key] = (
+          targetValue !== undefined ? targetValue : sourceValue
+        ) as T[Extract<keyof T, string>];
+      }
+    }
+
+    return result as T;
+  }
+
+  return target !== undefined && target !== null
+    ? (target as T)
+    : source;
+}
 export let player: Player = getInitialPlayerData();
 
 export function loadFromString(saveContent: string) {
 	let deserialized = saveSerializer.deserialize(saveContent);
-	player = rewriteDecimalValues(player, deserialized);
+	player = deepMerge(player, deserialized);
 	player.version = version;
 }
 
