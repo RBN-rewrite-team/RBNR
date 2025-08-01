@@ -38,6 +38,8 @@ export const resourceGain = {
 		if (player.exponention.logarithm.in_dilate) {
 			base = base.add(Math.E).ln().ln().mul(10)
 		}
+        if (player.buyables[31].gt(0) && Logarithm.logarithm.upgrades_in_dilated.includes("31")) base = base.mul(buyables[31].effect(player.buyables[31]));
+		
         let softcaps = 0,
             scList = ['addpower^1', 'addpower^2', 'addpower^3', 'addpower^4', 'addpower^5'];
         for (let i = 0; i < scList.length; i++) {

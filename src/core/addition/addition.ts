@@ -115,6 +115,9 @@ export const Addition = {
 				]
 			}
 			effect() {
+				if ((player.challengein[0]==0&&player.challengein[1]==0)) {
+					return new Decimal(1)
+				}
 				let exp = new Decimal(0.25);
 				let a;
 				if (

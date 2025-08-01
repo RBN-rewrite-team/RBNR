@@ -154,7 +154,7 @@ export function initMechanics() {
 	MILESTONES.create("cb9", {
 	  displayName: "M-CB-9",
 	  get description(){
-		return "棋盘每个格子提升观测数据基础获取量×+0.01，同时削弱麦粒三个指数效果的软上限"
+		return "棋盘每个格子提升观测数据基础获取量×+0.01(undeveloped)，同时削弱麦粒三个指数效果的软上限"
 	  } ,
 	  requirement: new Decimal(1e50),
 	  get canDone() {

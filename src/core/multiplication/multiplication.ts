@@ -134,7 +134,7 @@ export const Multiplication = {
 		},
 		'38': new class U28 extends Upgrade{
 
-			description: string = "每秒自动获取重置获取加法能量的1%";
+			description: ()=>string = Logarithm.dilated("每秒自动获取重置获取加法能量的1%", "", "38");
 			cost= new Decimal(10000)
 			name= 'U2-8'
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
