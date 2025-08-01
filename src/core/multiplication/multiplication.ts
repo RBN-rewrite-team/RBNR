@@ -22,17 +22,13 @@ export const Multiplication = {
 				let counts = '1';
 				if (player.upgrades['400q'])
 					counts = "<span style='font-size: 19px;'><b>2</b></span>";
-				return (
-					'你可以选择' +
+				let text = Logarithm.dilated(
+					"你可以选择" +
 					counts +
-					'个U1系列升级将其价格降低到1加法能量，改变选择将进行乘法重置'
-					+ (function (){
-						if (player.exponention.logarithm.upgrades_in_dilated.includes("31")) {
-							return "数值在对数膨胀后增长^3"
-						} 
-						return ""
-					})()
-				);
+					"个U1系列升级将其价格降低到1加法能量，改变选择将进行乘法重置"
+					, "后继运算指数+3", "31"
+				)();
+				return text;
 			}
 			cost= new Decimal(0)
 			name= 'U2-1'
@@ -93,7 +89,7 @@ export const Multiplication = {
 		},
 		'35': new class U25 extends Upgrade{
 
-			description: ()=>string = Logarithm.dilated("解锁数论研究", "数论研究1中x，y的指数3->4", "35");
+			description: ()=>string = Logarithm.dilated("解锁数论研究", "τ<sub>1</sub>减弱膨胀强度", "35");
 			cost= new Decimal(47)
 			name= 'U2-5'
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
@@ -108,7 +104,7 @@ export const Multiplication = {
 		},
 		'36': new class U26 extends Upgrade{
 
-			description: ()=>string = Logarithm.dilated("每2个质因数p<sub>n</sub>免费赠送一个p<sub>n-1</sub>", "每4个p_n免费赠送1个p_（n+1）", "36");
+			description: ()=>string = Logarithm.dilated("每2个质因数p<sub>n</sub>免费赠送一个p<sub>n-1</sub>", "每4个p<sub>n</sub>免费赠送1个p<sub>n+1</sub>", "36");
 			cost= new Decimal(101)
 			name= 'U2-6'
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
@@ -152,8 +148,7 @@ export const Multiplication = {
 			}
 		},
 		'39': new class U28 extends Upgrade{
-
-			description: string = "解锁乘法挑战，自动最大购买后继、加法购买项，最大购买乘法购买项";
+			description: () => string = Logarithm.dilated("解锁乘法挑战，自动最大购买后继、加法购买项，最大购买乘法购买项", '解锁迭代幂次', '39')
 			cost= new Decimal(1e21)
 			name= 'U2-9'
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
@@ -355,7 +350,7 @@ export const Multiplication = {
 		if (player.upgrades[47]) base = base.pow(feature.ChessBoard.wgEffect()[0]);
 
 		if (player.exponention.logarithm.in_dilate) {
-			base = base.add(10).ln()
+			base = base.add(10).iteratedlog(Math.E, Logarithm.dilateNerf().div(2))
 		}
 
 		return base.floor();

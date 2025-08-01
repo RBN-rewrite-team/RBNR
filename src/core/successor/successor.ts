@@ -41,7 +41,7 @@ export const Successor = {
 			currency = Currencies.NUMBER;
 			name = "U0-2";
 			cost = new Decimal(100);
-			description :()=>string= Logarithm.dilated("每次购买U0系列升级都使后继按钮批量+1", "每次购买U0系列升级使后继按钮指数*1.1", "12");
+			description :()=>string= Logarithm.dilated("每次购买U0系列升级都使后继按钮批量+1", "每次购买U0系列升级使后继按钮指数+*1.1", "12");
 			requirements(): Requirement[] {
 				return [
 					new CurrencyRequirement(Currencies.NUMBER, new Decimal(100))
@@ -207,7 +207,7 @@ export const Successor = {
 	success(bulk = 1) {
 		let adding = this.successorBulk().pow(this.successorPow()).mul(bulk);
 		if (player.exponention.logarithm.in_dilate) {
-			adding = adding.add(10).ln().ln().div(10)
+			adding = adding.add(10).iteratedlog(Math.E, Logarithm.dilateNerf()).div(10)
 		}
 		if (player.exponention.logarithm.upgrades_in_dilated.includes("31")) {
 			adding = adding.pow(3)
@@ -282,7 +282,6 @@ export const Successor = {
 	successorPow() {
 		let base = new Decimal(1);
 		if (player.upgrades[42]) base = base.add(0.1);
-
 		if (player.exponention.logarithm.upgrades_in_dilated.includes("12")) {
 			base = base.mul(Decimal.pow(1.1,this.upgrades[12].effect()).pow(
 				player.exponention.logarithm.upgrades_in_dilated.includes("21") ? 1.5 : 1
@@ -294,6 +293,7 @@ export const Successor = {
 		if (Logarithm.logarithm.buyables_in_dilated.includes("11")) {
 			base = base.add(Decimal.mul(0.001, player.buyables[11].min(1000)))
 		}
+		if (Logarithm.logarithm.upgrades_in_dilated.includes('31')) base = base.add(3);
 		return base;
 	},
 };

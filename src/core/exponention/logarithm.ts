@@ -5,6 +5,7 @@ import { format, formatWhole } from "@/utils/format"
 import { diff } from "../game-loop";
 import { Buyable } from "../buyable";
 import { Currencies } from "../currencies";
+import { NUMTHEORY } from '../multiplication/numbertheory.ts';
 export interface IAstronomer {
     life: number;
     boost: Decimal;
@@ -129,7 +130,7 @@ export const Logarithm = {
         MILESTONES.create('dil_2', {
             displayName: 'M-Dil-2',
             description: '最大化和自动化棋盘格子购买项',
-            requirement: new Decimal(1e5),
+            requirement: new Decimal(1e8),
             get canDone() {
                 return player.exponention.logarithm.highest_dilate.gte(this.requirement);
             },
@@ -207,5 +208,10 @@ export const Logarithm = {
 
     dilateEffect(): [num: Decimal, expo: Decimal] {
         return [this.logarithm.highest_dilate.pow(0.5), this.logarithm.highest_dilate.pow(0.75)]
+    },
+    dilateNerf(): Decimal {
+        let base = new Decimal(2);
+        if(this.logarithm.upgrades_in_dilated.includes('35')) base = base.sub(NUMTHEORY.tau1DilateEff());
+        return base;
     }
 }

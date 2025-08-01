@@ -18,7 +18,11 @@ import TRMilestone from '../TRMilestone.vue';
                 }">进入膨胀</DilateButton>
             </div>
             <p>
-                进入对数膨胀会导致数值变成原来的{{format(new Decimal(2))}}层对数。同时，大部分生活质量升级失效，部分加成减弱。
+                进入对数膨胀后：
+                <br>
+                数值指数塔减{{format(Logarithm.dilateNerf())}}层。
+                乘法能量指数塔减{{format(Logarithm.dilateNerf().div(2))}}层。
+                <br>同时，大部分生活质量升级失效，部分加成减弱。
             </p>
             <p>
                 在膨胀中购买升级和购买项会永久提升它们的效果。
