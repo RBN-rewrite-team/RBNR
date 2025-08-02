@@ -22,7 +22,7 @@ export const resourceGain = {
 			base = base.pow(3)
 		}
         let softcaps = 0,
-            scList = ['number^1', 'number^2', 'number^3', 'number^4', 'number^5', 'number^6', 'number^7', 'number^8'];
+            scList = ['number^1', 'number^2', 'number^3', 'number^4', 'number^5', 'number^6', 'number^7', 'number^8', 'number^9'];
         for (let i = 0; i < scList.length; i++) {
             if (SOFTCAPS.reach(scList[i], player.number)) {
                 softcaps++;
@@ -69,6 +69,8 @@ export const resourceGain = {
     },
     exppower() {
         let base = feature.EXPONENTION.gain();
-        return { value: base };
+        let passive = new Decimal(0);
+        if (player.exponention.logarithm.upgrades_in_dilated.includes('38')) passive = passive.add(0.01);
+        return { value: base, passive };
     },
 }

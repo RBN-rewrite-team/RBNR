@@ -95,7 +95,19 @@ import Decimal from 'break_eternity.js';
 					</div>
 				</div>
 				<div style="font-size: 17px; color: rgb(63, 63, 127)">
-					(+{{ formatWhole(feature.resourceGain.exppower().value) }}) (!{{
+					<span v-if="feature.resourceGain.exppower().passive.eq(0)">
+						(+{{ formatWhole(feature.resourceGain.exppower().value) }})
+					</span>
+					<span v-else>
+						{{
+							formatGain(
+								player.exponention.exppower,
+								feature.resourceGain
+									.exppower()
+									.passive.mul(feature.resourceGain.exppower().value),
+							)
+						}}
+					</span> (!{{
 						formatWhole(player.exponention.totalExppower)
 					}})
 				</div>

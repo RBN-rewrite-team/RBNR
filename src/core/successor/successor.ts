@@ -200,6 +200,13 @@ export const Successor = {
 			exponent: new Decimal(0.25),
 			meta: 3
 		});
+		SOFTCAPS.create('number^9', {
+			name: 'number^9',
+			fluid: false,
+			start: new Decimal(10000),
+			exponent: new Decimal(0.5),
+			slog: true,
+		});
 	},
 	/**
 	 * @param bulk 点击多少次后继按钮，默认为1就是用户手动点击
@@ -212,7 +219,7 @@ export const Successor = {
 		if (player.exponention.logarithm.upgrades_in_dilated.includes("31")) {
 			adding = adding.pow(3)
 		}
-		for(let i = 1; i <= 8; i++)
+		for(let i = 1; i <= 9; i++)
 		    adding = SOFTCAPS.fluidComputed('number^' + i, adding, player.number);
 		if (CHALLENGE.inChallenge(0, 2))
 			adding = SOFTCAPS.fluidComputed('number_C1', adding, player.number);
@@ -273,6 +280,9 @@ export const Successor = {
 		if (player.upgrades[47]) base = base.pow(feature.ChessBoard.wgEffect()[0]);
 
 		base = base.pow(Logarithm.dilateEffect()[0])
+		
+		if(player.milestones.cb14) base = base.iteratedexp(10, 0.5);
+		
 		return base;
 	},
 	/**

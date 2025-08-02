@@ -56,6 +56,7 @@ export function qolLoop() {
 		for (let i = 0; i < 3; i++)
 			player.challenges[0][i] = player.challenges[0][i].max(player.totalNumber);
 	}
+	if (player.exponention.logarithm.upgrades_in_dilated.includes('37')) player.buyables['11'] = new Decimal(1000);
 }
 /**
  * 游戏的循环函数（并不是主要的）
@@ -105,6 +106,11 @@ export function simulate(diff: number) {
 	if (feature.resourceGain.mulpower().passive.gt(0)) {
 		let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.mulpower().passive);
 		feature.MULTIPLICATION.mulpower_gain(bulk)
+	}
+	
+	if (feature.resourceGain.exppower().passive.gt(0)) {
+	    let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.exppower().passive);
+	    feature.EXPONENTION.exppower_gain(bulk);
 	}
 
 	for (const upg_i in upgrades) {
