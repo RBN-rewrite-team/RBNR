@@ -7,6 +7,7 @@ import { Multiplication } from './multiplication/multiplication.ts';
 import { PrimeFactor } from './multiplication/pf.ts';
 import { Exponention } from './exponention/exponention.ts';
 import * as ChessBoard from './exponention/chessboard.ts';
+import * as SingularityGenerator from './exponention/singularity-generator.ts';
 import { CHALLENGE } from './challenge.ts';
 import { resourceGain } from './resource-gain.ts';
 
@@ -20,6 +21,7 @@ const feature = {
 	PrimeFactor: PrimeFactor,
 	EXPONENTION: Exponention,
 	ChessBoard: ChessBoard,
+	SingularityGenerator: SingularityGenerator,
 
 	resourceGain: resourceGain,
 };

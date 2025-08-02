@@ -97,6 +97,11 @@ export interface Player {
 	challengein: [number, number];
 	frozen: boolean;
 	run_a_tick_and_froze: boolean;
+	singularity: {
+	  t: number;
+	  stage: number;
+	  enabled: boolean;
+	}
 }
 function getInitialPlayerData(): Player {
 	return {
@@ -302,6 +307,11 @@ function getInitialPlayerData(): Player {
 		},
 		challenges: [[zero, zero, zero, zero, zero]],
 		challengein: [-1, -1],
+		singularity: {
+		  t: 0,
+		  stage: 0,
+		  enabled: false
+		}
 	};
 }
 
@@ -424,6 +434,7 @@ export function import_file(): void {
 			let save = fr.result;
 			if (typeof save == 'string') {
 				try {
+				  player = getInitialPlayerData();
 					loadFromString(save);
 				} catch (e) {
 					console.error('Cannot import save');

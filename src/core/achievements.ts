@@ -25,7 +25,7 @@ export const achievements: IAchievement[][] = [
 			},
 		},
 		{
-			title: '现在挂机e9e15秒就可以通关',
+			title: '现在挂机Infinity秒就可以通关',
 			desc: '开始自动获得数值',
 			satisfied() {
 				return Successor.autoSuccessPerSecond().gt(0);

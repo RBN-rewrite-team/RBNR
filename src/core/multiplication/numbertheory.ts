@@ -401,6 +401,9 @@ export const NUMTHEORY = {
 			effectDescription(x: Decimal) {
 				return '-' + format(x);
 			}
+			show() {
+			  return player.singularity.stage < 1
+			}
 		})(),
 	} as const,
 	initMechanics() {},

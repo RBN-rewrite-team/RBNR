@@ -109,7 +109,7 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 							class="menu2"
 							:class="{ focus: player.currentTab == 13 }"
 							@click="player.currentTab = 13"
-							v-if="player.milestones.log_G"
+							v-if="player.singularity.stage < 1 && player.milestones.log_G"
 						>
 							对数膨胀
 						</div>
@@ -117,7 +117,7 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 							class="menu2"
 							:class="{ focus: player.currentTab == 14 }"
 							@click="player.currentTab = 14"
-							v-if="Logarithm.logarithm.upgrades_in_dilated.includes('39')"
+							v-if="player.singularity.enabled || Logarithm.logarithm.upgrades_in_dilated.includes('39')"
 						>
 							奇点生成器
 						</div>
