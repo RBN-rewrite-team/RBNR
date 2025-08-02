@@ -10,7 +10,9 @@ function destroy(a: number) {
       player.exponention.logarithm.upgrades_in_dilated = [];
       player.exponention.logarithm.buyables_in_dilated = [];
       player.exponention.logarithm.highest_dilate = new Decimal(1);
-      player.upgrades["44R"] = false
+      player.upgrades["44R"] = false;
+      player.exponention.logarithm.in_dilate = false
+      feature.EXPONENTION.reset(true, true);
       break
   }
 }
