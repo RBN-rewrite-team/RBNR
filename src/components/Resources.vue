@@ -96,7 +96,7 @@ import Decimal from 'break_eternity.js';
 			<div
 				style="margin-left: 755px"
 				class="resource"
-				v-if="player.stat.highestMulpower.gte(new Decimal(2).pow(1024))"
+				v-if="player.singularity.stage < 4 && player.stat.highestMulpower.gte(new Decimal(2).pow(1024))"
 			>
 				<div style="font-weight: bold; color: rgb(127, 127, 255)">
 					指数能量&nbsp;

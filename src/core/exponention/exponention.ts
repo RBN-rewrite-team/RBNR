@@ -265,6 +265,7 @@ export const Exponention = {
 		player.stat.totalExppower = player.stat.totalExppower.add(adding);
 	},
 	gain() {
+		if (player.singularity.stage >= 4) return new Decimal(0);
 		if (player.multiplication.totalMulpower.lt(D179E308)) return new Decimal(0);
 		let exp = new Decimal(0.5);
 		if (player.upgrades[48]) exp = new Decimal(0.6);
