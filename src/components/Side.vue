@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { player } from '@/core/save';
+import { Logarithm } from '../exponention/logarithm.ts';
 </script>
 
 <template>
