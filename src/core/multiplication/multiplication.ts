@@ -350,7 +350,7 @@ export const Multiplication = {
 		if (player.upgrades[47]) base = base.pow(feature.ChessBoard.wgEffect()[0]);
 
 		if (player.exponention.logarithm.in_dilate) {
-			base = base.add(10).iteratedlog(Math.E, Logarithm.dilateNerf().div(2))
+			base = base.add(10).iteratedlog(Math.E, Logarithm.dilateNerf().div(2).toNumber())
 		}
 
 		return base.floor();

@@ -3,14 +3,14 @@ import { buyables, BUYABLES, upgrades, UPGRADES, type singleReq } from '../mecha
 import { player } from '../save';
 import ModalService from '@/utils/Modal';
 import { format, formatWhole } from '@/utils/format';
-import { Multiplication } from '../multiplication/multiplication.ts';
-import { CHALLENGE } from '../challenge.ts';
-import { Logarithm } from './logarithm.ts';
-import { feature } from '../global.ts';
-import { Currencies } from '../currencies.ts';
-import { Upgrade } from '../upgrade.ts';
-import { CurrencyRequirement, type Requirement } from '../requirements.ts';
-import { Buyable } from '../buyable.ts';
+import { Multiplication } from '../multiplication/multiplication';
+import { CHALLENGE } from '../challenge';
+import { Logarithm } from './logarithm';
+import { feature } from '../global';
+import { Currencies } from '../currencies';
+import { Upgrade } from '../upgrade';
+import { CurrencyRequirement, type Requirement } from '../requirements';
+import { Buyable } from '../buyable';
 const D179E308 = Decimal.pow(2, 1024);
 
 export const Exponention = {

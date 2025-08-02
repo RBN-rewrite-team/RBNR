@@ -1,18 +1,18 @@
-import { player, feature } from './global.ts';
+import { player, feature } from './global';
 import { nextTick } from 'vue';
 import { simulateTime } from './offline';
-import { UPGRADES, BUYABLES, upgrades, buyables, milestones } from './mechanic.ts';
+import { UPGRADES, BUYABLES, upgrades, buyables, milestones } from './mechanic';
 import Decimal from 'break_eternity.js';
-import { NUMTHEORY } from './multiplication/numbertheory.ts';
-import { predictableRandom } from '@/utils/algorithm.ts';
+import { NUMTHEORY } from './multiplication/numbertheory';
+import { predictableRandom } from '@/utils/algorithm';
 
-import { CHALLENGE } from './challenge.ts';
-import { Logarithm } from './exponention/logarithm.ts';
-import { save } from './save/index.ts';
-import { getCurrency } from './currencies.ts';
+import { CHALLENGE } from './challenge';
+import { Logarithm } from './exponention/logarithm';
+import { save } from './save';
+import { getCurrency } from './currencies';
 
 export let diff = 40;
-export let loopInterval = NaN;
+export let loopInterval: number;
 export let saveInterval = setInterval(save, 3000);
 
 export function startGameLoop() {
@@ -61,7 +61,6 @@ export function qolLoop() {
  * 游戏的循环函数（并不是主要的）
  */
 export function gameLoop() {
-	if(player.frozen && !player.run_a_tick_and_froze) return;
 	diff = Date.now() - player.lastUpdated;
 	if (player.run_a_tick_and_froze) diff=33
 	if (diff < 0) return;
@@ -75,12 +74,7 @@ export function gameLoop() {
 	  throw e
 	};
 	if (diff > 60000) {
-		return;
 		simulateTime(diff);
-	}
-	if (player.run_a_tick_and_froze) {
-		player.frozen=true;
-		player.run_a_tick_and_froze=false;
 	}
 }
 /**

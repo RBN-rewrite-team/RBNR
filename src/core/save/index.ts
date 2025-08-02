@@ -103,7 +103,7 @@ function getInitialPlayerData(): Player {
 	return {
 		version: version,
 		number: zero,
-		frozen:false,
+		frozen: false,
 		run_a_tick_and_froze: false,
 		totalNumber: zero,
 		lastUpdated: Date.now(),
@@ -135,7 +135,6 @@ function getInitialPlayerData(): Player {
 			'41R': false,
 			'42R': false,
 			'43R': false,
-			//'44R': false,
 			'41': false,
 			'42': false,
 			'43': false,
@@ -398,6 +397,7 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
     ? (target as T)
     : source;
 }
+
 export let player: Player = getInitialPlayerData();
 
 export function loadFromString(saveContent: string) {
