@@ -44,7 +44,7 @@ function randomSymbol(): string {
 }
 
 const wordShift = {
-  wordCycle(list: string[], noBuffer: boolean = false): string {
+  wordCycle(list: string[], noBuffer: boolean = false, nothing?: number): string {
     const len = list.length;
     const tick = Math.floor(Date.now() / 250) % (len * 5);
     const mod5 = ((Date.now() / 250) % (len * 5)) % 5;
@@ -69,7 +69,7 @@ const wordShift = {
     return v;
   },
 
-  randomCrossWords(str: string, frac: number = 0.7, nothing: number): string {
+  randomCrossWords(str: string, frac: number = 0.7): string {
     if (frac <= 0) return str;
     const x = str.split("");
     for (let i = 0; i < x.length * frac; i++) {
@@ -112,7 +112,7 @@ setInterval(function () {
 		你每秒获取 (奇点能量+1)<sup style="color: rgb(127, 127, 255);">{{ format(feature.SingularityGenerator.singularityExponent()) }}</sup>/{{ format(feature.SingularityGenerator.singularityDivision()) }}
 		奇点能量<br>
 		<button class="sacrifice" v-if="player.singularity.stage < 2 && player.singularity.t >= 205" @click="player.singularity.stage = 1; destroy(1)">
-		  现在的{{ wordShift.wordCycle(["数值", "加法能量", "乘法能量", "指数能量", "奇点能量"], 0.7, t) }}太多了......我需要献祭我的对数膨胀才能走得更远......
+		  现在的{{ wordShift.wordCycle(["数值", "加法能量", "乘法能量", "指数能量", "奇点能量"], false, t) }}太多了......我需要献祭我的对数膨胀才能走得更远......
 		</button>
 		</div>
     <button v-else class="circle-button" @click="player.singularity.enabled = true">
