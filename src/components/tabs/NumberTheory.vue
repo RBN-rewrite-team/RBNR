@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { NUMTHEORY } from '@/core/multiplication/numbertheory';
 import MultipResetButton from '../MultipResetButton.vue';
-import { formatLaTeX, formatLaTeXWhole } from '@/utils/format';
+import { format, formatLaTeX, formatLaTeXWhole } from '@/utils/format';
 import { player } from '@/core/save';
 import TDUpgrade from '../TDUpgrade.vue';
 import TDBuyable from '../TDBuyable.vue';
@@ -91,7 +91,7 @@ function m2GainLatex() {
 				/>
 				<vue-latex :expression="sGainLatex()" display-mode />
 				<p style="font-size: 120%">
-					<b>研究1加成：加法效果×<vue-latex expression="\tau_1" /><span v-if="player.exponention.logarithm.upgrades_in_dilated.includes('35')" style="color: rgb(127, 127, 255)">，膨胀层数-{{NUMTHEORY.tau1DilateEff()}}</span></b>
+					<b>研究1加成：加法效果×<vue-latex expression="\tau_1" /><span v-if="player.exponention.logarithm.upgrades_in_dilated.includes('35')" style="color: rgb(127, 127, 255)">，膨胀层数-{{format(NUMTHEORY.tau1DilateEff())}}</span></b>
 				</p>
 				<table align="center">
 					<tbody>
