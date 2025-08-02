@@ -13,6 +13,30 @@ function destroy(a: number) {
       player.upgrades["44R"] = false;
       player.exponention.logarithm.in_dilate = false
       feature.EXPONENTION.reset(true, true);
+      player.milestones['log_law1'] = false
+      player.milestones['log_law2'] = false
+      player.milestones['log_law3'] = false
+      player.milestones['log_G'] = false
+      break
+    case 2:
+      player.exponention.logarithm = {
+				observe_datas: new Decimal(0),
+				calculate_datas: new Decimal(0),
+				astronomers: [],
+				in_dilate: false,
+				upgrades_in_dilated: [],
+				buyables_in_dilated: [],
+				highest_dilate: new Decimal(1),
+			};
+			player.milestones.cb5 = false
+			player.milestones.cb9 = false
+			player.milestones.cb10 = false
+			player.milestones.cb12 = false
+			player.milestones.cb13 = false
+			player.milestones.cb15 = false
+			player.milestones.cb17 = false
+			player.milestones.cb18 = false
+			feature.EXPONENTION.reset(true, true);
       break
   }
 }
@@ -113,8 +137,11 @@ setInterval(function () {
 		}}</b><br>
 		你每秒获取 (奇点能量+1)<sup style="color: rgb(127, 127, 255);">{{ format(feature.SingularityGenerator.singularityExponent()) }}</sup>/{{ format(feature.SingularityGenerator.singularityDivision()) }}
 		奇点能量<br>
-		<button class="sacrifice" v-if="player.singularity.stage < 2 && player.singularity.t >= 205" @click="player.singularity.stage = 1; destroy(1)">
+		<button class="sacrifice" v-if="player.singularity.stage < 1 && player.singularity.t >= 205" @click="player.singularity.stage = 1; destroy(1)">
 		  现在的{{ wordShift.wordCycle(["数值", "加法能量", "乘法能量", "指数能量", "奇点能量"], false, t) }}太多了......我需要献祭我的对数膨胀才能走得更远......
+		</button>
+		<button class="sacrifice" v-if="player.singularity.stage < 3 && player.singularity.t >= 250" @click="player.singularity.stage = 2; destroy(2)">
+		  现在的{{ wordShift.wordCycle(["数值", "加法能量", "乘法能量", "指数能量", "奇点能量"], false, t) }}太多了......我需要献祭我的对数运算和软上限才能走得更远......
 		</button>
 		</div>
     <button v-else class="circle-button" @click="player.singularity.enabled = true">

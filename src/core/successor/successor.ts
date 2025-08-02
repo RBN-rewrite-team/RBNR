@@ -217,7 +217,7 @@ export const Successor = {
 		if (player.exponention.logarithm.upgrades_in_dilated.includes('31')) {
 			adding = adding.pow(3);
 		}
-		for (let i = 1; i <= 8; i++)
+		if (player.singularity.stage < 2) for (let i = 1; i <= 8; i++)
 			adding = SOFTCAPS.fluidComputed('number^' + i, adding, player.number);
 		if (CHALLENGE.inChallenge(0, 2))
 			adding = SOFTCAPS.fluidComputed('number_C1', adding, player.number);
@@ -304,7 +304,7 @@ export const Successor = {
 			base = base.add(Decimal.mul(0.001, player.buyables[11].min(1000)));
 		}
 		if (Logarithm.logarithm.upgrades_in_dilated.includes('31')) base = base.add(3);
-		if (Logarithm.logarithm.upgrades_in_dilated.includes('39')) base = base.mul(feature.SingularityGenerator.getSingularityEffect());
+		if (player.singularity.enabled ||Logarithm.logarithm.upgrades_in_dilated.includes('39')) base = base.mul(feature.SingularityGenerator.getSingularityEffect());
 		return base;
 	},
 };
