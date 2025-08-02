@@ -11,31 +11,33 @@ import { Currencies } from '../currencies.ts';
 import { Buyable } from '../buyable.ts';
 import { Requirement } from '../requirements.ts';
 
-type PrimeList = '2'|'3'|'5'|'7'|'11'|'13'|'17'|'19';
+type PrimeList = '2' | '3' | '5' | '7' | '11' | '13' | '17' | '19';
 
 export const PrimeFactor = {
-	upgrades: (function (){
-		const PFList: Partial<Record<`pf${PrimeList}`,Buyable<Decimal>>> = {};
+	upgrades: (function () {
+		const PFList: Partial<Record<`pf${PrimeList}`, Buyable<Decimal>>> = {};
 		let pflist = ['2', '3', '5', '7', '11', '13', '17', '19'] as const;
 		for (let i in pflist) {
-			i=i;
+			i = i;
 			let pf = pflist[i];
-			PFList["pf"+pflist[i] as `pf${PrimeList}`] = new class extends Buyable<Decimal> {
-				pfid= Number(pf)
-				prev= Number(pf) == 2 ? 0 : Number(pflist[Number(i) - 1])
-				pprev= Number(pf) <= 3 ? 0 : Number(pflist[Number(i) - 2])
-				n= Number(i)
+			PFList[('pf' + pflist[i]) as `pf${PrimeList}`] = new (class extends Buyable<Decimal> {
+				pfid = Number(pf);
+				prev = Number(pf) == 2 ? 0 : Number(pflist[Number(i) - 1]);
+				pprev = Number(pf) <= 3 ? 0 : Number(pflist[Number(i) - 2]);
+				n = Number(i);
 				currency: Currencies = Currencies.MULTIPLICATION_POWER;
-				description= '因数能量×' + pf;
-				name="质因数"+pf;
+				description = '因数能量×' + pf;
+				name = '质因数' + pf;
 				more() {
 					if (player.upgrades[36] && Number(i) !== pflist.length - 1) {
 						return player.buyables[('pf' + pflist[Number(i) + 1]) as PrimeFactorTypes]
 							.div(2)
 							.floor();
 					}
-					if (player.exponention.logarithm.upgrades_in_dilated.includes("36") 
-						&& Number(i) !== 0) {
+					if (
+						player.exponention.logarithm.upgrades_in_dilated.includes('36') &&
+						Number(i) !== 0
+					) {
 						return player.buyables[('pf' + pflist[Number(i) - 1]) as PrimeFactorTypes]
 							.div(4)
 							.floor();
@@ -57,17 +59,25 @@ export const PrimeFactor = {
 				requirements() {
 					if (this.pfid == 2) return [];
 					return [
-						new class extends Requirement {
+						new (class extends Requirement {
 							reachedReq(): boolean {
 								return player.buyables[
-									('pf' + (Number(pf) == 2 ? 0 : Number(pflist[Number(i) - 1]))) as keyof typeof player.buyables
-								].gte(1)
+									('pf' +
+										(Number(pf) == 2
+											? 0
+											: Number(
+													pflist[Number(i) - 1],
+												))) as keyof typeof player.buyables
+								].gte(1);
 							}
 							reqDescription(): string {
-								return '购买质因数' + (Number(pf) == 2 ? 0 : Number(pflist[Number(i) - 1]));
+								return (
+									'购买质因数' +
+									(Number(pf) == 2 ? 0 : Number(pflist[Number(i) - 1]))
+								);
 							}
-							progress=undefined;
-						}
+							progress = undefined;
+						})(),
 					];
 				}
 				show() {
@@ -96,20 +106,19 @@ export const PrimeFactor = {
 						.sub(this.n ?? 0)
 						.div(2)
 						.add(1)
-						.floor()
+						.floor();
 				}
-			}
+			})();
 		}
-		return PFList
+		return PFList;
 	})() as Record<`pf${PrimeList}`, Buyable<Decimal>>,
-	initMechanics() {
-	},
+	initMechanics() {},
 	power() {
 		let pflist = ['2', '3', '5', '7', '11', '13', '17', '19'] as const;
 		let base = new Decimal(1);
 		for (let i in pflist)
 			base = base.mul(
-				buyables['pf' + (pflist[i]) as `pf${PrimeList}`].effect(
+				buyables[('pf' + pflist[i]) as `pf${PrimeList}`].effect(
 					player.buyables[('pf' + pflist[i]) as keyof typeof player.buyables].max(0),
 				),
 			);

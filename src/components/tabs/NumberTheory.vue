@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { NUMTHEORY } from '@/core/multiplication/numbertheory';
 import MultipResetButton from '../MultipResetButton.vue';
-import { formatLaTeX, formatLaTeXWhole } from '@/utils/format';
+import { format, formatLaTeX, formatLaTeXWhole } from '@/utils/format';
 import { player } from '@/core/save';
 import TDUpgrade from '../TDUpgrade.vue';
 import TDBuyable from '../TDBuyable.vue';
@@ -35,29 +35,43 @@ function sGainLatex() {
 	return `\\dot{s} = s_1 = ` + formatLaTeX(NUMTHEORY.tickspeedGain());
 }
 function x2GainLatex() {
-    return '\\dot{n} = x_{2,1}^{x_{2,2}}y = ' + formatLaTeX(NUMTHEORY.varX2gain());
+	return '\\dot{n} = x_{2,1}^{x_{2,2}}y = ' + formatLaTeX(NUMTHEORY.varX2gain());
 }
 function y2GainLatex() {
-    return '\\dot{y} = y_{2,1}^{y_{2,2}} = ' + formatLaTeX(NUMTHEORY.varY2gain());
+	return '\\dot{y} = y_{2,1}^{y_{2,2}} = ' + formatLaTeX(NUMTHEORY.varY2gain());
 }
 function m2GainLatex() {
-    return player.upgrades['41R'] ? '\\dot{m} = y^{' + formatLaTeX(NUMTHEORY.Y2toM2Exp()) + '} = ' + formatLaTeX(NUMTHEORY.varM2gain()) : '';
+	return player.upgrades['41R']
+		? '\\dot{m} = y^{' +
+				formatLaTeX(NUMTHEORY.Y2toM2Exp()) +
+				'} = ' +
+				formatLaTeX(NUMTHEORY.varM2gain())
+		: '';
 }
 </script>
 
 <template>
 	<div class="main">
 		<div style="transform: translateY(60px)">
-			
-			<div class="clickable_button" style="position: absolute"
-			@mousedown="player.numbertheory.visiting = Math.max(player.numbertheory.visiting - 1, 1)">
-			    -
+			<div
+				class="clickable_button"
+				style="position: absolute"
+				@mousedown="
+					player.numbertheory.visiting = Math.max(player.numbertheory.visiting - 1, 1)
+				"
+			>
+				-
 			</div>
-		    <div class="clickable_button" style="position: absolute; left: 60px"
-		    @mousedown="player.numbertheory.visiting = Math.min(player.numbertheory.visiting + 1, 9)">
-			    +
+			<div
+				class="clickable_button"
+				style="position: absolute; left: 60px"
+				@mousedown="
+					player.numbertheory.visiting = Math.min(player.numbertheory.visiting + 1, 9)
+				"
+			>
+				+
 			</div>
-			<h1>数论研究{{player.numbertheory.visiting}}</h1>
+			<h1>数论研究{{ player.numbertheory.visiting }}</h1>
 			<div class="center_line" />
 			<div v-if="player.numbertheory.visiting == 1">
 				<h2>欧拉函数</h2>
@@ -91,7 +105,13 @@ function m2GainLatex() {
 				/>
 				<vue-latex :expression="sGainLatex()" display-mode />
 				<p style="font-size: 120%">
-					<b>研究1加成：加法效果×<vue-latex expression="\tau_1" /><span v-if="player.exponention.logarithm.upgrades_in_dilated.includes('35')" style="color: rgb(127, 127, 255)">，膨胀层数-{{NUMTHEORY.tau1DilateEff()}}</span></b>
+					<b
+						>研究1加成：加法效果×<vue-latex expression="\tau_1" /><span
+							v-if="player.exponention.logarithm.upgrades_in_dilated.includes('35')"
+							style="color: rgb(127, 127, 255)"
+							>，膨胀层数-{{ format(NUMTHEORY.tau1DilateEff()) }}</span
+						></b
+					>
 				</p>
 				<table align="center">
 					<tbody>
@@ -119,9 +139,18 @@ function m2GainLatex() {
 			<div v-if="player.upgrades[45] && player.numbertheory.visiting == 2" align="center">
 				<h2>有理逼近</h2>
 				<vue-latex expression="a_1 = 1, a_n = \frac{a_{n-1}+2}{a_{n-1}+1}" display-mode />
-				<vue-latex expression="F_0 = 0, F_1 = 1, F_n = F_{n-1}+F_{n-2}" display-mode v-if="player.milestones.cb8" />
 				<vue-latex
-					:expression="'\\tau_{2} = \\tau_{2A}' + (player.milestones.cb8 ? '\\tau_{2B}':'') + ' = ' + formatLaTeX(NUMTHEORY.tau2())"
+					expression="F_0 = 0, F_1 = 1, F_n = F_{n-1}+F_{n-2}"
+					display-mode
+					v-if="player.milestones.cb8"
+				/>
+				<vue-latex
+					:expression="
+						'\\tau_{2} = \\tau_{2A}' +
+						(player.milestones.cb8 ? '\\tau_{2B}' : '') +
+						' = ' +
+						formatLaTeX(NUMTHEORY.tau2())
+					"
 					display-mode
 				/>
 				<vue-latex
@@ -133,7 +162,8 @@ function m2GainLatex() {
 				/>
 				<vue-latex
 					:expression="
-						'\\tau_{2B} = 1-\\frac{\\lg\\left|\\phi-\\frac{F_{m+1}}{F_m}\\right|}{100} = ' + formatLaTeX(NUMTHEORY.tau2B())
+						'\\tau_{2B} = 1-\\frac{\\lg\\left|\\phi-\\frac{F_{m+1}}{F_m}\\right|}{100} = ' +
+						formatLaTeX(NUMTHEORY.tau2B())
 					"
 					display-mode
 					v-if="player.milestones.cb8"
@@ -159,7 +189,8 @@ function m2GainLatex() {
 						>研究2加成：质因数效果^<vue-latex
 							expression="\tau_2" />，质因数速度×<vue-latex expression="\tau_2^4"
 					/></b>
-				</p><br>
+				</p>
+				<br />
 				<button
 					class="clickable_button"
 					@click="
@@ -182,20 +213,20 @@ function m2GainLatex() {
 					增加m的数值
 				</button>
 				<table>
-				  <tbody>
-				    <tr>
-				        <TDBuyable bylid="41R" />
-				        <TDBuyable bylid="42R" />
-				        <TDBuyable bylid="43R" />
-				        <TDBuyable bylid="44R" />
-				    </tr>
-				    <tr>
-				        <TDUpgrade upgid="41R" />
-				        <TDUpgrade upgid="42R" />
-				        <TDUpgrade upgid="43R" />
-				        <TDUpgrade upgid="44R" />
-				    </tr>
-				  </tbody>
+					<tbody>
+						<tr>
+							<TDBuyable bylid="41R" />
+							<TDBuyable bylid="42R" />
+							<TDBuyable bylid="43R" />
+							<TDBuyable bylid="44R" />
+						</tr>
+						<tr>
+							<TDUpgrade upgid="41R" />
+							<TDUpgrade upgid="42R" />
+							<TDUpgrade upgid="43R" />
+							<TDUpgrade upgid="44R" />
+						</tr>
+					</tbody>
 				</table>
 			</div>
 		</div>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { player } from '@/core/save';
+import { Logarithm } from '../core/exponention/logarithm.ts';
 </script>
 
 <template>
@@ -98,7 +99,7 @@ import { player } from '@/core/save';
 						</div>
 						<div
 							class="menu2"
-							:class="{ focus: player.currentTab == 12}"
+							:class="{ focus: player.currentTab == 12 }"
 							@click="player.currentTab = 12"
 							v-if="player.milestones.cb5"
 						>
@@ -106,11 +107,19 @@ import { player } from '@/core/save';
 						</div>
 						<div
 							class="menu2"
-							:class="{ focus: player.currentTab == 13}"
+							:class="{ focus: player.currentTab == 13 }"
 							@click="player.currentTab = 13"
-							v-if="player.milestones.log_G"
+							v-if="player.singularity.stage < 1 && player.milestones.log_G"
 						>
 							对数膨胀
+						</div>
+						<div
+							class="menu2"
+							:class="{ focus: player.currentTab == 14 }"
+							@click="player.currentTab = 14"
+							v-if="player.singularity.enabled || Logarithm.logarithm.upgrades_in_dilated.includes('39')"
+						>
+							奇点生成器
 						</div>
 					</template>
 					<div class="menu1">杂项</div>

@@ -9,14 +9,13 @@ import type { IAstronomer } from '../exponention/logarithm';
 import type { IntRange } from 'type-fest';
 import { buyables, upgrades, milestones } from '../mechanic';
 
-
 const SAVEID = 'RBN-rewritten-powerful-refactor-test';
 const version = 3 as const;
 const zero = new Decimal(0);
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
 
 type Milestones = Record<
-  `cb${IntRange<1,21>}`  |"log_law1"|"log_law2"|"log_law3"|"log_G",
+	`cb${IntRange<1, 21>}` | 'log_law1' | 'log_law2' | 'log_law3' | 'log_G',
 	boolean
 >;
 
@@ -26,7 +25,7 @@ export interface Player {
 	totalNumber: Decimal;
 	lastUpdated: number;
 	saveCreateTime: number;
-	upgrades: Record<keyof typeof upgrades,boolean>;
+	upgrades: Record<keyof typeof upgrades, boolean>;
 	buyables: Record<keyof typeof buyables, Decimal>;
 	milestones: Record<keyof typeof milestones, boolean>;
 	buyable11More: Decimal;
@@ -34,7 +33,7 @@ export interface Player {
 		successor: number;
 	};
 	numbertheory: {
-	    visiting: number;
+		visiting: number;
 		euler: {
 			x: Decimal;
 			y: Decimal;
@@ -71,7 +70,7 @@ export interface Player {
 			upgrades_in_dilated: (keyof typeof upgrades)[];
 			buyables_in_dilated: (keyof typeof buyables)[];
 			highest_dilate: Decimal;
-		}
+		};
 	};
 	options: {
 		notation: notations;
@@ -98,6 +97,11 @@ export interface Player {
 	challengein: [number, number];
 	frozen: boolean;
 	run_a_tick_and_froze: boolean;
+	singularity: {
+	  t: number;
+	  stage: number;
+	  enabled: boolean;
+	}
 }
 function getInitialPlayerData(): Player {
 	return {
@@ -193,7 +197,7 @@ function getInitialPlayerData(): Player {
 			'42': zero,
 			'43': zero,
 			'44': zero,
-			'cb1': zero,
+			cb1: zero,
 			pf2: zero,
 			pf3: zero,
 			pf5: zero,
@@ -206,40 +210,40 @@ function getInitialPlayerData(): Player {
 			lgr_impr: zero,
 		},
 		milestones: {
-		  "cb1": false,
-		  "cb2": false,
-		  "cb3": false,
-		  "cb4": false,
-		  "cb5": false,
-		  "cb6": false,
-		  "cb7": false,
-		  "cb8": false,
-		  "cb9": false,
-		  "cb10": false,
-		  "cb11": false,
-		  "cb12": false,
-		  "cb13": false,
-		  "cb14": false,
-		  "cb15": false,
-		  "cb16": false,
-		  "cb17": false,
-		  "cb18": false,
-		  "cb19": false,
-		  "cb20": false,
-		  "log_law1": false,
-		  "log_law2": false,
-		  "log_law3": false,
-		  "log_G": false,
-		  'dil_1': false,
-		  'dil_2': false,
-		  'dil_3': false,
+			cb1: false,
+			cb2: false,
+			cb3: false,
+			cb4: false,
+			cb5: false,
+			cb6: false,
+			cb7: false,
+			cb8: false,
+			cb9: false,
+			cb10: false,
+			cb11: false,
+			cb12: false,
+			cb13: false,
+			cb14: false,
+			cb15: false,
+			cb16: false,
+			cb17: false,
+			cb18: false,
+			cb19: false,
+			cb20: false,
+			log_law1: false,
+			log_law2: false,
+			log_law3: false,
+			log_G: false,
+			dil_1: false,
+			dil_2: false,
+			dil_3: false,
 		},
 		buyable11More: zero,
 		automationCD: {
 			successor: 0,
 		},
 		numbertheory: {
-		    visiting: 1,
+			visiting: 1,
 			euler: {
 				x: new Decimal(1),
 				y: new Decimal(1),
@@ -274,7 +278,7 @@ function getInitialPlayerData(): Player {
 				upgrades_in_dilated: [],
 				buyables_in_dilated: [],
 				highest_dilate: new Decimal(1),
-			}
+			},
 		},
 		options: {
 			notation: notations.SCIENTIFIC,
@@ -303,100 +307,88 @@ function getInitialPlayerData(): Player {
 		},
 		challenges: [[zero, zero, zero, zero, zero]],
 		challengein: [-1, -1],
+		singularity: {
+		  t: 0,
+		  stage: 0,
+		  enabled: false
+		}
 	};
 }
 
 type DeepPartial<T> = T extends (infer U)[]
-  ? DeepPartial<U>[] | undefined
-  : T extends object
-  ? { [P in keyof T]?: DeepPartial<T[P]> }
-  : T;
+	? DeepPartial<U>[] | undefined
+	: T extends object
+		? { [P in keyof T]?: DeepPartial<T[P]> }
+		: T;
 
 function deepMerge<T extends object>(source: T, target: object): T;
 function deepMerge<T extends unknown[]>(source: T, target: unknown[]): T;
 function deepMerge<T>(source: T, target: DeepPartial<T>): T {
-  if (Array.isArray(source)) {
-    const targetArray = Array.isArray(target) ? target : [];
-    const maxLength = Math.max(source.length, targetArray.length);
-    const result: unknown[] = [];
+	if (Array.isArray(source)) {
+		const targetArray = Array.isArray(target) ? target : [];
+		const maxLength = Math.max(source.length, targetArray.length);
+		const result: unknown[] = [];
 
-    for (let i = 0; i < maxLength; i++) {
-      const sourceItem = i < source.length ? source[i] : undefined;
-      const targetItem = i < targetArray.length ? targetArray[i] : undefined;
+		for (let i = 0; i < maxLength; i++) {
+			const sourceItem = i < source.length ? source[i] : undefined;
+			const targetItem = i < targetArray.length ? targetArray[i] : undefined;
 
-      if (
-        targetItem !== undefined &&
-        targetItem !== null &&
-        sourceItem !== null &&
-        typeof sourceItem === "object" &&
-        !(sourceItem instanceof Decimal)
-      ) {
-        result[i] = deepMerge(
-          sourceItem,
-          targetItem as DeepPartial<typeof sourceItem>
-        );
-      }
+			if (
+				targetItem !== undefined &&
+				targetItem !== null &&
+				sourceItem !== null &&
+				typeof sourceItem === 'object' &&
+				!(sourceItem instanceof Decimal)
+			) {
+				result[i] = deepMerge(sourceItem, targetItem as DeepPartial<typeof sourceItem>);
+			} else if (sourceItem instanceof Decimal) {
+				result[i] = new Decimal(targetItem as DecimalSource);
+			} else if (sourceItem === undefined && targetItem !== undefined) {
+				result[i] = targetItem;
+			} else {
+				result[i] = targetItem !== undefined ? targetItem : sourceItem;
+			}
+		}
 
-      else if (sourceItem instanceof Decimal) {
-        result[i] = new Decimal(targetItem as DecimalSource);
-      }
+		return result as T;
+	}
 
-      else if (sourceItem === undefined && targetItem !== undefined) {
-        result[i] = targetItem;
-      }
+	if (typeof source === 'object' && source !== null) {
+		const result = { ...source } as { [K in keyof T]: T[K] };
 
-      else {
-        result[i] = targetItem !== undefined ? targetItem : sourceItem;
-      }
-    }
+		for (const key in source) {
+			if (!source.hasOwnProperty(key)) continue;
 
-    return result as T;
-  }
+			const sourceValue = source[key];
+			const targetValue = target[key as keyof typeof target];
 
-  if (typeof source === "object" && source !== null) {
-    const result = { ...source } as { [K in keyof T]: T[K] };
+			if (targetValue === undefined || targetValue === null) {
+				continue;
+			}
 
-    for (const key in source) {
-      if (!source.hasOwnProperty(key)) continue;
+			if (
+				sourceValue !== null &&
+				typeof sourceValue === 'object' &&
+				!(sourceValue instanceof Decimal)
+			) {
+				result[key] = deepMerge(sourceValue, targetValue) as T[Extract<keyof T, string>];
+			} else if (sourceValue instanceof Decimal) {
+				result[key] = new Decimal(targetValue as DecimalSource) as T[Extract<
+					keyof T,
+					string
+				>];
+			} else {
+				result[key] = (targetValue !== undefined ? targetValue : sourceValue) as T[Extract<
+					keyof T,
+					string
+				>];
+			}
+		}
 
-      const sourceValue = source[key];
-      const targetValue = target[key as keyof typeof target];
+		return result as T;
+	}
 
-      if (targetValue === undefined || targetValue === null) {
-        continue;
-      }
-
-      if (
-        sourceValue !== null &&
-        typeof sourceValue === "object" &&
-        !(sourceValue instanceof Decimal)
-      ) {
-        result[key] = deepMerge(
-          sourceValue,
-          targetValue
-        ) as T[Extract<keyof T, string>];
-      }
-
-      else if (sourceValue instanceof Decimal) {
-        result[key] = new Decimal(targetValue as DecimalSource) as T[Extract<
-          keyof T,
-          string
-        >];
-      }
-
-      else {
-        result[key] = (
-          targetValue !== undefined ? targetValue : sourceValue
-        ) as T[Extract<keyof T, string>];
-      }
-    }
-
-    return result as T;
-  }
-
-  return target !== undefined && target !== null
-    ? (target as T)
-    : source;
+	return target !== undefined && target !== null ? (target as T) : source;
 }
 
 export let player: Player = getInitialPlayerData();
@@ -442,6 +434,7 @@ export function import_file(): void {
 			let save = fr.result;
 			if (typeof save == 'string') {
 				try {
+				  player = getInitialPlayerData();
 					loadFromString(save);
 				} catch (e) {
 					console.error('Cannot import save');
