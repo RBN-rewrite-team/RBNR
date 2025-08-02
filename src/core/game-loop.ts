@@ -80,16 +80,21 @@ export function gameLoop() {
 	}
 	if(player.singularity.stage >= 1) singularity_UI();
 }
-function r(s: number){
+function r(s: number): number{
     return Math.random() * s * 2 - s;
 }
 function singularity_UI() {
     let s = player.singularity.stage;
     let str = ['main', 'title_box', 'menu', 'newsbar', 'resources'];
+    //@ts-ignore
     document.getElementById('main').style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
+    //@ts-ignore
     document.getElementById('menu').style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
+    //@ts-ignore
     document.getElementById('resources').style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
+    //@ts-ignore
     if(player.options.ui.newsbar) document.getElementById('newsbar').style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
+    //@ts-ignore
     if(player.options.ui.titlebar) document.getElementById('title_box').style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
 }
 /**
