@@ -194,7 +194,7 @@ function overflow_v2(getting: Decimal, existing: Decimal, s: any)
     let ans = new Decimal(0);
     if(s.slog)
     {
-        ans = Decimal.iteratedexp(10, ans.slog().sub(s.start.slog()).mul(s.slog ?? 1).add(s.start.slog()), 1);
+        ans = Decimal.iteratedexp(10, Number(getting.slog().sub(s.start.slog()).mul(s.slog ?? 1).add(s.start.slog())), new Decimal(1));
     }
     else
     {

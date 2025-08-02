@@ -214,7 +214,7 @@ export function initMechanics() {
 	MILESTONES.create("cb14", {
 	  displayName: "M-CB-14",
 	  get description(){
-		return "数值指数塔增加0.5层"
+		return "数值指数^1.125，削弱数值第五个软上限"
 	  } ,
 	  requirement: new Decimal(1e256),
 	  get canDone() {

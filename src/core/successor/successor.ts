@@ -176,7 +176,7 @@ export const Successor = {
 			name: 'number^5',
 			fluid: true,
 			start: new Decimal('ee20'),
-			exponent: new Decimal(0.1),
+			get exponent(){return player.milestones.cb14 ? new Decimal(0.2) : new Decimal(0.1)},
 			meta: 1
 		});
 		SOFTCAPS.create('number^6', {
@@ -200,13 +200,6 @@ export const Successor = {
 			exponent: new Decimal(0.25),
 			meta: 3
 		});
-		SOFTCAPS.create('number^9', {
-			name: 'number^9',
-			fluid: false,
-			start: new Decimal(10000),
-			exponent: new Decimal(0.5),
-			slog: true,
-		});
 	},
 	/**
 	 * @param bulk 点击多少次后继按钮，默认为1就是用户手动点击
@@ -223,7 +216,6 @@ export const Successor = {
 		    adding = SOFTCAPS.fluidComputed('number^' + i, adding, player.number);
 		if (CHALLENGE.inChallenge(0, 2))
 			adding = SOFTCAPS.fluidComputed('number_C1', adding, player.number);
-		adding = SOFTCAPS.staticComputed('number^9', adding);
 		if (CHALLENGE.inChallenge(0, 3)) {
 			adding = adding.mul(predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1);
 		}
@@ -282,7 +274,7 @@ export const Successor = {
 
 		base = base.pow(Logarithm.dilateEffect()[0])
 		
-		if(player.milestones.cb14) base = Decimal.iteratedexp(10, 0.5, base);
+		if(player.milestones.cb14) base = base.max(10).log10().pow(1.125).pow_base(10);
 		
 		return base;
 	},

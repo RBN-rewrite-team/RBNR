@@ -22,7 +22,7 @@ export const resourceGain = {
 			base = base.pow(3)
 		}
         let softcaps = 0,
-            scList = ['number^1', 'number^2', 'number^3', 'number^4', 'number^5', 'number^6', 'number^7', 'number^8', 'number^9'];
+            scList = ['number^1', 'number^2', 'number^3', 'number^4', 'number^5', 'number^6', 'number^7', 'number^8'];
         for (let i = 0; i < scList.length; i++) {
             if (SOFTCAPS.reach(scList[i], player.number)) {
                 softcaps++;
