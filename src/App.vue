@@ -41,13 +41,13 @@ import SingularityGenerator from './components/tabs/SingularityGenerator.vue';
 <template>
 	<Side />
 	<div class="content">
-		<div class="news" v-if="player.options.ui.newsbar">
+		<div class="news" v-if="player.options.ui.newsbar" id="newsbar">
 			<div class="background">
 				<NewsTicker />
 			</div>
 		</div>
 		<Resources />
-		<div class="main-content">
+		<div class="main-content" id="main">
 			<div class="background">
 				<AdditionResetButton v-if="player.upgrades[13]" />
 				<MultipResetButton v-if="player.upgrades[26]" />

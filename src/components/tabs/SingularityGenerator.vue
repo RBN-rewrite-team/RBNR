@@ -101,7 +101,7 @@ setInterval(function () {
 
 <template>
   <div class="main" align="center">
-    <div v-if="player.singularity.enabled">
+    <div v-if="player.singularity.enabled" style="transform: translateY(60px)">
     你有
 		<b style="color: rgb(127, 127, 255); font-size: 25px">{{
 			format(feature.SingularityGenerator.getSingularityEnergy())
@@ -113,7 +113,7 @@ setInterval(function () {
 		}}</b><br>
 		你每秒获取 (奇点能量+1)<sup style="color: rgb(127, 127, 255);">{{ format(feature.SingularityGenerator.singularityExponent()) }}</sup>/{{ format(feature.SingularityGenerator.singularityDivision()) }}
 		奇点能量<br>
-		<button class="sacrifice" v-if="player.singularity.stage < 2 && player.singularity.t >= 205" @click="player.singularity.stage = 1; destroy(1)">
+		<button class="sacrifice" v-if="player.singularity.stage < 1 && player.singularity.t >= 205" @click="player.singularity.stage = 1; destroy(1)">
 		  现在的{{ wordShift.wordCycle(["数值", "加法能量", "乘法能量", "指数能量", "奇点能量"], false, t) }}太多了......我需要献祭我的对数膨胀才能走得更远......
 		</button>
 		</div>
