@@ -176,7 +176,7 @@ export const Successor = {
 			name: 'number^5',
 			fluid: true,
 			start: new Decimal('ee20'),
-			exponent: new Decimal(0.1),
+			get exponent(){return player.milestones.cb14 ? new Decimal(0.2) : new Decimal(0.1)},
 			meta: 1
 		});
 		SOFTCAPS.create('number^6', {
@@ -273,6 +273,9 @@ export const Successor = {
 		if (player.upgrades[47]) base = base.pow(feature.ChessBoard.wgEffect()[0]);
 
 		base = base.pow(Logarithm.dilateEffect()[0])
+		
+		if(player.milestones.cb14) base = base.max(10).log10().pow(1.125).pow_base(10);
+		
 		return base;
 	},
 	/**

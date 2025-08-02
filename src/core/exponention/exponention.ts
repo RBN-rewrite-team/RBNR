@@ -184,10 +184,7 @@ export const Exponention = {
 	},
 	reset(force = false, dilate=false) {
 		if (this.gain().gt(0) || force) {
-		    let gain = this.gain();
-			player.exponention.exppower = player.exponention.exppower.add(this.gain());
-			player.exponention.totalExppower = player.exponention.totalExppower.add(this.gain());
-			player.stat.totalExppower = player.stat.totalExppower.add(this.gain());
+		    this.exppower_gain();
 			Multiplication.reset(true);
 			player.upgrades[31] = false;
 			player.upgrades[32] = false;
@@ -268,6 +265,12 @@ export const Exponention = {
 				player.firstResetBit |= 0b100;
 			},
 		});
+	},
+	exppower_gain(bulk = new Decimal(1)) {
+	  let adding = this.gain().mul(bulk);
+	  player.exponention.exppower = player.exponention.exppower.add(adding);
+	  player.exponention.totalExppower = player.exponention.totalExppower.add(adding);
+	  player.stat.totalExppower = player.stat.totalExppower.add(adding);
 	},
 	gain() {
 		if (player.multiplication.totalMulpower.lt(D179E308)) return new Decimal(0);

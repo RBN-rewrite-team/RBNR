@@ -176,6 +176,7 @@ type ISoftcap = {
 	start: Decimal;
 	exponent: Decimal;
 	meta?: number;
+	slog?: boolean;
 };
 
 /**
@@ -190,11 +191,20 @@ function overflow() {/* 废弃 */}
 
 function overflow_v2(getting: Decimal, existing: Decimal, s: any)
 {
-    let start = s.start, power = s.exponent, meta = s.meta ?? 0;
-    let safe = Decimal.iteratedexp(10, meta, new Decimal(1));
-    let stm = start.iteratedlog(10, meta), gem = getting.max(safe).iteratedlog(10, meta), exm = existing.iteratedlog(10, meta);
-    let logged = stm.mul(exm.div(stm).root(power).add(gem.div(stm)).pow(power));
-    return Decimal.iteratedexp(10, meta, logged);
+    let ans = new Decimal(0);
+    if(s.slog)
+    {
+        ans = Decimal.iteratedexp(10, Number(getting.slog().sub(s.start.slog()).mul(s.slog ?? 1).add(s.start.slog())), new Decimal(1));
+    }
+    else
+    {
+        let start = s.start, power = s.exponent, meta = s.meta ?? 0;
+        let safe = Decimal.iteratedexp(10, meta, new Decimal(1));
+        let stm = start.iteratedlog(10, meta), gem = getting.max(safe).iteratedlog(10, meta), exm = existing.iteratedlog(10, meta);
+        let logged = stm.mul(exm.div(stm).root(power).add(gem.div(stm)).pow(power));
+        ans = Decimal.iteratedexp(10, meta, logged);
+    }
+    return ans;
 }
 
 export const SOFTCAPS = {
@@ -208,6 +218,7 @@ export const SOFTCAPS = {
 	 * @returns 是否达到软上限
 	 */
 	reach(id: string, existing: Decimal) {
+	    if(softcaps[id].slog) return existing.slog().gte(softcaps[id].start);
 		return existing.gte(softcaps[id].start);
 	},
 	/**
