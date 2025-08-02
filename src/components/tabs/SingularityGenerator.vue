@@ -3,7 +3,7 @@ import { feature, player } from '@/core/global';
 import { format } from '@/utils/format';
 import Decimal from 'break_eternity.js';
 import { ref } from "vue"
-
+import { CHALLENGE, type SingleChallenge } from '../../core/challenge.ts';
 function destroy(a: number) {
   switch(a) {
     case 1:
@@ -13,7 +13,83 @@ function destroy(a: number) {
       player.upgrades["44R"] = false;
       player.exponention.logarithm.in_dilate = false
       feature.EXPONENTION.reset(true, true);
+      player.milestones['log_law1'] = false
+      player.milestones['log_law2'] = false
+      player.milestones['log_law3'] = false
+      player.milestones['log_G'] = false
       break
+    case 2:
+      player.exponention.logarithm = {
+				observe_datas: new Decimal(0),
+				calculate_datas: new Decimal(0),
+				astronomers: [],
+				in_dilate: false,
+				upgrades_in_dilated: [],
+				buyables_in_dilated: [],
+				highest_dilate: new Decimal(1),
+			};
+			player.milestones.cb5 = false
+			player.milestones.cb9 = false
+			player.milestones.cb10 = false
+			player.milestones.cb12 = false
+			player.milestones.cb13 = false
+			player.milestones.cb15 = false
+			player.milestones.cb17 = false
+			player.milestones.cb18 = false
+			feature.EXPONENTION.reset(true, true);
+      break
+    case 3:
+      player.buyables.cb1 = new Decimal(0);
+      feature.EXPONENTION.reset(true, true);
+      player.milestones.cb1 = false;
+      player.milestones.cb2 = false;
+      player.milestones.cb3 = false;
+      player.milestones.cb4 = false;
+      player.milestones.cb6 = false;
+      player.milestones.cb7 = false;
+      player.milestones.cb8 = false;
+      player.milestones.cb11 = false;
+      player.milestones.cb14 = false;
+      player.milestones.cb16 = false;
+      player.milestones.cb19 = false;
+      player.upgrades[47] = false;
+      player.upgrades["43R"] = false;
+      break
+    case 4:
+      player.upgrades["41R"] = false;
+      player.upgrades["42R"] = false;
+      player.upgrades["41"] = false;
+      player.upgrades["42"] = false;
+      player.upgrades["43"] = false;
+      player.upgrades["44"] = false;
+      player.upgrades["45"] = false;
+      player.upgrades["46"] = false;
+      player.upgrades["48"] = false;
+      player.upgrades["400q"] = false;
+      for (let i = 1; i <= 5; i++) {
+        for (let j = 1; j <= 5; j++)
+          player.upgrades[`4${i}${j}q` as keyof typeof player.upgrades] = false;
+      }
+      player.buyables["41"] = new Decimal(0);
+      player.buyables["42"] = new Decimal(0);
+      player.buyables["43"] = new Decimal(0);
+      player.buyables["44"] = new Decimal(0);
+      player.exponention.exppower = new Decimal(0)
+      player.exponention.totalExppower = new Decimal(0)
+      player.exponention.qolpoints = new Decimal(0)
+      player.firstResetBit &= ~(1 << 2)
+      if (CHALLENGE.inChallenge(0,3)) player.challengein = [-1, -1]
+      player.challenges[0][3] = new Decimal(0)
+      break
+    case 5:
+      player.challenges[0] = [
+        new Decimal(0),
+        new Decimal(0),
+        new Decimal(0),
+        new Decimal(0),
+        new Decimal(0),
+      ]
+      player.upgrades[39] = false
   }
 }
 
@@ -115,6 +191,18 @@ setInterval(function () {
 		奇点能量<br>
 		<button class="sacrifice" v-if="player.singularity.stage < 1 && player.singularity.t >= 205" @click="player.singularity.stage = 1; destroy(1)">
 		  现在的{{ wordShift.wordCycle(["数值", "加法能量", "乘法能量", "指数能量", "奇点能量"], false, t) }}太多了......我需要献祭我的对数膨胀才能走得更远......
+		</button>
+		<button class="sacrifice" v-else-if="player.singularity.stage < 2 && player.singularity.t >= 250" @click="player.singularity.stage = 2; destroy(2)">
+		  现在的{{ wordShift.wordCycle(["数值", "加法能量", "乘法能量", "指数能量", "奇点能量"], false, t) }}太多了......我需要献祭我的对数运算和软上限才能走得更远......
+		</button>
+		<button class="sacrifice" v-else-if="player.singularity.stage < 3 && player.singularity.t >= 300" @click="player.singularity.stage = 3; destroy(3)">
+		  现在的{{ wordShift.wordCycle(["数值", "加法能量", "乘法能量", "指数能量", "奇点能量"], false, t) }}太多了......我需要献祭我的棋盘才能走得更远......
+		</button>
+		<button class="sacrifice" v-else-if="player.singularity.stage < 4 && player.singularity.t >= 350" @click="player.singularity.stage = 4; destroy(4)">
+		  现在的{{ wordShift.wordCycle(["数值", "加法能量", "乘法能量", "指数能量", "奇点能量"], false, t) }}太多了......我需要献祭我的指数层级才能走得更远......
+		</button>
+		<button class="sacrifice" v-else-if="player.singularity.stage < 7 && player.singularity.t >= 400" @click="player.singularity.stage = 6; destroy(5)">
+		  现在的{{ wordShift.wordCycle(["数值", "加法能量", "乘法能量", "奇点能量"], false, t) }}太多了......我需要献祭我的乘法挑战才能走得更远......
 		</button>
 		</div>
     <button v-else class="circle-button" @click="player.singularity.enabled = true">

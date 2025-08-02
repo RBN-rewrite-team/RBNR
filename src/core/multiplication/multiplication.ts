@@ -162,6 +162,9 @@ export const Multiplication = {
 			keep() {
 				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
 			}
+			show() {
+			  return player.singularity.stage < 6
+			}
 		})(),
 	} as const,
 	buyables: {
@@ -286,8 +289,8 @@ export const Multiplication = {
 	},
 	mulpower_gain(bulk = new Decimal(1)) {
 		let adding = this.gain().mul(bulk);
-		adding = SOFTCAPS.fluidComputed('mulpower^1', adding, player.multiplication.mulpower);
-		adding = SOFTCAPS.fluidComputed('mulpower^2', adding, player.multiplication.mulpower);
+		if (player.singularity.stage < 2){adding = SOFTCAPS.fluidComputed('mulpower^1', adding, player.multiplication.mulpower);
+		adding = SOFTCAPS.fluidComputed('mulpower^2', adding, player.multiplication.mulpower);}
 		player.multiplication.mulpower = player.multiplication.mulpower.add(adding);
 		player.multiplication.totalMulpower = player.multiplication.totalMulpower.add(adding);
 	},
@@ -343,7 +346,7 @@ export const Multiplication = {
 		if (player.upgrades[47]) base = base.pow(feature.ChessBoard.wgEffect()[0]);
 
 		if (player.milestones.cb19) base = base.log10().pow(getMCB19Effect()).pow_base(10);
-		if (player.exponention.logarithm.upgrades_in_dilated.includes('39')) base = base.pow(feature.SingularityGenerator.getSingularityEffect());
+		if (player.singularity.enabled ||player.exponention.logarithm.upgrades_in_dilated.includes('39')) base = base.pow(feature.SingularityGenerator.getSingularityEffect());
 
 		if (player.exponention.logarithm.in_dilate) {
 			base = base.add(10).iteratedlog(Math.E, Logarithm.dilateNerf().div(2).toNumber());

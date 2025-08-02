@@ -51,7 +51,7 @@ import SingularityGenerator from './components/tabs/SingularityGenerator.vue';
 			<div class="background">
 				<AdditionResetButton v-if="player.upgrades[13]" />
 				<MultipResetButton v-if="player.upgrades[26]" />
-				<ExpResetButton v-if="player.stat.highestMulpower.gte(new Decimal(2).pow(1024))" />
+				<ExpResetButton v-if="player.singularity.stage < 4 && player.stat.highestMulpower.gte(new Decimal(2).pow(1024))" />
 				<Successor v-if="player.currentTab === 0" />
 				<Settings v-if="player.currentTab === 1" />
 				<Addition v-if="player.currentTab === 2" />

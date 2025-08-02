@@ -83,20 +83,20 @@ import TRMilestone from '../TRMilestone.vue';
 					<TRMilestone id="cb2" />
 					<TRMilestone id="cb3" />
 					<TRMilestone id="cb4" />
-					<TRMilestone id="cb5" />
+					<TRMilestone id="cb5" v-if="player.singularity.stage < 2" />
 					<TRMilestone id="cb6" />
 					<TRMilestone id="cb7" />
 					<TRMilestone id="cb8" />
-					<TRMilestone id="cb9" />
-					<TRMilestone id="cb10" />
+					<TRMilestone id="cb9" v-if="player.singularity.stage < 2" />
+					<TRMilestone id="cb10" v-if="player.singularity.stage < 2" />
 					<TRMilestone id="cb11" />
-					<TRMilestone id="cb12" />
-					<TRMilestone id="cb13" />
+					<TRMilestone id="cb12" v-if="player.singularity.stage < 2" />
+					<TRMilestone id="cb13" v-if="player.singularity.stage < 2" />
 					<TRMilestone id="cb14" />
-					<TRMilestone id="cb15" />
+					<TRMilestone id="cb15" v-if="player.singularity.stage < 2" />
 					<TRMilestone id="cb16" />
-					<TRMilestone id="cb17" />
-					<TRMilestone id="cb18" />
+					<TRMilestone id="cb17" v-if="player.singularity.stage < 2" />
+					<TRMilestone id="cb18" v-if="player.singularity.stage < 2" />
 					<TRMilestone id="cb19" />
 				</tbody>
 			</table>

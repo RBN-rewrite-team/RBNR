@@ -14,7 +14,7 @@ import MultipResetButton from '../MultipResetButton.vue';
 					<TDChallenge :layer="0" :chid="2" />
 				</tr>
 				<tr>
-					<TDChallenge :layer="0" :chid="3" />
+					<TDChallenge :layer="0" :chid="3" v-if="player.singularity.stage < 4" />
 				</tr>
 			</tbody>
 		</table>

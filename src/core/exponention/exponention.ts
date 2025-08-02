@@ -65,6 +65,9 @@ export const Exponention = {
 			requirements(): Requirement[] {
 				return [new CurrencyRequirement(Currencies.EXPONENTION_POWER, new Decimal(300))];
 			}
+			show() {
+			  return player.singularity.stage < 3
+			}
 		})(),
 		'48': new (class U38 extends Upgrade {
 			description = '改进指数能量获取公式';
@@ -262,6 +265,7 @@ export const Exponention = {
 		player.stat.totalExppower = player.stat.totalExppower.add(adding);
 	},
 	gain() {
+		if (player.singularity.stage >= 4) return new Decimal(0);
 		if (player.multiplication.totalMulpower.lt(D179E308)) return new Decimal(0);
 		let exp = new Decimal(0.5);
 		if (player.upgrades[48]) exp = new Decimal(0.6);
