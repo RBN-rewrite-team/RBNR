@@ -90,8 +90,8 @@ export const Addition = {
 			description:()=>string= Logarithm.dilated('解锁B1-1', "使B1-1加成b0-1  效果^(1+log（b1-1）/3）", '24')
 			cost:Decimal|(()=>Decimal) = function() {
 				if (
-					player.multiplication.B1seriesC1 == 5 ||
-					player.multiplication.B1seriesC1400q == 5
+					player.multiplication.B1seriesC1 == 4 ||
+					player.multiplication.B1seriesC1400q == 4
 				)
 					return new Decimal(1);
 				return new Decimal(125);
