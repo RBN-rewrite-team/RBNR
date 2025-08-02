@@ -162,6 +162,9 @@ export const Multiplication = {
 			keep() {
 				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
 			}
+			show() {
+			  return player.singularity.stage < 6
+			}
 		})(),
 	} as const,
 	buyables: {

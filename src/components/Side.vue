@@ -74,7 +74,7 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 							class="menu2"
 							:class="{ focus: player.currentTab == 8 }"
 							@click="player.currentTab = 8"
-							v-if="player.upgrades[39]"
+							v-if="player.singularity.stage < 6 && player.upgrades[39]"
 						>
 							乘法挑战
 						</div>
@@ -123,7 +123,10 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 						</div>
 					</template>
 					<template v-if="player.singularity.stage >= 4">
-						<div class="menu1">???</div>
+						<div class="menu1">
+						  <span v-if="player.singularity.stage == 4">???</span>
+						  <span v-if="player.singularity.stage == 6">???????</span>
+						</div>
 						<div class="menu_line"></div>
 						<div
 							class="menu2"
