@@ -38,6 +38,23 @@ function destroy(a: number) {
 			player.milestones.cb18 = false
 			feature.EXPONENTION.reset(true, true);
       break
+    case 3:
+      player.buyables.cb1 = new Decimal(0);
+      feature.EXPONENTION.reset(true, true);
+      player.milestones.cb1 = false;
+      player.milestones.cb2 = false;
+      player.milestones.cb3 = false;
+      player.milestones.cb4 = false;
+      player.milestones.cb6 = false;
+      player.milestones.cb7 = false;
+      player.milestones.cb8 = false;
+      player.milestones.cb11 = false;
+      player.milestones.cb14 = false;
+      player.milestones.cb16 = false;
+      player.milestones.cb19 = false;
+      player.upgrades[47] = false;
+      player.upgrades["43R"] = false;
+      break
   }
 }
 
@@ -140,8 +157,11 @@ setInterval(function () {
 		<button class="sacrifice" v-if="player.singularity.stage < 1 && player.singularity.t >= 205" @click="player.singularity.stage = 1; destroy(1)">
 		  现在的{{ wordShift.wordCycle(["数值", "加法能量", "乘法能量", "指数能量", "奇点能量"], false, t) }}太多了......我需要献祭我的对数膨胀才能走得更远......
 		</button>
-		<button class="sacrifice" v-if="player.singularity.stage < 3 && player.singularity.t >= 250" @click="player.singularity.stage = 2; destroy(2)">
+		<button class="sacrifice" v-if="player.singularity.stage < 2 && player.singularity.t >= 250" @click="player.singularity.stage = 2; destroy(2)">
 		  现在的{{ wordShift.wordCycle(["数值", "加法能量", "乘法能量", "指数能量", "奇点能量"], false, t) }}太多了......我需要献祭我的对数运算和软上限才能走得更远......
+		</button>
+		<button class="sacrifice" v-if="player.singularity.stage < 4 && player.singularity.t >= 300" @click="player.singularity.stage = 3; destroy(3)">
+		  现在的{{ wordShift.wordCycle(["数值", "加法能量", "乘法能量", "指数能量", "奇点能量"], false, t) }}太多了......我需要献祭我的棋盘才能走得更远......
 		</button>
 		</div>
     <button v-else class="circle-button" @click="player.singularity.enabled = true">
