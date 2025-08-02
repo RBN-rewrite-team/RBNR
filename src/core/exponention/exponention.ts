@@ -270,7 +270,7 @@ export const Exponention = {
 	  let adding = this.gain().mul(bulk);
 	  player.exponention.exppower = player.exponention.exppower.add(adding);
 	  player.exponention.totalExppower = player.exponention.totalExppower.add(adding);
-	  player.stat.totalExppower = player.stat.totalExppower.add();
+	  player.stat.totalExppower = player.stat.totalExppower.add(adding);
 	},
 	gain() {
 		if (player.multiplication.totalMulpower.lt(D179E308)) return new Decimal(0);

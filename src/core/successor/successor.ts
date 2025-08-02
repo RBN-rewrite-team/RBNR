@@ -282,7 +282,7 @@ export const Successor = {
 
 		base = base.pow(Logarithm.dilateEffect()[0])
 		
-		if(player.milestones.cb14) base = base.iteratedexp(10, 0.5);
+		if(player.milestones.cb14) base = Decimal.iteratedexp(10, 0.5, base);
 		
 		return base;
 	},
