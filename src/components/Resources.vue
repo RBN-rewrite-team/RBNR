@@ -6,9 +6,9 @@ import { SOFTCAPS } from '@/core/mechanic';
 import Decimal from 'break_eternity.js';
 </script>
 <template>
-	<div class="resources" style="font-size: 20px">
+	<div class="resources" style="font-size: 20px" id="resources">
 		<div class="background">
-			<div style="margin-left: 15px" class="resource" id="resources">
+			<div style="margin-left: 15px" class="resource">
 				<div style="font-weight: bold; color: var(--suptitle-color)">
 					数值&nbsp;
 					{{ formatWhole(player.number) }}
