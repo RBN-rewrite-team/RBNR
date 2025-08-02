@@ -8,7 +8,7 @@ import Decimal from 'break_eternity.js';
 <template>
 	<div class="resources" style="font-size: 20px">
 		<div class="background">
-			<div style="margin-left: 15px" class="resource">
+			<div style="margin-left: 15px" class="resource" id="resources">
 				<div style="font-weight: bold; color: var(--suptitle-color)">
 					数值&nbsp;
 					{{ formatWhole(player.number) }}

@@ -5,7 +5,7 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 
 <template>
 	<div class="side">
-		<div class="title_box" v-if="player.options.ui.titlebar">
+		<div class="title_box" v-if="player.options.ui.titlebar" id="title_box">
 			<div class="background">
 				<div class="title">
 					<div
@@ -21,7 +21,7 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 				</div>
 			</div>
 		</div>
-		<div class="menu">
+		<div class="menu" id="menu">
 			<div class="background" style="overflow: auto">
 				<div class="main">
 					<div class="menu1">后继</div>
