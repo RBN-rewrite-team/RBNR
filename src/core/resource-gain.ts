@@ -69,6 +69,8 @@ export const resourceGain = {
     },
     exppower() {
         let base = feature.EXPONENTION.gain();
-        return { value: base };
+        let passive = new Decimal(0);
+        if (player.exponention.logarithm.upgrades_in_dilated.includes('38')) passive = passive.add(0.01);
+        return { value: base, passive };
     },
 }

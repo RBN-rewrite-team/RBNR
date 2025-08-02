@@ -35,7 +35,7 @@ export const cb1 = new class extends Buyable<Decimal> {
 			c = x.pow(0.99).pow_base(1.85).mul(100);
 		}
 		if (player.milestones.cb12) {
-			c = x.div(player.exponention.logarithm.calculate_datas.pow(0.25))
+			c = c.div(player.exponention.logarithm.calculate_datas.pow(2))
 		}
 		return c;
 	}
@@ -46,7 +46,7 @@ export const cb1 = new class extends Buyable<Decimal> {
 	    return player.milestones.dil_2;
 	}
 	costInverse(x: Decimal): Decimal {
-	    let cb12eff = player.milestones.cb12 ? player.exponention.logarithm.calculate_datas.pow(0.25) : new Decimal(1);
+	    let cb12eff = player.milestones.cb12 ? player.exponention.logarithm.calculate_datas.pow(2) : new Decimal(1);
 	    return x.mul(cb12eff).div(100).max(1).log(player.milestones.cb2 ? 1.85 : 2).root(player.milestones.cb2 ? 0.99 : 1).add(1).floor();
 	}
 }
@@ -190,9 +190,33 @@ export function initMechanics() {
 	MILESTONES.create("cb12", {
 	  displayName: "M-CB-12",
 	  get description(){
-		return "计算数据以÷x^0.25降低棋盘格子购买项的价格"
+		return "计算数据以÷x^2降低棋盘格子购买项的价格"
 	  } ,
-	  requirement: new Decimal(1e170),
+	  requirement: new Decimal(1e150),
+	  get canDone() {
+	    return wheatGrain().gte(this.requirement)
+	  },
+	  show: true,
+	  currency: "麦粒"
+	})
+	MILESTONES.create("cb13", {
+	  displayName: "M-CB-13",
+	  get description(){
+		return "计算速度翻倍，天文学家的效果底数从1.5提升到2"
+	  } ,
+	  requirement: new Decimal(1e245),
+	  get canDone() {
+	    return wheatGrain().gte(this.requirement)
+	  },
+	  show: true,
+	  currency: "麦粒"
+	})
+	MILESTONES.create("cb14", {
+	  displayName: "M-CB-14",
+	  get description(){
+		return "数值指数^1.125，削弱数值第五个软上限"
+	  } ,
+	  requirement: new Decimal(1e256),
 	  get canDone() {
 	    return wheatGrain().gte(this.requirement)
 	  },

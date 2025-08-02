@@ -271,6 +271,12 @@ export const NUMTHEORY = {
 					.add(1)
 					.floor()
 			}
+			canBuyMax(): boolean {
+			    return player.milestones.dil_3;
+			}
+			autoBuyMax(): boolean {
+			    return player.milestones.dil_3;
+			}
 		},
 		'42R': new class B42R extends Buyable<Decimal>{
 			description= 'x<sub>2,2</sub>→x<sub>2,2</sub>+0.2'
@@ -294,6 +300,12 @@ export const NUMTHEORY = {
 					.add(1)
 					.floor()
 			}
+			canBuyMax(): boolean {
+			    return player.milestones.dil_3;
+			}
+			autoBuyMax(): boolean {
+			    return player.milestones.dil_3;
+			}
 		},
 		'43R': new class B43R extends Buyable<Decimal>{
 			description= 'y<sub>2,1</sub> += 等级'
@@ -310,11 +322,17 @@ export const NUMTHEORY = {
 			currency: Currencies = Currencies.EXPONENTION_POWER;
 			costInverse(x: Decimal) {
 				return x
-					.div(1000000)
+					.div(100000)
 					.max(1)
 					.log(2.5)
 					.add(1)
 					.floor()
+			}
+			canBuyMax(): boolean {
+			    return player.milestones.dil_3;
+			}
+			autoBuyMax(): boolean {
+			    return player.milestones.dil_3;
 			}
 		},
 		'44R': new class B44R extends Buyable<Decimal>{
@@ -338,6 +356,12 @@ export const NUMTHEORY = {
 					.root(2)
 					.add(1)
 					.floor()
+			}
+			canBuyMax(): boolean {
+			    return player.milestones.dil_3;
+			}
+			autoBuyMax(): boolean {
+			    return player.milestones.dil_3;
 			}
 		},
 	} as const,
@@ -415,6 +439,21 @@ export const NUMTHEORY = {
 		    }
 		    effectDescription(x: Decimal) {
 		        return '×' + format(x);
+		    }
+		},
+		'44R': new class U44R extends UpgradeWithEffect<Decimal>{
+		    description: string = 'm降低膨胀层数';
+		    cost = new Decimal(2e17);
+		    name = 'U3-R1-4'
+		    currency: Currencies = Currencies.EXPONENTION_POWER;
+		    keep() {
+		        return false;
+		    }
+		    effect() {
+		        return player.numbertheory.rational_approx.m.sub(5000000).max(1).root(20).ln().add(1).root(5).sub(1).mul(2).min(0.5);
+		    }
+		    effectDescription(x: Decimal) {
+		        return '-' + format(x);
 		    }
 		},
 	} as const,

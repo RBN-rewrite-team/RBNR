@@ -163,13 +163,16 @@ export const Logarithm = {
         return [life.toNumber()-40, boost]
     },
     astronomerProduce(i: number) {
+        let b = new Decimal(1.5);
+        if(player.milestones.cb13) b = b.add(0.5);
         return new Decimal(5)
         
         .mul(
-            Decimal.pow(new Decimal(1.5).mul(this.astronomers[i].boost), i)
+            Decimal.pow(b.mul(this.astronomers[i].boost), i)
         )
         .mul(player.milestones.log_law1 ? 5 : 1)
-        .mul(this.observeDataConvert());
+        .mul(this.observeDataConvert())
+        .mul(player.milestones.cb13 ? 2 : 1);
     },
     observeDataConvert() {
         let convertgain = new Decimal(5);
@@ -212,6 +215,7 @@ export const Logarithm = {
     dilateNerf(): Decimal {
         let base = new Decimal(2);
         if(this.logarithm.upgrades_in_dilated.includes('35')) base = base.sub(NUMTHEORY.tau1DilateEff());
+        if(player.upgrades['44R']) base = base.sub(upgrades['44R'].effect());
         return base;
     }
 }

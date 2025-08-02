@@ -119,7 +119,7 @@ export const Multiplication = {
 		},
 		'37': new class U27 extends Upgrade{
 
-			description: string = "乘法重置保留加法升级";
+			description: () => string = Logarithm.dilated("乘法重置保留加法升级", '膨胀中保持B0-1', '37');
 			cost= new Decimal(1000)
 			name= 'U2-7'
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
@@ -134,7 +134,7 @@ export const Multiplication = {
 		},
 		'38': new class U28 extends Upgrade{
 
-			description: string = "每秒自动获取重置获取加法能量的1%";
+			description: () => string = Logarithm.dilated("每秒自动获取重置获取加法能量的1%", '每秒自动获取重置获取指数能量的1%', '38');
 			cost= new Decimal(10000)
 			name= 'U2-8'
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;

@@ -193,6 +193,7 @@ function m2GainLatex() {
 				        <TDUpgrade upgid="41R" />
 				        <TDUpgrade upgid="42R" />
 				        <TDUpgrade upgid="43R" />
+				        <TDUpgrade upgid="44R" />
 				    </tr>
 				  </tbody>
 				</table>
