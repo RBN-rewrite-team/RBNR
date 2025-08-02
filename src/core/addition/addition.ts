@@ -239,11 +239,11 @@ export const Addition = {
 		}
 		if (player.buyables[31].gt(0) && Logarithm.logarithm.upgrades_in_dilated.includes('31'))
 			adding = adding.mul(buyables[31].effect(player.buyables[31]));
-		adding = SOFTCAPS.fluidComputed('addpower^1', adding, player.addpower);
+		if (player.singularity.stage < 2){adding = SOFTCAPS.fluidComputed('addpower^1', adding, player.addpower);
 		adding = SOFTCAPS.fluidComputed('addpower^2', adding, player.addpower);
 		adding = SOFTCAPS.fluidComputed('addpower^3', adding, player.addpower);
 		adding = SOFTCAPS.fluidComputed('addpower^4', adding, player.addpower);
-		adding = SOFTCAPS.fluidComputed('addpower^5', adding, player.addpower);
+		adding = SOFTCAPS.fluidComputed('addpower^5', adding, player.addpower);}
 		if (CHALLENGE.inChallenge(0, 3)) {
 			adding = adding.mul(predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1);
 		}
@@ -298,7 +298,7 @@ export const Addition = {
 		if (player.exponention.logarithm.upgrades_in_dilated.includes('13')) {
 			base = base.add(0.1);
 		}
-		if (player.exponention.logarithm.upgrades_in_dilated.includes('39')) base = base.mul(feature.SingularityGenerator.getSingularityEffect());
+		if (player.singularity.enabled ||player.exponention.logarithm.upgrades_in_dilated.includes('39')) base = base.mul(feature.SingularityGenerator.getSingularityEffect());
 		return base;
 	},
 	U25effect() {

@@ -37,7 +37,7 @@ export const cb1 = new (class extends Buyable<Decimal> {
 			c = x.pow(0.99).pow_base(1.85).mul(100);
 		}
 		if (player.milestones.cb12) {
-			c = c.div(player.exponention.logarithm.calculate_datas.pow(2));
+			c = c.div(player.exponention.logarithm.calculate_datas.add(1).pow(2));
 		}
 		return c;
 	}
@@ -135,6 +135,7 @@ export function initMechanics() {
 		},
 		requirement: new Decimal(1e10),
 		get canDone() {
+		  if (player.singularity.stage >= 2) return false
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
@@ -187,6 +188,7 @@ export function initMechanics() {
 		},
 		requirement: new Decimal(1e50),
 		get canDone() {
+		  if (player.singularity.stage >= 2) return false
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
@@ -199,6 +201,7 @@ export function initMechanics() {
 		},
 		requirement: new Decimal(1e115),
 		get canDone() {
+		  if (player.singularity.stage >= 2) return false
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
@@ -223,6 +226,7 @@ export function initMechanics() {
 		},
 		requirement: new Decimal(1e150),
 		get canDone() {
+		  if (player.singularity.stage >= 2) return false
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
@@ -235,6 +239,7 @@ export function initMechanics() {
 		},
 		requirement: new Decimal(1e245),
 		get canDone() {
+		  if (player.singularity.stage >= 2) return false
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
@@ -259,6 +264,7 @@ export function initMechanics() {
 		},
 		requirement: new Decimal(1e300),
 		get canDone() {
+		  if (player.singularity.stage >= 2) return false
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
@@ -283,6 +289,7 @@ export function initMechanics() {
 		},
 		requirement: new Decimal('e375'),
 		get canDone() {
+		  if (player.singularity.stage >= 2) return false
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
@@ -295,6 +302,7 @@ export function initMechanics() {
 		},
 		requirement: new Decimal('e430'),
 		get canDone() {
+		  if (player.singularity.stage >= 2) return false
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,

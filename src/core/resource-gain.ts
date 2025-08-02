@@ -33,7 +33,7 @@ export const resourceGain = {
 				'number^7',
 				'number^8',
 			];
-		for (let i = 0; i < scList.length; i++) {
+		if (player.singularity.stage < 2) for (let i = 0; i < scList.length; i++) {
 			if (SOFTCAPS.reach(scList[i], player.number)) {
 				softcaps++;
 				base = SOFTCAPS.fluidComputed(scList[i], base, player.number);
@@ -50,7 +50,7 @@ export const resourceGain = {
 		}
 		let softcaps = 0,
 			scList = ['addpower^1', 'addpower^2', 'addpower^3', 'addpower^4', 'addpower^5'];
-		for (let i = 0; i < scList.length; i++) {
+		if (player.singularity.stage < 2)for (let i = 0; i < scList.length; i++) {
 			if (SOFTCAPS.reach(scList[i], player.addpower)) {
 				softcaps++;
 				base = SOFTCAPS.fluidComputed(scList[i], base, player.addpower);
@@ -74,7 +74,7 @@ export const resourceGain = {
 			passive = new Decimal(0);
 		let softcaps = 0,
 			scList = ['mulpower^1', 'mulpower^2'];
-		for (let i = 0; i < scList.length; i++) {
+		if (player.singularity.stage < 2)for (let i = 0; i < scList.length; i++) {
 			if (SOFTCAPS.reach(scList[i], player.multiplication.mulpower)) {
 				softcaps++;
 				base = SOFTCAPS.fluidComputed(scList[i], base, player.multiplication.mulpower);
