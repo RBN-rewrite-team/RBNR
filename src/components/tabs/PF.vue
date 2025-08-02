@@ -19,10 +19,11 @@ import type { PrimeFactorTypes } from '@/core/save';
 					<span style="color: #cc33ff; font-weight: bold"
 						>{{ pf
 						}}<sup>{{
-
-							formatWhole(player.buyables[('pf' + pf) as PrimeFactorTypes].add(
-								buyables['pf' + pf as PrimeFactorTypes].more(),
-							))
+							formatWhole(
+								player.buyables[('pf' + pf) as PrimeFactorTypes].add(
+									buyables[('pf' + pf) as PrimeFactorTypes].more(),
+								),
+							)
 						}}</sup></span
 					><span v-if="pf != '19'"> × </span> </span
 				>)<span

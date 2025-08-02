@@ -74,4 +74,4 @@ const news = [{id: "news1", text: "不会做增量游戏怎么办？看风灵作
 	reset?: () => void;
 	onClick?: () => string | undefined;
 }[];
-export default news
+export default news;

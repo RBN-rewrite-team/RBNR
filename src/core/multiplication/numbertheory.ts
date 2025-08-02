@@ -9,12 +9,12 @@ import { Upgrade, UpgradeWithEffect } from '../upgrade';
 
 export const NUMTHEORY = {
 	buyables: {
-		'35R': new class B35R extends Buyable<Decimal>{
-			description = 's<sub>1</sub>→s<sub>1</sub>+1'
+		'35R': new (class B35R extends Buyable<Decimal> {
+			description = 's<sub>1</sub>→s<sub>1</sub>+1';
 			cost(x: Decimal) {
 				return x.pow_base(1e8).mul(1e32);
 			}
-			name= 'B2-R1-5'
+			name = 'B2-R1-5';
 			effect(x: Decimal): Decimal {
 				return x.add(1);
 			}
@@ -29,20 +29,15 @@ export const NUMTHEORY = {
 				return player.upgrades['444q'];
 			}
 			costInverse(x: Decimal) {
-				return x
-					.div(1e32)
-					.max(1)
-					.log(1e8)
-					.add(1)
-					.floor();
+				return x.div(1e32).max(1).log(1e8).add(1).floor();
 			}
-		},
-		'36R': new class B36R extends Buyable<Decimal>{
-			description = 'x<sub>1</sub>指数+0.085'
+		})(),
+		'36R': new (class B36R extends Buyable<Decimal> {
+			description = 'x<sub>1</sub>指数+0.085';
 			cost(x: Decimal) {
 				return x.pow_base(1e16).mul(1e32);
 			}
-			name= 'B2-R1-6'
+			name = 'B2-R1-6';
 			effect(x: Decimal): Decimal {
 				return x.mul(0.085);
 			}
@@ -57,25 +52,19 @@ export const NUMTHEORY = {
 				return player.upgrades['444q'];
 			}
 			costInverse(x: Decimal) {
-				return x
-					.div(1e32)
-					.max(1)
-					.log(1e16)
-					.add(1)
-					.floor()
-					.min(20);
+				return x.div(1e32).max(1).log(1e16).add(1).floor().min(20);
 			}
 			capped(): boolean {
 				let capc = 20;
 				return player.buyables['36R'].gte(capc);
 			}
-		},
-		'37R': new class B37R extends Buyable<Decimal>{
-			description = 'y<sub>1</sub>指数+0.085'
+		})(),
+		'37R': new (class B37R extends Buyable<Decimal> {
+			description = 'y<sub>1</sub>指数+0.085';
 			cost(x: Decimal) {
 				return x.pow_base(1e20).mul(1e40);
 			}
-			name= 'B2-R1-7'
+			name = 'B2-R1-7';
 			effect(x: Decimal): Decimal {
 				return x.mul(0.085);
 			}
@@ -90,26 +79,19 @@ export const NUMTHEORY = {
 				return player.upgrades['444q'];
 			}
 			costInverse(x: Decimal) {
-				return x
-					.div(1e32)
-					.max(1)
-					.log(1e16)
-					.add(1)
-					.floor()
-					.min(20);
+				return x.div(1e32).max(1).log(1e16).add(1).floor().min(20);
 			}
 			capped(): boolean {
 				let capc = 20;
 				return player.buyables['37R'].gte(capc);
 			}
-		},
-		'38R': new class B38R extends Buyable<Decimal>{
-			
-			description = 'B2-R1-1~4的效果+2.5%(叠乘)'
+		})(),
+		'38R': new (class B38R extends Buyable<Decimal> {
+			description = 'B2-R1-1~4的效果+2.5%(叠乘)';
 			cost(x: Decimal) {
 				return x.pow_base(1e25).mul(1e50);
 			}
-			name= 'B2-R1-8'
+			name = 'B2-R1-8';
 			effect(x: Decimal): Decimal {
 				return new Decimal(1.025).pow(x);
 			}
@@ -124,24 +106,18 @@ export const NUMTHEORY = {
 				return player.upgrades['444q'] && player.upgrades['400q'];
 			}
 			costInverse(x: Decimal) {
-				return x
-					.div(1e50)
-					.max(1)
-					.log(1e25)
-					.add(1)
-					.floor();
+				return x.div(1e50).max(1).log(1e25).add(1).floor();
 			}
 			capped(): boolean {
 				return false;
 			}
-		},
-		'31R': new class B31R extends Buyable<Decimal>{
-			
-			description = 'x<sub>1</sub>→x<sub>1</sub>+1'
+		})(),
+		'31R': new (class B31R extends Buyable<Decimal> {
+			description = 'x<sub>1</sub>→x<sub>1</sub>+1';
 			cost(x: Decimal) {
 				return x.pow_base(2).mul(10);
 			}
-			name= 'B2-R1-1'
+			name = 'B2-R1-1';
 			effect(x: Decimal): Decimal {
 				return x.mul(buyables['38R'].effect(player.buyables['38R']));
 			}
@@ -156,21 +132,15 @@ export const NUMTHEORY = {
 				return player.upgrades['444q'];
 			}
 			costInverse(x: Decimal) {
-				return x
-					.div(10)
-					.max(1)
-					.log(2)
-					.add(1)
-					.floor();
+				return x.div(10).max(1).log(2).add(1).floor();
 			}
-		},
-		'32R': new class B32R extends Buyable<Decimal>{
-			
-			description = 'x<sub>2</sub>→x<sub>2</sub>+1'
+		})(),
+		'32R': new (class B32R extends Buyable<Decimal> {
+			description = 'x<sub>2</sub>→x<sub>2</sub>+1';
 			cost(x: Decimal) {
 				return x.pow_base(10).mul(100);
 			}
-			name= 'B2-R1-2'
+			name = 'B2-R1-2';
 			effect(x: Decimal): Decimal {
 				return x.mul(buyables['38R'].effect(player.buyables['38R']));
 			}
@@ -185,21 +155,15 @@ export const NUMTHEORY = {
 				return player.upgrades['444q'];
 			}
 			costInverse(x: Decimal) {
-				return x
-					.div(100)
-					.max(1)
-					.log(10)
-					.add(1)
-					.floor();
+				return x.div(100).max(1).log(10).add(1).floor();
 			}
-		},
-		'33R': new class B33R extends Buyable<Decimal>{
-			
-			description = 'y<sub>1</sub>→y<sub>1</sub>+1'
+		})(),
+		'33R': new (class B33R extends Buyable<Decimal> {
+			description = 'y<sub>1</sub>→y<sub>1</sub>+1';
 			cost(x: Decimal) {
 				return x.pow_base(100).mul(1e28);
 			}
-			name= 'B2-R1-3'
+			name = 'B2-R1-3';
 			effect(x: Decimal): Decimal {
 				return x.mul(buyables['38R'].effect(player.buyables['38R']));
 			}
@@ -214,20 +178,15 @@ export const NUMTHEORY = {
 				return player.upgrades['444q'];
 			}
 			costInverse(x: Decimal) {
-				return x
-					.div(1e28)
-					.max(1)
-					.log(100)
-					.floor();
+				return x.div(1e28).max(1).log(100).floor();
 			}
-		},
-		'34R': new class B34R extends Buyable<Decimal>{
-			
-			description = 'z<sub>1</sub>→z<sub>1</sub>+1'
+		})(),
+		'34R': new (class B34R extends Buyable<Decimal> {
+			description = 'z<sub>1</sub>→z<sub>1</sub>+1';
 			cost(x: Decimal) {
 				return x.pow_base(1000).mul(1e30);
 			}
-			name= 'B2-R1-3'
+			name = 'B2-R1-3';
 			effect(x: Decimal): Decimal {
 				return x.mul(buyables['38R'].effect(player.buyables['38R']));
 			}
@@ -242,20 +201,15 @@ export const NUMTHEORY = {
 				return player.upgrades['444q'];
 			}
 			costInverse(x: Decimal) {
-				return x
-					.div(1e30)
-					.max(1)
-					.log(1000)
-					.add(1)
-					.floor()
+				return x.div(1e30).max(1).log(1000).add(1).floor();
 			}
-		},
-		'41R': new class B41R extends Buyable<Decimal>{
-			description= 'x<sub>2,1</sub> += 等级'
+		})(),
+		'41R': new (class B41R extends Buyable<Decimal> {
+			description = 'x<sub>2,1</sub> += 等级';
 			cost(x: Decimal) {
 				return x.pow_base(1.5).mul(10);
 			}
-			name= 'B3-R1-1'
+			name = 'B3-R1-1';
 			effect(x: Decimal): Decimal {
 				return x.mul(x.add(1)).div(2);
 			}
@@ -264,55 +218,44 @@ export const NUMTHEORY = {
 			}
 			currency: Currencies = Currencies.EXPONENTION_POWER;
 			costInverse(x: Decimal) {
-				return x
-					.div(10)
-					.max(1)
-					.log(1.5)
-					.add(1)
-					.floor()
+				return x.div(10).max(1).log(1.5).add(1).floor();
 			}
 			canBuyMax(): boolean {
-			    return player.milestones.dil_3;
+				return player.milestones.dil_3;
 			}
 			autoBuyMax(): boolean {
-			    return player.milestones.dil_3;
+				return player.milestones.dil_3;
 			}
-		},
-		'42R': new class B42R extends Buyable<Decimal>{
-			description= 'x<sub>2,2</sub>→x<sub>2,2</sub>+0.2'
+		})(),
+		'42R': new (class B42R extends Buyable<Decimal> {
+			description = 'x<sub>2,2</sub>→x<sub>2,2</sub>+0.2';
 			cost(x: Decimal) {
 				return x.pow(2).pow_base(3).mul(4000);
 			}
-			name= 'B3-R1-2'
+			name = 'B3-R1-2';
 			effect(x: Decimal): Decimal {
-				return x.mul(0.2).add(1)
+				return x.mul(0.2).add(1);
 			}
 			effectDescription(x: Decimal) {
 				return `x<sub>2,2</sub> = ` + format(this.effect(x));
 			}
 			currency: Currencies = Currencies.EXPONENTION_POWER;
 			costInverse(x: Decimal) {
-				return x
-					.div(4000)
-					.max(1)
-					.log(3)
-					.root(2)
-					.add(1)
-					.floor()
+				return x.div(4000).max(1).log(3).root(2).add(1).floor();
 			}
 			canBuyMax(): boolean {
-			    return player.milestones.dil_3;
+				return player.milestones.dil_3;
 			}
 			autoBuyMax(): boolean {
-			    return player.milestones.dil_3;
+				return player.milestones.dil_3;
 			}
-		},
-		'43R': new class B43R extends Buyable<Decimal>{
-			description= 'y<sub>2,1</sub> += 等级'
+		})(),
+		'43R': new (class B43R extends Buyable<Decimal> {
+			description = 'y<sub>2,1</sub> += 等级';
 			cost(x: Decimal) {
 				return x.pow_base(2.5).mul(100000);
 			}
-			name= 'B3-R1-3'
+			name = 'B3-R1-3';
 			effect(x: Decimal): Decimal {
 				return x.mul(x.add(1)).div(2);
 			}
@@ -321,55 +264,44 @@ export const NUMTHEORY = {
 			}
 			currency: Currencies = Currencies.EXPONENTION_POWER;
 			costInverse(x: Decimal) {
-				return x
-					.div(100000)
-					.max(1)
-					.log(2.5)
-					.add(1)
-					.floor()
+				return x.div(100000).max(1).log(2.5).add(1).floor();
 			}
 			canBuyMax(): boolean {
-			    return player.milestones.dil_3;
+				return player.milestones.dil_3;
 			}
 			autoBuyMax(): boolean {
-			    return player.milestones.dil_3;
+				return player.milestones.dil_3;
 			}
-		},
-		'44R': new class B44R extends Buyable<Decimal>{
-			description= 'y<sub>2,2</sub>→y<sub>2,2</sub>+0.2'
+		})(),
+		'44R': new (class B44R extends Buyable<Decimal> {
+			description = 'y<sub>2,2</sub>→y<sub>2,2</sub>+0.2';
 			cost(x: Decimal) {
 				return x.pow(2).pow_base(10).mul(1e9);
 			}
-			name= 'B3-R1-4'
+			name = 'B3-R1-4';
 			effect(x: Decimal): Decimal {
-				return x.mul(0.16).add(0.8)
+				return x.mul(0.16).add(0.8);
 			}
 			effectDescription(x: Decimal) {
 				return `y<sub>2,2</sub> = ` + format(this.effect(x));
 			}
 			currency: Currencies = Currencies.EXPONENTION_POWER;
 			costInverse(x: Decimal) {
-				return x
-					.div(1e9)
-					.max(1)
-					.log(10)
-					.root(2)
-					.add(1)
-					.floor()
+				return x.div(1e9).max(1).log(10).root(2).add(1).floor();
 			}
 			canBuyMax(): boolean {
-			    return player.milestones.dil_3;
+				return player.milestones.dil_3;
 			}
 			autoBuyMax(): boolean {
-			    return player.milestones.dil_3;
+				return player.milestones.dil_3;
 			}
-		},
+		})(),
 	} as const,
 	upgrades: {
-		'31R': new class U31R extends UpgradeWithEffect<Decimal>{
-			description: string = "将u<sub>1</sub>加入x获取速度公式";
-			cost= new Decimal(1e4)
-			name= 'U2-R1-1'
+		'31R': new (class U31R extends UpgradeWithEffect<Decimal> {
+			description: string = '将u<sub>1</sub>加入x获取速度公式';
+			cost = new Decimal(1e4);
+			name = 'U2-R1-1';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			keep() {
 				return player.upgrades['454q'];
@@ -380,85 +312,98 @@ export const NUMTHEORY = {
 			effectDescription(x: Decimal) {
 				return `u<sub>1</sub> = ${formatWhole(x)}`;
 			}
-		},
-		'32R': new class U32R extends Upgrade{
-			description: string = "x<sub>1</sub>的指数+0.3";
-			cost= new Decimal(1e30)
-			name= 'U2-R1-2'
+		})(),
+		'32R': new (class U32R extends Upgrade {
+			description: string = 'x<sub>1</sub>的指数+0.3';
+			cost = new Decimal(1e30);
+			name = 'U2-R1-2';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			keep() {
 				return player.upgrades['454q'];
 			}
-		},
-		'33R': new class U33R extends Upgrade{
-			description: string = "y<sub>1</sub>的指数+0.3";
-			cost= new Decimal(1e35)
-			name= 'U2-R1-3'
+		})(),
+		'33R': new (class U33R extends Upgrade {
+			description: string = 'y<sub>1</sub>的指数+0.3';
+			cost = new Decimal(1e35);
+			name = 'U2-R1-3';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			keep() {
 				return player.upgrades['454q'];
 			}
-		},
-		'34R': new class U34R extends Upgrade{
-			description: string = "z<sub>1</sub>的指数+0.3";
-			cost= new Decimal(1e40)
-			name= 'U2-R1-4'
+		})(),
+		'34R': new (class U34R extends Upgrade {
+			description: string = 'z<sub>1</sub>的指数+0.3';
+			cost = new Decimal(1e40);
+			name = 'U2-R1-4';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			keep() {
 				return player.upgrades['454q'];
 			}
-		},
-		'41R': new class U41R extends Upgrade{
-		    description: string = '将y加入m的增长率公式中，但指数降低到1/2';
-		    cost = new Decimal(3e10);
-		    name = 'U3-R1-1'
-		    currency: Currencies = Currencies.EXPONENTION_POWER;
-		    keep() {
-		        return false;
-		    }
-		},
-		'42R': new class U42R extends Upgrade{
-		    description: string = '将y在m增长率公式中的指数增加到3/4';
-		    cost = new Decimal(6e10);
-		    name = 'U3-R1-2'
-		    currency: Currencies = Currencies.EXPONENTION_POWER;
-		    keep() {
-		        return false;
-		    }
-		},
-		'43R': new class U43R extends UpgradeWithEffect<Decimal>{
-		    description: string = 'm增加麦粒底数';
-		    cost = new Decimal(6e10);
-		    name = 'U3-R1-3'
-		    currency: Currencies = Currencies.EXPONENTION_POWER;
-		    keep() {
-		        return false;
-		    }
-		    effect() {
-		        return player.numbertheory.rational_approx.m.sub(5000000).max(1).root(20).ln().add(1);
-		    }
-		    effectDescription(x: Decimal) {
-		        return '×' + format(x);
-		    }
-		},
-		'44R': new class U44R extends UpgradeWithEffect<Decimal>{
-		    description: string = 'm降低膨胀层数';
-		    cost = new Decimal(2e17);
-		    name = 'U3-R1-4'
-		    currency: Currencies = Currencies.EXPONENTION_POWER;
-		    keep() {
-		        return false;
-		    }
-		    effect() {
-		        return player.numbertheory.rational_approx.m.sub(5000000).max(1).root(20).ln().add(1).root(5).sub(1).mul(2).min(0.5);
-		    }
-		    effectDescription(x: Decimal) {
-		        return '-' + format(x);
-		    }
-		},
+		})(),
+		'41R': new (class U41R extends Upgrade {
+			description: string = '将y加入m的增长率公式中，但指数降低到1/2';
+			cost = new Decimal(3e10);
+			name = 'U3-R1-1';
+			currency: Currencies = Currencies.EXPONENTION_POWER;
+			keep() {
+				return false;
+			}
+		})(),
+		'42R': new (class U42R extends Upgrade {
+			description: string = '将y在m增长率公式中的指数增加到3/4';
+			cost = new Decimal(6e10);
+			name = 'U3-R1-2';
+			currency: Currencies = Currencies.EXPONENTION_POWER;
+			keep() {
+				return false;
+			}
+		})(),
+		'43R': new (class U43R extends UpgradeWithEffect<Decimal> {
+			description: string = 'm增加麦粒底数';
+			cost = new Decimal(6e10);
+			name = 'U3-R1-3';
+			currency: Currencies = Currencies.EXPONENTION_POWER;
+			keep() {
+				return false;
+			}
+			effect() {
+				return player.numbertheory.rational_approx.m
+					.sub(5000000)
+					.max(1)
+					.root(20)
+					.ln()
+					.add(1);
+			}
+			effectDescription(x: Decimal) {
+				return '×' + format(x);
+			}
+		})(),
+		'44R': new (class U44R extends UpgradeWithEffect<Decimal> {
+			description: string = 'm降低膨胀层数';
+			cost = new Decimal(2e17);
+			name = 'U3-R1-4';
+			currency: Currencies = Currencies.EXPONENTION_POWER;
+			keep() {
+				return false;
+			}
+			effect() {
+				return player.numbertheory.rational_approx.m
+					.sub(5000000)
+					.max(1)
+					.root(20)
+					.ln()
+					.add(1)
+					.root(5)
+					.sub(1)
+					.mul(2)
+					.min(0.5);
+			}
+			effectDescription(x: Decimal) {
+				return '-' + format(x);
+			}
+		})(),
 	} as const,
-	initMechanics() {
-	},
+	initMechanics() {},
 	funcS(x = player.numbertheory.euler.x.floor()) {
 		if (x.gte(1000)) {
 			return x.pow(2).mul(3 / Math.PI ** 2);
@@ -466,15 +411,17 @@ export const NUMTHEORY = {
 		return Decimal.fromNumber(sumEulers[x.toNumber()]);
 	},
 	tau1DilateEff() {
-	    return NUMTHEORY.funcS().pow(1e10).add(1e10).iteratedlog(10, 3).div(5).min(0.25);
+		return NUMTHEORY.funcS().pow(1e10).add(1e10).iteratedlog(10, 3).div(5).min(0.25);
 	},
 	varXgain() {
 		let x = new Decimal(0);
 		let exp = new Decimal(1);
 		if (player.upgrades['32R']) exp = exp.add(0.3);
 		if (player.buyables['36R'].gte(1)) exp = exp.add(player.buyables['36R'].mul(0.085));
-		if (player.buyables['31R'].gte(1)) x = x.add(buyables["31R"].effect(player.buyables['31R']).pow(exp));
-		if (player.buyables['32R'].gte(1)) x = x.mul(buyables["32R"].effect(player.buyables['32R']));
+		if (player.buyables['31R'].gte(1))
+			x = x.add(buyables['31R'].effect(player.buyables['31R']).pow(exp));
+		if (player.buyables['32R'].gte(1))
+			x = x.mul(buyables['32R'].effect(player.buyables['32R']));
 		if (player.upgrades['31R']) x = x.mul(upgrades['31R'].effect?.() ?? 1);
 		return x.mul(player.numbertheory.euler.y.floor()).mul(player.numbertheory.euler.s);
 	},
@@ -483,14 +430,16 @@ export const NUMTHEORY = {
 		let exp = new Decimal(1);
 		if (player.upgrades['33R']) exp = exp.add(0.3);
 		if (player.buyables['37R'].gte(1)) exp = exp.add(player.buyables['36R'].mul(0.085));
-		if (player.buyables['33R'].gte(1)) y = y.add(buyables["33R"].effect(player.buyables['33R']).pow(exp));
+		if (player.buyables['33R'].gte(1))
+			y = y.add(buyables['33R'].effect(player.buyables['33R']).pow(exp));
 		return y.mul(player.numbertheory.euler.z.floor()).mul(player.numbertheory.euler.s);
 	},
 	varZgain() {
 		let z = new Decimal(0);
 		let exp = new Decimal(1);
 		if (player.upgrades['34R']) exp = exp.add(0.3);
-		if (player.buyables['34R'].gte(1)) z = z.add(buyables["34R"].effect(player.buyables['34R']).pow(exp));
+		if (player.buyables['34R'].gte(1))
+			z = z.add(buyables['34R'].effect(player.buyables['34R']).pow(exp));
 		return z.mul(player.numbertheory.euler.s);
 	},
 	tickspeedGain() {
@@ -510,39 +459,42 @@ export const NUMTHEORY = {
 		return new Decimal(1).sub(error.log(10).div(100));
 	},
 	tau2B() {
-	  let m = player.numbertheory.rational_approx.m.floor().max(1);
-		let error = new Decimal(2.236067977499789696)
-		  .div(
-		    Decimal.pow(1.618033988749894848, m.mul(2)).
-		      sub(m.mod(2).eq(1) ? -1 : 1)
-		  )
+		let m = player.numbertheory.rational_approx.m.floor().max(1);
+		let error = new Decimal(2.236067977499789696).div(
+			Decimal.pow(1.618033988749894848, m.mul(2)).sub(m.mod(2).eq(1) ? -1 : 1),
+		);
 		return new Decimal(1).sub(error.log(10).div(100));
 	},
 	tau2() {
-		return this.tau2A().mul(
-		  player.milestones.cb8 ? this.tau2B() : 1
-		)
+		return this.tau2A().mul(player.milestones.cb8 ? this.tau2B() : 1);
 	},
 	varX2gain() {
-	    let base = new Decimal(0);
-	    if(player.buyables['41R'].gte(1)) base = base.add(buyables['41R'].effect(player.buyables['41R'])).pow(buyables['42R'].effect(player.buyables['42R']));
-	    base = base.mul(player.numbertheory.rational_approx.y);
-	    return base;
+		let base = new Decimal(0);
+		if (player.buyables['41R'].gte(1))
+			base = base
+				.add(buyables['41R'].effect(player.buyables['41R']))
+				.pow(buyables['42R'].effect(player.buyables['42R']));
+		base = base.mul(player.numbertheory.rational_approx.y);
+		return base;
 	},
 	varY2gain() {
-	    let base = new Decimal(0);
-	    if(player.buyables['43R'].gte(1)) base = base.add(buyables['43R'].effect(player.buyables['43R'])).pow(buyables['44R'].effect(player.buyables['44R']));
-	    return base;
+		let base = new Decimal(0);
+		if (player.buyables['43R'].gte(1))
+			base = base
+				.add(buyables['43R'].effect(player.buyables['43R']))
+				.pow(buyables['44R'].effect(player.buyables['44R']));
+		return base;
 	},
 	Y2toM2Exp() {
-	    let base = new Decimal(0.5);
-	    if(player.upgrades['42R']) base = new Decimal(0.75);
-	    return base;
+		let base = new Decimal(0.5);
+		if (player.upgrades['42R']) base = new Decimal(0.75);
+		return base;
 	},
 	varM2gain() {
-	    let base = new Decimal(0);
-	    if(player.upgrades['41R']) base = base.add(player.numbertheory.rational_approx.y.pow(this.Y2toM2Exp()));
-	    return base;
+		let base = new Decimal(0);
+		if (player.upgrades['41R'])
+			base = base.add(player.numbertheory.rational_approx.y.pow(this.Y2toM2Exp()));
+		return base;
 	},
 };
 

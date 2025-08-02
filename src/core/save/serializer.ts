@@ -35,7 +35,8 @@ export const saveSerializer = {
 		{
 			serialize: (x: string) =>
 				x.replace(/=+$/g, '').replace(/0/g, '0a').replace(/\+/g, '0b').replace(/\//g, '0c'),
-			deserialize: (x: string) => x.replace(/0b/g, '+').replace(/0c/g, '/').replace(/0a/g, '0'),
+			deserialize: (x: string) =>
+				x.replace(/0b/g, '+').replace(/0c/g, '/').replace(/0a/g, '0'),
 		},
 		{
 			serialize: (x: string) => saveSerializer.startString + x + saveSerializer.endString,

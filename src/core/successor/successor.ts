@@ -23,29 +23,33 @@ import { Logarithm } from '../exponention/logarithm.ts';
 
 export const Successor = {
 	upgrades: {
-		'11': new class U01 extends Upgrade {
+		'11': new (class U01 extends Upgrade {
 			currency = Currencies.NUMBER;
-			name = "U0-1";
+			name = 'U0-1';
 			cost = new Decimal(10);
-			description:()=>string = Logarithm.dilated("解锁B0-1","B0-1购买次数上限改为1000", "11");
+			description: () => string = Logarithm.dilated(
+				'解锁B0-1',
+				'B0-1购买次数上限改为1000',
+				'11',
+			);
 			requirements(): Requirement[] {
-				return [
-					new CurrencyRequirement(Currencies.NUMBER, new Decimal(10))
-				]
+				return [new CurrencyRequirement(Currencies.NUMBER, new Decimal(10))];
 			}
 			keep(): boolean {
-				return player.upgrades['32']
+				return player.upgrades['32'];
 			}
-		},
-		'12': new class U02 extends UpgradeWithEffect<Decimal> {
+		})(),
+		'12': new (class U02 extends UpgradeWithEffect<Decimal> {
 			currency = Currencies.NUMBER;
-			name = "U0-2";
+			name = 'U0-2';
 			cost = new Decimal(100);
-			description :()=>string= Logarithm.dilated("每次购买U0系列升级都使后继按钮批量+1", "每次购买U0系列升级使后继按钮指数+*1.1", "12");
+			description: () => string = Logarithm.dilated(
+				'每次购买U0系列升级都使后继按钮批量+1',
+				'每次购买U0系列升级使后继按钮指数+*1.1',
+				'12',
+			);
 			requirements(): Requirement[] {
-				return [
-					new CurrencyRequirement(Currencies.NUMBER, new Decimal(100))
-				]
+				return [new CurrencyRequirement(Currencies.NUMBER, new Decimal(100))];
 			}
 			effect(): Decimal {
 				let base = new Decimal(0);
@@ -55,50 +59,50 @@ export const Successor = {
 				return base;
 			}
 			effectDescription(values: Decimal): string {
-				return `+${formatWhole(values)}`
+				return `+${formatWhole(values)}`;
 			}
 			keep(): boolean {
-				return player.upgrades['32']
+				return player.upgrades['32'];
 			}
-		},
-		'13': new class U03 extends Upgrade {
+		})(),
+		'13': new (class U03 extends Upgrade {
 			currency = Currencies.NUMBER;
-			name = "U0-3";
+			name = 'U0-3';
 			cost = new Decimal(1000);
-			description :()=>string= Logarithm.dilated("解锁加法层","加法能量获取指数+0.1","13");
+			description: () => string = Logarithm.dilated(
+				'解锁加法层',
+				'加法能量获取指数+0.1',
+				'13',
+			);
 			requirements(): Requirement[] {
-				return [
-					new CurrencyRequirement(Currencies.NUMBER, new Decimal(1000))
-				]
+				return [new CurrencyRequirement(Currencies.NUMBER, new Decimal(1000))];
 			}
-			keep():boolean {
-				return player.upgrades['32']
+			keep(): boolean {
+				return player.upgrades['32'];
 			}
-		},
+		})(),
 	} as const,
 	buyables: {
-		'11': new class B01 extends Buyable<Decimal> {
+		'11': new (class B01 extends Buyable<Decimal> {
 			currency: Currencies = Currencies.NUMBER;
 
-			description="每秒进行一次后继运算";
-			descriptionDilated: string = "后继运算的效果＋1、后继指数＋.001";
-			name: string = "B0-1";
+			description = '每秒进行一次后继运算';
+			descriptionDilated: string = '后继运算的效果＋1、后继指数＋.001';
+			name: string = 'B0-1';
 			cost(x: Decimal) {
 				let a = x.mul(10).add(10);
 				if (player.upgrades[23]) a = a.sub(10);
 				return a;
-			};
+			}
 			costInverse(x: Decimal) {
 				let a = x;
 				if (player.upgrades[23]) a = a.add(10);
 				a = a.sub(10).div(10);
 				return a.min(this.getCap());
-			};
+			}
 			requirements(): Requirement[] {
-				return [
-					new UpgradeRequirement('11')
-				];
-			};
+				return [new UpgradeRequirement('11')];
+			}
 			effect(x: Decimal): Decimal {
 				return x.add(this.more());
 			}
@@ -106,7 +110,7 @@ export const Successor = {
 				return `${formatWhole(values)}/s`;
 			}
 			effectDilated(value: Decimal): [Decimal, string] {
-				return [value, `+${format(value)},+${format(value.div(1000))}`]
+				return [value, `+${format(value)},+${format(value.div(1000))}`];
 			}
 			more() {
 				let a = new Decimal(0);
@@ -116,20 +120,19 @@ export const Successor = {
 			canBuyMax(): boolean {
 				return player.upgrades[39];
 			}
-			autoBuyMax(): boolean{
+			autoBuyMax(): boolean {
 				return player.upgrades[39];
 			}
-			getCap(): Decimal{
+			getCap(): Decimal {
 				let capc = 50;
 				if (player.upgrades[23]) capc += 50;
-				if (Logarithm.logarithm.upgrades_in_dilated.includes("11")) capc=1000;
+				if (Logarithm.logarithm.upgrades_in_dilated.includes('11')) capc = 1000;
 				return new Decimal(capc);
-
 			}
 			capped(x: Decimal) {
 				return x.add(this.more()).gte(this.getCap());
 			}
-		}
+		})(),
 	} as const,
 	initMechanics() {
 		SOFTCAPS.create('number^1', {
@@ -166,39 +169,41 @@ export const Successor = {
 			fluid: true,
 			start: new Decimal('ee5'),
 			get exponent() {
-			    let base = new Decimal(4);
-			    if(player.milestones.cb6) base = base.pow(0.5);
-			    return base.pow(-1);
+				let base = new Decimal(4);
+				if (player.milestones.cb6) base = base.pow(0.5);
+				return base.pow(-1);
 			},
-			meta: 1
+			meta: 1,
 		});
 		SOFTCAPS.create('number^5', {
 			name: 'number^5',
 			fluid: true,
 			start: new Decimal('ee20'),
-			get exponent(){return player.milestones.cb14 ? new Decimal(0.2) : new Decimal(0.1)},
-			meta: 1
+			get exponent() {
+				return player.milestones.cb14 ? new Decimal(0.2) : new Decimal(0.1);
+			},
+			meta: 1,
 		});
 		SOFTCAPS.create('number^6', {
 			name: 'number^6',
 			fluid: true,
 			start: new Decimal('ee100'),
 			exponent: new Decimal(0.25),
-			meta: 2
+			meta: 2,
 		});
 		SOFTCAPS.create('number^7', {
 			name: 'number^7',
 			fluid: true,
 			start: new Decimal('eee5'),
 			exponent: new Decimal(0.1),
-			meta: 2
+			meta: 2,
 		});
 		SOFTCAPS.create('number^8', {
 			name: 'number^8',
 			fluid: true,
 			start: new Decimal('eee15'),
 			exponent: new Decimal(0.25),
-			meta: 3
+			meta: 3,
 		});
 	},
 	/**
@@ -207,13 +212,13 @@ export const Successor = {
 	success(bulk = 1) {
 		let adding = this.successorBulk().pow(this.successorPow()).mul(bulk);
 		if (player.exponention.logarithm.in_dilate) {
-			adding = adding.add(10).iteratedlog(Math.E, Logarithm.dilateNerf().toNumber()).div(10)
+			adding = adding.add(10).iteratedlog(Math.E, Logarithm.dilateNerf().toNumber()).div(10);
 		}
-		if (player.exponention.logarithm.upgrades_in_dilated.includes("31")) {
-			adding = adding.pow(3)
+		if (player.exponention.logarithm.upgrades_in_dilated.includes('31')) {
+			adding = adding.pow(3);
 		}
-		for(let i = 1; i <= 8; i++)
-		    adding = SOFTCAPS.fluidComputed('number^' + i, adding, player.number);
+		for (let i = 1; i <= 8; i++)
+			adding = SOFTCAPS.fluidComputed('number^' + i, adding, player.number);
 		if (CHALLENGE.inChallenge(0, 2))
 			adding = SOFTCAPS.fluidComputed('number_C1', adding, player.number);
 		if (CHALLENGE.inChallenge(0, 3)) {
@@ -272,29 +277,31 @@ export const Successor = {
 		if (player.firstResetBit & 0b100) base = base.pow(buyables[42].effect(player.buyables[42]));
 		if (player.upgrades[47]) base = base.pow(feature.ChessBoard.wgEffect()[0]);
 
-		base = base.pow(Logarithm.dilateEffect()[0])
-		
-		if(player.milestones.cb14) base = base.max(10).log10().pow(1.125).pow_base(10);
-		
+		base = base.pow(Logarithm.dilateEffect()[0]);
+
+		if (player.milestones.cb14) base = base.max(10).log10().pow(1.125).pow_base(10);
+
 		return base;
 	},
 	/**
-	 * 
+	 *
 	 * @returns 对数值获取取多少次方
 	 */
 	successorPow() {
 		let base = new Decimal(1);
 		if (player.upgrades[42]) base = base.add(0.1);
-		if (player.exponention.logarithm.upgrades_in_dilated.includes("12")) {
-			base = base.mul(Decimal.pow(1.1,this.upgrades[12].effect()).pow(
-				player.exponention.logarithm.upgrades_in_dilated.includes("21") ? 1.5 : 1
-			))
+		if (player.exponention.logarithm.upgrades_in_dilated.includes('12')) {
+			base = base.mul(
+				Decimal.pow(1.1, this.upgrades[12].effect()).pow(
+					player.exponention.logarithm.upgrades_in_dilated.includes('21') ? 1.5 : 1,
+				),
+			);
 		}
-		if (player.exponention.logarithm.upgrades_in_dilated.includes("22")) {
+		if (player.exponention.logarithm.upgrades_in_dilated.includes('22')) {
 			base = base.add(0.2);
 		}
-		if (Logarithm.logarithm.buyables_in_dilated.includes("11")) {
-			base = base.add(Decimal.mul(0.001, player.buyables[11].min(1000)))
+		if (Logarithm.logarithm.buyables_in_dilated.includes('11')) {
+			base = base.add(Decimal.mul(0.001, player.buyables[11].min(1000)));
 		}
 		if (Logarithm.logarithm.upgrades_in_dilated.includes('31')) base = base.add(3);
 		return base;

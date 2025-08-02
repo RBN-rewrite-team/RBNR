@@ -9,7 +9,11 @@ const props = defineProps<{
 
 <template>
 	<td v-if="BUYABLES.lock(bylid).show">
-		<div class="upgrade" @mousedown="BUYABLES.buy(bylid)" v-html="BUYABLES.singleHTML(bylid)"></div>
+		<div
+			class="upgrade"
+			@mousedown="BUYABLES.buy(bylid)"
+			v-html="BUYABLES.singleHTML(bylid)"
+		></div>
 	</td>
 </template>
 
