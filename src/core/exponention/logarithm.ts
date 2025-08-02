@@ -148,12 +148,18 @@ export const Logarithm = {
             currency: '膨胀中数值',
         });
     },
+    astronomerSpeed(): number {
+        let base = 1;
+        base *= player.milestones.cb17 ? 200 : 1;
+        return base;
+    },
     astronomerLife(): [number, Decimal]{
         let life = new Decimal(100);
         let boost = new Decimal(1); //计算生命溢出的
         let eff = buyables.lgr_impr.effect(player.buyables.lgr_impr)
         life = life.mul(eff);
-
+        life = life.mul(player.milestones.cb15 ? 10 : 1);
+        life = life.mul(player.milestones.cb17 ? 2 : 1);
 
         let temp_life = life.add(1).sub(1);
         if (life.gt(137e8)) {
@@ -172,7 +178,8 @@ export const Logarithm = {
         )
         .mul(player.milestones.log_law1 ? 5 : 1)
         .mul(this.observeDataConvert())
-        .mul(player.milestones.cb13 ? 2 : 1);
+        .mul(player.milestones.cb13 ? 2 : 1)
+        .mul(player.milestones.cb15 ? 10 : 1);
     },
     observeDataConvert() {
         let convertgain = new Decimal(5);
@@ -181,10 +188,11 @@ export const Logarithm = {
         return convertgain
     },
     astronomerUpdate() {
+        let speed = this.astronomerSpeed();
         player.buyables.lgr_emp = new Decimal(0);
         for (let i = 0; i<this.astronomers.length; i++){
-            this.astronomers[i].life = this.astronomers[i].life - diff/1000;
-            let actualtime = diff/1000;
+            this.astronomers[i].life = this.astronomers[i].life - diff/1000 * speed;
+            let actualtime = diff/1000 * speed;
             if (this.astronomers[i].life<0) {
                 actualtime = this.astronomers[i].life+actualtime;
             } 

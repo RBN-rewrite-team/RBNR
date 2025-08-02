@@ -63,6 +63,9 @@ export function qolLoop() {
  */
 export function gameLoop() {
 	diff = Date.now() - player.lastUpdated;
+	if (diff > 60000) {
+		simulateTime(diff);
+	}
 	if (player.run_a_tick_and_froze) diff=33
 	if (diff < 0) return;
 	if (!player.run_a_tick_and_froze)
@@ -74,9 +77,6 @@ export function gameLoop() {
 	} catch (e) {
 	  throw e
 	};
-	if (diff > 60000) {
-		simulateTime(diff);
-	}
 }
 /**
  * 游戏的主要循环函数，

@@ -5,7 +5,7 @@ import ModalService from '@/utils/Modal';
 import { format, formatWhole } from '@/utils/format';
 import { Addition } from '../addition/addition.ts';
 import { PrimeFactor } from './pf.ts';
-import { wgEffect } from '../exponention/chessboard.ts';
+import { getMCB19Effect, wgEffect } from '../exponention/chessboard.ts';
 import { CHALLENGE } from '../challenge.ts';
 import { MULTI_CHALS } from './challenges.ts';
 import { feature } from '../global.ts';
@@ -148,7 +148,7 @@ export const Multiplication = {
 			}
 		},
 		'39': new class U28 extends Upgrade{
-			description: () => string = Logarithm.dilated("解锁乘法挑战，自动最大购买后继、加法购买项，最大购买乘法购买项", '解锁迭代幂次', '39')
+			description: () => string = Logarithm.dilated("解锁乘法挑战，自动最大购买后继、加法购买项，最大购买乘法购买项", '解锁奇点生成器', '39')
 			cost= new Decimal(1e21)
 			name= 'U2-9'
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
@@ -348,6 +348,8 @@ export const Multiplication = {
 
 		if (player.firstResetBit & 0b100) base = base.pow(buyables[44].effect(player.buyables[44]));
 		if (player.upgrades[47]) base = base.pow(feature.ChessBoard.wgEffect()[0]);
+		
+		if (player.milestones.cb19) base = base.log10().pow(getMCB19Effect()).pow_base(10);
 
 		if (player.exponention.logarithm.in_dilate) {
 			base = base.add(10).iteratedlog(Math.E, Logarithm.dilateNerf().div(2).toNumber())
