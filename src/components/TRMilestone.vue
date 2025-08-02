@@ -31,4 +31,8 @@ const id = props.id as keyof typeof player.milestones;
     border-color: green
   }
 }
+
+tr {
+  height: 70px
+}
 </style>
