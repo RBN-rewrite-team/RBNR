@@ -12,11 +12,10 @@ import TRMilestone from '../TRMilestone.vue';
     <div class="main">
         <p style="color: grey; table-align: center">给我空间、时间及对数，我就可以创造一个宇宙。”——伽利略</p>
         <div align="center" style="margin-top: 5px;">
-            <div @click="feature.EXPONENTION.toggleDilate()">
-                <DilateButton style="font-size: 18px;" :class="{
+                <DilateButton @click="feature.EXPONENTION.toggleDilate()"
+                style="font-size: 18px;" :class="{
                     dilate_activate: player.exponention.logarithm.in_dilate
-                }">进入膨胀</DilateButton>
-            </div>
+                }">{{player.exponention.logarithm.in_dilate?"退出":"进入"}}膨胀</DilateButton>
             <p>
                 进入对数膨胀后：
                 <br>
