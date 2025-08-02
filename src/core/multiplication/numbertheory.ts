@@ -377,6 +377,9 @@ export const NUMTHEORY = {
 			effectDescription(x: Decimal) {
 				return '×' + format(x);
 			}
+			show() {
+			  player.singularity.stage < 3
+			}
 		})(),
 		'44R': new (class U44R extends UpgradeWithEffect<Decimal> {
 			description: string = 'm降低膨胀层数';

@@ -42,10 +42,10 @@ export const cb1 = new (class extends Buyable<Decimal> {
 		return c;
 	}
 	canBuyMax(): boolean {
-		return player.milestones.dil_2;
+		return player.singularity.stage < 3 && player.milestones.dil_2;
 	}
 	autoBuyMax(): boolean {
-		return player.milestones.dil_2;
+		return player.singularity.stage < 3 && player.milestones.dil_2;
 	}
 	costInverse(x: Decimal): Decimal {
 		let cb12eff = player.milestones.cb12
@@ -59,6 +59,9 @@ export const cb1 = new (class extends Buyable<Decimal> {
 			.root(player.milestones.cb2 ? 0.99 : 1)
 			.add(1)
 			.floor();
+	}
+	canAfford() {
+	  return player.singularity.stage < 3
 	}
 })();
 
