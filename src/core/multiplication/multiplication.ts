@@ -17,166 +17,168 @@ import { Logarithm } from '../exponention/logarithm.ts';
 const D179E308 = Decimal.pow(2, 1024);
 export const Multiplication = {
 	upgrades: {
-		'31': new class U21 extends Upgrade{
-			description: ()=>string = function() {
+		'31': new (class U21 extends Upgrade {
+			description: () => string = function () {
 				let counts = '1';
 				if (player.upgrades['400q'])
 					counts = "<span style='font-size: 19px;'><b>2</b></span>";
 				let text = Logarithm.dilated(
-					"你可以选择" +
-					counts +
-					"个U1系列升级将其价格降低到1加法能量，改变选择将进行乘法重置"
-					, "后继运算指数+3", "31"
+					'你可以选择' +
+						counts +
+						'个U1系列升级将其价格降低到1加法能量，改变选择将进行乘法重置',
+					'后继运算指数+3',
+					'31',
 				)();
 				return text;
-			}
-			cost= new Decimal(0)
-			name= 'U2-1'
+			};
+			cost = new Decimal(0);
+			name = 'U2-1';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			requirements() {
-				return [
-					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(1))
-				];
+				return [new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(1))];
 			}
 			keep(): boolean {
 				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
 			}
-		},
-		'32': new class U22 extends Upgrade{
-
-			description: string = "所有后继升级保持为可购买状态";
-			cost= new Decimal(1)
-			name= 'U2-2'
+		})(),
+		'32': new (class U22 extends Upgrade {
+			description: string = '所有后继升级保持为可购买状态';
+			cost = new Decimal(1);
+			name = 'U2-2';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			requirements() {
-				return [
-					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(1))
-				];
+				return [new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(1))];
 			}
 			keep() {
 				return player.upgrades['411q'] && !player.exponention.logarithm.in_dilate;
 			}
-		},
-		'33': new class U23 extends Upgrade{
-
-			description: string = "U2系列升级购买数量的平方同样作用于U0-2的效果";
-			cost= new Decimal(2)
-			name= 'U2-3'
+		})(),
+		'33': new (class U23 extends Upgrade {
+			description: string = 'U2系列升级购买数量的平方同样作用于U0-2的效果';
+			cost = new Decimal(2);
+			name = 'U2-3';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			requirements() {
-				return [
-					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(2))
-				];
+				return [new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(2))];
 			}
 			keep() {
 				return player.upgrades['411q'] && !player.exponention.logarithm.in_dilate;
 			}
-		},
-		'34': new class U24 extends Upgrade{
-
-			description: string = "在每次乘法重置后保留B1-1";
-			cost= new Decimal(3)
-			name= 'U2-4'
+		})(),
+		'34': new (class U24 extends Upgrade {
+			description: string = '在每次乘法重置后保留B1-1';
+			cost = new Decimal(3);
+			name = 'U2-4';
+			currency: Currencies = Currencies.MULTIPLICATION_POWER;
+			requirements() {
+				return [new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(3))];
+			}
+			keep() {
+				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
+			}
+		})(),
+		'35': new (class U25 extends Upgrade {
+			description: () => string = Logarithm.dilated(
+				'解锁数论研究',
+				'τ<sub>1</sub>减弱膨胀强度',
+				'35',
+			);
+			cost = new Decimal(47);
+			name = 'U2-5';
+			currency: Currencies = Currencies.MULTIPLICATION_POWER;
+			requirements() {
+				return [new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(47))];
+			}
+			keep() {
+				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
+			}
+		})(),
+		'36': new (class U26 extends Upgrade {
+			description: () => string = Logarithm.dilated(
+				'每2个质因数p<sub>n</sub>免费赠送一个p<sub>n-1</sub>',
+				'每4个p<sub>n</sub>免费赠送1个p<sub>n+1</sub>',
+				'36',
+			);
+			cost = new Decimal(101);
+			name = 'U2-6';
+			currency: Currencies = Currencies.MULTIPLICATION_POWER;
+			requirements() {
+				return [new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(101))];
+			}
+			keep() {
+				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
+			}
+		})(),
+		'37': new (class U27 extends Upgrade {
+			description: () => string = Logarithm.dilated(
+				'乘法重置保留加法升级',
+				'膨胀中保持B0-1',
+				'37',
+			);
+			cost = new Decimal(1000);
+			name = 'U2-7';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			requirements() {
 				return [
-					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(3))
+					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(1000)),
 				];
 			}
 			keep() {
 				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
 			}
-		},
-		'35': new class U25 extends Upgrade{
-
-			description: ()=>string = Logarithm.dilated("解锁数论研究", "τ<sub>1</sub>减弱膨胀强度", "35");
-			cost= new Decimal(47)
-			name= 'U2-5'
+		})(),
+		'38': new (class U28 extends Upgrade {
+			description: () => string = Logarithm.dilated(
+				'每秒自动获取重置获取加法能量的1%',
+				'每秒自动获取重置获取指数能量的1%',
+				'38',
+			);
+			cost = new Decimal(10000);
+			name = 'U2-8';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			requirements() {
 				return [
-					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(47))
+					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(10000)),
 				];
 			}
 			keep() {
 				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
 			}
-		},
-		'36': new class U26 extends Upgrade{
-
-			description: ()=>string = Logarithm.dilated("每2个质因数p<sub>n</sub>免费赠送一个p<sub>n-1</sub>", "每4个p<sub>n</sub>免费赠送1个p<sub>n+1</sub>", "36");
-			cost= new Decimal(101)
-			name= 'U2-6'
+		})(),
+		'39': new (class U28 extends Upgrade {
+			description: () => string = Logarithm.dilated(
+				'解锁乘法挑战，自动最大购买后继、加法购买项，最大购买乘法购买项',
+				'解锁奇点生成器',
+				'39',
+			);
+			cost = new Decimal(1e21);
+			name = 'U2-9';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			requirements() {
 				return [
-					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(101))
+					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(1e21)),
 				];
 			}
 			keep() {
 				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
 			}
-		},
-		'37': new class U27 extends Upgrade{
-
-			description: () => string = Logarithm.dilated("乘法重置保留加法升级", '膨胀中保持B0-1', '37');
-			cost= new Decimal(1000)
-			name= 'U2-7'
-			currency: Currencies = Currencies.MULTIPLICATION_POWER;
-			requirements() {
-				return [
-					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(1000))
-				];
-			}
-			keep() {
-				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
-			}
-		},
-		'38': new class U28 extends Upgrade{
-
-			description: () => string = Logarithm.dilated("每秒自动获取重置获取加法能量的1%", '每秒自动获取重置获取指数能量的1%', '38');
-			cost= new Decimal(10000)
-			name= 'U2-8'
-			currency: Currencies = Currencies.MULTIPLICATION_POWER;
-			requirements() {
-				return [
-					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(10000))
-				];
-			}
-			keep() {
-				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
-			}
-		},
-		'39': new class U28 extends Upgrade{
-			description: () => string = Logarithm.dilated("解锁乘法挑战，自动最大购买后继、加法购买项，最大购买乘法购买项", '解锁奇点生成器', '39')
-			cost= new Decimal(1e21)
-			name= 'U2-9'
-			currency: Currencies = Currencies.MULTIPLICATION_POWER;
-			requirements() {
-				return [
-					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(1e21))
-				];
-			}
-			keep() {
-				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
-			}
-		},
+		})(),
 	} as const,
 	buyables: {
-		'31': new class B21 extends Buyable<Decimal> {
+		'31': new (class B21 extends Buyable<Decimal> {
 			description: string = '增加加法能量获取';
-			name= 'B2-1';
+			name = 'B2-1';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
-			effect(x : Decimal) {
+			effect(x: Decimal) {
 				return x.mul(0.5).add(1);
 			}
 			effectDescription(x: Decimal) {
 				return '*' + format(this.effect(x));
 			}
 			effectDilated(value: Decimal): [Decimal, string] {
-				return [this.effect(value), "在对数膨胀后增加加法能量获取"]
+				return [this.effect(value), '在对数膨胀后增加加法能量获取'];
 			}
-			cost(x:Decimal) {
+			cost(x: Decimal) {
 				let a = x.mul(1000).add(10);
 				return a;
 			}
@@ -191,23 +193,20 @@ export const Multiplication = {
 				return player.upgrades['452q'];
 			}
 			costInverse(x: Decimal): Decimal {
-				return x.max(1)
-					.div(1000)
-					.floor()
-					.min(500)
+				return x.max(1).div(1000).floor().min(500);
 			}
-		},
-		'32': new class B22 extends Buyable<Decimal> {
+		})(),
+		'32': new (class B22 extends Buyable<Decimal> {
 			description: string = '每级将乘法能量获取*2';
-			name= 'B2-2';
+			name = 'B2-2';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
-			effect(x : Decimal) {
+			effect(x: Decimal) {
 				return x.pow_base(CHALLENGE.inChallenge(0, 3) ? 1 : 2);
 			}
 			effectDescription(x: Decimal) {
 				return '*' + formatWhole(this.effect(x));
 			}
-			cost(x:Decimal) {
+			cost(x: Decimal) {
 				let a = x.add(1).pow10();
 				return a;
 			}
@@ -220,18 +219,18 @@ export const Multiplication = {
 			costInverse(x: Decimal): Decimal {
 				return x.max(10).log10().sub(1);
 			}
-		},
-		'33': new class B23 extends Buyable<Decimal> {
+		})(),
+		'33': new (class B23 extends Buyable<Decimal> {
 			description: string = '质因数公式变得更好';
-			name= 'B2-3';
+			name = 'B2-3';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
-			effect(x : Decimal) {
+			effect(x: Decimal) {
 				return new Decimal(0.01).mul(x);
 			}
 			effectDescription(x: Decimal) {
 				return '+' + format(this.effect(x));
 			}
-			cost(x:Decimal) {
+			cost(x: Decimal) {
 				let a = new Decimal(5).pow(x.add(1));
 				return a;
 			}
@@ -242,10 +241,7 @@ export const Multiplication = {
 				return player.upgrades['452q'];
 			}
 			costInverse(x: Decimal): Decimal {
-				return x.max(1)
-					.log(5)
-					.floor()
-					.min(99);
+				return x.max(1).log(5).floor().min(99);
 			}
 			capped(x: Decimal) {
 				let capc = 99;
@@ -253,50 +249,47 @@ export const Multiplication = {
 			}
 			requirements(): Requirement[] {
 				return [
-					new class extends Requirement {
+					new (class extends Requirement {
 						reachedReq(): boolean {
 							return PrimeFactor.power().gte(10000);
 						}
 						reqDescription(): string {
-							return '获得10000因数能量'
+							return '获得10000因数能量';
 						}
 						progress(): [string, string] {
-							return [format(PrimeFactor.power()),format(10000)]
+							return [format(PrimeFactor.power()), format(10000)];
 						}
-					}
-				]
+					})(),
+				];
 			}
-		},
+		})(),
 	} as const,
 	initMechanics() {
-		
 		SOFTCAPS.create('mulpower^1', {
 			name: 'mulpower^1',
 			fluid: true,
-			start: new Decimal("e5e6"),
-			get exponent(){
-			    let base = new Decimal(2.5);
-			    if(player.upgrades[47]) base = base.pow(wgEffect()[4]);
-			    return new Decimal(1).div(base);
+			start: new Decimal('e5e6'),
+			get exponent() {
+				let base = new Decimal(2.5);
+				if (player.upgrades[47]) base = base.pow(wgEffect()[4]);
+				return new Decimal(1).div(base);
 			},
-			meta: 1
+			meta: 1,
 		});
 		SOFTCAPS.create('mulpower^2', {
 			name: 'mulpower^2',
 			fluid: true,
-			start: new Decimal("ee9"),
+			start: new Decimal('ee9'),
 			exponent: new Decimal(0.25),
-			meta: 1
+			meta: 1,
 		});
 	},
 	mulpower_gain(bulk = new Decimal(1)) {
-	  let adding = this.gain().mul(bulk);
-	  adding = SOFTCAPS.fluidComputed('mulpower^1', adding, player.multiplication.mulpower);
-	  adding = SOFTCAPS.fluidComputed('mulpower^2', adding, player.multiplication.mulpower);
-	  player.multiplication.mulpower = player.multiplication.mulpower.add(adding);
-		player.multiplication.totalMulpower = player.multiplication.totalMulpower.add(
-			adding
-		);
+		let adding = this.gain().mul(bulk);
+		adding = SOFTCAPS.fluidComputed('mulpower^1', adding, player.multiplication.mulpower);
+		adding = SOFTCAPS.fluidComputed('mulpower^2', adding, player.multiplication.mulpower);
+		player.multiplication.mulpower = player.multiplication.mulpower.add(adding);
+		player.multiplication.totalMulpower = player.multiplication.totalMulpower.add(adding);
 	},
 	powerEff() {
 		let base = player.multiplication.totalMulpower.add(1);
@@ -304,7 +297,7 @@ export const Multiplication = {
 	},
 	reset(force = false) {
 		if (this.gain().gt(0) || force) {
-			this.mulpower_gain()
+			this.mulpower_gain();
 			if (CHALLENGE.inChallenge(0, 3)) {
 				player.challenges[0][3] = player.challenges[0][3].add(this.gain());
 			}
@@ -348,11 +341,11 @@ export const Multiplication = {
 
 		if (player.firstResetBit & 0b100) base = base.pow(buyables[44].effect(player.buyables[44]));
 		if (player.upgrades[47]) base = base.pow(feature.ChessBoard.wgEffect()[0]);
-		
+
 		if (player.milestones.cb19) base = base.log10().pow(getMCB19Effect()).pow_base(10);
 
 		if (player.exponention.logarithm.in_dilate) {
-			base = base.add(10).iteratedlog(Math.E, Logarithm.dilateNerf().div(2).toNumber())
+			base = base.add(10).iteratedlog(Math.E, Logarithm.dilateNerf().div(2).toNumber());
 		}
 
 		return base.floor();

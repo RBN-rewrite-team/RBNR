@@ -20,14 +20,20 @@ import Decimal from 'break_eternity.js';
 					<span
 						v-else
 						v-html="formatGain(player.number, feature.resourceGain.number().value, '')"
-					></span>({{ formatWhole(player.totalNumber) }})
+					></span
+					>({{ formatWhole(player.totalNumber) }})
 					<br />
 					<span v-if="feature.resourceGain.number().softcaps > 0">
 						(受{{ feature.resourceGain.number().softcaps }}个软上限限制)
 					</span>
 				</div>
 			</div>
-			<div style="margin-left: 265px" class="resource" id="showMP" v-if="player.upgrades[13] || player.exponention.logarithm.in_dilate">
+			<div
+				style="margin-left: 265px"
+				class="resource"
+				id="showMP"
+				v-if="player.upgrades[13] || player.exponention.logarithm.in_dilate"
+			>
 				<div style="font-weight: bold; color: #009dd9">
 					加法能量&nbsp;
 					<div style="display: inline; text-shadow: #5acaff 1px 1px 2px">
@@ -55,7 +61,11 @@ import Decimal from 'break_eternity.js';
 					</span>
 				</div>
 			</div>
-			<div style="margin-left: 515px" class="resource" v-if="player.upgrades[26] || player.exponention.logarithm.in_dilate">
+			<div
+				style="margin-left: 515px"
+				class="resource"
+				v-if="player.upgrades[26] || player.exponention.logarithm.in_dilate"
+			>
 				<div style="font-weight: bold; color: #cc33ff">
 					乘法能量&nbsp;
 					<div style="display: inline; text-shadow: #dd77dd 1px 1px 2px">
@@ -107,9 +117,8 @@ import Decimal from 'break_eternity.js';
 									.passive.mul(feature.resourceGain.exppower().value),
 							)
 						}}
-					</span> (!{{
-						formatWhole(player.exponention.totalExppower)
-					}})
+					</span>
+					(!{{ formatWhole(player.exponention.totalExppower) }})
 				</div>
 			</div>
 		</div>

@@ -1,5 +1,5 @@
-import { reactive } from "vue";
+import { reactive } from 'vue';
 
 export const temp = reactive({
-    select_ach: [0, 0],
+	select_ach: [0, 0],
 });

@@ -21,18 +21,21 @@ const upgrades = {
 	...NUMTHEORY.upgrades,
 	...Exponention.upgrades,
 	...QolUpgrades.upgrades,
-} as const
+} as const;
 const buyables = {
 	...Successor.buyables,
 	...Addition.buyables,
 	...Multiplication.buyables,
 	...NUMTHEORY.buyables,
-	...PrimeFactor.upgrades,// this code write 'upgrades', but it is actually 'buyables'.
+	...PrimeFactor.upgrades, // this code write 'upgrades', but it is actually 'buyables'.
 	...Exponention.buyables,
 	cb1,
 	...Logarithm.buyables,
-} as const
-const preExponent = Object.keys(Addition.buyables).concat(Object.keys(Successor.buyables)).concat(Object.keys(Multiplication.buyables)).concat(Object.keys(NUMTHEORY.buyables));
+} as const;
+const preExponent = Object.keys(Addition.buyables)
+	.concat(Object.keys(Successor.buyables))
+	.concat(Object.keys(Multiplication.buyables))
+	.concat(Object.keys(NUMTHEORY.buyables));
 var softcaps: {
 	[key: string]: ISoftcap;
 } = {};
@@ -60,12 +63,17 @@ export const UPGRADES = {
 	 */
 	buy(id: keyof typeof upgrades) {
 		if (!player.upgrades[id] && this.lock(id).unlocked && upgrades[id].canAfford()) {
-			decreaseCurrency(upgrades[id].currency, typeof upgrades[id].cost === "function" ? upgrades[id].cost() : upgrades[id].cost);
+			decreaseCurrency(
+				upgrades[id].currency,
+				typeof upgrades[id].cost === 'function' ? upgrades[id].cost() : upgrades[id].cost,
+			);
 			player.upgrades[id] = true;
-			
+
 			if (Logarithm.logarithm.in_dilate) {
-				Logarithm.logarithm.upgrades_in_dilated.push(id)
-				Logarithm.logarithm.upgrades_in_dilated = [...new Set(Logarithm.logarithm.upgrades_in_dilated)]
+				Logarithm.logarithm.upgrades_in_dilated.push(id);
+				Logarithm.logarithm.upgrades_in_dilated = [
+					...new Set(Logarithm.logarithm.upgrades_in_dilated),
+				];
 			}
 		}
 	},
@@ -84,19 +92,23 @@ export const BUYABLES = {
 	singleHTML(id: keyof typeof buyables) {
 		let useclass = 'upgrade_buttonbig';
 		if (buyables[id].capped(player.buyables[id])) useclass = 'upgrade_buttonbig_complete';
-		else if (!this.lock(id).unlocked || !buyables[id].canAfford() || !buyables[id].cost(player.buyables[id]).lte(getCurrency(buyables[id].currency)))
+		else if (
+			!this.lock(id).unlocked ||
+			!buyables[id].canAfford() ||
+			!buyables[id].cost(player.buyables[id]).lte(getCurrency(buyables[id].currency))
+		)
 			useclass = 'upgrade_buttonbig_unable';
 		let str = '<div class="' + useclass + '">';
 		str +=
 			'<span sytle="font-weight: bold">' +
-			(buyables[id].name) +
+			buyables[id].name +
 			'(' +
 			formatWhole(player.buyables[id]) +
-			((function () {
+			(function () {
 				let a = buyables[id].more();
 				if (a.gte(1)) return '+' + formatWhole(a);
 				return '';
-			})()) +
+			})() +
 			')</span><br>';
 		if (!this.lock(id).unlocked && player.buyables[id].eq(0)) {
 			str += '暂未解锁<br>';
@@ -107,7 +119,8 @@ export const BUYABLES = {
 				if (req[j].reachedReq()) str += '<span style="color: green; font-weight: bold">';
 				else str += '<span style="color: red; font-weight: bold">';
 				str += req[j].reqDescription();
-				if (!req[j].reachedReq() && req[j].progress) str += '(' + req[j].progress().join("/") + ')';
+				if (!req[j].reachedReq() && req[j].progress)
+					str += '(' + req[j].progress().join('/') + ')';
 				str += '</span>';
 			}
 		} else {
@@ -116,8 +129,11 @@ export const BUYABLES = {
 				if (buyables[id].canBuy != null) canBuy = buyables[id].canBuy(player.buyables[id]);
 			}
 			str += buyables[id].description + '<br>';
-			if (buyables[id].descriptionDilated && Logarithm.logarithm.buyables_in_dilated.includes(id)) 
-				str += buyables[id].descriptionDilated + "<br>"
+			if (
+				buyables[id].descriptionDilated &&
+				Logarithm.logarithm.buyables_in_dilated.includes(id)
+			)
+				str += buyables[id].descriptionDilated + '<br>';
 			if (buyables[id].effect != null)
 				str +=
 					'效果：' +
@@ -125,7 +141,10 @@ export const BUYABLES = {
 					'&nbsp;→' +
 					buyables[id].effectDescription(player.buyables[id].add(canBuy.max(1))) +
 					'<br>';
-			if (player.exponention.logarithm.buyables_in_dilated.includes(id) &&   buyables[id].effectDilated !== Buyable.prototype.effectDilated)
+			if (
+				player.exponention.logarithm.buyables_in_dilated.includes(id) &&
+				buyables[id].effectDilated !== Buyable.prototype.effectDilated
+			)
 				str +=
 					'膨胀效果：' +
 					buyables[id].effectDilated(player.buyables[id])[1] +
@@ -149,21 +168,23 @@ export const BUYABLES = {
 			buyables[id].cost(player.buyables[id]).lte(getCurrency(buyables[id].currency)) &&
 			buyables[id].canAfford()
 		) {
-			if (
-				buyables[id].canBuyMax != null &&
-				buyables[id].canBuyMax()
-			) {
+			if (buyables[id].canBuyMax != null && buyables[id].canBuyMax()) {
 				buyables[id].postBuyMax();
-				player.buyables[id] = Decimal.max(player.buyables[id], buyables[id].costInverse(getCurrency(buyables[id].currency)))
+				player.buyables[id] = Decimal.max(
+					player.buyables[id],
+					buyables[id].costInverse(getCurrency(buyables[id].currency)),
+				);
 			} else {
 				buyables[id].postBuy();
-				decreaseCurrency(buyables[id].currency, buyables[id].cost(player.buyables[id]))
+				decreaseCurrency(buyables[id].currency, buyables[id].cost(player.buyables[id]));
 				player.buyables[id] = player.buyables[id].add(1);
 			}
 			if (Logarithm.logarithm.in_dilate) {
-				if (preExponent.includes(id)){
-					Logarithm.logarithm.buyables_in_dilated.push(id)
-					Logarithm.logarithm.buyables_in_dilated = [...new Set(Logarithm.logarithm.buyables_in_dilated)]
+				if (preExponent.includes(id)) {
+					Logarithm.logarithm.buyables_in_dilated.push(id);
+					Logarithm.logarithm.buyables_in_dilated = [
+						...new Set(Logarithm.logarithm.buyables_in_dilated),
+					];
 				}
 			}
 		}
@@ -187,24 +208,36 @@ type ISoftcap = {
  * @param meta 不知道
  * @returns 溢出后的数
  */
-function overflow() {/* 废弃 */}
+function overflow() {
+	/* 废弃 */
+}
 
-function overflow_v2(getting: Decimal, existing: Decimal, s: any)
-{
-    let ans = new Decimal(0);
-    if(s.slog)
-    {
-        ans = Decimal.iteratedexp(10, Number(getting.slog().sub(s.start.slog()).mul(s.slog ?? 1).add(s.start.slog())), new Decimal(1));
-    }
-    else
-    {
-        let start = s.start, power = s.exponent, meta = s.meta ?? 0;
-        let safe = Decimal.iteratedexp(10, meta, new Decimal(1));
-        let stm = start.iteratedlog(10, meta), gem = getting.max(safe).iteratedlog(10, meta), exm = existing.iteratedlog(10, meta);
-        let logged = stm.mul(exm.div(stm).root(power).add(gem.div(stm)).pow(power));
-        ans = Decimal.iteratedexp(10, meta, logged);
-    }
-    return ans;
+function overflow_v2(getting: Decimal, existing: Decimal, s: any) {
+	let ans = new Decimal(0);
+	if (s.slog) {
+		ans = Decimal.iteratedexp(
+			10,
+			Number(
+				getting
+					.slog()
+					.sub(s.start.slog())
+					.mul(s.slog ?? 1)
+					.add(s.start.slog()),
+			),
+			new Decimal(1),
+		);
+	} else {
+		let start = s.start,
+			power = s.exponent,
+			meta = s.meta ?? 0;
+		let safe = Decimal.iteratedexp(10, meta, new Decimal(1));
+		let stm = start.iteratedlog(10, meta),
+			gem = getting.max(safe).iteratedlog(10, meta),
+			exm = existing.iteratedlog(10, meta);
+		let logged = stm.mul(exm.div(stm).root(power).add(gem.div(stm)).pow(power));
+		ans = Decimal.iteratedexp(10, meta, logged);
+	}
+	return ans;
 }
 
 export const SOFTCAPS = {
@@ -218,7 +251,7 @@ export const SOFTCAPS = {
 	 * @returns 是否达到软上限
 	 */
 	reach(id: string, existing: Decimal) {
-	    if(softcaps[id].slog) return existing.slog().gte(softcaps[id].start);
+		if (softcaps[id].slog) return existing.slog().gte(softcaps[id].start);
 		return existing.gte(softcaps[id].start);
 	},
 	/**
@@ -254,22 +287,22 @@ export const SOFTCAPS = {
 };
 
 type IMilestone = {
-  requirement: Decimal,
-  currency: string,
-  displayName: string,
-  show: boolean;
-  description: string;
-  canDone: boolean;
-}
+	requirement: Decimal;
+	currency: string;
+	displayName: string;
+	show: boolean;
+	description: string;
+	canDone: boolean;
+};
 
 export const milestones: {
-  [key: string]: IMilestone;
-} = {}
+	[key: string]: IMilestone;
+} = {};
 
 export const MILESTONES = {
-  create(id: keyof typeof player.milestones, info: IMilestone) {
+	create(id: keyof typeof player.milestones, info: IMilestone) {
 		milestones[id] = info;
 	},
-}
+};
 
 export { upgrades, buyables, softcaps };

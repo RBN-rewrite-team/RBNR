@@ -13,12 +13,13 @@ const id = props.upgid as keyof typeof upgrades;
 // code...
 function useClass() {
 	let useclass = 'upgrade_buttonbig';
-	if (id.toString().startsWith('4') && id.toString().endsWith('q')) useclass = 'upgrade_buttonsmall';
+	if (id.toString().startsWith('4') && id.toString().endsWith('q'))
+		useclass = 'upgrade_buttonsmall';
 	if (player.upgrades[id]) useclass += '_complete';
 	else if (!UPGRADES.lock(id).unlocked || !upgrades[id].canAfford()) useclass += '_unable';
 
 	if (player.upgrades[id] && Logarithm.logarithm.upgrades_in_dilated.includes(id)) {
-		useclass += " upgrade_dilated"
+		useclass += ' upgrade_dilated';
 	}
 	return useclass;
 }
@@ -31,8 +32,7 @@ const req = curupg.requirements();
 	<td v-if="UPGRADES.lock(upgid).show">
 		<div class="upgrade" @mousedown="UPGRADES.buy(upgid)">
 			<div :class="useClass()">
-				<span style="font-weight: bold"> {{ curupg.name ?? 'U' + id }} </span
-				><br />
+				<span style="font-weight: bold"> {{ curupg.name ?? 'U' + id }} </span><br />
 				<template v-if="!UPGRADES.lock(id).unlocked && !permanent && !player.upgrades[id]">
 					暂未解锁<br />
 					<template v-for="sreq in Object.entries(req)">
@@ -43,7 +43,7 @@ const req = curupg.requirements();
 						>
 							{{ sreq[1].reqDescription() }}
 							<span v-if="!sreq[1].reachedReq() && sreq[1].progress">
-								({{ sreq[1].progress().join("/") }})
+								({{ sreq[1].progress().join('/') }})
 							</span>
 						</span>
 					</template>
@@ -51,13 +51,24 @@ const req = curupg.requirements();
 				</template>
 				<template v-else>
 					<!-- (Logarithm.logarithm.upgrades_in_dilated.includes(id)&&curupg.dilated) ? curupg.dilated :  -->
-					<span v-html="typeof curupg.description === 'function' ? curupg.description() : curupg.description"></span><br />
+					<span
+						v-html="
+							typeof curupg.description === 'function'
+								? curupg.description()
+								: curupg.description
+						"
+					></span
+					><br />
 					<template v-if="UpgradeWithEffect.isWithEffect<any>(curupg)">
 						效果：<span v-html="curupg.effectDescription(curupg.effect())"></span><br />
 					</template>
 				</template>
 				<template v-if="!permanent">
-					价格：{{ format(typeof curupg.cost==="function" ? curupg.cost() : curupg.cost) + currencyName(curupg.currency) }} <br />
+					价格：{{
+						format(typeof curupg.cost === 'function' ? curupg.cost() : curupg.cost) +
+						currencyName(curupg.currency)
+					}}
+					<br />
 				</template>
 				<span v-else style="color: green; font-weight: bold"> 保持持有<br /> </span>
 			</div>

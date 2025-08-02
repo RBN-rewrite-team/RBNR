@@ -11,8 +11,8 @@ export const MULTI_CHALS: SingleChallenge[] = [
 		effect(x) {
 			let base = x.sub(1000).max(0).add(1).log10().mul(0.0001);
 			let cap = 0.25;
-			if (player.exponention.logarithm.upgrades_in_dilated.includes("25")) {
-				if(base.gte(1)) base = base.root(2);
+			if (player.exponention.logarithm.upgrades_in_dilated.includes('25')) {
+				if (base.gte(1)) base = base.root(2);
 				return base;
 			}
 			if (base.gte(cap)) base = new Decimal(cap);
