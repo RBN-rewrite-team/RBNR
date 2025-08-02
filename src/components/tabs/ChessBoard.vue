@@ -87,8 +87,4 @@ import TRMilestone from '../TRMilestone.vue';
     border-collapse: collapse;
     border-spacing: 0px;
   }
-
-  .milestones> tr{
-    height: 60px;
-  }
 </style>
