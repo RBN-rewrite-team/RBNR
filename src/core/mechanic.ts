@@ -218,8 +218,8 @@ export const SOFTCAPS = {
 	 * @returns 是否达到软上限
 	 */
 	reach(id: string, existing: Decimal) {
-	    if(s.slog) return existing.slog().gte(softcaps[id].start);
-		else return existing.gte(softcaps[id].start);
+	    if(softcaps[id].slog) return existing.slog().gte(softcaps[id].start);
+		return existing.gte(softcaps[id].start);
 	},
 	/**
 	 * 基于获取和当前数值的软上限

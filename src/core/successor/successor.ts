@@ -219,10 +219,11 @@ export const Successor = {
 		if (player.exponention.logarithm.upgrades_in_dilated.includes("31")) {
 			adding = adding.pow(3)
 		}
-		for(let i = 1; i <= 9; i++)
+		for(let i = 1; i <= 8; i++)
 		    adding = SOFTCAPS.fluidComputed('number^' + i, adding, player.number);
 		if (CHALLENGE.inChallenge(0, 2))
 			adding = SOFTCAPS.fluidComputed('number_C1', adding, player.number);
+		adding = SOFTCAPS.staticComputed('number^9', adding);
 		if (CHALLENGE.inChallenge(0, 3)) {
 			adding = adding.mul(predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1);
 		}
