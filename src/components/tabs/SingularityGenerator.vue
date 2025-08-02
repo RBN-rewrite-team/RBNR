@@ -3,7 +3,7 @@ import { feature, player } from '@/core/global';
 import { format } from '@/utils/format';
 import Decimal from 'break_eternity.js';
 import { ref } from "vue"
-
+import { CHALLENGE, type SingleChallenge } from '../../core/challenge.ts';
 function destroy(a: number) {
   switch(a) {
     case 1:
@@ -54,6 +54,32 @@ function destroy(a: number) {
       player.milestones.cb19 = false;
       player.upgrades[47] = false;
       player.upgrades["43R"] = false;
+      break
+    case 4:
+      player.upgrades["41R"] = false;
+      player.upgrades["42R"] = false;
+      player.upgrades["41"] = false;
+      player.upgrades["42"] = false;
+      player.upgrades["43"] = false;
+      player.upgrades["44"] = false;
+      player.upgrades["45"] = false;
+      player.upgrades["46"] = false;
+      player.upgrades["48"] = false;
+      player.upgrades["400q"] = false;
+      for (let i = 1; i <= 5; i++) {
+        for (let j = 1; j <= 5; j++)
+          player.upgrades[`4${i}${j}q`] = false;
+      }
+      player.buyables["41"] = new Decimal(0);
+      player.buyables["42"] = new Decimal(0);
+      player.buyables["43"] = new Decimal(0);
+      player.buyables["44"] = new Decimal(0);
+      player.exponention.exppower = new Decimal(0)
+      player.exponention.totalExppower = new Decimal(0)
+      player.exponention.qolpoints = new Decimal(0)
+      player.firstResetBit &= ~(1 << 2)
+      if (CHALLENGE.inChallenge(0,3)) player.challengein = [-1, -1]
+      player.challenges[0][3] = new Decimal(0)
       break
   }
 }
@@ -163,8 +189,11 @@ setInterval(function () {
 		<button class="sacrifice" v-if="player.singularity.stage < 3 && player.singularity.t >= 300" @click="player.singularity.stage = 3; destroy(3)">
 		  现在的{{ wordShift.wordCycle(["数值", "加法能量", "乘法能量", "指数能量", "奇点能量"], false, t) }}太多了......我需要献祭我的棋盘才能走得更远......
 		</button>
-		<button class="sacrifice" v-if="player.singularity.stage < 5 && player.singularity.t >= 350" @click="player.singularity.stage = 3; destroy(3)">
-		  现在的{{ wordShift.wordCycle(["数值", "加法能量", "乘法能量", "指数能量", "奇点能量"], false, t) }}太多了......我需要献祭我的棋盘才能走得更远......
+		<button class="sacrifice" v-if="player.singularity.stage < 4 && player.singularity.t >= 350" @click="player.singularity.stage = 4; destroy(4)">
+		  现在的{{ wordShift.wordCycle(["数值", "加法能量", "乘法能量", "指数能量", "奇点能量"], false, t) }}太多了......我需要献祭我的指数层级才能走得更远......
+		</button>
+		<button class="sacrifice" v-if="player.singularity.stage < 6 && player.singularity.t >= 400" @click="player.singularity.stage = 6; destroy(5)">
+		  现在的{{ wordShift.wordCycle(["数值", "加法能量", "乘法能量", "奇点能量"], false, t) }}太多了......我需要献祭我的数论研究才能走得更远......
 		</button>
 		</div>
     <button v-else class="circle-button" @click="player.singularity.enabled = true">

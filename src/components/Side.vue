@@ -122,6 +122,18 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 							奇点生成器
 						</div>
 					</template>
+					<template v-if="player.singularity.stage >= 4">
+						<div class="menu1">???</div>
+						<div class="menu_line"></div>
+						<div
+							class="menu2"
+							:class="{ focus: player.currentTab == 14 }"
+							@click="player.currentTab = 14"
+							v-if="player.singularity.enabled || Logarithm.logarithm.upgrades_in_dilated.includes('39')"
+						>
+							奇点生成器
+						</div>
+					</template>
 					<div class="menu1">杂项</div>
 					<div class="menu_line"></div>
 					<div
