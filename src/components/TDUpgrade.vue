@@ -18,7 +18,7 @@ function useClass() {
 	if (player.upgrades[id]) useclass += '_complete';
 	else if (!UPGRADES.lock(id).unlocked || !upgrades[id].canAfford()) useclass += '_unable';
 
-	if (player.upgrades[id] && Logarithm.logarithm.upgrades_in_dilated.includes(id)) {
+	if (player.singularity.stage < 1 && player.upgrades[id] && Logarithm.logarithm.upgrades_in_dilated.includes(id)) {
 		useclass += ' upgrade_dilated';
 	}
 	return useclass;

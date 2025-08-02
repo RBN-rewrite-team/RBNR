@@ -343,6 +343,7 @@ export const Multiplication = {
 		if (player.upgrades[47]) base = base.pow(feature.ChessBoard.wgEffect()[0]);
 
 		if (player.milestones.cb19) base = base.log10().pow(getMCB19Effect()).pow_base(10);
+		if (player.exponention.logarithm.upgrades_in_dilated.includes('39')) base = base.pow(feature.SingularityGenerator.getSingularityEffect());
 
 		if (player.exponention.logarithm.in_dilate) {
 			base = base.add(10).iteratedlog(Math.E, Logarithm.dilateNerf().div(2).toNumber());

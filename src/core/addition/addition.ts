@@ -298,6 +298,7 @@ export const Addition = {
 		if (player.exponention.logarithm.upgrades_in_dilated.includes('13')) {
 			base = base.add(0.1);
 		}
+		if (player.exponention.logarithm.upgrades_in_dilated.includes('39')) base = base.mul(feature.SingularityGenerator.getSingularityEffect());
 		return base;
 	},
 	U25effect() {

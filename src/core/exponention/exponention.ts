@@ -270,7 +270,7 @@ export const Exponention = {
 		if (player.milestones.log_law2)
 			base = base.mul(Logarithm.logarithm.calculate_datas.root(3).max(1));
 
-		base = base.mul(Logarithm.dilateEffect()[1]);
+		if (player.singularity.stage < 1) base = base.mul(Logarithm.dilateEffect()[1]);
 		return base.floor();
 	},
 	powerEff() {

@@ -35,6 +35,7 @@ import Achievements from './components/tabs/Achievements.vue';
 import ChessBoard from './components/tabs/ChessBoard.vue';
 import Logarithm from './components/tabs/Logarithm.vue';
 import LogDilate from './components/tabs/LogDilate.vue';
+import SingularityGenerator from './components/tabs/SingularityGenerator.vue';
 </script>
 
 <template>
@@ -64,6 +65,7 @@ import LogDilate from './components/tabs/LogDilate.vue';
 				<Achievements v-if="player.currentTab === 11" />
 				<Logarithm v-if="player.currentTab === 12" />
 				<LogDilate v-if="player.currentTab === 13" />
+				<SingularityGenerator v-if="player.currentTab === 14" />
 				<div class="main" v-if="player.currentTab === 3">
 					<h1>大数之路重制版</h1>
 					版本: v0.1.1<br />

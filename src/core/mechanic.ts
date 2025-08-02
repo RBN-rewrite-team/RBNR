@@ -142,7 +142,7 @@ export const BUYABLES = {
 					buyables[id].effectDescription(player.buyables[id].add(canBuy.max(1))) +
 					'<br>';
 			if (
-				player.exponention.logarithm.buyables_in_dilated.includes(id) &&
+				player.singularity.stage < 1 && player.exponention.logarithm.buyables_in_dilated.includes(id) &&
 				buyables[id].effectDilated !== Buyable.prototype.effectDilated
 			)
 				str +=

@@ -173,6 +173,10 @@ export function simulate(diff: number) {
 			.add(NUMTHEORY.varY2gain().mul(diff).mul(1e-3))
 			.max(1);
 	}
+	if (player.singularity.enabled && Logarithm.logarithm.upgrades_in_dilated.includes('39')) {
+	  player.singularity.t += diff / 1000
+	  if (player.singularity.t > 205) player.singularity.t = 205
+	}
 	Logarithm.astronomerUpdate();
 	updateHighestStat();
 }

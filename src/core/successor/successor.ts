@@ -277,7 +277,7 @@ export const Successor = {
 		if (player.firstResetBit & 0b100) base = base.pow(buyables[42].effect(player.buyables[42]));
 		if (player.upgrades[47]) base = base.pow(feature.ChessBoard.wgEffect()[0]);
 
-		base = base.pow(Logarithm.dilateEffect()[0]);
+		if (player.singularity.stage < 1) base = base.pow(Logarithm.dilateEffect()[0]);
 
 		if (player.milestones.cb14) base = base.max(10).log10().pow(1.125).pow_base(10);
 
@@ -304,6 +304,7 @@ export const Successor = {
 			base = base.add(Decimal.mul(0.001, player.buyables[11].min(1000)));
 		}
 		if (Logarithm.logarithm.upgrades_in_dilated.includes('31')) base = base.add(3);
+		if (Logarithm.logarithm.upgrades_in_dilated.includes('39')) base = base.mul(feature.SingularityGenerator.getSingularityEffect());
 		return base;
 	},
 };
