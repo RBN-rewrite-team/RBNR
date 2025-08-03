@@ -41,7 +41,6 @@ function destroy(a: number) {
       break
     case 3:
       player.buyables.cb1 = new Decimal(0);
-      feature.EXPONENTION.reset(true, true);
       player.milestones.cb1 = false;
       player.milestones.cb2 = false;
       player.milestones.cb3 = false;
@@ -55,6 +54,7 @@ function destroy(a: number) {
       player.milestones.cb19 = false;
       player.upgrades[47] = false;
       player.upgrades["43R"] = false;
+      feature.EXPONENTION.reset(true, true);
       break
     case 4:
       player.upgrades["41R"] = false;
@@ -81,6 +81,7 @@ function destroy(a: number) {
       player.firstResetBit &= ~(1 << 2)
       if (CHALLENGE.inChallenge(0,3)) player.challengein = [-1, -1]
       player.challenges[0][3] = new Decimal(0)
+      feature.MULTIPLICATION.reset(true);
       break
     case 5:
       player.challenges[0] = [
