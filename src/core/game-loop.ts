@@ -211,8 +211,7 @@ export function simulate(diff: number) {
 	  if (player.singularity.stage < 9 && player.singularity.t > 470) player.singularity.t = 470
 	  if (player.singularity.stage < 10 && player.singularity.t > 490) player.singularity.t = 490
 	  if (player.singularity.stage < 11 && player.singularity.t > 500) player.singularity.t = 500
-	  player.singularity.t = Math.min(player.singularity.t, 600)
-	  player.singularity.t = Math.min(player.singularity.t, feature.SingularityGenerator.converage_point())
+	  player.singularity.t = Math.min(player.singularity.t, 675);
 	}
 	Logarithm.astronomerUpdate();
 	updateHighestStat();
