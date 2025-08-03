@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { player } from '@/core/global';
 function getBHsize(t: number) {
-  return 0
+//  return 0
   if (t < 500) return 0
-  else return (t - 500) / 2 + Math.max(t-550,0) * 2
+  else return ((t - 500) / 2 + Math.max(t-550, 0) * 0.7) * 1.05 ** (t-600)
 }
 </script>
 
@@ -24,6 +24,7 @@ function getBHsize(t: number) {
   position: absolute;
   left: 50%;
   top: 50%;
-  overflow: hidden
+  overflow: hidden;
+  transform: translate(-50%, -50%)
 }
 </style>

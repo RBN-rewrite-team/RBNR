@@ -84,7 +84,7 @@ function r(s: number): number{
     return Math.random() * s * 2 - s;
 }
 function singularity_UI() {
-    let s = player.singularity.stage + Math.max(player.singularity.t - 400, 0) / 3 + Math.max(player.singularity.t - 500, 0);
+    let s = player.singularity.stage + Math.max(player.singularity.t - 400, 0) / 3 + Math.max(player.singularity.t - 500, 0) + Math.max(player.singularity.t - 550, 0) * 2 + Math.max(player.singularity.t - 500, 0) * 5;
     let str = ['main', 'title_box', 'menu', 'newsbar', 'resources'];
     //@ts-ignore
     document.getElementById('main').style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
@@ -200,7 +200,7 @@ export function simulate(diff: number) {
 	}
 
 	if (player.singularity.enabled || Logarithm.logarithm.upgrades_in_dilated.includes('39')) {
-	  player.singularity.t += diff / 1000
+	  if (player.singularity.enabled) player.singularity.t += diff / 1000
 	  if (player.singularity.stage < 1 && player.singularity.t > 205) player.singularity.t = 205
 	  if (player.singularity.stage < 2 && player.singularity.t > 250) player.singularity.t = 250
 	  if (player.singularity.stage < 3 && player.singularity.t > 300) player.singularity.t = 300
@@ -211,6 +211,7 @@ export function simulate(diff: number) {
 	  if (player.singularity.stage < 9 && player.singularity.t > 470) player.singularity.t = 470
 	  if (player.singularity.stage < 10 && player.singularity.t > 490) player.singularity.t = 490
 	  if (player.singularity.stage < 11 && player.singularity.t > 500) player.singularity.t = 500
+	  player.singularity.t = Math.min(player.singularity.t, 600)
 	  player.singularity.t = Math.min(player.singularity.t, feature.SingularityGenerator.converage_point())
 	}
 	Logarithm.astronomerUpdate();
