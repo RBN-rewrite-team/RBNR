@@ -91,13 +91,13 @@ export const PrimeFactor = {
 						player.upgrades[39] ||
 						(player.upgrades['415q'] && Number(i) <= 3) ||
 						(player.upgrades['425q'] && Number(i) <= 7)
-					);
+					) && player.singularity.stage < 7;
 				}
 				autoBuyMax() {
 					return (
 						(player.upgrades['415q'] && Number(i) <= 3) ||
 						(player.upgrades['425q'] && Number(i) <= 7)
-					);
+					) && player.singularity.stage < 7;
 				}
 				costInverse(x: Decimal) {
 					return x
@@ -108,12 +108,16 @@ export const PrimeFactor = {
 						.add(1)
 						.floor();
 				}
+				show() {
+				    return player.singularity.stage < 7;
+				}
 			})();
 		}
 		return PFList;
 	})() as Record<`pf${PrimeList}`, Buyable<Decimal>>,
 	initMechanics() {},
 	power() {
+	    if(player.singularity.stage >= 7) return new Decimal(1);
 		let pflist = ['2', '3', '5', '7', '11', '13', '17', '19'] as const;
 		let base = new Decimal(1);
 		for (let i in pflist)

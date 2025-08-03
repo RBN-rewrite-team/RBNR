@@ -2,7 +2,7 @@ import Decimal from 'break_eternity.js';
 import { player } from '@/core/global.ts';
 export function singularityExponent() {
   let t = player.singularity.t / 1000
-  return Math.min(0.5 + t, 1.2)
+  return Math.min(0.5 + t, 1.15)
 }
 
 export function singularityDivision() {

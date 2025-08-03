@@ -33,7 +33,7 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 					>
 						后继
 					</div>
-					<template v-if="player.upgrades[13]">
+					<template v-if="player.upgrades[13] && player.singularity.stage < 10">
 						<div class="menu1">加法</div>
 						<div class="menu_line"></div>
 						<div
@@ -44,7 +44,7 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 							加法
 						</div>
 					</template>
-					<template v-if="player.upgrades[26]">
+					<template v-if="player.upgrades[26] && player.singularity.stage < 9">
 						<div class="menu1">乘法</div>
 						<div class="menu_line"></div>
 						<div
@@ -58,7 +58,7 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 							class="menu2"
 							:class="{ focus: player.currentTab == 5 }"
 							@click="player.currentTab = 5"
-							v-if="player.firstResetBit & 0b10"
+							v-if="player.firstResetBit & 0b10 && player.singularity.stage < 7"
 						>
 							质因数
 						</div>
@@ -66,7 +66,7 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 							class="menu2"
 							:class="{ focus: player.currentTab == 6 }"
 							@click="player.currentTab = 6"
-							v-if="player.upgrades[35]"
+							v-if="player.upgrades[35] && player.singularity.stage < 8"
 						>
 							数论研究
 						</div>
@@ -125,7 +125,8 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 					<template v-if="player.singularity.stage >= 4">
 						<div class="menu1">
 						  <span v-if="player.singularity.stage == 4">???</span>
-						  <span v-if="player.singularity.stage == 6">???????</span>
+						  <span v-else-if="player.singularity.stage <= 9">奇点</span>
+						  <span v-else>序数</span>
 						</div>
 						<div class="menu_line"></div>
 						<div

@@ -90,7 +90,10 @@ export const Multiplication = {
 				return [new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(47))];
 			}
 			keep() {
-				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
+				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate && player.singularity.stage < 8;
+			}
+			show() {
+			    player.singularity.stage < 8;
 			}
 		})(),
 		'36': new (class U26 extends Upgrade {
@@ -105,8 +108,11 @@ export const Multiplication = {
 			requirements() {
 				return [new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(101))];
 			}
+			show() {
+			    return player.singularity.stage < 7;
+			}
 			keep() {
-				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
+				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate && player.singularity.stage < 7;
 			}
 		})(),
 		'37': new (class U27 extends Upgrade {
@@ -190,10 +196,10 @@ export const Multiplication = {
 				return x.gte(capc);
 			}
 			canBuyMax(): boolean {
-				return player.upgrades[39];
+				return player.upgrades[39] && player.singularity.stage < 7;
 			}
 			autoBuyMax(): boolean {
-				return player.upgrades['452q'];
+				return player.upgrades['452q'] && player.singularity.stage < 7;
 			}
 			costInverse(x: Decimal): Decimal {
 				return x.max(1).div(1000).floor().min(500);
@@ -264,6 +270,9 @@ export const Multiplication = {
 						}
 					})(),
 				];
+			}
+			show() {
+			    return player.singularity.stage < 7;
 			}
 		})(),
 	} as const,

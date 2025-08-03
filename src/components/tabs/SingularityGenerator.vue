@@ -90,6 +90,57 @@ function destroy(a: number) {
         new Decimal(0),
       ]
       player.upgrades[39] = false
+      break;
+    case 6:
+      let pf = [2, 3, 5, 7, 11, 13, 17, 19];
+      for(let i in pf) player.buyables['pf' + pf[i]] = new Decimal(0);
+      player.upgrades[36] = false
+      player.buyables[33] = new Decimal(0)
+      break;
+    case 7: 
+      player.upgrades['31R'] = false
+      player.upgrades['32R'] = false
+      player.upgrades['33R'] = false
+      player.upgrades['34R'] = false
+      player.buyables['31R'] = new Decimal(0)
+      player.buyables['32R'] = new Decimal(0)
+      player.buyables['33R'] = new Decimal(0)
+      player.buyables['34R'] = new Decimal(0)
+      player.buyables['35R'] = new Decimal(0)
+      player.buyables['36R'] = new Decimal(0)
+      player.buyables['37R'] = new Decimal(0)
+      player.buyables['38R'] = new Decimal(0)
+      player.numbertheory.euler.x = new Decimal(0);
+      player.numbertheory.euler.y = new Decimal(0);
+      player.numbertheory.euler.z = new Decimal(0);
+      player.numbertheory.euler.s = new Decimal(0);
+      player.upgrades[35] = false
+      break;
+    case 8:
+      player.upgrades[31] = false
+      player.upgrades[32] = false
+      player.upgrades[33] = false
+      player.upgrades[34] = false
+      player.upgrades[37] = false
+      player.upgrades[38] = false
+      player.buyables[31] = new Decimal(0)
+      player.buyables[32] = new Decimal(0)
+      player.multiplication.mulpower = new Decimal(0)
+      player.multiplication.totalMulpower = new Decimal(0)
+      player.firstResetBit &= ~(1 << 1)
+      break;
+    case 9:
+      player.upgrades[21] = false
+      player.upgrades[22] = false
+      player.upgrades[23] = false
+      player.upgrades[24] = false
+      player.upgrades[25] = false
+      player.upgrades[26] = false
+      player.buyables[21] = new Decimal(0)
+      player.firstResetBit &= ~(1)
+      player.addpower = new Decimal(0)
+      player.totalAddpower = new Decimal(0)
+      break;
   }
 }
 
@@ -169,9 +220,17 @@ const wordShift = {
   }
 };
 
+function color() {
+    let r = Math.min(255, 127 + player.singularity.t / 5);
+    let g = Math.max(0, 127 - player.singularity.t / 5);
+    let b = Math.max(0, 255 - player.singularity.t / 4)
+    return 'rgb(' + r + ',' + g + ',' + b + ')';
+}
+
 let t = ref(Date.now())
 setInterval(function () {
   t.value = Date.now()
+  document.documentElement.style.setProperty('--sing-color', color());
 }, 40)
 </script>
 
@@ -179,15 +238,15 @@ setInterval(function () {
   <div class="main" align="center">
     <div v-if="player.singularity.enabled" style="transform: translateY(60px)">
     你有
-		<b style="color: rgb(127, 127, 255); font-size: 25px">{{
+		<b style="color: var(--sing-color); font-size: 25px">{{
 			format(feature.SingularityGenerator.getSingularityEnergy())
 		}}</b>
 		奇点能量，
 		这使数值，加法能量，乘法能量获取
-		<b style="color: rgb(127, 127, 255);">^{{
+		<b style="color: var(--sing-color);">^{{
 			format(feature.SingularityGenerator.getSingularityEffect())
 		}}</b><br>
-		你每秒获取 (奇点能量+1)<sup style="color: rgb(127, 127, 255);">{{ format(feature.SingularityGenerator.singularityExponent()) }}</sup>/{{ format(feature.SingularityGenerator.singularityDivision()) }}
+		你每秒获取 (奇点能量+1)<sup style="color: var(--sing-color);">{{ format(feature.SingularityGenerator.singularityExponent()) }}</sup>/{{ format(feature.SingularityGenerator.singularityDivision()) }}
 		奇点能量<br>
 		<button class="sacrifice" v-if="player.singularity.stage < 1 && player.singularity.t >= 205" @click="player.singularity.stage = 1; destroy(1)">
 		  现在的{{ wordShift.wordCycle(["数值", "加法能量", "乘法能量", "指数能量", "奇点能量"], false, t) }}太多了......我需要献祭我的对数膨胀才能走得更远......
@@ -201,8 +260,21 @@ setInterval(function () {
 		<button class="sacrifice" v-else-if="player.singularity.stage < 4 && player.singularity.t >= 350" @click="player.singularity.stage = 4; destroy(4)">
 		  现在的{{ wordShift.wordCycle(["数值", "加法能量", "乘法能量", "指数能量", "奇点能量"], false, t) }}太多了......我需要献祭我的指数层级才能走得更远......
 		</button>
-		<button class="sacrifice" v-else-if="player.singularity.stage < 7 && player.singularity.t >= 400" @click="player.singularity.stage = 6; destroy(5)">
+		<button class="sacrifice" v-else-if="player.singularity.stage < 6 && player.singularity.t >= 400" @click="player.singularity.stage = 6; destroy(5)">
 		  现在的{{ wordShift.wordCycle(["数值", "加法能量", "乘法能量", "奇点能量"], false, t) }}太多了......我需要献祭我的乘法挑战才能走得更远......
+		</button>
+		<button class="sacrifice" v-else-if="player.singularity.stage < 7 && player.singularity.t >= 430" @click="player.singularity.stage = 7; destroy(6)">
+		  现在的{{ wordShift.wordCycle(["数[]", "[]法能量", "乘[]能量", "奇点能[]"], false, t) }}太[]了...我需[]献祭我的[]因数才能[]得更远...
+		</button>
+		<button class="sacrifice" v-else-if="player.singularity.stage < 8 && player.singularity.t >= 450" @click="player.singularity.stage = 8; destroy(7)">
+		  现在的{{ wordShift.wordCycle(["数[]", "[]法能量", "乘[]能量", "奇点能[]"], false, t) }}太[]了...我需[]献祭我的数论[][]才能{{ wordShift.wordCycle(["走得更远", "飞得更高", "[]得更[]"], false, t) }}...
+		</button>
+		<button class="sacrifice" v-else-if="player.singularity.stage < 9 && player.singularity.t >= 470" @click="player.singularity.stage = 9; destroy(8)">
+		  在{{ wordShift.wordCycle(["一切皆毁", "万物消亡" , "终焉寂灭"], false, t) }}之前，还要献祭乘法层级......
+		</button>
+		<button class="sacrifice" v-else-if="player.singularity.stage < 10 && player.singularity.t >= 490" @click="player.singularity.stage = 10; destroy(9)">
+		  在{{ wordShift.wordCycle(["一切皆毁", "万物消亡" , "终焉寂灭"], false, t) }}之前，还要献祭加法层级......<br>
+		  这是最后的警告......<br>
 		</button>
 		</div>
     <button v-else class="circle-button" @click="player.singularity.enabled = true">
