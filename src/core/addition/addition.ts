@@ -147,6 +147,9 @@ export const Addition = {
 			requirements() {
 				return [new CurrencyRequirement(Currencies.ADDITION_POWER, new Decimal(625))];
 			}
+			show() {
+			  return player.singularity.stage < 9
+			}
 		})(),
 	} as const,
 	buyables: {

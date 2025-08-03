@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { feature, player } from '@/core/global';
-import { format } from '@/utils/format';
+import { format, notations } from '@/utils/format';
 import Decimal from 'break_eternity.js';
 import { ref } from "vue"
 import { CHALLENGE, type SingleChallenge } from '../../core/challenge.ts';
@@ -12,11 +12,9 @@ function destroy(a: number) {
       player.exponention.logarithm.highest_dilate = new Decimal(1);
       player.upgrades["44R"] = false;
       player.exponention.logarithm.in_dilate = false
-      feature.EXPONENTION.reset(true, true);
-      player.milestones['log_law1'] = false
-      player.milestones['log_law2'] = false
-      player.milestones['log_law3'] = false
       player.milestones['log_G'] = false
+      player.options.notation = notations.SCIENTIFIC
+      feature.EXPONENTION.reset(true, true);
       break
     case 2:
       player.exponention.logarithm = {
@@ -28,6 +26,9 @@ function destroy(a: number) {
 				buyables_in_dilated: [],
 				highest_dilate: new Decimal(1),
 			};
+      player.milestones['log_law1'] = false
+      player.milestones['log_law2'] = false
+      player.milestones['log_law3'] = false
 			player.milestones.cb5 = false
 			player.milestones.cb9 = false
 			player.milestones.cb10 = false
@@ -93,7 +94,7 @@ function destroy(a: number) {
       break;
     case 6:
       let pf = [2, 3, 5, 7, 11, 13, 17, 19];
-      for(let i in pf) player.buyables['pf' + pf[i]] = new Decimal(0);
+      for(let i in pf) player.buyables['pf' + pf[i] as keyof typeof player.buyables] = new Decimal(0);
       player.upgrades[36] = false
       player.buyables[33] = new Decimal(0)
       break;
@@ -117,6 +118,7 @@ function destroy(a: number) {
       player.upgrades[35] = false
       break;
     case 8:
+      player.upgrades[26] = false
       player.upgrades[31] = false
       player.upgrades[32] = false
       player.upgrades[33] = false
@@ -130,17 +132,24 @@ function destroy(a: number) {
       player.firstResetBit &= ~(1 << 1)
       break;
     case 9:
+      player.upgrades[13] = false
       player.upgrades[21] = false
       player.upgrades[22] = false
       player.upgrades[23] = false
       player.upgrades[24] = false
       player.upgrades[25] = false
-      player.upgrades[26] = false
       player.buyables[21] = new Decimal(0)
       player.firstResetBit &= ~(1)
       player.addpower = new Decimal(0)
       player.totalAddpower = new Decimal(0)
+      player.buyable11More = new Decimal(0)
       break;
+    case 10:
+      player.upgrades[11] = false
+      player.upgrades[12] = false
+      player.buyables[11] = new Decimal(0)
+      player.buyable11More = new Decimal(0)
+      break
   }
 }
 
@@ -241,15 +250,20 @@ setInterval(function () {
 		<b style="color: var(--sing-color); font-size: 25px">{{
 			format(feature.SingularityGenerator.getSingularityEnergy())
 		}}</b>
-		奇点能量，
-		这使数值，加法能量，乘法能量获取
+		奇点能量<span v-if="player.singularity.stage < 11">，
+		这使数值<span v-if="player.singularity.stage < 10">，加法能量</span><span v-if="player.singularity.stage < 9">，乘法能量</span>获取
 		<b style="color: var(--sing-color);">^{{
 			format(feature.SingularityGenerator.getSingularityEffect())
-		}}</b><br>
+		}}</b></span>
+		<span v-else>，每秒生产<b style="color: var(--sing-color);">{{
+			format(feature.SingularityGenerator.getSingularityEffect())
+		}}</b>数值
+		</span>
+		<br>
 		你每秒获取 (奇点能量+1)<sup style="color: var(--sing-color);">{{ format(feature.SingularityGenerator.singularityExponent()) }}</sup>/{{ format(feature.SingularityGenerator.singularityDivision()) }}
 		奇点能量<br>
 		<button class="sacrifice" v-if="player.singularity.stage < 1 && player.singularity.t >= 205" @click="player.singularity.stage = 1; destroy(1)">
-		  现在的{{ wordShift.wordCycle(["数值", "加法能量", "乘法能量", "指数能量", "奇点能量"], false, t) }}太多了......我需要献祭我的对数膨胀才能走得更远......
+		  现在的{{ wordShift.wordCycle(["数值", "加法能量", "乘法能量", "指数能量", "奇点能量"], false, t) }}太多了......我需要献祭我的对数膨胀和记数法才能走得更远......
 		</button>
 		<button class="sacrifice" v-else-if="player.singularity.stage < 2 && player.singularity.t >= 250" @click="player.singularity.stage = 2; destroy(2)">
 		  现在的{{ wordShift.wordCycle(["数值", "加法能量", "乘法能量", "指数能量", "奇点能量"], false, t) }}太多了......我需要献祭我的对数运算和软上限才能走得更远......
@@ -274,7 +288,10 @@ setInterval(function () {
 		</button>
 		<button class="sacrifice" v-else-if="player.singularity.stage < 10 && player.singularity.t >= 490" @click="player.singularity.stage = 10; destroy(9)">
 		  在{{ wordShift.wordCycle(["一切皆毁", "万物消亡" , "终焉寂灭"], false, t) }}之前，还要献祭加法层级......<br>
-		  这是最后的警告......<br>
+		</button>
+		<button class="sacrifice" v-else-if="player.singularity.stage < 11 && player.singularity.t >= 500" @click="player.singularity.stage = 11; destroy(10)">
+		  在{{ wordShift.wordCycle(["一切皆毁", "万物消亡" , "终焉寂灭"], false, t) }}之前，还要献祭后继层级......<br>
+		  这是最后的警告......
 		</button>
 		</div>
     <button v-else class="circle-button" @click="player.singularity.enabled = true">

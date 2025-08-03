@@ -80,6 +80,9 @@ export const Successor = {
 			keep(): boolean {
 				return player.upgrades['32'];
 			}
+			show() {
+			  return player.singularity.stage < 10
+			}
 		})(),
 	} as const,
 	buyables: {

@@ -93,7 +93,7 @@ export const Multiplication = {
 				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate && player.singularity.stage < 8;
 			}
 			show() {
-			    player.singularity.stage < 8;
+			   return player.singularity.stage < 8;
 			}
 		})(),
 		'36': new (class U26 extends Upgrade {

@@ -101,6 +101,7 @@ function regularFormat(num: Decimal, precision: number) {
 }
 
 export function format(decimal: DecimalSource, precision = 4): string {
+  if (new Decimal(decimal).gte(Decimal.dLayerMax)) return "ω"
 	switch (player.options.notation) {
 		case notations.STANDARD:
 			return Standard.format(decimal);
@@ -165,7 +166,7 @@ export function format(decimal: DecimalSource, precision = 4): string {
 	decimal = new Decimal(decimal);
 	if (decimal.sign < 0) return '-' + format(decimal.neg(), precision);
 	if (decimal.isNan()) return 'NaN';
-	if (decimal.mag == Number.POSITIVE_INFINITY) return 'Infinity';
+	if (decimal.gte(Decimal.dLayerMax)) return 'ω';
 	if (decimal.gte('eeee1000')) {
 		const slog = decimal.slog();
 		if (slog.gte(1e6)) return 'F' + format(slog.floor());
@@ -485,7 +486,7 @@ export function physicalScale(value: DecimalSource): string {
 	value = toDecimal(value);
 	let negative = false;
 	if (value.eq(0)) return '拥有0升水，你会因无水可饮而口渴。';
-	if (value.eq(Decimal.dInf) || value.eq(Decimal.dNegInf)) return '没有能衡量无穷大的尺度。';
+	if (value.gte(Decimal.dLayerMax) || value.gte(Decimal.dLayerMax)) return '没有能衡量无穷大的尺度。';
 	if (value.eq(Decimal.dNaN)) return '这不是一个数字。';
 	if (!value.isFinite()) return '输入似乎存在错误。';
 	if (value.lt(0)) {
