@@ -24,6 +24,7 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 		<div class="menu" id="menu">
 			<div class="background" style="overflow: auto">
 				<div class="main">
+				  <div v-if="player.singularity.stage < 11">
 					<div class="menu1">后继</div>
 					<div class="menu_line"></div>
 					<div
@@ -32,7 +33,7 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 						@click="player.currentTab = 0"
 					>
 						后继
-					</div>
+					</div></div>
 					<template v-if="player.upgrades[13] && player.singularity.stage < 10">
 						<div class="menu1">加法</div>
 						<div class="menu_line"></div>

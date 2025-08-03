@@ -25,5 +25,5 @@ export function converage_point() {
 }
 
 export function getSingularityEffect() {
-  return new Decimal(2).tetrate(getSingularityEnergy()).min(Decimal.dLayerMax)
+  return new Decimal(2).tetrate(getSingularityEnergy())
 }
