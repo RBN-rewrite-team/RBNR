@@ -8,7 +8,7 @@ import Decimal from 'break_eternity.js';
 <template>
 	<div class="resources" style="font-size: 20px" id="resources">
 		<div class="background">
-			<div style="margin-left: 15px" class="resource">
+			<div v-if="player.singularity.stage < 11" style="margin-left: 15px" class="resource">
 				<div style="font-weight: bold; color: var(--suptitle-color)">
 					数值&nbsp;
 					{{ formatWhole(player.number) }}
@@ -26,6 +26,17 @@ import Decimal from 'break_eternity.js';
 					<span v-if="feature.resourceGain.number().softcaps > 0">
 						(受{{ feature.resourceGain.number().softcaps }}个软上限限制)
 					</span>
+				</div>
+			</div>
+			<div v-else style="margin-left: 15px" class="resource">
+				<div style="font-weight: bold; color: var(--suptitle-color)">
+					数值&nbsp;
+					{{ formatWhole(player.number) }}
+				</div>
+				<div style="font-size: 17px; color: var(--title-color)">
+					<span
+						v-html="formatGain(player.number, feature.resourceGain.ordinalNumber(), '')"
+					/>
 				</div>
 			</div>
 			<div

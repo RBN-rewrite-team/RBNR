@@ -81,7 +81,7 @@ export const PrimeFactor = {
 					];
 				}
 				show() {
-					return (
+					return player.singularity.stage < 7 &&(
 						(this.pfid ?? 1) <= 3 ||
 						player.buyables[('pf' + this.pprev) as keyof typeof player.buyables].gte(1)
 					);
@@ -107,9 +107,6 @@ export const PrimeFactor = {
 						.div(2)
 						.add(1)
 						.floor();
-				}
-				show() {
-				    return player.singularity.stage < 7;
 				}
 			})();
 		}

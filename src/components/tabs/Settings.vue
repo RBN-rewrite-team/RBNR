@@ -21,7 +21,7 @@ const validThemes = computed(() => Object.values(themes).filter((v) => typeof v 
 		<div class="setting_button" @click="export_file()">导出存档</div>
 		<div class="hard_reset" @click="UIHardReset">硬重置</div>
 		<br />
-		<div class="center_line" />
+		<div v-if="player.singularity.stage < 1"><div class="center_line" />
 		<h3>记数法</h3>
 		<button
 			@click="player.options.notation = notation"
@@ -29,7 +29,7 @@ const validThemes = computed(() => Object.values(themes).filter((v) => typeof v 
 			class="setting_button"
 		>
 			{{ notationNamesMap.get(notation) }}
-		</button>
+		</button></div>
 		<br />
 		<div class="center_line" />
 		<h3>主题</h3>
