@@ -36,6 +36,7 @@ import ChessBoard from './components/tabs/ChessBoard.vue';
 import Logarithm from './components/tabs/Logarithm.vue';
 import LogDilate from './components/tabs/LogDilate.vue';
 import SingularityGenerator from './components/tabs/SingularityGenerator.vue';
+import BlackHole from './components/BlackHole.vue';
 </script>
 
 <template>
@@ -80,6 +81,7 @@ import SingularityGenerator from './components/tabs/SingularityGenerator.vue';
 			</div>
 		</div>
 	</div>
+	<BlackHole />
 </template>
 
 <style scoped>
