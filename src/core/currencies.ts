@@ -75,12 +75,24 @@ class QolPointsCurrency extends Currency {
 	}
 }
 
+class Ordinal extends Currency {
+	static name = '序数';
+	static set current(x: Decimal) {
+		player.ordinal.number = x;
+	}
+	
+	static get current() {
+		return player.ordinal.number;
+	}
+}
+
 const currencyMap: Map<Currencies, typeof Currency> = new Map([
 	[Currencies.NUMBER, NumberCurrency],
 	[Currencies.ADDITION_POWER, AdditionPowerCurrency],
 	[Currencies.MULTIPLICATION_POWER, MultiplicationPowerCurrency],
 	[Currencies.EXPONENTION_POWER, ExponentionPowerCurrency],
 	[Currencies.QOL_POINTS, QolPointsCurrency],
+	[Currencies.ORDINAL, Ordinal],
 ]);
 
 export function setCurrency(currency: Currencies, value: Decimal) {

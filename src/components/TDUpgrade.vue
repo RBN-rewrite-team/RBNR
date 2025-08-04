@@ -3,6 +3,8 @@ import { currencyName } from '@/core/currencies';
 import { Logarithm } from '@/core/exponention/logarithm';
 import { buyables, upgrades, UPGRADES } from '@/core/mechanic';
 import { player } from '@/core/save';
+import { feature } from '@/core/global';
+import { OrdinalUtils } from '@/utils/ordinal';
 import { UpgradeWithEffect } from '@/core/upgrade';
 import { format } from '@/utils/format';
 import type Decimal from 'break_eternity.js';
@@ -64,10 +66,13 @@ const req = curupg.requirements();
 					</template>
 				</template>
 				<template v-if="!permanent">
-					价格：{{
+					价格：<span v-if="curupg.ordinal" v-html="
+					    OrdinalUtils.numberToOrdinal((typeof curupg.cost === 'function' ? curupg.cost() : curupg.cost), feature.Ordinal.base()) + 
+						currencyName(curupg.currency)
+				    " /><span v-else>{{
 						format(typeof curupg.cost === 'function' ? curupg.cost() : curupg.cost) +
 						currencyName(curupg.currency)
-					}}
+					}}</span>
 					<br />
 				</template>
 				<span v-else style="color: green; font-weight: bold"> 保持持有<br /> </span>

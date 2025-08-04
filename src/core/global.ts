@@ -10,6 +10,7 @@ import * as ChessBoard from './exponention/chessboard.ts';
 import * as SingularityGenerator from './exponention/singularity-generator.ts';
 import { CHALLENGE } from './challenge.ts';
 import { resourceGain } from './resource-gain.ts';
+import { Ordinal } from './ordinal/ordinal.ts';
 
 const feature = {
 	mechanic: { UPGRADES: UPGRADES, BUYABLES: BUYABLES },
@@ -22,6 +23,7 @@ const feature = {
 	EXPONENTION: Exponention,
 	ChessBoard: ChessBoard,
 	SingularityGenerator: SingularityGenerator,
+	Ordinal: Ordinal,
 
 	resourceGain: resourceGain,
 };

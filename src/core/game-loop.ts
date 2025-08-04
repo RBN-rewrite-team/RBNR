@@ -84,6 +84,7 @@ function r(s: number): number{
     return Math.random() * s * 2 - s;
 }
 function singularity_UI() {
+    if(player.singularity.t > 675) return;
     let s = player.singularity.stage + Math.max(player.singularity.t - 400, 0) / 3 + Math.max(player.singularity.t - 500, 0) + Math.max(player.singularity.t - 550, 0) * 2 + Math.max(player.singularity.t - 500, 0) * 5;
     let str = ['main', 'title_box', 'menu', 'newsbar', 'resources'];
     document.getElementById('main')!.style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
@@ -163,11 +164,11 @@ export function simulate(diff: number) {
 			.max(1);
 	}
 	
-  }
-  
-  if (player.singularity.stage >= 11) {
-    player.number = player.number.add(feature.resourceGain.ordinalNumber().mul(diff / 1000))
-  }
+	}
+
+	if (player.singularity.stage >= 11) {
+		player.ordinal.number = player.ordinal.number.add(feature.resourceGain.ordinalNumber().value.mul(diff / 1000));
+	}
 	for (const upg_i in upgrades) {
 		const i = upg_i as keyof typeof upgrades;
 		if (upgrades[i] && upgrades[i].keep != null && upgrades[i].keep()) {
@@ -206,7 +207,7 @@ export function simulate(diff: number) {
 	  if (player.singularity.stage < 9 && player.singularity.t > 470) player.singularity.t = 470
 	  if (player.singularity.stage < 10 && player.singularity.t > 490) player.singularity.t = 490
 	  if (player.singularity.stage < 11 && player.singularity.t > 500) player.singularity.t = 500
-	  player.singularity.t = Math.min(player.singularity.t, 675);
+	  player.singularity.t = Math.min(player.singularity.t, 710);
 	}
 	Logarithm.astronomerUpdate();
 	updateHighestStat();

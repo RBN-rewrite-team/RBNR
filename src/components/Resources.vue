@@ -3,6 +3,7 @@ import { formatWhole, formatGain } from '@/utils/format';
 import { player } from '@/core/save';
 import { feature } from '@/core/global';
 import { SOFTCAPS } from '@/core/mechanic';
+import { OrdinalUtils } from '@/utils/ordinal';
 import Decimal from 'break_eternity.js';
 </script>
 <template>
@@ -29,13 +30,13 @@ import Decimal from 'break_eternity.js';
 				</div>
 			</div>
 			<div v-else style="margin-left: 15px" class="resource">
-				<div style="font-weight: bold; color: var(--suptitle-color)">
-					数值&nbsp;
-					{{ formatWhole(player.number) }}
+				<div style="font-weight: bold; color: rgb(255, 63, 63)">
+					序数&nbsp;
+					<span v-html="OrdinalUtils.numberToOrdinal(player.ordinal.number, feature.Ordinal.base())" />
 				</div>
-				<div style="font-size: 17px; color: var(--title-color)">
+				<div style="font-size: 17px; color: rgb(255, 127, 127)">
 					<span
-						v-html="formatGain(player.number, feature.resourceGain.ordinalNumber(), '')"
+						v-html="'(+' + OrdinalUtils.numberToOrdinal(feature.resourceGain.ordinalNumber().value, feature.Ordinal.base()) + '/s)'"
 					/>
 				</div>
 			</div>
