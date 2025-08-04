@@ -95,16 +95,4 @@ import BlackHole from './components/BlackHole.vue';
 	--hover-color: v-bind('computedTheme.HoverColor');
 	filter: v-bind('computedTheme.filter');
 }
-
-#menu,
-#title_box,
-#newsbar,
-#resources,
-.side {
-  z-index: 5
-}
-
-#main {
-  z-index: 1
-}
 </style>

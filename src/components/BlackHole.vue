@@ -35,7 +35,7 @@ function getBHtext(t: number) {
   height: 0vw;
   background: black;
   border-radius: 50%;
-  z-index: 10;
+  z-index: 6;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -43,7 +43,7 @@ function getBHtext(t: number) {
   transform: translate(-50%, -50%);
 }
 .bht {
-  z-index: 11;
+  z-index: 7;
   position: absolute;
   left: 50%;
   top: 50%;

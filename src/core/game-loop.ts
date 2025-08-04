@@ -84,24 +84,18 @@ function r(s: number): number{
     return Math.random() * s * 2 - s;
 }
 function singularity_UI() {
-    let s = player.singularity.stage + Math.max(player.singularity.t - 400, 0) / 3 + Math.max(player.singularity.t - 500, 0) * 2;
-    let reduce = Math.max(1.05 ** (player.singularity.t - 500), 1)
-    let x = 0
-    if (player.singularity.t > 520) {
-      s *= Math.max(1.03 ** (player.singularity.t - 520, 1))
-      x = Math.min(1.06 ** (player.singularity.t - 520) - 1, 50)
-    }
+    let s = player.singularity.stage + Math.max(player.singularity.t - 400, 0) / 3 + Math.max(player.singularity.t - 500, 0) + Math.max(player.singularity.t - 550, 0) * 2 + Math.max(player.singularity.t - 500, 0) * 5;
     let str = ['main', 'title_box', 'menu', 'newsbar', 'resources'];
     //@ts-ignore
-    document.getElementById('main').style.transform = 'translate(' + r(s ** 0.5 * 4) / reduce + 'px, ' + r(s ** 0.5 * 4) / reduce + 'px)';
+    document.getElementById('main').style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
     //@ts-ignore
-    document.getElementById('menu').style.transform = 'translate(calc(' + r(s ** 0.5 * 4)  + 'px + ' + x + 'vw), ' + r(s ** 0.5 * 4) + 'px)';
+    document.getElementById('menu').style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
     //@ts-ignore
-    document.getElementById('resources').style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, calc(' + r(s ** 0.5 * 4) + 'px + '+ x +'vh))';
+    document.getElementById('resources').style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
     //@ts-ignore
-    if(player.options.ui.newsbar) document.getElementById('newsbar').style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, calc(' + r(s ** 0.5 * 4) + 'px + '+ x +'vh))';
+    if(player.options.ui.newsbar) document.getElementById('newsbar').style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
     //@ts-ignore
-    if(player.options.ui.titlebar) document.getElementById('title_box').style.transform = 'translate(calc(' + r(s ** 0.5 * 4) + 'px + ' + x + 'vw),' + 'calc(' + r(s ** 0.5 * 4) + 'px + ' + x + 'vh))';
+    if(player.options.ui.titlebar) document.getElementById('title_box').style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
 }
 /**
  * 游戏的主要循环函数，
