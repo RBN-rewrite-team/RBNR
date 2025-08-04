@@ -86,16 +86,11 @@ function r(s: number): number{
 function singularity_UI() {
     let s = player.singularity.stage + Math.max(player.singularity.t - 400, 0) / 3 + Math.max(player.singularity.t - 500, 0) + Math.max(player.singularity.t - 550, 0) * 2 + Math.max(player.singularity.t - 500, 0) * 5;
     let str = ['main', 'title_box', 'menu', 'newsbar', 'resources'];
-    //@ts-ignore
-    document.getElementById('main').style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
-    //@ts-ignore
-    document.getElementById('menu').style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
-    //@ts-ignore
-    document.getElementById('resources').style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
-    //@ts-ignore
-    if(player.options.ui.newsbar) document.getElementById('newsbar').style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
-    //@ts-ignore
-    if(player.options.ui.titlebar) document.getElementById('title_box').style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
+    document.getElementById('main')!.style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
+    document.getElementById('menu')!.style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
+    document.getElementById('resources')!.style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
+    if(player.options.ui.newsbar) document.getElementById('newsbar')!.style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
+    if(player.options.ui.titlebar) document.getElementById('title_box')!.style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
 }
 /**
  * 游戏的主要循环函数，
