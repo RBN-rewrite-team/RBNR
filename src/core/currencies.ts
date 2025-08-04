@@ -7,6 +7,7 @@ export enum Currencies {
 	MULTIPLICATION_POWER = 'multipl',
 	EXPONENTION_POWER = 'exponent',
 	QOL_POINTS = 'qol',
+	ORDINAL = "ordinal",
 }
 
 abstract class Currency {

@@ -24,21 +24,21 @@ export const Ordinal = {
 		}),
 		'52': new (class U52 extends Upgrade {
 			description = '底数减少1';
-			cost = function(){ return OrdinalUtils.ordinalToNumber('w', feature.Ordinal.base()); };
+			cost:()=>Decimal = function(){ return OrdinalUtils.ordinalToNumber('w', feature.Ordinal.base()); };
 			ordinal = true;
 			name = 'U5-2';
 			currency: Currencies = Currencies.ORDINAL;
 		}),
 		'53': new (class U53 extends Upgrade {
 			description = '底数减少1';
-			cost = function(){ return OrdinalUtils.ordinalToNumber('w^(3)', feature.Ordinal.base()); };
+			cost:()=>Decimal = function(){ return OrdinalUtils.ordinalToNumber('w^(3)', feature.Ordinal.base()); };
 			ordinal = true;
 			name = 'U5-3';
 			currency: Currencies = Currencies.ORDINAL;
 		}),
 		'54': new (class U54 extends Upgrade {
 			description = '底数减少1';
-			cost = function(){ return OrdinalUtils.ordinalToNumber('w^(w)', feature.Ordinal.base()); };
+			cost:()=>Decimal = function(){ return OrdinalUtils.ordinalToNumber('w^(w)', feature.Ordinal.base()); };
 			ordinal = true;
 			name = 'U5-4';
 			currency: Currencies = Currencies.ORDINAL;
