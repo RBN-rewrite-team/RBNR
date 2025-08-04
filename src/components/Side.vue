@@ -138,6 +138,14 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 						>
 							奇点生成器
 						</div>
+						<div
+						    class="menu2"
+							:class="{ focus: player.currentTab == 15 }"
+							@click="player.currentTab = 15"
+							v-if="player.singularity.t > 667"
+						>
+						    序数
+						</div>
 					</template>
 					<div class="menu1">杂项</div>
 					<div class="menu_line"></div>

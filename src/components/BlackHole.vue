@@ -4,6 +4,11 @@ import { format } from '@/utils/format';
 function getBHsize(t: number) {
 //  return 0
   if (t < 500) return 0
+  if (t > 675)
+  {
+    let T = 675 - (t - 675) * 5;
+	return ((T - 500) / 2 + Math.max(T-550, 0) * 0.7) * 1.05 ** (T-600)
+  }
   else return ((t - 500) / 2 + Math.max(t-550, 0) * 0.7) * 1.05 ** (t-600)
 }
 function getBHtext(t: number) {
@@ -14,7 +19,8 @@ function getBHtext(t: number) {
     else if(t < 650) tx += '<br>奇点破碎了世界......';
     else if(t < 666.67) tx += '<br>准备好迎接......了吗......';
     else if(t < 670) tx = '<span style="font-size: ' + ((670 - t) + 1) * 30 + 'px">' + tx + '</span>';
-    else if(t <= 675) return '<span style="color: gold">欢迎来到序数世界</span>';
+    else if(t < 690) return '<span style="color: gold">欢迎来到序数世界</span>';
+	else if(t <= 710) return '';
     return tx;
 }
 </script>

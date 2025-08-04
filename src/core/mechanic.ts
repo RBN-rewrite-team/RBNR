@@ -11,6 +11,7 @@ import { NUMTHEORY } from './multiplication/numbertheory.ts';
 import { PrimeFactor } from './multiplication/pf.ts';
 import { Exponention } from './exponention/exponention.ts';
 import { QolUpgrades } from './exponention/qolupg.ts';
+import { Ordinal } from './ordinal/ordinal.ts';
 import { cb1 } from './exponention/chessboard.ts';
 import { Buyable } from './buyable.ts';
 
@@ -21,6 +22,7 @@ const upgrades = {
 	...NUMTHEORY.upgrades,
 	...Exponention.upgrades,
 	...QolUpgrades.upgrades,
+	...Ordinal.upgrades,
 } as const;
 const buyables = {
 	...Successor.buyables,

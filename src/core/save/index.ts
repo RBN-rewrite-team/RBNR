@@ -101,7 +101,10 @@ export interface Player {
 	  t: number;
 	  stage: number;
 	  enabled: boolean;
-	}
+	},
+	ordinal: {
+	    number: Decimal;
+	},
 }
 function getInitialPlayerData(): Player {
 	return {
@@ -174,6 +177,10 @@ function getInitialPlayerData(): Player {
 			'453q': false,
 			'454q': false,
 			'455q': false,
+			'51': false,
+			'52': false,
+			'53': false,
+			'54': false,
 		},
 		buyables: {
 			'11': zero,
@@ -311,7 +318,10 @@ function getInitialPlayerData(): Player {
 		  t: 0,
 		  stage: 0,
 		  enabled: false
-		}
+		},
+		ordinal: {
+			number: new Decimal(10),
+		},
 	};
 }
 

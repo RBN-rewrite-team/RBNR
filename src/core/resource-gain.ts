@@ -90,6 +90,7 @@ export const resourceGain = {
 		return { value: base, passive };
 	},
 	ordinalNumber() {
-	  return feature.SingularityGenerator.getSingularityEffect()
+		let base = feature.Ordinal.ordinalPerSecond();
+		return { value: base };
 	}
 };

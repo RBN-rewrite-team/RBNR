@@ -256,13 +256,18 @@ setInterval(function () {
 		<b style="color: var(--sing-color);">^{{
 			format(feature.SingularityGenerator.getSingularityEffect())
 		}}</b></span>
-		<span v-else>，每秒生产<b style="color: var(--sing-color);">{{
+		<span v-else-if="player.singularity.t < 667">，每秒生产<b style="color: var(--sing-color);">{{
 			format(feature.SingularityGenerator.getSingularityEffect())
 		}}</b>数值
 		</span>
 		<br>
-		你每秒获取 (奇点能量+1)<sup style="color: var(--sing-color);">{{ format(feature.SingularityGenerator.singularityExponent()) }}</sup>/{{ format(feature.SingularityGenerator.singularityDivision()) }}
-		奇点能量<br>
+		<span v-if="player.singularity.t < 667">你每秒获取 (奇点能量+1)<sup style="color: var(--sing-color);">{{ format(feature.SingularityGenerator.singularityExponent()) }}</sup>/{{ format(feature.SingularityGenerator.singularityDivision()) }}
+		奇点能量<br></span>
+		<span v-if="player.singularity.t >= 667">
+		在跨越有限与无限的界限之后，奇点生成器停止了。下一次启动会是什么时候？<br>
+		在一切的毁灭尽头，将迎来更灿烂的新生。<br>
+		序数的世界欢迎你的到来。<br>
+		</span>
 		<button class="sacrifice" v-if="player.singularity.stage < 1 && player.singularity.t >= 205" @click="player.singularity.stage = 1; destroy(1)">
 		  现在的{{ wordShift.wordCycle(["数值", "加法能量", "乘法能量", "指数能量", "奇点能量"], false, t) }}太多了......我需要献祭我的对数膨胀和记数法才能走得更远......
 		</button>
