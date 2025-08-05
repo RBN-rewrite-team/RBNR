@@ -7,7 +7,8 @@ export abstract class ASTNode {
     "Addition" |
     "Multiply" |
     "Exponention" |
-    "Epsilon"
+    "Epsilon" |
+    "Main"
   constructor() {}
   abstract toDecimal(base: number): Decimal;
 }
@@ -92,15 +93,30 @@ export class ExponentNode extends ASTNode {
   }
 }
 
-export class EpsilonNode {
+export class EpsilonNode extends ASTNode {
   public readonly type = "Epsilon" as const
   public readonly childNode: ASTNode;
   
   constructor(node: ASTNode) {
+    super()
     this.childNode = node;
   }
   
   toDecimal(base: number) {
-    return Decimal.tetrate(base, this.childNode.toDecimal().add(base))
+    return Decimal.tetrate(base, this.childNode.toDecimal(base).add(base).toNumber())
   }
+}
+
+export class MainNode extends ASTNode {
+  node: ASTNode;
+  constructor(node: ASTNode) {
+    super();
+    this.node = node;
+  }
+
+  toDecimal(base: number): Decimal {
+    return this.node.toDecimal(base);
+  }
+
+  type = "Main" as const;
 }
