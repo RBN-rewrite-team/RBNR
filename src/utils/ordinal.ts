@@ -3,7 +3,7 @@ import {formatWhole} from './format'
 
 export const OrdinalUtils = {
     numberToOrdinal(x: Decimal, base: Decimal, maxLength = 7): string {
-        if(x.gte(base.tetrate(base))) return 'ε<sub>0</sub>'
+        if(x.gte(base.tetrate(base.toNumber()))) return 'ε<sub>0</sub>'
         if(x.lt(base)) return formatWhole(x);
         if(maxLength == 0) return '...';
         let exp = x.log(base).floor();
