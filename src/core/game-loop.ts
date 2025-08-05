@@ -10,6 +10,7 @@ import { CHALLENGE } from './challenge';
 import { Logarithm } from './exponention/logarithm';
 import { save } from './save';
 import { getCurrency } from './currencies';
+import { updateTheme } from '@/utils/themes';
 
 export let diff = 40;
 export let loopInterval: number;
@@ -79,6 +80,7 @@ export function gameLoop() {
 		throw e;
 	}
 	if(player.singularity.stage >= 1) singularity_UI();
+	updateTheme();
 }
 function r(s: number): number{
     return Math.random() * s * 2 - s;

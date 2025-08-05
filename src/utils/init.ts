@@ -7,7 +7,7 @@ import { NUMTHEORY } from '@/core/multiplication/numbertheory.ts';
 import { Exponention } from '@/core/exponention/exponention.ts';
 import { QolUpgrades } from '@/core/exponention/qolupg.ts';
 import { Logarithm } from '@/core/exponention/logarithm.ts';
-import { Ordinal } from '@/core/ordinal/ordinal.ts';
+import { ORDINAL } from '@/core/ordinal/ordinal.ts';
 
 import { gameLoop, startGameLoop } from '@/core/game-loop';
 
