@@ -103,7 +103,7 @@ export class EpsilonNode extends ASTNode {
   }
   
   toDecimal(base: number) {
-    return Decimal.tetrate(base, this.childNode.toDecimal(base).add(base).toNumber())
+    return Decimal.tetrate(base, this.childNode.toDecimal(base).toNumber() + base)
   }
 }
 
