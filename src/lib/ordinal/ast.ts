@@ -101,6 +101,6 @@ export class EpsilonNode {
   }
   
   toDecimal(base: number) {
-    return Decimal.tetrate(base, this.childNode.toDecimal().add(base))
+    return Decimal.tetrate(base, this.childNode.toDecimal(base).toNumber() + base)
   }
 }

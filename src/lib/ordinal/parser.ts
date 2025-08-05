@@ -1,2 +1,2 @@
-import { Lexer } from "tokens.ts"
+import { Lexer } from "./lexer.ts"
 import { Tokens, Token } from "./tokens.ts"
