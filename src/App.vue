@@ -11,7 +11,6 @@ import {
 import { player, feature } from './core/global.ts';
 import { UPGRADES, BUYABLES, SOFTCAPS, buyables } from './core/mechanic.ts';
 import Decimal from 'break_eternity.js';
-import { computedTheme } from './utils/themes.ts';
 
 import Side from './components/Side.vue';
 import NewsTicker from './components/Newsticker.vue';
@@ -87,14 +86,4 @@ import Ordinal from './components/tabs/Ordinal.vue';
 </template>
 
 <style scoped>
-#app {
-	--app-background-color: v-bind('computedTheme.AppBackgroundColor');
-	--background-color: v-bind('computedTheme.BackgroundColor');
-	--color: v-bind('computedTheme.Color');
-	--suptitle-color: v-bind('computedTheme.SuptitleColor');
-	--title-color: v-bind('computedTheme.TitleColor');
-	--border-color: v-bind('computedTheme.BorderColor');
-	--hover-color: v-bind('computedTheme.HoverColor');
-	filter: v-bind('computedTheme.filter');
-}
 </style>
