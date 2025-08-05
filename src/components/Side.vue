@@ -142,7 +142,7 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 						    class="menu2"
 							:class="{ focus: player.currentTab == 15 }"
 							@click="player.currentTab = 15"
-							v-if="player.singularity.t > 667"
+							v-if="player.firstResetBit & 0b1000"
 						>
 						    序数
 						</div>
