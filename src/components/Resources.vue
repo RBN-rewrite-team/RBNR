@@ -15,7 +15,7 @@ import Decimal from 'break_eternity.js';
 					{{ formatWhole(player.number) }}
 				</div>
 				<div style="font-size: 17px; color: var(--title-color)">
-					<span v-if="feature.SUCCESSOR.autoSuccessPerSecond().eq(0)"
+					<span v-if="player.singularity.stage < 11 && feature.SUCCESSOR.autoSuccessPerSecond().eq(0)"
 						>(需要通过后继获得)</span
 					>
 					<span

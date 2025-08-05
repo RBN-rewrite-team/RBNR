@@ -194,6 +194,11 @@ export function simulate(diff: number) {
 			player.milestones[i as keyof typeof player.milestones] = true;
 		}
 	}
+	
+	if (!(player.firstResetBit & 0b1000) && player.singularity.stage >= 11) {
+	  player.number = player.number.add(feature.resourceGain.number().value.mul(diff / 1000))
+	  player.totalNumber = player.totalNumber.add(feature.resourceGain.number().value.mul(diff / 1000))
+	}
 
 	if (player.singularity.enabled || Logarithm.logarithm.upgrades_in_dilated.includes('39')) {
 	  if (player.singularity.enabled) player.singularity.t += diff / 1000
@@ -207,7 +212,7 @@ export function simulate(diff: number) {
 	  if (player.singularity.stage < 9 && player.singularity.t > 470) player.singularity.t = 470
 	  if (player.singularity.stage < 10 && player.singularity.t > 490) player.singularity.t = 490
 	  if (player.singularity.stage < 11 && player.singularity.t > 500) player.singularity.t = 500
-	  if (player.singularity.t >= 710) player.firstResetBit |= 0b1000
+	  if (player.singularity.t >= 695) player.firstResetBit |= 0b1000
 	  player.singularity.t = Math.min(player.singularity.t, 710);
 	}
 	Logarithm.astronomerUpdate();
