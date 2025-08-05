@@ -9,7 +9,7 @@ import Decimal from 'break_eternity.js';
 <template>
 	<div class="resources" style="font-size: 20px" id="resources">
 		<div class="background">
-			<div v-if="player.singularity.stage < 11" style="margin-left: 15px" class="resource">
+			<div v-if="!(player.firstResetBit & 0b1000)" style="margin-left: 15px" class="resource">
 				<div style="font-weight: bold; color: var(--suptitle-color)">
 					数值&nbsp;
 					{{ formatWhole(player.number) }}

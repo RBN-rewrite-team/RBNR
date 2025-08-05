@@ -8,6 +8,7 @@ export abstract class Upgrade {
 	description: string | (() => string) = '数值获取×114514';
 	name: string = 'U0-114514';
 	cost: Decimal | (() => Decimal) = new Decimal(114514);
+	ordinal=false;
 	requirements(): Requirement[] {
 		return [];
 	}

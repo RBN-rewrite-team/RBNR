@@ -46,7 +46,7 @@ export const OrdinalUtils = {
 				return num.add(this.ordinalToNumber(str2, base));
 			}
 			else if(x[pos] == 'w') num = base;
-			else if(x[pos] == 'e') return Decimal.iteratedexp(base, base, 1);
+			else if(x[pos] == 'e') return Decimal.iteratedexp(base, base.toNumber(), new Decimal(1));
 		}
 		return num;
 	}
