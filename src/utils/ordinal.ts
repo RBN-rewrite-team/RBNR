@@ -1,7 +1,7 @@
 import Decimal from 'break_eternity.js'
 import {formatWhole} from './format'
 
-export const OrdinalUtils = 
+export const OrdinalUtils = {
     numberToOrdinal(x: Decimal, base: Decimal, maxLength = 7): string {
         if(x.gte(base.tetrate(base.toNumber()))) return 'ε<sub>0</sub>'
         if(x.lt(base)) return formatWhole(x);
