@@ -11,6 +11,10 @@ export const resourceGain = {
 	 * @returns value: 每秒获取数值, softcaps: 有多少个cap
 	 */
 	number(num = player.number) {
+	  if (player.singularity.stage >= 11) return {
+	    value: feature.SingularityGenerator.getSingularityEffect(),
+	    softcaps: 0
+	  }
 		let base = feature.SUCCESSOR.successorBulk().pow(feature.SUCCESSOR.successorPow());
 		base = base.mul(feature.SUCCESSOR.autoSuccessPerSecond());
 		if (player.exponention.logarithm.in_dilate) {
