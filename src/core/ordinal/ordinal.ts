@@ -7,6 +7,7 @@ import { Currencies } from '../currencies';
 import { Upgrade, UpgradeWithEffect } from '../upgrade';
 import { CurrencyRequirement, type Requirement } from '../requirements';
 import { Buyable } from '../buyable';
+import { formatWhole } from '@/utils/format';
 
 export const ORDINAL = {
 	upgrades: {
@@ -53,7 +54,7 @@ export const ORDINAL = {
 				return player.ordinal.number.max(1).log(feature.Ordinal.base().toNumber()).floor();
 			};
 			effectDescription() {
-				return 'x' + this.effect();
+				return 'x' + formatWhole(this.effect());
 			};
 			currency: Currencies = Currencies.ORDINAL;
 		}),
@@ -66,7 +67,7 @@ export const ORDINAL = {
 				return player.ordinal.number.max(1).log(feature.Ordinal.base().mul(2).toNumber()).max(1).floor();
 			};
 			effectDescription() {
-				return 'x' + this.effect();
+				return 'x' + formatWhole(this.effect());
 			};
 			currency: Currencies = Currencies.ORDINAL;
 		}),
@@ -79,7 +80,7 @@ export const ORDINAL = {
 				return player.ordinal.number.max(1).root(10).floor();
 			};
 			effectDescription() {
-				return 'x' + this.effect();
+				return 'x' + formatWhole(this.effect());
 			};
 			currency: Currencies = Currencies.ORDINAL;
 		}),
