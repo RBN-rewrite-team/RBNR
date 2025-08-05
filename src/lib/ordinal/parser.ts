@@ -15,7 +15,6 @@ export class Parser {
     constructor(lex: Lexer) {
         this.lexer = lex;
         this.tokens = this.lexer.tokenize();
-        console.log(this.tokens);
         this.pos=0;
         this.prefixParseFns.set(Tokens.epsilon, this.parseEpsilonExpression.bind(this));
         this.prefixParseFns.set(Tokens.omega, this.parseOmegaExpression.bind(this));
