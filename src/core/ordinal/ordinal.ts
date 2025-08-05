@@ -13,7 +13,7 @@ export const Ordinal = {
 			description = '每秒增加1序数';
 			cost = new Decimal(0);
 			ordinal = true;
-			name = 'U5-1';
+			name = 'U4-1';
 			effect() {
 			    return new Decimal(1);
 			};
@@ -26,27 +26,76 @@ export const Ordinal = {
 			description = '底数减少1';
 			cost:()=>Decimal = function(){ return OrdinalUtils.ordinalToNumber('w', feature.Ordinal.base()); };
 			ordinal = true;
-			name = 'U5-2';
+			name = 'U4-2';
 			currency: Currencies = Currencies.ORDINAL;
 		}),
 		'53': new (class U53 extends Upgrade {
 			description = '底数减少1';
 			cost:()=>Decimal = function(){ return OrdinalUtils.ordinalToNumber('w^(3)', feature.Ordinal.base()); };
 			ordinal = true;
-			name = 'U5-3';
+			name = 'U4-3';
 			currency: Currencies = Currencies.ORDINAL;
 		}),
 		'54': new (class U54 extends Upgrade {
 			description = '底数减少1';
 			cost:()=>Decimal = function(){ return OrdinalUtils.ordinalToNumber('w^(w)', feature.Ordinal.base()); };
 			ordinal = true;
-			name = 'U5-4';
+			name = 'U4-4';
+			currency: Currencies = Currencies.ORDINAL;
+		}),
+		'55': new (class U55 extends UpgradeWithEffect<Decimal> {
+			description = '序数指数倍增序数提升速度';
+			cost: () => Decimal = function(){ return OrdinalUtils.ordinalToNumber('w^(2)', feature.Ordinal.base()); };
+			ordinal = true;
+			name = 'U4-5';
+			effect() {
+				return player.ordinal.number.log(feature.Ordinal.base()).floor();
+			};
+			effectDescription() {
+				return 'x' + this.effect();
+			};
+			currency: Currencies = Currencies.ORDINAL;
+		}),
+		'56': new (class U56 extends UpgradeWithEffect<Decimal> {
+			description = '序数指数以减弱的效果倍增序数提升速度';
+			cost: () => Decimal = function(){ return OrdinalUtils.ordinalToNumber('w^(2)*(4)', feature.Ordinal.base()); };
+			ordinal = true;
+			name = 'U4-6';
+			effect() {
+				return player.ordinal.number.log(feature.Ordinal.base().mul(2)).floor();
+			};
+			effectDescription() {
+				return 'x' + this.effect();
+			};
+			currency: Currencies = Currencies.ORDINAL;
+		}),
+		'57': new (class U57 extends UpgradeWithEffect<Decimal> {
+			description = '序数以减弱的效果倍增序数提升速度';
+			cost: () => Decimal = function(){ return OrdinalUtils.ordinalToNumber('w^(3)*(3)', feature.Ordinal.base()); };
+			ordinal = true;
+			name = 'U4-7';
+			effect() {
+				return player.ordinal.number.root(10).floor();
+			};
+			effectDescription() {
+				return 'x' + this.effect();
+			};
+			currency: Currencies = Currencies.ORDINAL;
+		}),
+		'58': new (class U58 extends Upgrade {
+			description = '解锁数论研究3';
+			cost: () => Decimal = function() { return OrdinalUtils.ordinalToNumber('w^(4)', feature.Ordinal.base()); };
+			ordinal = true;
+			name = 'U4-8';
 			currency: Currencies = Currencies.ORDINAL;
 		}),
 	} as const,
 	ordinalPerSecond() {
 		let base = new Decimal(0);
 		if(player.upgrades[51]) base = base.add(upgrades[51].effect());
+		if(player.upgrades[55]) base = base.mul(upgrades[55].effect());
+		if(player.upgrades[56]) base = base.mul(upgrades[56].effect());
+		if(player.upgrades[57]) base = base.mul(upgrades[57].effect());
 		return base;
 	},
 	base() {

@@ -146,6 +146,14 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 						>
 						    序数
 						</div>
+						<div
+							class="menu2"
+							:class="{ focus: player.currentTab == 6 }"
+							@click="player.currentTab = 6"
+							v-if="player.upgrades[58]"
+						>
+							数论研究
+						</div>
 					</template>
 					<div class="menu1">杂项</div>
 					<div class="menu_line"></div>
