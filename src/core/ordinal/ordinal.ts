@@ -16,10 +16,10 @@ export const ORDINAL = {
 			cost = new Decimal(0);
 			ordinal = true;
 			name = 'U4-1';
-			effect() {
+			effect(): Decimal {
 			    return new Decimal(1);
 			};
-			effectDescription() {
+			effectDescription(): string {
 			    return '+' + OrdinalUtils.numberToOrdinal(this.effect(), feature.Ordinal.base()) + '/s';
 			};
 			currency: Currencies = Currencies.ORDINAL;
@@ -50,10 +50,10 @@ export const ORDINAL = {
 			cost: () => Decimal = function(){ return new Ordinal('w^2').toDecimal(feature.Ordinal.base().toNumber()); };
 			ordinal = true;
 			name = 'U4-5';
-			effect() {
+			effect(): Decimal {
 				return player.ordinal.number.max(1).log(feature.Ordinal.base().toNumber()).floor();
 			};
-			effectDescription() {
+			effectDescription(): string {
 				return 'x' + formatWhole(this.effect());
 			};
 			currency: Currencies = Currencies.ORDINAL;
@@ -63,10 +63,10 @@ export const ORDINAL = {
 			cost: () => Decimal = function(){ return new Ordinal('w^2*4').toDecimal(feature.Ordinal.base().toNumber()); };
 			ordinal = true;
 			name = 'U4-6';
-			effect() {
+			effect(): Decimal {
 				return player.ordinal.number.max(1).log(feature.Ordinal.base().mul(2).toNumber()).max(1).floor();
 			};
-			effectDescription() {
+			effectDescription(): string {
 				return 'x' + formatWhole(this.effect());
 			};
 			currency: Currencies = Currencies.ORDINAL;
@@ -76,10 +76,10 @@ export const ORDINAL = {
 			cost: () => Decimal = function(){ return new Ordinal('w^3*3').toDecimal(feature.Ordinal.base().toNumber()); };
 			ordinal = true;
 			name = 'U4-7';
-			effect() {
+			effect(): Decimal {
 				return player.ordinal.number.max(1).root(10).floor();
 			};
-			effectDescription() {
+			effectDescription(): string {
 				return 'x' + formatWhole(this.effect());
 			};
 			currency: Currencies = Currencies.ORDINAL;
