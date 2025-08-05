@@ -48,7 +48,7 @@ export const Ordinal = {
 			cost: () => Decimal = function(){ return OrdinalUtils.ordinalToNumber('w^(2)', feature.Ordinal.base()); };
 			ordinal = true;
 			name = 'U4-5';
-			effect() {
+			effect(): Decimal {
 				return player.ordinal.number.log(feature.Ordinal.base()).floor();
 			};
 			effectDescription() {
@@ -61,7 +61,7 @@ export const Ordinal = {
 			cost: () => Decimal = function(){ return OrdinalUtils.ordinalToNumber('w^(2)*(4)', feature.Ordinal.base()); };
 			ordinal = true;
 			name = 'U4-6';
-			effect() {
+			effect(): Decimal {
 				return player.ordinal.number.log(feature.Ordinal.base().mul(2)).floor();
 			};
 			effectDescription() {
@@ -74,7 +74,7 @@ export const Ordinal = {
 			cost: () => Decimal = function(){ return OrdinalUtils.ordinalToNumber('w^(3)*(3)', feature.Ordinal.base()); };
 			ordinal = true;
 			name = 'U4-7';
-			effect() {
+			effect(): Decimal {
 				return player.ordinal.number.root(10).floor();
 			};
 			effectDescription() {
