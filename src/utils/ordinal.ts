@@ -1,8 +1,5 @@
 import Decimal from 'break_eternity.js'
 import {formatWhole} from './format'
-import { evaluateASTNode } from '@/lib/ordinal/evaluator';
-import { Parser } from '@/lib/ordinal/parser';
-import { Lexer } from '@/lib/ordinal/lexer';
 
 export const OrdinalUtils = {
     numberToOrdinal(x: Decimal, base: Decimal, maxLength = 7): string {
@@ -14,7 +11,4 @@ export const OrdinalUtils = {
         let add = x.sub(exp.pow_base(base).mul(mult)).add(1e-9).floor();
         return 'ω' + (exp.gt(1) ? '<sup>' + this.numberToOrdinal(exp, base, --maxLength) + '</sup>' : '') + (mult.gt(1) ? formatWhole(mult) : '') + (add.gt(0) ? '+' + this.numberToOrdinal(add, base, --maxLength) : '');
     },
-	ordinalToNumber(x: string, base: Decimal): Decimal {
-		return evaluateASTNode(new Parser(new Lexer(x)).parseToMainExpression() , base.toNumber())
-	}
 }
