@@ -49,7 +49,7 @@ export const Ordinal = {
 			ordinal = true;
 			name = 'U4-5';
 			effect() {
-				return player.ordinal.number.log(feature.Ordinal.base()).floor();
+				return player.ordinal.number.max(1).log(feature.Ordinal.base()).floor();
 			};
 			effectDescription() {
 				return 'x' + this.effect();
@@ -62,7 +62,7 @@ export const Ordinal = {
 			ordinal = true;
 			name = 'U4-6';
 			effect() {
-				return player.ordinal.number.log(feature.Ordinal.base().mul(2)).floor();
+				return player.ordinal.number.max(1).log(feature.Ordinal.base().mul(2)).max(1).floor();
 			};
 			effectDescription() {
 				return 'x' + this.effect();
@@ -75,7 +75,7 @@ export const Ordinal = {
 			ordinal = true;
 			name = 'U4-7';
 			effect() {
-				return player.ordinal.number.root(10).floor();
+				return player.ordinal.number.max(1).root(10).floor();
 			};
 			effectDescription() {
 				return 'x' + this.effect();
