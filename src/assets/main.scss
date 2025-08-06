@@ -239,6 +239,65 @@ body {
 	background-color: var(--border-color);
 }
 
+@keyframes chapter {
+	from {opacity: 0}
+	to {opacity: 1}
+}
+
+@keyframes chapterDelay {
+	0% {opacity: 0}
+	40% {opacity: 0}
+	100% {opacity: 1}
+}
+
+.chapter_background {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: 98;
+	transform: translate(-50%, -50%);
+	font-size: 400px;
+	margin: -25px 0px;
+	font-weight: bold;
+	transition: 3s ease;
+	animation: chapter 3s 1;
+}
+
+.chapter_text {
+	position: absolute;
+	left: 50%;
+	top: 40%;
+	z-index: 99;
+	transform: translate(-50%, -50%);
+	font-size: 20px;
+	transition: 2s ease;
+	animation: chapterDelay 5s 1;
+}
+
+.chapter_text_b {
+	position: absolute;
+	left: 50%;
+	top: 60%;
+	z-index: 99;
+	transform: translate(-50%, -50%);
+	font-size: 20px;
+	transition: 2s ease;
+	animation: chapterDelay 5s 1;
+}
+
+.chapter_clickable {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: 99;
+	transform: translate(-50%, -50%);
+	font-size: 30px;
+	font-weight: bold;
+	border: 2px solid rgb(255, 255, 255, 0.5);
+	transition: 2s ease;
+	animation: chapterDelay 5s 1;
+}
+
 .reset1 {
 	position: absolute;
 	display: inline-block;
