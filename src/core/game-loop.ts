@@ -217,6 +217,12 @@ export function simulate(diff: number) {
 	  if (player.singularity.t >= 695) player.firstResetBit |= 0b1000
 	  player.singularity.t = Math.min(player.singularity.t, 710);
 	}
+	
+	if(player.upgrades[58])
+	{
+		feature.OrdinalNT.varGainLoop(diff / 1000);
+	}
+	
 	Logarithm.astronomerUpdate();
 	updateHighestStat();
 }

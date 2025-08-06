@@ -29,14 +29,17 @@ import MultipResetButton from './components/MultipResetButton.vue';
 import ExpResetButton from './components/ExpResetButton.vue';
 import { predictableRandom } from './utils/algorithm.ts';
 import Resources from './components/Resources.vue';
+
 import ExpUpgrades from './components/tabs/ExpUpgrades.vue';
 import Achievements from './components/tabs/Achievements.vue';
 import ChessBoard from './components/tabs/ChessBoard.vue';
 import Logarithm from './components/tabs/Logarithm.vue';
 import LogDilate from './components/tabs/LogDilate.vue';
+
 import SingularityGenerator from './components/tabs/SingularityGenerator.vue';
 import BlackHole from './components/BlackHole.vue';
 import Ordinal from './components/tabs/Ordinal.vue';
+import OrdinalNT from './components/tabs/OrdinalNT.vue';
 </script>
 
 <template>
@@ -58,7 +61,7 @@ import Ordinal from './components/tabs/Ordinal.vue';
 				<Addition v-if="player.currentTab === 2" />
 				<Multip v-if="player.currentTab === 4" />
 				<PF v-if="player.currentTab === 5" />
-				<NumberTheory v-if="player.currentTab === 6" />
+				<NumberTheory v-if="player.currentTab === 6 && !player.upgrades[58]" />
 				<Stat v-if="player.currentTab === 7" />
 				<MultipChals v-if="player.currentTab === 8" />
 				<ExpUpgrades v-if="player.currentTab === 9" />
@@ -68,6 +71,7 @@ import Ordinal from './components/tabs/Ordinal.vue';
 				<LogDilate v-if="player.currentTab === 13" />
 				<SingularityGenerator v-if="player.currentTab === 14" />
 				<Ordinal v-if="player.currentTab === 15" />
+				<OrdinalNT v-if="player.currentTab === 6 && player.upgrades[58]" />
 				<div class="main" v-if="player.currentTab === 3">
 					<h1>大数之路重制版</h1>
 					版本: v0.1.1<br />

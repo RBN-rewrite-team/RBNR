@@ -12,6 +12,8 @@ import { PrimeFactor } from './multiplication/pf.ts';
 import { Exponention } from './exponention/exponention.ts';
 import { QolUpgrades } from './exponention/qolupg.ts';
 import { ORDINAL } from './ordinal/ordinal.ts';
+import { OrdinalNT } from './ordinal/ordinalNT.ts';
+import { OrdinalUtils } from '@/utils/ordinal';
 import { cb1 } from './exponention/chessboard.ts';
 import { Buyable } from './buyable.ts';
 
@@ -33,6 +35,7 @@ const buyables = {
 	...Exponention.buyables,
 	cb1,
 	...Logarithm.buyables,
+	...OrdinalNT.buyables,
 } as const;
 const preExponent = Object.keys(Addition.buyables)
 	.concat(Object.keys(Successor.buyables))
@@ -155,7 +158,11 @@ export const BUYABLES = {
 					'<br>';
 			str +=
 				'价格：' +
-				format(buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0)))) +
+				(
+					buyables[id].ordinal
+					? OrdinalUtils.numberToOrdinal(buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0))), ORDINAL.base())
+					: format(buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0))))
+				) +
 				currencyName(buyables[id].currency) +
 				(canBuy.gte(1) ? '(买' + formatWhole(canBuy) + '个)' : '') +
 				'<br>';

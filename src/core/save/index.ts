@@ -45,6 +45,9 @@ export interface Player {
 			m: Decimal;
 			y: Decimal;
 		};
+		GH: {
+			x: Decimal;
+		};
 	};
 	currentTab: number;
 	addpower: Decimal;
@@ -219,6 +222,10 @@ function getInitialPlayerData(): Player {
 			pf19: zero,
 			lgr_emp: zero,
 			lgr_impr: zero,
+			'51R': zero,
+			'52R': zero,
+			'53R': zero,
+			'54R': zero,
 		},
 		milestones: {
 			cb1: false,
@@ -265,6 +272,9 @@ function getInitialPlayerData(): Player {
 				n: new Decimal(1),
 				m: new Decimal(1),
 				y: new Decimal(1),
+			},
+			GH: {
+				x: new Decimal(11),
 			},
 		},
 		currentTab: 0,
