@@ -29,7 +29,7 @@ import { getOrdinalLevel, ordinalNormal } from "../../core/ordinal/ordinal-level
   
       <div>
 			  当前序数等级：{{getOrdinalLevel()}}<br>
-			  下一序数等级要求：<vue-latex :expression="OrdinalUtils.numberToLaTeXOrdinal(new Ordinal(ordinalNormal[getOrdinalLevel()]).toDecimal(feature.Ordinal.base()), feature.Ordinal.base()) ?? '\\textit{way too large}'" />
+			  下一序数等级要求：<vue-latex :expression="OrdinalUtils.numberToLaTeXOrdinal(new Ordinal(ordinalNormal[getOrdinalLevel()]).toDecimal(feature.Ordinal.base().toNumber()), feature.Ordinal.base()) ?? '\\textit{way too large}'" />
 			</div>
 		</div>
 	</div>

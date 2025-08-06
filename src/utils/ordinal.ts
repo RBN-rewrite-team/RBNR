@@ -14,7 +14,7 @@ export const OrdinalUtils = {
 		else return 'w' + (exp.gt(1) ? '^(' + this.numberToOrdinal(exp, base, --maxLength, false) + ')' : '') + (mult.gt(1) ? '*(' + formatWhole(mult) + ')' : '') + (add.gt(0) ? '+' + this.numberToOrdinal(add, base, --maxLength, false) : '');
 	},
 	numberToLaTeXOrdinal(x: Decimal, base: Decimal, maxLength = 7): string { //数值转Latex表达法序数
-	    if(x.gte(base.tetrate(base.toNumber()))) return '\\epsilon_0'
+	    if(x.gte(base.tetrate(base.toNumber()))) return '\\varepsilon_0'
         if(x.lt(base)) return formatWhole(x);
         if(maxLength <= 0) return '...';
         let exp = x.log(base).add(1e-9).floor();
