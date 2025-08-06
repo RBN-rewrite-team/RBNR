@@ -187,27 +187,6 @@ export const Successor = {
 			},
 			meta: 1,
 		});
-		SOFTCAPS.create('number^6', {
-			name: 'number^6',
-			fluid: true,
-			start: new Decimal('ee100'),
-			exponent: new Decimal(0.25),
-			meta: 2,
-		});
-		SOFTCAPS.create('number^7', {
-			name: 'number^7',
-			fluid: true,
-			start: new Decimal('eee5'),
-			exponent: new Decimal(0.1),
-			meta: 2,
-		});
-		SOFTCAPS.create('number^8', {
-			name: 'number^8',
-			fluid: true,
-			start: new Decimal('eee15'),
-			exponent: new Decimal(0.25),
-			meta: 3,
-		});
 	},
 	/**
 	 * @param bulk 点击多少次后继按钮，默认为1就是用户手动点击
@@ -220,7 +199,8 @@ export const Successor = {
 		if (player.exponention.logarithm.upgrades_in_dilated.includes('31')) {
 			adding = adding.pow(3);
 		}
-		if (player.singularity.stage < 2) for (let i = 1; i <= 8; i++)
+		if (player.singularity.enabled ||player.exponention.logarithm.upgrades_in_dilated.includes('39')) adding = adding.add(1).pow(feature.SingularityGenerator.getSingularityEffect()).sub(1);
+		if (player.singularity.stage < 2) for (let i = 1; i <= 5; i++)
 			adding = SOFTCAPS.fluidComputed('number^' + i, adding, player.number);
 		if (CHALLENGE.inChallenge(0, 2))
 			adding = SOFTCAPS.fluidComputed('number_C1', adding, player.number);
@@ -307,7 +287,6 @@ export const Successor = {
 			base = base.add(Decimal.mul(0.001, player.buyables[11].min(1000)));
 		}
 		if (Logarithm.logarithm.upgrades_in_dilated.includes('31')) base = base.add(3);
-		if (player.singularity.enabled ||Logarithm.logarithm.upgrades_in_dilated.includes('39')) base = base.mul(feature.SingularityGenerator.getSingularityEffect());
 		return base;
 	},
 };

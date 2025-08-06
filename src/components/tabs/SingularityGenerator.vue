@@ -81,7 +81,6 @@ function destroy(a: number) {
       player.firstResetBit &= ~(1 << 2)
       if (CHALLENGE.inChallenge(0,3)) player.challengein = [-1, -1]
       player.challenges[0][3] = new Decimal(0)
-      feature.MULTIPLICATION.reset(true);
       break
     case 5:
       player.challenges[0] = [
