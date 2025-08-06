@@ -28,7 +28,7 @@ export function getOrdinalLevel(): number {
 	let level = 0;
 	for(let i in ordinalNormal)
 	{
-		if(new Ordinal(ordinalNormal[i]).toDecimal(feature.Ordinal.base()).lte(player.ordinal.number)) level++;
+		if(new Ordinal(ordinalNormal[i]).toDecimal(feature.Ordinal.base().toNumber()).lte(player.ordinal.number)) level++;
 	}
 	return level
 }
