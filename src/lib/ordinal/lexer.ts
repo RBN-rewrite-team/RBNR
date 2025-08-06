@@ -52,6 +52,10 @@ export class Lexer {
       case 'ε':
         token = new Token(Tokens.epsilon)
         break;
+      case 'z':
+      case 'ζ':
+        token = new Token(Tokens.zeta)
+        break;
       case '(':
         token = new Token(Tokens.lparen)
         break;
