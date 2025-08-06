@@ -26,7 +26,7 @@ import { getOrdinalLevel, ordinalDatas } from "../../core/ordinal/ordinal-level.
   
       <div>
 			  当前序数等级：{{getOrdinalLevel()}}<br>
-			  下一序数等级要求：<vue-latex :expression="ordinalDatas[getOrdinalLevel()] ?? '\\text{To be continued...}'" />
+			  下一序数等级要求：<vue-latex :expression="ordinalDatas[getOrdinalLevel()] ?? '\\textit{way too large}'" />
 			</div>
 		</div>
 	</div>

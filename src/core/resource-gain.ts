@@ -16,10 +16,10 @@ export const resourceGain = {
 	    softcaps: 0
 	  }
 		let base = feature.SUCCESSOR.successorBulk().pow(feature.SUCCESSOR.successorPow());
-		base = base.mul(feature.SUCCESSOR.autoSuccessPerSecond());
 		if (player.exponention.logarithm.in_dilate) {
 			base = base.add(10).ln().ln().div(10);
 		}
+		base = base.mul(feature.SUCCESSOR.autoSuccessPerSecond());
 		if (player.buyables[31].gt(0) && Logarithm.logarithm.buyables_in_dilated.includes('31'))
 			base = base.mul(buyables[31].effect(player.buyables[31]));
 
