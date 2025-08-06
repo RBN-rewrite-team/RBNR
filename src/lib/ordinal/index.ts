@@ -35,10 +35,8 @@ export function displayOrd(
   let dispString = "";
 
   const bigBase = new Decimal(base);
-  const ten = new Decimal(10);
-  const three = new Decimal(3);
 
-  if (ord.gte(bigBase.tetrate(ten))) {
+  if (ord.gte(bigBase.tetrate(10))) {
     const prefix = colour === 1 
       ? "<span style='color:red;text-shadow:0 0 3px #fff'>ε<sub>0</sub></span>" 
       : "ε<sub>0</sub>";
@@ -64,7 +62,7 @@ export function displayOrd(
       remainder = new Decimal(0)
     }
 
-    const isEnd = remainder.add(over).eq(0) || ord.gt(Decimal.tetrate(bigBase, three));
+    const isEnd = remainder.add(over).eq(0) || ord.gt(Decimal.tetrate(bigBase, 3));
 
     const expOrdDisp = displayOrd(exponent, base, 0, 0, 0, 0, 0);
     const expPart = exponent.eq(1) 
@@ -92,7 +90,7 @@ export function displayOrd(
 
     ord = remainder;
     trim++;
-    if (ord.gt(Decimal.tetrate(bigBase, three))) {
+    if (ord.gt(Decimal.tetrate(bigBase, 3))) {
       largeOrd = true;
     }
   }
@@ -124,7 +122,7 @@ function HSL(hue: Decimal | number): string {
   const cycle = new Decimal(360 * 360);
   
   if (hueValue.gte(cycle)) {
-    hueValue = hueValue.div(cycle).naturalLogarithm().add(1).mul(cycle);
+    hueValue = hueValue.div(cycle).ln().add(1).mul(cycle);
   }
   
   const normalizedHue = hueValue.mod(360).toNumber();
