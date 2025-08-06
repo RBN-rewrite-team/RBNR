@@ -38,7 +38,7 @@ import { Ordinal } from '@/lib/ordinal/';
 				<div style="font-size: 17px; color: rgb(255, 127, 127)">
 					<span
 						v-html="'(+' + OrdinalUtils.numberToOrdinal(feature.resourceGain.ordinalNumber().value, feature.Ordinal.base()) + '/s)'"
-					/>
+					></span>
 				</div>
 			</div>
 			<div
