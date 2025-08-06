@@ -18,6 +18,7 @@ export abstract class Buyable<T> {
 	cost(x: Decimal): Decimal {
 		return new Decimal(114514).pow(x);
 	}
+	ordinal: boolean = false;
 	requirements(): Requirement[] {
 		return [];
 	}

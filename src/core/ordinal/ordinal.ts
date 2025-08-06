@@ -98,6 +98,7 @@ export const ORDINAL = {
 		if(player.upgrades[55]) base = base.mul(upgrades[55].effect());
 		if(player.upgrades[56]) base = base.mul(upgrades[56].effect());
 		if(player.upgrades[57]) base = base.mul(upgrades[57].effect());
+		if(player.upgrades[58]) base = base.mul(feature.OrdinalNT.varComputed('tau', 3));
 		return base;
 	},
 	base() {
