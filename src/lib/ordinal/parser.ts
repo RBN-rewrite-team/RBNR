@@ -1,4 +1,4 @@
-import { AddNode, EpsilonNode, ExponentNode, MultiplyNode, NumberNode, OmegaNode, type ASTNode, MainNode } from "./ast.ts";
+import { AddNode, EpsilonNode, ExponentNode, MultiplyNode, NumberNode, OmegaNode, type ASTNode, MainNode, ZetaNode } from "./ast.ts";
 import { Lexer } from "./lexer.ts"
 import { Tokens, Token } from "./tokens.ts"
 
@@ -20,12 +20,14 @@ export class Parser {
         this.prefixParseFns.set(Tokens.omega, this.parseOmegaExpression.bind(this));
         this.prefixParseFns.set(Tokens.number, this.parseNumberExpression.bind(this));
         this.prefixParseFns.set(Tokens.lparen, this.parseGroupedExpression.bind(this))
+        this.prefixParseFns.set(Tokens.zeta, this.parseZetaExpression.bind(this))
         this.infixParseFns.set(Tokens.addition, this.parseAdditionExpression.bind(this));
         this.infixParseFns.set(Tokens.multiply, this.parseMultExpression.bind(this));
         this.infixParseFns.set(Tokens.exponention, this.parseExpoExpression.bind(this));
-        precedences.set(Tokens.epsilon, 7);
-        precedences.set(Tokens.number, 7);
-        precedences.set(Tokens.omega, 7);
+        precedences.set(Tokens.epsilon, 8);
+        precedences.set(Tokens.zeta, 8);
+        precedences.set(Tokens.number, 8);
+        precedences.set(Tokens.omega, 8);
         precedences.set(Tokens.addition, 3);
         precedences.set(Tokens.multiply, 4);
         precedences.set(Tokens.exponention, 5);
@@ -66,10 +68,17 @@ export class Parser {
 
     parseEpsilonExpression(): EpsilonNode {
         this.nextToken();
-        const expression = this.parseExpression(0);
+        const expression = this.parseExpression(8);
         const epsilonExpress = new EpsilonNode(expression);
 
         return epsilonExpress
+    }
+    parseZetaExpression(): ZetaNode {
+        this.nextToken();
+        const expression = this.parseExpression(8);
+        const zetaExpress = new ZetaNode(expression);
+
+        return zetaExpress
     }
     parseNumberExpression(): NumberNode {
         const n = Number(this.tokens[this.pos].literal)

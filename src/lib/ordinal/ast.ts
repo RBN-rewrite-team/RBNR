@@ -8,9 +8,11 @@ export abstract class ASTNode {
     "Multiply" |
     "Exponention" |
     "Epsilon" |
+    "Zeta" |
     "Main"
   constructor() {}
   abstract toDecimal(base: number): Decimal;
+  abstract HTMLForm(): string;
 }
 
 export class NumberNode extends ASTNode {
@@ -28,6 +30,9 @@ export class NumberNode extends ASTNode {
   toDecimal(_base: number) {
     return Decimal.fromNumber(this.value)
   }
+  HTMLForm(): string {
+    return this.value.toFixed(2)
+  }
 }
 
 export class OmegaNode extends ASTNode {
@@ -39,6 +44,9 @@ export class OmegaNode extends ASTNode {
   
   toDecimal(base: number) {
     return new Decimal(base)
+  }
+  HTMLForm(): string {
+    return "ω";
   }
 }
 
@@ -57,6 +65,9 @@ export class AddNode extends ASTNode {
       this.params[1].toDecimal(base),
     )
   }
+  HTMLForm(): string {
+    return `(${this.params[0].HTMLForm()})+(${this.params[1].HTMLForm()})`;
+  }
 }
 
 export class MultiplyNode extends ASTNode {
@@ -73,6 +84,9 @@ export class MultiplyNode extends ASTNode {
       this.params[0].toDecimal(base),
       this.params[1].toDecimal(base),
     )
+  }
+  HTMLForm(): string {
+    return `(${this.params[0].HTMLForm()})×(${this.params[1].HTMLForm()})`;
   }
 }
 
@@ -91,6 +105,9 @@ export class ExponentNode extends ASTNode {
       this.params[1].toDecimal(base),
     )
   }
+  HTMLForm(): string {
+    return `${this.params[0].HTMLForm()}<sup>${this.params[1].HTMLForm()}</sup>`;
+  }
 }
 
 export class EpsilonNode extends ASTNode {
@@ -103,7 +120,26 @@ export class EpsilonNode extends ASTNode {
   }
   
   toDecimal(base: number) {
-    return Decimal.tetrate(base, this.childNode.toDecimal(base).toNumber() + base)
+    return Decimal.tetrate(base, this.childNode.toDecimal(base).mul(base).toNumber() + base)
+  }
+  HTMLForm(): string {
+    return `ε<sub>${this.childNode.HTMLForm()}</sub>`;
+  }
+}
+export class ZetaNode extends ASTNode {
+  public readonly type = "Zeta" as const
+  public readonly childNode: ASTNode;
+  
+  constructor(node: ASTNode) {
+    super()
+    this.childNode = node;
+  }
+  
+  toDecimal(base: number) {
+    return Decimal.dInf
+  }
+  HTMLForm(): string {
+    return `ζ<sub>${this.childNode.HTMLForm()}</sub>`;
   }
 }
 
@@ -119,4 +155,7 @@ export class MainNode extends ASTNode {
   }
 
   type = "Main" as const;
+  HTMLForm(): string {
+    return this.node.HTMLForm();
+  }
 }

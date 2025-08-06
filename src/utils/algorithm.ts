@@ -6,7 +6,7 @@
  */
 export function gcd(x: number, y: number): number {
 	if (x < y) [x, y] = [y, x];
-	const cacheKey = `${x},${y}`;
+	const cacheKey = `${x},${y}` as const;
 
 	// 检查缓存
 	if (gcdCache.has(cacheKey)) {
@@ -22,7 +22,7 @@ export function gcd(x: number, y: number): number {
 	}
 	return x;
 }
-const gcdCache = new Map<string, number>(); //K = xxx,xxx
+const gcdCache = new Map<`${number},${number}`, number>(); //K = xxx,xxx
 
 /**
  * 判断两个数是否互质（最大公约数为1）
