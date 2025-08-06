@@ -54,7 +54,7 @@ export const ORDINAL = {
 				return player.ordinal.number.max(1).log(feature.Ordinal.base().toNumber()).floor();
 			};
 			effectDescription(): string {
-				return 'x' + formatWhole(this.effect());
+				return '×' + OrdinalUtils.numberToOrdinal(this.effect(), feature.Ordinal.base());
 			};
 			currency: Currencies = Currencies.ORDINAL;
 		}),
