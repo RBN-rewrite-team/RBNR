@@ -38,7 +38,7 @@ import { Ordinal } from '@/lib/ordinal/';
 				<div style="font-size: 17px; color: rgb(255, 127, 127)">
 					<span
 						v-html="'(+' + OrdinalUtils.numberToOrdinal(feature.resourceGain.ordinalNumber().value, feature.Ordinal.base()) + '/s)'"
-					/>
+					></span>
 				</div>
 			</div>
 			<div
@@ -58,14 +58,14 @@ import { Ordinal } from '@/lib/ordinal/';
 						(+{{ formatWhole(feature.resourceGain.addpower().value) }})
 					</span>
 					<span v-else>
-						{{
+<span v-html="
 							formatGain(
 								player.addpower,
 								feature.resourceGain
 									.addpower()
 									.passive.mul(feature.resourceGain.addpower().value),
 							)
-						}}
+						" />
 					</span>
 					(!{{ formatWhole(player.totalAddpower) }})
 					<br />
@@ -90,14 +90,14 @@ import { Ordinal } from '@/lib/ordinal/';
 						(+{{ formatWhole(feature.resourceGain.mulpower().value) }})
 					</span>
 					<span v-else>
-						{{
+						<span v-html="
 							formatGain(
 								player.multiplication.mulpower,
 								feature.resourceGain
 									.mulpower()
 									.passive.mul(feature.resourceGain.mulpower().value),
 							)
-						}}
+						" />
 					</span>
 					(!{{ formatWhole(player.multiplication.totalMulpower) }})
 					<br />

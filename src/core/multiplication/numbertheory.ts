@@ -420,7 +420,7 @@ export const NUMTHEORY = {
 		return Decimal.fromNumber(sumEulers[x.toNumber()]);
 	},
 	tau1DilateEff() {
-		return NUMTHEORY.funcS().pow(1e10).add(1e10).iteratedlog(10, 3).div(5).min(0.25);
+		return NUMTHEORY.funcS().max(10).slog().pow(0.6).div(5).min(0.3125);
 	},
 	varXgain() {
 		let x = new Decimal(0);

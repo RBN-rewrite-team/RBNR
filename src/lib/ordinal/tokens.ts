@@ -5,6 +5,7 @@ export enum Tokens {
   multiply,
   exponention,
   epsilon,
+  zeta,
   lparen,
   rparen,
   eof

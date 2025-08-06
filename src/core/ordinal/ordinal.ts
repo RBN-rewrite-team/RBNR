@@ -51,10 +51,10 @@ export const ORDINAL = {
 			ordinal = true;
 			name = 'U4-5';
 			effect(): Decimal {
-				return OrdinalUtils.ordinalChangeBase(player.ordinal.number.max(1).log(feature.Ordinal.base().toNumber()).floor(), feature.Ordinal.base(), new Decimal(10));
+				return OrdinalUtils.ordinalChangeBase(player.ordinal.number.max(1).log(feature.Ordinal.base().toNumber()).floor(), feature.Ordinal.base(), new Decimal(10)).add(1);
 			};
 			effectDescription(): string {
-				return 'x' + formatWhole(this.effect());
+				return '×' + OrdinalUtils.numberToOrdinal(this.effect(), feature.Ordinal.base());
 			};
 			currency: Currencies = Currencies.ORDINAL;
 		}),
@@ -64,7 +64,7 @@ export const ORDINAL = {
 			ordinal = true;
 			name = 'U4-6';
 			effect(): Decimal {
-				return OrdinalUtils.ordinalChangeBase(player.ordinal.number.max(1).log(feature.Ordinal.base().mul(2).toNumber()).floor(), feature.Ordinal.base(), new Decimal(10));
+				return OrdinalUtils.ordinalChangeBase(player.ordinal.number.max(1).log(feature.Ordinal.base().mul(2).toNumber()).floor(), feature.Ordinal.base(), new Decimal(10)).add(1);
 			};
 			effectDescription(): string {
 				return 'x' + formatWhole(this.effect());
@@ -108,4 +108,8 @@ export const ORDINAL = {
 		if(player.upgrades[54]) base = base.sub(1);
 		return base;
 	},
+
+	isConstantSpeed():boolean {
+		return !(player.upgrades[56]||player.upgrades[57]||player.upgrades[58]||player.upgrades[55])
+	}
 };

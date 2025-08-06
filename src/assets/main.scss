@@ -39,7 +39,8 @@
 	--title-color: #8e8e8e;
 	--border-color: #d0d0d0;
 	--hover-color: #e2e2e2;
-	
+	--red-hover-color: #ffd1d1;
+
 	--sing-color: rgb(127, 127, 255);
 }
 
@@ -357,7 +358,7 @@ body {
 	background-color: var(--border-color);
 }
 .upgrade_buttonsmall_unable:hover {
-	background-color: #ffd1d1;
+	background-color: var(--red-hover-color);
 }
 .upgrade_button1 {
 	@extend .upgrade_button_parent;
@@ -380,7 +381,7 @@ body {
 }
 
 .upgrade_button1_unable:hover {
-	background-color: #ffd1d1;
+	background-color: var(--red-hover-color);
 }
 
 .upgrade_buttonbig {
@@ -418,7 +419,7 @@ body {
 }
 
 .upgrade_buttonbig_unable:hover {
-	background-color: #ffd1d1;
+	background-color: var(--red-hover-color);
 }
 
 .upgrade_line {
@@ -487,7 +488,7 @@ body {
 }
 
 .research_button1_unable:hover {
-	background-color: #ffd1d1;
+	background-color: var(--red-hover-color);
 }
 
 .research_button1_bought {
@@ -571,7 +572,7 @@ body {
 }
 
 .milestone_button1:hover {
-	background-color: #ffd1d1;
+	background-color: var(--red-hover-color);
 }
 
 .milestone_button1_bought {
@@ -759,7 +760,7 @@ body {
 }
 
 .achievement_button_unable:hover {
-	background-color: #ffd1d1;
+	background-color: var(--red-hover-color);
 }
 
 .setting_button {
@@ -802,7 +803,7 @@ body {
 }
 
 .hard_reset:hover {
-	background-color: #ffd1d1;
+	background-color: var(--red-hover-color);
 }
 
 .hard_reset:active {
@@ -895,4 +896,49 @@ tr {
 	height: 1em;
 	position: relative;
 	top: 3px;
+}
+
+
+.tooltipBox {
+    position: relative
+}
+  
+.tooltipBox:hover .tooltip {
+    opacity: 1
+}
+
+
+.tooltip {
+    pointer-events: none;
+    text-align: center;
+    width: 150px;
+    font-size: 12px;
+    line-height: 1.2;
+    bottom: 100%;
+    left: 50%;
+    margin-bottom: 5px;
+    transform: translateX(-50%);
+    padding: 7px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    opacity: 0;
+    transition: opacity 0.5s;
+    position: absolute;
+    z-index: 20000;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white ;
+    font-size: 14px
+}
+  
+.tooltip:after {
+	position: absolute;
+	bottom: 100%;
+	left: 50%;
+	top: 100%;
+	left: 50%;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: white transparent transparent transparent
 }

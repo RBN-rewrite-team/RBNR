@@ -254,7 +254,14 @@ export function formatGain(a: DecimalSource, e: DecimalSource, resourceName: str
  */
 export function formatTime(ex: DecimalSource, acc = 3, type = 's'): string {
 	ex = new Decimal(ex);
-	if (ex.mag == Infinity) return '5更新时';
+	if (!ex.isFinite()) return '5更新时';
+	if (ex.gte(3153600000)) {
+		return (
+			format(ex.div(3153600000), 3) +
+			'个世纪'
+		);
+
+	}
 	if (ex.gte(31536000)) {
 		return (
 			format(ex.div(31536000).floor(), 0) +
@@ -531,8 +538,9 @@ export function physicalScale(value: DecimalSource): string {
 		let amount = inverse_factorial(value, factorials).div(scaleResult[2]);
 		if (factorials == 0)
 			return (
+				'拥有' +
 				format(value) +
-				' atoms would be enough to make ' +
+				'个原子，你可以填满' +
 				format(amount) +
 				' ' +
 				scaleResult[1] +
