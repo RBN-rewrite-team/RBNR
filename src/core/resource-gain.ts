@@ -26,6 +26,7 @@ export const resourceGain = {
 		if (player.exponention.logarithm.upgrades_in_dilated.includes('31')) {
 			base = base.pow(3);
 		}
+		if (player.singularity.enabled ||player.exponention.logarithm.upgrades_in_dilated.includes('39')) base = base.add(1).pow(feature.SingularityGenerator.getSingularityEffect()).sub(1);
 		let softcaps = 0,
 			scList = [
 				'number^1',
@@ -33,9 +34,6 @@ export const resourceGain = {
 				'number^3',
 				'number^4',
 				'number^5',
-				'number^6',
-				'number^7',
-				'number^8',
 			];
 		if (player.singularity.stage < 2) for (let i = 0; i < scList.length; i++) {
 			if (SOFTCAPS.reach(scList[i], player.number)) {
@@ -52,6 +50,7 @@ export const resourceGain = {
 		if (player.exponention.logarithm.in_dilate) {
 			base = base.add(Math.E).ln().ln().mul(10);
 		}
+		if (player.singularity.enabled ||player.exponention.logarithm.upgrades_in_dilated.includes('39')) base = base.add(1).pow(feature.SingularityGenerator.getSingularityEffect()).sub(1);
 		let softcaps = 0,
 			scList = ['addpower^1', 'addpower^2', 'addpower^3', 'addpower^4', 'addpower^5'];
 		if (player.singularity.stage < 2)for (let i = 0; i < scList.length; i++) {

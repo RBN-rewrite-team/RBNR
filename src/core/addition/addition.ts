@@ -240,6 +240,7 @@ export const Addition = {
 		if (player.exponention.logarithm.in_dilate) {
 			adding = adding.add(Math.E).ln().ln().mul(10);
 		}
+		if (player.singularity.enabled ||player.exponention.logarithm.upgrades_in_dilated.includes('39')) adding = adding.add(1).pow(feature.SingularityGenerator.getSingularityEffect()).sub(1);
 		if (player.buyables[31].gt(0) && Logarithm.logarithm.upgrades_in_dilated.includes('31'))
 			adding = adding.mul(buyables[31].effect(player.buyables[31]));
 		if (player.singularity.stage < 2){adding = SOFTCAPS.fluidComputed('addpower^1', adding, player.addpower);
@@ -301,7 +302,6 @@ export const Addition = {
 		if (player.exponention.logarithm.upgrades_in_dilated.includes('13')) {
 			base = base.add(0.1);
 		}
-		if (player.singularity.enabled ||player.exponention.logarithm.upgrades_in_dilated.includes('39')) base = base.mul(feature.SingularityGenerator.getSingularityEffect());
 		return base;
 	},
 	U25effect() {
