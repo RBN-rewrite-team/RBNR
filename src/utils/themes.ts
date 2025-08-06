@@ -24,6 +24,7 @@ export const themeDetailsMap = new Map([
 			'--title-color': '#8e8e8e',
 			'--border-color': '#d0d0d0',
 			'--hover-color': '#e2e2e2',
+			'--red-hover-color': '#ffd1d1',
 		} as const,
 		other: {
 		} as const,
@@ -38,6 +39,7 @@ export const themeDetailsMap = new Map([
 			'--title-color': '#717171',
 			'--border-color': '#2f2f2f',
 			'--hover-color': '#1d1d1d',
+			'--red-hover-color': '#2f0000',
 		} as const,
 		other: {
 		} as const,
@@ -52,6 +54,7 @@ export const themeDetailsMap = new Map([
 			'--title-color': '#ff6633',
 			'--border-color': '#ffcc99',
 			'--hover-color': '#ff6633',
+			'--red-hover-color': '#ffd1d1',
 		} as const,
 		other: {
 		} as const,
@@ -66,6 +69,7 @@ export const themeDetailsMap = new Map([
 			'--title-color': '#003333',
 			'--border-color': '#006699',
 			'--hover-color': '#0099cc',
+			'--red-hover-color': '#ffd1d1',
 		} as const,
 		other: {
 			filter: 'hue-rotate(15deg) brightness(0.8) contrast(0.9)',
