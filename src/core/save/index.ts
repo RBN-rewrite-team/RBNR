@@ -88,6 +88,8 @@ export interface Player {
 		challengeDetial: boolean;
 	};
 	stat: {
+		chapter: number;
+		
 		totalNumber: Decimal;
 		highestNumber: Decimal;
 		totalMulpower: Decimal;
@@ -315,6 +317,8 @@ function getInitialPlayerData(): Player {
 			challengeDetial: false,
 		},
 		stat: {
+			chapter: -1,
+			
 			totalNumber: zero,
 			highestNumber: zero,
 			totalMulpower: zero,

@@ -12,6 +12,8 @@ import { player, feature } from './core/global.ts';
 import { UPGRADES, BUYABLES, SOFTCAPS, buyables } from './core/mechanic.ts';
 import Decimal from 'break_eternity.js';
 
+import Chapter from './components/Chapter.vue';
+
 import Side from './components/Side.vue';
 import NewsTicker from './components/Newsticker.vue';
 import TDChallenge from './components/TDChallenge.vue';
@@ -74,7 +76,7 @@ import OrdinalNT from './components/tabs/OrdinalNT.vue';
 				<OrdinalNT v-if="player.currentTab === 6 && player.upgrades[58]" />
 				<div class="main" v-if="player.currentTab === 3">
 					<h1>大数之路重制版</h1>
-					版本: v0.1.1<br />
+					版本: v0.4<br />
 					制作组名单(排名不分先后)：<br />
 					静火Ω<br />
 					VeryrrDefine<br />
@@ -87,6 +89,7 @@ import OrdinalNT from './components/tabs/OrdinalNT.vue';
 		</div>
 	</div>
 	<BlackHole />
+	<Chapter />
 </template>
 
 <style scoped>

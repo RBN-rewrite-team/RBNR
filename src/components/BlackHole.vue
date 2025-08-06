@@ -19,7 +19,7 @@ function getBHtext(t: number) {
     else if(t < 650) tx += '<br>奇点破碎了世界......';
     else if(t < 666.67) tx += '<br>准备好迎接......了吗......';
     else if(t < 670) tx = '<span style="font-size: ' + ((670 - t) + 1) * 30 + 'px">' + tx + '</span>';
-    else if(t < 690) return '<span style="color: gold">欢迎来到序数世界</span>';
+    else if(t < 675) return '<span style="color: gold">欢迎来到序数世界</span>';
 	else if(t <= 710) return '';
     return tx;
 }
