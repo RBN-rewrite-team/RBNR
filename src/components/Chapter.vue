@@ -10,7 +10,7 @@ function showChapter(id = 0): boolean {
 	if(id === 2) return player.singularity.t >= 675 || player.multiplication.mulpower.gt(0);
 	if(id === 3) return player.singularity.t >= 675 || player.exponention.exppower.gt(0);
 	if(id === 4) return player.singularity.t >= 675;
-	return;
+	return false;
 }
 </script>
 
