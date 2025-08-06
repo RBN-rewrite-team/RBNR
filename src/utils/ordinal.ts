@@ -41,16 +41,17 @@ export const OrdinalUtils = {
 		else if(x.slog(2).gte(8))
 		{
 			let s = x.slog(2).floor().sub(2);
-			let lx = x.iteratedlog(2, s);
+			let lx = x.iteratedlog(2, s.toNumber());
 			return this.numberLogHH(lx, base).add(base.pow(2).mul(s));
 		}
 		else
 		{
-			let an = new Decimal(1), lx = x;
+			let an = new Decimal(1), lx = x, wp2 = 0;
 			while(an.pow_base(2).mul(base).lte(x.add(1e-9)))
 			{
 				an = an.pow_base(2).mul(base);
 				lx = lx.div(base).log(2);
+				wp2++;
 			}
 			return this.numberLogHH(lx, base).add(base.pow(2).mul(wp2));
 		}

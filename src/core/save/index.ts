@@ -224,8 +224,6 @@ function getInitialPlayerData(): Player {
 			lgr_impr: zero,
 			'51R': zero,
 			'52R': zero,
-			'53R': zero,
-			'54R': zero,
 		},
 		milestones: {
 			cb1: false,

@@ -12,7 +12,7 @@ export const OrdinalNT = {
 	buyables: {
 		'51R': new (class B51R extends Buyable<Decimal> {
 			description = 'x<sub>3,1</sub>=x<sub>3,1</sub>+1';
-			cost(x: Decimal) {
+			cost(x: Decimal): Decimal {
 				return new Ordinal('w^4').toDecimal(feature.Ordinal.base().toNumber()).mul(x.pow_base(2));
 			}
 			ordinal = true;
@@ -30,13 +30,13 @@ export const OrdinalNT = {
 			autoBuyMax(): boolean {
 				return false;
 			}
-			costInverse(x: Decimal) {
+			costInverse(x: Decimal): Decimal {
 				return x.max(1).div(new Ordinal('w^4').toDecimal(feature.Ordinal.base().toNumber())).max(1).log(2).add(1).floor();
 			}
 		})(),
 		'52R': new (class B52R extends Buyable<Decimal> {
 			description = 'SGH底数+1';
-			cost(x: Decimal) {
+			cost(x: Decimal): Decimal {
 				return new Ordinal('w^4').toDecimal(feature.Ordinal.base().toNumber()).mul(x.pow_base(feature.Ordinal.base().toNumber()));
 			}
 			ordinal = true;
@@ -54,7 +54,7 @@ export const OrdinalNT = {
 			autoBuyMax(): boolean {
 				return false;
 			}
-			costInverse(x: Decimal) {
+			costInverse(x: Decimal): Decimal {
 				return x.max(1).div(new Ordinal('w^4').toDecimal(feature.Ordinal.base().toNumber())).max(1).log(feature.Ordinal.base().toNumber()).add(1).floor();
 			}
 		})(),
@@ -66,7 +66,7 @@ export const OrdinalNT = {
 		let base = new Decimal(1);
 		return base;
 	},
-	varParam(id = 'x', layer = 3): Decimal {
+	varParam(id = 'x', layer = 3): string {
 		if(layer == 3)
 		{
 			if(id == 'x') return `x_{3,1}` + (this.varExp(id, layer).gt(1) ? `^{` + formatWhole(this.varExp(id, layer)) + `}` : ``);
