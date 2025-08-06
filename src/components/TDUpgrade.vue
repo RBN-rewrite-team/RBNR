@@ -8,6 +8,8 @@ import { OrdinalUtils } from '@/utils/ordinal';
 import { UpgradeWithEffect } from '@/core/upgrade';
 import { format } from '@/utils/format';
 import type Decimal from 'break_eternity.js';
+import { countdown } from '@/core/countdown-display';
+import { ORDINAL } from '@/core/ordinal/ordinal';
 const props = defineProps<{
 	upgid: keyof typeof upgrades;
 }>();
@@ -32,7 +34,7 @@ const req = curupg.requirements();
 
 <template>
 	<td v-if="UPGRADES.lock(upgid).show">
-		<div class="upgrade" @mousedown="UPGRADES.buy(upgid)">
+		<div class="upgrade tooltipBox" @mousedown="UPGRADES.buy(upgid)">
 			<div :class="useClass()">
 				<span style="font-weight: bold"> {{ curupg.name ?? 'U' + id }} </span><br />
 				<template v-if="!UPGRADES.lock(id).unlocked && !permanent && !player.upgrades[id]">
@@ -76,7 +78,13 @@ const req = curupg.requirements();
 					<br />
 				</template>
 				<span v-else style="color: green; font-weight: bold"> 保持持有<br /> </span>
+				<span>
+					
+				</span>
 			</div>
+			<span class="tooltip" v-if="curupg.ordinal && useClass() == 'upgrade_buttonbig_unable'">
+				购买升级需要{{ countdown(typeof curupg.cost === 'function' ? curupg.cost() : curupg.cost, player.ordinal.number, ORDINAL.ordinalPerSecond(), ORDINAL.isConstantSpeed()) }}
+			</span>
 		</div>
 	</td>
 </template>

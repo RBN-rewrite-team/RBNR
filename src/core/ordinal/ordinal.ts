@@ -108,4 +108,8 @@ export const ORDINAL = {
 		if(player.upgrades[54]) base = base.sub(1);
 		return base;
 	},
+
+	isConstantSpeed():boolean {
+		return !(player.upgrades[56]||player.upgrades[57]||player.upgrades[58]||player.upgrades[55])
+	}
 };
