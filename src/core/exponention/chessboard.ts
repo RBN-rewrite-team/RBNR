@@ -225,7 +225,7 @@ export function initMechanics() {
 	MILESTONES.create('cb12', {
 		displayName: 'M-CB-12',
 		get description() {
-			return '计算数据以÷x^2降低棋盘格子购买项的价格';
+			return '计算数据以÷x<sup>2</sup>降低棋盘格子购买项的价格';
 		},
 		requirement: new Decimal(1e150),
 		get canDone() {
@@ -303,7 +303,7 @@ export function initMechanics() {
 		get description() {
 			return '基于观测数据，棋盘底数×' + format(getMCB18Effect());
 		},
-		requirement: new Decimal('e430'),
+		requirement: new Decimal('e480'),
 		get canDone() {
 		  if (player.singularity.stage >= 2) return false
 			return wheatGrain().gte(this.requirement);
@@ -318,7 +318,7 @@ export function initMechanics() {
 				'增强麦粒第五个效果并删除其软上限，麦粒让乘法能量指数^' + format(getMCB19Effect())
 			);
 		},
-		requirement: new Decimal('e525'),
+		requirement: new Decimal('e600'),
 		get canDone() {
 			return wheatGrain().gte(this.requirement);
 		},

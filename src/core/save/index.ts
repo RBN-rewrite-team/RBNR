@@ -458,6 +458,7 @@ export function import_file(): void {
 				try {
 				  player = getInitialPlayerData();
 					loadFromString(save);
+					player = reactive(player);
 				} catch (e) {
 					console.error('Cannot import save');
 				}
