@@ -51,7 +51,7 @@ export const ORDINAL = {
 			ordinal = true;
 			name = 'U4-5';
 			effect(): Decimal {
-				return player.ordinal.number.max(1).log(feature.Ordinal.base().toNumber()).floor();
+				return OrdinalUtils.ordinalChangeBase(player.ordinal.number.max(1).log(feature.Ordinal.base().toNumber()).floor(), feature.Ordinal.base(), new Decimal(10));
 			};
 			effectDescription(): string {
 				return 'x' + formatWhole(this.effect());
@@ -64,7 +64,7 @@ export const ORDINAL = {
 			ordinal = true;
 			name = 'U4-6';
 			effect(): Decimal {
-				return player.ordinal.number.max(1).log(feature.Ordinal.base().mul(2).toNumber()).max(1).floor();
+				return OrdinalUtils.ordinalChangeBase(player.ordinal.number.max(1).log(feature.Ordinal.base().mul(2).toNumber()).floor(), feature.Ordinal.base(), new Decimal(10));
 			};
 			effectDescription(): string {
 				return 'x' + formatWhole(this.effect());
