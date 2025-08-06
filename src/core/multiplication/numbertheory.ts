@@ -111,6 +111,9 @@ export const NUMTHEORY = {
 			capped(): boolean {
 				return false;
 			}
+			show() {
+				return player.upgrades['400q'];
+			}
 		})(),
 		'31R': new (class B31R extends Buyable<Decimal> {
 			description = 'x<sub>1</sub>→x<sub>1</sub>+1';

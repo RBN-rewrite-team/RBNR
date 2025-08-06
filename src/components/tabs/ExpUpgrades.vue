@@ -59,7 +59,7 @@ import Decimal from 'break_eternity.js';
 		<table align="center">
 			<tbody class="smaller">
 				<tr>
-					<TDUpgrade upgid="400q" :style="{ opacity: player.upgrades['400q'] ? 1 : 0 }" />
+					<TDUpgrade upgid="400q" />
 				</tr>
 				<tr>
 					<TDUpgrade upgid="411q" />

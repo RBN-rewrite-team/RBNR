@@ -5,6 +5,7 @@ import { feature } from '@/core/global';
 import { SOFTCAPS } from '@/core/mechanic';
 import { OrdinalUtils } from '@/utils/ordinal';
 import Decimal from 'break_eternity.js';
+import { Ordinal } from '@/lib/ordinal/';
 </script>
 <template>
 	<div class="resources" style="font-size: 20px" id="resources">
@@ -32,7 +33,7 @@ import Decimal from 'break_eternity.js';
 			<div v-else style="margin-left: 15px" class="resource">
 				<div style="font-weight: bold; color: rgb(255, 63, 63)">
 					序数&nbsp;
-					<span v-html="OrdinalUtils.numberToOrdinal(player.ordinal.number, feature.Ordinal.base())" />
+					<span v-html="Ordinal.displayOrdinalColored(player.ordinal.number.floor(), feature.Ordinal.base())" />
 				</div>
 				<div style="font-size: 17px; color: rgb(255, 127, 127)">
 					<span
