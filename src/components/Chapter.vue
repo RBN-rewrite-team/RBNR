@@ -20,7 +20,7 @@ function showChapter(id = 0): boolean {
 			0
 		</div>
 		<div class="chapter_clickable" style="color: var(--suptitle-color); background-color: var(--title-color)"
-		onclick="player.stat.chapter = Math.max(player.stat.chapter, 0)">
+		@click="player.stat.chapter = Math.max(player.stat.chapter, 0)">
 			众里寻数
 		</div>
 		<div class="chapter_text" style="color: var(--title-color)">
@@ -36,7 +36,7 @@ function showChapter(id = 0): boolean {
 			+
 		</div>
 		<div class="chapter_clickable" style="color: #009dd9; background-color: #5acaff"
-		onclick="player.stat.chapter = Math.max(player.stat.chapter, 1)">
+		@click="player.stat.chapter = Math.max(player.stat.chapter, 1)">
 			嗜数成癖
 		</div>
 		<div class="chapter_text" style="color: #5acaff">
@@ -52,7 +52,7 @@ function showChapter(id = 0): boolean {
 			×
 		</div>
 		<div class="chapter_clickable" style="color: #cc33ff; background-color: #dd77dd"
-		onclick="player.stat.chapter = Math.max(player.stat.chapter, 2)">
+		@click="player.stat.chapter = Math.max(player.stat.chapter, 2)">
 			知难而上
 		</div>
 		<div class="chapter_text" style="color: #dd77dd">
@@ -68,7 +68,7 @@ function showChapter(id = 0): boolean {
 			↑
 		</div>
 		<div class="chapter_clickable" style="color: rgb(127, 127, 255); background-color: rgb(63, 63, 127)"
-		onclick="player.stat.chapter = Math.max(player.stat.chapter, 3)">
+		@click="player.stat.chapter = Math.max(player.stat.chapter, 3)">
 			步履维艰
 		</div>
 		<div class="chapter_text" style="color: rgb(63, 63, 127)">
@@ -84,7 +84,7 @@ function showChapter(id = 0): boolean {
 			ω
 		</div>
 		<div class="chapter_clickable" style="color: rgb(255, 63, 63); background-color: rgb(255, 127, 127)"
-		onclick="player.stat.chapter = Math.max(player.stat.chapter, 4)">
+		@click="player.stat.chapter = Math.max(player.stat.chapter, 4)">
 			超越无限
 		</div>
 		<div class="chapter_text" style="color: rgb(255, 127, 127)">
