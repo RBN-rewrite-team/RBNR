@@ -29,19 +29,19 @@ export function init() {
 	const app = createApp(App);
 
 	app.use(VueLatex).mount('#app');
+
+  hotkeys("a", (event, handler) => {
+    event.preventDefault();
+    feature.ADDITION.UIreset()
+  })
+
+  hotkeys("m", (event, handler) => {
+    event.preventDefault();
+    feature.MULTIPLICATION.UIreset()
+  })
+
+  hotkeys("e", (event, handler) => {
+    event.preventDefault();
+    feature.EXPONENTION.UIreset()
+  })
 }
-
-hotkeys("a", (event, handler) => {
-  event.preventDefault();
-  feature.ADDITION.UIreset()
-})
-
-hotkeys("m", (event, handler) => {
-  event.preventDefault();
-  feature.MULTIPLICATION.UIreset()
-})
-
-hotkeys("e", (event, handler) => {
-  event.preventDefault();
-  feature.EXPONENTION.UIreset()
-})
