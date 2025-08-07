@@ -86,5 +86,39 @@ import { player } from "../../core/global.ts"
         2. 对于任意后继序数<vue-latex expression="α" />和自然数<vue-latex expression="n" />，<vue-latex expression="g_{α+1}(n) = g_α(n)+1" /><br>
         3. 对于任意极限序数<vue-latex expression="α" />和自然数<vue-latex expression="n" />，<vue-latex expression="g_α(n) = g_{α[n]}(n)" /><br><br>
     </div>
+    <div v-if="player.help.page == 4 && player.upgrades[58]">
+      我们仍然遗留了一个问题没有解决，<br>
+      那就是利用不同基本列所定义的极限序数所对应的函数<vue-latex expression="f_α(n) = f_{a[n]}(n)" />是不同的。<br>
+      以极限序数<vue-latex expression="ω" />为例，若取基本列为
+      <vue-latex expression="ω = \sup\{0, 1, 2, \cdots\}" />，则有
+      <vue-latex expression="f_ω(n) = f_n(n)" /><br>
+      若取基本列为
+      <vue-latex expression="ω = \sup\{1, 10, 100, 1000, \cdots\}" />，则有
+      <vue-latex expression="f_ω(n) = f_{10^n}(n)" /><br>
+      上述两个基本列可以给出相同的极限序数<vue-latex expression="ω" />，但是它们所对应的函数的增长速度却并不相同。<br>
+      为此，我们需要定义“标准基本列”，以便对这种情况进行规范。<br>
+      但在此之前，由于形如<vue-latex expression="1+ω=ω" />这种结果，在讨论序数的基本列之前，我们需要先对序数进行标准化。<br>
+      我们通常使用的标准形式是 Cantor 标准型，它定义为如下形式：<br>
+      <vue-latex expression="α = ω^{α_0}+ω^{α_1}+\cdotsω^{α_n}," display-mode />
+      其中，<vue-latex expression="α_0\ge a_1\ge \cdots\ge a_n" />。可以证明，任意一个序数都可以写成 Cantor 标准型。<br>
+      例如，对于序数
+      <vue-latex expression="\omega^{\omega^{\omega^{19728}}+\omega^{\omega}\cdot3+2}\cdot2+\omega^{\omega^3+1}+1" display-mode />
+      我们可以序数乘法展开，并稍微变形，得到
+      <vue-latex display-mode expression="\omega^{\omega^{\omega^{19728}}+\omega^{\omega^1}+\omega^{\omega^1}+\omega^{\omega^1}+\omega^0+\omega^0}+\omega^{\omega^{\omega^{19728}}+\omega^{\omega^1}+\omega^{\omega^1}+\omega^{\omega^1}+\omega^0+\omega^0}+\omega^{\omega^3+\omega^0}+\omega^0" />
+      我们可以递归地对<vue-latex expression="\varepsilon_0" />之前的序数定义如下标准形式：<br>
+        1. 0是标准形式<br>
+        2. 如果<vue-latex expression="α, β" />是标准形式<br>而且<vue-latex expression="α \ge β" />，那么<vue-latex expression="α+β" />是标准形式<br>
+        3. 如果<vue-latex expression="α" />是标准形式<br>而且<vue-latex expression="ω^α>α" />，那么<vue-latex expression="ω^α" />是标准形式<br>
+      容易验证，所有的自然数<vue-latex expression="n" />都是标准形式。值得注意的是，上述定义中并没有涉及序数乘法。<br>
+      习惯上，我们仍然容许<vue-latex expression="α\cdot n" />这样的表达式存在，作为<vue-latex expression="\underbrace{\alpha+\alpha+\cdots+\alpha}_{n个a}" />的简写。<br>
+      由第二条规则可知，若<vue-latex expression="α" />是标准形式，n是自然数，则<vue-latex expression="α\cdot n" />也是标准形式<br>
+      在转换为标准形式后，我们便可以定义极限序数的标准基本列了<br>
+      <vue-latex expression="\varepsilon_0" />以下极限序数的标准基本列定义为：<br>
+        1. <vue-latex expression="ω[n] = n" /><br>
+        2. 对于任意序数<vue-latex expression="α" />，极限序数<vue-latex expression="β" />，自然数<vue-latex expression="n" />，<vue-latex expression="(α+β)[n] = α+β[n]" /><br>
+        3. 对于任意序数<vue-latex expression="α" />，自然数<vue-latex expression="n" />，<vue-latex expression="ω^{α+1}[n] = ω^α\cdot n" /><br>
+        4. 对于任意极限序数<vue-latex expression="α" />，自然数<vue-latex expression="n" />，<vue-latex expression="ω^α[n] = ω^{α[n]}" /><br><br>
+      除此之外，根据上述第二条规则，容易得出<vue-latex expression="α\cdot(m+1)[n] = α\cdot m+α[n]" />
+    </div>
   </div>
 </template>
