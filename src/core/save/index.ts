@@ -89,7 +89,6 @@ export interface Player {
 	};
 	stat: {
 		chapter: number;
-
 		totalNumber: Decimal;
 		highestNumber: Decimal;
 		totalMulpower: Decimal;
@@ -98,6 +97,7 @@ export interface Player {
 		hightestAddpower: Decimal;
 		totalExppower: Decimal;
 		highestExppower: Decimal;
+		highestOrdLevel: number;
 	};
 	challengein: [number, number];
 	frozen: boolean;
@@ -318,7 +318,6 @@ function getInitialPlayerData(): Player {
 		},
 		stat: {
 			chapter: -1,
-
 			totalNumber: zero,
 			highestNumber: zero,
 			totalMulpower: zero,
@@ -327,6 +326,7 @@ function getInitialPlayerData(): Player {
 			hightestAddpower: zero,
 			totalExppower: zero,
 			highestExppower: zero,
+			highestOrdLevel: 0,
 		},
 		challenges: [[zero, zero, zero, zero, zero]],
 		challengein: [-1, -1],

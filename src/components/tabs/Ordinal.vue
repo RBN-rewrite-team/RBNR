@@ -15,6 +15,7 @@ import TDBuyable from '../TDBuyable.vue';
 					v-html="formatWhole(feature.Ordinal.base())"
 				/>，它决定了达到基本列第几项时进位。<br />
 				<table>
+				  <tbody>
 					<tr>
 						<TDUpgrade upgid="51" />
 						<TDUpgrade upgid="52" />
@@ -27,6 +28,7 @@ import TDBuyable from '../TDBuyable.vue';
 						<TDUpgrade upgid="57" />
 						<TDUpgrade upgid="58" />
 					</tr>
+					</tbody>
 				</table>
 			</div>
 		</div>
