@@ -32,13 +32,16 @@ export function init() {
 }
 
 hotkeys("a", (event, handler) => {
+  event.preventDefault();
   feature.ADDITION.UIreset()
 })
 
 hotkeys("m", (event, handler) => {
+  event.preventDefault();
   feature.MULTIPLICATION.UIreset()
 })
 
 hotkeys("e", (event, handler) => {
+  event.preventDefault();
   feature.EXPONENTION.UIreset()
 })
