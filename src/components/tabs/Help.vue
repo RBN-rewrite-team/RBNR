@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+import { player } from "../../core/global.ts"
+</script>
+
 <template>
   <div>
     序数是数学中用来表示“顺序”的数，它扩展了我们熟悉的自然数(0, 1, 2, 3 ...)，可以表示无限序列中的位置。<br>
@@ -48,5 +52,28 @@
       <vue-latex expression="(α^β)^γ = α^{β\cdotγ}" display-mode />
       相比于自然数运算来说，序数运算的一个重要特征是不动点的存在。<br>
       我们称某个序数<vue-latex expression="β" />是<vue-latex expression="α\mapsto f(α)" />的不动点，指的是若将<vue-latex expression="β" />变换为<vue-latex expression="f(β)" />，有<vue-latex expression="β = f(β)" />
+    <div v-if="player.upgrades[58]">
+      <div class="center_line" />
+      快速增长层次(Fast-Growing Hierachy, FGH)为每一个递归序数<vue-latex expression="α" />指定了一个快速增长的函数<vue-latex expression="f_α(n)" /><br>
+      它的定义如下：<br><br>
+        1. 对于任意自然数<vue-latex expression="n" />，<vue-latex expression="f_0(n) = n+1" /><br>
+        2. 对于任意后继序数<vue-latex expression="α" />和自然数<vue-latex expression="n" />，<vue-latex expression="f_{α+1}(n) = f_α^n(n)" /><br>
+        3. 对于任意极限序数<vue-latex expression="α" />和自然数<vue-latex expression="n" />，<vue-latex expression="f_α(n) = f_{α[n]}(n)" /><br><br>
+      事实上，从序数到函数的映射实际上有很多种，FGH仅仅是其中使用最广泛的一种。<br>
+      假如我们采用不同的迭代模式作为外壳，那么我们就可以得到其他的增长层次，<br>它们也同样可以为每个序数指定一个增长的函数。<br>
+      在不同的增长层次之中，极限序数的对角化过程是完全一致的，<br>只不过是初始条件和后继序数的递推规则有所不同。<br><br>
+      对于任意序数<vue-latex expression="α" />，中等增长层次(Middle-Growing Hierachy, MGH), <vue-latex expression="m_α(n)" />定义如下：<br>
+        1. 对于任意自然数<vue-latex expression="n" />，<vue-latex expression="m_0(n) = n + 1" /><br>
+        2. 对于任意后继序数<vue-latex expression="α" />和自然数<vue-latex expression="n" />，<vue-latex expression="m_{α+1}(n) = m_α(m_α(n))" /><br>
+        3. 对于任意极限序数<vue-latex expression="α" />和自然数<vue-latex expression="n" />，<vue-latex expression="m_α(n) = m_{α[n]}(n)" /><br><br>
+      对于任意序数<vue-latex expression="α" />，Hardy 层次(Hardy Hierachy, HH), <vue-latex expression="H_α(n)" />定义如下：<br>
+        1. 对于任意自然数<vue-latex expression="n" />，<vue-latex expression="H_0(n) = n" /><br>
+        2. 对于任意后继序数<vue-latex expression="α" />和自然数<vue-latex expression="n" />，<vue-latex expression="H_{α+1}(n) = H_α(n+1)" /><br>
+        3. 对于任意极限序数<vue-latex expression="α" />和自然数<vue-latex expression="n" />，<vue-latex expression="H_α(n) = H_{α[n]}(n)" /><br><br>
+      对于任意序数<vue-latex expression="α" />，缓慢增长层次(Slow-Growing Hierachy, SGH), <vue-latex expression="g_α(n)" />定义如下：<br>
+        1. 对于任意自然数<vue-latex expression="n" />，<vue-latex expression="g_0(n) = 0" /><br>
+        2. 对于任意后继序数<vue-latex expression="α" />和自然数<vue-latex expression="n" />，<vue-latex expression="g_{α+1}(n) = g_α(n)+1" /><br>
+        3. 对于任意极限序数<vue-latex expression="α" />和自然数<vue-latex expression="n" />，<vue-latex expression="g_α(n) = g_{α[n]}(n)" /><br><br>
+    </div>
   </div>
 </template>
