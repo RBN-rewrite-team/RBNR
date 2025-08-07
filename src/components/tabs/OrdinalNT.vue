@@ -70,10 +70,12 @@ function varGainLatex(id = 'x', layer = 3) {
 				/>
 				<vue-latex :expression="varGainLatex('x', 3)" display-mode />
 				<table align="center">
+				  <tbody>
 					<tr>
 						<TDBuyable bylid="51R" />
 						<TDBuyable bylid="52R" />
 					</tr>
+					</tbody>
 				</table>
 			</div>
 		</div>

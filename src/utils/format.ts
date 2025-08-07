@@ -598,7 +598,7 @@ export function physicalScale(value: DecimalSource): string {
 				' ' +
 				scaleResult[1] +
 				', then recorded every way to rearrange that set of rearrangements, then recorded every way to rearrange THAT set, and repeat that step ' +
-				format(factorials - 3) +
+				formatWhole(factorials - 3) +
 				' more times, the size of the final resulting set would be ' +
 				format(value) +
 				'.'

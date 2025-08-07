@@ -11,6 +11,7 @@ import { Logarithm } from './exponention/logarithm';
 import { save } from './save';
 import { getCurrency } from './currencies';
 import { updateTheme } from '@/utils/themes';
+import { getOrdinalLevel } from './ordinal/ordinal-level.ts';
 
 export let diff = 40;
 export let loopInterval: number;
@@ -29,6 +30,7 @@ export function updateHighestStat() {
 	player.stat.highestMulpower = player.stat.highestMulpower.max(player.multiplication.mulpower);
 	player.stat.hightestAddpower = player.stat.hightestAddpower.max(player.addpower);
 	player.stat.highestExppower = player.stat.highestExppower.max(player.exponention.exppower);
+	player.stat.highestOrdLevel = Math.max(player.stat.highestOrdLevel, getOrdinalLevel())
 }
 export function qolLoop() {
 	if (!player.exponention.logarithm.in_dilate) {

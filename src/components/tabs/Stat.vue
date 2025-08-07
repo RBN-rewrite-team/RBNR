@@ -33,7 +33,8 @@ import { getOrdinalLevel, ordinalNormal } from '../../core/ordinal/ordinal-level
 			><br />
 
 			<div>
-				当前序数等级：{{ getOrdinalLevel() }}<br />
+				当前序数等级：{{ player.stat.highestOrdLevel }}<br />
+				累计最高序数等级：{{ getOrdinalLevel() }}<br />
 				下一序数等级要求：<vue-latex
 					:expression="
 						OrdinalUtils.numberToLaTeXOrdinal(
