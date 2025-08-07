@@ -305,10 +305,8 @@ export function formatPow(ex: DecimalSource, acc?: number) {
 }
 
 export function formatWhole(decimal: DecimalSource): string {
-	decimal = new Decimal(decimal);
-	if (decimal.sign == -1) return '-' + formatWhole(decimal.neg());
+	decimal = new Decimal(decimal).round();
 	if (decimal.gte(1e9)) return format(decimal, 4);
-	if (decimal.lt(1)) return '0';
 	return format(decimal, 0);
 }
 
