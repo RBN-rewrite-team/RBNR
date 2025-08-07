@@ -47,7 +47,7 @@ function varGainLatex(id = 'x', layer = 3) {
 				<h3>τ<sub>3</sub>倍增序数获取速度</h3>
 				<vue-latex
 					:expression="
-						`\\alpha = \\textrm{sup}\\{\\beta|H_{\\beta}(10)<x_3\\} = ` +
+						`\\alpha = \\sup\\{\\beta|H_{\\beta}(10)<x_3\\} = ` +
 						OrdinalUtils.numberToLaTeXOrdinal(
 							OrdinalNT.varComputed('a', 3),
 							new Decimal(10),

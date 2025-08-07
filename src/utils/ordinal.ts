@@ -40,9 +40,9 @@ export const OrdinalUtils = {
 		let add = x.sub(exp.pow_base(base).mul(mult)).add(1e-9).floor();
 		return (
 			'\\omega' +
-			(exp.gt(1) ? '^{' + this.numberToLaTeXOrdinal(exp, base, --maxLength, true) + '}' : '') +
+			(exp.gt(1) ? '^{' + this.numberToLaTeXOrdinal(exp, base, --maxLength) + '}' : '') +
 			(mult.gt(1) ? '\\cdot' + formatWhole(mult) : '') +
-			(add.gt(0) ? '+' + this.numberToLaTeXOrdinal(add, base, --maxLength, true) : '')
+			(add.gt(0) ? '+' + this.numberToLaTeXOrdinal(add, base, --maxLength) : '')
 		);
 	},
 	ordinalChangeBase(x: Decimal, base: Decimal, nBase: Decimal): Decimal {
