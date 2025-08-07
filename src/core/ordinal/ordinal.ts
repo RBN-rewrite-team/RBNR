@@ -126,6 +126,7 @@ export const ORDINAL = {
 		if (player.upgrades[56]) base = base.mul(upgrades[56].effect());
 		if (player.upgrades[57]) base = base.mul(upgrades[57].effect());
 		if (player.upgrades[58]) base = base.mul(feature.OrdinalNT.varComputed('tau', 3));
+		if (player.upgrades['52R']) base = base.mul(feature.Ordinal.base());
 		return base;
 	},
 	base() {
@@ -133,6 +134,7 @@ export const ORDINAL = {
 		if (player.upgrades[52]) base = base.sub(1);
 		if (player.upgrades[53]) base = base.sub(1);
 		if (player.upgrades[54]) base = base.sub(1);
+		if (player.upgrades['51R']) base = base.sub(1);
 		return base;
 	},
 
