@@ -148,7 +148,8 @@ export const BUYABLES = {
 					buyables[id].effectDescription(player.buyables[id].add(canBuy.max(1))) +
 					'<br>';
 			if (
-				player.singularity.stage < 1 && player.exponention.logarithm.buyables_in_dilated.includes(id) &&
+				player.singularity.stage < 1 &&
+				player.exponention.logarithm.buyables_in_dilated.includes(id) &&
 				buyables[id].effectDilated !== Buyable.prototype.effectDilated
 			)
 				str +=
@@ -159,19 +160,19 @@ export const BUYABLES = {
 					'<br>';
 			str +=
 				'价格：' +
-				(
-					buyables[id].ordinal
-					? OrdinalUtils.numberToOrdinal(buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0))), ORDINAL.base())
-					: format(buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0))))
-				) +
+				(buyables[id].ordinal
+					? OrdinalUtils.numberToOrdinal(
+							buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0))),
+							ORDINAL.base(),
+						)
+					: format(buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0))))) +
 				currencyName(buyables[id].currency) +
 				(canBuy.gte(1) ? '(买' + formatWhole(canBuy) + '个)' : '') +
 				'<br>';
 		}
 
 		if (buyables[id].ordinal && useclass == 'upgrade_buttonbig_unable') {
-			str += `<span class='tooltip'>购买一个购买项需要${countdown(buyables[id].cost(player.buyables[id]), player.ordinal.number, ORDINAL.ordinalPerSecond(), ORDINAL.isConstantSpeed())}</span>`
-			
+			str += `<span class='tooltip'>购买一个购买项需要${countdown(buyables[id].cost(player.buyables[id]), player.ordinal.number, ORDINAL.ordinalPerSecond(), ORDINAL.isConstantSpeed())}</span>`;
 		}
 		str += '</div>';
 		return str;

@@ -21,14 +21,18 @@ export const ordinalNormal = [
 	'w^(w^3)',
 	'w^(w^3*2)',
 	'w^(w^4)',
-	'w^(w^w)'
-]
+	'w^(w^w)',
+];
 
 export function getOrdinalLevel(): number {
 	let level = 0;
-	for(let i in ordinalNormal)
-	{
-		if(new Ordinal(ordinalNormal[i]).toDecimal(feature.Ordinal.base().toNumber()).lte(player.ordinal.number)) level++;
+	for (let i in ordinalNormal) {
+		if (
+			new Ordinal(ordinalNormal[i])
+				.toDecimal(feature.Ordinal.base().toNumber())
+				.lte(player.ordinal.number)
+		)
+			level++;
 	}
-	return level
+	return level;
 }

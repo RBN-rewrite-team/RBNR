@@ -89,7 +89,7 @@ export interface Player {
 	};
 	stat: {
 		chapter: number;
-		
+
 		totalNumber: Decimal;
 		highestNumber: Decimal;
 		totalMulpower: Decimal;
@@ -103,13 +103,13 @@ export interface Player {
 	frozen: boolean;
 	run_a_tick_and_froze: boolean;
 	singularity: {
-	  t: number;
-	  stage: number;
-	  enabled: boolean;
-	},
+		t: number;
+		stage: number;
+		enabled: boolean;
+	};
 	ordinal: {
-	    number: Decimal;
-	},
+		number: Decimal;
+	};
 }
 function getInitialPlayerData(): Player {
 	return {
@@ -318,7 +318,7 @@ function getInitialPlayerData(): Player {
 		},
 		stat: {
 			chapter: -1,
-			
+
 			totalNumber: zero,
 			highestNumber: zero,
 			totalMulpower: zero,
@@ -331,9 +331,9 @@ function getInitialPlayerData(): Player {
 		challenges: [[zero, zero, zero, zero, zero]],
 		challengein: [-1, -1],
 		singularity: {
-		  t: 0,
-		  stage: 0,
-		  enabled: false
+			t: 0,
+			stage: 0,
+			enabled: false,
 		},
 		ordinal: {
 			number: new Decimal(10),
@@ -460,7 +460,7 @@ export function import_file(): void {
 			let save = fr.result;
 			if (typeof save == 'string') {
 				try {
-				  player = getInitialPlayerData();
+					player = getInitialPlayerData();
 					loadFromString(save);
 					player = reactive(player);
 				} catch (e) {

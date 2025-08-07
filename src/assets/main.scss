@@ -240,14 +240,24 @@ body {
 }
 
 @keyframes chapter {
-	from {opacity: 0}
-	to {opacity: 1}
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 @keyframes chapterDelay {
-	0% {opacity: 0}
-	40% {opacity: 0}
-	100% {opacity: 1}
+	0% {
+		opacity: 0;
+	}
+	40% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }
 
 .chapter_background {
@@ -957,39 +967,37 @@ tr {
 	top: 3px;
 }
 
-
 .tooltipBox {
-    position: relative
-}
-  
-.tooltipBox:hover .tooltip {
-    opacity: 1
+	position: relative;
 }
 
+.tooltipBox:hover .tooltip {
+	opacity: 1;
+}
 
 .tooltip {
-    pointer-events: none;
-    text-align: center;
-    width: 150px;
-    font-size: 12px;
-    line-height: 1.2;
-    bottom: 100%;
-    left: 50%;
-    margin-bottom: 5px;
-    transform: translateX(-50%);
-    padding: 7px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    opacity: 0;
-    transition: opacity 0.5s;
-    position: absolute;
-    z-index: 20000;
-    background-color: rgba(0, 0, 0, 0.75);
-    color: white ;
-    font-size: 14px
+	pointer-events: none;
+	text-align: center;
+	width: 150px;
+	font-size: 12px;
+	line-height: 1.2;
+	bottom: 100%;
+	left: 50%;
+	margin-bottom: 5px;
+	transform: translateX(-50%);
+	padding: 7px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	opacity: 0;
+	transition: opacity 0.5s;
+	position: absolute;
+	z-index: 20000;
+	background-color: rgba(0, 0, 0, 0.75);
+	color: white;
+	font-size: 14px;
 }
-  
+
 .tooltip:after {
 	position: absolute;
 	bottom: 100%;
@@ -999,5 +1007,5 @@ tr {
 	margin-left: -5px;
 	border-width: 5px;
 	border-style: solid;
-	border-color: white transparent transparent transparent
+	border-color: white transparent transparent transparent;
 }

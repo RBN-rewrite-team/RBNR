@@ -81,7 +81,7 @@ export const Successor = {
 				return player.upgrades['32'];
 			}
 			show() {
-			  return player.singularity.stage < 10
+				return player.singularity.stage < 10;
 			}
 		})(),
 	} as const,
@@ -199,9 +199,14 @@ export const Successor = {
 		if (player.exponention.logarithm.upgrades_in_dilated.includes('31')) {
 			adding = adding.pow(3);
 		}
-		if (player.singularity.enabled ||player.exponention.logarithm.upgrades_in_dilated.includes('39')) adding = adding.add(1).pow(feature.SingularityGenerator.getSingularityEffect()).sub(1);
-		if (player.singularity.stage < 2) for (let i = 1; i <= 5; i++)
-			adding = SOFTCAPS.fluidComputed('number^' + i, adding, player.number);
+		if (
+			player.singularity.enabled ||
+			player.exponention.logarithm.upgrades_in_dilated.includes('39')
+		)
+			adding = adding.add(1).pow(feature.SingularityGenerator.getSingularityEffect()).sub(1);
+		if (player.singularity.stage < 2)
+			for (let i = 1; i <= 5; i++)
+				adding = SOFTCAPS.fluidComputed('number^' + i, adding, player.number);
 		if (CHALLENGE.inChallenge(0, 2))
 			adding = SOFTCAPS.fluidComputed('number_C1', adding, player.number);
 		if (CHALLENGE.inChallenge(0, 3)) {

@@ -17,99 +17,131 @@ export const ORDINAL = {
 			ordinal = true;
 			name = 'U4-1';
 			effect(): Decimal {
-			    return new Decimal(1);
-			};
+				return new Decimal(1);
+			}
 			effectDescription(): string {
-			    return '+' + OrdinalUtils.numberToOrdinal(this.effect(), feature.Ordinal.base()) + '/s';
-			};
+				return (
+					'+' + OrdinalUtils.numberToOrdinal(this.effect(), feature.Ordinal.base()) + '/s'
+				);
+			}
 			currency: Currencies = Currencies.ORDINAL;
-		}),
+		})(),
 		'52': new (class U52 extends Upgrade {
 			description = '底数减少1';
-			cost:()=>Decimal = function(){ return new Ordinal('w').toDecimal(feature.Ordinal.base().toNumber()); };
+			cost: () => Decimal = function () {
+				return new Ordinal('w').toDecimal(feature.Ordinal.base().toNumber());
+			};
 			ordinal = true;
 			name = 'U4-2';
 			currency: Currencies = Currencies.ORDINAL;
-		}),
+		})(),
 		'53': new (class U53 extends Upgrade {
 			description = '底数减少1';
-			cost:()=>Decimal = function(){ return new Ordinal('w^3').toDecimal(feature.Ordinal.base().toNumber()); };
+			cost: () => Decimal = function () {
+				return new Ordinal('w^3').toDecimal(feature.Ordinal.base().toNumber());
+			};
 			ordinal = true;
 			name = 'U4-3';
 			currency: Currencies = Currencies.ORDINAL;
-		}),
+		})(),
 		'54': new (class U54 extends Upgrade {
 			description = '底数减少1';
-			cost:()=>Decimal = function(){ return new Ordinal('w^w').toDecimal(feature.Ordinal.base().toNumber()) };
+			cost: () => Decimal = function () {
+				return new Ordinal('w^w').toDecimal(feature.Ordinal.base().toNumber());
+			};
 			ordinal = true;
 			name = 'U4-4';
 			currency: Currencies = Currencies.ORDINAL;
-		}),
+		})(),
 		'55': new (class U55 extends UpgradeWithEffect<Decimal> {
 			description = '序数指数倍增序数提升速度';
-			cost: () => Decimal = function(){ return new Ordinal('w^2').toDecimal(feature.Ordinal.base().toNumber()); };
+			cost: () => Decimal = function () {
+				return new Ordinal('w^2').toDecimal(feature.Ordinal.base().toNumber());
+			};
 			ordinal = true;
 			name = 'U4-5';
 			effect(): Decimal {
-				return OrdinalUtils.ordinalChangeBase(player.ordinal.number.max(1).log(feature.Ordinal.base().toNumber()).floor(), feature.Ordinal.base(), new Decimal(10)).add(1);
-			};
+				return OrdinalUtils.ordinalChangeBase(
+					player.ordinal.number.max(1).log(feature.Ordinal.base().toNumber()).floor(),
+					feature.Ordinal.base(),
+					new Decimal(10),
+				).add(1);
+			}
 			effectDescription(): string {
 				return '×' + OrdinalUtils.numberToOrdinal(this.effect(), feature.Ordinal.base());
-			};
+			}
 			currency: Currencies = Currencies.ORDINAL;
-		}),
+		})(),
 		'56': new (class U56 extends UpgradeWithEffect<Decimal> {
 			description = '序数指数以减弱的效果倍增序数提升速度';
-			cost: () => Decimal = function(){ return new Ordinal('w^2*4').toDecimal(feature.Ordinal.base().toNumber()); };
+			cost: () => Decimal = function () {
+				return new Ordinal('w^2*4').toDecimal(feature.Ordinal.base().toNumber());
+			};
 			ordinal = true;
 			name = 'U4-6';
 			effect(): Decimal {
-				return OrdinalUtils.ordinalChangeBase(player.ordinal.number.max(1).log(feature.Ordinal.base().mul(2).toNumber()).floor(), feature.Ordinal.base(), new Decimal(10)).add(1);
-			};
+				return OrdinalUtils.ordinalChangeBase(
+					player.ordinal.number
+						.max(1)
+						.log(feature.Ordinal.base().mul(2).toNumber())
+						.floor(),
+					feature.Ordinal.base(),
+					new Decimal(10),
+				).add(1);
+			}
 			effectDescription(): string {
 				return 'x' + formatWhole(this.effect());
-			};
+			}
 			currency: Currencies = Currencies.ORDINAL;
-		}),
+		})(),
 		'57': new (class U57 extends UpgradeWithEffect<Decimal> {
 			description = '序数以减弱的效果倍增序数提升速度';
-			cost: () => Decimal = function(){ return new Ordinal('w^3*3').toDecimal(feature.Ordinal.base().toNumber()); };
+			cost: () => Decimal = function () {
+				return new Ordinal('w^3*3').toDecimal(feature.Ordinal.base().toNumber());
+			};
 			ordinal = true;
 			name = 'U4-7';
 			effect(): Decimal {
 				return player.ordinal.number.max(1).root(10).floor();
-			};
+			}
 			effectDescription(): string {
 				return 'x' + formatWhole(this.effect());
-			};
+			}
 			currency: Currencies = Currencies.ORDINAL;
-		}),
+		})(),
 		'58': new (class U58 extends Upgrade {
 			description = '解锁数论研究3';
-			cost: () => Decimal = function() { return new Ordinal('w^4').toDecimal(feature.Ordinal.base().toNumber()); };
+			cost: () => Decimal = function () {
+				return new Ordinal('w^4').toDecimal(feature.Ordinal.base().toNumber());
+			};
 			ordinal = true;
 			name = 'U4-8';
 			currency: Currencies = Currencies.ORDINAL;
-		}),
+		})(),
 	} as const,
 	ordinalPerSecond() {
 		let base = new Decimal(0);
-		if(player.upgrades[51]) base = base.add(upgrades[51].effect());
-		if(player.upgrades[55]) base = base.mul(upgrades[55].effect());
-		if(player.upgrades[56]) base = base.mul(upgrades[56].effect());
-		if(player.upgrades[57]) base = base.mul(upgrades[57].effect());
-		if(player.upgrades[58]) base = base.mul(feature.OrdinalNT.varComputed('tau', 3));
+		if (player.upgrades[51]) base = base.add(upgrades[51].effect());
+		if (player.upgrades[55]) base = base.mul(upgrades[55].effect());
+		if (player.upgrades[56]) base = base.mul(upgrades[56].effect());
+		if (player.upgrades[57]) base = base.mul(upgrades[57].effect());
+		if (player.upgrades[58]) base = base.mul(feature.OrdinalNT.varComputed('tau', 3));
 		return base;
 	},
 	base() {
 		let base = new Decimal(10);
-		if(player.upgrades[52]) base = base.sub(1);
-		if(player.upgrades[53]) base = base.sub(1);
-		if(player.upgrades[54]) base = base.sub(1);
+		if (player.upgrades[52]) base = base.sub(1);
+		if (player.upgrades[53]) base = base.sub(1);
+		if (player.upgrades[54]) base = base.sub(1);
 		return base;
 	},
 
-	isConstantSpeed():boolean {
-		return !(player.upgrades[56]||player.upgrades[57]||player.upgrades[58]||player.upgrades[55])
-	}
+	isConstantSpeed(): boolean {
+		return !(
+			player.upgrades[56] ||
+			player.upgrades[57] ||
+			player.upgrades[58] ||
+			player.upgrades[55]
+		);
+	},
 };
