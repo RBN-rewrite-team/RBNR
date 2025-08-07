@@ -42,6 +42,7 @@ import SingularityGenerator from './components/tabs/SingularityGenerator.vue';
 import BlackHole from './components/BlackHole.vue';
 import Ordinal from './components/tabs/Ordinal.vue';
 import OrdinalNT from './components/tabs/OrdinalNT.vue';
+import Help from './components/tabs/Help.vue';
 </script>
 
 <template>
@@ -78,6 +79,7 @@ import OrdinalNT from './components/tabs/OrdinalNT.vue';
 				<LogDilate v-if="player.currentTab === 13" />
 				<SingularityGenerator v-if="player.currentTab === 14" />
 				<Ordinal v-if="player.currentTab === 15" />
+				<Help v-if="player.currentTab === 16" />
 				<OrdinalNT v-if="player.currentTab === 6 && player.upgrades[58]" />
 				<div class="main" v-if="player.currentTab === 3">
 					<h1>大数之路重制版</h1>
