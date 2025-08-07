@@ -43,7 +43,7 @@ export const OrdinalNT = {
 			}
 		})(),
 		'52R': new (class B52R extends Buyable<Decimal> {
-			description = 'SGH底数+1';
+			description = 'SGH底数+2';
 			cost(x: Decimal): Decimal {
 				return new Ordinal('w^4')
 					.toDecimal(feature.Ordinal.base().toNumber())
@@ -52,7 +52,7 @@ export const OrdinalNT = {
 			ordinal = true;
 			name = 'B4-R1-2';
 			effect(x: Decimal): Decimal {
-				return x;
+				return x.mul(2);
 			}
 			effectDescription(x: Decimal) {
 				return '+' + this.effect(x);
