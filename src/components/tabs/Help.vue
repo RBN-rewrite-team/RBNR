@@ -4,6 +4,15 @@ import { player } from "../../core/global.ts"
 
 <template>
   <div>
+    <div style="display: flex; justify-content: center; align-items: center">
+      <button class="clickable_button" @click="player.help.page = Math.max(player.help.page - 1, 1)">-</button>
+      第 {{player.help.page}} 页
+      <button class="clickable_button" @click="player.help.page++">+</button>
+    </div>
+    <div align="center">
+      <div class="center_line" />
+    </div>
+    <div v-if="player.help.page == 1">
     序数是数学中用来表示“顺序”的数，它扩展了我们熟悉的自然数(0, 1, 2, 3 ...)，可以表示无限序列中的位置。<br>
     序数具有以下规则：<br>
       1. 一个数的下一个数仍然是一个序数<br>
@@ -21,6 +30,8 @@ import { player } from "../../core/global.ts"
     <vue-latex expression="\{0,1,2,3,\cdots\}" display-mode />
     这也是一个序数数列，由这一数列的上确界可以定义一个新的序数
     <vue-latex expression="\omega = \sup\{0,1,2,3,\cdots\}" display-mode />
+    </div>
+    <div v-if="player.help.page == 2">
     与自然数类似，序数之间也可以进行运算。对自然数之间的运算规则进行推广，我们便可以得到序数之间的运算规则<br>
       序数的加法定义为：<br>
         1. 对任意序数<vue-latex expression="α" />，<vue-latex expression="α+0 = α" /><br>
@@ -52,8 +63,8 @@ import { player } from "../../core/global.ts"
       <vue-latex expression="(α^β)^γ = α^{β\cdotγ}" display-mode />
       相比于自然数运算来说，序数运算的一个重要特征是不动点的存在。<br>
       我们称某个序数<vue-latex expression="β" />是<vue-latex expression="α\mapsto f(α)" />的不动点，指的是若将<vue-latex expression="β" />变换为<vue-latex expression="f(β)" />，有<vue-latex expression="β = f(β)" />
-    <div v-if="player.upgrades[58]">
-      <div class="center_line" />
+    </div>
+    <div v-if="player.help.page == 3 && player.upgrades[58]">
       快速增长层次(Fast-Growing Hierachy, FGH)为每一个递归序数<vue-latex expression="α" />指定了一个快速增长的函数<vue-latex expression="f_α(n)" /><br>
       它的定义如下：<br><br>
         1. 对于任意自然数<vue-latex expression="n" />，<vue-latex expression="f_0(n) = n+1" /><br>

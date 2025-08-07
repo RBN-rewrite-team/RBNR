@@ -110,6 +110,9 @@ export interface Player {
 	ordinal: {
 		number: Decimal;
 	};
+	help: {
+	  page: number
+	};
 }
 function getInitialPlayerData(): Player {
 	return {
@@ -338,6 +341,9 @@ function getInitialPlayerData(): Player {
 		ordinal: {
 			number: new Decimal(10),
 		},
+		help: {
+		  page: 1
+		}
 	};
 }
 
