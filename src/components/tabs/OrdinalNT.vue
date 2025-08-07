@@ -50,7 +50,7 @@ function varGainLatex(id = 'x', layer = 3) {
 						`\\alpha = \\sup\\{\\beta|H_{\\beta}(${formatLaTeXWhole(OrdinalNT.varComputed('hhBase', 3))})<x_3\\} = ` +
 						OrdinalUtils.numberToLaTeXOrdinal(
 							OrdinalNT.varComputed('a', 3),
-							new Decimal(10),
+							OrdinalNT.varComputed('hhBase', 3),
 						)
 					"
 					display-mode

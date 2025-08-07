@@ -241,7 +241,7 @@ export const OrdinalNT = {
 				return base;
 			} else if (id == 'hhBase') {
 				let base = new Decimal(10);
-				base = base.add(buyables['53R'].effect(player.buyables['53R']));
+				base = base.sub(buyables['53R'].effect(player.buyables['53R']));
 				
 				return base;
 			} else if (id == 'sghBase') {
