@@ -47,7 +47,7 @@ function varGainLatex(id = 'x', layer = 3) {
 				<h3>τ<sub>3</sub>倍增序数获取速度</h3>
 				<vue-latex
 					:expression="
-						`\\alpha = \\sup\\{\\beta|H_{\\beta}(10)<x_3\\} = ` +
+						`\\alpha = \\sup\\{\\beta|H_{\\beta}(${formatLaTeXWhole(OrdinalNT.varComputed('hhBase', 3))})<x_3\\} = ` +
 						OrdinalUtils.numberToLaTeXOrdinal(
 							OrdinalNT.varComputed('a', 3),
 							new Decimal(10),
@@ -74,6 +74,12 @@ function varGainLatex(id = 'x', layer = 3) {
 					<tr>
 						<TDBuyable bylid="51R" />
 						<TDBuyable bylid="52R" />
+						<TDBuyable bylid="53R" />
+						<TDBuyable bylid="54R" />
+					</tr><tr>
+						<TDBuyable bylid="55R" />
+						<TDUpgrade upgid="51R" />
+						<TDUpgrade upgid="52R" />
 					</tr>
 					</tbody>
 				</table>

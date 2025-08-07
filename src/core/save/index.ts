@@ -193,6 +193,8 @@ function getInitialPlayerData(): Player {
 			'56': false,
 			'57': false,
 			'58': false,
+			'51R': false,
+			'52R': false,
 		},
 		buyables: {
 			'11': zero,
@@ -229,6 +231,9 @@ function getInitialPlayerData(): Player {
 			lgr_impr: zero,
 			'51R': zero,
 			'52R': zero,
+			'53R': zero,
+			'54R': zero,
+			'55R': zero,
 		},
 		milestones: {
 			cb1: false,

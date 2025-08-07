@@ -26,6 +26,7 @@ const upgrades = {
 	...Exponention.upgrades,
 	...QolUpgrades.upgrades,
 	...ORDINAL.upgrades,
+	...OrdinalNT.upgrades,
 } as const;
 const buyables = {
 	...Successor.buyables,

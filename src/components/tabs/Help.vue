@@ -3,7 +3,7 @@ import { player } from "../../core/global.ts"
 </script>
 
 <template>
-  <div>
+  <div class="main">
     <div style="display: flex; justify-content: center; align-items: center">
       <button class="clickable_button" @click="player.help.page = Math.max(player.help.page - 1, 1)">-</button>
       第 {{player.help.page}} 页
