@@ -8,6 +8,7 @@ import { Exponention } from '@/core/exponention/exponention.ts';
 import { QolUpgrades } from '@/core/exponention/qolupg.ts';
 import { Logarithm } from '@/core/exponention/logarithm.ts';
 import { ORDINAL } from '@/core/ordinal/ordinal.ts';
+import hotkeys from 'hotkeys-js';
 
 import { gameLoop, startGameLoop } from '@/core/game-loop';
 
@@ -29,3 +30,15 @@ export function init() {
 
 	app.use(VueLatex).mount('#app');
 }
+
+hotkeys("a", (event, handler) => {
+  feature.ADDITION.UIreset()
+})
+
+hotkeys("m", (event, handler) => {
+  feature.MULTIPLICATION.UIreset()
+})
+
+hotkeys("e", (event, handler) => {
+  feature.EXPONENTION.UIreset()
+})
