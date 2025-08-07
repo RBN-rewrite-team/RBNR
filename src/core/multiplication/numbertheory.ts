@@ -381,7 +381,7 @@ export const NUMTHEORY = {
 				return '×' + format(x);
 			}
 			show() {
-			  return player.singularity.stage < 3
+				return player.singularity.stage < 3;
 			}
 		})(),
 		'44R': new (class U44R extends UpgradeWithEffect<Decimal> {
@@ -408,7 +408,7 @@ export const NUMTHEORY = {
 				return '-' + format(x);
 			}
 			show() {
-			  return player.singularity.stage < 1
+				return player.singularity.stage < 1;
 			}
 		})(),
 	} as const,

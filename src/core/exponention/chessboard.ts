@@ -61,7 +61,7 @@ export const cb1 = new (class extends Buyable<Decimal> {
 			.floor();
 	}
 	canAfford() {
-	  return player.singularity.stage < 3
+		return player.singularity.stage < 3;
 	}
 })();
 
@@ -138,7 +138,7 @@ export function initMechanics() {
 		},
 		requirement: new Decimal(1e10),
 		get canDone() {
-		  if (player.singularity.stage >= 2) return false
+			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
@@ -191,7 +191,7 @@ export function initMechanics() {
 		},
 		requirement: new Decimal(1e50),
 		get canDone() {
-		  if (player.singularity.stage >= 2) return false
+			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
@@ -204,7 +204,7 @@ export function initMechanics() {
 		},
 		requirement: new Decimal(1e115),
 		get canDone() {
-		  if (player.singularity.stage >= 2) return false
+			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
@@ -229,7 +229,7 @@ export function initMechanics() {
 		},
 		requirement: new Decimal(1e150),
 		get canDone() {
-		  if (player.singularity.stage >= 2) return false
+			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
@@ -242,7 +242,7 @@ export function initMechanics() {
 		},
 		requirement: new Decimal(1e245),
 		get canDone() {
-		  if (player.singularity.stage >= 2) return false
+			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
@@ -267,7 +267,7 @@ export function initMechanics() {
 		},
 		requirement: new Decimal(1e300),
 		get canDone() {
-		  if (player.singularity.stage >= 2) return false
+			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
@@ -292,7 +292,7 @@ export function initMechanics() {
 		},
 		requirement: new Decimal('e375'),
 		get canDone() {
-		  if (player.singularity.stage >= 2) return false
+			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
@@ -305,7 +305,7 @@ export function initMechanics() {
 		},
 		requirement: new Decimal('e480'),
 		get canDone() {
-		  if (player.singularity.stage >= 2) return false
+			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,

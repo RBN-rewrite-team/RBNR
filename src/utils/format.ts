@@ -101,7 +101,7 @@ function regularFormat(num: Decimal, precision: number) {
 }
 
 export function format(decimal: DecimalSource, precision = 4): string {
-  if (new Decimal(decimal).gte(Decimal.dLayerMax)) return "ω"
+	if (new Decimal(decimal).gte(Decimal.dLayerMax)) return 'ω';
 	switch (player.options.notation) {
 		case notations.STANDARD:
 			return Standard.format(decimal);
@@ -256,11 +256,7 @@ export function formatTime(ex: DecimalSource, acc = 3, type = 's'): string {
 	ex = new Decimal(ex);
 	if (!ex.isFinite()) return '5更新时';
 	if (ex.gte(3153600000)) {
-		return (
-			format(ex.div(3153600000), 3) +
-			'个世纪'
-		);
-
+		return format(ex.div(3153600000), 3) + '个世纪';
 	}
 	if (ex.gte(31536000)) {
 		return (
@@ -310,9 +306,9 @@ export function formatPow(ex: DecimalSource, acc?: number) {
 
 export function formatWhole(decimal: DecimalSource): string {
 	decimal = new Decimal(decimal);
-	if (decimal.sign == -1) return "-"+formatWhole(decimal.neg())
+	if (decimal.sign == -1) return '-' + formatWhole(decimal.neg());
 	if (decimal.gte(1e9)) return format(decimal, 4);
-	if (decimal.lt(1)) return "0"
+	if (decimal.lt(1)) return '0';
 	return format(decimal, 0);
 }
 
@@ -495,7 +491,8 @@ export function physicalScale(value: DecimalSource): string {
 	value = toDecimal(value);
 	let negative = false;
 	if (value.eq(0)) return '拥有0升水，你会因无水可饮而口渴。';
-	if (value.gte(Decimal.dLayerMax) || value.gte(Decimal.dLayerMax)) return '没有能衡量无穷大的尺度。';
+	if (value.gte(Decimal.dLayerMax) || value.gte(Decimal.dLayerMax))
+		return '没有能衡量无穷大的尺度。';
 	if (value.eq(Decimal.dNaN)) return '这不是一个数字。';
 	if (!value.isFinite()) return '输入似乎存在错误。';
 	if (value.lt(0)) {

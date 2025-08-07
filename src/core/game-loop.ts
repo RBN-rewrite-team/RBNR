@@ -79,21 +79,33 @@ export function gameLoop() {
 	} catch (e) {
 		throw e;
 	}
-	if(player.singularity.stage >= 1) singularity_UI();
+	if (player.singularity.stage >= 1) singularity_UI();
 	updateTheme();
 }
-function r(s: number): number{
-    return Math.random() * s * 2 - s;
+function r(s: number): number {
+	return Math.random() * s * 2 - s;
 }
 function singularity_UI() {
-    let s = player.singularity.stage + Math.max(player.singularity.t - 400, 0) / 3 + Math.max(player.singularity.t - 500, 0) + Math.max(player.singularity.t - 550, 0) * 2 + Math.max(player.singularity.t - 500, 0) * 5;
-    if(player.singularity.t > 675) s = 0;
-    let str = ['main', 'title_box', 'menu', 'newsbar', 'resources'];
-    document.getElementById('main')!.style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
-    document.getElementById('menu')!.style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
-    document.getElementById('resources')!.style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
-    if(player.options.ui.newsbar) document.getElementById('newsbar')!.style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
-    if(player.options.ui.titlebar) document.getElementById('title_box')!.style.transform = 'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
+	let s =
+		player.singularity.stage +
+		Math.max(player.singularity.t - 400, 0) / 3 +
+		Math.max(player.singularity.t - 500, 0) +
+		Math.max(player.singularity.t - 550, 0) * 2 +
+		Math.max(player.singularity.t - 500, 0) * 5;
+	if (player.singularity.t > 675) s = 0;
+	let str = ['main', 'title_box', 'menu', 'newsbar', 'resources'];
+	document.getElementById('main')!.style.transform =
+		'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
+	document.getElementById('menu')!.style.transform =
+		'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
+	document.getElementById('resources')!.style.transform =
+		'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
+	if (player.options.ui.newsbar)
+		document.getElementById('newsbar')!.style.transform =
+			'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
+	if (player.options.ui.titlebar)
+		document.getElementById('title_box')!.style.transform =
+			'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
 }
 /**
  * 游戏的主要循环函数，
@@ -103,73 +115,74 @@ export function simulate(diff: number) {
 	qolLoop();
 	CHALLENGE.challengeLoop();
 	if (player.singularity.stage < 11) {
-	if (feature.SUCCESSOR.autoSuccessPerSecond().gte(0.001)) {
-		player.automationCD.successor += diff;
+		if (feature.SUCCESSOR.autoSuccessPerSecond().gte(0.001)) {
+			player.automationCD.successor += diff;
 
-		//每几秒点击一次后继按钮
-		let cd = new Decimal(1000).div(feature.SUCCESSOR.autoSuccessPerSecond());
+			//每几秒点击一次后继按钮
+			let cd = new Decimal(1000).div(feature.SUCCESSOR.autoSuccessPerSecond());
 
-		if (cd.lt(player.automationCD.successor)) {
-			let bulk = Math.floor(player.automationCD.successor / Number(cd));
-			player.automationCD.successor %= Number(cd);
-			feature.SUCCESSOR.success(bulk);
+			if (cd.lt(player.automationCD.successor)) {
+				let bulk = Math.floor(player.automationCD.successor / Number(cd));
+				player.automationCD.successor %= Number(cd);
+				feature.SUCCESSOR.success(bulk);
+			}
 		}
-	}
 
-	if (feature.resourceGain.addpower().passive.gt(0)) {
-		let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.addpower().passive);
-		feature.ADDITION.addpower_gain(bulk);
-	}
-
-	if (feature.resourceGain.mulpower().passive.gt(0)) {
-		let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.mulpower().passive);
-		feature.MULTIPLICATION.mulpower_gain(bulk);
-	}
-
-	if (feature.resourceGain.exppower().passive.gt(0)) {
-		let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.exppower().passive);
-		feature.EXPONENTION.exppower_gain(bulk);
-	}
-
-	if (player.firstResetBit & 0b10) {
-		let dPfTime = diff;
-		if (CHALLENGE.inChallenge(0, 3)) {
-			dPfTime *= predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1;
+		if (feature.resourceGain.addpower().passive.gt(0)) {
+			let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.addpower().passive);
+			feature.ADDITION.addpower_gain(bulk);
 		}
-		let dPfTimeDecimal = new Decimal(dPfTime);
-		if (player.upgrades[45]) dPfTimeDecimal = dPfTimeDecimal.mul(NUMTHEORY.tau2().pow(4));
-		player.multiplication.pfTime = player.multiplication.pfTime.add(dPfTimeDecimal).max(0);
-		player.numbertheory.euler.x = player.numbertheory.euler.x
-			.add(NUMTHEORY.varXgain().mul(diff).mul(1e-3))
-			.max(1);
-		player.numbertheory.euler.y = player.numbertheory.euler.y
-			.add(NUMTHEORY.varYgain().mul(diff).mul(1e-3))
-			.max(1);
-		player.numbertheory.euler.z = player.numbertheory.euler.z
-			.add(NUMTHEORY.varZgain().mul(diff).mul(1e-3))
-			.max(1);
-		player.numbertheory.euler.s = player.numbertheory.euler.s
-			.add(NUMTHEORY.tickspeedGain().mul(diff).mul(1e-3))
-			.max(1);
-	}
-	
-	if (player.upgrades[45]) {
-		let dPf2TimeDecimal = new Decimal(diff);
-		player.numbertheory.rational_approx.n = player.numbertheory.rational_approx.n
-			.add(NUMTHEORY.varX2gain().mul(diff).mul(1e-3))
-			.max(1);
-		player.numbertheory.rational_approx.m = player.numbertheory.rational_approx.m
-			.add(NUMTHEORY.varM2gain().mul(diff).mul(1e-3))
-			.max(1);
-		player.numbertheory.rational_approx.y = player.numbertheory.rational_approx.y
-			.add(NUMTHEORY.varY2gain().mul(diff).mul(1e-3))
-			.max(1);
-	}
-	
+
+		if (feature.resourceGain.mulpower().passive.gt(0)) {
+			let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.mulpower().passive);
+			feature.MULTIPLICATION.mulpower_gain(bulk);
+		}
+
+		if (feature.resourceGain.exppower().passive.gt(0)) {
+			let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.exppower().passive);
+			feature.EXPONENTION.exppower_gain(bulk);
+		}
+
+		if (player.firstResetBit & 0b10) {
+			let dPfTime = diff;
+			if (CHALLENGE.inChallenge(0, 3)) {
+				dPfTime *= predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1;
+			}
+			let dPfTimeDecimal = new Decimal(dPfTime);
+			if (player.upgrades[45]) dPfTimeDecimal = dPfTimeDecimal.mul(NUMTHEORY.tau2().pow(4));
+			player.multiplication.pfTime = player.multiplication.pfTime.add(dPfTimeDecimal).max(0);
+			player.numbertheory.euler.x = player.numbertheory.euler.x
+				.add(NUMTHEORY.varXgain().mul(diff).mul(1e-3))
+				.max(1);
+			player.numbertheory.euler.y = player.numbertheory.euler.y
+				.add(NUMTHEORY.varYgain().mul(diff).mul(1e-3))
+				.max(1);
+			player.numbertheory.euler.z = player.numbertheory.euler.z
+				.add(NUMTHEORY.varZgain().mul(diff).mul(1e-3))
+				.max(1);
+			player.numbertheory.euler.s = player.numbertheory.euler.s
+				.add(NUMTHEORY.tickspeedGain().mul(diff).mul(1e-3))
+				.max(1);
+		}
+
+		if (player.upgrades[45]) {
+			let dPf2TimeDecimal = new Decimal(diff);
+			player.numbertheory.rational_approx.n = player.numbertheory.rational_approx.n
+				.add(NUMTHEORY.varX2gain().mul(diff).mul(1e-3))
+				.max(1);
+			player.numbertheory.rational_approx.m = player.numbertheory.rational_approx.m
+				.add(NUMTHEORY.varM2gain().mul(diff).mul(1e-3))
+				.max(1);
+			player.numbertheory.rational_approx.y = player.numbertheory.rational_approx.y
+				.add(NUMTHEORY.varY2gain().mul(diff).mul(1e-3))
+				.max(1);
+		}
 	}
 
 	if (player.firstResetBit & 0b1000) {
-		player.ordinal.number = player.ordinal.number.add(feature.resourceGain.ordinalNumber().value.mul(diff / 1000));
+		player.ordinal.number = player.ordinal.number.add(
+			feature.resourceGain.ordinalNumber().value.mul(diff / 1000),
+		);
 	}
 	for (const upg_i in upgrades) {
 		const i = upg_i as keyof typeof upgrades;
@@ -196,33 +209,34 @@ export function simulate(diff: number) {
 			player.milestones[i as keyof typeof player.milestones] = true;
 		}
 	}
-	
+
 	if (!(player.firstResetBit & 0b1000) && player.singularity.stage >= 11) {
-	  player.number = player.number.add(feature.resourceGain.number().value.mul(diff / 1000))
-	  player.totalNumber = player.totalNumber.add(feature.resourceGain.number().value.mul(diff / 1000))
+		player.number = player.number.add(feature.resourceGain.number().value.mul(diff / 1000));
+		player.totalNumber = player.totalNumber.add(
+			feature.resourceGain.number().value.mul(diff / 1000),
+		);
 	}
 
 	if (player.singularity.enabled || Logarithm.logarithm.upgrades_in_dilated.includes('39')) {
-	  if (player.singularity.enabled) player.singularity.t += diff / 1000
-	  if (player.singularity.stage < 1 && player.singularity.t > 205) player.singularity.t = 205
-	  if (player.singularity.stage < 2 && player.singularity.t > 250) player.singularity.t = 250
-	  if (player.singularity.stage < 3 && player.singularity.t > 300) player.singularity.t = 300
-	  if (player.singularity.stage < 4 && player.singularity.t > 350) player.singularity.t = 350
-	  if (player.singularity.stage < 6 && player.singularity.t > 400) player.singularity.t = 400
-	  if (player.singularity.stage < 7 && player.singularity.t > 430) player.singularity.t = 430
-	  if (player.singularity.stage < 8 && player.singularity.t > 450) player.singularity.t = 450
-	  if (player.singularity.stage < 9 && player.singularity.t > 470) player.singularity.t = 470
-	  if (player.singularity.stage < 10 && player.singularity.t > 490) player.singularity.t = 490
-	  if (player.singularity.stage < 11 && player.singularity.t > 500) player.singularity.t = 500
-	  if (player.singularity.t >= 695) player.firstResetBit |= 0b1000
-	  player.singularity.t = Math.min(player.singularity.t, 710);
+		if (player.singularity.enabled) player.singularity.t += diff / 1000;
+		if (player.singularity.stage < 1 && player.singularity.t > 205) player.singularity.t = 205;
+		if (player.singularity.stage < 2 && player.singularity.t > 250) player.singularity.t = 250;
+		if (player.singularity.stage < 3 && player.singularity.t > 300) player.singularity.t = 300;
+		if (player.singularity.stage < 4 && player.singularity.t > 350) player.singularity.t = 350;
+		if (player.singularity.stage < 6 && player.singularity.t > 400) player.singularity.t = 400;
+		if (player.singularity.stage < 7 && player.singularity.t > 430) player.singularity.t = 430;
+		if (player.singularity.stage < 8 && player.singularity.t > 450) player.singularity.t = 450;
+		if (player.singularity.stage < 9 && player.singularity.t > 470) player.singularity.t = 470;
+		if (player.singularity.stage < 10 && player.singularity.t > 490) player.singularity.t = 490;
+		if (player.singularity.stage < 11 && player.singularity.t > 500) player.singularity.t = 500;
+		if (player.singularity.t >= 695) player.firstResetBit |= 0b1000;
+		player.singularity.t = Math.min(player.singularity.t, 710);
 	}
-	
-	if(player.upgrades[58])
-	{
+
+	if (player.upgrades[58]) {
 		feature.OrdinalNT.varGainLoop(diff / 1000);
 	}
-	
+
 	Logarithm.astronomerUpdate();
 	updateHighestStat();
 }

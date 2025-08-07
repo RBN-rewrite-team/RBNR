@@ -90,10 +90,14 @@ export const Multiplication = {
 				return [new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(47))];
 			}
 			keep() {
-				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate && player.singularity.stage < 8;
+				return (
+					player.upgrades['451q'] &&
+					!player.exponention.logarithm.in_dilate &&
+					player.singularity.stage < 8
+				);
 			}
 			show() {
-			   return player.singularity.stage < 8;
+				return player.singularity.stage < 8;
 			}
 		})(),
 		'36': new (class U26 extends Upgrade {
@@ -109,10 +113,14 @@ export const Multiplication = {
 				return [new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(101))];
 			}
 			show() {
-			    return player.singularity.stage < 7;
+				return player.singularity.stage < 7;
 			}
 			keep() {
-				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate && player.singularity.stage < 7;
+				return (
+					player.upgrades['451q'] &&
+					!player.exponention.logarithm.in_dilate &&
+					player.singularity.stage < 7
+				);
 			}
 		})(),
 		'37': new (class U27 extends Upgrade {
@@ -169,7 +177,7 @@ export const Multiplication = {
 				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
 			}
 			show() {
-			  return player.singularity.stage < 6
+				return player.singularity.stage < 6;
 			}
 		})(),
 	} as const,
@@ -272,7 +280,7 @@ export const Multiplication = {
 				];
 			}
 			show() {
-			    return player.singularity.stage < 7;
+				return player.singularity.stage < 7;
 			}
 		})(),
 	} as const,
@@ -298,8 +306,10 @@ export const Multiplication = {
 	},
 	mulpower_gain(bulk = new Decimal(1)) {
 		let adding = this.gain().mul(bulk);
-		if (player.singularity.stage < 2){adding = SOFTCAPS.fluidComputed('mulpower^1', adding, player.multiplication.mulpower);
-		adding = SOFTCAPS.fluidComputed('mulpower^2', adding, player.multiplication.mulpower);}
+		if (player.singularity.stage < 2) {
+			adding = SOFTCAPS.fluidComputed('mulpower^1', adding, player.multiplication.mulpower);
+			adding = SOFTCAPS.fluidComputed('mulpower^2', adding, player.multiplication.mulpower);
+		}
 		player.multiplication.mulpower = player.multiplication.mulpower.add(adding);
 		player.multiplication.totalMulpower = player.multiplication.totalMulpower.add(adding);
 	},
@@ -359,8 +369,12 @@ export const Multiplication = {
 		if (player.exponention.logarithm.in_dilate) {
 			base = base.add(10).iteratedlog(Math.E, Logarithm.dilateNerf().div(2).toNumber());
 		}
-		
-		if (player.singularity.enabled ||player.exponention.logarithm.upgrades_in_dilated.includes('39')) base = base.pow(feature.SingularityGenerator.getSingularityEffect());
+
+		if (
+			player.singularity.enabled ||
+			player.exponention.logarithm.upgrades_in_dilated.includes('39')
+		)
+			base = base.pow(feature.SingularityGenerator.getSingularityEffect());
 
 		return base.floor();
 	},

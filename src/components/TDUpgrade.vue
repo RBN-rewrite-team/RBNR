@@ -22,7 +22,11 @@ function useClass() {
 	if (player.upgrades[id]) useclass += '_complete';
 	else if (!UPGRADES.lock(id).unlocked || !upgrades[id].canAfford()) useclass += '_unable';
 
-	if (player.singularity.stage < 1 && player.upgrades[id] && Logarithm.logarithm.upgrades_in_dilated.includes(id)) {
+	if (
+		player.singularity.stage < 1 &&
+		player.upgrades[id] &&
+		Logarithm.logarithm.upgrades_in_dilated.includes(id)
+	) {
 		useclass += ' upgrade_dilated';
 	}
 	return useclass;
@@ -68,22 +72,32 @@ const req = curupg.requirements();
 					</template>
 				</template>
 				<template v-if="!permanent">
-					价格：<span v-if="curupg.ordinal" v-html="
-					    OrdinalUtils.numberToOrdinal((typeof curupg.cost === 'function' ? curupg.cost() : curupg.cost), feature.Ordinal.base()) + 
-						currencyName(curupg.currency)
-				    " /><span v-else>{{
+					价格：<span
+						v-if="curupg.ordinal"
+						v-html="
+							OrdinalUtils.numberToOrdinal(
+								typeof curupg.cost === 'function' ? curupg.cost() : curupg.cost,
+								feature.Ordinal.base(),
+							) + currencyName(curupg.currency)
+						"
+					/><span v-else>{{
 						format(typeof curupg.cost === 'function' ? curupg.cost() : curupg.cost) +
 						currencyName(curupg.currency)
 					}}</span>
 					<br />
 				</template>
 				<span v-else style="color: green; font-weight: bold"> 保持持有<br /> </span>
-				<span>
-					
-				</span>
+				<span> </span>
 			</div>
 			<span class="tooltip" v-if="curupg.ordinal && useClass() == 'upgrade_buttonbig_unable'">
-				购买升级需要{{ countdown(typeof curupg.cost === 'function' ? curupg.cost() : curupg.cost, player.ordinal.number, ORDINAL.ordinalPerSecond(), ORDINAL.isConstantSpeed()) }}
+				购买升级需要{{
+					countdown(
+						typeof curupg.cost === 'function' ? curupg.cost() : curupg.cost,
+						player.ordinal.number,
+						ORDINAL.ordinalPerSecond(),
+						ORDINAL.isConstantSpeed(),
+					)
+				}}
 			</span>
 		</div>
 	</td>

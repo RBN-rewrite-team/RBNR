@@ -148,7 +148,7 @@ export const Addition = {
 				return [new CurrencyRequirement(Currencies.ADDITION_POWER, new Decimal(625))];
 			}
 			show() {
-			  return player.singularity.stage < 9
+				return player.singularity.stage < 9;
 			}
 		})(),
 	} as const,
@@ -240,14 +240,20 @@ export const Addition = {
 		if (player.exponention.logarithm.in_dilate) {
 			adding = adding.add(Math.E).ln().ln().mul(10);
 		}
-		if (player.singularity.enabled ||player.exponention.logarithm.upgrades_in_dilated.includes('39')) adding = adding.add(1).pow(feature.SingularityGenerator.getSingularityEffect()).sub(1);
+		if (
+			player.singularity.enabled ||
+			player.exponention.logarithm.upgrades_in_dilated.includes('39')
+		)
+			adding = adding.add(1).pow(feature.SingularityGenerator.getSingularityEffect()).sub(1);
 		if (player.buyables[31].gt(0) && Logarithm.logarithm.upgrades_in_dilated.includes('31'))
 			adding = adding.mul(buyables[31].effect(player.buyables[31]));
-		if (player.singularity.stage < 2){adding = SOFTCAPS.fluidComputed('addpower^1', adding, player.addpower);
-		adding = SOFTCAPS.fluidComputed('addpower^2', adding, player.addpower);
-		adding = SOFTCAPS.fluidComputed('addpower^3', adding, player.addpower);
-		adding = SOFTCAPS.fluidComputed('addpower^4', adding, player.addpower);
-		adding = SOFTCAPS.fluidComputed('addpower^5', adding, player.addpower);}
+		if (player.singularity.stage < 2) {
+			adding = SOFTCAPS.fluidComputed('addpower^1', adding, player.addpower);
+			adding = SOFTCAPS.fluidComputed('addpower^2', adding, player.addpower);
+			adding = SOFTCAPS.fluidComputed('addpower^3', adding, player.addpower);
+			adding = SOFTCAPS.fluidComputed('addpower^4', adding, player.addpower);
+			adding = SOFTCAPS.fluidComputed('addpower^5', adding, player.addpower);
+		}
 		if (CHALLENGE.inChallenge(0, 3)) {
 			adding = adding.mul(predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1);
 		}

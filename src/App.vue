@@ -57,7 +57,12 @@ import OrdinalNT from './components/tabs/OrdinalNT.vue';
 			<div class="background">
 				<AdditionResetButton v-if="player.upgrades[13] && player.singularity.stage < 10" />
 				<MultipResetButton v-if="player.upgrades[26] && player.singularity.stage < 9" />
-				<ExpResetButton v-if="player.singularity.stage < 4 && player.stat.highestMulpower.gte(new Decimal(2).pow(1024))" />
+				<ExpResetButton
+					v-if="
+						player.singularity.stage < 4 &&
+						player.stat.highestMulpower.gte(new Decimal(2).pow(1024))
+					"
+				/>
 				<Successor v-if="player.currentTab === 0" />
 				<Settings v-if="player.currentTab === 1" />
 				<Addition v-if="player.currentTab === 2" />
@@ -92,5 +97,4 @@ import OrdinalNT from './components/tabs/OrdinalNT.vue';
 	<Chapter />
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

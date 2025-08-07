@@ -24,16 +24,17 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 		<div class="menu" id="menu">
 			<div class="background" style="overflow: auto">
 				<div class="main">
-				  <div v-if="player.singularity.stage < 11">
-					<div class="menu1">后继</div>
-					<div class="menu_line"></div>
-					<div
-						class="menu2"
-						:class="{ focus: player.currentTab == 0 }"
-						@click="player.currentTab = 0"
-					>
-						后继
-					</div></div>
+					<div v-if="player.singularity.stage < 11">
+						<div class="menu1">后继</div>
+						<div class="menu_line"></div>
+						<div
+							class="menu2"
+							:class="{ focus: player.currentTab == 0 }"
+							@click="player.currentTab = 0"
+						>
+							后继
+						</div>
+					</div>
 					<template v-if="player.upgrades[13] && player.singularity.stage < 10">
 						<div class="menu1">加法</div>
 						<div class="menu_line"></div>
@@ -118,33 +119,39 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 							class="menu2"
 							:class="{ focus: player.currentTab == 14 }"
 							@click="player.currentTab = 14"
-							v-if="player.singularity.enabled || Logarithm.logarithm.upgrades_in_dilated.includes('39')"
+							v-if="
+								player.singularity.enabled ||
+								Logarithm.logarithm.upgrades_in_dilated.includes('39')
+							"
 						>
 							奇点生成器
 						</div>
 					</template>
 					<template v-if="player.singularity.stage >= 4">
 						<div class="menu1">
-						  <span v-if="player.singularity.stage == 4">???</span>
-						  <span v-else-if="player.singularity.stage <= 9">奇点</span>
-						  <span v-else>序数</span>
+							<span v-if="player.singularity.stage == 4">???</span>
+							<span v-else-if="player.singularity.stage <= 9">奇点</span>
+							<span v-else>序数</span>
 						</div>
 						<div class="menu_line"></div>
 						<div
 							class="menu2"
 							:class="{ focus: player.currentTab == 14 }"
 							@click="player.currentTab = 14"
-							v-if="player.singularity.enabled || Logarithm.logarithm.upgrades_in_dilated.includes('39')"
+							v-if="
+								player.singularity.enabled ||
+								Logarithm.logarithm.upgrades_in_dilated.includes('39')
+							"
 						>
 							奇点生成器
 						</div>
 						<div
-						    class="menu2"
+							class="menu2"
 							:class="{ focus: player.currentTab == 15 }"
 							@click="player.currentTab = 15"
 							v-if="player.firstResetBit & 0b1000"
 						>
-						    序数
+							序数
 						</div>
 						<div
 							class="menu2"

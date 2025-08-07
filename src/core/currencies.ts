@@ -7,7 +7,7 @@ export enum Currencies {
 	MULTIPLICATION_POWER = 'multipl',
 	EXPONENTION_POWER = 'exponent',
 	QOL_POINTS = 'qol',
-	ORDINAL = "ordinal",
+	ORDINAL = 'ordinal',
 }
 
 abstract class Currency {
@@ -81,7 +81,7 @@ class Ordinal extends Currency {
 	static set current(x: Decimal) {
 		player.ordinal.number = x;
 	}
-	
+
 	static get current() {
 		return player.ordinal.number;
 	}
