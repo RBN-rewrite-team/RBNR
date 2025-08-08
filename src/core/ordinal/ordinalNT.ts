@@ -192,6 +192,11 @@ export const OrdinalNT = {
 	},
 	varMul(id = 'x', layer = 3): Decimal {
 		let base = new Decimal(1);
+		base = base.mul(buyables['54R'].effect(player.buyables['54R']).add(1).pow(player.numbertheory.GH.t31))
+		return base;
+	},
+	varMulBase(id = 'x', layer = 3): Decimal {
+		let base = new Decimal(1);
 		base = base.add(buyables['54R'].effect(player.buyables['54R']))
 		return base;
 	},
@@ -200,11 +205,8 @@ export const OrdinalNT = {
 			if (id == 'x')
 				return (
 					`x_{3,1}` +
-					(this.varExp(id, layer).gt(1)
-						? `^{` + format(this.varExp(id, layer)) + `}`
-						: ``)+
 					(this.varMul(id, layer).gt(1)
-						? `\\times{` + format(this.varMul(id, layer)) + `}`
+						? `\\times{` + format(this.varMulBase(id, layer)) + `^{t_{3, 1}}}`
 						: ``)
 				);
 		}

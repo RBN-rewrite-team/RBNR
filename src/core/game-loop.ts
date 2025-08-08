@@ -185,7 +185,11 @@ export function simulate(diff: number) {
 		player.ordinal.number = player.ordinal.number.add(
 			feature.resourceGain.ordinalNumber().value.mul(diff / 1000),
 		);
+		if (player.buyables['54R'].gte(1)) {
+		  player.numbertheory.GH.t31 = player.numbertheory.GH.t31.add(diff/1000)
+		}
 	}
+	
 	for (const upg_i in upgrades) {
 		const i = upg_i as keyof typeof upgrades;
 		if (upgrades[i] && upgrades[i].keep != null && upgrades[i].keep()) {
