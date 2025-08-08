@@ -13,6 +13,7 @@ function destroy(a: number) {
 			player.upgrades['44R'] = false;
 			player.exponention.logarithm.in_dilate = false;
 			player.milestones['log_G'] = false;
+			player.milestones.cb20 = false;
 			player.options.notation = notations.SCIENTIFIC;
 			feature.EXPONENTION.reset(true, true);
 			break;

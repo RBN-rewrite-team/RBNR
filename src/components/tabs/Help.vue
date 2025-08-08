@@ -1,13 +1,18 @@
 <script lang="ts" setup>
 import { player } from "../../core/global.ts"
+
+function nextPage() {
+  if (player.help.page >= 1000) player.help.page += Math.random() > (0.99 ** (player.help.page - 1000) ** 0.61288162) ? -1 : 1
+  else player.help.page++
+}
 </script>
 
 <template>
   <div class="main">
     <div style="display: flex; justify-content: center; align-items: center">
-      <button class="clickable_button" @click="player.help.page = Math.max(player.help.page - 1, 1)">-</button>
+      <button class="clickable_button" @click="player.help.page = Math.min(Math.max(player.help.page - 1, 1), 1000)">-</button>
       第 {{player.help.page}} 页
-      <button class="clickable_button" @click="player.help.page++">+</button>
+      <button class="clickable_button" @click="nextPage()">+</button>
     </div>
     <div align="center">
       <div class="center_line" />
@@ -21,7 +26,7 @@ import { player } from "../../core/global.ts"
       1. 对任意序数<vue-latex expression="α" />，存在一个序数<vue-latex expression="α'=α+1" />，我们称之为后继序数。<br>
       2. 对于任意由序数构成的序数数列<vue-latex expression="\{α_n\}" />，存在一个序数<vue-latex expression="β" />满足<vue-latex expression="β = \sup_n\{α_n\}" /><br>
         这里，<vue-latex expression="\sup" />为上确界，它指的就是大于（或等于）集合中所有元素的最小元素。<br>
-        我们称<vue-latex expression="β" />为极限序数，<vue-latex expression="\{α_n\} = \{a_0, a_1, a_2, \cdots\}" />称为<vue-latex expression="β" />的基本列，记作<vue-latex expression="β[n] = a_n" /><br><br>
+        我们称<vue-latex expression="β" />为极限序数，<vue-latex expression="\{α_n\} = \{α_0, α_1, α_2, \cdots\}" />称为<vue-latex expression="β" />的基本列，记作<vue-latex expression="β[n] = a_n" /><br><br>
         需要注意的是，基本列的指标默认是从 0 开始的，也就是说一个极限序数<vue-latex expression="β" />应当表示为
         <vue-latex expression="β = \sup_n\{β[n]\} = \sup\{β[0], β[1], β[2], \cdots\}" display-mode />
     现在我们就得到了构造序数的两种方法：对序数取后继，以及选取出一个序数数列并对其取极限。<br>
@@ -119,6 +124,10 @@ import { player } from "../../core/global.ts"
         3. 对于任意序数<vue-latex expression="α" />，自然数<vue-latex expression="n" />，<vue-latex expression="ω^{α+1}[n] = ω^α\cdot n" /><br>
         4. 对于任意极限序数<vue-latex expression="α" />，自然数<vue-latex expression="n" />，<vue-latex expression="ω^α[n] = ω^{α[n]}" /><br><br>
       除此之外，根据上述第二条规则，容易得出<vue-latex expression="α\cdot(m+1)[n] = α\cdot m+α[n]" />
+    </div>
+    <div v-else-if="player.help.page >= 2025">bx</div>
+    <div v-else-if="player.help.page >= 1000">
+      你翻了太多页面了......向后翻页按钮变得不稳定......
     </div>
   </div>
 </template>
