@@ -161,6 +161,14 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 						>
 							数论研究
 						</div>
+						<div
+							class="menu2"
+							:class="{ focus: player.currentTab == 17 }"
+							@click="player.currentTab = 17"
+							v-if="player.upgrades[59]"
+						>
+							加速器
+						</div>
 					</template>
 					<div class="menu1">杂项</div>
 					<div class="menu_line"></div>

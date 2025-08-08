@@ -195,6 +195,8 @@ function getInitialPlayerData(): Player {
 			'56': false,
 			'57': false,
 			'58': false,
+			'59': false,
+			'510': false,
 			'51R': false,
 			'52R': false,
 		},
