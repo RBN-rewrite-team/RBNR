@@ -70,7 +70,7 @@ export const OrdinalUtils = {
 			)
 				n = n.add(1);
 			return base.mul(k).add(n);
-		} else if (x.lt(base.pow_base(2).mul(base).pow_base(2).mul(base))) {
+		} else if (x.slog(2).lt(8)) {
 			return base.pow(2).add(this.numberLogHH(x.div(base).log(2), base));
 		} else if (x.slog(2).gte(8)) {
 			let s = x.slog(2).floor().sub(2);
