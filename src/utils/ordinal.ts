@@ -15,7 +15,7 @@ export const OrdinalUtils = {
 			return (
 				'ω' +
 				(exp.gt(1)
-					? '<sup>' + this.numberToOrdinal(exp, base, --maxLength, true) + '</sup>'
+					? '<sup>' + this.numberToOrdinal(exp, base, maxLength, true) + '</sup>'
 					: '') +
 				(mult.gt(1) ? formatWhole(mult) : '') +
 				(add.gt(0) ? '+' + this.numberToOrdinal(add, base, --maxLength, true) : '')
