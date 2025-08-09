@@ -118,7 +118,7 @@ export const OrdinalNT = {
 				return x.mul(0.05);
 			}
 			effectDescription(x: Decimal) {
-				return '+' + this.effect(x);
+				return '+' + format(this.effect(x));
 			}
 			currency: Currencies = Currencies.ORDINAL;
 			canBuyMax(): boolean {
