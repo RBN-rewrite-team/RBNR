@@ -111,6 +111,9 @@ export interface Player {
 	};
 	ordinal: {
 		number: Decimal;
+		booster: {
+			mult: Decimal;
+		}
 	};
 	help: {
 	  page: number
@@ -351,6 +354,9 @@ function getInitialPlayerData(): Player {
 		},
 		ordinal: {
 			number: new Decimal(10),
+			booster: {
+				mult: new Decimal(0),
+			}
 		},
 		help: {
 		  page: 1
