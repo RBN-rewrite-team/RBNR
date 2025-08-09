@@ -188,6 +188,9 @@ export function simulate(diff: number) {
 		if (player.buyables['54R'].gte(1)) {
 		  player.numbertheory.GH.t31 = player.numbertheory.GH.t31.add(diff/1000)
 		}
+		if (player.buyables['55R'].gte(1)) {
+		  player.numbertheory.GH.t32 = player.numbertheory.GH.t32.add(diff/1000)
+		}
 	}
 	
 	for (const upg_i in upgrades) {

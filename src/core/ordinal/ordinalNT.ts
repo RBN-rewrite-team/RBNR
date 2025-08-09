@@ -187,6 +187,11 @@ export const OrdinalNT = {
 	initMechanics() {},
 	varExp(id = 'x', layer = 3): Decimal {
 		let base = new Decimal(1);
+		base = base.mul(buyables['55R'].effect(player.buyables['55R']).add(1).pow(player.numbertheory.GH.t32))
+		return base;
+	},
+	varExpBase(id = 'x', layer = 3): Decimal {
+		let base = new Decimal(1);
 		base = base.add(buyables['55R'].effect(player.buyables['55R']))
 		return base;
 	},
@@ -202,12 +207,15 @@ export const OrdinalNT = {
 	},
 	varParam(id = 'x', layer = 3): string {
 		if (layer == 3) {
+		  let exp = this.varExpBase(id, layer).gt(1)
 			if (id == 'x')
 				return (
+				  (exp ? "(":"") +
 					`x_{3,1}` +
 					(this.varMul(id, layer).gt(1)
 						? `\\times{` + format(this.varMulBase(id, layer)) + `^{t_{3, 1}}}`
-						: ``)
+						: ``) +
+					(exp ? ")^{"+format(this.varExpBase())+"^{t_{3,2}}}":"")
 				);
 		}
 		return ``;
