@@ -334,7 +334,7 @@ export function initMechanics() {
 		},
 		requirement: new Decimal('e3600'),
 		get canDone() {
-			return wheatGrain().gte(this.requirement);
+			return wheatGrain().gte(this.requirement) && !player.singularity.enabled;
 		},
 		show: true,
 		currency: '麦粒',
