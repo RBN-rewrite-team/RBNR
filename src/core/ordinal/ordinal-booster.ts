@@ -7,6 +7,7 @@ import { Buyable } from "../buyable";
 import { Currencies } from "../currencies";
 import { Ordinal } from "@/lib/ordinal";
 import { feature } from "../global";
+import { format } from '@/utils/format';
 
 export const ORDINAL_BOOSTER = {
     buyables: {
@@ -23,7 +24,7 @@ export const ORDINAL_BOOSTER = {
 				return x.mul(0.01);
 			}
 			effectDescription(x: Decimal) {
-				return '+' + this.effect(x);
+				return '+' + format(this.effect(x));
 			}
 			currency: Currencies = Currencies.ORDINAL;
 			canBuyMax(): boolean {
@@ -52,7 +53,7 @@ export const ORDINAL_BOOSTER = {
 				return x.pow_base(2)
 			}
 			effectDescription(x: Decimal) {
-				return '×' + this.effect(x);
+				return '×' + format(this.effect(x));
 			}
 			currency: Currencies = Currencies.ORDINAL;
 			canBuyMax(): boolean {
@@ -82,7 +83,7 @@ export const ORDINAL_BOOSTER = {
 				return x.mul(0.05)
 			}
 			effectDescription(x: Decimal) {
-				return '+' + this.effect(x);
+				return '+' + format(this.effect(x));
 			}
 			currency: Currencies = Currencies.ORDINAL;
 			canBuyMax(): boolean {
