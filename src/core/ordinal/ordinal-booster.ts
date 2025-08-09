@@ -1,12 +1,13 @@
 import Decimal from "break_eternity.js"
 import { player } from "../save"
 import { diff } from "../game-loop";
-import { Upgrade } from "../upgrade";
+import { Upgrade, UpgradeWithEffect } from "../upgrade";
 import type { buyables } from "../mechanic";
 import { Buyable } from "../buyable";
 import { Currencies } from "../currencies";
 import { Ordinal } from "@/lib/ordinal";
 import { feature } from "../global";
+import { format } from "@/utils/format";
 
 export const ORDINAL_BOOSTER = {
     buyables: {
@@ -100,6 +101,23 @@ export const ORDINAL_BOOSTER = {
 			}
         },
     } as const,
+	upgrades: {
+		'51A': new (class U51A extends UpgradeWithEffect<Decimal> {
+					description = '基于序数增加加速器上限和增长速度';
+					cost: () => Decimal = function () {
+						return new Ordinal('w^(w*5+4)').toDecimal(feature.Ordinal.base().toNumber());
+					};
+					ordinal = true;
+					name = 'U51-A';
+					effect(): Decimal {
+						return player.ordinal.number.max(1).root(10).floor().div(50).clampMin(1);
+					}
+					effectDescription(): string {
+						return '×' + format(this.effect()) + "";
+					}
+					currency: Currencies = Currencies.ORDINAL;
+				})(),
+	} as const,
     boosterLoop() {
         if (player.upgrades[59]) {
             player.ordinal.booster.mult = player.ordinal.booster.mult
@@ -117,11 +135,15 @@ export const ORDINAL_BOOSTER = {
     boosterGrow() {
         let grow = new Decimal(0.1);
         grow = grow.add(ORDINAL_BOOSTER.buyables['51A'].effect(player.buyables['51A']));
+		if (player.upgrades['51A'])
+			grow = grow.mul(this.upgrades["51A"].effect())
         return grow;
     },
     boosterCap() {
         let cap = new Decimal(100);
         cap = cap.mul(ORDINAL_BOOSTER.buyables['52A'].effect(player.buyables['52A']));
+		if (player.upgrades['51A'])
+			cap = cap.mul(this.upgrades["51A"].effect())
 
         return cap;
     },

@@ -73,6 +73,8 @@ function varGainLatex(id = 'x', layer = 3) {
 				<vue-latex v-if="player.buyables['54R'].gte(1)" :expression="'\\dot{t_{3, 1}} = '+formatLaTeX(player.buyables['54R'].gte(1)?1:0)" display-mode />
 				<vue-latex v-if="player.buyables['55R'].gte(1)" :expression="'t_{3, 2} = '+formatLaTeX(player.numbertheory.GH.t32)" display-mode />
 				<vue-latex v-if="player.buyables['55R'].gte(1)" :expression="'\\dot{t_{3, 2}} = '+formatLaTeX(player.buyables['55R'].gte(1)?1:0)" display-mode />
+				<vue-latex v-if="player.upgrades['512']" :expression="'t_{3, 3} = '+formatLaTeX(player.numbertheory.GH.t33)" display-mode />
+				<vue-latex v-if="player.upgrades['512']" :expression="'\\dot{t_{3, 3}} = '+formatLaTeX(player.upgrades[512]?1:0)" display-mode />
 				<table align="center">
 				  <tbody>
 					<tr>

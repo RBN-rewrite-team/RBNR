@@ -31,6 +31,8 @@ import TDBuyable from '../TDBuyable.vue';
 					<tr>
 						<TDUpgrade upgid="59" />
 						<TDUpgrade upgid="510" />
+						<TDUpgrade upgid="511" />
+						<TDUpgrade upgid="512" />
 					</tr>
 					</tbody>
 				</table>

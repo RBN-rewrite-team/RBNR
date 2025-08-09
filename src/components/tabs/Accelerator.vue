@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ORDINAL_BOOSTER } from '@/core/ordinal/ordinal-booster';
 import TDBuyable from '../TDBuyable.vue';
+import TDUpgrade from '../TDUpgrade.vue';
 import { format, formatGain } from '@/utils/format';
 </script>
 
@@ -13,6 +14,7 @@ import { format, formatGain } from '@/utils/format';
           <TDBuyable bylid="51A" />
           <TDBuyable bylid="52A" />
           <TDBuyable bylid="53A" />
+          <TDUpgrade upgid="51A" />
         </tr>
       </tbody>
     </table>

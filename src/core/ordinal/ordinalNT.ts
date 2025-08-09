@@ -84,7 +84,7 @@ export const OrdinalNT = {
 			ordinal = true;
 			name = 'B4-R1-3';
 			effect(x: Decimal): Decimal {
-				return x;
+				return x.clampMax(7);
 			}
 			effectDescription(x: Decimal) {
 				return '-' + this.effect(x);
@@ -233,6 +233,9 @@ export const OrdinalNT = {
 	},
 	varGainLoop(diff = 1): void {
 		player.numbertheory.GH.x = player.numbertheory.GH.x.add(this.varGain('x', 3).mul(diff));
+		
+		if(player.upgrades[512])
+			player.numbertheory.GH.t33 = player.numbertheory.GH.t33.add(diff)
 	},
 	varComputed(id = 'tau', layer = 3): Decimal {
 		if (layer == 3) {
@@ -257,6 +260,7 @@ export const OrdinalNT = {
 			} else if (id == 'sghBase') {
 				let base = new Decimal(10);
 				base = base.add(buyables['52R'].effect(player.buyables['52R']));
+				base = base.add(player.numbertheory.GH.t33)
 				return base;
 			}
 		}
