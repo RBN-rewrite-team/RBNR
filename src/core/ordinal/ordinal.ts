@@ -8,6 +8,9 @@ import { Upgrade, UpgradeWithEffect } from '../upgrade';
 import { CurrencyRequirement, type Requirement } from '../requirements';
 import { Buyable } from '../buyable';
 import { formatWhole } from '@/utils/format';
+import { ORDINAL_BOOSTER } from './ordinal-booster.ts';
+import { ordinalSpeedDerivative } from '../game-loop.ts';
+
 
 export const ORDINAL = {
 	upgrades: {
@@ -152,7 +155,12 @@ export const ORDINAL = {
 		if (player.upgrades[58]) base = base.mul(feature.OrdinalNT.varComputed('tau', 3));
 		if (player.upgrades[510]) base = base.mul(upgrades[510].effect());
 		if (player.upgrades['52R']) base = base.mul(feature.Ordinal.base());
+
+		base = base.mul(ORDINAL_BOOSTER.boosterEffect().max(1))
 		return base;
+	},
+	speedDeri() {
+		return ordinalSpeedDerivative;
 	},
 	base() {
 		let base = new Decimal(10);
@@ -164,11 +172,6 @@ export const ORDINAL = {
 	},
 
 	isConstantSpeed(): boolean {
-		return !(
-			player.upgrades[56] ||
-			player.upgrades[57] ||
-			player.upgrades[58] ||
-			player.upgrades[55]
-		);
+		return !(player.upgrades['510']);
 	},
 };

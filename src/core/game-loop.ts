@@ -12,11 +12,19 @@ import { save } from './save';
 import { getCurrency } from './currencies';
 import { updateTheme } from '@/utils/themes';
 import { getOrdinalLevel } from './ordinal/ordinal-level.ts';
+import { ORDINAL_BOOSTER } from './ordinal/ordinal-booster.ts';
 
+/**
+ * 游戏循环经过了多少时间
+ * 
+ * 单位为毫秒
+ */
 export let diff = 40;
 export let loopInterval: number;
 export let saveInterval = setInterval(save, 3000);
 
+export let ordinalSpeedDerivative = new Decimal(0);
+export let ordinalSpeedDerivative2 = new Decimal(0);
 export function startGameLoop() {
 	loopInterval = setInterval(gameLoop, 40);
 }
@@ -114,6 +122,8 @@ function singularity_UI() {
  * @param diff 毫秒数，游戏要运行多少毫秒
  */
 export function simulate(diff: number) {
+	let last = feature.Ordinal.ordinalPerSecond();
+	let last2 = feature.Ordinal.speedDeri();
 	qolLoop();
 	CHALLENGE.challengeLoop();
 	if (player.singularity.stage < 11) {
@@ -192,7 +202,7 @@ export function simulate(diff: number) {
 		  player.numbertheory.GH.t32 = player.numbertheory.GH.t32.add(diff/1000)
 		}
 	}
-	
+	ORDINAL_BOOSTER.boosterLoop();
 	for (const upg_i in upgrades) {
 		const i = upg_i as keyof typeof upgrades;
 		if (upgrades[i] && upgrades[i].keep != null && upgrades[i].keep()) {
@@ -248,4 +258,8 @@ export function simulate(diff: number) {
 
 	Logarithm.astronomerUpdate();
 	updateHighestStat();
+	let next = feature.Ordinal.ordinalPerSecond();
+	ordinalSpeedDerivative = next.sub(last).div(diff/1000);
+	let next2 = feature.Ordinal.speedDeri();
+	ordinalSpeedDerivative2 = next2.sub(last2).div(diff/1000);
 }

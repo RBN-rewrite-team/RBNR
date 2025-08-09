@@ -255,6 +255,9 @@ export function formatGain(a: DecimalSource, e: DecimalSource, resourceName: str
 export function formatTime(ex: DecimalSource, acc = 3, type = 's'): string {
 	ex = new Decimal(ex);
 	if (!ex.isFinite()) return '5更新时';
+	if (ex.gte(138e8*31536e3)) {
+		return format(ex.div(138e8*31536e3), 3) + '当前宇宙年龄';
+	}
 	if (ex.gte(3153600000)) {
 		return format(ex.div(3153600000), 3) + '个世纪';
 	}

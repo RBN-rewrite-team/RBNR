@@ -6,6 +6,7 @@ import { SOFTCAPS } from '@/core/mechanic';
 import { OrdinalUtils } from '@/utils/ordinal';
 import Decimal from 'break_eternity.js';
 import { Ordinal } from '@/lib/ordinal/';
+import { format } from '@/utils/format';
 </script>
 <template>
 	<div class="resources" style="font-size: 20px" id="resources">
@@ -55,6 +56,19 @@ import { Ordinal } from '@/lib/ordinal/';
 								feature.Ordinal.base(),
 							) +
 							'/s)'
+						"
+					></span>
+				</div>
+				<div style="font-size: 17px; color: rgb(255, 127, 127)"
+				v-if="feature.Ordinal.speedDeri().gt(0)">
+					<span
+						v-html="
+							'(+' +
+							OrdinalUtils.numberToOrdinal(
+								feature.Ordinal.speedDeri(),
+								feature.Ordinal.base(),
+							) +
+							'/s<sup>2</sup>)'
 						"
 					></span>
 				</div>
