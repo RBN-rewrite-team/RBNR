@@ -288,7 +288,7 @@ function getInitialPlayerData(): Player {
 			GH: {
 				x: new Decimal(11),
 				t31: new Decimal(0),
-				t32: new Decimal(10),
+				t32: new Decimal(0),
 			},
 		},
 		currentTab: 0,
