@@ -96,6 +96,7 @@ const req = curupg.requirements();
 						player.ordinal.number,
 						ORDINAL.ordinalPerSecond(),
 						ORDINAL.isConstantSpeed(),
+						ORDINAL.speedDeri(),
 					)
 				}}
 			</span>

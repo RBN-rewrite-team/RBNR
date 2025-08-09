@@ -241,6 +241,9 @@ function getInitialPlayerData(): Player {
 			'53R': zero,
 			'54R': zero,
 			'55R': zero,
+			'51A': zero,
+			'52A': zero,
+			'53A': zero,
 		},
 		milestones: {
 			cb1: false,
@@ -355,7 +358,7 @@ function getInitialPlayerData(): Player {
 		ordinal: {
 			number: new Decimal(10),
 			booster: {
-				mult: new Decimal(0),
+				mult: new Decimal(1),
 			}
 		},
 		help: {

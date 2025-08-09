@@ -17,6 +17,7 @@ import { OrdinalUtils } from '@/utils/ordinal';
 import { cb1 } from './exponention/chessboard.ts';
 import { Buyable } from './buyable.ts';
 import { countdown } from './countdown-display.ts';
+import { ORDINAL_BOOSTER } from './ordinal/ordinal-booster.ts';
 
 const upgrades = {
 	...Successor.upgrades,
@@ -38,6 +39,7 @@ const buyables = {
 	cb1,
 	...Logarithm.buyables,
 	...OrdinalNT.buyables,
+	...ORDINAL_BOOSTER.buyables,
 } as const;
 const preExponent = Object.keys(Addition.buyables)
 	.concat(Object.keys(Successor.buyables))
@@ -173,7 +175,8 @@ export const BUYABLES = {
 		}
 
 		if (buyables[id].ordinal && useclass == 'upgrade_buttonbig_unable') {
-			str += `<span class='tooltip'>购买一个购买项需要${countdown(buyables[id].cost(player.buyables[id]), player.ordinal.number, ORDINAL.ordinalPerSecond(), ORDINAL.isConstantSpeed())}</span>`;
+			str += `<span class='tooltip'>购买一个购买项需要${countdown(buyables[id].cost(player.buyables[id]), player.ordinal.number, ORDINAL.ordinalPerSecond(), ORDINAL.isConstantSpeed(), 
+						ORDINAL.speedDeri(),)}</span>`;
 		}
 		str += '</div>';
 		return str;
