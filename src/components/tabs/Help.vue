@@ -1,17 +1,33 @@
 <script lang="ts" setup>
 import { player } from "../../core/global.ts"
+import {
+	formatWhole,
+} from '@/utils/format';
 
 function nextPage() {
-  if (player.help.page >= 1000) player.help.page += Math.random() > (0.99 ** (player.help.page - 1000) ** 0.61288162) ? -1 : 1
+  if (player.help.page >= 4321) return //没做
+  let adder = 1
+  if (player.help.page >= 2125)
+    player.help.milestone = Math.max(player.help.milestone, 1)
+  if (player.help.page >= 3200)
+    player.help.milestone = Math.max(player.help.milestone, 2)
+  if (player.help.milestone == 1) adder = 2
+  if (player.help.milestone == 2) adder = 3
+  if (player.help.page >= 1000) player.help.page += Math.random() > (0.99 ** (player.help.page - 1000) ** 0.61288162) ? -1 : adder
   else player.help.page++
+  highestPage = Math.max(player.help.page, highestPage)
 }
+
+//window.nextPage = nextPage
+
+let highestPage = 0;
 </script>
 
 <template>
   <div class="main">
     <div style="display: flex; justify-content: center; align-items: center">
       <button class="clickable_button" @click="player.help.page = Math.min(Math.max(player.help.page - 1, 1), 1000)">-</button>
-      第 {{player.help.page}} 页
+      第 {{formatWhole(player.help.page)}} 页
       <button class="clickable_button" @click="nextPage()">+</button>
     </div>
     <div align="center">
@@ -125,7 +141,16 @@ function nextPage() {
         4. 对于任意极限序数<vue-latex expression="α" />，自然数<vue-latex expression="n" />，<vue-latex expression="ω^α[n] = ω^{α[n]}" /><br><br>
       除此之外，根据上述第二条规则，容易得出<vue-latex expression="α\cdot(m+1)[n] = α\cdot m+α[n]" />
     </div>
-    <div v-else-if="player.help.page >= 2025">bx</div>
+    <div v-else-if="player.help.page >= 4321">
+      已达到当前版本残局：4321页。
+      <!--<br>{{highestPage}}-!-->
+    </div>
+    <div v-else-if="player.help.page >= 3200">
+      你的向后翻页按钮又一次被加强了!
+    </div>
+    <div v-else-if="player.help.page >= 2125">
+      你的页面数达到了一个不可思议的水平！作为奖励，向后翻页按钮变得更强......
+    </div>
     <div v-else-if="player.help.page >= 1000">
       你翻了太多页面了......向后翻页按钮变得不稳定......
     </div>

@@ -118,6 +118,7 @@ export interface Player {
 	};
 	help: {
 	  page: number
+	  milestone: number
 	};
 }
 function getInitialPlayerData(): Player {
@@ -367,7 +368,8 @@ function getInitialPlayerData(): Player {
 			}
 		},
 		help: {
-		  page: 1
+		  page: 1,
+		  milestone: 0
 		}
 	};
 }
