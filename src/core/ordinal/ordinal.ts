@@ -138,11 +138,30 @@ export const ORDINAL = {
 			ordinal = true;
 			name = 'U4-10';
 			effect(): Decimal {
-				return player.ordinal.number.max(1).log(feature.Ordinal.base()).div(feature.Ordinal.base()).floor().pow_base(feature.Ordinal.base());
+				return player.ordinal.number.max(1).log(feature.Ordinal.base()).div(feature.Ordinal.base()).floor().pow_base(feature.Ordinal.base())
+				.pow(player.upgrades['511'] ? 2 : 1);
 			}
 			effectDescription(): string {
 				return 'x' + OrdinalUtils.numberToOrdinal(this.effect(), feature.Ordinal.base());
 			}
+			currency: Currencies = Currencies.ORDINAL;
+		})(),
+		'511': new (class U511 extends Upgrade {
+			description = 'U4-10效果平方';
+			cost: () => Decimal = function () {
+				return new Ordinal('w^(w*3)').toDecimal(feature.Ordinal.base().toNumber());
+			};
+			ordinal = true;
+			name = 'U4-11';
+			currency: Currencies = Currencies.ORDINAL;
+		})(),
+		'512': new (class U512 extends Upgrade {
+			description = '数论研究3sgh底数每秒+1';
+			cost: () => Decimal = function () {
+				return new Ordinal('w^(w*3+5)').toDecimal(feature.Ordinal.base().toNumber());
+			};
+			ordinal = true;
+			name = 'U4-12';
 			currency: Currencies = Currencies.ORDINAL;
 		})(),
 	} as const,

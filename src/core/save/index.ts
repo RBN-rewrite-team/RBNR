@@ -49,6 +49,7 @@ export interface Player {
 			x: Decimal;
 			t31: Decimal;
 			t32: Decimal;
+			t33: Decimal;
 		};
 	};
 	currentTab: number;
@@ -200,8 +201,11 @@ function getInitialPlayerData(): Player {
 			'58': false,
 			'59': false,
 			'510': false,
+			'511': false,
+			'512': false,
 			'51R': false,
 			'52R': false,
+			'51A': false,
 		},
 		buyables: {
 			'11': zero,
@@ -295,6 +299,7 @@ function getInitialPlayerData(): Player {
 				x: new Decimal(11),
 				t31: new Decimal(0),
 				t32: new Decimal(0),
+				t33: new Decimal(0),
 			},
 		},
 		currentTab: 0,

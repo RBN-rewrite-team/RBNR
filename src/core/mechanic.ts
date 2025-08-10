@@ -28,6 +28,7 @@ const upgrades = {
 	...QolUpgrades.upgrades,
 	...ORDINAL.upgrades,
 	...OrdinalNT.upgrades,
+	...ORDINAL_BOOSTER.upgrades,
 } as const;
 const buyables = {
 	...Successor.buyables,
