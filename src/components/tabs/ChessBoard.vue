@@ -98,7 +98,7 @@ import TRMilestone from '../TRMilestone.vue';
 					<TRMilestone id="cb17" v-if="player.singularity.stage < 2" />
 					<TRMilestone id="cb18" v-if="player.singularity.stage < 2" />
 					<TRMilestone id="cb19" />
-					<TRMilestone id="cb20" v-if="player.singularity.stage < 1 && player.milestones.cb20" />
+					<TRMilestone id="cb20" v-if="player.singularity.stage < 1 && player.milestones.cb20 && !player.singularity.enabled" />
 				</tbody>
 			</table>
 		</div>
