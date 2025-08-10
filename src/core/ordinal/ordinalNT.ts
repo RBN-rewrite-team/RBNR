@@ -110,7 +110,7 @@ export const OrdinalNT = {
 			cost(x: Decimal): Decimal {
 				return new Ordinal('w^w')
 					.toDecimal(feature.Ordinal.base().toNumber())
-					.pow(x.pow_base(2));
+					.pow(x);
 			}
 			ordinal = true;
 			name = 'B4-R1-4';
@@ -132,7 +132,6 @@ export const OrdinalNT = {
 					.max(1)
 					.log(new Ordinal('w^w').toDecimal(feature.Ordinal.base().toNumber()))
 					.max(1)
-					.log2()
 					.floor()
 			}
 		})(),
