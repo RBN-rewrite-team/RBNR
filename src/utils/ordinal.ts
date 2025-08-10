@@ -89,5 +89,3 @@ export const OrdinalUtils = {
 		}
 	},
 };
-
-console.log(OrdinalUtils.numberLogHH(new Decimal(11), new Decimal(10)));
