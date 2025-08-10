@@ -47,6 +47,9 @@ export interface Player {
 		};
 		GH: {
 			x: Decimal;
+			t31: Decimal;
+			t32: Decimal;
+			t33: Decimal;
 		};
 	};
 	currentTab: number;
@@ -89,7 +92,6 @@ export interface Player {
 	};
 	stat: {
 		chapter: number;
-		
 		totalNumber: Decimal;
 		highestNumber: Decimal;
 		totalMulpower: Decimal;
@@ -98,18 +100,26 @@ export interface Player {
 		hightestAddpower: Decimal;
 		totalExppower: Decimal;
 		highestExppower: Decimal;
+		highestOrdLevel: number;
 	};
 	challengein: [number, number];
 	frozen: boolean;
 	run_a_tick_and_froze: boolean;
 	singularity: {
-	  t: number;
-	  stage: number;
-	  enabled: boolean;
-	},
+		t: number;
+		stage: number;
+		enabled: boolean;
+	};
 	ordinal: {
-	    number: Decimal;
-	},
+		number: Decimal;
+		booster: {
+			mult: Decimal;
+		}
+	};
+	help: {
+	  page: number
+	  milestone: number
+	};
 }
 function getInitialPlayerData(): Player {
 	return {
@@ -190,6 +200,13 @@ function getInitialPlayerData(): Player {
 			'56': false,
 			'57': false,
 			'58': false,
+			'59': false,
+			'510': false,
+			'511': false,
+			'512': false,
+			'51R': false,
+			'52R': false,
+			'51A': false,
 		},
 		buyables: {
 			'11': zero,
@@ -226,6 +243,12 @@ function getInitialPlayerData(): Player {
 			lgr_impr: zero,
 			'51R': zero,
 			'52R': zero,
+			'53R': zero,
+			'54R': zero,
+			'55R': zero,
+			'51A': zero,
+			'52A': zero,
+			'53A': zero,
 		},
 		milestones: {
 			cb1: false,
@@ -275,6 +298,9 @@ function getInitialPlayerData(): Player {
 			},
 			GH: {
 				x: new Decimal(11),
+				t31: new Decimal(0),
+				t32: new Decimal(0),
+				t33: new Decimal(0),
 			},
 		},
 		currentTab: 0,
@@ -318,7 +344,6 @@ function getInitialPlayerData(): Player {
 		},
 		stat: {
 			chapter: -1,
-			
 			totalNumber: zero,
 			highestNumber: zero,
 			totalMulpower: zero,
@@ -327,17 +352,25 @@ function getInitialPlayerData(): Player {
 			hightestAddpower: zero,
 			totalExppower: zero,
 			highestExppower: zero,
+			highestOrdLevel: 0,
 		},
 		challenges: [[zero, zero, zero, zero, zero]],
 		challengein: [-1, -1],
 		singularity: {
-		  t: 0,
-		  stage: 0,
-		  enabled: false
+			t: 0,
+			stage: 0,
+			enabled: false,
 		},
 		ordinal: {
 			number: new Decimal(10),
+			booster: {
+				mult: new Decimal(1),
+			}
 		},
+		help: {
+		  page: 1,
+		  milestone: 0
+		}
 	};
 }
 
@@ -460,7 +493,7 @@ export function import_file(): void {
 			let save = fr.result;
 			if (typeof save == 'string') {
 				try {
-				  player = getInitialPlayerData();
+					player = getInitialPlayerData();
 					loadFromString(save);
 					player = reactive(player);
 				} catch (e) {

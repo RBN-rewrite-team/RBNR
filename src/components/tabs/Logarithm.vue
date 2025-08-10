@@ -75,10 +75,12 @@ import ObserveButton from '../ObserveButton.vue';
 			}}
 			<div class="requirement">需求： 3000000 计算数据</div>
 			<div class="effect">对数表、天文学家价格底数、指数基于计算数据降低</div>
-			<div v-if="player.singularity.stage < 1"><h1>{{ player.milestones.log_G ? '万有引力' : '？？？？' }}定律</h1>
-			{{ player.milestones.log_G ? '！！！' : '？？？' }}
-			<div class="requirement">需求： 5000000 计算数据</div>
-			<div class="effect">解锁对数膨胀</div></div>
+			<div v-if="player.singularity.stage < 1">
+				<h1>{{ player.milestones.log_G ? '万有引力' : '？？？？' }}定律</h1>
+				{{ player.milestones.log_G ? '！！！' : '？？？' }}
+				<div class="requirement">需求： 5000000 计算数据</div>
+				<div class="effect">解锁对数膨胀</div>
+			</div>
 		</div>
 	</div>
 </template>

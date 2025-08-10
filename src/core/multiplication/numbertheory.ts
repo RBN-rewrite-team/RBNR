@@ -181,7 +181,7 @@ export const NUMTHEORY = {
 				return player.upgrades['444q'];
 			}
 			costInverse(x: Decimal) {
-				return x.div(1e28).max(1).log(100).floor();
+				return x.div(1e28).max(1).log(100).floor().add(1);
 			}
 		})(),
 		'34R': new (class B34R extends Buyable<Decimal> {
@@ -381,7 +381,7 @@ export const NUMTHEORY = {
 				return '×' + format(x);
 			}
 			show() {
-			  return player.singularity.stage < 3
+				return player.singularity.stage < 3;
 			}
 		})(),
 		'44R': new (class U44R extends UpgradeWithEffect<Decimal> {
@@ -408,7 +408,7 @@ export const NUMTHEORY = {
 				return '-' + format(x);
 			}
 			show() {
-			  return player.singularity.stage < 1
+				return player.singularity.stage < 1;
 			}
 		})(),
 	} as const,
@@ -420,6 +420,7 @@ export const NUMTHEORY = {
 		return Decimal.fromNumber(sumEulers[x.toNumber()]);
 	},
 	tau1DilateEff() {
+	  if (player.milestones.cb20 && !player.singularity.enabled) return NUMTHEORY.funcS().max(10).slog().pow(0.75).div(5).min(1e9)
 		return NUMTHEORY.funcS().max(10).slog().pow(0.6).div(5).min(0.3125);
 	},
 	varXgain() {

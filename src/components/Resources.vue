@@ -6,6 +6,7 @@ import { SOFTCAPS } from '@/core/mechanic';
 import { OrdinalUtils } from '@/utils/ordinal';
 import Decimal from 'break_eternity.js';
 import { Ordinal } from '@/lib/ordinal/';
+import { format } from '@/utils/format';
 </script>
 <template>
 	<div class="resources" style="font-size: 20px" id="resources">
@@ -16,7 +17,11 @@ import { Ordinal } from '@/lib/ordinal/';
 					{{ formatWhole(player.number) }}
 				</div>
 				<div style="font-size: 17px; color: var(--title-color)">
-					<span v-if="player.singularity.stage < 11 && feature.SUCCESSOR.autoSuccessPerSecond().eq(0)"
+					<span
+						v-if="
+							player.singularity.stage < 11 &&
+							feature.SUCCESSOR.autoSuccessPerSecond().eq(0)
+						"
 						>(需要通过后继获得)</span
 					>
 					<span
@@ -33,11 +38,38 @@ import { Ordinal } from '@/lib/ordinal/';
 			<div v-else style="margin-left: 15px" class="resource">
 				<div style="font-weight: bold; color: rgb(255, 63, 63)">
 					序数&nbsp;
-					<span v-html="Ordinal.displayOrdinalColored(player.ordinal.number.floor(), feature.Ordinal.base())" />
+					<span
+						v-html="
+							Ordinal.displayOrdinalColored(
+								player.ordinal.number.floor(),
+								feature.Ordinal.base(),
+							)
+						"
+					/>
 				</div>
 				<div style="font-size: 17px; color: rgb(255, 127, 127)">
 					<span
-						v-html="'(+' + OrdinalUtils.numberToOrdinal(feature.resourceGain.ordinalNumber().value, feature.Ordinal.base()) + '/s)'"
+						v-html="
+							'(+' +
+							OrdinalUtils.numberToOrdinal(
+								feature.resourceGain.ordinalNumber().value,
+								feature.Ordinal.base(),
+							) +
+							'/s)'
+						"
+					></span>
+				</div>
+				<div style="font-size: 17px; color: rgb(255, 127, 127)"
+				v-if="feature.Ordinal.speedDeri().gt(0)">
+					<span
+						v-html="
+							'(+' +
+							OrdinalUtils.numberToOrdinal(
+								feature.Ordinal.speedDeri(),
+								feature.Ordinal.base(),
+							) +
+							'/s<sup>2</sup>)'
+						"
 					></span>
 				</div>
 			</div>
@@ -45,7 +77,10 @@ import { Ordinal } from '@/lib/ordinal/';
 				style="margin-left: 265px"
 				class="resource"
 				id="showMP"
-				v-if="(player.upgrades[13] || player.exponention.logarithm.in_dilate) && player.singularity.stage < 10"
+				v-if="
+					(player.upgrades[13] || player.exponention.logarithm.in_dilate) &&
+					player.singularity.stage < 10
+				"
 			>
 				<div style="font-weight: bold; color: #009dd9">
 					加法能量&nbsp;
@@ -58,14 +93,16 @@ import { Ordinal } from '@/lib/ordinal/';
 						(+{{ formatWhole(feature.resourceGain.addpower().value) }})
 					</span>
 					<span v-else>
-<span v-html="
-							formatGain(
-								player.addpower,
-								feature.resourceGain
-									.addpower()
-									.passive.mul(feature.resourceGain.addpower().value),
-							)
-						" />
+						<span
+							v-html="
+								formatGain(
+									player.addpower,
+									feature.resourceGain
+										.addpower()
+										.passive.mul(feature.resourceGain.addpower().value),
+								)
+							"
+						/>
 					</span>
 					(!{{ formatWhole(player.totalAddpower) }})
 					<br />
@@ -77,7 +114,10 @@ import { Ordinal } from '@/lib/ordinal/';
 			<div
 				style="margin-left: 515px"
 				class="resource"
-				v-if="(player.upgrades[26] || player.exponention.logarithm.in_dilate) && player.singularity.stage < 9"
+				v-if="
+					(player.upgrades[26] || player.exponention.logarithm.in_dilate) &&
+					player.singularity.stage < 9
+				"
 			>
 				<div style="font-weight: bold; color: #cc33ff">
 					乘法能量&nbsp;
@@ -90,14 +130,16 @@ import { Ordinal } from '@/lib/ordinal/';
 						(+{{ formatWhole(feature.resourceGain.mulpower().value) }})
 					</span>
 					<span v-else>
-						<span v-html="
-							formatGain(
-								player.multiplication.mulpower,
-								feature.resourceGain
-									.mulpower()
-									.passive.mul(feature.resourceGain.mulpower().value),
-							)
-						" />
+						<span
+							v-html="
+								formatGain(
+									player.multiplication.mulpower,
+									feature.resourceGain
+										.mulpower()
+										.passive.mul(feature.resourceGain.mulpower().value),
+								)
+							"
+						/>
 					</span>
 					(!{{ formatWhole(player.multiplication.totalMulpower) }})
 					<br />
@@ -109,7 +151,10 @@ import { Ordinal } from '@/lib/ordinal/';
 			<div
 				style="margin-left: 755px"
 				class="resource"
-				v-if="player.singularity.stage < 4 && player.stat.highestMulpower.gte(new Decimal(2).pow(1024))"
+				v-if="
+					player.singularity.stage < 4 &&
+					player.stat.highestMulpower.gte(new Decimal(2).pow(1024))
+				"
 			>
 				<div style="font-weight: bold; color: rgb(127, 127, 255)">
 					指数能量&nbsp;

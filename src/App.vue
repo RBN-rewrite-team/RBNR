@@ -42,6 +42,8 @@ import SingularityGenerator from './components/tabs/SingularityGenerator.vue';
 import BlackHole from './components/BlackHole.vue';
 import Ordinal from './components/tabs/Ordinal.vue';
 import OrdinalNT from './components/tabs/OrdinalNT.vue';
+import Help from './components/tabs/Help.vue';
+import Accelerator from './components/tabs/Accelerator.vue';
 </script>
 
 <template>
@@ -57,13 +59,19 @@ import OrdinalNT from './components/tabs/OrdinalNT.vue';
 			<div class="background">
 				<AdditionResetButton v-if="player.upgrades[13] && player.singularity.stage < 10" />
 				<MultipResetButton v-if="player.upgrades[26] && player.singularity.stage < 9" />
-				<ExpResetButton v-if="player.singularity.stage < 4 && player.stat.highestMulpower.gte(new Decimal(2).pow(1024))" />
+				<ExpResetButton
+					v-if="
+						player.singularity.stage < 4 &&
+						player.stat.highestMulpower.gte(new Decimal(2).pow(1024))
+					"
+				/>
 				<Successor v-if="player.currentTab === 0" />
 				<Settings v-if="player.currentTab === 1" />
 				<Addition v-if="player.currentTab === 2" />
 				<Multip v-if="player.currentTab === 4" />
 				<PF v-if="player.currentTab === 5" />
 				<NumberTheory v-if="player.currentTab === 6 && !player.upgrades[58]" />
+				<OrdinalNT v-if="player.currentTab === 6 && player.upgrades[58]" />
 				<Stat v-if="player.currentTab === 7" />
 				<MultipChals v-if="player.currentTab === 8" />
 				<ExpUpgrades v-if="player.currentTab === 9" />
@@ -73,7 +81,8 @@ import OrdinalNT from './components/tabs/OrdinalNT.vue';
 				<LogDilate v-if="player.currentTab === 13" />
 				<SingularityGenerator v-if="player.currentTab === 14" />
 				<Ordinal v-if="player.currentTab === 15" />
-				<OrdinalNT v-if="player.currentTab === 6 && player.upgrades[58]" />
+				<Help v-if="player.currentTab === 16" />
+				<Accelerator v-if="player.currentTab === 17" />
 				<div class="main" v-if="player.currentTab === 3">
 					<h1>大数之路重制版</h1>
 					版本: v0.4<br />
@@ -92,5 +101,4 @@ import OrdinalNT from './components/tabs/OrdinalNT.vue';
 	<Chapter />
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

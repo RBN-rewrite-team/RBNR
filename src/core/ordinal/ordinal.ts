@@ -8,6 +8,9 @@ import { Upgrade, UpgradeWithEffect } from '../upgrade';
 import { CurrencyRequirement, type Requirement } from '../requirements';
 import { Buyable } from '../buyable';
 import { formatWhole } from '@/utils/format';
+import { ORDINAL_BOOSTER } from './ordinal-booster.ts';
+import { ordinalSpeedDerivative } from '../game-loop.ts';
+
 
 export const ORDINAL = {
 	upgrades: {
@@ -17,99 +20,177 @@ export const ORDINAL = {
 			ordinal = true;
 			name = 'U4-1';
 			effect(): Decimal {
-			    return new Decimal(1);
-			};
+				return new Decimal(1);
+			}
 			effectDescription(): string {
-			    return '+' + OrdinalUtils.numberToOrdinal(this.effect(), feature.Ordinal.base()) + '/s';
-			};
+				return (
+					'+' + OrdinalUtils.numberToOrdinal(this.effect(), feature.Ordinal.base()) + '/s'
+				);
+			}
 			currency: Currencies = Currencies.ORDINAL;
-		}),
+		})(),
 		'52': new (class U52 extends Upgrade {
 			description = '底数减少1';
-			cost:()=>Decimal = function(){ return new Ordinal('w').toDecimal(feature.Ordinal.base().toNumber()); };
+			cost: () => Decimal = function () {
+				return new Ordinal('w').toDecimal(feature.Ordinal.base().toNumber());
+			};
 			ordinal = true;
 			name = 'U4-2';
 			currency: Currencies = Currencies.ORDINAL;
-		}),
+		})(),
 		'53': new (class U53 extends Upgrade {
 			description = '底数减少1';
-			cost:()=>Decimal = function(){ return new Ordinal('w^3').toDecimal(feature.Ordinal.base().toNumber()); };
+			cost: () => Decimal = function () {
+				return new Ordinal('w^3').toDecimal(feature.Ordinal.base().toNumber());
+			};
 			ordinal = true;
 			name = 'U4-3';
 			currency: Currencies = Currencies.ORDINAL;
-		}),
+		})(),
 		'54': new (class U54 extends Upgrade {
 			description = '底数减少1';
-			cost:()=>Decimal = function(){ return new Ordinal('w^w').toDecimal(feature.Ordinal.base().toNumber()) };
+			cost: () => Decimal = function () {
+				return new Ordinal('w^w').toDecimal(feature.Ordinal.base().toNumber());
+			};
 			ordinal = true;
 			name = 'U4-4';
 			currency: Currencies = Currencies.ORDINAL;
-		}),
+		})(),
 		'55': new (class U55 extends UpgradeWithEffect<Decimal> {
 			description = '序数指数倍增序数提升速度';
-			cost: () => Decimal = function(){ return new Ordinal('w^2').toDecimal(feature.Ordinal.base().toNumber()); };
+			cost: () => Decimal = function () {
+				return new Ordinal('w^2').toDecimal(feature.Ordinal.base().toNumber());
+			};
 			ordinal = true;
 			name = 'U4-5';
 			effect(): Decimal {
-				return OrdinalUtils.ordinalChangeBase(player.ordinal.number.max(1).log(feature.Ordinal.base().toNumber()).floor(), feature.Ordinal.base(), new Decimal(10)).add(1);
-			};
+				return OrdinalUtils.ordinalChangeBase(
+					player.ordinal.number.max(1).log(feature.Ordinal.base().toNumber()).floor(),
+					feature.Ordinal.base(),
+					new Decimal(10),
+				).add(1);
+			}
 			effectDescription(): string {
 				return '×' + OrdinalUtils.numberToOrdinal(this.effect(), feature.Ordinal.base());
-			};
+			}
 			currency: Currencies = Currencies.ORDINAL;
-		}),
+		})(),
 		'56': new (class U56 extends UpgradeWithEffect<Decimal> {
 			description = '序数指数以减弱的效果倍增序数提升速度';
-			cost: () => Decimal = function(){ return new Ordinal('w^2*4').toDecimal(feature.Ordinal.base().toNumber()); };
+			cost: () => Decimal = function () {
+				return new Ordinal('w^2*4').toDecimal(feature.Ordinal.base().toNumber());
+			};
 			ordinal = true;
 			name = 'U4-6';
 			effect(): Decimal {
-				return OrdinalUtils.ordinalChangeBase(player.ordinal.number.max(1).log(feature.Ordinal.base().mul(2).toNumber()).floor(), feature.Ordinal.base(), new Decimal(10)).add(1);
-			};
+				return OrdinalUtils.ordinalChangeBase(
+					player.ordinal.number
+						.max(1)
+						.log(feature.Ordinal.base().mul(2).toNumber())
+						.floor(),
+					feature.Ordinal.base(),
+					new Decimal(10),
+				).add(1);
+			}
 			effectDescription(): string {
 				return 'x' + formatWhole(this.effect());
-			};
+			}
 			currency: Currencies = Currencies.ORDINAL;
-		}),
+		})(),
 		'57': new (class U57 extends UpgradeWithEffect<Decimal> {
 			description = '序数以减弱的效果倍增序数提升速度';
-			cost: () => Decimal = function(){ return new Ordinal('w^3*3').toDecimal(feature.Ordinal.base().toNumber()); };
+			cost: () => Decimal = function () {
+				return new Ordinal('w^3*3').toDecimal(feature.Ordinal.base().toNumber());
+			};
 			ordinal = true;
 			name = 'U4-7';
 			effect(): Decimal {
 				return player.ordinal.number.max(1).root(10).floor();
-			};
+			}
 			effectDescription(): string {
 				return 'x' + formatWhole(this.effect());
-			};
+			}
 			currency: Currencies = Currencies.ORDINAL;
-		}),
+		})(),
 		'58': new (class U58 extends Upgrade {
 			description = '解锁数论研究3';
-			cost: () => Decimal = function() { return new Ordinal('w^4').toDecimal(feature.Ordinal.base().toNumber()); };
+			cost: () => Decimal = function () {
+				return new Ordinal('w^4').toDecimal(feature.Ordinal.base().toNumber());
+			};
 			ordinal = true;
 			name = 'U4-8';
 			currency: Currencies = Currencies.ORDINAL;
-		}),
+		})(),
+		'59': new (class U59 extends Upgrade {
+			description = '解锁加速器';
+			cost: () => Decimal = function () {
+				return new Ordinal('w^w').toDecimal(feature.Ordinal.base().toNumber());
+			};
+			ordinal = true;
+			name = 'U4-9';
+			currency: Currencies = Currencies.ORDINAL;
+		})(),
+		'510': new (class U510 extends UpgradeWithEffect<Decimal> {
+			description = '序数指数加成序数提升速度';
+			cost: () => Decimal = function () {
+				return new Ordinal('w^(w+3)').toDecimal(feature.Ordinal.base().toNumber());
+			};
+			ordinal = true;
+			name = 'U4-10';
+			effect(): Decimal {
+				return player.ordinal.number.max(1).log(feature.Ordinal.base()).div(feature.Ordinal.base()).floor().pow_base(feature.Ordinal.base())
+				.pow(player.upgrades['511'] ? 2 : 1);
+			}
+			effectDescription(): string {
+				return 'x' + OrdinalUtils.numberToOrdinal(this.effect(), feature.Ordinal.base());
+			}
+			currency: Currencies = Currencies.ORDINAL;
+		})(),
+		'511': new (class U511 extends Upgrade {
+			description = 'U4-10效果平方';
+			cost: () => Decimal = function () {
+				return new Ordinal('w^(w*3)').toDecimal(feature.Ordinal.base().toNumber());
+			};
+			ordinal = true;
+			name = 'U4-11';
+			currency: Currencies = Currencies.ORDINAL;
+		})(),
+		'512': new (class U512 extends Upgrade {
+			description = '数论研究3sgh底数每秒+1';
+			cost: () => Decimal = function () {
+				return new Ordinal('w^(w*3+5)').toDecimal(feature.Ordinal.base().toNumber());
+			};
+			ordinal = true;
+			name = 'U4-12';
+			currency: Currencies = Currencies.ORDINAL;
+		})(),
 	} as const,
 	ordinalPerSecond() {
 		let base = new Decimal(0);
-		if(player.upgrades[51]) base = base.add(upgrades[51].effect());
-		if(player.upgrades[55]) base = base.mul(upgrades[55].effect());
-		if(player.upgrades[56]) base = base.mul(upgrades[56].effect());
-		if(player.upgrades[57]) base = base.mul(upgrades[57].effect());
-		if(player.upgrades[58]) base = base.mul(feature.OrdinalNT.varComputed('tau', 3));
+		if (player.upgrades[51]) base = base.add(upgrades[51].effect());
+		if (player.upgrades[55]) base = base.mul(upgrades[55].effect());
+		if (player.upgrades[56]) base = base.mul(upgrades[56].effect());
+		if (player.upgrades[57]) base = base.mul(upgrades[57].effect());
+		if (player.upgrades[58]) base = base.mul(feature.OrdinalNT.varComputed('tau', 3));
+		if (player.upgrades[510]) base = base.mul(upgrades[510].effect());
+		if (player.upgrades['52R']) base = base.mul(feature.Ordinal.base());
+
+		base = base.mul(ORDINAL_BOOSTER.boosterEffect().max(1))
 		return base;
+	},
+	speedDeri() {
+		return ordinalSpeedDerivative;
 	},
 	base() {
 		let base = new Decimal(10);
-		if(player.upgrades[52]) base = base.sub(1);
-		if(player.upgrades[53]) base = base.sub(1);
-		if(player.upgrades[54]) base = base.sub(1);
+		if (player.upgrades[52]) base = base.sub(1);
+		if (player.upgrades[53]) base = base.sub(1);
+		if (player.upgrades[54]) base = base.sub(1);
+		if (player.upgrades['51R']) base = base.sub(1);
 		return base;
 	},
 
-	isConstantSpeed():boolean {
-		return !(player.upgrades[56]||player.upgrades[57]||player.upgrades[58]||player.upgrades[55])
-	}
+	isConstantSpeed(): boolean {
+		return !(player.upgrades['510']);
+	},
 };

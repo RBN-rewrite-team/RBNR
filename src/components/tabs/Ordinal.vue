@@ -7,11 +7,15 @@ import TDBuyable from '../TDBuyable.vue';
 </script>
 
 <template>
-    <div class="main">
-	    <div style="transform: translateY(60px)">
+	<div class="main">
+		<div style="transform: translateY(60px)">
 			<div align="center">
-			    当前你的序数底数为<span style="color: rgb(255, 63, 63)" v-html="formatWhole(feature.Ordinal.base())" />，它决定了达到基本列第几项时进位。<br>
+				当前你的序数底数为<span
+					style="color: rgb(255, 63, 63)"
+					v-html="formatWhole(feature.Ordinal.base())"
+				/>，它决定了达到基本列第几项时进位。<br />
 				<table>
+				  <tbody>
 					<tr>
 						<TDUpgrade upgid="51" />
 						<TDUpgrade upgid="52" />
@@ -24,6 +28,13 @@ import TDBuyable from '../TDBuyable.vue';
 						<TDUpgrade upgid="57" />
 						<TDUpgrade upgid="58" />
 					</tr>
+					<tr>
+						<TDUpgrade upgid="59" />
+						<TDUpgrade upgid="510" />
+						<TDUpgrade upgid="511" />
+						<TDUpgrade upgid="512" />
+					</tr>
+					</tbody>
 				</table>
 			</div>
 		</div>

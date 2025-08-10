@@ -66,7 +66,7 @@ export const Exponention = {
 				return [new CurrencyRequirement(Currencies.EXPONENTION_POWER, new Decimal(300))];
 			}
 			show() {
-			  return player.singularity.stage < 3
+				return player.singularity.stage < 3;
 			}
 		})(),
 		'48': new (class U38 extends Upgrade {
