@@ -33,16 +33,16 @@ import { getOrdinalLevel, ordinalNormal } from '../../core/ordinal/ordinal-level
 			><br />
 
 			<div>
-				当前序数等级：{{ player.stat.highestOrdLevel }}<br />
-				累计最高序数等级：{{ getOrdinalLevel() }}<br />
+				当前序数等级：{{ getOrdinalLevel() }}<br />
+				累计最高序数等级：{{ player.stat.highestOrdLevel }}<br />
 				下一序数等级要求：<vue-latex
 					:expression="
-						OrdinalUtils.numberToLaTeXOrdinal(
-							new Ordinal(ordinalNormal[getOrdinalLevel()]).toDecimal(
+						getOrdinalLevel() < ordinalNormal.length ? OrdinalUtils.numberToLaTeXOrdinal(
+							new Ordinal(ordinalNormal?.[getOrdinalLevel()]?.[0]).toDecimal(
 								feature.Ordinal.base().toNumber(),
 							),
 							feature.Ordinal.base(),
-						) ?? '\\textit{way too large}'
+						) : '\\textit{way too large}'
 					"
 				/>
 			</div>
