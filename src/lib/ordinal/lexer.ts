@@ -6,7 +6,8 @@ export class Lexer {
 	private input: string;
 
 	constructor(input: string) {
-		this.input = input;
+		this.input = input.replace(/\+\.\.\./g,"");
+		this.input = this.input.replace(/\(\.\.\.\)/g,"(1)");
 		this.currentChar = input[0];
 		this.position = 0;
 	}

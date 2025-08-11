@@ -55,11 +55,20 @@ function varGainLatex(id = 'x', layer = 3) {
 					"
 					display-mode
 				/>
-				<vue-latex
+				<vue-latex v-if="!player.upgrades[515]"
 					:expression="
 						'\\tau_3 = g_{\\alpha}(' +
 						formatLaTeXWhole(OrdinalNT.varComputed('sghBase', 3)) +
 						') = ' +
+						formatLaTeXWhole(OrdinalNT.varComputed('tau', 3))
+					"
+					display-mode
+				/>
+				<vue-latex v-else
+					:expression="
+						'\\tau_3 = g_{\\alpha}(g_{\\alpha}(' +
+						formatLaTeXWhole(OrdinalNT.varComputed('sghBase', 3)) +
+						')) = ' +
 						formatLaTeXWhole(OrdinalNT.varComputed('tau', 3))
 					"
 					display-mode
