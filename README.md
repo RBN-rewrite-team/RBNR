@@ -1,33 +1,39 @@
 # Road-of-Big-Number-Rewritten
 
-This template should help get you started developing with Vue 3 in Vite.
+**Road of Big Number Rewritten** _(RBNR)_ is a simple idle mini-game
+ written by `Vue.js`.
 
-## Recommended IDE Setup
+## Run
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+First, make sure `nodejs` and `npm` are present in your environment.
 
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+And then, you can setup this project:
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+After that, you can run this project:
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+If you want to build this project
+ _(Include Type-Check, Compile and Minify for Production)_,
+ you can run:
 
 ```sh
 npm run build
 ```
+
+# Contribute
+
+Want to contribute to this project?
+ You can go to the
+ [Issue Page](https://github.com/RBN-rewrite-team/RBNR/issues)
+ to make your suggestion,
+ or you can
+ [fork this project](https://github.com/RBN-rewrite-team/RBNR/fork)
+ to add new features yourself.
+
