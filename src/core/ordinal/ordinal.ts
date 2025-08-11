@@ -174,7 +174,7 @@ export const ORDINAL = {
 			currency: Currencies = Currencies.ORDINAL;
 		})(),
 		'514': new (class U514 extends Upgrade {
-			description = '序数增长^1.5';
+			description = '序数增长^1.53';
 			cost: () => Decimal = function () {
 				return new Ordinal('w^(w^2*2+4)').toDecimal(feature.Ordinal.base().toNumber());
 			};
@@ -213,7 +213,7 @@ export const ORDINAL = {
 
 		base = base.mul(ORDINAL_BOOSTER.boosterEffect().max(1))
 
-		if (player.upgrades[514]) base = base.pow(1.5)
+		if (player.upgrades[514]) base = base.pow(1.53)
 		return base;
 	},
 	speedDeri() {
@@ -227,6 +227,7 @@ export const ORDINAL = {
 		if (player.upgrades['51R']) base = base.sub(1);
 
 		if (player.upgrades[513]) base = base.sub(1);
+		if (player.upgrades[516]) base = base.sub(1);
 		return base;
 	},
 
