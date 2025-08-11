@@ -164,6 +164,42 @@ export const ORDINAL = {
 			name = 'U4-12';
 			currency: Currencies = Currencies.ORDINAL;
 		})(),
+		'513': new (class U513 extends Upgrade {
+			description = '底数-1';
+			cost: () => Decimal = function () {
+				return new Ordinal('w^(w^2+3)').toDecimal(feature.Ordinal.base().toNumber());
+			};
+			ordinal = true;
+			name = 'U4-13';
+			currency: Currencies = Currencies.ORDINAL;
+		})(),
+		'514': new (class U514 extends Upgrade {
+			description = '序数增长^1.5';
+			cost: () => Decimal = function () {
+				return new Ordinal('w^(w^2*2+4)').toDecimal(feature.Ordinal.base().toNumber());
+			};
+			ordinal = true;
+			name = 'U4-14';
+			currency: Currencies = Currencies.ORDINAL;
+		})(),
+		'515': new (class U515 extends Upgrade {
+			description = '数论研究3公式改进';
+			cost: () => Decimal = function () {
+				return new Ordinal('w^(w^3*4)').toDecimal(feature.Ordinal.base().toNumber());
+			};
+			ordinal = true;
+			name = 'U4-15';
+			currency: Currencies = Currencies.ORDINAL;
+		})(),
+		'516': new (class U516 extends Upgrade {
+			description = '底数减1';
+			cost: () => Decimal = function () {
+				return new Ordinal('w^(w^(w))').toDecimal(feature.Ordinal.base().toNumber());
+			};
+			ordinal = true;
+			name = 'U4-16';
+			currency: Currencies = Currencies.ORDINAL;
+		})(),
 	} as const,
 	ordinalPerSecond() {
 		let base = new Decimal(0);
@@ -176,6 +212,8 @@ export const ORDINAL = {
 		if (player.upgrades['52R']) base = base.mul(feature.Ordinal.base());
 
 		base = base.mul(ORDINAL_BOOSTER.boosterEffect().max(1))
+
+		if (player.upgrades[514]) base = base.pow(1.5)
 		return base;
 	},
 	speedDeri() {
@@ -187,6 +225,8 @@ export const ORDINAL = {
 		if (player.upgrades[53]) base = base.sub(1);
 		if (player.upgrades[54]) base = base.sub(1);
 		if (player.upgrades['51R']) base = base.sub(1);
+
+		if (player.upgrades[513]) base = base.sub(1);
 		return base;
 	},
 
