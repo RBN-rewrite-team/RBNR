@@ -38,6 +38,15 @@ export const ordinalNormal = [
 	['w^(w^3*2)', 3],
 	['w^(w^3*3)', 3],
 	['w^(w^w)', 3],
+	['w^(w^w+1)', 4],
+	['w^(w^w+2)', 4],
+	['w^(w^w*2)', 4],
+	['w^(w^(w+1))', 4],
+	['w^(w^(w+2))', 4],
+	['w^(w^(w*2))', 4],
+	['w^(w^(w*3))', 4],
+	['w^(w^(w^2))', 4],
+	['e_0', 0],
 ] as const;
 
 export function getOrdinalLevel(): number {
