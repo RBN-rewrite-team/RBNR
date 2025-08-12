@@ -11,6 +11,7 @@ export const OrdinalUtils = {
 		let exp = x.log(base).add(1e-9).floor();
 		let mult = x.div(exp.pow_base(base)).add(1e-9).floor();
 		let add = x.sub(exp.pow_base(base).mul(mult)).add(1e-9).floor();
+		if (x.gte(base.tetrate(3))) add = new Decimal(0)
 		if (displayMode)
 			return (
 				'ω' +
@@ -38,6 +39,7 @@ export const OrdinalUtils = {
 		let exp = x.log(base).add(1e-9).floor();
 		let mult = x.div(exp.pow_base(base)).add(1e-9).floor();
 		let add = x.sub(exp.pow_base(base).mul(mult)).add(1e-9).floor();
+		if (x.gte(base.tetrate(3))) add = new Decimal(0)
 		return (
 			'\\omega' +
 			(exp.gt(1) ? '^{' + this.numberToLaTeXOrdinal(exp, base, --maxLength) + '}' : '') +
