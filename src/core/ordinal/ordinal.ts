@@ -31,7 +31,7 @@ export const ORDINAL = {
 		'52': new (class U52 extends Upgrade {
 			description = '底数减少1';
 			cost: () => Decimal = function () {
-				return new Ordinal('w').toDecimal(feature.Ordinal.base().toNumber());
+				return new Ordinal('w').toDecimal(feature.Ordinal.base());
 			};
 			ordinal = true;
 			name = 'U4-2';
@@ -40,7 +40,7 @@ export const ORDINAL = {
 		'53': new (class U53 extends Upgrade {
 			description = '底数减少1';
 			cost: () => Decimal = function () {
-				return new Ordinal('w^3').toDecimal(feature.Ordinal.base().toNumber());
+				return new Ordinal('w^3').toDecimal(feature.Ordinal.base());
 			};
 			ordinal = true;
 			name = 'U4-3';
@@ -49,7 +49,7 @@ export const ORDINAL = {
 		'54': new (class U54 extends Upgrade {
 			description = '底数减少1';
 			cost: () => Decimal = function () {
-				return new Ordinal('w^w').toDecimal(feature.Ordinal.base().toNumber());
+				return new Ordinal('w^w').toDecimal(feature.Ordinal.base());
 			};
 			ordinal = true;
 			name = 'U4-4';
@@ -58,13 +58,13 @@ export const ORDINAL = {
 		'55': new (class U55 extends UpgradeWithEffect<Decimal> {
 			description = '序数指数倍增序数提升速度';
 			cost: () => Decimal = function () {
-				return new Ordinal('w^2').toDecimal(feature.Ordinal.base().toNumber());
+				return new Ordinal('w^2').toDecimal(feature.Ordinal.base());
 			};
 			ordinal = true;
 			name = 'U4-5';
 			effect(): Decimal {
 				return OrdinalUtils.ordinalChangeBase(
-					player.ordinal.number.max(1).log(feature.Ordinal.base().toNumber()).floor(),
+					player.ordinal.number.max(1).log(feature.Ordinal.base()).floor(),
 					feature.Ordinal.base(),
 					new Decimal(10),
 				).add(1);
@@ -77,7 +77,7 @@ export const ORDINAL = {
 		'56': new (class U56 extends UpgradeWithEffect<Decimal> {
 			description = '序数指数以减弱的效果倍增序数提升速度';
 			cost: () => Decimal = function () {
-				return new Ordinal('w^2*4').toDecimal(feature.Ordinal.base().toNumber());
+				return new Ordinal('w^2*4').toDecimal(feature.Ordinal.base());
 			};
 			ordinal = true;
 			name = 'U4-6';
@@ -85,7 +85,7 @@ export const ORDINAL = {
 				return OrdinalUtils.ordinalChangeBase(
 					player.ordinal.number
 						.max(1)
-						.log(feature.Ordinal.base().mul(2).toNumber())
+						.log(feature.Ordinal.base().mul(2))
 						.floor(),
 					feature.Ordinal.base(),
 					new Decimal(10),
@@ -99,7 +99,7 @@ export const ORDINAL = {
 		'57': new (class U57 extends UpgradeWithEffect<Decimal> {
 			description = '序数以减弱的效果倍增序数提升速度';
 			cost: () => Decimal = function () {
-				return new Ordinal('w^3*3').toDecimal(feature.Ordinal.base().toNumber());
+				return new Ordinal('w^3*3').toDecimal(feature.Ordinal.base());
 			};
 			ordinal = true;
 			name = 'U4-7';
@@ -114,7 +114,7 @@ export const ORDINAL = {
 		'58': new (class U58 extends Upgrade {
 			description = '解锁数论研究3';
 			cost: () => Decimal = function () {
-				return new Ordinal('w^4').toDecimal(feature.Ordinal.base().toNumber());
+				return new Ordinal('w^4').toDecimal(feature.Ordinal.base());
 			};
 			ordinal = true;
 			name = 'U4-8';
@@ -123,7 +123,7 @@ export const ORDINAL = {
 		'59': new (class U59 extends Upgrade {
 			description = '解锁加速器';
 			cost: () => Decimal = function () {
-				return new Ordinal('w^w').toDecimal(feature.Ordinal.base().toNumber());
+				return new Ordinal('w^w').toDecimal(feature.Ordinal.base());
 			};
 			ordinal = true;
 			name = 'U4-9';
@@ -132,7 +132,7 @@ export const ORDINAL = {
 		'510': new (class U510 extends UpgradeWithEffect<Decimal> {
 			description = '序数指数加成序数提升速度';
 			cost: () => Decimal = function () {
-				return new Ordinal('w^(w+3)').toDecimal(feature.Ordinal.base().toNumber());
+				return new Ordinal('w^(w+3)').toDecimal(feature.Ordinal.base());
 			};
 			ordinal = true;
 			name = 'U4-10';
@@ -153,7 +153,7 @@ export const ORDINAL = {
 		'511': new (class U511 extends Upgrade {
 			description = 'U4-10效果平方';
 			cost: () => Decimal = function () {
-				return new Ordinal('w^(w*3)').toDecimal(feature.Ordinal.base().toNumber());
+				return new Ordinal('w^(w*3)').toDecimal(feature.Ordinal.base());
 			};
 			ordinal = true;
 			name = 'U4-11';
@@ -162,7 +162,7 @@ export const ORDINAL = {
 		'512': new (class U512 extends Upgrade {
 			description = '数论研究3sgh底数每秒+1';
 			cost: () => Decimal = function () {
-				return new Ordinal('w^(w*3+5)').toDecimal(feature.Ordinal.base().toNumber());
+				return new Ordinal('w^(w*3+5)').toDecimal(feature.Ordinal.base());
 			};
 			ordinal = true;
 			name = 'U4-12';
@@ -171,7 +171,7 @@ export const ORDINAL = {
 		'513': new (class U513 extends Upgrade {
 			description = '底数-1';
 			cost: () => Decimal = function () {
-				return new Ordinal('w^(w^2+3)').toDecimal(feature.Ordinal.base().toNumber());
+				return new Ordinal('w^(w^2+3)').toDecimal(feature.Ordinal.base());
 			};
 			ordinal = true;
 			name = 'U4-13';
@@ -180,7 +180,7 @@ export const ORDINAL = {
 		'514': new (class U514 extends Upgrade {
 			description = '序数增长^1.53';
 			cost: () => Decimal = function () {
-				return new Ordinal('w^(w^2*2+4)').toDecimal(feature.Ordinal.base().toNumber());
+				return new Ordinal('w^(w^2*2+4)').toDecimal(feature.Ordinal.base());
 			};
 			ordinal = true;
 			name = 'U4-14';
@@ -189,7 +189,7 @@ export const ORDINAL = {
 		'515': new (class U515 extends Upgrade {
 			description = '数论研究3公式改进';
 			cost: () => Decimal = function () {
-				return new Ordinal('w^(w^3*4)').toDecimal(feature.Ordinal.base().toNumber());
+				return new Ordinal('w^(w^3*4)').toDecimal(feature.Ordinal.base());
 			};
 			ordinal = true;
 			name = 'U4-15';
@@ -198,7 +198,7 @@ export const ORDINAL = {
 		'516': new (class U516 extends Upgrade {
 			description = '底数减1';
 			cost: () => Decimal = function () {
-				return new Ordinal('w^(w^(w))').toDecimal(feature.Ordinal.base().toNumber());
+				return new Ordinal('w^(w^(w))').toDecimal(feature.Ordinal.base());
 			};
 			ordinal = true;
 			name = 'U4-16';
@@ -207,13 +207,13 @@ export const ORDINAL = {
 		'517': new (class U517 extends Upgrade {
 			description = '访问九头蛇Hydra';
 			cost: () => Decimal = function () {
-				return new Ordinal('e0').toDecimal(feature.Ordinal.base().toNumber());
+				return new Ordinal('e0').toDecimal(feature.Ordinal.base());
 			};
 			ordinal = true;
 			name = 'U4-17';
 			currency: Currencies = Currencies.ORDINAL;
 			requirements(): Requirement[] {
-				return [new CurrencyRequirement(Currencies.ORDINAL, new Ordinal('e0').toDecimal(feature.Ordinal.base().toNumber()))];
+				return [new CurrencyRequirement(Currencies.ORDINAL, new Ordinal('e0').toDecimal(feature.Ordinal.base()))];
 			}
 		})(),
 	} as const,
