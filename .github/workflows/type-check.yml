@@ -1,4 +1,4 @@
-name: Type Check
+name: PR Type Check
 
 on:
   pull_request:
@@ -6,13 +6,11 @@ on:
     branches: [develop]
 
 jobs:
-  build-and-deploy:
+  type-check:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write
-      pages: write
-      id-token: write
+      contents: read
 
     steps:
       - name: Checkout code
@@ -22,6 +20,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
+          cache: npm
 
       - name: Install dependencies
         run: npm install

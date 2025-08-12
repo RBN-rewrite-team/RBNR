@@ -84,7 +84,7 @@ export const OrdinalNT = {
 			ordinal = true;
 			name = 'B4-R1-3';
 			effect(x: Decimal): Decimal {
-				return x.clampMax(7);
+				return x.clampMax(6);
 			}
 			effectDescription(x: Decimal) {
 				return '-' + this.effect(x);
@@ -104,13 +104,16 @@ export const OrdinalNT = {
 					.log2()
 					.floor()
 			}
+			capped(x: Decimal) {
+				return x.gte(6)
+			}
 		})(),
 		'54R': new (class B54R extends Buyable<Decimal> {
 			description = '将x_3每秒增长倍率+0.05';
 			cost(x: Decimal): Decimal {
 				return new Ordinal('w^w')
 					.toDecimal(feature.Ordinal.base().toNumber())
-					.pow(x.pow_base(2));
+					.pow(x);
 			}
 			ordinal = true;
 			name = 'B4-R1-4';
@@ -132,7 +135,6 @@ export const OrdinalNT = {
 					.max(1)
 					.log(new Ordinal('w^w').toDecimal(feature.Ordinal.base().toNumber()))
 					.max(1)
-					.log2()
 					.floor()
 			}
 		})(),
@@ -149,7 +151,7 @@ export const OrdinalNT = {
 				return x.mul(0.05);
 			}
 			effectDescription(x: Decimal) {
-				return '+' + this.effect(x);
+				return '+' + format(this.effect(x));
 			}
 			currency: Currencies = Currencies.ORDINAL;
 			canBuyMax(): boolean {
@@ -240,11 +242,23 @@ export const OrdinalNT = {
 	varComputed(id = 'tau', layer = 3): Decimal {
 		if (layer == 3) {
 			if (id == 'tau') {
-				let base = OrdinalUtils.ordinalChangeBase(
-					this.varComputed('a', 3),
-					this.varComputed('hhBase', 3),
-					this.varComputed('sghBase', 3),
-				);
+				let base;
+				if (player.upgrades[515])
+					base = OrdinalUtils.ordinalChangeBase(
+						this.varComputed('a', 3),
+						this.varComputed('hhBase', 3),
+						OrdinalUtils.ordinalChangeBase(
+							this.varComputed('a', 3),
+							this.varComputed('hhBase', 3),
+							this.varComputed('sghBase', 3),
+						)
+					);
+				else
+					base = OrdinalUtils.ordinalChangeBase(
+						this.varComputed('a', 3),
+						this.varComputed('hhBase', 3),
+						this.varComputed('sghBase', 3),
+					);
 				return base;
 			} else if (id == 'a') {
 				let base = OrdinalUtils.numberLogHH(

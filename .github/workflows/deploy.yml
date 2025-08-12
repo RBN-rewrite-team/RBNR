@@ -12,6 +12,7 @@ jobs:
       contents: write
       pages: write
       id-token: write
+      actions: write
 
     steps:
       - name: Checkout code
@@ -21,6 +22,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
+          cache: npm
 
       - name: Install dependencies
         run: npm install
@@ -28,11 +30,17 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Clean old artifacts (if any)
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/develop' }}
+        run: |
+          gh api repos/${{ github.repository }}/actions/artifacts --jq '.artifacts[] | select(.name == "github-pages") | .id' | xargs -I{} gh api repos/${{ github.repository }}/actions/artifacts/{} -X DELETE
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist/
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/develop' }}
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
