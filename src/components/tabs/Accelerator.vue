@@ -8,9 +8,9 @@ import { format, formatGain } from '@/utils/format';
 <template>
 	<div class="main">
 		<p>
-			加速器，倍率为×{{ format(ORDINAL_BOOSTER.boosterEffect()) }}({{
+			加速器倍率为×{{ format(ORDINAL_BOOSTER.boosterEffect()) }}(<span v-html="
 				formatGain(ORDINAL_BOOSTER.boosterEffect(), ORDINAL_BOOSTER.boosterGrow())
-			}},上限{{ format(ORDINAL_BOOSTER.boosterCap()) }})
+			" />,上限{{ format(ORDINAL_BOOSTER.boosterCap()) }})
 		</p>
 		<table align="center">
 			<tbody>
