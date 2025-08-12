@@ -51,10 +51,10 @@ export const ordinalNormal = [
 
 export function getOrdinalLevel(): number {
 	let level = 0;
-	let base = feature.Ordinal.base().toNumber();
+	let base = feature.Ordinal.base();
 	for (let i in ordinalNormal) {
 		if (
-			base > ordinalNormal[i][1] ||
+			base.toNumber() > ordinalNormal[i][1] ||
 			new Ordinal(ordinalNormal[i][0]).toDecimal(base).lte(player.ordinal.number)
 		)
 			level++;
