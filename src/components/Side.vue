@@ -203,6 +203,13 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 					</div>
 					<div
 						class="menu2"
+						:class="{ focus: player.currentTab == 18 }"
+						@click="player.currentTab = 18"
+					>
+						时间碎片
+					</div>
+					<div
+						class="menu2"
 						:class="{ focus: player.currentTab == 11 }"
 						@click="player.currentTab = 11"
 					>
