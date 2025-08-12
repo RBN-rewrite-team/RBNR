@@ -390,6 +390,8 @@ function getInitialPlayerData(): Player {
 			cd: [Date.now(), Date.now()],
 			last: [0, 0],
 		},
+		hydra: {
+		},
 	};
 }
 
