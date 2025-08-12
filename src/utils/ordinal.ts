@@ -11,7 +11,7 @@ export const OrdinalUtils = {
 		let exp = x.log(base).add(1e-9).floor();
 		let mult = x.div(exp.pow_base(base)).add(1e-9).floor();
 		let add = x.sub(exp.pow_base(base).mul(mult)).add(1e-9).floor();
-		if (x.gte(base.tetrate(2.5))) add = new Decimal(0)
+		if (x.gte(base.iteratedexp(2, new Decimal(3)))) add = new Decimal(0)
 		if (displayMode)
 			return (
 				'ω' +
@@ -33,13 +33,13 @@ export const OrdinalUtils = {
 	},
 	numberToLaTeXOrdinal(x: Decimal, base: Decimal, maxLength = 7): string {
 		//数值转Latex表达法序数
-		if (x.gte(x.gte(base.iteratedexp(2, 3)))) return '\\varepsilon_0';
+		if (x.gte(base.tetrate(base.toNumber()))) return '\\varepsilon_0';
 		if (x.lt(base)) return formatWhole(x);
 		if (maxLength <= 0) return '...';
 		let exp = x.log(base).add(1e-9).floor();
 		let mult = x.div(exp.pow_base(base)).add(1e-9).floor();
 		let add = x.sub(exp.pow_base(base).mul(mult)).add(1e-9).floor();
-		if (x.gte(base.iteratedexp(2, 3))) add = new Decimal(0)
+		if (x.gte(base.iteratedexp(2, new Decimal(3)))) add = new Decimal(0)
 		return (
 			'\\omega' +
 			(exp.gt(1) ? '^{' + this.numberToLaTeXOrdinal(exp, base, --maxLength) + '}' : '') +

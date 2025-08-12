@@ -202,7 +202,7 @@ export function simulate(diff: number) {
 			player.numbertheory.GH.t32 = player.numbertheory.GH.t32.add(diff / 1000);
 		}
 		let base = feature.Ordinal.base()
-		if (player.ordinal.number.gte(base.tetrate(base))) player.help.epsilon = true
+		if (player.ordinal.number.gte(base.tetrate(base.toNumber()))) player.help.epsilon = true
 	}
 	ORDINAL_BOOSTER.boosterLoop();
 	for (const upg_i in upgrades) {
