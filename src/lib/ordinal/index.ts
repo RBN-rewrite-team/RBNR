@@ -71,7 +71,9 @@ export function displayOrd(
 		const expression = 'ω' + expPart + coeffPart + separator;
 
 		if (colour === 1) {
-			const hueValue = exponent.mul(8);
+			let colorExponent = new Decimal(exponent);
+			if (colorExponent.gte(9e15)) colorExponent.layer = 0
+			const hueValue = colorExponent.mul(8);
 			const colorCode = HSL(hueValue);
 			const shadowColor = getContrastColor(colorCode);
 			dispString += `<span style='color:${colorCode};text-shadow:0 0 3px ${shadowColor}'>${expression}</span>`;

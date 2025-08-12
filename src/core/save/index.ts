@@ -117,8 +117,9 @@ export interface Player {
 		};
 	};
 	help: {
-		page: number;
-		milestone: number;
+	  page: number
+	  milestone: number
+	  epsilon: boolean
 	};
 	timeshard: {
 		value: number;
@@ -378,8 +379,9 @@ function getInitialPlayerData(): Player {
 			},
 		},
 		help: {
-			page: 1,
-			milestone: 0,
+		  page: 1,
+		  milestone: 0,
+		  epsilon: false
 		},
 		timeshard: {
 			value: 0,
