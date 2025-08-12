@@ -145,14 +145,7 @@ export const ORDINAL_BOOSTER = {
 		let cap = new Decimal(100);
 		cap = cap.mul(ORDINAL_BOOSTER.buyables['52A'].effect(player.buyables['52A']));
 		if (player.upgrades['51A']) cap = cap.mul(this.upgrades['51A'].effect());
-        return exp;
-    },
-    boosterGrow() {
-        let grow = new Decimal(0.1);
-        grow = grow.add(ORDINAL_BOOSTER.buyables['51A'].effect(player.buyables['51A']));
-		if (player.upgrades['51A'])
-			grow = grow.mul(this.upgrades["51A"].effect())
-        return grow;
+        return cap;
     },
     boosterEffect() {
         let eff = player.ordinal.booster.mult;
