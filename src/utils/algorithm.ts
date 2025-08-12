@@ -1,4 +1,4 @@
-import Decimal from "break_eternity.js";
+import Decimal from 'break_eternity.js';
 
 /**
  * 计算两个数的最大公约数
@@ -86,18 +86,14 @@ export function predictableRandom(x: number) {
 	return start / b;
 }
 
-
 export function DecimalsMin(...args: Decimal[]) {
 	if (args.length == 0) {
-		return Decimal.dInf
-	}
-	else if (args.length == 1) {
-		return args[0]
-	}
-	else if (args.length == 2) {
-		return Decimal.min(args[0], args[1])
+		return Decimal.dInf;
+	} else if (args.length == 1) {
+		return args[0];
+	} else if (args.length == 2) {
+		return Decimal.min(args[0], args[1]);
 	} else {
-		return DecimalsMin(Decimal.min(args[0], args[1]), ...args.slice(2))
+		return DecimalsMin(Decimal.min(args[0], args[1]), ...args.slice(2));
 	}
-	
 }

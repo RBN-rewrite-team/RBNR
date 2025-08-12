@@ -114,11 +114,11 @@ export interface Player {
 		number: Decimal;
 		booster: {
 			mult: Decimal;
-		}
+		};
 	};
 	help: {
-	  page: number
-	  milestone: number
+		page: number;
+		milestone: number;
 	};
 }
 function getInitialPlayerData(): Player {
@@ -369,12 +369,12 @@ function getInitialPlayerData(): Player {
 			number: new Decimal(10),
 			booster: {
 				mult: new Decimal(1),
-			}
+			},
 		},
 		help: {
-		  page: 1,
-		  milestone: 0
-		}
+			page: 1,
+			milestone: 0,
+		},
 	};
 }
 
