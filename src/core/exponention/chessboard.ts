@@ -328,9 +328,7 @@ export function initMechanics() {
 	MILESTONES.create('cb20', {
 		displayName: 'M-CB-20',
 		get description() {
-			return (
-				'(这是一个秘密......)移除τ<sub>1</sub>膨胀效果的硬上限'
-			);
+			return '(这是一个秘密......)移除τ<sub>1</sub>膨胀效果的硬上限';
 		},
 		requirement: new Decimal('e3600'),
 		get canDone() {
