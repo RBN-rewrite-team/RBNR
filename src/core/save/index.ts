@@ -114,12 +114,18 @@ export interface Player {
 		number: Decimal;
 		booster: {
 			mult: Decimal;
-		}
+		};
 	};
 	help: {
 	  page: number
 	  milestone: number
 	  epsilon: boolean
+	};
+	timeshard: {
+		value: number;
+		tf: number;
+		cd: [number, number];
+		last: [number, number];
 	};
 }
 function getInitialPlayerData(): Player {
@@ -370,13 +376,19 @@ function getInitialPlayerData(): Player {
 			number: new Decimal(10),
 			booster: {
 				mult: new Decimal(1),
-			}
+			},
 		},
 		help: {
 		  page: 1,
 		  milestone: 0,
 		  epsilon: false
-		}
+		},
+		timeshard: {
+			value: 0,
+			tf: 0,
+			cd: [Date.now(), Date.now()],
+			last: [0, 0],
+		},
 	};
 }
 

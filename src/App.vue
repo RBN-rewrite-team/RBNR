@@ -44,6 +44,7 @@ import Ordinal from './components/tabs/Ordinal.vue';
 import OrdinalNT from './components/tabs/OrdinalNT.vue';
 import Help from './components/tabs/Help.vue';
 import Accelerator from './components/tabs/Accelerator.vue';
+import TimeShard from './components/tabs/TimeShard.vue';
 </script>
 
 <template>
@@ -83,6 +84,7 @@ import Accelerator from './components/tabs/Accelerator.vue';
 				<Ordinal v-if="player.currentTab === 15" />
 				<Help v-if="player.currentTab === 16" />
 				<Accelerator v-if="player.currentTab === 17" />
+				<TimeShard v-if="player.currentTab === 18" />
 				<div class="main" v-if="player.currentTab === 3">
 					<h1>大数之路重制版</h1>
 					版本: v0.4<br />

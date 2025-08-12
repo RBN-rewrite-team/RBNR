@@ -15,31 +15,31 @@ import TDBuyable from '../TDBuyable.vue';
 					v-html="formatWhole(feature.Ordinal.base())"
 				/>，它决定了达到基本列第几项时进位。<br />
 				<table>
-				  <tbody>
-					<tr>
-						<TDUpgrade upgid="51" />
-						<TDUpgrade upgid="52" />
-						<TDUpgrade upgid="53" />
-						<TDUpgrade upgid="54" />
-					</tr>
-					<tr>
-						<TDUpgrade upgid="55" />
-						<TDUpgrade upgid="56" />
-						<TDUpgrade upgid="57" />
-						<TDUpgrade upgid="58" />
-					</tr>
-					<tr>
-						<TDUpgrade upgid="59" />
-						<TDUpgrade upgid="510" />
-						<TDUpgrade upgid="511" />
-						<TDUpgrade upgid="512" />
-					</tr>
-					<tr>
-						<TDUpgrade upgid="513" />
-						<TDUpgrade upgid="514" />
-						<TDUpgrade upgid="515" />
-						<TDUpgrade upgid="516" />
-					</tr>
+					<tbody>
+						<tr>
+							<TDUpgrade upgid="51" />
+							<TDUpgrade upgid="52" />
+							<TDUpgrade upgid="53" />
+							<TDUpgrade upgid="54" />
+						</tr>
+						<tr>
+							<TDUpgrade upgid="55" />
+							<TDUpgrade upgid="56" />
+							<TDUpgrade upgid="57" />
+							<TDUpgrade upgid="58" />
+						</tr>
+						<tr>
+							<TDUpgrade upgid="59" />
+							<TDUpgrade upgid="510" />
+							<TDUpgrade upgid="511" />
+							<TDUpgrade upgid="512" />
+						</tr>
+						<tr>
+							<TDUpgrade upgid="513" />
+							<TDUpgrade upgid="514" />
+							<TDUpgrade upgid="515" />
+							<TDUpgrade upgid="516" />
+						</tr>
 					</tbody>
 				</table>
 			</div>
