@@ -145,12 +145,19 @@ export const ORDINAL_BOOSTER = {
 		let cap = new Decimal(100);
 		cap = cap.mul(ORDINAL_BOOSTER.buyables['52A'].effect(player.buyables['52A']));
 		if (player.upgrades['51A']) cap = cap.mul(this.upgrades['51A'].effect());
-
-		return cap;
-	},
-	boosterEffect() {
-		let eff = player.ordinal.booster.mult;
-		eff = eff.pow(this.boosterExponent());
-		return eff;
-	},
-};
+        return exp;
+    },
+    boosterGrow() {
+        let grow = new Decimal(0.1);
+        grow = grow.add(ORDINAL_BOOSTER.buyables['51A'].effect(player.buyables['51A']));
+		if (player.upgrades['51A'])
+			grow = grow.mul(this.upgrades["51A"].effect())
+        return grow;
+    },
+    boosterEffect() {
+        let eff = player.ordinal.booster.mult;
+        eff = eff.pow(this.boosterExponent());
+		if(eff.gte('ee1000')) eff = new Decimal(1000).add(eff.log10().log10().sub(1000).pow(0.5)).pow_base(10).pow_base(10);
+        return eff;
+    }
+}
