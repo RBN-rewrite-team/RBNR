@@ -57,6 +57,9 @@ export class Lexer {
 			case 'ζ':
 				token = new Token(Tokens.zeta);
 				break;
+			case 'Ω':
+				token = new Token(Tokens.w1ck);
+				break;
 			case '(':
 				token = new Token(Tokens.lparen);
 				break;

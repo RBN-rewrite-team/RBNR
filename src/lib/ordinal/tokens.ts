@@ -9,6 +9,7 @@ export enum Tokens {
 	lparen,
 	rparen,
 	eof,
+	w1ck,
 }
 
 export class Token {
