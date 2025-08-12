@@ -59,8 +59,10 @@ import { format } from '@/utils/format';
 						"
 					></span>
 				</div>
-				<div style="font-size: 17px; color: rgb(255, 127, 127)"
-				v-if="feature.Ordinal.speedDeri().gt(0)">
+				<div
+					style="font-size: 17px; color: rgb(255, 127, 127)"
+					v-if="feature.Ordinal.speedDeri().gt(0)"
+				>
 					<span
 						v-html="
 							'(+' +

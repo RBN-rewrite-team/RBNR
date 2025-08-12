@@ -55,7 +55,8 @@ function varGainLatex(id = 'x', layer = 3) {
 					"
 					display-mode
 				/>
-				<vue-latex v-if="!player.upgrades[515]"
+				<vue-latex
+					v-if="!player.upgrades[515]"
 					:expression="
 						'\\tau_3 = g_{\\alpha}(' +
 						formatLaTeXWhole(OrdinalNT.varComputed('sghBase', 3)) +
@@ -64,7 +65,8 @@ function varGainLatex(id = 'x', layer = 3) {
 					"
 					display-mode
 				/>
-				<vue-latex v-else
+				<vue-latex
+					v-else
 					:expression="
 						'\\tau_3 = g_{\\alpha}(g_{\\alpha}(' +
 						formatLaTeXWhole(OrdinalNT.varComputed('sghBase', 3)) +
@@ -78,24 +80,53 @@ function varGainLatex(id = 'x', layer = 3) {
 					display-mode
 				/>
 				<vue-latex :expression="varGainLatex('x', 3)" display-mode />
-				<vue-latex v-if="player.buyables['54R'].gte(1)" :expression="'t_{3, 1} = '+formatLaTeX(player.numbertheory.GH.t31)" display-mode />
-				<vue-latex v-if="player.buyables['54R'].gte(1)" :expression="'\\dot{t_{3, 1}} = '+formatLaTeX(player.buyables['54R'].gte(1)?1:0)" display-mode />
-				<vue-latex v-if="player.buyables['55R'].gte(1)" :expression="'t_{3, 2} = '+formatLaTeX(player.numbertheory.GH.t32)" display-mode />
-				<vue-latex v-if="player.buyables['55R'].gte(1)" :expression="'\\dot{t_{3, 2}} = '+formatLaTeX(player.buyables['55R'].gte(1)?1:0)" display-mode />
-				<vue-latex v-if="player.upgrades['512']" :expression="'t_{3, 3} = '+formatLaTeX(player.numbertheory.GH.t33)" display-mode />
-				<vue-latex v-if="player.upgrades['512']" :expression="'\\dot{t_{3, 3}} = '+formatLaTeX(player.upgrades[512]?1:0)" display-mode />
+				<vue-latex
+					v-if="player.buyables['54R'].gte(1)"
+					:expression="'t_{3, 1} = ' + formatLaTeX(player.numbertheory.GH.t31)"
+					display-mode
+				/>
+				<vue-latex
+					v-if="player.buyables['54R'].gte(1)"
+					:expression="
+						'\\dot{t_{3, 1}} = ' + formatLaTeX(player.buyables['54R'].gte(1) ? 1 : 0)
+					"
+					display-mode
+				/>
+				<vue-latex
+					v-if="player.buyables['55R'].gte(1)"
+					:expression="'t_{3, 2} = ' + formatLaTeX(player.numbertheory.GH.t32)"
+					display-mode
+				/>
+				<vue-latex
+					v-if="player.buyables['55R'].gte(1)"
+					:expression="
+						'\\dot{t_{3, 2}} = ' + formatLaTeX(player.buyables['55R'].gte(1) ? 1 : 0)
+					"
+					display-mode
+				/>
+				<vue-latex
+					v-if="player.upgrades['512']"
+					:expression="'t_{3, 3} = ' + formatLaTeX(player.numbertheory.GH.t33)"
+					display-mode
+				/>
+				<vue-latex
+					v-if="player.upgrades['512']"
+					:expression="'\\dot{t_{3, 3}} = ' + formatLaTeX(player.upgrades[512] ? 1 : 0)"
+					display-mode
+				/>
 				<table align="center">
-				  <tbody>
-					<tr>
-						<TDBuyable bylid="51R" />
-						<TDBuyable bylid="52R" />
-						<TDBuyable bylid="53R" />
-						<TDBuyable bylid="54R" />
-					</tr><tr>
-						<TDBuyable bylid="55R" />
-						<TDUpgrade upgid="51R" />
-						<TDUpgrade upgid="52R" />
-					</tr>
+					<tbody>
+						<tr>
+							<TDBuyable bylid="51R" />
+							<TDBuyable bylid="52R" />
+							<TDBuyable bylid="53R" />
+							<TDBuyable bylid="54R" />
+						</tr>
+						<tr>
+							<TDBuyable bylid="55R" />
+							<TDUpgrade upgid="51R" />
+							<TDUpgrade upgid="52R" />
+						</tr>
 					</tbody>
 				</table>
 			</div>

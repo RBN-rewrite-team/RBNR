@@ -16,7 +16,7 @@ import { ORDINAL_BOOSTER } from './ordinal/ordinal-booster.ts';
 
 /**
  * 游戏循环经过了多少时间
- * 
+ *
  * 单位为毫秒
  */
 export let diff = 40;
@@ -38,7 +38,7 @@ export function updateHighestStat() {
 	player.stat.highestMulpower = player.stat.highestMulpower.max(player.multiplication.mulpower);
 	player.stat.hightestAddpower = player.stat.hightestAddpower.max(player.addpower);
 	player.stat.highestExppower = player.stat.highestExppower.max(player.exponention.exppower);
-	player.stat.highestOrdLevel = Math.max(player.stat.highestOrdLevel, getOrdinalLevel())
+	player.stat.highestOrdLevel = Math.max(player.stat.highestOrdLevel, getOrdinalLevel());
 }
 export function qolLoop() {
 	if (!player.exponention.logarithm.in_dilate) {
@@ -196,10 +196,10 @@ export function simulate(diff: number) {
 			feature.resourceGain.ordinalNumber().value.mul(diff / 1000),
 		);
 		if (player.buyables['54R'].gte(1)) {
-		  player.numbertheory.GH.t31 = player.numbertheory.GH.t31.add(diff/1000)
+			player.numbertheory.GH.t31 = player.numbertheory.GH.t31.add(diff / 1000);
 		}
 		if (player.buyables['55R'].gte(1)) {
-		  player.numbertheory.GH.t32 = player.numbertheory.GH.t32.add(diff/1000)
+			player.numbertheory.GH.t32 = player.numbertheory.GH.t32.add(diff / 1000);
 		}
 	}
 	ORDINAL_BOOSTER.boosterLoop();
@@ -259,7 +259,7 @@ export function simulate(diff: number) {
 	Logarithm.astronomerUpdate();
 	updateHighestStat();
 	let next = feature.Ordinal.ordinalPerSecond();
-	ordinalSpeedDerivative = next.sub(last).div(diff/1000);
+	ordinalSpeedDerivative = next.sub(last).div(diff / 1000);
 	let next2 = feature.Ordinal.speedDeri();
-	ordinalSpeedDerivative2 = next2.sub(last2).div(diff/1000);
+	ordinalSpeedDerivative2 = next2.sub(last2).div(diff / 1000);
 }

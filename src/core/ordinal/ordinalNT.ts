@@ -102,18 +102,16 @@ export const OrdinalNT = {
 					.log(new Ordinal('w^w').toDecimal(feature.Ordinal.base().toNumber()))
 					.max(1)
 					.log2()
-					.floor()
+					.floor();
 			}
 			capped(x: Decimal) {
-				return x.gte(6)
+				return x.gte(6);
 			}
 		})(),
 		'54R': new (class B54R extends Buyable<Decimal> {
 			description = '将x_3每秒增长倍率+0.05';
 			cost(x: Decimal): Decimal {
-				return new Ordinal('w^w')
-					.toDecimal(feature.Ordinal.base().toNumber())
-					.pow(x);
+				return new Ordinal('w^w').toDecimal(feature.Ordinal.base().toNumber()).pow(x);
 			}
 			ordinal = true;
 			name = 'B4-R1-4';
@@ -135,7 +133,7 @@ export const OrdinalNT = {
 					.max(1)
 					.log(new Ordinal('w^w').toDecimal(feature.Ordinal.base().toNumber()))
 					.max(1)
-					.floor()
+					.floor();
 			}
 		})(),
 		'55R': new (class B54R extends Buyable<Decimal> {
@@ -166,21 +164,23 @@ export const OrdinalNT = {
 					.log(new Ordinal('w^w').toDecimal(feature.Ordinal.base().toNumber()))
 					.max(1)
 					.log(feature.Ordinal.base().toNumber())
-					.floor()
+					.floor();
 			}
 		})(),
 	} as const,
 	upgrades: {
 		'51R': new (class U51 extends Upgrade {
 			description = '将底数降低1';
-			cost = ():Decimal=>new Ordinal("w^(w*2)").toDecimal(feature.Ordinal.base().toNumber());
+			cost = (): Decimal =>
+				new Ordinal('w^(w*2)').toDecimal(feature.Ordinal.base().toNumber());
 			ordinal = true;
 			name = 'U4-R1-1';
 			currency: Currencies = Currencies.ORDINAL;
 		})(),
 		'52R': new (class U52 extends Upgrade {
 			description = '序数增长速度被乘以奇点能量';
-			cost = ():Decimal=>new Ordinal("w^(w*2+1)").toDecimal(feature.Ordinal.base().toNumber());
+			cost = (): Decimal =>
+				new Ordinal('w^(w*2+1)').toDecimal(feature.Ordinal.base().toNumber());
 			ordinal = true;
 			name = 'U4-R1-2';
 			currency: Currencies = Currencies.ORDINAL;
@@ -189,35 +189,39 @@ export const OrdinalNT = {
 	initMechanics() {},
 	varExp(id = 'x', layer = 3): Decimal {
 		let base = new Decimal(1);
-		base = base.mul(buyables['55R'].effect(player.buyables['55R']).add(1).pow(player.numbertheory.GH.t32))
+		base = base.mul(
+			buyables['55R'].effect(player.buyables['55R']).add(1).pow(player.numbertheory.GH.t32),
+		);
 		return base;
 	},
 	varExpBase(id = 'x', layer = 3): Decimal {
 		let base = new Decimal(1);
-		base = base.add(buyables['55R'].effect(player.buyables['55R']))
+		base = base.add(buyables['55R'].effect(player.buyables['55R']));
 		return base;
 	},
 	varMul(id = 'x', layer = 3): Decimal {
 		let base = new Decimal(1);
-		base = base.mul(buyables['54R'].effect(player.buyables['54R']).add(1).pow(player.numbertheory.GH.t31))
+		base = base.mul(
+			buyables['54R'].effect(player.buyables['54R']).add(1).pow(player.numbertheory.GH.t31),
+		);
 		return base;
 	},
 	varMulBase(id = 'x', layer = 3): Decimal {
 		let base = new Decimal(1);
-		base = base.add(buyables['54R'].effect(player.buyables['54R']))
+		base = base.add(buyables['54R'].effect(player.buyables['54R']));
 		return base;
 	},
 	varParam(id = 'x', layer = 3): string {
 		if (layer == 3) {
-		  let exp = this.varExpBase(id, layer).gt(1)
+			let exp = this.varExpBase(id, layer).gt(1);
 			if (id == 'x')
 				return (
-				  (exp ? "(":"") +
+					(exp ? '(' : '') +
 					`x_{3,1}` +
 					(this.varMul(id, layer).gt(1)
 						? `\\times{` + format(this.varMulBase(id, layer)) + `^{t_{3, 1}}}`
 						: ``) +
-					(exp ? ")^{"+format(this.varExpBase())+"^{t_{3,2}}}":"")
+					(exp ? ')^{' + format(this.varExpBase()) + '^{t_{3,2}}}' : '')
 				);
 		}
 		return ``;
@@ -226,8 +230,8 @@ export const OrdinalNT = {
 		if (layer == 3) {
 			if (id == 'x') {
 				let base = buyables['51R'].effect(player.buyables['51R']);
-				base = base.mul(this.varMul(id, layer))
-				base = base.pow(this.varExp(id, layer))
+				base = base.mul(this.varMul(id, layer));
+				base = base.pow(this.varExp(id, layer));
 				return base;
 			}
 		}
@@ -235,9 +239,8 @@ export const OrdinalNT = {
 	},
 	varGainLoop(diff = 1): void {
 		player.numbertheory.GH.x = player.numbertheory.GH.x.add(this.varGain('x', 3).mul(diff));
-		
-		if(player.upgrades[512])
-			player.numbertheory.GH.t33 = player.numbertheory.GH.t33.add(diff)
+
+		if (player.upgrades[512]) player.numbertheory.GH.t33 = player.numbertheory.GH.t33.add(diff);
 	},
 	varComputed(id = 'tau', layer = 3): Decimal {
 		if (layer == 3) {
@@ -251,7 +254,7 @@ export const OrdinalNT = {
 							this.varComputed('a', 3),
 							this.varComputed('hhBase', 3),
 							this.varComputed('sghBase', 3),
-						)
+						),
 					);
 				else
 					base = OrdinalUtils.ordinalChangeBase(
@@ -269,12 +272,12 @@ export const OrdinalNT = {
 			} else if (id == 'hhBase') {
 				let base = new Decimal(10);
 				base = base.sub(buyables['53R'].effect(player.buyables['53R']));
-				
+
 				return base;
 			} else if (id == 'sghBase') {
 				let base = new Decimal(10);
 				base = base.add(buyables['52R'].effect(player.buyables['52R']));
-				base = base.add(player.numbertheory.GH.t33)
+				base = base.add(player.numbertheory.GH.t33);
 				return base;
 			}
 		}

@@ -54,11 +54,10 @@ export function getOrdinalLevel(): number {
 	let base = feature.Ordinal.base().toNumber();
 	for (let i in ordinalNormal) {
 		if (
-			base > ordinalNormal[i][1] || new Ordinal(ordinalNormal[i][0])
-				.toDecimal(base)
-				.lte(player.ordinal.number)
+			base > ordinalNormal[i][1] ||
+			new Ordinal(ordinalNormal[i][0]).toDecimal(base).lte(player.ordinal.number)
 		)
-		level++
+			level++;
 	}
 	return level;
 }

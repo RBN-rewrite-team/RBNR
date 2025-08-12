@@ -176,8 +176,13 @@ export const BUYABLES = {
 		}
 
 		if (buyables[id].ordinal && useclass == 'upgrade_buttonbig_unable') {
-			str += `<span class='tooltip'>购买一个购买项需要${countdown(buyables[id].cost(player.buyables[id]), player.ordinal.number, ORDINAL.ordinalPerSecond(), ORDINAL.isConstantSpeed(), 
-						ORDINAL.speedDeri(),)}</span>`;
+			str += `<span class='tooltip'>购买一个购买项需要${countdown(
+				buyables[id].cost(player.buyables[id]),
+				player.ordinal.number,
+				ORDINAL.ordinalPerSecond(),
+				ORDINAL.isConstantSpeed(),
+				ORDINAL.speedDeri(),
+			)}</span>`;
 		}
 		str += '</div>';
 		return str;

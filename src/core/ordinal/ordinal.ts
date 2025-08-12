@@ -11,7 +11,6 @@ import { formatWhole } from '@/utils/format';
 import { ORDINAL_BOOSTER } from './ordinal-booster.ts';
 import { ordinalSpeedDerivative } from '../game-loop.ts';
 
-
 export const ORDINAL = {
 	upgrades: {
 		'51': new (class U51 extends UpgradeWithEffect<Decimal> {
@@ -138,8 +137,13 @@ export const ORDINAL = {
 			ordinal = true;
 			name = 'U4-10';
 			effect(): Decimal {
-				return player.ordinal.number.max(1).log(feature.Ordinal.base()).div(feature.Ordinal.base()).floor().pow_base(feature.Ordinal.base())
-				.pow(player.upgrades['511'] ? 2 : 1);
+				return player.ordinal.number
+					.max(1)
+					.log(feature.Ordinal.base())
+					.div(feature.Ordinal.base())
+					.floor()
+					.pow_base(feature.Ordinal.base())
+					.pow(player.upgrades['511'] ? 2 : 1);
 			}
 			effectDescription(): string {
 				return 'x' + OrdinalUtils.numberToOrdinal(this.effect(), feature.Ordinal.base());
@@ -211,9 +215,9 @@ export const ORDINAL = {
 		if (player.upgrades[510]) base = base.mul(upgrades[510].effect());
 		if (player.upgrades['52R']) base = base.mul(feature.Ordinal.base());
 
-		base = base.mul(ORDINAL_BOOSTER.boosterEffect().max(1))
+		base = base.mul(ORDINAL_BOOSTER.boosterEffect().max(1));
 
-		if (player.upgrades[514]) base = base.pow(1.53)
+		if (player.upgrades[514]) base = base.pow(1.53);
 		return base;
 	},
 	speedDeri() {
@@ -232,6 +236,6 @@ export const ORDINAL = {
 	},
 
 	isConstantSpeed(): boolean {
-		return !(player.upgrades['510']);
+		return !player.upgrades['510'];
 	},
 };
