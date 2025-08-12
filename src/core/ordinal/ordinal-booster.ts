@@ -152,6 +152,7 @@ export const ORDINAL_BOOSTER = {
     boosterEffect() {
         let eff = player.ordinal.booster.mult;
         eff = eff.pow(this.boosterExponent());
+		if(eff.gte('ee1000')) eff = new Decimal(1000).add(eff.log10().log10().sub(1000).pow(0.5)).pow_base(10).pow_base(10);
         return eff;
     }
 }
