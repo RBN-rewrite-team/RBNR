@@ -82,7 +82,9 @@ export const ORDINAL_BOOSTER = {
 			ordinal = true;
 			name = 'B43-A';
 			effect(x: Decimal): Decimal {
-				return x.mul(0.05);
+				let base = x.mul(0.05);
+				if(base.gte(10)) base = new Decimal(10).add(base.sub(10).mul(1000).pow(0.5).div(1000));
+				return base;
 			}
 			effectDescription(x: Decimal) {
 				return '+' + format(this.effect(x));
