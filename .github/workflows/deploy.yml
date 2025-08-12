@@ -45,3 +45,10 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/develop' && success() }}
+
+      - name: Clean current artifact after deployment
+        if: ${{ always() }}
+        run: |
+          gh api repos/${{ github.repository }}/actions/artifacts/${{ steps.upload.outputs.artifact-id }} -X DELETE
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
