@@ -23,7 +23,7 @@ export const OrdinalNT = {
 				return x;
 			}
 			effectDescription(x: Decimal) {
-				return `x<sub>3,1</sub> = ` + this.effect(x);
+				return `x<sub>3,1</sub> = ` + format(this.effect(x));
 			}
 			currency: Currencies = Currencies.ORDINAL;
 			canBuyMax(): boolean {
@@ -55,7 +55,7 @@ export const OrdinalNT = {
 				return x;
 			}
 			effectDescription(x: Decimal) {
-				return '+' + this.effect(x);
+				return '+' + format(this.effect(x));
 			}
 			currency: Currencies = Currencies.ORDINAL;
 			canBuyMax(): boolean {
