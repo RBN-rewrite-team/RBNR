@@ -127,6 +127,8 @@ export interface Player {
 		cd: [number, number];
 		last: [number, number];
 	};
+	hydra: {
+	};
 }
 function getInitialPlayerData(): Player {
 	return {
@@ -218,6 +220,7 @@ function getInitialPlayerData(): Player {
 			'51R': false,
 			'52R': false,
 			'51A': false,
+			'517': false,
 		},
 		buyables: {
 			'11': zero,
