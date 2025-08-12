@@ -120,6 +120,12 @@ export interface Player {
 	  page: number
 	  milestone: number
 	};
+	timeshard: {
+		value: number;
+		tf: number;
+		cd: [number, number];
+		last: [number, number];
+	};
 }
 function getInitialPlayerData(): Player {
 	return {
@@ -374,7 +380,13 @@ function getInitialPlayerData(): Player {
 		help: {
 		  page: 1,
 		  milestone: 0
-		}
+		},
+		timeshard: {
+			value: 0,
+			tf: 0,
+			cd: [Date.now(), Date.now()],
+			last: [0, 0],
+		},
 	};
 }
 
