@@ -10,6 +10,7 @@ function showChapter(id = 0): boolean {
 	if (id === 2) return player.singularity.t >= 675 || player.multiplication.mulpower.gt(0);
 	if (id === 3) return player.singularity.t >= 675 || player.exponention.exppower.gt(0);
 	if (id === 4) return player.singularity.t >= 675;
+	if (id === 5) return player.upgrades['517'];
 	return false;
 }
 </script>
@@ -78,5 +79,18 @@ function showChapter(id = 0): boolean {
 		</div>
 		<div class="chapter_text" style="color: rgb(255, 127, 127)">第四章</div>
 		<div class="chapter_text_b" style="color: rgb(255, 127, 127)">序数</div>
+	</div>
+
+	<div v-if="showChapter(5)">
+		<div class="chapter_background" style="color: rgb(155, 125, 195)">Ψ</div>
+		<div
+			class="chapter_clickable"
+			style="color: rgb(155, 125, 195); background-color: rgb(200, 190, 245)"
+			@click="player.stat.chapter = Math.max(player.stat.chapter, 5)"
+		>
+			力破万法
+		</div>
+		<div class="chapter_text" style="color: rgb(200, 190, 245)">第五章</div>
+		<div class="chapter_text_b" style="color: rgb(200, 190, 245)">九头蛇</div>
 	</div>
 </template>

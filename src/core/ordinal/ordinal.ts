@@ -204,6 +204,18 @@ export const ORDINAL = {
 			name = 'U4-16';
 			currency: Currencies = Currencies.ORDINAL;
 		})(),
+		'517': new (class U517 extends Upgrade {
+			description = '访问九头蛇Hydra';
+			cost: () => Decimal = function () {
+				return new Ordinal('e0').toDecimal(feature.Ordinal.base().toNumber());
+			};
+			ordinal = true;
+			name = 'U4-17';
+			currency: Currencies = Currencies.ORDINAL;
+			requirements(): Requirement[] {
+				return [new CurrencyRequirement(Currencies.ORDINAL, new Ordinal('e0').toDecimal(feature.Ordinal.base().toNumber()))];
+			}
+		})(),
 	} as const,
 	ordinalPerSecond() {
 		let base = new Decimal(0);

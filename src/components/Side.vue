@@ -170,6 +170,18 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 							加速器
 						</div>
 					</template>
+					<template v-if="player.upgrades[517]">
+						<div class="menu1">九头蛇</div>
+						<div class="menu_line"></div>
+						<div
+							class="menu2"
+							:class="{ focus: player.currentTab == 19 }"
+							@click="player.currentTab = 19"
+							v-if="player.upgrades[517]"
+						>
+							Coming Soon
+						</div>
+					</template>
 					<div class="menu1">杂项</div>
 					<div class="menu_line"></div>
 					<div
