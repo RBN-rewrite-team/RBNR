@@ -40,7 +40,7 @@ import { getOrdinalLevel, ordinalNormal } from '../../core/ordinal/ordinal-level
 						getOrdinalLevel() < ordinalNormal.length
 							? OrdinalUtils.numberToLaTeXOrdinal(
 									new Ordinal(ordinalNormal?.[getOrdinalLevel()]?.[0]).toDecimal(
-										feature.Ordinal.base().toNumber(),
+										feature.Ordinal.base(),
 									),
 									feature.Ordinal.base(),
 								)
