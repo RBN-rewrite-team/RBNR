@@ -1,0 +1,38 @@
+name: Delete VRD Branches
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  cleanup-branches:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup Git config
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        
+    - name: Fetch all branches
+      run: git fetch --prune --all
+      
+    - name: Find and delete merged VRD branches
+      run: |
+        git branch -r --merged origin/${{ github.base_ref }} | \
+          grep -E 'origin/vrd[0-9]+' | \
+          sed 's/origin\///' | \
+          while read branch; do
+            echo "🗑️ Deleting branch: $branch"
+            git push origin --delete $branch
+          done
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
