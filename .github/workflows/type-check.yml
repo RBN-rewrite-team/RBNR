@@ -6,7 +6,7 @@ on:
     branches: [develop]
 
 jobs:
-  build-and-deploy:
+  type-check:
     runs-on: ubuntu-latest
 
     permissions:
