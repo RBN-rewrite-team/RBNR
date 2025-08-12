@@ -12,6 +12,7 @@ import { CHALLENGE } from './challenge.ts';
 import { resourceGain } from './resource-gain.ts';
 import { ORDINAL } from './ordinal/ordinal.ts';
 import { OrdinalNT } from './ordinal/ordinalNT.ts';
+import { TimeShard } from './timeshard/timeshard.ts';
 
 const feature = {
 	mechanic: { UPGRADES: UPGRADES, BUYABLES: BUYABLES },
@@ -28,6 +29,7 @@ const feature = {
 	OrdinalNT: OrdinalNT,
 
 	resourceGain: resourceGain,
+	TimeShard: TimeShard,
 };
 
 export { player, feature };
