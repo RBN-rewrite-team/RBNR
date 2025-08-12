@@ -119,6 +119,7 @@ export interface Player {
 	help: {
 	  page: number
 	  milestone: number
+	  epsilon: boolean
 	};
 }
 function getInitialPlayerData(): Player {
@@ -373,7 +374,8 @@ function getInitialPlayerData(): Player {
 		},
 		help: {
 		  page: 1,
-		  milestone: 0
+		  milestone: 0,
+		  epsilon: false
 		}
 	};
 }

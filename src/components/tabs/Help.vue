@@ -131,7 +131,7 @@ let highestPage = 0;
         2. 如果<vue-latex expression="α, β" />是标准形式<br>而且<vue-latex expression="α \ge β" />，那么<vue-latex expression="α+β" />是标准形式<br>
         3. 如果<vue-latex expression="α" />是标准形式<br>而且<vue-latex expression="ω^α>α" />，那么<vue-latex expression="ω^α" />是标准形式<br>
       容易验证，所有的自然数<vue-latex expression="n" />都是标准形式。值得注意的是，上述定义中并没有涉及序数乘法。<br>
-      习惯上，我们仍然容许<vue-latex expression="α\cdot n" />这样的表达式存在，作为<vue-latex expression="\underbrace{\alpha+\alpha+\cdots+\alpha}_{n个a}" />的简写。<br>
+      习惯上，我们仍然容许<vue-latex expression="α\cdot n" />这样的表达式存在，作为<vue-latex expression="\underbrace{\alpha+\alpha+\cdots+\alpha}_{n\text{个}α}" />的简写。<br>
       由第二条规则可知，若<vue-latex expression="α" />是标准形式，n是自然数，则<vue-latex expression="α\cdot n" />也是标准形式<br>
       在转换为标准形式后，我们便可以定义极限序数的标准基本列了<br>
       <vue-latex expression="\varepsilon_0" />以下极限序数的标准基本列定义为：<br>
@@ -140,6 +140,56 @@ let highestPage = 0;
         3. 对于任意序数<vue-latex expression="α" />，自然数<vue-latex expression="n" />，<vue-latex expression="ω^{α+1}[n] = ω^α\cdot n" /><br>
         4. 对于任意极限序数<vue-latex expression="α" />，自然数<vue-latex expression="n" />，<vue-latex expression="ω^α[n] = ω^{α[n]}" /><br><br>
       除此之外，根据上述第二条规则，容易得出<vue-latex expression="α\cdot(m+1)[n] = α\cdot m+α[n]" />
+    </div>
+    <div v-else-if="player.help.epsilon && player.help.page == 5">
+      下面我们考虑<vue-latex expression="α" />到<vue-latex expression="ω^α" />的映射，这实际上就是从下方增加一层指数塔的映射
+      <vue-latex expression="α\mapsto ω^α" display-mode />
+      从0开始重复作用上述映射，所得到的极限就是<vue-latex expression="ε_0" />，它以这个映射过程得到的各项作为其基本列
+      <vue-latex expression="ε_0 = \sup\left\{0, 1, ω, ω^ω, ω^{ω^ω}, ω^{ω^{ω^ω}}, \cdots\right\}" display-mode />
+      对<vue-latex expression="ε_0" />继续映射<vue-latex expression="α\mapsto ω^α" />，我们得到
+      <vue-latex expression="ω^{ε_0} = \sup\left\{1, ω, ω^ω, ω^{ω^ω}, ω^{ω^{ω^ω}}, ω^{ω^{ω^{ω^ω}}}, \cdots\right\} = ε_0" display-mode />
+      因此<vue-latex expression="ε_0" />是映射<vue-latex expression="α\mapsto ω^α" />的第一个不动点
+      <vue-latex expression="ε_0 = \mathrm{1st}\ α\mapsto ω^α\ \mathrm{fp.}" display-mode />
+      其中，fp.是不动点(Fixed Point)的缩写<br>
+      我们称<vue-latex expression="ε_0" />为SCO(Small Cantor Ordinal)，由于<vue-latex expression="ε_0" />已经是<vue-latex expression="α\mapsto ω^α" />的不动点，继续进行该操作不会有任何作用。<br>
+      不过，我们并非无法继续，只需要将<vue-latex expression="ε_0" />取后继，得到<vue-latex expression="ε_0+1" />，就跳出了映射<vue-latex expression="α\mapsto ω^α" />的不动点。<br>
+      继续对<vue-latex expression="ε_0+1" />进行映射<vue-latex expression="α\mapsto ω^α" />，我们可以得到一个序数序列，它的极限是<vue-latex expression="ε_1" />
+      <vue-latex expression="ε_1 = \sup\left\{0, 1, ε_0, ω^{ε_0+1}, ω^{ω^{ε_0+1}}, ω^{ω^{ω^{ε_0+1}}}, \cdots\right\}" display-mode />
+    </div>
+    <div v-else-if="player.help.epsilon && player.help.page == 6">
+      类似于<vue-latex expression="ε_0" />，<vue-latex expression="ε_1 = ω^{ε_1}" /><br>
+      因此<vue-latex expression="ε_1" />是映射<vue-latex expression="α\mapsto ω^α" />的第二个不动点，记作
+      <vue-latex expression="ε_1 = \mathrm{2nd}\ α\mapsto ω^α\ \mathrm{fp.}" display-mode />
+      或者我们也可以说，<vue-latex expression="ε_1" />是紧随于<vue-latex expression="ε_0" />之后，映射<vue-latex expression="α\mapsto ω^α" />的第二个不动点，我们将其记为
+      <vue-latex expression="ε_1 = α\mapsto ω^α\textrm{ fp. aft } ε_0" display-mode />
+      这里，aft是在......之后(after)的意思<br>
+      类似的，通过重复上述过程，我们得到
+      <vue-latex expression="\begin{aligned}
+        ε_2 &= \sup\left\{0, 1, ε_1, ω^{ε_1+1}, ω^{ω^{ε_1+1}}, ω^{ω^{ω^{ε_1+1}}}, \cdots\right\}\\
+            &= \mathrm{3rd}\ α\mapsto ω^α\ \mathrm{fp.}\\
+            &= α\mapsto ω^α\textrm{ fp. aft } ε_1
+        \end{aligned}" display-mode />
+      <vue-latex expression="\begin{aligned}
+        ε_3 &= \sup\left\{0, 1, ε_2, ω^{ε_2+1}, ω^{ω^{ε_2+1}}, ω^{ω^{ω^{ε_2+1}}}, \cdots\right\}\\
+            &= \mathrm{4th}\ α\mapsto ω^α\ \mathrm{fp.}\\
+            &= α\mapsto ω^α\textrm{ fp. aft } ε_2
+        \end{aligned}" display-mode />
+      在所有的<vue-latex expression="ε_n" />，对所有的这些序数取上确界，得到
+      <vue-latex expression="\begin{aligned}
+        ε_ω &= \sup\left\{ε_0, ε_1, ε_2, ε_3, \cdots\right\}\\
+            &= ω\mathrm{th}\ α\mapsto ω^α\ \mathrm{fp.}\\
+        \end{aligned}" display-mode />
+      重复上述取不动点和取下标极限的操作，我们可以得到所有的<vue-latex expression="ε" />序数。
+    </div>
+    <div v-else-if="player.help.epsilon && player.help.page == 7">
+      下面我们递归地给出<vue-latex expression="ε" />序数的基本列<br>
+        1. <vue-latex expression="ω[n] = n" /><br>
+        2. <vue-latex expression="(α+β)[n] = α+β[n]" />，其中<vue-latex expression="β" />是极限序数<br>
+        3. <vue-latex expression="ω^{α+1}[n] = ω^α\cdot n" /><br>
+        4. <vue-latex expression="ω^α[n] = ω^{α[n]}" />，其中<vue-latex expression="α" />是极限序数<br>
+        5. <vue-latex expression="ε_0[0] = 0, ε_0[n+1] = ω^{ε_0[n]}" /><br>
+        6. <vue-latex expression="ε_{α+1}[0] = ε_α+1, ε_{α+1}[n+1] = ω^{ε_{α+1}[n]}" /><br>
+        7. <vue-latex expression="ε_{α}[n] = ε_{α[n]}" />，其中<vue-latex expression="α" />是极限序数<br>
     </div>
     <div v-else-if="player.help.page >= 4321">
       已达到当前版本残局：4321页。
