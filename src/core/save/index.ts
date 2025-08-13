@@ -229,6 +229,7 @@ function getInitialPlayerData(): Player {
 			'517': false,
 			'61': false,
 			'611': false,
+			'612': false,
 		},
 		buyables: {
 			'11': zero,
@@ -272,7 +273,6 @@ function getInitialPlayerData(): Player {
 			'52A': zero,
 			'53A': zero,
 			'611': zero,
-			'612': zero,
 		},
 		milestones: {
 			cb1: false,

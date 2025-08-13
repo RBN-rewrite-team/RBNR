@@ -36,7 +36,7 @@ export const Hydra = {
 		})(),
 	},
 	buyables: {
-		'611': new (class B611 extends Buyable {
+		'611': new (class B611 extends Buyable<Decimal> {
 			description = 'BMS推演速度×+1';
 			cost(x: Decimal): Decimal {
 				return new Decimal(10).mul(x.pow_base(1.15));
