@@ -3,6 +3,8 @@ import { Ordinal } from '@/lib/ordinal/';
 import { formatWhole } from './format';
 
 function bracket(a = 0, b = 0, c = 0): string {
+	if(c == 0 && b == 0) return '(' + a + ')';
+	if(c == 0) return '(' + a + ',' + b + ')';
 	return '(' + a + ',' + b + ',' + c + ')';
 }
 
@@ -119,7 +121,7 @@ export const OrdinalUtils = {
 			if(residue.gte(base.sub(1))) return s + this.numberToBMS(residue.sub(base).add(2), base, maxLength--, [basic[0] + 1, 0, 0]);
 			else return s + this.numberToBMS(residue, base, maxLength--, basic);
 		}
-		else return '>(0,0,0)(1,1,0)(2,2,0)';
+		else return '>(0)(1,1)(2,2)';
 	}
 	/*
 	1: 0
