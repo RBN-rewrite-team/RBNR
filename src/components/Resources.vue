@@ -181,6 +181,18 @@ import { format } from '@/utils/format';
 					(!{{ formatWhole(player.exponention.totalExppower) }})
 				</div>
 			</div>
+			<div
+				style="margin-left: 265px"
+				class="resource"
+				v-if="player.upgrades[517]"
+			>
+				<div style="font-weight: bold; color: rgb(200, 190, 245)">
+					九头蛇能量&nbsp;
+					<div style="display: inline; text-shadow: rgb(0, 20, 127) 1px 1px 2px">
+						{{ formatWhole(player.hydra.power) }}
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>

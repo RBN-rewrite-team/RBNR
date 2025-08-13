@@ -13,7 +13,7 @@ function timeF(ms = 0) {
 			<table>
 			  <tbody>
 				<tr><td><div class="upgrade">
-					<button class="upgrade_buttonbig" @click="feature.TimeShard.generatorReceive(0)">
+					<button class="upgrade_buttonbig" style="color: var(--color)" @click="feature.TimeShard.generatorReceive(0)">
 						<h3 style="color: rgb(255, 63, 255)">碎片生成器 I</h3><br>
 						冷却时间：1小时<br>
 						产量：10~50<br>
@@ -22,7 +22,7 @@ function timeF(ms = 0) {
 					</button>
 				</div></td>
 				<td><div class="upgrade">
-					<button class="upgrade_buttonbig" @click="feature.TimeShard.generatorReceive(1)">
+					<button class="upgrade_buttonbig" style="color: var(--color)" @click="feature.TimeShard.generatorReceive(1)">
 						<h3 style="color: rgb(255, 63, 255)">碎片生成器 II</h3><br>
 						冷却时间：24小时<br>
 						产量：30~150<br>

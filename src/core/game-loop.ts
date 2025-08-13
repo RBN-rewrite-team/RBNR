@@ -257,6 +257,10 @@ export function simulate(diff: number) {
 	if (player.upgrades[58]) {
 		feature.OrdinalNT.varGainLoop(diff / 1000);
 	}
+	
+	if(player.upgrades[517]) {
+		feature.Hydra.hydraUpdate(diff / 1000);
+	}
 
 	Logarithm.astronomerUpdate();
 	updateHighestStat();

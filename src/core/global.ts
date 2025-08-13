@@ -13,6 +13,7 @@ import { resourceGain } from './resource-gain.ts';
 import { ORDINAL } from './ordinal/ordinal.ts';
 import { OrdinalNT } from './ordinal/ordinalNT.ts';
 import { TimeShard } from './timeshard/timeshard.ts';
+import { Hydra } from './hydra/hydra.ts';
 
 const feature = {
 	mechanic: { UPGRADES: UPGRADES, BUYABLES: BUYABLES },
@@ -27,6 +28,7 @@ const feature = {
 	SingularityGenerator: SingularityGenerator,
 	Ordinal: ORDINAL,
 	OrdinalNT: OrdinalNT,
+	Hydra: Hydra,
 
 	resourceGain: resourceGain,
 	TimeShard: TimeShard,

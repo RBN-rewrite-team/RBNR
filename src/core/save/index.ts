@@ -128,6 +128,12 @@ export interface Player {
 		last: [number, number];
 	};
 	hydra: {
+		visiting: number;
+		power: Decimal;
+		totalPower: Decimal;
+		powerMult: [Decimal, Decimal, Decimal, Decimal];
+		deduceProgress: [Decimal, Decimal, Decimal, Decimal];
+		deduceOrdinal: [Decimal, Decimal, Decimal, Decimal];
 	};
 }
 function getInitialPlayerData(): Player {
@@ -221,6 +227,8 @@ function getInitialPlayerData(): Player {
 			'52R': false,
 			'51A': false,
 			'517': false,
+			'61': false,
+			'611': false,
 		},
 		buyables: {
 			'11': zero,
@@ -263,6 +271,8 @@ function getInitialPlayerData(): Player {
 			'51A': zero,
 			'52A': zero,
 			'53A': zero,
+			'611': zero,
+			'612': zero,
 		},
 		milestones: {
 			cb1: false,
@@ -393,6 +403,12 @@ function getInitialPlayerData(): Player {
 			last: [0, 0],
 		},
 		hydra: {
+			visiting: 0,
+			power: zero,
+			totalPower: zero,
+			powerMult: [new Decimal(1), new Decimal(1), new Decimal(1), new Decimal(1)],
+			deduceProgress: [zero, zero, zero, zero],
+			deduceOrdinal: [zero, zero, zero, zero],
 		},
 	};
 }

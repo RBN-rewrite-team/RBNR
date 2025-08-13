@@ -45,6 +45,7 @@ import OrdinalNT from './components/tabs/OrdinalNT.vue';
 import Help from './components/tabs/Help.vue';
 import Accelerator from './components/tabs/Accelerator.vue';
 import TimeShard from './components/tabs/TimeShard.vue';
+import Hydra from './components/tabs/Hydra.vue';
 </script>
 
 <template>
@@ -85,6 +86,7 @@ import TimeShard from './components/tabs/TimeShard.vue';
 				<Help v-if="player.currentTab === 16" />
 				<Accelerator v-if="player.currentTab === 17" />
 				<TimeShard v-if="player.currentTab === 18" />
+				<Hydra v-if="player.currentTab === 19" />
 				<div class="main" v-if="player.currentTab === 3">
 					<h1>大数之路重制版</h1>
 					版本: v0.4<br />
