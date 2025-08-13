@@ -3,18 +3,18 @@ import { simulate, startGameLoop, stopGameLoop } from './game-loop';
 import { save } from '@/core/save/';
 import Modal from '@/utils/Modal';
 import { formatTime } from '@/utils/format';
-export function simulateTime(miliseconds: number): void {
-	if (miliseconds < 0) throw new Error('?');
+export function simulateTime(milliseconds: number): void {
+	if (milliseconds < 0) throw new Error('?');
 	
-	if (miliseconds >= 6e5) miliseconds = 6e5 + (milliseconds / 1000 - 600) ** 0.5 * 1000;
-	if (miliseconds >= 3.6e6) miliseconds = 3.6e6;
+	if (milliseconds >= 6e5) milliseconds = 6e5 + (milliseconds / 1000 - 600) ** 0.5 * 1000;
+	if (milliseconds >= 3.6e6) milliseconds = 3.6e6;
 	
-	let ticks = Math.floor(miliseconds / 40);
+	let ticks = Math.floor(milliseconds / 40);
 	ticks = Math.min(ticks, 10000);
-	let remaining = miliseconds;
+	let remaining = milliseconds;
 	const startTime = Date.now();
 	const loopFn = () => {
-		const diff = miliseconds / ticks;
+		const diff = milliseconds / ticks;
 		simulate(diff);
 		remaining -= diff;
 	};
