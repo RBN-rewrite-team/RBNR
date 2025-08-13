@@ -179,7 +179,7 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 							@click="player.currentTab = 19"
 							v-if="player.upgrades[517]"
 						>
-							Coming Soon
+							九头蛇引擎
 						</div>
 					</template>
 					<div class="menu1">杂项</div>
