@@ -5,6 +5,10 @@ import Modal from '@/utils/Modal';
 import { formatTime } from '@/utils/format';
 export function simulateTime(miliseconds: number): void {
 	if (miliseconds < 0) throw new Error('?');
+	
+	if (miliseconds >= 6e5) miliseconds = 6e5 + (milliseconds / 1000 - 600) ** 0.5 * 1000;
+	if (miliseconds >= 3.6e6) miliseconds = 3.6e6;
+	
 	let ticks = Math.floor(miliseconds / 40);
 	ticks = Math.min(ticks, 10000);
 	let remaining = miliseconds;
