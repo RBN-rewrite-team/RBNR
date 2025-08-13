@@ -97,6 +97,10 @@ import Hydra from './components/tabs/Hydra.vue';
 					Seanxlx<br />
 					EdenGameMaster<br />
 					6左爷6<br />
+					<br>
+					<a href="https://github.com/RBN-rewrite-team/RBNR/blob/develop/public/changelog.md">
+					  查看更新记录
+					</a>
 				</div>
 			</div>
 		</div>
