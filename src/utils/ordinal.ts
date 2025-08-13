@@ -3,6 +3,8 @@ import { Ordinal } from '@/lib/ordinal/';
 import { formatWhole } from './format';
 
 function bracket(a = 0, b = 0, c = 0): string {
+	if(c == 0 && b == 0) return '(' + a + ')';
+	if(c == 0) return '(' + a + ',' + b + ')';
 	return '(' + a + ',' + b + ',' + c + ')';
 }
 
