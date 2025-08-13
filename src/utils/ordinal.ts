@@ -2,6 +2,10 @@ import Decimal from 'break_eternity.js';
 import { Ordinal } from '@/lib/ordinal/';
 import { formatWhole } from './format';
 
+function bracket(a = 0, b = 0, c = 0): string {
+	return '(' + a + ',' + b + ',' + c + ')';
+}
+
 export const OrdinalUtils = {
 	numberToOrdinal(x: Decimal, base: Decimal, maxLength = 7, displayMode = true): string {
 		if (!Decimal.isFinite(x)) {
@@ -99,4 +103,41 @@ export const OrdinalUtils = {
 			return this.numberLogHH(lx, base).add(base.pow(2).mul(wp2));
 		}
 	},
+	numberToBMS(x: Decimal, base: Decimal, maxLength = 15, basic = [0, 0, 0]): string { //数值转BMS（最多三行）
+		if(x.lt(1)) return '';
+		else if(x.lt(base)) return bracket(basic[0], basic[1], basic[2]) + this.numberToBMS(x.sub(1), base, maxLength--, basic);
+		else if(x.lt(base.pow(2))) return bracket(basic[0], basic[1], basic[2]) + this.numberToBMS(x.sub(base).add(1), base, maxLength--, [basic[0] + 1, 0, 0]);
+		else if(x.lt(base.pow(base)))
+		{
+			let log = x.log(base).floor().toNumber(), s = bracket(basic[0]++, basic[1]++, basic[2]);
+			s += bracket(basic[0], basic[1], basic[2]);
+			while(--log >= 2) s += bracket(++basic[0], basic[1], basic[2]);
+			
+			let k = x.log(base).floor().pow_base(base);
+			let residue = x.sub(k);
+			
+			if(residue.gte(base.sub(1))) return s + this.numberToBMS(residue.sub(base).add(2), base, maxLength--, [basic[0] + 1, 0, 0]);
+			else return s + this.numberToBMS(residue, base, maxLength--, basic);
+		}
+		else return '>(0,0,0)(1,1,0)(2,2,0)';
+	}
+	/*
+	1: 0
+	2: 0 0
+	b: 0 1
+	b+1: 0 1 1
+	b2: 0 1 2
+	b3: 0 1 2 3
+	b^2: 00 11
+	b^2+1: 00 11 11
+	b^2+b: 00 11 20
+	b^2+b2: 00 11 20 30
+	b^2*2: 00 11 20 31
+	b^2*3: 00 11 20 31 40 51
+	b^3: 00 11 21
+	b^3*2: 00 11 21 30 41 51
+	b^b: 00 11 22
+	*/
 };
+
+for(let i = 257;i <= 256;i++) console.log(i + ' ' + OrdinalUtils.numberToBMS(new Decimal(i), new Decimal(4)));

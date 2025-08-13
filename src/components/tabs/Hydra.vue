@@ -3,6 +3,8 @@ import {player, feature} from '@/core/global';
 import {format, formatWhole} from '@/utils/format';
 import TDUpgrade from '../TDUpgrade.vue';
 import TDBuyable from '../TDBuyable.vue';
+import {OrdinalUtils} from '@/utils/ordinal';
+import Decimal from 'break_eternity.js';
 
 function powerFactorHTML(): string {
 	let s = '';
@@ -26,8 +28,7 @@ function deduceButtonStyle(): string {
 			<tr>
 				<td style="width: 50%">
 					<button class="hydra-button" :style="{ 'background-image': deduceButtonStyle() }"><span class="hydra-text">
-						这里显示你的记号推演进展<br>
-						具体显示方式请等待更新
+						{{OrdinalUtils.numberToBMS(player.hydra.deduceOrdinal[0], new Decimal(4))}}
 					</span></button>
 				</td>
 				<td style="width: 50%">
@@ -65,6 +66,6 @@ function deduceButtonStyle(): string {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	font-size: 16px;
+	font-size: 20px;
 }
 </style>
