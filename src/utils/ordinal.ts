@@ -121,7 +121,7 @@ export const OrdinalUtils = {
 			if(residue.gte(base.sub(1))) return s + this.numberToBMS(residue.sub(base).add(2), base, maxLength--, [basic[0] + 1, 0, 0]);
 			else return s + this.numberToBMS(residue, base, maxLength--, basic);
 		}
-		else return '>(0,0,0)(1,1,0)(2,2,0)';
+		else return '>(0)(1,1)(2,2)';
 	}
 	/*
 	1: 0
