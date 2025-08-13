@@ -11,6 +11,7 @@ function timeF(ms = 0) {
 		<div align="center">
 			你有 <span style="color: rgb(255, 63, 255)">{{player.timeshard.value}}</span> 时间碎片，它没有直接效果<br>
 			<table>
+			  <tbody>
 				<tr><td><div class="upgrade">
 					<button class="upgrade_buttonbig" @click="feature.TimeShard.generatorReceive(0)">
 						<h3 style="color: rgb(255, 63, 255)">碎片生成器 I</h3><br>
@@ -29,6 +30,7 @@ function timeF(ms = 0) {
 						<span v-else style="color: orange; font-weight: bold">请等待至<br>{{timeF(player.timeshard.cd[1])}}</span>
 					</button>
 				</div></td></tr>
+				</tbody>
 			</table>
 		</div>
 	</div>

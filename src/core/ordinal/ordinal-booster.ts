@@ -15,9 +15,9 @@ export const ORDINAL_BOOSTER = {
 			description = '加速器倍率增加速度+0.01';
 			cost(x: Decimal): Decimal {
 				return new Ordinal('w^w')
-					.toDecimal(feature.Ordinal.base().toNumber())
+					.toDecimal(feature.Ordinal.base())
 					.mul(
-						x.pow_base(new Ordinal('w^2').toDecimal(feature.Ordinal.base().toNumber())),
+						x.pow_base(new Ordinal('w^2').toDecimal(feature.Ordinal.base())),
 					);
 			}
 			ordinal = true;
@@ -30,23 +30,23 @@ export const ORDINAL_BOOSTER = {
 			}
 			currency: Currencies = Currencies.ORDINAL;
 			canBuyMax(): boolean {
-				return false;
+				return player.ordinal.number.gte("e8e153");
 			}
 			autoBuyMax(): boolean {
 				return false;
 			}
 			costInverse(x: Decimal): Decimal {
 				return x
-					.div(new Ordinal('w^w').toDecimal(feature.Ordinal.base().toNumber()))
+					.div(new Ordinal('w^w').toDecimal(feature.Ordinal.base()))
 					.max(1)
-					.log(new Ordinal('w^2').toDecimal(feature.Ordinal.base().toNumber()));
+					.log(new Ordinal('w^2').toDecimal(feature.Ordinal.base()));
 			}
 		})(),
 		'52A': new (class extends Buyable<Decimal> {
 			description = '加速器最大倍率×2';
 			cost(x: Decimal): Decimal {
 				return new Ordinal('w^(w*2)')
-					.toDecimal(feature.Ordinal.base().toNumber())
+					.toDecimal(feature.Ordinal.base())
 					.pow(x.pow_base(2));
 			}
 			ordinal = true;
@@ -59,7 +59,7 @@ export const ORDINAL_BOOSTER = {
 			}
 			currency: Currencies = Currencies.ORDINAL;
 			canBuyMax(): boolean {
-				return false;
+				return player.ordinal.number.gte("e8e153");
 			}
 			autoBuyMax(): boolean {
 				return false;
@@ -67,7 +67,7 @@ export const ORDINAL_BOOSTER = {
 			costInverse(x: Decimal): Decimal {
 				return x
 					.max(1)
-					.log(new Ordinal('w^(w*2)').toDecimal(feature.Ordinal.base().toNumber()))
+					.log(new Ordinal('w^(w*2)').toDecimal(feature.Ordinal.base()))
 					.max(1)
 					.log2();
 			}
@@ -76,7 +76,7 @@ export const ORDINAL_BOOSTER = {
 			description = '加速器效果^+0.05';
 			cost(x: Decimal): Decimal {
 				return new Ordinal('w^(w*2)')
-					.toDecimal(feature.Ordinal.base().toNumber())
+					.toDecimal(feature.Ordinal.base())
 					.pow(x.pow_base(2));
 			}
 			ordinal = true;
@@ -91,7 +91,7 @@ export const ORDINAL_BOOSTER = {
 			}
 			currency: Currencies = Currencies.ORDINAL;
 			canBuyMax(): boolean {
-				return false;
+				return player.ordinal.number.gte("e8e153");
 			}
 			autoBuyMax(): boolean {
 				return false;
@@ -99,7 +99,7 @@ export const ORDINAL_BOOSTER = {
 			costInverse(x: Decimal): Decimal {
 				return x
 					.max(1)
-					.log(new Ordinal('w^(w*2)').toDecimal(feature.Ordinal.base().toNumber()))
+					.log(new Ordinal('w^(w*2)').toDecimal(feature.Ordinal.base()))
 					.max(1)
 					.log2();
 			}
@@ -109,7 +109,7 @@ export const ORDINAL_BOOSTER = {
 		'51A': new (class U51A extends UpgradeWithEffect<Decimal> {
 			description = '基于序数增加加速器上限和增长速度';
 			cost: () => Decimal = function () {
-				return new Ordinal('w^(w*5+4)').toDecimal(feature.Ordinal.base().toNumber());
+				return new Ordinal('w^(w*5+4)').toDecimal(feature.Ordinal.base());
 			};
 			ordinal = true;
 			name = 'U51-A';

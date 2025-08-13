@@ -3,6 +3,7 @@ name: Type Check, Build & Deploy
 on:
   push:
     branches: [develop]
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -25,7 +26,7 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build project
         run: npm run build

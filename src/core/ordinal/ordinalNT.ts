@@ -14,7 +14,7 @@ export const OrdinalNT = {
 			description = 'x<sub>3,1</sub>=x<sub>3,1</sub>+1';
 			cost(x: Decimal): Decimal {
 				return new Ordinal('w^4')
-					.toDecimal(feature.Ordinal.base().toNumber())
+					.toDecimal(feature.Ordinal.base())
 					.mul(x.pow_base(2));
 			}
 			ordinal = true;
@@ -23,11 +23,11 @@ export const OrdinalNT = {
 				return x;
 			}
 			effectDescription(x: Decimal) {
-				return `x<sub>3,1</sub> = ` + this.effect(x);
+				return `x<sub>3,1</sub> = ` + format(this.effect(x));
 			}
 			currency: Currencies = Currencies.ORDINAL;
 			canBuyMax(): boolean {
-				return false;
+				return player.ordinal.number.gte("e8e153");
 			}
 			autoBuyMax(): boolean {
 				return false;
@@ -35,7 +35,7 @@ export const OrdinalNT = {
 			costInverse(x: Decimal): Decimal {
 				return x
 					.max(1)
-					.div(new Ordinal('w^4').toDecimal(feature.Ordinal.base().toNumber()))
+					.div(new Ordinal('w^4').toDecimal(feature.Ordinal.base()))
 					.max(1)
 					.log(2)
 					.add(1)
@@ -46,7 +46,7 @@ export const OrdinalNT = {
 			description = 'SGH底数+1';
 			cost(x: Decimal): Decimal {
 				return new Ordinal('w^4')
-					.toDecimal(feature.Ordinal.base().toNumber())
+					.toDecimal(feature.Ordinal.base())
 					.mul(x.pow_base(feature.Ordinal.base().toNumber()));
 			}
 			ordinal = true;
@@ -55,11 +55,11 @@ export const OrdinalNT = {
 				return x;
 			}
 			effectDescription(x: Decimal) {
-				return '+' + this.effect(x);
+				return '+' + format(this.effect(x));
 			}
 			currency: Currencies = Currencies.ORDINAL;
 			canBuyMax(): boolean {
-				return false;
+				return player.ordinal.number.gte("e8e153");
 			}
 			autoBuyMax(): boolean {
 				return false;
@@ -67,7 +67,7 @@ export const OrdinalNT = {
 			costInverse(x: Decimal): Decimal {
 				return x
 					.max(1)
-					.div(new Ordinal('w^4').toDecimal(feature.Ordinal.base().toNumber()))
+					.div(new Ordinal('w^4').toDecimal(feature.Ordinal.base()))
 					.max(1)
 					.log(feature.Ordinal.base().toNumber())
 					.add(1)
@@ -78,7 +78,7 @@ export const OrdinalNT = {
 			description = 'HH底数-1';
 			cost(x: Decimal): Decimal {
 				return new Ordinal('w^w')
-					.toDecimal(feature.Ordinal.base().toNumber())
+					.toDecimal(feature.Ordinal.base())
 					.pow(x.pow_base(2));
 			}
 			ordinal = true;
@@ -99,7 +99,7 @@ export const OrdinalNT = {
 			costInverse(x: Decimal): Decimal {
 				return x
 					.max(1)
-					.log(new Ordinal('w^w').toDecimal(feature.Ordinal.base().toNumber()))
+					.log(new Ordinal('w^w').toDecimal(feature.Ordinal.base()))
 					.max(1)
 					.log2()
 					.floor();
@@ -111,7 +111,7 @@ export const OrdinalNT = {
 		'54R': new (class B54R extends Buyable<Decimal> {
 			description = '将x_3每秒增长倍率+0.05';
 			cost(x: Decimal): Decimal {
-				return new Ordinal('w^w').toDecimal(feature.Ordinal.base().toNumber()).pow(x);
+				return new Ordinal('w^w').toDecimal(feature.Ordinal.base()).pow(x);
 			}
 			ordinal = true;
 			name = 'B4-R1-4';
@@ -123,7 +123,7 @@ export const OrdinalNT = {
 			}
 			currency: Currencies = Currencies.ORDINAL;
 			canBuyMax(): boolean {
-				return false;
+				return player.ordinal.number.gte("e8e153");
 			}
 			autoBuyMax(): boolean {
 				return false;
@@ -131,7 +131,7 @@ export const OrdinalNT = {
 			costInverse(x: Decimal): Decimal {
 				return x
 					.max(1)
-					.log(new Ordinal('w^w').toDecimal(feature.Ordinal.base().toNumber()))
+					.log(new Ordinal('w^w').toDecimal(feature.Ordinal.base()))
 					.max(1)
 					.floor();
 			}
@@ -140,7 +140,7 @@ export const OrdinalNT = {
 			description = '将x_3每秒增长指数+0.05';
 			cost(x: Decimal): Decimal {
 				return new Ordinal('w^(w*2)')
-					.toDecimal(feature.Ordinal.base().toNumber())
+					.toDecimal(feature.Ordinal.base())
 					.pow(x.pow_base(feature.Ordinal.base().toNumber()));
 			}
 			ordinal = true;
@@ -153,7 +153,7 @@ export const OrdinalNT = {
 			}
 			currency: Currencies = Currencies.ORDINAL;
 			canBuyMax(): boolean {
-				return false;
+				return player.ordinal.number.gte("e8e153");
 			}
 			autoBuyMax(): boolean {
 				return false;
@@ -161,7 +161,7 @@ export const OrdinalNT = {
 			costInverse(x: Decimal): Decimal {
 				return x
 					.max(1)
-					.log(new Ordinal('w^w').toDecimal(feature.Ordinal.base().toNumber()))
+					.log(new Ordinal('w^w').toDecimal(feature.Ordinal.base()))
 					.max(1)
 					.log(feature.Ordinal.base().toNumber())
 					.floor();
@@ -172,7 +172,7 @@ export const OrdinalNT = {
 		'51R': new (class U51 extends Upgrade {
 			description = '将底数降低1';
 			cost = (): Decimal =>
-				new Ordinal('w^(w*2)').toDecimal(feature.Ordinal.base().toNumber());
+				new Ordinal('w^(w*2)').toDecimal(feature.Ordinal.base());
 			ordinal = true;
 			name = 'U4-R1-1';
 			currency: Currencies = Currencies.ORDINAL;
@@ -180,7 +180,7 @@ export const OrdinalNT = {
 		'52R': new (class U52 extends Upgrade {
 			description = '序数增长速度被乘以奇点能量';
 			cost = (): Decimal =>
-				new Ordinal('w^(w*2+1)').toDecimal(feature.Ordinal.base().toNumber());
+				new Ordinal('w^(w*2+1)').toDecimal(feature.Ordinal.base());
 			ordinal = true;
 			name = 'U4-R1-2';
 			currency: Currencies = Currencies.ORDINAL;
@@ -247,21 +247,18 @@ export const OrdinalNT = {
 			if (id == 'tau') {
 				let base;
 				if (player.upgrades[515])
-					base = OrdinalUtils.ordinalChangeBase(
-						this.varComputed('a', 3),
-						this.varComputed('hhBase', 3),
-						OrdinalUtils.ordinalChangeBase(
-							this.varComputed('a', 3),
-							this.varComputed('hhBase', 3),
-							this.varComputed('sghBase', 3),
-						),
-					);
+					base = new Ordinal(OrdinalUtils.numberToOrdinal(
+							OrdinalNT.varComputed('a', 3),
+							OrdinalNT.varComputed('hhBase', 3), 7, false
+						)).toDecimal(new Ordinal(OrdinalUtils.numberToOrdinal(
+							OrdinalNT.varComputed('a', 3),
+							OrdinalNT.varComputed('hhBase', 3), 7, false
+						)).toDecimal(this.varComputed('sghBase', 3)))
 				else
-					base = OrdinalUtils.ordinalChangeBase(
-						this.varComputed('a', 3),
-						this.varComputed('hhBase', 3),
-						this.varComputed('sghBase', 3),
-					);
+					base = new Ordinal(OrdinalUtils.numberToOrdinal(
+							OrdinalNT.varComputed('a', 3),
+							OrdinalNT.varComputed('hhBase', 3), 7, false
+						)).toDecimal(this.varComputed('sghBase', 3))
 				return base;
 			} else if (id == 'a') {
 				let base = OrdinalUtils.numberLogHH(

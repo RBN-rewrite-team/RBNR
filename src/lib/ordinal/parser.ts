@@ -8,6 +8,7 @@ import {
 	type ASTNode,
 	MainNode,
 	ZetaNode,
+	W1CKNode,
 } from './ast.ts';
 import { Lexer } from './lexer.ts';
 import { Tokens, Token } from './tokens.ts';
@@ -30,6 +31,7 @@ export class Parser {
 		this.prefixParseFns.set(Tokens.number, this.parseNumberExpression.bind(this));
 		this.prefixParseFns.set(Tokens.lparen, this.parseGroupedExpression.bind(this));
 		this.prefixParseFns.set(Tokens.zeta, this.parseZetaExpression.bind(this));
+		this.prefixParseFns.set(Tokens.w1ck, this.parseW1CKExpression.bind(this));
 		this.infixParseFns.set(Tokens.addition, this.parseAdditionExpression.bind(this));
 		this.infixParseFns.set(Tokens.multiply, this.parseMultExpression.bind(this));
 		this.infixParseFns.set(Tokens.exponention, this.parseExpoExpression.bind(this));
@@ -100,6 +102,10 @@ export class Parser {
 	parseOmegaExpression(): OmegaNode {
 		this.nextToken();
 		return new OmegaNode();
+	}
+	parseW1CKExpression(): W1CKNode {
+		this.nextToken();
+		return new W1CKNode();
 	}
 
 	parseAdditionExpression(left: ASTNode): AddNode {

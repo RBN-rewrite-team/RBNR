@@ -3,6 +3,7 @@ import { Parser } from './parser.ts';
 import { MainNode } from './ast.ts';
 import Decimal from 'break_eternity.js';
 import { formatWhole } from '@/utils/format';
+import { toRaw } from 'vue';
 
 export class Ordinal {
 	node: MainNode;
@@ -11,7 +12,7 @@ export class Ordinal {
 		this.node = new Parser(new Lexer(value)).parseToMainExpression();
 	}
 
-	toDecimal(base = 10) {
+	toDecimal(base: Decimal = new Decimal(10)) {
 		return this.node.toDecimal(base).round();
 	}
 
@@ -31,17 +32,24 @@ export function displayOrd(
 	colour: number = 0,
 ): string {
 	ord = new Decimal(ord).floor();
+	if (!Decimal.isFinite(ord)) {
+		return "Ω"
+	}
 	const originalOrd = Decimal.fromValue(ord);
 	let dispString = '';
 
 	const bigBase = new Decimal(base);
-
-	if (ord.gte(bigBase.tetrate(10))) {
+	
+	const tetration = bigBase.tetrate(bigBase.toNumber());
+	if (ord.gte(tetration)) {
 		const prefix =
 			colour === 1
 				? "<span style='color:red;text-shadow:0 0 3px #fff'>ε<sub>0</sub></span>"
 				: 'ε<sub>0</sub>';
-		return prefix;
+		
+		let power = ord.log(tetration); 
+		let powerdisplay = displayOrd(power, base, over, trim, large, multoff, colour);
+		return prefix + "<sup>" + powerdisplay + "</sup>";
 	}
 
 	let length = 8;
@@ -71,7 +79,9 @@ export function displayOrd(
 		const expression = 'ω' + expPart + coeffPart + separator;
 
 		if (colour === 1) {
-			const hueValue = exponent.mul(8);
+			let colorExponent = new Decimal(exponent);
+			if (colorExponent.gte(9e15)) colorExponent.layer = 0
+			const hueValue = colorExponent.mul(8);
 			const colorCode = HSL(hueValue);
 			const shadowColor = getContrastColor(colorCode);
 			dispString += `<span style='color:${colorCode};text-shadow:0 0 3px ${shadowColor}'>${expression}</span>`;

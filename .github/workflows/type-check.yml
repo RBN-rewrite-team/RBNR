@@ -4,6 +4,7 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
     branches: [develop]
+  workflow_dispatch:
 
 jobs:
   type-check:
@@ -23,7 +24,7 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run Type Check
         run: npm run type-check

@@ -4,14 +4,23 @@ import { formatWhole } from './format';
 
 export const OrdinalUtils = {
 	numberToOrdinal(x: Decimal, base: Decimal, maxLength = 7, displayMode = true): string {
+		if (!Decimal.isFinite(x)) {
+			return "Ω"
+		}
 		//数值转序数
-		if (x.gte(base.tetrate(base.toNumber()))) return 'ε<sub>0</sub>';
+		const tetration = base.tetrate(base.toNumber())
+		if (x.gte(tetration)) {
+			let prefix = displayMode ? "ε<sub>0</sub>" : "e0"
+			let power = x.log(tetration); 
+			let powerdisplay = this.numberToOrdinal(power, base, maxLength-1, displayMode);
+			return prefix + (displayMode?"<sup>":"^(") + powerdisplay + (displayMode?"</sup>":")");
+		};
 		if (x.lt(base)) return formatWhole(x);
 		if (maxLength <= 0) return '...';
 		let exp = x.log(base).add(1e-9).floor();
 		let mult = x.div(exp.pow_base(base)).add(1e-9).floor();
 		let add = x.sub(exp.pow_base(base).mul(mult)).add(1e-9).floor();
-		if (x.gte(base.tetrate(3))) add = new Decimal(0);
+		if (x.gte(base.iteratedexp(2, new Decimal(3)))) add = new Decimal(0)
 		if (displayMode)
 			return (
 				'ω' +
@@ -39,7 +48,7 @@ export const OrdinalUtils = {
 		let exp = x.log(base).add(1e-9).floor();
 		let mult = x.div(exp.pow_base(base)).add(1e-9).floor();
 		let add = x.sub(exp.pow_base(base).mul(mult)).add(1e-9).floor();
-		if (x.gte(base.tetrate(3))) add = new Decimal(0);
+		if (x.gte(base.iteratedexp(2, new Decimal(3)))) add = new Decimal(0)
 		return (
 			'\\omega' +
 			(exp.gt(1) ? '^{' + this.numberToLaTeXOrdinal(exp, base, --maxLength) + '}' : '') +
@@ -49,7 +58,7 @@ export const OrdinalUtils = {
 	},
 	ordinalChangeBase(x: Decimal, base: Decimal, nBase: Decimal): Decimal {
 		//序数换底
-		return new Ordinal(this.numberToOrdinal(x, base, 7, false)).toDecimal(nBase.toNumber());
+		return new Ordinal(this.numberToOrdinal(x, base, 7, false)).toDecimal(nBase);
 	},
 	numberLogHH(x: Decimal, base: Decimal): Decimal {
 		//数值被HH Log
