@@ -2,7 +2,7 @@ import Decimal from 'break_eternity.js';
 import { Ordinal } from '@/lib/ordinal/';
 import { formatWhole } from './format';
 
-function bracket(a, b, c): string {
+function bracket(a = 0, b = 0, c = 0): string {
 	return '(' + a + ',' + b + ',' + c + ')';
 }
 
