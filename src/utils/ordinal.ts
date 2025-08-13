@@ -106,14 +106,30 @@ export const OrdinalUtils = {
 		}
 	},
 	numberToBMS(x: Decimal, base: Decimal, maxLength = 15, basic = [0, 0, 0]): string { //数值转BMS（最多三行）
+		if(maxLength <= 0) return '...';
+		
 		if(x.lt(1)) return '';
 		else if(x.lt(base)) return bracket(basic[0], basic[1], basic[2]) + this.numberToBMS(x.sub(1), base, maxLength--, basic);
 		else if(x.lt(base.pow(2))) return bracket(basic[0], basic[1], basic[2]) + this.numberToBMS(x.sub(base).add(1), base, maxLength--, [basic[0] + 1, 0, 0]);
-		else if(x.lt(base.pow(base)))
+		else if(x.lt(base.pow(base.pow(2))))
 		{
-			let log = x.log(base).floor().toNumber(), s = bracket(basic[0]++, basic[1]++, basic[2]);
-			s += bracket(basic[0], basic[1], basic[2]);
-			while(--log >= 2) s += bracket(++basic[0], basic[1], basic[2]);
+			let log = x.log(base).floor().toNumber(), s = bracket(basic[0]++, basic[1]++, basic[2]); maxLength--;
+			s += bracket(basic[0], basic[1], basic[2]), maxLength--;
+			let flag = false;
+			if(log >= base) flag = true;
+			while((log >= 3 && !flag) || (log >= 1 && flag))
+			{
+				if(log >= base)
+				{
+					s += bracket(++basic[0], basic[1] + 1, basic[2]), maxLength--;
+					log -= base;
+				}
+				else
+				{
+					s += bracket(++basic[0], basic[1], basic[2]), maxLength--;
+					log--;
+				}
+			}
 			
 			let k = x.log(base).floor().pow_base(base);
 			let residue = x.sub(k);
@@ -121,7 +137,7 @@ export const OrdinalUtils = {
 			if(residue.gte(base.sub(1))) return s + this.numberToBMS(residue.sub(base).add(2), base, maxLength--, [basic[0] + 1, 0, 0]);
 			else return s + this.numberToBMS(residue, base, maxLength--, basic);
 		}
-		else return '>(0)(1,1)(2,2)';
+		else return '>(0)(1,1)(2,2)(3,2)';
 	}
 	/*
 	1: 0
@@ -139,6 +155,14 @@ export const OrdinalUtils = {
 	b^3: 00 11 21
 	b^3*2: 00 11 21 30 41 51
 	b^b: 00 11 22
+	b^b+1: 00 11 22 22
+	b^b+b: 00 11 22 30
+	b^b*2: 00 11 22 30 41 52
+	b^(b+1): 00 11 22 31
+	b^(b+1)*2: 00 11 22 31 40 51 62 71
+	b^(b+2): 00 11 22 31 41
+	b^(b2): 00 11 22 31 42
+	b^(b^2): 00 11 22 32
 	*/
 };
 
