@@ -18,6 +18,7 @@ import { cb1 } from './exponention/chessboard.ts';
 import { Buyable } from './buyable.ts';
 import { countdown } from './countdown-display.ts';
 import { ORDINAL_BOOSTER } from './ordinal/ordinal-booster.ts';
+import { Hydra } from './hydra/hydra.ts';
 
 const upgrades = {
 	...Successor.upgrades,
@@ -29,6 +30,7 @@ const upgrades = {
 	...ORDINAL.upgrades,
 	...OrdinalNT.upgrades,
 	...ORDINAL_BOOSTER.upgrades,
+	...Hydra.upgrades,
 } as const;
 const buyables = {
 	...Successor.buyables,
@@ -41,6 +43,7 @@ const buyables = {
 	...Logarithm.buyables,
 	...OrdinalNT.buyables,
 	...ORDINAL_BOOSTER.buyables,
+	...Hydra.buyables,
 } as const;
 const preExponent = Object.keys(Addition.buyables)
 	.concat(Object.keys(Successor.buyables))

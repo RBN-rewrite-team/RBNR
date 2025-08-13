@@ -8,6 +8,7 @@ export enum Currencies {
 	EXPONENTION_POWER = 'exponent',
 	QOL_POINTS = 'qol',
 	ORDINAL = 'ordinal',
+	HYDRA_POWER = 'hydra',
 }
 
 abstract class Currency {
@@ -87,6 +88,17 @@ class Ordinal extends Currency {
 	}
 }
 
+class HydraPowerCurrency extends Currency {
+	static name = '九头蛇能量';
+	static set current(x: Decimal) {
+		player.hydra.power = x;
+	}
+	
+	static get current() {
+		return player.hydra.power;
+	}
+}
+
 const currencyMap: Map<Currencies, typeof Currency> = new Map([
 	[Currencies.NUMBER, NumberCurrency],
 	[Currencies.ADDITION_POWER, AdditionPowerCurrency],
@@ -94,6 +106,7 @@ const currencyMap: Map<Currencies, typeof Currency> = new Map([
 	[Currencies.EXPONENTION_POWER, ExponentionPowerCurrency],
 	[Currencies.QOL_POINTS, QolPointsCurrency],
 	[Currencies.ORDINAL, Ordinal],
+	[Currencies.HYDRA_POWER, HydraPowerCurrency],
 ]);
 
 export function setCurrency(currency: Currencies, value: Decimal) {
