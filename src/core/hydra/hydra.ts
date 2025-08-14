@@ -38,6 +38,26 @@ export const Hydra = {
 			description = '飞升的公式变得更好';
 			cost = new Decimal(1e15);
 			name = 'U5-1-3';
+			show(): boolean {
+				return Hydra.pUnlock(1);
+			}
+			currency: Currencies = Currencies.HYDRA_POWER;
+		})(),
+		'614': new (class U614 extends UpgradeWithEffect<Decimal> {
+			description = '当前九头蛇能量提升BMS乘数获取';
+			cost = new Decimal(1e15);
+			name = 'U5-1-1';
+			effect(): Decimal {
+				let base = player.hydra.power.div(1e15).max(1).root(10);
+				if(base.gte(1e100)) base = base.log10().div(100).pow(0.75).mul(100).pow_base(10);
+				return base;
+			}
+			effectDescription(): string {
+				return 'x' + format(this.effect());
+			}
+			show(): boolean {
+				return Hydra.pUnlock(2);
+			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
 	},
@@ -151,6 +171,8 @@ export const Hydra = {
 	deduceEff(i = 0): Decimal { //推演一位提高的乘数
 		let base = new Decimal(0.001);
 		if(Hydra.pUnlock(1)) base = base.mul(buyables[613].effect(player.buyables[613]));
+		base = base.mul(Hydra.prestigeEff(2));
+		if(i == 0 && player.upgrades[614]) base = base.mul(upgrades[614].effect());
 		return base;
 	},
 	basePower(): Decimal {
@@ -199,8 +221,9 @@ export const Hydra = {
 			if(player.upgrades[613]) base = num.max(1).log10().mul(4).root(2).div(4).sub(0.389).max(0).mul(2.5);
 			else base = num.div(2).max(1).log10().mul(4).root(2).div(4).sub(0.4).max(0).mul(2.5);
 		}
+		else if(id == 2) base = num.pow(3).mul(num.max(1).add(1).log(2)).pow_base(5);
 		if(id == 0 && base.gte(100)) base = base.div(100).root(1.5).mul(100);
-		if(id == 1 && base.gte(1)) base = base.root(1.5);
+		if(id == 1 && base.gte(1)) base = base.root(2);
 		if(!preview) return base;
 		else return base.max(Hydra.prestigeEff(id, false));
 	},
