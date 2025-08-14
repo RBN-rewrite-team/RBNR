@@ -29,8 +29,14 @@ export const Hydra = {
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
 		'612': new (class U612 extends Upgrade {
-			description = '解锁鸟之序列(Coming Soon)';
+			description = '推演速度提高100%';
 			cost = new Decimal(100);
+			name = 'U5-1-2';
+			currency: Currencies = Currencies.HYDRA_POWER;
+		})(),
+		'613': new (class U613 extends Upgrade {
+			description = '飞升的公式变得更好';
+			cost = new Decimal(1e15);
 			name = 'U5-1-2';
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
@@ -61,6 +67,74 @@ export const Hydra = {
 					.max(1)
 					.log(1.15)
 					.add(1)
+					.max(99)
+					.floor();
+			}
+			capped(x: Decimal) {
+				return x.add(this.more()).gte(99);
+			}
+		})(),
+		'612': new (class B612 extends Buyable<Decimal> {
+			description = '基础指数+0.01';
+			cost(x: Decimal): Decimal {
+				return new Decimal(10000).mul(x.pow(2).pow_base(1.05));
+			}
+			name = 'B5-1-2';
+			effect(x: Decimal): Decimal {
+				return x.mul(0.01);
+			}
+			effectDescription(x: Decimal) {
+				return '+' + format(this.effect(x));
+			}
+			currency: Currencies = Currencies.HYDRA_POWER;
+			show(): boolean {
+				return Hydra.pUnlock(1);
+			}
+			canBuyMax(): boolean {
+				return false;
+			}
+			autoBuyMax(): boolean {
+				return false;
+			}
+			costInverse(x: Decimal): Decimal {
+				return x
+					.div(10000)
+					.max(1)
+					.log(1.05)
+					.root(2)
+					.add(1)
+					.floor();
+			}
+		})(),
+		'613': new (class B613 extends Buyable<Decimal> {
+			description = '乘数获取速度×1.1';
+			cost(x: Decimal): Decimal {
+				return new Decimal(1e8).mul(x.pow(2.5).pow_base(1.02));
+			}
+			name = 'B5-1-2';
+			effect(x: Decimal): Decimal {
+				return x.pow_base(1.1);
+			}
+			effectDescription(x: Decimal) {
+				return 'x' + format(this.effect(x));
+			}
+			currency: Currencies = Currencies.HYDRA_POWER;
+			show(): boolean {
+				return Hydra.pUnlock(1);
+			}
+			canBuyMax(): boolean {
+				return false;
+			}
+			autoBuyMax(): boolean {
+				return false;
+			}
+			costInverse(x: Decimal): Decimal {
+				return x
+					.div(1e8)
+					.max(1)
+					.log(1.02)
+					.root(2.5)
+					.add(1)
 					.floor();
 			}
 		})(),
@@ -70,28 +144,77 @@ export const Hydra = {
 		if(i == 0 && player.upgrades[61]) base = new Decimal(0.1);
 		if(i == 0 && player.upgrades[611]) base = base.mul(upgrades[611].effect());
 		if(i == 0) base = base.mul(buyables[611].effect(player.buyables[611]));
+		if(player.upgrades[612]) base = base.mul(2);
+		base = base.mul(Hydra.prestigeEff(0));
 		return base;
 	},
 	deduceEff(i = 0): Decimal { //推演一位提高的乘数
 		let base = new Decimal(0.001);
+		if(Hydra.pUnlock(1)) base = base.mul(buyables[613].effect(player.buyables[613]));
 		return base;
+	},
+	basePower(): Decimal {
+		return player.hydra.powerMult[0].mul(player.hydra.powerMult[1].mul(player.hydra.powerMult[2].mul(player.hydra.powerMult[3])));
 	},
 	powerExp(): Decimal { //能量指数
 		let base = new Decimal(1);
+		base = base.add(Hydra.prestigeEff(1));
+		if(Hydra.pUnlock(1)) base = base.add(buyables[612].effect(player.buyables[612]));
 		return base;
 	},
 	powerExtraMult(): Decimal { //能量倍数
 		let base = new Decimal(1);
+		base = base.mul(Hydra.prestigeEff(0));
 		return base;
 	},
 	powerGain(): Decimal { //能量产量
-		let base = player.hydra.powerMult[0].mul(player.hydra.powerMult[1].mul(player.hydra.powerMult[2].mul(player.hydra.powerMult[3])));
+		let base = Hydra.basePower();
 		base = base.mul(Hydra.powerExtraMult());
 		base = base.pow(Hydra.powerExp());
 		return base;
 	},
+	pUnlock(id = 0): boolean { //解锁转生
+		if(id != 3 && Hydra.pUnlock(id + 1)) return true;
+		if(id == 0) return player.hydra.prestige[0].gt(0) || Hydra.basePower().gte(2);
+		else if(id == 1) return player.hydra.prestige[1].gt(0) || Hydra.prestigeEff(0, true).gte(20);
+		else if(id == 2) return player.hydra.prestige[2].gt(0) || Hydra.prestigeEff(1, true).gte(1);
+		return false;
+	},
+	prestigeBase(id = 0): Decimal {
+		if(id == 0) return Hydra.basePower();
+		else return Hydra.prestigeEff(id - 1, true);
+		return new Decimal(0);
+	},
+	prestigeEff(id = 0, preview = false): Decimal {
+		let num = new Decimal(0);
+		if(!preview) num = player.hydra.prestige[id];
+		else num = Hydra.prestigeBase(id);
+		let base = new Decimal(0);
+		if(id == 0) base = num.max(1).pow(0.3).mul(num.add(2).log(2));
+		else if(id == 1)
+		{
+			if(player.upgrades[613]) base = num.max(1).log10().mul(4).root(2).div(4).sub(0.389).max(0).mul(2.5);
+			else base = num.div(2).max(1).log10().mul(4).root(2).div(4).sub(0.4).max(0).mul(2.5);
+		}
+		if(id == 0 && base.gte(100)) base = base.div(100).root(1.5).mul(100);
+		if(id == 1 && base.gte(1)) base = base.root(1.5);
+		if(!preview) return base;
+		else return base.max(Hydra.prestigeEff(id, false));
+	},
 	deduce(i = 0, bulk = new Decimal(0)): void {
 		player.hydra.deduceOrdinal[i] = player.hydra.deduceOrdinal[i].add(bulk);
+	},
+	prestige(i = 0): void {
+		if(!Hydra.pUnlock(i)) return;
+		if(!Hydra.prestigeEff(i, true).gt(Hydra.prestigeEff(i, false))) return;
+		player.hydra.prestige[i] = player.hydra.prestige[i].max(Hydra.prestigeBase(i));
+		for(let j = 0;j < 4;j++)
+		{
+			Hydra.hydraReset(j);
+			player.hydra.powerMult[j] = new Decimal(1);
+		}
+		for(let j = 0;j < i;j++) player.hydra.prestige[j] = new Decimal(0);
+		player.hydra.power = new Decimal(0);
 	},
 	hydraUpdate(diff = 0): void {
 		for(let i = 0;i < 4;i++)
