@@ -19,6 +19,8 @@ function deduceButtonStyle(): string {
 	let pc = player.hydra.deduceProgress[player.hydra.visiting].mul(100).toNumber();
 	return 'linear-gradient(to right, rgba(155, 125, 195, 0.5) ' + pc + '%, var(--background-color) ' + pc + '%)';
 }
+
+//setInterval(()=>feature.Hydra.hydraReset(player.hydra.visiting))
 </script>
 
 <template>
@@ -28,7 +30,10 @@ function deduceButtonStyle(): string {
 		  <tbody>
 			<tr>
 				<td style="width: 50%">
-					<button class="hydra-button" :style="{ 'background-image': deduceButtonStyle() }"><span class="hydra-text">
+					<button v-if="feature.Hydra.deduceSpeed().lt(100)" class="hydra-button" :style="{ 'background-image': deduceButtonStyle() }"><span class="hydra-text">
+						{{OrdinalUtils.numberToBMS(player.hydra.deduceOrdinal[0], new Decimal(4))}}
+					</span></button>
+					<button v-else class="hydra-button fast"><span class="hydra-text">
 						{{OrdinalUtils.numberToBMS(player.hydra.deduceOrdinal[0], new Decimal(4))}}
 					</span></button>
 				</td>
@@ -113,8 +118,47 @@ function deduceButtonStyle(): string {
 	border: 2px solid rgb(200, 190, 245);
 	position: relative;
 	z-index: 1;
-	
 }
+.hydra-button {
+  &.fast {
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      position: absolute;
+      background: linear-gradient(
+        -45deg,
+        rgba(155, 125, 195, 0.3) 0,
+        rgba(155, 125, 195, 0.3) 25%,
+        rgba(155, 125, 195, 0.5) 25%,
+        rgba(155, 125, 195, 0.5) 50%,
+        rgba(155, 125, 195, 0.3) 50%,
+        rgba(155, 125, 195, 0.3) 75%,
+        rgba(155, 125, 195, 0.5) 75%,
+        rgba(155, 125, 195, 0.5),
+      );
+      top: 0px;
+      left: 0px;
+      right: 0px;
+      bottom: 0px;
+      background-size: 100px 100px;
+      background-repeat: repeat;
+      animation: scroll_left 1s linear infinite;
+      width: 200%;
+    }
+  }
+}
+
+@keyframes scroll_left {
+  0% {
+    transform: translateX(0%)
+  }
+  100% {
+    transform: translateX(-50%)
+  }
+}
+
 .hydra-button-short {
 	background-color: var(--background-color);
 	color: var(--color);
