@@ -116,14 +116,13 @@ export const OrdinalUtils = {
 			let log = x.log(base).floor().toNumber(), s = bracket(basic[0]++, basic[1]++, basic[2]); maxLength--;
 			s += bracket(basic[0], basic[1], basic[2]), maxLength--;
 			let flag = false;
-			let base2 = base.toNumber();
-			if(log >= base2) flag = true;
+			if(log >= base.toNumber()) flag = true;
 			while((log >= 3 && !flag) || (log >= 1 && flag))
 			{
-				if(log >= base2)
+				if(log >= base.toNumber())
 				{
 					s += bracket(++basic[0], basic[1] + 1, basic[2]), maxLength--;
-					log -= base2;
+					log -= base.toNumber();
 				}
 				else
 				{
@@ -164,6 +163,7 @@ export const OrdinalUtils = {
 	b^(b+2): 00 11 22 31 41
 	b^(b2): 00 11 22 31 42
 	b^(b^2): 00 11 22 32
+  狗操的BMS,那么复杂相思了
 	*/
 };
 
