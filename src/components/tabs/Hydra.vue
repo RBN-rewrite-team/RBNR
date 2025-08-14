@@ -33,7 +33,9 @@ function deduceButtonStyle(): string {
 					</span></button>
 				</td>
 				<td style="width: 50%">
-					<button class="hydra-button-reset" @click="feature.Hydra.hydraReset(player.hydra.visiting)"><span class="hydra-text">
+					<button class="hydra-button-reset" @click="feature.Hydra.hydraReset(player.hydra.visiting)"
+					  v-hold="{handler: {onProgress() {feature.Hydra.hydraReset(player.hydra.visiting)}}}"
+					><span class="hydra-text">
 						<h2 style="color: rgb(200, 190, 245)">重置</h2>
 						<h3 style="color: rgb(155, 125, 195)">+{{format(feature.Hydra.powerGain())}}九头蛇能量</h3>
 						<br>
