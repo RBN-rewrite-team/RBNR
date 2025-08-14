@@ -116,6 +116,7 @@ export const OrdinalUtils = {
 			let log = x.log(base).floor().toNumber(), s = bracket(basic[0]++, basic[1]++, basic[2]); maxLength--;
 			s += bracket(basic[0], basic[1], basic[2]), maxLength--;
 			let flag = false;
+			base = base.toNumber();
 			if(log >= base) flag = true;
 			while((log >= 3 && !flag) || (log >= 1 && flag))
 			{

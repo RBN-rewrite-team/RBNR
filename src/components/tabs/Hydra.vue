@@ -25,6 +25,7 @@ function deduceButtonStyle(): string {
 	<div class="main" align="center">
 		<h3 style="color: rgb(200, 190, 245)" v-html="powerFactorHTML()"></h3>
 		<table style="width: 100%">
+		  <tbody>
 			<tr>
 				<td style="width: 50%">
 					<button class="hydra-button" :style="{ 'background-image': deduceButtonStyle() }"><span class="hydra-text">
@@ -40,14 +41,17 @@ function deduceButtonStyle(): string {
 					</span></button>
 				</td>
 			</tr>
+			</tbody>
 		</table>
 		<table>
+		  <tbody>
 			<tr>
 				<TDUpgrade upgid="61" />
 				<TDUpgrade upgid="611" />
 				<TDUpgrade upgid="612" />
 				<TDBuyable bylid="611" />
 			</tr>
+			</tbody>
 		</table>
 	</div>
 </template>
