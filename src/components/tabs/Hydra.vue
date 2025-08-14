@@ -33,9 +33,12 @@ function deduceButtonStyle(): string {
 					<button v-if="feature.Hydra.deduceSpeed().lt(100)" class="hydra-button" :style="{ 'background-image': deduceButtonStyle() }"><span class="hydra-text">
 						{{OrdinalUtils.numberToBMS(player.hydra.deduceOrdinal[0], new Decimal(4))}}
 					</span></button>
-					<button v-else class="hydra-button fast"><span class="hydra-text">
-						{{OrdinalUtils.numberToBMS(player.hydra.deduceOrdinal[0], new Decimal(4))}}
-					</span></button>
+					<button v-else class="hydra-button fast" style="position: relative;">
+						<span class="hydra-text" style="opacity: 0.5; color: rgb(200, 190, 245); font-size: 60px;">{{ format(feature.Hydra.deduceSpeed()) }}/s</span>
+						<span class="hydra-text">
+							{{OrdinalUtils.numberToBMS(player.hydra.deduceOrdinal[0], new Decimal(4))}}
+						</span>
+					</button>
 				</td>
 				<td style="width: 50%">
 					<button class="hydra-button-reset" @click="feature.Hydra.hydraReset(player.hydra.visiting)"
