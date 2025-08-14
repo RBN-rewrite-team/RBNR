@@ -31,15 +31,12 @@ export const vHold: Directive<HTMLElement, HoldDirectiveValue> = {
     let pressTimer: ReturnType<typeof setTimeout> | null = null;
     let progressTimer: ReturnType<typeof setInterval> | null = null;
 
-    const start = (e: Event) => {
-      e.preventDefault();
-      
+    const start = (e: Event) => {      
       if (handler.onStart) handler.onStart(e);
       
       pressTimer = setTimeout(() => {
         handler.onHold?.(e);
         
-        // 设置持续触发
         if (handler.onProgress) {
           progressTimer = setInterval(() => handler.onProgress!(e), interval);
         }
