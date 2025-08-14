@@ -1,60 +1,12 @@
 # 更新日志
-## v0.1 - 加法
-### v0.1.5
-- 添加滚动新闻
-### v0.1.4
-- 为加法重置按钮添加图标
-### v0.1.3
-- 完成加法层级的内容
-- 添加两个升级
-### v0.1.2.1
-- 修复旧存档兼容性不正常的bug
-### v0.1.2
-- 完善B1-1购买项的功能
-- 纠正代码缩进
-### v0.1.1.1
-- 修复了升级要求显示错误的问题
-### v0.1.1
-- 添加关于游戏的界面
-### v0.1.0
-- 更改了一些错误的词语
-- 添加了加法能量的显示
-- 添加加法重置
-- 添加7个升级
-- 添加1个购买项
-## v0.0 - 后继
-### v0.0.6.3
-- 修复了字体缺字的bug
-### v0.0.6.2
-- 修复了数值增长显示缺少右括号的bug
-### v0.0.6.1
-- 修复了部署后部分文件路径错误的bug
-### v0.0.6
-- 将游戏部署到[https://rbn-rewrite-team.github.io/RBNR/](https://rbn-rewrite-team.github.io/RBNR/)
-### v0.0.5
-- 添加硬重置功能
-- 添加保存游戏功能
-### v0.0.4.1
-- 添加了代码层面的导入存档功能，未添加进游戏界面
-### v0.0.4
-- 添加了数值增长速度的显示
-- 修复了页面标题不对的bug
-- 更换页面图标
-### v0.0.3
-- 添加了升级和购买项的界面
-### v0.0.2.2
-- 修复了手机端游玩时双击屏幕会放大的bug
-### v0.0.2.1
-- 修复了自动后继的bug
-### v0.0.2
-- 添加了后继按钮
-- 添加了数值的显示
-- 添加了一个购买项(无UI)
-- 添加了两个升级(无UI)
-### v0.0.1.1
-- 压缩了存档的长度
-### v0.0.1
-- 添加了存档系统，添加数值
-### v0.0.0
-- 添加了游戏的基本UI
+
+## ~~v0.8 - [集合论](https://github.com/RBN-rewrite-team/RBNR/blob/develop/public/changelogs/set-theory.md)~~
+## ~~v0.7 - [证明论](https://github.com/RBN-rewrite-team/RBNR/blob/develop/public/changelogs/proof-theory-ordinal.md)~~
+## ~~v0.6 - [非递归](https://github.com/RBN-rewrite-team/RBNR/blob/develop/public/changelogs/non-recursive-ordinal.md)~~
+## v0.5 - [九头蛇](https://github.com/RBN-rewrite-team/RBNR/blob/develop/public/changelogs/hydra.md)
+## v0.4 - [序数](https://github.com/RBN-rewrite-team/RBNR/blob/develop/public/changelogs/ordinal.md)
+## v0.3 - [指数](https://github.com/RBN-rewrite-team/RBNR/blob/develop/public/changelogs/exponention.md)
+## v0.2 - [乘法](https://github.com/RBN-rewrite-team/RBNR/blob/develop/public/changelogs/multiplication.md)
+## v0.1 - [加法](https://github.com/RBN-rewrite-team/RBNR/blob/develop/public/changelogs/addition.md)
+## v0.0 - [后继](https://github.com/RBN-rewrite-team/RBNR/blob/develop/public/changelogs/successor.md)
 
