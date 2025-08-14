@@ -25,6 +25,7 @@ function deduceButtonStyle(): string {
 	<div class="main" align="center">
 		<h3 style="color: rgb(200, 190, 245)" v-html="powerFactorHTML()"></h3>
 		<table style="width: 100%">
+		  <tbody>
 			<tr>
 				<td style="width: 50%">
 					<button class="hydra-button" :style="{ 'background-image': deduceButtonStyle() }"><span class="hydra-text">
@@ -32,7 +33,7 @@ function deduceButtonStyle(): string {
 					</span></button>
 				</td>
 				<td style="width: 50%">
-					<button class="hydra-button" @click="feature.Hydra.hydraReset(player.hydra.visiting)"><span class="hydra-text">
+					<button class="hydra-button-reset" @click="feature.Hydra.hydraReset(player.hydra.visiting)"><span class="hydra-text">
 						<h2 style="color: rgb(200, 190, 245)">重置</h2>
 						<h3 style="color: rgb(155, 125, 195)">+{{format(feature.Hydra.powerGain())}}九头蛇能量</h3>
 						<br>
@@ -40,27 +41,35 @@ function deduceButtonStyle(): string {
 					</span></button>
 				</td>
 			</tr>
+			</tbody>
 		</table>
 		<table>
+		  <tbody>
 			<tr>
 				<TDUpgrade upgid="61" />
 				<TDUpgrade upgid="611" />
 				<TDUpgrade upgid="612" />
 				<TDBuyable bylid="611" />
 			</tr>
+			</tbody>
 		</table>
 	</div>
 </template>
 
-<style scoped>
-.hydra-button {
+<style scoped lang="scss">
+.hydra-button, .hydra-button-reset {
 	background-color: var(--background-color);
 	color: var(--color);
 	height: 250px;
 	width: 100%;
 	border: 2px solid rgb(200, 190, 245);
 	position: relative;
+	
 }
+.hydra-button-reset:hover {
+		cursor: pointer;
+		border: 7px solid rgb(200, 190, 245);
+	}
 .hydra-text {
 	position: absolute;
 	top: 50%;
