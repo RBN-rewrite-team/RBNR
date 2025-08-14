@@ -66,10 +66,10 @@ function deduceButtonStyle(): string {
 					</span></button>
 				</td>
 				<td style="width: 25%">
-					<button class="hydra-button-short"><span class="hydra-text-short">
+					<button class="hydra-button-short" @click="feature.Hydra.prestige(2)"><span class="hydra-text-short">
 						<span v-if="feature.Hydra.pUnlock(2)">
 							<h3>超越({{formatWhole(player.hydra.prestige[2])}})</h3>
-							???<br>+{{format(feature.Hydra.prestigeEff(2, false))}}→{{format(feature.Hydra.prestigeEff(2, true))}}
+							乘数获取<br>x{{format(feature.Hydra.prestigeEff(2, false))}}→{{format(feature.Hydra.prestigeEff(2, true))}}
 						</span>
 						<span v-else>飞升效果≥1解锁</span>
 					</span></button>
@@ -93,6 +93,7 @@ function deduceButtonStyle(): string {
 				<TDUpgrade upgid="611" />
 				<TDUpgrade upgid="612" />
 				<TDUpgrade upgid="613" />
+				<TDUpgrade upgid="614" />
 			</tr>
 			<tr v-if="player.upgrades[61]">
 				<TDBuyable bylid="611" />
