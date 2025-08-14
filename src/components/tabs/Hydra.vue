@@ -51,7 +51,7 @@ function deduceButtonStyle(): string {
 					<button class="hydra-button-short" @click="feature.Hydra.prestige(0)"><span class="hydra-text-short">
 						<span v-if="feature.Hydra.pUnlock(0)">
 							<h3>转生({{formatWhole(player.hydra.prestige[0])}})</h3>
-							额外乘数与推演速度<br>x{{format(feature.Hydra.prestigeEff(0, false))}}→{{format(feature.Hydra.prestigeEff(0, true))}}
+							额外乘数与推演速度<br>x{{format(feature.Hydra.prestigeEff(0, false))}}→{{format(feature.Hydra.prestigeEff(0, true))}}(效果×{{format(feature.Hydra.prestigeEff(0, false, true))}})
 						</span>
 						<span v-else>基础乘数≥2解锁</span>
 					</span></button>
