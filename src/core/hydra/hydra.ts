@@ -7,11 +7,11 @@ import { CurrencyRequirement, type Requirement } from '../requirements';
 import { Buyable } from '../buyable';
 import { upgrades, buyables } from '../mechanic';
 
-//Hydra：BMS，1-Y，fffZ，ych
+//Hydra：BMS，1-Y，fffZ
 export const Hydra = {
 	upgrades: {
 		'61': new (class U61 extends Upgrade {
-			description = '启动BMS推演，基础速度0.1次/s';
+			description = '启动BMS推演，基础速度0.1次/s，根据推演中的序数增益序数';
 			cost = new Decimal(0);
 			name = 'U5-1';
 			currency: Currencies = Currencies.HYDRA_POWER;
@@ -37,7 +37,7 @@ export const Hydra = {
 		'613': new (class U613 extends Upgrade {
 			description = '飞升的公式变得更好';
 			cost = new Decimal(1e15);
-			name = 'U5-1-2';
+			name = 'U5-1-3';
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
 	},
@@ -111,7 +111,7 @@ export const Hydra = {
 			cost(x: Decimal): Decimal {
 				return new Decimal(1e8).mul(x.pow(2.5).pow_base(1.02));
 			}
-			name = 'B5-1-2';
+			name = 'B5-1-3';
 			effect(x: Decimal): Decimal {
 				return x.pow_base(1.1);
 			}
