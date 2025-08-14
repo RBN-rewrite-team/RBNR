@@ -185,7 +185,10 @@ export const Hydra = {
 		else return Hydra.prestigeEff(id - 1, true);
 		return new Decimal(0);
 	},
-	prestigeEff(id = 0, preview = false): Decimal {
+	prestigeEff(id = 0, preview = false, relative=false): Decimal {
+		if (relative) {
+			return this.prestigeEff(id, true).div(this.prestigeEff(id, false));
+		}
 		let num = new Decimal(0);
 		if(!preview) num = player.hydra.prestige[id];
 		else num = Hydra.prestigeBase(id);
