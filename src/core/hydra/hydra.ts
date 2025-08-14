@@ -196,6 +196,7 @@ export const Hydra = {
 			if(player.upgrades[613]) base = num.max(1).log10().mul(4).root(2).div(4).sub(0.389).max(0).mul(2.5);
 			else base = num.div(2).max(1).log10().mul(4).root(2).div(4).sub(0.4).max(0).mul(2.5);
 		}
+		else if(id == 2) base = num.pow(2).pow_base(3);
 		if(id == 0 && base.gte(100)) base = base.div(100).root(1.5).mul(100);
 		if(id == 1 && base.gte(1)) base = base.root(1.5);
 		if(!preview) return base;
