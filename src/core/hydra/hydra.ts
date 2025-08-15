@@ -271,7 +271,7 @@ export const Hydra = {
 		if (player.upgrades[62]) {
 		  player.hydra.power = player.hydra.power.add(Hydra.hydraPowerPassiveGeneration().mul(diff))
 		  player.hydra.totalPower = player.hydra.totalPower.add(Hydra.hydraPowerPassiveGeneration().mul(diff))
-			player.hydra.powerMult[0] = player.hydra.powerMult[0].add(Hydra.deduceEff(0).mul(player.hydra.deduceOrdinal[0]).mul(diff));
+			player.hydra.powerMult[0] = player.hydra.powerMult[0].add(Hydra.deduceEff(0).mul(player.hydra.deduceOrdinal[0]).mul(upgrades[62].effect()).mul(diff));
 		}
 	},
 	hydraReset(i = 0): void {
