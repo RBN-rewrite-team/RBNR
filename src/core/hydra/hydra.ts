@@ -158,7 +158,9 @@ export const Hydra = {
 			}
 			name = 'B5-1-2';
 			effect(x: Decimal): Decimal {
-				return x.add(this.more()).mul(0.01);
+				let eff = x.add(this.more()).mul(0.01);
+				if (eff.gte(2)) eff = eff.sub(1).log10().add(2);
+				return eff
 			}
 			effectDescription(x: Decimal) {
 				return '+' + format(this.effect(x));
