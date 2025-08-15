@@ -334,7 +334,7 @@ export function calculate(BMS: string): string {
 	}
 
 	for (let i in EBO) {
-	  if (matrix[1][2] < 1) break;
+	  if ((matrix[1]?.[2] ?? 0) < 1) break;
     const currentColumn = matrix[i] ?? [];
     
     if (iz(currentColumn)) break;
