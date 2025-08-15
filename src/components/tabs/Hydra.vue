@@ -27,7 +27,7 @@ function hydraMilestone(): any {
 	{
 		if(player.hydra.deduceOrdinal[player.hydra.visiting].gte(ms[i][1])) flag++;
 	}
-	let reached = flag == -1 ? '暂未达成' : ms[flag][0];
+	let reached = flag == -1 ? '\\text{暂未达成}' : ms[flag][0];
 	let next = ms[flag + 1][0];
 	let progress = String(player.hydra.deduceOrdinal[player.hydra.visiting].div(ms[flag + 1][1]).mul(100).floor().toNumber()) + '\\%';
 	return {reached: reached, next: next, progress: progress};
@@ -72,9 +72,30 @@ function hydraAxisHTML(): string {
 		  <tbody>
 			<tr>
 				<td style="width: 50%">
-					<button v-if="feature.Hydra.deduceSpeed().lt(100)" class="hydra-button" :style="{ 'background-image': deduceButtonStyle() }"><span class="hydra-text">
-						{{OrdinalUtils.numberToBMS(player.hydra.deduceOrdinal[0], new Decimal(4))}}
-					</span></button>
+					<button v-if="feature.Hydra.deduceSpeed().lt(100)" class="hydra-button" :style="{ 'background-image': deduceButtonStyle() }">
+						<span class="hydra-text" style="opacity: 0.5; color: rgb(200, 190, 245); font-size: 60px;">{{ format(feature.Hydra.deduceSpeed()) }}/s</span>
+						<span class="hydra-text">
+							{{OrdinalUtils.numberToBMS(player.hydra.deduceOrdinal[0], new Decimal(4))}}
+						</span>
+						<span class="hydra-text-bottom" style="color: rgb(155, 125, 195); font-size: 12px">
+							<div style="transform: scale(0.75)"><vue-latex
+								:expression="'milestone:' + hydraMilestone().reached + ',next:' + hydraMilestone().next + '(' + hydraMilestone().progress + ')'"
+								display-mode
+							/></div>
+						</span>
+						<div class="hydra-axis-line"></div>
+						<div v-for="i in hydraMilestoneAxis()">
+							<div class="hydra-axis-element" :style="'left: ' + i[1]">
+								<vue-latex
+									:expression="i[0]"
+									display-mode
+								/>
+							</div>
+						</div>
+						<div class="hydra-axis-element" style="left: 50%; top: 88%">
+							♦
+						</div>
+					</button>
 					<button v-else class="hydra-button fast" style="position: relative;">
 						<span class="hydra-text" style="opacity: 0.5; color: rgb(200, 190, 245); font-size: 60px;">{{ format(feature.Hydra.deduceSpeed()) }}/s</span>
 						<span class="hydra-text">

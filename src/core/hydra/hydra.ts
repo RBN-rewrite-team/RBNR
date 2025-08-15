@@ -249,6 +249,7 @@ export const Hydra = {
 		if(!Hydra.pUnlock(i)) return;
 		if(!Hydra.prestigeEff(i, true).gt(Hydra.prestigeEff(i, false))) return;
 		player.hydra.prestige[i] = player.hydra.prestige[i].max(Hydra.prestigeBase(i));
+		//return
 		for(let j = 0;j < 4;j++)
 		{
 			Hydra.hydraReset(j);
@@ -295,7 +296,7 @@ export const Hydra = {
 			['\\omega', new Decimal(4)],
 			['\\omega^2', new Decimal(5)],
 			['\\omega^\\omega', new Decimal(8)],
-			['\\epsilon_0', new Decimal(4).pow(2)],
+			['\\varepsilon_0', new Decimal(4).pow(2)],
 			['\\zeta_0', new Decimal(4).pow(3)],
 			['\\psi(\\Omega_2)', new Decimal(4).pow(4)],
 			['\\psi(\\Omega_2\\psi_{\\Omega_2}(\\Omega_2))', new Decimal(4).pow(8)],
