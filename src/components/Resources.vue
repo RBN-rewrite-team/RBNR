@@ -192,7 +192,7 @@ import { format } from '@/utils/format';
 						{{ formatWhole(player.hydra.power) }}
 					</div><br>
 				</div>
-				<div style="font-size: 17px; display: inline; color: rgba(200, 190, 245, 0.8)">
+				<div style="font-size: 17px; display: inline; color: rgb(200, 190, 245)">
 					<span v-html="formatGain(player.hydra.power, feature.Hydra.hydraPowerPassiveGeneration())" />
 				</div>
 			</div>
