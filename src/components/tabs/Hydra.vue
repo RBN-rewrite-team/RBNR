@@ -96,6 +96,7 @@ function deduceButtonStyle(): string {
 		<table style="transform: translateY(-120px)">
 			<tr>
 				<TDUpgrade upgid="61" />
+				<TDUpgrade upgid="62" />
 			</tr>
 			<tr v-if="player.upgrades[61]">
 				<TDUpgrade upgid="611" />
