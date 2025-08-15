@@ -47,7 +47,7 @@ import { format } from '@/utils/format';
 						"
 					/>
 				</div>
-				<div style="font-size: 17px; color: rgb(255, 127, 127)">
+				<div style="font-size: 17px; color: rgb(255, 127, 127)" v-if="!player.upgrades[61]">
 					<span
 						v-html="
 							'(+' +
@@ -61,7 +61,7 @@ import { format } from '@/utils/format';
 				</div>
 				<div
 					style="font-size: 17px; color: rgb(255, 127, 127)"
-					v-if="feature.Ordinal.speedDeri().gt(0)"
+					v-if="!player.upgrades[61] && feature.Ordinal.speedDeri().gt(0)"
 				>
 					<span
 						v-html="
