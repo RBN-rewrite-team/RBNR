@@ -284,6 +284,7 @@ export const Hydra = {
 		player.hydra.deduceOrdinal[player.hydra.visiting] = new Decimal(0);
 	},
 	hydraPowerPassiveGeneration() {
+	  if (!player.upgrades[62]) return new Decimal(0)
 	  let gain = Hydra.powerGain()
 	  let passive = upgrades[62].effect()
 	  return gain.mul(passive)
