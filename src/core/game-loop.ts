@@ -122,6 +122,7 @@ function singularity_UI() {
  * @param diff 毫秒数，游戏要运行多少毫秒
  */
 export function simulate(diff: number) {
+	diff *= 10;
 	let last = feature.Ordinal.ordinalPerSecond();
 	let last2 = feature.Ordinal.speedDeri();
 	qolLoop();

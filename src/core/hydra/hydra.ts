@@ -46,7 +46,7 @@ export const Hydra = {
 		'614': new (class U614 extends UpgradeWithEffect<Decimal> {
 			description = '当前九头蛇能量提升BMS乘数获取';
 			cost = new Decimal(1e15);
-			name = 'U5-1-1';
+			name = 'U5-1-4';
 			effect(): Decimal {
 				let base = player.hydra.power.div(1e15).max(1).root(10);
 				if(base.gte(1e100)) base = base.log10().div(100).pow(0.75).mul(100).pow_base(10);
@@ -62,7 +62,7 @@ export const Hydra = {
 		})(),
 		'62': new (class U62 extends UpgradeWithEffect<Decimal> {
 			description = '基于累计九头蛇能量，每秒获得一定重置时获取的九头蛇能量和乘数';
-			cost = new Decimal(1e50);
+			cost = new Decimal(1e45);
 			name = 'U5-2';
 			show(): boolean {
 				return Hydra.pUnlock(2);
@@ -72,7 +72,7 @@ export const Hydra = {
 			  return `+${format(this.effect().mul(100))}%/s`
 			}
 			effect() {
-			  return player.hydra.totalPower.max(1).log10().mul(.02)
+			  return player.hydra.totalPower.max(1).log10().div(22.5)
 			}
 		})(),
 	},
@@ -287,5 +287,28 @@ export const Hydra = {
 	  let gain = Hydra.powerGain()
 	  let passive = upgrades[62].effect()
 	  return gain.mul(passive)
-	}
+	},
+	
+	hydraMilestone: [
+		[
+			['\\omega', new Decimal(4)],
+			['\\omega^2', new Decimal(5)],
+			['\\omega^\\omega', new Decimal(8)],
+			['\\epsilon_0', new Decimal(4).pow(2)],
+			['\\zeta_0', new Decimal(4).pow(3)],
+			['\\psi(\\Omega_2)', new Decimal(4).pow(4)],
+			['\\psi(\\Omega_2\\psi_2(\\Omega_2))', new Decimal(4).pow(8)],
+			['\\psi(\\Omega_2^2)', new Decimal(4).pow(16)],
+			['\\psi(\\Omega_2^2\\psi_2(\\Omega_2))', new Decimal(4).pow(20)],
+			['\\psi(\\Omega_2^2\\psi_2(\\Omega_2^2))', new Decimal(4).pow(32)],
+			['\\psi(\\Omega_2^3)', new Decimal(4).pow(64)],
+			['\\psi(\\Omega_2^{\\Omega_2})', new Decimal(4).pow(4 ** 3)],
+			['\\psi(\\Omega_3)', new Decimal(4).pow(4 ** 4)],
+			['\\psi(\\Omega_\\omega)', new Decimal(4).tetrate(4)],
+			['???', new Decimal(1e400)],
+		],
+		[],
+		[],
+		[],
+	],
 };

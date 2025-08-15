@@ -110,24 +110,24 @@ export const OrdinalUtils = {
 		if(x.lt(1)) return '';
 		else if(x.lt(base)) return bracket(Math.max(dimension, 1), ...basic) + this.numberToBMS(x.sub(1), base, maxLength--, basic);
 		else if(x.lt(base.pow(2))) return bracket(Math.max(dimension, 1), ...basic) + this.numberToBMS(x.sub(base).add(1), base, maxLength--, [basic[0] + 1,...basic.slice(1)]);
-		else if(x.lt(base.pow(base.pow(2))))
+		else if(x.lt(base.pow(base.pow(base))))
 		{
-			let log = x.log(base).floor().toNumber(), s = bracket(Math.max(dimension, 2), basic[0]++, basic[1]++, basic[2]); maxLength--;
+			let log = x.log(base).floor(), s = bracket(Math.max(dimension, 2), basic[0]++, basic[1]++, basic[2]); maxLength--;
 			s += bracket(Math.max(dimension, 2), ...basic), maxLength--;
 			let flag = false, boost = 1;
-			if(log >= base.toNumber()) flag = true;
-			while((log >= 3 && !flag) || (log >= 1 && flag))
+			if(log.gte(base)) flag = true;
+			while((log.gte(3) && !flag) || (log.gte(1) && flag))
 			{
-				if(log >= base.toNumber() ** boost)
+				if(log.gte(base.pow(boost)))
 				{
 					s += bracket(Math.max(dimension, 2), ++basic[0], basic[1] + 1, basic[2]), maxLength--;
-					log -= base.toNumber() ** boost;
+					if(log.lt(base.pow(boost + 1)))log = log.sub(base.pow(boost));
 					boost++;
 				}
 				else
 				{
 					s += bracket(Math.max(dimension, 2), ++basic[0], basic[1], basic[2]), maxLength--;
-					log--;
+					log = log.sub(1);
 					if(boost > 1) boost--;
 				}
 			}
@@ -138,7 +138,7 @@ export const OrdinalUtils = {
 			if(residue.gte(base.sub(1))) return s + this.numberToBMS(residue.sub(base).add(2), base, maxLength--, [basic[0] + 1, 0, 0]);
 			else return s + this.numberToBMS(residue, base, maxLength--, basic);
 		}
-		else return '>(0,0)(1,1)(2,2)(3,2)';
+		else return '>(0,0)(1,1)(2,2)(3,3)';
 	}
 	/*
 	1: 0
@@ -164,6 +164,7 @@ export const OrdinalUtils = {
 	b^(b+2): 00 11 22 31 41
 	b^(b2): 00 11 22 31 42
 	b^(b^2): 00 11 22 32
+	b^(b^b): 00 11 22 33
   狗操的BMS,那么复杂相思了
 	*/
 };
