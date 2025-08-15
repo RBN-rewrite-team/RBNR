@@ -233,6 +233,7 @@ function getInitialPlayerData(): Player {
 			'612': false,
 			'613': false,
 			'614': false,
+			'62': false,
 		},
 		buyables: {
 			'11': zero,

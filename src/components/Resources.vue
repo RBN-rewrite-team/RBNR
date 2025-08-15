@@ -190,7 +190,10 @@ import { format } from '@/utils/format';
 					九头蛇能量&nbsp;
 					<div style="display: inline; text-shadow: rgb(0, 20, 127) 1px 1px 2px">
 						{{ formatWhole(player.hydra.power) }}
-					</div>
+					</div><br>
+				</div>
+				<div style="font-size: 17px; display: inline; color: rgb(200, 190, 245)">
+					<span v-html="formatGain(player.hydra.power, feature.Hydra.hydraPowerPassiveGeneration())" />
 				</div>
 			</div>
 		</div>
