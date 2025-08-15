@@ -319,7 +319,7 @@ export const Hydra = {
 			if(!keepO) player.hydra.powerMult[j] = new Decimal(1);
 		}
 		for(let j = 0;j < i;j++) player.hydra.prestige[j] = new Decimal(0);
-		if(!keepHP())player.hydra.power = new Decimal(0);
+		if(!keepHP)player.hydra.power = new Decimal(0);
 	},
 	hydraUpdate(diff = 0): void {
 		for(let i = 0;i < 4;i++)
