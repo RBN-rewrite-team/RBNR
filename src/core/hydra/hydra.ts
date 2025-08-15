@@ -60,6 +60,21 @@ export const Hydra = {
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
+		'62': new (class U62 extends UpgradeWithEffect<Decimal> {
+			description = '基于累计九头蛇能量，每秒获得一定重置时获取的九头蛇能量和乘数';
+			cost = new Decimal(1e50);
+			name = 'U5-2';
+			show(): boolean {
+				return Hydra.pUnlock(2);
+			}
+			currency: Currencies = Currencies.HYDRA_POWER;
+			effectDescription() {
+			  return `+${format(this.effect().mul(100))}%/s`
+			}
+			effect() {
+			  return player.hydra.totalPower.max(1).log10().mul(.02)
+			}
+		})(),
 	},
 	buyables: {
 		'611': new (class B611 extends Buyable<Decimal> {
@@ -253,6 +268,11 @@ export const Hydra = {
 				Hydra.deduce(i, bulk);
 			}
 		}
+		if (player.upgrades[62]) {
+		  player.hydra.power = player.hydra.power.add(Hydra.hydraPowerPassiveGeneration().mul(diff))
+		  player.hydra.totalPower = player.hydra.totalPower.add(Hydra.hydraPowerPassiveGeneration().mul(diff))
+			player.hydra.powerMult[0] = player.hydra.powerMult[0].add(Hydra.deduceEff(0).mul(player.hydra.deduceOrdinal[0]).mul(diff));
+		}
 	},
 	hydraReset(i = 0): void {
 		if(player.hydra.deduceOrdinal[player.hydra.visiting].eq(0)) return;
@@ -263,4 +283,9 @@ export const Hydra = {
 		player.hydra.deduceProgress[player.hydra.visiting] = new Decimal(0);
 		player.hydra.deduceOrdinal[player.hydra.visiting] = new Decimal(0);
 	},
+	hydraPowerPassiveGeneration() {
+	  let gain = Hydra.powerGain()
+	  let passive = upgrades[62].effect()
+	  return gain.mul(passive)
+	}
 };
