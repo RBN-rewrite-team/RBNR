@@ -135,6 +135,7 @@ export interface Player {
 		deduceProgress: [Decimal, Decimal, Decimal, Decimal];
 		deduceOrdinal: [Decimal, Decimal, Decimal, Decimal];
 		prestige: [Decimal, Decimal, Decimal, Decimal];
+		pAuto: [boolean, boolean, boolean, boolean];
 	};
 }
 function getInitialPlayerData(): Player {
@@ -233,7 +234,10 @@ function getInitialPlayerData(): Player {
 			'612': false,
 			'613': false,
 			'614': false,
+			'615': false,
+			'616': false,
 			'62': false,
+			'63': false,
 		},
 		buyables: {
 			'11': zero,
@@ -416,6 +420,7 @@ function getInitialPlayerData(): Player {
 			deduceProgress: [zero, zero, zero, zero],
 			deduceOrdinal: [zero, zero, zero, zero],
 			prestige: [zero, zero, zero, zero],
+			pAuto: [false, false, false, false],
 		},
 	};
 }

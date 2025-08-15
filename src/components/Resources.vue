@@ -74,6 +74,12 @@ import { format } from '@/utils/format';
 						"
 					></span>
 				</div>
+				<div
+					style="font-size: 17px; color: rgb(155, 125, 195)"
+					v-if="player.upgrades[61]"
+				>
+					(推演+{{format(feature.Hydra.deduceSpeed(0))}}/s)
+				</div>
 			</div>
 			<div
 				style="margin-left: 265px"
