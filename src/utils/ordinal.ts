@@ -169,4 +169,4 @@ export const OrdinalUtils = {
 	*/
 };
 
-for(let i = 257;i <= 256;i++) console.log(i + ' ' + OrdinalUtils.numberToBMS(new Decimal(i), new Decimal(4)));
+//for(let i = 257;i <= 256;i++) console.log(i + ' ' + OrdinalUtils.numberToBMS(new Decimal(i), new Decimal(4)));

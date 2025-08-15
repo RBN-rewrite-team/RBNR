@@ -258,7 +258,6 @@ function sp(a: Term, b: Term, c: Term): Term {
 	const termC = c as [Term, Term, Term];
 	if (lt(b, termC[1]) && gt(c, [a, [], []])) {
 		const t = ttc(termC[1], suc(termC[0]));
-		console.log(t);
 		return sp(a, add(t, sub([termC[0], termC[1], []], [termC[0], t, []])), termC[2]);
 	}
 	return sp(a, add(b, [termC[0], termC[1], []]), termC[2]);
@@ -334,7 +333,7 @@ export function calculate(BMS: string): string {
 	}
 
 	for (let i in EBO) {
-	  if (matrix[1][2] < 1) break;
+	  if ((matrix[1]?.[2] ?? 0) < 1) break;
     const currentColumn = matrix[i] ?? [];
     
     if (iz(currentColumn)) break;
