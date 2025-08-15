@@ -4,6 +4,9 @@ import { MainNode } from './ast.ts';
 import Decimal from 'break_eternity.js';
 import { formatWhole } from '@/utils/format';
 import { toRaw } from 'vue';
+import { calculate } from "../../utils/bms-analyze.ts"
+import {player} from '@/core/global';
+import {OrdinalUtils} from "../../utils/ordinal.ts"
 
 export class Ordinal {
 	node: MainNode;
@@ -17,6 +20,11 @@ export class Ordinal {
 	}
 
 	static displayOrdinalColored(ord: Decimal | number, base: Decimal | number = 10) {
+	  if (player.upgrades[61]) {
+	    return calculate(
+	      OrdinalUtils.numberToBMS(player.hydra.deduceOrdinal[0], new Decimal(4), 20).replace("...", "").replace(">", "")
+	      )
+	  }
 		//return displayOrd(ord, base)
 		return displayOrd(ord, base, 0, 0, 0, 0, 1);
 	}
