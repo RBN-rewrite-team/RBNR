@@ -11,6 +11,7 @@ function powerFactorHTML(): string {
 	s += format(player.hydra.powerMult[0]) + ' x ' + format(player.hydra.powerMult[1]) + ' x ' + format(player.hydra.powerMult[2]) + ' x ' + format(player.hydra.powerMult[3]);
 	if(!feature.Hydra.powerExtraMult().eq(1)) s += ' x <span style="color: rgb(155, 125, 195)">' + format(feature.Hydra.powerExtraMult()) + '</span>';
 	if(!feature.Hydra.powerExp().eq(1)) s = '(' + s + ')<sup>' + format(feature.Hydra.powerExp()) + '</sup>';
+	if(!feature.Hydra.powerExpNerf().eq(1)) s += '<sup><span style="color: red"> x ' + format(feature.Hydra.powerExpNerf()) + '</span></sup>';
 	s += '<span style="color: var(--color)"> = ' + format(feature.Hydra.powerGain()) + '</span>';
 	return s;
 }

@@ -246,6 +246,10 @@ export const Hydra = {
 		if(Hydra.pUnlock(1)) base = base.add(buyables[612].effect(player.buyables[612]));
 		return base;
 	},
+	powerExpNerf(): Decimal { //软上限
+		if(Hydra.powerExp().lt(4)) return new Decimal(1);
+		return Hydra.powerExp().div(4).root(4).pow(-1);
+	},
 	powerExtraMult(): Decimal { //能量倍数
 		let base = new Decimal(1);
 		base = base.mul(Hydra.prestigeEff(0));
@@ -254,7 +258,7 @@ export const Hydra = {
 	powerGain(): Decimal { //能量产量
 		let base = Hydra.basePower();
 		base = base.mul(Hydra.powerExtraMult());
-		base = base.pow(Hydra.powerExp());
+		base = base.pow(Hydra.powerExp().mul(Hydra.powerExpNerf()));
 		return base;
 	},
 	pUnlock(id = 0): boolean { //解锁转生
