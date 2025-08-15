@@ -73,6 +73,9 @@ export const ORDINAL = {
 				return '×' + OrdinalUtils.numberToOrdinal(this.effect(), feature.Ordinal.base());
 			}
 			currency: Currencies = Currencies.ORDINAL;
+			show(): boolean {
+				return !player.upgrades[61];
+			}
 		})(),
 		'56': new (class U56 extends UpgradeWithEffect<Decimal> {
 			description = '序数指数以减弱的效果倍增序数提升速度';
@@ -95,6 +98,9 @@ export const ORDINAL = {
 				return 'x' + formatWhole(this.effect());
 			}
 			currency: Currencies = Currencies.ORDINAL;
+			show(): boolean {
+				return !player.upgrades[61];
+			}
 		})(),
 		'57': new (class U57 extends UpgradeWithEffect<Decimal> {
 			description = '序数以减弱的效果倍增序数提升速度';
@@ -110,6 +116,9 @@ export const ORDINAL = {
 				return 'x' + formatWhole(this.effect());
 			}
 			currency: Currencies = Currencies.ORDINAL;
+			show(): boolean {
+				return !player.upgrades[61];
+			}
 		})(),
 		'58': new (class U58 extends Upgrade {
 			description = '解锁数论研究3';
@@ -149,6 +158,9 @@ export const ORDINAL = {
 				return 'x' + OrdinalUtils.numberToOrdinal(this.effect(), feature.Ordinal.base());
 			}
 			currency: Currencies = Currencies.ORDINAL;
+			show(): boolean {
+				return !player.upgrades[61];
+			}
 		})(),
 		'511': new (class U511 extends Upgrade {
 			description = 'U4-10效果平方';

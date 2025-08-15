@@ -22,15 +22,21 @@ import TDBuyable from '../TDBuyable.vue';
 							<TDUpgrade upgid="53" />
 							<TDUpgrade upgid="54" />
 						</tr>
-						<tr>
+						<tr v-if="!player.upgrades[61]">
 							<TDUpgrade upgid="55" />
 							<TDUpgrade upgid="56" />
 							<TDUpgrade upgid="57" />
 							<TDUpgrade upgid="58" />
 						</tr>
-						<tr>
+						<tr v-if="!player.upgrades[61]">
 							<TDUpgrade upgid="59" />
 							<TDUpgrade upgid="510" />
+							<TDUpgrade upgid="511" />
+							<TDUpgrade upgid="512" />
+						</tr>
+						<tr v-if="player.upgrades[61]">
+							<TDUpgrade upgid="58" />
+							<TDUpgrade upgid="59" />
 							<TDUpgrade upgid="511" />
 							<TDUpgrade upgid="512" />
 						</tr>
