@@ -21,7 +21,9 @@ export const Hydra = {
 			cost = new Decimal(10);
 			name = 'U5-1-1';
 			effect(): Decimal {
-				return player.hydra.totalPower.max(10).log10();
+				let base = player.hydra.totalPower.max(10).log10();
+				if(player.upgrades[616]) base = base.pow(upgrades[616].effect());
+				return base;
 			}
 			effectDescription(): string {
 				return 'x' + format(this.effect());
@@ -60,6 +62,37 @@ export const Hydra = {
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
+		'615': new (class U615 extends UpgradeWithEffect<Decimal> {
+			description = '从40个开始，每5个B5-1-3提供一个额外的B5-1-2';
+			cost = new Decimal(2).pow(512);
+			name = 'U5-1-5';
+			effect(): Decimal {
+				let base = player.buyables[613].sub(40).div(5).floor().max(0);
+				return base;
+			}
+			effectDescription(): string {
+				return '+' + format(this.effect());
+			}
+			show(): boolean {
+				return Hydra.pUnlock(2);
+			}
+			currency: Currencies = Currencies.HYDRA_POWER;
+		})(),
+		'616': new (class U616 extends UpgradeWithEffect<Decimal> {
+			description = '每购买一个B5-1-3，U5-1-1效果^+0.01';
+			cost = new Decimal(1e200);
+			name = 'U5-1-6';
+			show(): boolean {
+				return Hydra.pUnlock(2);
+			}
+			effectDescription(): string {
+				return '^' + format(this.effect());
+			}
+			effect(): Decimal {
+				return player.buyables[613].mul(0.01).add(1);
+			}
+			currency: Currencies = Currencies.HYDRA_POWER;
+		})(),
 		'62': new (class U62 extends UpgradeWithEffect<Decimal> {
 			description = '基于累计九头蛇能量，每秒获得一定重置时获取的九头蛇能量和乘数';
 			cost = new Decimal(1e45);
@@ -68,12 +101,21 @@ export const Hydra = {
 				return Hydra.pUnlock(2);
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
-			effectDescription() {
+			effectDescription(): string {
 			  return `+${format(this.effect().mul(100))}%/s`
 			}
-			effect() {
+			effect(): Decimal {
 			  return player.hydra.totalPower.max(1).log10().div(22.5)
 			}
+		})(),
+		'63': new (class U63 extends Upgrade {
+			description = '转生和飞升不再重置九头蛇能量，转生不再重置乘数';
+			cost = new Decimal(1e250);
+			name = 'U5-3';
+			show(): boolean {
+				return Hydra.pUnlock(2);
+			}
+			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
 	},
 	buyables: {
@@ -105,7 +147,7 @@ export const Hydra = {
 					.max(99)
 					.floor();
 			}
-			capped(x: Decimal) {
+			capped(x: Decimal): boolean {
 				return x.add(this.more()).gte(99);
 			}
 		})(),
@@ -116,7 +158,7 @@ export const Hydra = {
 			}
 			name = 'B5-1-2';
 			effect(x: Decimal): Decimal {
-				return x.mul(0.01);
+				return x.add(this.more()).mul(0.01);
 			}
 			effectDescription(x: Decimal) {
 				return '+' + format(this.effect(x));
@@ -139,6 +181,11 @@ export const Hydra = {
 					.root(2)
 					.add(1)
 					.floor();
+			}
+			more(): Decimal {
+				let base = new Decimal(0);
+				if(player.upgrades[615]) base = base.add(upgrades[615].effect());
+				return base;
 			}
 		})(),
 		'613': new (class B613 extends Buyable<Decimal> {
@@ -217,6 +264,20 @@ export const Hydra = {
 		else if(id == 2) return player.hydra.prestige[2].gt(0) || Hydra.prestigeEff(1, true).gte(1);
 		return false;
 	},
+	pAutoUnlock(id = 0): boolean { //解锁自动化
+		if(id == 0) return Hydra.pUnlock(2);
+		else if(id == 1) return Hydra.pUnlock(3);
+		else return false;
+	},
+	pAutoThreshold(id = 0): any { //推演阈值
+		if(id == 0)
+			return {add: new Decimal(10).div(player.hydra.totalPower.log10().root(2).sub(10).max(1)),
+					mul: new Decimal(5).div(player.hydra.totalPower.log10().root(10).max(1).min(5))};
+		else if(id == 1)
+			return {add: new Decimal(0.2).div(player.hydra.totalPower.log10().root(10).sub(1).max(1)),
+					mul: new Decimal(1)};
+		else return {add: new Decimal(0), mul: new Decimal(1)};
+	},
 	prestigeBase(id = 0): Decimal {
 		if(id == 0) return Hydra.basePower();
 		else return Hydra.prestigeEff(id - 1, true);
@@ -248,14 +309,17 @@ export const Hydra = {
 	prestige(i = 0): void {
 		if(!Hydra.pUnlock(i)) return;
 		if(!Hydra.prestigeEff(i, true).gt(Hydra.prestigeEff(i, false))) return;
+		let keepHP = false, keepO = false;
+		if(i <= 1 && player.upgrades[63]) keepHP = true;
+		if(i == 0 && player.upgrades[63]) keepO = true;
 		player.hydra.prestige[i] = player.hydra.prestige[i].max(Hydra.prestigeBase(i));
 		for(let j = 0;j < 4;j++)
 		{
 			Hydra.hydraReset(j);
-			player.hydra.powerMult[j] = new Decimal(1);
+			if(!keepO) player.hydra.powerMult[j] = new Decimal(1);
 		}
 		for(let j = 0;j < i;j++) player.hydra.prestige[j] = new Decimal(0);
-		player.hydra.power = new Decimal(0);
+		if(!keepHP())player.hydra.power = new Decimal(0);
 	},
 	hydraUpdate(diff = 0): void {
 		for(let i = 0;i < 4;i++)
@@ -272,6 +336,19 @@ export const Hydra = {
 		  player.hydra.power = player.hydra.power.add(Hydra.hydraPowerPassiveGeneration().mul(diff))
 		  player.hydra.totalPower = player.hydra.totalPower.add(Hydra.hydraPowerPassiveGeneration().mul(diff))
 			player.hydra.powerMult[0] = player.hydra.powerMult[0].add(Hydra.deduceEff(0).mul(player.hydra.deduceOrdinal[0]).mul(upgrades[62].effect()).mul(diff));
+		}
+		for(let i = 0;i < 4;i++)
+		{
+			if(player.hydra.pAuto[i] && Hydra.pAutoUnlock(i))
+			{
+				if(Hydra.prestigeEff(i, true).sub(Hydra.prestigeEff(i, false)).gte(Hydra.pAutoThreshold(i).add))
+				{
+					if(Hydra.prestigeEff(i, true).div(Hydra.prestigeEff(i, false)).gte(Hydra.pAutoThreshold(i).mul))
+					{
+						Hydra.prestige(i);
+					}
+				}
+			}
 		}
 	},
 	hydraReset(i = 0): void {
@@ -299,9 +376,8 @@ export const Hydra = {
 			['\\psi(\\Omega_2)', new Decimal(4).pow(4)],
 			['\\psi(\\Omega_2\\psi_{\\Omega_2}(\\Omega_2))', new Decimal(4).pow(8)],
 			['\\psi(\\Omega_2^2)', new Decimal(4).pow(16)],
-			['\\psi(\\Omega_2^2\\psi_{\\Omega_2}(\\Omega_2))', new Decimal(4).pow(20)],
-			['\\psi(\\Omega_2^2\\psi_{\\Omega_2}(\\Omega_2^2))', new Decimal(4).pow(32)],
-			['\\psi(\\Omega_2^3)', new Decimal(4).pow(64)],
+			['\\psi(\\Omega_2^{\\psi_{\\Omega_2}(\\Omega_2^2))})', new Decimal(4).pow(32)],
+			['\\psi(\\Omega_2^{\\Omega_2})', new Decimal(4).pow(64)],
 			['\\psi(\\Omega_3)', new Decimal(4).pow(4 ** 4)],
 			['\\psi(\\Omega_\\omega)', new Decimal(4).tetrate(4)],
 			['???', new Decimal(1e400)],

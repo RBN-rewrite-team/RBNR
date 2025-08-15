@@ -128,7 +128,7 @@ export const OrdinalUtils = {
 				{
 					s += bracket(Math.max(dimension, 2), ++basic[0], basic[1], basic[2]), maxLength--;
 					log = log.sub(1);
-					if(boost > 1) boost--;
+					if(boost > 1) boost = 1;
 				}
 			}
 			

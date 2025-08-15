@@ -152,17 +152,72 @@ function hydraAxisHTML(): string {
 					</span></button>
 				</td>
 			</tr>
+			<tr style="transform: translateY(-100px)">
+				<td style="width: 25%">
+					<button 
+						class="hydra-button-sshort" 
+						:style="{'background-color': player.hydra.pAuto[0] ? 'rgb(155, 125, 195)' : 'var(--background-color)'}"
+						@click="player.hydra.pAuto[0] = !player.hydra.pAuto[0]"
+					><span class="hydra-text-short">
+						<span v-if="feature.Hydra.pAutoUnlock(0)">
+							自动重置阈值：+{{format(feature.Hydra.pAutoThreshold(0).add)}} & x{{format(feature.Hydra.pAutoThreshold(0).mul)}}
+						</span>
+						<span v-else>首次超越解锁自动化</span>
+					</span></button>
+				</td>
+				<td style="width: 25%">
+					<button 
+						class="hydra-button-sshort" 
+						:style="{'background-color': player.hydra.pAuto[1] ? 'rgb(155, 125, 195)' : 'var(--background-color)'}"
+						@click="player.hydra.pAuto[1] = !player.hydra.pAuto[1]"
+					><span class="hydra-text-short">
+						<span v-if="feature.Hydra.pAutoUnlock(1)">
+							自动重置阈值：+{{format(feature.Hydra.pAutoThreshold(1).add)}} & x{{format(feature.Hydra.pAutoThreshold(1).mul)}}
+						</span>
+						<span v-else>首次轮回解锁自动化</span>
+					</span></button>
+				</td>
+				<td style="width: 25%">
+					<button 
+						class="hydra-button-sshort" 
+						:style="{'background-color': player.hydra.pAuto[2] ? 'rgb(155, 125, 195)' : 'var(--background-color)'}"
+						@click="player.hydra.pAuto[2] = !player.hydra.pAuto[2]"
+					><span class="hydra-text-short">
+						<span v-if="feature.Hydra.pAutoUnlock(2)">
+							自动重置阈值：+{{format(feature.Hydra.pAutoThreshold(2).add)}} & x{{format(feature.Hydra.pAutoThreshold(2).mul)}}
+						</span>
+						<span v-else>暂时无法自动化</span>
+					</span></button>
+				</td>
+				<td style="width: 25%">
+					<button 
+						class="hydra-button-sshort" 
+						:style="{'background-color': player.hydra.pAuto[3] ? 'rgb(155, 125, 195)' : 'var(--background-color)'}"
+						@click="player.hydra.pAuto[3] = !player.hydra.pAuto[3]"
+					><span class="hydra-text-short">
+						<span v-if="feature.Hydra.pAutoUnlock(3)">
+							自动重置阈值：+{{format(feature.Hydra.pAutoThreshold(3).add)}} & x{{format(feature.Hydra.pAutoThreshold(3).mul)}}
+						</span>
+						<span v-else>暂时无法自动化</span>
+					</span></button>
+				</td>
+			</tr>
 		</table>
-		<table style="transform: translateY(-120px)">
+		<table style="transform: translateY(-220px)">
 			<tr>
 				<TDUpgrade upgid="61" />
 				<TDUpgrade upgid="62" />
+				<TDUpgrade upgid="63" />
 			</tr>
 			<tr v-if="player.upgrades[61]">
 				<TDUpgrade upgid="611" />
 				<TDUpgrade upgid="612" />
 				<TDUpgrade upgid="613" />
 				<TDUpgrade upgid="614" />
+			</tr>
+			<tr v-if="player.upgrades[61] && feature.Hydra.pUnlock(2)">
+				<TDUpgrade upgid="615" />
+				<TDUpgrade upgid="616" />
 			</tr>
 			<tr v-if="player.upgrades[61]">
 				<TDBuyable bylid="611" />
@@ -232,11 +287,26 @@ function hydraAxisHTML(): string {
 	position: relative;
 	z-index: 1;
 }
+
+.hydra-button-sshort {
+	background-color: var(--background-color);
+	color: var(--color);
+	height: 50px;
+	width: 100%;
+	border: 2px solid rgb(200, 190, 245);
+	position: relative;
+	z-index: 1;
+}
+
 .hydra-button-reset:hover {
 		cursor: pointer;
 		border: 7px solid rgb(200, 190, 245);
 	}
 .hydra-button-short:hover {
+		cursor: pointer;
+		border: 4px solid rgb(200, 190, 245);
+	}
+.hydra-button-sshort:hover {
 		cursor: pointer;
 		border: 4px solid rgb(200, 190, 245);
 	}
