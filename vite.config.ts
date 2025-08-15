@@ -19,7 +19,6 @@ export default defineConfig({
   },
   base: "./",
   server: {
-    host: "0.0.0.0",
-    hmr: false
+    host: "0.0.0.0"
   }
 })
