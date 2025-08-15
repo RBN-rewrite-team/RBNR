@@ -500,7 +500,7 @@ export let player: Player = getInitialPlayerData();
 
 export function loadFromString(saveContent: string) {
 	let deserialized = saveSerializer.deserialize(saveContent);
-	player = deepMerge(player, deserialized);
+	Object.assign(player, deepMerge(player, deserialized));
 	player.version = version;
 }
 
