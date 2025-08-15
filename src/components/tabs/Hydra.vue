@@ -20,6 +20,48 @@ function deduceButtonStyle(): string {
 	return 'linear-gradient(to right, rgba(155, 125, 195, 0.5) ' + pc + '%, var(--background-color) ' + pc + '%)';
 }
 
+function hydraMilestone(): any {
+	let ms = feature.Hydra.hydraMilestone[player.hydra.visiting];
+	let flag = -1;
+	for(let i in ms)
+	{
+		if(player.hydra.deduceOrdinal[player.hydra.visiting].gte(ms[i][1])) flag++;
+	}
+	let reached = flag == -1 ? '暂未达成' : ms[flag][0];
+	let next = ms[flag + 1][0];
+	let progress = String(player.hydra.deduceOrdinal[player.hydra.visiting].div(ms[flag + 1][1]).mul(100).floor().toNumber()) + '\\%';
+	return {reached: reached, next: next, progress: progress};
+}
+
+function hydraMilestoneAxis(): any {
+	let axis = [];
+	let ms = feature.Hydra.hydraMilestone[player.hydra.visiting];
+	let now = player.hydra.deduceOrdinal[player.hydra.visiting];
+	let scale = 0;
+	if(now.gte('1e6')) scale = 1;
+	if(now.gte('e1e6')) scale = 2;
+	for(let i in ms)
+	{
+		let left = 0;
+		if(scale === 0) left = ms[i][1].div(now).mul(50).toNumber();
+		else if(scale === 1) left = ms[i][1].max(10).log10().div(now.max(10).log10()).mul(50).toNumber();
+		else if(scale === 2) left = ms[i][1].max(10).slog().div(now.max(10).slog()).mul(50).toNumber();
+		left = Math.min(Math.max(left, 1), 99);
+		if(left >= 10 && left <= 90) axis.push([ms[i][0], String(left) + '%']);
+	}
+	return axis;
+}
+
+function hydraAxisHTML(): string {
+	let s = '';
+	let axis = hydraMilestoneAxis();
+	for(let i in axis)
+	{
+		s += '<div style="font-size: 8px; position: absolute; top: 90%; left: ' + axis[i][1] + '; color: rgb(200, 190, 245); transform: translateY(-50%, -50%)"><vue-latex :expression="' + axis[i][0] + '" display-mode /></div>';
+	}
+	return s;
+}
+
 //setInterval(()=>feature.Hydra.hydraReset(player.hydra.visiting))
 </script>
 
@@ -38,6 +80,24 @@ function deduceButtonStyle(): string {
 						<span class="hydra-text">
 							{{OrdinalUtils.numberToBMS(player.hydra.deduceOrdinal[0], new Decimal(4))}}
 						</span>
+						<span class="hydra-text-bottom" style="color: rgb(155, 125, 195); font-size: 12px">
+							<div style="transform: scale(0.75)"><vue-latex
+								:expression="'milestone:' + hydraMilestone().reached + ',next:' + hydraMilestone().next + '(' + hydraMilestone().progress + ')'"
+								display-mode
+							/></div>
+						</span>
+						<div class="hydra-axis-line"></div>
+						<div v-for="i in hydraMilestoneAxis()">
+							<div class="hydra-axis-element" :style="'left: ' + i[1]">
+								<vue-latex
+									:expression="i[0]"
+									display-mode
+								/>
+							</div>
+						</div>
+						<div class="hydra-axis-element" style="left: 50%; top: 88%">
+							♦
+						</div>
 					</button>
 				</td>
 				<td style="width: 50%">
@@ -76,7 +136,7 @@ function deduceButtonStyle(): string {
 				<td style="width: 25%">
 					<button class="hydra-button-short" @click="feature.Hydra.prestige(2)"><span class="hydra-text-short">
 						<span v-if="feature.Hydra.pUnlock(2)">
-							<h3>超越({{formatWhole(player.hydra.prestige[2])}})</h3>
+							<h3>超越({{format(player.hydra.prestige[2])}})</h3>
 							乘数获取<br>x{{format(feature.Hydra.prestigeEff(2, false))}}→{{format(feature.Hydra.prestigeEff(2, true))}}
 						</span>
 						<span v-else>飞升效果≥1解锁</span>
@@ -193,5 +253,25 @@ function deduceButtonStyle(): string {
 	left: 50%;
 	transform: translate(-50%, -50%);
 	font-size: 14px;
+}
+.hydra-text-bottom {
+	position: absolute;
+	top: 80%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 7px;
+}
+.hydra-axis-line {
+	position: absolute;
+	top: 90%;
+	width: 100%;
+	height: 1px;
+	background-color: rgb(200, 195, 245);
+}
+.hydra-axis-element {
+	position: absolute;
+	top: 93%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(0.5);
 }
 </style>
