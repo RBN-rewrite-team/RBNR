@@ -258,7 +258,6 @@ function sp(a: Term, b: Term, c: Term): Term {
 	const termC = c as [Term, Term, Term];
 	if (lt(b, termC[1]) && gt(c, [a, [], []])) {
 		const t = ttc(termC[1], suc(termC[0]));
-		console.log(t);
 		return sp(a, add(t, sub([termC[0], termC[1], []], [termC[0], t, []])), termC[2]);
 	}
 	return sp(a, add(b, [termC[0], termC[1], []]), termC[2]);

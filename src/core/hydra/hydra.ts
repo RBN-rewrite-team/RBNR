@@ -249,6 +249,7 @@ export const Hydra = {
 		if(!Hydra.pUnlock(i)) return;
 		if(!Hydra.prestigeEff(i, true).gt(Hydra.prestigeEff(i, false))) return;
 		player.hydra.prestige[i] = player.hydra.prestige[i].max(Hydra.prestigeBase(i));
+		//return
 		for(let j = 0;j < 4;j++)
 		{
 			Hydra.hydraReset(j);

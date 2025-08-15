@@ -27,7 +27,7 @@ function hydraMilestone(): any {
 	{
 		if(player.hydra.deduceOrdinal[player.hydra.visiting].gte(ms[i][1])) flag++;
 	}
-	let reached = flag == -1 ? '暂未达成' : ms[flag][0];
+	let reached = flag == -1 ? '\\text{暂未达成}' : ms[flag][0];
 	let next = ms[flag + 1][0];
 	let progress = String(player.hydra.deduceOrdinal[player.hydra.visiting].div(ms[flag + 1][1]).mul(100).floor().toNumber()) + '\\%';
 	return {reached: reached, next: next, progress: progress};
