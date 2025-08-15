@@ -111,7 +111,7 @@ function log(a: Term): Term {
 	if (iz(termA[0]) && iz(p)) {
 		if (!lt(termA[1], [[], [ONE, [], []], []])) {
 			const logQ = log(q);
-			if (eq(logQ, q) && iz(q[2]) && lt(termA[1], [ONE, [], []])) {
+			if (eq(logQ, q) && iz(q[2]!) && lt(termA[1], [ONE, [], []])) {
 				return [termA[0], termA[1], []];
 			}
 		}
@@ -326,8 +326,8 @@ export function calculate(BMS: string): string {
 	
 	if (cleanBMS == "") return "0";
 	
-	const matrix = JSON.parse('['+cleanBMS.replaceAll(')(','],[').replaceAll('(','[').replaceAll(')',']')+']')
-	  .map(x=>{let y=x.slice();while(y.length<3){y.push(0)}return y;});
+	const matrix = JSON.parse('['+cleanBMS.replace(/\)\(/g, '],[').replace(/\(/g, '[').replace(/\)/g, ']') + ']')
+	  .map((x: number[])=>{let y=x.slice();while(y.length<3){y.push(0)}return y;});
 	
 	for (const col of matrix) {
 	  if (col.length >= 4) return ">ψ(a(ω;0))"
