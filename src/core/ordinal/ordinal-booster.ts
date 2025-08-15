@@ -41,6 +41,9 @@ export const ORDINAL_BOOSTER = {
 					.max(1)
 					.log(new Ordinal('w^2').toDecimal(feature.Ordinal.base()));
 			}
+			show(): boolean {
+				return !player.upgrades[61];
+			}
 		})(),
 		'52A': new (class extends Buyable<Decimal> {
 			description = '加速器最大倍率×2';
@@ -70,6 +73,9 @@ export const ORDINAL_BOOSTER = {
 					.log(new Ordinal('w^(w*2)').toDecimal(feature.Ordinal.base()))
 					.max(1)
 					.log2();
+			}
+			show(): boolean {
+				return !player.upgrades[61];
 			}
 		})(),
 		'53A': new (class extends Buyable<Decimal> {
@@ -103,6 +109,9 @@ export const ORDINAL_BOOSTER = {
 					.max(1)
 					.log2();
 			}
+			show(): boolean {
+				return !player.upgrades[61];
+			}
 		})(),
 	} as const,
 	upgrades: {
@@ -120,6 +129,9 @@ export const ORDINAL_BOOSTER = {
 				return '×' + format(this.effect()) + '';
 			}
 			currency: Currencies = Currencies.ORDINAL;
+			show(): boolean {
+				return !player.upgrades[61];
+			}
 		})(),
 	} as const,
 	boosterLoop() {
