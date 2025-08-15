@@ -295,7 +295,7 @@ export const Hydra = {
 			['\\omega', new Decimal(4)],
 			['\\omega^2', new Decimal(5)],
 			['\\omega^\\omega', new Decimal(8)],
-			['\\epsilon_0', new Decimal(4).pow(2)],
+			['\\varepsilon_0', new Decimal(4).pow(2)],
 			['\\zeta_0', new Decimal(4).pow(3)],
 			['\\psi(\\Omega_2)', new Decimal(4).pow(4)],
 			['\\psi(\\Omega_2\\psi_{\\Omega_2}(\\Omega_2))', new Decimal(4).pow(8)],
