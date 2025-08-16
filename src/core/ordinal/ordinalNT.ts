@@ -248,7 +248,7 @@ export const OrdinalNT = {
 			cost = new Decimal(1e4)
 			currency = Currencies.X4
 			name = "U5-R1-3"
-			effect() {
+			effect(): Decimal {
 			  return feature.Hydra.prestigeEff(0).log10().div(100).add(1)
 			}
 			effectDescription() {
@@ -326,6 +326,8 @@ export const OrdinalNT = {
 	      return value.log10().pow(exp)
 	    case "g":
 	      return value.log10()
+	    default:
+	      return value
 	  }
 	},
 	functionL4exp(id = "f"): Decimal {
@@ -336,6 +338,8 @@ export const OrdinalNT = {
 
 	      return exp
 	    case "g":
+	      return new Decimal(1)
+	    default:
 	      return new Decimal(1)
 	  }
 	},
