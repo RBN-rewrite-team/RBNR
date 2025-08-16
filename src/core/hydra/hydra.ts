@@ -289,7 +289,7 @@ export const Hydra = {
 			}
 		})(),
 		'614': new (class B614 extends Buyable<Decimal> {
-			description = '九头蛇能量软上限^0.95';
+			description = '九头蛇能量软上限^0.9';
 			cost(x: Decimal): Decimal {
 				return new Decimal("1e875").mul(x.pow(2.35).pow_base(1e20));
 			}
