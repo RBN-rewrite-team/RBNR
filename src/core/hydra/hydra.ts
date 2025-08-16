@@ -125,6 +125,21 @@ export const Hydra = {
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
+		'619': new (class extends UpgradeWithEffect<Decimal> {
+			description = '轮回效果削弱九头蛇能量软上限';
+			cost = new Decimal("1e1125");
+			name = 'U5-1-9';
+			show(): boolean {
+				return Hydra.pUnlock(3);
+			}
+			effectDescription(): string {
+				return '^' + format(this.effect());
+			}
+			effect(): Decimal {
+				return Hydra.prestigeEff(3).add(1).recip();
+			}
+			currency: Currencies = Currencies.HYDRA_POWER;
+		})(),
 		'62': new (class U62 extends UpgradeWithEffect<Decimal> {
 			description = '基于累计九头蛇能量，每秒获得一定重置时获取的九头蛇能量和乘数';
 			cost = new Decimal(1e45);
@@ -337,6 +352,7 @@ export const Hydra = {
 		if(Hydra.powerExp().lt(4)) return new Decimal(1);
 		let nerf = Hydra.powerExp().div(4).root(4).pow(-1);
 		if (player.buyables[614].add(buyables[614]?.more?.()).gte(0)) nerf = nerf.pow(buyables[614].effect(player.buyables[614]))
+		if (player.upgrades[619]) nerf = nerf.pow(upgrades[619].effect())
 		return nerf
 	},
 	powerExtraMult(): Decimal { //能量倍数

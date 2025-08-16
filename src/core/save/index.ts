@@ -241,6 +241,7 @@ function getInitialPlayerData(): Player {
 			'616': false,
 			'617': false,
 			'618': false,
+			'619': false,
 			'62': false,
 			'63': false,
 			'64': false,
