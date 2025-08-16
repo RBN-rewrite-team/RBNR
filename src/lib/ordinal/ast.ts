@@ -1,7 +1,7 @@
 import Decimal from 'break_eternity.js';
 
 export abstract class ASTNode {
-	abstract readonly type:
+	abstract type:
 		| 'Number'
 		| 'Omega'
 		| 'Addition'
@@ -10,6 +10,8 @@ export abstract class ASTNode {
 		| 'Epsilon'
 		| 'Zeta'
 		| 'Main'
+		| "PSI"
+		| "FUO_OMEGA"
 		| 'W1CK';
 	constructor() {}
 	abstract toDecimal(base: Decimal): Decimal;
@@ -17,8 +19,8 @@ export abstract class ASTNode {
 }
 
 export class NumberNode extends ASTNode {
-	public readonly type = 'Number' as const;
-	public readonly value: number;
+	public type = 'Number' as const;
+	public value: number;
 
 	constructor(value: number) {
 		super();
@@ -37,7 +39,7 @@ export class NumberNode extends ASTNode {
 }
 
 export class OmegaNode extends ASTNode {
-	public readonly type = 'Omega' as const;
+	public type = 'Omega' as const;
 
 	constructor() {
 		super();
@@ -51,7 +53,7 @@ export class OmegaNode extends ASTNode {
 	}
 }
 export class W1CKNode extends ASTNode {
-	public readonly type = 'W1CK' as const;
+	public type = 'W1CK' as const;
 
 	constructor() {
 		super();
@@ -65,8 +67,8 @@ export class W1CKNode extends ASTNode {
 	}
 }
 export class AddNode extends ASTNode {
-	public readonly type = 'Addition' as const;
-	public readonly params: [ASTNode, ASTNode];
+	public type = 'Addition' as const;
+	public params: [ASTNode, ASTNode];
 
 	constructor(param1: ASTNode, param2: ASTNode) {
 		super();
@@ -82,8 +84,8 @@ export class AddNode extends ASTNode {
 }
 
 export class MultiplyNode extends ASTNode {
-	public readonly type = 'Multiply' as const;
-	public readonly params: [ASTNode, ASTNode];
+	public type = 'Multiply' as const;
+	public params: [ASTNode, ASTNode];
 
 	constructor(param1: ASTNode, param2: ASTNode) {
 		super();
@@ -99,8 +101,8 @@ export class MultiplyNode extends ASTNode {
 }
 
 export class ExponentNode extends ASTNode {
-	public readonly type = 'Exponention' as const;
-	public readonly params: [ASTNode, ASTNode];
+	public type = 'Exponention' as const;
+	public params: [ASTNode, ASTNode];
 
 	constructor(param1: ASTNode, param2: ASTNode) {
 		super();
@@ -116,8 +118,8 @@ export class ExponentNode extends ASTNode {
 }
 
 export class EpsilonNode extends ASTNode {
-	public readonly type = 'Epsilon' as const;
-	public readonly childNode: ASTNode;
+	public type = 'Epsilon' as const;
+	public childNode: ASTNode;
 
 	constructor(node: ASTNode) {
 		super();
@@ -131,9 +133,41 @@ export class EpsilonNode extends ASTNode {
 		return `ε<sub>${this.childNode.HTMLForm()}</sub>`;
 	}
 }
+export class FUO_OMEGA_Node extends ASTNode {
+	public type = 'FUO_OMEGA' as const;
+	public childNode: ASTNode; // W_xxxx
+
+	constructor(node: ASTNode) {
+		super();
+		this.childNode = node;
+	}
+
+	toDecimal(base: Decimal) {
+		return Decimal.dInf;
+	}
+	HTMLForm(): string {
+		return `Ω<sub>${this.childNode.HTMLForm()}</sub>`;
+	}
+}export class PSI_Node extends ASTNode {
+	public type = 'PSI' as const;
+	public sub: ASTNode; // psi_xxx()
+	public content: ASTNode;
+	constructor(node: ASTNode, cont: ASTNode) {
+		super();
+		this.sub = node;
+		this.content = cont;
+	}
+
+	toDecimal(base: Decimal) {
+		return Decimal.dInf;
+	}
+	HTMLForm(): string {
+		return `ψ<sub>${this.sub.HTMLForm()}</sub>()`;
+	}
+}
 export class ZetaNode extends ASTNode {
-	public readonly type = 'Zeta' as const;
-	public readonly childNode: ASTNode;
+	public type = 'Zeta' as const;
+	public childNode: ASTNode;
 
 	constructor(node: ASTNode) {
 		super();
