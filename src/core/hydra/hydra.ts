@@ -345,6 +345,7 @@ export const Hydra = {
 		let base = Hydra.basePower();
 		base = base.mul(Hydra.powerExtraMult());
 		base = base.pow(Hydra.powerExp().mul(Hydra.powerExpNerf()));
+    if (base.gte("e2400")) base = base.log10().log10().log10().div(0.528943841769672644).root(10).mul(0.528943841769672644).pow10().pow10().pow10();
 		return base;
 	},
 	pUnlock(id = 0): boolean { //解锁转生
