@@ -253,6 +253,9 @@ function hydraAxisHTML(): string {
 			<tr v-if="player.upgrades[614]">
 				<TDUpgrade upgid="65" />
 			</tr>
+			<tr v-if="player.upgrades[65]">
+				<TDUpgrade upgid="619" />
+			</tr>
 		</table>
 	</div>
 </template>
