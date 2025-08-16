@@ -150,7 +150,7 @@ export const Hydra = {
 		})(),
 		'64': new (class U64 extends Upgrade {
 			description = '超越不再重置九头蛇能量，飞升不再重置乘数，转生不重置任何东西。';
-			cost = new Decimal("1e685");
+			cost = new Decimal("1e600");
 			name = 'U5-4';
 			show(): boolean {
 				return Hydra.pUnlock(3);
@@ -275,7 +275,7 @@ export const Hydra = {
 		'614': new (class B614 extends Buyable<Decimal> {
 			description = '九头蛇能量软上限^0.95';
 			cost(x: Decimal): Decimal {
-				return new Decimal("1e900").mul(x.pow(2.35).pow_base(1e20));
+				return new Decimal("1e875").mul(x.pow(2.35).pow_base(1e20));
 			}
 			name = 'B5-1-3';
 			effect(x: Decimal): Decimal {
