@@ -2,7 +2,8 @@ import Decimal from 'break_eternity.js';
 import { Ordinal } from '@/lib/ordinal/';
 import { formatWhole } from './format';
 
-function bracket(dimension = 0, ...args: number[]): string {
+function bracket(dimension = 0, ascend = 0, ...args: number[]): string {
+	for(let i in args) args[i] += ascend;
   while (args.length < dimension) args.push(0)
 	return `(${args.slice(0, dimension).join(',')})`
 }
@@ -104,29 +105,37 @@ export const OrdinalUtils = {
 			return this.numberLogHH(lx, base).add(base.pow(2).mul(wp2));
 		}
 	},
-	numberToBMS(x: Decimal, base: Decimal, maxLength = 15, basic: number[] = [0,0,0], dimension = 1): string { //数值转BMS（最多三行）
+	numberToBMS(x: Decimal, base: Decimal, maxLength = 15
+	, otherwise = {basic: [0, 0, 0], dimension: 1, ascend: 0}): string { //数值转BMS（最多三行）
 		if(maxLength <= 0) return '...';
 		
 		if(x.lt(1)) return '';
-		else if(x.lt(base)) return bracket(Math.max(dimension, 1), ...basic) + this.numberToBMS(x.sub(1), base, maxLength--, basic);
-		else if(x.lt(base.pow(2))) return bracket(Math.max(dimension, 1), ...basic) + this.numberToBMS(x.sub(base).add(1), base, maxLength--, [basic[0] + 1,...basic.slice(1)]);
+		else if(x.lt(base)) return bracket(Math.max(otherwise.dimension, 1), otherwise.ascend, ...otherwise.basic) + this.numberToBMS(x.sub(1), base, maxLength--, otherwise);
+		else if(x.lt(base.pow(2)))
+		{
+			let s = bracket(Math.max(otherwise.dimension, 1), otherwise.ascend, ...otherwise.basic);
+			otherwise.basic = [otherwise.basic[0] + 1, ...otherwise.basic.slice(1)];
+			return s + this.numberToBMS(x.sub(base).add(1), base, maxLength--, otherwise);
+		}
 		else if(x.lt(base.pow(base.pow(base))))
 		{
-			let log = x.log(base).floor(), s = bracket(Math.max(dimension, 2), basic[0]++, basic[1]++, basic[2]); maxLength--;
-			s += bracket(Math.max(dimension, 2), ...basic), maxLength--;
+			let log = x.log(base).floor();
+			let s = bracket(Math.max(otherwise.dimension, 2), otherwise.ascend, otherwise.basic[0]++, otherwise.basic[1]++, otherwise.basic[2]);
+			maxLength--;
+			s += bracket(Math.max(otherwise.dimension, 2), otherwise.ascend, ...otherwise.basic), maxLength--;
 			let flag = false, boost = 1;
 			if(log.gte(base)) flag = true;
 			while((log.gte(3) && !flag) || (log.gte(1) && flag))
 			{
 				if(log.gte(base.pow(boost)))
 				{
-					s += bracket(Math.max(dimension, 2), ++basic[0], basic[1] + 1, basic[2]), maxLength--;
+					s += bracket(Math.max(otherwise.dimension, 2), otherwise.ascend, ++otherwise.basic[0], otherwise.basic[1] + 1, otherwise.basic[2]), maxLength--;
 					if(log.lt(base.pow(boost + 1)))log = log.sub(base.pow(boost));
 					boost++;
 				}
 				else
 				{
-					s += bracket(Math.max(dimension, 2), ++basic[0], basic[1], basic[2]), maxLength--;
+					s += bracket(Math.max(otherwise.dimension, 2), otherwise.ascend, ++otherwise.basic[0], otherwise.basic[1], otherwise.basic[2]), maxLength--;
 					log = log.sub(1);
 					if(boost > 1) boost = 1;
 				}
@@ -135,10 +144,20 @@ export const OrdinalUtils = {
 			let k = x.log(base).floor().pow_base(base);
 			let residue = x.sub(k);
 			
-			if(residue.gte(base.sub(1))) return s + this.numberToBMS(residue.sub(base).add(2), base, maxLength--, [basic[0] + 1, 0, 0]);
-			else return s + this.numberToBMS(residue, base, maxLength--, basic);
+			if(residue.gte(base.sub(1)))
+			{
+				otherwise.basic[0]++;
+				return s + this.numberToBMS(residue.sub(base).add(2), base, maxLength--, otherwise);
+			}
+			else return s + this.numberToBMS(residue, base, maxLength--, otherwise);
 		}
-		else return '>(0,0)(1,1)(2,2)(3,3)';
+		else if(x.lt(base.tetrate(base.toNumber())))
+		{
+			let s = bracket(Math.max(otherwise.dimension, 2), otherwise.ascend, ...otherwise.basic);
+			otherwise.ascend++;
+			return s + this.numberToBMS(x.log(base), base, maxLength--, otherwise);
+		}
+		else return '>(0,0,0)(1,1,1)';
 	}
 	/*
 	1: 0
