@@ -236,8 +236,12 @@ function getInitialPlayerData(): Player {
 			'614': false,
 			'615': false,
 			'616': false,
+			'617': false,
+			'618': false,
 			'62': false,
 			'63': false,
+			'64': false,
+			'65': false,
 		},
 		buyables: {
 			'11': zero,
@@ -283,6 +287,7 @@ function getInitialPlayerData(): Player {
 			'611': zero,
 			'612': zero,
 			'613': zero,
+			'614': zero,
 		},
 		milestones: {
 			cb1: false,

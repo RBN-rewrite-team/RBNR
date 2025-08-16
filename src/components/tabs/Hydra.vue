@@ -165,10 +165,10 @@ function hydraAxisHTML(): string {
 					</span></button>
 				</td>
 				<td style="width: 25%">
-					<button class="hydra-button-short"><span class="hydra-text-short">
+					<button class="hydra-button-short" @click="feature.Hydra.prestige(3)"><span class="hydra-text-short">
 						<span v-if="feature.Hydra.pUnlock(3)">
 							<h3>轮回({{formatWhole(player.hydra.prestige[3])}})</h3>
-							???<br>+{{format(feature.Hydra.prestigeEff(3, false))}}→{{format(feature.Hydra.prestigeEff(3, true))}}
+							转生、超越效果指数<br>x+{{format(feature.Hydra.prestigeEff(3, false))}}→{{format(feature.Hydra.prestigeEff(3, true))}}
 						</span>
 						<span v-else>超越效果≥1e10解锁</span>
 					</span></button>
@@ -230,6 +230,10 @@ function hydraAxisHTML(): string {
 				<TDUpgrade upgid="61" />
 				<TDUpgrade upgid="62" />
 				<TDUpgrade upgid="63" />
+				<TDUpgrade upgid="64" />
+			</tr>
+			<tr v-if="player.upgrades[614]">
+				<TDUpgrade upgid="65" />
 			</tr>
 			<tr v-if="player.upgrades[61]">
 				<TDUpgrade upgid="611" />
@@ -240,11 +244,14 @@ function hydraAxisHTML(): string {
 			<tr v-if="player.upgrades[61] && feature.Hydra.pUnlock(2)">
 				<TDUpgrade upgid="615" />
 				<TDUpgrade upgid="616" />
+				<TDUpgrade upgid="617" />
+				<TDUpgrade upgid="618" />
 			</tr>
 			<tr v-if="player.upgrades[61]">
 				<TDBuyable bylid="611" />
 				<TDBuyable bylid="612" />
 				<TDBuyable bylid="613" />
+				<TDBuyable bylid="614" />
 			</tr>
 		</table>
 	</div>
