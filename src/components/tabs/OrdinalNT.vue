@@ -42,7 +42,7 @@ function varGainLatex(id = 'x', layer = 3) {
 			<span v-if="player.numbertheory.visiting <= 2" style="color: rgb(255, 63, 63)"
 				>嗯？这是什么研究，我怎么不知道？之前有人来过这里吗？</span
 			>
-			<div v-if="player.numbertheory.visiting == 3">
+			<div v-if="player.numbertheory.visiting == 3"><div v-if="!player.upgrades[61]">
 				<h2>增长层级</h2>
 				<h3>τ<sub>3</sub>倍增序数获取速度</h3>
 				<vue-latex
@@ -129,6 +129,10 @@ function varGainLatex(id = 'x', layer = 3) {
 						</tr>
 					</tbody>
 				</table>
+			</div>
+			<span v-else style="color: rgb(255, 63, 63)"
+				>嗯？这是什么研究，我怎么不知道？之前有人来过这里吗？</span
+			>
 			</div>
 		</div>
 		<br />

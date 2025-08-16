@@ -11,7 +11,8 @@ import { upgrades, buyables } from '../mechanic';
 export const Hydra = {
 	upgrades: {
 		'61': new (class U61 extends Upgrade {
-			description = '启动BMS推演，基础速度0.1次/s，根据推演中的序数增益序数';
+			description = '<span style="font-size: 14px">启动BMS推演，基础速度0.1次/s，根据推演中的序数增益序数<br>\
+			  <span style="color: red">献祭一些升级、购买项......</span></span>';
 			cost = new Decimal(0);
 			name = 'U5-1';
 			currency: Currencies = Currencies.HYDRA_POWER;
@@ -94,7 +95,7 @@ export const Hydra = {
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
 		'617': new (class U617 extends UpgradeWithEffect<Decimal> {
-			description = '九头蛇能量加成U5-1-2底数';
+			description = '九头蛇能量加成B5-1-2底数';
 			cost = new Decimal("1e700");
 			name = 'U5-1-7';
 			show(): boolean {
@@ -109,7 +110,7 @@ export const Hydra = {
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
 		'618': new (class U618 extends UpgradeWithEffect<Decimal> {
-			description = '九头蛇能量加成U5-1-2底数';
+			description = '轮回效果削弱转生/飞升第一软上限';
 			cost = new Decimal("1e800");
 			name = 'U5-1-8';
 			show(): boolean {
@@ -159,7 +160,7 @@ export const Hydra = {
 		'65': new (class U64 extends Upgrade {
 			description = '飞升/超越/轮回不再重置任何东西。解锁<b>数论研究4</b>(Coming S∞n)';
 			cost = new Decimal("1e1000");
-			name = 'U5-4';
+			name = 'U5-5';
 			show(): boolean {
 				return Hydra.pUnlock(3);
 			}

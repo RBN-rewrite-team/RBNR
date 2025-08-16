@@ -389,7 +389,6 @@ body {
 	background-color: var(--background-color);
 	border: 2px solid #c9c9c9;
 	text-align: center;
-	line-height: 28px;
 	box-shadow: var(--border-color) 1px 1px 2px 1px;
 }
 .upgrade_buttonsmall {
@@ -458,6 +457,7 @@ body {
 	@extend .upgrade_button_parent;
 	width: 175px;
 	height: 175px;
+	line-height: 1.5;
 }
 
 .upgrade_buttonbig:hover {
