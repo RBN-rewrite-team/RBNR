@@ -4,7 +4,7 @@ import { feature } from '@/core/global';
 import { format, physicalScale } from '@/utils/format';
 import { OrdinalUtils } from '@/utils/ordinal';
 import { Ordinal } from '@/lib/ordinal/';
-import { getOrdinalLevel, ordinalNormal } from '../../core/ordinal/ordinal-level.ts';
+import { getOrdinalLevel, ordinalNormal, getBMSOLReq } from '../../core/ordinal/ordinal-level.ts';
 </script>
 
 <template>
@@ -46,7 +46,10 @@ import { getOrdinalLevel, ordinalNormal } from '../../core/ordinal/ordinal-level
 								)
 							: '\\textit{way too large}'
 					"
+					
+					v-if="!player.upgrades[65]"
 				/>
+				<vue-latex :expression="getBMSOLReq(getOrdinalLevel())" />
 			</div>
 		</div>
 	</div>

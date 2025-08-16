@@ -1,5 +1,6 @@
 import { feature, player } from '../global.ts';
 import { Ordinal } from '@/lib/ordinal/';
+import { OrdinalUtils } from '@/utils/ordinal';
 
 export const ordinalNormal = [
 	['w', 0],
@@ -50,6 +51,7 @@ export const ordinalNormal = [
 ] as const;
 
 export function getOrdinalLevel(): number {
+  if (player.upgrades[61]) return getBMSOrdinalLevel()
 	let level = 0;
 	let base = feature.Ordinal.base();
 	for (let i in ordinalNormal) {
@@ -60,4 +62,38 @@ export function getOrdinalLevel(): number {
 			level++;
 	}
 	return level;
+}
+
+export function getBMSOLReq(i:number) {
+  if (i < 44) return OrdinalUtils.numberToLaTeXOrdinal(
+									new Ordinal(ordinalNormal?.[i]?.[0]).toDecimal(
+										feature.Ordinal.base(),
+									),
+									feature.Ordinal.base(),
+								)
+  if (i == 44) return "\\varepsilon_0"
+  return BMSReq[i-45] ?? "\\textit{way too large}"
+}
+
+const BMSReq = [
+  "\\varepsilon_0\\cdotω",
+] as const
+
+function getBMSOrdinalLevel() {
+  let num = player.hydra.deduceOrdinal[0];
+  let level = 0;
+  if (num.lt(16)) {
+  if (num.gte(4)) level++
+  if (num.gte(5)) level+=7
+  if (num.gte(6)) level+=5
+  if (num.gte(7)) level+=4
+  if (num.gte(8)) level+=10
+  if (num.gte(9)) level+=5
+  if (num.gte(10)) level+=3
+  if (num.gte(11)) level+=9
+  if (num.gte(13)) level++
+  }
+  level = 45
+  if (num.gte(17)) level++
+  return level
 }
