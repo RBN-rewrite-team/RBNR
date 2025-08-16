@@ -51,6 +51,9 @@ export interface Player {
 			t32: Decimal;
 			t33: Decimal;
 		};
+		GM: {
+		  x: Decimal;
+		}
 	};
 	currentTab: number;
 	addpower: Decimal;
@@ -242,6 +245,9 @@ function getInitialPlayerData(): Player {
 			'63': false,
 			'64': false,
 			'65': false,
+			'61R': false,
+			'62R': false,
+			'63R': false,
 		},
 		buyables: {
 			'11': zero,
@@ -288,6 +294,8 @@ function getInitialPlayerData(): Player {
 			'612': zero,
 			'613': zero,
 			'614': zero,
+			'61R': zero,
+			'62R': zero,
 		},
 		milestones: {
 			cb1: false,
@@ -341,6 +349,9 @@ function getInitialPlayerData(): Player {
 				t32: new Decimal(0),
 				t33: new Decimal(0),
 			},
+			GM: {
+			  x: new Decimal(0),
+			}
 		},
 		currentTab: 0,
 		totalAddpower: zero,

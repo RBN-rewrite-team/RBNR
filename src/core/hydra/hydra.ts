@@ -24,6 +24,7 @@ export const Hydra = {
 			effect(): Decimal {
 				let base = player.hydra.totalPower.max(10).log10();
 				if(player.upgrades[616]) base = base.pow(upgrades[616].effect());
+				if(player.upgrades["62R"]) base = base.pow(1.15);
 				return base;
 			}
 			effectDescription(): string {
@@ -312,6 +313,8 @@ export const Hydra = {
 		if(i == 0) base = base.mul(buyables[611].effect(player.buyables[611]));
 		if(player.upgrades[612]) base = base.mul(2);
 		base = base.mul(Hydra.prestigeEff(0));
+	  if (player.upgrades[65]) base = base.mul(feature.OrdinalNT.varComputed('tau', 4))
+	  if (player.buyables["62R"].gte(1)) base = base.mul(buyables["62R"].effect(player.buyables["62R"]))
 		return base;
 	},
 	deduceEff(i = 0): Decimal { //推演一位提高的乘数
@@ -355,6 +358,13 @@ export const Hydra = {
 		else if(id == 2) return player.hydra.prestige[2].gt(0) || Hydra.prestigeEff(1, true).gte(1);
 		else if(id == 3) return player.hydra.prestige[3].gt(0) || Hydra.prestigeEff(2, true).gte(1e10);
 		return false;
+	},
+	pMaxUnlock() {
+	  for (let i = 0; i < 4; i++) {
+	    if (this.pUnlock(i)) continue;
+	    return i;
+	  }
+	  return 4
 	},
 	pAutoUnlock(id = 0): boolean { //解锁自动化
 		if(id == 0) return Hydra.pUnlock(2);
@@ -436,9 +446,11 @@ export const Hydra = {
 			}
 		}
 		if (player.upgrades[62]) {
-		  player.hydra.power = player.hydra.power.add(Hydra.hydraPowerPassiveGeneration().mul(diff))
+		  let NT4Boost = new Decimal(1);
+			if (player.upgrades[65]) NT4Boost = NT4Boost.mul(feature.OrdinalNT.varComputed('tau', 4))
+		  player.hydra.power = player.hydra.power.add(Hydra.hydraPowerPassiveGeneration().mul(diff))// 已经加速过了，不用再写一遍
 		  player.hydra.totalPower = player.hydra.totalPower.add(Hydra.hydraPowerPassiveGeneration().mul(diff))
-			player.hydra.powerMult[0] = player.hydra.powerMult[0].add(Hydra.deduceEff(0).mul(player.hydra.deduceOrdinal[0]).mul(upgrades[62].effect()).mul(diff));
+			player.hydra.powerMult[0] = player.hydra.powerMult[0].add(Hydra.deduceEff(0).mul(player.hydra.deduceOrdinal[0]).mul(upgrades[62].effect()).mul(diff).mul(NT4Boost));
 		}
 		for(let i = 0;i < 4;i++)
 		{
@@ -467,9 +479,9 @@ export const Hydra = {
 	  if (!player.upgrades[62]) return new Decimal(0)
 	  let gain = Hydra.powerGain()
 	  let passive = upgrades[62].effect()
+	  if (player.upgrades[65]) passive = passive.mul(feature.OrdinalNT.varComputed('tau', 4))
 	  return gain.mul(passive)
 	},
-	
 	hydraMilestone: [
 		[
 			['\\omega', new Decimal(4)],
