@@ -232,6 +232,9 @@ function hydraAxisHTML(): string {
 				<TDUpgrade upgid="63" />
 				<TDUpgrade upgid="64" />
 			</tr>
+			<tr v-if="player.upgrades[614]">
+				<TDUpgrade upgid="65" />
+			</tr>
 			<tr v-if="player.upgrades[61]">
 				<TDUpgrade upgid="611" />
 				<TDUpgrade upgid="612" />
@@ -242,11 +245,13 @@ function hydraAxisHTML(): string {
 				<TDUpgrade upgid="615" />
 				<TDUpgrade upgid="616" />
 				<TDUpgrade upgid="617" />
+				<TDUpgrade upgid="618" />
 			</tr>
 			<tr v-if="player.upgrades[61]">
 				<TDBuyable bylid="611" />
 				<TDBuyable bylid="612" />
 				<TDBuyable bylid="613" />
+				<TDBuyable bylid="614" />
 			</tr>
 		</table>
 	</div>

@@ -93,7 +93,7 @@ export const Hydra = {
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
-		'617': new (class U616 extends UpgradeWithEffect<Decimal> {
+		'617': new (class U617 extends UpgradeWithEffect<Decimal> {
 			description = '九头蛇能量加成U5-1-2底数';
 			cost = new Decimal("1e700");
 			name = 'U5-1-7';
@@ -105,6 +105,21 @@ export const Hydra = {
 			}
 			effect(): Decimal {
 				return player.hydra.power.log10().max(500).div(500);
+			}
+			currency: Currencies = Currencies.HYDRA_POWER;
+		})(),
+		'618': new (class U618 extends UpgradeWithEffect<Decimal> {
+			description = '九头蛇能量加成U5-1-2底数';
+			cost = new Decimal("1e800");
+			name = 'U5-1-8';
+			show(): boolean {
+				return Hydra.pUnlock(3);
+			}
+			effectDescription(): string {
+				return '^' + format(this.effect());
+			}
+			effect(): Decimal {
+				return Hydra.prestigeEff(3).add(1).recip();
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
@@ -135,6 +150,15 @@ export const Hydra = {
 		'64': new (class U64 extends Upgrade {
 			description = '超越不再重置九头蛇能量，飞升不再重置乘数，转生不重置任何东西。';
 			cost = new Decimal("1e685");
+			name = 'U5-4';
+			show(): boolean {
+				return Hydra.pUnlock(3);
+			}
+			currency: Currencies = Currencies.HYDRA_POWER;
+		})(),
+		'65': new (class U64 extends Upgrade {
+			description = '飞升/超越/轮回不再重置任何东西。解锁<b>数论研究4</b>(Coming S∞n)';
+			cost = new Decimal("1e1000");
 			name = 'U5-4';
 			show(): boolean {
 				return Hydra.pUnlock(3);
@@ -247,6 +271,38 @@ export const Hydra = {
 					.floor();
 			}
 		})(),
+		'614': new (class B614 extends Buyable<Decimal> {
+			description = '九头蛇能量软上限^0.95';
+			cost(x: Decimal): Decimal {
+				return new Decimal("1e900").mul(x.pow(2.35).pow_base(1e20));
+			}
+			name = 'B5-1-3';
+			effect(x: Decimal): Decimal {
+				return x.pow_base(0.9);
+			}
+			effectDescription(x: Decimal) {
+				return '^' + format(this.effect(x));
+			}
+			currency: Currencies = Currencies.HYDRA_POWER;
+			show(): boolean {
+				return Hydra.pUnlock(3);
+			}
+			canBuyMax(): boolean {
+				return false;
+			}
+			autoBuyMax(): boolean {
+				return false;
+			}
+			costInverse(x: Decimal): Decimal {
+				return x
+					.div("1e900")
+					.max(1)
+					.log(1e20)
+					.root(2.5)
+					.add(1)
+					.floor();
+			}
+		})(),
 	},
 	deduceSpeed(i = 0): Decimal { //推演的速度
 		let base = new Decimal(0);
@@ -275,7 +331,9 @@ export const Hydra = {
 	},
 	powerExpNerf(): Decimal { //软上限
 		if(Hydra.powerExp().lt(4)) return new Decimal(1);
-		return Hydra.powerExp().div(4).root(4).pow(-1);
+		let nerf = Hydra.powerExp().div(4).root(4).pow(-1);
+		if (player.buyables[614].add(buyables[614]?.more?.()).gte(0)) nerf = nerf.pow(buyables[614].effect(player.buyables[614]))
+		return nerf
 	},
 	powerExtraMult(): Decimal { //能量倍数
 		let base = new Decimal(1);
@@ -323,6 +381,7 @@ export const Hydra = {
 		if(!preview) num = player.hydra.prestige[id];
 		else num = Hydra.prestigeBase(id);
 		let base = new Decimal(0);
+		let U618Eff = player.upgrades[618] && id != 3 ? upgrades[618].effect() : new Decimal(1)
 		if(id == 0) base = num.max(1).pow(0.3).mul(num.add(2).log(2)).pow(Hydra.prestigeEff(3).add(1));
 		else if(id == 1)
 		{
@@ -331,9 +390,9 @@ export const Hydra = {
 		}
 		else if(id == 2) base = num.pow(3).mul(num.max(1).add(1).log(2)).pow_base(5).pow(Hydra.prestigeEff(3).add(1));
 		else if(id == 3) base = num.max(1e10).log10().div(10).sub(1);
-		if(id == 0 && base.gte(100)) base = base.div(100).root(1.5).mul(100);
+		if(id == 0 && base.gte(100)) base = base.div(100).root(new Decimal(1.5).pow(U618Eff)).mul(100);
 		if(id == 0 && base.gte(1e25)) base = base.log10().div(25).root(2).mul(25).pow_base(10);
-		if(id == 1 && base.gte(1)) base = base.root(2);
+		if(id == 1 && base.gte(1)) base = base.root(new Decimal(2).pow(U618Eff));
 		if(id == 1 && base.gte(2.25)) base = base.div(2.25).root(2).mul(2.25);
 		if(id == 2 && base.gte(1e10)) base = base.log10().div(10).pow(0.5).mul(10).pow_base(10);
 		if(id == 3 && base.gte(0.05)) base = base.sub(0.05).mul(0.5).add(0.05);
@@ -348,12 +407,13 @@ export const Hydra = {
 		if(!Hydra.pUnlock(i)) return;
 		if(!Hydra.prestigeEff(i, true).gt(Hydra.prestigeEff(i, false))) return;
 		let keepHP = false, keepO = false;
+		player.hydra.prestige[i] = player.hydra.prestige[i].max(Hydra.prestigeBase(i));
+		if (i <= 3 && player.upgrades[65]) return;
+		if (i == 0 && player.upgrades[64]) return;
 		if(i <= 1 && player.upgrades[63]) keepHP = true;
 		if(i == 2 && player.upgrades[64]) keepHP = true;
 		if(i == 0 && player.upgrades[63]) keepO = true;
 		if(i == 1 && player.upgrades[64]) keepO = true;
-		player.hydra.prestige[i] = player.hydra.prestige[i].max(Hydra.prestigeBase(i));
-		if (i == 0 && player.upgrades[64]) return;
 		for(let j = 0;j < 4;j++)
 		{
 			Hydra.hydraReset(j);
