@@ -115,6 +115,20 @@ export class ExponentNode extends ASTNode {
 	HTMLForm(): string {
 		return `${this.params[0].HTMLForm()}<sup>${this.params[1].HTMLForm()}</sup>`;
 	}
+	bot_omega_destruct(): ASTNode {
+		if (this.params[0] !instanceof OmegaNode) return this;
+		let destructed = this.params[1];
+		this.params[0] = destructed;
+		let addition;
+		if (destructed instanceof AddNode) {
+			addition = destructed.params[1];
+			destructed = destructed.params[0];
+			this.params[0] = new MultiplyNode(this.params[0], 
+				new ExponentNode(new OmegaNode(), addition).bot_omega_destruct()
+			);
+		}
+		return destructed
+	}
 }
 
 export class EpsilonNode extends ASTNode {
