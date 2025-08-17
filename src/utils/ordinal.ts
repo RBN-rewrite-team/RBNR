@@ -165,7 +165,7 @@ export const OrdinalUtils = {
 		else
 		{
 			otherwise = {basic: [0, 0], dimension: 1, ascend: 0, id: 0};
-			return this.numberToTLBMS(x.iteratedlog(base, base.toNumber()), base, maxLength, otherwise);
+			return this.numberToTLBMS(x.iteratedlog(base, base.toNumber() - 1), base, maxLength, otherwise);
 		}
 	},
 	numberToTLBMS(x: Decimal, base: Decimal, maxLength = 15
