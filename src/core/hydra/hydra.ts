@@ -198,7 +198,7 @@ export const Hydra = {
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
 		'66': new (class U64 extends Upgrade {
-			description = '转生/轮回自动重置阈值为+0 & ×1';
+			description = '转生/飞升自动重置阈值为+0 & ×1';
 			cost = new Decimal("1.337e1337");
 			name = 'U5-6';
 			show(): boolean {
