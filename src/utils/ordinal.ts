@@ -121,7 +121,7 @@ export const OrdinalUtils = {
 		else if(x.lt(base.pow(base.pow(base))))
 		{
 			otherwise.dimension = Math.max(otherwise.dimension, 2)
-			let log = x.log(base); if(x.eq(34)) console.log(x.log(base));
+			let log = x.log(base);
 			let s = bracket(otherwise.dimension, otherwise.ascend, otherwise.basic[0]++, otherwise.basic[1]++);
 			maxLength--;
 			s += bracket(otherwise.dimension, otherwise.ascend, ...otherwise.basic), maxLength--;
@@ -259,4 +259,3 @@ export const OrdinalUtils = {
   狗操的BMS,那么复杂相思了
 	*/
 };
-for(let i = 0;i <= 256;i++) console.log(i + ' ' + OrdinalUtils.numberToBMS(new Decimal(i), new Decimal(4)));
