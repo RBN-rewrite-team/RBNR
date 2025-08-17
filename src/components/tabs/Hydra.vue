@@ -30,7 +30,7 @@ function hydraMilestone(): any {
 	}
 	let reached = flag == -1 ? '\\text{暂未达成}' : ms[flag][0];
 	let next = ms[flag + 1][0];
-	let progress = String(player.hydra.deduceOrdinal[player.hydra.visiting].div(ms[flag + 1][1]).mul(100).floor().toNumber()) + '\\%';
+	let progress = "\\text{"+format(player.hydra.deduceOrdinal[player.hydra.visiting].div(ms[flag + 1][1]).mul(100)) + '}\\%';
 	return {reached: reached, next: next, progress: progress};
 }
 
@@ -232,9 +232,6 @@ function hydraAxisHTML(): string {
 				<TDUpgrade upgid="63" />
 				<TDUpgrade upgid="64" />
 			</tr>
-			<tr v-if="player.upgrades[614]">
-				<TDUpgrade upgid="65" />
-			</tr>
 			<tr v-if="player.upgrades[61]">
 				<TDUpgrade upgid="611" />
 				<TDUpgrade upgid="612" />
@@ -252,6 +249,12 @@ function hydraAxisHTML(): string {
 				<TDBuyable bylid="612" />
 				<TDBuyable bylid="613" />
 				<TDBuyable bylid="614" />
+			</tr>
+			<tr v-if="player.upgrades[614]">
+				<TDUpgrade upgid="65" />
+			</tr>
+			<tr v-if="player.upgrades[65]">
+				<TDUpgrade upgid="619" />
 			</tr>
 		</table>
 	</div>

@@ -167,6 +167,52 @@ export const OrdinalNT = {
 					.floor();
 			}
 		})(),
+		'61R': new (class B61R extends Buyable<Decimal> {
+			description = 'a = a + 1';
+			cost(x: Decimal): Decimal {
+				return new Decimal("ee3").mul(x.pow_base(1e50));
+			}
+			name = 'B6-R1-1';
+			effect(x: Decimal): Decimal {
+				return x;
+			}
+			effectDescription(x: Decimal) {
+				return 'a = ' + format(this.effect(x));
+			}
+			currency: Currencies = Currencies.HYDRA_POWER;
+			canBuyMax(): boolean {
+				return false;
+			}
+			autoBuyMax(): boolean {
+				return false;
+			}
+			costInverse(x: Decimal): Decimal {
+				return x.div("ee3").max(1).log(1e50).floor().add(1)
+			}
+		})(),
+		'62R': new (class B62R extends Buyable<Decimal> {
+			description = 'BMS推演速度×2';
+			cost(x: Decimal): Decimal {
+				return new Decimal(100).mul(x.pow_base(10));
+			}
+			name = 'B6-R1-2';
+			effect(x: Decimal): Decimal {
+				return x.pow_base(2);
+			}
+			effectDescription(x: Decimal) {
+				return '×' + format(this.effect(x));
+			}
+			currency: Currencies = Currencies.X4;
+			canBuyMax(): boolean {
+				return false;
+			}
+			autoBuyMax(): boolean {
+				return false;
+			}
+			costInverse(x: Decimal): Decimal {
+				return x.div(100).max(1).log(10).floor().add(1)
+			}
+		})(),
 	} as const,
 	upgrades: {
 		'51R': new (class U51 extends Upgrade {
@@ -184,6 +230,30 @@ export const OrdinalNT = {
 			ordinal = true;
 			name = 'U4-R1-2';
 			currency: Currencies = Currencies.ORDINAL;
+		})(),
+		'61R': new (class U61R extends Upgrade {
+			description = '将f(x)的公式加强为log<sub>2</sub> x';
+			cost = new Decimal("e1050")
+			currency = Currencies.HYDRA_POWER
+			name = "U5-R1-1"
+		})(),
+		'62R': new (class extends Upgrade {
+			description = 'U5-1-1效果^1.125';
+			cost = new Decimal(2500)
+			currency = Currencies.X4
+			name = "U5-R1-2"
+		})(),
+		'63R': new (class extends UpgradeWithEffect<Decimal> {
+			description = 'f(x)获得一个基于转生效果的指数';
+			cost = new Decimal(1e4)
+			currency = Currencies.X4
+			name = "U5-R1-3"
+			effect(): Decimal {
+			  return feature.Hydra.prestigeEff(0).log10().div(100).add(1)
+			}
+			effectDescription() {
+			  return "^"+format(this.effect())
+			}
 		})(),
 	} as const,
 	initMechanics() {},
@@ -235,12 +305,50 @@ export const OrdinalNT = {
 				return base;
 			}
 		}
+		if (layer == 4) {
+		  if (id == "x") {
+		    let prod = new Decimal(1);
+		    let a = buyables["61R"].effect(player.buyables["61R"])
+		    for (let i = 0; i < feature.Hydra.pMaxUnlock(); i++) {
+		      prod = prod.mul(new Decimal(1).add(feature.Hydra.prestigeEff(i)))
+		    }
+		    return this.functionL4("f", prod).mul(a)
+		  }
+		}
 		return new Decimal(0);
 	},
-	varGainLoop(diff = 1): void {
-		player.numbertheory.GH.x = player.numbertheory.GH.x.add(this.varGain('x', 3).mul(diff));
+	functionL4(id = "f", value: Decimal): Decimal {
+	  switch (id) {
+	    case "f":
+	      let exp = this.functionL4exp("f")
+	      
+	      if (player.upgrades["61R"]) return value.log2().pow(exp)
+	      return value.log10().pow(exp)
+	    case "g":
+	      return value.log10()
+	    default:
+	      return value
+	  }
+	},
+	functionL4exp(id = "f"): Decimal {
+	  switch (id) {
+	    case "f":
+	      let exp = new Decimal(1)
+	      if (player.upgrades["63R"]) exp = exp.mul(upgrades["63R"].effect())
 
-		if (player.upgrades[512]) player.numbertheory.GH.t33 = player.numbertheory.GH.t33.add(diff);
+	      return exp
+	    case "g":
+	      return new Decimal(1)
+	    default:
+	      return new Decimal(1)
+	  }
+	},
+	varGainLoop(diff = 0.04): void {
+	  if (!player.upgrades[61]) {
+		  player.numbertheory.GH.x = player.numbertheory.GH.x.add(this.varGain('x', 3).mul(diff));
+		  if (player.upgrades[512]) player.numbertheory.GH.t33 = player.numbertheory.GH.t33.add(diff);
+	  }
+	  if (player.upgrades[65]) player.numbertheory.GM.x = player.numbertheory.GM.x.add(this.varGain('x', 4).mul(diff));
 	},
 	varComputed(id = 'tau', layer = 3): Decimal {
 		if (layer == 3) {
@@ -277,6 +385,12 @@ export const OrdinalNT = {
 				base = base.add(player.numbertheory.GH.t33);
 				return base;
 			}
+		}
+		if (layer == 4) {
+		  if (id == "tau") {
+		    let base = player.numbertheory.GM.x.add(10)
+		    return this.functionL4("g", base)
+		  }
 		}
 		return new Decimal(0);
 	},

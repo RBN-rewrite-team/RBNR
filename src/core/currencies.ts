@@ -9,6 +9,7 @@ export enum Currencies {
 	QOL_POINTS = 'qol',
 	ORDINAL = 'ordinal',
 	HYDRA_POWER = 'hydra',
+	X4 = 'x4',
 }
 
 abstract class Currency {
@@ -99,6 +100,17 @@ class HydraPowerCurrency extends Currency {
 	}
 }
 
+class X4Currency extends Currency {
+	static name = 'x<sub>4</sub>';
+	static set current(x: Decimal) {
+		return;
+	}
+	
+	static get current() {
+		return player.numbertheory.GM.x;
+	}
+}
+
 const currencyMap: Map<Currencies, typeof Currency> = new Map([
 	[Currencies.NUMBER, NumberCurrency],
 	[Currencies.ADDITION_POWER, AdditionPowerCurrency],
@@ -107,6 +119,7 @@ const currencyMap: Map<Currencies, typeof Currency> = new Map([
 	[Currencies.QOL_POINTS, QolPointsCurrency],
 	[Currencies.ORDINAL, Ordinal],
 	[Currencies.HYDRA_POWER, HydraPowerCurrency],
+	[Currencies.X4, X4Currency],
 ]);
 
 export function setCurrency(currency: Currencies, value: Decimal) {

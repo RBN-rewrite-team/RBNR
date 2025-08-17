@@ -188,7 +188,7 @@ import { format } from '@/utils/format';
 				</div>
 			</div>
 			<div
-				style="margin-left: 265px"
+				style="margin-left: 365px"
 				class="resource"
 				v-if="player.upgrades[517]"
 			>

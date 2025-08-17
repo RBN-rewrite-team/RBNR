@@ -251,5 +251,4 @@ export const OrdinalUtils = {
   狗操的BMS,那么复杂相思了
 	*/
 };
-
-for(let i = 48;i <= 70;i++) console.log(i + ' ' + OrdinalUtils.numberToBMS(new Decimal(i), new Decimal(4)));
+//for(let i = 0;i <= 256;i++) console.log(i + ' ' + OrdinalUtils.numberToBMS(new Decimal(i), new Decimal(4)));
