@@ -341,14 +341,14 @@ export function calculate(BMS: string): string {
     const maxCol = EBO[i];
     
     if (i == "4") {
-      if (currentColumn[0] >= 2) return ">ψ(ψ<sub>I</sub>(0))"
+      if (currentColumn[0] >= 2) return ">ψ(I)"
       break;
     }
     
     for (let j in maxCol) {
       if (currentColumn[j] < maxCol[j]) break;
       if (currentColumn[j] == maxCol[j]) continue;
-      if (currentColumn[j] > maxCol[j]) return ">ψ(ψ<sub>I</sub>(0))"
+      if (currentColumn[j] > maxCol[j]) return ">ψ(I)"
     }
   }
 	
