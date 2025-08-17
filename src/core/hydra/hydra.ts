@@ -140,6 +140,21 @@ export const Hydra = {
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
+		'6110': new (class extends UpgradeWithEffect<Decimal> {
+			description = '轮回效果降低B5-1-2~4的价格';
+			cost = new Decimal("7.1717e1717");
+			name = 'U5-1-10';
+			show(): boolean {
+				return Hydra.pUnlock(3);
+			}
+			effectDescription(): string {
+				return '^' + format(this.effect());
+			}
+			effect(): Decimal {
+				return Hydra.prestigeEff(3).add(1).recip().pow(1.1);
+			}
+			currency: Currencies = Currencies.HYDRA_POWER;
+		})(),
 		'62': new (class U62 extends UpgradeWithEffect<Decimal> {
 			description = '基于累计九头蛇能量，每秒获得一定重置时获取的九头蛇能量和乘数';
 			cost = new Decimal(1e45);
@@ -174,9 +189,18 @@ export const Hydra = {
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
 		'65': new (class U64 extends Upgrade {
-			description = '飞升/超越/轮回不再重置任何东西。解锁<b>数论研究4</b>(Coming S∞n)';
+			description = '飞升/超越/轮回不再重置任何东西。解锁<b>数论研究4</b>';
 			cost = new Decimal("1e1000");
 			name = 'U5-5';
+			show(): boolean {
+				return Hydra.pUnlock(3);
+			}
+			currency: Currencies = Currencies.HYDRA_POWER;
+		})(),
+		'66': new (class U64 extends Upgrade {
+			description = '转生/轮回自动重置阈值为+0 & ×1';
+			cost = new Decimal("1.337e1337");
+			name = 'U5-6';
 			show(): boolean {
 				return Hydra.pUnlock(3);
 			}
@@ -219,7 +243,9 @@ export const Hydra = {
 		'612': new (class B612 extends Buyable<Decimal> {
 			description = '基础指数+0.01';
 			cost(x: Decimal): Decimal {
-				return new Decimal(10000).mul(x.pow(2).pow_base(1.05));
+				let base = new Decimal(10000).mul(x.pow(2).pow_base(1.05));
+				if (player.upgrades[6110]) base = base.pow(upgrades[6110].effect())
+				return base
 			}
 			name = 'B5-1-2';
 			effect(x: Decimal): Decimal {
@@ -242,7 +268,10 @@ export const Hydra = {
 				return false;
 			}
 			costInverse(x: Decimal): Decimal {
+			  let expReduce = new Decimal(1)
+			  if (player.upgrades[6110]) expReduce = expReduce.pow(upgrades[6110].effect())
 				return x
+				  .root(expReduce)
 					.div(10000)
 					.max(1)
 					.log(1.05)
@@ -259,7 +288,9 @@ export const Hydra = {
 		'613': new (class B613 extends Buyable<Decimal> {
 			description = '乘数获取速度×1.1';
 			cost(x: Decimal): Decimal {
-				return new Decimal(1e8).mul(x.pow(2.5).pow_base(1.02));
+				let base = new Decimal(1e8).mul(x.pow(2.5).pow_base(1.02));
+				if (player.upgrades[6110]) base = base.pow(upgrades[6110].effect())
+				return base
 			}
 			name = 'B5-1-3';
 			effect(x: Decimal): Decimal {
@@ -279,7 +310,10 @@ export const Hydra = {
 				return false;
 			}
 			costInverse(x: Decimal): Decimal {
+			  let expReduce = new Decimal(1)
+			  if (player.upgrades[6110]) expReduce = expReduce.pow(upgrades[6110].effect())
 				return x
+				  .root(expReduce)
 					.div(1e8)
 					.max(1)
 					.log(1.02)
@@ -291,7 +325,9 @@ export const Hydra = {
 		'614': new (class B614 extends Buyable<Decimal> {
 			description = '九头蛇能量软上限^0.9';
 			cost(x: Decimal): Decimal {
-				return new Decimal("1e875").mul(x.pow(2.35).pow_base(1e20));
+				let base = new Decimal("1e875").mul(x.pow(2.35).pow_base(1e20));
+				if (player.upgrades[6110]) base = base.pow(upgrades[6110].effect())
+				return base
 			}
 			name = 'B5-1-3';
 			effect(x: Decimal): Decimal {
@@ -311,7 +347,10 @@ export const Hydra = {
 				return false;
 			}
 			costInverse(x: Decimal): Decimal {
+			  let expReduce = new Decimal(1)
+			  if (player.upgrades[6110]) expReduce = expReduce.pow(upgrades[6110].effect())
 				return x
+				  .root(expReduce)
 					.div("1e900")
 					.max(1)
 					.log(1e20)
@@ -328,7 +367,7 @@ export const Hydra = {
 		if(i == 0) base = base.mul(buyables[611].effect(player.buyables[611]));
 		if(player.upgrades[612]) base = base.mul(2);
 		base = base.mul(Hydra.prestigeEff(0));
-	  if (player.upgrades[65]) base = base.mul(feature.OrdinalNT.varComputed('tau', 4))
+	  if (player.upgrades[65]) base = base.mul(Hydra.NT4TauEffect())
 	  if (player.buyables["62R"].gte(1)) base = base.mul(buyables["62R"].effect(player.buyables["62R"]))
 		return base;
 	},
@@ -389,11 +428,11 @@ export const Hydra = {
 	},
 	pAutoThreshold(id = 0): any { //推演阈值
 		if(id == 0)
-			return {add: new Decimal(10).div(player.hydra.totalPower.log10().root(2).sub(10).max(1)),
-					mul: new Decimal(5).div(player.hydra.totalPower.log10().root(10).max(1).min(5))};
+			return {add: player.upgrades[66] ? new Decimal(0) : new Decimal(10).div(player.hydra.totalPower.log10().root(2).sub(10).max(1)),
+					mul: player.upgrades[66] ? new Decimal(1) : new Decimal(5).div(player.hydra.totalPower.log10().root(10).max(1).min(5))};
 		else if(id == 1)
-			return {add: new Decimal(0.2).div(player.hydra.totalPower.log10().root(10).sub(1).max(1)),
-					mul: new Decimal(1)};
+			return {add: player.upgrades[66] ? new Decimal(0) : new Decimal(0.2).div(player.hydra.totalPower.log10().root(10).sub(1).max(1)),
+					mul: player.upgrades[66] ? new Decimal(1) : new Decimal(1)};
 		else return {add: new Decimal(0), mul: new Decimal(1)};
 	},
 	prestigeBase(id = 0): Decimal {
@@ -423,6 +462,7 @@ export const Hydra = {
 		if(id == 1 && base.gte(1)) base = base.root(new Decimal(2).pow(U618Eff));
 		if(id == 1 && base.gte(2.25)) base = base.div(2.25).root(2).mul(2.25);
 		if(id == 2 && base.gte(1e10)) base = base.log10().div(10).pow(0.5).mul(10).pow_base(10);
+		if(id == 3 && player.upgrades["65R"]) base = base.mul(upgrades["65R"].effect());
 		if(id == 3 && base.gte(0.05)) base = base.sub(0.05).mul(0.5).add(0.05);
 		if(id == 3 && base.gte(0.1)) base = base.div(0.1).pow(0.5).mul(0.1);
 		if(!preview) return base;
@@ -463,7 +503,7 @@ export const Hydra = {
 		}
 		if (player.upgrades[62]) {
 		  let NT4Boost = new Decimal(1);
-			if (player.upgrades[65]) NT4Boost = NT4Boost.mul(feature.OrdinalNT.varComputed('tau', 4))
+			if (player.upgrades[65]) NT4Boost = NT4Boost.mul(Hydra.NT4TauEffect())
 		  player.hydra.power = player.hydra.power.add(Hydra.hydraPowerPassiveGeneration().mul(diff))// 已经加速过了，不用再写一遍
 		  player.hydra.totalPower = player.hydra.totalPower.add(Hydra.hydraPowerPassiveGeneration().mul(diff))
 			player.hydra.powerMult[0] = player.hydra.powerMult[0].add(Hydra.deduceEff(0).mul(player.hydra.deduceOrdinal[0]).mul(upgrades[62].effect()).mul(diff).mul(NT4Boost));
@@ -495,7 +535,7 @@ export const Hydra = {
 	  if (!player.upgrades[62]) return new Decimal(0)
 	  let gain = Hydra.powerGain()
 	  let passive = upgrades[62].effect()
-	  if (player.upgrades[65]) passive = passive.mul(feature.OrdinalNT.varComputed('tau', 4))
+	  if (player.upgrades[65]) passive = passive.mul(Hydra.NT4TauEffect())
 	  return gain.mul(passive)
 	},
 	hydraMilestone: [
@@ -521,4 +561,9 @@ export const Hydra = {
 		[],
 		[],
 	],
+	NT4TauEffect() {
+	  let eff = feature.OrdinalNT.varComputed("tau", 4);
+	  if (player.upgrades["64R"]) eff = eff.pow(10)
+	  return eff
+	}
 };

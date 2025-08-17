@@ -255,6 +255,30 @@ export const OrdinalNT = {
 			  return "^"+format(this.effect())
 			}
 		})(),
+		'64R': new (class extends Upgrade {
+			description = 'τ<sub>4</sub>的效果变为其十次方';
+			cost = new Decimal(5)
+			currency = Currencies.T4
+			name = "U5-R1-4"
+		})(),
+		'65R': new (class extends UpgradeWithEffect<Decimal> {
+			description = '九头蛇能量加成轮回效果';
+			cost = new Decimal(6)
+			currency = Currencies.T4
+			name = "U5-R1-5"
+			effect() {
+			  return player.hydra.power.max("e1000").log10().div(1000)
+			}
+			effectDescription() {
+			  return "×"+format(this.effect())
+			}
+		})(),
+		'66R': new (class extends Upgrade {
+			description = 'g(x)的对数底数降低为5';
+			cost = new Decimal("1.1551e1551")
+			currency = Currencies.HYDRA_POWER
+			name = "U5-R1-6"
+		})(),
 	} as const,
 	initMechanics() {},
 	varExp(id = 'x', layer = 3): Decimal {
@@ -325,7 +349,9 @@ export const OrdinalNT = {
 	      if (player.upgrades["61R"]) return value.log2().pow(exp)
 	      return value.log10().pow(exp)
 	    case "g":
-	      return value.log10()
+	      let base = 10
+	      if (player.upgrades["66R"]) base = 5
+	      return value.log(base)
 	    default:
 	      return value
 	  }
