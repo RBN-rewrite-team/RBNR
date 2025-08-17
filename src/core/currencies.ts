@@ -1,5 +1,6 @@
 import type Decimal from 'break_eternity.js';
 import { player } from './save';
+import { feature } from './global';
 
 export enum Currencies {
 	NUMBER = 'number',
@@ -10,6 +11,7 @@ export enum Currencies {
 	ORDINAL = 'ordinal',
 	HYDRA_POWER = 'hydra',
 	X4 = 'x4',
+	T4 = 'τ4',
 }
 
 abstract class Currency {
@@ -111,6 +113,17 @@ class X4Currency extends Currency {
 	}
 }
 
+class T4Currency extends Currency {
+	static name = 'τ<sub>4</sub>';
+	static set current(x: Decimal) {
+		return;
+	}
+	
+	static get current() {
+		return feature.OrdinalNT.varComputed("tau", 4);
+	}
+}
+
 const currencyMap: Map<Currencies, typeof Currency> = new Map([
 	[Currencies.NUMBER, NumberCurrency],
 	[Currencies.ADDITION_POWER, AdditionPowerCurrency],
@@ -120,6 +133,7 @@ const currencyMap: Map<Currencies, typeof Currency> = new Map([
 	[Currencies.ORDINAL, Ordinal],
 	[Currencies.HYDRA_POWER, HydraPowerCurrency],
 	[Currencies.X4, X4Currency],
+	[Currencies.T4, T4Currency],
 ]);
 
 export function setCurrency(currency: Currencies, value: Decimal) {

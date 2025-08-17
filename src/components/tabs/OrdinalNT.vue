@@ -22,9 +22,20 @@ function _f() {
 }
 
 function f() {
-  let exp = OrdinalNT.functionL4exp()
+  let exp = OrdinalNT.functionL4exp("f")
   if (exp.neq(1)) return `(${_f()})^${formatLaTeX(exp)}`
   else return _f()
+}
+
+function g() {
+  let exp = OrdinalNT.functionL4exp("g")
+  if (exp.neq(1)) return `(${_g()})^${formatLaTeX(exp)}`
+  else return _g()
+}
+
+function _g() {
+  if (player.upgrades["61R"]) return "\\log_5 x"
+  return "\\lg x"
 }
 </script>
 
@@ -152,10 +163,10 @@ function f() {
 				<vue-latex :expression="`\\dot{x_4} = a\\cdot f\\left(\\prod_{n = 1}^${feature.Hydra.pMaxUnlock()}e_n+1\\right) = ${formatLaTeX(OrdinalNT.varGain('x', 4))}`" display-mode />
 				<vue-latex :expression="`\\tau_4 = g(x_4+10) = ${format(OrdinalNT.varComputed('tau', 4))}`" display-mode />
 				<vue-latex :expression="`f(x) = ${f()}`" display-mode />
-				<vue-latex :expression="`g(x) = \\lg x`" display-mode />
+				<vue-latex :expression="`g(x) = ${g()}`" display-mode />
 				<vue-latex :expression="`e_n = \\text{第\\textit{n}个九头蛇重置项目的效果}`" display-mode />
 				<vue-latex :expression="`x_4 = ${formatLaTeX(player.numbertheory.GM.x)}`" display-mode />
-				价格对应资源为x<sub>4</sub>的购买项/升级不消耗任何东西。
+				价格对应资源为x<sub>4</sub>, τ<sub>4</sub>的购买项/升级不消耗任何东西。
 				<table align="center">
 				  <tbody>
 				    <tr>
@@ -166,6 +177,11 @@ function f() {
 				      <TDUpgrade upgid="61R" />
 				      <TDUpgrade upgid="62R" />
 				      <TDUpgrade upgid="63R" />
+				      <TDUpgrade upgid="64R" />
+				    </tr>
+				    <tr>
+				      <TDUpgrade upgid="65R" />
+				      <TDUpgrade upgid="66R" />
 				    </tr>
 				  </tbody>
 				</table>
