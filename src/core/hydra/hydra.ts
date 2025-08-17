@@ -329,7 +329,7 @@ export const Hydra = {
 				if (player.upgrades[6110]) base = base.pow(upgrades[6110].effect())
 				return base
 			}
-			name = 'B5-1-3';
+			name = 'B5-1-4';
 			effect(x: Decimal): Decimal {
 				return x.pow_base(0.9);
 			}
