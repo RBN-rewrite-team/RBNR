@@ -550,6 +550,7 @@ export const Hydra = {
 			['\\psi(\\Omega_2^2)', new Decimal(4).pow(16)],
 			['\\psi(\\Omega_2^{\\psi_{\\Omega_2}(\\Omega_2^2))})', new Decimal(4).pow(32)],
 			['\\psi(\\Omega_2^{\\Omega_2})', new Decimal(4).pow(64)],
+			['\\psi(\\Omega_2^{\\Omega_2^{\\psi_{\\Omega_2}(\\Omega_2^2)}})', Decimal.pow(4,81)],
 			['\\psi(\\Omega_3)', new Decimal(4).pow(4 ** 4)],
 			['\\psi(\\Omega_3\\cdot \\Omega_2)', new Decimal(4).pow(4 ** 5)],
 			['\\psi(\\Omega_3^2)', new Decimal(4).pow(4 ** 16)],
