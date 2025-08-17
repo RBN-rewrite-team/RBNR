@@ -27,7 +27,7 @@ jobs:
       
     - name: Find and delete merged VRD branches
       run: |
-        git branch -r --merge origin/develop | \
+        git branch -r origin/develop | \
           grep -E 'origin/vrd[0-9]+' | \
           sed 's/origin\///' | \
           while read branch; do
