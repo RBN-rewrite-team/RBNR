@@ -106,7 +106,7 @@ export const OrdinalUtils = {
 		}
 	},
 	numberToBMS(x: Decimal, base: Decimal, maxLength = 15
-	, otherwise = {basic: [0, 0, 0], dimension: 1, ascend: 0}): string { //数值转BMS（最多三行）
+	, otherwise = {basic: [0, 0], dimension: 1, ascend: 0}): string { //数值转BMS（最多三行）
 		if(maxLength <= 0) return '...';
 		
 		if(x.lt(1)) return '';
@@ -119,8 +119,8 @@ export const OrdinalUtils = {
 		}
 		else if(x.lt(base.pow(base.pow(base))))
 		{
-			let log = x.log(base).floor();
-			let s = bracket(Math.max(otherwise.dimension, 2), otherwise.ascend, otherwise.basic[0]++, otherwise.basic[1]++, otherwise.basic[2]);
+			let log = x.log(base); if(x.eq(34)) console.log(x.log(base));
+			let s = bracket(Math.max(otherwise.dimension, 2), otherwise.ascend, otherwise.basic[0]++, otherwise.basic[1]++);
 			maxLength--;
 			s += bracket(Math.max(otherwise.dimension, 2), otherwise.ascend, ...otherwise.basic), maxLength--;
 			let flag = false, boost = 1;
@@ -129,13 +129,13 @@ export const OrdinalUtils = {
 			{
 				if(log.gte(base.pow(boost)))
 				{
-					s += bracket(Math.max(otherwise.dimension, 2), otherwise.ascend, ++otherwise.basic[0], otherwise.basic[1] + 1, otherwise.basic[2]), maxLength--;
+					s += bracket(Math.max(otherwise.dimension, 2), otherwise.ascend, ++otherwise.basic[0], otherwise.basic[1] + 1), maxLength--;
 					if(log.lt(base.pow(boost + 1)))log = log.sub(base.pow(boost));
 					boost++;
 				}
 				else
 				{
-					s += bracket(Math.max(otherwise.dimension, 2), otherwise.ascend, ++otherwise.basic[0], otherwise.basic[1], otherwise.basic[2]), maxLength--;
+					s += bracket(Math.max(otherwise.dimension, 2), otherwise.ascend, ++otherwise.basic[0], 1), maxLength--;
 					log = log.sub(1);
 					if(boost > 1) boost = 1;
 				}
@@ -147,9 +147,14 @@ export const OrdinalUtils = {
 			if(residue.gte(base.sub(1)))
 			{
 				otherwise.basic[0]++;
+				otherwise.basic[1] = 0;
 				return s + this.numberToBMS(residue.sub(base).add(2), base, maxLength--, otherwise);
 			}
-			else return s + this.numberToBMS(residue, base, maxLength--, otherwise);
+			else
+			{
+				otherwise.dimension = 2;
+				return s + this.numberToBMS(residue, base, maxLength--, otherwise);
+			}
 		}
 		else if(x.lt(base.tetrate(base.toNumber())))
 		{
@@ -157,7 +162,66 @@ export const OrdinalUtils = {
 			otherwise.ascend++;
 			return s + this.numberToBMS(x.log(base), base, maxLength--, otherwise);
 		}
-		else return '>(0,0,0)(1,1,1)';
+		else return numberToTLBMS(x.iteratedlog(base, base), base, maxLength, otherwise);
+	},
+	numberToTLBMS(x: Decimal, base: Decimal, maxLength = 15
+	, otherwise = {basic: [0, 0], dimension: 1, ascend: 0, id: 0}): string { //数值转BMS（最多三行）
+		if(maxLength <= 0) return '...';
+		
+		if(x.lt(1)) return '';
+		else if(x.lt(base)) return bracket(Math.max(otherwise.dimension, 1), otherwise.ascend, otherwise.id++, ...otherwise.basic) + this.numberToTLBMS(x.sub(1), base, maxLength--, otherwise);
+		else if(x.lt(base.pow(2)))
+		{
+			let s = bracket(Math.max(otherwise.dimension, 1), otherwise.ascend, otherwise.id++, ...otherwise.basic);
+			otherwise.basic = [otherwise.basic[0] + 1, ...otherwise.basic.slice(1)];
+			return s + this.numberToTLBMS(x.sub(base).add(1), base, maxLength--, otherwise);
+		}
+		else if(x.lt(base.pow(base.pow(base))))
+		{
+			let log = x.log(base);
+			let s = bracket(Math.max(otherwise.dimension, 2), otherwise.ascend, otherwise.id++, otherwise.basic[0]++, otherwise.basic[1]++);
+			maxLength--;
+			s += bracket(Math.max(otherwise.dimension, 2), otherwise.ascend, otherwise.id++, ...otherwise.basic), maxLength--;
+			let flag = false, boost = 1;
+			if(log.gte(base)) flag = true;
+			while((log.gte(3) && !flag) || (log.gte(1) && flag))
+			{
+				if(log.gte(base.pow(boost)))
+				{
+					s += bracket(Math.max(otherwise.dimension, 2), otherwise.ascend, otherwise.id++, ++otherwise.basic[0], otherwise.basic[1] + 1), maxLength--;
+					if(log.lt(base.pow(boost + 1)))log = log.sub(base.pow(boost));
+					boost++;
+				}
+				else
+				{
+					s += bracket(Math.max(otherwise.dimension, 2), otherwise.ascend, otherwise.id++, ++otherwise.basic[0], 1), maxLength--;
+					log = log.sub(1);
+					if(boost > 1) boost = 1;
+				}
+			}
+			
+			let k = x.log(base).floor().pow_base(base);
+			let residue = x.sub(k);
+			
+			if(residue.gte(base.sub(1)))
+			{
+				otherwise.basic[0]++;
+				otherwise.basic[1] = 0;
+				return s + this.numberToTLBMS(residue.sub(base).add(2), base, maxLength--, otherwise);
+			}
+			else
+			{
+				otherwise.dimension = 2;
+				return s + this.numberToTLBMS(residue, base, maxLength--, otherwise);
+			}
+		}
+		else if(x.lt(base.tetrate(base.toNumber())))
+		{
+			let s = bracket(Math.max(otherwise.dimension, 2), otherwise.ascend, otherwise.id++, ...otherwise.basic);
+			otherwise.ascend++;
+			return s + this.numberToTLBMS(x.log(base), base, maxLength--, otherwise);
+		}
+		else return 'Limit';
 	}
 	/*
 	1: 0
@@ -187,5 +251,4 @@ export const OrdinalUtils = {
   狗操的BMS,那么复杂相思了
 	*/
 };
-
 //for(let i = 0;i <= 256;i++) console.log(i + ' ' + OrdinalUtils.numberToBMS(new Decimal(i), new Decimal(4)));
