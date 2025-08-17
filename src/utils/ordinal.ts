@@ -106,7 +106,7 @@ export const OrdinalUtils = {
 		}
 	},
 	numberToBMS(x: Decimal, base: Decimal, maxLength = 15
-	, otherwise = {basic: [0, 0], dimension: 1, ascend: 0}): string { //数值转BMS（最多三行）
+	, otherwise: any = {basic: [0, 0], dimension: 1, ascend: 0, id: 0}): string { //数值转BMS（最多三行）
 		if(maxLength <= 0) return '...';
 		
 		if(x.lt(1)) return '';
@@ -164,10 +164,14 @@ export const OrdinalUtils = {
 			otherwise.ascend++;
 			return s + this.numberToBMS(x.log(base), base, maxLength--, otherwise);
 		}
-		else return this.numberToTLBMS(x.iteratedlog(base, base.toNumber()), base, maxLength, otherwise);
+		else
+		{
+			otherwise = {basic: [0, 0], dimension: 1, ascend: 0, id: 0};
+			return this.numberToTLBMS(x.iteratedlog(base, base.toNumber()), base, maxLength, otherwise);
+		}
 	},
 	numberToTLBMS(x: Decimal, base: Decimal, maxLength = 15
-	, otherwise = {basic: [0, 0], dimension: 1, ascend: 0, id: 0}): string { //数值转BMS（最多三行）
+	, otherwise: any = {basic: [0, 0], dimension: 1, ascend: 0, id: 0}): string { //数值转BMS（最多三行）
 		if(maxLength <= 0) return '...';
 		
 		if(x.lt(1)) return '';
