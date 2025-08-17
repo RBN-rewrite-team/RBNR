@@ -40,13 +40,13 @@ function hydraMilestoneAxis(): any {
 	let now = player.hydra.deduceOrdinal[player.hydra.visiting];
 	let scale = 0;
 	if(now.gte('1e6')) scale = 1;
-	if(now.gte('e1e6')) scale = 2;
+	if(now.gte(4294967296)) scale = 2;
 	for(let i in ms)
 	{
 		let left = 0;
 		if(scale === 0) left = new Decimal(ms[i][1]).div(now).mul(50).toNumber();
 		else if(scale === 1) left = new Decimal(ms[i][1]).max(10).log10().div(now.max(10).log10()).mul(50).toNumber();
-		else if(scale === 2) left = new Decimal(ms[i][1]).max(10).slog().div(now.max(10).slog()).mul(50).toNumber();
+		else if(scale === 2) left = new Decimal(ms[i][1]).max(10).log10().log10().div(now.max(10).log10().log10()).mul(100).sub(50).toNumber();
 		left = Math.min(Math.max(left, 1), 99);
 		if(left >= 10 && left <= 90) axis.push([ms[i][0], String(left) + '%']);
 	}
