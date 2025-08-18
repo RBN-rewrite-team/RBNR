@@ -472,23 +472,31 @@ export default defineComponent({
     );
 
     const wrapStyles = computed(() => {
-      type retType = {
-        height?: number,
-        width?: number,
-        "margin-top"?: string
-        "margin-bottom"?: string
+      type StyleObject = {
+        height?: string
+        width?: string
+        marginTop?: string
+        marginLeft?: string
+        marginRight?: string
+        marginBottom?: string
       }
-      let ret: retType = (props.direction === 'vertical' ? {
-        height: props.height,
-      } : {
-        width: props.width,
-      })
+    
+      const styles: StyleObject = props.direction === 'vertical' 
+        ? { height: props.height }
+        : { width: props.width }
+    
       if (props.plusMinusButtons) {
-        ret[props.direction === "vertical" ? "margin-top" : "margin-right"]! = "0.5rem";
-        ret[props.direction === "vertical" ? "margin-bottom" : "margin-left"]! = "0.5rem";
+        if (props.direction === "vertical") {
+          styles.marginTop = "0.5rem"
+          styles.marginBottom = "0.5rem"
+        } else {
+          styles.marginRight = "0.5rem"
+          styles.marginLeft = "0.5rem"
+        }
       }
-      return ret;
-    });
+    
+      return styles
+    })
 
     const sliderStyles = computed(() => {
       if (Array.isArray(props.sliderStyle)) {
