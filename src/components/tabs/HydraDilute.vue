@@ -36,18 +36,81 @@ const sliderProps = {
       选用的削弱等级对九头蛇溶液的获取量影响较大，稀释中的进度对九头蛇溶液的获取量影响较小。<br>
       你在{{JSON.stringify(player.hydra.dilute.lastSolvent.map((x: boolean | number) => x ? 1 : 0))}}中最高达到了{{formatWhole(player.hydra.dilute.lastDeduce)}}次推演，这给你带来了{{formatWhole(player.hydra.dilute.solution)}}九头蛇溶液
     </div>
-    <div class="solvent">
-      <div>
-        <div>溶剂I: 时空黑洞</div>
-        <Slider
-          v-bind="sliderProps"
-          :value="player.hydra.dilute.solvent[0]"
-          :width="'100%'"
-          :disabled="player.hydra.dilute.inDilute"
-          @input="player.hydra.dilute.solvent[0] = $event"
-        />
-      </div>
+    <div class="solvents">
+        <div class="solvent">
+            <div>
+                <div>溶剂I: 时空黑洞</div>
+                <div class="solvent-desc-small">“虽然这很不幸，但至少你能用自己比别人活得久的事实来安慰自己。”</div>
+                <div>推演速度和乘数积累速度变为<sup>1</sup>/<sub>{{ 2** player.hydra.dilute.solvent[0] }}</sub></div>
+                <Slider
+                v-bind="sliderProps"
+                :value="player.hydra.dilute.solvent[0]"
+                :width="'100%'"
+                :disabled="player.hydra.dilute.inDilute"
+                @input="player.hydra.dilute.solvent[0] = $event"
+                />
+            </div>
+        </div>
+        <div class="solvent">
+            <div>
+                <div>溶剂II: 阿兹海默症</div>
+                <div class="solvent-desc-small">“你变得越来越健忘......”</div>
+                <div>所有升级成本*{{ 5** player.hydra.dilute.solvent[1] }}</div>
+                <Slider
+                v-bind="sliderProps"
+                :value="player.hydra.dilute.solvent[1]"
+                :width="'100%'"
+                :disabled="player.hydra.dilute.inDilute"
+                @input="player.hydra.dilute.solvent[1] = $event"
+                />
+            </div>
+        </div>
+        <div class="solvent">
+            <div>
+                <div>溶剂III: 地球爆炸</div>
+                <div class="solvent-desc-small">“地球很快就要爆炸了，更糟的是你没有宇宙飞船......”</div>
+                <div>选择本溶剂的稀释会在{{
+                (()=>{let a = (1000/(player.hydra.dilute.solvent[2]**2)); return !isFinite(a) ? "5更新时" : (a.toFixed(3)+"秒");})()
+                }}内自我毁灭(即强行退出稀释)</div>
+                <Slider
+                v-bind="sliderProps"
+                :value="player.hydra.dilute.solvent[2]"
+                :width="'100%'"
+                :disabled="player.hydra.dilute.inDilute"
+                @input="player.hydra.dilute.solvent[2] = $event"
+                />
+            </div>
+        </div>
+        <div class="solvent">
+            <div>
+                <div>溶剂IV: 数论地狱</div>
+                <div class="solvent-desc-small">“数学家的最新研究打开了地狱的大门.....”</div>
+                <div>数论研究选项卡下的数论研究4变成反向数论研究4</div>
+                <Slider
+                v-bind="sliderProps"
+                :value="player.hydra.dilute.solvent[3]"
+                :width="'100%'"
+                :disabled="player.hydra.dilute.inDilute"
+                @input="player.hydra.dilute.solvent[3] = $event"
+                />
+            </div>
+        </div>
+        <div class="solvent">
+            <div>
+                <div>溶剂V: 朊病毒噩梦</div>
+                <div class="solvent-desc-small">“脲¤1-二~~~.2-_/T~/5个 --”</div>
+                <div>数论研究选项卡下的数论研究4变成反向数论研究4</div>
+                <Slider
+                v-bind="sliderProps"
+                :value="player.hydra.dilute.solvent[4]"
+                :width="'100%'"
+                :disabled="player.hydra.dilute.inDilute"
+                @input="player.hydra.dilute.solvent[4] = $event"
+                />
+            </div>
+        </div>
     </div>
+    
   </div>
 </template>
 
@@ -79,7 +142,10 @@ const sliderProps = {
 .solvent {
   flex-direction: column;
   justify-content: center;
-  width: 300px
+  width: 300px;
+}
+.solvent-desc-small{
+    font-size: small;
 }
 
 .slider-dot-class-dilute {
