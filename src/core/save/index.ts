@@ -130,6 +130,7 @@ export interface Player {
 		tf: number;
 		cd: [number, number];
 		last: [number, number];
+		openTf: boolean;
 	};
 	hydra: {
 		visiting: number;
@@ -443,6 +444,7 @@ function getInitialPlayerData(): Player {
 			tf: 0,
 			cd: [Date.now(), Date.now()],
 			last: [0, 0],
+			openTf: false,
 		},
 		hydra: {
 			visiting: 0,
