@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, ref, computed, watch, onMounted, onBeforeUnmount, nextTick } from 'vue';
+import { defineComponent, ref, computed, watch, onMounted, onBeforeUnmount, nextTick, type PropType } from 'vue';
 import PlusMinusButton from "@/components/PlusMinusButton.vue";
 
 // 代码修改自https://github.com/NightCatSama/vue-slider-component
@@ -58,7 +58,7 @@ export default defineComponent({
       default: "6px"
     },
     data: {
-      type: Array as () => any[],
+      type: Array as () => PropType<any[]>,
       default: null
     },
     dotSize: {
@@ -90,7 +90,7 @@ export default defineComponent({
       default: true
     },
     disabled: {
-      type: [Boolean, Array] as () => boolean | boolean[],
+      type: [Boolean, Array] as PropType<boolean | boolean[]>,
       default: false
     },
     piecewise: {
@@ -98,7 +98,7 @@ export default defineComponent({
       default: false
     },
     tooltip: {
-      type: [String, Boolean] as () => string | boolean,
+      type: [String, Boolean] as PropType<string | boolean>,
       default: 'always'
     },
     eventType: {
@@ -134,7 +134,7 @@ export default defineComponent({
       default: false
     },
     value: {
-      type: [String, Number, Array, Object] as () => any,
+      type: [String, Number, Array, Object] as PropType<any>,
       default: 0
     },
     piecewiseLabel: {
@@ -164,13 +164,13 @@ export default defineComponent({
       default: false
     },
     actionsKeyboard: {
-      type: Array as () => ((i: number) => number)[],
+      type: Array as () => PropType<((i: number) => number)[]>,
       default() {
         return [(i: number) => i - 1, (i: number) => i + 1];
       }
     },
     piecewiseFilter: {
-      type: Function as (data: { index: number; label: any }) => boolean
+      type: Function as PropType<(data: { index: number; label: any }) => boolean>
     },
     tooltipMerge: {
       type: Boolean,
@@ -193,19 +193,19 @@ export default defineComponent({
       default: false,
     },
     sliderStyle: {
-      type: [Array, Object, Function] as () => any,
+      type: [Array, Object, Function] as PropType<any>,
     },
     focusStyle: {
-      type: [Array, Object, Function] as () => any,
+      type: [Array, Object, Function] as PropType<any>,
     },
     tooltipDir: {
-      type: [Array, String] as () => string[] | string,
+      type: [Array, String] as PropType<string[] | string>,
     },
     xformatter: {
-      type: [String, Function] as () => string | ((val: any) => string),
+      type: [String, Function] as PropType<string | ((val: any) => string)>,
     },
     mergeFormatter: {
-      type: [String, Function] as () => string | ((val1: any, val2: any) => string),
+      type: [String, Function] as PropType<string | ((val1: any, val2: any) => string)>,
     },
     piecewiseStyle: Object,
     disabledStyle: Object,
@@ -215,15 +215,15 @@ export default defineComponent({
     bgStyle: Object,
     bgClass: String,
     tooltipStyle: {
-      type: [Array, Object, Function] as () => any,
+      type: [Array, Object, Function] as PropType<any>,
     },
     disabledDotStyle: {
-      type: [Array, Object, Function] as () => any,
+      type: [Array, Object, Function] as PropType<any>,
     },
     labelStyle: Object,
     labelActiveStyle: Object,
     dotClass: {
-      type: [String, Array] as () => string | string[],
+      type: [String, Array] as PropType<string | string[]>,
     },
   },
   emits: ['input', 'callback', 'on-keypress', 'drag-start', 'drag-end'],
