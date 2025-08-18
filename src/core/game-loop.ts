@@ -79,6 +79,8 @@ export function gameLoop() {
 	if (diff > 60000) {
 		if (!import.meta.env.DEV) {
 			simulateTime(diff);
+		} else {
+		  diff = 0
 		}
 	}
 	if (player.run_a_tick_and_froze) diff = 33;
