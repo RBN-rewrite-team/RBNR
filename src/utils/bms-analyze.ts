@@ -375,7 +375,7 @@ function toString(q: Term | number, maxLength = 40): string {
 
 	if (eq(termA[0], []) && eq(termA[1], ONE)) {
 		m = 'ω';
-	} else if(lt(a[1],[succ(termA[0]),[],[]])){
+	} else if(lt(termA[1],[succ(termA[0]),[],[]])){
     let [first,second]=g(termA);
     m=omega(termA[0]);
     if(gt(first,ONE)){m+=`<sup>${toString(first, --maxLength)}</sup>`;}
