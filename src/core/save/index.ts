@@ -11,7 +11,7 @@ import { buyables, upgrades, milestones } from '../mechanic';
 import type { backupHydraType } from '../hydra/dilute';
 
 const SAVEID = 'RBN-rewritten-powerful-refactor-test';
-const version = 3 as const;
+const version = 4 as const;
 const zero = new Decimal(0);
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
 
@@ -144,8 +144,11 @@ export interface Player {
 		backupHydra?: backupHydraType;
 		dilute: {
 			inDilute: boolean;
-			solvent: [Decimal,Decimal,Decimal,Decimal,Decimal,Decimal,Decimal,Decimal,Decimal];
-			spendTime: number;
+			solvent: [number,number,number,number,number,number,boolean,boolean,boolean];
+			lastSolvent: [number,number,number,number,number,number,boolean,boolean,boolean];
+			spentTime: number;
+			solution: number;
+			lastDeduce: Decimal;
 		}
 	};
 }
@@ -457,8 +460,11 @@ function getInitialPlayerData(): Player {
 			pAuto: [false, false, false, false],
 			dilute: {
 				inDilute: false,
-				solvent: [zero,zero,zero,zero,zero,zero,zero,zero,zero],
-				spendTime: 0,
+				solvent: [0,0,0,0,0,0,false,false,false],
+				lastSolvent: [0,0,0,0,0,0,false,false,false],
+				lastDeduce: zero,
+				spentTime: 0,
+				solution: 0,
 			}
 		},
 	};
@@ -545,6 +551,9 @@ export let player: Player = getInitialPlayerData();
 export function loadFromString(saveContent: string) {
 	let deserialized = saveSerializer.deserialize(saveContent);
 	Object.assign(player, deepMerge(player, deserialized));
+	if ((player?.version ?? 0) < 4) {
+	  player.hydra.dilute.solvent = [0,0,0,0,0,0,false,false,false]
+	}
 	player.version = version;
 }
 

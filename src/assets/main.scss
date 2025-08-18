@@ -172,6 +172,7 @@ body {
 	border: 1px solid var(--border-color);
 	border-radius: 8px;
 	box-shadow: var(--border-color) 1px 1px 2px 1px;
+	overflow: auto;
 }
 
 .title {

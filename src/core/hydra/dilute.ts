@@ -90,7 +90,7 @@ export const Dilute = {
     },
     diluteLoop() {
         if (player.hydra.dilute.inDilute){
-            player.hydra.dilute.spendTime = player.hydra.dilute.spendTime+diff
+            player.hydra.dilute.spentTime = player.hydra.dilute.spentTime+diff
         }
     }
 };

@@ -46,6 +46,7 @@ import Help from './components/tabs/Help.vue';
 import Accelerator from './components/tabs/Accelerator.vue';
 import TimeShard from './components/tabs/TimeShard.vue';
 import Hydra from './components/tabs/Hydra.vue';
+import HydraDilute from './components/tabs/HydraDilute.vue';
 </script>
 
 <template>
@@ -87,6 +88,7 @@ import Hydra from './components/tabs/Hydra.vue';
 				<Accelerator v-if="player.currentTab === 17" />
 				<TimeShard v-if="player.currentTab === 18" />
 				<Hydra v-if="player.currentTab === 19" />
+				<HydraDilute v-if="player.currentTab === 20" />
 				<div class="main" v-if="player.currentTab === 3">
 					<h1>大数之路重制版</h1>
 					版本: v0.4<br />
