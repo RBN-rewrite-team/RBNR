@@ -34,7 +34,7 @@ function g() {
 }
 
 function _g() {
-  if (player.upgrades["61R"]) return "\\log_5 x"
+  if (player.upgrades["66R"]) return "\\log_5 x"
   return "\\lg x"
 }
 </script>
