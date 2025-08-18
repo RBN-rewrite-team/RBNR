@@ -260,7 +260,7 @@ export const OrdinalNT = {
 			cost = new Decimal(6);
 			currency = Currencies.T4;
 			name = 'U5-R1-5';
-			effect() {
+			effect(): Decimal {
 				return player.hydra.power.max('e1000').log10().div(1000);
 			}
 			effectDescription() {
@@ -285,10 +285,10 @@ export const OrdinalNT = {
 			currency = Currencies.HYDRA_POWER;
 			name = 'U5-R1-8';
 			effectDescription() {
-			  return "×"+format(this.effect())
+				return '×' + format(this.effect());
 			}
-			effect() {
-			  return upgrades["65R"].effect().pow(0.25)
+			effect(): Decimal {
+				return upgrades['65R'].effect().pow(0.25);
 			}
 		})(),
 		'69R': new (class extends Upgrade {
