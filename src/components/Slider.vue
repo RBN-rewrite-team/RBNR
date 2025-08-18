@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, ref, computed, watch, onMounted, onBeforeUnmount, nextTick, type PropType } from 'vue';
+import { defineComponent, ref, computed, watch, onMounted, onBeforeUnmount, nextTick, type PropType, type CSSProperties } from 'vue';
 import PlusMinusButton from "@/components/PlusMinusButton.vue";
 
 // 代码修改自https://github.com/NightCatSama/vue-slider-component
@@ -140,10 +140,6 @@ export default defineComponent({
     piecewiseLabel: {
       type: Boolean,
       default: false
-    },
-    debug: {
-      type: Boolean,
-      default: true
     },
     fixed: {
       type: Boolean,
@@ -546,14 +542,14 @@ export default defineComponent({
     });
 
     const elemStyles = computed(() => 
-      props.direction === 'vertical' ? {
+      (props.direction === 'vertical' ? {
         width: props.width,
         height: '100%',
         position: "relative"
       } : {
         height: props.height,
         position: "relative"
-      }
+      }) as CSSProperties
     );
 
     const draggableStyle = computed(() => ({
@@ -588,7 +584,7 @@ export default defineComponent({
 
     const piecewiseDotWrap = computed(() => {
       if (!props.piecewise && !props.piecewiseLabel) {
-        return false;
+        return [];
       }
       let arr: PiecewiseObj[] = [];
       for (let i = 0; i <= total.value; i++) {
@@ -1100,9 +1096,7 @@ export default defineComponent({
     };
 
     const printError = (msg: string) => {
-      if (props.debug) {
-        console.error(`[VueSlider error]: ${msg}`);
-      }
+      throw new Error(`[Slider error]: ${msg}`);
     };
 
     const handleOverlapTooltip = () => {
