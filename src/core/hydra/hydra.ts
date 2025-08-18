@@ -385,6 +385,9 @@ export const Hydra = {
 	powerGain(): Decimal {
 		//能量产量
 		let base = this.powerGainBase();
+		return this.powerGainAfterSoftcap(base);
+	},
+	powerGainAfterSoftcap(base: Decimal): Decimal {
 		if (base.gte('e2400'))
 			base = base
 				.log10()
@@ -397,6 +400,10 @@ export const Hydra = {
 				.pow10()
 				.pow10();
 		return base;
+	},
+	powerSoftcapNerf(base: Decimal): Decimal {
+		if(!base.gte('e2400')) return new Decimal(1);
+		else return this.powerGainAfterSoftcap(base).log(base);
 	},
 	powerGainBase(): Decimal {
 		//能量产量

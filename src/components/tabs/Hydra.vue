@@ -30,6 +30,11 @@ function powerFactorHTML(): string {
 			'</span></sup>';
 	s +=
 		'<span style="color: var(--color)"> = ' + format(feature.Hydra.powerGainBase()) + '</span>';
+	if (!feature.Hydra.powerSoftcapNerf(feature.Hydra.powerGainBase()).eq(1))
+	{
+		s += '<sup style="color: rgb(127, 0, 0)">' + format(feature.Hydra.powerSoftcapNerf(feature.Hydra.powerGainBase())) + '</sup>';
+		s += '<span style="color: var(--color)"> = ' + format(feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase())) + '</span>';
+	}
 	return s;
 }
 
