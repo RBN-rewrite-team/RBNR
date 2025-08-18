@@ -15,6 +15,8 @@ const sliderProps = {
   tooltip: "never",
   "dot-width": "2.2rem",
   "dot-height": "1.6rem",
+  "dot-class": "slider-dot-class-dilute",
+  "process-class": "slider-process-class-dilute",
   style: {
     "margin-top": "1rem"
   }
@@ -49,7 +51,7 @@ const sliderProps = {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .container {
   display: flex;
   justify-content: center
@@ -78,5 +80,13 @@ const sliderProps = {
   flex-direction: column;
   justify-content: center;
   width: 300px
+}
+
+.slider-dot-class-dilute {
+  color: black
+}
+
+.slider-process-class-dilute {
+  background-color: red
 }
 </style>
