@@ -949,9 +949,9 @@ export default defineComponent({
       setValue(newVal);
     };
 
-    const setValue = (val: any, noCb = false, speed?: number) => {
-      if (isDiff(val.value, val)) {
-        const resetVal = limitValue(val);
+    const setValue = (newVal: any, noCb = false, speed?: number) => {
+      if (isDiff(val.value, newVal)) {
+        const resetVal = limitValue(newVal);
         val.value = isRange.value ? [...resetVal] : resetVal;
         computedFixedValue();
         syncValue(noCb);
@@ -1096,7 +1096,7 @@ export default defineComponent({
     };
 
     const printError = (msg: string) => {
-      throw new Error(`[Slider error]: ${msg}`);
+      console.error(`[Slider error]: ${msg}`);
     };
 
     const handleOverlapTooltip = () => {
@@ -1499,7 +1499,6 @@ export default defineComponent({
 
 .c-slider__bg {
   background-color: #cccccc;
-  border-radius: var(--var-border-radius, 1.5rem);
 }
 
 .l-slider__bg::after {
@@ -1519,7 +1518,6 @@ export default defineComponent({
 
 .c-slider__process {
   background-color: var(--color-slider-blue);
-  border-radius: var(--var-border-radius, 15px);
 }
 
 .l-slider__wrap .ad-slider-process-draggable {
@@ -1579,7 +1577,6 @@ export default defineComponent({
 .c-slider__dot-handle {
   background-color: #ffffff;
   border: 0.1rem solid black;
-  border-radius: var(--var-border-radius, 50%) !important;
   box-shadow: 0.5px 0.5px 2px 1px rgba(0, 0, 0, 32%);
   transition-duration: 0.2s;
 }
@@ -1631,7 +1628,6 @@ export default defineComponent({
   color: #ffffff;
   background-color: var(--color-slider-blue);
   border: 0.1rem solid var(--color-slider-blue);
-  border-radius: var(--var-border-radius, 5px);
   padding: 2px 5px;
 }
 
@@ -1754,7 +1750,6 @@ export default defineComponent({
   left: 50%;
   z-index: 2;
   background-color: rgba(0, 0, 0, 16%);
-  border-radius: var(--var-border-radius, 50%);
   transform: translate(-50%, -50%);
   transition: all 0.3s;
 }

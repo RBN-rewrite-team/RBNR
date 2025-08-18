@@ -4,17 +4,48 @@ type Matrix = MatrixRow[];
 
 const ZERO: Term = [];
 const ONE: Term = [[], [], []];
+const OMEGA: Term=[[],ONE,[]];
+const OMEGA1: Term=[ONE,[],[]];
+const EPSILON0: Term=[[],OMEGA1,[]];
 
-function iz(a: Term | number): a is [] {
+/*
+BMS analyzer by Solarzone
+由 FiveYearGaoKao 进行批注和修改
+
+修改内容:
+1.为提高可读性，对部分变量和函数名进行了修改
+2.添加了一些辅助函数
+
+程序介绍:
+此程序分为两部分：序数表示和BMS分析
+存储序数的结构类似单向链表
+程序用[a,b,c]表示序数ψ_a(b)+c(使用BOCF)
+BMS分析的部分暂时没有看懂
+*/
+
+//判断一个序数是否为0
+function isZero(a: Term | number): a is [] {
 	return Array.isArray(a) && a.length === 0;
 }
 
+//判断一个序数是否有限
+function isFinite(a: Term): boolean {
+  return isZero(a)||(isZero(a[0])&&isZero(a[1]));
+}
+
+//求一个序数由多少个单项相加而成
+function length1(a: Term): number {
+  return isZero(a)?0:1+length1(a[2]);
+}
+
+//判断两个序数是否全等
+//甚至也可以判断两个矩阵列是否全等
 function eq(a: Term | number, b: Term | number): boolean {
 	if (typeof a === 'number' && typeof b === 'number') {
 		return a === b;
 	}
-	if (iz(a) || iz(b)) {
-		return iz(a) === iz(b);
+	if (isZero(a) || isZero(b)) {
+		return isZero(a) === isZero(b);
 	}
 	if (Array.isArray(a) && Array.isArray(b)) {
 		return eq(a[0], b[0]) && eq(a[1], b[1]) && eq(a[2], b[2]);
@@ -22,9 +53,10 @@ function eq(a: Term | number, b: Term | number): boolean {
 	return false;
 }
 
+//判断是否a<b
 function lt(a: Term | number, b: Term | number): boolean {
-	if (iz(b)) return false;
-	if (iz(a)) return true;
+	if (isZero(b)) return false;
+	if (isZero(a)) return true;
 	if (Array.isArray(a) && Array.isArray(b) && !eq(a[0], b[0])) {
 		return lt(a[0], b[0]);
 	}
@@ -37,81 +69,109 @@ function lt(a: Term | number, b: Term | number): boolean {
 	return false;
 }
 
+//判断是否a>b
 function gt(a: Term | number, b: Term | number): boolean {
 	return !(lt(a, b) || eq(a, b));
 }
 
+//ω^a1+ω^a2+...+ω^an的首项ω^a1
+function firstTerm(a: Term): Term {
+  if(isZero(a)){return [];}
+  return [a[0],a[1],[]];
+}
+
+//ω^a1+ω^a2+...+ω^an的末项ω^an
+function lastTerm(a: Term): Term {
+  if(isZero(a)){return [];}
+  if(isZero(a[2])){return a;}
+  return lastTerm(a[2]);
+}
+
+//序数相加
 function add(a: Term, b: Term): Term {
-	if (iz(a)) return b;
-	if (iz(b)) return a;
+	if (isZero(a)) return b;
+	if (isZero(b)) return a;
 	const termA = a as [Term, Term, Term];
 	const termB = b as [Term, Term, Term];
-	if (lt([termA[0], termA[1], []], [termB[0], termB[1], []])) {
+	if (lt(firstTerm(a), firstTerm(b))) {
 		return b;
 	}
 	return [termA[0], termA[1], add(termA[2], b)];
 }
 
-function suc(a: Term): Term {
+//序数后继
+function succ(a: Term): Term {
 	return add(a, ONE);
 }
 
+//序数左减，即a-b为满足b+c=a的序数c(若不存在为0)
 function sub(a: Term, b: Term): Term {
-	if (iz(a)) return [];
-	if (iz(b)) return a;
+	if (isZero(a)) return [];
+	if (isZero(b)) return a;
 	const termA = a as [Term, Term, Term];
 	const termB = b as [Term, Term, Term];
-	if (gt([termA[0], termA[1], []], [termB[0], termB[1], []])) {
+	if (gt(firstTerm(a), firstTerm(b))) {
 		return a;
 	}
 	return sub(termA[2], termB[2]);
 }
 
-function s(a: Term, b: Term): [Term, Term] {
-	if (iz(a)) return [[], []];
+//将a分为大于b和小于b两段
+function separate(a: Term, b: Term): [Term, Term] {
+	if (isZero(a)) return [[], []];
 	const termA = a as [Term, Term, Term];
-	if (lt([termA[0], termA[1], []], b)) {
+	if (lt(firstTerm(a), b)) {
 		return [[], a];
 	}
-	const sResult = s(termA[2], b);
+	const sResult = separate(termA[2], b);
 	return [[termA[0], termA[1], sResult[0]], sResult[1]];
 }
 
 function l(a: Term): Term {
-	if (iz(a)) return [];
+	if (isZero(a)) return [];
 	const termA = a as [Term, Term, Term];
-	if (iz(termA[2])) return a;
+	if (isZero(termA[2])) return a;
 	return l(termA[2]);
 }
 
-function ttc(a: Term, b: Term): Term {
-	if (iz(a)) return [];
+function truncate(a: Term, b: Term): Term {
+	if (isZero(a)) return [];
 	const termA = a as [Term, Term, Term];
-	const ttcResult = ttc(termA[2], b);
-	if (iz(ttcResult) && lt([termA[0], termA[1], []], [b, [], []])) {
+	const truncateResult = truncate(termA[2], b);
+	if (isZero(truncateResult) && lt([termA[0], termA[1], []], [b, [], []])) {
 		return [];
 	}
-	return [termA[0], termA[1], ttcResult];
+	return [termA[0], termA[1], truncateResult];
 }
 
+/*
+序数ω^a，自动化为标准式
+设a=ψb(p+d)+e,其中b的每一项都大于等于ψb+1(0)
+则该函数返回的是ψb(p+{a-ψb(p)})
+注意到当d<ψb+1(0)时,ψb(c+d)=ψb(c)*ω^d
+分情况讨论：
+1.若d=e=0，则ψb(p)=ψb(...+ψb+1(0))是一个ε点，取指数后不变
+2.若d=0,e>0，函数返回ψb(p+e)=ψb(p)*ω^e=ω^(ψb(p)+e)
+3.若d>0，函数返回ψb(p+a)=ψb(p)*ω^a=ω^(ψb(p)+a)=ω^a
+*/
 function exp(a: Term): Term {
-	if (lt(a, [[], [ONE, [], []], []])) {
+	if (lt(a, EPSILON0)) {
 		return [[], a, []];
 	}
 	const termA = a as [Term, Term, Term];
-	const p = s(termA[1], [suc(termA[0]), [], []])[0];
+	const p = separate(termA[1], [succ(termA[0]), [], []])[0];
 	return [termA[0], add(p, sub(a, [termA[0], p, []])), []];
 }
 
 function log(a: Term): Term {
-	if (iz(a)) return [];
+	if (isZero(a)) return [];
 	const termA = a as [Term, Term, Term];
-	const [p, q] = s(termA[1], [suc(termA[0]), [], []]);
+	const [p, q] = separate(termA[1], [succ(termA[0]), [], []]);
 
-	if (iz(termA[0]) && iz(p)) {
+	if (isZero(termA[0]) && isZero(p)) {
 		if (!lt(termA[1], [[], [ONE, [], []], []])) {
 			const logQ = log(q);
-			if (eq(logQ, q) && iz(q[2]!) && lt(termA[1], [ONE, [], []])) {
+			if (eq(logQ, q) && isZero(q[2]!) && lt(termA[1], [ONE, [], []])) {
 				return [termA[0], termA[1], []];
 			}
 		}
@@ -119,9 +179,9 @@ function log(a: Term): Term {
 	}
 
 	const m = add([termA[0], p, []], q);
-	if (!lt(termA[1], [termA[0], [suc(termA[0]), [], []], []])) {
+	if (!lt(termA[1], [termA[0], [succ(termA[0]), [], []], []])) {
 		const logA1 = log(termA[1]);
-		if (eq(logA1, termA[1]) && iz(termA[2]) && lt(termA[1], [suc(termA[0]), [], []])) {
+		if (eq(logA1, termA[1]) && isZero(termA[2]) && lt(termA[1], [succ(termA[0]), [], []])) {
 			return [termA[0], termA[1], []];
 		}
 	}
@@ -254,60 +314,77 @@ function NS(M: Matrix): Term {
 }
 
 function sp(a: Term, b: Term, c: Term): Term {
-	if (iz(c)) {
+	if (isZero(c)) {
 		return [a, b, []];
 	}
 	const termC = c as [Term, Term, Term];
 	if (lt(b, termC[1]) && gt(c, [a, [], []])) {
-		const t = ttc(termC[1], suc(termC[0]));
+		const t = truncate(termC[1], succ(termC[0]));
 		return sp(a, add(t, sub([termC[0], termC[1], []], [termC[0], t, []])), termC[2]);
 	}
 	return sp(a, add(b, [termC[0], termC[1], []]), termC[2]);
 }
 
 function sf(a: Term): Term {
-	if (iz(a)) return [];
+	if (isZero(a)) return [];
 	const termA = a as [Term, Term, Term];
 	return add(sp(sf(termA[0]), [], sf(termA[1])), sf(termA[2]));
+}
+
+//将ψa(x)(a>0)转化为Ω_a^b*c的形式
+function g(a: Term): [Term, Term] {
+  if(isZero(a)){return [[],[]];}
+  if(isZero(a[0])){return [log(a),[]];}
+  let [p,s]=separate(a[1],[succ(a[0]),[],[]]);
+  let [q,r]=separate(s,[a[0],[],[]]);
+  //令x=p+q+r,其中p每一项大于ψb+1(0),q每一项大于ψb(0)
+  let second=exp(r);
+  let first=add(ONE,p);
+  let ptr=q;
+  while(!isZero(ptr)){
+    first=add(first,exp(sub(log(ptr),[a[0],[],[]]))),
+    ptr=ptr[2];
+  }
+  return [first,second];
+} 
+
+//Ω_a的简写
+function omega(a: Term, maxLength = 40): string {
+  if(isZero(a))return 'ω';
+  if(eq(a,ONE))return 'Ω';
+  return `Ω<sub>${toString(a, --maxLength)}</sub>`
 }
 
 function toString(q: Term | number, maxLength = 40): string {
 	if (maxLength <= 0) return '...';
 	if (typeof q === 'number') return q.toString();
-	if (iz(q)) return '0';
+	if (isZero(q)) return '0';
 
 	const termQ = q as [Term, Term, Term];
-	if (iz(termQ[0]) && iz(termQ[1])) {
+	if (isZero(termQ[0]) && isZero(termQ[1])) {
 		return (Number(toString(termQ[2])) + 1).toString();
 	}
 
-	const [a, b] = s(q, [termQ[0], termQ[1], []]);
+	const [a, b] = separate(q, [termQ[0], termQ[1], []]);
 	const termA = a as [Term, Term, Term];
 
 	let m = `ψ<sub>${toString(termA[0], --maxLength)}</sub>(${toString(termA[1], --maxLength)})`;
-	if (iz(termA[1])) m = `Ω<sub>${toString(termA[0], --maxLength)}</sub>`;
-	if (iz(termA[1]) && eq(termA[0], ONE)) m = `Ω`;
-	if (iz(termA[0])) m = `ψ(${toString(termA[1], --maxLength)})`;
+	if (isZero(termA[1])) m = `Ω<sub>${toString(termA[0], --maxLength)}</sub>`;
+	if (isZero(termA[1]) && eq(termA[0], ONE)) m = `Ω`;
+	if (isZero(termA[0])) m = `ψ(${toString(termA[1], --maxLength)})`;
 
 	if (eq(termA[0], []) && eq(termA[1], ONE)) {
 		m = 'ω';
-	} else if (!eq(log([termA[0], termA[1], []]), [termA[0], termA[1], []])) {
-		m = `ω<sup>${toString(log(a), --maxLength)}</sup>`;
-	}
+	} else if(lt(a[1],[succ(termA[0]),[],[]])){
+    let [first,second]=g(termA);
+    m=omega(termA[0]);
+    if(gt(first,ONE)){m+=`<sup>${toString(first, --maxLength)}</sup>`;}
+    if(gt(second,ONE))m+=toString(second, --maxLength);
+  }
 
-	function getCoef(x: Term): number {
-		if (iz(x)) return 0;
-		const termX = x as [Term, Term, Term];
-		if (iz(termX[2])) return 1;
-		return getCoef(termX[2]) + 1;
-	}
+	if(length1(a)>1){m+=length1(a);}
 
-	const coef = getCoef(a);
-	if (coef > 1) {
-		m += coef.toString();
-	}
-
-	if (!iz(b)) {
+	if (!isZero(b)) {
 		m += `+${toString(b, --maxLength)}`;
 	}
 	return m;
@@ -345,7 +422,7 @@ export function calculate(BMS: string): string {
 		if ((matrix[1]?.[2] ?? 0) < 1) break;
 		const currentColumn = matrix[i] ?? [];
 
-		if (iz(currentColumn)) break;
+		if (isZero(currentColumn)) break;
 
 		const maxCol = EBO[i];
 
