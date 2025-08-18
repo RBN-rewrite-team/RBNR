@@ -164,7 +164,7 @@ export default defineComponent({
       default: false
     },
     actionsKeyboard: {
-      type: Array as () => PropType<((i: number) => number)[]>,
+      type: Array as () => PropType<[(i: number) => number, (i: number) => number]>,
       default() {
         return [(i: number) => i - 1, (i: number) => i + 1];
       }
@@ -232,7 +232,7 @@ export default defineComponent({
     const flag = ref(false);
     const dragFlag = ref(false);
     const crossFlag = ref(false);
-    const keydownFlag = ref<number | null>(null);
+    const keydownFlag = ref<boolean | null>(null);
     const focusFlag = ref(false);
     const processFlag = ref(false);
     const processSign = ref<ProcessSign | null>(null);
@@ -472,23 +472,31 @@ export default defineComponent({
     );
 
     const wrapStyles = computed(() => {
-      type retType = {
-        height?: number,
-        width?: number,
-        "margin-top"?: string
-        "margin-bottom"?: string
+      type StyleObject = {
+        height?: string
+        width?: string
+        marginTop?: string
+        marginLeft?: string
+        marginRight?: string
+        marginBottom?: string
       }
-      let ret: retType = (props.direction === 'vertical' ? {
-        height: props.height,
-      } : {
-        width: props.width,
-      })
+    
+      const styles: StyleObject = props.direction === 'vertical' 
+        ? { height: props.height }
+        : { width: props.width }
+    
       if (props.plusMinusButtons) {
-        ret[props.direction === "vertical" ? "margin-top" : "margin-right"]! = "0.5rem";
-        ret[props.direction === "vertical" ? "margin-bottom" : "margin-left"]! = "0.5rem";
+        if (props.direction === "vertical") {
+          styles.marginTop = "0.5rem"
+          styles.marginBottom = "0.5rem"
+        } else {
+          styles.marginRight = "0.5rem"
+          styles.marginLeft = "0.5rem"
+        }
       }
-      return ret;
-    });
+    
+      return styles
+    })
 
     const sliderStyles = computed(() => {
       if (Array.isArray(props.sliderStyle)) {
@@ -648,14 +656,14 @@ export default defineComponent({
           e.preventDefault();
           keydownFlag.value = true;
           flag.value = true;
-          changeFocusSlider(props.actionsKeyboard[0]);
+          changeFocusSlider(props.actionsKeyboard[0]!);
           break;
         case 38: // Up
         case 39: // Right
           e.preventDefault();
           keydownFlag.value = true;
           flag.value = true;
-          changeFocusSlider(props.actionsKeyboard[1]);
+          changeFocusSlider(props.actionsKeyboard[1]!);
           break;
       }
     };
