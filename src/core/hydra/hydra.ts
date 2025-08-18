@@ -107,7 +107,7 @@ export const Hydra = {
 				return '×' + format(this.effect());
 			}
 			effect(): Decimal {
-				return player.hydra.power.log10().max(500).div(500);
+				return player.hydra.power.clampMin(1).log10().max(500).div(500);
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
