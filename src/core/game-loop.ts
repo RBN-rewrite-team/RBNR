@@ -13,6 +13,7 @@ import { getCurrency } from './currencies';
 import { updateTheme } from '@/utils/themes';
 import { getOrdinalLevel } from './ordinal/ordinal-level.ts';
 import { ORDINAL_BOOSTER } from './ordinal/ordinal-booster.ts';
+import { Dilute } from './hydra/dilute.ts';
 
 /**
  * 游戏循环经过了多少时间
@@ -260,6 +261,7 @@ export function simulate(diff: number) {
 
 	if (player.upgrades[517]) {
 		feature.Hydra.hydraUpdate(diff / 1000);
+		Dilute.diluteLoop();
 	}
 
 	Logarithm.astronomerUpdate();

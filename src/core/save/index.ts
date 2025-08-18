@@ -142,8 +142,9 @@ export interface Player {
 		pAuto: [boolean, boolean, boolean, boolean];
 		backupHydra?: backupHydraType;
 		dilute: {
-			inDilute: boolean,
-			solvent: [Decimal,Decimal,Decimal,Decimal,Decimal,Decimal,Decimal,Decimal,Decimal]
+			inDilute: boolean;
+			solvent: [Decimal,Decimal,Decimal,Decimal,Decimal,Decimal,Decimal,Decimal,Decimal];
+			spendTime: number;
 		}
 	};
 }
@@ -454,7 +455,8 @@ function getInitialPlayerData(): Player {
 			pAuto: [false, false, false, false],
 			dilute: {
 				inDilute: false,
-				solvent: [zero,zero,zero,zero,zero,zero,zero,zero,zero]
+				solvent: [zero,zero,zero,zero,zero,zero,zero,zero,zero],
+				spendTime: 0,
 			}
 		},
 	};
