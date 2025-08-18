@@ -58,7 +58,7 @@ export default defineComponent({
       default: "6px"
     },
     data: {
-      type: Array as () => PropType<any[]>,
+      type: Array as PropType<any[]>,
       default: null
     },
     dotSize: {
@@ -281,10 +281,10 @@ export default defineComponent({
 
     const tooltipMergedPosition = computed(() => {
       if (!isMounted.value) return {};
-      const tooltipDirection = tooltipDirection.value[0];
+      const tooltipDirectionComputed = tooltipDirection.value[0];
       if (dot0.value) {
         const style: Record<string, string> = {};
-        style[tooltipDirection] = `-${(dotAxialSizePx.value / 2) - (size.value / 2) + 9}px`;
+        style[tooltipDirectionComputed] = `-${(dotAxialSizePx.value / 2) - (size.value / 2) + 9}px`;
         style['left'] = `50%`;
         return style;
       }
@@ -420,7 +420,7 @@ export default defineComponent({
       usableSize.value / total.value
     );
 
-    const position = computed(() => {
+    const position = computed((): [number,number]|number => {
       if (isRange.value) {
         return [
           (currentValue.value[0] - minimum.value) / spacing.value * gap.value + dotAxialSizePx.value / 2,
@@ -444,8 +444,8 @@ export default defineComponent({
           ];
         } else {
           return [
-            [dotAxialSizePx.value / 2, position.value[1]],
-            [position.value[0], size.value - dotAxialSizePx.value / 2]
+            [dotAxialSizePx.value / 2, (position.value as [number, number])[1]],
+            [(position.value as [number, number])[0], size.value - dotAxialSizePx.value / 2]
           ];
         }
       } else {
@@ -472,14 +472,20 @@ export default defineComponent({
     );
 
     const wrapStyles = computed(() => {
-      let ret = props.direction === 'vertical' ? {
+      type retType = {
+        height?: number,
+        width?: number,
+        "margin-top"?: string
+        "margin-bottom"?: string
+      }
+      let ret: retType = (props.direction === 'vertical' ? {
         height: props.height,
       } : {
         width: props.width,
-      };
+      })
       if (props.plusMinusButtons) {
-        ret[props.direction === "vertical" ? "margin-top" : "margin-right"] = "0.5rem";
-        ret[props.direction === "vertical" ? "margin-bottom" : "margin-left"] = "0.5rem";
+        ret[props.direction === "vertical" ? "margin-top" : "margin-right"]! = "0.5rem";
+        ret[props.direction === "vertical" ? "margin-bottom" : "margin-left"]! = "0.5rem";
       }
       return ret;
     });
@@ -547,11 +553,18 @@ export default defineComponent({
     }));
 
     const dotStyles = computed(() => {
-      let ret = {
+      type dotStylesType = {
+        width: number
+        height: number
+        position: "absolute"
+        left: string
+        top: string
+      }
+      let ret: dotStylesType = ({
         width: dotWidthVal.value,
         height: dotHeightVal.value,
         position: "absolute",
-      };
+      }) as dotStylesType;
       if (props.direction === "vertical") {
         ret.left = "50%";
       } else {
