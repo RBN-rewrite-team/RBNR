@@ -86,10 +86,7 @@ export const ORDINAL = {
 			name = 'U4-6';
 			effect(): Decimal {
 				return OrdinalUtils.ordinalChangeBase(
-					player.ordinal.number
-						.max(1)
-						.log(feature.Ordinal.base().mul(2))
-						.floor(),
+					player.ordinal.number.max(1).log(feature.Ordinal.base().mul(2)).floor(),
 					feature.Ordinal.base(),
 					new Decimal(10),
 				).add(1);
@@ -225,7 +222,12 @@ export const ORDINAL = {
 			name = 'U4-17';
 			currency: Currencies = Currencies.ORDINAL;
 			requirements(): Requirement[] {
-				return [new CurrencyRequirement(Currencies.ORDINAL, new Ordinal('e0').toDecimal(feature.Ordinal.base()))];
+				return [
+					new CurrencyRequirement(
+						Currencies.ORDINAL,
+						new Ordinal('e0').toDecimal(feature.Ordinal.base()),
+					),
+				];
 			}
 		})(),
 	} as const,

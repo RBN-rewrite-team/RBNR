@@ -10,8 +10,8 @@ export abstract class ASTNode {
 		| 'Epsilon'
 		| 'Zeta'
 		| 'Main'
-		| "PSI"
-		| "FUO_OMEGA"
+		| 'PSI'
+		| 'FUO_OMEGA'
 		| 'W1CK';
 	constructor() {}
 	abstract toDecimal(base: Decimal): Decimal;
@@ -31,7 +31,7 @@ export class NumberNode extends ASTNode {
 	}
 
 	toDecimal(_base: Decimal) {
-		return Decimal.fromNumber(this.value)
+		return Decimal.fromNumber(this.value);
 	}
 	HTMLForm(): string {
 		return this.value.toFixed(2);
@@ -75,7 +75,7 @@ export class AddNode extends ASTNode {
 		this.params = [param1, param2];
 	}
 
-	toDecimal(base:Decimal) {
+	toDecimal(base: Decimal) {
 		return Decimal.add(this.params[0].toDecimal(base), this.params[1].toDecimal(base));
 	}
 	HTMLForm(): string {
@@ -116,18 +116,19 @@ export class ExponentNode extends ASTNode {
 		return `${this.params[0].HTMLForm()}<sup>${this.params[1].HTMLForm()}</sup>`;
 	}
 	bot_omega_destruct(): ASTNode {
-		if (this.params[0] !instanceof OmegaNode) return this;
+		if (this.params[0]! instanceof OmegaNode) return this;
 		let destructed = this.params[1];
 		this.params[0] = destructed;
 		let addition;
 		if (destructed instanceof AddNode) {
 			addition = destructed.params[1];
 			destructed = destructed.params[0];
-			this.params[0] = new MultiplyNode(this.params[0], 
-				new ExponentNode(new OmegaNode(), addition).bot_omega_destruct()
+			this.params[0] = new MultiplyNode(
+				this.params[0],
+				new ExponentNode(new OmegaNode(), addition).bot_omega_destruct(),
 			);
 		}
-		return destructed
+		return destructed;
 	}
 }
 
@@ -162,7 +163,8 @@ export class FUO_OMEGA_Node extends ASTNode {
 	HTMLForm(): string {
 		return `Ω<sub>${this.childNode.HTMLForm()}</sub>`;
 	}
-}export class PSI_Node extends ASTNode {
+}
+export class PSI_Node extends ASTNode {
 	public type = 'PSI' as const;
 	public sub: ASTNode; // psi_xxx()
 	public content: ASTNode;

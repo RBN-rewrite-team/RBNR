@@ -52,8 +52,8 @@ export interface Player {
 			t33: Decimal;
 		};
 		GM: {
-		  x: Decimal;
-		}
+			x: Decimal;
+		};
 	};
 	currentTab: number;
 	addpower: Decimal;
@@ -120,9 +120,9 @@ export interface Player {
 		};
 	};
 	help: {
-	  page: number
-	  milestone: number
-	  epsilon: boolean
+		page: number;
+		milestone: number;
+		epsilon: boolean;
 	};
 	timeshard: {
 		value: number;
@@ -356,8 +356,8 @@ function getInitialPlayerData(): Player {
 				t33: new Decimal(0),
 			},
 			GM: {
-			  x: new Decimal(0),
-			}
+				x: new Decimal(0),
+			},
 		},
 		currentTab: 0,
 		totalAddpower: zero,
@@ -424,9 +424,9 @@ function getInitialPlayerData(): Player {
 			},
 		},
 		help: {
-		  page: 1,
-		  milestone: 0,
-		  epsilon: false
+			page: 1,
+			milestone: 0,
+			epsilon: false,
 		},
 		timeshard: {
 			value: 0,

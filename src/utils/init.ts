@@ -9,7 +9,7 @@ import { QolUpgrades } from '@/core/exponention/qolupg.ts';
 import { Logarithm } from '@/core/exponention/logarithm.ts';
 import { ORDINAL } from '@/core/ordinal/ordinal.ts';
 import hotkeys from 'hotkeys-js';
-import { vHold } from "./vHold.ts"
+import { vHold } from './vHold.ts';
 
 import { gameLoop, startGameLoop } from '@/core/game-loop';
 
@@ -29,10 +29,7 @@ export function init() {
 	startGameLoop();
 	const app = createApp(App);
 
-	app
-	  .use(VueLatex)
-	  .directive('hold', vHold)
-	  .mount('#app');
+	app.use(VueLatex).directive('hold', vHold).mount('#app');
 
 	hotkeys('a', (event, handler) => {
 		event.preventDefault();
