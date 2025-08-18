@@ -3,6 +3,7 @@ import { player } from "../save";
 import { Hydra } from "./hydra";
 import type { IntClosedRange } from "type-fest";
 import { diff } from "../game-loop";
+import ModalService from "@/utils/Modal";
 
 export type backupHydraType = {
     upgrades: ((`${IntClosedRange<61,69>}R`)|keyof typeof Hydra.upgrades)[];
@@ -12,6 +13,7 @@ export type backupHydraType = {
 
 export const Dilute = {
 	enterDilute() {
+        if(player.hydra.dilute.solvent.map((x)=>Number(x)).reduce((x,y)=>x+y)<1) return;
         player.hydra.backupHydra = this.backupHydra();
         for (const id2 of ([['61R','62R','63R','64R','65R','66R','67R','68R'],Object.keys(Hydra.upgrades)] as const).flat()) {
             if (id2!=="61")
@@ -84,6 +86,13 @@ export const Dilute = {
         player.hydra.prestige[3] = item.prestiges[3]
     },
     diluteButton() {
+        if (!import.meta.env.DEV) {
+            ModalService.show({
+                title: "WIP!",
+                content: "稀释功能正在开发中(WIP)，请等待游戏更新再尝试启用。"
+            })
+            return;
+        }
         if (player.hydra.dilute.inDilute) {
             this.exitDilute()
         } else {
@@ -95,6 +104,10 @@ export const Dilute = {
             player.hydra.dilute.spentTime = player.hydra.dilute.spentTime+diff
         }
     },
+    /**
+     * 溶剂数量，在稀释未开启时会设置为falsy
+     * @returns 
+     */
     diluteAmount(id: IntClosedRange<0,8>): number | boolean {
         if (!player.hydra.dilute.inDilute) return id < 6 ? 0 : false
         if (player.hydra.dilute.solvent[8]) {
@@ -103,3 +116,39 @@ export const Dilute = {
         return player.hydra.dilute.solvent[id];
     }
 };
+
+/**
+ * TODO dilute list:
+ * 溶剂I:时空黑洞
+“虽然这很不幸，但至少你能用自己比别人活得久的事实来安慰自己。”
+推演速度ok和乘数积累速度none变为2^(-此溶剂等级)
+溶剂II:阿兹海默症
+“你变得越来越健忘......”
+所有升级成本×5^此溶剂等级none
+溶剂III:地球爆炸
+“地球很快就要爆炸了，更糟的是你没有宇宙飞船......”
+选择本溶剂的稀释会在(1000/稀释等级^2)秒内自我毁灭(即强行退出稀释)none
+溶剂IV:数论地狱
+“数学家的最新研究打开了地狱的大门......”
+数论研究选项卡下的数论研究4变成反向数论研究4none，效果如下:
+x_DOOM4=f(稀释中的秒数)^本溶剂等级
+τ_DOOM4=g(x_4)
+f(x)=g(x)=√x
+τ_DOOM4效果:推演速度和乘数积累速度/τ_DOOM4
+溶剂V:朊病毒噩梦(改)
+“脲¤-二~~~.-_/T~/个 --”
+此溶剂中会不断产生朊病毒none，生成量为((1+溶剂等级/100)^稀释中时间)-1，朊病毒在获取的总推演数量超过10,000时开始生成，当朊病毒数量超过稀释中获取的总推演数量时此稀释将会自我毁灭
+溶剂VI:核食惊魂
+“他摸着女儿的第二个头说:海鲜当然能吃！”
+推演速度^(1-0.1×溶剂等级)none
+溶剂VII:天堂已满
+“你发现天上那些黑点不是雨，而是坠落的人类。”
+转生，飞升，超越，轮回全部无效none(此溶剂没有等级，只有开启和不开启)
+溶剂VIII:坠毁
+“试图升天的人类迎来了自己的末日。”
+进入稀释后1分钟便无法获得任何九头蛇能量none。
+溶剂IX:天启
+“晚安，世界。”
+所有溶剂等级提升到最大，无法清除ok。
+全局速度/1000none。
+ */

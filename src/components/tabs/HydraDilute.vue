@@ -115,7 +115,9 @@ const sliderProps2 = {
             <div>
                 <div>溶剂V: 朊病毒噩梦</div>
                 <div class="solvent-desc-small">“脲¤1-2~~~.2-_/T~/5个 --”</div>
-                <div>数论研究选项卡下的数论研究4变成反向数论研究4</div>
+                <div>此溶剂中会不断产生朊病毒，生成量为({{ (1+player.hydra.dilute.solvent[4]/100).toFixed(4) }}^稀释中时间)-1，<br />
+                  朊病毒在获取的总推演数量超过10,000时开始生成，<br />
+                  当朊病毒数量超过稀释中获取的总推演数量时此稀释将会自我毁灭</div>
                 <Slider
                 v-bind="sliderProps"
                 :value="player.hydra.dilute.solvent[4]"
