@@ -93,6 +93,20 @@ const sliderProps = {
                 />
             </div>
         </div>
+        <div class="solvent">
+            <div>
+                <div>溶剂V: 朊病毒噩梦</div>
+                <div class="solvent-desc-small">“脲¤1-二~~~.2-_/T~/5个 --”</div>
+                <div>数论研究选项卡下的数论研究4变成反向数论研究4</div>
+                <Slider
+                v-bind="sliderProps"
+                :value="player.hydra.dilute.solvent[4]"
+                :width="'100%'"
+                :disabled="player.hydra.dilute.inDilute"
+                @input="player.hydra.dilute.solvent[4] = $event"
+                />
+            </div>
+        </div>
     </div>
     
   </div>
