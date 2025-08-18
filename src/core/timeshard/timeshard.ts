@@ -3,7 +3,7 @@ import Decimal from 'break_eternity.js';
 import { format, formatWhole } from '@/utils/format';
 
 export const TimeShard = {
-	generatorReceive(id = 0) {
+	generatorReceive(id = 0): void {
 		let dn = Date.now();
 		if (id == 0) {
 			if (dn >= player.timeshard.cd[0]) {
@@ -20,5 +20,10 @@ export const TimeShard = {
 				player.timeshard.last[1] = r;
 			}
 		}
+	},
+	convert(minute = 0, mul = 1): void {
+		if(player.timeshard.value < minute) return;
+		player.timeshard.value -= minute;
+		player.timeshard.tf += minute * 6e4 * mul;
 	},
 };
