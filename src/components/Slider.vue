@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, ref, computed, watch, onMounted, onBeforeUnmount, nextTick, type PropType } from 'vue';
+import { defineComponent, ref, computed, watch, onMounted, onBeforeUnmount, nextTick, type PropType, type CSSProperties } from 'vue';
 import PlusMinusButton from "@/components/PlusMinusButton.vue";
 
 // 代码修改自https://github.com/NightCatSama/vue-slider-component
@@ -28,7 +28,7 @@ SOFTWARE.
 */
 
 interface ProcessSign {
-  pos: number[];
+  pos: [number, number];
   start: number;
 }
 
@@ -141,10 +141,6 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
-    debug: {
-      type: Boolean,
-      default: true
-    },
     fixed: {
       type: Boolean,
       default: false
@@ -164,7 +160,7 @@ export default defineComponent({
       default: false
     },
     actionsKeyboard: {
-      type: Array as () => PropType<((i: number) => number)[]>,
+      type: Array as unknown as PropType<[(i: number) => number, (i: number) => number]>,
       default() {
         return [(i: number) => i - 1, (i: number) => i + 1];
       }
@@ -232,7 +228,7 @@ export default defineComponent({
     const flag = ref(false);
     const dragFlag = ref(false);
     const crossFlag = ref(false);
-    const keydownFlag = ref<number | null>(null);
+    const keydownFlag = ref<boolean | null>(null);
     const focusFlag = ref(false);
     const processFlag = ref(false);
     const processSign = ref<ProcessSign | null>(null);
@@ -546,14 +542,14 @@ export default defineComponent({
     });
 
     const elemStyles = computed(() => 
-      props.direction === 'vertical' ? {
+      (props.direction === 'vertical' ? {
         width: props.width,
         height: '100%',
         position: "relative"
       } : {
         height: props.height,
         position: "relative"
-      }
+      }) as CSSProperties
     );
 
     const draggableStyle = computed(() => ({
@@ -588,7 +584,7 @@ export default defineComponent({
 
     const piecewiseDotWrap = computed(() => {
       if (!props.piecewise && !props.piecewiseLabel) {
-        return false;
+        return [];
       }
       let arr: PiecewiseObj[] = [];
       for (let i = 0; i <= total.value; i++) {
@@ -656,14 +652,14 @@ export default defineComponent({
           e.preventDefault();
           keydownFlag.value = true;
           flag.value = true;
-          changeFocusSlider(props.actionsKeyboard[0]);
+          changeFocusSlider(props.actionsKeyboard[0]!);
           break;
         case 38: // Up
         case 39: // Right
           e.preventDefault();
           keydownFlag.value = true;
           flag.value = true;
-          changeFocusSlider(props.actionsKeyboard[1]);
+          changeFocusSlider(props.actionsKeyboard[1]!);
           break;
       }
     };
@@ -681,7 +677,7 @@ export default defineComponent({
           if (i === focusSlider.value || props.fixed) {
             const val = fn(index);
             const range = props.fixed ? valueLimit.value[i] : [0, total.value];
-            if (val <= range[1] && val >= range[0]) {
+            if (val <= (range as any[])[1] && val >= (range as any[])[0]) {
               return val;
             }
           }
@@ -734,12 +730,12 @@ export default defineComponent({
       const pos = getPos(e);
       if (isRange.value) {
         if (disabledArray.value.every(b => b === false)) {
-          currentSlider.value = pos > ((position.value[1] - position.value[0]) / 2 + position.value[0]) ? 1 : 0;
+          currentSlider.value = pos > (((position.value as [number, number])[1] - (position.value as [number, number])[0]) / 2 + (position.value as [number, number])[0]) ? 1 : 0;
         } else if (disabledArray.value[0]) {
-          if (pos < position.value[0]) return false;
+          if (pos < (position.value as [number, number])[0]) return false;
           currentSlider.value = 1;
         } else if (disabledArray.value[1]) {
-          if (pos > position.value[1]) return false;
+          if (pos > (position.value as [number, number])[1]) return false;
           currentSlider.value = 0;
         }
       }
@@ -772,7 +768,7 @@ export default defineComponent({
           const clientX = touchEvent.targetTouches?.[0]?.clientX || mouseEvent.clientX;
           const clientY = touchEvent.targetTouches?.[0]?.clientY || mouseEvent.clientY;
           processSign.value = {
-            pos: position.value,
+            pos: position.value as [number, number],
             start: getPos({ clientX, clientY } as MouseEvent)
           };
         }
@@ -802,9 +798,9 @@ export default defineComponent({
       
       if (processFlag.value && processSign.value) {
         currentSlider.value = 0;
-        setValueOnPos(processSign.value.pos[0] + getPos(posEvent) - processSign.value.start, true);
+        setValueOnPos(processSign.value!.pos[0] + getPos(posEvent) - processSign.value.start, true);
         currentSlider.value = 1;
-        setValueOnPos(processSign.value.pos[1] + getPos(posEvent) - processSign.value.start, true);
+        setValueOnPos(processSign.value!.pos[1] + getPos(posEvent) - processSign.value.start, true);
       } else {
         dragFlag.value = true;
         setValueOnPos(getPos(posEvent), true);
@@ -836,8 +832,8 @@ export default defineComponent({
     };
 
     const setValueOnPos = (pos: number, isDrag = false) => {
-      const range = isRange.value ? limit.value[currentSlider.value] : limit.value;
-      const valueRange = isRange.value ? valueLimit.value[currentSlider.value] : valueLimit.value;
+      const range: [number, number] = (isRange.value ? limit.value[currentSlider.value] : limit.value) as [number, number];
+      const valueRange = (isRange.value ? valueLimit.value[currentSlider.value] : valueLimit.value) as [number, number];
       const index = Math.round((pos - dotAxialSizePx.value / 2) / gap.value);
       if (pos >= range[0] && pos <= range[1]) {
         const v = getValueByIndex(index);
@@ -857,8 +853,8 @@ export default defineComponent({
         setTransform(range[anotherSlider]);
         setCurrentValue(valueRange[anotherSlider]);
         if (isRange.value && (props.fixed || isLessRange(pos, index))) {
-          setTransform(limit.value[idleSlider.value][anotherSlider], true);
-          setCurrentValue(valueLimit.value[idleSlider.value][anotherSlider], isDrag, true);
+          setTransform((limit.value[idleSlider.value] as [number, number])[anotherSlider], true);
+          setCurrentValue((valueLimit.value[idleSlider.value] as [number, number])[anotherSlider], isDrag, true);
         } else if (
           isRange.value && 
           (props.enableCross || crossFlag.value) && 
@@ -977,8 +973,8 @@ export default defineComponent({
     const setPosition = (speed?: number) => {
       flag.value || setTransitionTime(speed === undefined ? props.speed : speed);
       if (isRange.value) {
-        setTransform(position.value[0], currentSlider.value === 1);
-        setTransform(position.value[1], currentSlider.value === 0);
+        setTransform((position.value as [number, number])[0], currentSlider.value === 1);
+        setTransform((position.value as [number, number])[1], currentSlider.value === 0);
       } else {
         setTransform(position.value as number);
       }
@@ -998,10 +994,10 @@ export default defineComponent({
         `translate(${value}px, -50%)`;
       const processSize = props.fixed ? 
         `${fixedValue.value * gap.value}px` : 
-        `${slider === 0 ? position.value[1] - val : val - position.value[0]}px`;
+        `${slider === 0 ? (position.value as [number, number])[1] - val : val - (position.value as [number, number])[0]}px`;
       const processPos = props.fixed ? 
         `${slider === 0 ? val : (val - fixedValue.value * gap.value)}px` : 
-        `${slider === 0 ? val : position.value[0]}px`;
+        `${slider === 0 ? val : (position.value as [number, number])}px`;
 
       const sliderEl = slider === 0 ? dot0.value : dot1.value;
       if (sliderEl) {
@@ -1100,9 +1096,7 @@ export default defineComponent({
     };
 
     const printError = (msg: string) => {
-      if (props.debug) {
-        console.error(`[VueSlider error]: ${msg}`);
-      }
+      throw new Error(`[Slider error]: ${msg}`);
     };
 
     const handleOverlapTooltip = () => {
@@ -1157,7 +1151,7 @@ export default defineComponent({
       if (val < props.min) {
         return printError('The maximum value can not be less than the minimum value.');
       }
-      const resetVal = limitValue(val.value);
+      const resetVal = limitValue(val);
       setValue(resetVal);
       refresh();
     });
@@ -1166,7 +1160,7 @@ export default defineComponent({
       if (val > props.max) {
         return printError('The minimum value can not be greater than the maximum value.');
       }
-      const resetVal = limitValue(val.value);
+      const resetVal = limitValue(val);
       setValue(resetVal);
       refresh();
     });
