@@ -20,7 +20,6 @@ export default defineComponent({
 
 <template>
   <div
-    v-repeating-click="{ delay: 500 }"
     class="c-slider__button"
     @click="handleClick"
   >
