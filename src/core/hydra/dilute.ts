@@ -2,6 +2,7 @@ import Decimal from "break_eternity.js";
 import { player } from "../save";
 import { Hydra } from "./hydra";
 import type { IntClosedRange } from "type-fest";
+import { diff } from "../game-loop";
 
 export type backupHydraType = {
     upgrades: ((`${IntClosedRange<61,69>}R`)|keyof typeof Hydra.upgrades)[];
@@ -81,5 +82,15 @@ export const Dilute = {
         player.hydra.prestige[3] = item.prestiges[3]
     },
     diluteButton() {
+        if (player.hydra.dilute.inDilute) {
+            this.exitDilute()
+        } else {
+            this.enterDilute()
+        }
+    },
+    diluteLoop() {
+        if (player.hydra.dilute.inDilute){
+            player.hydra.dilute.spendTime = player.hydra.dilute.spendTime+diff
+        }
     }
 };
