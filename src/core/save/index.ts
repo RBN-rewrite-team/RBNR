@@ -254,6 +254,9 @@ function getInitialPlayerData(): Player {
 			'64R': false,
 			'65R': false,
 			'66R': false,
+			'67R': false,
+			'68R': false,
+			'69R': false,
 		},
 		buyables: {
 			'11': zero,

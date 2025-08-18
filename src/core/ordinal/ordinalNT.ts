@@ -273,6 +273,30 @@ export const OrdinalNT = {
 			currency = Currencies.HYDRA_POWER;
 			name = 'U5-R1-6';
 		})(),
+		'67R': new (class extends Upgrade {
+			description = 'g(x)的对数底数降低为2';
+			cost = new Decimal('1e1900');
+			currency = Currencies.HYDRA_POWER;
+			name = 'U5-R1-7';
+		})(),
+		'68R': new (class extends UpgradeWithEffect<Decimal> {
+			description = 'U5-R4-5加成以减弱的效果对飞升生效';
+			cost = new Decimal('2.085e2085');
+			currency = Currencies.HYDRA_POWER;
+			name = 'U5-R1-8';
+			effectDescription() {
+			  return "×"+format(this.effect())
+			}
+			effect() {
+			  return upgrades["65R"].effect().pow(0.25)
+			}
+		})(),
+		'69R': new (class extends Upgrade {
+			description = '解锁<b>稀释</b>';
+			cost = new Decimal(2).pow(8192);
+			currency = Currencies.HYDRA_POWER;
+			name = 'U5-R1-9';
+		})(),
 	} as const,
 	initMechanics() {},
 	varExp(id = 'x', layer = 3): Decimal {
@@ -345,6 +369,7 @@ export const OrdinalNT = {
 			case 'g':
 				let base = 10;
 				if (player.upgrades['66R']) base = 5;
+				if (player.upgrades['67R']) base = 2;
 				return value.log(base);
 			default:
 				return value;
