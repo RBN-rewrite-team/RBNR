@@ -34,6 +34,7 @@ function g() {
 }
 
 function _g() {
+	if (player.upgrades['67R']) return '\\log_2 x';
 	if (player.upgrades['66R']) return '\\log_5 x';
 	return '\\lg x';
 }
@@ -199,6 +200,11 @@ function _g() {
 						<tr>
 							<TDUpgrade upgid="65R" />
 							<TDUpgrade upgid="66R" />
+							<TDUpgrade upgid="67R" />
+							<TDUpgrade upgid="68R" />
+						</tr>
+						<tr>
+							<TDUpgrade upgid="69R" />
 						</tr>
 					</tbody>
 				</table>

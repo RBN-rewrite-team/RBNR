@@ -384,9 +384,7 @@ export const Hydra = {
 	},
 	powerGain(): Decimal {
 		//能量产量
-		let base = Hydra.basePower();
-		base = base.mul(Hydra.powerExtraMult());
-		base = base.pow(Hydra.powerExp().mul(Hydra.powerExpNerf()));
+		let base = this.powerGainBase()
 		if (base.gte('e2400'))
 			base = base
 				.log10()
@@ -398,6 +396,13 @@ export const Hydra = {
 				.pow10()
 				.pow10()
 				.pow10();
+		return base;
+	},
+	powerGainBase(): Decimal {
+		//能量产量
+		let base = Hydra.basePower();
+		base = base.mul(Hydra.powerExtraMult());
+		base = base.pow(Hydra.powerExp().mul(Hydra.powerExpNerf()));
 		return base;
 	},
 	pUnlock(id = 0): boolean {
@@ -479,6 +484,7 @@ export const Hydra = {
 		if (id == 1 && base.gte(2.25)) base = base.div(2.25).root(2).mul(2.25);
 		if (id == 2 && base.gte(1e10)) base = base.log10().div(10).pow(0.5).mul(10).pow_base(10);
 		if (id == 3 && player.upgrades['65R']) base = base.mul(upgrades['65R'].effect());
+		if (id == 1 && player.upgrades['68R']) base = base.mul(upgrades['68R'].effect());
 		if (id == 3 && base.gte(0.05)) base = base.sub(0.05).mul(0.5).add(0.05);
 		if (id == 3 && base.gte(0.1)) base = base.div(0.1).pow(0.5).mul(0.1);
 		if (!preview) return base;
