@@ -80,10 +80,14 @@ const req = curupg.requirements();
 								feature.Ordinal.base(),
 							) + currencyName(curupg.currency)
 						"
-					/><span v-else v-html="
-						format(typeof curupg.cost === 'function' ? curupg.cost() : curupg.cost) +
-						currencyName(curupg.currency)
-					" />
+					/><span
+						v-else
+						v-html="
+							format(
+								typeof curupg.cost === 'function' ? curupg.cost() : curupg.cost,
+							) + currencyName(curupg.currency)
+						"
+					/>
 					<br />
 				</template>
 				<span v-else style="color: green; font-weight: bold"> 保持持有<br /> </span>

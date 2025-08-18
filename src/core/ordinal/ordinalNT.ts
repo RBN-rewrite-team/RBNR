@@ -13,9 +13,7 @@ export const OrdinalNT = {
 		'51R': new (class B51R extends Buyable<Decimal> {
 			description = 'x<sub>3,1</sub>=x<sub>3,1</sub>+1';
 			cost(x: Decimal): Decimal {
-				return new Ordinal('w^4')
-					.toDecimal(feature.Ordinal.base())
-					.mul(x.pow_base(2));
+				return new Ordinal('w^4').toDecimal(feature.Ordinal.base()).mul(x.pow_base(2));
 			}
 			ordinal = true;
 			name = 'B4-R1-1';
@@ -27,7 +25,7 @@ export const OrdinalNT = {
 			}
 			currency: Currencies = Currencies.ORDINAL;
 			canBuyMax(): boolean {
-				return player.ordinal.number.gte("e8e153");
+				return player.ordinal.number.gte('e8e153');
 			}
 			autoBuyMax(): boolean {
 				return false;
@@ -59,7 +57,7 @@ export const OrdinalNT = {
 			}
 			currency: Currencies = Currencies.ORDINAL;
 			canBuyMax(): boolean {
-				return player.ordinal.number.gte("e8e153");
+				return player.ordinal.number.gte('e8e153');
 			}
 			autoBuyMax(): boolean {
 				return false;
@@ -77,9 +75,7 @@ export const OrdinalNT = {
 		'53R': new (class B53R extends Buyable<Decimal> {
 			description = 'HH底数-1';
 			cost(x: Decimal): Decimal {
-				return new Ordinal('w^w')
-					.toDecimal(feature.Ordinal.base())
-					.pow(x.pow_base(2));
+				return new Ordinal('w^w').toDecimal(feature.Ordinal.base()).pow(x.pow_base(2));
 			}
 			ordinal = true;
 			name = 'B4-R1-3';
@@ -123,7 +119,7 @@ export const OrdinalNT = {
 			}
 			currency: Currencies = Currencies.ORDINAL;
 			canBuyMax(): boolean {
-				return player.ordinal.number.gte("e8e153");
+				return player.ordinal.number.gte('e8e153');
 			}
 			autoBuyMax(): boolean {
 				return false;
@@ -153,7 +149,7 @@ export const OrdinalNT = {
 			}
 			currency: Currencies = Currencies.ORDINAL;
 			canBuyMax(): boolean {
-				return player.ordinal.number.gte("e8e153");
+				return player.ordinal.number.gte('e8e153');
 			}
 			autoBuyMax(): boolean {
 				return false;
@@ -170,7 +166,7 @@ export const OrdinalNT = {
 		'61R': new (class B61R extends Buyable<Decimal> {
 			description = 'a = a + 1';
 			cost(x: Decimal): Decimal {
-				return new Decimal("ee3").mul(x.pow_base(1e50));
+				return new Decimal('ee3').mul(x.pow_base(1e50));
 			}
 			name = 'B6-R1-1';
 			effect(x: Decimal): Decimal {
@@ -187,7 +183,7 @@ export const OrdinalNT = {
 				return false;
 			}
 			costInverse(x: Decimal): Decimal {
-				return x.div("ee3").max(1).log(1e50).floor().add(1)
+				return x.div('ee3').max(1).log(1e50).floor().add(1);
 			}
 		})(),
 		'62R': new (class B62R extends Buyable<Decimal> {
@@ -210,74 +206,72 @@ export const OrdinalNT = {
 				return false;
 			}
 			costInverse(x: Decimal): Decimal {
-				return x.div(100).max(1).log(10).floor().add(1)
+				return x.div(100).max(1).log(10).floor().add(1);
 			}
 		})(),
 	} as const,
 	upgrades: {
 		'51R': new (class U51 extends Upgrade {
 			description = '将底数降低1';
-			cost = (): Decimal =>
-				new Ordinal('w^(w*2)').toDecimal(feature.Ordinal.base());
+			cost = (): Decimal => new Ordinal('w^(w*2)').toDecimal(feature.Ordinal.base());
 			ordinal = true;
 			name = 'U4-R1-1';
 			currency: Currencies = Currencies.ORDINAL;
 		})(),
 		'52R': new (class U52 extends Upgrade {
 			description = '序数增长速度被乘以奇点能量';
-			cost = (): Decimal =>
-				new Ordinal('w^(w*2+1)').toDecimal(feature.Ordinal.base());
+			cost = (): Decimal => new Ordinal('w^(w*2+1)').toDecimal(feature.Ordinal.base());
 			ordinal = true;
 			name = 'U4-R1-2';
 			currency: Currencies = Currencies.ORDINAL;
 		})(),
 		'61R': new (class U61R extends Upgrade {
 			description = '将f(x)的公式加强为log<sub>2</sub> x';
-			cost = new Decimal("e1050")
-			currency = Currencies.HYDRA_POWER
-			name = "U5-R1-1"
+			cost = new Decimal('e1050');
+			currency = Currencies.HYDRA_POWER;
+			name = 'U5-R1-1';
 		})(),
 		'62R': new (class extends Upgrade {
 			description = 'U5-1-1效果^1.125';
-			cost = new Decimal(2500)
-			currency = Currencies.X4
-			name = "U5-R1-2"
+			cost = new Decimal(2500);
+			currency = Currencies.X4;
+			name = 'U5-R1-2';
 		})(),
 		'63R': new (class extends UpgradeWithEffect<Decimal> {
 			description = 'f(x)获得一个基于转生效果的指数';
-			cost = new Decimal(1e4)
-			currency = Currencies.X4
-			name = "U5-R1-3"
+			cost = new Decimal(1e4);
+			currency = Currencies.X4;
+			name = 'U5-R1-3';
 			effect(): Decimal {
-			  return feature.Hydra.prestigeEff(0).log10().div(100).add(1)
+				return feature.Hydra.prestigeEff(0).log10().div(100).add(1);
 			}
 			effectDescription() {
-			  return "^"+format(this.effect())
+				return '^' + format(this.effect());
 			}
 		})(),
 		'64R': new (class extends Upgrade {
 			description = 'τ<sub>4</sub>的效果变为其十次方';
-			cost = new Decimal(5)
-			currency = Currencies.T4
-			name = "U5-R1-4"
+			cost = new Decimal(5);
+			currency = Currencies.T4;
+			name = 'U5-R1-4';
 		})(),
 		'65R': new (class extends UpgradeWithEffect<Decimal> {
 			description = '九头蛇能量加成轮回效果';
-			cost = new Decimal(6)
-			currency = Currencies.T4
-			name = "U5-R1-5"
+			cost = new Decimal(6);
+			currency = Currencies.T4;
+			name = 'U5-R1-5';
 			effect() {
-			  return player.hydra.power.max("e1000").log10().div(1000)
+				return player.hydra.power.max('e1000').log10().div(1000);
 			}
 			effectDescription() {
-			  return "×"+format(this.effect())
+				return '×' + format(this.effect());
 			}
 		})(),
 		'66R': new (class extends Upgrade {
 			description = 'g(x)的对数底数降低为5';
-			cost = new Decimal("1.1551e1551")
-			currency = Currencies.HYDRA_POWER
-			name = "U5-R1-6"
+			cost = new Decimal('1.1551e1551');
+			currency = Currencies.HYDRA_POWER;
+			name = 'U5-R1-6';
 		})(),
 	} as const,
 	initMechanics() {},
@@ -330,69 +324,85 @@ export const OrdinalNT = {
 			}
 		}
 		if (layer == 4) {
-		  if (id == "x") {
-		    let prod = new Decimal(1);
-		    let a = buyables["61R"].effect(player.buyables["61R"])
-		    for (let i = 0; i < feature.Hydra.pMaxUnlock(); i++) {
-		      prod = prod.mul(new Decimal(1).add(feature.Hydra.prestigeEff(i)))
-		    }
-		    return this.functionL4("f", prod).mul(a)
-		  }
+			if (id == 'x') {
+				let prod = new Decimal(1);
+				let a = buyables['61R'].effect(player.buyables['61R']);
+				for (let i = 0; i < feature.Hydra.pMaxUnlock(); i++) {
+					prod = prod.mul(new Decimal(1).add(feature.Hydra.prestigeEff(i)));
+				}
+				return this.functionL4('f', prod).mul(a);
+			}
 		}
 		return new Decimal(0);
 	},
-	functionL4(id = "f", value: Decimal): Decimal {
-	  switch (id) {
-	    case "f":
-	      let exp = this.functionL4exp("f")
-	      
-	      if (player.upgrades["61R"]) return value.log2().pow(exp)
-	      return value.log10().pow(exp)
-	    case "g":
-	      let base = 10
-	      if (player.upgrades["66R"]) base = 5
-	      return value.log(base)
-	    default:
-	      return value
-	  }
-	},
-	functionL4exp(id = "f"): Decimal {
-	  switch (id) {
-	    case "f":
-	      let exp = new Decimal(1)
-	      if (player.upgrades["63R"]) exp = exp.mul(upgrades["63R"].effect())
+	functionL4(id = 'f', value: Decimal): Decimal {
+		switch (id) {
+			case 'f':
+				let exp = this.functionL4exp('f');
 
-	      return exp
-	    case "g":
-	      return new Decimal(1)
-	    default:
-	      return new Decimal(1)
-	  }
+				if (player.upgrades['61R']) return value.log2().pow(exp);
+				return value.log10().pow(exp);
+			case 'g':
+				let base = 10;
+				if (player.upgrades['66R']) base = 5;
+				return value.log(base);
+			default:
+				return value;
+		}
+	},
+	functionL4exp(id = 'f'): Decimal {
+		switch (id) {
+			case 'f':
+				let exp = new Decimal(1);
+				if (player.upgrades['63R']) exp = exp.mul(upgrades['63R'].effect());
+
+				return exp;
+			case 'g':
+				return new Decimal(1);
+			default:
+				return new Decimal(1);
+		}
 	},
 	varGainLoop(diff = 0.04): void {
-	  if (!player.upgrades[61]) {
-		  player.numbertheory.GH.x = player.numbertheory.GH.x.add(this.varGain('x', 3).mul(diff));
-		  if (player.upgrades[512]) player.numbertheory.GH.t33 = player.numbertheory.GH.t33.add(diff);
-	  }
-	  if (player.upgrades[65]) player.numbertheory.GM.x = player.numbertheory.GM.x.add(this.varGain('x', 4).mul(diff));
+		if (!player.upgrades[61]) {
+			player.numbertheory.GH.x = player.numbertheory.GH.x.add(this.varGain('x', 3).mul(diff));
+			if (player.upgrades[512])
+				player.numbertheory.GH.t33 = player.numbertheory.GH.t33.add(diff);
+		}
+		if (player.upgrades[65])
+			player.numbertheory.GM.x = player.numbertheory.GM.x.add(this.varGain('x', 4).mul(diff));
 	},
 	varComputed(id = 'tau', layer = 3): Decimal {
 		if (layer == 3) {
 			if (id == 'tau') {
 				let base;
 				if (player.upgrades[515])
-					base = new Ordinal(OrdinalUtils.numberToOrdinal(
+					base = new Ordinal(
+						OrdinalUtils.numberToOrdinal(
 							OrdinalNT.varComputed('a', 3),
-							OrdinalNT.varComputed('hhBase', 3), 7, false
-						)).toDecimal(new Ordinal(OrdinalUtils.numberToOrdinal(
-							OrdinalNT.varComputed('a', 3),
-							OrdinalNT.varComputed('hhBase', 3), 7, false
-						)).toDecimal(this.varComputed('sghBase', 3)))
+							OrdinalNT.varComputed('hhBase', 3),
+							7,
+							false,
+						),
+					).toDecimal(
+						new Ordinal(
+							OrdinalUtils.numberToOrdinal(
+								OrdinalNT.varComputed('a', 3),
+								OrdinalNT.varComputed('hhBase', 3),
+								7,
+								false,
+							),
+						).toDecimal(this.varComputed('sghBase', 3)),
+					);
 				else
-					base = new Ordinal(OrdinalUtils.numberToOrdinal(
+					base = new Ordinal(
+						OrdinalUtils.numberToOrdinal(
 							OrdinalNT.varComputed('a', 3),
-							OrdinalNT.varComputed('hhBase', 3), 7, false
-						)).toDecimal(this.varComputed('sghBase', 3))
+							OrdinalNT.varComputed('hhBase', 3),
+							7,
+							false,
+						),
+					).toDecimal(this.varComputed('sghBase', 3));
 				return base;
 			} else if (id == 'a') {
 				let base = OrdinalUtils.numberLogHH(
@@ -413,10 +423,10 @@ export const OrdinalNT = {
 			}
 		}
 		if (layer == 4) {
-		  if (id == "tau") {
-		    let base = player.numbertheory.GM.x.add(10)
-		    return this.functionL4("g", base)
-		  }
+			if (id == 'tau') {
+				let base = player.numbertheory.GM.x.add(10);
+				return this.functionL4('g', base);
+			}
 		}
 		return new Decimal(0);
 	},

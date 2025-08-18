@@ -46,7 +46,6 @@ import { getOrdinalLevel, ordinalNormal, getBMSOLReq } from '../../core/ordinal/
 								)
 							: '\\textit{way too large}'
 					"
-					
 					v-if="!player.upgrades[65]"
 				/>
 				<vue-latex :expression="getBMSOLReq(getOrdinalLevel())" />

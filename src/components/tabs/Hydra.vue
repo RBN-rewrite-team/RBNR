@@ -1,37 +1,61 @@
 <script setup lang="ts">
-import {player, feature} from '@/core/global';
-import {format, formatWhole} from '@/utils/format';
+import { player, feature } from '@/core/global';
+import { format, formatWhole } from '@/utils/format';
 import TDUpgrade from '../TDUpgrade.vue';
 import TDBuyable from '../TDBuyable.vue';
-import {OrdinalUtils} from '@/utils/ordinal';
+import { OrdinalUtils } from '@/utils/ordinal';
 import Decimal from 'break_eternity.js';
 
 function powerFactorHTML(): string {
 	let s = '';
-	s += format(player.hydra.powerMult[0]) + ' x ' + format(player.hydra.powerMult[1]) + ' x ' + format(player.hydra.powerMult[2]) + ' x ' + format(player.hydra.powerMult[3]);
-	if(!feature.Hydra.powerExtraMult().eq(1)) s += ' x <span style="color: rgb(155, 125, 195)">' + format(feature.Hydra.powerExtraMult()) + '</span>';
-	if(!feature.Hydra.powerExp().eq(1)) s = '(' + s + ')<sup>' + format(feature.Hydra.powerExp()) + '</sup>';
-	if(!feature.Hydra.powerExpNerf().eq(1)) s += '<sup><span style="color: red"> x ' + format(feature.Hydra.powerExpNerf()) + '</span></sup>';
+	s +=
+		format(player.hydra.powerMult[0]) +
+		' x ' +
+		format(player.hydra.powerMult[1]) +
+		' x ' +
+		format(player.hydra.powerMult[2]) +
+		' x ' +
+		format(player.hydra.powerMult[3]);
+	if (!feature.Hydra.powerExtraMult().eq(1))
+		s +=
+			' x <span style="color: rgb(155, 125, 195)">' +
+			format(feature.Hydra.powerExtraMult()) +
+			'</span>';
+	if (!feature.Hydra.powerExp().eq(1))
+		s = '(' + s + ')<sup>' + format(feature.Hydra.powerExp()) + '</sup>';
+	if (!feature.Hydra.powerExpNerf().eq(1))
+		s +=
+			'<sup><span style="color: red"> x ' +
+			format(feature.Hydra.powerExpNerf()) +
+			'</span></sup>';
 	s += '<span style="color: var(--color)"> = ' + format(feature.Hydra.powerGain()) + '</span>';
 	return s;
 }
 
 function deduceButtonStyle(): string {
 	let pc = player.hydra.deduceProgress[player.hydra.visiting].mul(100).toNumber();
-	return 'linear-gradient(to right, rgba(155, 125, 195, 0.5) ' + pc + '%, var(--background-color) ' + pc + '%)';
+	return (
+		'linear-gradient(to right, rgba(155, 125, 195, 0.5) ' +
+		pc +
+		'%, var(--background-color) ' +
+		pc +
+		'%)'
+	);
 }
 
 function hydraMilestone(): any {
 	let ms = feature.Hydra.hydraMilestone[player.hydra.visiting];
 	let flag = -1;
-	for(let i in ms)
-	{
-		if(player.hydra.deduceOrdinal[player.hydra.visiting].gte(ms[i][1])) flag++;
+	for (let i in ms) {
+		if (player.hydra.deduceOrdinal[player.hydra.visiting].gte(ms[i][1])) flag++;
 	}
 	let reached = flag == -1 ? '\\text{暂未达成}' : ms[flag][0];
 	let next = ms[flag + 1][0];
-	let progress = "\\text{"+format(player.hydra.deduceOrdinal[player.hydra.visiting].div(ms[flag + 1][1]).mul(100)) + '}\\%';
-	return {reached: reached, next: next, progress: progress};
+	let progress =
+		'\\text{' +
+		format(player.hydra.deduceOrdinal[player.hydra.visiting].div(ms[flag + 1][1]).mul(100)) +
+		'}\\%';
+	return { reached: reached, next: next, progress: progress };
 }
 
 function hydraMilestoneAxis(): any {
@@ -39,16 +63,29 @@ function hydraMilestoneAxis(): any {
 	let ms = feature.Hydra.hydraMilestone[player.hydra.visiting];
 	let now = player.hydra.deduceOrdinal[player.hydra.visiting];
 	let scale = 0;
-	if(now.gte('1e6')) scale = 1;
-	if(now.gte(4294967296)) scale = 2;
-	for(let i in ms)
-	{
+	if (now.gte('1e6')) scale = 1;
+	if (now.gte(4294967296)) scale = 2;
+	for (let i in ms) {
 		let left = 0;
-		if(scale === 0) left = new Decimal(ms[i][1]).div(now).mul(50).toNumber();
-		else if(scale === 1) left = new Decimal(ms[i][1]).max(10).log10().div(now.max(10).log10()).mul(50).toNumber();
-		else if(scale === 2) left = new Decimal(ms[i][1]).max(10).log10().log10().div(now.max(10).log10().log10()).mul(100).sub(50).toNumber();
+		if (scale === 0) left = new Decimal(ms[i][1]).div(now).mul(50).toNumber();
+		else if (scale === 1)
+			left = new Decimal(ms[i][1])
+				.max(10)
+				.log10()
+				.div(now.max(10).log10())
+				.mul(50)
+				.toNumber();
+		else if (scale === 2)
+			left = new Decimal(ms[i][1])
+				.max(10)
+				.log10()
+				.log10()
+				.div(now.max(10).log10().log10())
+				.mul(100)
+				.sub(50)
+				.toNumber();
 		left = Math.min(Math.max(left, 1), 99);
-		if(left >= 10 && left <= 90) axis.push([ms[i][0], String(left) + '%']);
+		if (left >= 10 && left <= 90) axis.push([ms[i][0], String(left) + '%']);
 	}
 	return axis;
 }
@@ -56,9 +93,13 @@ function hydraMilestoneAxis(): any {
 function hydraAxisHTML(): string {
 	let s = '';
 	let axis = hydraMilestoneAxis();
-	for(let i in axis)
-	{
-		s += '<div style="font-size: 8px; position: absolute; top: 90%; left: ' + axis[i][1] + '; color: rgb(200, 190, 245); transform: translateY(-50%, -50%)"><vue-latex :expression="' + axis[i][0] + '" display-mode /></div>';
+	for (let i in axis) {
+		s +=
+			'<div style="font-size: 8px; position: absolute; top: 90%; left: ' +
+			axis[i][1] +
+			'; color: rgb(200, 190, 245); transform: translateY(-50%, -50%)"><vue-latex :expression="' +
+			axis[i][0] +
+			'" display-mode /></div>';
 	}
 	return s;
 }
@@ -70,158 +111,260 @@ function hydraAxisHTML(): string {
 	<div class="main" align="center">
 		<h3 style="color: rgb(200, 190, 245)" v-html="powerFactorHTML()"></h3>
 		<table style="width: 100%">
-		  <tbody>
-			<tr>
-				<td style="width: 50%">
-					<button v-if="feature.Hydra.deduceSpeed().lt(100)" class="hydra-button" :style="{ 'background-image': deduceButtonStyle() }">
-						<span class="hydra-text" style="opacity: 0.5; color: rgb(200, 190, 245); font-size: 60px;">{{ format(feature.Hydra.deduceSpeed()) }}/s</span>
-						<span class="hydra-text">
-							{{OrdinalUtils.numberToBMS(player.hydra.deduceOrdinal[0], new Decimal(4))}}
-						</span>
-						<span class="hydra-text-bottom" style="color: rgb(155, 125, 195); font-size: 12px">
-							<div style="transform: scale(0.75)"><vue-latex
-								:expression="'milestone:' + hydraMilestone().reached + ',next:' + hydraMilestone().next + '(' + hydraMilestone().progress + ')'"
-								display-mode
-							/></div>
-						</span>
-						<div class="hydra-axis-line"></div>
-						<div v-for="i in hydraMilestoneAxis()">
-							<div class="hydra-axis-element" :style="'left: ' + i[1]">
-								<vue-latex
-									:expression="i[0]"
-									display-mode
-								/>
+			<tbody>
+				<tr>
+					<td style="width: 50%">
+						<button
+							v-if="feature.Hydra.deduceSpeed().lt(100)"
+							class="hydra-button"
+							:style="{ 'background-image': deduceButtonStyle() }"
+						>
+							<span
+								class="hydra-text"
+								style="opacity: 0.5; color: rgb(200, 190, 245); font-size: 60px"
+								>{{ format(feature.Hydra.deduceSpeed()) }}/s</span
+							>
+							<span class="hydra-text">
+								{{
+									OrdinalUtils.numberToBMS(
+										player.hydra.deduceOrdinal[0],
+										new Decimal(4),
+									)
+								}}
+							</span>
+							<span
+								class="hydra-text-bottom"
+								style="color: rgb(155, 125, 195); font-size: 12px"
+							>
+								<div style="transform: scale(0.75)">
+									<vue-latex
+										:expression="
+											'milestone:' +
+											hydraMilestone().reached +
+											',next:' +
+											hydraMilestone().next +
+											'(' +
+											hydraMilestone().progress +
+											')'
+										"
+										display-mode
+									/>
+								</div>
+							</span>
+							<div class="hydra-axis-line"></div>
+							<div v-for="i in hydraMilestoneAxis()">
+								<div class="hydra-axis-element" :style="'left: ' + i[1]">
+									<vue-latex :expression="i[0]" display-mode />
+								</div>
 							</div>
-						</div>
-						<div class="hydra-axis-element" style="left: 50%; top: 88%">
-							♦
-						</div>
-					</button>
-					<button v-else class="hydra-button fast" style="position: relative;">
-						<span class="hydra-text" style="opacity: 0.5; color: rgb(200, 190, 245); font-size: 60px;">{{ format(feature.Hydra.deduceSpeed()) }}/s</span>
-						<span class="hydra-text">
-							{{OrdinalUtils.numberToBMS(player.hydra.deduceOrdinal[0], new Decimal(4))}}
-						</span>
-						<span class="hydra-text-bottom" style="color: rgb(155, 125, 195); font-size: 12px">
-							<div style="transform: scale(0.75)"><vue-latex
-								:expression="'milestone:' + hydraMilestone().reached + ',next:' + hydraMilestone().next + '(' + hydraMilestone().progress + ')'"
-								display-mode
-							/></div>
-						</span>
-						<div class="hydra-axis-line"></div>
-						<div v-for="i in hydraMilestoneAxis()">
-							<div class="hydra-axis-element" :style="'left: ' + i[1]">
-								<vue-latex
-									:expression="i[0]"
-									display-mode
-								/>
+							<div class="hydra-axis-element" style="left: 50%; top: 88%">♦</div>
+						</button>
+						<button v-else class="hydra-button fast" style="position: relative">
+							<span
+								class="hydra-text"
+								style="opacity: 0.5; color: rgb(200, 190, 245); font-size: 60px"
+								>{{ format(feature.Hydra.deduceSpeed()) }}/s</span
+							>
+							<span class="hydra-text">
+								{{
+									OrdinalUtils.numberToBMS(
+										player.hydra.deduceOrdinal[0],
+										new Decimal(4),
+									)
+								}}
+							</span>
+							<span
+								class="hydra-text-bottom"
+								style="color: rgb(155, 125, 195); font-size: 12px"
+							>
+								<div style="transform: scale(0.75)">
+									<vue-latex
+										:expression="
+											'milestone:' +
+											hydraMilestone().reached +
+											',next:' +
+											hydraMilestone().next +
+											'(' +
+											hydraMilestone().progress +
+											')'
+										"
+										display-mode
+									/>
+								</div>
+							</span>
+							<div class="hydra-axis-line"></div>
+							<div v-for="i in hydraMilestoneAxis()">
+								<div class="hydra-axis-element" :style="'left: ' + i[1]">
+									<vue-latex :expression="i[0]" display-mode />
+								</div>
 							</div>
-						</div>
-						<div class="hydra-axis-element" style="left: 50%; top: 88%">
-							♦
-						</div>
-					</button>
-				</td>
-				<td style="width: 50%">
-					<button class="hydra-button-reset" @click="feature.Hydra.hydraReset(player.hydra.visiting)"
-					  v-hold="{handler: {onProgress() {feature.Hydra.hydraReset(player.hydra.visiting)}}}"
-					><span class="hydra-text">
-						<h2 style="color: rgb(200, 190, 245)">重置</h2>
-						<h3 style="color: rgb(155, 125, 195)">+{{format(feature.Hydra.powerGain())}}九头蛇能量</h3>
-						<br>
-						当前重置使乘数+{{format(feature.Hydra.deduceEff(player.hydra.visiting).mul(player.hydra.deduceOrdinal[player.hydra.visiting]))}}
-					</span></button>
-				</td>
-			</tr>
+							<div class="hydra-axis-element" style="left: 50%; top: 88%">♦</div>
+						</button>
+					</td>
+					<td style="width: 50%">
+						<button
+							class="hydra-button-reset"
+							@click="feature.Hydra.hydraReset(player.hydra.visiting)"
+							v-hold="{
+								handler: {
+									onProgress() {
+										feature.Hydra.hydraReset(player.hydra.visiting);
+									},
+								},
+							}"
+						>
+							<span class="hydra-text">
+								<h2 style="color: rgb(200, 190, 245)">重置</h2>
+								<h3 style="color: rgb(155, 125, 195)">
+									+{{ format(feature.Hydra.powerGain()) }}九头蛇能量
+								</h3>
+								<br />
+								当前重置使乘数+{{
+									format(
+										feature.Hydra.deduceEff(player.hydra.visiting).mul(
+											player.hydra.deduceOrdinal[player.hydra.visiting],
+										),
+									)
+								}}
+							</span>
+						</button>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 		<table style="width: 100%; transform: translateY(-40px)">
 			<tr>
 				<td style="width: 25%">
-					<button class="hydra-button-short" @click="feature.Hydra.prestige(0)"><span class="hydra-text-short">
-						<span v-if="feature.Hydra.pUnlock(0)">
-							<h3>转生({{formatWhole(player.hydra.prestige[0])}})</h3>
-							额外乘数与推演速度<br>x{{format(feature.Hydra.prestigeEff(0, false))}}→{{format(feature.Hydra.prestigeEff(0, true))}}(效果×{{format(feature.Hydra.prestigeEff(0, false, true))}})
+					<button class="hydra-button-short" @click="feature.Hydra.prestige(0)">
+						<span class="hydra-text-short">
+							<span v-if="feature.Hydra.pUnlock(0)">
+								<h3>转生({{ formatWhole(player.hydra.prestige[0]) }})</h3>
+								额外乘数与推演速度<br />x{{
+									format(feature.Hydra.prestigeEff(0, false))
+								}}→{{ format(feature.Hydra.prestigeEff(0, true)) }}(效果×{{
+									format(feature.Hydra.prestigeEff(0, false, true))
+								}})
+							</span>
+							<span v-else>基础乘数≥2解锁</span>
 						</span>
-						<span v-else>基础乘数≥2解锁</span>
-					</span></button>
+					</button>
 				</td>
 				<td style="width: 25%">
-					<button class="hydra-button-short" @click="feature.Hydra.prestige(1)"><span class="hydra-text-short">
-						<span v-if="feature.Hydra.pUnlock(1)">
-							<h3>飞升({{formatWhole(player.hydra.prestige[1])}})</h3>
-							额外指数<br>+{{format(feature.Hydra.prestigeEff(1, false))}}→{{format(feature.Hydra.prestigeEff(1, true))}}
+					<button class="hydra-button-short" @click="feature.Hydra.prestige(1)">
+						<span class="hydra-text-short">
+							<span v-if="feature.Hydra.pUnlock(1)">
+								<h3>飞升({{ formatWhole(player.hydra.prestige[1]) }})</h3>
+								额外指数<br />+{{ format(feature.Hydra.prestigeEff(1, false)) }}→{{
+									format(feature.Hydra.prestigeEff(1, true))
+								}}
+							</span>
+							<span v-else>转生效果≥20解锁</span>
 						</span>
-						<span v-else>转生效果≥20解锁</span>
-					</span></button>
+					</button>
 				</td>
 				<td style="width: 25%">
-					<button class="hydra-button-short" @click="feature.Hydra.prestige(2)"><span class="hydra-text-short">
-						<span v-if="feature.Hydra.pUnlock(2)">
-							<h3>超越({{format(player.hydra.prestige[2])}})</h3>
-							乘数获取<br>x{{format(feature.Hydra.prestigeEff(2, false))}}→{{format(feature.Hydra.prestigeEff(2, true))}}
+					<button class="hydra-button-short" @click="feature.Hydra.prestige(2)">
+						<span class="hydra-text-short">
+							<span v-if="feature.Hydra.pUnlock(2)">
+								<h3>超越({{ format(player.hydra.prestige[2]) }})</h3>
+								乘数获取<br />x{{ format(feature.Hydra.prestigeEff(2, false)) }}→{{
+									format(feature.Hydra.prestigeEff(2, true))
+								}}
+							</span>
+							<span v-else>飞升效果≥1解锁</span>
 						</span>
-						<span v-else>飞升效果≥1解锁</span>
-					</span></button>
+					</button>
 				</td>
 				<td style="width: 25%">
-					<button class="hydra-button-short" @click="feature.Hydra.prestige(3)"><span class="hydra-text-short">
-						<span v-if="feature.Hydra.pUnlock(3)">
-							<h3>轮回({{formatWhole(player.hydra.prestige[3])}})</h3>
-							转生、超越效果指数<br>x+{{format(feature.Hydra.prestigeEff(3, false))}}→{{format(feature.Hydra.prestigeEff(3, true))}}
+					<button class="hydra-button-short" @click="feature.Hydra.prestige(3)">
+						<span class="hydra-text-short">
+							<span v-if="feature.Hydra.pUnlock(3)">
+								<h3>轮回({{ formatWhole(player.hydra.prestige[3]) }})</h3>
+								转生、超越效果指数<br />x+{{
+									format(feature.Hydra.prestigeEff(3, false))
+								}}→{{ format(feature.Hydra.prestigeEff(3, true)) }}
+							</span>
+							<span v-else>超越效果≥1e10解锁</span>
 						</span>
-						<span v-else>超越效果≥1e10解锁</span>
-					</span></button>
+					</button>
 				</td>
 			</tr>
 			<tr style="transform: translateY(-100px)">
 				<td style="width: 25%">
-					<button 
-						class="hydra-button-sshort" 
-						:style="{'background-color': player.hydra.pAuto[0] ? 'rgb(155, 125, 195)' : 'var(--background-color)'}"
+					<button
+						class="hydra-button-sshort"
+						:style="{
+							'background-color': player.hydra.pAuto[0]
+								? 'rgb(155, 125, 195)'
+								: 'var(--background-color)',
+						}"
 						@click="player.hydra.pAuto[0] = !player.hydra.pAuto[0]"
-					><span class="hydra-text-short">
-						<span v-if="feature.Hydra.pAutoUnlock(0)">
-							自动重置阈值：+{{format(feature.Hydra.pAutoThreshold(0).add)}} & x{{format(feature.Hydra.pAutoThreshold(0).mul)}}
+					>
+						<span class="hydra-text-short">
+							<span v-if="feature.Hydra.pAutoUnlock(0)">
+								自动重置阈值：+{{ format(feature.Hydra.pAutoThreshold(0).add) }} &
+								x{{ format(feature.Hydra.pAutoThreshold(0).mul) }}
+							</span>
+							<span v-else>首次超越解锁自动化</span>
 						</span>
-						<span v-else>首次超越解锁自动化</span>
-					</span></button>
+					</button>
 				</td>
 				<td style="width: 25%">
-					<button 
-						class="hydra-button-sshort" 
-						:style="{'background-color': player.hydra.pAuto[1] ? 'rgb(155, 125, 195)' : 'var(--background-color)'}"
+					<button
+						class="hydra-button-sshort"
+						:style="{
+							'background-color': player.hydra.pAuto[1]
+								? 'rgb(155, 125, 195)'
+								: 'var(--background-color)',
+						}"
 						@click="player.hydra.pAuto[1] = !player.hydra.pAuto[1]"
-					><span class="hydra-text-short">
-						<span v-if="feature.Hydra.pAutoUnlock(1)">
-							自动重置阈值：+{{format(feature.Hydra.pAutoThreshold(1).add)}} & x{{format(feature.Hydra.pAutoThreshold(1).mul)}}
+					>
+						<span class="hydra-text-short">
+							<span v-if="feature.Hydra.pAutoUnlock(1)">
+								自动重置阈值：+{{ format(feature.Hydra.pAutoThreshold(1).add) }} &
+								x{{ format(feature.Hydra.pAutoThreshold(1).mul) }}
+							</span>
+							<span v-else>首次轮回解锁自动化</span>
 						</span>
-						<span v-else>首次轮回解锁自动化</span>
-					</span></button>
+					</button>
 				</td>
 				<td style="width: 25%">
-					<button 
-						class="hydra-button-sshort" 
-						:style="{'background-color': player.hydra.pAuto[2] ? 'rgb(155, 125, 195)' : 'var(--background-color)'}"
+					<button
+						class="hydra-button-sshort"
+						:style="{
+							'background-color': player.hydra.pAuto[2]
+								? 'rgb(155, 125, 195)'
+								: 'var(--background-color)',
+						}"
 						@click="player.hydra.pAuto[2] = !player.hydra.pAuto[2]"
-					><span class="hydra-text-short">
-						<span v-if="feature.Hydra.pAutoUnlock(2)">
-							自动重置阈值：+{{format(feature.Hydra.pAutoThreshold(2).add)}} & x{{format(feature.Hydra.pAutoThreshold(2).mul)}}
+					>
+						<span class="hydra-text-short">
+							<span v-if="feature.Hydra.pAutoUnlock(2)">
+								自动重置阈值：+{{ format(feature.Hydra.pAutoThreshold(2).add) }} &
+								x{{ format(feature.Hydra.pAutoThreshold(2).mul) }}
+							</span>
+							<span v-else>暂时无法自动化</span>
 						</span>
-						<span v-else>暂时无法自动化</span>
-					</span></button>
+					</button>
 				</td>
 				<td style="width: 25%">
-					<button 
-						class="hydra-button-sshort" 
-						:style="{'background-color': player.hydra.pAuto[3] ? 'rgb(155, 125, 195)' : 'var(--background-color)'}"
+					<button
+						class="hydra-button-sshort"
+						:style="{
+							'background-color': player.hydra.pAuto[3]
+								? 'rgb(155, 125, 195)'
+								: 'var(--background-color)',
+						}"
 						@click="player.hydra.pAuto[3] = !player.hydra.pAuto[3]"
-					><span class="hydra-text-short">
-						<span v-if="feature.Hydra.pAutoUnlock(3)">
-							自动重置阈值：+{{format(feature.Hydra.pAutoThreshold(3).add)}} & x{{format(feature.Hydra.pAutoThreshold(3).mul)}}
+					>
+						<span class="hydra-text-short">
+							<span v-if="feature.Hydra.pAutoUnlock(3)">
+								自动重置阈值：+{{ format(feature.Hydra.pAutoThreshold(3).add) }} &
+								x{{ format(feature.Hydra.pAutoThreshold(3).mul) }}
+							</span>
+							<span v-else>暂时无法自动化</span>
 						</span>
-						<span v-else>暂时无法自动化</span>
-					</span></button>
+					</button>
 				</td>
 			</tr>
 		</table>
@@ -263,7 +406,8 @@ function hydraAxisHTML(): string {
 </template>
 
 <style scoped lang="scss">
-.hydra-button, .hydra-button-reset {
+.hydra-button,
+.hydra-button-reset {
 	background-color: var(--background-color);
 	color: var(--color);
 	height: 250px;
@@ -273,43 +417,43 @@ function hydraAxisHTML(): string {
 	z-index: 1;
 }
 .hydra-button {
-  &.fast {
-    position: relative;
-    overflow: hidden;
+	&.fast {
+		position: relative;
+		overflow: hidden;
 
-    &::before {
-      content: "";
-      position: absolute;
-      background: linear-gradient(
-        -45deg,
-        rgba(155, 125, 195, 0.3) 0,
-        rgba(155, 125, 195, 0.3) 25%,
-        rgba(155, 125, 195, 0.5) 25%,
-        rgba(155, 125, 195, 0.5) 50%,
-        rgba(155, 125, 195, 0.3) 50%,
-        rgba(155, 125, 195, 0.3) 75%,
-        rgba(155, 125, 195, 0.5) 75%,
-        rgba(155, 125, 195, 0.5),
-      );
-      top: 0px;
-      left: 0px;
-      right: 0px;
-      bottom: 0px;
-      background-size: 100px 100px;
-      background-repeat: repeat;
-      animation: scroll_left 1s linear infinite;
-      width: 200%;
-    }
-  }
+		&::before {
+			content: '';
+			position: absolute;
+			background: linear-gradient(
+				-45deg,
+				rgba(155, 125, 195, 0.3) 0,
+				rgba(155, 125, 195, 0.3) 25%,
+				rgba(155, 125, 195, 0.5) 25%,
+				rgba(155, 125, 195, 0.5) 50%,
+				rgba(155, 125, 195, 0.3) 50%,
+				rgba(155, 125, 195, 0.3) 75%,
+				rgba(155, 125, 195, 0.5) 75%,
+				rgba(155, 125, 195, 0.5)
+			);
+			top: 0px;
+			left: 0px;
+			right: 0px;
+			bottom: 0px;
+			background-size: 100px 100px;
+			background-repeat: repeat;
+			animation: scroll_left 1s linear infinite;
+			width: 200%;
+		}
+	}
 }
 
 @keyframes scroll_left {
-  0% {
-    transform: translateX(0%)
-  }
-  100% {
-    transform: translateX(-50%)
-  }
+	0% {
+		transform: translateX(0%);
+	}
+	100% {
+		transform: translateX(-50%);
+	}
 }
 
 .hydra-button-short {
@@ -333,17 +477,17 @@ function hydraAxisHTML(): string {
 }
 
 .hydra-button-reset:hover {
-		cursor: pointer;
-		border: 7px solid rgb(200, 190, 245);
-	}
+	cursor: pointer;
+	border: 7px solid rgb(200, 190, 245);
+}
 .hydra-button-short:hover {
-		cursor: pointer;
-		border: 4px solid rgb(200, 190, 245);
-	}
+	cursor: pointer;
+	border: 4px solid rgb(200, 190, 245);
+}
 .hydra-button-sshort:hover {
-		cursor: pointer;
-		border: 4px solid rgb(200, 190, 245);
-	}
+	cursor: pointer;
+	border: 4px solid rgb(200, 190, 245);
+}
 .hydra-text {
 	position: absolute;
 	top: 50%;

@@ -201,8 +201,8 @@ export function simulate(diff: number) {
 		if (player.buyables['55R'].gte(1)) {
 			player.numbertheory.GH.t32 = player.numbertheory.GH.t32.add(diff / 1000);
 		}
-		let base = feature.Ordinal.base()
-		if (player.ordinal.number.gte(base.tetrate(base.toNumber()))) player.help.epsilon = true
+		let base = feature.Ordinal.base();
+		if (player.ordinal.number.gte(base.tetrate(base.toNumber()))) player.help.epsilon = true;
 	}
 	ORDINAL_BOOSTER.boosterLoop();
 	for (const upg_i in upgrades) {
@@ -257,8 +257,8 @@ export function simulate(diff: number) {
 	if (player.upgrades[58]) {
 		feature.OrdinalNT.varGainLoop(diff / 1000);
 	}
-	
-	if(player.upgrades[517]) {
+
+	if (player.upgrades[517]) {
 		feature.Hydra.hydraUpdate(diff / 1000);
 	}
 

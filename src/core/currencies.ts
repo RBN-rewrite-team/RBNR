@@ -96,7 +96,7 @@ class HydraPowerCurrency extends Currency {
 	static set current(x: Decimal) {
 		player.hydra.power = x;
 	}
-	
+
 	static get current() {
 		return player.hydra.power;
 	}
@@ -107,7 +107,7 @@ class X4Currency extends Currency {
 	static set current(x: Decimal) {
 		return;
 	}
-	
+
 	static get current() {
 		return player.numbertheory.GM.x;
 	}
@@ -118,9 +118,9 @@ class T4Currency extends Currency {
 	static set current(x: Decimal) {
 		return;
 	}
-	
+
 	static get current() {
-		return feature.OrdinalNT.varComputed("tau", 4);
+		return feature.OrdinalNT.varComputed('tau', 4);
 	}
 }
 

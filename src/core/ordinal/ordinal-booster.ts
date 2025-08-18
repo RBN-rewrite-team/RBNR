@@ -16,9 +16,7 @@ export const ORDINAL_BOOSTER = {
 			cost(x: Decimal): Decimal {
 				return new Ordinal('w^w')
 					.toDecimal(feature.Ordinal.base())
-					.mul(
-						x.pow_base(new Ordinal('w^2').toDecimal(feature.Ordinal.base())),
-					);
+					.mul(x.pow_base(new Ordinal('w^2').toDecimal(feature.Ordinal.base())));
 			}
 			ordinal = true;
 			name = 'B41-A';
@@ -30,7 +28,7 @@ export const ORDINAL_BOOSTER = {
 			}
 			currency: Currencies = Currencies.ORDINAL;
 			canBuyMax(): boolean {
-				return player.ordinal.number.gte("e8e153");
+				return player.ordinal.number.gte('e8e153');
 			}
 			autoBuyMax(): boolean {
 				return false;
@@ -48,9 +46,7 @@ export const ORDINAL_BOOSTER = {
 		'52A': new (class extends Buyable<Decimal> {
 			description = '加速器最大倍率×2';
 			cost(x: Decimal): Decimal {
-				return new Ordinal('w^(w*2)')
-					.toDecimal(feature.Ordinal.base())
-					.pow(x.pow_base(2));
+				return new Ordinal('w^(w*2)').toDecimal(feature.Ordinal.base()).pow(x.pow_base(2));
 			}
 			ordinal = true;
 			name = 'B42-A';
@@ -62,7 +58,7 @@ export const ORDINAL_BOOSTER = {
 			}
 			currency: Currencies = Currencies.ORDINAL;
 			canBuyMax(): boolean {
-				return player.ordinal.number.gte("e8e153");
+				return player.ordinal.number.gte('e8e153');
 			}
 			autoBuyMax(): boolean {
 				return false;
@@ -81,15 +77,14 @@ export const ORDINAL_BOOSTER = {
 		'53A': new (class extends Buyable<Decimal> {
 			description = '加速器效果^+0.05';
 			cost(x: Decimal): Decimal {
-				return new Ordinal('w^(w*2)')
-					.toDecimal(feature.Ordinal.base())
-					.pow(x.pow_base(2));
+				return new Ordinal('w^(w*2)').toDecimal(feature.Ordinal.base()).pow(x.pow_base(2));
 			}
 			ordinal = true;
 			name = 'B43-A';
 			effect(x: Decimal): Decimal {
 				let base = x.mul(0.05);
-				if(base.gte(10)) base = new Decimal(10).add(base.sub(10).mul(1000).pow(0.5).div(1000));
+				if (base.gte(10))
+					base = new Decimal(10).add(base.sub(10).mul(1000).pow(0.5).div(1000));
 				return base;
 			}
 			effectDescription(x: Decimal) {
@@ -97,7 +92,7 @@ export const ORDINAL_BOOSTER = {
 			}
 			currency: Currencies = Currencies.ORDINAL;
 			canBuyMax(): boolean {
-				return player.ordinal.number.gte("e8e153");
+				return player.ordinal.number.gte('e8e153');
 			}
 			autoBuyMax(): boolean {
 				return false;
@@ -157,12 +152,16 @@ export const ORDINAL_BOOSTER = {
 		let cap = new Decimal(100);
 		cap = cap.mul(ORDINAL_BOOSTER.buyables['52A'].effect(player.buyables['52A']));
 		if (player.upgrades['51A']) cap = cap.mul(this.upgrades['51A'].effect());
-        return cap;
-    },
-    boosterEffect() {
-        let eff = player.ordinal.booster.mult;
-        eff = eff.pow(this.boosterExponent());
-		if(eff.gte('ee1000')) eff = new Decimal(1000).add(eff.log10().log10().sub(1000).pow(0.5)).pow_base(10).pow_base(10);
-        return eff;
-    }
-}
+		return cap;
+	},
+	boosterEffect() {
+		let eff = player.ordinal.booster.mult;
+		eff = eff.pow(this.boosterExponent());
+		if (eff.gte('ee1000'))
+			eff = new Decimal(1000)
+				.add(eff.log10().log10().sub(1000).pow(0.5))
+				.pow_base(10)
+				.pow_base(10);
+		return eff;
+	},
+};
