@@ -384,7 +384,7 @@ export const Hydra = {
 	},
 	powerGain(): Decimal {
 		//能量产量
-		let base = this.powerGainBase()
+		let base = this.powerGainBase();
 		if (base.gte('e2400'))
 			base = base
 				.log10()

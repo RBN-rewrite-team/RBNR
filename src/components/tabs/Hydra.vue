@@ -28,7 +28,8 @@ function powerFactorHTML(): string {
 			'<sup><span style="color: red"> x ' +
 			format(feature.Hydra.powerExpNerf()) +
 			'</span></sup>';
-	s += '<span style="color: var(--color)"> = ' + format(feature.Hydra.powerGainBase()) + '</span>';
+	s +=
+		'<span style="color: var(--color)"> = ' + format(feature.Hydra.powerGainBase()) + '</span>';
 	return s;
 }
 
