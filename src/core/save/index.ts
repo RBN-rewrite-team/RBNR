@@ -8,6 +8,7 @@ import type { qolUpgs } from '../exponention/qolupg';
 import type { IAstronomer } from '../exponention/logarithm';
 import type { IntRange } from 'type-fest';
 import { buyables, upgrades, milestones } from '../mechanic';
+import type { backupHydraType } from '../hydra/dilute';
 
 const SAVEID = 'RBN-rewritten-powerful-refactor-test';
 const version = 3 as const;
@@ -139,6 +140,11 @@ export interface Player {
 		deduceOrdinal: [Decimal, Decimal, Decimal, Decimal];
 		prestige: [Decimal, Decimal, Decimal, Decimal];
 		pAuto: [boolean, boolean, boolean, boolean];
+		backupHydra?: backupHydraType;
+		dilute: {
+			inDilute: boolean,
+			solvent: [Decimal,Decimal,Decimal,Decimal,Decimal,Decimal,Decimal,Decimal,Decimal]
+		}
 	};
 }
 function getInitialPlayerData(): Player {
@@ -446,6 +452,10 @@ function getInitialPlayerData(): Player {
 			deduceOrdinal: [zero, zero, zero, zero],
 			prestige: [zero, zero, zero, zero],
 			pAuto: [false, false, false, false],
+			dilute: {
+				inDilute: false,
+				solvent: [zero,zero,zero,zero,zero,zero,zero,zero,zero]
+			}
 		},
 	};
 }
