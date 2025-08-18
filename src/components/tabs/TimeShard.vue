@@ -11,7 +11,16 @@ function timeF(ms = 0) {
 		<div align="center">
 			你有
 			<span style="color: rgb(255, 63, 255)">{{ player.timeshard.value }}</span>
-			时间碎片，它没有直接效果<br />
+			时间碎片，转换它以获得同等分钟的3x时间加速效果<br />
+			<span v-if="player.timeshard.tf > 0">
+				你有
+				<span style="color: rgb(127, 31, 127)">{{ Math.round(player.timeshard.tf / 1000) }}秒</span>
+				的时间加速<br />
+				<button 
+					class="setting_button"
+					@click="player.timeshard.openTf = !player.timeshard.openTf"
+				>启用：{{ player.timeshard.openTf ? '开' : '关' }}</button>
+			</span>
 			<table>
 				<tbody>
 					<tr>
@@ -56,6 +65,64 @@ function timeF(ms = 0) {
 									<span v-else style="color: orange; font-weight: bold"
 										>请等待至<br />{{ timeF(player.timeshard.cd[1]) }}</span
 									>
+								</button>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="upgrade">
+								<button
+									class="upgrade_buttonbig"
+									style="color: var(--color)"
+									@click="feature.TimeShard.convert(1)"
+								>
+									<h3 style="color: rgb(255, 63, 255)">碎片转换器 I</h3>
+									<br />
+									转换1个时间碎片
+								</button>
+							</div>
+						</td>
+						<td>
+							<div class="upgrade">
+								<button
+									class="upgrade_buttonbig"
+									style="color: var(--color)"
+									@click="feature.TimeShard.convert(10)"
+								>
+									<h3 style="color: rgb(255, 63, 255)">碎片转换器 II</h3>
+									<br />
+									转换10个时间碎片
+								</button>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="upgrade">
+								<button
+									class="upgrade_buttonbig"
+									style="color: var(--color)"
+									@click="feature.TimeShard.convert(100, 1.25)"
+								>
+									<h3 style="color: rgb(255, 63, 255)">碎片转换器 III</h3>
+									<br />
+									转换100个时间碎片<br />
+									可以额外获得25%时间
+								</button>
+							</div>
+						</td>
+						<td>
+							<div class="upgrade">
+								<button
+									class="upgrade_buttonbig"
+									style="color: var(--color)"
+									@click="feature.TimeShard.convert(1000, 1.5)"
+								>
+									<h3 style="color: rgb(255, 63, 255)">碎片转换器 IV</h3>
+									<br />
+									转换1000个时间碎片<br />
+									可以额外获得50%时间
 								</button>
 							</div>
 						</td>

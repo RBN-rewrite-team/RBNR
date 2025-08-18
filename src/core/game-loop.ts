@@ -123,6 +123,19 @@ function singularity_UI() {
  * @param diff 毫秒数，游戏要运行多少毫秒
  */
 export function simulate(diff: number) {
+	if(player.timeshard.openTf && player.timeshard.tf > 0)
+	{
+		if(player.timeshard.tf < diff)
+		{
+			diff += player.timeshard.tf * 2;
+			player.timeshard.tf = 0;
+		}
+		else
+		{
+			player.timeshard.tf -= diff;
+			diff *= 3;
+		}
+	}
 	let last = feature.Ordinal.ordinalPerSecond();
 	let last2 = feature.Ordinal.speedDeri();
 	qolLoop();
