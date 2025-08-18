@@ -8,6 +8,7 @@ import type { qolUpgs } from '../exponention/qolupg';
 import type { IAstronomer } from '../exponention/logarithm';
 import type { IntRange } from 'type-fest';
 import { buyables, upgrades, milestones } from '../mechanic';
+import type { backupHydraType } from '../hydra/dilute';
 
 const SAVEID = 'RBN-rewritten-powerful-refactor-test';
 const version = 3 as const;
@@ -52,8 +53,8 @@ export interface Player {
 			t33: Decimal;
 		};
 		GM: {
-		  x: Decimal;
-		}
+			x: Decimal;
+		};
 	};
 	currentTab: number;
 	addpower: Decimal;
@@ -120,9 +121,9 @@ export interface Player {
 		};
 	};
 	help: {
-	  page: number
-	  milestone: number
-	  epsilon: boolean
+		page: number;
+		milestone: number;
+		epsilon: boolean;
 	};
 	timeshard: {
 		value: number;
@@ -139,6 +140,12 @@ export interface Player {
 		deduceOrdinal: [Decimal, Decimal, Decimal, Decimal];
 		prestige: [Decimal, Decimal, Decimal, Decimal];
 		pAuto: [boolean, boolean, boolean, boolean];
+		backupHydra?: backupHydraType;
+		dilute: {
+			inDilute: boolean;
+			solvent: [Decimal,Decimal,Decimal,Decimal,Decimal,Decimal,Decimal,Decimal,Decimal];
+			spendTime: number;
+		}
 	};
 }
 function getInitialPlayerData(): Player {
@@ -254,6 +261,9 @@ function getInitialPlayerData(): Player {
 			'64R': false,
 			'65R': false,
 			'66R': false,
+			'67R': false,
+			'68R': false,
+			'69R': false,
 		},
 		buyables: {
 			'11': zero,
@@ -356,8 +366,8 @@ function getInitialPlayerData(): Player {
 				t33: new Decimal(0),
 			},
 			GM: {
-			  x: new Decimal(0),
-			}
+				x: new Decimal(0),
+			},
 		},
 		currentTab: 0,
 		totalAddpower: zero,
@@ -424,9 +434,9 @@ function getInitialPlayerData(): Player {
 			},
 		},
 		help: {
-		  page: 1,
-		  milestone: 0,
-		  epsilon: false
+			page: 1,
+			milestone: 0,
+			epsilon: false,
 		},
 		timeshard: {
 			value: 0,
@@ -443,6 +453,11 @@ function getInitialPlayerData(): Player {
 			deduceOrdinal: [zero, zero, zero, zero],
 			prestige: [zero, zero, zero, zero],
 			pAuto: [false, false, false, false],
+			dilute: {
+				inDilute: false,
+				solvent: [zero,zero,zero,zero,zero,zero,zero,zero,zero],
+				spendTime: 0,
+			}
 		},
 	};
 }

@@ -17,25 +17,26 @@ function varGainLatex(id = 'x', layer = 3) {
 }
 
 function _f() {
-  if (player.upgrades["61R"]) return "\\log_2 x"
-  return "\\lg x"
+	if (player.upgrades['61R']) return '\\log_2 x';
+	return '\\lg x';
 }
 
 function f() {
-  let exp = OrdinalNT.functionL4exp("f")
-  if (exp.neq(1)) return `(${_f()})^${formatLaTeX(exp)}`
-  else return _f()
+	let exp = OrdinalNT.functionL4exp('f');
+	if (exp.neq(1)) return `(${_f()})^${formatLaTeX(exp)}`;
+	else return _f();
 }
 
 function g() {
-  let exp = OrdinalNT.functionL4exp("g")
-  if (exp.neq(1)) return `(${_g()})^${formatLaTeX(exp)}`
-  else return _g()
+	let exp = OrdinalNT.functionL4exp('g');
+	if (exp.neq(1)) return `(${_g()})^${formatLaTeX(exp)}`;
+	else return _g();
 }
 
 function _g() {
-  if (player.upgrades["61R"]) return "\\log_5 x"
-  return "\\lg x"
+	if (player.upgrades['67R']) return '\\log_2 x';
+	if (player.upgrades['66R']) return '\\log_5 x';
+	return '\\lg x';
 }
 </script>
 
@@ -65,125 +66,147 @@ function _g() {
 			<span v-if="player.numbertheory.visiting <= 2" style="color: rgb(255, 63, 63)"
 				>嗯？这是什么研究，我怎么不知道？之前有人来过这里吗？</span
 			>
-			<div v-if="player.numbertheory.visiting == 3"><div v-if="!player.upgrades[61]">
-				<h2>增长层级</h2>
-				<h3>τ<sub>3</sub>倍增序数获取速度</h3>
-				<vue-latex
-					:expression="
-						`\\alpha = \\sup\\{\\beta|H_{\\beta}(${formatLaTeXWhole(OrdinalNT.varComputed('hhBase', 3))})<x_3\\} = ` +
-						OrdinalUtils.numberToLaTeXOrdinal(
-							OrdinalNT.varComputed('a', 3),
-							OrdinalNT.varComputed('hhBase', 3),
-						)
-					"
-					display-mode
-				/>
-				<vue-latex
-					v-if="!player.upgrades[515]"
-					:expression="
-						'\\tau_3 = g_{\\alpha}(' +
-						formatLaTeXWhole(OrdinalNT.varComputed('sghBase', 3)) +
-						') = ' +
-						formatLaTeXWhole(OrdinalNT.varComputed('tau', 3))
-					"
-					display-mode
-				/>
-				<vue-latex
-					v-else
-					:expression="
-						'\\tau_3 = g_{\\alpha}(g_{\\alpha}(' +
-						formatLaTeXWhole(OrdinalNT.varComputed('sghBase', 3)) +
-						')) = ' +
-						formatLaTeXWhole(OrdinalNT.varComputed('tau', 3))
-					"
-					display-mode
-				/>
-				<vue-latex
-					:expression="'x_3 = ' + formatLaTeXWhole(player.numbertheory.GH.x.floor())"
-					display-mode
-				/>
-				<vue-latex :expression="varGainLatex('x', 3)" display-mode />
-				<vue-latex
-					v-if="player.buyables['54R'].gte(1)"
-					:expression="'t_{3, 1} = ' + formatLaTeX(player.numbertheory.GH.t31)"
-					display-mode
-				/>
-				<vue-latex
-					v-if="player.buyables['54R'].gte(1)"
-					:expression="
-						'\\dot{t_{3, 1}} = ' + formatLaTeX(player.buyables['54R'].gte(1) ? 1 : 0)
-					"
-					display-mode
-				/>
-				<vue-latex
-					v-if="player.buyables['55R'].gte(1)"
-					:expression="'t_{3, 2} = ' + formatLaTeX(player.numbertheory.GH.t32)"
-					display-mode
-				/>
-				<vue-latex
-					v-if="player.buyables['55R'].gte(1)"
-					:expression="
-						'\\dot{t_{3, 2}} = ' + formatLaTeX(player.buyables['55R'].gte(1) ? 1 : 0)
-					"
-					display-mode
-				/>
-				<vue-latex
-					v-if="player.upgrades['512']"
-					:expression="'t_{3, 3} = ' + formatLaTeX(player.numbertheory.GH.t33)"
-					display-mode
-				/>
-				<vue-latex
-					v-if="player.upgrades['512']"
-					:expression="'\\dot{t_{3, 3}} = ' + formatLaTeX(player.upgrades[512] ? 1 : 0)"
-					display-mode
-				/>
-				<table align="center">
-					<tbody>
-						<tr>
-							<TDBuyable bylid="51R" />
-							<TDBuyable bylid="52R" />
-							<TDBuyable bylid="53R" />
-							<TDBuyable bylid="54R" />
-						</tr>
-						<tr>
-							<TDBuyable bylid="55R" />
-							<TDUpgrade upgid="51R" />
-							<TDUpgrade upgid="52R" />
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<span v-else style="color: rgb(255, 63, 63)"
-				>嗯？这是什么研究，我怎么不知道？之前有人来过这里吗？</span
-			>
+			<div v-if="player.numbertheory.visiting == 3">
+				<div v-if="!player.upgrades[61]">
+					<h2>增长层级</h2>
+					<h3>τ<sub>3</sub>倍增序数获取速度</h3>
+					<vue-latex
+						:expression="
+							`\\alpha = \\sup\\{\\beta|H_{\\beta}(${formatLaTeXWhole(OrdinalNT.varComputed('hhBase', 3))})<x_3\\} = ` +
+							OrdinalUtils.numberToLaTeXOrdinal(
+								OrdinalNT.varComputed('a', 3),
+								OrdinalNT.varComputed('hhBase', 3),
+							)
+						"
+						display-mode
+					/>
+					<vue-latex
+						v-if="!player.upgrades[515]"
+						:expression="
+							'\\tau_3 = g_{\\alpha}(' +
+							formatLaTeXWhole(OrdinalNT.varComputed('sghBase', 3)) +
+							') = ' +
+							formatLaTeXWhole(OrdinalNT.varComputed('tau', 3))
+						"
+						display-mode
+					/>
+					<vue-latex
+						v-else
+						:expression="
+							'\\tau_3 = g_{\\alpha}(g_{\\alpha}(' +
+							formatLaTeXWhole(OrdinalNT.varComputed('sghBase', 3)) +
+							')) = ' +
+							formatLaTeXWhole(OrdinalNT.varComputed('tau', 3))
+						"
+						display-mode
+					/>
+					<vue-latex
+						:expression="'x_3 = ' + formatLaTeXWhole(player.numbertheory.GH.x.floor())"
+						display-mode
+					/>
+					<vue-latex :expression="varGainLatex('x', 3)" display-mode />
+					<vue-latex
+						v-if="player.buyables['54R'].gte(1)"
+						:expression="'t_{3, 1} = ' + formatLaTeX(player.numbertheory.GH.t31)"
+						display-mode
+					/>
+					<vue-latex
+						v-if="player.buyables['54R'].gte(1)"
+						:expression="
+							'\\dot{t_{3, 1}} = ' +
+							formatLaTeX(player.buyables['54R'].gte(1) ? 1 : 0)
+						"
+						display-mode
+					/>
+					<vue-latex
+						v-if="player.buyables['55R'].gte(1)"
+						:expression="'t_{3, 2} = ' + formatLaTeX(player.numbertheory.GH.t32)"
+						display-mode
+					/>
+					<vue-latex
+						v-if="player.buyables['55R'].gte(1)"
+						:expression="
+							'\\dot{t_{3, 2}} = ' +
+							formatLaTeX(player.buyables['55R'].gte(1) ? 1 : 0)
+						"
+						display-mode
+					/>
+					<vue-latex
+						v-if="player.upgrades['512']"
+						:expression="'t_{3, 3} = ' + formatLaTeX(player.numbertheory.GH.t33)"
+						display-mode
+					/>
+					<vue-latex
+						v-if="player.upgrades['512']"
+						:expression="
+							'\\dot{t_{3, 3}} = ' + formatLaTeX(player.upgrades[512] ? 1 : 0)
+						"
+						display-mode
+					/>
+					<table align="center">
+						<tbody>
+							<tr>
+								<TDBuyable bylid="51R" />
+								<TDBuyable bylid="52R" />
+								<TDBuyable bylid="53R" />
+								<TDBuyable bylid="54R" />
+							</tr>
+							<tr>
+								<TDBuyable bylid="55R" />
+								<TDUpgrade upgid="51R" />
+								<TDUpgrade upgid="52R" />
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<span v-else style="color: rgb(255, 63, 63)"
+					>嗯？这是什么研究，我怎么不知道？之前有人来过这里吗？</span
+				>
 			</div>
 			<div v-if="player.upgrades[65] && player.numbertheory.visiting == 4">
 				<h2>增长模式</h2>
-				τ<sub>4</sub>增益BMS推演和U5-2的速度<br>
-				<vue-latex :expression="`\\dot{x_4} = a\\cdot f\\left(\\prod_{n = 1}^${feature.Hydra.pMaxUnlock()}e_n+1\\right) = ${formatLaTeX(OrdinalNT.varGain('x', 4))}`" display-mode />
-				<vue-latex :expression="`\\tau_4 = g(x_4+10) = ${format(OrdinalNT.varComputed('tau', 4))}`" display-mode />
+				τ<sub>4</sub>增益BMS推演和U5-2的速度<br />
+				<vue-latex
+					:expression="`\\dot{x_4} = a\\cdot f\\left(\\prod_{n = 1}^${feature.Hydra.pMaxUnlock()}e_n+1\\right) = ${formatLaTeX(OrdinalNT.varGain('x', 4))}`"
+					display-mode
+				/>
+				<vue-latex
+					:expression="`\\tau_4 = g(x_4+10) = ${format(OrdinalNT.varComputed('tau', 4))}`"
+					display-mode
+				/>
 				<vue-latex :expression="`f(x) = ${f()}`" display-mode />
 				<vue-latex :expression="`g(x) = ${g()}`" display-mode />
-				<vue-latex :expression="`e_n = \\text{第\\textit{n}个九头蛇重置项目的效果}`" display-mode />
-				<vue-latex :expression="`x_4 = ${formatLaTeX(player.numbertheory.GM.x)}`" display-mode />
+				<vue-latex
+					:expression="`e_n = \\text{第\\textit{n}个九头蛇重置项目的效果}`"
+					display-mode
+				/>
+				<vue-latex
+					:expression="`x_4 = ${formatLaTeX(player.numbertheory.GM.x)}`"
+					display-mode
+				/>
 				价格对应资源为x<sub>4</sub>, τ<sub>4</sub>的购买项/升级不消耗任何东西。
 				<table align="center">
-				  <tbody>
-				    <tr>
-				      <TDBuyable bylid="61R" />
-				      <TDBuyable bylid="62R" />
-				    </tr>
-				    <tr>
-				      <TDUpgrade upgid="61R" />
-				      <TDUpgrade upgid="62R" />
-				      <TDUpgrade upgid="63R" />
-				      <TDUpgrade upgid="64R" />
-				    </tr>
-				    <tr>
-				      <TDUpgrade upgid="65R" />
-				      <TDUpgrade upgid="66R" />
-				    </tr>
-				  </tbody>
+					<tbody>
+						<tr>
+							<TDBuyable bylid="61R" />
+							<TDBuyable bylid="62R" />
+						</tr>
+						<tr>
+							<TDUpgrade upgid="61R" />
+							<TDUpgrade upgid="62R" />
+							<TDUpgrade upgid="63R" />
+							<TDUpgrade upgid="64R" />
+						</tr>
+						<tr>
+							<TDUpgrade upgid="65R" />
+							<TDUpgrade upgid="66R" />
+							<TDUpgrade upgid="67R" />
+							<TDUpgrade upgid="68R" />
+						</tr>
+						<tr>
+							<TDUpgrade upgid="69R" />
+						</tr>
+					</tbody>
 				</table>
 			</div>
 		</div>

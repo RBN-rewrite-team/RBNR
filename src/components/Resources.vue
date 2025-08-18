@@ -74,11 +74,8 @@ import { format } from '@/utils/format';
 						"
 					></span>
 				</div>
-				<div
-					style="font-size: 17px; color: rgb(155, 125, 195)"
-					v-if="player.upgrades[61]"
-				>
-					(推演+{{format(feature.Hydra.deduceSpeed(0))}}/s)
+				<div style="font-size: 17px; color: rgb(155, 125, 195)" v-if="player.upgrades[61]">
+					(推演+{{ format(feature.Hydra.deduceSpeed(0)) }}/s)
 				</div>
 			</div>
 			<div
@@ -187,21 +184,26 @@ import { format } from '@/utils/format';
 					(!{{ formatWhole(player.exponention.totalExppower) }})
 				</div>
 			</div>
-			<div
-				style="margin-left: 365px"
-				class="resource"
-				v-if="player.upgrades[517]"
-			>
+			<div style="margin-left: 365px" class="resource" v-if="player.upgrades[517]">
 				<div style="font-weight: bold; color: rgb(200, 190, 245)">
 					九头蛇能量&nbsp;
 					<div style="display: inline; text-shadow: rgb(0, 20, 127) 1px 1px 2px">
 						{{ formatWhole(player.hydra.power) }}
-					</div><br>
+					</div>
+					<br />
 				</div>
-				<div 
-				v-if="feature.Hydra.hydraPowerPassiveGeneration().gt(0)"
-				style="font-size: 17px; display: inline; color: rgb(200, 190, 245)">
-					<span v-html="formatGain(player.hydra.power, feature.Hydra.hydraPowerPassiveGeneration())" />
+				<div
+					v-if="feature.Hydra.hydraPowerPassiveGeneration().gt(0)"
+					style="font-size: 17px; display: inline; color: rgb(200, 190, 245)"
+				>
+					<span
+						v-html="
+							formatGain(
+								player.hydra.power,
+								feature.Hydra.hydraPowerPassiveGeneration(),
+							)
+						"
+					/>
 				</div>
 			</div>
 		</div>

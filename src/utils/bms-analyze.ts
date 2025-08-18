@@ -107,7 +107,7 @@ function log(a: Term): Term {
 	if (iz(a)) return [];
 	const termA = a as [Term, Term, Term];
 	const [p, q] = s(termA[1], [suc(termA[0]), [], []]);
-	
+
 	if (iz(termA[0]) && iz(p)) {
 		if (!lt(termA[1], [[], [ONE, [], []], []])) {
 			const logQ = log(q);
@@ -117,7 +117,7 @@ function log(a: Term): Term {
 		}
 		return q;
 	}
-	
+
 	const m = add([termA[0], p, []], q);
 	if (!lt(termA[1], [termA[0], [suc(termA[0]), [], []], []])) {
 		const logA1 = log(termA[1]);
@@ -163,21 +163,25 @@ function U(M: Matrix, n: number): number {
 	}
 	const m = P(M, 1, n);
 	const L: MatrixRow = [M[m][0] + 1, M[n][1], M[m][2] + 1];
-	if (P(M, 1, n) === P(M, 1, n + 1) && 
-		M[n + 1][0] === L[0] && 
-		M[n + 1][1] === L[1] && 
-		M[n + 1][2] === L[2]) {
+	if (
+		P(M, 1, n) === P(M, 1, n + 1) &&
+		M[n + 1][0] === L[0] &&
+		M[n + 1][1] === L[1] &&
+		M[n + 1][2] === L[2]
+	) {
 		return n + 1;
 	}
 	let q = n;
 	while (q !== -1) {
 		q = P(M, 0, q);
-		if (q >= 0 && 
-			P(M, 1, n) === P(M, 1, q) && 
-			M[q][0] === L[0] && 
-			M[q][1] === L[1] && 
-			M[q][2] === L[2] && 
-			M[n + 1][0] > M[q][0]) {
+		if (
+			q >= 0 &&
+			P(M, 1, n) === P(M, 1, q) &&
+			M[q][0] === L[0] &&
+			M[q][1] === L[1] &&
+			M[q][2] === L[2] &&
+			M[n + 1][0] > M[q][0]
+		) {
 			return q;
 		}
 	}
@@ -208,7 +212,7 @@ function v(M: Matrix, n: number): Term {
 
 function o(M: Matrix, n: number): Term {
 	let S: Term = [];
-	const u: number[] = [...Array(M.length).keys()].map(x => U(M, x));
+	const u: number[] = [...Array(M.length).keys()].map((x) => U(M, x));
 	for (const i of C(M, n)) {
 		if (M[i][0] === M[n][0] + 1 && M[i][1] === M[n][1] && M[i][2] === 1) {
 			continue;
@@ -217,9 +221,7 @@ function o(M: Matrix, n: number): Term {
 			const c = C(M, i);
 			if (c.length > 0) {
 				const last = c[c.length - 1];
-				if (M[last][0] === M[i][0] + 1 && 
-					M[last][1] === M[i][1] && 
-					M[last][2] === 1) {
+				if (M[last][0] === M[i][0] + 1 && M[last][1] === M[i][1] && M[last][2] === 1) {
 					continue;
 				}
 			} else {
@@ -270,41 +272,41 @@ function sf(a: Term): Term {
 }
 
 function toString(q: Term | number, maxLength = 40): string {
-  if (maxLength <= 0) return "..."
+	if (maxLength <= 0) return '...';
 	if (typeof q === 'number') return q.toString();
 	if (iz(q)) return '0';
-	
+
 	const termQ = q as [Term, Term, Term];
 	if (iz(termQ[0]) && iz(termQ[1])) {
 		return (Number(toString(termQ[2])) + 1).toString();
 	}
-	
+
 	const [a, b] = s(q, [termQ[0], termQ[1], []]);
 	const termA = a as [Term, Term, Term];
-	
+
 	let m = `ψ<sub>${toString(termA[0], --maxLength)}</sub>(${toString(termA[1], --maxLength)})`;
 	if (iz(termA[1])) m = `Ω<sub>${toString(termA[0], --maxLength)}</sub>`;
 	if (iz(termA[1]) && eq(termA[0], ONE)) m = `Ω`;
 	if (iz(termA[0])) m = `ψ(${toString(termA[1], --maxLength)})`;
-	
+
 	if (eq(termA[0], []) && eq(termA[1], ONE)) {
 		m = 'ω';
 	} else if (!eq(log([termA[0], termA[1], []]), [termA[0], termA[1], []])) {
 		m = `ω<sup>${toString(log(a), --maxLength)}</sup>`;
 	}
-	
+
 	function getCoef(x: Term): number {
 		if (iz(x)) return 0;
 		const termX = x as [Term, Term, Term];
 		if (iz(termX[2])) return 1;
 		return getCoef(termX[2]) + 1;
 	}
-	
+
 	const coef = getCoef(a);
 	if (coef > 1) {
 		m += coef.toString();
 	}
-	
+
 	if (!iz(b)) {
 		m += `+${toString(b, --maxLength)}`;
 	}
@@ -322,40 +324,47 @@ const EBO = [
 
 export function calculate(BMS: string): string {
 	const cleanBMS = BMS.replace(/\s+/g, '');
-	
-	if (cleanBMS == "") return "0";
-	
-	const matrix = JSON.parse('['+cleanBMS.replace(/\)\(/g, '],[').replace(/\(/g, '[').replace(/\)/g, ']') + ']')
-	  .map((x: number[])=>{let y=x.slice();while(y.length<3){y.push(0)}return y;});
-	
+
+	if (cleanBMS == '') return '0';
+
+	const matrix = JSON.parse(
+		'[' + cleanBMS.replace(/\)\(/g, '],[').replace(/\(/g, '[').replace(/\)/g, ']') + ']',
+	).map((x: number[]) => {
+		let y = x.slice();
+		while (y.length < 3) {
+			y.push(0);
+		}
+		return y;
+	});
+
 	for (const col of matrix) {
-	  if (col.length >= 4) return ">ψ(a(ω;0))"
+		if (col.length >= 4) return '>ψ(a(ω;0))';
 	}
 
 	for (let i in EBO) {
-	  if ((matrix[1]?.[2] ?? 0) < 1) break;
-    const currentColumn = matrix[i] ?? [];
-    
-    if (iz(currentColumn)) break;
-    
-    const maxCol = EBO[i];
-    
-    if (i == "4") {
-      if (currentColumn[0] >= 2) return ">ψ(I)"
-      break;
-    }
-    
-    for (let j in maxCol) {
-      if (currentColumn[j] < maxCol[j]) break;
-      if (currentColumn[j] == maxCol[j]) continue;
-      if (currentColumn[j] > maxCol[j]) return ">ψ(I)"
-    }
-  }
-	
+		if ((matrix[1]?.[2] ?? 0) < 1) break;
+		const currentColumn = matrix[i] ?? [];
+
+		if (iz(currentColumn)) break;
+
+		const maxCol = EBO[i];
+
+		if (i == '4') {
+			if (currentColumn[0] >= 2) return '>ψ(I)';
+			break;
+		}
+
+		for (let j in maxCol) {
+			if (currentColumn[j] < maxCol[j]) break;
+			if (currentColumn[j] == maxCol[j]) continue;
+			if (currentColumn[j] > maxCol[j]) return '>ψ(I)';
+		}
+	}
+
 	try {
 		const result = _o(matrix);
 		return toString(result);
 	} catch (error) {
-		throw error
+		throw error;
 	}
 }

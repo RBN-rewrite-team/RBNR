@@ -4,9 +4,9 @@ import { MainNode } from './ast.ts';
 import Decimal from 'break_eternity.js';
 import { formatWhole } from '@/utils/format';
 import { toRaw } from 'vue';
-import { calculate } from "../../utils/bms-analyze.ts"
-import {player} from '@/core/global';
-import {OrdinalUtils} from "../../utils/ordinal.ts"
+import { calculate } from '../../utils/bms-analyze.ts';
+import { player } from '@/core/global';
+import { OrdinalUtils } from '../../utils/ordinal.ts';
 
 export class Ordinal {
 	node: MainNode;
@@ -20,11 +20,13 @@ export class Ordinal {
 	}
 
 	static displayOrdinalColored(ord: Decimal | number, base: Decimal | number = 10) {
-	  if (player.upgrades[61]) {
-	    return calculate(
-	      OrdinalUtils.numberToBMS(player.hydra.deduceOrdinal[0], new Decimal(4), 20).replace("...", "").replace(">", "")
-	      )
-	  }
+		if (player.upgrades[61]) {
+			return calculate(
+				OrdinalUtils.numberToBMS(player.hydra.deduceOrdinal[0], new Decimal(4), 20)
+					.replace('...', '')
+					.replace('>', ''),
+			);
+		}
 		//return displayOrd(ord, base)
 		return displayOrd(ord, base, 0, 0, 0, 0, 1);
 	}
@@ -41,23 +43,23 @@ export function displayOrd(
 ): string {
 	ord = new Decimal(ord).floor();
 	if (!Decimal.isFinite(ord)) {
-		return "Ω"
+		return 'Ω';
 	}
 	const originalOrd = Decimal.fromValue(ord);
 	let dispString = '';
 
 	const bigBase = new Decimal(base);
-	
+
 	const tetration = bigBase.tetrate(bigBase.toNumber());
 	if (ord.gte(tetration)) {
 		const prefix =
 			colour === 1
 				? "<span style='color:red;text-shadow:0 0 3px #fff'>ε<sub>0</sub></span>"
 				: 'ε<sub>0</sub>';
-		
-		let power = ord.log(tetration); 
+
+		let power = ord.log(tetration);
 		let powerdisplay = displayOrd(power, base, over, trim, large, multoff, colour);
-		return prefix + "<sup>" + powerdisplay + "</sup>";
+		return prefix + '<sup>' + powerdisplay + '</sup>';
 	}
 
 	let length = 8;
@@ -88,7 +90,7 @@ export function displayOrd(
 
 		if (colour === 1) {
 			let colorExponent = new Decimal(exponent);
-			if (colorExponent.gte(9e15)) colorExponent.layer = 0
+			if (colorExponent.gte(9e15)) colorExponent.layer = 0;
 			const hueValue = colorExponent.mul(8);
 			const colorCode = HSL(hueValue);
 			const shadowColor = getContrastColor(colorCode);
