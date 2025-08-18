@@ -280,7 +280,7 @@ export const OrdinalNT = {
 			name = 'U5-R1-7';
 		})(),
 		'68R': new (class extends UpgradeWithEffect<Decimal> {
-			description = 'U5-R4-5加成以减弱的效果对飞升生效';
+			description = 'U5-R1-5加成以减弱的效果对飞升生效';
 			cost = new Decimal('2.085e2085');
 			currency = Currencies.HYDRA_POWER;
 			name = 'U5-R1-8';
