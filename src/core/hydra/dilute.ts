@@ -26,6 +26,7 @@ export const Dilute = {
 		}
         player.hydra.prestige = [new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0)]
         
+        player.hydra.dilute.inDilute = true;
     },
     exitDilute() {
         if (player.hydra.backupHydra)
@@ -33,6 +34,7 @@ export const Dilute = {
         else {
             console.warn("Cannot found restore datas")
         }
+        player.hydra.dilute.inDilute = false;
     },
 	backupHydra(): backupHydraType {
 		let items: ((`${IntClosedRange<61,69>}R`)|keyof typeof Hydra.upgrades)[] = [];
@@ -92,5 +94,12 @@ export const Dilute = {
         if (player.hydra.dilute.inDilute){
             player.hydra.dilute.spentTime = player.hydra.dilute.spentTime+diff
         }
+    },
+    diluteAmount(id: IntClosedRange<0,8>): number | boolean {
+        if (!player.hydra.dilute.inDilute) return id < 6 ? 0 : false
+        if (player.hydra.dilute.solvent[8]) {
+            return id < 6 ? 10 : true
+        };
+        return player.hydra.dilute.solvent[id];
     }
 };

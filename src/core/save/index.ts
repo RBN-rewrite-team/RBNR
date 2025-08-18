@@ -573,7 +573,7 @@ export function loadSaves() {
 export function save() {
 	localStorage.setItem(SAVEID, saveSerializer.serialize(player));
 }
-
+const savefunc = save
 export function hardReset() {
 	player = getInitialPlayerData();
 	save();
@@ -595,6 +595,8 @@ export function import_file(): void {
 					player = getInitialPlayerData();
 					loadFromString(save);
 					player = reactive(player);
+					savefunc();
+					location.reload();
 				} catch (e) {
 					console.error('Cannot import save');
 				}
