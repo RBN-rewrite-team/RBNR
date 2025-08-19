@@ -108,7 +108,8 @@ export const Dilute = {
      * 溶剂数量，在稀释未开启时会设置为falsy
      * @returns 
      */
-    diluteAmount(id: IntClosedRange<0,8>): number | boolean {
+    diluteAmount(id: number): number | boolean {
+		if(id < 0 || id > 8) return false;
         if (!player.hydra.dilute.inDilute) return id < 6 ? 0 : false
         if (player.hydra.dilute.solvent[8]) {
             return id < 6 ? 10 : true
@@ -117,7 +118,11 @@ export const Dilute = {
     },
     solutionGain() {
         let effectiveDilute = Array(9).fill(null).map((_, index) => this.diluteAmount(index))
-        let base = effectiveDilute.slice(0, 6).reduce((total, num) => total + num, 0) ** 2;
+        let base;
+		let eb = effectiveDilute.slice(0, 6);
+		for(let i in eb) if(typeof eb[i] == 'boolean') eb[i] = eb[i] ? 1 : 0;
+		//@ts-ignore
+		base = eb.reduce((total, num) => total + num, 0) ** 2;
         if (effectiveDilute[6]) base *= 2
         if (effectiveDilute[7]) base *= 3
         if (effectiveDilute[8]) base *= 10
