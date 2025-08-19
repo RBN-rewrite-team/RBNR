@@ -162,6 +162,7 @@ export interface Player {
 			lastDeduce: Decimal;
 			prionsTime: number;
 			solute: Decimal;
+			solutionCost: number;
 		};
 	};
 }
@@ -480,7 +481,9 @@ function getInitialPlayerData(): Player {
 				spentTime: 0,
 				prionsTime: 0,
 				solution: 0,
+				solutionCost: 0,
 				solute: zero,
+				
 			},
 		},
 	};
