@@ -190,7 +190,58 @@ let highestPage = 0;
         5. <vue-latex expression="\varepsilon_0[0] = 0, \varepsilon_0[n+1] = \omega^{\varepsilon_0[n]}" /><br>
         6. <vue-latex expression="\varepsilon_{\alpha+1}[0] = \varepsilon_\alpha+1, \varepsilon_{\alpha+1}[n+1] = \omega^{\varepsilon_{\alpha+1}[n]}" /><br>
         7. <vue-latex expression="\varepsilon_{\alpha}[n] = \varepsilon_{\alpha[n]}" />，其中<vue-latex expression="\alpha" />是极限序数<br>
-        我们将对<vue-latex expression="\varepsilon_{\varepsilon_0}"></vue-latex>进行展开
+        我们将对<vue-latex expression="\varepsilon_{\varepsilon_0}"></vue-latex>进行基本列展开，每一次展开四列。
+        1. <vue-latex expression="\varepsilon_{\varepsilon_0}[4]"></vue-latex><br/>
+        2. <vue-latex expression="\varepsilon_{\varepsilon_0[4]}"></vue-latex><br/>
+        3. <vue-latex expression="\varepsilon_{\omega^{\varepsilon_0[3]}}"></vue-latex><br/>
+        4. <vue-latex expression="\varepsilon_{\omega^{\omega^{\varepsilon_0[2]}}}"></vue-latex><br/>
+        5. <vue-latex expression="\varepsilon_{\omega^{\omega^{\omega^{\varepsilon_0[1]}}}}"></vue-latex><br/>
+        6. <vue-latex expression="\varepsilon_{\omega^{\omega^{\omega^{\omega^{\varepsilon_0[0]}}}}}"></vue-latex><br/>
+        7. <vue-latex expression="\varepsilon_{\omega^{\omega^{\omega^{\omega^{0}}}}}"></vue-latex><br/>
+        8. <vue-latex expression="\varepsilon_{\omega^{\omega^{\omega^{1}}}}"></vue-latex><br/>
+        9. <vue-latex expression="\varepsilon_{\omega^{\omega^{\omega}}}"></vue-latex><br/>
+        10. <vue-latex expression="\varepsilon_{\omega^{\omega^{4}}}"></vue-latex><br/>
+        11. <vue-latex expression="\varepsilon_{\omega^{\omega^{3}4}}"></vue-latex><br/>
+        12. <vue-latex expression="\varepsilon_{\omega^{\omega^{3}3+\omega^{2}3+\omega3+4}}"></vue-latex><br/>
+    </div>
+    <div v-else-if="player.help.epsilon && player.help.page == 8">
+      下面我们考虑<vue-latex expression="\alpha\mapsto\varepsilon_\alpha"></vue-latex>的映射。<br />
+      从0开始重复作用上述映射，所得到的极限就是<vue-latex expression="\zeta_0"></vue-latex>，它的基本列是<br />
+      <vue-latex expression="\zeta_0 = \sup\left\{0, \varepsilon_0, \varepsilon_{\varepsilon_0}, \varepsilon_{\varepsilon_{\varepsilon_0}}, \cdots\right\}" display-mode />
+      不难发现，<vue-latex expression="\zeta_0 = \varepsilon_{\zeta_0}"></vue-latex>，所以我们也可以像ε序数操做它：
+      <vue-latex expression="\varepsilon_{\zeta_0+1} = \sup\left\{0, 1, \zeta_0, \omega^{\zeta_0+1}, \omega^{\omega^{\zeta_0+1}}, \omega^{\omega^{\omega^{\zeta_0+1}}},\cdots\right\}" display-mode></vue-latex>
+      那么问题来了，<vue-latex expression="\zeta_1"></vue-latex>是什么？<br />
+      <vue-latex expression="\begin{aligned}
+      \zeta_1 &= \alpha\mapsto \varepsilon_\alpha\textrm{ fp. aft } \zeta_0\\
+      &=\sup\left\{\zeta_0+1,\varepsilon_{\zeta_0+1},\varepsilon_{\varepsilon_{\zeta_0+1}},\cdots\right\}
+      \end{aligned}
+      " display-mode></vue-latex>
+      <vue-latex expression="\begin{aligned}
+      \zeta_2 &= \alpha\mapsto \varepsilon_\alpha\textrm{ fp. aft } \zeta_1\\
+      &=\sup\left\{\zeta_1+1,\varepsilon_{\zeta_1+1},\varepsilon_{\varepsilon_{\zeta_1+1}},\cdots\right\}
+      \end{aligned}
+      " display-mode></vue-latex>
+      可以整理出以下基本列展开方法：<br />
+      1.<vue-latex expression="\zeta_0[0] = 0" /><br/>
+      2.<vue-latex expression="\zeta_0[n+1] = \varepsilon_{\zeta_0[n]}" /><br/>
+      3.<vue-latex expression="\alpha"></vue-latex>为极限序数，<vue-latex expression="\zeta_\alpha[n] = \zeta_{\alpha[n]}" /><br/>
+      4.<vue-latex expression="\zeta_{\alpha+1} = \beta\mapsto\varepsilon_\beta\textrm{ fp. aft } \zeta_{\alpha}"></vue-latex><br/>
+    </div>
+    <div v-else-if="player.help.epsilon && player.help.page == 9">
+      下面我们考虑<vue-latex expression="\alpha\mapsto\zeta_\alpha"></vue-latex>的映射。<br />
+      从0开始重复作用上述映射，所得到的极限就是<vue-latex expression="\eta_0"></vue-latex>，基本列<br />
+      <vue-latex expression="\eta_0 = \sup\left\{0, \zeta_0, \zeta_{\zeta_0}, \zeta_{\zeta_{\zeta_0}}, \cdots\right\}" display-mode />
+      <vue-latex expression="\eta_0 = \varepsilon_{\eta_0} = \zeta_{\eta_0} "></vue-latex>，
+      基本列展开方法和<vue-latex expression="\zeta_\alpha"></vue-latex>相似，<br />
+      1.<vue-latex expression="\eta_0[0] = 0" /><br/>
+      2.<vue-latex expression="\eta_0[n+1] = \zeta_{\eta_0[n]}" /><br/>
+      3.<vue-latex expression="\alpha"></vue-latex>为极限序数，<vue-latex expression="\eta_\alpha[n] = \eta_{\alpha[n]}" /><br/>
+      4.<vue-latex expression="\eta_{\alpha+1} = \beta\mapsto\zeta_\beta\textrm{ fp. aft } \eta_{\alpha}"></vue-latex><br/>
+      到这里我们能发现这些规则和<vue-latex expression="\varepsilon_\alpha, \zeta_\alpha, \eta_\alpha"></vue-latex><br/>
+      很相似。在各种各样的序数映射之下，不动点的结构可以变得非常复杂。<br />假如我们利用数阵型记号对不动点的层次结构进行标记，那么我们将得到Veblen函数。<br />
+      最简单的Veblen 函数是只包含一个序数变量<vue-latex expression="\alpha" />的一元Veblen函数<vue-latex expression="\varphi(\alpha)" />，<br />
+      它实际上就等于<vue-latex expression="\omega^\alpha" /><br />
+      没做完
     </div>
     <div v-else-if="player.help.page >= 4321">
       已达到当前版本残局：4321页。
