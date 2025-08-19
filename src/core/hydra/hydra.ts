@@ -372,7 +372,7 @@ export const Hydra = {
 			base = base.mul(buyables['62R'].effect(player.buyables['62R']));
 
 		base = base.div(5 ** (Dilute.diluteAmount(0) as number));
-		if (Dilute.diluteAmount(6) > 0) base = base.pow(1 - (Dilute.diluteAmount(6) * 0.1));
+		if (Dilute.diluteAmount(5) > 0) base = base.pow(1 - (Dilute.diluteAmount(5) * 0.1));
 		if (player.hydra.dilute.inDilute)
 			base = base.div(
 				Array.from({ length: 6 }, (_, index: number) =>
