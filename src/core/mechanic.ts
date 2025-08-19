@@ -19,6 +19,8 @@ import { Buyable } from './buyable.ts';
 import { countdown } from './countdown-display.ts';
 import { ORDINAL_BOOSTER } from './ordinal/ordinal-booster.ts';
 import { Hydra } from './hydra/hydra.ts';
+import { Dilute, DiluteUpgrades } from './hydra/dilute.ts';
+import type { Upgrade } from './upgrade.ts';
 
 const upgrades = {
 	...Successor.upgrades,
@@ -31,6 +33,7 @@ const upgrades = {
 	...OrdinalNT.upgrades,
 	...ORDINAL_BOOSTER.upgrades,
 	...Hydra.upgrades,
+	...DiluteUpgrades,
 } as const;
 const buyables = {
 	...Successor.buyables,

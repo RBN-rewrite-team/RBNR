@@ -373,7 +373,9 @@ export const OrdinalNT = {
 				for (let i = 0; i < feature.Hydra.pMaxUnlock(); i++) {
 					prod = prod.mul(new Decimal(1).add(feature.Hydra.prestigeEff(i)));
 				}
-				return this.functionL4('f', prod).mul(a);
+				let prod2 = this.functionL4('f', prod).mul(a);
+				
+				return prod2;
 			}
 		}
 		return new Decimal(0);

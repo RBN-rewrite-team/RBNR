@@ -4,6 +4,8 @@ import { format, formatWhole } from '@/utils/format';
 import Slider from '../Slider.vue';
 import { Dilute } from '@/core/hydra/dilute.ts';
 import { computed, ref } from 'vue';
+import TDUpgrade from '../TDUpgrade.vue';
+import { Currencies, getCurrency } from '@/core/currencies.ts';
 
 function getCurrentSolution() {
 	return player.hydra.dilute.solution;
@@ -61,14 +63,22 @@ setInterval(function () {
 <template :key="refreshKey">
 	你有<b style="color: red; font-size: 30px">{{ format(getCurrentSolution()) }}</b
 	>九头蛇溶液<br /><br />
-	<span v-if="player.hydra.dilute.prionsTime > 0">你有<b style="color: red; font-size: 30px">{{ format(Dilute.prions()) }}</b
-	>朊病毒<br /><br /></span>
-	<div>启动稀释后，溶剂{{(() => {
-		let a = 1000 / Dilute.diluteAmountOutside(2) ** 2 - player.hydra.dilute.spentTime;
-		return !isFinite(a)
-			? (Dilute.diluteAmountOutside(4) ? "可能会自毁" : "不会自毁")
-			: '将会在'+a.toFixed(3) + '秒后自毁';
-	})()}}</div>
+	<span v-if="player.hydra.dilute.prionsTime > 0"
+		>你有<b style="color: red; font-size: 30px">{{ format(Dilute.prions()) }}</b
+		>朊病毒<br /><br
+	/></span>
+	<div>
+		启动稀释后，溶剂{{
+			(() => {
+				let a = 1000 / Dilute.diluteAmountOutside(2) ** 2 - player.hydra.dilute.spentTime;
+				return !isFinite(a)
+					? Dilute.diluteAmountOutside(4)
+						? '可能会自毁'
+						: '不会自毁'
+					: '将会在' + a.toFixed(3) + '秒后自毁';
+			})()
+		}}
+	</div>
 	<div class="container" style="transform: translateY(-10px)">
 		<div class="dilute">
 			至少选择任何一项溶剂并提升它的等级以进入稀释<br />
@@ -84,7 +94,7 @@ setInterval(function () {
 			选用的削弱等级对九头蛇溶液的获取量影响较大，稀释中的进度对九头蛇溶液的获取量影响较小。<br />
 			你在{{ JSON.stringify(player.hydra.dilute.lastSolvent.map(Number)) }}中最高达到了{{
 				formatWhole(player.hydra.dilute.lastDeduce)
-			}}次推演，这给你带来了{{ format(player.hydra.dilute.solution) }}九头蛇溶液
+			}}次推演，这给你带来了{{ format(player.hydra.dilute.solution) }}({{ format(getCurrency(Currencies.SOLUTION)) }})九头蛇溶液
 		</div>
 		<div class="solvents">
 			溶剂等级之和使你的推演速度变为<sup>1</sup>/<sub>{{
@@ -290,12 +300,21 @@ setInterval(function () {
 			</table>
 		</div>
 	</div>
+	<div class="clickable_button" @click="Dilute.respec">重新分配</div>
+	<table align="center">
+		<tbody>
+			<tr>
+				<TDUpgrade upgid="61S"></TDUpgrade>
+			</tr>
+		</tbody>
+	</table>
 </template>
 
 <style lang="scss">
 .container {
 	display: flex;
 	justify-content: center;
+	margin-top: 20px;
 }
 
 .dilute {
@@ -305,7 +324,7 @@ setInterval(function () {
 	border: 1px solid red;
 	color: red;
 	text-align: center;
-	margin-right: 50px;
+	margin-right: 20px;
 	padding: 10px;
 }
 

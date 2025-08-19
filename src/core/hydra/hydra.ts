@@ -1,7 +1,7 @@
 import Decimal from 'break_eternity.js';
 import { player, feature } from '@/core/global';
 import { format, formatWhole } from '@/utils/format';
-import { Currencies } from '../currencies';
+import { Currencies, getCurrency } from '../currencies';
 import { Upgrade, UpgradeWithEffect } from '../upgrade';
 import { CurrencyRequirement, type Requirement } from '../requirements';
 import { Buyable } from '../buyable';
@@ -28,6 +28,9 @@ export const Hydra = {
 				let base = player.hydra.totalPower.max(10).log10();
 				if (player.upgrades[616]) base = base.pow(upgrades[616].effect());
 				if (player.upgrades['62R']) base = base.pow(1.15);
+				if (player.upgrades['61S']) {
+					base = base.pow(getCurrency(Currencies.SOLUTION).add(10).log10())
+				}
 				return base;
 			}
 			effectDescription(): string {
@@ -420,7 +423,7 @@ export const Hydra = {
 	},
 	powerGain(): Decimal {
 		//能量产量
-	  if (Dilute.diluteAmount(7) && player.hydra.dilute.spentTime > 5) return new Decimal(0)
+		if (Dilute.diluteAmount(7) && player.hydra.dilute.spentTime > 5) return new Decimal(0);
 		let base = this.powerGainBase();
 		return this.powerGainAfterSoftcap(base);
 	},
@@ -450,7 +453,7 @@ export const Hydra = {
 		return base;
 	},
 	pUnlock(id = 0): boolean {
-	  if (Dilute.diluteAmount(6)) return false
+		if (Dilute.diluteAmount(6)) return false;
 		//解锁转生
 		if (id != 3 && Hydra.pUnlock(id + 1)) return true;
 		if (id == 0) return player.hydra.prestige[0].gt(0) || Hydra.basePower().gte(2);
@@ -505,10 +508,10 @@ export const Hydra = {
 			return this.prestigeEff(id, true).div(this.prestigeEff(id, false));
 		}
 		if (Dilute.diluteAmount(6)) {
-		  if (id == 0) return new Decimal(1);
-		  if (id == 3) return new Decimal(1);
-		  if (id == 1) return new Decimal(0);
-		  if (id == 4) return new Decimal(0);
+			if (id == 0) return new Decimal(1);
+			if (id == 3) return new Decimal(1);
+			if (id == 1) return new Decimal(0);
+			if (id == 4) return new Decimal(0);
 		}
 		let num = new Decimal(0);
 		if (!preview) num = player.hydra.prestige[id];
@@ -564,7 +567,7 @@ export const Hydra = {
 		if (!keepHP) player.hydra.power = new Decimal(0);
 	},
 	hydraUpdate(diff = 0): void {
-	  if (Dilute.diluteAmount(8)) diff /= 1000
+		if (Dilute.diluteAmount(8)) diff /= 1000;
 		for (let i = 0; i < 4; i++) {
 			player.hydra.deduceProgress[i] = player.hydra.deduceProgress[i].add(
 				Hydra.deduceSpeed(i).mul(diff),
