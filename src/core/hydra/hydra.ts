@@ -420,6 +420,7 @@ export const Hydra = {
 	},
 	powerGain(): Decimal {
 		//能量产量
+	  if (Dilute.diluteAmount(7) && player.hydra.dilute.spentTime > 60) return new Decimal(0)
 		let base = this.powerGainBase();
 		return this.powerGainAfterSoftcap(base);
 	},
@@ -449,6 +450,7 @@ export const Hydra = {
 		return base;
 	},
 	pUnlock(id = 0): boolean {
+	  if (Dilute.diluteAmount(6)) return false
 		//解锁转生
 		if (id != 3 && Hydra.pUnlock(id + 1)) return true;
 		if (id == 0) return player.hydra.prestige[0].gt(0) || Hydra.basePower().gte(2);
@@ -501,6 +503,12 @@ export const Hydra = {
 	prestigeEff(id = 0, preview = false, relative = false): Decimal {
 		if (relative) {
 			return this.prestigeEff(id, true).div(this.prestigeEff(id, false));
+		}
+		if (Dilute.diluteAmount(6)) {
+		  if (id == 0) return new Decimal(1);
+		  if (id == 3) return new Decimal(1);
+		  if (id == 1) return new Decimal(0);
+		  if (id == 4) return new Decimal(0);
 		}
 		let num = new Decimal(0);
 		if (!preview) num = player.hydra.prestige[id];
