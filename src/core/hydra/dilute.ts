@@ -90,6 +90,7 @@ export const Dilute = {
 		}
 		player.hydra.dilute.spentTime = 0;
 		player.hydra.dilute.prionsTime = 0;
+		player.numbertheory.GM.x = zero;
 		player.hydra.dilute.inDilute = false;
 	},
 	solutionCalc() {
