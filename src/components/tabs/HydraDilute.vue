@@ -61,14 +61,22 @@ setInterval(function () {
 <template :key="refreshKey">
 	你有<b style="color: red; font-size: 30px">{{ format(getCurrentSolution()) }}</b
 	>九头蛇溶液<br /><br />
-	<span v-if="player.hydra.dilute.prionsTime > 0">你有<b style="color: red; font-size: 30px">{{ format(Dilute.prions()) }}</b
-	>朊病毒<br /><br /></span>
-	<div>启动稀释后，溶剂{{(() => {
-		let a = 1000 / Dilute.diluteAmountOutside(2) ** 2 - player.hydra.dilute.spentTime;
-		return !isFinite(a)
-			? (Dilute.diluteAmountOutside(4) ? "可能会自毁" : "不会自毁")
-			: '将会在'+a.toFixed(3) + '秒后自毁';
-	})()}}</div>
+	<span v-if="player.hydra.dilute.prionsTime > 0"
+		>你有<b style="color: red; font-size: 30px">{{ format(Dilute.prions()) }}</b
+		>朊病毒<br /><br
+	/></span>
+	<div>
+		启动稀释后，溶剂{{
+			(() => {
+				let a = 1000 / Dilute.diluteAmountOutside(2) ** 2 - player.hydra.dilute.spentTime;
+				return !isFinite(a)
+					? Dilute.diluteAmountOutside(4)
+						? '可能会自毁'
+						: '不会自毁'
+					: '将会在' + a.toFixed(3) + '秒后自毁';
+			})()
+		}}
+	</div>
 	<div class="container" style="transform: translateY(-10px)">
 		<div class="dilute">
 			至少选择任何一项溶剂并提升它的等级以进入稀释<br />
