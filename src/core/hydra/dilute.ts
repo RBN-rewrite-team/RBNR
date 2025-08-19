@@ -40,6 +40,12 @@ export const Dilute = {
         else {
             console.warn("Cannot found restore datas")
         }
+		if(this.solutionGain() > player.hydra.dilute.solution)
+		{
+			player.hydra.dilute.solution = Math.max(player.hydra.dilute.solution, this.solutionGain());
+			player.hydra.dilute.lastSolvent = player.hydra.dilute.solvent;
+			player.hydra.dilute.lastDeduce = player.hydra.deduceOrdinal[0];
+		}
         player.hydra.dilute.inDilute = false;
     },
 	backupHydra(): backupHydraType {
@@ -122,15 +128,13 @@ export const Dilute = {
     },
     solutionGain() {
         let effectiveDilute = Array(9).fill(null).map((_, index) => this.diluteAmount(index))
-        let base;
+        let base = 0;
 		let eb = effectiveDilute.slice(0, 6);
-		for(let i in eb) if(typeof eb[i] == 'boolean') eb[i] = eb[i] ? 1 : 0;
-		//@ts-ignore
-		base = eb.reduce((total, num) => total + num, 0) ** 2;
+		for(let i = 0;i < 6;i++) base += eb[i] ** 2;
         if (effectiveDilute[6]) base *= 2
         if (effectiveDilute[7]) base *= 3
         if (effectiveDilute[8]) base *= 10
-        let deduceMult = player.hydra.deduceOrdinal[0].ln().min(4.99359204e304).toNumber();
+        let deduceMult = player.hydra.deduceOrdinal[0].add(1).ln().min(4.99359204e304).toNumber();
         return deduceMult * base
     }
 };
