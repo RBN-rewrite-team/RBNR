@@ -364,7 +364,7 @@ export const Hydra = {
 	deduceSpeed(i = 0): Decimal {
 		//推演的速度
 		let base = new Decimal(0);
-		if (i == 0 && player.upgrades[61]) base = new Decimal(0.1);
+		if (i == 0 && player.upgrades[61]) base = new Decimal(1);
 		if (i == 0 && player.upgrades[611]) base = base.mul(upgrades[611].effect());
 		if (i == 0) base = base.mul(buyables[611].effect(player.buyables[611]));
 		if (player.upgrades[612]) base = base.mul(2);
@@ -382,7 +382,7 @@ export const Hydra = {
 					Dilute.diluteAmount(index as IntClosedRange<0, 5>),
 				).reduce((total, num) => total + num, 1) ** 2,
 			);
-		return base;
+		return base.div(10);
 	},
 	deduceEff(i = 0): Decimal {
 		//推演一位提高的乘数
