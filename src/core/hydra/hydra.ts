@@ -6,6 +6,7 @@ import { Upgrade, UpgradeWithEffect } from '../upgrade';
 import { CurrencyRequirement, type Requirement } from '../requirements';
 import { Buyable } from '../buyable';
 import { upgrades, buyables } from '../mechanic';
+import { Dilute } from './dilute';
 
 //Hydra：BMS，1-Y，fffZ
 export const Hydra = {
@@ -107,7 +108,7 @@ export const Hydra = {
 				return '×' + format(this.effect());
 			}
 			effect(): Decimal {
-				return player.hydra.power.log10().max(500).div(500);
+				return player.hydra.power.clampMin(1).log10().max(500).div(500);
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
@@ -345,6 +346,8 @@ export const Hydra = {
 		if (player.upgrades[65]) base = base.mul(Hydra.NT4TauEffect());
 		if (player.buyables['62R'].gte(1))
 			base = base.mul(buyables['62R'].effect(player.buyables['62R']));
+
+		base = base.div(2**(Dilute.diluteAmount(0) as number))
 		return base;
 	},
 	deduceEff(i = 0): Decimal {
