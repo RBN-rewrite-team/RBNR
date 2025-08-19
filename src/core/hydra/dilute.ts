@@ -71,7 +71,7 @@ export const Dilute = {
 			player.hydra.dilute.lastSolvent = player.hydra.dilute.solvent;
 			player.hydra.dilute.lastDeduce = player.hydra.deduceOrdinal[0];
 		}
-		    player.hydra.dilute.spentTime = 0;
+		player.hydra.dilute.spentTime = 0;
         player.hydra.dilute.inDilute = false;
     },
 	backupHydra(): backupHydraType {
