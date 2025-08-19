@@ -81,7 +81,7 @@ export const Dilute = {
 	},
 	solutionCalc() {
 		player.hydra.dilute.solution = Math.max(player.hydra.dilute.solution, this.solutionGain());
-		player.hydra.dilute.lastSolvent = player.hydra.dilute.solvent;
+		player.hydra.dilute.lastSolvent = Array.from(player.hydra.dilute.solvent) as typeof player.hydra.dilute.solvent;
 		player.hydra.dilute.lastDeduce = player.hydra.deduceOrdinal[0];
 	},
 	backupHydra(): backupHydraType {
