@@ -59,9 +59,11 @@ export const Dilute = {
 		player.hydra.power = zero;
 		player.hydra.totalPower = zero;
 		player.hydra.deduceOrdinal = [zero, zero, zero, zero];
+		player.hydra.totalDeduceOrdinal = [zero, zero, zero, zero];
 		player.hydra.deduceProgress = [zero, zero, zero, zero];
 		player.hydra.powerMult = [one, one, one, one];
 		player.hydra.dilute.spentTime = 0;
+		player.hydra.dilute.prionsTime = 0;
 		player.numbertheory.GM.x = zero;
 		player.hydra.dilute.inDilute = true;
 	},
@@ -79,6 +81,7 @@ export const Dilute = {
 			player.hydra.dilute.lastDeduce = player.hydra.deduceOrdinal[0];
 		}
 		player.hydra.dilute.spentTime = 0;
+		player.hydra.dilute.prionsTime = 0
 		player.hydra.dilute.inDilute = false;
 	},
 	backupHydra(): backupHydraType {
@@ -149,7 +152,9 @@ export const Dilute = {
 		if (player.hydra.dilute.inDilute) {
 			let s3Eff = 1000 / player.hydra.dilute.solvent[2] ** 2;
 			player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + diff / 1000;
+			if (player.hydra.totalDeduceOrdinal[0].gte(1e4)) player.hydra.dilute.prionsTime = player.hydra.dilute.prionsTime + diff / 1000;
 			if (player.hydra.dilute.spentTime > s3Eff) this.exitDilute();
+			if (this.prions().gte(player.hydra.totalDeduceOrdinal[0])) this.exitDilute();
 		}
 	},
 	/**
@@ -176,6 +181,9 @@ export const Dilute = {
 		let deduceMult = player.hydra.deduceOrdinal[0].add(1).ln().min(4.99359204e304).toNumber();
 		return deduceMult * base;
 	},
+	prions() {
+	  return Decimal.pow(1 + this.diluteAmount(4) / 100, player.hydra.dilute.prionsTime).sub(1)
+	}
 } as IDilute & Record<string, any>;
 
 /**

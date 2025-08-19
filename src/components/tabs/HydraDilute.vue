@@ -61,6 +61,8 @@ setInterval(function () {
 <template :key="refreshKey">
 	你有<b style="color: red; font-size: 30px">{{ format(getCurrentSolution()) }}</b
 	>九头蛇溶液<br /><br />
+	<span v-if="player.hydra.dilute.prionsTime > 0">你有<b style="color: red; font-size: 30px">{{ format(Dilute.prions()) }}</b
+	>朊病毒<br /><br /></span>
 	<div>启动稀释后，溶剂{{(() => {
 		let a = 1000 / Dilute.diluteAmountOutside(2) ** 2 - player.hydra.dilute.spentTime;
 		return !isFinite(a)
@@ -119,7 +121,7 @@ setInterval(function () {
 						<td>
 							<div class="solvent" style="border-color: rgb(255, 0, 0)">
 								<div>
-									<div>溶剂II: 阿兹海默症</div>
+									<div>溶剂II: 阿尔兹海默症</div>
 									<div class="solvent-desc-small">“你变得越来越健忘......”</div>
 									<div>
 										所有升级、购买项成本^{{
