@@ -27,11 +27,13 @@ export const Dilute = {
             const id = id2 as keyof typeof Hydra.buyables
             player.buyables[id] = zero;
 		}
-        player.hydra.prestige = [zero, zero, zero, zero];
-        player.hydra.power = zero;
-		player.hydra.deduceOrdinal = [zero, zero, zero, zero];
-		player.hydra.deduceProgress = [zero, zero, zero, zero];
-		player.hydra.powerMult = [one, one, one, one];
+		    
+		    let zero = new Decimal(0);
+		    player.hydra.deduceProgress = [zero, zero, zero, zero]
+		    player.hydra.deduceOrdinal = [zero, zero, zero, zero]
+		    player.hydra.prestige = [zero, zero, zero, zero]
+		    player.hydra.powerMult = [new Decimal(1), new Decimal(1), new Decimal(1), new Decimal(1)]
+		    player.hydra.power = zero
         player.hydra.dilute.inDilute = true;
     },
     exitDilute() {
@@ -88,12 +90,12 @@ export const Dilute = {
         }
         for (const id2 in item.buyables) {
             const id = id2 as keyof typeof item.buyables
-            player.buyables[id] = item.buyables[id] ?? new Decimal(0);
+            player.buyables[id] = new Decimal(item.buyables[id]) ?? new Decimal(0);
         }
-        player.hydra.prestige[0] = item.prestiges[0]
-        player.hydra.prestige[1] = item.prestiges[1]
-        player.hydra.prestige[2] = item.prestiges[2]
-        player.hydra.prestige[3] = item.prestiges[3]
+        player.hydra.prestige[0] = new Decimal(item.prestiges[0])
+        player.hydra.prestige[1] = new Decimal(item.prestiges[1])
+        player.hydra.prestige[2] = new Decimal(item.prestiges[2])
+        player.hydra.prestige[3] = new Decimal(item.prestiges[3])
     },
     diluteButton() {
         if (!import.meta.env.DEV) {
@@ -127,10 +129,9 @@ export const Dilute = {
         return player.hydra.dilute.solvent[id];
     },
     solutionGain() {
-        let effectiveDilute = Array(9).fill(null).map((_, index) => this.diluteAmount(index))
-        let base = 0;
-		let eb = effectiveDilute.slice(0, 6);
-		for(let i = 0;i < 6;i++) base += eb[i] ** 2;
+        let effectiveDilute = Array(9).fill(null).map((_, index) => this.diluteAmount(index as IntClosedRange<0,8>))
+        let base: number = (effectiveDilute.slice(0, 6) as number[]).reduce((total, num) => total + num, 0);
+        base **= 2
         if (effectiveDilute[6]) base *= 2
         if (effectiveDilute[7]) base *= 3
         if (effectiveDilute[8]) base *= 10
