@@ -3,18 +3,25 @@ import { formatWhole, formatGain } from '@/utils/format';
 import { player } from '@/core/save';
 import { feature } from '@/core/global';
 import { SOFTCAPS } from '@/core/mechanic';
+import { OrdinalUtils } from '@/utils/ordinal';
 import Decimal from 'break_eternity.js';
+import { Ordinal } from '@/lib/ordinal/';
+import { format } from '@/utils/format';
 </script>
 <template>
 	<div class="resources" style="font-size: 20px" id="resources">
 		<div class="background">
-			<div v-if="player.singularity.stage < 11" style="margin-left: 15px" class="resource">
+			<div v-if="!(player.firstResetBit & 0b1000)" style="margin-left: 15px" class="resource">
 				<div style="font-weight: bold; color: var(--suptitle-color)">
 					数值&nbsp;
 					{{ formatWhole(player.number) }}
 				</div>
 				<div style="font-size: 17px; color: var(--title-color)">
-					<span v-if="feature.SUCCESSOR.autoSuccessPerSecond().eq(0)"
+					<span
+						v-if="
+							player.singularity.stage < 11 &&
+							feature.SUCCESSOR.autoSuccessPerSecond().eq(0)
+						"
 						>(需要通过后继获得)</span
 					>
 					<span
@@ -29,21 +36,56 @@ import Decimal from 'break_eternity.js';
 				</div>
 			</div>
 			<div v-else style="margin-left: 15px" class="resource">
-				<div style="font-weight: bold; color: var(--suptitle-color)">
-					数值&nbsp;
-					{{ formatWhole(player.number) }}
-				</div>
-				<div style="font-size: 17px; color: var(--title-color)">
+				<div style="font-weight: bold; color: rgb(255, 63, 63)">
+					序数&nbsp;
 					<span
-						v-html="formatGain(player.number, feature.resourceGain.ordinalNumber(), '')"
+						v-html="
+							Ordinal.displayOrdinalColored(
+								player.ordinal.number.floor(),
+								feature.Ordinal.base(),
+							)
+						"
 					/>
+				</div>
+				<div style="font-size: 17px; color: rgb(255, 127, 127)" v-if="!player.upgrades[61]">
+					<span
+						v-html="
+							'(+' +
+							OrdinalUtils.numberToOrdinal(
+								feature.resourceGain.ordinalNumber().value,
+								feature.Ordinal.base(),
+							) +
+							'/s)'
+						"
+					></span>
+				</div>
+				<div
+					style="font-size: 17px; color: rgb(255, 127, 127)"
+					v-if="!player.upgrades[61] && feature.Ordinal.speedDeri().gt(0)"
+				>
+					<span
+						v-html="
+							'(+' +
+							OrdinalUtils.numberToOrdinal(
+								feature.Ordinal.speedDeri(),
+								feature.Ordinal.base(),
+							) +
+							'/s<sup>2</sup>)'
+						"
+					></span>
+				</div>
+				<div style="font-size: 17px; color: rgb(155, 125, 195)" v-if="player.upgrades[61]">
+					(推演+{{ format(feature.Hydra.deduceSpeed(0)) }}/s)
 				</div>
 			</div>
 			<div
 				style="margin-left: 265px"
 				class="resource"
 				id="showMP"
-				v-if="(player.upgrades[13] || player.exponention.logarithm.in_dilate) && player.singularity.stage < 10"
+				v-if="
+					(player.upgrades[13] || player.exponention.logarithm.in_dilate) &&
+					player.singularity.stage < 10
+				"
 			>
 				<div style="font-weight: bold; color: #009dd9">
 					加法能量&nbsp;
@@ -56,14 +98,16 @@ import Decimal from 'break_eternity.js';
 						(+{{ formatWhole(feature.resourceGain.addpower().value) }})
 					</span>
 					<span v-else>
-						{{
-							formatGain(
-								player.addpower,
-								feature.resourceGain
-									.addpower()
-									.passive.mul(feature.resourceGain.addpower().value),
-							)
-						}}
+						<span
+							v-html="
+								formatGain(
+									player.addpower,
+									feature.resourceGain
+										.addpower()
+										.passive.mul(feature.resourceGain.addpower().value),
+								)
+							"
+						/>
 					</span>
 					(!{{ formatWhole(player.totalAddpower) }})
 					<br />
@@ -75,7 +119,10 @@ import Decimal from 'break_eternity.js';
 			<div
 				style="margin-left: 515px"
 				class="resource"
-				v-if="(player.upgrades[26] || player.exponention.logarithm.in_dilate) && player.singularity.stage < 9"
+				v-if="
+					(player.upgrades[26] || player.exponention.logarithm.in_dilate) &&
+					player.singularity.stage < 9
+				"
 			>
 				<div style="font-weight: bold; color: #cc33ff">
 					乘法能量&nbsp;
@@ -88,14 +135,16 @@ import Decimal from 'break_eternity.js';
 						(+{{ formatWhole(feature.resourceGain.mulpower().value) }})
 					</span>
 					<span v-else>
-						{{
-							formatGain(
-								player.multiplication.mulpower,
-								feature.resourceGain
-									.mulpower()
-									.passive.mul(feature.resourceGain.mulpower().value),
-							)
-						}}
+						<span
+							v-html="
+								formatGain(
+									player.multiplication.mulpower,
+									feature.resourceGain
+										.mulpower()
+										.passive.mul(feature.resourceGain.mulpower().value),
+								)
+							"
+						/>
 					</span>
 					(!{{ formatWhole(player.multiplication.totalMulpower) }})
 					<br />
@@ -107,7 +156,10 @@ import Decimal from 'break_eternity.js';
 			<div
 				style="margin-left: 755px"
 				class="resource"
-				v-if="player.singularity.stage < 4 && player.stat.highestMulpower.gte(new Decimal(2).pow(1024))"
+				v-if="
+					player.singularity.stage < 4 &&
+					player.stat.highestMulpower.gte(new Decimal(2).pow(1024))
+				"
 			>
 				<div style="font-weight: bold; color: rgb(127, 127, 255)">
 					指数能量&nbsp;
@@ -130,6 +182,28 @@ import Decimal from 'break_eternity.js';
 						}}
 					</span>
 					(!{{ formatWhole(player.exponention.totalExppower) }})
+				</div>
+			</div>
+			<div style="margin-left: 365px" class="resource" v-if="player.upgrades[517]">
+				<div style="font-weight: bold; color: rgb(200, 190, 245)">
+					九头蛇能量&nbsp;
+					<div style="display: inline; text-shadow: rgb(0, 20, 127) 1px 1px 2px">
+						{{ formatWhole(player.hydra.power) }}
+					</div>
+					<br />
+				</div>
+				<div
+					v-if="feature.Hydra.hydraPowerPassiveGeneration().gt(0)"
+					style="font-size: 17px; display: inline; color: rgb(200, 190, 245)"
+				>
+					<span
+						v-html="
+							formatGain(
+								player.hydra.power,
+								feature.Hydra.hydraPowerPassiveGeneration(),
+							)
+						"
+					/>
 				</div>
 			</div>
 		</div>

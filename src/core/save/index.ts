@@ -8,9 +8,10 @@ import type { qolUpgs } from '../exponention/qolupg';
 import type { IAstronomer } from '../exponention/logarithm';
 import type { IntRange } from 'type-fest';
 import { buyables, upgrades, milestones } from '../mechanic';
+import type { backupHydraType } from '../hydra/dilute';
 
 const SAVEID = 'RBN-rewritten-powerful-refactor-test';
-const version = 3 as const;
+const version = 4 as const;
 const zero = new Decimal(0);
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
 
@@ -44,6 +45,15 @@ export interface Player {
 			n: Decimal;
 			m: Decimal;
 			y: Decimal;
+		};
+		GH: {
+			x: Decimal;
+			t31: Decimal;
+			t32: Decimal;
+			t33: Decimal;
+		};
+		GM: {
+			x: Decimal;
 		};
 	};
 	currentTab: number;
@@ -85,6 +95,7 @@ export interface Player {
 		challengeDetial: boolean;
 	};
 	stat: {
+		chapter: number;
 		totalNumber: Decimal;
 		highestNumber: Decimal;
 		totalMulpower: Decimal;
@@ -93,15 +104,67 @@ export interface Player {
 		hightestAddpower: Decimal;
 		totalExppower: Decimal;
 		highestExppower: Decimal;
+		highestOrdLevel: number;
 	};
 	challengein: [number, number];
 	frozen: boolean;
 	run_a_tick_and_froze: boolean;
 	singularity: {
-	  t: number;
-	  stage: number;
-	  enabled: boolean;
-	}
+		t: number;
+		stage: number;
+		enabled: boolean;
+	};
+	ordinal: {
+		number: Decimal;
+		booster: {
+			mult: Decimal;
+		};
+	};
+	help: {
+		page: number;
+		milestone: number;
+		epsilon: boolean;
+	};
+	timeshard: {
+		value: number;
+		tf: number;
+		cd: [number, number];
+		last: [number, number];
+		openTf: boolean;
+	};
+	hydra: {
+		visiting: number;
+		power: Decimal;
+		totalPower: Decimal;
+		powerMult: [Decimal, Decimal, Decimal, Decimal];
+		deduceProgress: [Decimal, Decimal, Decimal, Decimal];
+		deduceOrdinal: [Decimal, Decimal, Decimal, Decimal];
+		totalDeduceOrdinal: [Decimal, Decimal, Decimal, Decimal];
+		prestige: [Decimal, Decimal, Decimal, Decimal];
+		pAuto: [boolean, boolean, boolean, boolean];
+		backupHydra?: backupHydraType;
+		dilute: {
+			inDilute: boolean;
+			solvent: [number, number, number, number, number, number, boolean, boolean, boolean];
+			lastSolvent: [
+				number,
+				number,
+				number,
+				number,
+				number,
+				number,
+				boolean,
+				boolean,
+				boolean,
+			];
+			spentTime: number;
+			solution: number;
+			lastDeduce: Decimal;
+			prionsTime: number;
+			solute: Decimal;
+			solutionCost: number;
+		};
+	};
 }
 function getInitialPlayerData(): Player {
 	return {
@@ -174,6 +237,52 @@ function getInitialPlayerData(): Player {
 			'453q': false,
 			'454q': false,
 			'455q': false,
+			'51': false,
+			'52': false,
+			'53': false,
+			'54': false,
+			'55': false,
+			'56': false,
+			'57': false,
+			'58': false,
+			'59': false,
+			'510': false,
+			'511': false,
+			'512': false,
+			'513': false,
+			'514': false,
+			'515': false,
+			'516': false,
+			'51R': false,
+			'52R': false,
+			'51A': false,
+			'517': false,
+			'61': false,
+			'611': false,
+			'612': false,
+			'613': false,
+			'614': false,
+			'615': false,
+			'616': false,
+			'617': false,
+			'618': false,
+			'619': false,
+			'6110': false,
+			'62': false,
+			'63': false,
+			'64': false,
+			'65': false,
+			'66': false,
+			'61R': false,
+			'62R': false,
+			'63R': false,
+			'64R': false,
+			'65R': false,
+			'66R': false,
+			'67R': false,
+			'68R': false,
+			'69R': false,
+			'61S': false,
 		},
 		buyables: {
 			'11': zero,
@@ -208,6 +317,20 @@ function getInitialPlayerData(): Player {
 			pf19: zero,
 			lgr_emp: zero,
 			lgr_impr: zero,
+			'51R': zero,
+			'52R': zero,
+			'53R': zero,
+			'54R': zero,
+			'55R': zero,
+			'51A': zero,
+			'52A': zero,
+			'53A': zero,
+			'611': zero,
+			'612': zero,
+			'613': zero,
+			'614': zero,
+			'61R': zero,
+			'62R': zero,
 		},
 		milestones: {
 			cb1: false,
@@ -255,6 +378,15 @@ function getInitialPlayerData(): Player {
 				m: new Decimal(1),
 				y: new Decimal(1),
 			},
+			GH: {
+				x: new Decimal(11),
+				t31: new Decimal(0),
+				t32: new Decimal(0),
+				t33: new Decimal(0),
+			},
+			GM: {
+				x: new Decimal(0),
+			},
 		},
 		currentTab: 0,
 		totalAddpower: zero,
@@ -296,6 +428,7 @@ function getInitialPlayerData(): Player {
 			challengeDetial: false,
 		},
 		stat: {
+			chapter: -1,
 			totalNumber: zero,
 			highestNumber: zero,
 			totalMulpower: zero,
@@ -304,14 +437,56 @@ function getInitialPlayerData(): Player {
 			hightestAddpower: zero,
 			totalExppower: zero,
 			highestExppower: zero,
+			highestOrdLevel: 0,
 		},
 		challenges: [[zero, zero, zero, zero, zero]],
 		challengein: [-1, -1],
 		singularity: {
-		  t: 0,
-		  stage: 0,
-		  enabled: false
-		}
+			t: 0,
+			stage: 0,
+			enabled: false,
+		},
+		ordinal: {
+			number: new Decimal(10),
+			booster: {
+				mult: new Decimal(1),
+			},
+		},
+		help: {
+			page: 1,
+			milestone: 0,
+			epsilon: false,
+		},
+		timeshard: {
+			value: 0,
+			tf: 0,
+			cd: [Date.now(), Date.now()],
+			last: [0, 0],
+			openTf: false,
+		},
+		hydra: {
+			visiting: 0,
+			power: zero,
+			totalPower: zero,
+			powerMult: [new Decimal(1), new Decimal(1), new Decimal(1), new Decimal(1)],
+			deduceProgress: [zero, zero, zero, zero],
+			deduceOrdinal: [zero, zero, zero, zero],
+			totalDeduceOrdinal: [zero, zero, zero, zero],
+			prestige: [zero, zero, zero, zero],
+			pAuto: [false, false, false, false],
+			dilute: {
+				inDilute: false,
+				solvent: [0, 0, 0, 0, 0, 0, false, false, false],
+				lastSolvent: [0, 0, 0, 0, 0, 0, false, false, false],
+				lastDeduce: zero,
+				spentTime: 0,
+				prionsTime: 0,
+				solution: 0,
+				solutionCost: 0,
+				solute: zero,
+				
+			},
+		},
 	};
 }
 
@@ -332,6 +507,8 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 		for (let i = 0; i < maxLength; i++) {
 			const sourceItem = i < source.length ? source[i] : undefined;
 			const targetItem = i < targetArray.length ? targetArray[i] : undefined;
+
+			if (targetItem === null || sourceItem === null) continue;
 
 			if (
 				targetItem !== undefined &&
@@ -354,16 +531,20 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 	}
 
 	if (typeof source === 'object' && source !== null) {
-		const result = { ...source } as { [K in keyof T]: T[K] };
+		const result: any = { ...source };
 
-		for (const key in source) {
-			if (!source.hasOwnProperty(key)) continue;
+		if (target === null || target === undefined) return source;
 
-			const sourceValue = source[key];
+		for (const key of new Set([...Object.keys(source), ...Object.keys(target)])) {
+			const sourceValue = source[key as keyof typeof source];
 			const targetValue = target[key as keyof typeof target];
 
 			if (targetValue === undefined || targetValue === null) {
 				continue;
+			}
+
+			if (sourceValue === undefined || sourceValue === null) {
+				result[key] = targetValue;
 			}
 
 			if (
@@ -377,11 +558,10 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 					keyof T,
 					string
 				>];
+			} else if (targetValue !== null && typeof targetValue === 'object') {
+				result[key] = deepMerge(targetValue, sourceValue as any);
 			} else {
-				result[key] = (targetValue !== undefined ? targetValue : sourceValue) as T[Extract<
-					keyof T,
-					string
-				>];
+				result[key] = targetValue;
 			}
 		}
 
@@ -395,7 +575,10 @@ export let player: Player = getInitialPlayerData();
 
 export function loadFromString(saveContent: string) {
 	let deserialized = saveSerializer.deserialize(saveContent);
-	player = deepMerge(player, deserialized);
+	Object.assign(player, deepMerge(player, deserialized));
+	if ((player?.version ?? 0) < 4) {
+		player.hydra.dilute.solvent = [0, 0, 0, 0, 0, 0, false, false, false];
+	}
 	player.version = version;
 }
 
@@ -406,8 +589,9 @@ export function loadSaves() {
 		if (saveContent) {
 			loadFromString(saveContent);
 		}
-	} catch {
+	} catch (error) {
 		console.error('Cannot load save');
+		throw error;
 	}
 	player = reactive(player);
 }
@@ -415,7 +599,7 @@ export function loadSaves() {
 export function save() {
 	localStorage.setItem(SAVEID, saveSerializer.serialize(player));
 }
-
+const savefunc = save;
 export function hardReset() {
 	player = getInitialPlayerData();
 	save();
@@ -434,8 +618,11 @@ export function import_file(): void {
 			let save = fr.result;
 			if (typeof save == 'string') {
 				try {
-				  player = getInitialPlayerData();
+					player = getInitialPlayerData();
 					loadFromString(save);
+					player = reactive(player);
+					savefunc();
+					location.reload();
 				} catch (e) {
 					console.error('Cannot import save');
 				}

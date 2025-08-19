@@ -66,7 +66,7 @@ const news = [{id: "news1", text: "不会做增量游戏怎么办？看风灵作
 {id: "news62", text: "我们的留言板上写着指数层级早已前瞻完成，但你猜真的完成了吗"},
 {id: "news63", text: "什么？你问我们没事干的时候干什么？我们RBNR制作组没有没事干的时候"},
 {id: "news64", text: "发散是反时间墙，时间墙是反发散，既不发散又不时间墙是正常的，既发散又时间墙是增量游戏作者故意设计的"},
-] as {
+] as const as {
 	id: string;
 	text: string;
 	unlocked?: boolean;

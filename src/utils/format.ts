@@ -101,7 +101,7 @@ function regularFormat(num: Decimal, precision: number) {
 }
 
 export function format(decimal: DecimalSource, precision = 4): string {
-  if (new Decimal(decimal).gte(Decimal.dLayerMax)) return "ω"
+	if (new Decimal(decimal).gte(Decimal.dLayerMax)) return 'ω';
 	switch (player.options.notation) {
 		case notations.STANDARD:
 			return Standard.format(decimal);
@@ -254,7 +254,13 @@ export function formatGain(a: DecimalSource, e: DecimalSource, resourceName: str
  */
 export function formatTime(ex: DecimalSource, acc = 3, type = 's'): string {
 	ex = new Decimal(ex);
-	if (ex.mag == Infinity) return '5更新时';
+	if (!ex.isFinite()) return '5更新时';
+	if (ex.gte(138e8 * 31536e3)) {
+		return format(ex.div(138e8 * 31536e3), 3) + '当前宇宙年龄';
+	}
+	if (ex.gte(3153600000)) {
+		return format(ex.div(3153600000), 3) + '个世纪';
+	}
 	if (ex.gte(31536000)) {
 		return (
 			format(ex.div(31536000).floor(), 0) +
@@ -302,7 +308,7 @@ export function formatPow(ex: DecimalSource, acc?: number) {
 }
 
 export function formatWhole(decimal: DecimalSource): string {
-	decimal = new Decimal(decimal).floor();
+	decimal = new Decimal(decimal).round();
 	if (decimal.gte(1e9)) return format(decimal, 4);
 	return format(decimal, 0);
 }
@@ -486,7 +492,8 @@ export function physicalScale(value: DecimalSource): string {
 	value = toDecimal(value);
 	let negative = false;
 	if (value.eq(0)) return '拥有0升水，你会因无水可饮而口渴。';
-	if (value.gte(Decimal.dLayerMax) || value.gte(Decimal.dLayerMax)) return '没有能衡量无穷大的尺度。';
+	if (value.gte(Decimal.dLayerMax) || value.gte(Decimal.dLayerMax))
+		return '没有能衡量无穷大的尺度。';
 	if (value.eq(Decimal.dNaN)) return '这不是一个数字。';
 	if (!value.isFinite()) return '输入似乎存在错误。';
 	if (value.lt(0)) {
@@ -529,8 +536,9 @@ export function physicalScale(value: DecimalSource): string {
 		let amount = inverse_factorial(value, factorials).div(scaleResult[2]);
 		if (factorials == 0)
 			return (
+				'拥有' +
 				format(value) +
-				' atoms would be enough to make ' +
+				'个原子，你可以填满' +
 				format(amount) +
 				' ' +
 				scaleResult[1] +
@@ -591,7 +599,7 @@ export function physicalScale(value: DecimalSource): string {
 				' ' +
 				scaleResult[1] +
 				', then recorded every way to rearrange that set of rearrangements, then recorded every way to rearrange THAT set, and repeat that step ' +
-				format(factorials - 3) +
+				formatWhole(factorials - 3) +
 				' more times, the size of the final resulting set would be ' +
 				format(value) +
 				'.'

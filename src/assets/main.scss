@@ -39,7 +39,8 @@
 	--title-color: #8e8e8e;
 	--border-color: #d0d0d0;
 	--hover-color: #e2e2e2;
-	
+	--red-hover-color: #ffd1d1;
+
 	--sing-color: rgb(127, 127, 255);
 }
 
@@ -171,6 +172,7 @@ body {
 	border: 1px solid var(--border-color);
 	border-radius: 8px;
 	box-shadow: var(--border-color) 1px 1px 2px 1px;
+	overflow: auto;
 }
 
 .title {
@@ -238,6 +240,75 @@ body {
 	background-color: var(--border-color);
 }
 
+@keyframes chapter {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes chapterDelay {
+	0% {
+		opacity: 0;
+	}
+	40% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.chapter_background {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: 98;
+	transform: translate(-50%, -50%);
+	font-size: 400px;
+	margin: -25px 0px;
+	font-weight: bold;
+	transition: 3s ease;
+	animation: chapter 3s 1;
+}
+
+.chapter_text {
+	position: absolute;
+	left: 50%;
+	top: 40%;
+	z-index: 99;
+	transform: translate(-50%, -50%);
+	font-size: 20px;
+	transition: 2s ease;
+	animation: chapterDelay 5s 1;
+}
+
+.chapter_text_b {
+	position: absolute;
+	left: 50%;
+	top: 60%;
+	z-index: 99;
+	transform: translate(-50%, -50%);
+	font-size: 20px;
+	transition: 2s ease;
+	animation: chapterDelay 5s 1;
+}
+
+.chapter_clickable {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: 99;
+	transform: translate(-50%, -50%);
+	font-size: 30px;
+	font-weight: bold;
+	border: 2px solid rgb(255, 255, 255, 0.5);
+	transition: 2s ease;
+	animation: chapterDelay 5s 1;
+}
+
 .reset1 {
 	position: absolute;
 	display: inline-block;
@@ -291,6 +362,7 @@ body {
 	text-align: center;
 	line-height: 36px;
 	box-shadow: var(--border-color) 1px 1px 2px 1px;
+	color: var(--color);
 }
 
 .clickable_button:hover {
@@ -318,7 +390,6 @@ body {
 	background-color: var(--background-color);
 	border: 2px solid #c9c9c9;
 	text-align: center;
-	line-height: 28px;
 	box-shadow: var(--border-color) 1px 1px 2px 1px;
 }
 .upgrade_buttonsmall {
@@ -357,7 +428,7 @@ body {
 	background-color: var(--border-color);
 }
 .upgrade_buttonsmall_unable:hover {
-	background-color: #ffd1d1;
+	background-color: var(--red-hover-color);
 }
 .upgrade_button1 {
 	@extend .upgrade_button_parent;
@@ -380,13 +451,14 @@ body {
 }
 
 .upgrade_button1_unable:hover {
-	background-color: #ffd1d1;
+	background-color: var(--red-hover-color);
 }
 
 .upgrade_buttonbig {
 	@extend .upgrade_button_parent;
 	width: 175px;
 	height: 175px;
+	line-height: 1.5;
 }
 
 .upgrade_buttonbig:hover {
@@ -418,7 +490,7 @@ body {
 }
 
 .upgrade_buttonbig_unable:hover {
-	background-color: #ffd1d1;
+	background-color: var(--red-hover-color);
 }
 
 .upgrade_line {
@@ -487,7 +559,7 @@ body {
 }
 
 .research_button1_unable:hover {
-	background-color: #ffd1d1;
+	background-color: var(--red-hover-color);
 }
 
 .research_button1_bought {
@@ -571,7 +643,7 @@ body {
 }
 
 .milestone_button1:hover {
-	background-color: #ffd1d1;
+	background-color: var(--red-hover-color);
 }
 
 .milestone_button1_bought {
@@ -759,7 +831,7 @@ body {
 }
 
 .achievement_button_unable:hover {
-	background-color: #ffd1d1;
+	background-color: var(--red-hover-color);
 }
 
 .setting_button {
@@ -802,7 +874,7 @@ body {
 }
 
 .hard_reset:hover {
-	background-color: #ffd1d1;
+	background-color: var(--red-hover-color);
 }
 
 .hard_reset:active {
@@ -895,4 +967,52 @@ tr {
 	height: 1em;
 	position: relative;
 	top: 3px;
+}
+
+.tooltipBox {
+	position: relative;
+}
+
+.tooltipBox:hover .tooltip {
+	opacity: 1;
+}
+
+.tooltip {
+	pointer-events: none;
+	text-align: center;
+	width: 150px;
+	font-size: 12px;
+	line-height: 1.2;
+	bottom: 100%;
+	left: 50%;
+	margin-bottom: 5px;
+	transform: translateX(-50%);
+	padding: 7px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	opacity: 0;
+	transition: opacity 0.5s;
+	position: absolute;
+	z-index: 20000;
+	background-color: rgba(0, 0, 0, 0.75);
+	color: white;
+	font-size: 14px;
+}
+
+.tooltip:after {
+	position: absolute;
+	bottom: 100%;
+	left: 50%;
+	top: 100%;
+	left: 50%;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: white transparent transparent transparent;
+}
+
+a {
+	color: #def;
+	text-decoration: none;
 }

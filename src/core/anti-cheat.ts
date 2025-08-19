@@ -2,11 +2,15 @@ import { player } from '@/core/global.ts';
 import { loopInterval } from '@/core/game-loop';
 import ModalService from '@/utils/Modal';
 import type { Player } from './save';
+import Decimal from 'break_eternity.js';
+import { OrdinalUtils } from '@/utils/ordinal';
 declare global {
 	interface Window {
 		game: object;
 		player: Player;
 		Modal: typeof ModalService;
+		Decimal: typeof Decimal;
+		numberToBMS: typeof OrdinalUtils.numberToBMS;
 	}
 }
 
@@ -28,6 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	if (import.meta.env.DEV) {
 		window.player = player;
 		window.Modal = ModalService;
+		window.Decimal = Decimal;
+		window.numberToBMS = OrdinalUtils.numberToBMS.bind(OrdinalUtils);
 	}
 });
 let cheat = false;

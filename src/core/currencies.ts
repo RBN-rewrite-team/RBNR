@@ -1,5 +1,6 @@
-import type Decimal from 'break_eternity.js';
+import Decimal from 'break_eternity.js';
 import { player } from './save';
+import { feature } from './global';
 
 export enum Currencies {
 	NUMBER = 'number',
@@ -7,6 +8,11 @@ export enum Currencies {
 	MULTIPLICATION_POWER = 'multipl',
 	EXPONENTION_POWER = 'exponent',
 	QOL_POINTS = 'qol',
+	ORDINAL = 'ordinal',
+	HYDRA_POWER = 'hydra',
+	X4 = 'x4',
+	T4 = 'τ4',
+	SOLUTION = 'solution',
 }
 
 abstract class Currency {
@@ -75,12 +81,72 @@ class QolPointsCurrency extends Currency {
 	}
 }
 
+class Ordinal extends Currency {
+	static name = '序数';
+	static set current(x: Decimal) {
+		player.ordinal.number = x;
+	}
+
+	static get current() {
+		return player.ordinal.number;
+	}
+}
+
+class HydraPowerCurrency extends Currency {
+	static name = '九头蛇能量';
+	static set current(x: Decimal) {
+		player.hydra.power = x;
+	}
+
+	static get current() {
+		return player.hydra.power;
+	}
+}
+
+class X4Currency extends Currency {
+	static name = 'x<sub>4</sub>';
+	static set current(x: Decimal) {
+		return;
+	}
+
+	static get current() {
+		return player.numbertheory.GM.x;
+	}
+}
+
+class T4Currency extends Currency {
+	static name = 'τ<sub>4</sub>';
+	static set current(x: Decimal) {
+		return;
+	}
+
+	static get current() {
+		return feature.OrdinalNT.varComputed('tau', 4);
+	}
+}
+
+class SolutionCurrency extends Currency {
+	static name = '九头蛇溶液';
+	static set current(x: Decimal) {
+		player.hydra.dilute.solutionCost = new Decimal(player.hydra.dilute.solution).sub(x).clamp(0, Number.MAX_VALUE).toNumber();
+	}
+
+	static get current() {
+		return new Decimal(player.hydra.dilute.solution - player.hydra.dilute.solutionCost)
+	}
+}
+
 const currencyMap: Map<Currencies, typeof Currency> = new Map([
 	[Currencies.NUMBER, NumberCurrency],
 	[Currencies.ADDITION_POWER, AdditionPowerCurrency],
 	[Currencies.MULTIPLICATION_POWER, MultiplicationPowerCurrency],
 	[Currencies.EXPONENTION_POWER, ExponentionPowerCurrency],
 	[Currencies.QOL_POINTS, QolPointsCurrency],
+	[Currencies.ORDINAL, Ordinal],
+	[Currencies.HYDRA_POWER, HydraPowerCurrency],
+	[Currencies.X4, X4Currency],
+	[Currencies.T4, T4Currency],
+	[Currencies.SOLUTION, SolutionCurrency]
 ]);
 
 export function setCurrency(currency: Currencies, value: Decimal) {

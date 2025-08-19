@@ -61,7 +61,7 @@ export const cb1 = new (class extends Buyable<Decimal> {
 			.floor();
 	}
 	canAfford() {
-	  return player.singularity.stage < 3
+		return player.singularity.stage < 3;
 	}
 })();
 
@@ -138,7 +138,7 @@ export function initMechanics() {
 		},
 		requirement: new Decimal(1e10),
 		get canDone() {
-		  if (player.singularity.stage >= 2) return false
+			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
@@ -191,7 +191,7 @@ export function initMechanics() {
 		},
 		requirement: new Decimal(1e50),
 		get canDone() {
-		  if (player.singularity.stage >= 2) return false
+			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
@@ -204,7 +204,7 @@ export function initMechanics() {
 		},
 		requirement: new Decimal(1e115),
 		get canDone() {
-		  if (player.singularity.stage >= 2) return false
+			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
@@ -225,11 +225,11 @@ export function initMechanics() {
 	MILESTONES.create('cb12', {
 		displayName: 'M-CB-12',
 		get description() {
-			return '计算数据以÷x^2降低棋盘格子购买项的价格';
+			return '计算数据以÷x<sup>2</sup>降低棋盘格子购买项的价格';
 		},
 		requirement: new Decimal(1e150),
 		get canDone() {
-		  if (player.singularity.stage >= 2) return false
+			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
@@ -242,7 +242,7 @@ export function initMechanics() {
 		},
 		requirement: new Decimal(1e245),
 		get canDone() {
-		  if (player.singularity.stage >= 2) return false
+			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
@@ -267,7 +267,7 @@ export function initMechanics() {
 		},
 		requirement: new Decimal(1e300),
 		get canDone() {
-		  if (player.singularity.stage >= 2) return false
+			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
@@ -292,7 +292,7 @@ export function initMechanics() {
 		},
 		requirement: new Decimal('e375'),
 		get canDone() {
-		  if (player.singularity.stage >= 2) return false
+			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
@@ -303,9 +303,9 @@ export function initMechanics() {
 		get description() {
 			return '基于观测数据，棋盘底数×' + format(getMCB18Effect());
 		},
-		requirement: new Decimal('e430'),
+		requirement: new Decimal('e480'),
 		get canDone() {
-		  if (player.singularity.stage >= 2) return false
+			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
@@ -318,9 +318,21 @@ export function initMechanics() {
 				'增强麦粒第五个效果并删除其软上限，麦粒让乘法能量指数^' + format(getMCB19Effect())
 			);
 		},
-		requirement: new Decimal('e525'),
+		requirement: new Decimal('e600'),
 		get canDone() {
 			return wheatGrain().gte(this.requirement);
+		},
+		show: true,
+		currency: '麦粒',
+	});
+	MILESTONES.create('cb20', {
+		displayName: 'M-CB-20',
+		get description() {
+			return '(这是一个秘密......)移除τ<sub>1</sub>膨胀效果的硬上限';
+		},
+		requirement: new Decimal('e3600'),
+		get canDone() {
+			return wheatGrain().gte(this.requirement) && !player.singularity.enabled;
 		},
 		show: true,
 		currency: '麦粒',
