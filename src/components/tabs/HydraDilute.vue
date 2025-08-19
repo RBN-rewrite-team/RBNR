@@ -57,7 +57,7 @@ const sliderProps2 = {
             <div>
                 <div>溶剂I: 时空黑洞</div>
                 <div class="solvent-desc-small">“虽然这很不幸，但至少你能用自己比别人活得久的事实来安慰自己。”</div>
-                <div>推演速度和乘数积累速度变为<sup>1</sup>/<sub>{{ 2** player.hydra.dilute.solvent[0] }}</sub></div>
+                <div>推演速度和乘数积累速度变为<sup>1</sup>/<sub>{{ 5** player.hydra.dilute.solvent[0] }}</sub></div>
                 <Slider
                 v-bind="sliderProps"
                 :value="player.hydra.dilute.solvent[0]"
@@ -71,7 +71,7 @@ const sliderProps2 = {
             <div>
                 <div>溶剂II: 阿兹海默症</div>
                 <div class="solvent-desc-small">“你变得越来越健忘......”</div>
-                <div>所有升级成本×{{ 5** player.hydra.dilute.solvent[1] }}</div>
+                <div>所有升级成本^{{ 4 - 3 * 0.75 ** player.hydra.dilute.solvent[1] }}</div>
                 <Slider
                 v-bind="sliderProps"
                 :value="player.hydra.dilute.solvent[1]"

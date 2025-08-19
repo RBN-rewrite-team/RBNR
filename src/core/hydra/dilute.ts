@@ -14,6 +14,7 @@ export type backupHydraType = {
 export const Dilute = {
 	enterDilute() {
         if(player.hydra.dilute.solvent.map((x)=>Number(x)).reduce((x,y)=>x+y)<1) return;
+		let zero = new Decimal(0), one = new Decimal(1);
         player.hydra.backupHydra = this.backupHydra();
         for (const id2 of ([['61R','62R','63R','64R','65R','66R','67R','68R'],Object.keys(Hydra.upgrades)] as const).flat()) {
             if (id2!=="61")
@@ -21,13 +22,16 @@ export const Dilute = {
         }
         for (const id2 of Object.keys(Hydra.buyables)) {
             const id = id2 as keyof typeof Hydra.buyables
-            player.buyables[id] = new Decimal(0);
+            player.buyables[id] = zero;
 		}for (const id2 of ['61R','62R']) {
             const id = id2 as keyof typeof Hydra.buyables
-            player.buyables[id] = new Decimal(0);
+            player.buyables[id] = zero;
 		}
-        player.hydra.prestige = [new Decimal(0),new Decimal(0),new Decimal(0),new Decimal(0)]
-        
+        player.hydra.prestige = [zero, zero, zero, zero];
+        player.hydra.power = zero;
+		player.hydra.deduceOrdinal = [zero, zero, zero, zero];
+		player.hydra.deduceProgress = [zero, zero, zero, zero];
+		player.hydra.powerMult = [one, one, one, one];
         player.hydra.dilute.inDilute = true;
     },
     exitDilute() {
@@ -133,9 +137,9 @@ export const Dilute = {
 
 /**
  * TODO dilute list:
- * 溶剂I:时空黑洞
+ * 溶剂I:时空黑洞(ok)
 “虽然这很不幸，但至少你能用自己比别人活得久的事实来安慰自己。”
-推演速度ok和乘数积累速度none变为2^(-此溶剂等级)
+推演速度ok和乘数积累速度ok变为5^(-此溶剂等级)
 溶剂II:阿兹海默症
 “你变得越来越健忘......”
 所有升级成本×5^此溶剂等级none
