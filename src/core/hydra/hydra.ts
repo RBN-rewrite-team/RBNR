@@ -369,13 +369,13 @@ export const Hydra = {
 		if (i == 0) base = base.mul(buyables[611].effect(player.buyables[611]));
 		if (player.upgrades[612]) base = base.mul(2);
 		base = base.mul(Hydra.prestigeEff(0));
-		if (Dilute.diluteAmount(3) > 0 || player.upgrades[65])
-			base = base.mul(Hydra.NT4TauEffect());
 		if (player.buyables['62R'].gte(1))
 			base = base.mul(buyables['62R'].effect(player.buyables['62R']));
 
 		base = base.div(5 ** (Dilute.diluteAmount(0) as number));
-		if (Dilute.diluteAmount(5) > 0) base = base.pow(1 - Dilute.diluteAmount(5) * 0.1);
+		if (Dilute.diluteAmount(5) > 0) base = base.pow(1 - (Dilute.diluteAmount(5) * 0.1));
+		if (Dilute.diluteAmount(3) > 0 || player.upgrades[65])
+			base = base.mul(Hydra.NT4TauEffect());
 		if (player.hydra.dilute.inDilute)
 			base = base.div(
 				Array.from({ length: 6 }, (_, index: number) =>
