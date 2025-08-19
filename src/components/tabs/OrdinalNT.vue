@@ -168,8 +168,7 @@ function _g() {
 			</div>
 			<div
 				v-if="
-					player.upgrades['69R'] ||
-					(player.upgrades[65] && player.numbertheory.visiting == 4)
+					((player.upgrades['69R'] ||player.upgrades[65]) && player.numbertheory.visiting == 4)
 				"
 			>
 				<h2>增长模式</h2>
