@@ -347,7 +347,7 @@ export const Hydra = {
 		if (player.buyables['62R'].gte(1))
 			base = base.mul(buyables['62R'].effect(player.buyables['62R']));
 
-		base = base.div(2**(Dilute.diluteAmount(0) as number))
+		base = base.div(5**(Dilute.diluteAmount(0) as number))
 		return base;
 	},
 	deduceEff(i = 0): Decimal {
@@ -356,6 +356,8 @@ export const Hydra = {
 		if (Hydra.pUnlock(1)) base = base.mul(buyables[613].effect(player.buyables[613]));
 		base = base.mul(Hydra.prestigeEff(2));
 		if (i == 0 && player.upgrades[614]) base = base.mul(upgrades[614].effect());
+
+		base = base.div(5**(Dilute.diluteAmount(0) as number))
 		return base;
 	},
 	basePower(): Decimal {
@@ -497,8 +499,7 @@ export const Hydra = {
 		if (id == 1 && player.upgrades['68R']) base = base.mul(upgrades['68R'].effect());
 		if (id == 3 && base.gte(0.05)) base = base.sub(0.05).mul(0.5).add(0.05);
 		if (id == 3 && base.gte(0.1)) base = base.div(0.1).pow(0.5).mul(0.1);
-		if (!preview) return base;
-		else return base.max(Hydra.prestigeEff(id, false));
+		return base;
 	},
 	deduce(i = 0, bulk = new Decimal(0)): void {
 		player.hydra.deduceOrdinal[i] = player.hydra.deduceOrdinal[i].add(bulk);
