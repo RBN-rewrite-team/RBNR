@@ -500,6 +500,8 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 			const sourceItem = i < source.length ? source[i] : undefined;
 			const targetItem = i < targetArray.length ? targetArray[i] : undefined;
 
+      if (targetItem === null || sourceItem === null) continue
+      
 			if (
 				targetItem !== undefined &&
 				targetItem !== null &&
@@ -521,16 +523,20 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 	}
 
 	if (typeof source === 'object' && source !== null) {
-		const result = { ...source } as { [K in keyof T]: T[K] };
+		const result: any = { ...source };
+		
+		if (target === null || target === undefined) return source
 
-		for (const key in source) {
-			if (!source.hasOwnProperty(key)) continue;
-
-			const sourceValue = source[key];
+		for (const key of (new Set([...Object.keys(source), ...Object.keys(target)]))) {
+			const sourceValue = source[key as keyof typeof source];
 			const targetValue = target[key as keyof typeof target];
 
 			if (targetValue === undefined || targetValue === null) {
 				continue;
+			}
+			
+			if (sourceValue === undefined || sourceValue === null) {
+				result[key] = targetValue;
 			}
 
 			if (
@@ -544,11 +550,13 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 					keyof T,
 					string
 				>];
+			} else if (
+			    targetValue !== null &&
+				  typeof targetValue === 'object'
+			) {
+			  result[key] = deepMerge(targetValue, sourceValue as any);
 			} else {
-				result[key] = (targetValue !== undefined ? targetValue : sourceValue) as T[Extract<
-					keyof T,
-					string
-				>];
+			  result[key] = targetValue
 			}
 		}
 
@@ -576,8 +584,9 @@ export function loadSaves() {
 		if (saveContent) {
 			loadFromString(saveContent);
 		}
-	} catch {
+	} catch (error) {
 		console.error('Cannot load save');
+		throw error
 	}
 	player = reactive(player);
 }
