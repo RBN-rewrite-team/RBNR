@@ -135,13 +135,6 @@ export const Dilute = {
 		player.hydra.totalPower = new Decimal(item.totalPower);
 	},
 	diluteButton() {
-		if (!import.meta.env.DEV) {
-			ModalService.show({
-				title: 'WIP!',
-				content: '稀释功能正在开发中(WIP)，请等待游戏更新再尝试启用。',
-			});
-			return;
-		}
 		if (player.hydra.dilute.inDilute) {
 			this.exitDilute();
 		} else {
