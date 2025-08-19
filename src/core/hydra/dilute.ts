@@ -29,8 +29,14 @@ interface IDilute {
 
 export const Dilute = {
 	enterDilute() {
-        if(player.hydra.dilute.solvent.map((x)=>Number(x)).reduce((x,y)=>x+y)<1) return;
-		let zero = new Decimal(0), one = new Decimal(1);
+      if(player.hydra.dilute.solvent.map((x)=>Number(x)).reduce((x,y)=>x+y)<1) {
+            ModalService.show({
+                title: "无法开启稀释",
+                content: "先选择任意一个溶剂再开开启稀释！"
+            })
+            return;
+        };
+        let zero = new Decimal(0), one = new Decimal(1);
         player.hydra.backupHydra = this.backupHydra();
         for (const id2 of ([['61R','62R','63R','64R','65R','66R','67R','68R'],Object.keys(Hydra.upgrades)] as const).flat()) {
             if (id2!=="61")
