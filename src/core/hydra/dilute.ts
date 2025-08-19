@@ -14,7 +14,6 @@ export type backupHydraType = {
 export const Dilute = {
 	enterDilute() {
         if(player.hydra.dilute.solvent.map((x)=>Number(x)).reduce((x,y)=>x+y)<1) return;
-		let zero = new Decimal(0), one = new Decimal(1);
         player.hydra.backupHydra = this.backupHydra();
         for (const id2 of ([['61R','62R','63R','64R','65R','66R','67R','68R'],Object.keys(Hydra.upgrades)] as const).flat()) {
             if (id2!=="61")
