@@ -14,11 +14,23 @@ export type backupHydraType = {
 	totalPower: Decimal;
 };
 
+function minS1Level() {
+  if (player.hydra.dilute.solvent[6] || player.hydra.dilute.solvent[7]) return 10
+  return Math.max(
+    Math.floor(player.hydra.dilute.solvent[1] / 2),
+    Math.floor(player.hydra.dilute.solvent[2] / 2),
+    player.hydra.dilute.solvent[3],
+    player.hydra.dilute.solvent[4],
+    player.hydra.dilute.solvent[5],
+  )
+}
+
 export function diluteAmount(id: IntClosedRange<0, 8>): number | boolean {
 	if (!player.hydra.dilute.inDilute) return id < 6 ? 0 : false;
 	if (player.hydra.dilute.solvent[8]) {
 		return id < 6 ? 10 : true;
 	}
+	if (id == 0) return Math.max(player.hydra.dilute.solvent[id], minS1Level())
 	return player.hydra.dilute.solvent[id];
 }
 
@@ -32,7 +44,7 @@ export const DiluteUpgrades = {
 	"61S": new (class U61S extends Upgrade{
 		currency: Currencies = Currencies.SOLUTION;
 		name: string = "U5-S-1";
-		description: string = "U5-5-1效果^(lg(九头蛇溶液数量+10))";
+		description: string = "U5-1-1效果^(lg(九头蛇溶液数量+10))";
 		cost: Decimal = new Decimal(10);
 	})()
 }
@@ -80,12 +92,12 @@ export const Dilute = {
 		player.numbertheory.GM.x = zero;
 		player.hydra.dilute.inDilute = true;
 	},
-	exitDilute() {
+	exitDilute(manmade = true) {
 		if (player.hydra.backupHydra) this.restoreHydra(player.hydra.backupHydra);
 		else {
 			console.warn('Cannot found restore datas');
 		}
-		if (this.solutionGain() > player.hydra.dilute.solution) {
+		if (this.solutionGain() > player.hydra.dilute.solution && manmade) {
 			this.solutionCalc();
 		}
 		player.hydra.dilute.spentTime = 0;
@@ -159,13 +171,10 @@ export const Dilute = {
 		if (player.hydra.dilute.inDilute) {
 			let s3Eff = 1000 / player.hydra.dilute.solvent[2] ** 2;
 			player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + diff / 1000;
-			if (player.hydra.totalDeduceOrdinal[0].gte(1e4))
+			if (player.hydra.totalDeduceOrdinal[0].gte(1))
 				player.hydra.dilute.prionsTime = player.hydra.dilute.prionsTime + diff / 1000;
-			if (this.solutionGain() > player.hydra.dilute.solution) {
-				this.solutionCalc();
-			}
-			if (player.hydra.dilute.spentTime > s3Eff) this.exitDilute();
-			if (this.prions().gt(player.hydra.totalDeduceOrdinal[0])) this.exitDilute();
+			if (player.hydra.dilute.spentTime > s3Eff) this.exitDilute(false);
+			if (this.prions().gt(player.hydra.totalDeduceOrdinal[0])) this.exitDilute(false);
 		}
 	},
 	/**
