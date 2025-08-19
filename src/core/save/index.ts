@@ -139,6 +139,7 @@ export interface Player {
 		powerMult: [Decimal, Decimal, Decimal, Decimal];
 		deduceProgress: [Decimal, Decimal, Decimal, Decimal];
 		deduceOrdinal: [Decimal, Decimal, Decimal, Decimal];
+		totalDeduceOrdinal: [Decimal, Decimal, Decimal, Decimal];
 		prestige: [Decimal, Decimal, Decimal, Decimal];
 		pAuto: [boolean, boolean, boolean, boolean];
 		backupHydra?: backupHydraType;
@@ -159,6 +160,7 @@ export interface Player {
 			spentTime: number;
 			solution: number;
 			lastDeduce: Decimal;
+			prionsTime: number;
 		};
 	};
 }
@@ -466,6 +468,7 @@ function getInitialPlayerData(): Player {
 			powerMult: [new Decimal(1), new Decimal(1), new Decimal(1), new Decimal(1)],
 			deduceProgress: [zero, zero, zero, zero],
 			deduceOrdinal: [zero, zero, zero, zero],
+			totalDeduceOrdinal: [zero, zero, zero, zero],
 			prestige: [zero, zero, zero, zero],
 			pAuto: [false, false, false, false],
 			dilute: {
@@ -474,6 +477,7 @@ function getInitialPlayerData(): Player {
 				lastSolvent: [0, 0, 0, 0, 0, 0, false, false, false],
 				lastDeduce: zero,
 				spentTime: 0,
+				prionsTime: 0,
 				solution: 0,
 			},
 		},

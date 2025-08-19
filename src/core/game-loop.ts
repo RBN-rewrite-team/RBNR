@@ -134,7 +134,6 @@ export function simulate(diff: number) {
 			diff *= 3;
 		}
 	}
-	diff *= 10;
 	let last = feature.Ordinal.ordinalPerSecond();
 	let last2 = feature.Ordinal.speedDeri();
 	qolLoop();

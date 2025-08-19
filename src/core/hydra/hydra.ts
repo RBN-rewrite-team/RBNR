@@ -372,6 +372,7 @@ export const Hydra = {
 			base = base.mul(buyables['62R'].effect(player.buyables['62R']));
 
 		base = base.div(5 ** (Dilute.diluteAmount(0) as number));
+		if (Dilute.diluteAmount(6) > 0) base = base.pow(1 - (Dilute.diluteAmount(6) * 0.1));
 		if (player.hydra.dilute.inDilute)
 			base = base.div(
 				Array.from({ length: 6 }, (_, index: number) =>
@@ -533,6 +534,7 @@ export const Hydra = {
 	},
 	deduce(i = 0, bulk = new Decimal(0)): void {
 		player.hydra.deduceOrdinal[i] = player.hydra.deduceOrdinal[i].add(bulk);
+		player.hydra.totalDeduceOrdinal[i] = player.hydra.totalDeduceOrdinal[i].add(bulk);
 	},
 	prestige(i = 0): void {
 		if (!Hydra.pUnlock(i)) return;
