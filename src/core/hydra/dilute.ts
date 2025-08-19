@@ -4,6 +4,8 @@ import { Hydra } from './hydra';
 import type { IntClosedRange } from 'type-fest';
 import { diff } from '../game-loop';
 import ModalService from '@/utils/Modal';
+import { Upgrade } from '../upgrade';
+import { Currencies } from '../currencies';
 
 export type backupHydraType = {
 	upgrades: (`${IntClosedRange<61, 69>}R` | keyof typeof Hydra.upgrades)[];
@@ -26,8 +28,19 @@ interface IDilute {
 	diluteAmountOutside(id: IntClosedRange<0, 5>): number;
 	diluteAmountOutside(id: IntClosedRange<6, 8>): boolean;
 }
-
+export const DiluteUpgrades = {
+	"61S": new (class U61S extends Upgrade{
+		currency: Currencies = Currencies.SOLUTION;
+		name: string = "U5-S-1";
+		description: string = "U5-5-1效果^(lg(九头蛇溶液数量+10))";
+		cost: Decimal = new Decimal(10);
+	})()
+}
 export const Dilute = {
+	respec(){
+		player.upgrades['61S'] = false;
+		player.hydra.dilute.solutionCost = 0;
+	},
 	enterDilute() {
 		if (player.hydra.dilute.solvent.map((x) => Number(x)).reduce((x, y) => x + y) < 1) {
 			ModalService.show({
@@ -181,4 +194,4 @@ export const Dilute = {
 	prions() {
 		return Decimal.pow(1 + this.diluteAmount(4) / 100, player.hydra.dilute.prionsTime).sub(1);
 	},
-} as IDilute & Record<string, any>;
+} as IDilute & Record<string,any>;

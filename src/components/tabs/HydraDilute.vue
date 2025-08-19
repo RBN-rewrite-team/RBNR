@@ -4,6 +4,8 @@ import { format, formatWhole } from '@/utils/format';
 import Slider from '../Slider.vue';
 import { Dilute } from '@/core/hydra/dilute.ts';
 import { computed, ref } from 'vue';
+import TDUpgrade from '../TDUpgrade.vue';
+import { Currencies, getCurrency } from '@/core/currencies.ts';
 
 function getCurrentSolution() {
 	return player.hydra.dilute.solution;
@@ -92,7 +94,7 @@ setInterval(function () {
 			选用的削弱等级对九头蛇溶液的获取量影响较大，稀释中的进度对九头蛇溶液的获取量影响较小。<br />
 			你在{{ JSON.stringify(player.hydra.dilute.lastSolvent.map(Number)) }}中最高达到了{{
 				formatWhole(player.hydra.dilute.lastDeduce)
-			}}次推演，这给你带来了{{ format(player.hydra.dilute.solution) }}九头蛇溶液
+			}}次推演，这给你带来了{{ format(player.hydra.dilute.solution) }}({{ format(getCurrency(Currencies.SOLUTION)) }})九头蛇溶液
 		</div>
 		<div class="solvents">
 			溶剂等级之和使你的推演速度变为<sup>1</sup>/<sub>{{
@@ -298,6 +300,14 @@ setInterval(function () {
 			</table>
 		</div>
 	</div>
+	<div class="clickable_button" @click="Dilute.respec">重新分配</div>
+	<table align="center">
+		<tbody>
+			<tr>
+				<TDUpgrade upgid="61S"></TDUpgrade>
+			</tr>
+		</tbody>
+	</table>
 </template>
 
 <style lang="scss">

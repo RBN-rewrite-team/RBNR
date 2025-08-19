@@ -1,7 +1,7 @@
 import Decimal from 'break_eternity.js';
 import { player, feature } from '@/core/global';
 import { format, formatWhole } from '@/utils/format';
-import { Currencies } from '../currencies';
+import { Currencies, getCurrency } from '../currencies';
 import { Upgrade, UpgradeWithEffect } from '../upgrade';
 import { CurrencyRequirement, type Requirement } from '../requirements';
 import { Buyable } from '../buyable';
@@ -28,6 +28,9 @@ export const Hydra = {
 				let base = player.hydra.totalPower.max(10).log10();
 				if (player.upgrades[616]) base = base.pow(upgrades[616].effect());
 				if (player.upgrades['62R']) base = base.pow(1.15);
+				if (player.upgrades['61S']) {
+					base = base.pow(getCurrency(Currencies.SOLUTION).add(10).log10())
+				}
 				return base;
 			}
 			effectDescription(): string {
