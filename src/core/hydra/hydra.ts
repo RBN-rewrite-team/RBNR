@@ -420,7 +420,7 @@ export const Hydra = {
 	},
 	powerGain(): Decimal {
 		//能量产量
-	  if (Dilute.diluteAmount(7) && player.hydra.dilute.spentTime > 60) return new Decimal(0)
+	  if (Dilute.diluteAmount(7) && player.hydra.dilute.spentTime > 5) return new Decimal(0)
 		let base = this.powerGainBase();
 		return this.powerGainAfterSoftcap(base);
 	},
