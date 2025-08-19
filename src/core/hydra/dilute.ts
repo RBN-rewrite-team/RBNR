@@ -72,7 +72,7 @@ export const Dilute = {
 		else {
 			console.warn('Cannot found restore datas');
 		}
-		if (false && this.solutionGain() > player.hydra.dilute.solution) {
+		if (this.solutionGain() > player.hydra.dilute.solution) {
 			player.hydra.dilute.solution = Math.max(
 				player.hydra.dilute.solution,
 				this.solutionGain(),
