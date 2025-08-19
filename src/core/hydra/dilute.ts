@@ -154,7 +154,7 @@ export const Dilute = {
 			player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + diff / 1000;
 			if (player.hydra.totalDeduceOrdinal[0].gte(1e4)) player.hydra.dilute.prionsTime = player.hydra.dilute.prionsTime + diff / 1000;
 			if (player.hydra.dilute.spentTime > s3Eff) this.exitDilute();
-			if (this.prions().gte(player.hydra.totalDeduceOrdinal[0])) this.exitDilute();
+			if (this.prions().gt(player.hydra.totalDeduceOrdinal[0])) this.exitDilute();
 		}
 	},
 	/**
