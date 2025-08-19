@@ -46,13 +46,14 @@ export const Dilute = {
         else {
             console.warn("Cannot found restore datas")
         }
+        player.hydra.dilute.inDilute = false;
 		if(this.solutionGain() > player.hydra.dilute.solution)
 		{
+		  return //效果都没做完
 			player.hydra.dilute.solution = Math.max(player.hydra.dilute.solution, this.solutionGain());
-			player.hydra.dilute.lastSolvent = Array.from(player.hydra.dilute.solvent) as [number, number, number, number, number, number, boolean, boolean, boolean];
+			player.hydra.dilute.lastSolvent = player.hydra.dilute.solvent;
 			player.hydra.dilute.lastDeduce = player.hydra.deduceOrdinal[0];
 		}
-        player.hydra.dilute.inDilute = false;
     },
 	backupHydra(): backupHydraType {
 		let items: ((`${IntClosedRange<61,69>}R`)|keyof typeof Hydra.upgrades)[] = [];
