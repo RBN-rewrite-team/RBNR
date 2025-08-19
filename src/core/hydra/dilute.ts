@@ -76,14 +76,11 @@ export const Dilute = {
 			this.solutionCalc();
 		}
 		player.hydra.dilute.spentTime = 0;
-		player.hydra.dilute.prionsTime = 0
+		player.hydra.dilute.prionsTime = 0;
 		player.hydra.dilute.inDilute = false;
 	},
 	solutionCalc() {
-		player.hydra.dilute.solution = Math.max(
-			player.hydra.dilute.solution,
-			this.solutionGain(),
-		);
+		player.hydra.dilute.solution = Math.max(player.hydra.dilute.solution, this.solutionGain());
 		player.hydra.dilute.lastSolvent = player.hydra.dilute.solvent;
 		player.hydra.dilute.lastDeduce = player.hydra.deduceOrdinal[0];
 	},
@@ -148,7 +145,8 @@ export const Dilute = {
 		if (player.hydra.dilute.inDilute) {
 			let s3Eff = 1000 / player.hydra.dilute.solvent[2] ** 2;
 			player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + diff / 1000;
-			if (player.hydra.totalDeduceOrdinal[0].gte(1e4)) player.hydra.dilute.prionsTime = player.hydra.dilute.prionsTime + diff / 1000;
+			if (player.hydra.totalDeduceOrdinal[0].gte(1e4))
+				player.hydra.dilute.prionsTime = player.hydra.dilute.prionsTime + diff / 1000;
 			if (this.solutionGain() > player.hydra.dilute.solution) {
 				this.solutionCalc();
 			}
@@ -181,6 +179,6 @@ export const Dilute = {
 		return deduceMult * base;
 	},
 	prions() {
-	  return Decimal.pow(1 + this.diluteAmount(4) / 100, player.hydra.dilute.prionsTime).sub(1)
-	}
+		return Decimal.pow(1 + this.diluteAmount(4) / 100, player.hydra.dilute.prionsTime).sub(1);
+	},
 } as IDilute & Record<string, any>;
