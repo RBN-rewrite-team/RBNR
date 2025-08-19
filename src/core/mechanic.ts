@@ -76,9 +76,18 @@ export const UPGRADES = {
 	 */
 	buy(id: keyof typeof upgrades) {
 		if (!player.upgrades[id] && this.lock(id).unlocked && upgrades[id].canAfford()) {
+			let realcost = typeof upgrades[id].cost === 'function' ? upgrades[id].cost() : upgrades[id].cost
+			if (player.hydra.dilute.inDilute && id.startsWith("6")) {
+				realcost = realcost.pow(
+					4 - 3 * 0.75 ** player.hydra.dilute.solvent[1]
+				);
+				if (getCurrency(upgrades[id].currency).lt(realcost)) {
+					return;
+				}
+			}
 			decreaseCurrency(
 				upgrades[id].currency,
-				typeof upgrades[id].cost === 'function' ? upgrades[id].cost() : upgrades[id].cost,
+				realcost,
 			);
 			player.upgrades[id] = true;
 

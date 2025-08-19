@@ -348,6 +348,7 @@ export const Hydra = {
 			base = base.mul(buyables['62R'].effect(player.buyables['62R']));
 
 		base = base.div(5**(Dilute.diluteAmount(0) as number))
+		base = base.pow(1-0.1*(Dilute.diluteAmount(1) as number))
 		return base;
 	},
 	deduceEff(i = 0): Decimal {

@@ -13,7 +13,13 @@ export type backupHydraType = {
 
 export const Dilute = {
 	enterDilute() {
-        if(player.hydra.dilute.solvent.map((x)=>Number(x)).reduce((x,y)=>x+y)<1) return;
+        if(player.hydra.dilute.solvent.map((x)=>Number(x)).reduce((x,y)=>x+y)<1) {
+            ModalService.show({
+                title: "无法开启稀释",
+                content: "先选择任意一个溶剂再开开启稀释！"
+            })
+            return;
+        };
 		let zero = new Decimal(0), one = new Decimal(1);
         player.hydra.backupHydra = this.backupHydra();
         for (const id2 of ([['61R','62R','63R','64R','65R','66R','67R','68R'],Object.keys(Hydra.upgrades)] as const).flat()) {
@@ -40,6 +46,7 @@ export const Dilute = {
         else {
             console.warn("Cannot found restore datas")
         }
+        player.hydra.dilute.inDilute = false;
 		if(this.solutionGain() > player.hydra.dilute.solution)
 		{
 		  return //效果都没做完
@@ -47,7 +54,6 @@ export const Dilute = {
 			player.hydra.dilute.lastSolvent = player.hydra.dilute.solvent;
 			player.hydra.dilute.lastDeduce = player.hydra.deduceOrdinal[0];
 		}
-        player.hydra.dilute.inDilute = false;
     },
 	backupHydra(): backupHydraType {
 		let items: ((`${IntClosedRange<61,69>}R`)|keyof typeof Hydra.upgrades)[] = [];
@@ -147,7 +153,7 @@ export const Dilute = {
 推演速度ok和乘数积累速度ok变为5^(-此溶剂等级)
 溶剂II:阿兹海默症
 “你变得越来越健忘......”
-所有升级成本×5^此溶剂等级none
+所有升级成本×5^此溶剂等级ok
 溶剂III:地球爆炸
 “地球很快就要爆炸了，更糟的是你没有宇宙飞船......”
 选择本溶剂的稀释会在(1000/稀释等级^2)秒内自我毁灭(即强行退出稀释)none
@@ -163,7 +169,7 @@ f(x)=g(x)=√x
 此溶剂中会不断产生朊病毒none，生成量为((1+溶剂等级/100)^稀释中时间)-1，朊病毒在获取的总推演数量超过10,000时开始生成，当朊病毒数量超过稀释中获取的总推演数量时此稀释将会自我毁灭
 溶剂VI:核食惊魂
 “他摸着女儿的第二个头说:海鲜当然能吃！”
-推演速度^(1-0.1×溶剂等级)none
+推演速度^(1-0.1×溶剂等级)ok
 溶剂VII:天堂已满
 “你发现天上那些黑点不是雨，而是坠落的人类。”
 转生，飞升，超越，轮回全部无效none(此溶剂没有等级，只有开启和不开启)
