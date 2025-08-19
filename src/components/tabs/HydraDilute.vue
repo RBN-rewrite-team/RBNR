@@ -40,9 +40,8 @@ const sliderProps2 = {
 </script>
 
 <template>
-  该界面未完成！<br>
-  你有<b style="color: red; font-size: 2em">{{formatWhole(getCurrentSolution())}}</b>九头蛇溶液<br><br>
-  <div class="container">
+  你有<b style="color: red; font-size: 30px">{{format(getCurrentSolution())}}</b>九头蛇溶液<br><br>
+  <div class="container" style="transform: translateY(-10px)">
     <div class="dilute">
       至少选择任何一项溶剂并提升它的等级以进入稀释<br>
       <button class="dilute-button" @click="Dilute.diluteButton">
@@ -50,14 +49,16 @@ const sliderProps2 = {
       </button><br>
       进入稀释，你将重新开始第五层的进度并遭受你所选择的削弱，作为奖励，你可以获得九头蛇溶液。<br>
       选用的削弱等级对九头蛇溶液的获取量影响较大，稀释中的进度对九头蛇溶液的获取量影响较小。<br>
-      你在{{JSON.stringify(player.hydra.dilute.lastSolvent.map(Number))}}中最高达到了{{formatWhole(player.hydra.dilute.lastDeduce)}}次推演，这给你带来了{{formatWhole(player.hydra.dilute.solution)}}九头蛇溶液
+      你在{{JSON.stringify(player.hydra.dilute.lastSolvent.map(Number))}}中最高达到了{{formatWhole(player.hydra.dilute.lastDeduce)}}次推演，这给你带来了{{format(player.hydra.dilute.solution)}}九头蛇溶液
     </div>
     <div class="solvents">
-        <div class="solvent">
+		<table>
+		<tbody>
+		<tr><td><div class="solvent" style="border-color: rgb(255, 0, 0)">
             <div>
                 <div>溶剂I: 时空黑洞</div>
                 <div class="solvent-desc-small">“虽然这很不幸，但至少你能用自己比别人活得久的事实来安慰自己。”</div>
-                <div>推演速度和乘数积累速度变为<sup>1</sup>/<sub>{{ 2** player.hydra.dilute.solvent[0] }}</sub></div>
+                <div>推演速度和乘数积累速度变为<sup>1</sup>/<sub>{{ 5** player.hydra.dilute.solvent[0] }}</sub></div>
                 <Slider
                 v-bind="sliderProps"
                 :value="player.hydra.dilute.solvent[0]"
@@ -66,12 +67,12 @@ const sliderProps2 = {
                 @input="player.hydra.dilute.solvent[0] = $event"
                 />
             </div>
-        </div>
-        <div class="solvent">
+        </div></td>
+        <td><div class="solvent" style="border-color: rgb(255, 0, 0)">
             <div>
                 <div>溶剂II: 阿兹海默症</div>
                 <div class="solvent-desc-small">“你变得越来越健忘......”</div>
-                <div>所有升级成本×{{ 5** player.hydra.dilute.solvent[1] }}</div>
+                <div>所有升级成本^{{ 4 - 3 * 0.75 ** player.hydra.dilute.solvent[1] }}</div>
                 <Slider
                 v-bind="sliderProps"
                 :value="player.hydra.dilute.solvent[1]"
@@ -80,8 +81,8 @@ const sliderProps2 = {
                 @input="player.hydra.dilute.solvent[1] = $event"
                 />
             </div>
-        </div>
-        <div class="solvent">
+        </div></td>
+        <td><div class="solvent" style="border-color: rgb(255, 0, 0)">
             <div>
                 <div>溶剂III: 地球爆炸</div>
                 <div class="solvent-desc-small">“地球很快就要爆炸了，更糟的是你没有宇宙飞船......”</div>
@@ -96,8 +97,8 @@ const sliderProps2 = {
                 @input="player.hydra.dilute.solvent[2] = $event"
                 />
             </div>
-        </div>
-        <div class="solvent">
+        </div></td></tr><tr>
+        <td><div class="solvent" style="border-color: rgb(127, 0, 0)">
             <div>
                 <div>溶剂IV: 数论地狱</div>
                 <div class="solvent-desc-small">“数学家的最新研究打开了地狱的大门.....”</div>
@@ -110,12 +111,12 @@ const sliderProps2 = {
                 @input="player.hydra.dilute.solvent[3] = $event"
                 />
             </div>
-        </div>
-        <div class="solvent">
+        </div></td>
+        <td><div class="solvent" style="border-color: rgb(127, 0, 0)">
             <div>
                 <div>溶剂V: 朊病毒噩梦</div>
                 <div class="solvent-desc-small">“脲¤1-2~~~.2-_/T~/5个 --”</div>
-                <div>此溶剂中会不断产生朊病毒，生成量为({{ (1+player.hydra.dilute.solvent[4]/100).toFixed(4) }}^稀释中时间)-1，<br />
+                <div style="font-size: 60%">此溶剂中会不断产生朊病毒，生成量为({{ (1+player.hydra.dilute.solvent[4]/100).toFixed(4) }}^稀释中时间)-1，<br />
                   朊病毒在获取的总推演数量超过10,000时开始生成，<br />
                   当朊病毒数量超过稀释中获取的总推演数量时此稀释将会自我毁灭</div>
                 <Slider
@@ -126,8 +127,8 @@ const sliderProps2 = {
                 @input="player.hydra.dilute.solvent[4] = $event"
                 />
             </div>
-        </div>
-        <div class="solvent">
+        </div></td>
+        <td><div class="solvent" style="border-color: rgb(127, 0, 0)">
             <div>
                 <div>溶剂VI：核食惊魂</div>
                 <div class="solvent-desc-small">“他摸着女儿的第二个头说:海鲜当然能吃！”</div>
@@ -140,8 +141,8 @@ const sliderProps2 = {
                 @input="player.hydra.dilute.solvent[5] = $event"
                 />
             </div>
-        </div>
-        <div class="solvent">
+        </div></td></tr><tr>
+        <td><div class="solvent" style="border-color: rgb(63, 0, 63)">
             <div>
                 <div>溶剂VII:天堂已满</div>
                 <div class="solvent-desc-small">“你发现天上那些黑点不是雨，而是坠落的人类。”</div>
@@ -154,8 +155,8 @@ const sliderProps2 = {
                 @input="player.hydra.dilute.solvent[6] = !!$event"
                 />
             </div>
-        </div>
-        <div class="solvent">
+        </div></td>
+        <td><div class="solvent" style="border-color: rgb(63, 0, 63)">
             <div>
                 <div>溶剂VIII:坠毁</div>
                 <div class="solvent-desc-small">“试图升天的人类迎来了自己的末日。”</div>
@@ -168,8 +169,8 @@ const sliderProps2 = {
                 @input="player.hydra.dilute.solvent[7] = !!$event"
                 />
             </div>
-        </div>
-        <div class="solvent">
+        </div></td>
+        <td><div class="solvent" style="border-color: rgb(63, 0, 63)">
             <div>
                 <div>溶剂IX:天启</div>
                 <div class="solvent-desc-small">“晚安，世界。”</div>
@@ -182,7 +183,10 @@ const sliderProps2 = {
                 @input="player.hydra.dilute.solvent[8] = !!$event"
                 />
             </div>
-        </div>
+        </div></td>
+		</tr>
+		</tbody>
+		</table>
     </div>
     
   </div>
@@ -232,6 +236,8 @@ const sliderProps2 = {
   flex-direction: column;
   justify-content: center;
   width: 300px;
+  height: 200px;
+  border: 2px solid;
 }
 .solvent-desc-small{
     font-size: small;

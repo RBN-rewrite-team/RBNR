@@ -14,6 +14,7 @@ export type backupHydraType = {
 export const Dilute = {
 	enterDilute() {
         if(player.hydra.dilute.solvent.map((x)=>Number(x)).reduce((x,y)=>x+y)<1) return;
+		let zero = new Decimal(0), one = new Decimal(1);
         player.hydra.backupHydra = this.backupHydra();
         for (const id2 of ([['61R','62R','63R','64R','65R','66R','67R','68R'],Object.keys(Hydra.upgrades)] as const).flat()) {
             if (id2!=="61")
@@ -21,10 +22,10 @@ export const Dilute = {
         }
         for (const id2 of Object.keys(Hydra.buyables)) {
             const id = id2 as keyof typeof Hydra.buyables
-            player.buyables[id] = new Decimal(0);
+            player.buyables[id] = zero;
 		}for (const id2 of ['61R','62R']) {
             const id = id2 as keyof typeof Hydra.buyables
-            player.buyables[id] = new Decimal(0);
+            player.buyables[id] = zero;
 		}
 		    
 		    let zero = new Decimal(0);
@@ -33,7 +34,6 @@ export const Dilute = {
 		    player.hydra.prestige = [zero, zero, zero, zero]
 		    player.hydra.powerMult = [new Decimal(1), new Decimal(1), new Decimal(1), new Decimal(1)]
 		    player.hydra.power = zero
-        
         player.hydra.dilute.inDilute = true;
     },
     exitDilute() {
@@ -42,6 +42,12 @@ export const Dilute = {
         else {
             console.warn("Cannot found restore datas")
         }
+		if(this.solutionGain() > player.hydra.dilute.solution)
+		{
+			player.hydra.dilute.solution = Math.max(player.hydra.dilute.solution, this.solutionGain());
+			player.hydra.dilute.lastSolvent = player.hydra.dilute.solvent;
+			player.hydra.dilute.lastDeduce = player.hydra.deduceOrdinal[0];
+		}
         player.hydra.dilute.inDilute = false;
     },
 	backupHydra(): backupHydraType {
@@ -114,7 +120,8 @@ export const Dilute = {
      * 溶剂数量，在稀释未开启时会设置为falsy
      * @returns 
      */
-    diluteAmount(id: IntClosedRange<0,8>): number | boolean {
+    diluteAmount(id: number): number | boolean {
+		if(id < 0 || id > 8) return false;
         if (!player.hydra.dilute.inDilute) return id < 6 ? 0 : false
         if (player.hydra.dilute.solvent[8]) {
             return id < 6 ? 10 : true
@@ -128,16 +135,16 @@ export const Dilute = {
         if (effectiveDilute[6]) base *= 2
         if (effectiveDilute[7]) base *= 3
         if (effectiveDilute[8]) base *= 10
-        let deduceMult = player.hydra.deduceOrdinal[0].ln().min(4.99359204e304).toNumber();
+        let deduceMult = player.hydra.deduceOrdinal[0].add(1).ln().min(4.99359204e304).toNumber();
         return deduceMult * base
     }
 };
 
 /**
  * TODO dilute list:
- * 溶剂I:时空黑洞
+ * 溶剂I:时空黑洞(ok)
 “虽然这很不幸，但至少你能用自己比别人活得久的事实来安慰自己。”
-推演速度ok和乘数积累速度none变为2^(-此溶剂等级)
+推演速度ok和乘数积累速度ok变为5^(-此溶剂等级)
 溶剂II:阿兹海默症
 “你变得越来越健忘......”
 所有升级成本×5^此溶剂等级none
