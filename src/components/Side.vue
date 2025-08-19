@@ -181,6 +181,14 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 						>
 							九头蛇引擎
 						</div>
+						<div
+							class="menu2"
+							:class="{ focus: player.currentTab == 20 }"
+							@click="player.currentTab = 20"
+							v-if="player.upgrades['69R']"
+						>
+							稀释
+						</div>
 					</template>
 					<div class="menu1">杂项</div>
 					<div class="menu_line"></div>
