@@ -296,6 +296,7 @@ setInterval(function () {
 .container {
 	display: flex;
 	justify-content: center;
+	margin-top: 20px;
 }
 
 .dilute {
@@ -305,7 +306,7 @@ setInterval(function () {
 	border: 1px solid red;
 	color: red;
 	text-align: center;
-	margin-right: 50px;
+	margin-right: 20px;
 	padding: 10px;
 }
 
