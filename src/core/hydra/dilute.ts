@@ -130,7 +130,7 @@ export const Dilute = {
         let effectiveDilute = Array(9).fill(null).map((_, index) => this.diluteAmount(index))
         let base = 0;
 		let eb = effectiveDilute.slice(0, 6);
-		for(let i = 0;i < 6;i++) base += eb[i] ** 2;
+		for(let i = 0;i < 6;i++) base += Number(eb[i]) ** 2;
         if (effectiveDilute[6]) base *= 2
         if (effectiveDilute[7]) base *= 3
         if (effectiveDilute[8]) base *= 10
