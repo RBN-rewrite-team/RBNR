@@ -213,7 +213,11 @@ export const Hydra = {
 		'611': new (class B611 extends Buyable<Decimal> {
 			description = 'BMS推演速度×+1';
 			cost(x: Decimal): Decimal {
-				return new Decimal(10).mul(x.pow_base(1.15));
+				let cost = new Decimal(10).mul(x.pow_base(1.15));
+				if (player.hydra.dilute.inDilute) {
+	        cost = cost.pow(4 - 3 * 0.75 ** Dilute.diluteAmount(1))
+	      }
+	      return cost
 			}
 			name = 'B5-1-1';
 			effect(x: Decimal): Decimal {
@@ -230,7 +234,9 @@ export const Hydra = {
 				return false;
 			}
 			costInverse(x: Decimal): Decimal {
-				return x.div(10).max(1).log(1.15).add(1).max(99).floor();
+			  let expReduce = new Decimal(1);
+			  if (player.hydra.dilute.inDilute) expReduce = expReduce.mul(4 - 3 * 0.75 ** Dilute.diluteAmount(1))
+				return x.root(expReduce).div(10).max(1).log(1.15).add(1).max(99).floor();
 			}
 			capped(x: Decimal): boolean {
 				return x.add(this.more()).gte(99);
@@ -241,6 +247,9 @@ export const Hydra = {
 			cost(x: Decimal): Decimal {
 				let base = new Decimal(10000).mul(x.pow(2).pow_base(1.05));
 				if (player.upgrades[6110]) base = base.pow(upgrades[6110].effect());
+				if (player.hydra.dilute.inDilute) {
+	        base = base.pow(4 - 3 * 0.75 ** Dilute.diluteAmount(1))
+	      }
 				return base;
 			}
 			name = 'B5-1-2';
@@ -265,6 +274,7 @@ export const Hydra = {
 			}
 			costInverse(x: Decimal): Decimal {
 				let expReduce = new Decimal(1);
+			  if (player.hydra.dilute.inDilute) expReduce = expReduce.mul(4 - 3 * 0.75 ** Dilute.diluteAmount(1))
 				if (player.upgrades[6110]) expReduce = expReduce.pow(upgrades[6110].effect());
 				return x.root(expReduce).div(10000).max(1).log(1.05).root(2).add(1).floor();
 			}
@@ -279,6 +289,9 @@ export const Hydra = {
 			cost(x: Decimal): Decimal {
 				let base = new Decimal(1e8).mul(x.pow(2.5).pow_base(1.02));
 				if (player.upgrades[6110]) base = base.pow(upgrades[6110].effect());
+				if (player.hydra.dilute.inDilute) {
+	        base = base.pow(4 - 3 * 0.75 ** Dilute.diluteAmount(1))
+	      }
 				return base;
 			}
 			name = 'B5-1-3';
@@ -301,6 +314,7 @@ export const Hydra = {
 			costInverse(x: Decimal): Decimal {
 				let expReduce = new Decimal(1);
 				if (player.upgrades[6110]) expReduce = expReduce.pow(upgrades[6110].effect());
+			  if (player.hydra.dilute.inDilute) expReduce = expReduce.mul(4 - 3 * 0.75 ** Dilute.diluteAmount(1))
 				return x.root(expReduce).div(1e8).max(1).log(1.02).root(2.5).add(1).floor();
 			}
 		})(),
@@ -309,6 +323,9 @@ export const Hydra = {
 			cost(x: Decimal): Decimal {
 				let base = new Decimal('1e875').mul(x.pow(2.35).pow_base(1e20));
 				if (player.upgrades[6110]) base = base.pow(upgrades[6110].effect());
+				if (player.hydra.dilute.inDilute) {
+	        base = base.pow(4 - 3 * 0.75 ** Dilute.diluteAmount(1))
+	      }
 				return base;
 			}
 			name = 'B5-1-4';
@@ -331,6 +348,7 @@ export const Hydra = {
 			costInverse(x: Decimal): Decimal {
 				let expReduce = new Decimal(1);
 				if (player.upgrades[6110]) expReduce = expReduce.pow(upgrades[6110].effect());
+			  if (player.hydra.dilute.inDilute) expReduce = expReduce.mul(4 - 3 * 0.75 ** Dilute.diluteAmount(1))
 				return x.root(expReduce).div('1e900').max(1).log(1e20).root(2.5).add(1).floor();
 			}
 		})(),
@@ -343,7 +361,7 @@ export const Hydra = {
 		if (i == 0) base = base.mul(buyables[611].effect(player.buyables[611]));
 		if (player.upgrades[612]) base = base.mul(2);
 		base = base.mul(Hydra.prestigeEff(0));
-		if (player.upgrades[65]) base = base.mul(Hydra.NT4TauEffect());
+		if (Dilute.diluteAmount(3) > 0 || player.upgrades[65]) base = base.mul(Hydra.NT4TauEffect());
 		if (player.buyables['62R'].gte(1))
 			base = base.mul(buyables['62R'].effect(player.buyables['62R']));
 
@@ -614,6 +632,7 @@ export const Hydra = {
 	NT4TauEffect() {
 		let eff = feature.OrdinalNT.varComputed('tau', 4);
 		if (player.upgrades['64R']) eff = eff.pow(10);
+		if (Dilute.diluteAmount(3) > 0) eff = eff.recip();
 		return eff;
 	},
 };

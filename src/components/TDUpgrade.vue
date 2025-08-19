@@ -4,12 +4,15 @@ import { Logarithm } from '@/core/exponention/logarithm';
 import { buyables, upgrades, UPGRADES } from '@/core/mechanic';
 import { player } from '@/core/save';
 import { feature } from '@/core/global';
+import { Upgrade } from '@/core/upgrade';
 import { OrdinalUtils } from '@/utils/ordinal';
 import { UpgradeWithEffect } from '@/core/upgrade';
 import { format } from '@/utils/format';
 import type Decimal from 'break_eternity.js';
 import { countdown } from '@/core/countdown-display';
 import { ORDINAL } from '@/core/ordinal/ordinal';
+import { Dilute } from '@/core/hydra/dilute';
+
 const props = defineProps<{
 	upgid: keyof typeof upgrades;
 }>();
@@ -34,6 +37,14 @@ function useClass() {
 const curupg = upgrades[id];
 const permanent = curupg.keep != null && curupg.keep();
 const req = curupg.requirements();
+
+function actualCost(curupg: Upgrade) {
+  let cost = typeof curupg.cost === 'function' ? curupg.cost() : curupg.cost
+  if (player.hydra.dilute.inDilute) {
+	  cost = cost.pow(4 - 3 * 0.75 ** Dilute.diluteAmount(1))
+	}
+	return cost
+}
 </script>
 
 <template>
@@ -76,7 +87,7 @@ const req = curupg.requirements();
 						v-if="curupg.ordinal"
 						v-html="
 							OrdinalUtils.numberToOrdinal(
-								typeof curupg.cost === 'function' ? curupg.cost() : curupg.cost,
+								actualCost(curupg),
 								feature.Ordinal.base(),
 							) + currencyName(curupg.currency)
 						"
@@ -84,7 +95,7 @@ const req = curupg.requirements();
 						v-else
 						v-html="
 							format(
-								typeof curupg.cost === 'function' ? curupg.cost() : curupg.cost,
+								actualCost(curupg),
 							) + currencyName(curupg.currency)
 						"
 					/>

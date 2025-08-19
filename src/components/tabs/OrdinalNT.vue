@@ -9,6 +9,7 @@ import TDBuyable from '../TDBuyable.vue';
 import Decimal from 'break_eternity.js';
 import { OrdinalUtils } from '@/utils/ordinal';
 import { Ordinal } from '@/lib/ordinal';
+import { Dilute } from '@/core/hydra/dilute';
 
 function varGainLatex(id = 'x', layer = 3) {
 	let exp = OrdinalNT.varExp(id, layer);
@@ -22,12 +23,14 @@ function _f() {
 }
 
 function f() {
+  if (Dilute.diluteAmount(3) > 0) return "\\sqrt{x}"
 	let exp = OrdinalNT.functionL4exp('f');
 	if (exp.neq(1)) return `(${_f()})^${formatLaTeX(exp)}`;
 	else return _f();
 }
 
 function g() {
+  if (Dilute.diluteAmount(3) > 0) return "\\sqrt{x}"
 	let exp = OrdinalNT.functionL4exp('g');
 	if (exp.neq(1)) return `(${_g()})^${formatLaTeX(exp)}`;
 	else return _g();
@@ -163,16 +166,28 @@ function _g() {
 					>嗯？这是什么研究，我怎么不知道？之前有人来过这里吗？</span
 				>
 			</div>
-			<div v-if="player.upgrades[65] && player.numbertheory.visiting == 4">
+			<div v-if="player.upgrades['69R'] || player.upgrades[65] && player.numbertheory.visiting == 4">
 				<h2>增长模式</h2>
-				τ<sub>4</sub>增益BMS推演和U5-2的速度<br />
+				τ<sub>4</sub>{{ Dilute.diluteAmount(3) <= 0 ? "增" : "减"}}益BMS推演和U5-2的速度<br />
 				<vue-latex
 					:expression="`\\dot{x_4} = a\\cdot f\\left(\\prod_{n = 1}^${feature.Hydra.pMaxUnlock()}e_n+1\\right) = ${formatLaTeX(OrdinalNT.varGain('x', 4))}`"
 					display-mode
+					v-if="Dilute.diluteAmount(3) <= 0"
+				/>
+				<vue-latex
+					:expression="`\\dot{x_4} = f\\left(t_{\\text{稀释}}\\right)^{${format(Dilute.diluteAmount(3))}} = ${formatLaTeX(OrdinalNT.varGain('x', 4))}`"
+					display-mode
+					v-else
 				/>
 				<vue-latex
 					:expression="`\\tau_4 = g(x_4+10) = ${format(OrdinalNT.varComputed('tau', 4))}`"
 					display-mode
+					v-if="Dilute.diluteAmount(3) <= 0"
+				/>
+				<vue-latex
+					:expression="`\\tau_4 = g(x_4+1) = ${format(OrdinalNT.varComputed('tau', 4))}`"
+					display-mode
+					v-else
 				/>
 				<vue-latex :expression="`f(x) = ${f()}`" display-mode />
 				<vue-latex :expression="`g(x) = ${g()}`" display-mode />
@@ -187,17 +202,17 @@ function _g() {
 				价格对应资源为x<sub>4</sub>, τ<sub>4</sub>的购买项/升级不消耗任何东西。
 				<table align="center">
 					<tbody>
-						<tr>
+						<tr v-if="Dilute.diluteAmount(3) <= 0">
 							<TDBuyable bylid="61R" />
 							<TDBuyable bylid="62R" />
 						</tr>
-						<tr>
+						<tr v-if="Dilute.diluteAmount(3) <= 0">
 							<TDUpgrade upgid="61R" />
 							<TDUpgrade upgid="62R" />
 							<TDUpgrade upgid="63R" />
 							<TDUpgrade upgid="64R" />
 						</tr>
-						<tr>
+						<tr v-if="Dilute.diluteAmount(3) <= 0">
 							<TDUpgrade upgid="65R" />
 							<TDUpgrade upgid="66R" />
 							<TDUpgrade upgid="67R" />

@@ -9,7 +9,16 @@ export type backupHydraType = {
     upgrades: ((`${IntClosedRange<61,69>}R`)|keyof typeof Hydra.upgrades)[];
     buyables: Partial<Record<"61R" | "62R" | "611" | "612" | "613" | "614", Decimal>>;
     prestiges: Decimal[];
+    totalPower: Decimal
 }
+
+export function diluteAmount(id: IntClosedRange<0,8>): number | boolean {
+        if (!player.hydra.dilute.inDilute) return id < 6 ? 0 : false
+        if (player.hydra.dilute.solvent[8]) {
+            return id < 6 ? 10 : true
+        };
+        return player.hydra.dilute.solvent[id];
+    }
 
 export const Dilute = {
 	enterDilute() {
@@ -29,9 +38,12 @@ export const Dilute = {
 		}
         player.hydra.prestige = [zero, zero, zero, zero];
         player.hydra.power = zero;
+        player.hydra.totalPower = zero;
 		player.hydra.deduceOrdinal = [zero, zero, zero, zero];
 		player.hydra.deduceProgress = [zero, zero, zero, zero];
 		player.hydra.powerMult = [one, one, one, one];
+		player.hydra.dilute.spentTime = 0;
+		player.numbertheory.GM.x = zero
         player.hydra.dilute.inDilute = true;
     },
     exitDilute() {
@@ -40,13 +52,13 @@ export const Dilute = {
         else {
             console.warn("Cannot found restore datas")
         }
-		if(this.solutionGain() > player.hydra.dilute.solution)
+		if(false && this.solutionGain() > player.hydra.dilute.solution)
 		{
-		  return //效果都没做完
 			player.hydra.dilute.solution = Math.max(player.hydra.dilute.solution, this.solutionGain());
 			player.hydra.dilute.lastSolvent = player.hydra.dilute.solvent;
 			player.hydra.dilute.lastDeduce = player.hydra.deduceOrdinal[0];
 		}
+		    player.hydra.dilute.spentTime = 0;
         player.hydra.dilute.inDilute = false;
     },
 	backupHydra(): backupHydraType {
@@ -80,7 +92,8 @@ export const Dilute = {
         return {
             upgrades: items,
             buyables: items2,
-            prestiges
+            prestiges,
+            totalPower: player.hydra.totalPower
         }
 	},
     restoreHydra(item: backupHydraType) {
@@ -89,12 +102,13 @@ export const Dilute = {
         }
         for (const id2 in item.buyables) {
             const id = id2 as keyof typeof item.buyables
-            player.buyables[id] = item.buyables[id] ?? new Decimal(0);
+            player.buyables[id] = new Decimal(item.buyables[id]) ?? new Decimal(0);
         }
-        player.hydra.prestige[0] = item.prestiges[0]
-        player.hydra.prestige[1] = item.prestiges[1]
-        player.hydra.prestige[2] = item.prestiges[2]
-        player.hydra.prestige[3] = item.prestiges[3]
+        player.hydra.prestige[0] = new Decimal(item.prestiges[0])
+        player.hydra.prestige[1] = new Decimal(item.prestiges[1])
+        player.hydra.prestige[2] = new Decimal(item.prestiges[2])
+        player.hydra.prestige[3] = new Decimal(item.prestiges[3])
+        player.hydra.totalPower = new Decimal(item.totalPower)
     },
     diluteButton() {
         if (!import.meta.env.DEV) {
@@ -112,16 +126,19 @@ export const Dilute = {
     },
     diluteLoop() {
         if (player.hydra.dilute.inDilute){
-            player.hydra.dilute.spentTime = player.hydra.dilute.spentTime+diff
+          let s3Eff = (1000/(player.hydra.dilute.solvent[2]**2));
+          player.hydra.dilute.spentTime = player.hydra.dilute.spentTime+diff/1000
+          if (player.hydra.dilute.spentTime > s3Eff) this.exitDilute()
         }
     },
     /**
      * 溶剂数量，在稀释未开启时会设置为falsy
      * @returns 
      */
-    diluteAmount(id: number): number | boolean {
-		if(id < 0 || id > 8) return false;
-        if (!player.hydra.dilute.inDilute) return id < 6 ? 0 : false
+    diluteAmount(id: IntClosedRange<0,8>): number | boolean {
+        return diluteAmount(id)
+    },
+    diluteAmountOutside(id: IntClosedRange<0,8>): number | boolean {
         if (player.hydra.dilute.solvent[8]) {
             return id < 6 ? 10 : true
         };
@@ -130,8 +147,8 @@ export const Dilute = {
     solutionGain() {
         let effectiveDilute = Array(9).fill(null).map((_, index) => this.diluteAmount(index))
         let base = 0;
-		let eb = effectiveDilute.slice(0, 6);
-		for(let i = 0;i < 6;i++) base += Number(eb[i]) ** 2;
+		    let eb = effectiveDilute.slice(0, 6);
+		    for(let i = 0;i < 6;i++) base += Number(eb[i]) ** 2;
         if (effectiveDilute[6]) base *= 2
         if (effectiveDilute[7]) base *= 3
         if (effectiveDilute[8]) base *= 10
@@ -139,6 +156,7 @@ export const Dilute = {
         return deduceMult * base
     }
 };
+
 
 /**
  * TODO dilute list:

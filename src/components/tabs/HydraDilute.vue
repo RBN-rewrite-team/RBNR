@@ -3,6 +3,7 @@ import { player, feature } from "../../core/global.ts"
 import { format, formatWhole } from '@/utils/format';
 import Slider from "../Slider.vue"
 import { Dilute } from "@/core/hydra/dilute.ts";
+import { computed } from "vue"
 
 function getCurrentSolution() {
   return player.hydra.dilute.solution;
@@ -37,6 +38,22 @@ const sliderProps2 = {
     "margin-top": "1rem"
   }
 }
+
+const canChangeLevel = computed(() => {
+  return player.hydra.dilute.inDilute || player.hydra.dilute.solvent[8]
+})
+
+function switchSolvent9(event) {
+  player.hydra.dilute.solvent[8] = !!event;
+  if (event == 1) {
+    for (let i = 0; i < 6; i++) player.hydra.dilute.solvent[i] = 10
+    for (let i = 6; i < 9; i++) player.hydra.dilute.solvent[i] = true
+  }
+}
+
+setInterval(function(){
+  $forceUpdate();
+},40)
 </script>
 
 <template>
@@ -52,18 +69,19 @@ const sliderProps2 = {
       你在{{JSON.stringify(player.hydra.dilute.lastSolvent.map(Number))}}中最高达到了{{formatWhole(player.hydra.dilute.lastDeduce)}}次推演，这给你带来了{{format(player.hydra.dilute.solution)}}九头蛇溶液
     </div>
     <div class="solvents">
+      溶剂等级之和使你的推演速度变为<sup>1</sup>/<sub>{{(player.hydra.dilute.solvent.slice(0, 6) as number[]).reduce((total, num) => total + num, 1) ** 2}}</sub>
 		<table>
 		<tbody>
 		<tr><td><div class="solvent" style="border-color: rgb(255, 0, 0)">
             <div>
                 <div>溶剂I: 时空黑洞</div>
                 <div class="solvent-desc-small">“虽然这很不幸，但至少你能用自己比别人活得久的事实来安慰自己。”</div>
-                <div>推演速度和乘数积累速度变为<sup>1</sup>/<sub>{{ 5** player.hydra.dilute.solvent[0] }}</sub></div>
+                <div>推演速度和乘数积累速度变为<sup>1</sup>/<sub>{{ 5** Dilute.diluteAmountOutside(0) }}</sub></div>
                 <Slider
                 v-bind="sliderProps"
                 :value="player.hydra.dilute.solvent[0]"
                 :width="'100%'"
-                :disabled="player.hydra.dilute.inDilute"
+                :disabled="canChangeLevel"
                 @input="player.hydra.dilute.solvent[0] = $event"
                 />
             </div>
@@ -72,12 +90,12 @@ const sliderProps2 = {
             <div>
                 <div>溶剂II: 阿兹海默症</div>
                 <div class="solvent-desc-small">“你变得越来越健忘......”</div>
-                <div>所有升级成本^{{ 4 - 3 * 0.75 ** player.hydra.dilute.solvent[1] }}</div>
+                <div>所有升级、购买项成本^{{ format(4 - 3 * 0.75 ** Dilute.diluteAmountOutside(1)) }}</div>
                 <Slider
                 v-bind="sliderProps"
                 :value="player.hydra.dilute.solvent[1]"
                 :width="'100%'"
-                :disabled="player.hydra.dilute.inDilute"
+                :disabled="canChangeLevel"
                 @input="player.hydra.dilute.solvent[1] = $event"
                 />
             </div>
@@ -87,13 +105,13 @@ const sliderProps2 = {
                 <div>溶剂III: 地球爆炸</div>
                 <div class="solvent-desc-small">“地球很快就要爆炸了，更糟的是你没有宇宙飞船......”</div>
                 <div>选择本溶剂的稀释会在{{
-                (()=>{let a = (1000/(player.hydra.dilute.solvent[2]**2)); return !isFinite(a) ? "无穷时间" : (a.toFixed(3)+"秒");})()
+                (()=>{let a = (1000/(Dilute.diluteAmountOutside(2)**2)); return !isFinite(a) ? "无穷时间" : (a.toFixed(3)+"秒");})()
                 }}内自我毁灭(即强行退出稀释)</div>
                 <Slider
                 v-bind="sliderProps"
                 :value="player.hydra.dilute.solvent[2]"
                 :width="'100%'"
-                :disabled="player.hydra.dilute.inDilute"
+                :disabled="canChangeLevel"
                 @input="player.hydra.dilute.solvent[2] = $event"
                 />
             </div>
@@ -102,12 +120,12 @@ const sliderProps2 = {
             <div>
                 <div>溶剂IV: 数论地狱</div>
                 <div class="solvent-desc-small">“数学家的最新研究打开了地狱的大门.....”</div>
-                <div>数论研究选项卡下的数论研究4变成反向数论研究4</div>
+                <div>数论研究选项卡下的数论研究4效果反转</div>
                 <Slider
                 v-bind="sliderProps"
                 :value="player.hydra.dilute.solvent[3]"
                 :width="'100%'"
-                :disabled="player.hydra.dilute.inDilute"
+                :disabled="canChangeLevel"
                 @input="player.hydra.dilute.solvent[3] = $event"
                 />
             </div>
@@ -116,14 +134,14 @@ const sliderProps2 = {
             <div>
                 <div>溶剂V: 朊病毒噩梦</div>
                 <div class="solvent-desc-small">“脲¤1-2~~~.2-_/T~/5个 --”</div>
-                <div style="font-size: 60%">此溶剂中会不断产生朊病毒，生成量为({{ (1+player.hydra.dilute.solvent[4]/100).toFixed(4) }}^稀释中时间)-1，<br />
+                <div style="font-size: 60%">此溶剂中会不断产生朊病毒，生成量为({{ (1+Dilute.diluteAmountOutside(4)/100).toFixed(4) }}^稀释中时间)-1，<br />
                   朊病毒在获取的总推演数量超过10,000时开始生成，<br />
                   当朊病毒数量超过稀释中获取的总推演数量时此稀释将会自我毁灭</div>
                 <Slider
                 v-bind="sliderProps"
                 :value="player.hydra.dilute.solvent[4]"
                 :width="'100%'"
-                :disabled="player.hydra.dilute.inDilute"
+                :disabled="canChangeLevel"
                 @input="player.hydra.dilute.solvent[4] = $event"
                 />
             </div>
@@ -132,12 +150,12 @@ const sliderProps2 = {
             <div>
                 <div>溶剂VI：核食惊魂</div>
                 <div class="solvent-desc-small">“他摸着女儿的第二个头说:海鲜当然能吃！”</div>
-                <div>推演速度^{{(player.hydra.dilute.solvent[5]*-0.1+1).toFixed(1)}}</div>
+                <div>推演速度^{{(Dilute.diluteAmountOutside(5)*-0.1+1).toFixed(1)}}(在其它乘数削弱效果之前)</div>
                 <Slider
                 v-bind="sliderProps"
                 :value="player.hydra.dilute.solvent[5]"
                 :width="'100%'"
-                :disabled="player.hydra.dilute.inDilute"
+                :disabled="canChangeLevel"
                 @input="player.hydra.dilute.solvent[5] = $event"
                 />
             </div>
@@ -151,7 +169,7 @@ const sliderProps2 = {
                 v-bind="sliderProps2"
                 :value="Number(player.hydra.dilute.solvent[6])"
                 :width="'100%'"
-                :disabled="player.hydra.dilute.inDilute"
+                :disabled="canChangeLevel"
                 @input="player.hydra.dilute.solvent[6] = !!$event"
                 />
             </div>
@@ -165,7 +183,7 @@ const sliderProps2 = {
                 v-bind="sliderProps2"
                 :value="Number(player.hydra.dilute.solvent[7])"
                 :width="'100%'"
-                :disabled="player.hydra.dilute.inDilute"
+                :disabled="canChangeLevel"
                 @input="player.hydra.dilute.solvent[7] = !!$event"
                 />
             </div>
@@ -180,7 +198,7 @@ const sliderProps2 = {
                 :value="Number(player.hydra.dilute.solvent[8])"
                 :width="'100%'"
                 :disabled="player.hydra.dilute.inDilute"
-                @input="player.hydra.dilute.solvent[8] = !!$event"
+                @input="switchSolvent9"
                 />
             </div>
         </div></td>
