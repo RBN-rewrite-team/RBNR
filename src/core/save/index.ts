@@ -161,6 +161,7 @@ export interface Player {
 			solution: number;
 			lastDeduce: Decimal;
 			prionsTime: number;
+			solute: Decimal;
 		};
 	};
 }
@@ -479,6 +480,7 @@ function getInitialPlayerData(): Player {
 				spentTime: 0,
 				prionsTime: 0,
 				solution: 0,
+				solute: zero,
 			},
 		},
 	};

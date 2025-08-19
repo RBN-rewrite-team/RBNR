@@ -73,16 +73,19 @@ export const Dilute = {
 			console.warn('Cannot found restore datas');
 		}
 		if (this.solutionGain() > player.hydra.dilute.solution) {
-			player.hydra.dilute.solution = Math.max(
-				player.hydra.dilute.solution,
-				this.solutionGain(),
-			);
-			player.hydra.dilute.lastSolvent = player.hydra.dilute.solvent;
-			player.hydra.dilute.lastDeduce = player.hydra.deduceOrdinal[0];
+			this.solutionCalc();
 		}
 		player.hydra.dilute.spentTime = 0;
 		player.hydra.dilute.prionsTime = 0
 		player.hydra.dilute.inDilute = false;
+	},
+	solutionCalc() {
+		player.hydra.dilute.solution = Math.max(
+			player.hydra.dilute.solution,
+			this.solutionGain(),
+		);
+		player.hydra.dilute.lastSolvent = player.hydra.dilute.solvent;
+		player.hydra.dilute.lastDeduce = player.hydra.deduceOrdinal[0];
 	},
 	backupHydra(): backupHydraType {
 		let items: (`${IntClosedRange<61, 69>}R` | keyof typeof Hydra.upgrades)[] = [];
@@ -146,6 +149,9 @@ export const Dilute = {
 			let s3Eff = 1000 / player.hydra.dilute.solvent[2] ** 2;
 			player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + diff / 1000;
 			if (player.hydra.totalDeduceOrdinal[0].gte(1e4)) player.hydra.dilute.prionsTime = player.hydra.dilute.prionsTime + diff / 1000;
+			if (this.solutionGain() > player.hydra.dilute.solution) {
+				this.solutionCalc();
+			}
 			if (player.hydra.dilute.spentTime > s3Eff) this.exitDilute();
 			if (this.prions().gt(player.hydra.totalDeduceOrdinal[0])) this.exitDilute();
 		}
