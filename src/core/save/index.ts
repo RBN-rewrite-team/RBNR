@@ -141,7 +141,7 @@ export interface Player {
 		deduceOrdinal: [Decimal, Decimal, Decimal, Decimal];
 		prestige: [Decimal, Decimal, Decimal, Decimal];
 		pAuto: [boolean, boolean, boolean, boolean];
-		backupHydra: backupHydraType;
+		backupHydra?: backupHydraType;
 		dilute: {
 			inDilute: boolean;
 			solvent: [number,number,number,number,number,number,boolean,boolean,boolean];
@@ -465,18 +465,6 @@ function getInitialPlayerData(): Player {
 				lastDeduce: zero,
 				spentTime: 0,
 				solution: 0,
-			},
-			backupHydra: {
-				upgrades: [],
-				buyables: {
-					'611': zero,
-					'612': zero,
-					'613': zero,
-					'614': zero,
-					'61R': zero,
-					'62R': zero,
-				},
-				prestiges: [zero, zero, zero, zero],
 			},
 		},
 	};

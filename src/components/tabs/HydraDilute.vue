@@ -3,7 +3,7 @@ import { player, feature } from "../../core/global.ts"
 import { format, formatWhole } from '@/utils/format';
 import Slider from "../Slider.vue"
 import { Dilute } from "@/core/hydra/dilute.ts";
-import { computed } from "vue"
+import { computed, ref } from "vue"
 
 function getCurrentSolution() {
   return player.hydra.dilute.solution;
@@ -43,7 +43,7 @@ const canChangeLevel = computed(() => {
   return player.hydra.dilute.inDilute || player.hydra.dilute.solvent[8]
 })
 
-function switchSolvent9(event) {
+function switchSolvent9(event: number) {
   player.hydra.dilute.solvent[8] = !!event;
   if (event == 1) {
     for (let i = 0; i < 6; i++) player.hydra.dilute.solvent[i] = 10
@@ -51,12 +51,14 @@ function switchSolvent9(event) {
   }
 }
 
+let refreshKey = ref(0)
+
 setInterval(function(){
-  $forceUpdate();
+  refreshKey.value++
 },40)
 </script>
 
-<template>
+<template :key="refreshKey">
   你有<b style="color: red; font-size: 30px">{{format(getCurrentSolution())}}</b>九头蛇溶液<br><br>
   <div class="container" style="transform: translateY(-10px)">
     <div class="dilute">
@@ -69,7 +71,7 @@ setInterval(function(){
       你在{{JSON.stringify(player.hydra.dilute.lastSolvent.map(Number))}}中最高达到了{{formatWhole(player.hydra.dilute.lastDeduce)}}次推演，这给你带来了{{format(player.hydra.dilute.solution)}}九头蛇溶液
     </div>
     <div class="solvents">
-      溶剂等级之和使你的推演速度变为<sup>1</sup>/<sub>{{(player.hydra.dilute.solvent.slice(0, 6) as number[]).reduce((total, num) => total + num, 1) ** 2}}</sub>
+      溶剂等级之和使你的推演速度变为<sup>1</sup>/<sub>{{(player.hydra.dilute.solvent.slice(0, 6) as number[]).reduce((total, num): number => total + num, 1) ** 2}}</sub>
 		<table>
 		<tbody>
 		<tr><td><div class="solvent" style="border-color: rgb(255, 0, 0)">

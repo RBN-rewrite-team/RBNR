@@ -7,6 +7,8 @@ import { CurrencyRequirement, type Requirement } from '../requirements';
 import { Buyable } from '../buyable';
 import { upgrades, buyables } from '../mechanic';
 import { Dilute } from './dilute';
+import type { IntClosedRange } from "type-fest";
+
 
 //Hydra：BMS，1-Y，fffZ
 export const Hydra = {
@@ -366,7 +368,8 @@ export const Hydra = {
 			base = base.mul(buyables['62R'].effect(player.buyables['62R']));
 
 		base = base.div(5**(Dilute.diluteAmount(0) as number))
-		return base;
+    if (player.hydra.dilute.inDilute) base = base.div(Array.from({ length: 6 }, (_, index: number) => Dilute.diluteAmount(index as IntClosedRange<0, 5>)).reduce((total, num) => total + num, 1) ** 2);
+    return base;
 	},
 	deduceEff(i = 0): Decimal {
 		//推演一位提高的乘数

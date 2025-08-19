@@ -20,6 +20,13 @@ export function diluteAmount(id: IntClosedRange<0,8>): number | boolean {
         return player.hydra.dilute.solvent[id];
     }
 
+interface IDilute {
+  diluteAmount(id: IntClosedRange<0, 5>): number;
+  diluteAmount(id: IntClosedRange<6, 8>): boolean;
+  diluteAmountOutside(id: IntClosedRange<0, 5>): number;
+  diluteAmountOutside(id: IntClosedRange<6, 8>): boolean;
+}
+
 export const Dilute = {
 	enterDilute() {
         if(player.hydra.dilute.solvent.map((x)=>Number(x)).reduce((x,y)=>x+y)<1) return;
@@ -135,27 +142,24 @@ export const Dilute = {
      * 溶剂数量，在稀释未开启时会设置为falsy
      * @returns 
      */
-    diluteAmount(id: IntClosedRange<0,8>): number | boolean {
+    diluteAmount(id) {
         return diluteAmount(id)
     },
-    diluteAmountOutside(id: IntClosedRange<0,8>): number | boolean {
+    diluteAmountOutside(id) {
         if (player.hydra.dilute.solvent[8]) {
             return id < 6 ? 10 : true
         };
         return player.hydra.dilute.solvent[id];
     },
     solutionGain() {
-        let effectiveDilute = Array(9).fill(null).map((_, index) => this.diluteAmount(index))
-        let base = 0;
-		    let eb = effectiveDilute.slice(0, 6);
-		    for(let i = 0;i < 6;i++) base += Number(eb[i]) ** 2;
-        if (effectiveDilute[6]) base *= 2
-        if (effectiveDilute[7]) base *= 3
-        if (effectiveDilute[8]) base *= 10
+        let base: number = Array(6).fill(null).map((_, index) => this.diluteAmount(index as IntClosedRange<0,5>)).reduce((tot, num) => tot + num * num)
+        if (this.diluteAmount(6)) base *= 2
+        if (this.diluteAmount(7)) base *= 3
+        if (this.diluteAmount(8)) base *= 10
         let deduceMult = player.hydra.deduceOrdinal[0].add(1).ln().min(4.99359204e304).toNumber();
         return deduceMult * base
     }
-};
+} as IDilute & Record<string, any>;
 
 
 /**
