@@ -564,6 +564,7 @@ export const Hydra = {
 		if (!keepHP) player.hydra.power = new Decimal(0);
 	},
 	hydraUpdate(diff = 0): void {
+	  if (Dilute.diluteAmount(8)) diff /= 1000
 		for (let i = 0; i < 4; i++) {
 			player.hydra.deduceProgress[i] = player.hydra.deduceProgress[i].add(
 				Hydra.deduceSpeed(i).mul(diff),
