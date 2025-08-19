@@ -256,7 +256,7 @@ setInterval(function () {
 									<div class="solvent-desc-small">
 										“试图升天的人类迎来了自己的末日。”
 									</div>
-									<div>进入稀释后1分钟便无法获得任何九头蛇能量。</div>
+									<div>进入稀释后5秒后便无法获得任何九头蛇能量。</div>
 									<Slider
 										v-bind="sliderProps2"
 										:value="Number(player.hydra.dilute.solvent[7])"
