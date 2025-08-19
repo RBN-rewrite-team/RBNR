@@ -114,6 +114,14 @@ export const Dilute = {
             return id < 6 ? 10 : true
         };
         return player.hydra.dilute.solvent[id];
+    },
+    solutionGain() {
+        let base = player.hydra.dilute.solvent.slice(0, 6).reduce((total, num) => total + num, 0) ** 2;
+        if (player.hydra.dilute.solvent[6]) base *= 2
+        if (player.hydra.dilute.solvent[7]) base *= 3
+        if (player.hydra.dilute.solvent[8]) base *= 10
+        let deduceMult = player.hydra.deduceOrdinal[0].ln().min(4.99359204e304).toNumber();
+        return deduceMult * base
     }
 };
 

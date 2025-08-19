@@ -50,7 +50,7 @@ const sliderProps2 = {
       </button><br>
       进入稀释，你将重新开始第五层的进度并遭受你所选择的削弱，作为奖励，你可以获得九头蛇溶液。<br>
       选用的削弱等级对九头蛇溶液的获取量影响较大，稀释中的进度对九头蛇溶液的获取量影响较小。<br>
-      你在{{JSON.stringify(player.hydra.dilute.lastSolvent.map((x: boolean | number) => x ? 1 : 0))}}中最高达到了{{formatWhole(player.hydra.dilute.lastDeduce)}}次推演，这给你带来了{{formatWhole(player.hydra.dilute.solution)}}九头蛇溶液
+      你在{{JSON.stringify(player.hydra.dilute.lastSolvent.map(Number))}}中最高达到了{{formatWhole(player.hydra.dilute.lastDeduce)}}次推演，这给你带来了{{formatWhole(player.hydra.dilute.solution)}}九头蛇溶液
     </div>
     <div class="solvents">
         <div class="solvent">
@@ -71,7 +71,7 @@ const sliderProps2 = {
             <div>
                 <div>溶剂II: 阿兹海默症</div>
                 <div class="solvent-desc-small">“你变得越来越健忘......”</div>
-                <div>所有升级成本*{{ 5** player.hydra.dilute.solvent[1] }}</div>
+                <div>所有升级成本×{{ 5** player.hydra.dilute.solvent[1] }}</div>
                 <Slider
                 v-bind="sliderProps"
                 :value="player.hydra.dilute.solvent[1]"
@@ -86,7 +86,7 @@ const sliderProps2 = {
                 <div>溶剂III: 地球爆炸</div>
                 <div class="solvent-desc-small">“地球很快就要爆炸了，更糟的是你没有宇宙飞船......”</div>
                 <div>选择本溶剂的稀释会在{{
-                (()=>{let a = (1000/(player.hydra.dilute.solvent[2]**2)); return !isFinite(a) ? "5更新时" : (a.toFixed(3)+"秒");})()
+                (()=>{let a = (1000/(player.hydra.dilute.solvent[2]**2)); return !isFinite(a) ? "无穷时间" : (a.toFixed(3)+"秒");})()
                 }}内自我毁灭(即强行退出稀释)</div>
                 <Slider
                 v-bind="sliderProps"
