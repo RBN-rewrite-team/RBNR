@@ -42,6 +42,7 @@ export const Dilute = {
         }
 		if(this.solutionGain() > player.hydra.dilute.solution)
 		{
+		  return //效果都没做完
 			player.hydra.dilute.solution = Math.max(player.hydra.dilute.solution, this.solutionGain());
 			player.hydra.dilute.lastSolvent = player.hydra.dilute.solvent;
 			player.hydra.dilute.lastDeduce = player.hydra.deduceOrdinal[0];
