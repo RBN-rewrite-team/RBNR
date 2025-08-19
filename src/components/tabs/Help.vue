@@ -190,6 +190,7 @@ let highestPage = 0;
         5. <vue-latex expression="ε_0[0] = 0, ε_0[n+1] = ω^{ε_0[n]}" /><br>
         6. <vue-latex expression="ε_{α+1}[0] = ε_α+1, ε_{α+1}[n+1] = ω^{ε_{α+1}[n]}" /><br>
         7. <vue-latex expression="ε_{α}[n] = ε_{α[n]}" />，其中<vue-latex expression="α" />是极限序数<br>
+        我们将对<vue-latex expression="\varepsilon_{\varepsilon_0}"></vue-latex>进行展开
     </div>
     <div v-else-if="player.help.page >= 4321">
       已达到当前版本残局：4321页。
