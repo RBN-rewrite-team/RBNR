@@ -34,6 +34,13 @@ function useClass() {
 const curupg = upgrades[id];
 const permanent = curupg.keep != null && curupg.keep();
 const req = curupg.requirements();
+function getCostHTML() {
+	let a = typeof curupg.cost === 'function' ? curupg.cost() : curupg.cost;
+	if (id.startsWith("6")) {
+		a = a.pow(4 - 3 * 0.75 ** player.hydra.dilute.solvent[1])
+	}
+	return format(a) + currencyName(curupg.currency)
+}
 </script>
 
 <template>
@@ -82,11 +89,7 @@ const req = curupg.requirements();
 						"
 					/><span
 						v-else
-						v-html="
-							format(
-								typeof curupg.cost === 'function' ? curupg.cost() : curupg.cost,
-							) + currencyName(curupg.currency)
-						"
+						v-html="getCostHTML()"
 					/>
 					<br />
 				</template>
