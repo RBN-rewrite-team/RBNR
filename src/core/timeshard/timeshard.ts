@@ -22,7 +22,7 @@ export const TimeShard = {
 		}
 	},
 	convert(minute = 0, mul = 1): void {
-		if(player.timeshard.value < minute) return;
+		if (player.timeshard.value < minute) return;
 		player.timeshard.value -= minute;
 		player.timeshard.tf += minute * 6e4 * mul;
 	},

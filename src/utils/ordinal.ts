@@ -128,7 +128,7 @@ export const OrdinalUtils = {
 		else if (x.lt(base.pow(2))) {
 			otherwise.dimension = Math.max(otherwise.dimension, 1);
 			let s = bracket(otherwise.dimension, otherwise.ascend, ...otherwise.basic);
-			--maxLength
+			--maxLength;
 			otherwise.basic = [otherwise.basic[0] + 1, ...otherwise.basic.slice(1)];
 			return s + this.numberToBMS(x.sub(base).add(1), base, --maxLength, otherwise);
 		} else if (x.lt(base.pow(base.pow(base)))) {
@@ -141,25 +141,25 @@ export const OrdinalUtils = {
 				otherwise.basic[1]++,
 			);
 			--maxLength;
-			s += bracket(otherwise.dimension, otherwise.ascend, ...otherwise.basic)
+			s += bracket(otherwise.dimension, otherwise.ascend, ...otherwise.basic);
 			--maxLength;
 			let flag = false,
 				boost = 1;
 			if (log.gte(base)) flag = true;
 			while ((log.gte(3) && !flag) || (log.gte(1) && flag)) {
-			  if (maxLength <= 0) break;
+				if (maxLength <= 0) break;
 				if (log.gte(base.pow(boost))) {
 					s += bracket(
 						otherwise.dimension,
 						otherwise.ascend,
 						++otherwise.basic[0],
 						otherwise.basic[1] + 1,
-					)
+					);
 					--maxLength;
 					if (log.lt(base.pow(boost + 1))) log = log.sub(base.pow(boost));
 					boost++;
 				} else {
-					s += bracket(otherwise.dimension, otherwise.ascend, ++otherwise.basic[0], 1)
+					s += bracket(otherwise.dimension, otherwise.ascend, ++otherwise.basic[0], 1);
 					--maxLength;
 					log = log.sub(1);
 					if (boost > 1) boost = 1;
@@ -180,7 +180,7 @@ export const OrdinalUtils = {
 		} else if (x.lt(base.tetrate(base.toNumber()))) {
 			otherwise.dimension = Math.max(otherwise.dimension, 2);
 			let s = bracket(otherwise.dimension, otherwise.ascend, ...otherwise.basic);
-			--maxLength
+			--maxLength;
 			otherwise.ascend++;
 			return s + this.numberToBMS(x.log(base), base, --maxLength, otherwise);
 		} else {

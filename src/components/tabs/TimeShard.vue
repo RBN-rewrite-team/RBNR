@@ -14,12 +14,16 @@ function timeF(ms = 0) {
 			时间碎片，转换它以获得同等分钟的3x时间加速效果<br />
 			<span v-if="player.timeshard.tf > 0">
 				你有
-				<span style="color: rgb(127, 31, 127)">{{ Math.round(player.timeshard.tf / 1000) }}秒</span>
+				<span style="color: rgb(127, 31, 127)"
+					>{{ Math.round(player.timeshard.tf / 1000) }}秒</span
+				>
 				的时间加速<br />
-				<button 
+				<button
 					class="setting_button"
 					@click="player.timeshard.openTf = !player.timeshard.openTf"
-				>启用：{{ player.timeshard.openTf ? '开' : '关' }}</button>
+				>
+					启用：{{ player.timeshard.openTf ? '开' : '关' }}
+				</button>
 			</span>
 			<table>
 				<tbody>

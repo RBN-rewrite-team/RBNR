@@ -144,12 +144,22 @@ export interface Player {
 		backupHydra?: backupHydraType;
 		dilute: {
 			inDilute: boolean;
-			solvent: [number,number,number,number,number,number,boolean,boolean,boolean];
-			lastSolvent: [number,number,number,number,number,number,boolean,boolean,boolean];
+			solvent: [number, number, number, number, number, number, boolean, boolean, boolean];
+			lastSolvent: [
+				number,
+				number,
+				number,
+				number,
+				number,
+				number,
+				boolean,
+				boolean,
+				boolean,
+			];
 			spentTime: number;
 			solution: number;
 			lastDeduce: Decimal;
-		}
+		};
 	};
 }
 function getInitialPlayerData(): Player {
@@ -460,8 +470,8 @@ function getInitialPlayerData(): Player {
 			pAuto: [false, false, false, false],
 			dilute: {
 				inDilute: false,
-				solvent: [0,0,0,0,0,0,false,false,false],
-				lastSolvent: [0,0,0,0,0,0,false,false,false],
+				solvent: [0, 0, 0, 0, 0, 0, false, false, false],
+				lastSolvent: [0, 0, 0, 0, 0, 0, false, false, false],
 				lastDeduce: zero,
 				spentTime: 0,
 				solution: 0,
@@ -488,8 +498,8 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 			const sourceItem = i < source.length ? source[i] : undefined;
 			const targetItem = i < targetArray.length ? targetArray[i] : undefined;
 
-      if (targetItem === null || sourceItem === null) continue
-      
+			if (targetItem === null || sourceItem === null) continue;
+
 			if (
 				targetItem !== undefined &&
 				targetItem !== null &&
@@ -512,17 +522,17 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 
 	if (typeof source === 'object' && source !== null) {
 		const result: any = { ...source };
-		
-		if (target === null || target === undefined) return source
 
-		for (const key of (new Set([...Object.keys(source), ...Object.keys(target)]))) {
+		if (target === null || target === undefined) return source;
+
+		for (const key of new Set([...Object.keys(source), ...Object.keys(target)])) {
 			const sourceValue = source[key as keyof typeof source];
 			const targetValue = target[key as keyof typeof target];
 
 			if (targetValue === undefined || targetValue === null) {
 				continue;
 			}
-			
+
 			if (sourceValue === undefined || sourceValue === null) {
 				result[key] = targetValue;
 			}
@@ -538,13 +548,10 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 					keyof T,
 					string
 				>];
-			} else if (
-			    targetValue !== null &&
-				  typeof targetValue === 'object'
-			) {
-			  result[key] = deepMerge(targetValue, sourceValue as any);
+			} else if (targetValue !== null && typeof targetValue === 'object') {
+				result[key] = deepMerge(targetValue, sourceValue as any);
 			} else {
-			  result[key] = targetValue
+				result[key] = targetValue;
 			}
 		}
 
@@ -560,7 +567,7 @@ export function loadFromString(saveContent: string) {
 	let deserialized = saveSerializer.deserialize(saveContent);
 	Object.assign(player, deepMerge(player, deserialized));
 	if ((player?.version ?? 0) < 4) {
-	  player.hydra.dilute.solvent = [0,0,0,0,0,0,false,false,false]
+		player.hydra.dilute.solvent = [0, 0, 0, 0, 0, 0, false, false, false];
 	}
 	player.version = version;
 }
@@ -574,7 +581,7 @@ export function loadSaves() {
 		}
 	} catch (error) {
 		console.error('Cannot load save');
-		throw error
+		throw error;
 	}
 	player = reactive(player);
 }
@@ -582,7 +589,7 @@ export function loadSaves() {
 export function save() {
 	localStorage.setItem(SAVEID, saveSerializer.serialize(player));
 }
-const savefunc = save
+const savefunc = save;
 export function hardReset() {
 	player = getInitialPlayerData();
 	save();

@@ -168,10 +168,10 @@ export const OrdinalNT = {
 			description = 'a = a + 1';
 			cost(x: Decimal): Decimal {
 				let base = new Decimal('ee3').mul(x.pow_base(1e50));
-			  if (player.hydra.dilute.inDilute) {
-	        base = base.pow(4 - 3 * 0.75 ** player.hydra.dilute.solvent[1])
-	      }
-	      return base
+				if (player.hydra.dilute.inDilute) {
+					base = base.pow(4 - 3 * 0.75 ** player.hydra.dilute.solvent[1]);
+				}
+				return base;
 			}
 			name = 'B6-R1-1';
 			effect(x: Decimal): Decimal {
@@ -188,8 +188,9 @@ export const OrdinalNT = {
 				return false;
 			}
 			costInverse(x: Decimal): Decimal {
-			  let expReduce = new Decimal(1)
-			  if (player.hydra.dilute.inDilute) expReduce = expReduce.mul(4 - 3 * 0.75 ** player.hydra.dilute.solvent[1])
+				let expReduce = new Decimal(1);
+				if (player.hydra.dilute.inDilute)
+					expReduce = expReduce.mul(4 - 3 * 0.75 ** player.hydra.dilute.solvent[1]);
 				return x.root(expReduce).div('ee3').max(1).log(1e50).floor().add(1);
 			}
 		})(),
@@ -198,9 +199,9 @@ export const OrdinalNT = {
 			cost(x: Decimal): Decimal {
 				let base = new Decimal(100).mul(x.pow_base(10));
 				if (player.hydra.dilute.inDilute) {
-	        base = base.pow(4 - 3 * 0.75 ** player.hydra.dilute.solvent[1])
-	      }
-	      return base
+					base = base.pow(4 - 3 * 0.75 ** player.hydra.dilute.solvent[1]);
+				}
+				return base;
 			}
 			name = 'B6-R1-2';
 			effect(x: Decimal): Decimal {
@@ -217,8 +218,9 @@ export const OrdinalNT = {
 				return false;
 			}
 			costInverse(x: Decimal): Decimal {
-				let expReduce = new Decimal(1)
-			  if (player.hydra.dilute.inDilute) expReduce = expReduce.mul(4 - 3 * 0.75 ** player.hydra.dilute.solvent[1])
+				let expReduce = new Decimal(1);
+				if (player.hydra.dilute.inDilute)
+					expReduce = expReduce.mul(4 - 3 * 0.75 ** player.hydra.dilute.solvent[1]);
 				return x.root(expReduce).div(100).max(1).log(10).floor().add(1);
 			}
 		})(),
@@ -362,7 +364,10 @@ export const OrdinalNT = {
 		}
 		if (layer == 4) {
 			if (id == 'x') {
-			  if (Dilute.diluteAmount(3) > 0) return new Decimal(player.hydra.dilute.spentTime).pow(Dilute.diluteAmount(3)).sqrt()
+				if (Dilute.diluteAmount(3) > 0)
+					return new Decimal(player.hydra.dilute.spentTime)
+						.pow(Dilute.diluteAmount(3))
+						.sqrt();
 				let prod = new Decimal(1);
 				let a = buyables['61R'].effect(player.buyables['61R']);
 				for (let i = 0; i < feature.Hydra.pMaxUnlock(); i++) {
@@ -463,7 +468,7 @@ export const OrdinalNT = {
 		}
 		if (layer == 4) {
 			if (id == 'tau') {
-			  if (Dilute.diluteAmount(3) > 0) return player.numbertheory.GM.x.add(1).sqrt()
+				if (Dilute.diluteAmount(3) > 0) return player.numbertheory.GM.x.add(1).sqrt();
 				let base = player.numbertheory.GM.x.add(10);
 				return this.functionL4('g', base);
 			}

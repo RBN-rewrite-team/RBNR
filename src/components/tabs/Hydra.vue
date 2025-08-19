@@ -30,10 +30,15 @@ function powerFactorHTML(): string {
 			'</span></sup>';
 	s +=
 		'<span style="color: var(--color)"> = ' + format(feature.Hydra.powerGainBase()) + '</span>';
-	if (!feature.Hydra.powerSoftcapNerf(feature.Hydra.powerGainBase()).eq(1))
-	{
-		s += '<sup style="color: rgb(127, 0, 0)">' + format(feature.Hydra.powerSoftcapNerf(feature.Hydra.powerGainBase())) + '</sup>';
-		s += '<span style="color: var(--color)"> = ' + format(feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase())) + '</span>';
+	if (!feature.Hydra.powerSoftcapNerf(feature.Hydra.powerGainBase()).eq(1)) {
+		s +=
+			'<sup style="color: rgb(127, 0, 0)">' +
+			format(feature.Hydra.powerSoftcapNerf(feature.Hydra.powerGainBase())) +
+			'</sup>';
+		s +=
+			'<span style="color: var(--color)"> = ' +
+			format(feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase())) +
+			'</span>';
 	}
 	return s;
 }
@@ -247,7 +252,13 @@ function hydraAxisHTML(): string {
 								<h3>转生({{ formatWhole(player.hydra.prestige[0]) }})</h3>
 								额外乘数与推演速度<br />x{{
 									format(feature.Hydra.prestigeEff(0, false))
-								}}→{{ format(feature.Hydra.prestigeEff(0, true).max(feature.Hydra.prestigeEff(0, false))) }}(效果×{{
+								}}→{{
+									format(
+										feature.Hydra.prestigeEff(0, true).max(
+											feature.Hydra.prestigeEff(0, false),
+										),
+									)
+								}}(效果×{{
 									format(feature.Hydra.prestigeEff(0, false, true).max(1))
 								}})
 							</span>
@@ -261,7 +272,11 @@ function hydraAxisHTML(): string {
 							<span v-if="feature.Hydra.pUnlock(1)">
 								<h3>飞升({{ formatWhole(player.hydra.prestige[1]) }})</h3>
 								额外指数<br />+{{ format(feature.Hydra.prestigeEff(1, false)) }}→{{
-									format(feature.Hydra.prestigeEff(1, true).max(feature.Hydra.prestigeEff(1, false)))
+									format(
+										feature.Hydra.prestigeEff(1, true).max(
+											feature.Hydra.prestigeEff(1, false),
+										),
+									)
 								}}
 							</span>
 							<span v-else>转生效果≥20解锁</span>
@@ -274,7 +289,11 @@ function hydraAxisHTML(): string {
 							<span v-if="feature.Hydra.pUnlock(2)">
 								<h3>超越({{ format(player.hydra.prestige[2]) }})</h3>
 								乘数获取<br />x{{ format(feature.Hydra.prestigeEff(2, false)) }}→{{
-									format(feature.Hydra.prestigeEff(2, true).max(feature.Hydra.prestigeEff(2, false)))
+									format(
+										feature.Hydra.prestigeEff(2, true).max(
+											feature.Hydra.prestigeEff(2, false),
+										),
+									)
 								}}
 							</span>
 							<span v-else>飞升效果≥1解锁</span>
@@ -288,7 +307,13 @@ function hydraAxisHTML(): string {
 								<h3>轮回({{ formatWhole(player.hydra.prestige[3]) }})</h3>
 								转生、超越效果指数<br />x+{{
 									format(feature.Hydra.prestigeEff(3, false))
-								}}→{{ format(feature.Hydra.prestigeEff(3, true).max(feature.Hydra.prestigeEff(3, false))) }}
+								}}→{{
+									format(
+										feature.Hydra.prestigeEff(3, true).max(
+											feature.Hydra.prestigeEff(3, false),
+										),
+									)
+								}}
 							</span>
 							<span v-else>超越效果≥1e10解锁</span>
 						</span>

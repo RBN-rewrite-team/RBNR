@@ -23,14 +23,14 @@ function _f() {
 }
 
 function f() {
-  if (Dilute.diluteAmount(3) > 0) return "\\sqrt{x}"
+	if (Dilute.diluteAmount(3) > 0) return '\\sqrt{x}';
 	let exp = OrdinalNT.functionL4exp('f');
 	if (exp.neq(1)) return `(${_f()})^${formatLaTeX(exp)}`;
 	else return _f();
 }
 
 function g() {
-  if (Dilute.diluteAmount(3) > 0) return "\\sqrt{x}"
+	if (Dilute.diluteAmount(3) > 0) return '\\sqrt{x}';
 	let exp = OrdinalNT.functionL4exp('g');
 	if (exp.neq(1)) return `(${_g()})^${formatLaTeX(exp)}`;
 	else return _g();
@@ -166,9 +166,15 @@ function _g() {
 					>嗯？这是什么研究，我怎么不知道？之前有人来过这里吗？</span
 				>
 			</div>
-			<div v-if="player.upgrades['69R'] || player.upgrades[65] && player.numbertheory.visiting == 4">
+			<div
+				v-if="
+					player.upgrades['69R'] ||
+					(player.upgrades[65] && player.numbertheory.visiting == 4)
+				"
+			>
 				<h2>增长模式</h2>
-				τ<sub>4</sub>{{ Dilute.diluteAmount(3) <= 0 ? "增" : "减"}}益BMS推演和U5-2的速度<br />
+				τ<sub>4</sub
+				>{{ Dilute.diluteAmount(3) <= 0 ? '增' : '减' }}益BMS推演和U5-2的速度<br />
 				<vue-latex
 					:expression="`\\dot{x_4} = a\\cdot f\\left(\\prod_{n = 1}^${feature.Hydra.pMaxUnlock()}e_n+1\\right) = ${formatLaTeX(OrdinalNT.varGain('x', 4))}`"
 					display-mode

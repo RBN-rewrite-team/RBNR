@@ -4,9 +4,9 @@ type Matrix = MatrixRow[];
 
 const ZERO: Term = [];
 const ONE: Term = [[], [], []];
-const OMEGA: Term=[[],ONE,[]];
-const OMEGA1: Term=[ONE,[],[]];
-const EPSILON0: Term=[[],OMEGA1,[]];
+const OMEGA: Term = [[], ONE, []];
+const OMEGA1: Term = [ONE, [], []];
+const EPSILON0: Term = [[], OMEGA1, []];
 
 /*
 BMS analyzer by Solarzone
@@ -30,12 +30,12 @@ function isZero(a: Term | number): a is [] {
 
 //判断一个序数是否有限
 function isFinite(a: Term): boolean {
-  return isZero(a)||(isZero(a[0])&&isZero(a[1]));
+	return isZero(a) || (isZero(a[0]) && isZero(a[1]));
 }
 
 //求一个序数由多少个单项相加而成
 function length1(a: Term): number {
-  return isZero(a)?0:1+length1(a[2]);
+	return isZero(a) ? 0 : 1 + length1(a[2]);
 }
 
 //判断两个序数是否全等
@@ -76,15 +76,21 @@ function gt(a: Term | number, b: Term | number): boolean {
 
 //ω^a1+ω^a2+...+ω^an的首项ω^a1
 function firstTerm(a: Term): Term {
-  if(isZero(a)){return [];}
-  return [a[0],a[1],[]];
+	if (isZero(a)) {
+		return [];
+	}
+	return [a[0], a[1], []];
 }
 
 //ω^a1+ω^a2+...+ω^an的末项ω^an
 function lastTerm(a: Term): Term {
-  if(isZero(a)){return [];}
-  if(isZero(a[2])){return a;}
-  return lastTerm(a[2]);
+	if (isZero(a)) {
+		return [];
+	}
+	if (isZero(a[2])) {
+		return a;
+	}
+	return lastTerm(a[2]);
 }
 
 //序数相加
@@ -333,26 +339,29 @@ function sf(a: Term): Term {
 
 //将ψa(x)(a>0)转化为Ω_a^b*c的形式
 function g(a: Term): [Term, Term] {
-  if(isZero(a)){return [[],[]];}
-  if(isZero(a[0])){return [log(a),[]];}
-  let [p,s]=separate(a[1],[succ(a[0]),[],[]]);
-  let [q,r]=separate(s,[a[0],[],[]]);
-  //令x=p+q+r,其中p每一项大于ψb+1(0),q每一项大于ψb(0)
-  let second=exp(r);
-  let first=add(ONE,p);
-  let ptr=q;
-  while(!isZero(ptr)){
-    first=add(first,exp(sub(log(ptr),[a[0],[],[]]))),
-    ptr=ptr[2];
-  }
-  return [first,second];
-} 
+	if (isZero(a)) {
+		return [[], []];
+	}
+	if (isZero(a[0])) {
+		return [log(a), []];
+	}
+	let [p, s] = separate(a[1], [succ(a[0]), [], []]);
+	let [q, r] = separate(s, [a[0], [], []]);
+	//令x=p+q+r,其中p每一项大于ψb+1(0),q每一项大于ψb(0)
+	let second = exp(r);
+	let first = add(ONE, p);
+	let ptr = q;
+	while (!isZero(ptr)) {
+		((first = add(first, exp(sub(log(ptr), [a[0], [], []])))), (ptr = ptr[2]));
+	}
+	return [first, second];
+}
 
 //Ω_a的简写
 function omega(a: Term, maxLength = 40): string {
-  if(isZero(a))return 'ω';
-  if(eq(a,ONE))return 'Ω';
-  return `Ω<sub>${toString(a, --maxLength)}</sub>`
+	if (isZero(a)) return 'ω';
+	if (eq(a, ONE)) return 'Ω';
+	return `Ω<sub>${toString(a, --maxLength)}</sub>`;
 }
 
 function toString(q: Term | number, maxLength = 40): string {
@@ -375,14 +384,18 @@ function toString(q: Term | number, maxLength = 40): string {
 
 	if (eq(termA[0], []) && eq(termA[1], ONE)) {
 		m = 'ω';
-	} else if(lt(termA[1],[succ(termA[0]),[],[]])){
-    let [first,second]=g(termA);
-    m=omega(termA[0]);
-    if(gt(first,ONE)){m+=`<sup>${toString(first, --maxLength)}</sup>`;}
-    if(gt(second,ONE))m+=toString(second, --maxLength);
-  }
+	} else if (lt(termA[1], [succ(termA[0]), [], []])) {
+		let [first, second] = g(termA);
+		m = omega(termA[0]);
+		if (gt(first, ONE)) {
+			m += `<sup>${toString(first, --maxLength)}</sup>`;
+		}
+		if (gt(second, ONE)) m += toString(second, --maxLength);
+	}
 
-	if(length1(a)>1){m+=length1(a);}
+	if (length1(a) > 1) {
+		m += length1(a);
+	}
 
 	if (!isZero(b)) {
 		m += `+${toString(b, --maxLength)}`;
