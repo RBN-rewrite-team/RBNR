@@ -297,6 +297,7 @@ function getInitialPlayerData(): Player {
 			'68R': false,
 			'69R': false,
 			'61S': false,
+			'62S': false,
 		},
 		buyables: {
 			'11': zero,

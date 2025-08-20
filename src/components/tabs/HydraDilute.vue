@@ -80,8 +80,9 @@ setInterval(function () {
 
 <template :key="refreshKey">
 	你有<b style="color: red; font-size: 30px">{{ format(getCurrentSolution()) }}</b
-	><span v-if="player.hydra.dilute.inDilute">({{ format(Dilute.solutionGain()) }}在退出后)</span
-	>九头蛇溶液,推演速度×{{ format(Dilute.solutionEff().eff1) }}<br />
+	><span v-if="player.hydra.dilute.inDilute">(本次{{ format(Dilute.solutionGain()) }})</span
+	>九头蛇溶液<br />
+	推演速度×{{ format(Dilute.solutionEff().eff1) }}
 	<span v-if="player.hydra.dilute.prionsTime > 0"
 		>你有<b style="color: red; font-size: 30px">{{ format(Dilute.prions()) }}</b
 		>朊病毒<br /><br
@@ -350,11 +351,15 @@ setInterval(function () {
 			</table>
 		</div>
 	</div>
-	<div class="clickable_button" @click="Dilute.respec">重新分配</div>
+	<div align="center">
+		当前可用溶液：{{ format(getCurrency(Currencies.SOLUTION)) }}<br />
+		<button class="clickable_button" @click="Dilute.respec">重新分配</button>
+	</div>
 	<table align="center">
 		<tbody>
 			<tr>
 				<TDUpgrade upgid="61S"></TDUpgrade>
+				<TDUpgrade upgid="62S"></TDUpgrade>
 			</tr>
 		</tbody>
 	</table>
