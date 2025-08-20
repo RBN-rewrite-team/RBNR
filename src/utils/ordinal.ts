@@ -73,7 +73,7 @@ export const OrdinalUtils = {
 	},
 	numberLogHH(x: Decimal, base: Decimal): Decimal {
 		//数值被HH Log
-		const lbb = base.log(2);
+		// const lbb = base.log(2);
 		if (x.lt(base.pow_base(2).mul(base))) {
 			let k = new Decimal(0),
 				n = new Decimal(0);
@@ -114,6 +114,7 @@ export const OrdinalUtils = {
 		x: Decimal,
 		base: Decimal,
 		maxLength = 20,
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		otherwise: any = { basic: [0, 0], dimension: 1, ascend: 0, id: 0 },
 	): string {
 		//数值转BMS（最多三行）
@@ -192,6 +193,7 @@ export const OrdinalUtils = {
 		x: Decimal,
 		base: Decimal,
 		maxLength = 15,
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		otherwise: any = { basic: [0, 0], dimension: 1, ascend: 0, id: 0 },
 	): string {
 		//数值转BMS（最多三行）
@@ -223,37 +225,32 @@ export const OrdinalUtils = {
 				otherwise.basic[1]++,
 			);
 			--maxLength;
-			((s += bracket(
-				otherwise.dimension,
-				otherwise.ascend,
-				otherwise.id++,
-				...otherwise.basic,
-			)),
-				--maxLength);
+			s += bracket(otherwise.dimension, otherwise.ascend, otherwise.id++, ...otherwise.basic);
+			--maxLength;
 			let flag = false,
 				boost = 1;
 			if (log.gte(base)) flag = true;
 			while ((log.gte(3) && !flag) || (log.gte(1) && flag)) {
 				if (log.gte(base.pow(boost))) {
-					((s += bracket(
+					s += bracket(
 						otherwise.dimension,
 						otherwise.ascend,
 						otherwise.id++,
 						++otherwise.basic[0],
 						otherwise.basic[1] + 1,
-					)),
-						--maxLength);
+					);
+					--maxLength;
 					if (log.lt(base.pow(boost + 1))) log = log.sub(base.pow(boost));
 					boost++;
 				} else {
-					((s += bracket(
+					s += bracket(
 						otherwise.dimension,
 						otherwise.ascend,
 						otherwise.id++,
 						++otherwise.basic[0],
 						1,
-					)),
-						--maxLength);
+					);
+					--maxLength;
 					log = log.sub(1);
 					if (boost > 1) boost = 1;
 				}
