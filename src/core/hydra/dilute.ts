@@ -133,7 +133,12 @@ export const Dilute = {
 			reqDescription: '在满级稀释2的稀释中达到0.14轮回效果且 & 19000九头蛇溶液',
 			requirement: new Decimal(0.14),
 			get canDone() {
-				return player.hydra.dilute.inDilute && (diluteAmount(1) >= 10) && Hydra.prestigeEff(3).gte(0.14) && player.hydra.dilute.solution.gte(19000);
+				return (
+					player.hydra.dilute.inDilute &&
+					diluteAmount(1) >= 10 &&
+					Hydra.prestigeEff(3).gte(0.14) &&
+					player.hydra.dilute.solution.gte(19000)
+				);
 			},
 			show: true,
 			currency: '',
@@ -312,5 +317,3 @@ export const Dilute = {
 		return Decimal.pow(1 + this.diluteAmount(4) / 100, player.hydra.dilute.prionsTime).sub(1);
 	},
 } as IDilute & Record<string, any>;
-
-Dilute.diluteAmount(1) >= 1;
