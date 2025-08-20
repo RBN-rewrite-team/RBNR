@@ -81,7 +81,7 @@ export const Dilute = {
 			reqDescription: '在稀释中达到ψ(Ω<sub>2</sub>Ω)',
 			requirement: new Decimal(4 ** 5),
 			get canDone() {
-				return player.hydra.deduceOrdinal[0].gte(this.requirement);
+				return player.hydra.dilute.inDilute && player.hydra.deduceOrdinal[0].gte(this.requirement);
 			},
 			show: true,
 			currency: '',
