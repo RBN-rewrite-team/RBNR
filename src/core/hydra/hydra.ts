@@ -245,7 +245,7 @@ export const Hydra = {
 				let expReduce = new Decimal(1);
 				if (player.hydra.dilute.inDilute)
 					expReduce = expReduce.mul(4 - 3 * 0.75 ** Dilute.diluteAmount(1));
-				return x.root(expReduce).div(10).max(1).log(1.15).add(1).max(99).floor();
+				return x.root(expReduce).div(10).max(1).log(1.15).add(1).min(99).floor();
 			}
 			capped(x: Decimal): boolean {
 				return x.add(this.more()).gte(99);
@@ -285,7 +285,7 @@ export const Hydra = {
 				let expReduce = new Decimal(1);
 				if (player.hydra.dilute.inDilute)
 					expReduce = expReduce.mul(4 - 3 * 0.75 ** Dilute.diluteAmount(1));
-				if (player.upgrades[6110]) expReduce = expReduce.pow(upgrades[6110].effect());
+				if (player.upgrades[6110]) expReduce = expReduce.root(upgrades[6110].effect());
 				return x.root(expReduce).div(10000).max(1).log(1.05).root(2).add(1).floor();
 			}
 			more(): Decimal {
@@ -323,7 +323,7 @@ export const Hydra = {
 			}
 			costInverse(x: Decimal): Decimal {
 				let expReduce = new Decimal(1);
-				if (player.upgrades[6110]) expReduce = expReduce.pow(upgrades[6110].effect());
+				if (player.upgrades[6110]) expReduce = expReduce.root(upgrades[6110].effect());
 				if (player.hydra.dilute.inDilute)
 					expReduce = expReduce.mul(4 - 3 * 0.75 ** Dilute.diluteAmount(1));
 				return x.root(expReduce).div(1e8).max(1).log(1.02).root(2.5).add(1).floor();
@@ -358,7 +358,7 @@ export const Hydra = {
 			}
 			costInverse(x: Decimal): Decimal {
 				let expReduce = new Decimal(1);
-				if (player.upgrades[6110]) expReduce = expReduce.pow(upgrades[6110].effect());
+				if (player.upgrades[6110]) expReduce = expReduce.root(upgrades[6110].effect());
 				if (player.hydra.dilute.inDilute)
 					expReduce = expReduce.mul(4 - 3 * 0.75 ** Dilute.diluteAmount(1));
 				return x.root(expReduce).div('1e900').max(1).log(1e20).root(2.5).add(1).floor();
