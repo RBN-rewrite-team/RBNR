@@ -1,17 +1,16 @@
-import { createApp, watch } from 'vue';
+import { createApp } from 'vue';
 import App from '@/App.vue';
 import VueLatex from 'vatex';
-import { loadSaves, player, save, type Player } from '@/core/save';
+import { loadSaves, player } from '@/core/save';
 import { feature } from '@/core/global.ts';
 import { NUMTHEORY } from '@/core/multiplication/numbertheory.ts';
 import { Exponention } from '@/core/exponention/exponention.ts';
 import { QolUpgrades } from '@/core/exponention/qolupg.ts';
 import { Logarithm } from '@/core/exponention/logarithm.ts';
-import { ORDINAL } from '@/core/ordinal/ordinal.ts';
 import hotkeys from 'hotkeys-js';
 import { vHold } from './vHold.ts';
 
-import { gameLoop, startGameLoop } from '@/core/game-loop';
+import { startGameLoop } from '@/core/game-loop';
 
 export function init() {
 	loadSaves();
@@ -31,17 +30,17 @@ export function init() {
 
 	app.use(VueLatex).directive('hold', vHold).mount('#app');
 
-	hotkeys('a', (event, handler) => {
+	hotkeys('a', (event) => {
 		event.preventDefault();
 		feature.ADDITION.UIreset();
 	});
 
-	hotkeys('m', (event, handler) => {
+	hotkeys('m', (event) => {
 		event.preventDefault();
 		feature.MULTIPLICATION.UIreset();
 	});
 
-	hotkeys('e', (event, handler) => {
+	hotkeys('e', (event) => {
 		event.preventDefault();
 		feature.EXPONENTION.UIreset();
 	});
