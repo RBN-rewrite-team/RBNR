@@ -153,6 +153,7 @@ export interface Player {
 		visiting: number;
 		power: Decimal;
 		totalPower: Decimal;
+		trueTotalPower: Decimal;
 		powerMult: [Decimal, Decimal, Decimal, Decimal];
 		deduceProgress: [Decimal, Decimal, Decimal, Decimal];
 		deduceOrdinal: [Decimal, Decimal, Decimal, Decimal];
@@ -301,6 +302,7 @@ function getInitialPlayerData(): Player {
 			'69R': false,
 			'61S': false,
 			'62S': false,
+			'63S': false,
 		},
 		buyables: {
 			'11': zero,
@@ -488,6 +490,7 @@ function getInitialPlayerData(): Player {
 			visiting: 0,
 			power: zero,
 			totalPower: zero,
+			trueTotalPower: zero,
 			powerMult: [new Decimal(1), new Decimal(1), new Decimal(1), new Decimal(1)],
 			deduceProgress: [zero, zero, zero, zero],
 			deduceOrdinal: [zero, zero, zero, zero],
