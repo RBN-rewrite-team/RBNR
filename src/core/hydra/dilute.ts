@@ -84,11 +84,40 @@ export const DiluteUpgrades = {
 			return 'x' + format(this.effect());
 		}
 	})(),
+	"64S": new (class U64S extends UpgradeWithEffect<Decimal> {
+		currency: Currencies = Currencies.SOLUTION;
+		name: string = "U5-S-4";
+		description: string = "基于可用溶液增益推演速度";
+		cost: Decimal = new Decimal(1e4);
+		effect(): Decimal {
+			let base = getCurrency(Currencies.SOLUTION).pow(0.375).mul(getCurrency(Currencies.SOLUTION).add(2).log(2));
+			return base.max(1);
+		}
+		effectDescription(): string {
+			return 'x' + format(this.effect());
+		}
+	})(),
+	"65S": new (class U65S extends UpgradeWithEffect<Decimal> {
+		currency: Currencies = Currencies.SOLUTION;
+		name: string = "U5-S-5";
+		description: string = "基于总溶液增益乘数获取量";
+		cost: Decimal = new Decimal(1.5e4);
+		effect(): Decimal {
+			let base = new Decimal(player.hydra.dilute.solution).pow(0.25);
+			return base.max(1);
+		}
+		effectDescription(): string {
+			return 'x' + format(this.effect());
+		}
+	})(),
 }
 export const Dilute = {
 	respec(){
 		player.upgrades['61S'] = false;
 		player.upgrades['62S'] = false;
+		player.upgrades['63S'] = false;
+		player.upgrades['64S'] = false;
+		player.upgrades['65S'] = false;
 		player.hydra.dilute.solutionCost = 0;
 	},
 	initMechanics(){
@@ -115,6 +144,16 @@ export const Dilute = {
 			},
 			show: true,
 			currency: '',
+		});
+		MILESTONES.create('dut3', {
+			displayName: 'M-Dilute-3',
+			description: '转生不重置任何东西，转生重置阈值为+0/x1',
+			requirement: new Decimal(13000),
+			get canDone() {
+				return new Decimal(player.hydra.dilute.solution).gte(this.requirement);
+			},
+			show: true,
+			currency: '总溶液',
 		});
 	},
 	enterDilute() {

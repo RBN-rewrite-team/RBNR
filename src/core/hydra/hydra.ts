@@ -380,6 +380,7 @@ export const Hydra = {
 		base = base.mul(Dilute.solutionEff().eff1);
 		if(player.upgrades['62S']) base = base.mul(upgrades['62S'].effect());
 		if (player.upgrades["63S"]) base = base.mul(upgrades['63S'].effect());
+		if(player.upgrades['64S']) base = base.mul(upgrades['64S'].effect());
 
 		if (Dilute.diluteAmount(5) > 0) base = base.pow(1 - (Dilute.diluteAmount(5) * 0.1));
 		if (Dilute.diluteAmount(3) > 0)
@@ -483,7 +484,7 @@ export const Hydra = {
 	},
 	pAutoUnlock(id = 0): boolean {
 		//解锁自动化
-		if (id == 0) return Hydra.pUnlock(2);
+		if (id == 0) return Hydra.pUnlock(2) || player.milestones['dut3'];
 		else if (id == 1) return Hydra.pUnlock(3);
 		else return false;
 	},
@@ -491,10 +492,10 @@ export const Hydra = {
 		//推演阈值
 		if (id == 0)
 			return {
-				add: player.upgrades[66]
+				add: (player.upgrades[66] || player.milestones['dut3'])
 					? new Decimal(0)
 					: new Decimal(10).div(player.hydra.totalPower.log10().root(2).sub(10).max(1)),
-				mul: player.upgrades[66]
+				mul: (player.upgrades[66] || player.milestones['dut3'])
 					? new Decimal(1)
 					: new Decimal(5).div(player.hydra.totalPower.log10().root(10).max(1).min(5)),
 			};
@@ -564,6 +565,7 @@ export const Hydra = {
 		player.hydra.prestige[i] = player.hydra.prestige[i].max(Hydra.prestigeBase(i));
 		if (i <= 3 && player.upgrades[65]) return;
 		if (i == 0 && player.upgrades[64]) return;
+		if(i == 0 && player.milestones['dut3']) return;
 		if (i <= 1 && player.upgrades[63]) keepHP = true;
 		if (i == 2 && player.upgrades[64]) keepHP = true;
 		if (i == 0 && player.upgrades[63]) keepO = true;

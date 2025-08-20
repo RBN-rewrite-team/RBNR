@@ -303,6 +303,8 @@ function getInitialPlayerData(): Player {
 			'61S': false,
 			'62S': false,
 			'63S': false,
+			'64S': false,
+			'65S': false,
 		},
 		buyables: {
 			'11': zero,
@@ -382,6 +384,7 @@ function getInitialPlayerData(): Player {
 			dil_3: false,
 			dut1: false,
 			dut2: false,
+			dut3: false,
 		},
 		buyable11More: zero,
 		automationCD: {

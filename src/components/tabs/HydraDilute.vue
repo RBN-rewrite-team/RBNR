@@ -359,9 +359,13 @@ setInterval(function () {
 	<table align="center">
 		<tbody>
 			<tr>
-				<TDUpgrade upgid="61S"></TDUpgrade>
-				<TDUpgrade upgid="62S"></TDUpgrade>
-				<TDUpgrade upgid="63S"></TDUpgrade>
+				<TDUpgrade upgid="61S" />
+				<TDUpgrade upgid="62S" />
+				<TDUpgrade upgid="63S" />
+				<TDUpgrade upgid="64S" />
+			</tr>
+			<tr>
+				<TDUpgrade upgid="65S" />
 			</tr>
 		</tbody>
 	</table>
@@ -369,6 +373,7 @@ setInterval(function () {
 		<tbody class="milestones">
 			<TRMilestone id="dut1" />
 			<TRMilestone id="dut2" />
+			<TRMilestone id="dut3" />
 		</tbody>
 	</table>
 </template>
