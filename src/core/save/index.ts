@@ -12,7 +12,7 @@ import type { backupHydraType } from '../hydra/dilute';
 import { Dilute } from '../hydra/dilute';
 
 const SAVEID = 'RBN-rewritten-powerful-refactor-test';
-const version = 5 as const;
+const version = 6 as const;
 const zero = new Decimal(0);
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
 
@@ -579,7 +579,7 @@ export function loadFromString(saveContent: string) {
 	if ((player?.version ?? 0) < 4) {
 		player.hydra.dilute.solvent = [0, 0, 0, 0, 0, 0, false, false, false];
 	}
-	if ((player?.version ?? 0) < 5 && player.upgrades["69R"]) {
+	if ((player?.version ?? 0) < 6 && player.upgrades["69R"]) {
 	  Dilute.exitDilute()
 		player.hydra.dilute = getInitialPlayerData().hydra.dilute;
 		player.upgrades["61S"] = false
