@@ -6,6 +6,7 @@ import ModalService from '@/utils/Modal';
 import { Upgrade, UpgradeWithEffect } from '../upgrade';
 import { getCurrency, Currencies } from '../currencies';
 import { format, formatWhole } from '@/utils/format';
+import { MILESTONES } from '../mechanic';
 
 export type backupHydraType = {
 	upgrades: (`${IntClosedRange<61, 69>}R` | keyof typeof Hydra.upgrades)[];
@@ -71,6 +72,20 @@ export const Dilute = {
 		player.upgrades['61S'] = false;
 		player.upgrades['62S'] = false;
 		player.hydra.dilute.solutionCost = 0;
+	},
+	initMechanics(){
+		MILESTONES.create('dut1', {
+			displayName: 'M-Dilute-1',
+			description: '保持U5-1-1，并且提升其公式',
+			req: true,
+			reqDescription: '在稀释中达到ψ(Ω<sub>2</sub>Ω)',
+			requirement: new Decimal(4 ** 5),
+			get canDone() {
+				return player.hydra.deduceOrdinal[0].gte(this.requirement);
+			},
+			show: true,
+			currency: '',
+		});
 	},
 	enterDilute() {
 		if (player.hydra.dilute.solvent.map((x) => Number(x)).reduce((x, y) => x + y) < 1) {
@@ -217,7 +232,7 @@ export const Dilute = {
 		if (this.diluteAmount(6)) base *= 2;
 		if (this.diluteAmount(7)) base *= 3;
 		if (this.diluteAmount(8)) base *= 10;
-		const deduceMult = player.hydra.deduceOrdinal[0].add(1).ln().min(4.99359204e304).toNumber();
+		const deduceMult = player.hydra.deduceOrdinal[0].add(1).ln().min(base).min(100).toNumber();
 		return deduceMult * base;
 	},
 	solutionEff() {
