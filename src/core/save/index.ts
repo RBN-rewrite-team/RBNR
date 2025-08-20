@@ -4,22 +4,29 @@ import { saveSerializer } from './serializer';
 import { reactive } from 'vue';
 import { notations } from '@/utils/format';
 import { themes } from '@/utils/themes';
-import type { qolUpgs } from '../exponention/qolupg';
 import type { IAstronomer } from '../exponention/logarithm';
-import type { IntRange } from 'type-fest';
 import { buyables, upgrades, milestones } from '../mechanic';
 import type { backupHydraType } from '../hydra/dilute';
 import { Dilute } from '../hydra/dilute';
+import { stopGameLoop } from '../game-loop';
 
-const SAVEID = 'RBN-rewritten-powerful-refactor-test';
 const version = 6 as const;
 const zero = new Decimal(0);
+let current_save = 0;
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
 
-type Milestones = Record<
-	`cb${IntRange<1, 21>}` | 'log_law1' | 'log_law2' | 'log_law3' | 'log_G',
-	boolean
->;
+// type Milestones = Record<
+// 	`cb${IntRange<1, 21>}` | 'log_law1' | 'log_law2' | 'log_law3' | 'log_G',
+// 	boolean
+// >;
+
+function getSaveID(id: number) {
+	if (id == 0) {
+		return 'RBN-rewritten-powerful-refactor-test';
+	} else {
+		return `RBN-rewritten-save-${id}`;
+	}
+}
 
 export interface Player {
 	number: Decimal;
@@ -531,6 +538,7 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 	}
 
 	if (typeof source === 'object' && source !== null) {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const result: any = { ...source };
 
 		if (target === null || target === undefined) return source;
@@ -559,6 +567,7 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 					string
 				>];
 			} else if (targetValue !== null && typeof targetValue === 'object') {
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				result[key] = deepMerge(targetValue, sourceValue as any);
 			} else {
 				result[key] = targetValue;
@@ -579,20 +588,29 @@ export function loadFromString(saveContent: string) {
 	if ((player?.version ?? 0) < 4) {
 		player.hydra.dilute.solvent = [0, 0, 0, 0, 0, 0, false, false, false];
 	}
-	if ((player?.version ?? 0) < 6 && player.upgrades["69R"]) {
-	  Dilute.exitDilute()
+	if ((player?.version ?? 0) < 6 && player.upgrades['69R']) {
+		Dilute.exitDilute();
 		player.hydra.dilute = getInitialPlayerData().hydra.dilute;
-		player.upgrades["61S"] = false
-		player.hydra.power = new Decimal("e2466")
-		player.hydra.powerMult =  [new Decimal(1), new Decimal(1), new Decimal(1), new Decimal(1)]
-		player.hydra.prestige = [new Decimal("e345"), new Decimal("e55"), new Decimal("3.7"), new Decimal("5e35")]
+		player.upgrades['61S'] = false;
+		player.hydra.power = new Decimal('e2466');
+		player.hydra.powerMult = [new Decimal(1), new Decimal(1), new Decimal(1), new Decimal(1)];
+		player.hydra.prestige = [
+			new Decimal('e345'),
+			new Decimal('e55'),
+			new Decimal('3.7'),
+			new Decimal('5e35'),
+		];
 	}
 	player.version = version;
 }
 
 export function loadSaves() {
+	const current_save2 = localStorage.getItem('RBN-rewritten-current_save_slot');
+	if (current_save2) {
+		current_save = Number(current_save2);
+	}
 	player = getInitialPlayerData();
-	const saveContent = localStorage.getItem(SAVEID);
+	const saveContent = localStorage.getItem(getSaveID(current_save));
 	try {
 		if (saveContent) {
 			loadFromString(saveContent);
@@ -605,7 +623,7 @@ export function loadSaves() {
 }
 
 export function save() {
-	localStorage.setItem(SAVEID, saveSerializer.serialize(player));
+	localStorage.setItem(getSaveID(current_save), saveSerializer.serialize(player));
 }
 const savefunc = save;
 export function hardReset() {
@@ -631,7 +649,7 @@ export function import_file(): void {
 					player = reactive(player);
 					savefunc();
 					location.reload();
-				} catch (e) {
+				} catch {
 					console.error('Cannot import save');
 				}
 			}
@@ -666,4 +684,11 @@ function getCurrentBeijingTime(): string {
 		o < 0 && (t.setUTCDate(t.getUTCDate() + 1), (o += 24)),
 		`${e}-${r}-${a} ${o.toString().padStart(2, '0')}:${g.toString().padStart(2, '0')}:${i.toString().padStart(2, '0')}.${S.toString().padStart(3, '0')}`
 	);
+}
+
+export function changeSave(id: number) {
+	stopGameLoop();
+	save();
+	localStorage.setItem('RBN-rewritten-current_save_slot', id.toString());
+	location.reload();
 }
