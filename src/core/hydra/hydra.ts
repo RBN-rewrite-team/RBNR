@@ -285,7 +285,7 @@ export const Hydra = {
 				let expReduce = new Decimal(1);
 				if (player.hydra.dilute.inDilute)
 					expReduce = expReduce.mul(4 - 3 * 0.75 ** Dilute.diluteAmount(1));
-				if (player.upgrades[6110]) expReduce = expReduce.root(upgrades[6110].effect());
+				if (player.upgrades[6110]) expReduce = expReduce.mul(upgrades[6110].effect());
 				return x.root(expReduce).div(10000).max(1).log(1.05).root(2).add(1).floor();
 			}
 			more(): Decimal {
@@ -323,7 +323,7 @@ export const Hydra = {
 			}
 			costInverse(x: Decimal): Decimal {
 				let expReduce = new Decimal(1);
-				if (player.upgrades[6110]) expReduce = expReduce.root(upgrades[6110].effect());
+				if (player.upgrades[6110]) expReduce = expReduce.mul(upgrades[6110].effect());
 				if (player.hydra.dilute.inDilute)
 					expReduce = expReduce.mul(4 - 3 * 0.75 ** Dilute.diluteAmount(1));
 				return x.root(expReduce).div(1e8).max(1).log(1.02).root(2.5).add(1).floor();
@@ -358,10 +358,10 @@ export const Hydra = {
 			}
 			costInverse(x: Decimal): Decimal {
 				let expReduce = new Decimal(1);
-				if (player.upgrades[6110]) expReduce = expReduce.root(upgrades[6110].effect());
+				if (player.upgrades[6110]) expReduce = expReduce.mul(upgrades[6110].effect());
 				if (player.hydra.dilute.inDilute)
 					expReduce = expReduce.mul(4 - 3 * 0.75 ** Dilute.diluteAmount(1));
-				return x.root(expReduce).div('1e900').max(1).log(1e20).root(2.5).add(1).floor();
+				return x.root(expReduce).div('1e875').max(1).log(1e20).root(2.35).add(1).floor();
 			}
 		})(),
 	},
@@ -379,6 +379,7 @@ export const Hydra = {
 			base = base.mul(Hydra.NT4TauEffect());
 		base = base.mul(Dilute.solutionEff().eff1);
 		if(player.upgrades['62S']) base = base.mul(upgrades['62S'].effect());
+		if (player.upgrades["63S"]) base = base.mul(upgrades['63S'].effect());
 
 		if (Dilute.diluteAmount(5) > 0) base = base.pow(1 - (Dilute.diluteAmount(5) * 0.1));
 		if (Dilute.diluteAmount(3) > 0)
@@ -595,6 +596,9 @@ export const Hydra = {
 			player.hydra.totalPower = player.hydra.totalPower.add(
 				Hydra.hydraPowerPassiveGeneration().mul(diff),
 			);
+			player.hydra.trueTotalPower = player.hydra.trueTotalPower.add(
+				Hydra.hydraPowerPassiveGeneration().mul(diff),
+			);
 			player.hydra.powerMult[0] = player.hydra.powerMult[0].add(
 				Hydra.deduceEff(0)
 					.mul(player.hydra.deduceOrdinal[0])
@@ -629,6 +633,7 @@ export const Hydra = {
 		const gain = Hydra.powerGain();
 		player.hydra.power = player.hydra.power.add(gain);
 		player.hydra.totalPower = player.hydra.totalPower.add(gain);
+		player.hydra.trueTotalPower = player.hydra.trueTotalPower.add(gain);
 		player.hydra.deduceProgress[player.hydra.visiting] = new Decimal(0);
 		player.hydra.deduceOrdinal[player.hydra.visiting] = new Decimal(0);
 	},

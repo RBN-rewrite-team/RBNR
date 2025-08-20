@@ -66,6 +66,21 @@ export const DiluteUpgrades = {
 			return 'x' + format(this.effect());
 		}
 	})(),
+	"63S": new (class U63S extends UpgradeWithEffect<Decimal> {
+		currency: Currencies = Currencies.SOLUTION;
+		name: string = "U5-S-3";
+		description: string = "基于总九头蛇能量增益推演速度(稀释不重置该效果，但在稀释中变得更弱)";
+		cost: Decimal = new Decimal(1e4);
+		effect(): Decimal {
+			let base = player.hydra.trueTotalPower.max(1).log10().sub(2466.037724479333951).max(0)
+			if (!player.hydra.inDilute) base = base.pow10()
+			else base = base.add(1)
+			return base.max(1)
+		}
+		effectDescription(): string {
+			return 'x' + format(this.effect());
+		}
+	})(),
 }
 export const Dilute = {
 	respec(){
