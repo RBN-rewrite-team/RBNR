@@ -26,6 +26,7 @@ export const Hydra = {
 			name = 'U5-1-1';
 			effect(): Decimal {
 				let base = player.hydra.totalPower.max(10).log10();
+				if(player.milestones['dut1']) base = base.mul(player.hydra.totalPower.add(1).min(10));
 				if (player.upgrades[616]) base = base.pow(upgrades[616].effect());
 				if (player.upgrades['62R']) base = base.pow(1.15);
 				if (player.upgrades['61S']) {
@@ -37,6 +38,9 @@ export const Hydra = {
 				return 'x' + format(this.effect());
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
+			keep(): boolean {
+				return player.milestones['dut1'];
+			}
 		})(),
 		'612': new (class U612 extends Upgrade {
 			description = '推演速度提高100%';

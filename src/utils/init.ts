@@ -9,6 +9,7 @@ import { QolUpgrades } from '@/core/exponention/qolupg.ts';
 import { Logarithm } from '@/core/exponention/logarithm.ts';
 import hotkeys from 'hotkeys-js';
 import { vHold } from './vHold.ts';
+import { Dilute } from '@/core/hydra/dilute.ts';
 
 import { startGameLoop } from '@/core/game-loop';
 
@@ -25,6 +26,7 @@ export function init() {
 	QolUpgrades.initMechanics();
 	feature.ChessBoard.initMechanics();
 	Logarithm.initMechanics();
+	Dilute.initMechanics();
 	startGameLoop();
 	const app = createApp(App);
 

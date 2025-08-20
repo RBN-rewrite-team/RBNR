@@ -13,12 +13,15 @@ const id = props.id as keyof typeof player.milestones;
 	<tr>
 		<td>
 			<div class="milestone" :class="{ done: player.milestones[id] }">
-				<h3 style="display: inline-block">
+				<h3 style="display: inline-block" v-if="milestones[id].req ?? 0">
+					{{ milestones[id].displayName }}: <span v-html="milestones[id].reqDescription" />
+				</h3>
+				<h3 style="display: inline-block" v-else>
 					{{ milestones[id].displayName }}: {{ format(milestones[id].requirement) }}
 					{{ milestones[id].currency }}
 				</h3>
 				<br />
-				<span v-html="milestones[id].description" />
+				{{ milestones[id].description }}
 			</div>
 		</td>
 	</tr>

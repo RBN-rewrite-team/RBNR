@@ -325,6 +325,8 @@ type IMilestone = {
 	show: boolean;
 	description: string;
 	canDone: boolean;
+	req?: boolean;
+	reqDescription?: string;
 };
 
 export const milestones: {

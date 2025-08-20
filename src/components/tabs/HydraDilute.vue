@@ -5,6 +5,7 @@ import Slider from '../Slider.vue';
 import { Dilute } from '@/core/hydra/dilute.ts';
 import { computed, ref } from 'vue';
 import TDUpgrade from '../TDUpgrade.vue';
+import TRMilestone from '../TRMilestone.vue';
 import { Currencies, getCurrency } from '@/core/currencies.ts';
 
 function getCurrentSolution() {
@@ -331,6 +332,11 @@ setInterval(function () {
 				<TDUpgrade upgid="61S"></TDUpgrade>
 				<TDUpgrade upgid="62S"></TDUpgrade>
 			</tr>
+		</tbody>
+	</table>
+	<table align="center" style="transform: translateY(80px)">
+		<tbody class="milestones">
+			<TRMilestone id="dut1" />
 		</tbody>
 	</table>
 </template>
