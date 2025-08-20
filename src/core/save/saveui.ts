@@ -42,20 +42,5 @@ export function UIChangeSave() {
 	ModalService.show({
 		title: '切换存档',
 		component: saveslot_display,
-		fields: [
-			{
-				type: 'input',
-				placeholder: '槽位',
-				validation(val) {
-					return 0 <= Number(val) && Number(val) <= 10;
-				},
-			},
-		],
-		onConfirm(values) {
-			if (!isNaN(Number(values[0]))) {
-				console.log(values[0]);
-				changeSave(Number(values[0]));
-			}
-		},
 	});
 }
