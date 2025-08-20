@@ -26,7 +26,7 @@ function minS1Level() {
 	);
 }
 
-export function diluteAmount(id: IntClosedRange<0, 8>): number | boolean {
+function diluteAmount(id: IntClosedRange<0, 8>): number | boolean {
 	if (!player.hydra.dilute.inDilute) return id < 6 ? 0 : false;
 	if (player.hydra.dilute.solvent[8]) {
 		return id < 6 ? 10 : true;
@@ -34,6 +34,7 @@ export function diluteAmount(id: IntClosedRange<0, 8>): number | boolean {
 	if (id == 0) return Math.max(player.hydra.dilute.solvent[id], minS1Level());
 	return player.hydra.dilute.solvent[id];
 }
+export { diluteAmount }
 
 interface IDilute {
 	diluteAmount(id: IntClosedRange<0, 5>): number;
@@ -162,12 +163,7 @@ export const Dilute = {
 			reqDescription: '在满级稀释2的稀释中达到0.14轮回效果且 & 19000九头蛇溶液',
 			requirement: new Decimal(0.14),
 			get canDone() {
-				return (
-					player.hydra.dilute.inDilute &&
-					diluteAmount(1) >= 10 &&
-					Hydra.prestigeEff(3).gte(0.14) &&
-					player.hydra.dilute.solution.gte(19000)
-				);
+				return player.hydra.dilute.inDilute && (diluteAmount(1) as number >= 10) && Hydra.prestigeEff(3).gte(0.14) && (player.hydra.dilute.solution > 19000);
 			},
 			show: true,
 			currency: '',
