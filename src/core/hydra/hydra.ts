@@ -29,7 +29,7 @@ export const Hydra = {
 				if (player.upgrades[616]) base = base.pow(upgrades[616].effect());
 				if (player.upgrades['62R']) base = base.pow(1.15);
 				if (player.upgrades['61S']) {
-					base = base.pow(getCurrency(Currencies.SOLUTION).add(10).log10())
+					base = base.pow(upgrades['61S'].effect());
 				}
 				return base;
 			}
@@ -374,6 +374,7 @@ export const Hydra = {
 		if (player.upgrades[65])
 			base = base.mul(Hydra.NT4TauEffect());
 		base = base.mul(Dilute.solutionEff().eff1);
+		if(player.upgrades['62S']) base = base.mul(upgrades['62S'].effect());
 
 		if (Dilute.diluteAmount(5) > 0) base = base.pow(1 - (Dilute.diluteAmount(5) * 0.1));
 		if (Dilute.diluteAmount(3) > 0)
