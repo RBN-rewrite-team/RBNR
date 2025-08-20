@@ -65,7 +65,7 @@ export function displayOrd(
 	const length = 8;
 	let largeOrd = false;
 
-	while (ord.gte(bigBase) && (trim < length || length === 0) && !largeOrd) {
+	while (ord.gte(bigBase) && trim < length /* || length === 0 */ && !largeOrd) {
 		const exponent = ord.add(0.1).log(bigBase).floor();
 		const basePower = Decimal.pow(bigBase, exponent);
 		let coefficient = Decimal.floor(ord.add(0.1).div(basePower));
