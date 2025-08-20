@@ -44,7 +44,13 @@ export function UIChangeSave() {
 			let a = '你当前的槽位为' + current_save + '<br>';
 			a += '当前槽位情况<br>';
 			for (let i = 0; i <= 10; i++) {
-				a += '槽位' + i + ':' + readSaveDetail(i) + '<br>';
+				const b = readSaveDetail(i);
+				if (b)
+					a +=
+						'<div style="border: 2px solid red; width: 200px; margin: auto;">' +
+						`<div>${i}</div>` +
+						readSaveDetail(i) +
+						'</div>';
 			}
 			a += '输入要切换的槽位（0-10）';
 			return a;

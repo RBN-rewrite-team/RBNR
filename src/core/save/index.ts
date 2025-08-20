@@ -720,16 +720,23 @@ function formatDateToMMddHHmm(date: Date) {
 export function readSaveDetail(id: number) {
 	const savecontent = localStorage.getItem(getSaveID(id));
 	if (!savecontent) {
-		return '未使用';
+		return null;
 	}
 	const savecontent_str = saveSerializer.deserialize(savecontent) as KeyStringFromDecimal<Player>;
+	const details = {
+		version: 0,
+		chapter: 0,
+		number: '',
+		isOrdinal: false,
+		lastSave: '',
+	};
 	let a = '';
-	a += '存档版本: ' + savecontent_str.version + '，';
-	a += '章节：' + savecontent_str.stat.chapter;
+	details.version = savecontent_str.version;
+	details.chapter = savecontent_str.stat.chapter;
 	if (savecontent_str.stat.chapter >= 4) {
-		a += '，序数：';
+		details.isOrdinal = true;
 		if (new Decimal(savecontent_str.hydra.deduceOrdinal[0]).gt(0)) {
-			a += calculate(
+			details.number = calculate(
 				OrdinalUtils.numberToBMS(
 					new Decimal(savecontent_str.hydra.deduceOrdinal[0]),
 					new Decimal(4),
@@ -739,12 +746,12 @@ export function readSaveDetail(id: number) {
 					.replace('>', ''),
 			);
 		} else {
-			a += '未知';
+			details.number = 'UNK';
 		}
 	} else {
-		a += '，数值：';
-		a += format(savecontent_str.number);
+		details.isOrdinal = false;
+		details.number = format(savecontent_str.number);
 	}
-	a += '，上一次存档：' + formatDateToMMddHHmm(new Date(savecontent_str.lastUpdated));
-	return a;
+	details.lastSave = formatDateToMMddHHmm(new Date(savecontent_str.lastUpdated));
+	return details;
 }

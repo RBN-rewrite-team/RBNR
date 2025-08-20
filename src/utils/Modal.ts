@@ -1,5 +1,5 @@
 // utils/modal.ts
-import { createApp, h, ref, type Component, type App } from 'vue';
+import { createApp, h, ref, type Component, type App, type DefineComponent } from 'vue';
 import Modal from '../components/Modal.vue';
 
 export interface FieldConfig {
