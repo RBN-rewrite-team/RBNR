@@ -373,6 +373,7 @@ export const Hydra = {
 			base = base.mul(buyables['62R'].effect(player.buyables['62R']));
 		if (player.upgrades[65])
 			base = base.mul(Hydra.NT4TauEffect());
+		base = base.mul(Dilute.solutionEff().eff1);
 
 		if (Dilute.diluteAmount(5) > 0) base = base.pow(1 - (Dilute.diluteAmount(5) * 0.1));
 		if (Dilute.diluteAmount(3) > 0)

@@ -45,7 +45,7 @@ export const DiluteUpgrades = {
 		currency: Currencies = Currencies.SOLUTION;
 		name: string = "U5-S-1";
 		description: string = "U5-1-1效果^(lg(九头蛇溶液数量+10))";
-		cost: Decimal = new Decimal(10);
+		cost: Decimal = new Decimal(7.5);
 	})()
 }
 export const Dilute = {
@@ -200,6 +200,10 @@ export const Dilute = {
 		if (this.diluteAmount(8)) base *= 10;
 		const deduceMult = player.hydra.deduceOrdinal[0].add(1).ln().min(4.99359204e304).toNumber();
 		return deduceMult * base;
+	},
+	solutionEff() {
+		let eff1 = new Decimal(player.hydra.dilute.solution ** 0.5).max(1); //推演速度
+		return {eff1: eff1};
 	},
 	prions() {
 		return Decimal.pow(1 + this.diluteAmount(4) / 100, player.hydra.dilute.prionsTime).sub(1);

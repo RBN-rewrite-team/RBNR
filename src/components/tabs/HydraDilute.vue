@@ -81,7 +81,8 @@ setInterval(function () {
 
 <template :key="refreshKey">
 	你有<b style="color: red; font-size: 30px">{{ format(getCurrentSolution()) }}</b
-	>九头蛇溶液<br /><br />
+	><span v-if="player.hydra.dilute.inDilute">(+{{format(Dilute.solutionGain())}}在退出后)</span>九头蛇溶液<br />
+	推演速度×{{format(Dilute.solutionEff().eff1)}}
 	<span v-if="player.hydra.dilute.prionsTime > 0"
 		>你有<b style="color: red; font-size: 30px">{{ format(Dilute.prions()) }}</b
 		>朊病毒<br /><br
