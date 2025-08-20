@@ -1,6 +1,7 @@
 import ModalService from '@/utils/Modal';
 import { changeSave, current_save, hardReset, loadFromString, readSaveDetail } from '.';
 import { saveInterval } from '@/core/game-loop';
+import saveslot_display from './saveslot_display';
 
 export function UILoadSaveFromFile() {
 	const a = document.createElement('input');
@@ -40,21 +41,7 @@ export function UIHardReset() {
 export function UIChangeSave() {
 	ModalService.show({
 		title: '切换存档',
-		get content() {
-			let a = '你当前的槽位为' + current_save + '<br>';
-			a += '当前槽位情况<br>';
-			for (let i = 0; i <= 10; i++) {
-				const b = readSaveDetail(i);
-				if (b)
-					a +=
-						'<div style="border: 2px solid red; width: 200px; margin: auto;">' +
-						`<div>${i}</div>` +
-						readSaveDetail(i) +
-						'</div>';
-			}
-			a += '输入要切换的槽位（0-10）';
-			return a;
-		},
+		component: saveslot_display,
 		fields: [
 			{
 				type: 'input',
