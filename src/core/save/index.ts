@@ -382,6 +382,7 @@ function getInitialPlayerData(): Player {
 			dil_3: false,
 			dut1: false,
 			dut2: false,
+			dut3: false,
 		},
 		buyable11More: zero,
 		automationCD: {

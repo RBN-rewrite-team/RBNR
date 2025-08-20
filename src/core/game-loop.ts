@@ -75,26 +75,25 @@ export function qolLoop() {
  * 游戏的循环函数（并不是主要的）
  */
 export function gameLoop() {
-  	diff = Date.now() - player.lastUpdated;
-  	if (diff > 60000) {
-  		if (!import.meta.env.DEV) {
-  			simulateTime(diff);
-  		} else {
-  			diff = 0;
-  		}
-  	}
-//	diff *= 0.001
-  	if (player.run_a_tick_and_froze) diff = 33;
-  	if (diff < 0) return;
-  	if (!player.run_a_tick_and_froze) player.lastUpdated = Date.now();
-  	else player.lastUpdated += 33;
-  	try {
-  		simulate(diff);
-  	} catch (e) {
-  		throw e;
-  	}
-  	if (player.singularity.stage >= 1) singularity_UI();
-  	updateTheme();
+	diff = Date.now() - player.lastUpdated;
+	if (diff > 60000) {
+		if (!import.meta.env.DEV) {
+			simulateTime(diff);
+		} else {
+			diff = 0;
+		}
+	}
+	if (player.run_a_tick_and_froze) diff = 33;
+	if (diff < 0) return;
+	if (!player.run_a_tick_and_froze) player.lastUpdated = Date.now();
+	else player.lastUpdated += 33;
+	try {
+		simulate(diff);
+	} catch (e) {
+		throw e;
+	}
+	if (player.singularity.stage >= 1) singularity_UI();
+	updateTheme();
 }
 function r(s: number): number {
 	return Math.random() * s * 2 - s;
