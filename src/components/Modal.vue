@@ -8,7 +8,7 @@
 							<component :is="icon" />
 						</div>
 					</slot>
-					<h3>{{ title }}</h3>
+					<span class="modal-title">{{ title }}</span>
 				</div>
 
 				<div class="modal-body">
@@ -113,7 +113,7 @@ const props = withDefaults(defineProps<Props>(), {
 	customButtons: () => [],
 	showProgress: false,
 	progress: 0,
-	onClose: () => {}
+	onClose: () => {},
 });
 
 const emit = defineEmits(['update:visible', 'confirm', 'cancel', 'update:values']);
@@ -219,7 +219,7 @@ const handleMaskClick = () => {
 
 const close = () => {
 	emit('update:visible', false);
-	props?.onClose?.()
+	props?.onClose?.();
 };
 
 // 监听器
@@ -253,8 +253,8 @@ defineExpose({
 }
 
 .modal-container {
-	background-color: #fdfdfd;
-	border: 2px solid #c9c9c9;
+	background-color: var(--background-color);
+	border: 2px solid var(--border-color);
 	border-radius: 8px;
 	font-size: 17px;
 	line-height: 25px;
@@ -399,5 +399,9 @@ defineExpose({
 button {
 	padding: 5px;
 	border-radius: 4px;
+}
+.modal-title,
+.modal-content {
+	color: var(--color);
 }
 </style>

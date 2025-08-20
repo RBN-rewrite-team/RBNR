@@ -12,20 +12,22 @@ function getCurrentSolution() {
 	return player.hydra.dilute.solution;
 }
 
-function getSliderProps(id = 0) { return {
-	min: id == 0 ? 0 : Math.min(minS1Level(), 9),
-	max: 10,
-	width: '24rem',
-	valueInDot: true,
-	tooltip: 'never',
-	'dot-width': '2.2rem',
-	'dot-height': '1.6rem',
-	'dot-class': 'slider-dot-class-dilute',
-	'process-class': 'slider-process-class-dilute',
-	style: {
-		'margin-top': '1rem',
-	},
-}};
+function getSliderProps(id = 0) {
+	return {
+		min: id == 0 ? 0 : Math.min(minS1Level(), 9),
+		max: 10,
+		width: '24rem',
+		valueInDot: true,
+		tooltip: 'never',
+		'dot-width': '2.2rem',
+		'dot-height': '1.6rem',
+		'dot-class': 'slider-dot-class-dilute',
+		'process-class': 'slider-process-class-dilute',
+		style: {
+			'margin-top': '1rem',
+		},
+	};
+}
 
 const sliderProps2 = {
 	min: 0,
@@ -57,22 +59,19 @@ function switchSolvent9(event: number) {
 const refreshKey = ref(0);
 
 function minS1Level() {
-  if (player.hydra.dilute.solvent[6] || player.hydra.dilute.solvent[7]) return 10
-  return Math.max(
-    Math.floor(player.hydra.dilute.solvent[1] / 2),
-    Math.floor(player.hydra.dilute.solvent[2] / 2),
-    player.hydra.dilute.solvent[3],
-    player.hydra.dilute.solvent[4],
-    player.hydra.dilute.solvent[5],
-  )
+	if (player.hydra.dilute.solvent[6] || player.hydra.dilute.solvent[7]) return 10;
+	return Math.max(
+		Math.floor(player.hydra.dilute.solvent[1] / 2),
+		Math.floor(player.hydra.dilute.solvent[2] / 2),
+		player.hydra.dilute.solvent[3],
+		player.hydra.dilute.solvent[4],
+		player.hydra.dilute.solvent[5],
+	);
 }
 
 function fixS1() {
-    if (minS1Level() == 10) player.hydra.dilute.solvent[0] = 10
-    player.hydra.dilute.solvent[0] = Math.max(
-    minS1Level(),
-    player.hydra.dilute.solvent[0]
-  )
+	if (minS1Level() == 10) player.hydra.dilute.solvent[0] = 10;
+	player.hydra.dilute.solvent[0] = Math.max(minS1Level(), player.hydra.dilute.solvent[0]);
 }
 
 setInterval(function () {
@@ -82,8 +81,9 @@ setInterval(function () {
 
 <template :key="refreshKey">
 	你有<b style="color: red; font-size: 30px">{{ format(getCurrentSolution()) }}</b
-	><span v-if="player.hydra.dilute.inDilute">(本次{{format(Dilute.solutionGain())}})</span>九头蛇溶液<br />
-	推演速度×{{format(Dilute.solutionEff().eff1)}}
+	><span v-if="player.hydra.dilute.inDilute">(本次{{ format(Dilute.solutionGain()) }})</span
+	>九头蛇溶液<br />
+	推演速度×{{ format(Dilute.solutionEff().eff1) }}
 	<span v-if="player.hydra.dilute.prionsTime > 0"
 		>你有<b style="color: red; font-size: 30px">{{ format(Dilute.prions()) }}</b
 		>朊病毒<br /><br
@@ -99,8 +99,9 @@ setInterval(function () {
 					: '将会在' + a.toFixed(3) + '秒后自毁';
 			})()
 		}}
-	</div><br>
-	部分溶剂将限制溶剂I的最低等级!<br>
+	</div>
+	<br />
+	部分溶剂将限制溶剂I的最低等级!<br />
 	<div class="container" style="transform: translateY(-10px)">
 		<div class="dilute">
 			至少选择任何一项溶剂并提升它的等级以进入稀释<br />
@@ -116,7 +117,9 @@ setInterval(function () {
 			选用的削弱等级对九头蛇溶液的获取量影响较大，稀释中的进度对九头蛇溶液的获取量影响较小。<br />
 			你在{{ JSON.stringify(player.hydra.dilute.lastSolvent.map(Number)) }}中最高达到了{{
 				formatWhole(player.hydra.dilute.lastDeduce)
-			}}次推演，这给你带来了{{ format(player.hydra.dilute.solution) }}({{ format(getCurrency(Currencies.SOLUTION)) }})九头蛇溶液
+			}}次推演，这给你带来了{{ format(player.hydra.dilute.solution) }}({{
+				format(getCurrency(Currencies.SOLUTION))
+			}})九头蛇溶液
 		</div>
 		<div class="solvents">
 			溶剂等级之和使你的推演速度变为<sup>1</sup>/<sub>{{
@@ -145,7 +148,13 @@ setInterval(function () {
 										:value="player.hydra.dilute.solvent[0]"
 										:width="'100%'"
 										:disabled="minS1Level() == 10 || canChangeLevel"
-										@input="player.hydra.dilute.solvent[0] = Math.max($event, minS1Level()); fixS1()"
+										@input="
+											player.hydra.dilute.solvent[0] = Math.max(
+												$event,
+												minS1Level(),
+											);
+											fixS1();
+										"
 									/>
 								</div>
 							</div>
@@ -165,7 +174,10 @@ setInterval(function () {
 										:value="player.hydra.dilute.solvent[1]"
 										:width="'100%'"
 										:disabled="canChangeLevel"
-										@input="player.hydra.dilute.solvent[1] = $event; fixS1()"
+										@input="
+											player.hydra.dilute.solvent[1] = $event;
+											fixS1();
+										"
 									/>
 								</div>
 							</div>
@@ -192,7 +204,10 @@ setInterval(function () {
 										:value="player.hydra.dilute.solvent[2]"
 										:width="'100%'"
 										:disabled="canChangeLevel"
-										@input="player.hydra.dilute.solvent[2] = $event; fixS1()"
+										@input="
+											player.hydra.dilute.solvent[2] = $event;
+											fixS1();
+										"
 									/>
 								</div>
 							</div>
@@ -212,7 +227,10 @@ setInterval(function () {
 										:value="player.hydra.dilute.solvent[3]"
 										:width="'100%'"
 										:disabled="canChangeLevel"
-										@input="player.hydra.dilute.solvent[3] = $event; fixS1()"
+										@input="
+											player.hydra.dilute.solvent[3] = $event;
+											fixS1();
+										"
 									/>
 								</div>
 							</div>
@@ -234,7 +252,10 @@ setInterval(function () {
 										:value="player.hydra.dilute.solvent[4]"
 										:width="'100%'"
 										:disabled="canChangeLevel"
-										@input="player.hydra.dilute.solvent[4] = $event; fixS1()"
+										@input="
+											player.hydra.dilute.solvent[4] = $event;
+											fixS1();
+										"
 									/>
 								</div>
 							</div>
@@ -256,7 +277,10 @@ setInterval(function () {
 										:value="player.hydra.dilute.solvent[5]"
 										:width="'100%'"
 										:disabled="canChangeLevel"
-										@input="player.hydra.dilute.solvent[5] = $event; fixS1()"
+										@input="
+											player.hydra.dilute.solvent[5] = $event;
+											fixS1();
+										"
 									/>
 								</div>
 							</div>
@@ -276,7 +300,10 @@ setInterval(function () {
 										:value="Number(player.hydra.dilute.solvent[6])"
 										:width="'100%'"
 										:disabled="canChangeLevel"
-										@input="player.hydra.dilute.solvent[6] = !!$event; fixS1()"
+										@input="
+											player.hydra.dilute.solvent[6] = !!$event;
+											fixS1();
+										"
 									/>
 								</div>
 							</div>
@@ -294,7 +321,10 @@ setInterval(function () {
 										:value="Number(player.hydra.dilute.solvent[7])"
 										:width="'100%'"
 										:disabled="canChangeLevel"
-										@input="player.hydra.dilute.solvent[7] = !!$event; fixS1()"
+										@input="
+											player.hydra.dilute.solvent[7] = !!$event;
+											fixS1();
+										"
 									/>
 								</div>
 							</div>
@@ -323,7 +353,7 @@ setInterval(function () {
 		</div>
 	</div>
 	<div align="center">
-		当前可用溶液：{{format(getCurrency(Currencies.SOLUTION))}}<br>
+		当前可用溶液：{{ format(getCurrency(Currencies.SOLUTION)) }}<br />
 		<button class="clickable_button" @click="Dilute.respec">重新分配</button>
 	</div>
 	<table align="center">

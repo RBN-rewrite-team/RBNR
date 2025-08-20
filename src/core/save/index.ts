@@ -2,24 +2,40 @@ import Decimal from 'break_eternity.js';
 import { type DecimalSource } from 'break_eternity.js';
 import { saveSerializer } from './serializer';
 import { reactive } from 'vue';
-import { notations } from '@/utils/format';
+import { format, notations } from '@/utils/format';
 import { themes } from '@/utils/themes';
-import type { qolUpgs } from '../exponention/qolupg';
 import type { IAstronomer } from '../exponention/logarithm';
-import type { IntRange } from 'type-fest';
 import { buyables, upgrades, milestones } from '../mechanic';
 import type { backupHydraType } from '../hydra/dilute';
 import { Dilute } from '../hydra/dilute';
+import { stopGameLoop } from '../game-loop';
+import { OrdinalUtils } from '@/utils/ordinal';
+import { calculate } from '@/utils/bms-analyze';
+import { displayOrd } from '@/lib/ordinal';
 
-const SAVEID = 'RBN-rewritten-powerful-refactor-test';
 const version = 6 as const;
 const zero = new Decimal(0);
+export let current_save = 0;
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
+type KeyStringFromDecimal<T> = {
+	[key in keyof T]: T[key] extends Decimal
+		? string
+		: T[key] extends object
+			? KeyStringFromDecimal<T[key]>
+			: T[key];
+};
+// type Milestones = Record<
+// 	`cb${IntRange<1, 21>}` | 'log_law1' | 'log_law2' | 'log_law3' | 'log_G',
+// 	boolean
+// >;
 
-type Milestones = Record<
-	`cb${IntRange<1, 21>}` | 'log_law1' | 'log_law2' | 'log_law3' | 'log_G',
-	boolean
->;
+function getSaveID(id: number) {
+	if (id == 0) {
+		return 'RBN-rewritten-powerful-refactor-test';
+	} else {
+		return `RBN-rewritten-save-${id}`;
+	}
+}
 
 export interface Player {
 	number: Decimal;
@@ -534,6 +550,7 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 	}
 
 	if (typeof source === 'object' && source !== null) {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const result: any = { ...source };
 
 		if (target === null || target === undefined) return source;
@@ -562,6 +579,7 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 					string
 				>];
 			} else if (targetValue !== null && typeof targetValue === 'object') {
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				result[key] = deepMerge(targetValue, sourceValue as any);
 			} else {
 				result[key] = targetValue;
@@ -582,20 +600,29 @@ export function loadFromString(saveContent: string) {
 	if ((player?.version ?? 0) < 4) {
 		player.hydra.dilute.solvent = [0, 0, 0, 0, 0, 0, false, false, false];
 	}
-	if ((player?.version ?? 0) < 6 && player.upgrades["69R"]) {
-	  Dilute.exitDilute()
+	if ((player?.version ?? 0) < 6 && player.upgrades['69R']) {
+		Dilute.exitDilute();
 		player.hydra.dilute = getInitialPlayerData().hydra.dilute;
-		player.upgrades["61S"] = false
-		player.hydra.power = new Decimal("e2466")
-		player.hydra.powerMult =  [new Decimal(1), new Decimal(1), new Decimal(1), new Decimal(1)]
-		player.hydra.prestige = [new Decimal("e345"), new Decimal("e55"), new Decimal("3.7"), new Decimal("5e35")]
+		player.upgrades['61S'] = false;
+		player.hydra.power = new Decimal('e2466');
+		player.hydra.powerMult = [new Decimal(1), new Decimal(1), new Decimal(1), new Decimal(1)];
+		player.hydra.prestige = [
+			new Decimal('e345'),
+			new Decimal('e55'),
+			new Decimal('3.7'),
+			new Decimal('5e35'),
+		];
 	}
 	player.version = version;
 }
 
 export function loadSaves() {
+	const current_save2 = localStorage.getItem('RBN-rewritten-current_save_slot');
+	if (current_save2) {
+		current_save = Number(current_save2);
+	}
 	player = getInitialPlayerData();
-	const saveContent = localStorage.getItem(SAVEID);
+	const saveContent = localStorage.getItem(getSaveID(current_save));
 	try {
 		if (saveContent) {
 			loadFromString(saveContent);
@@ -608,7 +635,7 @@ export function loadSaves() {
 }
 
 export function save() {
-	localStorage.setItem(SAVEID, saveSerializer.serialize(player));
+	localStorage.setItem(getSaveID(current_save), saveSerializer.serialize(player));
 }
 const savefunc = save;
 export function hardReset() {
@@ -634,7 +661,7 @@ export function import_file(): void {
 					player = reactive(player);
 					savefunc();
 					location.reload();
-				} catch (e) {
+				} catch {
 					console.error('Cannot import save');
 				}
 			}
@@ -669,4 +696,52 @@ function getCurrentBeijingTime(): string {
 		o < 0 && (t.setUTCDate(t.getUTCDate() + 1), (o += 24)),
 		`${e}-${r}-${a} ${o.toString().padStart(2, '0')}:${g.toString().padStart(2, '0')}:${i.toString().padStart(2, '0')}.${S.toString().padStart(3, '0')}`
 	);
+}
+
+export function changeSave(id: number) {
+	stopGameLoop();
+	save();
+	localStorage.setItem('RBN-rewritten-current_save_slot', id.toString());
+	location.reload();
+}
+function formatDateToMMddHHmm(date: Date) {
+	// 获取日期组成部分
+	const month = (date.getMonth() + 1).toString().padStart(2, '0');
+	const day = date.getDate().toString().padStart(2, '0');
+	const hours = date.getHours().toString().padStart(2, '0');
+	const minutes = date.getMinutes().toString().padStart(2, '0');
+
+	// 返回格式化后的字符串
+	return `${month}-${day} ${hours}:${minutes}`;
+}
+export function readSaveDetail(id: number) {
+	const savecontent = localStorage.getItem(getSaveID(id));
+	if (!savecontent) {
+		return '未使用';
+	}
+	const savecontent_str = saveSerializer.deserialize(savecontent) as KeyStringFromDecimal<Player>;
+	let a = '';
+	a += '存档版本: ' + savecontent_str.version + '，';
+	a += '章节：' + savecontent_str.stat.chapter;
+	if (savecontent_str.stat.chapter >= 4) {
+		a += '，序数：';
+		if (new Decimal(savecontent_str.hydra.deduceOrdinal[0]).gt(0)) {
+			a += calculate(
+				OrdinalUtils.numberToBMS(
+					new Decimal(savecontent_str.hydra.deduceOrdinal[0]),
+					new Decimal(4),
+					20,
+				)
+					.replace('...', '')
+					.replace('>', ''),
+			);
+		} else {
+			a += '未知';
+		}
+	} else {
+		a += '，数值：';
+		a += format(savecontent_str.number);
+	}
+	a += '，上一次存档：' + formatDateToMMddHHmm(new Date(savecontent_str.lastUpdated));
+	return a;
 }
