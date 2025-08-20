@@ -14,7 +14,13 @@ const version = 6 as const;
 const zero = new Decimal(0);
 export let current_save = 0;
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
-
+type KeyStringFromDecimal<T> = {
+	[key in keyof T]: T[key] extends Decimal
+		? string
+		: T[key] extends object
+			? KeyStringFromDecimal<T[key]>
+			: T[key];
+};
 // type Milestones = Record<
 // 	`cb${IntRange<1, 21>}` | 'log_law1' | 'log_law2' | 'log_law3' | 'log_G',
 // 	boolean
@@ -691,4 +697,16 @@ export function changeSave(id: number) {
 	save();
 	localStorage.setItem('RBN-rewritten-current_save_slot', id.toString());
 	location.reload();
+}
+
+export function readSaveDetail(id: number) {
+	const savecontent = localStorage.getItem(getSaveID(id));
+	if (!savecontent) {
+		return '未使用';
+	}
+	const savecontent_str = saveSerializer.deserialize(savecontent) as KeyStringFromDecimal<Player>;
+	let a = '';
+	a += '存档版本: ' + savecontent_str.version + '，';
+	a += '章节：' + savecontent_str.stat.chapter;
+	return a;
 }
