@@ -2,7 +2,6 @@ import Decimal from 'break_eternity.js';
 import { player } from '../save';
 import { Hydra } from './hydra';
 import type { IntClosedRange } from 'type-fest';
-import { diff } from '../game-loop';
 import ModalService from '@/utils/Modal';
 import { Upgrade } from '../upgrade';
 import { Currencies } from '../currencies';
@@ -167,7 +166,7 @@ export const Dilute = {
 			this.enterDilute();
 		}
 	},
-	diluteLoop() {
+	diluteLoop(diff: number) {
 		if (player.hydra.dilute.inDilute) {
 			let s3Eff = 1000 / player.hydra.dilute.solvent[2] ** 2;
 			player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + diff / 1000;

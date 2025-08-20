@@ -272,7 +272,7 @@ export function simulate(diff: number) {
 
 	if (player.upgrades[517]) {
 		feature.Hydra.hydraUpdate(diff / 1000);
-		Dilute.diluteLoop();
+		Dilute.diluteLoop(diff);
 	}
 
 	Logarithm.astronomerUpdate();
