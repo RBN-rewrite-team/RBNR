@@ -9,9 +9,10 @@ import type { IAstronomer } from '../exponention/logarithm';
 import type { IntRange } from 'type-fest';
 import { buyables, upgrades, milestones } from '../mechanic';
 import type { backupHydraType } from '../hydra/dilute';
+import { Dilute } from '../hydra/dilute';
 
 const SAVEID = 'RBN-rewritten-powerful-refactor-test';
-const version = 4 as const;
+const version = 6 as const;
 const zero = new Decimal(0);
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
 
@@ -139,17 +140,31 @@ export interface Player {
 		powerMult: [Decimal, Decimal, Decimal, Decimal];
 		deduceProgress: [Decimal, Decimal, Decimal, Decimal];
 		deduceOrdinal: [Decimal, Decimal, Decimal, Decimal];
+		totalDeduceOrdinal: [Decimal, Decimal, Decimal, Decimal];
 		prestige: [Decimal, Decimal, Decimal, Decimal];
 		pAuto: [boolean, boolean, boolean, boolean];
-		backupHydra: backupHydraType;
+		backupHydra?: backupHydraType;
 		dilute: {
 			inDilute: boolean;
-			solvent: [number,number,number,number,number,number,boolean,boolean,boolean];
-			lastSolvent: [number,number,number,number,number,number,boolean,boolean,boolean];
+			solvent: [number, number, number, number, number, number, boolean, boolean, boolean];
+			lastSolvent: [
+				number,
+				number,
+				number,
+				number,
+				number,
+				number,
+				boolean,
+				boolean,
+				boolean,
+			];
 			spentTime: number;
 			solution: number;
 			lastDeduce: Decimal;
-		}
+			prionsTime: number;
+			solute: Decimal;
+			solutionCost: number;
+		};
 	};
 }
 function getInitialPlayerData(): Player {
@@ -268,6 +283,7 @@ function getInitialPlayerData(): Player {
 			'67R': false,
 			'68R': false,
 			'69R': false,
+			'61S': false,
 		},
 		buyables: {
 			'11': zero,
@@ -456,27 +472,19 @@ function getInitialPlayerData(): Player {
 			powerMult: [new Decimal(1), new Decimal(1), new Decimal(1), new Decimal(1)],
 			deduceProgress: [zero, zero, zero, zero],
 			deduceOrdinal: [zero, zero, zero, zero],
+			totalDeduceOrdinal: [zero, zero, zero, zero],
 			prestige: [zero, zero, zero, zero],
 			pAuto: [false, false, false, false],
 			dilute: {
 				inDilute: false,
-				solvent: [0,0,0,0,0,0,false,false,false],
-				lastSolvent: [0,0,0,0,0,0,false,false,false],
+				solvent: [0, 0, 0, 0, 0, 0, false, false, false],
+				lastSolvent: [0, 0, 0, 0, 0, 0, false, false, false],
 				lastDeduce: zero,
 				spentTime: 0,
+				prionsTime: 0,
 				solution: 0,
-			},
-			backupHydra: {
-				upgrades: [],
-				buyables: {
-					'611': zero,
-					'612': zero,
-					'613': zero,
-					'614': zero,
-					'61R': zero,
-					'62R': zero,
-				},
-				prestiges: [zero, zero, zero, zero],
+				solutionCost: 0,
+				solute: zero,
 			},
 		},
 	};
@@ -500,8 +508,8 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 			const sourceItem = i < source.length ? source[i] : undefined;
 			const targetItem = i < targetArray.length ? targetArray[i] : undefined;
 
-      if (targetItem === null || sourceItem === null) continue
-      
+			if (targetItem === null || sourceItem === null) continue;
+
 			if (
 				targetItem !== undefined &&
 				targetItem !== null &&
@@ -524,17 +532,17 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 
 	if (typeof source === 'object' && source !== null) {
 		const result: any = { ...source };
-		
-		if (target === null || target === undefined) return source
 
-		for (const key of (new Set([...Object.keys(source), ...Object.keys(target)]))) {
+		if (target === null || target === undefined) return source;
+
+		for (const key of new Set([...Object.keys(source), ...Object.keys(target)])) {
 			const sourceValue = source[key as keyof typeof source];
 			const targetValue = target[key as keyof typeof target];
 
 			if (targetValue === undefined || targetValue === null) {
 				continue;
 			}
-			
+
 			if (sourceValue === undefined || sourceValue === null) {
 				result[key] = targetValue;
 			}
@@ -550,13 +558,10 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 					keyof T,
 					string
 				>];
-			} else if (
-			    targetValue !== null &&
-				  typeof targetValue === 'object'
-			) {
-			  result[key] = deepMerge(targetValue, sourceValue as any);
+			} else if (targetValue !== null && typeof targetValue === 'object') {
+				result[key] = deepMerge(targetValue, sourceValue as any);
 			} else {
-			  result[key] = targetValue
+				result[key] = targetValue;
 			}
 		}
 
@@ -572,7 +577,15 @@ export function loadFromString(saveContent: string) {
 	let deserialized = saveSerializer.deserialize(saveContent);
 	Object.assign(player, deepMerge(player, deserialized));
 	if ((player?.version ?? 0) < 4) {
-	  player.hydra.dilute.solvent = [0,0,0,0,0,0,false,false,false]
+		player.hydra.dilute.solvent = [0, 0, 0, 0, 0, 0, false, false, false];
+	}
+	if ((player?.version ?? 0) < 6 && player.upgrades["69R"]) {
+	  Dilute.exitDilute()
+		player.hydra.dilute = getInitialPlayerData().hydra.dilute;
+		player.upgrades["61S"] = false
+		player.hydra.power = new Decimal("e2466")
+		player.hydra.powerMult =  [new Decimal(1), new Decimal(1), new Decimal(1), new Decimal(1)]
+		player.hydra.prestige = [new Decimal("e345"), new Decimal("e55"), new Decimal("3.7"), new Decimal("5e35")]
 	}
 	player.version = version;
 }
@@ -586,7 +599,7 @@ export function loadSaves() {
 		}
 	} catch (error) {
 		console.error('Cannot load save');
-		throw error
+		throw error;
 	}
 	player = reactive(player);
 }
@@ -594,7 +607,7 @@ export function loadSaves() {
 export function save() {
 	localStorage.setItem(SAVEID, saveSerializer.serialize(player));
 }
-const savefunc = save
+const savefunc = save;
 export function hardReset() {
 	player = getInitialPlayerData();
 	save();

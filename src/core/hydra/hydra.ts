@@ -1,12 +1,13 @@
 import Decimal from 'break_eternity.js';
 import { player, feature } from '@/core/global';
 import { format, formatWhole } from '@/utils/format';
-import { Currencies } from '../currencies';
+import { Currencies, getCurrency } from '../currencies';
 import { Upgrade, UpgradeWithEffect } from '../upgrade';
 import { CurrencyRequirement, type Requirement } from '../requirements';
 import { Buyable } from '../buyable';
 import { upgrades, buyables } from '../mechanic';
 import { Dilute } from './dilute';
+import type { IntClosedRange } from 'type-fest';
 
 //Hydra：BMS，1-Y，fffZ
 export const Hydra = {
@@ -27,6 +28,9 @@ export const Hydra = {
 				let base = player.hydra.totalPower.max(10).log10();
 				if (player.upgrades[616]) base = base.pow(upgrades[616].effect());
 				if (player.upgrades['62R']) base = base.pow(1.15);
+				if (player.upgrades['61S']) {
+					base = base.pow(getCurrency(Currencies.SOLUTION).add(10).log10())
+				}
 				return base;
 			}
 			effectDescription(): string {
@@ -213,7 +217,11 @@ export const Hydra = {
 		'611': new (class B611 extends Buyable<Decimal> {
 			description = 'BMS推演速度×+1';
 			cost(x: Decimal): Decimal {
-				return new Decimal(10).mul(x.pow_base(1.15));
+				let cost = new Decimal(10).mul(x.pow_base(1.15));
+				if (player.hydra.dilute.inDilute) {
+					cost = cost.pow(4 - 3 * 0.75 ** Dilute.diluteAmount(1));
+				}
+				return cost;
 			}
 			name = 'B5-1-1';
 			effect(x: Decimal): Decimal {
@@ -230,7 +238,10 @@ export const Hydra = {
 				return false;
 			}
 			costInverse(x: Decimal): Decimal {
-				return x.div(10).max(1).log(1.15).add(1).max(99).floor();
+				let expReduce = new Decimal(1);
+				if (player.hydra.dilute.inDilute)
+					expReduce = expReduce.mul(4 - 3 * 0.75 ** Dilute.diluteAmount(1));
+				return x.root(expReduce).div(10).max(1).log(1.15).add(1).max(99).floor();
 			}
 			capped(x: Decimal): boolean {
 				return x.add(this.more()).gte(99);
@@ -241,6 +252,9 @@ export const Hydra = {
 			cost(x: Decimal): Decimal {
 				let base = new Decimal(10000).mul(x.pow(2).pow_base(1.05));
 				if (player.upgrades[6110]) base = base.pow(upgrades[6110].effect());
+				if (player.hydra.dilute.inDilute) {
+					base = base.pow(4 - 3 * 0.75 ** Dilute.diluteAmount(1));
+				}
 				return base;
 			}
 			name = 'B5-1-2';
@@ -265,6 +279,8 @@ export const Hydra = {
 			}
 			costInverse(x: Decimal): Decimal {
 				let expReduce = new Decimal(1);
+				if (player.hydra.dilute.inDilute)
+					expReduce = expReduce.mul(4 - 3 * 0.75 ** Dilute.diluteAmount(1));
 				if (player.upgrades[6110]) expReduce = expReduce.pow(upgrades[6110].effect());
 				return x.root(expReduce).div(10000).max(1).log(1.05).root(2).add(1).floor();
 			}
@@ -279,6 +295,9 @@ export const Hydra = {
 			cost(x: Decimal): Decimal {
 				let base = new Decimal(1e8).mul(x.pow(2.5).pow_base(1.02));
 				if (player.upgrades[6110]) base = base.pow(upgrades[6110].effect());
+				if (player.hydra.dilute.inDilute) {
+					base = base.pow(4 - 3 * 0.75 ** Dilute.diluteAmount(1));
+				}
 				return base;
 			}
 			name = 'B5-1-3';
@@ -301,6 +320,8 @@ export const Hydra = {
 			costInverse(x: Decimal): Decimal {
 				let expReduce = new Decimal(1);
 				if (player.upgrades[6110]) expReduce = expReduce.pow(upgrades[6110].effect());
+				if (player.hydra.dilute.inDilute)
+					expReduce = expReduce.mul(4 - 3 * 0.75 ** Dilute.diluteAmount(1));
 				return x.root(expReduce).div(1e8).max(1).log(1.02).root(2.5).add(1).floor();
 			}
 		})(),
@@ -309,6 +330,9 @@ export const Hydra = {
 			cost(x: Decimal): Decimal {
 				let base = new Decimal('1e875').mul(x.pow(2.35).pow_base(1e20));
 				if (player.upgrades[6110]) base = base.pow(upgrades[6110].effect());
+				if (player.hydra.dilute.inDilute) {
+					base = base.pow(4 - 3 * 0.75 ** Dilute.diluteAmount(1));
+				}
 				return base;
 			}
 			name = 'B5-1-4';
@@ -331,6 +355,8 @@ export const Hydra = {
 			costInverse(x: Decimal): Decimal {
 				let expReduce = new Decimal(1);
 				if (player.upgrades[6110]) expReduce = expReduce.pow(upgrades[6110].effect());
+				if (player.hydra.dilute.inDilute)
+					expReduce = expReduce.mul(4 - 3 * 0.75 ** Dilute.diluteAmount(1));
 				return x.root(expReduce).div('1e900').max(1).log(1e20).root(2.5).add(1).floor();
 			}
 		})(),
@@ -338,17 +364,27 @@ export const Hydra = {
 	deduceSpeed(i = 0): Decimal {
 		//推演的速度
 		let base = new Decimal(0);
-		if (i == 0 && player.upgrades[61]) base = new Decimal(0.1);
+		if (i == 0 && player.upgrades[61]) base = new Decimal(1);
 		if (i == 0 && player.upgrades[611]) base = base.mul(upgrades[611].effect());
 		if (i == 0) base = base.mul(buyables[611].effect(player.buyables[611]));
 		if (player.upgrades[612]) base = base.mul(2);
 		base = base.mul(Hydra.prestigeEff(0));
-		if (player.upgrades[65]) base = base.mul(Hydra.NT4TauEffect());
 		if (player.buyables['62R'].gte(1))
 			base = base.mul(buyables['62R'].effect(player.buyables['62R']));
+		if (player.upgrades[65])
+			base = base.mul(Hydra.NT4TauEffect());
 
-		base = base.div(5**(Dilute.diluteAmount(0) as number))
-		return base;
+		if (Dilute.diluteAmount(5) > 0) base = base.pow(1 - (Dilute.diluteAmount(5) * 0.1));
+		if (Dilute.diluteAmount(3) > 0)
+			base = base.mul(Hydra.NT4TauEffect());
+		base = base.div(5 ** (Dilute.diluteAmount(0) as number));
+		if (player.hydra.dilute.inDilute)
+			base = base.div(
+				Array.from({ length: 6 }, (_, index: number) =>
+					Dilute.diluteAmount(index as IntClosedRange<0, 5>),
+				).reduce((total, num) => total + num, 1) ** 2,
+			);
+		return base.div(10);
 	},
 	deduceEff(i = 0): Decimal {
 		//推演一位提高的乘数
@@ -357,7 +393,7 @@ export const Hydra = {
 		base = base.mul(Hydra.prestigeEff(2));
 		if (i == 0 && player.upgrades[614]) base = base.mul(upgrades[614].effect());
 
-		base = base.div(5**(Dilute.diluteAmount(0) as number))
+		base = base.div(5 ** (Dilute.diluteAmount(0) as number));
 		return base;
 	},
 	basePower(): Decimal {
@@ -389,6 +425,7 @@ export const Hydra = {
 	},
 	powerGain(): Decimal {
 		//能量产量
+		if (Dilute.diluteAmount(7) && player.hydra.dilute.spentTime > 5) return new Decimal(0);
 		let base = this.powerGainBase();
 		return this.powerGainAfterSoftcap(base);
 	},
@@ -407,7 +444,7 @@ export const Hydra = {
 		return base;
 	},
 	powerSoftcapNerf(base: Decimal): Decimal {
-		if(!base.gte('e2400')) return new Decimal(1);
+		if (!base.gte('e2400')) return new Decimal(1);
 		else return this.powerGainAfterSoftcap(base).log(base);
 	},
 	powerGainBase(): Decimal {
@@ -418,6 +455,7 @@ export const Hydra = {
 		return base;
 	},
 	pUnlock(id = 0): boolean {
+		if (Dilute.diluteAmount(6)) return false;
 		//解锁转生
 		if (id != 3 && Hydra.pUnlock(id + 1)) return true;
 		if (id == 0) return player.hydra.prestige[0].gt(0) || Hydra.basePower().gte(2);
@@ -471,6 +509,12 @@ export const Hydra = {
 		if (relative) {
 			return this.prestigeEff(id, true).div(this.prestigeEff(id, false));
 		}
+		if (Dilute.diluteAmount(6)) {
+			if (id == 0) return new Decimal(1);
+			if (id == 3) return new Decimal(1);
+			if (id == 1) return new Decimal(0);
+			if (id == 4) return new Decimal(0);
+		}
 		let num = new Decimal(0);
 		if (!preview) num = player.hydra.prestige[id];
 		else num = Hydra.prestigeBase(id);
@@ -503,6 +547,7 @@ export const Hydra = {
 	},
 	deduce(i = 0, bulk = new Decimal(0)): void {
 		player.hydra.deduceOrdinal[i] = player.hydra.deduceOrdinal[i].add(bulk);
+		player.hydra.totalDeduceOrdinal[i] = player.hydra.totalDeduceOrdinal[i].add(bulk);
 	},
 	prestige(i = 0): void {
 		if (!Hydra.pUnlock(i)) return;
@@ -524,6 +569,7 @@ export const Hydra = {
 		if (!keepHP) player.hydra.power = new Decimal(0);
 	},
 	hydraUpdate(diff = 0): void {
+		if (Dilute.diluteAmount(8)) diff /= 1000;
 		for (let i = 0; i < 4; i++) {
 			player.hydra.deduceProgress[i] = player.hydra.deduceProgress[i].add(
 				Hydra.deduceSpeed(i).mul(diff),
@@ -599,9 +645,11 @@ export const Hydra = {
 			['\\psi(\\Omega_2^2)', new Decimal(4).pow(16)],
 			['\\psi(\\Omega_2^{\\psi_{\\Omega_2}(\\Omega_2^2))})', new Decimal(4).pow(32)],
 			['\\psi(\\Omega_2^{\\Omega_2})', new Decimal(4).pow(64)],
-			['\\psi(\\Omega_2^{\\Omega_2^{\\psi_{\\Omega_2}(\\Omega_2^2)}})', Decimal.pow(4,81)],
+			['\\psi(\\Omega_2^{\\Omega_2^{\\psi_{\\Omega_2}(\\Omega_2^2)}})', Decimal.pow(4, 81)],
 			['\\psi(\\Omega_3)', new Decimal(4).pow(4 ** 4)],
 			['\\psi(\\Omega_3\\cdot \\Omega_2)', new Decimal(4).pow(4 ** 5)],
+			['\\psi(\\Omega_3\\psi_{\\Omega_2}(\\Omega_3))', new Decimal(4).pow(262144)],
+			['\\psi(\\Omega_3\\psi_{\\Omega_2}(\\Omega_3\\psi_{\\Omega_2}(\\Omega_3)))', new Decimal(4).pow(2**28)],
 			['\\psi(\\Omega_3^2)', new Decimal(4).pow(4 ** 16)],
 			['\\psi(\\Omega_3^{Ω_3})', new Decimal(4).pow(4 ** 64)],
 			['\\psi(\\Omega_\\omega)', new Decimal(4).tetrate(4)],
@@ -614,6 +662,7 @@ export const Hydra = {
 	NT4TauEffect() {
 		let eff = feature.OrdinalNT.varComputed('tau', 4);
 		if (player.upgrades['64R']) eff = eff.pow(10);
+		if (Dilute.diluteAmount(3) > 0) eff = eff.recip();
 		return eff;
 	},
 };

@@ -80,7 +80,7 @@ export function gameLoop() {
 		if (!import.meta.env.DEV) {
 			simulateTime(diff);
 		} else {
-		  diff = 0
+			diff = 0;
 		}
 	}
 	if (player.run_a_tick_and_froze) diff = 33;
@@ -125,15 +125,11 @@ function singularity_UI() {
  * @param diff 毫秒数，游戏要运行多少毫秒
  */
 export function simulate(diff: number) {
-	if(player.timeshard.openTf && player.timeshard.tf > 0)
-	{
-		if(player.timeshard.tf < diff)
-		{
+	if (player.timeshard.openTf && player.timeshard.tf > 0) {
+		if (player.timeshard.tf < diff) {
 			diff += player.timeshard.tf * 2;
 			player.timeshard.tf = 0;
-		}
-		else
-		{
+		} else {
 			player.timeshard.tf -= diff;
 			diff *= 3;
 		}
