@@ -233,7 +233,7 @@ export const Dilute = {
 		if (this.diluteAmount(6)) base *= 2;
 		if (this.diluteAmount(7)) base *= 3;
 		if (this.diluteAmount(8)) base *= 10;
-		const deduceMult = player.hydra.deduceOrdinal[0].add(1).ln().min(100).toNumber();
+		const deduceMult = player.hydra.deduceOrdinal[0].add(1).ln().min(base).min(100).toNumber();
 		return deduceMult * base;
 	},
 	solutionEff() {
