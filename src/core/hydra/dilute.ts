@@ -82,7 +82,19 @@ export const Dilute = {
 			reqDescription: '在稀释中达到ψ(Ω<sub>2</sub>Ω)',
 			requirement: new Decimal(4 ** 5),
 			get canDone() {
-				return player.hydra.deduceOrdinal[0].gte(this.requirement);
+				return player.hydra.dilute.inDilute && player.hydra.deduceOrdinal[0].gte(this.requirement);
+			},
+			show: true,
+			currency: '',
+		});
+		MILESTONES.create('dut2', {
+			displayName: 'M-Dilute-2',
+			description: '解锁B5系列购买项的最大化',
+			req: true,
+			reqDescription: '在稀释中达到ψ(Ω<sub>2</sub><sup>ψ<sub>1</sub>(Ω<sub>2</sub><sup>2</sup>)</sup>)',
+			requirement: new Decimal(4 ** 32),
+			get canDone() {
+				return player.hydra.dilute.inDilute && player.hydra.deduceOrdinal[0].gte(this.requirement);
 			},
 			show: true,
 			currency: '',

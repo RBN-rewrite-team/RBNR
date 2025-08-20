@@ -337,6 +337,7 @@ setInterval(function () {
 	<table align="center" style="transform: translateY(80px)">
 		<tbody class="milestones">
 			<TRMilestone id="dut1" />
+			<TRMilestone id="dut2" />
 		</tbody>
 	</table>
 </template>
