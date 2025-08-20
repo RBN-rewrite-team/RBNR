@@ -95,6 +95,7 @@ interface Props {
 	customButtons?: ButtonConfig[];
 	showProgress?: boolean;
 	progress?: number;
+	onClose?: () => void;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -112,6 +113,7 @@ const props = withDefaults(defineProps<Props>(), {
 	customButtons: () => [],
 	showProgress: false,
 	progress: 0,
+	onClose: () => {}
 });
 
 const emit = defineEmits(['update:visible', 'confirm', 'cancel', 'update:values']);
@@ -217,6 +219,7 @@ const handleMaskClick = () => {
 
 const close = () => {
 	emit('update:visible', false);
+	props?.onClose?.()
 };
 
 // 监听器

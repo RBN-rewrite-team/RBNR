@@ -36,6 +36,7 @@ export interface ModalOptions {
 	buttons?: ButtonConfig[];
 	onConfirm?: (values: string[]) => void;
 	onCancel?: () => void;
+	onClose?: () => void;
 	showCancelButton?: boolean;
 	showConfirmButton?: boolean;
 }
@@ -121,6 +122,7 @@ const ModalService = {
 						showCancelButton: options.showCancelButton,
 						showConfirmButton: options.showConfirmButton,
 						closeOnClickMask: options.closeOnClickMask,
+						onClose: options.onClose,
 						validateOnChange: options.validateOnChange,
 						showProgress: options.showProgress,
 						progress: progress.value,

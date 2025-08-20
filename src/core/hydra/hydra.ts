@@ -371,11 +371,13 @@ export const Hydra = {
 		base = base.mul(Hydra.prestigeEff(0));
 		if (player.buyables['62R'].gte(1))
 			base = base.mul(buyables['62R'].effect(player.buyables['62R']));
-
-		base = base.div(5 ** (Dilute.diluteAmount(0) as number));
-		if (Dilute.diluteAmount(5) > 0) base = base.pow(1 - (Dilute.diluteAmount(5) * 0.1));
-		if (Dilute.diluteAmount(3) > 0 || player.upgrades[65])
+		if (player.upgrades[65])
 			base = base.mul(Hydra.NT4TauEffect());
+
+		if (Dilute.diluteAmount(5) > 0) base = base.pow(1 - (Dilute.diluteAmount(5) * 0.1));
+		if (Dilute.diluteAmount(3) > 0)
+			base = base.mul(Hydra.NT4TauEffect());
+		base = base.div(5 ** (Dilute.diluteAmount(0) as number));
 		if (player.hydra.dilute.inDilute)
 			base = base.div(
 				Array.from({ length: 6 }, (_, index: number) =>
@@ -646,6 +648,8 @@ export const Hydra = {
 			['\\psi(\\Omega_2^{\\Omega_2^{\\psi_{\\Omega_2}(\\Omega_2^2)}})', Decimal.pow(4, 81)],
 			['\\psi(\\Omega_3)', new Decimal(4).pow(4 ** 4)],
 			['\\psi(\\Omega_3\\cdot \\Omega_2)', new Decimal(4).pow(4 ** 5)],
+			['\\psi(\\Omega_3\\psi_{\\Omega_2}(\\Omega_3))', new Decimal(4).pow(262144)],
+			['\\psi(\\Omega_3\\psi_{\\Omega_2}(\\Omega_3\\psi_{\\Omega_2}(\\Omega_3)))', new Decimal(4).pow(2**28)],
 			['\\psi(\\Omega_3^2)', new Decimal(4).pow(4 ** 16)],
 			['\\psi(\\Omega_3^{Ω_3})', new Decimal(4).pow(4 ** 64)],
 			['\\psi(\\Omega_\\omega)', new Decimal(4).tetrate(4)],
