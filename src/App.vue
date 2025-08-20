@@ -97,7 +97,7 @@ import HydraDilute from './components/tabs/HydraDilute.vue';
 					VeryrrDefine<br />
 					010000000a7<br />
 					Seanxlx<br />
-					EdenGameMaster<br />
+					<del>EdenGameMaster</del><br />
 					6左爷6<br />
 					<br />
 					本项目使用了<a href="https://cn.vuejs.org/"> Vue </a>、<a
