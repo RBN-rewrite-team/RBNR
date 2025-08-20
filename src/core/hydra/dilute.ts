@@ -74,7 +74,10 @@ export const DiluteUpgrades = {
 		effect(): Decimal {
 			let base = player.hydra.trueTotalPower.max(1).log10().sub(2466.037724479333951).max(0)
 			if (!player.hydra.dilute.inDilute) base = base.pow10()
-			else base = base.add(1)
+			else {
+			  base = base.add(1)
+			  if (base.gte(250)) base = base.div(250).pow(0.25).mul(250)
+			}
 			return base.max(1)
 		}
 		effectDescription(): string {
