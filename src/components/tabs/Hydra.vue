@@ -5,6 +5,7 @@ import TDUpgrade from '../TDUpgrade.vue';
 import TDBuyable from '../TDBuyable.vue';
 import { OrdinalUtils } from '@/utils/ordinal';
 import Decimal from 'break_eternity.js';
+import { Dilute } from '@/core/hydra/dilute';
 
 function powerFactorHTML(): string {
 	let s = '';
@@ -410,29 +411,29 @@ function hydraAxisHTML(): string {
 				<TDUpgrade upgid="63" />
 				<TDUpgrade upgid="64" />
 			</tr>
-			<tr v-if="player.upgrades[61]">
+			<tr v-if="Dilute.diluteAmount(6) || player.upgrades[61]">
 				<TDUpgrade upgid="611" />
 				<TDUpgrade upgid="612" />
 				<TDUpgrade upgid="613" />
 				<TDUpgrade upgid="614" />
 			</tr>
-			<tr v-if="player.upgrades[61] && feature.Hydra.pUnlock(2)">
+			<tr v-if="Dilute.diluteAmount(6) || player.upgrades[61] && feature.Hydra.pUnlock(2)">
 				<TDUpgrade upgid="615" />
 				<TDUpgrade upgid="616" />
 				<TDUpgrade upgid="617" />
 				<TDUpgrade upgid="618" />
 			</tr>
-			<tr v-if="player.upgrades[61]">
+			<tr v-if="Dilute.diluteAmount(6) || player.upgrades[61]">
 				<TDBuyable bylid="611" />
 				<TDBuyable bylid="612" />
 				<TDBuyable bylid="613" />
 				<TDBuyable bylid="614" />
 			</tr>
-			<tr v-if="player.upgrades[614]">
+			<tr v-if="Dilute.diluteAmount(6) || player.upgrades[614]">
 				<TDUpgrade upgid="65" />
 				<TDUpgrade upgid="66" />
 			</tr>
-			<tr v-if="player.upgrades[65]">
+			<tr v-if="Dilute.diluteAmount(6) || player.upgrades[65]">
 				<TDUpgrade upgid="619" />
 				<TDUpgrade upgid="6110" />
 			</tr>
