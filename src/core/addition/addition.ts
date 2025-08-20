@@ -158,11 +158,11 @@ export const Addition = {
 			name: string = 'B1-1';
 			currency: Currencies = Currencies.NUMBER;
 			cost(x: Decimal) {
-				let a = x.mul(1000);
+				const a = x.mul(1000);
 				return a;
 			}
 			capped(): boolean {
-				let capc = 100;
+				const capc = 100;
 				return player.buyables['21'].gte(capc);
 			}
 			requirements(): Requirement[] {

@@ -75,7 +75,7 @@ export const Hydra = {
 			cost = new Decimal(2).pow(512);
 			name = 'U5-1-5';
 			effect(): Decimal {
-				let base = player.buyables[613].sub(40).div(5).floor().max(0);
+				const base = player.buyables[613].sub(40).div(5).floor().max(0);
 				return base;
 			}
 			effectDescription(): string {
@@ -426,7 +426,7 @@ export const Hydra = {
 	powerGain(): Decimal {
 		//能量产量
 		if (Dilute.diluteAmount(7) && player.hydra.dilute.spentTime > 5) return new Decimal(0);
-		let base = this.powerGainBase();
+		const base = this.powerGainBase();
 		return this.powerGainAfterSoftcap(base);
 	},
 	powerGainAfterSoftcap(base: Decimal): Decimal {
@@ -519,7 +519,7 @@ export const Hydra = {
 		if (!preview) num = player.hydra.prestige[id];
 		else num = Hydra.prestigeBase(id);
 		let base = new Decimal(0);
-		let U618Eff = player.upgrades[618] && id != 3 ? upgrades[618].effect() : new Decimal(1);
+		const U618Eff = player.upgrades[618] && id != 3 ? upgrades[618].effect() : new Decimal(1);
 		if (id == 0)
 			base = num.max(1).pow(0.3).mul(num.add(2).log(2)).pow(Hydra.prestigeEff(3).add(1));
 		else if (id == 1) {
@@ -575,7 +575,7 @@ export const Hydra = {
 				Hydra.deduceSpeed(i).mul(diff),
 			);
 			if (player.hydra.deduceProgress[i].gte(1)) {
-				let bulk = player.hydra.deduceProgress[i].floor();
+				const bulk = player.hydra.deduceProgress[i].floor();
 				player.hydra.deduceProgress[i] = player.hydra.deduceProgress[i].sub(bulk);
 				Hydra.deduce(i, bulk);
 			}
@@ -620,7 +620,7 @@ export const Hydra = {
 		player.hydra.powerMult[i] = player.hydra.powerMult[i].add(
 			Hydra.deduceEff(i).mul(player.hydra.deduceOrdinal[i]),
 		);
-		let gain = Hydra.powerGain();
+		const gain = Hydra.powerGain();
 		player.hydra.power = player.hydra.power.add(gain);
 		player.hydra.totalPower = player.hydra.totalPower.add(gain);
 		player.hydra.deduceProgress[player.hydra.visiting] = new Decimal(0);
@@ -628,7 +628,7 @@ export const Hydra = {
 	},
 	hydraPowerPassiveGeneration() {
 		if (!player.upgrades[62]) return new Decimal(0);
-		let gain = Hydra.powerGain();
+		const gain = Hydra.powerGain();
 		let passive = upgrades[62].effect();
 		if (player.upgrades[65]) passive = passive.mul(Hydra.NT4TauEffect());
 		return gain.mul(passive);

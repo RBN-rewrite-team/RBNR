@@ -177,12 +177,12 @@ export const Logarithm = {
 	astronomerLife(): [number, Decimal] {
 		let life = new Decimal(100);
 		let boost = new Decimal(1); //计算生命溢出的
-		let eff = buyables.lgr_impr.effect(player.buyables.lgr_impr);
+		const eff = buyables.lgr_impr.effect(player.buyables.lgr_impr);
 		life = life.mul(eff);
 		life = life.mul(player.milestones.cb15 ? 10 : 1);
 		life = life.mul(player.milestones.cb17 ? 2 : 1);
 
-		let temp_life = life.add(1).sub(1);
+		const temp_life = life.add(1).sub(1);
 		if (life.gt(137e8)) {
 			life = new Decimal(137e8);
 			boost = boost.mul(temp_life.div(137e8));
@@ -207,7 +207,7 @@ export const Logarithm = {
 		return convertgain;
 	},
 	astronomerUpdate() {
-		let speed = this.astronomerSpeed();
+		const speed = this.astronomerSpeed();
 		player.buyables.lgr_emp = new Decimal(0);
 		for (let i = 0; i < this.astronomers.length; i++) {
 			this.astronomers[i].life = this.astronomers[i].life - (diff / 1000) * speed;

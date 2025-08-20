@@ -16,10 +16,10 @@ type PrimeList = '2' | '3' | '5' | '7' | '11' | '13' | '17' | '19';
 export const PrimeFactor = {
 	upgrades: (function () {
 		const PFList: Partial<Record<`pf${PrimeList}`, Buyable<Decimal>>> = {};
-		let pflist = ['2', '3', '5', '7', '11', '13', '17', '19'] as const;
+		const pflist = ['2', '3', '5', '7', '11', '13', '17', '19'] as const;
 		for (let i in pflist) {
 			i = i;
-			let pf = pflist[i];
+			const pf = pflist[i];
 			PFList[('pf' + pflist[i]) as `pf${PrimeList}`] = new (class extends Buyable<Decimal> {
 				pfid = Number(pf);
 				prev = Number(pf) == 2 ? 0 : Number(pflist[Number(i) - 1]);
@@ -120,9 +120,9 @@ export const PrimeFactor = {
 	initMechanics() {},
 	power() {
 		if (player.singularity.stage >= 7) return new Decimal(1);
-		let pflist = ['2', '3', '5', '7', '11', '13', '17', '19'] as const;
+		const pflist = ['2', '3', '5', '7', '11', '13', '17', '19'] as const;
 		let base = new Decimal(1);
-		for (let i in pflist)
+		for (const i in pflist)
 			base = base.mul(
 				buyables[('pf' + pflist[i]) as `pf${PrimeList}`].effect(
 					player.buyables[('pf' + pflist[i]) as keyof typeof player.buyables].max(0),
@@ -138,7 +138,7 @@ export const PrimeFactor = {
 		return base;
 	},
 	powerEff() {
-		let sec = player.multiplication.pfTime.div(1000);
+		const sec = player.multiplication.pfTime.div(1000);
 		let exp = new Decimal(0.99);
 		if (!player.buyables['33'].eq(0))
 			exp = exp.sub(buyables['33'].effect(player.buyables['33']));

@@ -18,7 +18,7 @@ export function base() {
 }
 
 export function maxBlocks() {
-	let mb = player.buyables.cb1.add(1);
+	const mb = player.buyables.cb1.add(1);
 	return mb;
 }
 export const cb1 = new (class extends Buyable<Decimal> {
@@ -48,7 +48,7 @@ export const cb1 = new (class extends Buyable<Decimal> {
 		return player.singularity.stage < 3 && player.milestones.dil_2;
 	}
 	costInverse(x: Decimal): Decimal {
-		let cb12eff = player.milestones.cb12
+		const cb12eff = player.milestones.cb12
 			? player.exponention.logarithm.calculate_datas.pow(2)
 			: new Decimal(1);
 		return x
@@ -340,14 +340,14 @@ export function initMechanics() {
 }
 
 export function wheatGrain() {
-	let baseVal = base();
+	const baseVal = base();
 	if (baseVal.eq(1)) return baseVal.mul(maxBlocks());
-	let maxBlocksVal = maxBlocks();
+	const maxBlocksVal = maxBlocks();
 	return baseVal.pow(maxBlocksVal).sub(1).div(baseVal.sub(1));
 }
 
 export function wgEffect() {
-	let wg = wheatGrain().max(1);
+	const wg = wheatGrain().max(1);
 	let eff1 = wg.log10().div(2).add(1);
 	let eff2 = wg.log10().div(5).add(1);
 	let eff3 = wg.log10().div(10).add(1).pow(5);

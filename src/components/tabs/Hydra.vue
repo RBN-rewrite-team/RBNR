@@ -44,7 +44,7 @@ function powerFactorHTML(): string {
 }
 
 function deduceButtonStyle(): string {
-	let pc = player.hydra.deduceProgress[player.hydra.visiting].mul(100).toNumber();
+	const pc = player.hydra.deduceProgress[player.hydra.visiting].mul(100).toNumber();
 	return (
 		'linear-gradient(to right, rgba(155, 125, 195, 0.5) ' +
 		pc +
@@ -55,14 +55,14 @@ function deduceButtonStyle(): string {
 }
 
 function hydraMilestone(): any {
-	let ms = feature.Hydra.hydraMilestone[player.hydra.visiting];
+	const ms = feature.Hydra.hydraMilestone[player.hydra.visiting];
 	let flag = -1;
-	for (let i in ms) {
+	for (const i in ms) {
 		if (player.hydra.deduceOrdinal[player.hydra.visiting].gte(ms[i][1])) flag++;
 	}
-	let reached = flag == -1 ? '\\text{暂未达成}' : ms[flag][0];
-	let next = ms[flag + 1][0];
-	let progress =
+	const reached = flag == -1 ? '\\text{暂未达成}' : ms[flag][0];
+	const next = ms[flag + 1][0];
+	const progress =
 		'\\text{' +
 		format(player.hydra.deduceOrdinal[player.hydra.visiting].div(ms[flag + 1][1]).mul(100)) +
 		'}\\%';
@@ -70,13 +70,13 @@ function hydraMilestone(): any {
 }
 
 function hydraMilestoneAxis(): any {
-	let axis = [];
-	let ms = feature.Hydra.hydraMilestone[player.hydra.visiting];
-	let now = player.hydra.deduceOrdinal[player.hydra.visiting];
+	const axis = [];
+	const ms = feature.Hydra.hydraMilestone[player.hydra.visiting];
+	const now = player.hydra.deduceOrdinal[player.hydra.visiting];
 	let scale = 0;
 	if (now.gte('1e6')) scale = 1;
 	if (now.gte(4294967296)) scale = 2;
-	for (let i in ms) {
+	for (const i in ms) {
 		let left = 0;
 		if (scale === 0) left = new Decimal(ms[i][1]).div(now).mul(50).toNumber();
 		else if (scale === 1)
@@ -103,8 +103,8 @@ function hydraMilestoneAxis(): any {
 
 function hydraAxisHTML(): string {
 	let s = '';
-	let axis = hydraMilestoneAxis();
-	for (let i in axis) {
+	const axis = hydraMilestoneAxis();
+	for (const i in axis) {
 		s +=
 			'<div style="font-size: 8px; position: absolute; top: 90%; left: ' +
 			axis[i][1] +
