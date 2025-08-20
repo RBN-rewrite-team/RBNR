@@ -1,22 +1,11 @@
 <script setup lang="ts">
-import {
-	format,
-	formatWhole,
-	formatGain,
-	formatLaTeX,
-	formatLaTeXWhole,
-	notations,
-	notationNamesMap,
-} from '@/utils/format';
-import { player, feature } from './core/global.ts';
-import { UPGRADES, BUYABLES, SOFTCAPS, buyables } from './core/mechanic.ts';
+import { player } from './core/global.ts';
 import Decimal from 'break_eternity.js';
 
 import Chapter from './components/Chapter.vue';
 
 import Side from './components/Side.vue';
 import NewsTicker from './components/Newsticker.vue';
-import TDChallenge from './components/TDChallenge.vue';
 import Successor from './components/tabs/Successor.vue';
 import Settings from './components/tabs/Settings.vue';
 import Addition from './components/tabs/Addition.vue';
@@ -29,7 +18,6 @@ import MultipChals from './components/tabs/MultipChals.vue';
 import AdditionResetButton from './components/AdditionResetButton.vue';
 import MultipResetButton from './components/MultipResetButton.vue';
 import ExpResetButton from './components/ExpResetButton.vue';
-import { predictableRandom } from './utils/algorithm.ts';
 import Resources from './components/Resources.vue';
 
 import ExpUpgrades from './components/tabs/ExpUpgrades.vue';
