@@ -574,7 +574,7 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 export let player: Player = getInitialPlayerData();
 
 export function loadFromString(saveContent: string) {
-	let deserialized = saveSerializer.deserialize(saveContent);
+	const deserialized = saveSerializer.deserialize(saveContent);
 	Object.assign(player, deepMerge(player, deserialized));
 	if ((player?.version ?? 0) < 4) {
 		player.hydra.dilute.solvent = [0, 0, 0, 0, 0, 0, false, false, false];
@@ -615,15 +615,15 @@ export function hardReset() {
 }
 
 export function import_file(): void {
-	let a = document.createElement('input');
+	const a = document.createElement('input');
 	a.setAttribute('type', 'file');
 	a.setAttribute('accept', 'text/plain');
 	a.click();
 	a.onchange = () => {
-		let fr = new FileReader();
+		const fr = new FileReader();
 		if (a.files == null) return void alert('未选择文件');
 		fr.onload = () => {
-			let save = fr.result;
+			const save = fr.result;
 			if (typeof save == 'string') {
 				try {
 					player = getInitialPlayerData();
@@ -641,12 +641,12 @@ export function import_file(): void {
 }
 
 export function export_file(): void {
-	let str = saveSerializer.serialize(player);
-	let file = new Blob([str], {
+	const str = saveSerializer.serialize(player);
+	const file = new Blob([str], {
 		type: 'text/plain',
 	});
 	window.URL = window.URL || window.webkitURL;
-	let a = document.createElement('a');
+	const a = document.createElement('a');
 	a.href = window.URL.createObjectURL(file);
 	a.download = 'Road of Big Number Rewritten Save - ' + getCurrentBeijingTime() + '.txt';
 	a.click();

@@ -94,8 +94,8 @@ function destroy(a: number) {
 			player.upgrades[39] = false;
 			break;
 		case 6:
-			let pf = [2, 3, 5, 7, 11, 13, 17, 19];
-			for (let i in pf)
+			const pf = [2, 3, 5, 7, 11, 13, 17, 19];
+			for (const i in pf)
 				player.buyables[('pf' + pf[i]) as keyof typeof player.buyables] = new Decimal(0);
 			player.upgrades[36] = false;
 			player.buyables[33] = new Decimal(0);
@@ -233,13 +233,13 @@ const wordShift = {
 };
 
 function color() {
-	let r = Math.min(255, 127 + player.singularity.t / 5);
-	let g = Math.max(0, 127 - player.singularity.t / 5);
-	let b = Math.max(0, 255 - player.singularity.t / 4);
+	const r = Math.min(255, 127 + player.singularity.t / 5);
+	const g = Math.max(0, 127 - player.singularity.t / 5);
+	const b = Math.max(0, 255 - player.singularity.t / 4);
 	return 'rgb(' + r + ',' + g + ',' + b + ')';
 }
 
-let t = ref(Date.now());
+const t = ref(Date.now());
 setInterval(function () {
 	t.value = Date.now();
 	document.documentElement.style.setProperty('--sing-color', color());

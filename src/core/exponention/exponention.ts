@@ -259,7 +259,7 @@ export const Exponention = {
 		});
 	},
 	exppower_gain(bulk = new Decimal(1)) {
-		let adding = this.gain().mul(bulk);
+		const adding = this.gain().mul(bulk);
 		player.exponention.exppower = player.exponention.exppower.add(adding);
 		player.exponention.totalExppower = player.exponention.totalExppower.add(adding);
 		player.stat.totalExppower = player.stat.totalExppower.add(adding);

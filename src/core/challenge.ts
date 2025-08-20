@@ -59,7 +59,7 @@ export const CHALLENGE: {
 	},
 	challengeLoop() {
 		if (player.challengein[0] !== -1 && player.challengein[1] !== -1) {
-			let curchal = this.challenges[player.challengein[0]][player.challengein[1]];
+			const curchal = this.challenges[player.challengein[0]][player.challengein[1]];
 			curchal.loop?.();
 		}
 	},

@@ -54,8 +54,8 @@ export const ordinalNormal = [
 export function getOrdinalLevel(): number {
 	if (player.upgrades[61]) return getBMSOrdinalLevel();
 	let level = 0;
-	let base = feature.Ordinal.base();
-	for (let i in ordinalNormal) {
+	const base = feature.Ordinal.base();
+	for (const i in ordinalNormal) {
 		if (
 			base.toNumber() > ordinalNormal[i][1] ||
 			new Ordinal(ordinalNormal[i][0]).toDecimal(base).lte(player.ordinal.number)
@@ -115,7 +115,7 @@ const BMSReq = [
 ] as const;
 
 function getBMSOrdinalLevel() {
-	let num = player.hydra.deduceOrdinal[0];
+	const num = player.hydra.deduceOrdinal[0];
 	let level = 0;
 	if (num.lt(16)) {
 		if (num.gte(4)) level++;

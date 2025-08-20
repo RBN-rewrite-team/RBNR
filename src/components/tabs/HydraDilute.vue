@@ -53,7 +53,7 @@ function switchSolvent9(event: number) {
 	}
 }
 
-let refreshKey = ref(0);
+const refreshKey = ref(0);
 
 function minS1Level() {
   if (player.hydra.dilute.solvent[6] || player.hydra.dilute.solvent[7]) return 10

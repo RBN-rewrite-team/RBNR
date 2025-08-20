@@ -345,10 +345,10 @@ function g(a: Term): [Term, Term] {
 	if (isZero(a[0])) {
 		return [log(a), []];
 	}
-	let [p, s] = separate(a[1], [succ(a[0]), [], []]);
-	let [q, r] = separate(s, [a[0], [], []]);
+	const [p, s] = separate(a[1], [succ(a[0]), [], []]);
+	const [q, r] = separate(s, [a[0], [], []]);
 	//令x=p+q+r,其中p每一项大于ψb+1(0),q每一项大于ψb(0)
-	let second = exp(r);
+	const second = exp(r);
 	let first = add(ONE, p);
 	let ptr = q;
 	while (!isZero(ptr)) {
@@ -385,7 +385,7 @@ function toString(q: Term | number, maxLength = 40): string {
 	if (eq(termA[0], []) && eq(termA[1], ONE)) {
 		m = 'ω';
 	} else if (lt(termA[1], [succ(termA[0]), [], []])) {
-		let [first, second] = g(termA);
+		const [first, second] = g(termA);
 		m = omega(termA[0]);
 		if (gt(first, ONE)) {
 			m += `<sup>${toString(first, --maxLength)}</sup>`;
@@ -420,7 +420,7 @@ export function calculate(BMS: string): string {
 	const matrix = JSON.parse(
 		'[' + cleanBMS.replace(/\)\(/g, '],[').replace(/\(/g, '[').replace(/\)/g, ']') + ']',
 	).map((x: number[]) => {
-		let y = x.slice();
+		const y = x.slice();
 		while (y.length < 3) {
 			y.push(0);
 		}
@@ -431,7 +431,7 @@ export function calculate(BMS: string): string {
 		if (col.length >= 4) return '>ψ(a(ω;0))';
 	}
 
-	for (let i in EBO) {
+	for (const i in EBO) {
 		if ((matrix[1]?.[2] ?? 0) < 1) break;
 		const currentColumn = matrix[i] ?? [];
 
@@ -444,7 +444,7 @@ export function calculate(BMS: string): string {
 			break;
 		}
 
-		for (let j in maxCol) {
+		for (const j in maxCol) {
 			if (currentColumn[j] < maxCol[j]) break;
 			if (currentColumn[j] == maxCol[j]) continue;
 			if (currentColumn[j] > maxCol[j]) return '>ψ(I)';
