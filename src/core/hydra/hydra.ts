@@ -236,7 +236,7 @@ export const Hydra = {
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 			canBuyMax(): boolean {
-				return false;
+				return player.milestones['dut2'];
 			}
 			autoBuyMax(): boolean {
 				return false;
@@ -276,7 +276,7 @@ export const Hydra = {
 				return Hydra.pUnlock(1);
 			}
 			canBuyMax(): boolean {
-				return false;
+				return player.milestones['dut2'];
 			}
 			autoBuyMax(): boolean {
 				return false;
@@ -316,7 +316,7 @@ export const Hydra = {
 				return Hydra.pUnlock(1);
 			}
 			canBuyMax(): boolean {
-				return false;
+				return player.milestones['dut2'];
 			}
 			autoBuyMax(): boolean {
 				return false;
@@ -351,7 +351,7 @@ export const Hydra = {
 				return Hydra.pUnlock(3);
 			}
 			canBuyMax(): boolean {
-				return false;
+				return player.milestones['dut2'];
 			}
 			autoBuyMax(): boolean {
 				return false;
