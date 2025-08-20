@@ -4,8 +4,9 @@ import { Hydra } from './hydra';
 import type { IntClosedRange } from 'type-fest';
 import { diff } from '../game-loop';
 import ModalService from '@/utils/Modal';
-import { Upgrade } from '../upgrade';
-import { Currencies } from '../currencies';
+import { Upgrade, UpgradeWithEffect } from '../upgrade';
+import { getCurrency, Currencies } from '../currencies';
+import { format, formatWhole } from '@/utils/format';
 
 export type backupHydraType = {
 	upgrades: (`${IntClosedRange<61, 69>}R` | keyof typeof Hydra.upgrades)[];
@@ -41,16 +42,35 @@ interface IDilute {
 	diluteAmountOutside(id: IntClosedRange<6, 8>): boolean;
 }
 export const DiluteUpgrades = {
-	"61S": new (class U61S extends Upgrade{
+	"61S": new (class U61S extends UpgradeWithEffect<Decimal> {
 		currency: Currencies = Currencies.SOLUTION;
 		name: string = "U5-S-1";
-		description: string = "U5-1-1效果^(lg(九头蛇溶液数量+10))";
-		cost: Decimal = new Decimal(7.5);
-	})()
+		description: string = "溶液大幅加强U5-1-1的效果";
+		cost: Decimal = new Decimal(10);
+		effect(): Decimal {
+			return new Decimal(player.hydra.dilute.solution ** 0.2);
+		}
+		effectDescription(): string {
+			return '^' + format(this.effect());
+		}
+	})(),
+	"62S": new (class U62S extends UpgradeWithEffect<Decimal> {
+		currency: Currencies = Currencies.SOLUTION;
+		name: string = "U5-S-2";
+		description: string = "溶液中幅加快推演速度";
+		cost: Decimal = new Decimal(10);
+		effect(): Decimal {
+			return new Decimal((player.hydra.dilute.solution * Math.max(player.hydra.dilute.solution / 2, 10)) ** 0.5);
+		}
+		effectDescription(): string {
+			return 'x' + format(this.effect());
+		}
+	})(),
 }
 export const Dilute = {
 	respec(){
 		player.upgrades['61S'] = false;
+		player.upgrades['62S'] = false;
 		player.hydra.dilute.solutionCost = 0;
 	},
 	enterDilute() {
@@ -202,7 +222,7 @@ export const Dilute = {
 		return deduceMult * base;
 	},
 	solutionEff() {
-		let eff1 = new Decimal(player.hydra.dilute.solution ** 0.5).max(1); //推演速度
+		let eff1 = new Decimal(getCurrency(Currencies.SOLUTION) ** 0.5).max(1); //推演速度
 		return {eff1: eff1};
 	},
 	prions() {
