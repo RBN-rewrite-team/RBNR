@@ -45,37 +45,37 @@
 						<template v-else>
 							<div v-if="content" class="modal-content" v-html="content"></div>
 
-							<template v-for="(field, index) in fields" :key="index">
-								<div class="input-group">
-									<label v-if="field.label">{{ field.label }}</label
-									><br />
-									<component
-										:is="field.type === 'textarea' ? 'textarea' : 'input'"
-										v-model="inputValues[index].value"
-										:type="getInputType(field.type)"
-										:placeholder="field.placeholder"
-										:rows="field.rows"
-										class="modal-input"
-										:class="{
-											'input-error':
-												errors[index] && inputValues[index].touched,
-										}"
-										@input="updateValue(index, $event.target.value)"
-										@blur="handleBlur(index)"
-										@keyup.enter="handleConfirm"
-									/>
-									<div
-										v-if="errors[index] && inputValues[index].touched"
-										class="error-message"
-									>
-										{{ errors[index] }}
-									</div>
-								</div>
-							</template>
+							
 						</template>
+            <template v-for="(field, index) in fields" :key="index">
+              <div class="input-group">
+                <label v-if="field.label">{{ field.label }}</label
+                ><br />
+                <component
+                  :is="field.type === 'textarea' ? 'textarea' : 'input'"
+                  v-model="inputValues[index].value"
+                  :type="getInputType(field.type)"
+                  :placeholder="field.placeholder"
+                  :rows="field.rows"
+                  class="modal-input"
+                  :class="{
+                    'input-error':
+                      errors[index] && inputValues[index].touched,
+                  }"
+                  @input="updateValue(index, $event.target.value)"
+                  @blur="handleBlur(index)"
+                  @keyup.enter="handleConfirm"
+                />
+                <div
+                  v-if="errors[index] && inputValues[index].touched"
+                  class="error-message"
+                >
+                  {{ errors[index] }}
+                </div>
+              </div>
+            </template>
 					</slot>
 				</div>
-
 				<div class="modal-footer">
 					<template v-for="(btn, index) in processedButtons" :key="'btn-' + index">
 						<button
@@ -93,7 +93,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, watch, type Component, type VNode } from 'vue';
+import { ref, computed, watch, type Component, type VNode, onMounted } from 'vue';
 import type { FieldConfig, ButtonConfig } from '../utils/Modal';
 
 interface Props {
@@ -119,7 +119,6 @@ interface Props {
 	componentProps?: Record<string, any>;
 	customSlots?: Record<string, () => VNode | VNode[]>;
 }
-
 const props = withDefaults(defineProps<Props>(), {
 	title: '提示',
 	content: '',
@@ -157,7 +156,6 @@ const inputValues = ref(
 	})),
 );
 const errors = ref<string[]>([]);
-
 // 计算属性
 const hasErrors = computed(() => errors.value.some(Boolean));
 const processedButtons = computed(() => {
