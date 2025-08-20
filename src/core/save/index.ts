@@ -12,7 +12,7 @@ import { stopGameLoop } from '../game-loop';
 
 const version = 6 as const;
 const zero = new Decimal(0);
-let current_save = 0;
+export let current_save = 0;
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
 
 // type Milestones = Record<

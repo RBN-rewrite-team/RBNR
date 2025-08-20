@@ -1,5 +1,5 @@
 import ModalService from '@/utils/Modal';
-import { changeSave, hardReset, loadFromString } from '.';
+import { changeSave, current_save, hardReset, loadFromString } from '.';
 import { saveInterval } from '@/core/game-loop';
 
 export function UILoadSaveFromFile() {
@@ -40,7 +40,9 @@ export function UIHardReset() {
 export function UIChangeSave() {
 	ModalService.show({
 		title: '切换存档',
-		content: '输入要切换的槽位（0-10）',
+		get content() {
+			return '你当前的槽位为' + current_save + '<br>输入要切换的槽位（0-10）';
+		},
 		fields: [
 			{
 				type: 'input',
