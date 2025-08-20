@@ -134,6 +134,7 @@ export function simulate(diff: number) {
 			diff *= 3;
 		}
 	}
+	console.log(feature.Hydra.buyables[612].costInverse(player.hydra.power));
 	const last = feature.Ordinal.ordinalPerSecond();
 	const last2 = feature.Ordinal.speedDeri();
 	qolLoop();
