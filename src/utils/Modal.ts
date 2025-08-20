@@ -103,6 +103,7 @@ const ModalService = {
 
 				return () =>
 					h(Modal, {
+						// eslint-disable-next-line @typescript-eslint/no-explicit-any
 						ref: (el: any) => {
 							if (el) {
 								methodsRef.value = {
