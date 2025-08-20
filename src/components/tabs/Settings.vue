@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { export_file, import_file, player, save } from '@/core/save';
-import { UIHardReset } from '@/core/save/saveui';
+import { UIHardReset, UIChangeSave } from '@/core/save/saveui';
 import { notationNamesMap, notations } from '@/utils/format';
 import { reverseUiOptions, themeDetailsMap, themes } from '@/utils/themes';
 import { computed } from 'vue';
@@ -20,6 +20,7 @@ const validThemes = computed(() => Object.values(themes).filter((v) => typeof v 
 		<div class="setting_button" @click="import_file()">导入存档</div>
 		<div class="setting_button" @click="export_file()">导出存档</div>
 		<div class="hard_reset" @click="UIHardReset">硬重置</div>
+		<div class="setting_button" @click="UIChangeSave">切换存档槽位</div>
 		<br />
 		<div v-if="player.singularity.stage < 1">
 			<div class="center_line" />

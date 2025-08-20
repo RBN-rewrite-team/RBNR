@@ -1,5 +1,5 @@
 import ModalService from '@/utils/Modal';
-import { hardReset, loadFromString } from '.';
+import { changeSave, current_save, hardReset, loadFromString, readSaveDetail } from '.';
 import { saveInterval } from '@/core/game-loop';
 
 export function UILoadSaveFromFile() {
@@ -29,10 +29,40 @@ export function UILoadSaveFromFile() {
 export function UIHardReset() {
 	ModalService.show({
 		title: '硬重置?',
-		content: '!?!?!?',
+		content: '这将完全重置你的存档，其他槽位存档不会被重置。',
 		onConfirm() {
 			hardReset();
 			clearInterval(saveInterval);
+		},
+	});
+}
+
+export function UIChangeSave() {
+	ModalService.show({
+		title: '切换存档',
+		get content() {
+			let a = '你当前的槽位为' + current_save + '<br>';
+			a += '当前槽位情况<br>';
+			for (let i = 0; i <= 10; i++) {
+				a += '槽位' + i + ':' + readSaveDetail(i) + '<br>';
+			}
+			a += '输入要切换的槽位（0-10）';
+			return a;
+		},
+		fields: [
+			{
+				type: 'input',
+				placeholder: '槽位',
+				validation(val) {
+					return 0 <= Number(val) && Number(val) <= 10;
+				},
+			},
+		],
+		onConfirm(values) {
+			if (!isNaN(Number(values[0]))) {
+				console.log(values[0]);
+				changeSave(Number(values[0]));
+			}
 		},
 	});
 }
