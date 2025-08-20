@@ -17,7 +17,7 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 					>
 						大数之路重制版
 					</div>
-					<div style="font-size: 20px">v0.5.0</div>
+					<div style="font-size: 20px">v0.5</div>
 				</div>
 			</div>
 		</div>
