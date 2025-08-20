@@ -16,14 +16,14 @@ export type backupHydraType = {
 };
 
 function minS1Level() {
-  if (player.hydra.dilute.solvent[6] || player.hydra.dilute.solvent[7]) return 10
-  return Math.max(
-    Math.floor(player.hydra.dilute.solvent[1] / 2),
-    Math.floor(player.hydra.dilute.solvent[2] / 2),
-    player.hydra.dilute.solvent[3],
-    player.hydra.dilute.solvent[4],
-    player.hydra.dilute.solvent[5],
-  )
+	if (player.hydra.dilute.solvent[6] || player.hydra.dilute.solvent[7]) return 10;
+	return Math.max(
+		Math.floor(player.hydra.dilute.solvent[1] / 2),
+		Math.floor(player.hydra.dilute.solvent[2] / 2),
+		player.hydra.dilute.solvent[3],
+		player.hydra.dilute.solvent[4],
+		player.hydra.dilute.solvent[5],
+	);
 }
 
 export function diluteAmount(id: IntClosedRange<0, 8>): number | boolean {
@@ -31,7 +31,7 @@ export function diluteAmount(id: IntClosedRange<0, 8>): number | boolean {
 	if (player.hydra.dilute.solvent[8]) {
 		return id < 6 ? 10 : true;
 	}
-	if (id == 0) return Math.max(player.hydra.dilute.solvent[id], minS1Level())
+	if (id == 0) return Math.max(player.hydra.dilute.solvent[id], minS1Level());
 	return player.hydra.dilute.solvent[id];
 }
 
@@ -42,10 +42,10 @@ interface IDilute {
 	diluteAmountOutside(id: IntClosedRange<6, 8>): boolean;
 }
 export const DiluteUpgrades = {
-	"61S": new (class U61S extends UpgradeWithEffect<Decimal> {
+	'61S': new (class U61S extends UpgradeWithEffect<Decimal> {
 		currency: Currencies = Currencies.SOLUTION;
-		name: string = "U5-S-1";
-		description: string = "溶液大幅加强U5-1-1的效果";
+		name: string = 'U5-S-1';
+		description: string = '溶液大幅加强U5-1-1的效果';
 		cost: Decimal = new Decimal(10);
 		effect(): Decimal {
 			return new Decimal(player.hydra.dilute.solution ** 0.2);
@@ -54,44 +54,47 @@ export const DiluteUpgrades = {
 			return '^' + format(this.effect());
 		}
 	})(),
-	"62S": new (class U62S extends UpgradeWithEffect<Decimal> {
+	'62S': new (class U62S extends UpgradeWithEffect<Decimal> {
 		currency: Currencies = Currencies.SOLUTION;
-		name: string = "U5-S-2";
-		description: string = "溶液中幅加快推演速度";
+		name: string = 'U5-S-2';
+		description: string = '溶液中幅加快推演速度';
 		cost: Decimal = new Decimal(10);
 		effect(): Decimal {
-			return new Decimal((player.hydra.dilute.solution * Math.max(player.hydra.dilute.solution / 2, 10)) ** 0.5);
+			return new Decimal(
+				(player.hydra.dilute.solution * Math.max(player.hydra.dilute.solution / 2, 10)) **
+					0.5,
+			);
 		}
 		effectDescription(): string {
 			return 'x' + format(this.effect());
 		}
 	})(),
-	"63S": new (class U63S extends UpgradeWithEffect<Decimal> {
+	'63S': new (class U63S extends UpgradeWithEffect<Decimal> {
 		currency: Currencies = Currencies.SOLUTION;
-		name: string = "U5-S-3";
-		description: string = "基于总九头蛇能量增益推演速度(稀释不重置该效果，但在稀释中变得更弱)";
+		name: string = 'U5-S-3';
+		description: string = '基于总九头蛇能量增益推演速度(稀释不重置该效果，但在稀释中变得更弱)';
 		cost: Decimal = new Decimal(1e4);
 		effect(): Decimal {
-			let base = player.hydra.trueTotalPower.max(1).log10().sub(2466.037724479333951).max(0)
-			if (!player.hydra.dilute.inDilute) base = base.pow10()
+			let base = player.hydra.trueTotalPower.max(1).log10().sub(2466.037724479333951).max(0);
+			if (!player.hydra.dilute.inDilute) base = base.pow10();
 			else {
-			  base = base.add(1)
-			  if (base.gte(250)) base = base.div(250).pow(0.25).mul(250)
+				base = base.add(1);
+				if (base.gte(250)) base = base.div(250).pow(0.25).mul(250);
 			}
-			return base.max(1)
+			return base.max(1);
 		}
 		effectDescription(): string {
 			return 'x' + format(this.effect());
 		}
 	})(),
-}
+};
 export const Dilute = {
-	respec(){
+	respec() {
 		player.upgrades['61S'] = false;
 		player.upgrades['62S'] = false;
 		player.hydra.dilute.solutionCost = 0;
 	},
-	initMechanics(){
+	initMechanics() {
 		MILESTONES.create('dut1', {
 			displayName: 'M-Dilute-1',
 			description: '保持U5-1-1，并且提升其公式',
@@ -99,7 +102,10 @@ export const Dilute = {
 			reqDescription: '在稀释中达到ψ(Ω<sub>2</sub>Ω)',
 			requirement: new Decimal(4 ** 5),
 			get canDone() {
-				return player.hydra.dilute.inDilute && player.hydra.deduceOrdinal[0].gte(this.requirement);
+				return (
+					player.hydra.dilute.inDilute &&
+					player.hydra.deduceOrdinal[0].gte(this.requirement)
+				);
 			},
 			show: true,
 			currency: '',
@@ -108,10 +114,14 @@ export const Dilute = {
 			displayName: 'M-Dilute-2',
 			description: '解锁B5系列购买项的最大化',
 			req: true,
-			reqDescription: '在稀释中达到ψ(Ω<sub>2</sub><sup>ψ<sub>1</sub>(Ω<sub>2</sub><sup>2</sup>)</sup>)',
+			reqDescription:
+				'在稀释中达到ψ(Ω<sub>2</sub><sup>ψ<sub>1</sub>(Ω<sub>2</sub><sup>2</sup>)</sup>)',
 			requirement: new Decimal(4 ** 32),
 			get canDone() {
-				return player.hydra.dilute.inDilute && player.hydra.deduceOrdinal[0].gte(this.requirement);
+				return (
+					player.hydra.dilute.inDilute &&
+					player.hydra.deduceOrdinal[0].gte(this.requirement)
+				);
 			},
 			show: true,
 			currency: '',
@@ -171,7 +181,9 @@ export const Dilute = {
 	},
 	solutionCalc() {
 		player.hydra.dilute.solution = Math.max(player.hydra.dilute.solution, this.solutionGain());
-		player.hydra.dilute.lastSolvent = Array.from(player.hydra.dilute.solvent) as typeof player.hydra.dilute.solvent;
+		player.hydra.dilute.lastSolvent = Array.from(
+			player.hydra.dilute.solvent,
+		) as typeof player.hydra.dilute.solvent;
 		player.hydra.dilute.lastDeduce = player.hydra.deduceOrdinal[0];
 	},
 	backupHydra(): backupHydraType {
@@ -237,8 +249,23 @@ export const Dilute = {
 			player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + diff / 1000;
 			if (player.hydra.totalDeduceOrdinal[0].gte(1))
 				player.hydra.dilute.prionsTime = player.hydra.dilute.prionsTime + diff / 1000;
-			if (player.hydra.dilute.spentTime > s3Eff) this.exitDilute(false);
-			if (this.prions().gt(player.hydra.totalDeduceOrdinal[0])) this.exitDilute(false);
+			if (player.hydra.dilute.spentTime > s3Eff) {
+				ModalService.show({
+					title: '已退出稀释',
+					content:
+						'你被地球爆炸给炸死了！（你已进入稀释' +
+						s3Eff +
+						'秒，超出了稀释III的限制。）',
+				});
+				this.exitDilute(false);
+			}
+			if (this.prions().gt(player.hydra.totalDeduceOrdinal[0])) {
+				ModalService.show({
+					title: '已退出稀释',
+					content: '朊病毒吃掉了你的脑子！（你的朊病毒超过了你的推演总数量）',
+				});
+				this.exitDilute(false);
+			}
 		}
 	},
 	/**
@@ -267,9 +294,11 @@ export const Dilute = {
 	},
 	solutionEff() {
 		let eff1 = new Decimal(getCurrency(Currencies.SOLUTION).pow(0.5)).max(1); //推演速度
-		return {eff1: eff1};
+		return { eff1: eff1 };
 	},
 	prions() {
 		return Decimal.pow(1 + this.diluteAmount(4) / 100, player.hydra.dilute.prionsTime).sub(1);
 	},
-} as IDilute & Record<string,any>;
+} as IDilute & Record<string, any>;
+
+Dilute.diluteAmount(1) >= 1;
