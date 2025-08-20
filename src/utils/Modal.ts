@@ -1,5 +1,5 @@
 // utils/modal.ts
-import { createApp, h, ref, type Component, type App } from 'vue';
+import { createApp, h, ref, type Component, type App, type DefineComponent, type VNode } from 'vue';
 import Modal from '../components/Modal.vue';
 
 export interface FieldConfig {
@@ -39,12 +39,17 @@ export interface ModalOptions {
 	onClose?: () => void;
 	showCancelButton?: boolean;
 	showConfirmButton?: boolean;
+	// 新增：支持自定义组件
+	component?: Component;
+	componentProps?: Record<string, any>;
+	slots?: Record<string, () => VNode | VNode[]>;
 }
 
 export interface ModalInstance {
 	handleConfirm?: () => void;
 	handleCancel?: () => void;
 	close?: () => void;
+	updateComponentProps?: (props: Record<string, any>) => void;
 }
 
 export interface ProgressController {
@@ -53,6 +58,7 @@ export interface ProgressController {
 	updateButtons: (buttons: ButtonConfig[]) => void;
 	close: () => void;
 	getInstance: () => ModalInstance | null;
+	updateComponentProps: (props: Record<string, any>) => void;
 }
 
 const ModalService = {
@@ -64,6 +70,7 @@ const ModalService = {
 		const progress = ref(options.progress || 0);
 		const customButtons = ref(options.buttons || []);
 		const currentContent = ref(options.content || '');
+		const componentProps = ref(options.componentProps || {});
 		let modalInstance: ModalInstance | null = null;
 
 		const controller: ProgressController = {
@@ -78,6 +85,9 @@ const ModalService = {
 			},
 			updateContent: (content: string) => {
 				currentContent.value = content;
+			},
+			updateComponentProps: (props: Record<string, any>) => {
+				componentProps.value = { ...componentProps.value, ...props };
 			},
 			close: () => {
 				visible.value = false;
@@ -98,6 +108,9 @@ const ModalService = {
 					handleConfirm: () => methodsRef.value?.handleConfirm?.(),
 					handleCancel: () => methodsRef.value?.handleCancel?.(),
 					close: () => methodsRef.value?.close?.(),
+					updateComponentProps: (props: Record<string, any>) => {
+						componentProps.value = { ...componentProps.value, ...props };
+					},
 				};
 
 				expose({ getMethods: () => exposedMethods });
@@ -110,6 +123,8 @@ const ModalService = {
 								methodsRef.value = {
 									handleConfirm: el.handleConfirm,
 									handleCancel: el.handleCancel,
+									close: el.close,
+									updateComponentProps: exposedMethods.updateComponentProps,
 								};
 								modalInstance = methodsRef.value; // 更新实例引用
 							}
@@ -127,6 +142,9 @@ const ModalService = {
 						validateOnChange: options.validateOnChange,
 						showProgress: options.showProgress,
 						progress: progress.value,
+						customComponent: options.component,
+						componentProps: componentProps.value,
+						customSlots: options.slots,
 						customButtons: customButtons.value.map((btn) => ({
 							...btn,
 							handler: () => btn.handler(undefined, modalInstance!), // 直接使用实例引用
