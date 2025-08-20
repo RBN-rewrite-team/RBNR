@@ -130,10 +130,14 @@ function hydraAxisHTML(): string {
 							class="hydra-button"
 							:style="{ 'background-image': deduceButtonStyle() }"
 						>
-							<span
+							<span v-if="feature.Hydra.deduceSpeed().gt(0)"
 								class="hydra-text"
 								style="opacity: 0.5; color: rgb(200, 190, 245); font-size: 60px"
-								>{{ format(feature.Hydra.deduceSpeed()) }}/s</span
+								>{{
+									feature.Hydra.deduceSpeed().gte(1)
+										? format(feature.Hydra.deduceSpeed()) + '/s'
+										: '/' + format(feature.Hydra.deduceSpeed().recip()) + 's'
+								}}</span
 							>
 							<span class="hydra-text">
 								{{

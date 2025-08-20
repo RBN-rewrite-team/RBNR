@@ -13,8 +13,25 @@
 
 				<div class="modal-body">
 					<slot>
-						<div v-if="content" class="modal-content" v-html="content"></div>
-						<div v-if="showProgress" class="progress-container">
+						<!-- 自定义组件模式 -->
+						<div v-if="customComponent" class="custom-component-container">
+              <component
+								:is="customComponent"
+								v-bind="componentProps"
+								@update:props="handleComponentUpdate"
+							>
+								<!-- 渲染自定义插槽 -->
+								<template
+									v-for="(slotContent, slotName) in customSlots"
+									#[slotName]
+								>
+									<component :is="slotContent" />
+								</template>
+							</component>
+						</div>
+
+						<!-- 进度条模式 -->
+						<div v-else-if="showProgress" class="progress-container">
 							<div class="progress-bar">
 								<div
 									class="progress-inner"
@@ -26,6 +43,8 @@
 
 						<!-- 正常模式 -->
 						<template v-else>
+							<div v-if="content" class="modal-content" v-html="content"></div>
+
 							<template v-for="(field, index) in fields" :key="index">
 								<div class="input-group">
 									<label v-if="field.label">{{ field.label }}</label
@@ -74,8 +93,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, watch } from 'vue';
-import type { Component } from 'vue';
+import { ref, computed, watch, type Component, type VNode } from 'vue';
 import type { FieldConfig, ButtonConfig } from '../utils/Modal';
 
 interface Props {
@@ -96,6 +114,10 @@ interface Props {
 	showProgress?: boolean;
 	progress?: number;
 	onClose?: () => void;
+	// 新增：支持自定义组件
+	customComponent?: Component;
+	componentProps?: Record<string, any>;
+	customSlots?: Record<string, () => VNode | VNode[]>;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -114,9 +136,18 @@ const props = withDefaults(defineProps<Props>(), {
 	showProgress: false,
 	progress: 0,
 	onClose: () => {},
+	customComponent: undefined,
+	componentProps: () => ({}),
+	customSlots: () => ({}),
 });
 
-const emit = defineEmits(['update:visible', 'confirm', 'cancel', 'update:values']);
+const emit = defineEmits([
+	'update:visible',
+	'confirm',
+	'cancel',
+	'update:values',
+	'update:componentProps',
+]);
 
 // 响应式数据
 const inputValues = ref(
@@ -196,6 +227,10 @@ const handleBlur = (index: number) => {
 	validateFields();
 };
 
+const handleComponentUpdate = (newProps: Record<string, any>) => {
+	emit('update:componentProps', newProps);
+};
+
 const handleConfirm = async () => {
 	inputValues.value.forEach((_, index) => {
 		inputValues.value[index].touched = true;
@@ -235,6 +270,7 @@ watch(
 defineExpose({
 	handleConfirm,
 	handleCancel,
+	close,
 });
 </script>
 
@@ -280,6 +316,10 @@ defineExpose({
 
 .modal-body {
 	padding: 20px;
+}
+
+.custom-component-container {
+	margin: 10px 0;
 }
 
 .input-group {

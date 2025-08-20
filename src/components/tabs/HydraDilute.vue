@@ -86,7 +86,7 @@ setInterval(function () {
 	推演速度×{{ format(Dilute.solutionEff().eff1) }}
 	<span v-if="player.hydra.dilute.prionsTime > 0"
 		>你有<b style="color: red; font-size: 30px">{{ format(Dilute.prions()) }}</b
-		>朊病毒<br /><br
+		>/{{format(player.hydra.totalDeduceOrdinal[0])}}朊病毒<br /><br
 	/></span>
 	<div>
 		启动稀释后，溶剂{{
@@ -361,6 +361,7 @@ setInterval(function () {
 			<tr>
 				<TDUpgrade upgid="61S"></TDUpgrade>
 				<TDUpgrade upgid="62S"></TDUpgrade>
+				<TDUpgrade upgid="63S"></TDUpgrade>
 			</tr>
 		</tbody>
 	</table>
