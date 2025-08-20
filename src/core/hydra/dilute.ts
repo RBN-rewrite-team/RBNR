@@ -222,7 +222,7 @@ export const Dilute = {
 		return deduceMult * base;
 	},
 	solutionEff() {
-		let eff1 = new Decimal(getCurrency(Currencies.SOLUTION) ** 0.5).max(1); //推演速度
+		let eff1 = new Decimal(getCurrency(Currencies.SOLUTION).pow(0.5)).max(1); //推演速度
 		return {eff1: eff1};
 	},
 	prions() {
