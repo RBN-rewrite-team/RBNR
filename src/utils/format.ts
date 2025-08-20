@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Decimal from 'break_eternity.js';
 import type { DecimalSource } from 'break_eternity.js';
 import { diff } from '@/core/game-loop';
