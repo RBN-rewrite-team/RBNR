@@ -25,7 +25,6 @@ export default defineComponent({
                             <Details_toHTML det={curslot}></Details_toHTML>
                         </div>)
                     else {
-
                     }
                 })}                
                 </div>
