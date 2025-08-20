@@ -335,6 +335,8 @@ setInterval(function () {
 	display: flex;
 	justify-content: center;
 	margin-top: 20px;
+	overflow: auto;
+	min-width: 1200px;
 }
 
 .dilute {
