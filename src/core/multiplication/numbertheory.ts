@@ -55,7 +55,7 @@ export const NUMTHEORY = {
 				return x.div(1e32).max(1).log(1e16).add(1).floor().min(20);
 			}
 			capped(): boolean {
-				let capc = 20;
+				const capc = 20;
 				return player.buyables['36R'].gte(capc);
 			}
 		})(),
@@ -82,7 +82,7 @@ export const NUMTHEORY = {
 				return x.div(1e32).max(1).log(1e16).add(1).floor().min(20);
 			}
 			capped(): boolean {
-				let capc = 20;
+				const capc = 20;
 				return player.buyables['37R'].gte(capc);
 			}
 		})(),
@@ -459,7 +459,7 @@ export const NUMTHEORY = {
 		return base;
 	},
 	tau2A() {
-		let n = player.numbertheory.rational_approx.n.floor().max(1);
+		const n = player.numbertheory.rational_approx.n.floor().max(1);
 		let error: Decimal;
 		if (n.eq(0)) return new Decimal(1);
 		if (n.gt(50)) {
@@ -470,8 +470,8 @@ export const NUMTHEORY = {
 		return new Decimal(1).sub(error.log(10).div(100));
 	},
 	tau2B() {
-		let m = player.numbertheory.rational_approx.m.floor().max(1);
-		let error = new Decimal(2.236067977499789696).div(
+		const m = player.numbertheory.rational_approx.m.floor().max(1);
+		const error = new Decimal(2.236067977499789696).div(
 			Decimal.pow(1.618033988749894848, m.mul(2)).sub(m.mod(2).eq(1) ? -1 : 1),
 		);
 		return new Decimal(1).sub(error.log(10).div(100));

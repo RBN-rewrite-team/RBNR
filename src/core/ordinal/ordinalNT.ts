@@ -340,7 +340,7 @@ export const OrdinalNT = {
 	},
 	varParam(id = 'x', layer = 3): string {
 		if (layer == 3) {
-			let exp = this.varExpBase(id, layer).gt(1);
+			const exp = this.varExpBase(id, layer).gt(1);
 			if (id == 'x')
 				return (
 					(exp ? '(' : '') +
@@ -369,11 +369,11 @@ export const OrdinalNT = {
 						.pow(Dilute.diluteAmount(3))
 						.sqrt();
 				let prod = new Decimal(1);
-				let a = buyables['61R'].effect(player.buyables['61R']);
+				const a = buyables['61R'].effect(player.buyables['61R']);
 				for (let i = 0; i < feature.Hydra.pMaxUnlock(); i++) {
 					prod = prod.mul(new Decimal(1).add(feature.Hydra.prestigeEff(i)));
 				}
-				let prod2 = this.functionL4('f', prod).mul(a);
+				const prod2 = this.functionL4('f', prod).mul(a);
 				
 				return prod2;
 			}
@@ -383,7 +383,7 @@ export const OrdinalNT = {
 	functionL4(id = 'f', value: Decimal): Decimal {
 		switch (id) {
 			case 'f':
-				let exp = this.functionL4exp('f');
+				const exp = this.functionL4exp('f');
 
 				if (player.upgrades['61R']) return value.log2().pow(exp);
 				return value.log10().pow(exp);
@@ -451,7 +451,7 @@ export const OrdinalNT = {
 					).toDecimal(this.varComputed('sghBase', 3));
 				return base;
 			} else if (id == 'a') {
-				let base = OrdinalUtils.numberLogHH(
+				const base = OrdinalUtils.numberLogHH(
 					player.numbertheory.GH.x,
 					this.varComputed('hhBase', 3),
 				);
@@ -471,7 +471,7 @@ export const OrdinalNT = {
 		if (layer == 4) {
 			if (id == 'tau') {
 				if (Dilute.diluteAmount(3) > 0) return player.numbertheory.GM.x.add(1).sqrt();
-				let base = player.numbertheory.GM.x.add(10);
+				const base = player.numbertheory.GM.x.add(10);
 				return this.functionL4('g', base);
 			}
 		}

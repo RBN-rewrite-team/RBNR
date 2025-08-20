@@ -346,7 +346,7 @@ export function formatLaTeXWhole(decimal: DecimalSource) {
 
 function toDecimal(value: DecimalSource): Decimal {
 	if (typeof value == 'object') {
-		let d = new Decimal();
+		const d = new Decimal();
 		d.sign = value.sign;
 		d.mag = value.mag;
 		d.layer = value.layer;
@@ -356,7 +356,7 @@ function toDecimal(value: DecimalSource): Decimal {
 }
 
 export function inverse_factorial(value: DecimalSource, iterations: number = 1): Decimal {
-	let valueD = toDecimal(value);
+	const valueD = toDecimal(value);
 	if (valueD.eq(1)) return new Decimal(1);
 	if (valueD.eq(2)) return new Decimal(2);
 	if (iterations < 0) return iteratedfactorial(valueD, -iterations);
@@ -370,7 +370,7 @@ export function inverse_factorial(value: DecimalSource, iterations: number = 1):
 	let upperBound = new Decimal(2);
 	if (valueD.gt(2)) upperBound = valueD.linear_sroot(Math.floor(iterations + 1)).mul(2); //x! is lower-bounded by (x/2)^^2
 	let lower = Decimal.dZero; //This is zero because we might be on a higher layer, so the lower bound might actually some 10^10^10...^0
-	let layer = upperBound.layer;
+	const layer = upperBound.layer;
 	if (layer == 0) lower = new Decimal(0.461632144968362341262659542325);
 	let upper = upperBound.iteratedlog(10, layer, true);
 	let previous = upper;
@@ -398,7 +398,7 @@ export function inverse_factorial(value: DecimalSource, iterations: number = 1):
  * This function is to iteratedexpmult and iteratedmultlog as slog is to iteratedexp/tetrate and iteratedlog.
  */
 export function multslog(value: DecimalSource, base: DecimalSource, mult: DecimalSource): Decimal {
-	let [valueD, baseD, multD] = [value, base, mult].map(toDecimal);
+	const [valueD, baseD, multD] = [value, base, mult].map(toDecimal);
 	return valueD.slog(baseD.pow(multD.recip()), 100, true);
 }
 
@@ -408,8 +408,8 @@ export function multslog(value: DecimalSource, base: DecimalSource, mult: Decima
  * @param base ( Decimal ) The number that the factorials are repeatedly applied to. The base must be greater than 2. Default is 3.
  */
 export function factorial_slog(value: DecimalSource, base: DecimalSource = 3): Decimal {
-	let valueD = toDecimal(value);
-	let baseD = toDecimal(base);
+	const valueD = toDecimal(value);
+	const baseD = toDecimal(base);
 	if (baseD.lte(2))
 		throw new RangeError(
 			"factorial_slog is not supported for bases equal to or below 2, since iteratedfactorial isn't increasing for those bases.",
@@ -454,13 +454,13 @@ export function factorial_slog(value: DecimalSource, base: DecimalSource = 3): D
 }
 
 function iteratedfactorial(value: DecimalSource, iterations: number = 1): Decimal {
-	let valueD = toDecimal(value);
+	const valueD = toDecimal(value);
 	if (iterations == 0) return valueD;
 	if (iterations == 1) return valueD.factorial();
 	if (valueD.lt(0.461632144968362341262659542325) && iterations % 1 != 0) return new Decimal(NaN); //I'm not sure what fractional iterations would mean below the local minimum
 	if (iterations < 0) return inverse_factorial(valueD, -iterations);
-	let wholeiterations = Math.floor(iterations);
-	let fraciterations = iterations - wholeiterations;
+	const wholeiterations = Math.floor(iterations);
+	const fraciterations = iterations - wholeiterations;
 	let payload = valueD;
 	if (fraciterations != 0)
 		payload = payload.mul(valueD.factorial().div(valueD).pow(fraciterations));
@@ -511,13 +511,13 @@ export function physicalScale(value: DecimalSource): string {
 	if (negative && recip)
 		return '（这个数是一个负数且非常小，所以使用其倒数的相反数替代）' + physicalScale(value);
 	// let dn = new DefaultNotation();
-	let scaleResult = physicalScaleInternal(value);
+	const scaleResult = physicalScaleInternal(value);
 	if (scaleResult[0] == 0) {
-		let amount = value.div(scaleResult[2]);
+		const amount = value.div(scaleResult[2]);
 		return '拥有' + format(value) + '升水，你可以填满' + format(amount) + scaleResult[1] + '。';
 	} else if (scaleResult[0] == 1) {
-		let dimension = scaleResult[3];
-		let amount = value.div(scaleResult[2].pow(dimension.div(3)));
+		const dimension = scaleResult[3];
+		const amount = value.div(scaleResult[2].pow(dimension.div(3)));
 		return (
 			'拥有' +
 			format(value) +
@@ -532,8 +532,8 @@ export function physicalScale(value: DecimalSource): string {
 			'.'
 		);
 	} else if (scaleResult[0] == 2) {
-		let factorials = scaleResult[3];
-		let amount = inverse_factorial(value, factorials).div(scaleResult[2]);
+		const factorials = scaleResult[3];
+		const amount = inverse_factorial(value, factorials).div(scaleResult[2]);
 		if (factorials == 0)
 			return (
 				'拥有' +
@@ -605,8 +605,8 @@ export function physicalScale(value: DecimalSource): string {
 				'.'
 			);
 	} else if (scaleResult[0] == 3) {
-		let factorials = scaleResult[3];
-		let amount = inverse_factorial(value, factorials).log(2).div(scaleResult[2]);
+		const factorials = scaleResult[3];
+		const amount = inverse_factorial(value, factorials).log(2).div(scaleResult[2]);
 		if (factorials == 0)
 			return (
 				'如果从单个细菌开始，在无限空间和资源下每秒分裂一次，需要' +
@@ -669,8 +669,8 @@ export function physicalScale(value: DecimalSource): string {
 				'.'
 			);
 	} else if (scaleResult[0] == 4 || scaleResult[0] == 5) {
-		let nanocosmic = scaleResult[3];
-		let amount = value.slog(10, 100, true).div(scaleResult[2]);
+		const nanocosmic = scaleResult[3];
+		const amount = value.slog(10, 100, true).div(scaleResult[2]);
 		if (nanocosmic == 0) {
 			if (scaleResult[0] == 5)
 				return (
@@ -780,7 +780,7 @@ function physicalScaleInternal(value: Decimal): [number, string, Decimal, ...any
 		 * Most of the rest agree with Antimatter Dimensions, but with some names changed
 		 * Beyond the observable universe, moves to 4D, then 5D, etc.
 		 */
-		let objects = [
+		const objects = [
 			'质子',
 			'铀原子核',
 			'氢原子',
@@ -812,7 +812,7 @@ function physicalScaleInternal(value: Decimal): [number, string, Decimal, ...any
 			'超星系团',
 			'可观测宇宙',
 		];
-		let volumes = [
+		const volumes = [
 			2.82e-42, 6.7116e-40, 7.23e-27, 2.1952e-26, 5e-18, 9e-14, 6.2e-8, 5e-5, 3.555e-3, 1,
 			52.995764976, 1000, 67596.84, 2.5e6, 2.6006e9, 3.3e11, 1.2232e16, 6.6988e20, 1.08321e24,
 			1.4313e27, 1.412e30, 5e35, 8e39, 1.7e48, 1.7e51, 3e58, 3.3e64, 5e71, 3.5e75, 3.4e83,
@@ -824,7 +824,7 @@ function physicalScaleInternal(value: Decimal): [number, string, Decimal, ...any
 			index = 26;
 			dimension = value.log(3.4e83).mul(3).floor();
 			rootedValue = value.root(dimension.div(3));
-			let nextRootedValue = value.root(dimension.plus(1).div(3));
+			const nextRootedValue = value.root(dimension.plus(1).div(3));
 			if (
 				(dimension.lt(6) && nextRootedValue.gte(5e71)) ||
 				(dimension.lt(9) && nextRootedValue.gte(3.5e75))
@@ -837,7 +837,7 @@ function physicalScaleInternal(value: Decimal): [number, string, Decimal, ...any
 		if (dimension.eq(3)) return [0, objects[index], volumes[index], dimension];
 		else return [1, objects[index], volumes[index], dimension];
 	} else if (value.lt(Decimal.tetrate(10, 66))) {
-		let factorials = factorial_slog(value)
+		const factorials = factorial_slog(value)
 			.sub(factorial_slog(1.00369e14))
 			.floor()
 			.max(0)
@@ -860,7 +860,7 @@ function physicalScaleInternal(value: Decimal): [number, string, Decimal, ...any
 			 * The Milky Way is the galaxy used, and the Laniakea Supercluster is the large galactic supercluster used.
 			 * After the observable universe, we switch back to the final few volume objects, jam-packing that amount of space with hydrogen atoms.
 			 */
-			let objects = [
+			const objects = [
 				'原子',
 				'病毒',
 				'细菌',
@@ -886,7 +886,7 @@ function physicalScaleInternal(value: Decimal): [number, string, Decimal, ...any
 				'完全填满的星系超团',
 				'完全填满的可观测宇宙',
 			];
-			let atoms = [
+			const atoms = [
 				1, 2.51e7, 1.00369e11, 1.00369e14, 3.0408e18, 2.306e22, 1.46036e25, 7.02583e27,
 				3.2118e29, 1.5055e31, 6.02215e35, 4.0216e41, 2.1205e44, 1.33e50, 6.5074e53,
 				6.81697e56, 3.428e61, 7.8395e68, 6.817e73, 1e80, 4.564e90, 6.916e97, 4.841e101,
@@ -899,7 +899,7 @@ function physicalScaleInternal(value: Decimal): [number, string, Decimal, ...any
 			/**
 			 * How long would a bacteria colony that doubles in size every second take to reach a population this large?
 			 */
-			let units = [
+			const units = [
 				'秒',
 				'分钟',
 				'小时',
@@ -912,11 +912,11 @@ function physicalScaleInternal(value: Decimal): [number, string, Decimal, ...any
 				'红矮星寿命',
 				'铋-209半衰期',
 			];
-			let seconds = [
+			const seconds = [
 				1, 60, 3600, 86400, 604800, 31536000, 3153600000, 7.0956e15, 3.1536e17, 3.1536e20,
 				6.338736e26,
 			].map(toDecimal);
-			let time = value.log(2);
+			const time = value.log(2);
 			let index = 0;
 			while (index < units.length - 1 && seconds[index + 1].lte(time)) index++;
 			return [3, units[index], seconds[index], factorials];
@@ -936,7 +936,7 @@ function physicalScaleInternal(value: Decimal): [number, string, Decimal, ...any
 			nanocosmic++;
 			length = length.mul(1.12805703456e-42);
 		}
-		let objects = [
+		const objects = [
 			'hydrogen atoms',
 			'wavelengths of green light',
 			'grains of sand',
@@ -955,12 +955,12 @@ function physicalScaleInternal(value: Decimal): [number, string, Decimal, ...any
 			'galactic superclusters',
 			'observable universes',
 		];
-		let heights = [
+		const heights = [
 			5.6692908e-8, 0.000125787444, 0.11811024, 66, 399.21258, 21600, 32598.43, 2090281.8,
 			9.8622e7, 3.009921e9, 9.094488e10, 3.533808e13, 1.0626162e15, 9.430902e18, 1.95348e23,
 			1.1621016e25, 4.4919702e26, 2.094018e29,
 		].map(toDecimal);
-		let types = [4, 4, 4, 4, 4, 4, 4, 4, 5, 4, 5, 5, 5, 5, 4, 4, 4];
+		const types = [4, 4, 4, 4, 4, 4, 4, 4, 5, 4, 5, 5, 5, 5, 4, 4, 4];
 		let index = 0;
 		while (index < objects.length - 1 && heights[index + 1].lte(length)) index++;
 		return [
@@ -975,7 +975,7 @@ function physicalScaleInternal(value: Decimal): [number, string, Decimal, ...any
 abstract class Notation {
 	//Notation stuff
 	public format(value: DecimalSource): string {
-		let decimal = toDecimal(value);
+		const decimal = toDecimal(value);
 
 		if (decimal.isNan()) return this.NaNString;
 
@@ -1052,7 +1052,7 @@ abstract class Notation {
 }
 
 function multabs(value: DecimalSource): Decimal {
-	let valueD = toDecimal(value);
+	const valueD = toDecimal(value);
 	if (valueD.eq(0)) return new Decimal(0);
 	else if (valueD.abs().lt(1)) return valueD.recip();
 	else return valueD;
@@ -1073,10 +1073,10 @@ function scientifify(
 	engineerings: DecimalSource | DecimalSource[] = Decimal.dOne,
 	expMultiplier: DecimalSource = Decimal.dOne,
 ): [Decimal, Decimal] {
-	let valueD = toDecimal(value);
-	let baseD = toDecimal(base);
-	let mantissaPowerD = toDecimal(mantissaPower);
-	let expMultiplierD = toDecimal(expMultiplier);
+	const valueD = toDecimal(value);
+	const baseD = toDecimal(base);
+	const mantissaPowerD = toDecimal(mantissaPower);
+	const expMultiplierD = toDecimal(expMultiplier);
 	if (!Array.isArray(engineerings)) engineerings = [engineerings];
 	let engineeringsD: Decimal[] = engineerings.map(toDecimal);
 	engineeringsD = engineeringsD
@@ -1091,7 +1091,7 @@ function scientifify(
 	if (valueD.eq(Decimal.dNegInf)) return [new Decimal(-Infinity), new Decimal(Infinity)];
 	if (!valueD.isFinite()) return [new Decimal(NaN), new Decimal(NaN)];
 	if (valueD.lt(0)) {
-		let preFlip = scientifify(
+		const preFlip = scientifify(
 			valueD.neg(),
 			baseD,
 			rounding,
@@ -1120,12 +1120,12 @@ function scientifify(
 		let loopWatch = false;
 		do {
 			oldB = unroundedB;
-			let upperLimit = baseD.pow(
+			const upperLimit = baseD.pow(
 				nextEngineeringValue(e, engineeringsD)
 					.sub(currentEngineeringValue(e, engineeringsD))
 					.plus(mantissaPower),
 			);
-			let lowerLimit = baseD.pow(mantissaPowerD);
+			const lowerLimit = baseD.pow(mantissaPowerD);
 			if (baseD.lt(1)) {
 				if (b.lte(upperLimit)) {
 					b = unroundedB
@@ -1208,15 +1208,15 @@ export function nextEngineering(value: Decimal, engineerings: Decimal[]): Decima
 		})
 		.reverse();
 	let currentValue = Decimal.dInf;
-	let oldArr = currentEngineering(value, engineerings);
+	const oldArr = currentEngineering(value, engineerings);
 	let finalArr = new Array(...oldArr);
 	for (let s = engineerings.length - 1; s >= 0; s--) {
-		let newArr = new Array(...oldArr);
+		const newArr = new Array(...oldArr);
 		newArr[s] = newArr[s].plus(1);
 		for (let t = s + 1; t < engineerings.length; t++) {
 			newArr[t] = new Decimal(0);
 		}
-		let newValue = engineeringValue(newArr, engineerings);
+		const newValue = engineeringValue(newArr, engineerings);
 		if (newValue.gt(value) && newValue.lt(currentValue)) {
 			currentValue = newValue;
 			finalArr = newArr;
@@ -1247,7 +1247,7 @@ export function previousEngineering(value: Decimal, engineerings: Decimal[]): De
 		})
 		.reverse();
 	let currentValue = Decimal.dNegInf;
-	let oldArr = currentEngineering(value, engineerings);
+	const oldArr = currentEngineering(value, engineerings);
 	let finalArr = new Array(...oldArr);
 	for (let s = engineerings.length - 1; s >= 0; s--) {
 		if (oldArr[s].gt(0)) {
@@ -1300,7 +1300,7 @@ export function currentEngineering(value: Decimal, engineerings: Decimal[]): Dec
 			else return 1;
 		})
 		.reverse();
-	let arr: Decimal[] = [];
+	const arr: Decimal[] = [];
 	let currentValue = new Decimal(value);
 	for (let s = 0; s < engineerings.length; s++) {
 		let portion = currentValue.div(engineerings[s]).floor().max(0);
@@ -1315,7 +1315,7 @@ export function currentEngineering(value: Decimal, engineerings: Decimal[]): Dec
 }
 
 export function upperCurrentEngineeringValue(value: Decimal, engineerings: Decimal[]): Decimal {
-	let c = currentEngineeringValue(value, engineerings);
+	const c = currentEngineeringValue(value, engineerings);
 	if (value.eq(c)) return c;
 	else return nextEngineeringValue(value, engineerings);
 }
@@ -1396,12 +1396,12 @@ function hyperscientifify(
 	expMultiplier: DecimalSource = Decimal.dOne,
 	hyperexpMultiplier: DecimalSource = Decimal.dOne,
 ): [Decimal, Decimal] {
-	let valueD = toDecimal(value);
-	let baseD = toDecimal(base);
-	let hypermantissaPowerD = toDecimal(hypermantissaPower);
-	let expMultiplierD = toDecimal(expMultiplier);
-	let hyperexpMultiplierD = toDecimal(hyperexpMultiplier);
-	let effectiveBase = baseD.pow(expMultiplierD.recip());
+	const valueD = toDecimal(value);
+	const baseD = toDecimal(base);
+	const hypermantissaPowerD = toDecimal(hypermantissaPower);
+	const expMultiplierD = toDecimal(expMultiplier);
+	const hyperexpMultiplierD = toDecimal(hyperexpMultiplier);
+	const effectiveBase = baseD.pow(expMultiplierD.recip());
 	if (!Array.isArray(engineerings)) engineerings = [engineerings];
 	let engineeringsD: Decimal[] = engineerings.map(toDecimal);
 	engineeringsD = engineeringsD
@@ -1464,7 +1464,7 @@ function hyperscientifify(
 		let loopWatch = false;
 		do {
 			oldB = unroundedB;
-			let upperLimit = iteratedexpmult(
+			const upperLimit = iteratedexpmult(
 				baseD,
 				Decimal.dOne,
 				nextEngineeringValue(e, engineeringsD)
@@ -1473,7 +1473,7 @@ function hyperscientifify(
 					.toNumber(),
 				expMultiplierD,
 			);
-			let lowerLimit = iteratedexpmult(
+			const lowerLimit = iteratedexpmult(
 				baseD,
 				Decimal.dOne,
 				hypermantissaPowerD.toNumber(),
@@ -1568,8 +1568,8 @@ export function BaseConvert(
 				'You have to specify your own characters for bases with negative digits.',
 			);
 	}
-	let originalValue = value;
-	let baseNum = base.length;
+	const originalValue = value;
+	const baseNum = base.length;
 	if (baseNum == 0) throw new RangeError('There is no such thing as base 0');
 	if (negaDigits < -1 || negaDigits > baseNum || negaDigits % 1 != 0)
 		throw new RangeError('Invalid negaDigits value in base conversion');
@@ -1672,7 +1672,7 @@ export function BaseConvert(
 					startDigitPosition--;
 					break;
 				}
-				let extracted = Math.floor((digits[analyzed] + negaDigits) / baseNum);
+				const extracted = Math.floor((digits[analyzed] + negaDigits) / baseNum);
 				digits[analyzed] -= extracted * baseNum;
 				if (analyzed == 0) {
 					digits.unshift(extracted);
@@ -1720,7 +1720,7 @@ export function BaseConvert(
 			digitPosition--;
 		}
 	digitPosition = startDigitPosition;
-	let digitChars: [string, number][] = [];
+	const digitChars: [string, number][] = [];
 	let result = '';
 	while (digitPosition >= 0) {
 		let digitLocation = base;
@@ -1900,12 +1900,12 @@ export function round(
 	value: DecimalSource,
 	rounding: DecimalSource | ((value: Decimal) => Decimal),
 ): Decimal {
-	let valueD = toDecimal(value);
+	const valueD = toDecimal(value);
 	if (typeof rounding != 'function') {
-		let funcD = toDecimal(rounding);
+		const funcD = toDecimal(rounding);
 		rounding = (value) => funcD;
 	}
-	let roundingVal = rounding(valueD);
+	const roundingVal = rounding(valueD);
 	if (roundingVal.eq(0)) return valueD;
 	else return valueD.div(roundingVal).round().mul(roundingVal);
 }
@@ -1920,7 +1920,7 @@ export function iteratedexpmult(
 	height: number,
 	mult: DecimalSource,
 ): Decimal {
-	let [baseD, payloadD, multD] = [base, payload, mult].map(toDecimal);
+	const [baseD, payloadD, multD] = [base, payload, mult].map(toDecimal);
 	return Decimal.iteratedexp(baseD.pow(multD.recip()), height, payloadD, true);
 }
 
@@ -1930,7 +1930,7 @@ function iteratedmultlog(
 	times: number,
 	mult: DecimalSource,
 ): Decimal {
-	let [valueD, baseD, multD] = [value, base, mult].map(toDecimal);
+	const [valueD, baseD, multD] = [value, base, mult].map(toDecimal);
 	return Decimal.iteratedlog(valueD, baseD.pow(multD.recip()), times, true);
 }
 
@@ -2075,7 +2075,7 @@ export class AlternateBaseNotation extends Notation {
 	public name = 'Alternate Base Notation';
 
 	public format(value: DecimalSource): string {
-		let decimal = toDecimal(value);
+		const decimal = toDecimal(value);
 
 		if (decimal.isNan()) return this.NaNString;
 
@@ -2111,12 +2111,12 @@ export class AlternateBaseNotation extends Notation {
 			);
 		let result = '';
 		let negExp = false;
-		let baseNum = this._base.length;
-		let places = value.gte(1) ? this.placesAbove1 : this.placesBelow1;
+		const baseNum = this._base.length;
+		const places = value.gte(1) ? this.placesAbove1 : this.placesBelow1;
 		if (this.negaDigits > baseNum || this.negaDigits < -1 || this.negaDigits % 1 != 0)
 			throw new RangeError('negaDigits out of range in Alternate Base Notation');
 		if (this.negaDigits > baseNum - 2) {
-			let baseCopy = new AlternateBaseNotation(
+			const baseCopy = new AlternateBaseNotation(
 				this._base,
 				baseNum - this.negaDigits - 1,
 				this.placesAbove1,
@@ -2168,11 +2168,11 @@ export class AlternateBaseNotation extends Notation {
 			)
 				return this.negExpChars[1][0] + this.format(value.recip()) + this.negExpChars[1][1];
 			negExp = true;
-			let [m, e] = scientifify(value, baseNum, 0, this.mantissaPower);
+			const [m, e] = scientifify(value, baseNum, 0, this.mantissaPower);
 			value = Decimal.pow(baseNum, e.neg()).mul(m);
 		}
 		if (value.abs().lt(Decimal.pow(baseNum, this.maxnum))) {
-			let [m, e] = scientifify(value, baseNum, 0, this.mantissaPower);
+			const [m, e] = scientifify(value, baseNum, 0, this.mantissaPower);
 			let mantissa = m.toNumber();
 			let exponent = e.toNumber();
 			let unroundedmantissa = mantissa;
@@ -2205,7 +2205,7 @@ export class AlternateBaseNotation extends Notation {
 				afterChar = this.negExpChars[0][1];
 				exponent *= -1;
 			}
-			let baseStr = BaseConvert(
+			const baseStr = BaseConvert(
 				mantissa,
 				this._base,
 				this.placesAbove1,
@@ -2222,7 +2222,7 @@ export class AlternateBaseNotation extends Notation {
 				this.specialDigits,
 				this.concatenation,
 			);
-			let exponentStr = BaseConvert(
+			const exponentStr = BaseConvert(
 				exponent,
 				this._base,
 				this.placesAbove1,
@@ -2290,8 +2290,8 @@ export class AlternateBaseNotation extends Notation {
 					exponent = exponent.sub(1);
 				}
 				if (negExp) exponent = exponent.neg();
-				let baseStr = this.format(mantissa);
-				let exponentStr = this.format(exponent);
+				const baseStr = this.format(mantissa);
+				const exponentStr = this.format(exponent);
 				if (this.hyperexpBefore)
 					result = this._expChars[2][0] + exponentStr + this._expChars[2][1] + baseStr;
 				else result = baseStr + this._expChars[2][0] + exponentStr + this._expChars[2][1];
@@ -2344,8 +2344,8 @@ export class AlternateBaseNotation extends Notation {
 			[string | boolean, string | boolean],
 		],
 	) {
-		let one = this.format(1);
-		let expChars: [string, string][] = [];
+		const one = this.format(1);
+		const expChars: [string, string][] = [];
 		expChars.push(input[0]);
 		expChars.push(['', '']);
 		if (typeof input[1][0] == 'string') expChars[1][0] = input[1][0];
@@ -2537,7 +2537,7 @@ class ConditionalNotation extends Notation {
 	public name = 'Conditional Notation';
 
 	public format(value: DecimalSource): string {
-		let decimal = toDecimal(value);
+		const decimal = toDecimal(value);
 
 		if (this.specialIncluded) {
 			for (let n = 0; n < this.options.length; n++) {
@@ -2686,7 +2686,7 @@ export function addCommas(str: string, commaChars: string[] = [','], spacing: nu
 	let result = '';
 	let commasSoFar = 0;
 	while (str.length > spacing) {
-		let substr = str.substring(str.length - spacing, str.length);
+		const substr = str.substring(str.length - spacing, str.length);
 		str = str.substring(0, str.length - spacing);
 		result = commaChars[commasSoFar % commaChars.length] + substr + result;
 		commasSoFar++;
@@ -2715,9 +2715,9 @@ export function commasAndDecimals(
 	if (!isFinite(value)) return String(value);
 	let places = Math.abs(value) < 1 ? placesBelow1 : placesAbove1;
 	if (places > 16) places = 16;
-	let negative = value < 0;
+	const negative = value < 0;
 	value = Math.abs(value);
-	let [b, e] = scientifify(Decimal.fromNumber(value), Decimal.dTen);
+	const [b, e] = scientifify(Decimal.fromNumber(value), Decimal.dTen);
 	let base = b.toNumber();
 	let exponent = e.toNumber();
 	let sigFigs = false;
@@ -2858,12 +2858,12 @@ export class DefaultNotation extends Notation {
 		}
 		if (value.lt(1)) {
 			negExp = true;
-			let [m, e] = scientifify(value, 10, Math.pow(10, -places));
+			const [m, e] = scientifify(value, 10, Math.pow(10, -places));
 			value = e.neg().pow10().mul(m);
 		}
 		if (value.lt(Decimal.pow10(this.maxnum))) {
-			let [m, e] = scientifify(value, 10, Math.pow(10, -places));
-			let mantissa = m.toNumber();
+			const [m, e] = scientifify(value, 10, Math.pow(10, -places));
+			const mantissa = m.toNumber();
 			let exponent = e.toNumber();
 			if (negExp) exponent *= -1;
 			result =
@@ -2892,8 +2892,8 @@ export class DefaultNotation extends Notation {
 			if (negExp) value = value.neg();
 			result += this.format(value);
 		} else if (value.lt(Decimal.tetrate(10, this.maxnum.toNumber(), 1, true))) {
-			let [m, e] = hyperscientifify(value, 10, Math.pow(10, -places));
-			let mantissa = m.toNumber();
+			const [m, e] = hyperscientifify(value, 10, Math.pow(10, -places));
+			const mantissa = m.toNumber();
 			let exponent = e.toNumber();
 			if (negExp) exponent *= -1;
 			result =
@@ -3301,9 +3301,9 @@ export class OmegaMetaZeroNotation extends Notation {
 			transitions.push(Decimal.dInf);
 		}
 		let currentValue = value;
-		let remainders: Decimal[] = [];
+		const remainders: Decimal[] = [];
 		for (let s = this._symbols.length - 2; s >= 0; s--) {
-			let thisRemainder = currentValue.div(transitions[s]).floor();
+			const thisRemainder = currentValue.div(transitions[s]).floor();
 			remainders.push(thisRemainder);
 			currentValue = currentValue.mod(transitions[s], true);
 		}
@@ -3330,7 +3330,7 @@ export class OmegaMetaZeroNotation extends Notation {
 			if (copiedRemainders[cleared].gte(0) && copiedRemainders[cleared].lt(limits[cleared]))
 				cleared++;
 			else {
-				let offset = copiedRemainders[cleared].div(limits[cleared]).floor();
+				const offset = copiedRemainders[cleared].div(limits[cleared]).floor();
 				if (cleared == limits.length - 1) {
 					if (copiedRemainders[cleared].lt(0)) {
 						copiedRemainders[cleared] = copiedRemainders[cleared].sub(
@@ -3351,7 +3351,7 @@ export class OmegaMetaZeroNotation extends Notation {
 			remainders[r] = r < copiedRemainders.length ? copiedRemainders[r] : Decimal.dZero;
 		let result = '';
 		for (let s = 0; s < remainders.length; s++) {
-			let thisRemainder = remainders[s];
+			const thisRemainder = remainders[s];
 			if (
 				this._symbolShown[s](
 					thisRemainder,
@@ -3362,15 +3362,15 @@ export class OmegaMetaZeroNotation extends Notation {
 					digitValues,
 				)
 			) {
-				let towerHeight = thisRemainder.div(this._symbols[s].length).floor();
-				let numRemainder = thisRemainder.mod(this._symbols[s].length, true).toNumber();
+				const towerHeight = thisRemainder.div(this._symbols[s].length).floor();
+				const numRemainder = thisRemainder.mod(this._symbols[s].length, true).toNumber();
 				result = this._parentheses[s][0] + result + this._parentheses[s][1];
 				let symbolStr = this._symbols[s][numRemainder];
 				if (towerHeight.gte(0) && towerHeight.lte(this._visibleTowerMax[s])) {
 					for (let t = 0; t < towerHeight.toNumber(); t++)
 						symbolStr = this._towerChars[s][0] + symbolStr + this._towerChars[s][1];
 				} else {
-					let towerStr =
+					const towerStr =
 						this._toweriterationChars[s][0] +
 						this._toweriterationChars[s][3].format(towerHeight) +
 						this._toweriterationChars[s][1];
@@ -3387,27 +3387,27 @@ export class OmegaMetaZeroNotation extends Notation {
 	}
 
 	public formatDecimal(value: Decimal): string {
-		let limits = [new Decimal(this._symbols[0].length).mul(this._towerHeight[0])];
+		const limits = [new Decimal(this._symbols[0].length).mul(this._towerHeight[0])];
 		for (let s = 1; s < this._symbols.length; s++)
 			limits.push(Decimal.mul(this._symbols[s].length, this._towerHeight[s]));
-		let transitions = [limits[0]];
+		const transitions = [limits[0]];
 		for (let s = 1; s < this._symbols.length; s++)
 			transitions.push(transitions[s - 1].mul(limits[s]));
 		limits.pop();
-		let digitBase = transitions[transitions.length - 1];
+		const digitBase = transitions[transitions.length - 1];
 		let recipThreshold = Decimal.dOne;
 		if (this.recipThreshold == 1) {
 			recipThreshold = digitBase.pow(-this._negExpThreshold);
 		} else if (this.recipThreshold == 2) {
-			let offset = this.exponentOffset ? 0 : this._maxVisibleDigitsInExp - 1;
-			let exponentLimit = Decimal.min(
+			const offset = this.exponentOffset ? 0 : this._maxVisibleDigitsInExp - 1;
+			const exponentLimit = Decimal.min(
 				this.uncertainThreshold.plus(offset),
 				Decimal.pow(digitBase, this._maxVisibleDigits),
 			);
 			recipThreshold = Decimal.pow(digitBase, exponentLimit.plus(offset)).recip();
 		} else if (this.recipThreshold == 3) {
-			let offset = this.exponentOffset ? 0 : this._maxVisibleDigitsInExp - 1;
-			let exponentLimit = Decimal.pow(digitBase, this._maxVisibleDigits);
+			const offset = this.exponentOffset ? 0 : this._maxVisibleDigitsInExp - 1;
+			const exponentLimit = Decimal.pow(digitBase, this._maxVisibleDigits);
 			recipThreshold = Decimal.pow(digitBase, exponentLimit.plus(offset)).recip();
 		}
 		if (value.neq(0) && value.lt(recipThreshold))
@@ -3437,7 +3437,7 @@ export class OmegaMetaZeroNotation extends Notation {
 			}
 		}
 		transitions.pop(); // Would have just put this statement into digitBase, but then TypeScript would have to account for the case where it's undefined
-		let digits: Decimal[] = [];
+		const digits: Decimal[] = [];
 		let currentValue = value;
 		let exponent: Decimal = Decimal.dZero;
 		let layers: Decimal = Decimal.dZero;
@@ -3446,11 +3446,11 @@ export class OmegaMetaZeroNotation extends Notation {
 		if (value.gte(layerLimit)) {
 			layerScientific = true;
 			if (currentValue.gte(layerMantissaLimit)) {
-				let safeMax = Decimal.max('ee100', layerMantissaLimit);
-				let safeMaxSlog = Decimal.slog(safeMax, digitBase, true);
+				const safeMax = Decimal.max('ee100', layerMantissaLimit);
+				const safeMaxSlog = Decimal.slog(safeMax, digitBase, true);
 				while (currentValue.gte(safeMax)) {
 					if (!currentValue.isFinite()) currentValue = layerMantissaLimit; // Combats imprecision
-					let safeIterations = Decimal.slog(currentValue, digitBase, true)
+					const safeIterations = Decimal.slog(currentValue, digitBase, true)
 						.sub(safeMaxSlog)
 						.floor()
 						.plus(1)
@@ -3487,10 +3487,10 @@ export class OmegaMetaZeroNotation extends Notation {
 		if (scientific) decimalPlaces = 0;
 		if (value.eq(0)) decimalPlaces = 0;
 		if (exponent.abs().lt(this.uncertainThreshold)) {
-			let digitExponent = Decimal.log(currentValue, digitBase).floor();
+			const digitExponent = Decimal.log(currentValue, digitBase).floor();
 			for (let e = digitExponent.toNumber(); e > -decimalPlaces; e--) {
-				let placeValue = Decimal.pow(digitBase, e);
-				let thisRemainder = currentValue.div(placeValue).floor();
+				const placeValue = Decimal.pow(digitBase, e);
+				const thisRemainder = currentValue.div(placeValue).floor();
 				digits.push(thisRemainder);
 				currentValue = currentValue.mod(placeValue, true);
 			}
@@ -3521,7 +3521,7 @@ export class OmegaMetaZeroNotation extends Notation {
 				}
 				if (copiedDigits[cleared].gte(0) && copiedDigits[cleared].lt(digitBase)) cleared++;
 				else {
-					let offset = copiedDigits[cleared].div(digitBase).floor();
+					const offset = copiedDigits[cleared].div(digitBase).floor();
 					if (cleared == copiedDigits.length - 1) copiedDigits.push(Decimal.dZero);
 					copiedDigits[cleared + 1] = copiedDigits[cleared + 1].plus(offset);
 					copiedDigits[cleared] = copiedDigits[cleared].sub(offset.mul(digitBase));
@@ -3557,7 +3557,7 @@ export class OmegaMetaZeroNotation extends Notation {
 			if (digits.length == 0) result = this.uncertainChar;
 			else
 				for (let s = 0; s < digits.length; s++) {
-					let thisDigit = digits[s];
+					const thisDigit = digits[s];
 					let usedBrackets: [string, string, string, string, string, string];
 					if (scientific) {
 						if (digits.length - s - 1 < this.firstBracketsInExp.length)
@@ -3699,7 +3699,7 @@ export class OmegaMetaZeroNotation extends Notation {
 
 	public set towerHeight(towerHeight: DecimalSource | DecimalSource[]) {
 		if (!Array.isArray(towerHeight)) towerHeight = [towerHeight];
-		let towerHeightD = towerHeight.map(toDecimal);
+		const towerHeightD = towerHeight.map(toDecimal);
 		if (towerHeightD.length == 0) towerHeightD.push(new Decimal(5));
 		while (towerHeightD.length < this._symbols.length)
 			towerHeightD.push(towerHeightD[towerHeightD.length - 1]);
@@ -3715,9 +3715,9 @@ export class OmegaMetaZeroNotation extends Notation {
 		while (towerChars.length < this.symbols.length)
 			towerChars.push(towerChars[towerChars.length - 1]);
 		// Another round of "writing the code in a more complicated way to make TypeScript happy":
-		let newTowerChars: [string, string][] = [];
+		const newTowerChars: [string, string][] = [];
 		for (let t = 0; t < towerChars.length; t++) {
-			let tc = towerChars[t];
+			const tc = towerChars[t];
 			if (tc === true)
 				newTowerChars.push([
 					this.symbols[t][this.symbols[t].length - 1] + '<sup>',
@@ -4019,7 +4019,7 @@ export class HyperscientificNotation extends Notation {
 	public name = 'Hyperscientific Notation';
 
 	public format(value: DecimalSource): string {
-		let decimal = toDecimal(value);
+		const decimal = toDecimal(value);
 
 		if (decimal.isNan()) return this.NaNString;
 
@@ -4061,8 +4061,8 @@ export class HyperscientificNotation extends Notation {
 				afterChar = this.negExpChars[0][1];
 				exponent = exponent.neg();
 			}
-			let mantissaStr = this.mantissaInnerNotation.format(mantissa);
-			let exponentStr = this.exponentInnerNotation.format(exponent);
+			const mantissaStr = this.mantissaInnerNotation.format(mantissa);
+			const exponentStr = this.exponentInnerNotation.format(exponent);
 			if (this.expBefore) result = beforeChar + exponentStr + afterChar + mantissaStr;
 			else result = mantissaStr + beforeChar + exponentStr + afterChar;
 		} else {
@@ -4093,7 +4093,7 @@ export class HyperscientificNotation extends Notation {
 	}
 
 	public set maxnum(maxnum: DecimalSource) {
-		let maxnumD = toDecimal(maxnum);
+		const maxnumD = toDecimal(maxnum);
 		if (maxnumD.lte(0)) throw new RangeError('Nonpositive maxnum in Hyperscientific Notation');
 		this._maxnum = maxnumD;
 	}
@@ -4108,7 +4108,7 @@ export class HyperscientificNotation extends Notation {
 			this._engineerings = [Decimal.dOne];
 			return;
 		}
-		let engineeringsD: Decimal[] = engineerings.map(toDecimal);
+		const engineeringsD: Decimal[] = engineerings.map(toDecimal);
 		this._engineerings = engineeringsD
 			.sort(function (a, b) {
 				if (a.lt(b)) return -1;
@@ -4123,7 +4123,7 @@ export class HyperscientificNotation extends Notation {
 	}
 
 	public set base(base: DecimalSource) {
-		let baseD = toDecimal(base);
+		const baseD = toDecimal(base);
 		if (baseD.pow(this._expMult.recip()).lte(1.44466786100976613366))
 			throw new RangeError(
 				"Bases with convergent tetration don't work for Hyperscientific Notation",
@@ -4136,7 +4136,7 @@ export class HyperscientificNotation extends Notation {
 	}
 
 	public set mantissaPower(mantissaPower: DecimalSource) {
-		let mantissaPowerD = toDecimal(mantissaPower);
+		const mantissaPowerD = toDecimal(mantissaPower);
 		if (mantissaPowerD.lt(-2))
 			throw new RangeError('mantissaPower below -2 in Hyperscientific Notation');
 		this._mantissaPower = mantissaPowerD;
@@ -4147,7 +4147,7 @@ export class HyperscientificNotation extends Notation {
 	}
 
 	public set expMult(expMult: DecimalSource) {
-		let expMultD = toDecimal(expMult);
+		const expMultD = toDecimal(expMult);
 		if (expMultD.eq(0)) throw new RangeError('expMult should not be zero');
 		if (this._base.pow(expMultD.recip()).lte(1.44466786100976613366))
 			throw new RangeError(
@@ -4161,7 +4161,7 @@ export class HyperscientificNotation extends Notation {
 	}
 
 	public set hyperexpMult(hyperexpMult: DecimalSource) {
-		let hyperexpMultD = toDecimal(hyperexpMult);
+		const hyperexpMultD = toDecimal(hyperexpMult);
 		if (hyperexpMultD.eq(0)) throw new RangeError('hyperexpMult should not be zero');
 		this._hyperexpMult = hyperexpMultD;
 	}
@@ -4173,8 +4173,8 @@ export class HyperscientificNotation extends Notation {
 	public set expChars(
 		input: [[string, string], [string | boolean, string | boolean], [string, string]],
 	) {
-		let one = this.mantissaInnerNotation.format(1);
-		let expChars: [string, string][] = [];
+		const one = this.mantissaInnerNotation.format(1);
+		const expChars: [string, string][] = [];
 		expChars.push(input[0]);
 		expChars.push(['', '']);
 		if (typeof input[1][0] == 'string') expChars[1][0] = input[1][0];
@@ -4279,7 +4279,7 @@ export class HyperscientificIterationsNotation extends Notation {
 	public name = 'Hyperscientific Iterations Notation';
 
 	public format(value: DecimalSource): string {
-		let decimal = toDecimal(value);
+		const decimal = toDecimal(value);
 
 		if (decimal.isNan()) return this.NaNString;
 
@@ -4298,7 +4298,7 @@ export class HyperscientificIterationsNotation extends Notation {
 
 	public formatDecimal(value: Decimal): string {
 		if (this._iterations == 0) return this.mantissaInnerNotation.format(value);
-		let iterations = this._iterations;
+		const iterations = this._iterations;
 		let result = '';
 		let added_Fs = 0;
 		while (
@@ -4308,10 +4308,10 @@ export class HyperscientificIterationsNotation extends Notation {
 			added_Fs++;
 			value = multslog(value, this._base, this._expMult).mul(this._hyperexpMult);
 		}
-		let sciArray = [value];
+		const sciArray = [value];
 		for (let i = 0; i < iterations - added_Fs; i++) {
 			if (sciArray[sciArray.length - 1].lte(0) && !this.formatNegatives) break;
-			let [mantissa, exponent] = hyperscientifify(
+			const [mantissa, exponent] = hyperscientifify(
 				sciArray[sciArray.length - 1],
 				this._base,
 				this.rounding,
@@ -4323,7 +4323,7 @@ export class HyperscientificIterationsNotation extends Notation {
 			sciArray.pop();
 			sciArray.push(mantissa, exponent);
 		}
-		let endings = sciArray.length - 1;
+		const endings = sciArray.length - 1;
 		let beforeChar = this._expChars[0][0];
 		let afterChar = this._expChars[0][1];
 		while (sciArray.length > 0) {
@@ -4378,7 +4378,7 @@ export class HyperscientificIterationsNotation extends Notation {
 			this._engineerings = [Decimal.dOne];
 			return;
 		}
-		let engineeringsD: Decimal[] = engineerings.map(toDecimal);
+		const engineeringsD: Decimal[] = engineerings.map(toDecimal);
 		this._engineerings = engineeringsD
 			.sort(function (a, b) {
 				if (a.lt(b)) return -1;
@@ -4405,7 +4405,7 @@ export class HyperscientificIterationsNotation extends Notation {
 	}
 
 	public set base(base: DecimalSource) {
-		let baseD = toDecimal(base);
+		const baseD = toDecimal(base);
 		if (baseD.pow(this._expMult.recip()).lte(1.44466786100976613366))
 			throw new RangeError(
 				"Bases with convergent tetration don't work for Hyperscientific Iterations Notation",
@@ -4418,7 +4418,7 @@ export class HyperscientificIterationsNotation extends Notation {
 	}
 
 	public set expMult(expMult: DecimalSource) {
-		let expMultD = toDecimal(expMult);
+		const expMultD = toDecimal(expMult);
 		if (expMultD.eq(0)) throw new RangeError('expMult should not be zero');
 		if (this._base.pow(expMultD.recip()).lte(1.44466786100976613366))
 			throw new RangeError(
@@ -4432,7 +4432,7 @@ export class HyperscientificIterationsNotation extends Notation {
 	}
 
 	public set hyperexpMult(hyperexpMult: DecimalSource) {
-		let hyperexpMultD = toDecimal(hyperexpMult);
+		const hyperexpMultD = toDecimal(hyperexpMult);
 		if (hyperexpMultD.eq(0)) throw new RangeError('hyperexpMult should not be zero');
 		this._hyperexpMult = hyperexpMultD;
 	}
@@ -4444,8 +4444,8 @@ export class HyperscientificIterationsNotation extends Notation {
 	public set expChars(
 		input: [[string, string], [string | boolean, string | boolean], [string, string]],
 	) {
-		let one = this.mantissaInnerNotation.format(1);
-		let expChars: [string, string][] = [];
+		const one = this.mantissaInnerNotation.format(1);
+		const expChars: [string, string][] = [];
 		expChars.push(input[0]);
 		expChars.push(['', '']);
 		if (typeof input[1][0] == 'string') expChars[1][0] = input[1][0];
@@ -4692,7 +4692,7 @@ export function iteratedFGH1log(value: DecimalSource, base: DecimalSource): Deci
  * @param value ( Decimal ) The input to f2.
  */
 export function FGH2(value: DecimalSource): Decimal {
-	let valueD = toDecimal(value);
+	const valueD = toDecimal(value);
 	if (valueD.eq(-Infinity)) return new Decimal(0);
 	if (valueD.isNan()) return new Decimal(NaN);
 	return Decimal.mul(value, Decimal.pow(2, value));
@@ -4704,7 +4704,7 @@ export function FGH2(value: DecimalSource): Decimal {
  * @param value ( Decimal ) The value that FGH2 will output when given the result of this function.
  */
 export function FGH2inverse(value: DecimalSource): Decimal {
-	let valueD = toDecimal(value);
+	const valueD = toDecimal(value);
 	if (valueD.lt(-1 / (Math.E * Math.LN2)) || valueD.isNan()) return new Decimal(NaN);
 	if (valueD.eq(0)) return new Decimal(0);
 	if (valueD.gt('ee18')) return valueD.log2();
@@ -4756,13 +4756,13 @@ export function iteratedFGH2(value: DecimalSource, times: number): Decimal {
 	let valueD = toDecimal(value);
 	if (valueD.eq(0) || times == 0) return valueD;
 	if (valueD.gt(0) && valueD.lt(0.01) && times > 0) {
-		let coveredDistance = iteratedFGH2log(valueD, 1).toNumber();
+		const coveredDistance = iteratedFGH2log(valueD, 1).toNumber();
 		return iteratedFGH2(1, coveredDistance + times);
 	}
 	if (valueD.eq(Infinity)) return new Decimal(Infinity);
 	if (valueD.isNan()) return new Decimal(NaN);
 	let wholetimes = Math.floor(times);
-	let fractimes = times - wholetimes;
+	const fractimes = times - wholetimes;
 	if (fractimes != 0) {
 		/* I really want the property of "f2^[n](x) = f2^[n - 1](f2(x))" to always hold: for example, regardless of what n is,
         f2^n(2) = f2^[n - 1](8). Therefore, rather than a straightforward linear approximation,
@@ -4778,7 +4778,7 @@ export function iteratedFGH2(value: DecimalSource, times: number): Decimal {
 		} else {
 			if (times == Infinity) return new Decimal(0);
 			if (valueD.gt('eee20')) {
-				let safeIterations = Decimal.slog(valueD, 2, true)
+				const safeIterations = Decimal.slog(valueD, 2, true)
 					.sub(Decimal.slog('eee20', 2, true))
 					.floor()
 					.min(Math.abs(wholetimes))
@@ -4792,7 +4792,7 @@ export function iteratedFGH2(value: DecimalSource, times: number): Decimal {
 				wholetimes++;
 				if (!valueD.isFinite) return new Decimal(valueD);
 				if (valueD.lt(0.01)) {
-					let totaliterations = valueD.recip().mul(Math.LOG2E).sub(wholetimes);
+					const totaliterations = valueD.recip().mul(Math.LOG2E).sub(wholetimes);
 					return totaliterations.mul(Math.LN2).recip();
 				}
 			}
@@ -4805,7 +4805,7 @@ export function iteratedFGH2(value: DecimalSource, times: number): Decimal {
 				valueD = FGH2(valueD);
 				wholetimes--;
 				if (valueD.gt(-0.01)) {
-					let totaliterations = valueD.recip().abs().mul(Math.LOG2E).plus(wholetimes);
+					const totaliterations = valueD.recip().abs().mul(Math.LOG2E).plus(wholetimes);
 					return totaliterations.mul(Math.LN2).recip().neg();
 				}
 			}
@@ -4829,8 +4829,8 @@ export function iteratedFGH2(value: DecimalSource, times: number): Decimal {
  * @param base ( Decimal ) The base that iteratedFGH2 is called on with the result this inverse outputs to return the given value.
  */
 export function iteratedFGH2log(value: DecimalSource, base: DecimalSource): Decimal {
-	let valueD = toDecimal(value);
-	let baseD = toDecimal(base);
+	const valueD = toDecimal(value);
+	const baseD = toDecimal(base);
 	if (valueD.lt(0) || baseD.lte(0) || !baseD.isFinite()) return new Decimal(NaN);
 	if (valueD.eq(0)) return new Decimal(-Infinity);
 	if (valueD.lt(1e-20)) return valueD.recip().neg().mul(Math.LOG2E);
@@ -4851,9 +4851,9 @@ export function iteratedFGH2log(value: DecimalSource, base: DecimalSource): Deci
 				.toNumber()
 		: valueD.recip().neg().mul(Math.LOG2E).toNumber();
 	let step_size = Math.abs(Math.max(0.001, result * 0.001));
-	for (var i = 1; i < 100; ++i) {
-		let new_decimal = iteratedFGH2(base, result);
-		let currently_rose = new_decimal.gt(valueD);
+	for (let i = 1; i < 100; ++i) {
+		const new_decimal = iteratedFGH2(base, result);
+		const currently_rose = new_decimal.gt(valueD);
 		if (i > 1) {
 			if (previously_rose != currently_rose) {
 				has_changed_directions_once = true;
@@ -4879,7 +4879,7 @@ export function iteratedFGH2log(value: DecimalSource, base: DecimalSource): Deci
  * @param value ( Decimal ) The input to f3.
  */
 export function FGH3(value: DecimalSource): Decimal {
-	let valueD = toDecimal(value);
+	const valueD = toDecimal(value);
 	if (valueD.lt(0) || valueD.isNan()) return new Decimal(NaN);
 	if (valueD.lt(1e-17)) return valueD;
 	if (valueD.eq(Infinity)) return new Decimal(Infinity);
@@ -4891,7 +4891,7 @@ export function FGH3(value: DecimalSource): Decimal {
  * @param value ( Decimal ) The value that FGH3 will output when given the result of this function.
  */
 export function FGH3inverse(value: DecimalSource): Decimal {
-	let valueD = toDecimal(value);
+	const valueD = toDecimal(value);
 	if (valueD.lt(0) || valueD.isNan()) return new Decimal(NaN);
 	if (valueD.lt(1e-17)) return valueD;
 	if (valueD.eq(Infinity)) return new Decimal(Infinity);
@@ -4937,8 +4937,8 @@ export function iteratedFGH3(value: DecimalSource, times: number): Decimal {
 	if (valueD.eq(0) || times == 0) return valueD;
 	if (valueD.eq(Infinity)) return new Decimal(Infinity);
 	if (valueD.isNan() || Number.isNaN(times)) return new Decimal(NaN);
-	let wholetimes = Math.floor(times);
-	let fractimes = times - wholetimes;
+	const wholetimes = Math.floor(times);
+	const fractimes = times - wholetimes;
 	if (fractimes != 0) {
 		if (valueD.eq(1)) valueD = Decimal.pow(2, fractimes);
 		else return iteratedFGH3(1, iteratedFGH3log(valueD, 1).plus(times).toNumber());
@@ -4971,8 +4971,8 @@ export function iteratedFGH3(value: DecimalSource, times: number): Decimal {
  * @param base ( Decimal ) The base that iteratedFGH3 is called on with the result this inverse outputs to return the given value.
  */
 export function iteratedFGH3log(value: DecimalSource, base: DecimalSource): Decimal {
-	let valueD = toDecimal(value);
-	let baseD = toDecimal(base);
+	const valueD = toDecimal(value);
+	const baseD = toDecimal(base);
 	if (valueD.lt(0) || baseD.lte(0)) return new Decimal(NaN);
 	if (valueD.eq(0)) return new Decimal(-Infinity);
 	if (valueD.eq(Infinity)) return new Decimal(Infinity);
@@ -4997,9 +4997,9 @@ export function iteratedFGH3log(value: DecimalSource, base: DecimalSource): Deci
 	let has_changed_directions_once = false;
 	let previously_rose = false;
 	let step_size = 1;
-	for (var i = 1; i < 100; ++i) {
-		let new_decimal = iteratedFGH3(base, result);
-		let currently_rose = new_decimal.gt(valueD);
+	for (let i = 1; i < 100; ++i) {
+		const new_decimal = iteratedFGH3(base, result);
+		const currently_rose = new_decimal.gt(valueD);
 		if (i > 1) {
 			if (previously_rose != currently_rose) {
 				has_changed_directions_once = true;
@@ -5187,8 +5187,8 @@ export class FastGrowingHierarchyNotation extends Notation {
 
 	public formatDecimal(value: Decimal): string {
 		let currentValue = value;
-		let roundedValues = [value, value, value, value];
-		let iterations = [Decimal.dZero, Decimal.dZero, Decimal.dZero, Decimal.dZero];
+		const roundedValues = [value, value, value, value];
+		const iterations = [Decimal.dZero, Decimal.dZero, Decimal.dZero, Decimal.dZero];
 		let initialRun = [true, true, true, true];
 		if (value.eq(0)) initialRun = [false, false, false, false];
 		while (roundedValues[3].gte(this._maximums[3]) || initialRun[3]) {
@@ -5306,7 +5306,7 @@ export class FastGrowingHierarchyNotation extends Notation {
 				anyIterations = true;
 				break;
 			}
-		let orderArray = [0];
+		const orderArray = [0];
 		orderArray.splice(this.delimiterPermutation % 2, 0, 1);
 		orderArray.splice(Math.floor(this.delimiterPermutation / 2) % 3, 0, 2);
 		orderArray.splice(Math.floor(this.delimiterPermutation / 6) % 4, 0, 3);
@@ -5314,9 +5314,9 @@ export class FastGrowingHierarchyNotation extends Notation {
 		if (anyIterations || this.argumentChars[2])
 			result = this.argumentChars[0] + result + this.argumentChars[1];
 		for (let o = 0; o < 4; o++) {
-			let f = orderArray[o];
+			const f = orderArray[o];
 			if (this._functionShown[f](iterations[f])) {
-				let currentiterations = iterations[f];
+				const currentiterations = iterations[f];
 				if (
 					currentiterations.gt(0) &&
 					currentiterations.lte(this._max_in_a_row[f]) &&
@@ -5360,7 +5360,7 @@ export class FastGrowingHierarchyNotation extends Notation {
 	}
 
 	public set maximums(maximums: DecimalSource[]) {
-		let maximumsD = maximums.map(toDecimal);
+		const maximumsD = maximums.map(toDecimal);
 		while (maximumsD.length < 4) maximumsD.push(Decimal.dInf);
 		this._maximums = maximumsD;
 	}
@@ -5370,7 +5370,7 @@ export class FastGrowingHierarchyNotation extends Notation {
 	}
 
 	public set functionChars(functionChars: [string, string][]) {
-		let result: [string, string][] = [
+		const result: [string, string][] = [
 			['f0(', ')'],
 			['f1(', ')'],
 			['f2(', ')'],
@@ -5396,7 +5396,7 @@ export class FastGrowingHierarchyNotation extends Notation {
 	}
 
 	public set iterationChars(iterationChars: [string, string, string][]) {
-		let result: [string, string, string][] = [
+		const result: [string, string, string][] = [
 			['(f0^', ')', ''],
 			['(f1^', ')', ''],
 			['(f2^', ')', ''],
@@ -5421,9 +5421,9 @@ export class FastGrowingHierarchyNotation extends Notation {
 
 	public set engineerings(input: DecimalSource | DecimalSource[][]) {
 		if (!Array.isArray(input)) input = [[input]];
-		let result: Decimal[][] = [[Decimal.dOne]];
+		const result: Decimal[][] = [[Decimal.dOne]];
 		for (let i = 0; i < input.length; i++) {
-			let entry = input[i];
+			const entry = input[i];
 			if (entry.length == 0) result[i] = [Decimal.dOne];
 			else result[i] = entry.map(toDecimal);
 		}
@@ -5671,8 +5671,8 @@ export class ExpandedDefaultNotation extends Notation {
 				afterChar = this.negExpChars[0][1];
 				exponent = exponent.neg();
 			}
-			let mantissaStr = this.mantissaInnerNotation.format(mantissa);
-			let exponentStr = this.exponentInnerNotation.format(exponent);
+			const mantissaStr = this.mantissaInnerNotation.format(mantissa);
+			const exponentStr = this.exponentInnerNotation.format(exponent);
 			if (this.expBefore) result = beforeChar + exponentStr + afterChar + mantissaStr;
 			else result = mantissaStr + beforeChar + exponentStr + afterChar;
 		} else {
@@ -5683,7 +5683,7 @@ export class ExpandedDefaultNotation extends Notation {
 						this.negExpChars[1][0] + this.format(value.recip()) + this.negExpChars[1][1]
 					);
 				negExp = true;
-				let [m, e] = scientifify(value, 10, this.rounding);
+				const [m, e] = scientifify(value, 10, this.rounding);
 				value = e.neg().pow10().mul(m);
 			}
 			if (
@@ -5725,10 +5725,10 @@ export class ExpandedDefaultNotation extends Notation {
 					this._hyperexpMult,
 				);
 				if (negExp) exponent = exponent.neg();
-				let baseStr = this.hyperexpFormat[0]
+				const baseStr = this.hyperexpFormat[0]
 					? this.format(mantissa)
 					: this.mantissaInnerNotation.format(mantissa);
-				let exponentStr = this.hyperexpFormat[1]
+				const exponentStr = this.hyperexpFormat[1]
 					? this.format(exponent)
 					: this.exponentInnerNotation.format(exponent);
 				if (this.hyperexpBefore)
@@ -5751,7 +5751,7 @@ export class ExpandedDefaultNotation extends Notation {
 	}
 
 	public set maxnum(maxnum: DecimalSource) {
-		let maxnumD = toDecimal(maxnum);
+		const maxnumD = toDecimal(maxnum);
 		if (maxnumD.lte(0)) throw new RangeError('Nonpositive maxnum in Expanded Default Notation');
 		if (this._minnum.gte(maxnumD))
 			throw new RangeError('Maxnum below minnum in Expanded Default Notation');
@@ -5763,7 +5763,7 @@ export class ExpandedDefaultNotation extends Notation {
 	}
 
 	public set minnum(minnum: DecimalSource) {
-		let minnumD = toDecimal(minnum);
+		const minnumD = toDecimal(minnum);
 		if (minnumD.gte(this._maxnum))
 			throw new RangeError('Minnum above maxnum in Expanded Default Notation');
 		this._minnum = minnumD;
@@ -5774,7 +5774,7 @@ export class ExpandedDefaultNotation extends Notation {
 	}
 
 	public set logBase(logBase: DecimalSource) {
-		let logBaseD = toDecimal(logBase);
+		const logBaseD = toDecimal(logBase);
 		if (logBaseD.pow(this._expMult.recip()).lte(1.44466786100976613366))
 			throw new RangeError(
 				"Bases with convergent tetration don't work for Expanded Default Notation",
@@ -5787,7 +5787,7 @@ export class ExpandedDefaultNotation extends Notation {
 	}
 
 	public set hypermantissaPower(hypermantissaPower: DecimalSource) {
-		let hypermantissaPowerD = toDecimal(hypermantissaPower);
+		const hypermantissaPowerD = toDecimal(hypermantissaPower);
 		if (hypermantissaPowerD.lt(-2))
 			throw new RangeError('hypermantissaPower below -2 in Hyperscientific Notation');
 		this._hypermantissaPower = hypermantissaPowerD;
@@ -5803,7 +5803,7 @@ export class ExpandedDefaultNotation extends Notation {
 			this._engineerings = [Decimal.dOne];
 			return;
 		}
-		let engineeringsD: Decimal[] = engineerings.map(toDecimal);
+		const engineeringsD: Decimal[] = engineerings.map(toDecimal);
 		this._engineerings = engineeringsD
 			.sort(function (a, b) {
 				if (a.lt(b)) return -1;
@@ -5823,7 +5823,7 @@ export class ExpandedDefaultNotation extends Notation {
 			this._hyperengineerings = [Decimal.dOne];
 			return;
 		}
-		let hyperengineeringsD: Decimal[] = hyperengineerings.map(toDecimal);
+		const hyperengineeringsD: Decimal[] = hyperengineerings.map(toDecimal);
 		this._hyperengineerings = hyperengineeringsD
 			.sort(function (a, b) {
 				if (a.lt(b)) return -1;
@@ -5838,7 +5838,7 @@ export class ExpandedDefaultNotation extends Notation {
 	}
 
 	public set expMult(expMult: DecimalSource) {
-		let expMultD = toDecimal(expMult);
+		const expMultD = toDecimal(expMult);
 		if (expMultD.eq(0)) throw new RangeError('expMult should not be zero');
 		if (this._logBase.pow(expMultD.recip()).lte(1.44466786100976613366))
 			throw new RangeError(
@@ -5852,7 +5852,7 @@ export class ExpandedDefaultNotation extends Notation {
 	}
 
 	public set hyperexpMult(hyperexpMult: DecimalSource) {
-		let hyperexpMultD = toDecimal(hyperexpMult);
+		const hyperexpMultD = toDecimal(hyperexpMult);
 		if (hyperexpMultD.eq(0)) throw new RangeError('hyperexpMult should not be zero');
 		this._hyperexpMult = hyperexpMultD;
 	}
@@ -5869,8 +5869,8 @@ export class ExpandedDefaultNotation extends Notation {
 			[string | boolean, string | boolean],
 		],
 	) {
-		let one = this.format(1);
-		let expChars: [string, string][] = [];
+		const one = this.format(1);
+		const expChars: [string, string][] = [];
 		expChars.push(input[0]);
 		expChars.push(['', '']);
 		if (typeof input[1][0] == 'string') expChars[1][0] = input[1][0];
@@ -6023,7 +6023,7 @@ export class PolynomialNotation extends Notation {
 	public name = 'Polynomial Notation';
 
 	public format(value: DecimalSource): string {
-		let decimal = toDecimal(value);
+		const decimal = toDecimal(value);
 
 		if (decimal.isNan()) return this.NaNString;
 
@@ -6061,8 +6061,8 @@ export class PolynomialNotation extends Notation {
 				')';
 			return result;
 		}
-		let baseString = this.variableStr;
-		let bottomExps = value.gte(this.maxSingleTerm)
+		const baseString = this.variableStr;
+		const bottomExps = value.gte(this.maxSingleTerm)
 			? value
 					.slog(this._value, 100, true)
 					.sub(this.maxSingleTerm.slog(this._value, 100, true))
@@ -6073,8 +6073,8 @@ export class PolynomialNotation extends Notation {
 		if (bottomExps.lt(9e15)) {
 			value = value.iteratedlog(this._value, bottomExps.toNumber(), true);
 			let currentValue = value;
-			let bottom = value.mul(this.precision);
-			let roundingMultiple = this.minimumTerm.eq(-Infinity)
+			const bottom = value.mul(this.precision);
+			const roundingMultiple = this.minimumTerm.eq(-Infinity)
 				? Decimal.dZero
 				: typeof this.minimumTermRounding == 'function'
 					? this.minimumTermRounding(value.mod(this._value.pow(this.minimumTerm)))
@@ -6086,7 +6086,7 @@ export class PolynomialNotation extends Notation {
 					: this._value.pow(this.minimumTerm).mul(roundingMultiple),
 			);
 			let termsSoFar = 0;
-			let maxTerms = currentValue.lt(this.maxMultiTerm) ? this._maxTerms : 1;
+			const maxTerms = currentValue.lt(this.maxMultiTerm) ? this._maxTerms : 1;
 			let power = currentValue.log(this._value).floor().plus(1);
 			while (termsSoFar < maxTerms && (currentValue.gte(bottom) || this.showZeroTerms > 0)) {
 				termsSoFar++;
@@ -6147,7 +6147,7 @@ export class PolynomialNotation extends Notation {
 							this.coefficientStrings[1];
 					}
 					subresult = powerString;
-					let usedSign = reciprocal ? this.divisionSign : this.multiplicationSign;
+					const usedSign = reciprocal ? this.divisionSign : this.multiplicationSign;
 					if (coefficientString) {
 						if (this.multiplicationBefore)
 							subresult = coefficientString + usedSign + powerString;
@@ -6186,7 +6186,7 @@ export class PolynomialNotation extends Notation {
 	}
 
 	public set value(value: DecimalSource) {
-		let valueD = toDecimal(value);
+		const valueD = toDecimal(value);
 		if (valueD.lte(1)) throw new RangeError('Value <= 1 in Polynomial Notation');
 		if (this.formatExponents > 0 && valueD.lte(1.44466786100976613366))
 			throw new RangeError(
@@ -6852,7 +6852,7 @@ export class StandardNotation extends Notation {
 		if (this.longScale) base = new Decimal(1e6);
 		if (value.lt(1) && this._dialect == 2) {
 			if (value.gte(0.01)) return this.innerNotation.format(value);
-			let recipNotation = new AppliedFunctionNotation(
+			const recipNotation = new AppliedFunctionNotation(
 				function (value: Decimal): Decimal {
 					return value.recip();
 				},
@@ -6865,7 +6865,7 @@ export class StandardNotation extends Notation {
 		}
 		if (value.lt(1)) {
 			negExp = true;
-			let [m, e] = scientifify(value, base);
+			const [m, e] = scientifify(value, base);
 			value = base.pow(e.neg()).mul(m);
 		}
 		if (this._dialect == 2 && value.gte(Decimal.tetrate(10, base.toNumber()))) {
@@ -6889,7 +6889,7 @@ export class StandardNotation extends Notation {
 				aboveLimit = true;
 				let limBase = base;
 				if (this._dialect == 2) limBase = Decimal.dTen;
-				let fronts = value.slog(limBase).sub(limit.slog(limBase)).plus(1).floor();
+				const fronts = value.slog(limBase).sub(limit.slog(limBase)).plus(1).floor();
 				value = value.iteratedlog(limBase, fronts.toNumber(), true);
 				if (this._dialect == 2) {
 					if (negExp) result += '/';
@@ -6936,7 +6936,7 @@ export class StandardNotation extends Notation {
 						coefficient = Decimal.dOne;
 						illion = Decimal.dZero;
 					} else illion = illion.sub(coefficient.mul(Decimal.pow(1000, superillion)));
-					let coefficientPart =
+					const coefficientPart =
 						this.prefixes.layer1[0][coefficient.mod(10).toNumber()] +
 						this.prefixes.layer1[1][coefficient.div(10).floor().mod(10).toNumber()] +
 						this.prefixes.layer1[2][coefficient.div(100).floor().mod(10).toNumber()];
@@ -7006,7 +7006,7 @@ export class StandardNotation extends Notation {
 				result += coefficientPart;
 				charsSoFar += coefficientPart.length;
 			}
-			let superPart = this.calcLayer3(superillion, charsComingIn + charsSoFar);
+			const superPart = this.calcLayer3(superillion, charsComingIn + charsSoFar);
 			charsSoFar += superPart.length;
 			result += superPart;
 			if (this.charLimitReached) break;
@@ -7667,15 +7667,15 @@ export function hypersplit(
 	pentaexpMult: DecimalSource = 1,
 ): [Decimal, Decimal, Decimal, Decimal] {
 	let valueD = toDecimal(value);
-	let baseD = toDecimal(base);
-	let maximumsD = maximums.map(toDecimal);
+	const baseD = toDecimal(base);
+	const maximumsD = maximums.map(toDecimal);
 	if (maximumsD.length == 0) maximumsD.push(new Decimal(base));
 	while (maximumsD.length < 3) maximumsD.push(maximumsD[maximumsD.length - 1]);
 	let originalMaximumsD = originalMaximums.map(toDecimal);
 	if (originalMaximumsD.length == 0) originalMaximumsD = maximumsD;
 	while (originalMaximumsD.length < 3)
 		originalMaximumsD.push(originalMaximumsD[originalMaximumsD.length - 1]);
-	let minnumD = toDecimal(minnum);
+	const minnumD = toDecimal(minnum);
 	if (!Array.isArray(engineerings)) engineerings = [engineerings];
 	let engineeringsD: Decimal[] = engineerings.map(toDecimal);
 	engineeringsD = engineeringsD
@@ -7703,13 +7703,13 @@ export function hypersplit(
 			else return 1;
 		})
 		.reverse();
-	let expMultD = toDecimal(expMult);
-	let hyperexpMultD = toDecimal(hyperexpMult);
-	let pentaexpMultD = toDecimal(pentaexpMult);
+	const expMultD = toDecimal(expMult);
+	const hyperexpMultD = toDecimal(hyperexpMult);
+	const pentaexpMultD = toDecimal(pentaexpMult);
 	if (baseD.pow(expMultD.recip()).lte(1.44466786100976613366))
 		throw new RangeError('Hypersplit does not support convergent tetrations');
 
-	let mantissaRemoved = maximumsD[0].eq(0);
+	const mantissaRemoved = maximumsD[0].eq(0);
 	let amountRemoved = 0;
 	if (maximumsD[1].lte(expMultD)) {
 		amountRemoved = 1;
@@ -7719,7 +7719,7 @@ export function hypersplit(
 			maximumsD[2] = Decimal.dOne;
 		}
 	}
-	let limits = [maximumsD[0]];
+	const limits = [maximumsD[0]];
 	if (mantissaRemoved) {
 		limits.push(iteratedexpmult(baseD, maximumsD[1], 1, expMultD));
 		limits.push(
@@ -7757,7 +7757,7 @@ export function hypersplit(
 		);
 		limits[2] = limits[2].max(limits[1]);
 	}
-	let originalLimits = [originalMaximumsD[0]];
+	const originalLimits = [originalMaximumsD[0]];
 	if (mantissaRemoved) {
 		originalLimits.push(iteratedexpmult(baseD, originalMaximumsD[1], 1, expMultD));
 		originalLimits.push(
@@ -7814,7 +7814,7 @@ export function hypersplit(
 			let tetration = previousEngineeringValue(Decimal.dZero, hyperengineeringsD);
 			while (valueD.lt(0) && tetration.gt(-2))
 				tetration = previousEngineeringValue(tetration, hyperengineeringsD);
-			let mantissa = iteratedmultlog(valueD, baseD, tetration.toNumber(), expMult);
+			const mantissa = iteratedmultlog(valueD, baseD, tetration.toNumber(), expMult);
 			return [mantissa, new Decimal(0), tetration.mul(hyperexpMult), new Decimal(0)];
 		}
 	}
@@ -7825,7 +7825,7 @@ export function hypersplit(
 			pentation = round(pentation, mantissaRounding);
 			return [new Decimal(0), new Decimal(0), new Decimal(0), pentation];
 		} else {
-			let pentation = nextEngineeringValue(new Decimal(0), pentaengineeringsD);
+			const pentation = nextEngineeringValue(new Decimal(0), pentaengineeringsD);
 			for (let p = 0; p < pentation.toNumber(); p++) {
 				valueD = multslog(valueD, baseD, expMultD).mul(hyperexpMultD);
 			}
@@ -7856,7 +7856,7 @@ export function hypersplit(
 	}
 	if (valueD.gte(originalLimits[2])) {
 		while (valueD.gte(limits[2])) {
-			let pentIncrease = nextEngineeringValue(pentation, pentaengineeringsD)
+			const pentIncrease = nextEngineeringValue(pentation, pentaengineeringsD)
 				.sub(pentation)
 				.toNumber();
 			for (let p = 0; p < pentIncrease; p++) {
@@ -7872,7 +7872,7 @@ export function hypersplit(
 		tetration = round(tetration, mantissaRounding);
 		if (tetration.gte(maximumsD[2])) {
 			valueD = toDecimal(value);
-			let pentIncrease = nextEngineeringValue(pentation, pentaengineeringsD)
+			const pentIncrease = nextEngineeringValue(pentation, pentaengineeringsD)
 				.sub(pentation)
 				.toNumber();
 			for (let p = 0; p < pentIncrease; p++) {
@@ -7901,7 +7901,7 @@ export function hypersplit(
 		(pentation.eq(0) && valueD.gte(originalLimits[1])) ||
 		(pentation.gt(0) && valueD.gte(limits[1]))
 	) {
-		let hypermantissaPower = multslog(limits[1], baseD, expMultD);
+		const hypermantissaPower = multslog(limits[1], baseD, expMultD);
 		[hypermantissa, tetration] = hyperscientifify(
 			valueD,
 			baseD,
@@ -7973,8 +7973,8 @@ export function hypersplit(
 			let loopWatch = false;
 			do {
 				oldB = unroundedmantissa;
-				let upperLimit = exponent.eq(0) ? originalLimits[0] : limits[0];
-				let lowerLimit = upperLimit.div(
+				const upperLimit = exponent.eq(0) ? originalLimits[0] : limits[0];
+				const lowerLimit = upperLimit.div(
 					baseD.pow(exponent.sub(previousEngineeringValue(exponent, engineeringsD))),
 				);
 				if (mantissa.gte(upperLimit)) {
@@ -8009,7 +8009,7 @@ export function hypersplit(
 	tetration = tetration.mul(hyperexpMultD);
 	if (tetration.gte(pentation.eq(0) ? originalMaximumsD[2] : maximumsD[2])) {
 		valueD = toDecimal(value);
-		let pentIncrease = nextEngineeringValue(pentation, pentaengineeringsD)
+		const pentIncrease = nextEngineeringValue(pentation, pentaengineeringsD)
 			.sub(pentation)
 			.toNumber();
 		for (let p = 0; p < pentIncrease; p++) {
@@ -8311,7 +8311,7 @@ export class IncreasingOperatorNotation extends Notation {
 			else this._maximums.push(Decimal.dInf);
 		}
 		this._operatorChars = operatorChars;
-		let defaultOperatorChars: [
+		const defaultOperatorChars: [
 			[string, string],
 			[string, string],
 			[string, string],
@@ -8359,18 +8359,18 @@ export class IncreasingOperatorNotation extends Notation {
 		if (rootBehavior === null) this._rootBehavior = rootBehavior;
 		else {
 			// I have to jump through a lot of hoops to make TypeScript happy here
-			let RB0 = rootBehavior[0];
-			let RB1 = toDecimal(rootBehavior[1]);
-			let RB2 =
+			const RB0 = rootBehavior[0];
+			const RB1 = toDecimal(rootBehavior[1]);
+			const RB2 =
 				typeof rootBehavior[2] == 'boolean' ? rootBehavior[2] : toDecimal(rootBehavior[2]);
 			this._rootBehavior = [RB0, RB1, RB2];
 		}
 		if (superRootBehavior === null) this._superRootBehavior = superRootBehavior;
 		else {
 			// I have to jump through a lot of hoops to make TypeScript happy here
-			let RB0 = superRootBehavior[0];
-			let RB1 = toDecimal(superRootBehavior[1]);
-			let RB2 =
+			const RB0 = superRootBehavior[0];
+			const RB1 = toDecimal(superRootBehavior[1]);
+			const RB2 =
 				typeof superRootBehavior[2] == 'boolean'
 					? superRootBehavior[2]
 					: toDecimal(superRootBehavior[2]);
@@ -8392,7 +8392,7 @@ export class IncreasingOperatorNotation extends Notation {
 		);
 		this.unconvertedThresholds = [];
 		for (let t = 0; t < thresholds.length; t++) {
-			let possibleBool = thresholds[t][1];
+			const possibleBool = thresholds[t][1];
 			if (typeof possibleBool == 'boolean')
 				this.unconvertedThresholds.push([
 					toDecimal(thresholds[t][0]),
@@ -8453,9 +8453,9 @@ export class IncreasingOperatorNotation extends Notation {
 	public name = 'Increasing Operator Notation';
 
 	private setMaximums(thresholds?: [Decimal, Decimal | boolean, number, Decimal, number][]) {
-		let argumentMaximums: Decimal[] = []; //The highest number allowed to stand on its own on each operator before another symbol of that operator is brought in
-		let symbolicMaximums: Decimal[] = []; //The highest number on each operator before its nesting begins
-		let nestingMaximums: Decimal[] = []; //The limit of each operator before moving to the next operator
+		const argumentMaximums: Decimal[] = []; //The highest number allowed to stand on its own on each operator before another symbol of that operator is brought in
+		const symbolicMaximums: Decimal[] = []; //The highest number on each operator before its nesting begins
+		const nestingMaximums: Decimal[] = []; //The limit of each operator before moving to the next operator
 		if (thresholds != undefined) this._thresholds = [];
 		let possibleBool: Decimal | boolean;
 		//Addition maximums
@@ -8553,7 +8553,7 @@ export class IncreasingOperatorNotation extends Notation {
 			possibleBool = this._rootBehavior[2];
 			if (possibleBool === false) possibleBool = argumentMaximums[1];
 			else if (possibleBool === true) possibleBool = symbolicMaximums[1];
-			let maxDegree = Decimal.min(possibleBool, nestingMaximums[1]);
+			const maxDegree = Decimal.min(possibleBool, nestingMaximums[1]);
 			symbolicMaximums.push(argumentMaximums[2].pow(maxDegree));
 			if (!symbolicMaximums[2].isFinite()) symbolicMaximums[2] = Decimal.dInf;
 			let nestedRootMaximum = symbolicMaximums[2];
@@ -8658,7 +8658,7 @@ export class IncreasingOperatorNotation extends Notation {
 			possibleBool = this._superRootBehavior[2];
 			if (possibleBool === false) possibleBool = argumentMaximums[3];
 			else if (possibleBool === true) possibleBool = symbolicMaximums[3];
-			let maxDegree = Decimal.min(possibleBool, nestingMaximums[3]);
+			const maxDegree = Decimal.min(possibleBool, nestingMaximums[3]);
 			symbolicMaximums.push(argumentMaximums[4].tetrate(maxDegree.toNumber(), 1, true));
 			if (!symbolicMaximums[4].isFinite()) symbolicMaximums[4] = Decimal.dInf;
 			let nestedSRootMaximum = symbolicMaximums[4];
@@ -8730,7 +8730,7 @@ export class IncreasingOperatorNotation extends Notation {
 					value.gte(this._preAdditionFormats[prf + 1][0])
 				)
 					prf++;
-				let argument = value.sub(this._preAdditionFormats[prf][0]);
+				const argument = value.sub(this._preAdditionFormats[prf][0]);
 				let result = '';
 				if (this._preAdditionFormats[prf][5](argument))
 					result =
@@ -8855,7 +8855,7 @@ export class IncreasingOperatorNotation extends Notation {
 				argument = value.linear_sroot(operatorNum.toNumber());
 			}
 		} else if (operator == 5) {
-			let split = hypersplit(value, this._bases[5], [this.argumentMaximums[5], 1, 1]);
+			const split = hypersplit(value, this._bases[5], [this.argumentMaximums[5], 1, 1]);
 			operatorNum = split[3];
 			argument = split[0];
 		}
@@ -8881,8 +8881,8 @@ export class IncreasingOperatorNotation extends Notation {
 						result +
 						this._operatorChars[operator][i == 0 ? 0 : 1][1];
 			} else {
-				let replacementBelow = this._argumentShown[operator][2];
-				let replacementAbove = this._argumentShown[operator][3];
+				const replacementBelow = this._argumentShown[operator][2];
+				const replacementAbove = this._argumentShown[operator][3];
 				if (replacementBelow === undefined)
 					result =
 						this._operatorChars[operator][0][0] +
@@ -8941,7 +8941,7 @@ export class IncreasingOperatorNotation extends Notation {
 
 	public set bases(bases: DecimalSource | DecimalSource[]) {
 		if (!Array.isArray(bases)) bases = [bases];
-		let basesD = bases.map(toDecimal);
+		const basesD = bases.map(toDecimal);
 		while (basesD.length < 6) {
 			if (basesD.length == 0) basesD.push(Decimal.dTen);
 			if (basesD.length == 1) basesD.push(basesD[0]);
@@ -8971,7 +8971,7 @@ export class IncreasingOperatorNotation extends Notation {
 	}
 
 	public set maximums(maximums: DecimalSource[]) {
-		let maximumsD = maximums.map(toDecimal);
+		const maximumsD = maximums.map(toDecimal);
 		while (maximumsD.length < 6) {
 			if (maximumsD.length == 0) maximumsD.push(this._bases[0]);
 			else maximumsD.push(Decimal.dInf);
@@ -8987,7 +8987,7 @@ export class IncreasingOperatorNotation extends Notation {
 	public set operatorChars(
 		operatorChars: [[string, string], [string, string], [string, string], [string, string]][],
 	) {
-		let defaultOperatorChars: [
+		const defaultOperatorChars: [
 			[string, string],
 			[string, string],
 			[string, string],
@@ -9042,9 +9042,9 @@ export class IncreasingOperatorNotation extends Notation {
 	public set thresholds(
 		thresholds: [DecimalSource, DecimalSource | boolean, number, DecimalSource, number][],
 	) {
-		let unconvertedThresholds: [Decimal, boolean | Decimal, number, Decimal, number][] = [];
+		const unconvertedThresholds: [Decimal, boolean | Decimal, number, Decimal, number][] = [];
 		for (let t = 0; t < thresholds.length; t++) {
-			let possibleBool = thresholds[t][1];
+			const possibleBool = thresholds[t][1];
 			if (typeof possibleBool == 'boolean')
 				unconvertedThresholds.push([
 					toDecimal(thresholds[t][0]),
@@ -9118,7 +9118,7 @@ export class IncreasingOperatorNotation extends Notation {
 			Notation,
 		][],
 	) {
-		let preAdditionFormatsD: [
+		const preAdditionFormatsD: [
 			Decimal,
 			string,
 			string,
@@ -9431,8 +9431,8 @@ export class ScientificNotation extends Notation {
 				afterChar = this.negExpChars[0][1];
 				exponent = exponent.neg();
 			}
-			let mantissaStr = this.mantissaInnerNotation.format(mantissa);
-			let exponentStr = this.exponentInnerNotation.format(exponent);
+			const mantissaStr = this.mantissaInnerNotation.format(mantissa);
+			const exponentStr = this.exponentInnerNotation.format(exponent);
 			if (this.expBefore) result = beforeChar + exponentStr + afterChar + mantissaStr;
 			else result = mantissaStr + beforeChar + exponentStr + afterChar;
 		} else {
@@ -9443,7 +9443,7 @@ export class ScientificNotation extends Notation {
 						this.negExpChars[1][0] + this.format(value.recip()) + this.negExpChars[1][1]
 					);
 				negExp = true;
-				let [m, e] = scientifify(
+				const [m, e] = scientifify(
 					value,
 					this._base,
 					this.rounding,
@@ -9487,7 +9487,7 @@ export class ScientificNotation extends Notation {
 	}
 
 	public set maxnum(maxnum: DecimalSource) {
-		let maxnumD = toDecimal(maxnum);
+		const maxnumD = toDecimal(maxnum);
 		if (maxnumD.lte(0)) throw new RangeError('Nonpositive maxnum in Scientific Notation');
 		this._maxnum = maxnumD;
 	}
@@ -9502,7 +9502,7 @@ export class ScientificNotation extends Notation {
 			this._engineerings = [Decimal.dOne];
 			return;
 		}
-		let engineeringsD: Decimal[] = engineerings.map(toDecimal);
+		const engineeringsD: Decimal[] = engineerings.map(toDecimal);
 		this._engineerings = engineeringsD
 			.sort(function (a, b) {
 				if (a.lt(b)) return -1;
@@ -9517,7 +9517,7 @@ export class ScientificNotation extends Notation {
 	}
 
 	public set base(base: DecimalSource) {
-		let baseD = toDecimal(base);
+		const baseD = toDecimal(base);
 		if (baseD.pow(this._expMult.recip()).lte(1.44466786100976613366))
 			throw new RangeError(
 				"Bases with convergent tetration don't work for Scientific Notation",
@@ -9530,7 +9530,7 @@ export class ScientificNotation extends Notation {
 	}
 
 	public set expMult(expMult: DecimalSource) {
-		let expMultD = toDecimal(expMult);
+		const expMultD = toDecimal(expMult);
 		if (expMultD.eq(0)) throw new RangeError('expMult should not be zero');
 		if (this._base.pow(expMultD.recip()).lte(1.44466786100976613366))
 			throw new RangeError(
@@ -9546,8 +9546,8 @@ export class ScientificNotation extends Notation {
 	public set expChars(
 		input: [[string, string], [string | boolean, string | boolean], [string, string]],
 	) {
-		let one = this.mantissaInnerNotation.format(1);
-		let expChars: [string, string][] = [];
+		const one = this.mantissaInnerNotation.format(1);
+		const expChars: [string, string][] = [];
 		expChars.push(input[0]);
 		expChars.push(['', '']);
 		if (typeof input[1][0] == 'string') expChars[1][0] = input[1][0];
@@ -9649,10 +9649,10 @@ export class ScientificIterationsNotation extends Notation {
 		let iterations = this._iterations;
 		let result = '';
 		let negExp = false;
-		let originalValue = value;
+		const originalValue = value;
 		if (value.lt(1)) {
 			negExp = true;
-			let [m, e] = scientifify(
+			const [m, e] = scientifify(
 				value,
 				this._base,
 				this.rounding,
@@ -9688,7 +9688,7 @@ export class ScientificIterationsNotation extends Notation {
 				this.negExpChars[1][0] + this.format(originalValue.recip()) + this.negExpChars[1][1]
 			);
 		value = iteratedmultlog(value, this._base, added_es, this._expMult);
-		let sciArray = [value];
+		const sciArray = [value];
 		for (let i = 0; i < iterations - added_es; i++) {
 			if (sciArray[sciArray.length - 1].eq(0)) break;
 			let [mantissa, exponent] = scientifify(
@@ -9708,7 +9708,7 @@ export class ScientificIterationsNotation extends Notation {
 			sciArray[0] = sciArray[0].neg();
 			negMantissa = true;
 		}
-		let endings = sciArray.length - 1;
+		const endings = sciArray.length - 1;
 		let beforeChar = this._expChars[0][0];
 		let afterChar = this._expChars[0][1];
 		while (sciArray.length > 0) {
@@ -9778,7 +9778,7 @@ export class ScientificIterationsNotation extends Notation {
 			this._engineerings = [Decimal.dOne];
 			return;
 		}
-		let engineeringsD: Decimal[] = engineerings.map(toDecimal);
+		const engineeringsD: Decimal[] = engineerings.map(toDecimal);
 		this._engineerings = engineeringsD
 			.sort(function (a, b) {
 				if (a.lt(b)) return -1;
@@ -9793,7 +9793,7 @@ export class ScientificIterationsNotation extends Notation {
 	}
 
 	public set base(base: DecimalSource) {
-		let baseD = toDecimal(base);
+		const baseD = toDecimal(base);
 		if (baseD.lte(1)) throw new RangeError('Base <= 1 in Scientific Iterations Notation');
 		this._base = toDecimal(base);
 	}
@@ -9803,7 +9803,7 @@ export class ScientificIterationsNotation extends Notation {
 	}
 
 	public set expMult(expMult: DecimalSource) {
-		let expMultD = toDecimal(expMult);
+		const expMultD = toDecimal(expMult);
 		if (this._base.lte(1)) throw new RangeError('Base <= 1 in Scientific Iterations Notation');
 		if (expMultD.eq(0)) throw new RangeError('expMult should not be zero');
 		this._expMult = expMultD;
@@ -9816,8 +9816,8 @@ export class ScientificIterationsNotation extends Notation {
 	public set expChars(
 		input: [[string, string], [string | boolean, string | boolean], [string, string]],
 	) {
-		let one = this.mantissaInnerNotation.format(1);
-		let expChars: [string, string][] = [];
+		const one = this.mantissaInnerNotation.format(1);
+		const expChars: [string, string][] = [];
 		expChars.push(input[0]);
 		expChars.push(['', '']);
 		if (typeof input[1][0] == 'string') expChars[1][0] = input[1][0];
@@ -9908,7 +9908,7 @@ export class HypersplitNotation extends Notation {
 	public name = 'Hypersplit Notation';
 
 	public format(value: DecimalSource): string {
-		let decimal = toDecimal(value);
+		const decimal = toDecimal(value);
 
 		if (decimal.isNan()) return this.NaNString;
 
@@ -9926,7 +9926,7 @@ export class HypersplitNotation extends Notation {
 	}
 
 	public formatDecimal(value: Decimal): string {
-		let hp = hypersplit(
+		const hp = hypersplit(
 			value,
 			this._base,
 			this._maximums,
@@ -9940,7 +9940,7 @@ export class HypersplitNotation extends Notation {
 			this._expMultipliers[1],
 			this._expMultipliers[2],
 		);
-		let orderArray = [0];
+		const orderArray = [0];
 		orderArray.splice(this.delimiterPermutation % 2, 0, 1);
 		orderArray.splice(Math.floor(this.delimiterPermutation / 2) % 3, 0, 2);
 		orderArray.splice(Math.floor(this.delimiterPermutation / 6) % 4, 0, 3);
@@ -10000,7 +10000,7 @@ export class HypersplitNotation extends Notation {
 	}
 
 	public set base(base: DecimalSource) {
-		let baseD = toDecimal(base);
+		const baseD = toDecimal(base);
 		if (baseD.pow(this._expMultipliers[0].recip()).lte(1.44466786100976613366))
 			throw new RangeError(
 				"Bases with convergent tetration don't work for Hypersplit Notation",
@@ -10066,13 +10066,13 @@ export class HypersplitNotation extends Notation {
 			  ],
 	) {
 		if (!Array.isArray(input)) input = [input, input, input];
-		let result: [Decimal[], Decimal[], Decimal[]] = [
+		const result: [Decimal[], Decimal[], Decimal[]] = [
 			[Decimal.dOne],
 			[Decimal.dOne],
 			[Decimal.dOne],
 		];
 		for (let i = 0; i < input.length; i++) {
-			let entry = input[i];
+			const entry = input[i];
 			if (!Array.isArray(entry)) result[i] = [toDecimal(entry)];
 			else if (entry.length == 0) result[i] = [Decimal.dOne];
 			else result[i] = entry.map(toDecimal);
@@ -10319,7 +10319,7 @@ export class LettersNotation extends Notation {
 		let negExp = false;
 		if (value.lt(1)) {
 			negExp = true;
-			let [m, e] = scientifify(value, this._base);
+			const [m, e] = scientifify(value, this._base);
 			value = this._base.pow(e.neg()).mul(m);
 		}
 		let lowercaseLimit = this._max_letters + 1;
@@ -10346,7 +10346,7 @@ export class LettersNotation extends Notation {
 					uppercaseLetter = uppercaseLetter.plus(value.slog(this._base));
 				else {
 					if (value.gte(Decimal.iteratedexp(10, 4, this._base))) {
-						let uppercaseLetterAddition = value
+						const uppercaseLetterAddition = value
 							.slog(10, 100, true)
 							.sub(this._base.slog(10, 100, true))
 							.sub(4)
@@ -10429,10 +10429,10 @@ export class LettersNotation extends Notation {
 				}
 			}
 		} while (uppercaseLetter.gte(uppercaseLimit));
-		let resultArray: string[] = [];
-		let mantissaStr = this.innerNotation.format(mantissa);
+		const resultArray: string[] = [];
+		const mantissaStr = this.innerNotation.format(mantissa);
 		if (negExp) result += this.divisionChar;
-		let fixedLettersIndices = [
+		const fixedLettersIndices = [
 			this.fixedLetters[0].map((value) => value[0]).indexOf(letter.toNumber()),
 			this.fixedLetters[1].map((value) => value[0]).indexOf(uppercaseLetter.toNumber()),
 			this.fixedLetters[2].map((value) => value[0]).indexOf(thirdLetter.toNumber()),
@@ -10506,7 +10506,7 @@ export class LettersNotation extends Notation {
 					this.concatenation[0],
 				),
 			);
-		let orderArray = [2];
+		const orderArray = [2];
 		orderArray.splice(this.lettersOrder % 2, 0, 1);
 		orderArray.splice(Math.floor(this.lettersOrder / 2) % 3, 0, 0);
 		let lettersStr = '';
@@ -10515,7 +10515,7 @@ export class LettersNotation extends Notation {
 		}
 		while (orderArray.length > 0) {
 			lettersStr += resultArray[orderArray[0]];
-			let visible = !!resultArray[orderArray[0]];
+			const visible = !!resultArray[orderArray[0]];
 			orderArray.shift();
 			let addAHyperseparator = false;
 			for (let o = 0; o < orderArray.length; o++) {
@@ -10557,7 +10557,7 @@ export class LettersNotation extends Notation {
 	}
 
 	public set base(base: DecimalSource) {
-		let baseD = toDecimal(base);
+		const baseD = toDecimal(base);
 		if (baseD.lte(1)) throw new RangeError('Base <= 1 in Letters notation');
 		this._base = baseD;
 	}
@@ -10577,7 +10577,7 @@ const Letters = new LettersNotation(...[, ,], defaultRound).setName('Letters');
 class SGHNotation extends Notation {
 	//Notation stuff
 	public format(value: DecimalSource, latex = false): string {
-		let decimal = toDecimal(value);
+		const decimal = toDecimal(value);
 
 		if (decimal.isNan()) return this.NaNString;
 
@@ -10614,12 +10614,12 @@ class SGHNotation extends Notation {
 			return '摆了';
 		}
 		if (recursion <= 0) return '...';
-		let exponent = value.log(base).floor();
-		let multip = value.div(Decimal.pow(base, exponent)).floor();
-		let rest = value.sub(multip.mul(Decimal.pow(base, exponent)));
-		let displayRest = !rest.lt(1) && value.lt('e9e15');
-		let displayMult = !multip.lte(1) && value.lt('e9e15');
-		let displayExpo = !exponent.lte(1);
+		const exponent = value.log(base).floor();
+		const multip = value.div(Decimal.pow(base, exponent)).floor();
+		const rest = value.sub(multip.mul(Decimal.pow(base, exponent)));
+		const displayRest = !rest.lt(1) && value.lt('e9e15');
+		const displayMult = !multip.lte(1) && value.lt('e9e15');
+		const displayExpo = !exponent.lte(1);
 		if (!latex) {
 			return `ω${displayExpo ? `^(${this.SGH(exponent, recursion - 1, latex, base)})` : ''}${
 				displayMult ? `×${this.SGH(multip, recursion - 1, latex, base)}` : ''

@@ -22,7 +22,7 @@ export const Multiplication = {
 				let counts = '1';
 				if (player.upgrades['400q'])
 					counts = "<span style='font-size: 19px;'><b>2</b></span>";
-				let text = Logarithm.dilated(
+				const text = Logarithm.dilated(
 					'你可以选择' +
 						counts +
 						'个U1系列升级将其价格降低到1加法能量，改变选择将进行乘法重置',
@@ -196,11 +196,11 @@ export const Multiplication = {
 				return [this.effect(value), '在对数膨胀后增加加法能量获取'];
 			}
 			cost(x: Decimal) {
-				let a = x.mul(1000).add(10);
+				const a = x.mul(1000).add(10);
 				return a;
 			}
 			capped(x: Decimal) {
-				let capc = 500;
+				const capc = 500;
 				return x.gte(capc);
 			}
 			canBuyMax(): boolean {
@@ -224,7 +224,7 @@ export const Multiplication = {
 				return '*' + formatWhole(this.effect(x).round());
 			}
 			cost(x: Decimal) {
-				let a = x.add(1).pow10();
+				const a = x.add(1).pow10();
 				return a;
 			}
 			canBuyMax(): boolean {
@@ -248,7 +248,7 @@ export const Multiplication = {
 				return '+' + format(this.effect(x));
 			}
 			cost(x: Decimal) {
-				let a = new Decimal(5).pow(x.add(1));
+				const a = new Decimal(5).pow(x.add(1));
 				return a;
 			}
 			canBuyMax(): boolean {
@@ -261,7 +261,7 @@ export const Multiplication = {
 				return x.max(1).log(5).floor().min(99);
 			}
 			capped(x: Decimal) {
-				let capc = 99;
+				const capc = 99;
 				return x.gte(capc);
 			}
 			requirements(): Requirement[] {
@@ -314,7 +314,7 @@ export const Multiplication = {
 		player.multiplication.totalMulpower = player.multiplication.totalMulpower.add(adding);
 	},
 	powerEff() {
-		let base = player.multiplication.totalMulpower.add(1);
+		const base = player.multiplication.totalMulpower.add(1);
 		return base;
 	},
 	reset(force = false) {
@@ -323,11 +323,11 @@ export const Multiplication = {
 			if (CHALLENGE.inChallenge(0, 3)) {
 				player.challenges[0][3] = player.challenges[0][3].add(this.gain());
 			}
-			let reset_upgrades: Array<keyof typeof player.upgrades> = [21, 22, 23, 24, 25].map(
+			const reset_upgrades: Array<keyof typeof player.upgrades> = [21, 22, 23, 24, 25].map(
 				(x) => x.toString() as keyof typeof player.upgrades,
 			);
 			if (!player.upgrades[37] || force)
-				for (let i in reset_upgrades) player.upgrades[reset_upgrades[i]] = false;
+				for (const i in reset_upgrades) player.upgrades[reset_upgrades[i]] = false;
 			if (!player.upgrades[34] || force) player.buyables[21] = new Decimal(0);
 			if (!player.upgrades['435q']) player.multiplication.pfTime = new Decimal(0);
 			Addition.reset();

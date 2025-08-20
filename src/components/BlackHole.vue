@@ -5,7 +5,7 @@ function getBHsize(t: number) {
 	//  return 0
 	if (t < 500) return 0;
 	if (t > 675) {
-		let T = 675 - (t - 675) * 5;
+		const T = 675 - (t - 675) * 5;
 		return ((T - 500) / 2 + Math.max(T - 550, 0) * 0.7) * 1.05 ** (T - 600);
 	} else return ((t - 500) / 2 + Math.max(t - 550, 0) * 0.7) * 1.05 ** (t - 600);
 }

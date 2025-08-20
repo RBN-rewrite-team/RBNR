@@ -57,12 +57,12 @@ export function displayOrd(
 				? "<span style='color:red;text-shadow:0 0 3px #fff'>ε<sub>0</sub></span>"
 				: 'ε<sub>0</sub>';
 
-		let power = ord.log(tetration);
-		let powerdisplay = displayOrd(power, base, over, trim, large, multoff, colour);
+		const power = ord.log(tetration);
+		const powerdisplay = displayOrd(power, base, over, trim, large, multoff, colour);
 		return prefix + '<sup>' + powerdisplay + '</sup>';
 	}
 
-	let length = 8;
+	const length = 8;
 	let largeOrd = false;
 
 	while (ord.gte(bigBase) && (trim < length || length === 0) && !largeOrd) {
@@ -89,7 +89,7 @@ export function displayOrd(
 		const expression = 'ω' + expPart + coeffPart + separator;
 
 		if (colour === 1) {
-			let colorExponent = new Decimal(exponent);
+			const colorExponent = new Decimal(exponent);
 			if (colorExponent.gte(9e15)) colorExponent.layer = 0;
 			const hueValue = colorExponent.mul(8);
 			const colorCode = HSL(hueValue);

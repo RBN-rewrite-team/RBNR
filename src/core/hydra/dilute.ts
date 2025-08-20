@@ -61,7 +61,7 @@ export const Dilute = {
 			});
 			return;
 		}
-		let zero = new Decimal(0),
+		const zero = new Decimal(0),
 			one = new Decimal(1);
 		player.hydra.backupHydra = this.backupHydra();
 		for (const id2 of (
@@ -111,7 +111,7 @@ export const Dilute = {
 		player.hydra.dilute.lastDeduce = player.hydra.deduceOrdinal[0];
 	},
 	backupHydra(): backupHydraType {
-		let items: (`${IntClosedRange<61, 69>}R` | keyof typeof Hydra.upgrades)[] = [];
+		const items: (`${IntClosedRange<61, 69>}R` | keyof typeof Hydra.upgrades)[] = [];
 		for (const id2 of Object.keys(Hydra.upgrades)) {
 			const id = id2 as keyof typeof Hydra.upgrades;
 			if (player.upgrades[id]) {
@@ -124,7 +124,7 @@ export const Dilute = {
 				items.push(id);
 			}
 		}
-		let items2: Partial<Record<'61R' | '62R' | keyof typeof Hydra.buyables, Decimal>> = {};
+		const items2: Partial<Record<'61R' | '62R' | keyof typeof Hydra.buyables, Decimal>> = {};
 		for (const id2 of Object.keys(Hydra.buyables)) {
 			const id = id2 as keyof typeof Hydra.buyables;
 			items2[id] = player.buyables[id];
@@ -133,7 +133,7 @@ export const Dilute = {
 			const id = id2 as keyof typeof Hydra.buyables;
 			items2[id] = player.buyables[id];
 		}
-		let prestiges = [
+		const prestiges = [
 			player.hydra.prestige[0],
 			player.hydra.prestige[1],
 			player.hydra.prestige[2],
@@ -169,7 +169,7 @@ export const Dilute = {
 	},
 	diluteLoop() {
 		if (player.hydra.dilute.inDilute) {
-			let s3Eff = 1000 / player.hydra.dilute.solvent[2] ** 2;
+			const s3Eff = 1000 / player.hydra.dilute.solvent[2] ** 2;
 			player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + diff / 1000;
 			if (player.hydra.totalDeduceOrdinal[0].gte(1))
 				player.hydra.dilute.prionsTime = player.hydra.dilute.prionsTime + diff / 1000;
@@ -198,7 +198,7 @@ export const Dilute = {
 		if (this.diluteAmount(6)) base *= 2;
 		if (this.diluteAmount(7)) base *= 3;
 		if (this.diluteAmount(8)) base *= 10;
-		let deduceMult = player.hydra.deduceOrdinal[0].add(1).ln().min(4.99359204e304).toNumber();
+		const deduceMult = player.hydra.deduceOrdinal[0].add(1).ln().min(4.99359204e304).toNumber();
 		return deduceMult * base;
 	},
 	prions() {

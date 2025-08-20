@@ -12,8 +12,8 @@ import { Ordinal } from '@/lib/ordinal';
 import { Dilute } from '@/core/hydra/dilute';
 
 function varGainLatex(id = 'x', layer = 3) {
-	let exp = OrdinalNT.varExp(id, layer);
-	let param = OrdinalNT.varParam(id, layer);
+	const exp = OrdinalNT.varExp(id, layer);
+	const param = OrdinalNT.varParam(id, layer);
 	return `\\dot{${id}_{${layer}}} = ${param} = ` + formatLaTeX(OrdinalNT.varGain(id, layer));
 }
 
@@ -24,14 +24,14 @@ function _f() {
 
 function f() {
 	if (Dilute.diluteAmount(3) > 0) return '\\sqrt{x}';
-	let exp = OrdinalNT.functionL4exp('f');
+	const exp = OrdinalNT.functionL4exp('f');
 	if (exp.neq(1)) return `(${_f()})^${formatLaTeX(exp)}`;
 	else return _f();
 }
 
 function g() {
 	if (Dilute.diluteAmount(3) > 0) return '\\sqrt{x}';
-	let exp = OrdinalNT.functionL4exp('g');
+	const exp = OrdinalNT.functionL4exp('g');
 	if (exp.neq(1)) return `(${_g()})^${formatLaTeX(exp)}`;
 	else return _g();
 }
