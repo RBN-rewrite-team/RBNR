@@ -4,6 +4,7 @@ import { format, notations } from '@/utils/format';
 import Decimal from 'break_eternity.js';
 import { ref } from 'vue';
 import { CHALLENGE, type SingleChallenge } from '../../core/challenge.ts';
+import ProgressBar from '../ProgressBar.tsx';
 function destroy(a: number) {
 	switch (a) {
 		case 1:

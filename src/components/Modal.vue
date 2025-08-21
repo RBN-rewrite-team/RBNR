@@ -29,17 +29,8 @@
 								</template>
 							</component>
 						</div>
-
 						<!-- 进度条模式 -->
-						<div v-else-if="showProgress" class="progress-container">
-							<div class="progress-bar">
-								<div
-									class="progress-inner"
-									:style="{ width: progress + '%' }"
-								></div>
-							</div>
-							<div class="progress-text">{{ progress.toFixed(2) }}%</div>
-						</div>
+						<ProgressBar v-else-if="showProgress" :progress="progress"></ProgressBar>
 
 						<!-- 正常模式 -->
 						<template v-else>
@@ -47,33 +38,34 @@
 
 							
 						</template>
-            <template v-for="(field, index) in fields" :key="index">
-              <div class="input-group">
-                <label v-if="field.label">{{ field.label }}</label
-                ><br />
-                <component
-                  :is="field.type === 'textarea' ? 'textarea' : 'input'"
-                  v-model="inputValues[index].value"
-                  :type="getInputType(field.type)"
-                  :placeholder="field.placeholder"
-                  :rows="field.rows"
-                  class="modal-input"
-                  :class="{
-                    'input-error':
-                      errors[index] && inputValues[index].touched,
-                  }"
-                  @input="updateValue(index, $event.target.value)"
-                  @blur="handleBlur(index)"
-                  @keyup.enter="handleConfirm"
-                />
-                <div
-                  v-if="errors[index] && inputValues[index].touched"
-                  class="error-message"
-                >
-                  {{ errors[index] }}
-                </div>
-              </div>
-            </template>
+
+						<template v-for="(field, index) in fields" :key="index">
+						<div class="input-group">
+							<label v-if="field.label">{{ field.label }}</label
+							><br />
+							<component
+							:is="field.type === 'textarea' ? 'textarea' : 'input'"
+							v-model="inputValues[index].value"
+							:type="getInputType(field.type)"
+							:placeholder="field.placeholder"
+							:rows="field.rows"
+							class="modal-input"
+							:class="{
+								'input-error':
+								errors[index] && inputValues[index].touched,
+							}"
+							@input="updateValue(index, $event.target.value)"
+							@blur="handleBlur(index)"
+							@keyup.enter="handleConfirm"
+							/>
+							<div
+							v-if="errors[index] && inputValues[index].touched"
+							class="error-message"
+							>
+							{{ errors[index] }}
+							</div>
+						</div>
+						</template>
 					</slot>
 				</div>
 				<div class="modal-footer">
@@ -95,6 +87,7 @@
 <script lang="ts" setup>
 import { ref, computed, watch, type Component, type VNode, onMounted } from 'vue';
 import type { FieldConfig, ButtonConfig } from '../utils/Modal';
+import ProgressBar from './ProgressBar';
 
 interface Props {
 	title?: string;
@@ -385,29 +378,6 @@ defineExpose({
 	}
 }
 
-.progress-container {
-	padding: 20px 0;
-}
-
-.progress-bar {
-	height: 6px;
-	background: #333;
-	border-radius: 3px;
-	overflow: hidden;
-}
-
-.progress-inner {
-	height: 100%;
-	background: #409eff;
-	transition: width 0.3s ease;
-}
-
-.progress-text {
-	text-align: center;
-	color: #888;
-	font-size: 14px;
-	margin-top: 8px;
-}
 
 .modal-slide-enter-active,
 .modal-slide-leave-active {

@@ -1016,3 +1016,27 @@ a {
 	color: #def;
 	text-decoration: none;
 }
+
+.progress-container {
+	padding: 20px 0;
+}
+
+.progress-bar {
+	height: 25px;
+	line-height: 25px;
+	background: #333;
+	overflow: hidden;
+}
+
+.progress-inner {
+	height: 100%;
+	background: #409eff;
+	transition: width 0.3s ease;
+}
+
+.progress-text {
+	text-align: center;
+	color: #888;
+	font-size: 14px;
+	margin-top: 8px;
+}
