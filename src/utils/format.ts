@@ -102,7 +102,7 @@ function regularFormat(num: Decimal, precision: number) {
 }
 
 export function format(decimal: DecimalSource, precision = 4): string {
-	//if (new Decimal(decimal).gte(Decimal.dLayerMax)) return 'ω';
+	if (new Decimal(decimal).gte(Decimal.dLayerMax)) return 'ω';
 	switch (player.options.notation) {
 		case notations.STANDARD:
 			return Standard.format(decimal);
