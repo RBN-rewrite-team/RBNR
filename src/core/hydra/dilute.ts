@@ -249,7 +249,7 @@ export const Dilute = {
 		MILESTONES.create('dut7', {
 			displayName: 'M-Dilute-7',
 			get description() {
-				'(稀释不重置)累计九头蛇溶液数量增益推演速度<br>效果：^' +
+				return '(稀释不重置)累计九头蛇溶液数量增益推演速度<br>效果：^' +
 				format(milestoneDut7Eff())},
 			req: true,
 			reqDescription: '2,095,000九头蛇溶液 & 1e3500九头蛇能量',
