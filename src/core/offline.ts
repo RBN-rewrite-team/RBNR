@@ -33,6 +33,7 @@ export function simulateTime(milliseconds: number): void {
 				onClose() {
 				  simulate(remaining);
 				  startGameLoop();
+				  remaining = 0
 				}
 			});
 		},
