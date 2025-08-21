@@ -26,8 +26,6 @@ function minS1Level() {
 	);
 }
 
-function diluteAmount(id: IntClosedRange<0, 5>): number;
-function diluteAmount(id: IntClosedRange<6, 8>): boolean;
 function diluteAmount(id: IntClosedRange<0, 8>): number | boolean {
 	if (!player.hydra.dilute.inDilute) return id < 6 ? 0 : false;
 	if (player.hydra.dilute.solvent[8]) {

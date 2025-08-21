@@ -14,7 +14,7 @@ function getCurrentSolution() {
 
 function getSliderProps(id = 0) {
 	return {
-		min: id == 0 ? 0 : Math.min(minS1Level(), 9),
+		min: (id == 0||id==6) ? 0 : Math.min(minS1Level(), 9),
 		max: 10,
 		width: '24rem',
 		valueInDot: true,
@@ -23,6 +23,7 @@ function getSliderProps(id = 0) {
 		'dot-height': '1.6rem',
 		'dot-class': 'slider-dot-class-dilute',
 		'process-class': 'slider-process-class-dilute',
+		interval: id==6?0.5:1,
 		style: {
 			'margin-top': '1rem',
 		},
@@ -269,11 +270,11 @@ setInterval(function () {
 									</div>
 									<div>
 										推演速度^{{
-											(Dilute.diluteAmountOutside(5) * -0.1 + 1).toFixed(1)
+											(Dilute.diluteAmountOutside(5) * -0.1 + 1).toFixed(2)
 										}}(在其它乘数削弱效果之前)
 									</div>
 									<Slider
-										v-bind="getSliderProps()"
+										v-bind="getSliderProps(6)"
 										:value="player.hydra.dilute.solvent[5]"
 										:width="'100%'"
 										:disabled="canChangeLevel"
