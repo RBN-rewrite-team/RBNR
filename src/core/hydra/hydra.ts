@@ -194,7 +194,7 @@ export const Hydra = {
 			cost = new Decimal(1e45);
 			name = 'U5-2';
 			show(): boolean {
-				return Dilute.diluteAmount(6) || Hydra.pUnlock(2);
+				return Dilute.diluteAmount(6) || Hydra.pUnlock(2) || player.milestones['dut4'];
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 			effectDescription(): string {
@@ -202,6 +202,9 @@ export const Hydra = {
 			}
 			effect(): Decimal {
 				return player.hydra.totalPower.max(1).log10().div(22.5);
+			}
+			keep(): boolean {
+				return player.milestones['dut4'];
 			}
 		})(),
 		'63': new (class U63 extends Upgrade {
@@ -511,7 +514,8 @@ export const Hydra = {
 	pAutoUnlock(id = 0): boolean {
 		//解锁自动化
 		if (Dilute.diluteAmount(6)) return false;
-		if (id == 0 && player.milestones['dut3']) return true
+		if (id == 0 && player.milestones['dut3']) return true;
+		if(id == 1 && player.milestones['dut4']) return true;
 		if (id == 0) return Hydra.pUnlock(2);
 		else if (id == 1) return Hydra.pUnlock(3);
 		else return false;
@@ -529,10 +533,10 @@ export const Hydra = {
 			};
 		else if (id == 1)
 			return {
-				add: player.upgrades[66]
+				add: (player.upgrades[66] || player.milestones['dut4'])
 					? new Decimal(0)
 					: new Decimal(0.2).div(player.hydra.totalPower.log10().root(10).sub(1).max(1)),
-				mul: player.upgrades[66] ? new Decimal(1) : new Decimal(1),
+				mul: new Decimal(1),
 			};
 		else return { add: new Decimal(0), mul: new Decimal(1) };
 	},
@@ -591,10 +595,10 @@ export const Hydra = {
 		let keepHP = false,
 			keepO = false;
 		player.hydra.prestige[i] = player.hydra.prestige[i].max(Hydra.prestigeBase(i));
-		if (i == 0 && player.milestones['dut3']) return;
 		if (i <= 3 && player.upgrades[65]) return;
 		if (i == 0 && player.upgrades[64]) return;
 		if(i == 0 && player.milestones['dut3']) return;
+		if(i == 1 && player.milestones['dut4']) return;
 		if (i <= 1 && player.upgrades[63]) keepHP = true;
 		if (i == 2 && player.upgrades[64]) keepHP = true;
 		if (i == 0 && player.upgrades[63]) keepO = true;

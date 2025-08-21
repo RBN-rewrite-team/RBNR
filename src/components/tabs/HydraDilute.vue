@@ -375,6 +375,7 @@ setInterval(function () {
 			<TRMilestone id="dut1" />
 			<TRMilestone id="dut2" />
 			<TRMilestone id="dut3" />
+			<TRMilestone id="dut4" />
 			<TRMilestone id="dut5" />
 		</tbody>
 	</table>

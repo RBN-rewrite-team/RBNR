@@ -190,6 +190,15 @@ export const Dilute = {
 			},
 			show: true,
 			currency: '',
+		MILESTONES.create('dut4', {
+			displayName: 'M-Dilute-4',
+			description: '飞升永久不重置任何东西，永久解锁自动飞升，保持U5-2',
+			requirement: new Decimal(25000),
+			get canDone() {
+				return (player.hydra.dilute.solution >= 25000);
+			},
+			show: true,
+			currency: '九头蛇溶液',
 		});
 	},
 	enterDilute() {

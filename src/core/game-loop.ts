@@ -215,6 +215,9 @@ export function simulate(diff: number) {
 		}
 		let base = feature.Ordinal.base();
 		if (player.ordinal.number.gte(base.tetrate(base.toNumber()))) player.help.epsilon = true;
+		if ([0, 2, 4, 5, 9, 10, 12, 13].includes(player.currentTab)) {
+			player.currentTab = 14;
+		}
 	}
 	ORDINAL_BOOSTER.boosterLoop();
 	for (const upg_i in upgrades) {
