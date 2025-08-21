@@ -21,7 +21,7 @@ const id = props.id as keyof typeof player.milestones;
 					{{ milestones[id].currency }}
 				</h3>
 				<br />
-				{{ milestones[id].description }}
+				<span v-html="milestones[id].description" />
 			</div>
 		</td>
 	</tr>
@@ -29,10 +29,11 @@ const id = props.id as keyof typeof player.milestones;
 
 <style lang="scss" scoped>
 .milestone {
-	width: 500px;
+	width: 600px;
 	height: 70px;
 	border: 2px solid red;
 	text-align: center;
+	line-height: 1.4;
 
 	&.done {
 		border-color: green;
