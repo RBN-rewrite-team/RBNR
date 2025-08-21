@@ -470,7 +470,7 @@ export const OrdinalNT = {
 		}
 		if (layer == 4) {
 			if (id == 'tau') {
-				if (Dilute.diluteAmount(3) > 0) return player.numbertheory.GM.x.add(1).sqrt();
+				if (Dilute.diluteAmount(3) > 0) return player.numbertheory.GM.x.sqrt().add(1).max(1);
 				const base = player.numbertheory.GM.x.add(10);
 				return this.functionL4('g', base);
 			}
