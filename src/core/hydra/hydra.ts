@@ -6,7 +6,7 @@ import { Upgrade, UpgradeWithEffect } from '../upgrade';
 import { CurrencyRequirement, type Requirement } from '../requirements';
 import { Buyable } from '../buyable';
 import { upgrades, buyables } from '../mechanic';
-import { Dilute } from './dilute';
+import { Dilute,milestoneDut6Eff, milestoneDut7Eff } from './dilute';
 import type { IntClosedRange } from 'type-fest';
 
 //Hydra：BMS，1-Y，fffZ
@@ -165,6 +165,45 @@ export const Hydra = {
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
+		'6111': new (class extends UpgradeWithEffect<Decimal> {
+			description = '移除九头蛇能量的第一软上限，U5-1-8增益九头蛇能量获取';
+			cost = new Decimal('2.695e2695');
+			name = 'U5-1-11';
+			show(): boolean {
+				return player.upgrades["66S"];
+			}
+			effectDescription(): string {
+				return '^' + format(this.effect());
+			}
+			effect(): Decimal {
+				return upgrades["618"].effect().recip();
+			}
+			currency: Currencies = Currencies.HYDRA_POWER;
+		})(),
+		'6112': new (class extends Upgrade {
+			description = '移除B5-1-2的软上限';
+			cost = new Decimal('2.857e2857');
+			name = 'U5-1-12';
+			show(): boolean {
+				return player.upgrades["66S"];
+			}
+			currency: Currencies = Currencies.HYDRA_POWER;
+		})(),
+		'6113': new (class extends UpgradeWithEffect<Decimal> {
+			description = '移除转生、飞升的一重软上限，B5-1-4提高转生效果';
+			cost = new Decimal('3.315e3315');
+			name = 'U5-1-13';
+			show(): boolean {
+				return player.upgrades["66S"];
+			}
+			effect() {
+			  return buyables[614].effect(player.buyables[614]).recip().pow(0.5)
+			}
+			effectDescription() {
+			  return "^"+format(this.effect())
+			}
+			currency: Currencies = Currencies.HYDRA_POWER;
+		})(),
 		'62': new (class U62 extends UpgradeWithEffect<Decimal> {
 			description = '基于累计九头蛇能量，每秒获得一定重置时获取的九头蛇能量和乘数';
 			cost = new Decimal(1e45);
@@ -268,7 +307,7 @@ export const Hydra = {
 			effect(x: Decimal): Decimal {
 				let eff = x.add(this.more()).mul(0.01);
 				if (player.upgrades[617]) eff = eff.mul(upgrades[617].effect());
-				if (eff.gte(1.5)) eff = eff.sub(0.5).log10().add(1.5);
+				if (!player.upgrades[6112] && eff.gte(1.5)) eff = eff.sub(0.5).log10().add(1.5);
 				return eff;
 			}
 			effectDescription(x: Decimal) {
@@ -384,6 +423,9 @@ export const Hydra = {
 		if(player.upgrades['62S']) base = base.mul(upgrades['62S'].effect());
 		if (player.upgrades["63S"]) base = base.mul(upgrades['63S'].effect());
 		if(player.upgrades['64S']) base = base.mul(upgrades['64S'].effect());
+		if (player.milestones.dut5) base = base.pow(player.hydra.milestoneDut5Eff)
+		if (player.milestones.dut6) base = base.pow(milestoneDut6Eff())
+		if (player.milestones.dut7) base = base.pow(milestoneDut7Eff())
 
 		if (Dilute.diluteAmount(5) > 0) base = base.pow(1 - (Dilute.diluteAmount(5) * 0.1));
 		if (Dilute.diluteAmount(3) > 0)
@@ -417,11 +459,12 @@ export const Hydra = {
 		let base = new Decimal(1);
 		base = base.add(Hydra.prestigeEff(1));
 		if (Hydra.pUnlock(1)) base = base.add(buyables[612].effect(player.buyables[612]));
+		if (player.upgrades['6111']) base = base.mul(upgrades['6111'].effect());
 		return base;
 	},
 	powerExpNerf(): Decimal {
 		//软上限
-		if (Hydra.powerExp().lt(4)) return new Decimal(1);
+		if (player.upgrades['6111'] || Hydra.powerExp().lt(4)) return new Decimal(1);
 		let nerf = Hydra.powerExp().div(4).root(4).pow(-1);
 		if (player.buyables[614].add(buyables[614]?.more?.()).gte(0))
 			nerf = nerf.pow(buyables[614].effect(player.buyables[614]));
@@ -547,10 +590,11 @@ export const Hydra = {
 				.pow_base(5)
 				.pow(Hydra.prestigeEff(3).add(1));
 		else if (id == 3) base = num.max(1e10).log10().div(10).sub(1);
-		if (id == 0 && base.gte(100))
+		if (player.upgrades[6113] && id == 0 && base.gte(1)) base = base.pow(upgrades[6113].effect());
+		if (!player.upgrades[6113] && id == 0 && base.gte(100))
 			base = base.div(100).root(new Decimal(1.5).pow(U618Eff)).mul(100);
 		if (id == 0 && base.gte(1e25)) base = base.log10().div(25).root(2).mul(25).pow_base(10);
-		if (id == 1 && base.gte(1)) base = base.root(new Decimal(2).pow(U618Eff));
+		if (!player.upgrades[6113] && id == 1 && base.gte(1)) base = base.root(new Decimal(2).pow(U618Eff));
 		if (id == 1 && base.gte(2.25)) base = base.div(2.25).root(2).mul(2.25);
 		if (id == 2 && base.gte(1e10)) base = base.log10().div(10).pow(0.5).mul(10).pow_base(10);
 		if (id == 3 && player.upgrades['65R']) base = base.mul(upgrades['65R'].effect());
@@ -685,4 +729,4 @@ export const Hydra = {
 		if (player.upgrades['64R']) eff = eff.pow(10);
 		return eff;
 	},
-};
+} as const;

@@ -154,6 +154,7 @@ export interface Player {
 		power: Decimal;
 		totalPower: Decimal;
 		trueTotalPower: Decimal;
+		milestoneDut5Eff: Decimal;
 		powerMult: [Decimal, Decimal, Decimal, Decimal];
 		deduceProgress: [Decimal, Decimal, Decimal, Decimal];
 		deduceOrdinal: [Decimal, Decimal, Decimal, Decimal];
@@ -286,6 +287,9 @@ function getInitialPlayerData(): Player {
 			'618': false,
 			'619': false,
 			'6110': false,
+			'6111': false,
+			'6112': false,
+			'6113': false,
 			'62': false,
 			'63': false,
 			'64': false,
@@ -386,6 +390,9 @@ function getInitialPlayerData(): Player {
 			dut2: false,
 			dut3: false,
 			dut4: false,
+			dut5: false,
+			dut6: false,
+			dut7: false,
 		},
 		buyable11More: zero,
 		automationCD: {
@@ -495,6 +502,7 @@ function getInitialPlayerData(): Player {
 			power: zero,
 			totalPower: zero,
 			trueTotalPower: zero,
+			milestoneDut5Eff: new Decimal(1),
 			powerMult: [new Decimal(1), new Decimal(1), new Decimal(1), new Decimal(1)],
 			deduceProgress: [zero, zero, zero, zero],
 			deduceOrdinal: [zero, zero, zero, zero],

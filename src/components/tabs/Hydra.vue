@@ -432,10 +432,13 @@ function hydraAxisHTML(): string {
 			<tr v-if="Dilute.diluteAmount(6) || player.upgrades[614]">
 				<TDUpgrade upgid="65" />
 				<TDUpgrade upgid="66" />
+				<TDUpgrade upgid="6113" />
 			</tr>
 			<tr v-if="Dilute.diluteAmount(6) || player.upgrades[65]">
 				<TDUpgrade upgid="619" />
 				<TDUpgrade upgid="6110" />
+				<TDUpgrade upgid="6111" />
+				<TDUpgrade upgid="6112" />
 			</tr>
 		</table>
 	</div>
