@@ -158,7 +158,7 @@ export const Dilute = {
 		});
 		MILESTONES.create('dut3', {
 			displayName: 'M-Dilute-3',
-			description: '转生永久不重置任何东西，永久解锁自动转生，初始解锁所有升级',
+			description: '转生永久不重置任何东西，永久解锁自动转生，(仅在稀释VII)初始解锁所有升级',
 			req: true,
 			reqDescription: '在满级稀释2的稀释中达到0.14轮回效果且 & 19000九头蛇溶液',
 			requirement: new Decimal(0.14),
