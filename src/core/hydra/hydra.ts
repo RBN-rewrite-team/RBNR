@@ -196,10 +196,10 @@ export const Hydra = {
 			show(): boolean {
 				return player.upgrades["66S"];
 			}
-			effect() {
+			effect(): Decimal {
 			  return buyables[614].effect(player.buyables[614]).recip().pow(0.5)
 			}
-			effectDescription() {
+			effectDescription(): string {
 			  return "^"+format(this.effect())
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
