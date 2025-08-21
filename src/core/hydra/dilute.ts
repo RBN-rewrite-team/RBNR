@@ -34,11 +34,20 @@ function diluteAmount(id: IntClosedRange<0, 8>): number | boolean {
 	if (id == 0) return Math.max(player.hydra.dilute.solvent[id], minS1Level());
 	return player.hydra.dilute.solvent[id];
 }
-export { diluteAmount }
+export { diluteAmount };
 
 export function milestoneDut5Eff(): Decimal {
-  if (!Dilute.diluteAmount(6)) return new Decimal(0)
-  return player.hydra.power.div(1e55).max(1).log10().add(1).log10().add(1).log10().add(1).pow(Dilute.diluteAmount(5) * 0.1 + 0.5)
+	if (!Dilute.diluteAmount(6)) return new Decimal(0);
+	return player.hydra.power
+		.div(1e55)
+		.max(1)
+		.log10()
+		.add(1)
+		.log10()
+		.add(1)
+		.log10()
+		.add(1)
+		.pow(Dilute.diluteAmount(5) * 0.1 + 0.5);
 }
 
 interface IDilute {
@@ -93,23 +102,25 @@ export const DiluteUpgrades = {
 			return 'x' + format(this.effect());
 		}
 	})(),
-	"64S": new (class U64S extends UpgradeWithEffect<Decimal> {
+	'64S': new (class U64S extends UpgradeWithEffect<Decimal> {
 		currency: Currencies = Currencies.SOLUTION;
-		name: string = "U5-S-4";
-		description: string = "基于可用溶液增益推演速度";
+		name: string = 'U5-S-4';
+		description: string = '基于可用溶液增益推演速度';
 		cost: Decimal = new Decimal(1e4);
 		effect(): Decimal {
-			let base = getCurrency(Currencies.SOLUTION).pow(0.375).mul(getCurrency(Currencies.SOLUTION).add(2).log(2));
+			let base = getCurrency(Currencies.SOLUTION)
+				.pow(0.375)
+				.mul(getCurrency(Currencies.SOLUTION).add(2).log(2));
 			return base.max(1);
 		}
 		effectDescription(): string {
 			return 'x' + format(this.effect());
 		}
 	})(),
-	"65S": new (class U65S extends UpgradeWithEffect<Decimal> {
+	'65S': new (class U65S extends UpgradeWithEffect<Decimal> {
 		currency: Currencies = Currencies.SOLUTION;
-		name: string = "U5-S-5";
-		description: string = "基于总溶液增益乘数获取量";
+		name: string = 'U5-S-5';
+		description: string = '基于总溶液增益乘数获取量';
 		cost: Decimal = new Decimal(1.5e4);
 		effect(): Decimal {
 			let base = new Decimal(player.hydra.dilute.solution).pow(0.25);
@@ -119,13 +130,13 @@ export const DiluteUpgrades = {
 			return 'x' + format(this.effect());
 		}
 	})(),
-	"66S": new (class U66S extends Upgrade {
+	'66S': new (class U66S extends Upgrade {
 		currency: Currencies = Currencies.SOLUTION;
-		name: string = "U5-S-6";
-		description: string = "解锁4个九头蛇引擎升级";
+		name: string = 'U5-S-6';
+		description: string = '解锁4个九头蛇引擎升级';
 		cost: Decimal = new Decimal(2e6);
 	})(),
-}
+};
 export const Dilute = {
 	respec() {
 		player.upgrades['61S'] = false;
@@ -174,28 +185,40 @@ export const Dilute = {
 			reqDescription: '在满级稀释2的稀释中达到0.135轮回效果且总计拥有过19000九头蛇溶液',
 			requirement: new Decimal(0.135),
 			get canDone() {
-				return player.hydra.dilute.inDilute && (diluteAmount(1) as number >= 10) && Hydra.prestigeEff(3).gte(0.135) && (player.hydra.dilute.solution >= 19000);
+				return (
+					player.hydra.dilute.inDilute &&
+					(diluteAmount(1) as number) >= 10 &&
+					Hydra.prestigeEff(3).gte(0.135) &&
+					player.hydra.dilute.solution >= 19000
+				);
 			},
 			show: true,
 			currency: '',
 		});
 		MILESTONES.create('dut5', {
 			displayName: 'M-Dilute-5',
-			description: '在药剂7等级为1的稀释中最高九头蛇能量和药剂6等级加成推演速度<br>效果：^'+format(player.hydra.milestoneDut5Eff),
+			description:
+				'在药剂7等级为1的稀释中最高九头蛇能量和药剂6等级加成推演速度<br>效果：^' +
+				format(player.hydra.milestoneDut5Eff),
 			req: true,
 			reqDescription: '在药剂7等级为1的药剂中达到1e55九头蛇能量',
 			requirement: new Decimal(1e55),
 			get canDone() {
-				return player.hydra.dilute.inDilute && (diluteAmount(6) as boolean) && (player.hydra.power.gte(1e55));
+				return (
+					player.hydra.dilute.inDilute &&
+					(diluteAmount(6) as boolean) &&
+					player.hydra.power.gte(1e55)
+				);
 			},
 			show: true,
 			currency: '',
+		});
 		MILESTONES.create('dut4', {
 			displayName: 'M-Dilute-4',
 			description: '飞升永久不重置任何东西，永久解锁自动飞升，保持U5-2',
 			requirement: new Decimal(25000),
 			get canDone() {
-				return (player.hydra.dilute.solution >= 25000);
+				return player.hydra.dilute.solution >= 25000;
 			},
 			show: true,
 			currency: '九头蛇溶液',
@@ -319,7 +342,7 @@ export const Dilute = {
 	},
 	diluteLoop(diff: number) {
 		if (player.hydra.dilute.inDilute) {
-			player.hydra.milestoneDut5Eff = player.hydra.milestoneDut5Eff.max(milestoneDut5Eff())
+			player.hydra.milestoneDut5Eff = player.hydra.milestoneDut5Eff.max(milestoneDut5Eff());
 			const s3Eff = 1000 / player.hydra.dilute.solvent[2] ** 2;
 			player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + diff / 1000;
 			if (player.hydra.totalDeduceOrdinal[0].gte(1))
