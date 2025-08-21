@@ -385,6 +385,7 @@ function getInitialPlayerData(): Player {
 			dut1: false,
 			dut2: false,
 			dut3: false,
+			dut4: false,
 		},
 		buyable11More: zero,
 		automationCD: {
