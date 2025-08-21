@@ -36,6 +36,11 @@ function diluteAmount(id: IntClosedRange<0, 8>): number | boolean {
 }
 export { diluteAmount }
 
+export function milestoneDut5Eff(): Decimal {
+  if (!Dilute.diluteAmount(6)) return new Decimal(0)
+  return player.hydra.power.div(1e55).max(1).log10().add(1).log10().add(1).log10().add(1).pow(Dilute.diluteAmount(5) * 0.1 + 0.5)
+}
+
 interface IDilute {
 	diluteAmount(id: IntClosedRange<0, 5>): number;
 	diluteAmount(id: IntClosedRange<6, 8>): boolean;
@@ -114,6 +119,12 @@ export const DiluteUpgrades = {
 			return 'x' + format(this.effect());
 		}
 	})(),
+	"66S": new (class U66S extends Upgrade {
+		currency: Currencies = Currencies.SOLUTION;
+		name: string = "U5-S-6";
+		description: string = "解锁4个九头蛇引擎升级";
+		cost: Decimal = new Decimal(2e6);
+	})(),
 }
 export const Dilute = {
 	respec() {
@@ -168,6 +179,17 @@ export const Dilute = {
 			show: true,
 			currency: '',
 		});
+		MILESTONES.create('dut5', {
+			displayName: 'M-Dilute-5',
+			description: '在药剂7等级为1的稀释中最高九头蛇能量和药剂6等级加成推演速度<br>效果：^'+format(player.hydra.milestoneDut5Eff),
+			req: true,
+			reqDescription: '在药剂7等级为1的药剂中达到1e55九头蛇能量',
+			requirement: new Decimal(1e55),
+			get canDone() {
+				return player.hydra.dilute.inDilute && (diluteAmount(6) as boolean) && (player.hydra.power.gte(1e55));
+			},
+			show: true,
+			currency: '',
 		MILESTONES.create('dut4', {
 			displayName: 'M-Dilute-4',
 			description: '飞升永久不重置任何东西，永久解锁自动飞升，保持U5-2',
@@ -297,6 +319,7 @@ export const Dilute = {
 	},
 	diluteLoop(diff: number) {
 		if (player.hydra.dilute.inDilute) {
+			player.hydra.milestoneDut5Eff = player.hydra.milestoneDut5Eff.max(milestoneDut5Eff())
 			const s3Eff = 1000 / player.hydra.dilute.solvent[2] ** 2;
 			player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + diff / 1000;
 			if (player.hydra.totalDeduceOrdinal[0].gte(1))

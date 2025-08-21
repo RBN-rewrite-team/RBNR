@@ -366,6 +366,7 @@ setInterval(function () {
 			</tr>
 			<tr>
 				<TDUpgrade upgid="65S" />
+				<TDUpgrade upgid="66S" />
 			</tr>
 		</tbody>
 	</table>
@@ -375,6 +376,7 @@ setInterval(function () {
 			<TRMilestone id="dut2" />
 			<TRMilestone id="dut3" />
 			<TRMilestone id="dut4" />
+			<TRMilestone id="dut5" />
 		</tbody>
 	</table>
 </template>
