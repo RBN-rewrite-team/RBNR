@@ -27,6 +27,7 @@ function getSliderProps(id = 0) {
 		style: {
 			'margin-top': '1rem',
 		},
+		plusMinusButtons: true,
 	};
 }
 

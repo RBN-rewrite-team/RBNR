@@ -29,14 +29,14 @@ export default defineComponent({
 	justify-content: center;
 	align-items: center;
 	font-size: 1rem;
-	border: 0.1rem solid var(#e8e3e4);
+	border: 0.1rem solid var(--color);
 	transition-duration: 0.2s;
 	cursor: pointer;
 }
 
 .c-slider__button:hover {
 	color: black;
-	background-color: var(#e8e3e4);
+	background-color: var(--color);
 }
 
 .l-slider--disabled .c-slider__button {
