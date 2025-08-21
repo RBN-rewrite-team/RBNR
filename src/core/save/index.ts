@@ -732,6 +732,7 @@ export function readSaveDetail(id: number) {
 		number: '',
 		isOrdinal: false,
 		lastSave: '',
+		id: id,
 	};
 	let a = '';
 	details.version = savecontent_str.version;

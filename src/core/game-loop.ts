@@ -215,6 +215,9 @@ export function simulate(diff: number) {
 		}
 		let base = feature.Ordinal.base();
 		if (player.ordinal.number.gte(base.tetrate(base.toNumber()))) player.help.epsilon = true;
+		if ([0, 2, 4, 5, 9, 10, 12, 13].includes(player.currentTab)) {
+			player.currentTab = 14;
+		}
 	}
 	ORDINAL_BOOSTER.boosterLoop();
 	for (const upg_i in upgrades) {
@@ -265,14 +268,13 @@ export function simulate(diff: number) {
 		if (player.singularity.t >= 695) player.firstResetBit |= 0b1000;
 		player.singularity.t = Math.min(player.singularity.t, 710);
 	}
-
-	if (player.upgrades[58]) {
-		feature.OrdinalNT.varGainLoop(diff / 1000);
-	}
-
 	if (player.upgrades[517]) {
 		feature.Hydra.hydraUpdate(diff / 1000);
 		Dilute.diluteLoop(diff);
+	}
+
+	if (player.upgrades[58]) {
+		feature.OrdinalNT.varGainLoop(diff / 1000);
 	}
 
 	Logarithm.astronomerUpdate();

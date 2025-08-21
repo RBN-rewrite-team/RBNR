@@ -375,7 +375,7 @@ export const Hydra = {
 		base = base.mul(Hydra.prestigeEff(0));
 		if (player.buyables['62R'].gte(1))
 			base = base.mul(buyables['62R'].effect(player.buyables['62R']));
-		if (player.upgrades[65])
+		if (player.upgrades[65] && Dilute.diluteAmount(3) <= 0)
 			base = base.mul(Hydra.NT4TauEffect());
 		base = base.mul(Dilute.solutionEff().eff1);
 		if(player.upgrades['62S']) base = base.mul(upgrades['62S'].effect());
@@ -677,8 +677,8 @@ export const Hydra = {
 	],
 	NT4TauEffect() {
 		let eff = feature.OrdinalNT.varComputed('tau', 4);
+		if (Dilute.diluteAmount(3) > 0) return eff.recip().min(1);
 		if (player.upgrades['64R']) eff = eff.pow(10);
-		if (Dilute.diluteAmount(3) > 0) eff = eff.recip();
 		return eff;
 	},
 };
