@@ -677,7 +677,7 @@ export const Hydra = {
 	],
 	NT4TauEffect() {
 		let eff = feature.OrdinalNT.varComputed('tau', 4);
-		if (Dilute.diluteAmount(3) > 0) return eff.recip();
+		if (Dilute.diluteAmount(3) > 0) return eff.recip().min(1);
 		if (player.upgrades['64R']) eff = eff.pow(10);
 		return eff;
 	},
