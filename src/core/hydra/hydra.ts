@@ -729,4 +729,4 @@ export const Hydra = {
 		if (player.upgrades['64R']) eff = eff.pow(10);
 		return eff;
 	},
-};
+} as const;
