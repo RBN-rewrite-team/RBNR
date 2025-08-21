@@ -328,9 +328,9 @@ export const Dilute = {
 			.fill(null)
 			.map((_, index) => this.diluteAmount(index as IntClosedRange<0, 5>))
 			.reduce((tot, num) => tot + num * num);
-		if (this.diluteAmount(6)) base *= 2;
-		if (this.diluteAmount(7)) base *= 3;
-		if (this.diluteAmount(8)) base *= 10;
+		if (this.diluteAmount(6)) base *= 3;
+		if (this.diluteAmount(7)) base *= 5;
+		if (this.diluteAmount(8)) base *= 100;
 		const deduceMult = player.hydra.deduceOrdinal[0].add(1).ln().min(base).min(100).toNumber();
 		return deduceMult * base;
 	},
