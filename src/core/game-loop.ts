@@ -83,6 +83,7 @@ export function gameLoop() {
 			diff = 0;
 		}
 	}
+	diff *= 0.01
 	if (player.run_a_tick_and_froze) diff = 33;
 	if (diff < 0) return;
 	if (!player.run_a_tick_and_froze) player.lastUpdated = Date.now();
