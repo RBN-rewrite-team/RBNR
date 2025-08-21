@@ -50,6 +50,15 @@ export function milestoneDut5Eff(): Decimal {
 		.pow(Dilute.diluteAmount(5) * 0.1 + 0.5);
 }
 
+export function milestoneDut6Eff(): Decimal {
+	if (player.hydra.dilute.solution < 2050000) return new Decimal(1);
+	return Decimal.log10(player.hydra.dilute.solution - 2050000 +1).add(1).log10().add(1).pow(0.3);
+}
+
+export function milestoneDut7Eff(): Decimal {
+	return player.hydra.totalPower.max("e3500").log10().sub(3500-1).add(1).log10().add(1).pow(0.1)
+}
+
 interface IDilute {
 	diluteAmount(id: IntClosedRange<0, 5>): number;
 	diluteAmount(id: IntClosedRange<6, 8>): boolean;
@@ -195,6 +204,16 @@ export const Dilute = {
 			show: true,
 			currency: '',
 		});
+		MILESTONES.create('dut4', {
+			displayName: 'M-Dilute-4',
+			description: '飞升永久不重置任何东西，永久解锁自动飞升，保持U5-2',
+			requirement: new Decimal(25000),
+			get canDone() {
+				return player.hydra.dilute.solution >= 25000;
+			},
+			show: true,
+			currency: '九头蛇溶液',
+		});
 		MILESTONES.create('dut5', {
 			displayName: 'M-Dilute-5',
 			description:
@@ -213,15 +232,33 @@ export const Dilute = {
 			show: true,
 			currency: '',
 		});
-		MILESTONES.create('dut4', {
-			displayName: 'M-Dilute-4',
-			description: '飞升永久不重置任何东西，永久解锁自动飞升，保持U5-2',
-			requirement: new Decimal(25000),
+		MILESTONES.create('dut6', {
+			displayName: 'M-Dilute-6',
+			description:
+				'在2,050,000以上的累计九头蛇溶液数量增益推演速度<br>效果：^' +
+				format(milestoneDut6Eff()),
+			req: true,
+			reqDescription: '2,070,000九头蛇溶液',
+			requirement: new Decimal(2070000),
 			get canDone() {
-				return player.hydra.dilute.solution >= 25000;
+				return player.hydra.dilute.solution >= 2070000
 			},
 			show: true,
-			currency: '九头蛇溶液',
+			currency: '',
+		});
+		MILESTONES.create('dut7', {
+			displayName: 'M-Dilute-7',
+			description:
+				'(稀释不重置)累计九头蛇溶液数量增益推演速度<br>效果：^' +
+				format(milestoneDut7Eff()),
+			req: true,
+			reqDescription: '2,095,000九头蛇溶液 & 1e3500九头蛇能量',
+			requirement: new Decimal(2095000),
+			get canDone() {
+				return player.hydra.dilute.solution >= 2095000 && player.hydra.trueTotalPower.gte("e3500")
+			},
+			show: true,
+			currency: '',
 		});
 	},
 	enterDilute() {
