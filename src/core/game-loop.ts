@@ -83,7 +83,6 @@ export function gameLoop() {
 			diff = 0;
 		}
 	}
-	diff *= 0.01
 	if (player.run_a_tick_and_froze) diff = 33;
 	if (diff < 0) return;
 	if (!player.run_a_tick_and_froze) player.lastUpdated = Date.now();
@@ -266,14 +265,13 @@ export function simulate(diff: number) {
 		if (player.singularity.t >= 695) player.firstResetBit |= 0b1000;
 		player.singularity.t = Math.min(player.singularity.t, 710);
 	}
-
-	if (player.upgrades[58]) {
-		feature.OrdinalNT.varGainLoop(diff / 1000);
-	}
-
 	if (player.upgrades[517]) {
 		feature.Hydra.hydraUpdate(diff / 1000);
 		Dilute.diluteLoop(diff);
+	}
+
+	if (player.upgrades[58]) {
+		feature.OrdinalNT.varGainLoop(diff / 1000);
 	}
 
 	Logarithm.astronomerUpdate();
