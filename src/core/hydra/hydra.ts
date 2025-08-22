@@ -48,6 +48,9 @@ export const Hydra = {
 			cost = new Decimal(100);
 			name = 'U5-1-2';
 			currency: Currencies = Currencies.HYDRA_POWER;
+			keep(): boolean {
+				return player.milestones.dut10;
+			}
 		})(),
 		'613': new (class U613 extends Upgrade {
 			description = '飞升的公式变得更好';
@@ -57,6 +60,9 @@ export const Hydra = {
 				return Dilute.diluteAmount(6) || Hydra.pUnlock(1);
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
+			keep(): boolean {
+				return player.milestones.dut10;
+			}
 		})(),
 		'614': new (class U614 extends UpgradeWithEffect<Decimal> {
 			description = '当前九头蛇能量提升BMS乘数获取';
@@ -74,6 +80,9 @@ export const Hydra = {
 				return Dilute.diluteAmount(6) || Hydra.pUnlock(2);
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
+			keep(): boolean {
+				return player.milestones.dut10;
+			}
 		})(),
 		'615': new (class U615 extends UpgradeWithEffect<Decimal> {
 			description = '从40个开始，每5个B5-1-3提供一个额外的B5-1-2';
