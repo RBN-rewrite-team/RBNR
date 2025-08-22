@@ -7,6 +7,7 @@ import { Upgrade, UpgradeWithEffect } from '../upgrade';
 import { getCurrency, Currencies } from '../currencies';
 import { format, formatWhole } from '@/utils/format';
 import { MILESTONES } from '../mechanic';
+import { upgrades, buyables } from '../mechanic';
 
 export type backupHydraType = {
 	upgrades: (`${IntClosedRange<61, 69>}R` | keyof typeof Hydra.upgrades)[];
@@ -47,7 +48,7 @@ export function milestoneDut5Eff(): Decimal {
 		.add(1)
 		.log10()
 		.add(1)
-		.pow(Dilute.diluteAmount(5) * 0.1 + 0.5)
+		.pow(player.milestones.dut15 ? 1.5 : (Dilute.diluteAmount(5) * 0.1 + 0.5))
 		.pow((player.milestones.dut13 || (Dilute.diluteAmount(2) >= 10 && player.upgrades["67S"])) ? 1.35 : 1);
 }
 
@@ -67,7 +68,7 @@ export function milestoneDut7Eff(): Decimal {
 		.sub(3500 - 1)
 		.log10()
 		.add(1)
-		.pow(0.1);
+		.pow(player.upgrades["612S"] ? 1 : 0.1);
 }
 
 interface IDilute {
@@ -187,6 +188,39 @@ export const DiluteUpgrades = {
 		}
 		effectDescription() {
 		  return "×" + format(this.effect())
+		}
+	})(),
+	'610S': new (class extends UpgradeWithEffect<Decimal> {
+		currency: Currencies = Currencies.SOLUTION;
+		name: string = 'U5-S-10';
+		description: string = '基于总溶液增益朊病毒获取速度';
+		cost: Decimal = new Decimal(2277812.5);
+		show(): boolean {
+			return player.milestones.dut10;
+		}
+		effect(): Decimal {
+		  return new Decimal(player.hydra.dilute.solution / 2050000).max(1).pow(10)
+		}
+		effectDescription() {
+		  return "×" + format(this.effect())
+		}
+	})(),
+	'611S': new (class extends Upgrade {
+		currency: Currencies = Currencies.SOLUTION;
+		name: string = 'U5-S-11';
+		description: string = 'B5-1-2在稀释中也生效';
+		cost: Decimal = new Decimal(2312812.5);
+		show(): boolean {
+			return player.milestones.dut10;
+		}
+	})(),
+	'612S': new (class extends Upgrade {
+		currency: Currencies = Currencies.SOLUTION;
+		name: string = 'U5-S-12';
+		description: string = '大幅削弱九头蛇能量的二重软上限，M-Dilute-7的效果变得更好';
+		cost: Decimal = new Decimal(2370000);
+		show(): boolean {
+			return player.milestones.dut10;
 		}
 	})(),
 };
@@ -407,6 +441,34 @@ export const Dilute = {
 			show: true,
 			currency: '',
 		});
+		MILESTONES.create('dut14', {
+			displayName: 'M-Dilute-14',
+			description: "U5-2的效果+1000%",
+			req: true,
+			reqDescription: '2,261,250 九头蛇能量 ',
+			requirement: new Decimal(2261250),
+			get canDone() {
+				return (
+					player.hydra.dilute.solution >= 2261250
+				);
+			},
+			show: true,
+			currency: '',
+		});
+		MILESTONES.create('dut15', {
+			displayName: 'M-Dilute-15',
+			description: "M-Dilute-5效果不再依赖于药剂6等级(相当于原来的10级)",
+			req: true,
+			reqDescription: '2.45 M-Dilute-5效果',
+			requirement: new Decimal(2.45),
+			get canDone() {
+				return (
+					player.hydra.milestoneDut5Eff.gte(2.45)
+				);
+			},
+			show: true,
+			currency: '',
+		});
 	},
 	enterDilute() {
 		if (player.hydra.dilute.solvent.map((x) => Number(x)).reduce((x, y) => x + y) < 1) {
@@ -443,7 +505,7 @@ export const Dilute = {
 		player.hydra.deduceProgress = [zero, zero, zero, zero];
 		player.hydra.powerMult = [one, one, one, one];
 		player.hydra.dilute.spentTime = 0;
-		player.hydra.dilute.prionsTime = 0;
+		player.hydra.dilute.prions = one;
 		player.numbertheory.GM.x = zero;
 		player.hydra.dilute.inDilute = true;
 	},
@@ -456,7 +518,7 @@ export const Dilute = {
 			this.solutionCalc();
 		}
 		player.hydra.dilute.spentTime = 0;
-		player.hydra.dilute.prionsTime = 0;
+		player.hydra.dilute.prions = new Decimal(1);
 		player.numbertheory.GM.x = new Decimal(0);
 		player.hydra.dilute.inDilute = false;
 	},
@@ -526,7 +588,7 @@ export const Dilute = {
 	},
 	diluteLoop(diff: number) {
 		if (player.upgrades["69S"] || (player.hydra.totalDeduceOrdinal[0].gte(1) && player.hydra.dilute.inDilute))
-			player.hydra.dilute.prionsTime = player.hydra.dilute.prionsTime + diff / 1000;
+			player.hydra.dilute.prions = player.hydra.dilute.prions.mul(this.prionsBase().pow(diff / 1000));
 		if (player.hydra.dilute.inDilute) {
 			player.hydra.milestoneDut5Eff = player.hydra.milestoneDut5Eff.max(milestoneDut5Eff());
 			const s3Eff = 1000 / player.hydra.dilute.solvent[2] ** 2;
@@ -549,6 +611,12 @@ export const Dilute = {
 				this.exitDilute(false);
 			}
 		}
+	},
+	prionsBase() {
+	  let base = new Decimal(1 + this.diluteAmount(4) / 100);
+	  if (player.upgrades["69S"]) base = new Decimal(2)
+	  if (player.upgrades["610S"]) base = base.mul(upgrades["610S"].effect())
+	  return base;
 	},
 	/**
 	 * 溶剂数量，在稀释未开启时会设置为falsy
@@ -579,7 +647,6 @@ export const Dilute = {
 		return { eff1: eff1 };
 	},
 	prions() {
-	  if (player.upgrades["69S"]) return Decimal.pow(2, player.hydra.dilute.prionsTime).sub(1)
-		return Decimal.pow(1 + this.diluteAmount(4) / 100, player.hydra.dilute.prionsTime).sub(1);
+		return player.hydra.dilute.prions.sub(1);
 	},
 } as IDilute & Record<string, any>;

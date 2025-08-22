@@ -179,9 +179,9 @@ export interface Player {
 			spentTime: number;
 			solution: number;
 			lastDeduce: Decimal;
-			prionsTime: number;
 			solute: Decimal;
 			solutionCost: number;
+			prions: Decimal
 		};
 	};
 }
@@ -320,10 +320,10 @@ function getInitialPlayerData(): Player {
 				lastSolvent: [0, 0, 0, 0, 0, 0, false, false, false],
 				lastDeduce: zero,
 				spentTime: 0,
-				prionsTime: 0,
 				solution: 0,
 				solutionCost: 0,
 				solute: zero,
+				prions: new Decimal(1)
 			},
 		},
 	};

@@ -86,7 +86,7 @@ setInterval(function () {
 	><span v-if="player.hydra.dilute.inDilute">(本次{{ format(Dilute.solutionGain()) }})</span
 	>九头蛇溶液<br />
 	推演速度×{{ format(Dilute.solutionEff().eff1) }}<br>
-	<span v-if="player.hydra.dilute.prionsTime > 0"
+	<span v-if="player.upgrades['69S'] || player.hydra.dilute.prions.gt(1)"
 		>你有<b style="color: red; font-size: 30px">{{ format(Dilute.prions()) }}</b
 		><span v-if="!player.upgrades['69S']">/{{format(player.hydra.totalDeduceOrdinal[0])}}</span>朊病毒<br /><br
 	/></span>
@@ -296,7 +296,7 @@ setInterval(function () {
 									<div class="solvent-desc-small">
 										“你发现天上那些黑点不是雨，而是坠落的人类。”
 									</div>
-									<div>转生，飞升，超越，轮回全部无效</div>
+									<div>转生，飞升，超越，轮回全部无效，禁用B5-1-2</div>
 									<Slider
 										v-bind="sliderProps2"
 										:value="Number(player.hydra.dilute.solvent[6])"
@@ -374,6 +374,9 @@ setInterval(function () {
 			</tr>
 			<tr>
 				<TDUpgrade upgid="69S" />
+				<TDUpgrade upgid="610S" />
+				<TDUpgrade upgid="611S" />
+				<TDUpgrade upgid="612S" />
 			</tr>
 		</tbody>
 	</table>
@@ -392,6 +395,8 @@ setInterval(function () {
 			<TRMilestone id="dut11" />
 			<TRMilestone id="dut12" />
 			<TRMilestone id="dut13" />
+			<TRMilestone id="dut14" />
+			<TRMilestone id="dut15" />
 		</tbody>
 	</table>
 </template>

@@ -235,7 +235,7 @@ export const Hydra = {
 				return `+${format(this.effect().mul(100))}%/s`;
 			}
 			effect(): Decimal {
-				return player.hydra.totalPower.max(1).log10().div(22.5);
+				return player.hydra.totalPower.max(1).log10().div(22.5).add(player.milestones.dut14?10:0);
 			}
 			keep(): boolean {
 				return player.milestones['dut4'];
@@ -485,7 +485,7 @@ export const Hydra = {
 		//能量指数
 		let base = new Decimal(1);
 		base = base.add(Hydra.prestigeEff(1));
-		if (Hydra.pUnlock(1)) base = base.add(buyables[612].effect(player.buyables[612]));
+		if (player.upgrades["611S"] || Hydra.pUnlock(1)) base = base.add(buyables[612].effect(player.buyables[612]));
 		if (player.upgrades['6111']) base = base.mul(upgrades['6111'].effect().mul(player.upgrades[6114]?base:1));
 		return base;
 	},
@@ -533,6 +533,7 @@ export const Hydra = {
 	  if (player.milestones.dut8) base = new Decimal(1/9)
 	  if (player.upgrades["68S"]) base = new Decimal(1/8)
 	  if (player.milestones.dut12) base = new Decimal(1/7)
+	  if (player.upgrades["612S"]) base = new Decimal(1/5)
 	  return base
 	},
 	powerGainBase(): Decimal {
@@ -641,11 +642,13 @@ export const Hydra = {
 		if (!player.upgrades[6113] && id == 1 && base.gte(1))
 			base = base.root(new Decimal(2).pow(U618Eff));
 		if (id == 1 && base.gte(2.25)) base = base.div(2.25).root(2).mul(2.25);
+		if (id == 1 && base.gte(80)) base = base.log10().div(1.903089986991943585).root(2).mul(1.903089986991943585).pow10();
 		if (id == 2 && base.gte(1e10)) base = base.log10().div(10).pow(0.5).mul(10).pow_base(10);
 		if (id == 3 && player.upgrades['65R']) base = base.mul(upgrades['65R'].effect());
 		if (id == 1 && player.upgrades['68R']) base = base.mul(upgrades['68R'].effect());
 		if (id == 3 && base.gte(0.05)) base = base.sub(0.05).mul(0.5).add(0.05);
 		if (id == 3 && base.gte(0.1)) base = base.div(0.1).pow(0.5).mul(0.1);
+		if (id == 3 && base.gte(50)) base = base.log10().div(1.698970004336018804).pow(0.5).mul(1.698970004336018804).pow10();
 		return base;
 	},
 	deduce(i = 0, bulk = new Decimal(0)): void {
