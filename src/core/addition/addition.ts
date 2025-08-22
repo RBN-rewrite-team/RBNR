@@ -116,8 +116,8 @@ export const Addition = {
 			);
 
 			cost: Decimal | (() => Decimal) = function () {
-				return;
-				player.multiplication.B1seriesC1 == 3 || player.multiplication.B1seriesC1400q == 3
+				return player.multiplication.B1seriesC1 == 3 ||
+					player.multiplication.B1seriesC1400q == 3
 					? new Decimal(1)
 					: new Decimal(625);
 			};
