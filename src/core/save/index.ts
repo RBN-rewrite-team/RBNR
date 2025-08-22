@@ -164,7 +164,18 @@ export interface Player {
 		backupHydra?: backupHydraType;
 		dilute: {
 			inDilute: boolean;
-			solvent: [number, number, number, number, number, number, boolean, boolean, boolean];
+			solvent: [
+				number,
+				number,
+				number,
+				number,
+				number,
+				number,
+				boolean,
+				boolean,
+				boolean,
+				boolean,
+			];
 			lastSolvent: [
 				number,
 				number,
@@ -175,14 +186,15 @@ export interface Player {
 				boolean,
 				boolean,
 				boolean,
+				boolean,
 			];
 			spentTime: number;
 			solution: number;
 			lastDeduce: Decimal;
 			solute: Decimal;
 			solutionCost: number;
-			prions: Decimal
-			highestApocalypse: Decimal
+			prions: Decimal;
+			highestApocalypse: Decimal;
 		};
 	};
 }
@@ -197,9 +209,16 @@ function getInitialPlayerData(): Player {
 		lastUpdated: Date.now(),
 		saveCreateTime: Date.now(),
 		addpower: zero,
-		upgrades: Object.fromEntries(Object.keys(upgrades).map(key => [key, false])) as Record<keyof typeof upgrades, boolean>,
-		buyables: Object.fromEntries(Object.keys(buyables).map(key => [key, new Decimal(0)])) as Record<keyof typeof buyables, Decimal>,
-		milestones: Object.fromEntries(Object.keys(milestones).map(key => [key, false])) as Record<keyof typeof milestones, boolean>,
+		upgrades: Object.fromEntries(Object.keys(upgrades).map((key) => [key, false])) as Record<
+			keyof typeof upgrades,
+			boolean
+		>,
+		buyables: Object.fromEntries(
+			Object.keys(buyables).map((key) => [key, new Decimal(0)]),
+		) as Record<keyof typeof buyables, Decimal>,
+		milestones: Object.fromEntries(
+			Object.keys(milestones).map((key) => [key, false]),
+		) as Record<keyof typeof milestones, boolean>,
 		buyable11More: zero,
 		automationCD: {
 			successor: 0,
@@ -317,15 +336,15 @@ function getInitialPlayerData(): Player {
 			pAuto: [false, false, false, false],
 			dilute: {
 				inDilute: false,
-				solvent: [0, 0, 0, 0, 0, 0, false, false, false],
-				lastSolvent: [0, 0, 0, 0, 0, 0, false, false, false],
+				solvent: [0, 0, 0, 0, 0, 0, false, false, false, false],
+				lastSolvent: [0, 0, 0, 0, 0, 0, false, false, false, false],
 				lastDeduce: zero,
 				spentTime: 0,
 				solution: 0,
 				solutionCost: 0,
 				solute: zero,
 				prions: new Decimal(1),
-				highestApocalypse: zero
+				highestApocalypse: zero,
 			},
 		},
 	};
@@ -420,7 +439,7 @@ export function loadFromString(saveContent: string) {
 	const deserialized = saveSerializer.deserialize(saveContent);
 	Object.assign(player, deepMerge(player, deserialized));
 	if ((player?.version ?? 0) < 4) {
-		player.hydra.dilute.solvent = [0, 0, 0, 0, 0, 0, false, false, false];
+		player.hydra.dilute.solvent = [0, 0, 0, 0, 0, 0, false, false, false, false];
 	}
 	if ((player?.version ?? 0) < 6 && player.upgrades['69R']) {
 		Dilute.exitDilute();
