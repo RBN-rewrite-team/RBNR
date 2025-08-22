@@ -23,7 +23,7 @@ function getSliderProps(id = 0) {
 		'dot-height': '1.6rem',
 		'dot-class': 'slider-dot-class-dilute',
 		'process-class': 'slider-process-class-dilute',
-		interval: id==6?0.5:1,
+		interval: id==6?player.milestones.dut11?0.25:0.5:1,
 		style: {
 			'margin-top': '1rem',
 		},
@@ -385,6 +385,7 @@ setInterval(function () {
 			<TRMilestone id="dut8" />
 			<TRMilestone id="dut9" />
 			<TRMilestone id="dut10" />
+			<TRMilestone id="dut11" />
 		</tbody>
 	</table>
 </template>
