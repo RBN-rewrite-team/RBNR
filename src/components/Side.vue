@@ -81,7 +81,7 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 							乘法挑战
 						</div>
 					</template>
-					<template v-if="player.firstResetBit & 0b100">
+					<template v-if="player.firstResetBit & 0b100 && player.singularity.stage < 9">
 						<div class="menu1">指数</div>
 						<div class="menu_line"></div>
 						<div
