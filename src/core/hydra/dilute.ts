@@ -60,7 +60,7 @@ export function milestoneDut6Eff(): Decimal {
 }
 
 export function milestoneDut7Eff(): Decimal {
-	return player.hydra.totalPower
+	return player.hydra.trueTotalPower
 		.max('e3500')
 		.log10()
 		.sub(3500 - 1)
@@ -266,7 +266,7 @@ export const Dilute = {
 			displayName: 'M-Dilute-7',
 			get description() {
 				return (
-					'(稀释不重置)累计九头蛇溶液数量增益推演速度<br>效果：^' +
+					'(稀释不重置)累计九头蛇能量增益推演速度<br>效果：^' +
 					format(milestoneDut7Eff())
 				);
 			},
