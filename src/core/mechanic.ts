@@ -327,6 +327,7 @@ type IMilestone = {
 	canDone: boolean;
 	req?: boolean;
 	reqDescription?: string;
+	onDone?: () => void;
 };
 
 export const milestones: {

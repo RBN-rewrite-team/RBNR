@@ -47,7 +47,8 @@ export function milestoneDut5Eff(): Decimal {
 		.add(1)
 		.log10()
 		.add(1)
-		.pow(Dilute.diluteAmount(5) * 0.1 + 0.5);
+		.pow(Dilute.diluteAmount(5) * 0.1 + 0.5)
+		.pow(Dilute.diluteAmount(2) >= 10 ? 1.35 : 1);
 }
 
 export function milestoneDut6Eff(): Decimal {
@@ -155,6 +156,12 @@ export const DiluteUpgrades = {
 		description: string = '解锁4个九头蛇引擎升级';
 		cost: Decimal = new Decimal(2e6);
 	})(),
+	'67S': new (class extends Upgrade {
+		currency: Currencies = Currencies.SOLUTION;
+		name: string = 'U5-S-7';
+		description: string = '若溶剂III的等级为10，在其中获得的M-Dilute-5效果^1.35';
+		cost: Decimal = new Decimal(2175000);
+	})(),
 };
 export const Dilute = {
 	respec() {
@@ -163,6 +170,7 @@ export const Dilute = {
 		player.upgrades['63S'] = false;
 		player.upgrades['64S'] = false;
 		player.upgrades['65S'] = false;
+		player.upgrades['66S'] = false;
 		player.hydra.dilute.solutionCost = 0;
 	},
 	initMechanics() {
@@ -300,7 +308,7 @@ export const Dilute = {
 			displayName: 'M-Dilute-9',
 			description: "自动购买B5-1系列购买项，你可以购买非整数次B5-1购买项",
 			req: true,
-			reqDescription: '2115000 九头蛇溶液',
+			reqDescription: '2,151,250 九头蛇溶液',
 			requirement: new Decimal(2151250),
 			get canDone() {
 				return (
@@ -309,6 +317,23 @@ export const Dilute = {
 			},
 			show: true,
 			currency: '',
+		});
+		MILESTONES.create('dut10', {
+			displayName: 'M-Dilute-10',
+			description: "永久保留U5-1-2~4，购买稀释升级不再消耗九头蛇溶液",
+			req: true,
+			reqDescription: '2,175,000 九头蛇溶液',
+			requirement: new Decimal(2175000),
+			get canDone() {
+				return (
+					player.hydra.dilute.solution >= 2175000
+				);
+			},
+			show: true,
+			currency: '',
+			onDone() {
+			  player.hydra.dilute.solutionCost = 0;
+			}
 		});
 	},
 	enterDilute() {
