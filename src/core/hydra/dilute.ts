@@ -64,7 +64,6 @@ export function milestoneDut7Eff(): Decimal {
 		.max('e3500')
 		.log10()
 		.sub(3500 - 1)
-		.add(1)
 		.log10()
 		.add(1)
 		.pow(0.1);
