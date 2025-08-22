@@ -89,8 +89,8 @@ export const Hydra = {
 			cost = new Decimal(2).pow(512);
 			name = 'U5-1-5';
 			effect(): Decimal {
-				const base = player.buyables[613].sub(40).div(5).floor().max(0);
-				if (base.gte(15000)) base = base.sub(14999).log10().add(15000)
+				let base = player.buyables[613].sub(40).div(5).floor().max(0);
+				if (base.gte(15000)) base = base.sub(14999).log10().add(15000);
 				return base;
 			}
 			effectDescription(): string {
@@ -128,8 +128,8 @@ export const Hydra = {
 			}
 			effect(): Decimal {
 				let eff = player.hydra.power.max(1).log10().max(500).div(500);
-				if (eff.gte(100)) eff = eff.sub(99).log10().add(100)
-				return eff
+				if (eff.gte(100)) eff = eff.sub(99).log10().add(100);
+				return eff;
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
@@ -238,7 +238,11 @@ export const Hydra = {
 				return `+${format(this.effect().mul(100))}%/s`;
 			}
 			effect(): Decimal {
-				return player.hydra.totalPower.max(1).log10().div(22.5).add(player.milestones.dut14?10:0);
+				return player.hydra.totalPower
+					.max(1)
+					.log10()
+					.div(22.5)
+					.add(player.milestones.dut14 ? 10 : 0);
 			}
 			keep(): boolean {
 				return player.milestones['dut4'];
@@ -310,8 +314,8 @@ export const Hydra = {
 				if (player.hydra.dilute.inDilute)
 					expReduce = expReduce.mul(4 - 3 * 0.75 ** Dilute.diluteAmount(1));
 				let inv = x.root(expReduce).div(10).max(1).log(1.15).add(1).min(99);
-				if (!player.milestones.dut9) inv = inv.floor()
-				return inv
+				if (!player.milestones.dut9) inv = inv.floor();
+				return inv;
 			}
 			capped(x: Decimal): boolean {
 				return x.add(this.more()).gte(99);
@@ -353,8 +357,8 @@ export const Hydra = {
 					expReduce = expReduce.mul(4 - 3 * 0.75 ** Dilute.diluteAmount(1));
 				if (player.upgrades[6110]) expReduce = expReduce.mul(upgrades[6110].effect());
 				let inv = x.root(expReduce).div(10000).max(1).log(1.05).root(2).add(1);
-				if (!player.milestones.dut9) inv = inv.floor()
-				return inv.min(100000)
+				if (!player.milestones.dut9) inv = inv.floor();
+				return inv.min(100000);
 			}
 			more(): Decimal {
 				let base = new Decimal(0);
@@ -398,8 +402,8 @@ export const Hydra = {
 				if (player.hydra.dilute.inDilute)
 					expReduce = expReduce.mul(4 - 3 * 0.75 ** Dilute.diluteAmount(1));
 				let inv = x.root(expReduce).div(1e8).max(1).log(1.02).root(2.5).add(1);
-				if (!player.milestones.dut9) inv = inv.floor()
-				return inv
+				if (!player.milestones.dut9) inv = inv.floor();
+				return inv;
 			}
 		})(),
 		'614': new (class B614 extends Buyable<Decimal> {
@@ -435,8 +439,8 @@ export const Hydra = {
 				if (player.hydra.dilute.inDilute)
 					expReduce = expReduce.mul(4 - 3 * 0.75 ** Dilute.diluteAmount(1));
 				let inv = x.root(expReduce).div('1e875').max(1).log(1e20).root(2.35).add(1);
-				if (!player.milestones.dut9) inv = inv.floor()
-				return inv
+				if (!player.milestones.dut9) inv = inv.floor();
+				return inv;
 			}
 		})(),
 	},
@@ -463,8 +467,8 @@ export const Hydra = {
 
 		if (Dilute.diluteAmount(5) > 0) base = base.pow(1 - Dilute.diluteAmount(5) * 0.1);
 		if (player.milestones.dut16) {
-		  if (player.hydra.dilute.inDilute) base = base.mul(milestoneDut16Eff())
-		  else base = base.pow(milestoneDut16Eff())
+			if (player.hydra.dilute.inDilute) base = base.mul(milestoneDut16Eff());
+			else base = base.pow(milestoneDut16Eff());
 		}
 		if (player.upgrades['615S']) {
 		  if (player.hydra.dilute.inDilute) base = base.mul(upgrades['615S'].effect())
@@ -502,8 +506,10 @@ export const Hydra = {
 		//能量指数
 		let base = new Decimal(1);
 		base = base.add(Hydra.prestigeEff(1));
-		if (player.upgrades["611S"] || Hydra.pUnlock(1)) base = base.add(buyables[612].effect(player.buyables[612]));
-		if (player.upgrades['6111']) base = base.mul(upgrades['6111'].effect().mul(player.upgrades[6114]?base:1));
+		if (player.upgrades['611S'] || Hydra.pUnlock(1))
+			base = base.add(buyables[612].effect(player.buyables[612]));
+		if (player.upgrades['6111'])
+			base = base.mul(upgrades['6111'].effect().mul(player.upgrades[6114] ? base : 1));
 		return base;
 	},
 	powerExpNerf(): Decimal {
@@ -546,13 +552,13 @@ export const Hydra = {
 		else return this.powerGainAfterSoftcap(base).log(base);
 	},
 	powerSoftcapNerf2(): Decimal {
-	  let base = new Decimal(0.1);
-	  if (player.milestones.dut8) base = new Decimal(1/9)
-	  if (player.upgrades["68S"]) base = new Decimal(1/8)
-	  if (player.milestones.dut12) base = new Decimal(1/7)
-	  if (player.upgrades["612S"]) base = new Decimal(1/5)
-	  if (player.upgrades["613S"]) base = base.pow(upgrades["613S"].effect())
-	  return base
+		let base = new Decimal(0.1);
+		if (player.milestones.dut8) base = new Decimal(1 / 9);
+		if (player.upgrades['68S']) base = new Decimal(1 / 8);
+		if (player.milestones.dut12) base = new Decimal(1 / 7);
+		if (player.upgrades['612S']) base = new Decimal(1 / 5);
+		if (player.upgrades['613S']) base = base.pow(upgrades['613S'].effect());
+		return base;
 	},
 	powerGainBase(): Decimal {
 		//能量产量
@@ -659,15 +665,24 @@ export const Hydra = {
 		if (id == 0 && base.gte(1e25)) base = base.log10().div(25).root(2).mul(25).pow_base(10);
 		if (!player.upgrades[6113] && id == 1 && base.gte(1))
 			base = base.root(new Decimal(2).pow(U618Eff));
-		if (!player.upgrades["614S"] && id == 1 && base.gte(2.25)) base = base.div(2.25).root(2).mul(2.25);
-		if (id == 1 && base.gte(80)) base = base.log10().div(1.903089986991943585).root(2).mul(1.903089986991943585).pow10();
+		if (!player.upgrades['614S'] && id == 1 && base.gte(2.25))
+			base = base.div(2.25).root(2).mul(2.25);
+		if (id == 1 && base.gte(80))
+			base = base.log10().div(1.903089986991943585).root(2).mul(1.903089986991943585).pow10();
 		if (id == 1 && base.gte(1000)) base = base.sub(999).log10().add(1000);
 		if (id == 2 && base.gte(1e10)) base = base.log10().div(10).pow(0.5).mul(10).pow_base(10);
 		if (id == 3 && player.upgrades['65R']) base = base.mul(upgrades['65R'].effect());
 		if (id == 1 && player.upgrades['68R']) base = base.mul(upgrades['68R'].effect());
 		if (id == 3 && base.gte(0.05)) base = base.sub(0.05).mul(0.5).add(0.05);
-		if (!player.upgrades["614S"] && id == 3 && base.gte(0.1)) base = base.div(0.1).pow(0.5).mul(0.1);
-		if (id == 3 && base.gte(50)) base = base.log10().div(1.698970004336018804).pow(0.5).mul(1.698970004336018804).pow10();
+		if (!player.upgrades['614S'] && id == 3 && base.gte(0.1))
+			base = base.div(0.1).pow(0.5).mul(0.1);
+		if (id == 3 && base.gte(50))
+			base = base
+				.log10()
+				.div(1.698970004336018804)
+				.pow(0.5)
+				.mul(1.698970004336018804)
+				.pow10();
 		return base;
 	},
 	deduce(i = 0, bulk = new Decimal(0)): void {
