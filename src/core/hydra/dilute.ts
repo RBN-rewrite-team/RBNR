@@ -338,6 +338,23 @@ export const Dilute = {
 			  player.hydra.dilute.solutionCost = 0;
 			}
 		});
+		MILESTONES.create('dut11', {
+			displayName: 'M-Dilute-11',
+			description: "稀释VI的调整刻度细化至0.25",
+			req: true,
+			reqDescription: '2,201,000 九头蛇溶液',
+			requirement: new Decimal(2201250),
+			get canDone() {
+				return (
+					player.hydra.dilute.solution >= 2201250
+				);
+			},
+			show: true,
+			currency: '',
+			onDone() {
+			  player.hydra.dilute.solutionCost = 0;
+			}
+		});
 	},
 	enterDilute() {
 		if (player.hydra.dilute.solvent.map((x) => Number(x)).reduce((x, y) => x + y) < 1) {
