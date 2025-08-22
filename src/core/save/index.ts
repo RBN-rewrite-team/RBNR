@@ -182,6 +182,7 @@ export interface Player {
 			solute: Decimal;
 			solutionCost: number;
 			prions: Decimal
+			highestApocalypse: Decimal
 		};
 	};
 }
@@ -323,7 +324,8 @@ function getInitialPlayerData(): Player {
 				solution: 0,
 				solutionCost: 0,
 				solute: zero,
-				prions: new Decimal(1)
+				prions: new Decimal(1),
+				highestApocalypse: zero
 			},
 		},
 	};
