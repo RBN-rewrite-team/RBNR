@@ -161,6 +161,9 @@ export const DiluteUpgrades = {
 		name: string = 'U5-S-7';
 		description: string = '若溶剂III的等级为10，在其中获得的M-Dilute-5效果^1.35';
 		cost: Decimal = new Decimal(2175000);
+		show(): boolean {
+			return player.milestones.dut10;
+		}
 	})(),
 };
 export const Dilute = {
