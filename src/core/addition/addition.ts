@@ -94,12 +94,12 @@ export const Addition = {
 				'使B1-1加成b0-1  效果^(1+log（b1-1）/3）',
 				'24',
 			);
-			cost(): Decimal {
-			  return 
-					(player.multiplication.B1seriesC1 == 3 ||
+			cost: Decimal | (() => Decimal) = function () {
+				return player.multiplication.B1seriesC1 == 3 ||
 					player.multiplication.B1seriesC1400q == 3
-				) ? new Decimal(1) : new Decimal(125);
-			}
+					? new Decimal(1)
+					: new Decimal(125);
+			};
 			name = 'U1-4';
 			keep(): boolean {
 				return player.upgrades['421q'] && !player.exponention.logarithm.in_dilate;
@@ -116,10 +116,10 @@ export const Addition = {
 			);
 
 			cost: Decimal | (() => Decimal) = function () {
-				return 
-					(player.multiplication.B1seriesC1 == 3 ||
-					player.multiplication.B1seriesC1400q == 3
-				) ? new Decimal(1) : new Decimal(625);
+				return;
+				player.multiplication.B1seriesC1 == 3 || player.multiplication.B1seriesC1400q == 3
+					? new Decimal(1)
+					: new Decimal(625);
 			};
 			name = 'U1-5';
 			keep(): boolean {

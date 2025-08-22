@@ -27,7 +27,7 @@ function minS1Level() {
 	);
 }
 
-function diluteAmount(id: IntClosedRange<0, 8>): number | boolean {
+function diluteAmount(id: IntClosedRange<0, 9>): number | boolean {
 	if (!player.hydra.dilute.inDilute) return id < 6 ? 0 : false;
 	if (player.hydra.dilute.solvent[8]) {
 		return id < 6 ? 10 : true;
@@ -90,9 +90,9 @@ function MEff17() {
 
 interface IDilute {
 	diluteAmount(id: IntClosedRange<0, 5>): number;
-	diluteAmount(id: IntClosedRange<6, 8>): boolean;
+	diluteAmount(id: IntClosedRange<6, 9>): boolean;
 	diluteAmountOutside(id: IntClosedRange<0, 5>): number;
-	diluteAmountOutside(id: IntClosedRange<6, 8>): boolean;
+	diluteAmountOutside(id: IntClosedRange<6, 9>): boolean;
 }
 
 export const DiluteUpgrades = {
