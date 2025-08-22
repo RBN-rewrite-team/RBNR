@@ -196,9 +196,14 @@ function getInitialPlayerData(): Player {
 		lastUpdated: Date.now(),
 		saveCreateTime: Date.now(),
 		addpower: zero,
-		upgrades: Object.fromEntries(Object.keys(upgrades).map(key => [key, false])),
-		buyables: Object.fromEntries(Object.keys(buyables).map(key => [key, new Decimal(0)])),
-		milestones: Object.fromEntries(Object.keys(milestones).map(key => [key, false])),
+		upgrades: Object.fromEntries(Object.keys(upgrades).map((key) => [key, false])) as Record<
+			keyof typeof upgrades,
+			boolean
+		>,
+		buyables: Object.fromEntries(
+			Object.keys(buyables).map((key) => [key, new Decimal(0)]),
+		) as Record<keyof typeof buyables, Decimal>,
+		milestones: Object.fromEntries(Object.keys(milestones).map((key) => [key, false])),
 		buyable11More: zero,
 		automationCD: {
 			successor: 0,
