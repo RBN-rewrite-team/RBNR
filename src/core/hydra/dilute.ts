@@ -277,13 +277,13 @@ export const DiluteUpgrades = {
 	'616S': new (class extends Upgrade {
 		currency: Currencies = Currencies.SOLUTION;
 		name: string = 'U5-S-16';
-		description: string = '解锁<b>非递归</b>(需要ψ(Ω<sub>ω</sub>序数))';
+		description: string = '解锁<b>非递归</b>(需要ψ(Ω<sub>ω</sub>序数))(Coming S∞n)';
 		cost: Decimal = new Decimal(2.3e8);
 		show(): boolean {
 			return player.milestones.dut10;
 		}
 		canAfford() {
-		  return player.deduceOrdinal[0].gte("e8.07230472602822538e153") && getCurrency(this.currency).gte(this.cost)
+		  return player.hydra.deduceOrdinal[0].gte("e8.07230472602822538e153") && getCurrency(this.currency).gte(this.cost)
 		}
 	})(),
 };
