@@ -470,6 +470,10 @@ export const Hydra = {
 			if (player.hydra.dilute.inDilute) base = base.mul(milestoneDut16Eff());
 			else base = base.pow(milestoneDut16Eff());
 		}
+		if (player.upgrades['615S']) {
+		  if (player.hydra.dilute.inDilute) base = base.mul(upgrades['615S'].effect())
+		  else base = base.pow(upgrades['615S'].effect())
+		}
 		if (Dilute.diluteAmount(3) > 0) base = base.mul(Hydra.NT4TauEffect());
 		base = base.div(5 ** (Dilute.diluteAmount(0) as number));
 		if (player.hydra.dilute.inDilute)
@@ -478,6 +482,9 @@ export const Hydra = {
 					Dilute.diluteAmount(index as IntClosedRange<0, 5>),
 				).reduce((total, num) => total + num, 1) ** 2,
 			);
+			
+		if (base.gte("ee125")) base = base.log10().div(1e125).pow(0.5).mul(1e125).pow10()
+		if (base.gte("e8.07230472602822538e153")) base = new Decimal("e8.07230472602822538e153")
 		return base.div(10);
 	},
 	deduceEff(i = 0): Decimal {
