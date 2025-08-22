@@ -85,10 +85,10 @@ setInterval(function () {
 	你有<b style="color: red; font-size: 30px">{{ format(getCurrentSolution()) }}</b
 	><span v-if="player.hydra.dilute.inDilute">(本次{{ format(Dilute.solutionGain()) }})</span
 	>九头蛇溶液<br />
-	推演速度×{{ format(Dilute.solutionEff().eff1) }}
+	推演速度×{{ format(Dilute.solutionEff().eff1) }}<br>
 	<span v-if="player.hydra.dilute.prionsTime > 0"
 		>你有<b style="color: red; font-size: 30px">{{ format(Dilute.prions()) }}</b
-		>/{{format(player.hydra.totalDeduceOrdinal[0])}}朊病毒<br /><br
+		><span v-if="!player.upgrades['69S']">/{{format(player.hydra.totalDeduceOrdinal[0])}}</span>朊病毒<br /><br
 	/></span>
 	<div>
 		启动稀释后，溶剂{{
@@ -370,6 +370,10 @@ setInterval(function () {
 				<TDUpgrade upgid="65S" />
 				<TDUpgrade upgid="66S" />
 				<TDUpgrade upgid="67S" />
+				<TDUpgrade upgid="68S" />
+			</tr>
+			<tr>
+				<TDUpgrade upgid="69S" />
 			</tr>
 		</tbody>
 	</table>
@@ -386,6 +390,8 @@ setInterval(function () {
 			<TRMilestone id="dut9" />
 			<TRMilestone id="dut10" />
 			<TRMilestone id="dut11" />
+			<TRMilestone id="dut12" />
+			<TRMilestone id="dut13" />
 		</tbody>
 	</table>
 </template>

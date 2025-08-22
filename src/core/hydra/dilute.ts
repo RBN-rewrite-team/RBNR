@@ -48,7 +48,7 @@ export function milestoneDut5Eff(): Decimal {
 		.log10()
 		.add(1)
 		.pow(Dilute.diluteAmount(5) * 0.1 + 0.5)
-		.pow(Dilute.diluteAmount(2) >= 10 ? 1.35 : 1);
+		.pow((player.milestones.dut13 || (Dilute.diluteAmount(2) >= 10 && player.upgrades["67S"])) ? 1.35 : 1);
 }
 
 export function milestoneDut6Eff(): Decimal {
@@ -163,6 +163,30 @@ export const DiluteUpgrades = {
 		cost: Decimal = new Decimal(2175000);
 		show(): boolean {
 			return player.milestones.dut10;
+		}
+	})(),
+	'68S': new (class extends Upgrade {
+		currency: Currencies = Currencies.SOLUTION;
+		name: string = 'U5-S-8';
+		description: string = '削弱九头蛇能量获取的二重软上限';
+		cost: Decimal = new Decimal(2201250);
+		show(): boolean {
+			return player.milestones.dut10;
+		}
+	})(),
+	'69S': new (class extends UpgradeWithEffect<Decimal> {
+		currency: Currencies = Currencies.SOLUTION;
+		name: string = 'U5-S-9';
+		description: string = '朊病毒加成推演速度且被免疫，你可以在任何时候获得朊病毒(×2/s)';
+		cost: Decimal = new Decimal(2215312.5);
+		show(): boolean {
+			return player.milestones.dut10;
+		}
+		effect(): Decimal {
+		  return Dilute.prions().add(1)
+		}
+		effectDescription() {
+		  return "×" + format(this.effect())
 		}
 	})(),
 };
@@ -342,7 +366,7 @@ export const Dilute = {
 			displayName: 'M-Dilute-11',
 			description: "稀释VI的调整刻度细化至0.25",
 			req: true,
-			reqDescription: '2,201,000 九头蛇溶液',
+			reqDescription: '2,201,250 九头蛇溶液',
 			requirement: new Decimal(2201250),
 			get canDone() {
 				return (
@@ -354,6 +378,34 @@ export const Dilute = {
 			onDone() {
 			  player.hydra.dilute.solutionCost = 0;
 			}
+		});
+		MILESTONES.create('dut12', {
+			displayName: 'M-Dilute-12',
+			description: "削弱九头蛇能量获取的二重软上限",
+			req: true,
+			reqDescription: '^1.46 M-Dilute-5效果',
+			requirement: new Decimal(1.46),
+			get canDone() {
+				return (
+					player.hydra.milestoneDut5Eff.gte(this.requirement)
+				);
+			},
+			show: true,
+			currency: '',
+		});
+		MILESTONES.create('dut13', {
+			displayName: 'M-Dilute-13',
+			description: "你可以在药剂III等级不为10的时候获得U5-S-7的加成",
+			req: true,
+			reqDescription: '1e6100 九头蛇能量 ',
+			requirement: new Decimal("e6100"),
+			get canDone() {
+				return (
+					player.hydra.power.gte(this.requirement)
+				);
+			},
+			show: true,
+			currency: '',
 		});
 	},
 	enterDilute() {
@@ -473,12 +525,12 @@ export const Dilute = {
 		}
 	},
 	diluteLoop(diff: number) {
+		if (player.upgrades["69S"] || (player.hydra.totalDeduceOrdinal[0].gte(1) && player.hydra.dilute.inDilute))
+			player.hydra.dilute.prionsTime = player.hydra.dilute.prionsTime + diff / 1000;
 		if (player.hydra.dilute.inDilute) {
 			player.hydra.milestoneDut5Eff = player.hydra.milestoneDut5Eff.max(milestoneDut5Eff());
 			const s3Eff = 1000 / player.hydra.dilute.solvent[2] ** 2;
 			player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + diff / 1000;
-			if (player.hydra.totalDeduceOrdinal[0].gte(1))
-				player.hydra.dilute.prionsTime = player.hydra.dilute.prionsTime + diff / 1000;
 			if (player.hydra.dilute.spentTime > s3Eff) {
 				ModalService.show({
 					title: '已退出稀释',
@@ -489,7 +541,7 @@ export const Dilute = {
 				});
 				this.exitDilute(false);
 			}
-			if (this.prions().gt(player.hydra.totalDeduceOrdinal[0])) {
+			if (!player.upgrades["69S"] &&this.prions().gt(player.hydra.totalDeduceOrdinal[0])) {
 				ModalService.show({
 					title: '已退出稀释',
 					content: '朊病毒吃掉了你的脑子！（你的朊病毒超过了你的推演总数量）',
@@ -527,6 +579,7 @@ export const Dilute = {
 		return { eff1: eff1 };
 	},
 	prions() {
+	  if (player.upgrades["69S"]) return Decimal.pow(2, player.hydra.dilute.prionsTime).sub(1)
 		return Decimal.pow(1 + this.diluteAmount(4) / 100, player.hydra.dilute.prionsTime).sub(1);
 	},
 } as IDilute & Record<string, any>;
