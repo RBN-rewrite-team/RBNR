@@ -186,6 +186,7 @@ export interface Player {
 				boolean,
 				boolean,
 				boolean,
+				boolean,
 			];
 			spentTime: number;
 			solution: number;
@@ -336,7 +337,7 @@ function getInitialPlayerData(): Player {
 			dilute: {
 				inDilute: false,
 				solvent: [0, 0, 0, 0, 0, 0, false, false, false, false],
-				lastSolvent: [0, 0, 0, 0, 0, 0, false, false, false],
+				lastSolvent: [0, 0, 0, 0, 0, 0, false, false, false, false],
 				lastDeduce: zero,
 				spentTime: 0,
 				solution: 0,
