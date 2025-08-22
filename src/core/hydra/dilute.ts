@@ -76,17 +76,16 @@ export function milestoneDut7Eff(): Decimal {
 }
 
 export function milestoneDut16Eff(): Decimal {
-<<<<<<< HEAD
-	return player.hydra.dilute.prions.log10().add(1);
-=======
-	return player.hydra.dilute.prions.log10().add(1).pow(player.milestones.dut18?player.hydra.milestoneDut5Eff:1)
+	return player.hydra.dilute.prions
+		.log10()
+		.add(1)
+		.pow(player.milestones.dut18 ? player.hydra.milestoneDut5Eff : 1);
 }
 
 function MEff17() {
-  let base = player.hydra.trueTotalPower.add(1)
-  if (player.milestones.dut18) base = base.pow(player.hydra.milestoneDut5Eff)
-  return base
->>>>>>> origin/develop
+	let base = player.hydra.trueTotalPower.add(1);
+	if (player.milestones.dut18) base = base.pow(player.hydra.milestoneDut5Eff);
+	return base;
 }
 
 interface IDilute {
@@ -281,11 +280,12 @@ export const DiluteUpgrades = {
 			return player.milestones.dut10;
 		}
 		effect(): Decimal {
-		  if (player.hydra.dilute.inDilute) return player.hydra.dilute.highestApocalypse.add(1).add(1).add(1).pow(0.75)
-		  return player.hydra.dilute.highestApocalypse.add(1).pow(1.25)
+			if (player.hydra.dilute.inDilute)
+				return player.hydra.dilute.highestApocalypse.add(1).add(1).add(1).pow(0.75);
+			return player.hydra.dilute.highestApocalypse.add(1).pow(1.25);
 		}
 		effectDescription(): string {
-		  return (!player.hydra.dilute.inDilute?"^":"×")+format(this.effect())
+			return (!player.hydra.dilute.inDilute ? '^' : '×') + format(this.effect());
 		}
 	})(),
 	'616S': new (class extends Upgrade {
@@ -297,7 +297,10 @@ export const DiluteUpgrades = {
 			return player.milestones.dut10;
 		}
 		canAfford() {
-		  return player.hydra.deduceOrdinal[0].gte("e8.07230472602822538e153") && getCurrency(this.currency).gte(this.cost)
+			return (
+				player.hydra.deduceOrdinal[0].gte('e8.07230472602822538e153') &&
+				getCurrency(this.currency).gte(this.cost)
+			);
 		}
 	})(),
 };
@@ -563,25 +566,23 @@ export const Dilute = {
 		MILESTONES.create('dut17', {
 			displayName: 'M-Dilute-17',
 			get description() {
-			  return "总计九头蛇能量加成朊病毒获取速度底数<br>效果：×" + format(MEff17())
+				return '总计九头蛇能量加成朊病毒获取速度底数<br>效果：×' + format(MEff17());
 			},
 			req: true,
 			reqDescription: 'e5.0000e103/s推演速度',
-			requirement: new Decimal("e5e103"),
+			requirement: new Decimal('e5e103'),
 			get canDone() {
-				return (
-					Hydra.deduceSpeed(0).gte(this.requirement)
-				);
+				return Hydra.deduceSpeed(0).gte(this.requirement);
 			},
 			show: true,
 			currency: '',
 		});
 		MILESTONES.create('dut18', {
 			displayName: 'M-Dilute-18',
-			description: "M-Dilute-5加成M-Dilute-17和M-Dilute-16效果",
+			description: 'M-Dilute-5加成M-Dilute-17和M-Dilute-16效果',
 			req: true,
 			reqDescription: 'e1.0000e121/s推演速度',
-			requirement: new Decimal("ee121"),
+			requirement: new Decimal('ee121'),
 			get canDone() {
 				return Hydra.deduceSpeed(0).gte(this.requirement);
 			},
@@ -736,15 +737,18 @@ export const Dilute = {
 				});
 				this.exitDilute(false);
 			}
-			if (this.diluteAmount(9)) player.hydra.dilute.highestApocalypse = player.hydra.dilute.highestApocalypse.max(player.hydra.deduceOrdinal[0])
+			if (this.diluteAmount(9))
+				player.hydra.dilute.highestApocalypse = player.hydra.dilute.highestApocalypse.max(
+					player.hydra.deduceOrdinal[0],
+				);
 		}
 	},
 	prionsBase() {
-	  let base = new Decimal(1 + this.diluteAmount(4) / 100);
-	  if (player.upgrades["69S"]) base = new Decimal(2)
-	  if (player.upgrades["610S"]) base = base.mul(upgrades["610S"].effect())
-	  if (player.milestones.dut17) base = base.mul(1)
-	  return base;
+		let base = new Decimal(1 + this.diluteAmount(4) / 100);
+		if (player.upgrades['69S']) base = new Decimal(2);
+		if (player.upgrades['610S']) base = base.mul(upgrades['610S'].effect());
+		if (player.milestones.dut17) base = base.mul(MEff17());
+		return base;
 	},
 	/**
 	 * 溶剂数量，在稀释未开启时会设置为falsy
