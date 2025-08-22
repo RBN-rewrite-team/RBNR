@@ -137,7 +137,7 @@ function hydraAxisHTML(): string {
 								>{{
 									feature.Hydra.deduceSpeed().gte(1)
 										? format(feature.Hydra.deduceSpeed()) + '/s'
-										: '/' + format(feature.Hydra.deduceSpeed().recip()) + 's'
+										: '1/' + format(feature.Hydra.deduceSpeed().recip()) + 's'
 								}}</span
 							>
 							<span class="hydra-text">
