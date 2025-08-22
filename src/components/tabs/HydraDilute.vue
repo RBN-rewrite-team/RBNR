@@ -86,7 +86,7 @@ setInterval(function () {
 	><span v-if="player.hydra.dilute.inDilute">(本次{{ format(Dilute.solutionGain()) }})</span
 	>九头蛇溶液<br />
 	推演速度×{{ format(Dilute.solutionEff().eff1) }}<br>
-	<span v-if="player.hydra.dilute.prionsTime > 0"
+	<span v-if="player.upgrades['69S'] || player.hydra.dilute.prions.gt(1)"
 		>你有<b style="color: red; font-size: 30px">{{ format(Dilute.prions()) }}</b
 		><span v-if="!player.upgrades['69S']">/{{format(player.hydra.totalDeduceOrdinal[0])}}</span>朊病毒<br /><br
 	/></span>
