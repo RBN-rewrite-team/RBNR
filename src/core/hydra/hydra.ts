@@ -450,6 +450,7 @@ export const Hydra = {
 		if (player.upgrades['62S']) base = base.mul(upgrades['62S'].effect());
 		if (player.upgrades['63S']) base = base.mul(upgrades['63S'].effect());
 		if (player.upgrades['64S']) base = base.mul(upgrades['64S'].effect());
+		if (player.upgrades['69S']) base = base.mul(upgrades['69S'].effect());
 		if (player.milestones.dut5) base = base.pow(player.hydra.milestoneDut5Eff);
 		if (player.milestones.dut6) base = base.pow(milestoneDut6Eff());
 		if (player.milestones.dut7) base = base.pow(milestoneDut7Eff());
@@ -530,6 +531,8 @@ export const Hydra = {
 	powerSoftcapNerf2(): Decimal {
 	  let base = new Decimal(0.1);
 	  if (player.milestones.dut8) base = new Decimal(1/9)
+	  if (player.upgrades["68S"]) base = new Decimal(1/8)
+	  if (player.milestones.dut12) base = new Decimal(1/7)
 	  return base
 	},
 	powerGainBase(): Decimal {

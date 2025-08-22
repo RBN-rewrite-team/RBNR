@@ -46,4 +46,9 @@ export function init() {
 		event.preventDefault();
 		feature.EXPONENTION.UIreset();
 	});
+	
+	hotkeys('h', (event) => {
+		event.preventDefault();
+		feature.Hydra.hydraReset(player.hydra.visiting)
+	});
 }
