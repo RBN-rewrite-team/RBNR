@@ -185,6 +185,7 @@ export const OrdinalUtils = {
 			otherwise.ascend++;
 			return s + this.numberToBMS(x.log(base), base, --maxLength, otherwise);
 		} else {
+		  return ">(0,0,0)(1,1,1)"
 			otherwise = { basic: [0, 0], dimension: 1, ascend: 0, id: 0 };
 			return this.numberToTLBMS(x.iteratedlog(base), base, maxLength, otherwise);
 		}

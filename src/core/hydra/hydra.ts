@@ -6,7 +6,7 @@ import { Upgrade, UpgradeWithEffect } from '../upgrade';
 import { CurrencyRequirement, type Requirement } from '../requirements';
 import { Buyable } from '../buyable';
 import { upgrades, buyables } from '../mechanic';
-import { Dilute, milestoneDut6Eff, milestoneDut7Eff } from './dilute';
+import { Dilute, milestoneDut16Eff, milestoneDut6Eff, milestoneDut7Eff } from './dilute';
 import type { IntClosedRange } from 'type-fest';
 
 //Hydra：BMS，1-Y，fffZ
@@ -90,6 +90,7 @@ export const Hydra = {
 			name = 'U5-1-5';
 			effect(): Decimal {
 				const base = player.buyables[613].sub(40).div(5).floor().max(0);
+				if (base.gte(15000)) base = base.sub(14999).log10().add(15000)
 				return base;
 			}
 			effectDescription(): string {
@@ -126,7 +127,9 @@ export const Hydra = {
 				return '×' + format(this.effect());
 			}
 			effect(): Decimal {
-				return player.hydra.power.max(1).log10().max(500).div(500);
+				let eff = player.hydra.power.max(1).log10().max(500).div(500);
+				if (eff.gte(100)) eff = eff.sub(99).log10().add(100)
+				return eff
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
@@ -351,12 +354,15 @@ export const Hydra = {
 				if (player.upgrades[6110]) expReduce = expReduce.mul(upgrades[6110].effect());
 				let inv = x.root(expReduce).div(10000).max(1).log(1.05).root(2).add(1);
 				if (!player.milestones.dut9) inv = inv.floor()
-				return inv
+				return inv.min(100000)
 			}
 			more(): Decimal {
 				let base = new Decimal(0);
 				if (player.upgrades[615]) base = base.add(upgrades[615].effect());
 				return base;
+			}
+			capped(x: Decimal): boolean {
+				return x.gte(1e5);
 			}
 		})(),
 		'613': new (class B613 extends Buyable<Decimal> {
@@ -456,6 +462,10 @@ export const Hydra = {
 		if (player.milestones.dut7) base = base.pow(milestoneDut7Eff());
 
 		if (Dilute.diluteAmount(5) > 0) base = base.pow(1 - Dilute.diluteAmount(5) * 0.1);
+		if (player.milestones.dut16) {
+		  if (player.hydra.dilute.inDilute) base = base.mul(milestoneDut16Eff())
+		  else base = base.pow(milestoneDut16Eff())
+		}
 		if (Dilute.diluteAmount(3) > 0) base = base.mul(Hydra.NT4TauEffect());
 		base = base.div(5 ** (Dilute.diluteAmount(0) as number));
 		if (player.hydra.dilute.inDilute)
@@ -534,6 +544,7 @@ export const Hydra = {
 	  if (player.upgrades["68S"]) base = new Decimal(1/8)
 	  if (player.milestones.dut12) base = new Decimal(1/7)
 	  if (player.upgrades["612S"]) base = new Decimal(1/5)
+	  if (player.upgrades["613S"]) base = base.pow(upgrades["613S"].effect())
 	  return base
 	},
 	powerGainBase(): Decimal {
@@ -641,13 +652,14 @@ export const Hydra = {
 		if (id == 0 && base.gte(1e25)) base = base.log10().div(25).root(2).mul(25).pow_base(10);
 		if (!player.upgrades[6113] && id == 1 && base.gte(1))
 			base = base.root(new Decimal(2).pow(U618Eff));
-		if (id == 1 && base.gte(2.25)) base = base.div(2.25).root(2).mul(2.25);
+		if (!player.upgrades["614S"] && id == 1 && base.gte(2.25)) base = base.div(2.25).root(2).mul(2.25);
 		if (id == 1 && base.gte(80)) base = base.log10().div(1.903089986991943585).root(2).mul(1.903089986991943585).pow10();
+		if (id == 1 && base.gte(1000)) base = base.sub(999).log10().add(1000);
 		if (id == 2 && base.gte(1e10)) base = base.log10().div(10).pow(0.5).mul(10).pow_base(10);
 		if (id == 3 && player.upgrades['65R']) base = base.mul(upgrades['65R'].effect());
 		if (id == 1 && player.upgrades['68R']) base = base.mul(upgrades['68R'].effect());
 		if (id == 3 && base.gte(0.05)) base = base.sub(0.05).mul(0.5).add(0.05);
-		if (id == 3 && base.gte(0.1)) base = base.div(0.1).pow(0.5).mul(0.1);
+		if (!player.upgrades["614S"] && id == 3 && base.gte(0.1)) base = base.div(0.1).pow(0.5).mul(0.1);
 		if (id == 3 && base.gte(50)) base = base.log10().div(1.698970004336018804).pow(0.5).mul(1.698970004336018804).pow10();
 		return base;
 	},

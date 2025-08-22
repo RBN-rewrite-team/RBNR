@@ -90,7 +90,7 @@ setInterval(function () {
 		>你有<b style="color: red; font-size: 30px">{{ format(Dilute.prions()) }}</b
 		><span v-if="!player.upgrades['69S']">/{{format(player.hydra.totalDeduceOrdinal[0])}}</span>朊病毒<br /><br
 	/></span>
-	<div>
+	<div v-if="!player.upgrades['614S']">
 		启动稀释后，溶剂{{
 			(() => {
 				let a = 1000 / Dilute.diluteAmountOutside(2) ** 2 - player.hydra.dilute.spentTime;
@@ -100,9 +100,8 @@ setInterval(function () {
 						: '不会自毁'
 					: '将会在' + a.toFixed(3) + '秒后自毁';
 			})()
-		}}
+		}}<br />
 	</div>
-	<br />
 	部分溶剂将限制溶剂I的最低等级!<br />
 	<div class="container" style="transform: translateY(-10px)">
 		<div class="dilute">
@@ -378,6 +377,10 @@ setInterval(function () {
 				<TDUpgrade upgid="611S" />
 				<TDUpgrade upgid="612S" />
 			</tr>
+			<tr>
+				<TDUpgrade upgid="613S" />
+				<TDUpgrade upgid="614S" />
+			</tr>
 		</tbody>
 	</table>
 	<table align="center" style="transform: translateY(80px)">
@@ -397,6 +400,8 @@ setInterval(function () {
 			<TRMilestone id="dut13" />
 			<TRMilestone id="dut14" />
 			<TRMilestone id="dut15" />
+			<TRMilestone id="dut16" />
+			<TRMilestone id="dut17" />
 		</tbody>
 	</table>
 </template>
