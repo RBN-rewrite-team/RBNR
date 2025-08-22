@@ -743,7 +743,7 @@ export const Dilute = {
 	  let base = new Decimal(1 + this.diluteAmount(4) / 100);
 	  if (player.upgrades["69S"]) base = new Decimal(2)
 	  if (player.upgrades["610S"]) base = base.mul(upgrades["610S"].effect())
-	  if (player.milestones.dut17) base = base.mul(MEff17())
+	  if (player.milestones.dut17) base = base.mul(1)
 	  return base;
 	},
 	/**
