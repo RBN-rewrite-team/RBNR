@@ -145,8 +145,8 @@ export interface Player {
 	timeshard: {
 		value: number;
 		tf: number;
-		cd: [number, number];
-		last: [number, number];
+		cd: [number, number, number];
+		last: [number, number, number];
 		openTf: boolean;
 	};
 	hydra: {
@@ -196,14 +196,9 @@ function getInitialPlayerData(): Player {
 		lastUpdated: Date.now(),
 		saveCreateTime: Date.now(),
 		addpower: zero,
-		upgrades: Object.fromEntries(Object.keys(upgrades).map((key) => [key, false])) as Record<
-			keyof typeof upgrades,
-			boolean
-		>,
-		buyables: Object.fromEntries(
-			Object.keys(buyables).map((key) => [key, new Decimal(0)]),
-		) as Record<keyof typeof buyables, Decimal>,
-		milestones: Object.fromEntries(Object.keys(milestones).map((key) => [key, false])),
+		upgrades: Object.fromEntries(Object.keys(upgrades).map(key => [key, false])) as Record<keyof typeof upgrades, boolean>,
+		buyables: Object.fromEntries(Object.keys(buyables).map(key => [key, new Decimal(0)])) as Record<keyof typeof buyables, Decimal>,
+		milestones: Object.fromEntries(Object.keys(milestones).map(key => [key, false])) as Record<keyof typeof milestones, boolean>,
 		buyable11More: zero,
 		automationCD: {
 			successor: 0,
@@ -303,8 +298,8 @@ function getInitialPlayerData(): Player {
 		timeshard: {
 			value: 0,
 			tf: 0,
-			cd: [Date.now(), Date.now()],
-			last: [0, 0],
+			cd: [Date.now(), Date.now(), Date.now() + 7 * 24 * 60 * 60 * 1000],
+			last: [0, 0, 0],
 			openTf: false,
 		},
 		hydra: {
