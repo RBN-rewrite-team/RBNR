@@ -198,7 +198,7 @@ function getInitialPlayerData(): Player {
 		addpower: zero,
 		upgrades: Object.fromEntries(Object.keys(upgrades).map(key => [key, false])) as Record<keyof typeof upgrades, boolean>,
 		buyables: Object.fromEntries(Object.keys(buyables).map(key => [key, new Decimal(0)])) as Record<keyof typeof buyables, Decimal>,
-		milestones: Object.fromEntries(Object.keys(milestones).map(key => [key, false]))as Record<keyof typeof milestones, boolean>,
+		milestones: Object.fromEntries(Object.keys(milestones).map(key => [key, false])) as Record<keyof typeof milestones, boolean>,
 		buyable11More: zero,
 		automationCD: {
 			successor: 0,
