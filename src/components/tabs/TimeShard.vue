@@ -60,7 +60,7 @@ function timeF(ms = 0) {
 									<h3 style="color: rgb(255, 63, 255)">碎片生成器 II</h3>
 									<br />
 									冷却时间：24小时<br />
-									产量：30~150<br />
+									产量：80~400<br />
 									<span
 										v-if="Date.now() >= player.timeshard.cd[1]"
 										style="color: green; font-weight: bold"
