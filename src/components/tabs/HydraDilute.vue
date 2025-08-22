@@ -380,28 +380,13 @@ setInterval(function () {
 			<tr>
 				<TDUpgrade upgid="613S" />
 				<TDUpgrade upgid="614S" />
+				<TDUpgrade upgid="615S" />
 			</tr>
 		</tbody>
 	</table>
 	<table align="center" style="transform: translateY(80px)">
 		<tbody class="milestones">
-			<TRMilestone id="dut1" />
-			<TRMilestone id="dut2" />
-			<TRMilestone id="dut3" />
-			<TRMilestone id="dut4" />
-			<TRMilestone id="dut5" />
-			<TRMilestone id="dut6" />
-			<TRMilestone id="dut7" />
-			<TRMilestone id="dut8" />
-			<TRMilestone id="dut9" />
-			<TRMilestone id="dut10" />
-			<TRMilestone id="dut11" />
-			<TRMilestone id="dut12" />
-			<TRMilestone id="dut13" />
-			<TRMilestone id="dut14" />
-			<TRMilestone id="dut15" />
-			<TRMilestone id="dut16" />
-			<TRMilestone id="dut17" />
+			<TRMilestone :id="'dut'+i" v-for="i in 18" :key="i" />
 		</tbody>
 	</table>
 </template>
