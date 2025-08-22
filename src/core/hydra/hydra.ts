@@ -205,6 +205,15 @@ export const Hydra = {
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
+		'6114': new (class extends Upgrade {
+			description = '飞升效果与B5-1-2效果相互叠乘';
+			cost = new Decimal('3.765e3765');
+			name = 'U5-1-14';
+			show(): boolean {
+				return player.upgrades['66S'];
+			}
+			currency: Currencies = Currencies.HYDRA_POWER;
+		})(),
 		'62': new (class U62 extends UpgradeWithEffect<Decimal> {
 			description = '基于累计九头蛇能量，每秒获得一定重置时获取的九头蛇能量和乘数';
 			cost = new Decimal(1e45);
@@ -282,13 +291,15 @@ export const Hydra = {
 				return player.milestones['dut2'];
 			}
 			autoBuyMax(): boolean {
-				return false;
+				return player.milestones.dut9;
 			}
 			costInverse(x: Decimal): Decimal {
 				let expReduce = new Decimal(1);
 				if (player.hydra.dilute.inDilute)
 					expReduce = expReduce.mul(4 - 3 * 0.75 ** Dilute.diluteAmount(1));
-				return x.root(expReduce).div(10).max(1).log(1.15).add(1).min(99).floor();
+				let inv = x.root(expReduce).div(10).max(1).log(1.15).add(1).min(99);
+				if (!player.milestones.dut9) inv = inv.floor()
+				return inv
 			}
 			capped(x: Decimal): boolean {
 				return x.add(this.more()).gte(99);
@@ -322,14 +333,16 @@ export const Hydra = {
 				return player.milestones['dut2'];
 			}
 			autoBuyMax(): boolean {
-				return false;
+				return player.milestones.dut9;
 			}
 			costInverse(x: Decimal): Decimal {
 				let expReduce = new Decimal(1);
 				if (player.hydra.dilute.inDilute)
 					expReduce = expReduce.mul(4 - 3 * 0.75 ** Dilute.diluteAmount(1));
 				if (player.upgrades[6110]) expReduce = expReduce.mul(upgrades[6110].effect());
-				return x.root(expReduce).div(10000).max(1).log(1.05).root(2).add(1).floor();
+				let inv = x.root(expReduce).div(10000).max(1).log(1.05).root(2).add(1);
+				if (!player.milestones.dut9) inv = inv.floor()
+				return inv
 			}
 			more(): Decimal {
 				let base = new Decimal(0);
@@ -362,14 +375,16 @@ export const Hydra = {
 				return player.milestones['dut2'];
 			}
 			autoBuyMax(): boolean {
-				return false;
+				return player.milestones.dut9;
 			}
 			costInverse(x: Decimal): Decimal {
 				let expReduce = new Decimal(1);
 				if (player.upgrades[6110]) expReduce = expReduce.mul(upgrades[6110].effect());
 				if (player.hydra.dilute.inDilute)
 					expReduce = expReduce.mul(4 - 3 * 0.75 ** Dilute.diluteAmount(1));
-				return x.root(expReduce).div(1e8).max(1).log(1.02).root(2.5).add(1).floor();
+				let inv = x.root(expReduce).div(1e8).max(1).log(1.02).root(2.5).add(1);
+				if (!player.milestones.dut9) inv = inv.floor()
+				return inv
 			}
 		})(),
 		'614': new (class B614 extends Buyable<Decimal> {
@@ -397,14 +412,16 @@ export const Hydra = {
 				return player.milestones['dut2'];
 			}
 			autoBuyMax(): boolean {
-				return false;
+				return player.milestones.dut9;
 			}
 			costInverse(x: Decimal): Decimal {
 				let expReduce = new Decimal(1);
 				if (player.upgrades[6110]) expReduce = expReduce.mul(upgrades[6110].effect());
 				if (player.hydra.dilute.inDilute)
 					expReduce = expReduce.mul(4 - 3 * 0.75 ** Dilute.diluteAmount(1));
-				return x.root(expReduce).div('1e875').max(1).log(1e20).root(2.35).add(1).floor();
+				let inv = x.root(expReduce).div('1e875').max(1).log(1e20).root(2.35).add(1);
+				if (!player.milestones.dut9) inv = inv.floor()
+				return inv
 			}
 		})(),
 	},
@@ -459,7 +476,7 @@ export const Hydra = {
 		let base = new Decimal(1);
 		base = base.add(Hydra.prestigeEff(1));
 		if (Hydra.pUnlock(1)) base = base.add(buyables[612].effect(player.buyables[612]));
-		if (player.upgrades['6111']) base = base.mul(upgrades['6111'].effect());
+		if (player.upgrades['6111']) base = base.mul(upgrades['6111'].effect().mul(player.upgrades[6114]?base:1));
 		return base;
 	},
 	powerExpNerf(): Decimal {
@@ -490,7 +507,7 @@ export const Hydra = {
 				.log10()
 				.log10()
 				.div(0.528943841769672644)
-				.root(10)
+				.pow(this.powerSoftcapNerf2())
 				.mul(0.528943841769672644)
 				.pow10()
 				.pow10()
@@ -500,6 +517,11 @@ export const Hydra = {
 	powerSoftcapNerf(base: Decimal): Decimal {
 		if (!base.gte('e2400')) return new Decimal(1);
 		else return this.powerGainAfterSoftcap(base).log(base);
+	},
+	powerSoftcapNerf2(): Decimal {
+	  let base = new Decimal(0.1);
+	  if (player.milestones.dut8) base = new Decimal(1/9)
+	  return base
 	},
 	powerGainBase(): Decimal {
 		//能量产量

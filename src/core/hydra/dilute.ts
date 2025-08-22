@@ -282,6 +282,34 @@ export const Dilute = {
 			show: true,
 			currency: '',
 		});
+		MILESTONES.create('dut8', {
+			displayName: 'M-Dilute-8',
+			description: "削弱九头蛇能量获取的二重软上限",
+			req: true,
+			reqDescription: '^1.25 M-Dilute-5效果',
+			requirement: new Decimal(1.25),
+			get canDone() {
+				return (
+					player.hydra.milestoneDut5Eff.gte(1.25)
+				);
+			},
+			show: true,
+			currency: '',
+		});
+		MILESTONES.create('dut9', {
+			displayName: 'M-Dilute-9',
+			description: "自动购买B5-1系列购买项，你可以购买非整数次B5-1购买项",
+			req: true,
+			reqDescription: '2115000 九头蛇溶液',
+			requirement: new Decimal(2151250),
+			get canDone() {
+				return (
+					player.hydra.dilute.solution >= 2151250
+				);
+			},
+			show: true,
+			currency: '',
+		});
 	},
 	enterDilute() {
 		if (player.hydra.dilute.solvent.map((x) => Number(x)).reduce((x, y) => x + y) < 1) {
