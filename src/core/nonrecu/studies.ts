@@ -2,6 +2,7 @@ import Decimal from 'break_eternity.js';
 import { player } from '../save';
 import { Hydra } from '../hydra/hydra';
 import { Currencies, getCurrency } from '../currencies';
+import { getTotalTheories } from './total-theories';
 
 interface StudyConfig {
 	id: string;
@@ -59,18 +60,15 @@ export const studies = [
 ] as const;
 
 export function buyStudies(id: number) {
-	// const study = studies[id] as Study | undefined;
-	// if (!study) return;
-	// if (player.nonrecu.studies_bought.includes(id)) return;
-	// if (!player.nonrecu.power.gte(study.cost)) return;
-	// player.nonrecu.power = player.nonrecu.power.sub(study.cost);
-	// player.nonrecu.studies_bought.push(id);
-	// study.onBought();
+	const study = studies[id] as Study | undefined;
+	if (!study) return;
+	if (player.nonrecu.studies_bought.includes(id)) return;
+	if (!getCurrency(Currencies.NRT).gte(study.cost)) return;
+	player.nonrecu.spentTheories = player.nonrecu.spentTheories.add(study.cost);
+	player.nonrecu.studies_bought.push(id);
+	study.onBought();
 }
 
-export function getTotalTheories() {
-	return player.nonrecu.theories.reduce((a, b) => a.add(b));
-}
 export function theoriesCost(id: 0 | 1 | 2) {
 	switch (id) {
 		case 0:

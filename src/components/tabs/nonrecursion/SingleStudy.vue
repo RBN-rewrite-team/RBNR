@@ -25,34 +25,3 @@ const useClass = () => {
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.study{
-  border: 2px solid var(--border-color);
-  width: fit-content;
-  padding: 5px;
-}
-.study-name {
-  text-align: left;
-}
-.study-desc{
-  width: 150px;
-  height: 100px;
-  border: 2px solid #c98300;
-  border-radius: 5px;
-  background-color: var(--background-color);
-  font-size: 10px;
-  padding: 5px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  &:hover {
-    background-color: var(--hover-color);
-    cursor: pointer;
-  }
-}
-.study-actived{
-  background-color: #c98300;
-  border: 2px solid var(--border-color);
-}
-</style>
