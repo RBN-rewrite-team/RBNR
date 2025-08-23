@@ -255,8 +255,8 @@ let highestPage = 0;
 		<vue-latex expression="\psi(0)=\omega" /><br />
 		<vue-latex expression="\psi(X+1)=\psi(X)\cdot\omega" /><br />
 		<vue-latex expression="\psi(X*\Omega)=\alpha\mapsto\psi(X*\alpha)FP" />(其中*为加法、乘法、乘方之一)<br />
-		<vue-latex expression="\psi(sup\ \alpha[n \in N^+])[n]=\psi(\alpha[n])" /><br />
-		以上四条规则构成了一个基本的OCF。<br />
+		<vue-latex expression="\psi(\sup\ \alpha[n \in N^+])[n]=\psi(\alpha[n])" /><br />
+		以上四条规则构成了一个基本的OCF，它的极限<vue-latex expression="\psi(\varepsilon_{\Omega+1})" />相当于Veblen函数的极限——BHO。<br />
 	</div>
     <div v-else-if="player.help.page >= 4321">
       已达到当前版本残局：4321页。
