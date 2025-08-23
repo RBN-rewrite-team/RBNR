@@ -61,6 +61,8 @@ export const vHold: Directive<HTMLElement, HoldDirectiveValue> = {
 	},
 
 	unmounted(el: HTMLElement) {
+		stop();
+		
 		if (el._holdStart) {
 			el.removeEventListener('mousedown', el._holdStart);
 			el.removeEventListener('touchstart', el._holdStart);
