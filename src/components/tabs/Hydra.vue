@@ -116,7 +116,8 @@ function hydraAxisHTML(): string {
 	return s;
 }
 
-//setInterval(()=>feature.Hydra.hydraReset(player.hydra.visiting))
+let autoHydraReset = false
+setInterval(()=>{if(autoHydraReset){feature.Hydra.hydraReset(player.hydra.visiting)}})
 </script>
 
 <template>
@@ -217,7 +218,7 @@ function hydraAxisHTML(): string {
 							<div class="hydra-axis-element" style="left: 50%; top: 88%">♦</div>
 						</button>
 					</td>
-					<td style="width: 50%">
+					<td>
 						<button
 							class="hydra-button-reset"
 							@click="feature.Hydra.hydraReset(player.hydra.visiting)"
@@ -243,6 +244,15 @@ function hydraAxisHTML(): string {
 									)
 								}}
 							</span>
+						</button>
+					</td>
+					<td style="width: 30px">
+						<button
+							class="hydra-button"
+							@click="autoHydraReset = !autoHydraReset"
+
+						>
+						  自<br>动<br>重<br>置<br>:<br>{{autoHydraReset?"开":"关"}}
 						</button>
 					</td>
 				</tr>
@@ -456,6 +466,7 @@ function hydraAxisHTML(): string {
 	position: relative;
 	z-index: 1;
 }
+
 .hydra-button {
 	&.fast {
 		position: relative;
