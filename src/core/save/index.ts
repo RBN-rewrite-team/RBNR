@@ -457,10 +457,13 @@ export function loadFromString(saveContent: string) {
 		];
 	}
 	if ((player?.version ?? 0) < 7 && player.upgrades['616S']) {
-		if (player.nonrecu.resetTimes.gte(1)) player.firstResetBit |= 0b10000
+		if (player.nonrecu.resetTimes.gte(1)) player.firstResetBit |= 0b10000;
 	}
-	delete player.hydra.dilute.solvent?.[9]
-	delete player.hydra.dilute.lastSolvent?.[9]
+
+	// @ts-ignore
+	delete player.hydra.dilute.solvent?.[9];
+	// @ts-ignore
+	delete player.hydra.dilute.lastSolvent?.[9];
 	player.version = version;
 }
 
