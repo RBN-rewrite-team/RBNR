@@ -43,6 +43,7 @@ export function simulateTime(milliseconds: number): void {
 					{
 						text: '跳过',
 						handler() {
+							onClose()
 							return modal.controller.close();
 						},
 					},
