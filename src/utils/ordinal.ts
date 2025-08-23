@@ -117,7 +117,7 @@ export const OrdinalUtils = {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		otherwise: any = { basic: [0, 0], dimension: 1, ascend: 0, id: 0 },
 	): string {
-		//数值转BMS（最多三行）
+		//数值转BMS（最多ω行）
 		if (maxLength <= 0) return '...';
 
 		if (x.lt(1)) return '';
@@ -185,9 +185,8 @@ export const OrdinalUtils = {
 			otherwise.ascend++;
 			return s + this.numberToBMS(x.log(base), base, --maxLength, otherwise);
 		} else if (x.lt(base.tetrate(base.toNumber() + 2))) {
-			return (
-				'>(' + (this.numberToBMS(x.iteratedlog(base, base.sub(2).toNumber()).div(base.pow(2)), new Decimal(4), maxLength).replace(/^>/, '')).slice(1, -1).split(')(').map((s, i) => `${i},${s}`).join(')(') + ')'
-			);
+		  // prettier-ignore
+			return '>(' + this.numberToBMS(x.iteratedlog(base, base.sub(2).toNumber()).div(base.pow(2)), new Decimal(4), maxLength).replace(/^>/, '').slice(1, -1).split(')(').map((s, i) => `${i},${s}`).join(')(') + ')';
 		} else {
 			return `(0)(1<sup>ω</sup>)`;
 		}
