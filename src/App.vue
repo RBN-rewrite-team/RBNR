@@ -78,7 +78,6 @@ import { NON_RECURSIVE } from './core/nonrecu/index.ts';
 				<TimeShard v-if="player.currentTab === 18" />
 				<Hydra v-if="player.currentTab === 19" />
 				<HydraDilute v-if="player.currentTab === 20" />
-				<button @click="NON_RECURSIVE.reset">递归</button>
 				<div class="main" v-if="player.currentTab === 3">
 					<h1>大数之路重制版</h1>
 					版本: v0.5<br />
