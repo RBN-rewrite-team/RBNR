@@ -18,7 +18,7 @@ onMounted(()=>{
   <div class="plot-view" :style="{'z-index': temp.plotdisplay?7 : -1,opacity: temp.plotdisplay?1:0,'transition-duration': temp.plotdisplay?'1s':'0s'}" ref="plotview">
     <div class="plot-content" >
       大基数在支撑集合论宇宙的序数高塔中飘荡。<br />
-      
+      没做完
       <div class="clickable"><div class="clickable_button" @click="exitView()">退出</div></div>
     </div>
   </div>
