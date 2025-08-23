@@ -186,24 +186,11 @@ export const OrdinalUtils = {
 			return s + this.numberToBMS(x.log(base), base, --maxLength, otherwise);
 		} else if (x.lt(base.tetrate(base.toNumber() + 2))) {
 			return (
-				'>' +
-				this.numberToTLBMS(
-					x.iteratedlog(base, base.sub(2).toNumber()).div(base.pow(2)),
-					maxLength,
-				)
+				'>(' + (this.numberToBMS(x.iteratedlog(base, base.sub(2).toNumber()).div(base.pow(2)), new Decimal(4), maxLength).replace(/^>/, '')).slice(1, -1).split(')(').map((s, i) => `${i},${s}`).join(')(') + ')'
 			);
 		} else {
 			return `(0)(1<sup>ω</sup>)`;
 		}
-	},
-
-	/**
-	 * Base 4
-	 */
-	numberToTLBMS(x: Decimal, maxLength = 15): string {
-		return '(' + (
-		  this.numberToBMS(x, new Decimal(4), maxLength).replace(/^>/, '')
-		).slice(1, -1).split(')(').map((s, i) => `${i},${s}`).join(')(') + ')'
 	},
 	/*
 	1: 0
