@@ -27,7 +27,7 @@ function minS1Level() {
 	);
 }
 
-function diluteAmount(id: IntClosedRange<0, 9>): number | boolean {
+function diluteAmount(id: IntClosedRange<0, 8>): number | boolean {
 	if (!player.hydra.dilute.inDilute) return id < 6 ? 0 : false;
 	if (player.hydra.dilute.solvent[8]) {
 		return id < 6 ? 10 : true;
@@ -90,9 +90,9 @@ function MEff17() {
 
 interface IDilute {
 	diluteAmount(id: IntClosedRange<0, 5>): number;
-	diluteAmount(id: IntClosedRange<6, 9>): boolean;
+	diluteAmount(id: IntClosedRange<6, 8>): boolean;
 	diluteAmountOutside(id: IntClosedRange<0, 5>): number;
-	diluteAmountOutside(id: IntClosedRange<6, 9>): boolean;
+	diluteAmountOutside(id: IntClosedRange<6, 8>): boolean;
 }
 
 export const DiluteUpgrades = {
@@ -590,17 +590,9 @@ export const Dilute = {
 			currency: '',
 		});
 	},
-	enterDilute() {
-		if (player.hydra.dilute.solvent.map((x) => Number(x)).reduce((x, y) => x + y) < 1) {
-			ModalService.show({
-				title: '无法开启稀释',
-				content: '先选择任意一个溶剂再开开启稀释！',
-			});
-			return;
-		}
+	diluteReset() {
 		const zero = new Decimal(0),
 			one = new Decimal(1);
-		player.hydra.backupHydra = this.backupHydra();
 		for (const id2 of (
 			[
 				['61R', '62R', '63R', '64R', '65R', '66R', '67R', '68R'],
@@ -628,6 +620,17 @@ export const Dilute = {
 		if (!player.milestones.dut16) player.hydra.dilute.prions = one;
 		player.numbertheory.GM.x = zero;
 		player.hydra.dilute.inDilute = true;
+	},
+	enterDilute() {
+		if (player.hydra.dilute.solvent.map((x) => Number(x)).reduce((x, y) => x + y) < 1) {
+			ModalService.show({
+				title: '无法开启稀释',
+				content: '先选择任意一个溶剂再开开启稀释！',
+			});
+			return;
+		}
+		player.hydra.backupHydra = this.backupHydra();
+		this.diluteReset();
 	},
 	exitDilute(manmade = true) {
 		if (player.hydra.backupHydra) this.restoreHydra(player.hydra.backupHydra);
@@ -737,7 +740,7 @@ export const Dilute = {
 				});
 				this.exitDilute(false);
 			}
-			if (this.diluteAmount(9))
+			if (this.diluteAmount(8))
 				player.hydra.dilute.highestApocalypse = player.hydra.dilute.highestApocalypse.max(
 					player.hydra.deduceOrdinal[0],
 				);
@@ -781,4 +784,7 @@ export const Dilute = {
 	prions() {
 		return player.hydra.dilute.prions.sub(1);
 	},
-} as IDilute & Record<string, any>;
+} as IDilute &
+	Record<string, any> & {
+		diluteReset(): void;
+	};
