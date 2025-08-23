@@ -116,7 +116,7 @@ function hydraAxisHTML(): string {
 	return s;
 }
 
-let autoHydraReset = false
+let autoHydraReset: boolean = false
 setInterval(()=>{if(autoHydraReset){feature.Hydra.hydraReset(player.hydra.visiting)}})
 </script>
 
