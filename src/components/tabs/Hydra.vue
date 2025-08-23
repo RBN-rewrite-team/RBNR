@@ -141,12 +141,12 @@ function hydraAxisHTML(): string {
 								}}</span
 							>
 							<span class="hydra-text">
-								{{
+								<span v-html="
 									OrdinalUtils.numberToBMS(
 										player.hydra.deduceOrdinal[0],
 										new Decimal(4),
 									)
-								}}
+								" />
 							</span>
 							<span
 								class="hydra-text-bottom"
@@ -182,12 +182,12 @@ function hydraAxisHTML(): string {
 								>{{ format(feature.Hydra.deduceSpeed()) }}/s</span
 							>
 							<span class="hydra-text">
-								{{
+								<span v-html="
 									OrdinalUtils.numberToBMS(
 										player.hydra.deduceOrdinal[0],
 										new Decimal(4),
 									)
-								}}
+								" />
 							</span>
 							<span
 								class="hydra-text-bottom"

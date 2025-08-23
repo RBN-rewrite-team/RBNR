@@ -184,7 +184,7 @@ export const OrdinalUtils = {
 			--maxLength;
 			otherwise.ascend++;
 			return s + this.numberToBMS(x.log(base), base, --maxLength, otherwise);
-		} else if (x.lt(base.tetrate(base.toNumber() + 2))) {
+		} else if (x.lt(base.tetrate(base.toNumber() + 0))) {
 			return (
 				'>' +
 				this.numberToTLBMS(
