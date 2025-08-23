@@ -20,7 +20,6 @@ export const NON_RECURSIVE = {
 		});
 	},
 	reset() {
-		alert('没做完');
 		if (!isTester()) {
 			ModalService.show({
 				title: 'WIP!',
