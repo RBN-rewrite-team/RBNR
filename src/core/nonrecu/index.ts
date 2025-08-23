@@ -48,7 +48,7 @@ export const NON_RECURSIVE = {
 		return (
 			player.hydra.deduceOrdinal[0].gte('ee153.90699754796802') &&
 			player.hydra.totalPower.gte('e326649') &&
-			player.hydra.dilute.solution >= 2.5e8
+			player.hydra.dilute.solution >= 2.55e8
 		);
 	},
 };
