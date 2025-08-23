@@ -21,6 +21,7 @@ export function simulateTime(milliseconds: number): void {
 	const onClose = () => {
 		player.timeshard.value += Math.floor(remaining / 150000);
 		remaining = 0;
+		player.lastUpdated = Date.now();
 		startGameLoop();
 	};
 	const progress = {};
@@ -43,8 +44,8 @@ export function simulateTime(milliseconds: number): void {
 					{
 						text: '跳过',
 						handler() {
-							onClose()
-							return modal.controller.close();
+							onClose();
+							modal.controller.close();
 						},
 					},
 				],
@@ -57,7 +58,6 @@ export function simulateTime(milliseconds: number): void {
 			modal.controller.updateProgress((doneSoFar / ticks) * 100);
 		},
 		asyncExit: () => {
-			startGameLoop();
 			modal.controller.close();
 		},
 		then: save,
