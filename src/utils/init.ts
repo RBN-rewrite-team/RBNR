@@ -12,6 +12,7 @@ import { vHold } from './vHold.ts';
 import { Dilute } from '@/core/hydra/dilute.ts';
 
 import { startGameLoop } from '@/core/game-loop';
+import { NON_RECURSIVE } from '@/core/nonrecu/index.ts';
 
 export function init() {
 	feature.SUCCESSOR.initMechanics();
@@ -24,6 +25,7 @@ export function init() {
 	feature.ChessBoard.initMechanics();
 	Logarithm.initMechanics();
 	Dilute.initMechanics();
+	NON_RECURSIVE.initMechanics();
 	loadSaves();
 	player.frozen = false;
 	player.run_a_tick_and_froze = false;
@@ -46,9 +48,9 @@ export function init() {
 		event.preventDefault();
 		feature.EXPONENTION.UIreset();
 	});
-	
+
 	hotkeys('h', (event) => {
 		event.preventDefault();
-		feature.Hydra.hydraReset(player.hydra.visiting)
+		feature.Hydra.hydraReset(player.hydra.visiting);
 	});
 }

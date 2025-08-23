@@ -8,6 +8,7 @@ import { Buyable } from '../buyable';
 import { upgrades, buyables } from '../mechanic';
 import { Dilute, milestoneDut16Eff, milestoneDut6Eff, milestoneDut7Eff } from './dilute';
 import type { IntClosedRange } from 'type-fest';
+import { NON_RECURSIVE } from '../nonrecu';
 
 //Hydra：BMS，1-Y，fffZ
 export const Hydra = {
@@ -510,6 +511,7 @@ export const Hydra = {
 			base = base.add(buyables[612].effect(player.buyables[612]));
 		if (player.upgrades['6111'])
 			base = base.mul(upgrades['6111'].effect().mul(player.upgrades[6114] ? base : 1));
+		base = base.mul(NON_RECURSIVE.nonrecEffects()[1].clampMin(1));
 		return base;
 	},
 	powerExpNerf(): Decimal {
@@ -525,6 +527,8 @@ export const Hydra = {
 		//能量倍数
 		let base = new Decimal(1);
 		base = base.mul(Hydra.prestigeEff(0));
+
+		base = base.mul(NON_RECURSIVE.nonrecEffects()[0]);
 		return base;
 	},
 	powerGain(): Decimal {
@@ -567,6 +571,9 @@ export const Hydra = {
 		base = base.pow(Hydra.powerExp().mul(Hydra.powerExpNerf()));
 		return base;
 	},
+	/**
+	 * 判断是否解锁了转生层级
+	 */
 	pUnlock(id = 0): boolean {
 		if (Dilute.diluteAmount(6)) return false;
 		//解锁转生
@@ -590,6 +597,11 @@ export const Hydra = {
 	pAutoUnlock(id = 0): boolean {
 		//解锁自动化
 		if (Dilute.diluteAmount(6)) return false;
+
+		if (player.milestones['nonrec_1']) {
+			if (Hydra.pUnlock(id)) return true;
+		}
+
 		if (id == 0 && player.milestones['dut3']) return true;
 		if (id == 1 && player.milestones['dut4']) return true;
 		if (id == 0) return Hydra.pUnlock(2);
@@ -726,15 +738,15 @@ export const Hydra = {
 		if (player.upgrades[62]) {
 			let NT4Boost = new Decimal(1);
 			if (player.upgrades[65]) NT4Boost = NT4Boost.mul(Hydra.NT4TauEffect());
-			player.hydra.power = player.hydra.power.add(
-				Hydra.hydraPowerPassiveGeneration().mul(diff),
-			).min('e326649'); // 已经加速过了，不用再写一遍
-			player.hydra.totalPower = player.hydra.totalPower.add(
-				Hydra.hydraPowerPassiveGeneration().mul(diff),
-			).min('e326649')
-			player.hydra.trueTotalPower = player.hydra.trueTotalPower.add(
-				Hydra.hydraPowerPassiveGeneration().mul(diff),
-			).min('e326649');
+			player.hydra.power = player.hydra.power
+				.add(Hydra.hydraPowerPassiveGeneration().mul(diff))
+				.min('e326649'); // 已经加速过了，不用再写一遍
+			player.hydra.totalPower = player.hydra.totalPower
+				.add(Hydra.hydraPowerPassiveGeneration().mul(diff))
+				.min('e326649');
+			player.hydra.trueTotalPower = player.hydra.trueTotalPower
+				.add(Hydra.hydraPowerPassiveGeneration().mul(diff))
+				.min('e326649');
 			player.hydra.powerMult[0] = player.hydra.powerMult[0].add(
 				Hydra.deduceEff(0)
 					.mul(player.hydra.deduceOrdinal[0])
