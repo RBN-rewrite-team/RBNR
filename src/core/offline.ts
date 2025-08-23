@@ -1,6 +1,6 @@
 import Async from '@/utils/asyncs';
 import { simulate, startGameLoop, stopGameLoop } from './game-loop';
-import { player, save } from '@/core/save/';
+import { save } from '@/core/save/';
 import Modal from '@/utils/Modal';
 import { formatTime } from '@/utils/format';
 export function simulateTime(milliseconds: number): void {
@@ -17,12 +17,6 @@ export function simulateTime(milliseconds: number): void {
 		const diff = milliseconds / ticks;
 		simulate(diff);
 		remaining -= diff;
-	};
-	const onClose = () => {
-		player.timeshard.value += Math.floor(remaining / 150000);
-		remaining = 0;
-		player.lastUpdated = Date.now();
-		startGameLoop();
 	};
 	const progress = {};
 	let modal: ReturnType<typeof Modal.show>;
