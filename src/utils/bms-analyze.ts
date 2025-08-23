@@ -413,7 +413,7 @@ const EBO = [
 ]
 
 export function calculate(BMS: string): string {
-  if (BMS == "(0)(1<sup>ω</sup>)") return "ψ(a(1;@(1;@(...))))"
+  if (BMS === "(0)(1<sup>ω</sup>)") return "ψ(a(1;@(1;@(...))))"
 	const cleanBMS = BMS.replace(/\s+/g, '');
 
 	if (cleanBMS == '') return '0';
