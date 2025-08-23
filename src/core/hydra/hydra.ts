@@ -808,6 +808,7 @@ export const Hydra = {
 				new Decimal('ee616.2890708878432'),
 			],
 			['\\psi(\\omega-\\pi-\\Pi_0)', new Decimal('ee2465.8173642473444')],
+			['\\mathrm{SHO}', new Decimal('eeee153.90699754796802')],
 			['???', new Decimal(1e400)],
 		],
 		[],
