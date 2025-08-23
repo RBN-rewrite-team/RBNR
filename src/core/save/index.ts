@@ -187,10 +187,11 @@ export interface Player {
 		};
 	};
 	nonrecu: {
-		  power: Decimal
-		  totalPower: Decimal
-		  resetTimes: Decimal
-		}
+		power: Decimal;
+		totalPower: Decimal;
+		resetTimes: Decimal;
+		studies_bought: number[];
+	};
 }
 
 function getInitialPlayerData(): Player {
@@ -278,7 +279,7 @@ function getInitialPlayerData(): Player {
 				titlebar: true,
 			},
 			challengeDetial: false,
-			allowOffline: true
+			allowOffline: true,
 		},
 		stat: {
 			chapter: -1,
@@ -343,10 +344,11 @@ function getInitialPlayerData(): Player {
 			},
 		},
 		nonrecu: {
-		  power: zero,
-		  totalPower: zero,
-		  resetTimes: zero,
-		}
+			power: zero,
+			totalPower: zero,
+			resetTimes: zero,
+			studies_bought: [],
+		},
 	};
 }
 

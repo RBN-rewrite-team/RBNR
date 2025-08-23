@@ -62,6 +62,11 @@ export const NON_RECURSIVE = {
 		player.hydra.dilute.solutionCost = 0;
 		player.hydra.dilute.solution = 0;
 		player.hydra.dilute.highestApocalypse = new Decimal(0);
+		if (player.nonrecu.studies_bought.includes(0)) {
+			player.hydra.power = player.hydra.power.add(20);
+			player.hydra.totalPower = player.hydra.totalPower.add(20);
+			player.hydra.trueTotalPower = player.hydra.trueTotalPower.add(20);
+		}
 	},
 	resetable() {
 		return (
