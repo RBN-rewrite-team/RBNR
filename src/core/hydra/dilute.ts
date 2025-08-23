@@ -303,7 +303,7 @@ export const DiluteUpgrades = {
 			);
 		}
 		keep() {
-		  return true
+		  return player.upgrades["616S"]
 		}
 	})(),
 };
