@@ -13,7 +13,7 @@ import { OrdinalUtils } from '@/utils/ordinal';
 import { calculate } from '@/utils/bms-analyze';
 import { displayOrd } from '@/lib/ordinal';
 
-const version = 6 as const;
+const version = 7 as const;
 const zero = new Decimal(0);
 export let current_save = 0;
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
@@ -453,6 +453,9 @@ export function loadFromString(saveContent: string) {
 			new Decimal('3.7'),
 			new Decimal('5e35'),
 		];
+	}
+	if ((player?.version ?? 0) < 7 && player.upgrades['616S']) {
+		if (player.nonrecu.resetTimes.gte(1)) player.firstResetBit |= 0b10000
 	}
 	player.version = version;
 }
