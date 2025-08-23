@@ -462,6 +462,7 @@ export const Hydra = {
 		if (player.upgrades['63S']) base = base.mul(upgrades['63S'].effect());
 		if (player.upgrades['64S']) base = base.mul(upgrades['64S'].effect());
 		if (player.upgrades['69S']) base = base.mul(upgrades['69S'].effect());
+		if (player.milestones.nonrec_1) base = base.mul(3)
 		if (player.milestones.dut5) base = base.pow(player.hydra.milestoneDut5Eff);
 		if (player.milestones.dut6) base = base.pow(milestoneDut6Eff());
 		if (player.milestones.dut7) base = base.pow(milestoneDut7Eff());
