@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { export_file, import_file, player, save } from '@/core/save';
-import { UIHardReset, UIChangeSave } from '@/core/save/saveui';
+import { UIHardReset, UIChangeSave, UIEnterTesting } from '@/core/save/saveui';
 import { notationNamesMap, notations } from '@/utils/format';
 import { reverseUiOptions, themeDetailsMap, themes } from '@/utils/themes';
 import { computed } from 'vue';
+import { isTester } from "@/core/save/testing.ts"
+
 const validNotations = computed(() =>
 	Object.values(notations).filter((v) => typeof v === 'number'),
 );
@@ -19,6 +21,7 @@ const validThemes = computed(() => Object.values(themes).filter((v) => typeof v 
 		<div class="setting_button" @click="export_file()">导出存档</div>
 		<div class="hard_reset" @click="UIHardReset">硬重置</div>
 		<div class="setting_button" @click="UIChangeSave">切换存档槽位</div>
+		<div class="setting_button" @click="UIEnterTesting">输入测试码</div>
 		<button
 			class="setting_button"
 			@click="player.options.allowOffline = !player.options.allowOffline"
@@ -72,7 +75,8 @@ const validThemes = computed(() => Object.values(themes).filter((v) => typeof v 
 			@click="player.options.ui.titlebar = !player.options.ui.titlebar"
 		>
 			标题栏：{{ player.options.ui.titlebar ? '开' : '关' }}
-		</button>
+		</button><br>
+		<span v-if="isTester()">您处于测试模式</span>
 	</div>
 	<!-- code... -->
 </template>
