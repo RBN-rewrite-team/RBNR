@@ -29,6 +29,9 @@ let highestPage = 0;
       <button class="clickable_button" @click="player.help.page = Math.min(Math.max(player.help.page - 1, 1), 1000)">-</button>
       第 {{formatWhole(player.help.page)}} 页
       <button class="clickable_button" @click="nextPage()">+</button>
+	  <br>
+	  <button class="clickable_button" @click="player.help.page = 1">序数</button>
+	  <button class="clickable_button" @click="player.help.page = 101">序数折叠函数</button>
     </div>
     <div align="center">
       <div class="center_line" />
@@ -243,6 +246,18 @@ let highestPage = 0;
       它实际上就等于<vue-latex expression="\omega^\alpha" /><br />
       没做完
     </div>
+	<div v-else-if="player.help.page == 101">
+		序数折叠函数(OCF)，用另一种方式来枚举不动点。<br />
+		其定义涉及集合论，但行为逻辑可以用非常简单的形式归纳。<br />
+		它的基本形式是<vue-latex expression="\psi(0)=\omega" />，其中的参数每增加1都会让序数乘以<vue-latex expression="\omega" /><br />
+		根据上一条定义，能表达的最大序数是<vue-latex expression="\varepsilon_0" />。<br />
+		随后OCF引入了<vue-latex expression="\Omega" />，它是第一个非递归序数。在OCF的参数末尾的<vue-latex expression="\Omega" />带来一个<vue-latex expression="\Omega" />前运算的不动点。<br />
+		<vue-latex expression="\psi(0)=\omega" /><br />
+		<vue-latex expression="\psi(X+1)=\psi(X)\cdot\omega" /><br />
+		<vue-latex expression="\psi(X*\Omega)=\alpha\mapsto\psi(X*\alpha)FP" />(其中*为加法、乘法、乘方之一)<br />
+		<vue-latex expression="\psi(sup\ \alpha[n \in N^+])[n]=\psi(\alpha[n])" /><br />
+		以上四条规则构成了一个基本的OCF。<br />
+	</div>
     <div v-else-if="player.help.page >= 4321">
       已达到当前版本残局：4321页。
       <!--<br>{{highestPage}}-!-->
