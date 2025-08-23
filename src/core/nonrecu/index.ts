@@ -61,7 +61,7 @@ export const NON_RECURSIVE = {
 	  player.nonrecu.totalPower = player.nonrecu.totalPower.add(x)
 	},
 	gain(): Decimal {
-	  let base = player.hydra.dilute.solution/(2.55e8)
+	  let base = new Decimal(player.hydra.dilute.solution/2.55e8)
 	  //let B_tmp = 
 	  return base
 	}
