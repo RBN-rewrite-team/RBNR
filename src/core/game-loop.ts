@@ -80,13 +80,13 @@ export function gameLoop() {
 	if (diff > 60000) {
 		if (player.options.allowOffline) {
 			simulateTime(diff);
-			return;
 		} else {
-			player.timeshard.value += Math.floor(diff / 150000);
+		  player.timeshard.value += Math.floor(diff / 150000)
 		}
 	}
-
+	if (player.run_a_tick_and_froze) diff = 33;
 	if (diff < 0) return;
+	if (!player.run_a_tick_and_froze) player.lastUpdated = Date.now();
 	else player.lastUpdated += 33;
 	try {
 		simulate(diff);
@@ -243,7 +243,7 @@ export function simulate(diff: number) {
 	for (let i in milestones) {
 		if (milestones[i].canDone && !player.milestones[i]) {
 			player.milestones[i as keyof typeof player.milestones] = true;
-			milestones[i]?.onDone?.();
+			milestones[i]?.onDone?.()
 		}
 	}
 
@@ -284,6 +284,4 @@ export function simulate(diff: number) {
 	ordinalSpeedDerivative = next.sub(last).div(diff / 1000);
 	let next2 = feature.Ordinal.speedDeri();
 	ordinalSpeedDerivative2 = next2.sub(last2).div(diff / 1000);
-
-	player.lastUpdated += diff; // 不写成Date.now()是为了防止在离线时间游戏退出时无法继续积累
 }

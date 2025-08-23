@@ -35,20 +35,12 @@ export function simulateTime(milliseconds: number): void {
 			modal = Modal.show({
 				showProgress: true,
 				title: '离线进度计算中',
-				content: `已完成0/${ticks}帧的计算<br>如果你不想计算，你可以按下面的“跳过”直接将离线时间转换成时间碎片。`,
-				closeOnClickMask: false,
-				onClose(...args) {
-					return onClose(...args);
+				content: `已完成0/${ticks}帧的计算`,
+				onClose() {
+					simulate(remaining);
+					startGameLoop();
+					remaining = 0;
 				},
-				buttons: [
-					{
-						text: '跳过',
-						handler() {
-							onClose();
-							modal.controller.close();
-						},
-					},
-				],
 			});
 		},
 		asyncProgress: (doneSoFar: number) => {
