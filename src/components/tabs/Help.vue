@@ -257,6 +257,14 @@ let highestPage = 0;
 		<vue-latex expression="\psi(X*\Omega)=\alpha\mapsto\psi(X*\alpha)FP" />(其中*为加法、乘法、乘方之一)<br />
 		<vue-latex expression="\psi(\sup\ \alpha[n \in N^+])[n]=\psi(\alpha[n])" /><br />
 		以上四条规则构成了一个基本的OCF，它的极限<vue-latex expression="\psi(\varepsilon_{\Omega+1})" />相当于Veblen函数的极限——BHO。<br />
+		稍微修改一下规则，可以炮制出一批这样的OCF。<br />
+		例如，对于第二个非递归序数<vue-latex expression="\Omega_2" />，只需要将<vue-latex expression="\psi(0)" />改成<vue-latex expression="\Omega" />，然后将第三条的<vue-latex expression="\Omega" />改成<vue-latex expression="\Omega_2" />。<br />
+		为了区分，这种OCF表示为<vue-latex expression="\psi_{\Omega_2}(X)" />，它输出<vue-latex expression="\Omega" />的各种不动点。<br />
+		随后，将这个新的OCF的输出结果套入原来的OCF中，极限就被扩展了。<br />
+		为了简化，如果存在<vue-latex expression="\Omega_{X}" />，则<vue-latex expression="\psi(X*\Omega_{X})=\psi(\psi_{\Omega_X}(X*\Omega_X))" /><br />
+		除了<vue-latex expression="\psi_{\Omega_2}(X)" />，还有<vue-latex expression="\psi_{\Omega_3}(X)" />，<vue-latex expression="\psi_{\Omega_4}(X)" />......<br />
+		<vue-latex expression="\Omega_\omega=\sup \Omega_{\omega[n]}" /><br />
+		将其放入OCF中，得到BO，它是很多记号的极限。<br />
 	</div>
     <div v-else-if="player.help.page >= 4321">
       已达到当前版本残局：4321页。
