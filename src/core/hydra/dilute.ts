@@ -787,4 +787,5 @@ export const Dilute = {
 } as IDilute &
 	Record<string, any> & {
 		diluteReset(): void;
+		respec(): void;
 	};
