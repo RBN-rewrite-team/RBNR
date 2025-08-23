@@ -1,6 +1,6 @@
 import Async from '@/utils/asyncs';
 import { simulate, startGameLoop, stopGameLoop } from './game-loop';
-import { player, save } from '@/core/save/';
+import { save } from '@/core/save/';
 import Modal from '@/utils/Modal';
 import { formatTime } from '@/utils/format';
 export function simulateTime(milliseconds: number): void {
@@ -18,12 +18,6 @@ export function simulateTime(milliseconds: number): void {
 		simulate(diff);
 		remaining -= diff;
 	};
-	const onClose = () => {
-		player.timeshard.value += Math.floor(remaining / 150000);
-		remaining = 0;
-		player.lastUpdated = Date.now();
-		startGameLoop();
-	};
 	const progress = {};
 	let modal: ReturnType<typeof Modal.show>;
 	Async.run(loopFn, ticks, {
@@ -35,20 +29,12 @@ export function simulateTime(milliseconds: number): void {
 			modal = Modal.show({
 				showProgress: true,
 				title: '离线进度计算中',
-				content: `已完成0/${ticks}帧的计算<br>如果你不想计算，你可以按下面的“跳过”直接将离线时间转换成时间碎片。`,
-				closeOnClickMask: false,
-				onClose(...args) {
-					return onClose(...args);
+				content: `已完成0/${ticks}帧的计算`,
+				onClose() {
+					simulate(remaining);
+					startGameLoop();
+					remaining = 0;
 				},
-				buttons: [
-					{
-						text: '跳过',
-						handler() {
-							onClose();
-							modal.controller.close();
-						},
-					},
-				],
 			});
 		},
 		asyncProgress: (doneSoFar: number) => {
