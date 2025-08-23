@@ -185,12 +185,12 @@ export interface Player {
 			prions: Decimal;
 			highestApocalypse: Decimal;
 		};
-		nonrecu: {
+	};
+	nonrecu: {
 		  power: Decimal
 		  totalPower: Decimal
 		  resetTimes: Decimal
 		}
-	};
 }
 
 function getInitialPlayerData(): Player {

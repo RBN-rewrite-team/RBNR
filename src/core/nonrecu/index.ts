@@ -14,7 +14,7 @@ export const NON_RECURSIVE = {
 			});
 			return;
 		}
-		Dilute.diluteReset(false);
+		Dilute.diluteReset();
 		player.hydra.trueTotalPower = new Decimal(0)
 		player.upgrades['61S'] = false;
 		player.upgrades['62S'] = false;
@@ -61,7 +61,7 @@ export const NON_RECURSIVE = {
 	  player.nonrecu.totalPower = player.nonrecu.totalPower.add(x)
 	},
 	gain(): Decimal {
-	  let base = player.hydra.dilute.solution.div(2.55e8)
+	  let base = player.hydra.dilute.solution/(2.55e8)
 	  //let B_tmp = 
 	  return base
 	}

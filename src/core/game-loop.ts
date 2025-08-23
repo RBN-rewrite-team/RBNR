@@ -75,6 +75,7 @@ export function qolLoop() {
  * 游戏的循环函数（并不是主要的）
  */
 export function gameLoop() {
+	updateTheme();
 	diff = Date.now() - player.lastUpdated;
 	if (diff > 60000) {
 		if (player.options.allowOffline) {
@@ -93,7 +94,6 @@ export function gameLoop() {
 		throw e;
 	}
 	if (player.singularity.stage >= 1) singularity_UI();
-	updateTheme();
 }
 function r(s: number): number {
 	return Math.random() * s * 2 - s;
