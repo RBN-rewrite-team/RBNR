@@ -190,7 +190,7 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 							稀释
 						</div>
 					</template>
-					<template v-if="player.firstResetBit & 0b10000 == 0b10000">
+					<template v-if="(player.firstResetBit & 0b10000) == 0b10000">
 
 						<div class="menu1">非递归</div>
 						<div class="menu_line"></div>
@@ -198,7 +198,7 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 							class="menu2"
 							:class="{ focus: player.currentTab == 21 }"
 							@click="player.currentTab = 21"
-							v-if="player.firstResetBit & 0b10000 == 0b10000"
+							v-if="(player.firstResetBit & 0b10000) == 0b10000"
 						>
 							非递归
 						</div>

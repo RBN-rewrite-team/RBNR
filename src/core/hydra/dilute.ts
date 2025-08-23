@@ -77,6 +77,7 @@ export function milestoneDut7Eff(): Decimal {
 
 export function milestoneDut16Eff(): Decimal {
 	return player.hydra.dilute.prions
+		.clampMin(0)
 		.log10()
 		.add(1)
 		.pow(player.milestones.dut18 ? player.hydra.milestoneDut5Eff : 1);
@@ -294,7 +295,7 @@ export const DiluteUpgrades = {
 		description: string = '解锁<b>非递归</b>(需要ψ(Ω<sub>ω</sub>)序数)';
 		cost: Decimal = new Decimal(2.3e8);
 		show(): boolean {
-			return player.upgrades["616S"] || player.milestones.dut10;
+			return player.upgrades['616S'] || player.milestones.dut10;
 		}
 		canAfford() {
 			return (
@@ -303,7 +304,7 @@ export const DiluteUpgrades = {
 			);
 		}
 		keep() {
-		  return player.upgrades["616S"]
+			return player.upgrades['616S'];
 		}
 	})(),
 };
