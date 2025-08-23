@@ -58,12 +58,11 @@ export const studies = [
 ] as const;
 
 export function buyStudies(id: number) {
-	const study = studies[id] as Study | undefined;
-	if (!study) return;
-	if (player.nonrecu.studies_bought.includes(id)) return;
-	if (!player.nonrecu.power.gte(study.cost)) return;
-
-	player.nonrecu.power = player.nonrecu.power.sub(study.cost);
-	player.nonrecu.studies_bought.push(id);
-	study.onBought();
+	// const study = studies[id] as Study | undefined;
+	// if (!study) return;
+	// if (player.nonrecu.studies_bought.includes(id)) return;
+	// if (!player.nonrecu.power.gte(study.cost)) return;
+	// player.nonrecu.power = player.nonrecu.power.sub(study.cost);
+	// player.nonrecu.studies_bought.push(id);
+	// study.onBought();
 }

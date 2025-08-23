@@ -21,7 +21,7 @@ const useClass = () => {
     <div class="study-name">{{ study.id }}</div>
     <div class="study-desc" @click="buyStudies(props.study_id)" :class="useClass()">
       <div v-html="study.description"></div>
-      <div>花费: {{ formatWhole(study.cost) }} 非递归能量</div>
+      <div>花费: {{ formatWhole(study.cost) }} 非递归理论</div>
     </div>
   </div>
 </template>
