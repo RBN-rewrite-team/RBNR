@@ -184,8 +184,16 @@ export const OrdinalUtils = {
 			--maxLength;
 			otherwise.ascend++;
 			return s + this.numberToBMS(x.log(base), base, --maxLength, otherwise);
+		} else if (x.lt(base.tetrate(base.toNumber() + 2))) {
+			return (
+				'>' +
+				this.numberToTLBMS(
+					x.iteratedlog(base, base.sub(2).toNumber()).div(base.pow(2)),
+					maxLength,
+				)
+			);
 		} else {
-			return '>' + this.numberToTLBMS(x.iteratedlog(4, 2).div(16), maxLength);
+			return `>(0,0,0,0)(1,1,1,1)`;
 		}
 	},
 
@@ -193,7 +201,7 @@ export const OrdinalUtils = {
 	 * Base 4
 	 */
 	numberToTLBMS(x: Decimal, maxLength = 15): string {
-		let bottom2R = this.numberToBMS(x, new Decimal(4), maxLength);
+		let bottom2R = this.numberToBMS(x, new Decimal(4), maxLength).replace('>', '');
 		bottom2R =
 			'[' +
 			bottom2R
