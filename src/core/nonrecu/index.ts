@@ -2,11 +2,25 @@ import ModalService from '@/utils/Modal';
 import { player } from '../save';
 import { Dilute } from '../hydra/dilute';
 import Decimal from 'break_eternity.js';
-import { isTester } from "@/core/save/testing.ts"
+import { isTester } from '@/core/save/testing.ts';
+import { MILESTONES } from '../mechanic';
+import { Currencies } from '../currencies';
 
 export const NON_RECURSIVE = {
+	initMechanics() {
+		MILESTONES.create('nonrec_1', {
+			requirement: new Decimal(1),
+			currency: '',
+			displayName: '1次非递归重置',
+			description: `1.每次非递归重置使得九头蛇能量额外乘数×7.5、获取指数+0.01<br>2.转生/飞升/超越/轮回的自动化在解锁了相应重置就立刻解锁`,
+			show: true,
+			get canDone() {
+				return player.nonrecu.resetTimes.gte(1);
+			},
+		});
+	},
 	reset() {
-	  alert("没做完")
+		alert('没做完');
 		if (!isTester()) {
 			ModalService.show({
 				title: 'WIP!',
@@ -14,8 +28,11 @@ export const NON_RECURSIVE = {
 			});
 			return;
 		}
+		if (!this.resetable()) return;
+		this.addPower(this.gain());
+		player.nonrecu.resetTimes = player.nonrecu.resetTimes.add(1);
 		Dilute.diluteReset();
-		player.hydra.trueTotalPower = new Decimal(0)
+		player.hydra.trueTotalPower = new Decimal(0);
 		player.upgrades['61S'] = false;
 		player.upgrades['62S'] = false;
 		player.upgrades['63S'] = false;
@@ -53,16 +70,29 @@ export const NON_RECURSIVE = {
 			player.hydra.dilute.solution >= 2.55e8
 		);
 	},
-	addResetGain() {
-	  
-	},
+	addResetGain() {},
 	addPower(x: Decimal) {
-	  player.nonrecu.power = player.nonrecu.power.add(x)
-	  player.nonrecu.totalPower = player.nonrecu.totalPower.add(x)
+		player.nonrecu.power = player.nonrecu.power.add(x);
+		player.nonrecu.totalPower = player.nonrecu.totalPower.add(x);
 	},
 	gain(): Decimal {
-	  let base = new Decimal(player.hydra.dilute.solution/2.55e8)
-	  //let B_tmp = 
-	  return base
-	}
+		let base = new Decimal(player.hydra.dilute.solution / 2.55e8);
+		// 4^((HS/2.55e8)(B_tmp)-1)
+
+		let B_tmp = player.hydra.deduceOrdinal[0].max(1).log(4).max(1).log(4).div(256);
+
+		base = base.mul(B_tmp).sub(1).pow_base(4);
+		return base;
+	},
+	nonrecEffects(): [Decimal, Decimal] {
+		/**
+		 * 对hydpow的乘数加成
+		 */
+		let mult1 = player.nonrecu.resetTimes.pow_base(7.5);
+		/**
+		 * 对hydpow^(expo1)的加成
+		 */
+		let expo1 = player.nonrecu.resetTimes.mul(0.05).add(1);
+		return [mult1, expo1];
+	},
 };
