@@ -9,8 +9,6 @@ const validNotations = computed(() =>
 );
 
 const validThemes = computed(() => Object.values(themes).filter((v) => typeof v == 'number'));
-
-// code...
 </script>
 
 <template>
@@ -21,6 +19,12 @@ const validThemes = computed(() => Object.values(themes).filter((v) => typeof v 
 		<div class="setting_button" @click="export_file()">导出存档</div>
 		<div class="hard_reset" @click="UIHardReset">硬重置</div>
 		<div class="setting_button" @click="UIChangeSave">切换存档槽位</div>
+		<button
+			class="setting_button"
+			@click="player.options.allowOffline = !player.options.allowOffline"
+		>
+			离线进度：{{ player.options.allowOffline ? '开' : '关' }}
+		</button>
 		<br />
 		<div v-if="player.singularity.stage < 1">
 			<div class="center_line" />

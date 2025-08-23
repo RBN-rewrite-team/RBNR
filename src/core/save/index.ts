@@ -110,6 +110,7 @@ export interface Player {
 			titlebar: boolean;
 		};
 		challengeDetial: boolean;
+		allowOffline: boolean;
 	};
 	stat: {
 		chapter: number;
@@ -272,6 +273,7 @@ function getInitialPlayerData(): Player {
 				titlebar: true,
 			},
 			challengeDetial: false,
+			allowOffline: true
 		},
 		stat: {
 			chapter: -1,
