@@ -683,6 +683,7 @@ export const Hydra = {
 				.pow(0.5)
 				.mul(1.698970004336018804)
 				.pow10();
+		if (id == 1 && base.gte(5000)) base = base.sub(4999).log10().add(5000);
 		return base;
 	},
 	deduce(i = 0, bulk = new Decimal(0)): void {
