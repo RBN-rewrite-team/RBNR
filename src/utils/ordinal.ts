@@ -201,21 +201,9 @@ export const OrdinalUtils = {
 	 * Base 4
 	 */
 	numberToTLBMS(x: Decimal, maxLength = 15): string {
-		let bottom2R = this.numberToBMS(x, new Decimal(4), maxLength).replace('>', '');
-		bottom2R =
-			'[' +
-			bottom2R
-				.replace(/\)\(/g, '],[')
-				.replace(/\(/g, '[')
-				.replace(/\)/g, ']')
-				.replace('...', '') +
-			']';
-		let bottom2RJSON: any = JSON.parse(bottom2R);
-		for (let i = 0; i < bottom2RJSON.length; i++) {
-			bottom2RJSON[i] = [i, ...bottom2RJSON[i]];
-		}
-		// return bottom2R;
-		return `(${bottom2RJSON.map((i: any) => i.join(',')).join(')(')})`;
+		return '(' + (
+		  this.numberToBMS(x, new Decimal(4), maxLength).replace(/^>/, '')
+		).slice(1, -1).split(')(').map((s, i) => `${i},${s}`).join(')(') + ')'
 	},
 	/*
 	1: 0
