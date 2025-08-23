@@ -35,6 +35,7 @@ import Accelerator from './components/tabs/Accelerator.vue';
 import TimeShard from './components/tabs/TimeShard.vue';
 import Hydra from './components/tabs/Hydra.vue';
 import HydraDilute from './components/tabs/HydraDilute.vue';
+import { NON_RECURSIVE } from './core/nonrecu/index.ts';
 </script>
 
 <template>

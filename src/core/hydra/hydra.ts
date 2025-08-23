@@ -471,8 +471,8 @@ export const Hydra = {
 			else base = base.pow(milestoneDut16Eff());
 		}
 		if (player.upgrades['615S']) {
-		  if (player.hydra.dilute.inDilute) base = base.mul(upgrades['615S'].effect())
-		  else base = base.pow(upgrades['615S'].effect())
+			if (player.hydra.dilute.inDilute) base = base.mul(upgrades['615S'].effect());
+			else base = base.pow(upgrades['615S'].effect());
 		}
 		if (Dilute.diluteAmount(3) > 0) base = base.mul(Hydra.NT4TauEffect());
 		base = base.div(5 ** (Dilute.diluteAmount(0) as number));
@@ -482,9 +482,9 @@ export const Hydra = {
 					Dilute.diluteAmount(index as IntClosedRange<0, 5>),
 				).reduce((total, num) => total + num, 1) ** 2,
 			);
-			
-		if (base.gte("ee125")) base = base.log10().div(1e125).pow(0.5).mul(1e125).pow10()
-		if (base.gte("e8.07230472602822538e153")) base = new Decimal("e8.07230472602822538e153")
+
+		if (base.gte('ee125')) base = base.log10().div(1e125).pow(0.5).mul(1e125).pow10();
+		if (base.gte('e8.07230472602822538e153')) base = new Decimal('e8.07230472602822538e153');
 		return base.div(10);
 	},
 	deduceEff(i = 0): Decimal {
@@ -801,7 +801,13 @@ export const Hydra = {
 			],
 			['\\psi(\\Omega_3^2)', new Decimal(4).pow(4 ** 16)],
 			['\\psi(\\Omega_3^{Ω_3})', new Decimal(4).pow(4 ** 64)],
-			['\\psi(\\Omega_\\omega)', new Decimal(4).tetrate(4)],
+			['\\color{yellow}\\psi(\\Omega_\\omega)\\color{default}', new Decimal(4).tetrate(4)],
+			['\\psi(\\mathrm{psd}.\\Pi_\\omega)', new Decimal('ee182.80587713171022')],
+			[
+				'\\psi(\\lambda\\alpha.(\\Omega_{\\alpha+2}) - \\Pi_1) = (0,0,0)(1,1,1)(2,2,1)',
+				new Decimal('ee616.2890708878432'),
+			],
+			['\\psi(\\omega-\\pi-\\Pi_0)', new Decimal('ee2465.8173642473444')],
 			['???', new Decimal(1e400)],
 		],
 		[],

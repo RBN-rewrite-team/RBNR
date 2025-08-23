@@ -164,18 +164,7 @@ export interface Player {
 		backupHydra?: backupHydraType;
 		dilute: {
 			inDilute: boolean;
-			solvent: [
-				number,
-				number,
-				number,
-				number,
-				number,
-				number,
-				boolean,
-				boolean,
-				boolean,
-				boolean,
-			];
+			solvent: [number, number, number, number, number, number, boolean, boolean, boolean];
 			lastSolvent: [
 				number,
 				number,
@@ -183,7 +172,6 @@ export interface Player {
 				number,
 				number,
 				number,
-				boolean,
 				boolean,
 				boolean,
 				boolean,
@@ -336,8 +324,8 @@ function getInitialPlayerData(): Player {
 			pAuto: [false, false, false, false],
 			dilute: {
 				inDilute: false,
-				solvent: [0, 0, 0, 0, 0, 0, false, false, false, false],
-				lastSolvent: [0, 0, 0, 0, 0, 0, false, false, false, false],
+				solvent: [0, 0, 0, 0, 0, 0, false, false, false],
+				lastSolvent: [0, 0, 0, 0, 0, 0, false, false, false],
 				lastDeduce: zero,
 				spentTime: 0,
 				solution: 0,
@@ -439,7 +427,7 @@ export function loadFromString(saveContent: string) {
 	const deserialized = saveSerializer.deserialize(saveContent);
 	Object.assign(player, deepMerge(player, deserialized));
 	if ((player?.version ?? 0) < 4) {
-		player.hydra.dilute.solvent = [0, 0, 0, 0, 0, 0, false, false, false, false];
+		player.hydra.dilute.solvent = [0, 0, 0, 0, 0, 0, false, false, false];
 	}
 	if ((player?.version ?? 0) < 6 && player.upgrades['69R']) {
 		Dilute.exitDilute();
