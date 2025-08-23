@@ -1,81 +1,94 @@
 import type { Directive, DirectiveBinding } from 'vue';
 
 interface HoldHandlers {
-	onStart?: (event: Event) => void;
-	onHold?: (event: Event) => void;
-	onProgress: (event: Event) => void;
-	onRelease?: (event: Event) => void;
+  onStart?: (event: Event) => void;
+  onHold?: (event: Event) => void;
+  onProgress?: (event: Event) => void;
+  onRelease?: (event: Event) => void;
 }
 
 interface HoldDirectiveValue {
-	handler: HoldHandlers;
-	delay?: number;
-	interval?: number;
+  handler: HoldHandlers;
+  delay?: number;
+  interval?: number;
 }
 
-declare global {
-	interface HTMLElement {
-		_holdStart?: (event: Event) => void;
-		_holdEnd?: (event: Event) => void;
-	}
+interface HoldElement extends HTMLElement {
+  _holdData?: {
+    start: (event: Event) => void;
+    stop: (event: Event) => void;
+    pressTimer: ReturnType<typeof setTimeout> | null;
+    progressTimer: ReturnType<typeof setInterval> | null;
+  };
 }
 
-export const vHold: Directive<HTMLElement, HoldDirectiveValue> = {
-	mounted(el: HTMLElement, binding: DirectiveBinding<HoldDirectiveValue>) {
-		const { handler, delay = 500, interval = 40 } = binding.value;
+export const vHold: Directive<HoldElement, HoldDirectiveValue> = {
+  mounted(el: HoldElement, binding: DirectiveBinding<HoldDirectiveValue>) {
+    const { handler, delay = 500, interval = 40 } = binding.value;
 
-		let pressTimer: ReturnType<typeof setTimeout> | null = null;
-		let progressTimer: ReturnType<typeof setInterval> | null = null;
+    const holdData = {
+      pressTimer: null as ReturnType<typeof setTimeout> | null,
+      progressTimer: null as ReturnType<typeof setInterval> | null,
+      start: (e: Event) => {
+        e.preventDefault();
+        e.stopPropagation();
 
-		const start = (e: Event) => {
-			if (handler.onStart) handler.onStart(e);
+        if (handler.onStart) handler.onStart(e);
 
-			pressTimer = setTimeout(() => {
-				handler.onHold?.(e);
+        if (holdData.pressTimer) clearTimeout(holdData.pressTimer);
+        if (holdData.progressTimer) clearInterval(holdData.progressTimer);
 
-				if (handler.onProgress) {
-					progressTimer = setInterval(() => handler.onProgress!(e), interval);
-				}
-			}, delay);
-		};
+        holdData.pressTimer = setTimeout(() => {
+          handler.onHold?.(e);
 
-		const stop = (e: Event) => {
-			if (pressTimer) clearTimeout(pressTimer);
-			if (progressTimer) clearInterval(progressTimer);
+          if (handler.onProgress) {
+            holdData.progressTimer = setInterval(() => {
+              handler.onProgress!(e);
+            }, interval);
+          }
+        }, delay);
+      },
+      stop: (e: Event) => {
+        e.preventDefault();
+        e.stopPropagation();
 
-			pressTimer = null;
-			progressTimer = null;
+        if (holdData.pressTimer) {
+          clearTimeout(holdData.pressTimer);
+          holdData.pressTimer = null;
+        }
+        
+        if (holdData.progressTimer) {
+          clearInterval(holdData.progressTimer);
+          holdData.progressTimer = null;
+        }
 
-			if (handler.onRelease) handler.onRelease(e);
-		};
+        if (handler.onRelease) handler.onRelease(e);
+      }
+    };
 
-		el._holdStart = start;
-		el._holdEnd = stop;
+    el._holdData = holdData;
 
-		el.addEventListener('mousedown', start);
-		el.addEventListener('touchstart', start);
-		el.addEventListener('mouseup', stop);
-		el.addEventListener('mouseleave', stop);
-		el.addEventListener('touchend', stop);
-		el.addEventListener('touchcancel', stop);
-	},
+    el.addEventListener('mousedown', holdData.start);
+    el.addEventListener('touchstart', holdData.start, { passive: false });
+    el.addEventListener('mouseup', holdData.stop);
+    el.addEventListener('mouseleave', holdData.stop);
+    el.addEventListener('touchend', holdData.stop);
+    el.addEventListener('touchcancel', holdData.stop);
+  },
 
-	unmounted(el: HTMLElement) {
-		stop();
-		
-		if (el._holdStart) {
-			el.removeEventListener('mousedown', el._holdStart);
-			el.removeEventListener('touchstart', el._holdStart);
-		}
+  unmounted(el: HoldElement) {
+    if (!el._holdData) return;
 
-		if (el._holdEnd) {
-			el.removeEventListener('mouseup', el._holdEnd);
-			el.removeEventListener('mouseleave', el._holdEnd);
-			el.removeEventListener('touchend', el._holdEnd);
-			el.removeEventListener('touchcancel', el._holdEnd);
-		}
+    if (el._holdData.pressTimer) clearTimeout(el._holdData.pressTimer);
+    if (el._holdData.progressTimer) clearInterval(el._holdData.progressTimer);
 
-		delete el._holdStart;
-		delete el._holdEnd;
-	},
+    el.removeEventListener('mousedown', el._holdData.start);
+    el.removeEventListener('touchstart', el._holdData.start);
+    el.removeEventListener('mouseup', el._holdData.stop);
+    el.removeEventListener('mouseleave', el._holdData.stop);
+    el.removeEventListener('touchend', el._holdData.stop);
+    el.removeEventListener('touchcancel', el._holdData.stop);
+
+    delete el._holdData;
+  },
 };
