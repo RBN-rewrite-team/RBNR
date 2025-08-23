@@ -206,7 +206,7 @@ import { format } from '@/utils/format';
 					/>
 				</div>
 			</div>
-			<div style="margin-left: 620px" class="resource" v-if="player.upgrades['616S']">
+			<div style="margin-left: 685px" class="resource" v-if="player.upgrades['616S']">
 				<div style="font-weight: bold; color: rgb(201, 131, 0)">
 					非递归能量&nbsp;
 					<div style="display: inline; text-shadow: rgb(201, 131, 0) 1px 1px 2px">

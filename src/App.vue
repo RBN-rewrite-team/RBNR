@@ -63,7 +63,7 @@ import NonRecursionTab from './components/tabs/nonrecursion/NonRecursionTab.vue'
 					"
 				/>
 				<Successor v-if="player.currentTab === 0" />
-				<NonRecursionResetButton v-if="isTester() && player.upgrades['616S']" />
+				<NonRecursionResetButton v-if="player.upgrades['616S']" />
 				<Settings v-if="player.currentTab === 1" />
 				<Addition v-if="player.currentTab === 2" />
 				<Multip v-if="player.currentTab === 4" />
