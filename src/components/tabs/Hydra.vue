@@ -6,6 +6,7 @@ import TDBuyable from '../TDBuyable.vue';
 import { OrdinalUtils } from '@/utils/ordinal';
 import Decimal from 'break_eternity.js';
 import { Dilute } from '@/core/hydra/dilute';
+import { ref } from "vue"
 
 function powerFactorHTML(): string {
 	let s = '';
@@ -116,8 +117,8 @@ function hydraAxisHTML(): string {
 	return s;
 }
 
-let autoHydraReset: boolean = false
-setInterval(()=>{if(autoHydraReset){feature.Hydra.hydraReset(player.hydra.visiting)}})
+let autoHydraReset = ref(false)
+setInterval(()=>{if(autoHydraReset.value){feature.Hydra.hydraReset(player.hydra.visiting)}})
 </script>
 
 <template>
