@@ -14,10 +14,17 @@ export const TimeShard = {
 			}
 		} else if (id == 1) {
 			if (dn >= player.timeshard.cd[1]) {
-				const r = Math.floor(Math.random() * 120) + 30;
+				const r = Math.floor(Math.random() * 320) + 80;
 				player.timeshard.value += r;
 				player.timeshard.cd[1] = dn + 24 * 60 * 60 * 1000;
 				player.timeshard.last[1] = r;
+			}
+		} else if (id == 2) {
+			if (dn >= player.timeshard.cd[2]) {
+				const r = Math.floor(Math.random() * 4000) + 1000;
+				player.timeshard.value += r;
+				player.timeshard.cd[2] = dn + 7 * 24 * 60 * 60 * 1000;
+				player.timeshard.last[2] = r;
 			}
 		}
 	},

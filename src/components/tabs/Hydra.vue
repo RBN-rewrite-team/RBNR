@@ -137,16 +137,16 @@ function hydraAxisHTML(): string {
 								>{{
 									feature.Hydra.deduceSpeed().gte(1)
 										? format(feature.Hydra.deduceSpeed()) + '/s'
-										: '/' + format(feature.Hydra.deduceSpeed().recip()) + 's'
+										: '1/' + format(feature.Hydra.deduceSpeed().recip()) + 's'
 								}}</span
 							>
 							<span class="hydra-text">
-								{{
+								<span v-html="
 									OrdinalUtils.numberToBMS(
 										player.hydra.deduceOrdinal[0],
 										new Decimal(4),
 									)
-								}}
+								" />
 							</span>
 							<span
 								class="hydra-text-bottom"
@@ -182,12 +182,12 @@ function hydraAxisHTML(): string {
 								>{{ format(feature.Hydra.deduceSpeed()) }}/s</span
 							>
 							<span class="hydra-text">
-								{{
+								<span v-html="
 									OrdinalUtils.numberToBMS(
 										player.hydra.deduceOrdinal[0],
 										new Decimal(4),
 									)
-								}}
+								" />
 							</span>
 							<span
 								class="hydra-text-bottom"
@@ -432,6 +432,7 @@ function hydraAxisHTML(): string {
 			<tr v-if="Dilute.diluteAmount(6) || player.upgrades[614]">
 				<TDUpgrade upgid="65" />
 				<TDUpgrade upgid="66" />
+				<TDUpgrade upgid="6114" />
 				<TDUpgrade upgid="6113" />
 			</tr>
 			<tr v-if="Dilute.diluteAmount(6) || player.upgrades[65]">

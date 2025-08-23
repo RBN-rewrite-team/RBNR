@@ -184,101 +184,13 @@ export const OrdinalUtils = {
 			--maxLength;
 			otherwise.ascend++;
 			return s + this.numberToBMS(x.log(base), base, --maxLength, otherwise);
-		} else {
-			otherwise = { basic: [0, 0], dimension: 1, ascend: 0, id: 0 };
-			return this.numberToTLBMS(x.iteratedlog(base), base, maxLength, otherwise);
-		}
-	},
-	numberToTLBMS(
-		x: Decimal,
-		base: Decimal,
-		maxLength = 15,
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		otherwise: any = { basic: [0, 0], dimension: 1, ascend: 0, id: 0 },
-	): string {
-		//数值转BMS（最多三行）
-		if (maxLength <= 0) return '...';
-
-		if (x.lt(1)) return '';
-		else if (x.lt(base))
+		} else if (x.lt(base.tetrate(base.toNumber() + 2))) {
 			return (
-				bracket(otherwise.dimension, otherwise.ascend, otherwise.id++, ...otherwise.basic) +
-				this.numberToTLBMS(x.sub(1), base, --maxLength, otherwise)
+				'>(' + (this.numberToBMS(x.iteratedlog(base, base.sub(2).toNumber()).div(base.pow(2)), new Decimal(4), maxLength).replace(/^>/, '')).slice(1, -1).split(')(').map((s, i) => `${i},${s}`).join(')(') + ')'
 			);
-		else if (x.lt(base.pow(2))) {
-			const s = bracket(
-				otherwise.dimension,
-				otherwise.ascend,
-				otherwise.id++,
-				...otherwise.basic,
-			);
-			otherwise.basic = [otherwise.basic[0] + 1, ...otherwise.basic.slice(1)];
-			return s + this.numberToTLBMS(x.sub(base).add(1), base, --maxLength, otherwise);
-		} else if (x.lt(base.pow(base.pow(base)))) {
-			otherwise.dimension = Math.max(otherwise.dimension, 2);
-			let log = x.log(base);
-			let s = bracket(
-				otherwise.dimension,
-				otherwise.ascend,
-				otherwise.id++,
-				otherwise.basic[0]++,
-				otherwise.basic[1]++,
-			);
-			--maxLength;
-			s += bracket(otherwise.dimension, otherwise.ascend, otherwise.id++, ...otherwise.basic);
-			--maxLength;
-			let flag = false,
-				boost = 1;
-			if (log.gte(base)) flag = true;
-			while ((log.gte(3) && !flag) || (log.gte(1) && flag)) {
-				if (log.gte(base.pow(boost))) {
-					s += bracket(
-						otherwise.dimension,
-						otherwise.ascend,
-						otherwise.id++,
-						++otherwise.basic[0],
-						otherwise.basic[1] + 1,
-					);
-					--maxLength;
-					if (log.lt(base.pow(boost + 1))) log = log.sub(base.pow(boost));
-					boost++;
-				} else {
-					s += bracket(
-						otherwise.dimension,
-						otherwise.ascend,
-						otherwise.id++,
-						++otherwise.basic[0],
-						1,
-					);
-					--maxLength;
-					log = log.sub(1);
-					if (boost > 1) boost = 1;
-				}
-			}
-
-			const k = x.log(base).floor().pow_base(base);
-			const residue = x.sub(k);
-
-			if (residue.gte(base.sub(1))) {
-				otherwise.basic[0]++;
-				otherwise.basic[1] = 0;
-				return (
-					s + this.numberToTLBMS(residue.sub(base).add(2), base, --maxLength, otherwise)
-				);
-			} else {
-				otherwise.dimension = 2;
-				return s + this.numberToTLBMS(residue, base, --maxLength, otherwise);
-			}
-		} else if (x.lt(base.tetrate(base.toNumber()))) {
-			const s = bracket(
-				Math.max(otherwise.dimension, 2),
-				otherwise.ascend,
-				otherwise.id++,
-				...otherwise.basic,
-			);
-			otherwise.ascend++;
-			return s + this.numberToTLBMS(x.log(base), base, --maxLength, otherwise);
-		} else return 'Limit';
+		} else {
+			return `(0)(1<sup>ω</sup>)`;
+		}
 	},
 	/*
 	1: 0

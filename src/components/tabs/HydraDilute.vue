@@ -14,7 +14,7 @@ function getCurrentSolution() {
 
 function getSliderProps(id = 0) {
 	return {
-		min: id == 0 ? 0 : Math.min(minS1Level(), 9),
+		min: (id == 0||id==6) ? 0 : Math.min(minS1Level(), 9),
 		max: 10,
 		width: '24rem',
 		valueInDot: true,
@@ -23,9 +23,11 @@ function getSliderProps(id = 0) {
 		'dot-height': '1.6rem',
 		'dot-class': 'slider-dot-class-dilute',
 		'process-class': 'slider-process-class-dilute',
+		interval: id==6?player.milestones.dut11?0.25:0.5:1,
 		style: {
 			'margin-top': '1rem',
 		},
+		plusMinusButtons: true,
 	};
 }
 
@@ -83,12 +85,12 @@ setInterval(function () {
 	你有<b style="color: red; font-size: 30px">{{ format(getCurrentSolution()) }}</b
 	><span v-if="player.hydra.dilute.inDilute">(本次{{ format(Dilute.solutionGain()) }})</span
 	>九头蛇溶液<br />
-	推演速度×{{ format(Dilute.solutionEff().eff1) }}
-	<span v-if="player.hydra.dilute.prionsTime > 0"
+	推演速度×{{ format(Dilute.solutionEff().eff1) }}<br>
+	<span v-if="player.upgrades['69S'] || player.hydra.dilute.prions.gt(1)"
 		>你有<b style="color: red; font-size: 30px">{{ format(Dilute.prions()) }}</b
-		>/{{format(player.hydra.totalDeduceOrdinal[0])}}朊病毒<br /><br
+		><span v-if="!player.upgrades['69S']">/{{format(player.hydra.totalDeduceOrdinal[0])}}</span>朊病毒<br /><br
 	/></span>
-	<div>
+	<div v-if="!player.upgrades['614S']">
 		启动稀释后，溶剂{{
 			(() => {
 				let a = 1000 / Dilute.diluteAmountOutside(2) ** 2 - player.hydra.dilute.spentTime;
@@ -98,9 +100,8 @@ setInterval(function () {
 						: '不会自毁'
 					: '将会在' + a.toFixed(3) + '秒后自毁';
 			})()
-		}}
+		}}<br />
 	</div>
-	<br />
 	部分溶剂将限制溶剂I的最低等级!<br />
 	<div class="container" style="transform: translateY(-10px)">
 		<div class="dilute">
@@ -269,11 +270,11 @@ setInterval(function () {
 									</div>
 									<div>
 										推演速度^{{
-											(Dilute.diluteAmountOutside(5) * -0.1 + 1).toFixed(1)
+											(Dilute.diluteAmountOutside(5) * -0.1 + 1).toFixed(2)
 										}}(在其它乘数削弱效果之前)
 									</div>
 									<Slider
-										v-bind="getSliderProps()"
+										v-bind="getSliderProps(6)"
 										:value="player.hydra.dilute.solvent[5]"
 										:width="'100%'"
 										:disabled="canChangeLevel"
@@ -294,7 +295,7 @@ setInterval(function () {
 									<div class="solvent-desc-small">
 										“你发现天上那些黑点不是雨，而是坠落的人类。”
 									</div>
-									<div>转生，飞升，超越，轮回全部无效</div>
+									<div>转生，飞升，超越，轮回全部无效，禁用B5-1-2</div>
 									<Slider
 										v-bind="sliderProps2"
 										:value="Number(player.hydra.dilute.solvent[6])"
@@ -367,18 +368,26 @@ setInterval(function () {
 			<tr>
 				<TDUpgrade upgid="65S" />
 				<TDUpgrade upgid="66S" />
+				<TDUpgrade upgid="67S" />
+				<TDUpgrade upgid="68S" />
+			</tr>
+			<tr>
+				<TDUpgrade upgid="69S" />
+				<TDUpgrade upgid="610S" />
+				<TDUpgrade upgid="611S" />
+				<TDUpgrade upgid="612S" />
+			</tr>
+			<tr>
+				<TDUpgrade upgid="613S" />
+				<TDUpgrade upgid="614S" />
+				<TDUpgrade upgid="615S" />
+				<TDUpgrade upgid="616S" />
 			</tr>
 		</tbody>
 	</table>
 	<table align="center" style="transform: translateY(80px)">
 		<tbody class="milestones">
-			<TRMilestone id="dut1" />
-			<TRMilestone id="dut2" />
-			<TRMilestone id="dut3" />
-			<TRMilestone id="dut4" />
-			<TRMilestone id="dut5" />
-			<TRMilestone id="dut6" />
-			<TRMilestone id="dut7" />
+			<TRMilestone :id="'dut'+i" v-for="i in 18" :key="i" />
 		</tbody>
 	</table>
 </template>

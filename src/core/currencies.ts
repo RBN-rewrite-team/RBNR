@@ -128,6 +128,7 @@ class T4Currency extends Currency {
 class SolutionCurrency extends Currency {
 	static name = '九头蛇溶液';
 	static set current(x: Decimal) {
+	  if (player.milestones.dut10) return
 		player.hydra.dilute.solutionCost = new Decimal(player.hydra.dilute.solution).sub(x).clamp(0, Number.MAX_VALUE).toNumber();
 	}
 

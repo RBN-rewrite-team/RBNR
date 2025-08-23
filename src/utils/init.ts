@@ -14,9 +14,6 @@ import { Dilute } from '@/core/hydra/dilute.ts';
 import { startGameLoop } from '@/core/game-loop';
 
 export function init() {
-	loadSaves();
-	player.frozen = false;
-	player.run_a_tick_and_froze = false;
 	feature.SUCCESSOR.initMechanics();
 	feature.ADDITION.initMechanics();
 	feature.MULTIPLICATION.initMechanics();
@@ -27,6 +24,9 @@ export function init() {
 	feature.ChessBoard.initMechanics();
 	Logarithm.initMechanics();
 	Dilute.initMechanics();
+	loadSaves();
+	player.frozen = false;
+	player.run_a_tick_and_froze = false;
 	startGameLoop();
 	const app = createApp(App);
 
@@ -45,5 +45,10 @@ export function init() {
 	hotkeys('e', (event) => {
 		event.preventDefault();
 		feature.EXPONENTION.UIreset();
+	});
+	
+	hotkeys('h', (event) => {
+		event.preventDefault();
+		feature.Hydra.hydraReset(player.hydra.visiting)
 	});
 }
