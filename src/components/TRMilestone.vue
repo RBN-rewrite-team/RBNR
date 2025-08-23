@@ -30,7 +30,8 @@ const id = props.id as keyof typeof player.milestones;
 <style lang="scss" scoped>
 .milestone {
 	width: 600px;
-	height: 70px;
+	height: fit-content;
+	min-height: 70px;
 	border: 2px solid red;
 	text-align: center;
 	line-height: 1.4;
