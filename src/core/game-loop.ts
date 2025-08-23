@@ -81,7 +81,7 @@ export function gameLoop() {
 		if (player.options.allowOffline) {
 			simulateTime(diff);
 		} else {
-		  player.timeshard.value += Math.floor(diff / 150000)
+			player.timeshard.value += Math.floor(diff / 150000);
 		}
 	}
 	if (player.run_a_tick_and_froze) diff = 33;
@@ -136,6 +136,9 @@ export function simulate(diff: number) {
 	}
 	let last = feature.Ordinal.ordinalPerSecond();
 	let last2 = feature.Ordinal.speedDeri();
+	let pre_cardinal_diff = diff;
+
+	if (player.nonrecu.studies_bought.includes(1)) pre_cardinal_diff *= 2;
 	qolLoop();
 	CHALLENGE.challengeLoop();
 	if (player.singularity.stage < 11) {
@@ -243,7 +246,7 @@ export function simulate(diff: number) {
 	for (let i in milestones) {
 		if (milestones[i].canDone && !player.milestones[i]) {
 			player.milestones[i as keyof typeof player.milestones] = true;
-			milestones[i]?.onDone?.()
+			milestones[i]?.onDone?.();
 		}
 	}
 
@@ -270,12 +273,12 @@ export function simulate(diff: number) {
 		player.singularity.t = Math.min(player.singularity.t, 710);
 	}
 	if (player.upgrades[517]) {
-		feature.Hydra.hydraUpdate(diff / 1000);
-		Dilute.diluteLoop(diff);
+		feature.Hydra.hydraUpdate(pre_cardinal_diff / 1000);
+		Dilute.diluteLoop(pre_cardinal_diff);
 	}
 
 	if (player.upgrades[58]) {
-		feature.OrdinalNT.varGainLoop(diff / 1000);
+		feature.OrdinalNT.varGainLoop(pre_cardinal_diff / 1000);
 	}
 
 	Logarithm.astronomerUpdate();
