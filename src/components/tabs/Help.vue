@@ -248,10 +248,17 @@ let highestPage = 0;
       1. <vue-latex expression="\varphi(0,\alpha)=\varphi(\alpha)"></vue-latex><br />
       2. <vue-latex expression="\varphi(\alpha+1,0)=\beta\mapsto\varphi(\alpha,\beta)\textrm{ fp.}"></vue-latex><br />
       3. <vue-latex expression="\varphi(\alpha+1,\beta+1)=\gamma\mapsto\varphi(\alpha,\gamma)\textrm{ fp. }\varphi(\alpha+1,\beta)"></vue-latex><br />
+      4. 对于任意极限序数<vue-latex expression="\alpha, \varphi(\alpha,\beta+1)=\sup\{\varphi(\gamma,\varphi(\alpha,\beta)+1)|\gamma<\alpha\}"></vue-latex><br />
+      5. 对于任意极限序数<vue-latex expression="\gamma"></vue-latex>, 有<vue-latex expression="\varphi(\gamma, 0) = \sup\{\varphi(\beta, 0)|\beta<\gamma\}"></vue-latex>。<br />
       例如<vue-latex expression="\varphi(1,0) = \beta\mapsto\omega^{\beta} \textrm{ fp.} = \varepsilon_0"></vue-latex>,<br />
       <vue-latex expression="\varphi(1,1) = \gamma\mapsto\omega^\gamma\textrm{ fp. }\varphi(1,0) = \varepsilon_1"></vue-latex>,<br/>
-      我们可以推导出<vue-latex expression="\varphi(1,\alpha) = \varepsilon_\alpha"></vue-latex>，同样的，<vue-latex expression="\varphi(2,\alpha) = \zeta_\alpha"></vue-latex>，<vue-latex expression="\varphi(3,\alpha) = \eta_\alpha"></vue-latex>。
+      我们可以推导出<vue-latex expression="\varphi(1,\alpha) = \varepsilon_\alpha"></vue-latex>，同样的，<vue-latex expression="\varphi(2,\alpha) = \zeta_\alpha"></vue-latex>，<vue-latex expression="\varphi(3,\alpha) = \eta_\alpha"></vue-latex>。<br/>
       
+
+    </div>
+    <div v-else-if="player.help.epsilon && player.help.page == 10">
+      接下来定义一个序数,<vue-latex expression="\Gamma_0 = \alpha\mapsto\varphi(\alpha,0)\textrm{ fp.} = \varphi(1,0,0)"></vue-latex>
+      <br />没做完
     </div>
 	<div v-else-if="player.help.page == 101">
 		序数折叠函数(OCF)，用另一种方式来枚举不动点。<br />
