@@ -1,6 +1,7 @@
 import Decimal from 'break_eternity.js';
 import { player } from './save';
 import { feature } from './global';
+import { getTotalTheories } from './nonrecu/studies';
 
 export enum Currencies {
 	NUMBER = 'number',
@@ -14,6 +15,7 @@ export enum Currencies {
 	T4 = 'τ4',
 	SOLUTION = 'solution',
 	NONREC = 'nonrec',
+	NRT = 'nrt',
 }
 
 abstract class Currency {
@@ -150,6 +152,16 @@ class NonRecCurrency extends Currency {
 		return player.nonrecu.power;
 	}
 }
+class NRTCurrency extends Currency {
+	static name = '非递归理论';
+	static set current(x: Decimal) {
+		player.nonrecu.spentTheories = getTotalTheories().sub(x);
+	}
+
+	static get current() {
+		return getTotalTheories().sub(player.nonrecu.spentTheories);
+	}
+}
 const currencyMap: Map<Currencies, typeof Currency> = new Map([
 	[Currencies.NUMBER, NumberCurrency],
 	[Currencies.ADDITION_POWER, AdditionPowerCurrency],
@@ -162,6 +174,7 @@ const currencyMap: Map<Currencies, typeof Currency> = new Map([
 	[Currencies.T4, T4Currency],
 	[Currencies.SOLUTION, SolutionCurrency],
 	[Currencies.NONREC, NonRecCurrency],
+	[Currencies.NRT, NRTCurrency],
 ]);
 
 export function setCurrency(currency: Currencies, value: Decimal) {

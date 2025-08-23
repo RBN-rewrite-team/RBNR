@@ -66,3 +66,7 @@ export function buyStudies(id: number) {
 	// player.nonrecu.studies_bought.push(id);
 	// study.onBought();
 }
+
+export function getTotalTheories() {
+	return player.nonrecu.theories.reduce((a, b) => a.add(b));
+}

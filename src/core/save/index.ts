@@ -191,6 +191,8 @@ export interface Player {
 		totalPower: Decimal;
 		resetTimes: Decimal;
 		studies_bought: number[];
+		theories: [Decimal, Decimal, Decimal];
+		spentTheories: Decimal;
 	};
 }
 
@@ -348,6 +350,8 @@ function getInitialPlayerData(): Player {
 			totalPower: zero,
 			resetTimes: zero,
 			studies_bought: [],
+			theories: [zero, zero, zero],
+			spentTheories: zero,
 		},
 	};
 }
