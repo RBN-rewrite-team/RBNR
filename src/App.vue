@@ -38,6 +38,8 @@ import Hydra from './components/tabs/Hydra.vue';
 import HydraDilute from './components/tabs/HydraDilute.vue';
 
 import { isTester } from "@/core/save/testing.ts"
+import PlotTab from './components/tabs/plot/PlotTab.vue';
+import PlotView from './components/tabs/plot/PlotView.vue';
 </script>
 
 <template>
@@ -81,6 +83,7 @@ import { isTester } from "@/core/save/testing.ts"
 				<TimeShard v-if="player.currentTab === 18" />
 				<Hydra v-if="player.currentTab === 19" />
 				<HydraDilute v-if="player.currentTab === 20" />
+				<PlotTab v-if="player.currentTab === 200" />
 				<div class="main" v-if="player.currentTab === 3">
 					<h1>大数之路重制版</h1>
 					版本: v0.5<br />
@@ -115,6 +118,7 @@ import { isTester } from "@/core/save/testing.ts"
 	</div>
 	<BlackHole />
 	<Chapter />
+	<PlotView/>
 </template>
 
 <style scoped></style>
