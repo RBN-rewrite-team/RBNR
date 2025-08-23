@@ -28,6 +28,7 @@ export const NON_RECURSIVE = {
 			return;
 		}
 		if (!this.resetable()) return;
+		player.firstResetBit |= 0b10000
 		this.addPower(this.gain());
 		player.nonrecu.resetTimes = player.nonrecu.resetTimes.add(1);
 		Dilute.diluteReset();
