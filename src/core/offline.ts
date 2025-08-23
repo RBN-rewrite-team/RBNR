@@ -44,6 +44,7 @@ export function simulateTime(milliseconds: number): void {
 			modal.controller.updateProgress((doneSoFar / ticks) * 100);
 		},
 		asyncExit: () => {
+			startGameLoop();
 			modal.controller.close();
 		},
 		then: save,
