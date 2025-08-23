@@ -728,13 +728,13 @@ export const Hydra = {
 			if (player.upgrades[65]) NT4Boost = NT4Boost.mul(Hydra.NT4TauEffect());
 			player.hydra.power = player.hydra.power.add(
 				Hydra.hydraPowerPassiveGeneration().mul(diff),
-			); // 已经加速过了，不用再写一遍
+			).min('e326649'); // 已经加速过了，不用再写一遍
 			player.hydra.totalPower = player.hydra.totalPower.add(
 				Hydra.hydraPowerPassiveGeneration().mul(diff),
-			);
+			).min('e326649')
 			player.hydra.trueTotalPower = player.hydra.trueTotalPower.add(
 				Hydra.hydraPowerPassiveGeneration().mul(diff),
-			);
+			).min('e326649');
 			player.hydra.powerMult[0] = player.hydra.powerMult[0].add(
 				Hydra.deduceEff(0)
 					.mul(player.hydra.deduceOrdinal[0])
