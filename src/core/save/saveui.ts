@@ -62,7 +62,7 @@ export function UIChangeSave() {
 
 export function UIEnterTesting() {
 	ModalService.show({
-		title: '切换存档',
+		title: '输入测试码',
 		fields: [
 			{
 				type: 'input',
