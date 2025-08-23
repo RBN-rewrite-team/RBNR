@@ -244,7 +244,14 @@ let highestPage = 0;
       很相似。在各种各样的序数映射之下，不动点的结构可以变得非常复杂。<br />假如我们利用数阵型记号对不动点的层次结构进行标记，那么我们将得到Veblen函数。<br />
       最简单的Veblen 函数是只包含一个序数变量<vue-latex expression="\alpha" />的一元Veblen函数<vue-latex expression="\varphi(\alpha)" />，<br />
       它实际上就等于<vue-latex expression="\omega^\alpha" /><br />
-      没做完
+      接下来有二元Veblen函数<vue-latex expression="\varphi(\alpha,\beta)"></vue-latex>。<br/>
+      1. <vue-latex expression="\varphi(0,\alpha)=\varphi(\alpha)"></vue-latex><br />
+      2. <vue-latex expression="\varphi(\alpha+1,0)=\beta\mapsto\varphi(\alpha,\beta)\textrm{ fp.}"></vue-latex><br />
+      3. <vue-latex expression="\varphi(\alpha+1,\beta+1)=\gamma\mapsto\varphi(\alpha,\gamma)\textrm{ fp. }\varphi(\alpha+1,\beta)"></vue-latex><br />
+      例如<vue-latex expression="\varphi(1,0) = \beta\mapsto\omega^{\beta} \textrm{ fp.} = \varepsilon_0"></vue-latex>,<br />
+      <vue-latex expression="\varphi(1,1) = \gamma\mapsto\omega^\gamma\textrm{ fp. }\varphi(1,0) = \varepsilon_1"></vue-latex>,<br/>
+      我们可以推导出<vue-latex expression="\varphi(1,\alpha) = \varepsilon_\alpha"></vue-latex>，同样的，<vue-latex expression="\varphi(2,\alpha) = \zeta_\alpha"></vue-latex>，<vue-latex expression="\varphi(3,\alpha) = \eta_\alpha"></vue-latex>。
+      
     </div>
 	<div v-else-if="player.help.page == 101">
 		序数折叠函数(OCF)，用另一种方式来枚举不动点。<br />
