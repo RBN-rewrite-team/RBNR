@@ -217,7 +217,7 @@ import { format } from '@/utils/format';
 }
 .background {
 	width: 100%;
-	overflow: scroll;
+	overflow: auto;
 }
 * {
 	white-space: nowrap;

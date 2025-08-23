@@ -185,6 +185,11 @@ export interface Player {
 			prions: Decimal;
 			highestApocalypse: Decimal;
 		};
+		nonrecu: {
+		  power: Decimal
+		  totalPower: Decimal
+		  resetTimes: Decimal
+		}
 	};
 }
 
@@ -337,6 +342,11 @@ function getInitialPlayerData(): Player {
 				highestApocalypse: zero,
 			},
 		},
+		nonrecu: {
+		  power: zero,
+		  totalPower: zero,
+		  resetTimes: zero,
+		}
 	};
 }
 

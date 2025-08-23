@@ -18,6 +18,7 @@ import MultipChals from './components/tabs/MultipChals.vue';
 import AdditionResetButton from './components/AdditionResetButton.vue';
 import MultipResetButton from './components/MultipResetButton.vue';
 import ExpResetButton from './components/ExpResetButton.vue';
+import NonRecursionResetButton from './components/NonRecursionResetButton.vue';
 import Resources from './components/Resources.vue';
 
 import ExpUpgrades from './components/tabs/ExpUpgrades.vue';
@@ -35,7 +36,8 @@ import Accelerator from './components/tabs/Accelerator.vue';
 import TimeShard from './components/tabs/TimeShard.vue';
 import Hydra from './components/tabs/Hydra.vue';
 import HydraDilute from './components/tabs/HydraDilute.vue';
-import { NON_RECURSIVE } from './core/nonrecu/index.ts';
+
+import { isTester } from "@/core/save/testing.ts"
 </script>
 
 <template>
@@ -58,6 +60,7 @@ import { NON_RECURSIVE } from './core/nonrecu/index.ts';
 					"
 				/>
 				<Successor v-if="player.currentTab === 0" />
+				<NonRecursionResetButton v-if="isTester() && player.upgrades['616S']" />
 				<Settings v-if="player.currentTab === 1" />
 				<Addition v-if="player.currentTab === 2" />
 				<Multip v-if="player.currentTab === 4" />
