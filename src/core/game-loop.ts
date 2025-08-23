@@ -77,10 +77,10 @@ export function qolLoop() {
 export function gameLoop() {
 	diff = Date.now() - player.lastUpdated;
 	if (diff > 60000) {
-		if (!import.meta.env.DEV) {
+		if (player.options.allowOffline) {
 			simulateTime(diff);
 		} else {
-			diff = 0;
+		  player.timeshard.value += Math.floor(diff / 150000)
 		}
 	}
 	if (player.run_a_tick_and_froze) diff = 33;
