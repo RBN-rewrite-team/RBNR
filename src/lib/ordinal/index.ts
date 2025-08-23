@@ -24,7 +24,7 @@ export class Ordinal {
 			return calculate(
 				OrdinalUtils.numberToBMS(player.hydra.deduceOrdinal[0], new Decimal(4), 20)
 					.replace('...', '')
-					.replace('>', ''),
+					.replace(/^>/, ''),
 			);
 		}
 		//return displayOrd(ord, base)
