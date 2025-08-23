@@ -1,8 +1,7 @@
 import Decimal from 'break_eternity.js';
 import { player } from './save';
 import { feature } from './global';
-import { getTotalTheories } from './nonrecu/studies';
-
+import { getTotalTheories } from './nonrecu/total-theories';
 export enum Currencies {
 	NUMBER = 'number',
 	ADDITION_POWER = 'addition',
