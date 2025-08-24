@@ -1,7 +1,7 @@
 import Decimal from 'break_eternity.js';
 import { player } from './save';
 import { feature } from './global';
-
+import { getTotalTheories } from './nonrecu/total-theories';
 export enum Currencies {
 	NUMBER = 'number',
 	ADDITION_POWER = 'addition',
@@ -13,6 +13,8 @@ export enum Currencies {
 	X4 = 'x4',
 	T4 = 'τ4',
 	SOLUTION = 'solution',
+	NONREC = 'nonrec',
+	NRT = 'nrt',
 }
 
 abstract class Currency {
@@ -128,15 +130,37 @@ class T4Currency extends Currency {
 class SolutionCurrency extends Currency {
 	static name = '九头蛇溶液';
 	static set current(x: Decimal) {
-	  if (player.milestones.dut10) return
-		player.hydra.dilute.solutionCost = new Decimal(player.hydra.dilute.solution).sub(x).clamp(0, Number.MAX_VALUE).toNumber();
+		if (player.milestones.dut10) return;
+		player.hydra.dilute.solutionCost = new Decimal(player.hydra.dilute.solution)
+			.sub(x)
+			.clamp(0, Number.MAX_VALUE)
+			.toNumber();
 	}
 
 	static get current() {
-		return new Decimal(player.hydra.dilute.solution - player.hydra.dilute.solutionCost)
+		return new Decimal(player.hydra.dilute.solution - player.hydra.dilute.solutionCost);
 	}
 }
+class NonRecCurrency extends Currency {
+	static name = '非递归能量';
+	static set current(x: Decimal) {
+		player.nonrecu.power = x;
+	}
 
+	static get current() {
+		return player.nonrecu.power;
+	}
+}
+class NRTCurrency extends Currency {
+	static name = '非递归理论';
+	static set current(x: Decimal) {
+		player.nonrecu.spentTheories = getTotalTheories().sub(x);
+	}
+
+	static get current() {
+		return getTotalTheories().sub(player.nonrecu.spentTheories);
+	}
+}
 const currencyMap: Map<Currencies, typeof Currency> = new Map([
 	[Currencies.NUMBER, NumberCurrency],
 	[Currencies.ADDITION_POWER, AdditionPowerCurrency],
@@ -147,7 +171,9 @@ const currencyMap: Map<Currencies, typeof Currency> = new Map([
 	[Currencies.HYDRA_POWER, HydraPowerCurrency],
 	[Currencies.X4, X4Currency],
 	[Currencies.T4, T4Currency],
-	[Currencies.SOLUTION, SolutionCurrency]
+	[Currencies.SOLUTION, SolutionCurrency],
+	[Currencies.NONREC, NonRecCurrency],
+	[Currencies.NRT, NRTCurrency],
 ]);
 
 export function setCurrency(currency: Currencies, value: Decimal) {

@@ -17,7 +17,7 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 					>
 						大数之路重制版
 					</div>
-					<div style="font-size: 20px">v0.5</div>
+					<div style="font-size: 20px">v0.6 Beta</div>
 				</div>
 			</div>
 		</div>
@@ -190,6 +190,20 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 							稀释
 						</div>
 					</template>
+					<template v-if="(player.firstResetBit & 0b10000) == 0b10000">
+
+						<div class="menu1">非递归</div>
+						<div class="menu_line"></div>
+						<div
+							class="menu2"
+							:class="{ focus: player.currentTab == 21 }"
+							@click="player.currentTab = 21"
+							v-if="(player.firstResetBit & 0b10000) == 0b10000"
+						>
+							非递归
+						</div>
+					</template>
+					
 					<div class="menu1">杂项</div>
 					<div class="menu_line"></div>
 					<div
@@ -205,6 +219,13 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 						@click="player.currentTab = 3"
 					>
 						关于游戏
+					</div>
+					<div
+						class="menu2"
+						:class="{ focus: player.currentTab == 200 }"
+						@click="player.currentTab = 200"
+					>
+						剧情
 					</div>
 					<div
 						class="menu2"

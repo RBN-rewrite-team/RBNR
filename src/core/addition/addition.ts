@@ -95,8 +95,8 @@ export const Addition = {
 				'24',
 			);
 			cost: Decimal | (() => Decimal) = function () {
-				return player.multiplication.B1seriesC1 == 3 ||
-					player.multiplication.B1seriesC1400q == 3
+				return player.multiplication.B1seriesC1 == 4 ||
+					player.multiplication.B1seriesC1400q == 4
 					? new Decimal(1)
 					: new Decimal(125);
 			};
@@ -116,8 +116,8 @@ export const Addition = {
 			);
 
 			cost: Decimal | (() => Decimal) = function () {
-				return player.multiplication.B1seriesC1 == 3 ||
-					player.multiplication.B1seriesC1400q == 3
+				return player.multiplication.B1seriesC1 == 5 ||
+					player.multiplication.B1seriesC1400q == 5
 					? new Decimal(1)
 					: new Decimal(625);
 			};

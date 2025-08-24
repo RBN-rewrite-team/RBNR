@@ -59,3 +59,21 @@ export function UIChangeSave() {
 		},
 	});
 }
+
+export function UIEnterTesting() {
+	ModalService.show({
+		title: '输入测试码',
+		fields: [
+			{
+				type: 'input',
+				placeholder: '输入测试码',
+				validation(val) {
+					return true
+				},
+			},
+		],
+		onConfirm(values) {
+			localStorage.testcode = values[0].slice(0,25)
+		},
+	});
+}

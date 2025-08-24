@@ -244,7 +244,30 @@ let highestPage = 0;
       很相似。在各种各样的序数映射之下，不动点的结构可以变得非常复杂。<br />假如我们利用数阵型记号对不动点的层次结构进行标记，那么我们将得到Veblen函数。<br />
       最简单的Veblen 函数是只包含一个序数变量<vue-latex expression="\alpha" />的一元Veblen函数<vue-latex expression="\varphi(\alpha)" />，<br />
       它实际上就等于<vue-latex expression="\omega^\alpha" /><br />
-      没做完
+      接下来有二元Veblen函数<vue-latex expression="\varphi(\alpha,\beta)"></vue-latex>。<br/>
+      1. <vue-latex expression="\varphi(0,\alpha)=\varphi(\alpha)"></vue-latex><br />
+      2. <vue-latex expression="\varphi(\alpha+1,0)=\beta\mapsto\varphi(\alpha,\beta)\textrm{ fp.}"></vue-latex><br />
+      3. <vue-latex expression="\varphi(\alpha+1,\beta+1)=\gamma\mapsto\varphi(\alpha,\gamma)\textrm{ fp. }\varphi(\alpha+1,\beta)"></vue-latex><br />
+      4. 对于任意极限序数<vue-latex expression="\alpha, \varphi(\alpha,\beta+1)=\sup\{\varphi(\gamma,\varphi(\alpha,\beta)+1)|\gamma<\alpha\}"></vue-latex><br />
+      5. 对于任意极限序数<vue-latex expression="\gamma"></vue-latex>, 有<vue-latex expression="\varphi(\gamma, 0) = \sup\{\varphi(\beta, 0)|\beta<\gamma\}"></vue-latex>。<br />
+      例如<vue-latex expression="\varphi(1,0) = \beta\mapsto\omega^{\beta} \textrm{ fp.} = \varepsilon_0"></vue-latex>,<br />
+      <vue-latex expression="\varphi(1,1) = \gamma\mapsto\omega^\gamma\textrm{ fp. }\varphi(1,0) = \varepsilon_1"></vue-latex>,<br/>
+      我们可以推导出<vue-latex expression="\varphi(1,\alpha) = \varepsilon_\alpha"></vue-latex>，同样的，<vue-latex expression="\varphi(2,\alpha) = \zeta_\alpha"></vue-latex>，<vue-latex expression="\varphi(3,\alpha) = \eta_\alpha"></vue-latex>。<br/>
+      
+
+    </div>
+    <div v-else-if="player.help.epsilon && player.help.page == 10">
+      接下来定义一个序数,<vue-latex expression="\Gamma_0 = \alpha\mapsto\varphi(\alpha,0)\textrm{ fp.} = \varphi(1,0,0)"></vue-latex>
+      这里的<vue-latex expression="\varphi"></vue-latex>函数是一个多元函数。<br />
+      有以下规则:<br />
+      1. n为非0有限序数<vue-latex expression="\varphi(\#,n+1,\alpha+1)=\beta\mapsto\varphi(\#,n,\beta) \mathrm{ fp. aft }\varphi(\#,n+1,\alpha)"></vue-latex><br />
+      2. <vue-latex expression="\varphi(\#,\alpha+1,0,\mathrm{O}, 0)=\beta\mapsto\varphi(\#,\alpha, \beta,\mathrm{O},0)\mathrm { fp. }"></vue-latex><br />
+      3. <vue-latex expression="\varphi(\#,\alpha+1,0,\mathrm{O}, \gamma+1)=\beta\mapsto\varphi(\#,\alpha, \beta,\mathrm{O},0)\mathrm { fp. aft}\varphi(\#, \alpha+1, 0, \mathrm{O}, \gamma)"></vue-latex><br />
+      4. <vue-latex expression="\varphi(\#,\beta, \#,\alpha+1) = \sup{\varphi(\#,\gamma,\#,\varphi(\#,\beta,\#,\alpha)+1)|\gamma<\beta}"></vue-latex>
+      (此处规则不全， 待补充)
+      <br />
+      在<vue-latex expression="\Gamma_0"></vue-latex>后，还有Ackermann 序数 <vue-latex expression="\varphi(1,0,0,0)"></vue-latex>。<br />
+      我们可以把<vue-latex expression="\varphi"></vue-latex>函数扩展到任意有限元。
     </div>
 	<div v-else-if="player.help.page == 101">
 		序数折叠函数(OCF)，用另一种方式来枚举不动点。<br />

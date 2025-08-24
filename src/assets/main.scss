@@ -348,6 +348,7 @@ body {
 	// color: #009dd9;
 	// text-shadow: #5acaff 1.5px 1.5px 3px;
 	border-radius: 4px;
+	background-color: var(--border-color);
 }
 
 .reset10:hover {
@@ -1062,4 +1063,46 @@ a {
 	color: #888;
 	font-size: 14px;
 	margin-top: 8px;
+}
+
+
+.study{
+  border: 2px solid var(--border-color);
+  width: fit-content;
+  padding: 5px;
+}
+.study-name {
+  text-align: left;
+  z-index: 2;
+  position: relative;
+}
+.study-desc{
+  z-index: 2;
+  width: 150px;
+  height: 100px;
+  border: 2px solid #c98300;
+  border-radius: 5px;
+  background-color: var(--background-color);
+  font-size: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  &:hover {
+    background-color: var(--hover-color);
+    cursor: pointer;
+  }
+}
+.study-buyable{
+  background-color: #644100;
+	transform: scale(1.05);
+}
+.study-actived{
+  background-color: #c98300;
+  border: 2px solid var(--border-color);
+  &:hover {
+    background-color: lighten(#c98300, 10%);
+    cursor: pointer;
+  }
 }

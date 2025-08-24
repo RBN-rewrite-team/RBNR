@@ -31,10 +31,10 @@ export function simulateTime(milliseconds: number): void {
 				title: '离线进度计算中',
 				content: `已完成0/${ticks}帧的计算`,
 				onClose() {
-				  simulate(remaining);
-				  startGameLoop();
-				  remaining = 0
-				}
+					simulate(remaining);
+					startGameLoop();
+					remaining = 0;
+				},
 			});
 		},
 		asyncProgress: (doneSoFar: number) => {

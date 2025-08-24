@@ -13,7 +13,7 @@ import { OrdinalUtils } from '@/utils/ordinal';
 import { calculate } from '@/utils/bms-analyze';
 import { displayOrd } from '@/lib/ordinal';
 
-const version = 6 as const;
+const version = 7 as const;
 const zero = new Decimal(0);
 export let current_save = 0;
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
@@ -110,6 +110,7 @@ export interface Player {
 			titlebar: boolean;
 		};
 		challengeDetial: boolean;
+		allowOffline: boolean;
 	};
 	stat: {
 		chapter: number;
@@ -184,6 +185,15 @@ export interface Player {
 			prions: Decimal;
 			highestApocalypse: Decimal;
 		};
+		autoHydraReset: boolean;
+	};
+	nonrecu: {
+		power: Decimal;
+		totalPower: Decimal;
+		resetTimes: Decimal;
+		studies_bought: number[];
+		theories: [Decimal, Decimal, Decimal];
+		spentTheories: Decimal;
 	};
 }
 
@@ -272,6 +282,7 @@ function getInitialPlayerData(): Player {
 				titlebar: true,
 			},
 			challengeDetial: false,
+			allowOffline: true,
 		},
 		stat: {
 			chapter: -1,
@@ -285,7 +296,10 @@ function getInitialPlayerData(): Player {
 			highestExppower: zero,
 			highestOrdLevel: 0,
 		},
-		challenges: [[zero, zero, zero, zero, zero]],
+		challenges: [
+			[zero, zero, zero, zero, zero],
+			[zero, zero, zero, zero, zero, zero],
+		],
 		challengein: [-1, -1],
 		singularity: {
 			t: 0,
@@ -334,6 +348,15 @@ function getInitialPlayerData(): Player {
 				prions: new Decimal(1),
 				highestApocalypse: zero,
 			},
+			autoHydraReset: false,
+		},
+		nonrecu: {
+			power: zero,
+			totalPower: zero,
+			resetTimes: zero,
+			studies_bought: [],
+			theories: [zero, zero, zero],
+			spentTheories: zero,
 		},
 	};
 }
@@ -442,6 +465,14 @@ export function loadFromString(saveContent: string) {
 			new Decimal('5e35'),
 		];
 	}
+	if ((player?.version ?? 0) < 7 && player.upgrades['616S']) {
+		if (player.nonrecu.resetTimes.gte(1)) player.firstResetBit |= 0b10000;
+	}
+
+	// @ts-ignore
+	delete player.hydra.dilute.solvent?.[9];
+	// @ts-ignore
+	delete player.hydra.dilute.lastSolvent?.[9];
 	player.version = version;
 }
 

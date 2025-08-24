@@ -75,12 +75,13 @@ export function qolLoop() {
  * 游戏的循环函数（并不是主要的）
  */
 export function gameLoop() {
+	updateTheme();
 	diff = Date.now() - player.lastUpdated;
 	if (diff > 60000) {
-		if (!import.meta.env.DEV) {
+		if (player.options.allowOffline) {
 			simulateTime(diff);
 		} else {
-			diff = 0;
+			player.timeshard.value += Math.floor(diff / 150000);
 		}
 	}
 	if (player.run_a_tick_and_froze) diff = 33;
@@ -93,7 +94,6 @@ export function gameLoop() {
 		throw e;
 	}
 	if (player.singularity.stage >= 1) singularity_UI();
-	updateTheme();
 }
 function r(s: number): number {
 	return Math.random() * s * 2 - s;
@@ -136,6 +136,9 @@ export function simulate(diff: number) {
 	}
 	let last = feature.Ordinal.ordinalPerSecond();
 	let last2 = feature.Ordinal.speedDeri();
+	let pre_cardinal_diff = diff;
+
+	if (player.nonrecu.studies_bought.includes(1)) pre_cardinal_diff *= 2;
 	qolLoop();
 	CHALLENGE.challengeLoop();
 	if (player.singularity.stage < 11) {
@@ -243,7 +246,7 @@ export function simulate(diff: number) {
 	for (let i in milestones) {
 		if (milestones[i].canDone && !player.milestones[i]) {
 			player.milestones[i as keyof typeof player.milestones] = true;
-			milestones[i]?.onDone?.()
+			milestones[i]?.onDone?.();
 		}
 	}
 
@@ -270,12 +273,12 @@ export function simulate(diff: number) {
 		player.singularity.t = Math.min(player.singularity.t, 710);
 	}
 	if (player.upgrades[517]) {
-		feature.Hydra.hydraUpdate(diff / 1000);
-		Dilute.diluteLoop(diff);
+		feature.Hydra.hydraUpdate(pre_cardinal_diff / 1000);
+		Dilute.diluteLoop(pre_cardinal_diff, diff);
 	}
 
 	if (player.upgrades[58]) {
-		feature.OrdinalNT.varGainLoop(diff / 1000);
+		feature.OrdinalNT.varGainLoop(pre_cardinal_diff / 1000);
 	}
 
 	Logarithm.astronomerUpdate();
@@ -284,4 +287,35 @@ export function simulate(diff: number) {
 	ordinalSpeedDerivative = next.sub(last).div(diff / 1000);
 	let next2 = feature.Ordinal.speedDeri();
 	ordinalSpeedDerivative2 = next2.sub(last2).div(diff / 1000);
+	replaceDecimalNaN(player);
+}
+
+function replaceDecimalNaN<T>(obj: T): T {
+	if (obj === null || obj === undefined) {
+		return obj;
+	}
+
+	// 处理 Decimal NaN
+	if (obj instanceof Decimal && Decimal.isNaN(obj)) {
+		return new Decimal(1) as unknown as T;
+	}
+
+	// 处理数组
+	if (Array.isArray(obj)) {
+		return obj.map((item) => replaceDecimalNaN(item)) as unknown as T;
+	}
+
+	// 处理对象
+	if (typeof obj === 'object' && obj !== null) {
+		const result: any = {};
+		for (const key in obj) {
+			if (obj.hasOwnProperty(key)) {
+				result[key] = replaceDecimalNaN((obj as any)[key]);
+			}
+		}
+		return result as T;
+	}
+
+	// 其他基本类型
+	return obj;
 }

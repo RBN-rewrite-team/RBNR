@@ -18,6 +18,7 @@ import MultipChals from './components/tabs/MultipChals.vue';
 import AdditionResetButton from './components/AdditionResetButton.vue';
 import MultipResetButton from './components/MultipResetButton.vue';
 import ExpResetButton from './components/ExpResetButton.vue';
+import NonRecursionResetButton from './components/NonRecursionResetButton.vue';
 import Resources from './components/Resources.vue';
 
 import ExpUpgrades from './components/tabs/ExpUpgrades.vue';
@@ -35,7 +36,11 @@ import Accelerator from './components/tabs/Accelerator.vue';
 import TimeShard from './components/tabs/TimeShard.vue';
 import Hydra from './components/tabs/Hydra.vue';
 import HydraDilute from './components/tabs/HydraDilute.vue';
-import { NON_RECURSIVE } from './core/nonrecu/index.ts';
+
+import { isTester } from "@/core/save/testing.ts"
+import PlotTab from './components/tabs/plot/PlotTab.vue';
+import PlotView from './components/tabs/plot/PlotView.vue';
+import NonRecursionTab from './components/tabs/nonrecursion/NonRecursionTab.vue';
 </script>
 
 <template>
@@ -58,6 +63,7 @@ import { NON_RECURSIVE } from './core/nonrecu/index.ts';
 					"
 				/>
 				<Successor v-if="player.currentTab === 0" />
+				<NonRecursionResetButton v-if="player.upgrades['616S']" />
 				<Settings v-if="player.currentTab === 1" />
 				<Addition v-if="player.currentTab === 2" />
 				<Multip v-if="player.currentTab === 4" />
@@ -78,9 +84,11 @@ import { NON_RECURSIVE } from './core/nonrecu/index.ts';
 				<TimeShard v-if="player.currentTab === 18" />
 				<Hydra v-if="player.currentTab === 19" />
 				<HydraDilute v-if="player.currentTab === 20" />
+				<NonRecursionTab v-if="player.currentTab === 21" />
+				<PlotTab v-if="player.currentTab === 200" />
 				<div class="main" v-if="player.currentTab === 3">
 					<h1>大数之路重制版</h1>
-					版本: v0.5<br />
+					版本: v0.6 Beta<br />
 					制作组名单(排名不分先后)：<br />
 					静火Ω<br />
 					VeryrrDefine<br />
@@ -112,6 +120,7 @@ import { NON_RECURSIVE } from './core/nonrecu/index.ts';
 	</div>
 	<BlackHole />
 	<Chapter />
+	<PlotView/>
 </template>
 
 <style scoped></style>

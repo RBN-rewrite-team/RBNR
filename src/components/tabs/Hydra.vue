@@ -6,6 +6,7 @@ import TDBuyable from '../TDBuyable.vue';
 import { OrdinalUtils } from '@/utils/ordinal';
 import Decimal from 'break_eternity.js';
 import { Dilute } from '@/core/hydra/dilute';
+import { onBeforeUnmount } from "vue"
 
 function powerFactorHTML(): string {
 	let s = '';
@@ -36,9 +37,24 @@ function powerFactorHTML(): string {
 			'<sup style="color: rgb(127, 0, 0)">' +
 			format(feature.Hydra.powerSoftcapNerf(feature.Hydra.powerGainBase())) +
 			'</sup>';
-		s +=
+		if (feature.Hydra.logSoftcapNerf(feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase())).eq(1)) s +=
 			'<span style="color: var(--color)"> = ' +
 			format(feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase())) +
+			'</span>';
+	}
+	let softcapped = feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase())
+	if (!feature.Hydra.logSoftcapNerf(softcapped).eq(1)) {
+		s +=
+			'<span style="color: var(--color)"> = ln<sup style="color: #c98300">' +
+			format(feature.Hydra.logSoftcapNerf(softcapped)) +
+			'</sup></span>';
+		s +=
+			'<span style="color: var(--color)">(' +
+			format(feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase())) +
+			')</span>';
+		s +=
+			'<span style="color: var(--color)"> = ' +
+			format(feature.Hydra.powerGainAfterSoftcap2(softcapped)) +
 			'</span>';
 	}
 	return s;
@@ -115,8 +131,6 @@ function hydraAxisHTML(): string {
 	}
 	return s;
 }
-
-//setInterval(()=>feature.Hydra.hydraReset(player.hydra.visiting))
 </script>
 
 <template>
@@ -217,7 +231,7 @@ function hydraAxisHTML(): string {
 							<div class="hydra-axis-element" style="left: 50%; top: 88%">♦</div>
 						</button>
 					</td>
-					<td style="width: 50%">
+					<td>
 						<button
 							class="hydra-button-reset"
 							@click="feature.Hydra.hydraReset(player.hydra.visiting)"
@@ -243,6 +257,15 @@ function hydraAxisHTML(): string {
 									)
 								}}
 							</span>
+						</button>
+					</td>
+					<td style="width: 30px">
+						<button
+							class="hydra-button"
+							@click="player.hydra.autoHydraReset = !player.hydra.autoHydraReset"
+
+						>
+						  自<br>动<br>重<br>置<br>:<br>{{player.hydra.autoHydraReset?"开":"关"}}
 						</button>
 					</td>
 				</tr>
@@ -456,6 +479,7 @@ function hydraAxisHTML(): string {
 	position: relative;
 	z-index: 1;
 }
+
 .hydra-button {
 	&.fast {
 		position: relative;

@@ -206,6 +206,21 @@ import { format } from '@/utils/format';
 					/>
 				</div>
 			</div>
+			<div style="margin-left: 685px" class="resource" v-if="player.upgrades['616S']">
+				<div style="font-weight: bold; color: rgb(201, 131, 0)">
+					非递归能量&nbsp;
+					<div style="display: inline; text-shadow: rgb(201, 131, 0) 1px 1px 2px">
+						{{ formatWhole(player.nonrecu.power) }}
+					</div>
+					<br />
+				<div
+					v-if="true"
+					style="font-size: 17px; display: inline; color: rgb(245, 193, 73)"
+				>
+					(+{{formatWhole(feature.NON_RECURSIVE.gain())}})
+				</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -217,7 +232,7 @@ import { format } from '@/utils/format';
 }
 .background {
 	width: 100%;
-	overflow: scroll;
+	overflow: auto;
 }
 * {
 	white-space: nowrap;

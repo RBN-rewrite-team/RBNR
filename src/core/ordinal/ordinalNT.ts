@@ -281,6 +281,12 @@ export const OrdinalNT = {
 			effectDescription() {
 				return '×' + format(this.effect());
 			}
+			keep() {
+			  return player.milestones.nonrec_5
+			}
+			show() {
+			  return player.milestones.nonrec_5
+			}
 		})(),
 		'66R': new (class extends Upgrade {
 			description = 'g(x)的对数底数降低为5';
@@ -364,10 +370,12 @@ export const OrdinalNT = {
 		}
 		if (layer == 4) {
 			if (id == 'x') {
-				if (Dilute.diluteAmount(3) > 0)
+				if (Dilute.diluteAmount(3) > 0) {
+				  if (player.milestones.nonrec_3) return new Decimal(0)
 					return new Decimal(player.hydra.dilute.spentTime)
 						.pow(Dilute.diluteAmount(3))
 						.sqrt();
+				}
 				let prod = new Decimal(1);
 				const a = buyables['61R'].effect(player.buyables['61R']);
 				for (let i = 0; i < feature.Hydra.pMaxUnlock(); i++) {
@@ -471,6 +479,7 @@ export const OrdinalNT = {
 		if (layer == 4) {
 			if (id == 'tau') {
 				if (Dilute.diluteAmount(3) > 0) {
+          if (player.milestones.nonrec_3) return new Decimal(1)
 				  let base = player.numbertheory.GM.x.add(1).pow(0.5).max(1);
 				  if (isNaN(base.mag)) return new Decimal(1)
 				  return base

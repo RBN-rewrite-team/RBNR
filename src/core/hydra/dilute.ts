@@ -77,6 +77,7 @@ export function milestoneDut7Eff(): Decimal {
 
 export function milestoneDut16Eff(): Decimal {
 	return player.hydra.dilute.prions
+		.clampMin(0)
 		.log10()
 		.add(1)
 		.pow(player.milestones.dut18 ? player.hydra.milestoneDut5Eff : 1);
@@ -167,6 +168,9 @@ export const DiluteUpgrades = {
 		}
 		effectDescription(): string {
 			return 'x' + format(this.effect());
+		}
+		keep() {
+		  return player.milestones.nonrec_5
 		}
 	})(),
 	'66S': new (class U66S extends Upgrade {
@@ -291,16 +295,19 @@ export const DiluteUpgrades = {
 	'616S': new (class extends Upgrade {
 		currency: Currencies = Currencies.SOLUTION;
 		name: string = 'U5-S-16';
-		description: string = '解锁<b>非递归</b>(需要ψ(Ω<sub>ω</sub>序数))(Coming S∞n)';
+		description: string = '解锁<b>非递归</b>(需要ψ(Ω<sub>ω</sub>)序数)';
 		cost: Decimal = new Decimal(2.3e8);
 		show(): boolean {
-			return player.milestones.dut10;
+			return player.upgrades['616S'] || player.milestones.dut10;
 		}
 		canAfford() {
 			return (
 				player.hydra.deduceOrdinal[0].gte('e8.07230472602822538e153') &&
 				getCurrency(this.currency).gte(this.cost)
 			);
+		}
+		keep() {
+			return player.upgrades['616S'];
 		}
 	})(),
 };
@@ -558,7 +565,7 @@ export const Dilute = {
 			reqDescription: '1e18,915九头蛇能量',
 			requirement: new Decimal('e18915'),
 			get canDone() {
-				return player.hydra.power.gte('e18915');
+				return player.upgrades['69S'] && player.hydra.power.gte('e18915');
 			},
 			show: true,
 			currency: '',
@@ -572,7 +579,7 @@ export const Dilute = {
 			reqDescription: 'e5.0000e103/s推演速度',
 			requirement: new Decimal('e5e103'),
 			get canDone() {
-				return Hydra.deduceSpeed(0).gte(this.requirement);
+				return player.upgrades['69S'] && Hydra.deduceSpeed(0).gte(this.requirement);
 			},
 			show: true,
 			currency: '',
@@ -599,6 +606,9 @@ export const Dilute = {
 				Object.keys(Hydra.upgrades),
 			] as const
 		).flat()) {
+		  if (player.milestones.nonrec_5) {
+		    if (["65", "65R", "615"].includes(id2)) continue
+		  }
 			if (id2 !== '61') player.upgrades[id2 as keyof typeof player.upgrades] = false;
 		}
 		for (const id2 of Object.keys(Hydra.buyables)) {
@@ -709,20 +719,21 @@ export const Dilute = {
 			this.enterDilute();
 		}
 	},
-	diluteLoop(diff: number) {
+	diluteLoop(diff: number, trueDiff: number) {
 		if (
 			player.upgrades['69S'] ||
 			(player.hydra.totalDeduceOrdinal[0].gte(1) && player.hydra.dilute.inDilute)
 		)
 			player.hydra.dilute.prions = player.hydra.dilute.prions.mul(
 				this.prionsBase()
-					.pow(diff / 1000)
+					.pow(((player.milestones.nonrec_3 && !player.upgrades["69S"])?trueDiff:diff) / 1000)
 					.root(this.diluteAmount(8) ? 1000 : 1),
 			);
 		if (player.hydra.dilute.inDilute) {
 			player.hydra.milestoneDut5Eff = player.hydra.milestoneDut5Eff.max(milestoneDut5Eff());
-			const s3Eff = 1000 / player.hydra.dilute.solvent[2] ** 2;
-			player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + diff / 1000;
+			const s3Eff = this.sol3Eff();
+			if (!player.milestones.nonrec_3) player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + diff / 1000;
+			else player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + trueDiff / 1000;
 			if (!player.upgrades['614S'] && player.hydra.dilute.spentTime > s3Eff) {
 				ModalService.show({
 					title: '已退出稀释',
@@ -774,7 +785,17 @@ export const Dilute = {
 		if (this.diluteAmount(6)) base *= 5;
 		if (this.diluteAmount(7)) base *= 10;
 		if (this.diluteAmount(8)) base *= 100;
-		const deduceMult = player.hydra.deduceOrdinal[0].add(1).ln().min(base).min(100).toNumber();
+		let ConstantMax = new Decimal(100);
+		if (player.nonrecu.studies_bought.includes(2))
+			ConstantMax = ConstantMax.add(
+				player.hydra.deduceOrdinal[0].add(1).ln().add(1).slog(10).add(1).pow(2).mul(10),
+			);
+		const deduceMult = player.hydra.deduceOrdinal[0]
+			.add(1)
+			.ln()
+			.min(base)
+			.min(ConstantMax)
+			.toNumber();
 		return deduceMult * base;
 	},
 	solutionEff() {
@@ -784,6 +805,24 @@ export const Dilute = {
 	prions() {
 		return player.hydra.dilute.prions.sub(1);
 	},
+	sol3Eff(): number {
+	  let base = 1000 / player.hydra.dilute.solvent[2] ** 2
+	  if (player.milestones.nonrec_4) base += player.nonrecu.resetTimes.toNumber()
+	  return base
+	},
+	sol3EffOutside(): number {
+	  let base = 1000 / player.hydra.dilute.solvent[2] ** 2
+	  if (player.milestones.nonrec_4) base += player.nonrecu.resetTimes.toNumber()
+	  return base
+	},
+	totSolNerf(): number {
+	  let exp = 2
+	  if (player.milestones.nonrec_4) exp = 1.5
+	  return (player.hydra.dilute.solvent.slice(0, 6) as number[]).reduce(
+					(total, num): number => total + num,
+					1,
+				) ** exp
+	}
 } as IDilute &
 	Record<string, any> & {
 		diluteReset(): void;
