@@ -88,7 +88,7 @@ import NonRecursionTab from './components/tabs/nonrecursion/NonRecursionTab.vue'
 				<PlotTab v-if="player.currentTab === 200" />
 				<div class="main" v-if="player.currentTab === 3">
 					<h1>大数之路重制版</h1>
-					版本: v0.5<br />
+					版本: v0.6 Beta<br />
 					制作组名单(排名不分先后)：<br />
 					静火Ω<br />
 					VeryrrDefine<br />
