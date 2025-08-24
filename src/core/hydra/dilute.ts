@@ -552,7 +552,7 @@ export const Dilute = {
 		MILESTONES.create('dut16', {
 			displayName: 'M-Dilute-16',
 			get description() {
-				return (
+				return player.upgrades["69S"] && (
 					'朊病毒加成推演速度(在稀释6后)，稀释不再重置朊病毒<br>效果：' +
 					(player.hydra.dilute.inDilute ? '×' : '^') +
 					format(milestoneDut16Eff())
@@ -576,7 +576,7 @@ export const Dilute = {
 			reqDescription: 'e5.0000e103/s推演速度',
 			requirement: new Decimal('e5e103'),
 			get canDone() {
-				return Hydra.deduceSpeed(0).gte(this.requirement);
+				return player.upgrades["69S"] && Hydra.deduceSpeed(0).gte(this.requirement);
 			},
 			show: true,
 			currency: '',
