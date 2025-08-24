@@ -8,7 +8,7 @@ type MatrixRow = [number, number, number];
 type Matrix = MatrixRow[];
 
 /**
- * 0，不必多说
+ * 0
  */
 const ZERO: Term = [];
 /**
@@ -498,8 +498,8 @@ export function calculate(BMS: string): string {
 		return y;
 	});
 
-	for (const col of matrix) {
-		if (col.length >= 4) return '>ψ(a(ω;0))';
+	for (const row of matrix) {
+		if (row.length >= 4) return '>ψ(a(ω;0))';
 	}
 
 	// 是否大于EBO
