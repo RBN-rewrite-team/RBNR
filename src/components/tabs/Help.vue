@@ -258,7 +258,16 @@ let highestPage = 0;
     </div>
     <div v-else-if="player.help.epsilon && player.help.page == 10">
       接下来定义一个序数,<vue-latex expression="\Gamma_0 = \alpha\mapsto\varphi(\alpha,0)\textrm{ fp.} = \varphi(1,0,0)"></vue-latex>
-      <br />没做完
+      这里的<vue-latex expression="\varphi"></vue-latex>函数是一个多元函数。<br />
+      有以下规则:<br />
+      1. n为非0有限序数<vue-latex expression="\varphi(\#,n+1,\alpha+1)=\beta\mapsto\varphi(\#,n,\beta) \mathrm{ fp. aft }\varphi(\#,n+1,\alpha)"></vue-latex><br />
+      2. <vue-latex expression="\varphi(\#,\alpha+1,0,\mathrm{O}, 0)=\beta\mapsto\varphi(\#,\alpha, \beta,\mathrm{O},0)\mathrm { fp. }"></vue-latex><br />
+      3. <vue-latex expression="\varphi(\#,\alpha+1,0,\mathrm{O}, \gamma+1)=\beta\mapsto\varphi(\#,\alpha, \beta,\mathrm{O},0)\mathrm { fp. aft}\varphi(\#, \alpha+1, 0, \mathrm{O}, \gamma)"></vue-latex><br />
+      4. <vue-latex expression="\varphi(\#,\beta, \#,\alpha+1) = \sup{\varphi(\#,\gamma,\#,\varphi(\#,\beta,\#,\alpha)+1)|\gamma<\beta}"></vue-latex>
+      (此处规则不全， 待补充)
+      <br />
+      在<vue-latex expression="\Gamma_0"></vue-latex>后，还有Ackermann 序数 <vue-latex expression="\varphi(1,0,0,0)"></vue-latex>。<br />
+      我们可以把<vue-latex expression="\varphi"></vue-latex>函数扩展到任意有限元。
     </div>
 	<div v-else-if="player.help.page == 101">
 		序数折叠函数(OCF)，用另一种方式来枚举不动点。<br />
