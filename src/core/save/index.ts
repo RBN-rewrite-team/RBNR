@@ -185,7 +185,7 @@ export interface Player {
 			prions: Decimal;
 			highestApocalypse: Decimal;
 		};
-		autoHydraReset: boolean
+		autoHydraReset: boolean;
 	};
 	nonrecu: {
 		power: Decimal;
@@ -296,7 +296,10 @@ function getInitialPlayerData(): Player {
 			highestExppower: zero,
 			highestOrdLevel: 0,
 		},
-		challenges: [[zero, zero, zero, zero, zero]],
+		challenges: [
+			[zero, zero, zero, zero, zero],
+			[zero, zero, zero, zero, zero, zero],
+		],
 		challengein: [-1, -1],
 		singularity: {
 			t: 0,
@@ -345,7 +348,7 @@ function getInitialPlayerData(): Player {
 				prions: new Decimal(1),
 				highestApocalypse: zero,
 			},
-			autoHydraReset: false
+			autoHydraReset: false,
 		},
 		nonrecu: {
 			power: zero,

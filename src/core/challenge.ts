@@ -1,6 +1,7 @@
 import type Decimal from 'break_eternity.js';
 import { feature, player } from './global';
 import { MULTI_CHALS } from './multiplication/challenges';
+import { NON_RECURSIVE } from './nonrecu';
 export type SingleChallenge<T extends {} = {}> = {
 	name: string;
 	descEasy: string;
@@ -31,6 +32,9 @@ export const CHALLENGE: {
 	resetFunctions: [
 		function () {
 			feature.MULTIPLICATION.reset(true);
+		},
+		function () {
+			NON_RECURSIVE.reset(true);
 		},
 	],
 	challenges: [MULTI_CHALS] as const,
