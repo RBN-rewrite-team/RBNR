@@ -1073,9 +1073,11 @@ a {
 }
 .study-name {
   text-align: left;
+  z-index: 2;
+  position: relative;
 }
 .study-desc{
-  z-index: 2 !important;
+  z-index: 2;
   width: 150px;
   height: 100px;
   border: 2px solid #c98300;
