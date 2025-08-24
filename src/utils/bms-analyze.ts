@@ -190,17 +190,23 @@ function separate(a: Term, b: Term): [Term, Term] {
 /**
  * 找末项，和lastTerm一样
  */
-function l(a: Term): Term {
+function lastTerm3(a: Term): Term {
 	if (isZero(a)) return [];
 	const termA = a as [Term, Term, Term];
 	if (isZero(termA[2])) return a;
-	return l(termA[2]);
+	return lastTerm3(termA[2]);
 }
 
+/**
+ * 对小于ψ_b(0)的部分进行截断
+ */
 function truncate(a: Term, b: Term): Term {
 	if (isZero(a)) return [];
 	const termA = a as [Term, Term, Term];
 	const truncateResult = truncate(termA[2], b);
+	/**
+	 * truncateResult = 0 &&  termA without add < ψ_b(0)
+	 */
 	if (isZero(truncateResult) && lt([termA[0], termA[1], []], [b, [], []])) {
 		return [];
 	}
@@ -251,49 +257,59 @@ function log(a: Term): Term {
 	return m;
 }
 
-function P(M: Matrix, r: number, n: number): number {
-	if (r === -1) return n - 1;
-	let q = P(M, r - 1, n);
-	while (q > -1 && M[q][r] >= M[n][r]) {
-		q = P(M, r - 1, q);
+/**
+ * 找BMS的父项用的
+ *
+ * 在第0(row)行中，查找相对于第3(n)列（值3）具有更小值的最近前驱列
+ * 如矩阵[ [ 0, 0, 0 ], [ 1, 1, 1 ], [ 2, 2, 2 ] ]
+ */
+function findMatrixParentTerm(matrix: Matrix, findRow: number, relativeColumn: number): number {
+	if (findRow === -1) return relativeColumn - 1;
+	let curColumn = findMatrixParentTerm(matrix, findRow - 1, relativeColumn);
+	while (curColumn > -1 && matrix[curColumn][findRow] >= matrix[relativeColumn][findRow]) {
+		curColumn = findMatrixParentTerm(matrix, findRow - 1, curColumn);
 	}
-	return q;
+	return curColumn;
 }
 
-function C(M: Matrix, n: number): number[] {
+/**
+ * 有哪些项的坏根是column
+ */
+function countChileColumnsForColumn(matrix: Matrix, column: number): number[] {
 	const X: number[] = [];
-	for (let i = 0; i < M.length; i++) {
-		if (P(M, 0, i) === n) {
+	for (let i = 0; i < matrix.length; i++) {
+		if (findMatrixParentTerm(matrix, 0, i) === column) {
 			X.push(i);
 		}
 	}
 	return X;
 }
 
-function U(M: Matrix, n: number): number {
-	if (M[n][1] === 0 || M[n][2] === 1 || n + 1 === M.length) {
+function U(matrix: Matrix, column: number): number {
+	/**第2项是0的matrix， 第3项是1的matrix， 和后面没了的matrix为-1（找后面的？ */
+	if (matrix[column][1] === 0 || matrix[column][2] === 1 || column + 1 === matrix.length) {
 		return -1;
 	}
-	const m = P(M, 1, n);
-	const L: MatrixRow = [M[m][0] + 1, M[n][1], M[m][2] + 1];
+	const parentTerm = findMatrixParentTerm(matrix, 1, column);
+	const L: MatrixRow = [matrix[parentTerm][0] + 1, matrix[column][1], matrix[parentTerm][2] + 1];
 	if (
-		P(M, 1, n) === P(M, 1, n + 1) &&
-		M[n + 1][0] === L[0] &&
-		M[n + 1][1] === L[1] &&
-		M[n + 1][2] === L[2]
+		findMatrixParentTerm(matrix, 1, column) === findMatrixParentTerm(matrix, 1, column + 1) &&
+		matrix[column + 1][0] === L[0] &&
+		matrix[column + 1][1] === L[1] &&
+		matrix[column + 1][2] === L[2]
 	) {
-		return n + 1;
+		return column + 1;
 	}
-	let q = n;
+	let q = column;
 	while (q !== -1) {
-		q = P(M, 0, q);
+		q = findMatrixParentTerm(matrix, 0, q);
 		if (
 			q >= 0 &&
-			P(M, 1, n) === P(M, 1, q) &&
-			M[q][0] === L[0] &&
-			M[q][1] === L[1] &&
-			M[q][2] === L[2] &&
-			M[n + 1][0] > M[q][0]
+			findMatrixParentTerm(matrix, 1, column) === findMatrixParentTerm(matrix, 1, q) &&
+			matrix[q][0] === L[0] &&
+			matrix[q][1] === L[1] &&
+			matrix[q][2] === L[2] &&
+			matrix[column + 1][0] > matrix[q][0]
 		) {
 			return q;
 		}
@@ -306,57 +322,65 @@ function v(M: Matrix, n: number): Term {
 		return [];
 	}
 	if (M[n][2] === 0) {
-		const u = U(M, n) >= 0 ? l(v(M, U(M, n))) : ONE;
-		return add(v(M, P(M, 1, n)), u);
+		const u = U(M, n) >= 0 ? lastTerm3(v(M, U(M, n))) : ONE;
+		return add(v(M, findMatrixParentTerm(M, 1, n)), u);
 	}
 	let p: Term = ONE;
-	for (const i of C(M, n)) {
+	for (const i of countChileColumnsForColumn(M, n)) {
 		if (!(M[i][0] === M[n][0] + 1 && M[i][1] === M[n][1] && M[i][2] === 1)) {
 			continue;
 		}
 		let q: Term = [];
-		for (const j of C(M, i)) {
+		for (const j of countChileColumnsForColumn(M, i)) {
 			q = add(q, o(M, j));
 		}
 		p = add(p, exp(q));
 	}
-	return add(v(M, P(M, 1, n)), exp(p));
+	return add(v(M, findMatrixParentTerm(M, 1, n)), exp(p));
 }
 
-function o(M: Matrix, n: number): Term {
+function o(matrix: Matrix, index: number): Term {
 	let S: Term = [];
-	const u: number[] = [...Array(M.length).keys()].map((x) => U(M, x));
-	for (const i of C(M, n)) {
-		if (M[i][0] === M[n][0] + 1 && M[i][1] === M[n][1] && M[i][2] === 1) {
+	const u: number[] = [...Array(matrix.length).keys()].map((x) => U(matrix, x));
+	for (const i of countChileColumnsForColumn(matrix, index)) {
+		if (
+			matrix[i][0] === matrix[index][0] + 1 &&
+			matrix[i][1] === matrix[index][1] &&
+			matrix[i][2] === 1
+		) {
 			continue;
 		}
 		if (u.includes(i)) {
-			const c = C(M, i);
+			const c = countChileColumnsForColumn(matrix, i);
 			if (c.length > 0) {
 				const last = c[c.length - 1];
-				if (M[last][0] === M[i][0] + 1 && M[last][1] === M[i][1] && M[last][2] === 1) {
+				if (
+					matrix[last][0] === matrix[i][0] + 1 &&
+					matrix[last][1] === matrix[i][1] &&
+					matrix[last][2] === 1
+				) {
 					continue;
 				}
 			} else {
 				continue;
 			}
 		}
-		S = add(S, o(M, i));
+		S = add(S, o(matrix, i));
 	}
-	return [v(M, n), S, []];
+	return [v(matrix, index), S, []];
 }
 
 /**
  * 把一个矩阵转换成Term形式
  */
-function _o(M: Matrix): Term {
-	let S: Term = [];
-	for (let i = 0; i < M.length; i++) {
-		if (M[i][0] === 0 && M[i][1] === 0 && M[i][2] === 0) {
-			S = add(S, o(M, i));
+function matrixToTerm(matrix: Matrix): Term {
+	let ordinal_term: Term = [];
+	for (let index = 0; index < matrix.length; index++) {
+		if (matrix[index][0] === 0 && matrix[index][1] === 0 && matrix[index][2] === 0) {
+			ordinal_term = add(ordinal_term, o(matrix, index));
 		}
 	}
-	return sf(S);
+	return sf(ordinal_term);
 }
 
 function sp(a: Term, b: Term, c: Term): Term {
@@ -405,10 +429,10 @@ function g(a: Term): [Term, Term] {
 function omega(a: Term, maxLength = 40): string {
 	if (isZero(a)) return 'ω';
 	if (eq(a, ONE)) return 'Ω';
-	return `Ω<sub>${toString(a, --maxLength)}</sub>`;
+	return `Ω<sub>${termToString(a, --maxLength)}</sub>`;
 }
 
-function toString(q: Term | number, maxLength = 40): string {
+function termToString(q: Term | number, maxLength = 40): string {
 	if (maxLength <= 0) return '...';
 	if (typeof q === 'number') return q.toString();
 	if (isZero(q)) return '0';
@@ -416,7 +440,7 @@ function toString(q: Term | number, maxLength = 40): string {
 	const termQ = q as [Term, Term, Term];
 	// 判断是不是有限序数, 不是就-1取下一个
 	if (isZero(termQ[0]) && isZero(termQ[1])) {
-		return (Number(toString(termQ[2])) + 1).toString();
+		return (Number(termToString(termQ[2])) + 1).toString();
 	}
 
 	/**
@@ -428,11 +452,11 @@ function toString(q: Term | number, maxLength = 40): string {
 	/**
 	 * 简单的转换
 	 */
-	let m = `ψ<sub>${toString(termA[0], --maxLength)}</sub>(${toString(termA[1], --maxLength)})`;
+	let m = `ψ<sub>${termToString(termA[0], --maxLength)}</sub>(${termToString(termA[1], --maxLength)})`;
 	/**
 	 * 对于ψ_a(0)，写成Ω_a
 	 */
-	if (isZero(termA[1])) m = `Ω<sub>${toString(termA[0], --maxLength)}</sub>`;
+	if (isZero(termA[1])) m = `Ω<sub>${termToString(termA[0], --maxLength)}</sub>`;
 	/**
 	 * 对于ψ_1(0)，写成Ω
 	 */
@@ -440,7 +464,7 @@ function toString(q: Term | number, maxLength = 40): string {
 	/**
 	 * 对于ψ_0(anything)，写成ψ(anything)
 	 */
-	if (isZero(termA[0])) m = `ψ(${toString(termA[1], --maxLength)})`;
+	if (isZero(termA[0])) m = `ψ(${termToString(termA[1], --maxLength)})`;
 
 	/**
 	 * 对于ψ_0(1),写成ω
@@ -454,9 +478,9 @@ function toString(q: Term | number, maxLength = 40): string {
 		const [first, second] = g(termA);
 		m = omega(termA[0]);
 		if (gt(first, ONE)) {
-			m += `<sup>${toString(first, --maxLength)}</sup>`;
+			m += `<sup>${termToString(first, --maxLength)}</sup>`;
 		}
-		if (gt(second, ONE)) m += toString(second, --maxLength);
+		if (gt(second, ONE)) m += termToString(second, --maxLength);
 	}
 
 	if (length1(a) > 1) {
@@ -464,7 +488,7 @@ function toString(q: Term | number, maxLength = 40): string {
 	}
 
 	if (!isZero(b)) {
-		m += `+${toString(b, --maxLength)}`;
+		m += `+${termToString(b, --maxLength)}`;
 	}
 	return m;
 }
@@ -524,8 +548,8 @@ export function calculate(BMS: string): string {
 	}
 
 	try {
-		const result = _o(matrix);
-		return toString(result);
+		const result = matrixToTerm(matrix);
+		return termToString(result);
 	} catch (error) {
 		throw error;
 	}
