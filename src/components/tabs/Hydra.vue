@@ -37,9 +37,24 @@ function powerFactorHTML(): string {
 			'<sup style="color: rgb(127, 0, 0)">' +
 			format(feature.Hydra.powerSoftcapNerf(feature.Hydra.powerGainBase())) +
 			'</sup>';
-		s +=
+		if (feature.Hydra.logSoftcapNerf(feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase())).eq(1)) s +=
 			'<span style="color: var(--color)"> = ' +
 			format(feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase())) +
+			'</span>';
+	}
+	let softcapped = feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase())
+	if (!feature.Hydra.logSoftcapNerf(softcapped).eq(1)) {
+		s +=
+			'<span style="color: var(--color)"> = ln<sup style="color: #c98300">' +
+			format(feature.Hydra.logSoftcapNerf(softcapped)) +
+			'</sup></span>';
+		s +=
+			'<span style="color: var(--color)">(' +
+			format(feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase())) +
+			')</span>';
+		s +=
+			'<span style="color: var(--color)"> = ' +
+			format(feature.Hydra.powerGainAfterSoftcap2(softcapped)) +
 			'</span>';
 	}
 	return s;

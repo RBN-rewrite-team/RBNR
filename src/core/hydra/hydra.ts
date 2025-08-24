@@ -10,6 +10,8 @@ import { Dilute, milestoneDut16Eff, milestoneDut6Eff, milestoneDut7Eff } from '.
 import type { IntClosedRange } from 'type-fest';
 import { NON_RECURSIVE } from '../nonrecu';
 
+const e326649slog = new Decimal("e326649").slog(Math.E)
+
 //Hydra：BMS，1-Y，fffZ
 export const Hydra = {
 	upgrades: {
@@ -535,8 +537,9 @@ export const Hydra = {
 	powerGain(): Decimal {
 		//能量产量
 		if (Dilute.diluteAmount(7) && player.hydra.dilute.spentTime > 5) return new Decimal(0);
-		const base = this.powerGainBase();
-		return this.powerGainAfterSoftcap(base);
+		let base = this.powerGainBase();
+		base = this.powerGainAfterSoftcap(base);
+		return this.powerGainAfterSoftcap2(base);
 	},
 	powerGainAfterSoftcap(base: Decimal): Decimal {
 		if (base.gte(this.superSoftcapStart()))
@@ -552,14 +555,22 @@ export const Hydra = {
 				.pow10();
 		return base;
 	},
+	powerGainAfterSoftcap2(base: Decimal): Decimal {
+		if (base.gte("e326649")) base = Decimal.tetrate(Math.E, base.slog(Math.E).sub(e326649slog).div(2).add(e326649slog).toNumber())
+		return base;
+	},
 	superSoftcapStart() {
 	  let base = new Decimal("e2400")
 	  if (player.nonrecu.studies_bought.includes(3)) base = base.pow(Math.log10(player.hydra.dilute.solution+10))
 	  return base.max(1e10) //不然会炸
 	},
 	powerSoftcapNerf(base: Decimal): Decimal {
-		if (!base.gte('e2400')) return new Decimal(1);
+		if (!base.gte(this.superSoftcapStart())) return new Decimal(1);
 		else return this.powerGainAfterSoftcap(base).log(base);
+	},
+	logSoftcapNerf(base: Decimal): Decimal {
+		if (!base.gte("e326649")) return new Decimal(1);
+		else return this.powerGainAfterSoftcap(base).slog(Math.E).neg().add(base.slog(Math.E));
 	},
 	powerSoftcapNerf2(): Decimal {
 		let base = new Decimal(0.1);
