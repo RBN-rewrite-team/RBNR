@@ -15,13 +15,11 @@ const studyConnections = [
   { from: 0, to: 3 },
 ]
 
-const registerStudyRef = (id: number, el: Element | ComponentPublicInstance | InstanceType<typeof SingleStudy> | null) => {
-  if (el instanceof SingleStudy) {
+const registerStudyRef = (id: number, el: any | InstanceType<typeof SingleStudy> | null) => {
+  if (el) {
     studyRefs.value.set(id, el)
-  } else if (!el) {
-    studyRefs.value.delete(id)
   } else {
-    console.warn("传了个非空非SingleStudy")
+    studyRefs.value.delete(id)
   }
 }
 
