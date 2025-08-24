@@ -120,6 +120,162 @@ export const studies = [
 			return false;
 		},
 	}),
+	new Study({
+		id: '51',
+		description: '九头蛇能量获取×35, 九头蛇能量获取指数^1.25(没做)',
+		cost: new Decimal(3),
+		canBuy() {
+			return false;
+		},
+	}),
+	new Study({
+		id: '52',
+		description: '基于本次非递归重置内将获得的非递归能量获得额外的非递归理论(没做)',
+		cost: new Decimal(5),
+		canBuy() {
+			return false;
+		},
+	}),
+	new Study({
+		id: '53',
+		description: '稀释I的底数从5降低到3(没做)',
+		cost: new Decimal(2),
+		canBuy() {
+			return false;
+		},
+	}),
+	new Study({
+		id: 'NRC2',
+		description: '解锁非递归挑战2(没做)',
+		cost: new Decimal(15),
+		canBuy() {
+			return (
+				false
+			);
+		},
+	}),
+	new Study({
+		id: 'NRC3',
+		description: '解锁非递归挑战3(没做)',
+		cost: new Decimal(20),
+		canBuy() {
+			return (
+				false
+			);
+		},
+	}),
+	new Study({
+		id: '61',
+		description: '打破非递归，移除非递归能量的硬上限(没做)',
+		cost: new Decimal(4),
+		canBuy() {
+			return false;
+		},
+	}),
+	new Study({
+		id: '62',
+		description: '每个剩余的非递归理论令推演速度膨胀+0.01(没做)',
+		cost: new Decimal(4),
+		canBuy() {
+			return false;
+		},
+	}),
+	new Study({
+		id: '63',
+		description: '稀释升级价格^0.75(没做)',
+		cost: new Decimal(6),
+		canBuy() {
+			return false;
+		},
+	}),
+	new Study({
+		id: '71',
+		description: '基于本次非递归重置时间提升非递归能量获取(没做)',
+		cost: new Decimal(5),
+		canBuy() {
+			return false;
+		},
+	}),
+	new Study({
+		id: '72',
+		description: '基于本次非递归重置时间提升非递归研究52的效果(没做)',
+		cost: new Decimal(3),
+		canBuy() {
+			return false;
+		},
+	}),
+	new Study({
+		id: '73',
+		description: '基于本次非递归重置时间提升非九头蛇溶液获取(没做)',
+		cost: new Decimal(5),
+		canBuy() {
+			return false;
+		},
+	}),
+	new Study({
+		id: '81',
+		description: '可以同时购买第5行三岔路的两个分支 (没做)',
+		cost: new Decimal(15),
+		canBuy() {
+			return false;
+		},
+	}),
+	new Study({
+		id: '91',
+		description: '九头蛇溶液获取^1.15(没做)',
+		cost: new Decimal(7),
+		canBuy() {
+			return false;
+		},
+	}),
+	new Study({
+		id: '92',
+		description: '九头蛇能量获取^1.1(没做)',
+		cost: new Decimal(7),
+		canBuy() {
+			return false;
+		},
+	}),
+	new Study({
+		id: '101',
+		description: '每秒获取1%重置时获取的非递归能量(没做)',
+		cost: new Decimal(30),
+		canBuy() {
+			return false;
+		},
+	}),
+	new Study({
+		id: 'NRC4',
+		description: '解锁非递归挑战4(没做)',
+		cost: new Decimal(20),
+		canBuy() {
+			return false;
+		},
+	}),
+	new Study({
+		id: 'NRC5',
+		description: '解锁非递归挑战5(没做)',
+		cost: new Decimal(25),
+		canBuy() {
+			return false;
+		},
+	}),
+	new Study({
+		id: 'NRC6',
+		description: '解锁非递归挑战6(没做)',
+		cost: new Decimal(30),
+		canBuy() {
+			return false;
+		},
+	}),
+	new Study({
+		id: '111',
+		description: '基于非递归定理增加九头蛇溶液效果指数(没做)',
+		cost: new Decimal(30),
+		canBuy() {
+			return false;
+		},
+	}),
 ] as const;
 export function canBuyStudies(id: number) {
 	const study = studies[id] as Study | undefined;
