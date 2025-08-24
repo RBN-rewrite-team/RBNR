@@ -274,7 +274,7 @@ export function simulate(diff: number) {
 	}
 	if (player.upgrades[517]) {
 		feature.Hydra.hydraUpdate(pre_cardinal_diff / 1000);
-		Dilute.diluteLoop(pre_cardinal_diff);
+		Dilute.diluteLoop(pre_cardinal_diff, diff);
 	}
 
 	if (player.upgrades[58]) {

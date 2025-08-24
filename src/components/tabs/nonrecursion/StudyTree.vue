@@ -15,6 +15,9 @@ const studyConnections = [
   { from: 0, to: 3 },
   { from: 2, to: 4 },
   { from: 3, to: 4 },
+  { from: 3, to: 5 },
+  { from: 4, to: 6 },
+  { from: 5, to: 7 },
 ]
 
 const registerStudyRef = (id: number, el: any | InstanceType<typeof SingleStudy> | null) => {
@@ -151,10 +154,26 @@ watch(studyRefs, () => {
         />
       </div>
       <div class=studies_row>
-        
         <SingleStudy 
           :ref="el => registerStudyRef(4, el)" 
           :study_id="4" 
+          @update:study="updateAllConnectors" 
+        />
+        <SingleStudy 
+          :ref="el => registerStudyRef(5, el)" 
+          :study_id="5" 
+          @update:study="updateAllConnectors" 
+        />
+      </div>
+      <div class=studies_row>
+        <SingleStudy 
+          :ref="el => registerStudyRef(6, el)" 
+          :study_id="6" 
+          @update:study="updateAllConnectors" 
+        />
+        <SingleStudy 
+          :ref="el => registerStudyRef(7, el)" 
+          :study_id="7" 
           @update:study="updateAllConnectors" 
         />
       </div>

@@ -100,7 +100,10 @@ export const Hydra = {
 				return '+' + format(this.effect());
 			}
 			show(): boolean {
-				return Dilute.diluteAmount(6) || Hydra.pUnlock(2);
+				return player.milestones.nonrec_5 ||Dilute.diluteAmount(6) || Hydra.pUnlock(2);
+			}
+			keep() {
+			  return player.milestones.nonrec_5
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
@@ -245,7 +248,8 @@ export const Hydra = {
 					.max(1)
 					.log10()
 					.div(22.5)
-					.add(player.milestones.dut14 ? 10 : 0);
+					.add(player.milestones.dut14 ? 10 : 0)
+					.max(player.milestones.nonrec_3?2:0);
 			}
 			keep(): boolean {
 				return player.milestones['dut4'];
@@ -274,7 +278,10 @@ export const Hydra = {
 			cost = new Decimal('1e1000');
 			name = 'U5-5';
 			show(): boolean {
-				return Dilute.diluteAmount(6) || Hydra.pUnlock(3);
+				return player.milestones.nonrec_5 || Dilute.diluteAmount(6) || Hydra.pUnlock(3);
+			}
+			keep() {
+			  return player.milestones.nonrec_5
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
@@ -482,14 +489,13 @@ export const Hydra = {
 		base = base.div(5 ** (Dilute.diluteAmount(0) as number));
 		if (player.hydra.dilute.inDilute)
 			base = base.div(
-				Array.from({ length: 6 }, (_, index: number) =>
-					Dilute.diluteAmount(index as IntClosedRange<0, 5>),
-				).reduce((total, num) => total + num, 1) ** 2,
+				Dilute.totSolNerf(),
 			);
 
 		if (base.gte('ee125')) base = base.log10().div(1e125).pow(0.5).mul(1e125).pow10();
 		if (base.gte('e8.07230472602822538e153')) base = new Decimal('e8.07230472602822538e153');
-		return base.div(10);
+		if (!player.milestones.nonrec_4) base = base.div(10)
+		return base;
 	},
 	deduceEff(i = 0): Decimal {
 		//推演一位提高的乘数
@@ -519,7 +525,7 @@ export const Hydra = {
 	},
 	powerExpNerf(): Decimal {
 		//软上限
-		if (player.upgrades['6111'] || Hydra.powerExp().lt(4)) return new Decimal(1);
+		if (player.milestones.nonrec_3 || player.upgrades['6111'] || Hydra.powerExp().lt(4)) return new Decimal(1);
 		let nerf = Hydra.powerExp().div(4).root(4).pow(-1);
 		if (player.buyables[614].add(buyables[614]?.more?.()).gte(0))
 			nerf = nerf.pow(buyables[614].effect(player.buyables[614]));
@@ -587,6 +593,7 @@ export const Hydra = {
 		if (player.milestones.dut12) base = new Decimal(1 / 7);
 		if (player.upgrades['612S']) base = new Decimal(1 / 5);
 		if (player.upgrades['613S']) base = base.pow(upgrades['613S'].effect());
+		if (player.milestones.nonrec_3) base = base.root(player.nonrecu.resetTimes.min(25).mul(0.01))
 		return base;
 	},
 	powerGainBase(): Decimal {
@@ -689,18 +696,24 @@ export const Hydra = {
 			if (player.upgrades[613])
 				base = num.max(1).log10().mul(4).root(2).div(4).sub(0.389).max(0).mul(2.5);
 			else base = num.div(2).max(1).log10().mul(4).root(2).div(4).sub(0.4).max(0).mul(2.5);
-		} else if (id == 2)
+		} else if (id == 2) {
+		  let powbase = new Decimal(5)
+		  if (player.milestones.nonrec_3) powbase = powbase.add(player.nonrecu.resetTimes.min(10))
 			base = num
 				.pow(3)
 				.mul(num.max(1).add(1).log(2))
-				.pow_base(5)
+				.pow_base(powbase)
 				.pow(Hydra.prestigeEff(3).add(1));
+		}
 		else if (id == 3) base = num.max(1e10).log10().div(10).sub(1);
 		if (player.upgrades[6113] && id == 0 && base.gte(1))
 			base = base.pow(upgrades[6113].effect());
 		if (!player.upgrades[6113] && id == 0 && base.gte(100))
 			base = base.div(100).root(new Decimal(1.5).pow(U618Eff)).mul(100);
 		if (id == 0 && base.gte(1e25)) base = base.log10().div(25).root(2).mul(25).pow_base(10);
+		if (id == 1 && player.milestones.nonrec_3) {
+		  base = base.mul(player.nonrecu.resetTimes.pow_base(1.25))
+		}
 		if (!player.upgrades[6113] && id == 1 && base.gte(1))
 			base = base.root(new Decimal(2).pow(U618Eff));
 		if (!player.upgrades['614S'] && id == 1 && base.gte(2.25))
@@ -857,7 +870,10 @@ export const Hydra = {
 	],
 	NT4TauEffect() {
 		let eff = feature.OrdinalNT.varComputed('tau', 4);
-		if (Dilute.diluteAmount(3) > 0) return eff.recip().min(1);
+		if (Dilute.diluteAmount(3) > 0) {
+		  if (player.milestones.nonrec_3) return new Decimal(1)
+		  return eff.recip().min(1);
+		}
 		if (player.upgrades['64R']) eff = eff.pow(10);
 		return eff;
 	},

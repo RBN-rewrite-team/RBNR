@@ -93,7 +93,7 @@ setInterval(function () {
 	<div v-if="!player.upgrades['614S']">
 		启动稀释后，溶剂{{
 			(() => {
-				let a = 1000 / Dilute.diluteAmountOutside(2) ** 2 - player.hydra.dilute.spentTime;
+				let a = Dilute.sol3EffOutside() - player.hydra.dilute.spentTime;
 				return !isFinite(a)
 					? Dilute.diluteAmountOutside(4)
 						? '可能会自毁'
@@ -124,10 +124,7 @@ setInterval(function () {
 		</div>
 		<div class="solvents">
 			溶剂等级之和使你的推演速度变为<sup>1</sup>/<sub>{{
-				(player.hydra.dilute.solvent.slice(0, 6) as number[]).reduce(
-					(total, num): number => total + num,
-					1,
-				) ** 2
+				format(Dilute.totSolNerf())
 			}}</sub>
 			<table>
 				<tbody>
@@ -193,7 +190,7 @@ setInterval(function () {
 									<div>
 										选择本溶剂的稀释会在{{
 											(() => {
-												let a = 1000 / Dilute.diluteAmountOutside(2) ** 2;
+												let a = Dilute.sol3EffOutside();
 												return !isFinite(a)
 													? '无穷时间'
 													: a.toFixed(3) + '秒';
