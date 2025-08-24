@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import StudyTree from './StudyTree.vue';
 import { formatWhole } from '@/utils/format';
-import { addTheories, theoriesCost } from '@/core/nonrecu/studies';
+import { addTheories, resetTheories, theoriesCost } from '@/core/nonrecu/studies';
 import SingleStudy from "./SingleStudy.vue"
 import { ref, onMounted, nextTick, watch, type ComponentPublicInstance } from 'vue'
 
@@ -114,7 +114,15 @@ watch(studyRefs, () => {
         </div>
       </div>
     </div>
-    
+    <div class="studies_row">
+      <div class="study">
+        <div class="study-name">NRTR</div>
+        <div class="study-desc" @click="resetTheories">
+          <div>重置研究树</div>
+          <div>花费: 0 非递归能量</div>
+        </div>
+      </div>
+    </div>
     <div class="studies-tree">
       <div class="studies_row">
         <SingleStudy 

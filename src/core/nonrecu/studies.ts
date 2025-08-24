@@ -144,3 +144,8 @@ export function addTheories(id: 0 | 1 | 2) {
 			let a: never = id;
 	}
 }
+
+export function resetTheories() {
+	player.nonrecu.studies_bought = [];
+	player.nonrecu.spentTheories = new Decimal(0);
+}
