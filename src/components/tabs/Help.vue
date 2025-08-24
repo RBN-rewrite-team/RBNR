@@ -3,6 +3,7 @@ import { player } from "../../core/global.ts"
 import {
 	formatWhole,
 } from '@/utils/format';
+import DeveloperMode from "./developermode/DeveloperMode.vue";
 
 function nextPage() {
   if (player.help.page >= 4321) return //没做
@@ -289,6 +290,9 @@ let highestPage = 0;
 		<vue-latex expression="\Omega_\omega=\sup \Omega_{\omega[n]}" /><br />
 		将其放入OCF中，得到BO，它是很多记号的极限。<br />
 	</div>
+  <div v-if="player.help.page==777">
+    <DeveloperMode></DeveloperMode>
+  </div>
     <div v-else-if="player.help.page >= 4321">
       已达到当前版本残局：4321页。
       <!--<br>{{highestPage}}-!-->
