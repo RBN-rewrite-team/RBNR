@@ -539,18 +539,23 @@ export const Hydra = {
 		return this.powerGainAfterSoftcap(base);
 	},
 	powerGainAfterSoftcap(base: Decimal): Decimal {
-		if (base.gte('e2400'))
+		if (base.gte(this.superSoftcapStart()))
 			base = base
 				.log10()
 				.log10()
 				.log10()
-				.div(0.528943841769672644)
+				.div(this.superSoftcapStart().log10().log10().log10())
 				.pow(this.powerSoftcapNerf2())
-				.mul(0.528943841769672644)
+				.mul(this.superSoftcapStart().log10().log10().log10())
 				.pow10()
 				.pow10()
 				.pow10();
 		return base;
+	},
+	superSoftcapStart() {
+	  let base = new Decimal("e2400")
+	  if (player.nonrecu.studies_bought.includes(3)) base = base.pow(Math.log10(player.hydra.dilute.solution+10))
+	  return base.max(1e10) //不然会炸
 	},
 	powerSoftcapNerf(base: Decimal): Decimal {
 		if (!base.gte('e2400')) return new Decimal(1);
@@ -836,3 +841,5 @@ export const Hydra = {
 		return eff;
 	},
 } as const;
+
+setInterval(()=>{if(player.hydra.autoHydraReset){feature.Hydra.hydraReset(player.hydra.visiting)}})

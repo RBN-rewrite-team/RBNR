@@ -185,6 +185,7 @@ export interface Player {
 			prions: Decimal;
 			highestApocalypse: Decimal;
 		};
+		autoHydraReset: boolean
 	};
 	nonrecu: {
 		power: Decimal;
@@ -344,6 +345,7 @@ function getInitialPlayerData(): Player {
 				prions: new Decimal(1),
 				highestApocalypse: zero,
 			},
+			autoHydraReset: false
 		},
 		nonrecu: {
 			power: zero,
