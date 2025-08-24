@@ -1084,7 +1084,7 @@ a {
   border-radius: 5px;
   background-color: var(--background-color);
   font-size: 10px;
-  padding: 5px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1093,6 +1093,10 @@ a {
     background-color: var(--hover-color);
     cursor: pointer;
   }
+}
+.study-buyable{
+  background-color: #644100;
+	transform: scale(1.05);
 }
 .study-actived{
   background-color: #c98300;

@@ -10,7 +10,7 @@ import { Dilute, milestoneDut16Eff, milestoneDut6Eff, milestoneDut7Eff } from '.
 import type { IntClosedRange } from 'type-fest';
 import { NON_RECURSIVE } from '../nonrecu';
 
-const e326649slog = new Decimal("e326649").slog(Math.E)
+const e326649slog = new Decimal('e326649').slog(Math.E);
 
 //Hydra：BMS，1-Y，fffZ
 export const Hydra = {
@@ -464,7 +464,7 @@ export const Hydra = {
 		if (player.upgrades['63S']) base = base.mul(upgrades['63S'].effect());
 		if (player.upgrades['64S']) base = base.mul(upgrades['64S'].effect());
 		if (player.upgrades['69S']) base = base.mul(upgrades['69S'].effect());
-		if (player.milestones.nonrec_1) base = base.mul(3)
+		if (player.milestones.nonrec_1) base = base.mul(3);
 		if (player.milestones.dut5) base = base.pow(player.hydra.milestoneDut5Eff);
 		if (player.milestones.dut6) base = base.pow(milestoneDut6Eff());
 		if (player.milestones.dut7) base = base.pow(milestoneDut7Eff());
@@ -539,6 +539,9 @@ export const Hydra = {
 		if (Dilute.diluteAmount(7) && player.hydra.dilute.spentTime > 5) return new Decimal(0);
 		let base = this.powerGainBase();
 		base = this.powerGainAfterSoftcap(base);
+		if (player.nonrecu.studies_bought.includes(4)) {
+			base = base.mul(1e5).pow(1.05);
+		}
 		return this.powerGainAfterSoftcap2(base);
 	},
 	powerGainAfterSoftcap(base: Decimal): Decimal {
@@ -556,20 +559,25 @@ export const Hydra = {
 		return base;
 	},
 	powerGainAfterSoftcap2(base: Decimal): Decimal {
-		if (base.gte("e326649")) base = Decimal.tetrate(Math.E, base.slog(Math.E).sub(e326649slog).div(2).add(e326649slog).toNumber())
+		if (base.gte('e326649'))
+			base = Decimal.tetrate(
+				Math.E,
+				base.slog(Math.E).sub(e326649slog).div(2).add(e326649slog).toNumber(),
+			);
 		return base;
 	},
 	superSoftcapStart() {
-	  let base = new Decimal("e2400")
-	  if (player.nonrecu.studies_bought.includes(3)) base = base.pow(Math.log10(player.hydra.dilute.solution+10))
-	  return base.max(1e10) //不然会炸
+		let base = new Decimal('e2400');
+		if (player.nonrecu.studies_bought.includes(3))
+			base = base.pow(Math.log10(player.hydra.dilute.solution + 10));
+		return base.max(1e10); //不然会炸
 	},
 	powerSoftcapNerf(base: Decimal): Decimal {
 		if (!base.gte(this.superSoftcapStart())) return new Decimal(1);
 		else return this.powerGainAfterSoftcap(base).log(base);
 	},
 	logSoftcapNerf(base: Decimal): Decimal {
-		if (!base.gte("e326649")) return new Decimal(1);
+		if (!base.gte('e326649')) return new Decimal(1);
 		else return this.powerGainAfterSoftcap(base).slog(Math.E).neg().add(base.slog(Math.E));
 	},
 	powerSoftcapNerf2(): Decimal {
@@ -626,7 +634,7 @@ export const Hydra = {
 		else return false;
 	},
 	pAutoThreshold(id = 0): any {
-	  if (player.milestones.nonrec_2) return { add: new Decimal(0), mul: new Decimal(1) }
+		if (player.milestones.nonrec_2) return { add: new Decimal(0), mul: new Decimal(1) };
 		//推演阈值
 		if (id == 0)
 			return {
@@ -798,9 +806,9 @@ export const Hydra = {
 			Hydra.deduceEff(i).mul(player.hydra.deduceOrdinal[i]),
 		);
 		const gain = Hydra.powerGain();
-		player.hydra.power = player.hydra.power.add(gain).min("e326649");
-		player.hydra.totalPower = player.hydra.totalPower.add(gain).min("e326649");
-		player.hydra.trueTotalPower = player.hydra.trueTotalPower.add(gain).min("e326649");
+		player.hydra.power = player.hydra.power.add(gain).min('e326649');
+		player.hydra.totalPower = player.hydra.totalPower.add(gain).min('e326649');
+		player.hydra.trueTotalPower = player.hydra.trueTotalPower.add(gain).min('e326649');
 		player.hydra.deduceProgress[player.hydra.visiting] = new Decimal(0);
 		player.hydra.deduceOrdinal[player.hydra.visiting] = new Decimal(0);
 	},
@@ -855,4 +863,8 @@ export const Hydra = {
 	},
 } as const;
 
-setInterval(()=>{if(player.hydra.autoHydraReset){feature.Hydra.hydraReset(player.hydra.visiting)}})
+setInterval(() => {
+	if (player.hydra.autoHydraReset) {
+		feature.Hydra.hydraReset(player.hydra.visiting);
+	}
+});
