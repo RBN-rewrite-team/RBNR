@@ -1093,4 +1093,8 @@ a {
 .study-actived{
   background-color: #c98300;
   border: 2px solid var(--border-color);
+  &:hover {
+    background-color: lighten(#c98300, 10%);
+    cursor: pointer;
+  }
 }
