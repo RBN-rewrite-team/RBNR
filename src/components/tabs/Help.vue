@@ -287,7 +287,23 @@ let highestPage = 0;
 		为了简化，如果存在<vue-latex expression="\Omega_{X}" />，则<vue-latex expression="\psi(X*\Omega_{X})=\psi(\psi_{\Omega_X}(X*\Omega_X))" /><br />
 		除了<vue-latex expression="\psi_{\Omega_2}(X)" />，还有<vue-latex expression="\psi_{\Omega_3}(X)" />，<vue-latex expression="\psi_{\Omega_4}(X)" />......<br />
 		<vue-latex expression="\Omega_\omega=\sup \Omega_{\omega[n]}" /><br />
-		将其放入OCF中，得到BO，它是很多记号的极限。<br />
+		将其放入OCF中得到的序数是很多记号的极限，也是FGH和SGH的第一个追平点，称为BO。自BO以后，序数分析步入了反射序数时代。<br />
+	</div>
+	<div v-else-if="player.help.page == 102">
+		经过简单的扩展，OCF可以在BO以上继续提升，但这样的提升收效甚微，此处暂且不表。<br />
+		任意递归序数层级的OCF的极限是<vue-latex expression="\psi(\Omega_\Omega)=\alpha\mapsto\psi(\Omega_\alpha)FP" />，它是扩展鸟之记号的极限，被称为BIO。<br />
+		显然可以通过一个更高层的序数来折叠这一过程，因此OCF引入了递归不可达序数，第一个这种序数是<vue-latex expression="I" />。<br />
+		关于它的OCF的定义与<vue-latex expression="\Omega_X" />类似，但<vue-latex expression="\psi_I(X)=\Omega_X" />，因此<vue-latex expression="\psi(I)=\psi(\alpha\mapsto\Omega_\alphaFP)" />。<br />
+		<vue-latex expression="\psi(I)" />被称为扩展BO，也就是EBO，它是单独使用<vue-latex expression="\Omega" />的OCF的最终极限。<br />
+		在<vue-latex expression="I" />之上，还可以定义关于更高的递归不可达序数<vue-latex expression="I_X" />的OCF，它的对应规则是<vue-latex expression="\psi_{I_{X+1}}(Y)=\Omega_{I_X+Y}" />。<br />
+		折叠这些OCF的序数是<vue-latex expression="I(1,0)" />，<vue-latex expression="\psi_{I(1,0)}(X)=I_X" /><br />
+		如此，使用Veblen函数的表示法，可以表达最高<vue-latex expression="\psi_{I(1@(1@(...)))}" />的序数，它相当于BMS的<vue-latex expression="(0,0,0)(1,1,1)(2,1,1)(3,1,1)(4,1,0)(5,2,0)" />，被称为SRO。<br />
+		我们可以用一个更高层次的OCF来折叠<vue-latex expression="I(a,b,c...)" />，它就是<vue-latex expression="M" />。<br />
+		<vue-latex expression="\psi_M(X)=\Omega_X" /><br />
+		<vue-latex expression="\psi_M(X*M)=\alpha\mapsto\psi(X*\alpha)AP" />(其中*为加法、乘法、乘方之一)<br />
+		<vue-latex expression="\psi_M(\sup\ \alpha[n \in N^+])[n]=\psi_M(\alpha[n])" /><br />
+		其中AP表示容许点，也就是用对应运算重复任意递归序数次数也无法达到的序数。<br />
+		含有<vue-latex expression="M" />的OCF可以像普通OCF折叠Veblen一样折叠<vue-latex expression="I" />的Veblen。<br />
 	</div>
     <div v-else-if="player.help.page >= 4321">
       已达到当前版本残局：4321页。
