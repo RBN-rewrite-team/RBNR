@@ -169,6 +169,9 @@ export const DiluteUpgrades = {
 		effectDescription(): string {
 			return 'x' + format(this.effect());
 		}
+		keep() {
+		  return player.milestones.nonrec_5
+		}
 	})(),
 	'66S': new (class U66S extends Upgrade {
 		currency: Currencies = Currencies.SOLUTION;
@@ -603,6 +606,9 @@ export const Dilute = {
 				Object.keys(Hydra.upgrades),
 			] as const
 		).flat()) {
+		  if (player.milestones.nonrec_5) {
+		    if (["65", "65R", "615"].includes(id2)) continue
+		  }
 			if (id2 !== '61') player.upgrades[id2 as keyof typeof player.upgrades] = false;
 		}
 		for (const id2 of Object.keys(Hydra.buyables)) {
@@ -713,20 +719,21 @@ export const Dilute = {
 			this.enterDilute();
 		}
 	},
-	diluteLoop(diff: number) {
+	diluteLoop(diff: number, trueDiff: number) {
 		if (
 			player.upgrades['69S'] ||
 			(player.hydra.totalDeduceOrdinal[0].gte(1) && player.hydra.dilute.inDilute)
 		)
 			player.hydra.dilute.prions = player.hydra.dilute.prions.mul(
 				this.prionsBase()
-					.pow(diff / 1000)
+					.pow(((player.milestones.nonrec_3 && !player.upgrades["69S"])?trueDiff:diff) / 1000)
 					.root(this.diluteAmount(8) ? 1000 : 1),
 			);
 		if (player.hydra.dilute.inDilute) {
 			player.hydra.milestoneDut5Eff = player.hydra.milestoneDut5Eff.max(milestoneDut5Eff());
-			const s3Eff = 1000 / player.hydra.dilute.solvent[2] ** 2;
-			player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + diff / 1000;
+			const s3Eff = this.sol3Eff();
+			if (!player.milestones.nonrec_3) player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + diff / 1000;
+			else player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + trueDiff / 1000;
 			if (!player.upgrades['614S'] && player.hydra.dilute.spentTime > s3Eff) {
 				ModalService.show({
 					title: '已退出稀释',
@@ -798,6 +805,24 @@ export const Dilute = {
 	prions() {
 		return player.hydra.dilute.prions.sub(1);
 	},
+	sol3Eff(): number {
+	  let base = 1000 / player.hydra.dilute.solvent[2] ** 2
+	  if (player.milestones.nonrec_4) base += player.nonrecu.resetTimes.toNumber()
+	  return base
+	},
+	sol3EffOutside(): number {
+	  let base = 1000 / player.hydra.dilute.solvent[2] ** 2
+	  if (player.milestones.nonrec_4) base += player.nonrecu.resetTimes.toNumber()
+	  return base
+	},
+	totSolNerf(): number {
+	  let exp = 2
+	  if (player.milestones.nonrec_4) exp = 1.5
+	  return (player.hydra.dilute.solvent.slice(0, 6) as number[]).reduce(
+					(total, num): number => total + num,
+					1,
+				) ** exp
+	}
 } as IDilute &
 	Record<string, any> & {
 		diluteReset(): void;

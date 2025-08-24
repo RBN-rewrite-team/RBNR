@@ -92,6 +92,34 @@ export const studies = [
 			);
 		},
 	}),
+	new Study({
+		id: 'NRC1',
+		description: '解锁非递归挑战1(没做)',
+		cost: new Decimal(10),
+		canBuy() {
+			return (
+				player.nonrecu.studies_bought.includes(3)
+			);
+		},
+	}),
+	new Study({
+		id: '41',
+		description: '非递归能量获取×10(没做)',
+		cost: new Decimal(4),
+		canBuy() {
+			return (
+				player.nonrecu.studies_bought.includes(4)
+			);
+		},
+	}),
+	new Study({
+		id: '42',
+		description: '朊病毒增速×10，若未免疫朊病毒则免疫(没做)',
+		cost: new Decimal(5),
+		canBuy() {
+			return false;
+		},
+	}),
 ] as const;
 export function canBuyStudies(id: number) {
 	const study = studies[id] as Study | undefined;

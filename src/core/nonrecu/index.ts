@@ -28,6 +28,42 @@ export const NON_RECURSIVE = {
 				return player.nonrecu.resetTimes.gte(2);
 			},
 		});
+		MILESTONES.create('nonrec_3', {
+			requirement: new Decimal(3),
+			currency: '非递归重置次数',
+			displayName: 'M6-3',
+			description: `1. 基于非递归重置次数加成转生基本效果和超越效果底数<br>2. 移除九头蛇能量的一重软上限，每次非递归重置使九头蛇能量的二重软上限效果÷+0.01<br>3.全局速度倍率对溶剂III的倒计时、购买U-S-9之前的朊病毒不生效，溶剂4仅禁用数论研究`,
+			show: true,
+			get canDone() {
+				return player.nonrecu.resetTimes.gte(this.requirement);
+			},
+		});
+		MILESTONES.create('nonrec_4', {
+			requirement: new Decimal(4),
+			currency: '非递归重置次数',
+			displayName: 'M6-4',
+			description: `1.每次非递归重置让溶剂3的容许秒数额外+1<br>2. 溶剂总等级的削弱效果变得更弱<br>3. BMS基础推演速度为1/s<br>4. U5-1-2的效果硬下限为200%`,
+			show: true,
+			get canDone() {
+				return player.nonrecu.resetTimes.gte(this.requirement);
+			},
+		});
+		MILESTONES.create('nonrec_5', {
+			requirement: new Decimal(5),
+			currency: '非递归重置次数',
+			displayName: 'M6-5',
+			description: `保持解锁U5-5, U5-1-5, U5-R1-5, U5-S-5`,
+			show: true,
+			get canDone() {
+				return player.nonrecu.resetTimes.gte(this.requirement);
+			},
+			onDone() {
+			  player.upgrades["65"] = true
+			  player.upgrades["615"] = true
+			  player.upgrades["65R"] = true
+			  player.upgrades["65S"] = true
+			}
+		});
 	},
 	reset(force = false) {
 		if (!isTester()) {
@@ -47,7 +83,7 @@ export const NON_RECURSIVE = {
 		player.upgrades['62S'] = false;
 		player.upgrades['63S'] = false;
 		player.upgrades['64S'] = false;
-		player.upgrades['65S'] = false;
+		if (!player.milestones.nonrec_5)player.upgrades['65S'] = false;
 		player.upgrades['66S'] = false;
 		player.upgrades['67S'] = false;
 		player.upgrades['68S'] = false;
