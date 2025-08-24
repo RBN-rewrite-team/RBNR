@@ -219,3 +219,5 @@ export const OrdinalUtils = {
   狗操的BMS,那么复杂相思了
 	*/
 };
+
+//for (let i = 1; i <= 512; i++) console.log(OrdinalUtils.numberToBMS(Decimal.mul(16,i).add(256).add(0.0001).pow_base(4).pow_base(4), new Decimal(4), 30))
