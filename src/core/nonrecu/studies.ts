@@ -50,6 +50,7 @@ export const studies = [
 			player.hydra.power = player.hydra.power.add(20);
 			player.hydra.totalPower = player.hydra.totalPower.add(20);
 			player.hydra.trueTotalPower = player.hydra.trueTotalPower.add(20);
+			player.hydra.dilute.solution = player.hydra.dilute.solution + 20;
 		},
 	}),
 	new Study({
@@ -62,16 +63,22 @@ export const studies = [
 		description: '九头蛇溶液硬上限改为软上限(没做)',
 		cost: new Decimal(3),
 		canBuy() {
-		  return player.nonrecu.studies_bought.includes(0) || player.nonrecu.studies_bought.includes(1)
-		}
+			return (
+				player.nonrecu.studies_bought.includes(0) ||
+				player.nonrecu.studies_bought.includes(1)
+			);
+		},
 	}),
 	new Study({
 		id: '22',
 		description: '基于九头蛇溶液大幅延迟九头蛇能量双重软上限(没做)',
 		cost: new Decimal(3),
 		canBuy() {
-		  return player.nonrecu.studies_bought.includes(0) || player.nonrecu.studies_bought.includes(1)
-		}
+			return (
+				player.nonrecu.studies_bought.includes(0) ||
+				player.nonrecu.studies_bought.includes(1)
+			);
+		},
 	}),
 ] as const;
 
