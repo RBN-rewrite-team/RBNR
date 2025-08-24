@@ -57,6 +57,22 @@ export const studies = [
 		description: '基数之前全局速度x2',
 		cost: new Decimal(1),
 	}),
+	new Study({
+		id: '21',
+		description: '九头蛇溶液硬上限改为软上限(没做)',
+		cost: new Decimal(3),
+		canBuy() {
+		  return player.nonrecu.studies_bought.includes(0) || player.nonrecu.studies_bought.includes(1)
+		}
+	}),
+	new Study({
+		id: '22',
+		description: '基于九头蛇溶液大幅延迟九头蛇能量双重软上限(没做)',
+		cost: new Decimal(3),
+		canBuy() {
+		  return player.nonrecu.studies_bought.includes(0) || player.nonrecu.studies_bought.includes(1)
+		}
+	}),
 ] as const;
 
 export function buyStudies(id: number) {
