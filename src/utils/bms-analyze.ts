@@ -346,6 +346,9 @@ function o(M: Matrix, n: number): Term {
 	return [v(M, n), S, []];
 }
 
+/**
+ * 把一个矩阵转换成Term形式
+ */
 function _o(M: Matrix): Term {
 	let S: Term = [];
 	for (let i = 0; i < M.length; i++) {
@@ -411,20 +414,42 @@ function toString(q: Term | number, maxLength = 40): string {
 	if (isZero(q)) return '0';
 
 	const termQ = q as [Term, Term, Term];
+	// 判断是不是有限序数, 不是就-1取下一个
 	if (isZero(termQ[0]) && isZero(termQ[1])) {
 		return (Number(toString(termQ[2])) + 1).toString();
 	}
 
+	/**
+	 * a为第一个加数,b为剩下加的
+	 */
 	const [a, b] = separate(q, [termQ[0], termQ[1], []]);
 	const termA = a as [Term, Term, Term];
 
+	/**
+	 * 简单的转换
+	 */
 	let m = `ψ<sub>${toString(termA[0], --maxLength)}</sub>(${toString(termA[1], --maxLength)})`;
+	/**
+	 * 对于ψ_a(0)，写成Ω_a
+	 */
 	if (isZero(termA[1])) m = `Ω<sub>${toString(termA[0], --maxLength)}</sub>`;
+	/**
+	 * 对于ψ_1(0)，写成Ω
+	 */
 	if (isZero(termA[1]) && eq(termA[0], ONE)) m = `Ω`;
+	/**
+	 * 对于ψ_0(anything)，写成ψ(anything)
+	 */
 	if (isZero(termA[0])) m = `ψ(${toString(termA[1], --maxLength)})`;
 
+	/**
+	 * 对于ψ_0(1),写成ω
+	 */
 	if (eq(termA[0], []) && eq(termA[1], ONE)) {
 		m = 'ω';
+		/**
+		 * 对于ψ_α(x), x<ψ_α+1(0),写成Ω_x*ω^xxx的形式
+		 */
 	} else if (lt(termA[1], [succ(termA[0]), [], []])) {
 		const [first, second] = g(termA);
 		m = omega(termA[0]);
