@@ -220,4 +220,4 @@ export const OrdinalUtils = {
 	*/
 };
 
-//for (let i = 1; i <= 512; i++) console.log(OrdinalUtils.numberToBMS(Decimal.mul(16,i).add(256).add(0.0001).pow_base(4).pow_base(4), new Decimal(4), 30))
+//for (let i = 0; i <= 1024; i++) console.log(i, OrdinalUtils.numberToBMS(Decimal.mul(16,i).add(256).add(0.0001).pow_base(4).pow_base(4), new Decimal(4), 30))
