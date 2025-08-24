@@ -293,7 +293,7 @@ let highestPage = 0;
 		经过简单的扩展，OCF可以在BO以上继续提升，但这样的提升收效甚微，此处暂且不表。<br />
 		任意递归序数层级的OCF的极限是<vue-latex expression="\psi(\Omega_\Omega)=\alpha\mapsto\psi(\Omega_\alpha)FP" />，它是扩展鸟之记号的极限，被称为BIO。<br />
 		显然可以通过一个更高层的序数来折叠这一过程，因此OCF引入了递归不可达序数，第一个这种序数是<vue-latex expression="I" />。<br />
-		关于它的OCF的定义与<vue-latex expression="\Omega_X" />类似，但<vue-latex expression="\psi_I(X)=\Omega_X" />，因此<vue-latex expression="\psi(I)=\psi(\alpha\mapsto\Omega_\alphaFP)" />。<br />
+		关于它的OCF的定义与<vue-latex expression="\Omega_X" />类似，但<vue-latex expression="\psi_I(X)=\Omega_X" />，因此<vue-latex expression="\psi(I)=\psi(\alpha\mapsto\Omega_{\alpha}FP)" />。<br />
 		<vue-latex expression="\psi(I)" />被称为扩展BO，也就是EBO，它是单独使用<vue-latex expression="\Omega" />的OCF的最终极限。<br />
 		在<vue-latex expression="I" />之上，还可以定义关于更高的递归不可达序数<vue-latex expression="I_X" />的OCF，它的对应规则是<vue-latex expression="\psi_{I_{X+1}}(Y)=\Omega_{I_X+Y}" />。<br />
 		折叠这些OCF的序数是<vue-latex expression="I(1,0)" />，<vue-latex expression="\psi_{I(1,0)}(X)=I_X" /><br />
