@@ -213,6 +213,12 @@ import { format } from '@/utils/format';
 						{{ formatWhole(player.nonrecu.power) }}
 					</div>
 					<br />
+				<div
+					v-if="true"
+					style="font-size: 17px; display: inline; color: rgb(245, 193, 73)"
+				>
+					(+{{formatWhole(feature.NON_RECURSIVE.gain())}})
+				</div>
 				</div>
 			</div>
 		</div>

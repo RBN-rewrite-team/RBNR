@@ -10,12 +10,22 @@ export const NON_RECURSIVE = {
 	initMechanics() {
 		MILESTONES.create('nonrec_1', {
 			requirement: new Decimal(1),
-			currency: '',
-			displayName: '1次非递归重置',
+			currency: '非递归重置次数',
+			displayName: 'M6-1',
 			description: `1.每次非递归重置使得九头蛇能量额外乘数×7.5、获取指数+0.01<br>2.转生/飞升/超越/轮回的自动化在解锁了相应重置就立刻解锁<br>3. BMS推演速度×3`,
 			show: true,
 			get canDone() {
 				return player.nonrecu.resetTimes.gte(1);
+			},
+		});
+		MILESTONES.create('nonrec_2', {
+			requirement: new Decimal(2),
+			currency: '非递归重置次数',
+			displayName: 'M6-2',
+			description: `转生/飞升/超越/轮回的重置阈值为+0、×1，且不重置任何东西`,
+			show: true,
+			get canDone() {
+				return player.nonrecu.resetTimes.gte(2);
 			},
 		});
 	},

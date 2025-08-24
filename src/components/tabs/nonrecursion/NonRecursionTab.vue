@@ -11,7 +11,7 @@ import { Currencies, getCurrency } from '@/core/currencies';
 <template>
   <div class="main">
     <table align="center">
-      <TRMilestone id="nonrec_1"></TRMilestone>
+      <TRMilestone :id="'nonrec_'+i" v-for="i in 2" :key="i"></TRMilestone>
     </table>
     <p>你一共有<b style="color: #c98300; font-size: 30px">{{ formatWhole(getTotalTheories()) }}</b>非递归理论，还剩下{{ formatWhole(getCurrency(Currencies.NRT)) }}。</p>
     <StudyTree />

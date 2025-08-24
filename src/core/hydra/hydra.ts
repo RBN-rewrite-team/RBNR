@@ -626,6 +626,7 @@ export const Hydra = {
 		else return false;
 	},
 	pAutoThreshold(id = 0): any {
+	  if (player.milestones.nonrec_2) return { add: new Decimal(0), mul: new Decimal(1) }
 		//推演阈值
 		if (id == 0)
 			return {
@@ -725,6 +726,7 @@ export const Hydra = {
 		let keepHP = false,
 			keepO = false;
 		player.hydra.prestige[i] = player.hydra.prestige[i].max(Hydra.prestigeBase(i));
+		if (player.milestones.nonrec_2) return;
 		if (i <= 3 && player.upgrades[65]) return;
 		if (i == 0 && player.upgrades[64]) return;
 		if (i == 0 && player.milestones['dut3']) return;
@@ -796,9 +798,9 @@ export const Hydra = {
 			Hydra.deduceEff(i).mul(player.hydra.deduceOrdinal[i]),
 		);
 		const gain = Hydra.powerGain();
-		player.hydra.power = player.hydra.power.add(gain);
-		player.hydra.totalPower = player.hydra.totalPower.add(gain);
-		player.hydra.trueTotalPower = player.hydra.trueTotalPower.add(gain);
+		player.hydra.power = player.hydra.power.add(gain).min("e326649");
+		player.hydra.totalPower = player.hydra.totalPower.add(gain).min("e326649");
+		player.hydra.trueTotalPower = player.hydra.trueTotalPower.add(gain).min("e326649");
 		player.hydra.deduceProgress[player.hydra.visiting] = new Decimal(0);
 		player.hydra.deduceOrdinal[player.hydra.visiting] = new Decimal(0);
 	},
