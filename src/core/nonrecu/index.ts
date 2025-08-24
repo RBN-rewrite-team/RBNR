@@ -19,7 +19,7 @@ export const NON_RECURSIVE = {
 			},
 		});
 	},
-	reset() {
+	reset(force = false) {
 		if (!isTester()) {
 			ModalService.show({
 				title: 'WIP!',
@@ -27,10 +27,10 @@ export const NON_RECURSIVE = {
 			});
 			return;
 		}
-		if (!this.resetable()) return;
+		if (!this.resetable() && !force) return;
 		player.firstResetBit |= 0b10000;
-		this.addPower(this.gain());
-		player.nonrecu.resetTimes = player.nonrecu.resetTimes.add(1);
+		if (!force) this.addPower(this.gain());
+		if (!force) player.nonrecu.resetTimes = player.nonrecu.resetTimes.add(1);
 		Dilute.diluteReset();
 		player.hydra.trueTotalPower = new Decimal(0);
 		player.upgrades['61S'] = false;

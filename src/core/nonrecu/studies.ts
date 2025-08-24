@@ -3,6 +3,7 @@ import { player } from '../save';
 import { Hydra } from '../hydra/hydra';
 import { Currencies, getCurrency } from '../currencies';
 import { getTotalTheories } from './total-theories';
+import { NON_RECURSIVE } from '.';
 
 interface StudyConfig {
 	id: string;
@@ -87,6 +88,7 @@ export function buyStudies(id: number) {
 	if (!study) return;
 	if (player.nonrecu.studies_bought.includes(id)) return;
 	if (!getCurrency(Currencies.NRT).gte(study.cost)) return;
+	if (!study.canBuy()) return;
 	player.nonrecu.spentTheories = player.nonrecu.spentTheories.add(study.cost);
 	player.nonrecu.studies_bought.push(id);
 	study.onBought();
@@ -148,4 +150,5 @@ export function addTheories(id: 0 | 1 | 2) {
 export function resetTheories() {
 	player.nonrecu.studies_bought = [];
 	player.nonrecu.spentTheories = new Decimal(0);
+	NON_RECURSIVE.reset(true);
 }
