@@ -3,7 +3,7 @@ import StudyTree from './StudyTree.vue';
 import { formatWhole } from '@/utils/format';
 import { addTheories, theoriesCost } from '@/core/nonrecu/studies';
 import SingleStudy from "./SingleStudy.vue"
-import { ref, onMounted, nextTick, watch } from 'vue'
+import { ref, onMounted, nextTick, watch, type ComponentPublicInstance } from 'vue'
 
 const studyRefs = ref<Map<number, InstanceType<typeof SingleStudy>>>(new Map())
 const connectorsRef = ref<HTMLElement | null>(null)
@@ -15,11 +15,13 @@ const studyConnections = [
   { from: 0, to: 3 },
 ]
 
-const registerStudyRef = (id: number, el: InstanceType<typeof SingleStudy> | null) => {
-  if (el) {
+const registerStudyRef = (id: number, el: Element | ComponentPublicInstance | InstanceType<typeof SingleStudy> | null) => {
+  if (el instanceof SingleStudy) {
     studyRefs.value.set(id, el)
-  } else {
+  } else if (!el) {
     studyRefs.value.delete(id)
+  } else {
+    console.warn("传了个非空非SingleStudy")
   }
 }
 
@@ -30,6 +32,7 @@ const updateAllConnectors = () => {
     connectorsRef.value.innerHTML = ''
     
     studyConnections.forEach(connection => {
+      if (!connectorsRef.value) return
       const fromStudy = studyRefs.value.get(connection.from)
       const toStudy = studyRefs.value.get(connection.to)
       
