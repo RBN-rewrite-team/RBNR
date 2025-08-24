@@ -30,8 +30,6 @@ export const vHold: Directive<HoldElement, HoldDirectiveValue> = {
       pressTimer: null as ReturnType<typeof setTimeout> | null,
       progressTimer: null as ReturnType<typeof setInterval> | null,
       start: (e: Event) => {
-        e.preventDefault();
-        e.stopPropagation();
 
         if (handler.onStart) handler.onStart(e);
 
@@ -49,8 +47,6 @@ export const vHold: Directive<HoldElement, HoldDirectiveValue> = {
         }, delay);
       },
       stop: (e: Event) => {
-        e.preventDefault();
-        e.stopPropagation();
 
         if (holdData.pressTimer) {
           clearTimeout(holdData.pressTimer);
