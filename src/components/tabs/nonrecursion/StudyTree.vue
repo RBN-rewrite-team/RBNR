@@ -170,7 +170,6 @@ watch(studyRefs, () => {
 .studies_row > .study {
   margin: 15px;
   position: relative;
-  z-index: 2;
 }
 
 .studies-tree {
@@ -186,5 +185,6 @@ watch(studyRefs, () => {
   width: 100%;
   height: 100%;
   pointer-events: none;
+  z-index: 1
 }
 </style>
