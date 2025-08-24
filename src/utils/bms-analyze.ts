@@ -1,11 +1,31 @@
+/**
+ * 一个Term
+ * 用[a,b,c]表示序数ψ_a(b)+c(使用BOCF)
+ * 类似单项链表
+ */
 type Term = [] | [Term, Term, Term];
 type MatrixRow = [number, number, number];
 type Matrix = MatrixRow[];
 
+/**
+ * 0，不必多说
+ */
 const ZERO: Term = [];
+/**
+ * ψ_0(0)+0 = 1+0=1
+ */
 const ONE: Term = [[], [], []];
+/**
+ * ψ_0(1)+0 = ω+0=ω
+ */
 const OMEGA: Term = [[], ONE, []];
+/**
+ * ψ_1(0)+0 = Ω_1
+ */
 const OMEGA1: Term = [ONE, [], []];
+/**
+ * ψ_0(Ω)+0 = ε_0
+ */
 const EPSILON0: Term = [[], OMEGA1, []];
 
 /*
@@ -23,23 +43,31 @@ BMS analyzer by Solarzone
 BMS分析的部分暂时没有看懂
 */
 
-//判断一个序数是否为0
+/**
+ * 判断一个序数是否为0
+ */
 function isZero(a: Term | number): a is [] {
 	return Array.isArray(a) && a.length === 0;
 }
 
-//判断一个序数是否有限
+/**
+ * 判断一个序数是否有限
+ */
 function isFinite(a: Term): boolean {
 	return isZero(a) || (isZero(a[0]) && isZero(a[1]));
 }
 
-//求一个序数由多少个单项相加而成
+/**
+ * 求一个序数由多少个单项相加而成
+ */
 function length1(a: Term): number {
 	return isZero(a) ? 0 : 1 + length1(a[2]);
 }
 
-//判断两个序数是否全等
-//甚至也可以判断两个矩阵列是否全等
+/**
+ * 判断两个序数是否全等
+ * 甚至也可以判断两个矩阵列是否全等
+ */
 function eq(a: Term | number, b: Term | number): boolean {
 	if (typeof a === 'number' && typeof b === 'number') {
 		return a === b;
@@ -53,7 +81,9 @@ function eq(a: Term | number, b: Term | number): boolean {
 	return false;
 }
 
-//判断是否a<b
+/**
+ * 判断是否a<b
+ */
 function lt(a: Term | number, b: Term | number): boolean {
 	if (isZero(b)) return false;
 	if (isZero(a)) return true;
@@ -69,12 +99,22 @@ function lt(a: Term | number, b: Term | number): boolean {
 	return false;
 }
 
-//判断是否a>b
+/**
+ * 判断是否a>b
+ */
 function gt(a: Term | number, b: Term | number): boolean {
 	return !(lt(a, b) || eq(a, b));
 }
 
-//ω^a1+ω^a2+...+ω^an的首项ω^a1
+/**
+ * ω^a1+ω^a2+...+ω^an的首项ω^a1
+ *
+ * 相当于把加法部分换成0
+ *
+ * 1的首项ω^0,则返回1
+ *
+ * OMEGA [0, 1, 0]的首项为ω^1，则返回[0,1,0]
+ */
 function firstTerm(a: Term): Term {
 	if (isZero(a)) {
 		return [];
@@ -82,7 +122,9 @@ function firstTerm(a: Term): Term {
 	return [a[0], a[1], []];
 }
 
-//ω^a1+ω^a2+...+ω^an的末项ω^an
+/**
+ * ω^a1+ω^a2+...+ω^an的末项ω^an
+ */
 function lastTerm(a: Term): Term {
 	if (isZero(a)) {
 		return [];
@@ -93,24 +135,34 @@ function lastTerm(a: Term): Term {
 	return lastTerm(a[2]);
 }
 
-//序数相加
+/**
+ * 序数相加
+ */
 function add(a: Term, b: Term): Term {
 	if (isZero(a)) return b;
 	if (isZero(b)) return a;
 	const termA = a as [Term, Term, Term];
 	const termB = b as [Term, Term, Term];
+
+	// 如果ω最大指数a<最大指数b的话，返回b(a+b=b)
 	if (lt(firstTerm(a), firstTerm(b))) {
 		return b;
 	}
+
+	// 往加法部分进行加法，遇到0会停止
 	return [termA[0], termA[1], add(termA[2], b)];
 }
 
-//序数后继
+/**
+ * 序数后继
+ */
 function succ(a: Term): Term {
 	return add(a, ONE);
 }
 
-//序数左减，即a-b为满足b+c=a的序数c(若不存在为0)
+/**
+ * 序数左减，即a-b为满足b+c=a的序数c(若不存在为0)
+ */
 function sub(a: Term, b: Term): Term {
 	if (isZero(a)) return [];
 	if (isZero(b)) return a;
@@ -122,7 +174,9 @@ function sub(a: Term, b: Term): Term {
 	return sub(termA[2], termB[2]);
 }
 
-//将a分为大于b和小于b两段
+/**
+ * 将a分为大于b和小于b两段
+ */
 function separate(a: Term, b: Term): [Term, Term] {
 	if (isZero(a)) return [[], []];
 	const termA = a as [Term, Term, Term];
@@ -133,6 +187,9 @@ function separate(a: Term, b: Term): [Term, Term] {
 	return [[termA[0], termA[1], sResult[0]], sResult[1]];
 }
 
+/**
+ * 找末项，和lastTerm一样
+ */
 function l(a: Term): Term {
 	if (isZero(a)) return [];
 	const termA = a as [Term, Term, Term];
@@ -150,16 +207,16 @@ function truncate(a: Term, b: Term): Term {
 	return [termA[0], termA[1], truncateResult];
 }
 
-/*
-序数ω^a，自动化为标准式
-设a=ψb(p+d)+e,其中b的每一项都大于等于ψb+1(0)
-则该函数返回的是ψb(p+{a-ψb(p)})
-注意到当d<ψb+1(0)时,ψb(c+d)=ψb(c)*ω^d
-分情况讨论：
-1.若d=e=0，则ψb(p)=ψb(...+ψb+1(0))是一个ε点，取指数后不变
-2.若d=0,e>0，函数返回ψb(p+e)=ψb(p)*ω^e=ω^(ψb(p)+e)
-3.若d>0，函数返回ψb(p+a)=ψb(p)*ω^a=ω^(ψb(p)+a)=ω^a
-*/
+/**
+ * 序数ω^a，自动化为标准式
+ * 设a=ψb(p+d)+e,其中b的每一项都大于等于ψb+1(0)
+ * 则该函数返回的是ψb(p+{a-ψb(p)})
+ * 注意到当d<ψb+1(0)时,ψb(c+d)=ψb(c)*ω^d
+ * 分情况讨论：
+ * 1.若d=e=0，则ψb(p)=ψb(...+ψb+1(0))是一个ε点，取指数后不变
+ * 2.若d=0,e>0，函数返回ψb(p+e)=ψb(p)*ω^e=ω^(ψb(p)+e)
+ * 3.若d>0，函数返回ψb(p+a)=ψb(p)*ω^a=ω^(ψb(p)+a)=ω^a
+ */
 function exp(a: Term): Term {
 	if (lt(a, EPSILON0)) {
 		return [[], a, []];
@@ -208,16 +265,6 @@ function C(M: Matrix, n: number): number[] {
 	for (let i = 0; i < M.length; i++) {
 		if (P(M, 0, i) === n) {
 			X.push(i);
-		}
-	}
-	return X;
-}
-
-function D(M: Matrix, n: number): number {
-	let X = 0;
-	for (let i = 0; i < M.length; i++) {
-		if (P(M, 0, i) === n && M[i][1] > 0) {
-			X++;
 		}
 	}
 	return X;
@@ -309,16 +356,6 @@ function _o(M: Matrix): Term {
 	return sf(S);
 }
 
-function NS(M: Matrix): Term {
-	let S: Term = [];
-	for (let i = 0; i < M.length; i++) {
-		if (M[i][0] === 0 && M[i][1] === 0 && M[i][2] === 0) {
-			S = add(S, o(M, i));
-		}
-	}
-	return S;
-}
-
 function sp(a: Term, b: Term, c: Term): Term {
 	if (isZero(c)) {
 		return [a, b, []];
@@ -337,7 +374,9 @@ function sf(a: Term): Term {
 	return add(sp(sf(termA[0]), [], sf(termA[1])), sf(termA[2]));
 }
 
-//将ψa(x)(a>0)转化为Ω_a^b*c的形式
+/**
+ * 将ψa(x)(a>0)转化为Ω_a^b*c的形式
+ */
 function g(a: Term): [Term, Term] {
 	if (isZero(a)) {
 		return [[], []];
@@ -357,7 +396,9 @@ function g(a: Term): [Term, Term] {
 	return [first, second];
 }
 
-//Ω_a的简写
+/**
+ * Ω_a的简写
+ */
 function omega(a: Term, maxLength = 40): string {
 	if (isZero(a)) return 'ω';
 	if (eq(a, ONE)) return 'Ω';
@@ -413,11 +454,15 @@ const EBO = [
 ]
 
 export function calculate(BMS: string): string {
-  if (BMS === "(0)(1<sup>ω</sup>)") return "ψ(a(1;@(1;@(...))))"
+	if (BMS === '(0)(1<sup>ω</sup>)') return 'ψ(a(1;@(1;@(...))))';
 	const cleanBMS = BMS.replace(/\s+/g, '');
 
 	if (cleanBMS == '') return '0';
 
+	/**
+	 * BMS矩阵
+	 * 转换成[[0,0,0],[x,x,x],[x,x,x]...]数组
+	 */
 	const matrix = JSON.parse(
 		'[' + cleanBMS.replace(/\)\(/g, '],[').replace(/\(/g, '[').replace(/\)/g, ']') + ']',
 	).map((x: number[]) => {
@@ -432,6 +477,7 @@ export function calculate(BMS: string): string {
 		if (col.length >= 4) return '>ψ(a(ω;0))';
 	}
 
+	// 是否大于EBO
 	for (const i in EBO) {
 		if ((matrix[1]?.[2] ?? 0) < 1) break;
 		const currentColumn = matrix[i] ?? [];
