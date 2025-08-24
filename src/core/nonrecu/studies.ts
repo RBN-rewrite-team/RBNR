@@ -60,7 +60,7 @@ export const studies = [
 	}),
 	new Study({
 		id: '21',
-		description: '九头蛇溶液硬上限改为软上限(没做)',
+		description: '九头蛇溶液的常数硬上限改为软上限',
 		cost: new Decimal(3),
 		canBuy() {
 			return (
@@ -71,7 +71,7 @@ export const studies = [
 	}),
 	new Study({
 		id: '22',
-		description: '基于九头蛇溶液大幅延迟九头蛇能量双重软上限(没做)',
+		description: '基于九头蛇溶液大幅延迟九头蛇能量双重软上限',
 		cost: new Decimal(3),
 		canBuy() {
 			return (

@@ -778,7 +778,9 @@ export const Dilute = {
 		if (this.diluteAmount(6)) base *= 5;
 		if (this.diluteAmount(7)) base *= 10;
 		if (this.diluteAmount(8)) base *= 100;
-		const deduceMult = player.hydra.deduceOrdinal[0].add(1).ln().min(base).min(100).toNumber();
+		let ConstantMax = new Decimal(100)
+		if (player.nonrecu.studies_bought.includes(2)) ConstantMax = ConstantMax.add(player.hydra.deduceOrdinal[0].add(1).ln().add(1).slog(10).add(1).pow(2).mul(10))
+		const deduceMult = player.hydra.deduceOrdinal[0].add(1).ln().min(base).min(ConstantMax).toNumber();
 		return deduceMult * base;
 	},
 	solutionEff() {

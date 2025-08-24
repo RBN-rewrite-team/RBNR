@@ -11,6 +11,7 @@ import * as SingularityGenerator from './exponention/singularity-generator.ts';
 import { CHALLENGE } from './challenge.ts';
 import { resourceGain } from './resource-gain.ts';
 import { ORDINAL } from './ordinal/ordinal.ts';
+import { NON_RECURSIVE } from './nonrecu/';
 import { OrdinalNT } from './ordinal/ordinalNT.ts';
 import { TimeShard } from './timeshard/timeshard.ts';
 import { Hydra } from './hydra/hydra.ts';
@@ -32,6 +33,7 @@ const feature = {
 
 	resourceGain: resourceGain,
 	TimeShard: TimeShard,
+	NON_RECURSIVE
 };
 
 export { player, feature };
