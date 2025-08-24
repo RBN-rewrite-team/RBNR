@@ -1075,6 +1075,7 @@ a {
   text-align: left;
 }
 .study-desc{
+  z-index: 2 !important;
   width: 150px;
   height: 100px;
   border: 2px solid #c98300;
@@ -1085,6 +1086,7 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
   &:hover {
     background-color: var(--hover-color);
     cursor: pointer;
