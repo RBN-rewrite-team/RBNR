@@ -287,4 +287,35 @@ export function simulate(diff: number) {
 	ordinalSpeedDerivative = next.sub(last).div(diff / 1000);
 	let next2 = feature.Ordinal.speedDeri();
 	ordinalSpeedDerivative2 = next2.sub(last2).div(diff / 1000);
+	replaceDecimalNaN(player);
+}
+
+function replaceDecimalNaN<T>(obj: T): T {
+	if (obj === null || obj === undefined) {
+		return obj;
+	}
+
+	// 处理 Decimal NaN
+	if (obj instanceof Decimal && Decimal.isNaN(obj)) {
+		return new Decimal(1) as unknown as T;
+	}
+
+	// 处理数组
+	if (Array.isArray(obj)) {
+		return obj.map((item) => replaceDecimalNaN(item)) as unknown as T;
+	}
+
+	// 处理对象
+	if (typeof obj === 'object' && obj !== null) {
+		const result: any = {};
+		for (const key in obj) {
+			if (obj.hasOwnProperty(key)) {
+				result[key] = replaceDecimalNaN((obj as any)[key]);
+			}
+		}
+		return result as T;
+	}
+
+	// 其他基本类型
+	return obj;
 }
