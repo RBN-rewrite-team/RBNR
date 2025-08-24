@@ -3,6 +3,7 @@ import { player } from "../../core/global.ts"
 import {
 	formatWhole,
 } from '@/utils/format';
+import DeveloperMode from "./developermode/DeveloperMode.vue";
 
 function nextPage() {
   if (player.help.page >= 4321) return //没做
@@ -308,6 +309,9 @@ let highestPage = 0;
    
 		含有<vue-latex expression="M" />的OCF可以像普通OCF折叠Veblen一样折叠<vue-latex expression="I" />的Veblen。<br />
 	</div>
+  <div v-if="player.help.page==777">
+    <DeveloperMode></DeveloperMode>
+  </div>
     <div v-else-if="player.help.page >= 4321">
       已达到当前版本残局：4321页。
       <!--<br>{{highestPage}}-!-->
