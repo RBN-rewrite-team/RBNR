@@ -28,7 +28,7 @@ export const NON_RECURSIVE = {
 			return;
 		}
 		if (!this.resetable()) return;
-		player.firstResetBit |= 0b10000
+		player.firstResetBit |= 0b10000;
 		this.addPower(this.gain());
 		player.nonrecu.resetTimes = player.nonrecu.resetTimes.add(1);
 		Dilute.diluteReset();
@@ -66,6 +66,7 @@ export const NON_RECURSIVE = {
 			player.hydra.power = player.hydra.power.add(20);
 			player.hydra.totalPower = player.hydra.totalPower.add(20);
 			player.hydra.trueTotalPower = player.hydra.trueTotalPower.add(20);
+			player.hydra.dilute.solution = player.hydra.dilute.solution + 20;
 		}
 	},
 	resetable() {
