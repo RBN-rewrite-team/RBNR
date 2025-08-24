@@ -81,14 +81,30 @@ export const studies = [
 			);
 		},
 	}),
+	new Study({
+		id: '31',
+		description: '九头蛇能量×100000再^1.05',
+		cost: new Decimal(3),
+		canBuy() {
+			return (
+				player.nonrecu.studies_bought.includes(2) ||
+				player.nonrecu.studies_bought.includes(3)
+			);
+		},
+	}),
 ] as const;
-
+export function canBuyStudies(id: number) {
+	const study = studies[id] as Study | undefined;
+	if (!study) return false;
+	if (player.nonrecu.studies_bought.includes(id)) return false;
+	if (!getCurrency(Currencies.NRT).gte(study.cost)) return false;
+	if (!study.canBuy()) return false;
+	return true;
+}
 export function buyStudies(id: number) {
 	const study = studies[id] as Study | undefined;
 	if (!study) return;
-	if (player.nonrecu.studies_bought.includes(id)) return;
-	if (!getCurrency(Currencies.NRT).gte(study.cost)) return;
-	if (!study.canBuy()) return;
+	if (!canBuyStudies(id)) return;
 	player.nonrecu.spentTheories = player.nonrecu.spentTheories.add(study.cost);
 	player.nonrecu.studies_bought.push(id);
 	study.onBought();
@@ -120,16 +136,26 @@ export function theoriesCost(id: 0 | 1 | 2) {
 	}
 	return new Decimal(1 / 0);
 }
+export function canBuyTheories(id: 0 | 1 | 2) {
+	switch (id) {
+		case 0:
+			return player.hydra.power.gte(theoriesCost(0));
+		case 1:
+			return getCurrency(Currencies.SOLUTION).gte(theoriesCost(1));
+		case 2:
+			return player.nonrecu.power.gte(theoriesCost(2));
+	}
+}
 export function addTheories(id: 0 | 1 | 2) {
 	switch (id) {
 		case 0:
-			if (player.hydra.power.gte(theoriesCost(0))) {
+			if (canBuyTheories(0)) {
 				player.hydra.power = player.hydra.power.sub(theoriesCost(0));
 				player.nonrecu.theories[0] = player.nonrecu.theories[0].add(1);
 			}
 			break;
 		case 1:
-			if (getCurrency(Currencies.SOLUTION).gte(theoriesCost(1))) {
+			if (canBuyTheories(1)) {
 				player.hydra.dilute.solutionCost =
 					player.hydra.dilute.solutionCost +
 					theoriesCost(1).clampMax(Number.MAX_VALUE).toNumber();
@@ -137,7 +163,7 @@ export function addTheories(id: 0 | 1 | 2) {
 			}
 			break;
 		case 2:
-			if (player.nonrecu.power.gte(theoriesCost(2))) {
+			if (canBuyTheories(2)) {
 				player.nonrecu.power = player.nonrecu.power.sub(theoriesCost(2));
 				player.nonrecu.theories[2] = player.nonrecu.theories[2].add(1);
 			}

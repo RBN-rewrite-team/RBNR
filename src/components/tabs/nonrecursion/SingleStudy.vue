@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { buyStudies, studies } from '@/core/nonrecu/studies';
+import { buyStudies, canBuyStudies, studies } from '@/core/nonrecu/studies';
 import { player } from '@/core/save';
 import { formatWhole } from '@/utils/format';
 
@@ -12,6 +12,9 @@ const study = studies[props.study_id]
 const useClass = () => {
   if (player.nonrecu.studies_bought.includes(props.study_id)) {
     return "study-actived"
+  }
+  if (canBuyStudies(props.study_id)) {
+    return 'study-buyable'
   }
 }
 </script>

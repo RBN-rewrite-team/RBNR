@@ -552,7 +552,7 @@ export const Dilute = {
 		MILESTONES.create('dut16', {
 			displayName: 'M-Dilute-16',
 			get description() {
-				return player.upgrades["69S"] && (
+				return (
 					'朊病毒加成推演速度(在稀释6后)，稀释不再重置朊病毒<br>效果：' +
 					(player.hydra.dilute.inDilute ? '×' : '^') +
 					format(milestoneDut16Eff())
@@ -562,7 +562,7 @@ export const Dilute = {
 			reqDescription: '1e18,915九头蛇能量',
 			requirement: new Decimal('e18915'),
 			get canDone() {
-				return player.hydra.power.gte('e18915');
+				return player.upgrades['69S'] && player.hydra.power.gte('e18915');
 			},
 			show: true,
 			currency: '',
@@ -576,7 +576,7 @@ export const Dilute = {
 			reqDescription: 'e5.0000e103/s推演速度',
 			requirement: new Decimal('e5e103'),
 			get canDone() {
-				return player.upgrades["69S"] && Hydra.deduceSpeed(0).gte(this.requirement);
+				return player.upgrades['69S'] && Hydra.deduceSpeed(0).gte(this.requirement);
 			},
 			show: true,
 			currency: '',
@@ -778,9 +778,17 @@ export const Dilute = {
 		if (this.diluteAmount(6)) base *= 5;
 		if (this.diluteAmount(7)) base *= 10;
 		if (this.diluteAmount(8)) base *= 100;
-		let ConstantMax = new Decimal(100)
-		if (player.nonrecu.studies_bought.includes(2)) ConstantMax = ConstantMax.add(player.hydra.deduceOrdinal[0].add(1).ln().add(1).slog(10).add(1).pow(2).mul(10))
-		const deduceMult = player.hydra.deduceOrdinal[0].add(1).ln().min(base).min(ConstantMax).toNumber();
+		let ConstantMax = new Decimal(100);
+		if (player.nonrecu.studies_bought.includes(2))
+			ConstantMax = ConstantMax.add(
+				player.hydra.deduceOrdinal[0].add(1).ln().add(1).slog(10).add(1).pow(2).mul(10),
+			);
+		const deduceMult = player.hydra.deduceOrdinal[0]
+			.add(1)
+			.ln()
+			.min(base)
+			.min(ConstantMax)
+			.toNumber();
 		return deduceMult * base;
 	},
 	solutionEff() {

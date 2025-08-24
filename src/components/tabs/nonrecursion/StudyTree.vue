@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import StudyTree from './StudyTree.vue';
 import { formatWhole } from '@/utils/format';
-import { addTheories, resetTheories, theoriesCost } from '@/core/nonrecu/studies';
+import { addTheories, canBuyTheories, resetTheories, theoriesCost } from '@/core/nonrecu/studies';
 import SingleStudy from "./SingleStudy.vue"
 import { ref, onMounted, nextTick, watch, type ComponentPublicInstance } from 'vue'
 
@@ -13,6 +13,8 @@ const studyConnections = [
   { from: 1, to: 2 },
   { from: 1, to: 3 },
   { from: 0, to: 3 },
+  { from: 2, to: 4 },
+  { from: 3, to: 4 },
 ]
 
 const registerStudyRef = (id: number, el: any | InstanceType<typeof SingleStudy> | null) => {
@@ -94,21 +96,21 @@ watch(studyRefs, () => {
     <div class="studies_row">
       <div class="study">
         <div class="study-name">NRT1</div>
-        <div class="study-desc" @click="addTheories(0)">
+        <div class="study-desc" :class="canBuyTheories(0) ? 'study-buyable' : ''" @click="addTheories(0)">
           <div>获得一个非递归理论</div>
           <div>花费: {{ formatWhole(theoriesCost(0)) }} 九头蛇能量</div>
         </div>
       </div>
       <div class="study">
         <div class="study-name">NRT2</div>
-        <div class="study-desc" @click="addTheories(1)">
+        <div class="study-desc" :class="canBuyTheories(1) ? 'study-buyable' : ''" @click="addTheories(1)">
           <div>获得一个非递归理论</div>
           <div>花费: {{ formatWhole(theoriesCost(1)) }} 九头蛇溶液</div>
         </div>
       </div>
       <div class="study">
         <div class="study-name">NRT3</div>
-        <div class="study-desc" @click="addTheories(2)">
+        <div class="study-desc" :class="canBuyTheories(2) ? 'study-buyable' : ''" @click="addTheories(2)">
           <div>获得一个非递归理论</div>
           <div>花费: {{ formatWhole(theoriesCost(2)) }} 非递归能量</div>
         </div>
@@ -117,7 +119,7 @@ watch(studyRefs, () => {
     <div class="studies_row">
       <div class="study">
         <div class="study-name">NRTR</div>
-        <div class="study-desc" @click="resetTheories">
+        <div class="study-desc study-buyable" @click="resetTheories">
           <div>重置研究树</div>
           <div>花费: 0 非递归能量</div>
         </div>
@@ -145,6 +147,14 @@ watch(studyRefs, () => {
         <SingleStudy 
           :ref="el => registerStudyRef(3, el)" 
           :study_id="3" 
+          @update:study="updateAllConnectors" 
+        />
+      </div>
+      <div class=studies_row>
+        
+        <SingleStudy 
+          :ref="el => registerStudyRef(4, el)" 
+          :study_id="4" 
           @update:study="updateAllConnectors" 
         />
       </div>
