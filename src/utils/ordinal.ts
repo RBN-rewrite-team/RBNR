@@ -222,4 +222,4 @@ export const OrdinalUtils = {
 	*/
 };
 
-for (let i = 1; i <= 512; i++) console.log(4**i, OrdinalUtils.numberToBMS(Decimal.pow(4, 4**i).mul(16).add(0.0001).pow_base(4).pow_base(4), new Decimal(4), 30))
+//for (let i = 1; i <= 512; i++) console.log(4**i, OrdinalUtils.numberToBMS(Decimal.pow(4, 4**i).mul(16).add(0.0001).pow_base(4).pow_base(4), new Decimal(4), 30))
