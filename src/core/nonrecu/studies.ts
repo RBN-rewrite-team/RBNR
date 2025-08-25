@@ -166,7 +166,7 @@ export const studies = [
 	}),
 	new Study({
 		id: '61',
-		description: '打破非递归，移除非递归能量的硬上限(没做)',
+		description: '移除九头蛇能量的硬上限(没做)',
 		cost: new Decimal(4),
 		canBuy() {
 			return false;

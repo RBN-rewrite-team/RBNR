@@ -182,10 +182,10 @@ export const OrdinalNT = {
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 			canBuyMax(): boolean {
-				return false;
+				return player.milestones.nonrec_8;
 			}
 			autoBuyMax(): boolean {
-				return false;
+				return player.milestones.nonrec_8;
 			}
 			costInverse(x: Decimal): Decimal {
 				let expReduce = new Decimal(1);
@@ -212,10 +212,10 @@ export const OrdinalNT = {
 			}
 			currency: Currencies = Currencies.X4;
 			canBuyMax(): boolean {
-				return false;
+				return player.milestones.nonrec_8;
 			}
 			autoBuyMax(): boolean {
-				return false;
+				return player.milestones.nonrec_8;
 			}
 			costInverse(x: Decimal): Decimal {
 				let expReduce = new Decimal(1);
@@ -245,12 +245,18 @@ export const OrdinalNT = {
 			cost = new Decimal('e1050');
 			currency = Currencies.HYDRA_POWER;
 			name = 'U5-R1-1';
+			keep() {
+				return player.milestones.nonrec_8;
+			}
 		})(),
 		'62R': new (class extends Upgrade {
 			description = 'U5-1-1效果^1.125';
 			cost = new Decimal(2500);
 			currency = Currencies.X4;
 			name = 'U5-R1-2';
+			keep() {
+				return player.milestones.nonrec_8;
+			}
 		})(),
 		'63R': new (class extends UpgradeWithEffect<Decimal> {
 			description = 'f(x)获得一个基于转生效果的指数';
@@ -263,12 +269,18 @@ export const OrdinalNT = {
 			effectDescription() {
 				return '^' + format(this.effect());
 			}
+			keep() {
+				return player.milestones.nonrec_8;
+			}
 		})(),
 		'64R': new (class extends Upgrade {
 			description = 'τ<sub>4</sub>的效果变为其十次方';
 			cost = new Decimal(5);
 			currency = Currencies.T4;
 			name = 'U5-R1-4';
+			keep() {
+				return player.milestones.nonrec_8;
+			}
 		})(),
 		'65R': new (class extends UpgradeWithEffect<Decimal> {
 			description = '九头蛇能量加成轮回效果';
@@ -290,12 +302,18 @@ export const OrdinalNT = {
 			cost = new Decimal('1.1551e1551');
 			currency = Currencies.HYDRA_POWER;
 			name = 'U5-R1-6';
+			keep() {
+				return player.milestones.nonrec_8;
+			}
 		})(),
 		'67R': new (class extends Upgrade {
 			description = 'g(x)的对数底数降低为2';
 			cost = new Decimal('1e1900');
 			currency = Currencies.HYDRA_POWER;
 			name = 'U5-R1-7';
+			keep() {
+				return player.milestones.nonrec_8;
+			}
 		})(),
 		'68R': new (class extends UpgradeWithEffect<Decimal> {
 			description = 'U5-R1-5加成以减弱的效果对飞升生效';
@@ -308,12 +326,18 @@ export const OrdinalNT = {
 			effect(): Decimal {
 				return upgrades['65R'].effect().pow(0.25);
 			}
+			keep() {
+				return player.milestones.nonrec_8;
+			}
 		})(),
 		'69R': new (class extends Upgrade {
 			description = '解锁<b>稀释</b>';
 			cost = new Decimal(2).pow(8192);
 			currency = Currencies.HYDRA_POWER;
 			name = 'U5-R1-9';
+			keep() {
+				return player.milestones.nonrec_8;
+			}
 		})(),
 	} as const,
 	initMechanics() {},

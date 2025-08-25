@@ -43,7 +43,7 @@ export const Hydra = {
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 			keep(): boolean {
-				return player.milestones['dut1'];
+				return player.milestones['dut1'] || player.milestones.nonrec_8;
 			}
 		})(),
 		'612': new (class U612 extends Upgrade {
@@ -52,7 +52,7 @@ export const Hydra = {
 			name = 'U5-1-2';
 			currency: Currencies = Currencies.HYDRA_POWER;
 			keep(): boolean {
-				return player.milestones.dut10;
+				return player.milestones.dut10 || player.milestones.nonrec_8;
 			}
 		})(),
 		'613': new (class U613 extends Upgrade {
@@ -60,11 +60,11 @@ export const Hydra = {
 			cost = new Decimal(1e15);
 			name = 'U5-1-3';
 			show(): boolean {
-				return Dilute.diluteAmount(6) || Hydra.pUnlock(1);
+				return Dilute.diluteAmount(6) || Hydra.pUnlock(1) || player.milestones.nonrec_8;
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 			keep(): boolean {
-				return player.milestones.dut10;
+				return player.milestones.dut10 || player.milestones.nonrec_8;
 			}
 		})(),
 		'614': new (class U614 extends UpgradeWithEffect<Decimal> {
@@ -80,11 +80,11 @@ export const Hydra = {
 				return 'x' + format(this.effect());
 			}
 			show(): boolean {
-				return Dilute.diluteAmount(6) || Hydra.pUnlock(2);
+				return Dilute.diluteAmount(6) || Hydra.pUnlock(2) || player.milestones.nonrec_8;
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 			keep(): boolean {
-				return player.milestones.dut10;
+				return player.milestones.dut10 || player.milestones.nonrec_8;
 			}
 		})(),
 		'615': new (class U615 extends UpgradeWithEffect<Decimal> {
@@ -100,7 +100,7 @@ export const Hydra = {
 				return '+' + format(this.effect());
 			}
 			show(): boolean {
-				return player.milestones.nonrec_5 ||Dilute.diluteAmount(6) || Hydra.pUnlock(2);
+				return player.milestones.nonrec_5 ||Dilute.diluteAmount(6) || Hydra.pUnlock(2) || player.milestones.nonrec_9;
 			}
 			keep() {
 			  return player.milestones.nonrec_5
@@ -112,7 +112,7 @@ export const Hydra = {
 			cost = new Decimal(1e200);
 			name = 'U5-1-6';
 			show(): boolean {
-				return Dilute.diluteAmount(6) || Hydra.pUnlock(2);
+				return Dilute.diluteAmount(6) || Hydra.pUnlock(2) || player.milestones.nonrec_9;
 			}
 			effectDescription(): string {
 				return '^' + format(this.effect());
@@ -127,7 +127,7 @@ export const Hydra = {
 			cost = new Decimal('1e700');
 			name = 'U5-1-7';
 			show(): boolean {
-				return Dilute.diluteAmount(6) || Hydra.pUnlock(3);
+				return Dilute.diluteAmount(6) || Hydra.pUnlock(3) || player.milestones.nonrec_9;
 			}
 			effectDescription(): string {
 				return '×' + format(this.effect());
@@ -144,7 +144,7 @@ export const Hydra = {
 			cost = new Decimal('1e800');
 			name = 'U5-1-8';
 			show(): boolean {
-				return Dilute.diluteAmount(6) || Hydra.pUnlock(3);
+				return Dilute.diluteAmount(6) || Hydra.pUnlock(3) || player.milestones.nonrec_9;
 			}
 			effectDescription(): string {
 				return '^' + format(this.effect());
@@ -159,7 +159,7 @@ export const Hydra = {
 			cost = new Decimal('1e1125');
 			name = 'U5-1-9';
 			show(): boolean {
-				return Dilute.diluteAmount(6) || Hydra.pUnlock(3);
+				return Dilute.diluteAmount(6) || Hydra.pUnlock(3) || player.milestones.nonrec_9;
 			}
 			effectDescription(): string {
 				return '^' + format(this.effect());
@@ -174,7 +174,7 @@ export const Hydra = {
 			cost = new Decimal('7.1717e1717');
 			name = 'U5-1-10';
 			show(): boolean {
-				return Dilute.diluteAmount(6) || Hydra.pUnlock(3);
+				return Dilute.diluteAmount(6) || Hydra.pUnlock(3) || player.milestones.nonrec_9;
 			}
 			effectDescription(): string {
 				return '^' + format(this.effect());
@@ -189,7 +189,7 @@ export const Hydra = {
 			cost = new Decimal('2.695e2695');
 			name = 'U5-1-11';
 			show(): boolean {
-				return player.upgrades['66S'];
+				return player.upgrades['66S'] || player.milestones.nonrec_9;
 			}
 			effectDescription(): string {
 				return '^' + format(this.effect());
@@ -204,7 +204,7 @@ export const Hydra = {
 			cost = new Decimal('2.857e2857');
 			name = 'U5-1-12';
 			show(): boolean {
-				return player.upgrades['66S'];
+				return player.upgrades['66S'] || player.milestones.nonrec_9;
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
@@ -213,7 +213,7 @@ export const Hydra = {
 			cost = new Decimal('3.300e3300');
 			name = 'U5-1-13';
 			show(): boolean {
-				return player.upgrades['66S'];
+				return player.upgrades['66S'] || player.milestones.nonrec_9;
 			}
 			effect(): Decimal {
 				return buyables[614].effect(player.buyables[614]).recip().pow(0.5);
@@ -228,7 +228,7 @@ export const Hydra = {
 			cost = new Decimal('3.765e3765');
 			name = 'U5-1-14';
 			show(): boolean {
-				return player.upgrades['66S'];
+				return player.upgrades['66S'] || player.milestones.nonrec_9;
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
@@ -262,7 +262,7 @@ export const Hydra = {
 			cost = new Decimal(1e250);
 			name = 'U5-3';
 			show(): boolean {
-				return Dilute.diluteAmount(6) || Hydra.pUnlock(2);
+				return Dilute.diluteAmount(6) || Hydra.pUnlock(2) || player.milestones.nonrec_9;
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
@@ -271,7 +271,7 @@ export const Hydra = {
 			cost = new Decimal('1e600');
 			name = 'U5-4';
 			show(): boolean {
-				return Dilute.diluteAmount(6) || Hydra.pUnlock(3);
+				return Dilute.diluteAmount(6) || Hydra.pUnlock(3) || player.milestones.nonrec_9;
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
@@ -292,7 +292,7 @@ export const Hydra = {
 			cost = new Decimal('1.337e1337');
 			name = 'U5-6';
 			show(): boolean {
-				return Dilute.diluteAmount(6) || Hydra.pUnlock(3);
+				return Dilute.diluteAmount(6) || Hydra.pUnlock(3) || player.milestones.nonrec_9;
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 		})(),
@@ -355,7 +355,7 @@ export const Hydra = {
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 			show(): boolean {
-				return Dilute.diluteAmount(6) || Hydra.pUnlock(1);
+				return Dilute.diluteAmount(6) || Hydra.pUnlock(1) || player.milestones.nonrec_9;
 			}
 			canBuyMax(): boolean {
 				return player.milestones['dut2'];
@@ -400,7 +400,7 @@ export const Hydra = {
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 			show(): boolean {
-				return Dilute.diluteAmount(6) || Hydra.pUnlock(1);
+				return Dilute.diluteAmount(6) || Hydra.pUnlock(1) || player.milestones.nonrec_9;
 			}
 			canBuyMax(): boolean {
 				return player.milestones['dut2'];
@@ -437,7 +437,7 @@ export const Hydra = {
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 			show(): boolean {
-				return Dilute.diluteAmount(6) || Hydra.pUnlock(3);
+				return Dilute.diluteAmount(6) || Hydra.pUnlock(3) || player.milestones.nonrec_9;
 			}
 			canBuyMax(): boolean {
 				return player.milestones['dut2'];

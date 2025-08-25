@@ -78,7 +78,27 @@ export const NON_RECURSIVE = {
 			requirement: new Decimal(7),
 			currency: '非递归重置次数',
 			displayName: 'M6-7',
-			description: `你初始便免疫朊病毒`,
+			description: `你初始便免疫朊病毒，任何时候都可以增强M-Dilute-5的效果，且前5个稀释里程碑永久解锁`,
+			show: true,
+			get canDone() {
+				return player.nonrecu.resetTimes.gte(this.requirement);
+			},
+		});
+		MILESTONES.create('nonrec_8', {
+			requirement: new Decimal(8),
+			currency: '非递归重置次数',
+			displayName: 'M6-8',
+			description: `一开始就保持U5-1-1~4，保持数论研究4的升级，自动化数论研究4的购买项`,
+			show: true,
+			get canDone() {
+				return player.nonrecu.resetTimes.gte(this.requirement);
+			},
+		});
+		MILESTONES.create('nonrec_9', {
+			requirement: new Decimal(9),
+			currency: '非递归重置次数',
+			displayName: 'M6-9',
+			description: `一开始就解锁所有的九头蛇引擎升级、九头蛇引擎购买项和稀释升级，保持M-Dilute-15`,
 			show: true,
 			get canDone() {
 				return player.nonrecu.resetTimes.gte(this.requirement);
