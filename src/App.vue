@@ -89,14 +89,68 @@ import NonRecursionTab from './components/tabs/nonrecursion/NonRecursionTab.vue'
 				<div class="main" v-if="player.currentTab === 3">
 					<h1>大数之路重制版</h1>
 					版本: v0.6 Beta<br />
-					制作组名单(排名不分先后)：<br />
-					静火Ω<br />
-					VeryrrDefine<br />
-					010000000a7<br />
-					Seanxlx<br />
-					EdenGameMaster<br />
-					6左爷6<br />
 					<br />
+					<div style="position: relative; width: 100%">
+						<div style="position: absolute; top: 0px; left: 0%; height: 100px; width: 25%" align="center">
+							<h2>开发群群主</h2><br>
+							LSO - The Reflection Arc
+						</div>
+						<div style="position: absolute; top: 0px; left: 25%; height: 100px; width: 50%" align="center">
+							<h2>原作者</h2><br>
+							静火Ω
+						</div>
+						<div style="position: absolute; top: 0px; left: 75%; height: 100px; width: 25%" align="center">
+							<h2>代码仓库管理员</h2><br>
+							Seanxlx
+						</div>
+						<div style="position: absolute; top: 100px; left: 0%; height: 100px; width: 25%; transform: scale(0.75)" align="center">
+							<h2>程序</h2><br>
+							0100000000a7<br>
+							VeryrrDefine<br>
+							Seanxlx
+						</div>
+						<div style="position: absolute; top: 100px; left: 25%; height: 100px; width: 25%; transform: scale(0.75)" align="center">
+							<h2>策划</h2><br>
+							RAXH<br>
+							LSO - The Reflection Arc<br>
+							6左爷6<br>
+							EdenGameMaster<br>
+						</div>
+						<div style="position: absolute; top: 100px; left: 50%; height: 100px; width: 25%; transform: scale(0.75)" align="center">
+							<h2>平衡</h2><br>
+							EdenGameMaster<br>
+							Seanxlx
+						</div>
+						<div style="position: absolute; top: 100px; left: 75%; height: 100px; width: 25%; transform: scale(0.75)" align="center">
+							<h2>剧情设定</h2><br>
+							LSO - The Reflection Arc<br>
+							独特雪花<br>
+							Seanxlx<br>
+							VeryrrDefine<br>
+							0100000000a7<br>
+						</div>
+						<div style="position: absolute; top: 250px; left: 0%; height: 100px; width: 25%; transform: scale(0.75)" align="center">
+							<h2>机制设计</h2><br>
+							RAXH<br>
+							6左爷6<br>
+						</div>
+						<div style="position: absolute; top: 250px; left: 25%; height: 100px; width: 25%; transform: scale(0.75)" align="center">
+							<h2>数学建模</h2><br>
+							LSO - Reflection Arc<br>
+							VeryrrDefine<br>
+							Seanxlx
+						</div>
+						<div style="position: absolute; top: 250px; left: 50%; height: 100px; width: 25%; transform: scale(0.75)" align="center">
+							<h2>存档银行</h2><br>
+							(没做完)<br>
+							Endless_e308
+						</div>
+						<div style="position: absolute; top: 250px; left: 75%; height: 100px; width: 25%; transform: scale(0.75)" align="center">
+							<h2>吉祥物</h2><br>
+							hard_shuati
+						</div>
+					</div>
+					<div style="transform: translateY(400px)">
 					本项目使用了<a href="https://cn.vuejs.org/"> Vue </a>、<a
 						href="https://cn.vitejs.dev/"
 					>
@@ -113,7 +167,7 @@ import NonRecursionTab from './components/tabs/nonrecursion/NonRecursionTab.vue'
 						href="https://github.com/RBN-rewrite-team/RBNR/blob/develop/public/changelog.md"
 					>
 						查看更新记录
-					</a>
+					</a></div>
 				</div>
 			</div>
 		</div>
