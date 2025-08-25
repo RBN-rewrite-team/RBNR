@@ -307,7 +307,25 @@ let highestPage = 0;
 		例如<vue-latex expression="\psi_M(M)=\beta\mapsto\Omega_\beta \mathrm{ ap.}=I" /><br />
    
 		含有<vue-latex expression="M" />的OCF可以像普通OCF折叠Veblen一样折叠<vue-latex expression="I" />的Veblen。<br />
-	</div>
+	</div><div v-else-if="player.help.page == 103">
+		以下是<vue-latex expression="\psi_M"></vue-latex>函数的例子<br />
+    <vue-latex expression="\psi_M(M)=I" display-mode/>
+    <vue-latex expression="\psi_M(M+1)=\Omega_{I+1}" display-mode/>
+    <vue-latex expression="\psi_M(M2)=I_2" display-mode/>
+    <vue-latex expression="\psi_M(M3)=I_3" display-mode/>
+    <vue-latex expression="\psi_M(M\Omega)=I_\Omega" display-mode/>
+    <vue-latex expression="\psi_M(M^2)=I(1,0)" display-mode/>
+    <vue-latex expression="\psi_M(M^2+M)=I_{I(1,0)+1}" display-mode/>
+    <vue-latex expression="\psi_M(M^22)=I(1,1)" display-mode/>
+    <vue-latex expression="\psi_M(M^3)=I(2,0)" display-mode/>
+    <vue-latex expression="\psi_M(M^\omega)=I(\omega,0)" display-mode/>
+    <vue-latex expression="\psi_M(M^M)=I(1,0,0)" display-mode/>
+    <vue-latex expression="\psi_M(M^{M^2})=I(1,0,0,0)" display-mode/>
+    <vue-latex expression="\psi_M(M^{M^M})=I(1@(1,0))" display-mode/>
+    <vue-latex expression="\psi_M(\varepsilon_{M+1})=I(1@(1@(1@...))))" display-mode/>
+		</div><div v-else-if="player.help.page == 104">
+		有<vue-latex expression="\Omega"></vue-latex>有<vue-latex expression="\Omega_2"></vue-latex>，有M也有<vue-latex expression="M_2"></vue-latex>。<br />
+		</div>
     <div v-else-if="player.help.page >= 4321">
       已达到当前版本残局：4321页。
       <!--<br>{{highestPage}}-!-->
