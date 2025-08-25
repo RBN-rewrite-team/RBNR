@@ -184,6 +184,17 @@ export interface Player {
 			solutionCost: number;
 			prions: Decimal;
 			highestApocalypse: Decimal;
+			solventPresets: [
+				number,
+				number,
+				number,
+				number,
+				number,
+				number,
+				boolean,
+				boolean,
+				boolean,
+			][];
 		};
 		autoHydraReset: boolean;
 	};
@@ -342,6 +353,7 @@ function getInitialPlayerData(): Player {
 				inDilute: false,
 				solvent: [0, 0, 0, 0, 0, 0, false, false, false],
 				lastSolvent: [0, 0, 0, 0, 0, 0, false, false, false],
+				solventPresets: [],
 				lastDeduce: zero,
 				spentTime: 0,
 				solution: 0,
