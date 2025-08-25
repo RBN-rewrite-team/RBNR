@@ -315,7 +315,7 @@ function checkNaN<T>(obj: T, path: string[]): T {
 			});
 			player.foundNaN = true;
 		}
-		return new Decimal(obj) as unknown as T;
+		return new Decimal(1) as unknown as T;
 	}
 
 	// 处理数组
