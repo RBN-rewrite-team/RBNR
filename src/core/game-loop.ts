@@ -8,12 +8,13 @@ import { predictableRandom } from '@/utils/algorithm';
 
 import { CHALLENGE } from './challenge';
 import { Logarithm } from './exponention/logarithm';
-import { save } from './save';
+import { intervalBackup, save } from './save';
 import { getCurrency } from './currencies';
 import { updateTheme } from '@/utils/themes';
 import { getOrdinalLevel } from './ordinal/ordinal-level.ts';
 import { ORDINAL_BOOSTER } from './ordinal/ordinal-booster.ts';
 import { Dilute } from './hydra/dilute.ts';
+import ModalService from '@/utils/Modal.ts';
 
 /**
  * 游戏循环经过了多少时间
@@ -23,15 +24,17 @@ import { Dilute } from './hydra/dilute.ts';
 export let diff = 40;
 export let loopInterval: number;
 export let saveInterval = setInterval(save, 3000);
-
+export let backupInterval: number;
 export let ordinalSpeedDerivative = new Decimal(0);
 export let ordinalSpeedDerivative2 = new Decimal(0);
 export function startGameLoop() {
 	loopInterval = setInterval(gameLoop, 40);
+	backupInterval = setInterval(intervalBackup, 1000);
 }
 
 export function stopGameLoop() {
 	clearInterval(loopInterval);
+	clearInterval(backupInterval);
 }
 
 export function updateHighestStat() {
@@ -287,22 +290,39 @@ export function simulate(diff: number) {
 	ordinalSpeedDerivative = next.sub(last).div(diff / 1000);
 	let next2 = feature.Ordinal.speedDeri();
 	ordinalSpeedDerivative2 = next2.sub(last2).div(diff / 1000);
-	replaceDecimalNaN(player);
+	checkNaN(player, ['player']);
 }
 
-function replaceDecimalNaN<T>(obj: T): T {
+function checkNaN<T>(obj: T, path: string[]): T {
 	if (obj === null || obj === undefined) {
 		return obj;
 	}
 
-	// 处理 Decimal NaN
-	if (obj instanceof Decimal && Decimal.isNaN(obj)) {
+	// 发现并处理 Decimal NaN
+	if (obj instanceof Decimal && !Decimal.isFinite(obj)) {
+		stopGameLoop();
+		if (!player.foundNaN) {
+			ModalService.show({
+				title: '游戏已经停止运行',
+				get content() {
+					return `游戏在检查存档过程中发现了一些异常值，因此游戏自动停止了运行。<br>
+				以下是有关异常值的信息: ${path.join('.')}<br>
+				将<b>存档导出，并将存档和截图发送给开发者</b>，有助于解决这个问题。<br>`;
+				},
+				onConfirm(values) {
+					player.currentTab = 1;
+				},
+			});
+			player.foundNaN = true;
+		}
 		return new Decimal(1) as unknown as T;
 	}
 
 	// 处理数组
 	if (Array.isArray(obj)) {
-		return obj.map((item) => replaceDecimalNaN(item)) as unknown as T;
+		return obj.map((item, index) =>
+			checkNaN(item, path.concat(index.toString())),
+		) as unknown as T;
 	}
 
 	// 处理对象
@@ -310,7 +330,7 @@ function replaceDecimalNaN<T>(obj: T): T {
 		const result: any = {};
 		for (const key in obj) {
 			if (obj.hasOwnProperty(key)) {
-				result[key] = replaceDecimalNaN((obj as any)[key]);
+				result[key] = checkNaN((obj as any)[key], path.concat(key));
 			}
 		}
 		return result as T;
