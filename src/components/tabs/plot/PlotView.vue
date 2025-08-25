@@ -3,6 +3,7 @@ import { temp } from '@/core/temp-data';
 import { onMounted, onUnmounted, ref } from 'vue';
 import PlotSentence from './PlotSentence.vue';
 import { player } from '@/core/save';
+import { plots, stringToPlot } from '@/core/plot';
 const plotview = ref<HTMLDivElement|null>(null)
 const plotcont = ref<HTMLSpanElement|null>(null)
 function exitView(){
@@ -51,49 +52,14 @@ let a: number=-115;
     <div class="plot-content" style="width: 100%">
       <span ref="plotcont" style="width: 100%">
 	<table style="width: 100%; margin: -200px 50px; border-spacing: 10px; position: absolute; bottom: 0%">
-		<template v-if="temp.plotdisplay == 1">
-			<PlotSentence
-				v-if="temp.plotstep >= 0"
-				name="???"
-				image="url(./plot_image/placeholder.png)"
-				text="大基数在支撑集合论宇宙的序数高塔中飘荡。"
-			/>
-			<PlotSentence
-				v-if="temp.plotstep >= 1"
-				name="???"
-				image="url(./plot_image/placeholder.png)"
-				text="随后，Numerorum来到了这个“大数世界”上。"
-			/>
-			<PlotSentence
-				v-if="temp.plotstep >= 2"
-				name="Numerorum"
-				image="url(./plot_image/NumerorumColor.png)"
-				text="......"
-			/>
-			<PlotSentence
-				v-if="temp.plotstep >= 3"
-				name="Numerorum"
-				image="url(./plot_image/NumerorumColor.png)"
-				text="醒来了呢。"
-			/>
-			<PlotSentence
-				v-if="temp.plotstep >= 4"
-				name="Numerorum"
-				image="url(./plot_image/NumerorumColor.png)"
-				text="该从哪里开始我的目标呢？"
-			/>
-			<PlotSentence
-				v-if="temp.plotstep >= 5"
-				name="Numerorum"
-				image="url(./plot_image/NumerorumColor.png)"
-				text="负数显然离我的目标有点远。"
-			/>
-			<PlotSentence
-				v-if="temp.plotstep >= 6"
-				name="Numerorum"
-				image="url(./plot_image/NumerorumColor.png)"
-				text="就先从0开始吧。"
-			/>
+		<template v-if="temp.plotdisplay">
+			<template v-for="(plotobj, key) in plots[temp.plotdisplay-1]">
+				<PlotSentence v-if="temp.plotstep>key-1"
+					:name="stringToPlot(plotobj).name"
+					:image="stringToPlot(plotobj).image"
+					:text="stringToPlot(plotobj).text"
+					></PlotSentence>
+			</template>
 		</template>
 	</table>
       </span>
