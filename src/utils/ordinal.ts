@@ -184,9 +184,11 @@ export const OrdinalUtils = {
 			--maxLength;
 			otherwise.ascend++;
 			return s + this.numberToBMS(x.log(base), base, --maxLength, otherwise);
-		} else if (x.lt(base.tetrate(base.toNumber() + 2))) {
-		  // prettier-ignore
-			return '>(' + this.numberToBMS(x.iteratedlog(base, base.sub(2).toNumber()).div(base.pow(2)), new Decimal(4), maxLength).replace(/^>/, '').slice(1, -1).split(')(').map((s, i) => `${i},${s}`).join(')(') + ')';
+		} else if (x.lt(base.tetrate(base.toNumber()).mul(base.sqr()).pow_base(4).pow_base(4))) {
+		  let temp = this.numberToBMS(x.iteratedlog(base, base.sub(2).toNumber()).div(base.pow(2)), new Decimal(4), maxLength);
+		  let hasEllipsis = temp.endsWith("...")
+		  if (hasEllipsis) temp = temp.slice(0, -3)
+			return '>(' + temp.replace(/^>/, '').slice(1, -1).split(')(').map((s, i) => `${i},${s}`).join(')(') + ')' + (hasEllipsis ? "..." : "");
 		} else {
 			return `(0)(1<sup>ω</sup>)`;
 		}
@@ -220,4 +222,4 @@ export const OrdinalUtils = {
 	*/
 };
 
-//for (let i = 0; i <= 1024; i++) console.log(i, OrdinalUtils.numberToBMS(Decimal.mul(16,i).add(256).add(0.0001).pow_base(4).pow_base(4), new Decimal(4), 30))
+//for (let i = 1; i <= 512; i++) console.log(4**i, OrdinalUtils.numberToBMS(Decimal.pow(4, 4**i).mul(16).add(0.0001).pow_base(4).pow_base(4), new Decimal(4), 30))

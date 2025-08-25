@@ -79,6 +79,17 @@ function fixS1() {
 setInterval(function () {
 	refreshKey.value++;
 }, 40);
+
+function addPreset(){
+	player.hydra.dilute.solventPresets.push(Array.from(player.hydra.dilute.solvent) as typeof player.hydra.dilute.solvent);
+}
+function setPreset(preset: typeof player.hydra.dilute.solvent){
+	if (!player.hydra.dilute.inDilute)
+	player.hydra.dilute.solvent = Array.from(preset) as typeof player.hydra.dilute.solvent
+}
+function delPreset(preset: string) {
+	player.hydra.dilute.solventPresets.splice(Number(preset), 1);
+}
 </script>
 
 <template :key="refreshKey">
@@ -348,6 +359,14 @@ setInterval(function () {
 					</tr>
 				</tbody>
 			</table>
+		</div>
+	</div>
+	<div align="center">
+		<button class="clickable_button" @click="addPreset">添加当前溶剂作为预设</button>
+		<div v-for="preset in Object.entries(player.hydra.dilute.solventPresets)">
+			预设: {{ preset[1].join(',') }} 
+			<button class="clickable_button" style="display: inline" @click="()=>setPreset(preset[1])">使用</button>
+			<button class="clickable_button" style="display: inline" @click="()=>delPreset(preset[0])">删除</button>
 		</div>
 	</div>
 	<div align="center">

@@ -1,3 +1,5 @@
+@use "sass:color";
+
 @font-face {
 	font-family: 思源黑体Regular;
 	src: url('./NotoSansCJKsc-Regular.otf');
@@ -1102,7 +1104,7 @@ a {
   background-color: #c98300;
   border: 2px solid var(--border-color);
   &:hover {
-    background-color: lighten(#c98300, 10%);
+    background-color: color.adjust($color: #c98300, $lightness: 10%);
     cursor: pointer;
   }
 }
