@@ -22,7 +22,7 @@ export const NON_RECURSIVE = {
 			requirement: new Decimal(2),
 			currency: '非递归重置次数',
 			displayName: 'M6-2',
-			description: `转生/飞升/超越/轮回的重置阈值为+0、×1，且不重置任何东西`,
+			description: `转生/飞升/超越/轮回的重置阈值为+0、×1，且不重置任何东西，保持U5-2，U5-2的效果硬下限为100%`,
 			show: true,
 			get canDone() {
 				return player.nonrecu.resetTimes.gte(2);
@@ -42,7 +42,7 @@ export const NON_RECURSIVE = {
 			requirement: new Decimal(4),
 			currency: '非递归重置次数',
 			displayName: 'M6-4',
-			description: `1.每次非递归重置让溶剂3的容许秒数额外+1<br>2. 溶剂总等级的削弱效果变得更弱<br>3. BMS基础推演速度为1/s<br>4. U5-1-2的效果硬下限为200%`,
+			description: `1.每次非递归重置让溶剂3的容许秒数额外+1<br>2. 溶剂总等级的削弱效果变得更弱<br>3. BMS基础推演速度为1/s<br>4. U5-2的效果硬下限为200%`,
 			show: true,
 			get canDone() {
 				return player.nonrecu.resetTimes.gte(this.requirement);
@@ -118,7 +118,7 @@ export const NON_RECURSIVE = {
 			player.milestones[`dut${i}`] = false;
 		}
 		player.hydra.milestoneDut5Eff = new Decimal(1);
-		player.hydra.pAuto = [!1, !1, !1, !1];
+		if(!player.milestones.nonrec_2) player.hydra.pAuto = [!1, !1, !1, !1];
 		player.hydra.dilute.solvent = [0, 0, 0, 0, 0, 0, !1, !1, !1];
 		player.hydra.dilute.lastSolvent = [0, 0, 0, 0, 0, 0, !1, !1, !1];
 		player.hydra.dilute.lastDeduce = new Decimal(0);
@@ -154,6 +154,7 @@ export const NON_RECURSIVE = {
 		let B_tmp = player.hydra.deduceOrdinal[0].max(1).log(4).max(1).log(4).div(256);
 
 		base = base.mul(B_tmp).sub(1).pow_base(4);
+		if(player.nonrecu.studies_bought.includes(6)) base = base.mul(10);
 		return base;
 	},
 	nonrecEffects(): [Decimal, Decimal] {

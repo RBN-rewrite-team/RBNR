@@ -44,8 +44,8 @@ export class Study {
 
 export const studies = [
 	new Study({
-		id: '11',
-		description: '购买该升级或非递归重置时自动获取20九头蛇溶液',
+		id: '11', //0
+		description: '购买该升级或非递归重置时自动获取20九头蛇能量、溶液',
 		cost: new Decimal(1),
 		onBought() {
 			player.hydra.power = player.hydra.power.add(20);
@@ -55,12 +55,12 @@ export const studies = [
 		},
 	}),
 	new Study({
-		id: '12',
+		id: '12', //1
 		description: '基数之前全局速度x2',
 		cost: new Decimal(1),
 	}),
 	new Study({
-		id: '21',
+		id: '21', //2
 		description: '九头蛇溶液的常数硬上限改为软上限',
 		cost: new Decimal(3),
 		canBuy() {
@@ -71,7 +71,7 @@ export const studies = [
 		},
 	}),
 	new Study({
-		id: '22',
+		id: '22', //3
 		description: '基于九头蛇溶液大幅延迟九头蛇能量双重软上限',
 		cost: new Decimal(3),
 		canBuy() {
@@ -82,7 +82,7 @@ export const studies = [
 		},
 	}),
 	new Study({
-		id: '31',
+		id: '31', //4
 		description: '九头蛇能量×100000再^1.05',
 		cost: new Decimal(3),
 		canBuy() {
@@ -93,7 +93,7 @@ export const studies = [
 		},
 	}),
 	new Study({
-		id: 'NRC1',
+		id: 'NRC1', //5
 		description: '解锁非递归挑战1(没做)',
 		cost: new Decimal(10),
 		canBuy() {
@@ -103,8 +103,8 @@ export const studies = [
 		},
 	}),
 	new Study({
-		id: '41',
-		description: '非递归能量获取×10(没做)',
+		id: '41', //6
+		description: '非递归能量获取×10',
 		cost: new Decimal(4),
 		canBuy() {
 			return (
@@ -113,8 +113,8 @@ export const studies = [
 		},
 	}),
 	new Study({
-		id: '42',
-		description: '朊病毒增速×10，若未免疫朊病毒则免疫(没做)',
+		id: '42', //7
+		description: '朊病毒增速×10，若未免疫朊病毒则免疫',
 		cost: new Decimal(5),
 		canBuy() {
 			return false;

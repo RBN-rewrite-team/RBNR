@@ -284,9 +284,6 @@ export const OrdinalNT = {
 			keep() {
 			  return player.milestones.nonrec_5
 			}
-			show() {
-			  return player.milestones.nonrec_5
-			}
 		})(),
 		'66R': new (class extends Upgrade {
 			description = 'g(x)的对数底数降低为5';
