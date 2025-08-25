@@ -232,6 +232,7 @@ export const ORDINAL = {
 		})(),
 	} as const,
 	ordinalPerSecond() {
+		if(player.upgrades[61]) return new Decimal(0);
 		let base = new Decimal(0);
 		if (player.upgrades[51]) base = base.add(upgrades[51].effect());
 		if (player.upgrades[55]) base = base.mul(upgrades[55].effect());
