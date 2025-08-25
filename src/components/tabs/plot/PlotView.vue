@@ -52,43 +52,43 @@ function nextStep() {
 			<PlotSentence
 				v-if="temp.plotstep >= 0"
 				name="???"
-				image=""
+				image="url(./plot_image/placeholder.png)"
 				text="大基数在支撑集合论宇宙的序数高塔中飘荡。"
 			/>
 			<PlotSentence
 				v-if="temp.plotstep >= 1"
 				name="???"
-				image=""
+				image="url(./plot_image/placeholder.png)"
 				text="随后，Numerorum来到了这个“大数世界”上。"
 			/>
 			<PlotSentence
 				v-if="temp.plotstep >= 2"
 				name="Numerorum"
-				image=""
+				image="url(./plot_image/NumerorumColor.png)"
 				text="......"
 			/>
 			<PlotSentence
 				v-if="temp.plotstep >= 3"
 				name="Numerorum"
-				image=""
+				image="url(./plot_image/NumerorumColor.png)"
 				text="醒来了呢。"
 			/>
 			<PlotSentence
 				v-if="temp.plotstep >= 4"
 				name="Numerorum"
-				image=""
+				image="url(./plot_image/NumerorumColor.png)"
 				text="该从哪里开始我的目标呢？"
 			/>
 			<PlotSentence
 				v-if="temp.plotstep >= 5"
 				name="Numerorum"
-				image=""
+				image="url(./plot_image/NumerorumColor.png)"
 				text="负数显然离我的目标有点远。"
 			/>
 			<PlotSentence
 				v-if="temp.plotstep >= 6"
 				name="Numerorum"
-				image=""
+				image="url(./plot_image/NumerorumColor.png)"
 				text="就先从0开始吧。"
 			/>
 		</template>
