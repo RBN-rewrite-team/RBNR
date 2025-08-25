@@ -23,6 +23,24 @@ function enterPlot(i: number){
       <PlotNode style="top: 10px;left: 547.5px;" @click="enterPlot(4)">
         <template v-if="unlockedPlots()>=4"><vue-latex expression="2"></vue-latex></template><template v-else>未解锁</template>
       </PlotNode>
+      <PlotNode style="top: 100px;left: 30px;" @click="enterPlot(5)">
+        <template v-if="unlockedPlots()>=5"><vue-latex expression="C\cdot4"></vue-latex></template><template v-else>未解锁</template>
+      </PlotNode>
+      <PlotNode style="top: 100px;left: 202.5px;" @click="enterPlot(6)">
+        <template v-if="unlockedPlots()>=6"><vue-latex expression="3"></vue-latex></template><template v-else>未解锁</template>
+      </PlotNode>
+      <PlotNode style="top: 100px;left: 375px;" @click="enterPlot(7)">
+        <template v-if="unlockedPlots()>=7"><vue-latex expression="3\frac{1}{4}"></vue-latex></template><template v-else>未解锁</template>
+      </PlotNode>
+      <PlotNode style="top: 100px;left: 547.5px;" @click="enterPlot(8)">
+        <template v-if="unlockedPlots()>=8"><vue-latex expression="3\frac{1}{2}"></vue-latex></template><template v-else>未解锁</template>
+      </PlotNode>
+      <PlotNode style="top: 200px;left: 30px;" @click="enterPlot(9)">
+        <template v-if="unlockedPlots()>=9"><vue-latex expression="\frac{1}{x}"></vue-latex></template><template v-else>未解锁</template>
+      </PlotNode>
+      <PlotNode style="top: 200px;left: 202.5px;" @click="enterPlot(10)">
+        <template v-if="unlockedPlots()>=10"><vue-latex expression="4"></vue-latex></template><template v-else><vue-latex expression="?"></vue-latex></template>
+      </PlotNode>
       
     </div>
   </div>

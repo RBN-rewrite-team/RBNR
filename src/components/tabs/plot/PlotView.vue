@@ -9,7 +9,7 @@ const plotcont = ref<HTMLSpanElement|null>(null)
 function exitView(){
   if (!plotview.value) return;
   plotview.value.style.opacity="0";
-  setTimeout(()=>{temp.plotdisplay=0; temp.plotstep = 0},1000)
+  setTimeout(()=>{temp.plotdisplay=0; temp.plotstep = 0},250)
 }
 onMounted(()=>{
   if (plotview.value){
