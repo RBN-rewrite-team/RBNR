@@ -5,7 +5,7 @@ import { defineComponent, type PropType } from "vue";
 function setVal(obj: any, key: any){
     ModalService.show({
         title: "设置此项目的值",
-        content: "何意味",
+        content: "设置此项目的值",
         fields: [
             {
                 type: "input",
@@ -29,7 +29,7 @@ function setVal(obj: any, key: any){
     })
 }
 function objectNode(obj: any, objlayers=0) {
-    return <span>{(function (){
+    return <div style="width: 90%; font-size: 12px; border: 2px solid var(--suptitle-color); padding: 10px; position: relative; left: 5%">{(function (){
         if (typeof obj == "number") {
             return <span>Number: {obj}</span>
         }else if (typeof obj == "string") {
@@ -42,12 +42,12 @@ function objectNode(obj: any, objlayers=0) {
                 return <span>DEC{format(obj)}</span>
             }
             return Object.entries(obj).map(([k, v]) => {
-                return <div>{"-".repeat(objlayers)}{k}: {objectNode(v, objlayers+1)}<button onClick={()=>setVal(obj,k)}>Set value</button></div>
+                return <div>{".".repeat(objlayers)}{k}: {objectNode(v, objlayers+1)}<br /><button style="position: absolute; right: 0%; transform: translate(-50px, -50px)" onClick={()=>setVal(obj,k)}>Set value</button></div>
             })
         } else {
             return <span>Unknown</span>
         }
-    })()}</span>
+    })()}</div>
 }
 export default defineComponent({
     name: "ObjectNode",
