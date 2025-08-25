@@ -208,6 +208,7 @@ export interface Player {
 	};
 	backup?: Omit<Player, 'backup'> | null;
 	foundNaN: boolean;
+	checkedPlots: number[];
 }
 
 function getInitialPlayerData(): Player {
@@ -373,6 +374,7 @@ function getInitialPlayerData(): Player {
 			spentTheories: zero,
 		},
 		foundNaN: false,
+		checkedPlots: [],
 	};
 }
 

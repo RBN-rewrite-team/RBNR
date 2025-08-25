@@ -210,8 +210,13 @@ body {
 	border-radius: 4px;
 	color: var(--color);
 	background-color: var(--background-color);
+	position: relative;
 }
-
+.menu2-newcont{
+	position: absolute;
+	color: red;
+	right: 6px;
+}
 .menu2:hover {
 	background-color: var(--hover-color);
 }

@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { temp } from '@/core/temp-data';
-import { onMounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import PlotSentence from './PlotSentence.vue';
+import { player } from '@/core/save';
 const plotview = ref<HTMLDivElement|null>(null)
 const plotcont = ref<HTMLSpanElement|null>(null)
 function exitView(){
@@ -41,6 +42,8 @@ function nextStep() {
 		temp.plotcd = Date.now() + 500;
 	}
 }
+let a: number=-115;
+
 </script>
 
 <template>
