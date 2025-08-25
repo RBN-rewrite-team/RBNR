@@ -237,7 +237,7 @@ export const Hydra = {
 			cost = new Decimal(1e45);
 			name = 'U5-2';
 			show(): boolean {
-				return Dilute.diluteAmount(6) || Hydra.pUnlock(2) || player.milestones['dut4'];
+				return Dilute.diluteAmount(6) || Hydra.pUnlock(2) || player.milestones['dut4'] || player.milestones.nonrec_2;
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 			effectDescription(): string {
@@ -250,10 +250,11 @@ export const Hydra = {
 					.div(22.5)
 					.add(player.milestones.dut14 ? 10 : 0)
 					.mul(player.milestones.nonrec_6 ? 10 : 1)
-					.max(player.milestones.nonrec_3?2:0);
+					.max(player.milestones.nonrec_4 ? 2 : 0)
+					.max(player.milestones.nonrec_2 ? 1 : 0);
 			}
 			keep(): boolean {
-				return player.milestones['dut4'];
+				return player.milestones['dut4'] || player.milestones.nonrec_2;
 			}
 		})(),
 		'63': new (class U63 extends Upgrade {
@@ -458,7 +459,8 @@ export const Hydra = {
 	deduceSpeed(i = 0): Decimal {
 		//推演的速度
 		let base = new Decimal(0);
-		if (i == 0 && player.upgrades[61]) base = new Decimal(1);
+		if (i == 0 && player.upgrades[61]) base = new Decimal(0.1);
+		if(player.milestones.nonrecu_4) base = new Decimal(1);
 		if (i == 0 && player.upgrades[611]) base = base.mul(upgrades[611].effect());
 		if (i == 0) base = base.mul(buyables[611].effect(player.buyables[611]));
 		if (player.upgrades[612]) {
@@ -498,7 +500,6 @@ export const Hydra = {
 
 		if (base.gte('ee125')) base = base.log10().div(1e125).pow(0.5).mul(1e125).pow10();
 		if (base.gte('e8.07230472602822538e153')) base = new Decimal('e8.07230472602822538e153');
-		if (!player.milestones.nonrec_4) base = base.div(10)
 		return base;
 	},
 	deduceEff(i = 0): Decimal {
@@ -685,9 +686,9 @@ export const Hydra = {
 		}
 		if (Dilute.diluteAmount(6)) {
 			if (id == 0) return new Decimal(1);
-			if (id == 3) return new Decimal(1);
+			if (id == 2) return new Decimal(1);
 			if (id == 1) return new Decimal(0);
-			if (id == 4) return new Decimal(0);
+			if (id == 3) return new Decimal(0);
 		}
 		let num = new Decimal(0);
 		if (!preview) num = player.hydra.prestige[id];
@@ -702,7 +703,7 @@ export const Hydra = {
 			else base = num.div(2).max(1).log10().mul(4).root(2).div(4).sub(0.4).max(0).mul(2.5);
 		} else if (id == 2) {
 		  let powbase = new Decimal(5)
-		  if (player.milestones.nonrec_3) powbase = powbase.add(player.nonrecu.resetTimes.min(10))
+		  if (player.milestones.nonrec_3) powbase = powbase.add(player.nonrecu.resetTimes.min(10));
 			base = num
 				.pow(3)
 				.mul(num.max(1).add(1).log(2))
