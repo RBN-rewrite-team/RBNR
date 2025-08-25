@@ -195,6 +195,8 @@ export interface Player {
 		theories: [Decimal, Decimal, Decimal];
 		spentTheories: Decimal;
 	};
+	backup?: Omit<Player, 'backup'> | null;
+	foundNaN: boolean;
 }
 
 function getInitialPlayerData(): Player {
@@ -358,6 +360,7 @@ function getInitialPlayerData(): Player {
 			theories: [zero, zero, zero],
 			spentTheories: zero,
 		},
+		foundNaN: false,
 	};
 }
 
@@ -367,6 +370,12 @@ type DeepPartial<T> = T extends (infer U)[]
 		? { [P in keyof T]?: DeepPartial<T[P]> }
 		: T;
 
+/**
+ * 此函数是用来：
+ * 合并两个对象
+ * 合并两个数组
+ * 通用的合并，target是source的部分类型
+ */
 function deepMerge<T extends object>(source: T, target: object): T;
 function deepMerge<T extends unknown[]>(source: T, target: unknown[]): T;
 function deepMerge<T>(source: T, target: DeepPartial<T>): T {
@@ -612,4 +621,43 @@ export function readSaveDetail(id: number) {
 	}
 	details.lastSave = formatDateToMMddHHmm(new Date(savecontent_str.lastUpdated));
 	return details;
+}
+
+// 深拷贝函数
+function deepCopy<T>(obj: T): T {
+	if (obj === null || typeof obj !== 'object') {
+		return obj;
+	}
+
+	if (Array.isArray(obj)) {
+		return obj.map((item) => deepCopy(item)) as unknown as T;
+	}
+	if (obj instanceof Decimal) {
+		return new Decimal(obj) as T;
+	}
+	const copied = {} as T;
+	for (const key in obj) {
+		if (obj.hasOwnProperty(key)) {
+			copied[key] = deepCopy(obj[key]);
+		}
+	}
+
+	return copied;
+}
+
+// 备份函数，排除backup属性
+function backupPlayer(player: Player): Player {
+	// 创建不包含backup属性的副本
+	const { backup, ...playerWithoutBackup } = player;
+
+	// 深拷贝到backup属性
+	player.backup = deepCopy(playerWithoutBackup) as Player;
+
+	return player;
+}
+export function restoreBackup(backupedPlayer: Player) {
+	player = backupedPlayer;
+}
+export function intervalBackup() {
+	return backupPlayer(player);
 }
