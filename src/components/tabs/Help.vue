@@ -3,6 +3,8 @@ import { player } from "../../core/global.ts"
 import {
 	formatWhole,
 } from '@/utils/format';
+import DeveloperMode from "./developermode/DeveloperMode.vue";
+import { isDeveloper } from '@/core/save/testing';
 
 function nextPage() {
   if (player.help.page >= 4321) return //没做
@@ -32,6 +34,7 @@ let highestPage = 0;
 	  <br>
 	  <button class="clickable_button" @click="player.help.page = 1">序数</button>
 	  <button class="clickable_button" @click="player.help.page = 101">序数折叠函数</button>
+	  <button class="clickable_button" @click="player.help.page = 777" v-if="isDeveloper()">开发者模式</button>
     </div>
     <div align="center">
       <div class="center_line" />
@@ -326,6 +329,9 @@ let highestPage = 0;
 		</div><div v-else-if="player.help.page == 104">
 		有<vue-latex expression="\Omega"></vue-latex>有<vue-latex expression="\Omega_2"></vue-latex>，有M也有<vue-latex expression="M_2"></vue-latex>。<br />
 		</div>
+  <div v-if="player.help.page==777">
+    <DeveloperMode></DeveloperMode>
+  </div>
     <div v-else-if="player.help.page >= 4321">
       已达到当前版本残局：4321页。
       <!--<br>{{highestPage}}-!-->
