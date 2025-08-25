@@ -173,7 +173,7 @@ export const OrdinalNT = {
 				}
 				return base;
 			}
-			name = 'B6-R1-1';
+			name = 'B5-R1-1';
 			effect(x: Decimal): Decimal {
 				return x;
 			}
@@ -203,7 +203,7 @@ export const OrdinalNT = {
 				}
 				return base;
 			}
-			name = 'B6-R1-2';
+			name = 'B5-R1-2';
 			effect(x: Decimal): Decimal {
 				return x.pow_base(2);
 			}

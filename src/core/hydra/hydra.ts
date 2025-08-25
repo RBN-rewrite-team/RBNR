@@ -92,7 +92,7 @@ export const Hydra = {
 			cost = new Decimal(2).pow(512);
 			name = 'U5-1-5';
 			effect(): Decimal {
-				let base = player.buyables[613].sub(40).div(5).floor().max(0);
+				let base = player.buyables[613].sub(player.milestones.nonrec_6?0:40).div(5).floor().max(0);
 				if (base.gte(15000)) base = base.sub(14999).log10().add(15000);
 				return base;
 			}
@@ -249,6 +249,7 @@ export const Hydra = {
 					.log10()
 					.div(22.5)
 					.add(player.milestones.dut14 ? 10 : 0)
+					.mul(player.milestones.nonrec_6 ? 10 : 1)
 					.max(player.milestones.nonrec_3?2:0);
 			}
 			keep(): boolean {
@@ -460,7 +461,10 @@ export const Hydra = {
 		if (i == 0 && player.upgrades[61]) base = new Decimal(1);
 		if (i == 0 && player.upgrades[611]) base = base.mul(upgrades[611].effect());
 		if (i == 0) base = base.mul(buyables[611].effect(player.buyables[611]));
-		if (player.upgrades[612]) base = base.mul(2);
+		if (player.upgrades[612]) {
+		  base = base.mul(2);
+		  if (player.milestones.nonrec_6) base = base.mul(5)
+		}
 		base = base.mul(Hydra.prestigeEff(0));
 		if (player.buyables['62R'].gte(1))
 			base = base.mul(buyables['62R'].effect(player.buyables['62R']));
@@ -593,7 +597,7 @@ export const Hydra = {
 		if (player.milestones.dut12) base = new Decimal(1 / 7);
 		if (player.upgrades['612S']) base = new Decimal(1 / 5);
 		if (player.upgrades['613S']) base = base.pow(upgrades['613S'].effect());
-		if (player.milestones.nonrec_3) base = base.root(player.nonrecu.resetTimes.min(25).mul(0.01))
+		if (player.milestones.nonrec_3) base = base.root(player.nonrecu.resetTimes.min(25).mul(0.01).add(1))
 		return base;
 	},
 	powerGainBase(): Decimal {
