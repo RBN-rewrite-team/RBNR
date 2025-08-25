@@ -3,6 +3,8 @@ import { player } from "../../core/global.ts"
 import {
 	formatWhole,
 } from '@/utils/format';
+import DeveloperMode from "./developermode/DeveloperMode.vue";
+import { isDeveloper } from '@/core/save/testing';
 
 function nextPage() {
   if (player.help.page >= 4321) return //没做
@@ -32,6 +34,7 @@ let highestPage = 0;
 	  <br>
 	  <button class="clickable_button" @click="player.help.page = 1">序数</button>
 	  <button class="clickable_button" @click="player.help.page = 101">序数折叠函数</button>
+	  <button class="clickable_button" @click="player.help.page = 777" v-if="isDeveloper()">开发者模式</button>
     </div>
     <div align="center">
       <div class="center_line" />
@@ -295,16 +298,40 @@ let highestPage = 0;
 		显然可以通过一个更高层的序数来折叠这一过程，因此OCF引入了递归不可达序数，第一个这种序数是<vue-latex expression="I" />。<br />
 		关于它的OCF的定义与<vue-latex expression="\Omega_X" />类似，但<vue-latex expression="\psi_I(X)=\Omega_X" />，因此<vue-latex expression="\psi(I)=\psi(\alpha\mapsto\Omega_{\alpha}FP)" />。<br />
 		<vue-latex expression="\psi(I)" />被称为扩展BO，也就是EBO，它是单独使用<vue-latex expression="\Omega" />的OCF的最终极限。<br />
-		在<vue-latex expression="I" />之上，还可以定义关于更高的递归不可达序数<vue-latex expression="I_X" />的OCF，它的对应规则是<vue-latex expression="\psi_{I_{X+1}}(Y)=\Omega_{I_X+Y}" />。<br />
+		需要注意的是<vue-latex expression="I" />并不能表示为<vue-latex expression="\beta\mapsto\Omega_\beta"></vue-latex>不动点，而是容许点（AP），也就是用对应运算重复任意递归序数次数也无法达到的序数。<br>
+     例如<vue-latex expression="\Omega_1"></vue-latex>就无法用比<vue-latex expression="\Omega_1"></vue-latex>更小的序数递归得到。每个<vue-latex expression="\Omega_{\beta+1}"></vue-latex>都是容许序数（<vue-latex expression="\Omega_\omega"></vue-latex>并不是容许序数）。<br>
+     在<vue-latex expression="I" />之上，还可以定义关于更高的递归不可达序数<vue-latex expression="I_X" />的OCF，它的对应规则是<vue-latex expression="\psi_{I_{X+1}}(Y)=\Omega_{I_X+Y}" />。<br />
 		折叠这些OCF的序数是<vue-latex expression="I(1,0)" />，<vue-latex expression="\psi_{I(1,0)}(X)=I_X" /><br />
 		如此，使用Veblen函数的表示法，可以表达最高<vue-latex expression="\psi_{I(1@(1@(...)))}" />的序数，它相当于BMS的<vue-latex expression="(0,0,0)(1,1,1)(2,1,1)(3,1,1)(4,1,0)(5,2,0)" />，被称为SRO。<br />
 		我们可以用一个更高层次的OCF来折叠<vue-latex expression="I(a,b,c...)" />，它就是<vue-latex expression="M" />。<br />
 		<vue-latex expression="\psi_M(X)=\Omega_X" /><br />
-		<vue-latex expression="\psi_M(X*M)=\alpha\mapsto\psi(X*\alpha)AP" />(其中*为加法、乘法、乘方之一)<br />
+		<vue-latex expression="\psi_M(X*M)=\alpha\mapsto\psi_M(X*\alpha)AP" />(其中*为加法、乘法、乘方之一)<br />
 		<vue-latex expression="\psi_M(\sup\ \alpha[n \in N^+])[n]=\psi_M(\alpha[n])" /><br />
-		其中AP表示容许点，也就是用对应运算重复任意递归序数次数也无法达到的序数。<br />
+		例如<vue-latex expression="\psi_M(M)=\beta\mapsto\Omega_\beta \mathrm{ ap.}=I" /><br />
+   
 		含有<vue-latex expression="M" />的OCF可以像普通OCF折叠Veblen一样折叠<vue-latex expression="I" />的Veblen。<br />
-	</div>
+	</div><div v-else-if="player.help.page == 103">
+		以下是<vue-latex expression="\psi_M"></vue-latex>函数的例子<br />
+    <vue-latex expression="\psi_M(M)=I" display-mode/>
+    <vue-latex expression="\psi_M(M+1)=\Omega_{I+1}" display-mode/>
+    <vue-latex expression="\psi_M(M2)=I_2" display-mode/>
+    <vue-latex expression="\psi_M(M3)=I_3" display-mode/>
+    <vue-latex expression="\psi_M(M\Omega)=I_\Omega" display-mode/>
+    <vue-latex expression="\psi_M(M^2)=I(1,0)" display-mode/>
+    <vue-latex expression="\psi_M(M^2+M)=I_{I(1,0)+1}" display-mode/>
+    <vue-latex expression="\psi_M(M^22)=I(1,1)" display-mode/>
+    <vue-latex expression="\psi_M(M^3)=I(2,0)" display-mode/>
+    <vue-latex expression="\psi_M(M^\omega)=I(\omega,0)" display-mode/>
+    <vue-latex expression="\psi_M(M^M)=I(1,0,0)" display-mode/>
+    <vue-latex expression="\psi_M(M^{M^2})=I(1,0,0,0)" display-mode/>
+    <vue-latex expression="\psi_M(M^{M^M})=I(1@(1,0))" display-mode/>
+    <vue-latex expression="\psi_M(\varepsilon_{M+1})=I(1@(1@(1@...))))" display-mode/>
+		</div><div v-else-if="player.help.page == 104">
+		有<vue-latex expression="\Omega"></vue-latex>有<vue-latex expression="\Omega_2"></vue-latex>，有M也有<vue-latex expression="M_2"></vue-latex>。<br />
+		</div>
+  <div v-if="player.help.page==777">
+    <DeveloperMode></DeveloperMode>
+  </div>
     <div v-else-if="player.help.page >= 4321">
       已达到当前版本残局：4321页。
       <!--<br>{{highestPage}}-!-->

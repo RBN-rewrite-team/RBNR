@@ -565,7 +565,7 @@ export const Dilute = {
 			reqDescription: '1e18,915九头蛇能量',
 			requirement: new Decimal('e18915'),
 			get canDone() {
-				return player.upgrades['69S'] && player.hydra.power.gte('e18915');
+				return (player.upgrades['69S']||player.milestones.nonrec_7) && player.hydra.power.gte('e18915');
 			},
 			show: true,
 			currency: '',
@@ -579,7 +579,7 @@ export const Dilute = {
 			reqDescription: 'e5.0000e103/s推演速度',
 			requirement: new Decimal('e5e103'),
 			get canDone() {
-				return player.upgrades['69S'] && Hydra.deduceSpeed(0).gte(this.requirement);
+				return (player.upgrades['69S']||player.milestones.nonrec_7) && Hydra.deduceSpeed(0).gte(this.requirement);
 			},
 			show: true,
 			currency: '',
@@ -721,7 +721,7 @@ export const Dilute = {
 	},
 	diluteLoop(diff: number, trueDiff: number) {
 		if (
-			player.upgrades['69S'] ||
+			(player.upgrades['69S']||player.milestones.nonrec_7) ||
 			(player.hydra.totalDeduceOrdinal[0].gte(1) && player.hydra.dilute.inDilute)
 		)
 			player.hydra.dilute.prions = player.hydra.dilute.prions.mul(
@@ -744,7 +744,7 @@ export const Dilute = {
 				});
 				this.exitDilute(false);
 			}
-			if (!player.upgrades['69S'] && this.prions().gt(player.hydra.totalDeduceOrdinal[0])) {
+			if (!(player.upgrades['69S']||player.milestones.nonrec_7) && this.prions().gt(player.hydra.totalDeduceOrdinal[0])) {
 				ModalService.show({
 					title: '已退出稀释',
 					content: '朊病毒吃掉了你的脑子！（你的朊病毒超过了你的推演总数量）',
@@ -760,6 +760,7 @@ export const Dilute = {
 	prionsBase() {
 		let base = new Decimal(1 + this.diluteAmount(4) / 100);
 		if (player.upgrades['69S']) base = new Decimal(2);
+		if (player.upgrades['69S']&&player.milestones.nonrec_6) base = new Decimal(10);
 		if (player.upgrades['610S']) base = base.mul(upgrades['610S'].effect());
 		if (player.milestones.dut17) base = base.mul(MEff17());
 		return base;

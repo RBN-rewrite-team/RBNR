@@ -320,6 +320,7 @@ watch(studyRefs, () => {
 <style lang="scss" scoped>
 .studies-container {
   position: relative;
+  min-width: 1300px
 }
 
 .studies_row {
