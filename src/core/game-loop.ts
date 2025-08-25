@@ -137,7 +137,7 @@ export function simulate(diff: number) {
 			diff *= 3;
 		}
 	}
-	let last = feature.Ordinal.ordinalPerSecond();
+	let last = player.upgrades[61] ? new Decimal(0) : feature.Ordinal.ordinalPerSecond();
 	let last2 = feature.Ordinal.speedDeri();
 	let pre_cardinal_diff = diff;
 
@@ -286,7 +286,7 @@ export function simulate(diff: number) {
 
 	Logarithm.astronomerUpdate();
 	updateHighestStat();
-	let next = feature.Ordinal.ordinalPerSecond();
+	let next = player.upgrades[61] ? new Decimal(0) : feature.Ordinal.ordinalPerSecond();
 	ordinalSpeedDerivative = next.sub(last).div(diff / 1000);
 	let next2 = feature.Ordinal.speedDeri();
 	ordinalSpeedDerivative2 = next2.sub(last2).div(diff / 1000);
