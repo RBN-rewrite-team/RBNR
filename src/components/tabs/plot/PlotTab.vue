@@ -14,9 +14,15 @@ function enterPlot(i: number){
       <PlotNode style="top: 10px; left: 30px;" @click="temp.plotdisplay = 1"><vue-latex expression="-\varepsilon"></vue-latex></PlotNode>
       <div class="node" style="top: 35.7px;left: 93px;background-color: var(--color);width: 100px;height: 1px;"></div>
       <PlotNode style="top: 10px;left: 202.5px;" @click="enterPlot(2)">
-        <template v-if="unlockedPlots()>=2"><vue-latex expression="0"></vue-latex></template><template v-else>未解锁</template></PlotNode>
+        <template v-if="unlockedPlots()>=2"><vue-latex expression="0"></vue-latex></template><template v-else>未解锁</template>
+      </PlotNode>
       <div class="node" style="top: 35.7px;left: 265px;background-color: var(--color);width: 100px;height: 1px;"></div>
-      <PlotNode style="top: 10px;left: 375px;">未解锁</PlotNode>
+      <PlotNode style="top: 10px;left: 375px;" @click="enterPlot(3)">
+        <template v-if="unlockedPlots()>=3"><vue-latex expression="1"></vue-latex></template><template v-else>未解锁</template>
+      </PlotNode>
+      <PlotNode style="top: 10px;left: 547.5px;" @click="enterPlot(4)">
+        <template v-if="unlockedPlots()>=4"><vue-latex expression="2"></vue-latex></template><template v-else>未解锁</template>
+      </PlotNode>
       
     </div>
   </div>
