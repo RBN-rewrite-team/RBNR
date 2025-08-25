@@ -64,6 +64,26 @@ export const NON_RECURSIVE = {
 			  player.upgrades["65S"] = true
 			}
 		});
+		MILESTONES.create('nonrec_6', {
+			requirement: new Decimal(6),
+			currency: '非递归重置次数',
+			displayName: 'M6-6',
+			description: `提高U5-1-2(100%→1000%)，U5-1-5，U5-R1-2(^1.125→^1.25)，U5-2，U5-S-9(×2/s→×10/s)的效果`,
+			show: true,
+			get canDone() {
+				return player.nonrecu.resetTimes.gte(this.requirement);
+			},
+		});
+		MILESTONES.create('nonrec_7', {
+			requirement: new Decimal(7),
+			currency: '非递归重置次数',
+			displayName: 'M6-7',
+			description: `你初始便免疫朊病毒`,
+			show: true,
+			get canDone() {
+				return player.nonrecu.resetTimes.gte(this.requirement);
+			},
+		});
 	},
 	reset(force = false) {
 		if (!isTester()) {

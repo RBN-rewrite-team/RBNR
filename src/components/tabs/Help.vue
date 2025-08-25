@@ -4,6 +4,7 @@ import {
 	formatWhole,
 } from '@/utils/format';
 import DeveloperMode from "./developermode/DeveloperMode.vue";
+import { isDeveloper } from '@/core/save/testing';
 
 function nextPage() {
   if (player.help.page >= 4321) return //没做
@@ -33,6 +34,7 @@ let highestPage = 0;
 	  <br>
 	  <button class="clickable_button" @click="player.help.page = 1">序数</button>
 	  <button class="clickable_button" @click="player.help.page = 101">序数折叠函数</button>
+	  <button class="clickable_button" @click="player.help.page = 777" v-if="isDeveloper()">开发者模式</button>
     </div>
     <div align="center">
       <div class="center_line" />
