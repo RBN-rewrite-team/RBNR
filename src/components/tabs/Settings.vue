@@ -28,6 +28,12 @@ const validThemes = computed(() => Object.values(themes).filter((v) => typeof v 
 		>
 			离线进度：{{ player.options.allowOffline ? '开' : '关' }}
 		</button>
+		<button
+			class="setting_button"
+			@click="player.currentTab = 300"
+		>
+			进入存档银行
+		</button>
 		<br />
 		<div v-if="player.singularity.stage < 1">
 			<div class="center_line" />
