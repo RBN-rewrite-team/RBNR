@@ -15,7 +15,7 @@
 					<slot>
 						<!-- 自定义组件模式 -->
 						<div v-if="customComponent" class="custom-component-container">
-              <component
+							<component
 								:is="customComponent"
 								v-bind="componentProps"
 								@update:props="handleComponentUpdate"
@@ -35,36 +35,33 @@
 						<!-- 正常模式 -->
 						<template v-else>
 							<div v-if="content" class="modal-content" v-html="content"></div>
-
-							
 						</template>
 
 						<template v-for="(field, index) in fields" :key="index">
-						<div class="input-group">
-							<label v-if="field.label">{{ field.label }}</label
-							><br />
-							<component
-							:is="field.type === 'textarea' ? 'textarea' : 'input'"
-							v-model="inputValues[index].value"
-							:type="getInputType(field.type)"
-							:placeholder="field.placeholder"
-							:rows="field.rows"
-							class="modal-input"
-							:class="{
-								'input-error':
-								errors[index] && inputValues[index].touched,
-							}"
-							@input="updateValue(index, $event.target.value)"
-							@blur="handleBlur(index)"
-							@keyup.enter="handleConfirm"
-							/>
-							<div
-							v-if="errors[index] && inputValues[index].touched"
-							class="error-message"
-							>
-							{{ errors[index] }}
+							<div class="input-group">
+								<label v-if="field.label">{{ field.label }}</label
+								><br />
+								<component
+									:is="field.type === 'textarea' ? 'textarea' : 'input'"
+									v-model="inputValues[index].value"
+									:type="getInputType(field.type)"
+									:placeholder="field.placeholder"
+									:rows="field.rows"
+									class="modal-input"
+									:class="{
+										'input-error': errors[index] && inputValues[index].touched,
+									}"
+									@input="updateValue(index, $event.target.value)"
+									@blur="handleBlur(index)"
+									@keyup.enter="handleConfirm"
+								/>
+								<div
+									v-if="errors[index] && inputValues[index].touched"
+									class="error-message"
+								>
+									{{ errors[index] }}
+								</div>
 							</div>
-						</div>
 						</template>
 					</slot>
 				</div>
@@ -377,7 +374,6 @@ defineExpose({
 		border-color: #666;
 	}
 }
-
 
 .modal-slide-enter-active,
 .modal-slide-leave-active {

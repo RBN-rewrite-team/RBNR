@@ -1236,7 +1236,7 @@ export default defineComponent({
 		};
 
 		const dotContents = () => {
-			return props.valueInDot ? getValue() as number : '';
+			return props.valueInDot ? (getValue() as number) : '';
 		};
 
 		// Watchers

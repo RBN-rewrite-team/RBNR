@@ -6,7 +6,7 @@ import TDBuyable from '../TDBuyable.vue';
 import { OrdinalUtils } from '@/utils/ordinal';
 import Decimal from 'break_eternity.js';
 import { Dilute } from '@/core/hydra/dilute';
-import { onBeforeUnmount } from "vue"
+import { onBeforeUnmount } from 'vue';
 
 function powerFactorHTML(): string {
 	let s = '';
@@ -37,12 +37,17 @@ function powerFactorHTML(): string {
 			'<sup style="color: rgb(127, 0, 0)">' +
 			format(feature.Hydra.powerSoftcapNerf(feature.Hydra.powerGainBase())) +
 			'</sup>';
-		if (feature.Hydra.logSoftcapNerf(feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase())).eq(1)) s +=
-			'<span style="color: var(--color)"> = ' +
-			format(feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase())) +
-			'</span>';
+		if (
+			feature.Hydra.logSoftcapNerf(
+				feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase()),
+			).eq(1)
+		)
+			s +=
+				'<span style="color: var(--color)"> = ' +
+				format(feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase())) +
+				'</span>';
 	}
-	let softcapped = feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase())
+	let softcapped = feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase());
 	if (!feature.Hydra.logSoftcapNerf(softcapped).eq(1)) {
 		s +=
 			'<span style="color: var(--color)"> = ln<sup style="color: #c98300">' +
@@ -145,7 +150,8 @@ function hydraAxisHTML(): string {
 							class="hydra-button"
 							:style="{ 'background-image': deduceButtonStyle() }"
 						>
-							<span v-if="feature.Hydra.deduceSpeed().gt(0)"
+							<span
+								v-if="feature.Hydra.deduceSpeed().gt(0)"
 								class="hydra-text"
 								style="opacity: 0.5; color: rgb(200, 190, 245); font-size: 60px"
 								>{{
@@ -155,12 +161,14 @@ function hydraAxisHTML(): string {
 								}}</span
 							>
 							<span class="hydra-text">
-								<span v-html="
-									OrdinalUtils.numberToBMS(
-										player.hydra.deduceOrdinal[0],
-										new Decimal(4),
-									)
-								" />
+								<span
+									v-html="
+										OrdinalUtils.numberToBMS(
+											player.hydra.deduceOrdinal[0],
+											new Decimal(4),
+										)
+									"
+								/>
 							</span>
 							<span
 								class="hydra-text-bottom"
@@ -196,12 +204,14 @@ function hydraAxisHTML(): string {
 								>{{ format(feature.Hydra.deduceSpeed()) }}/s</span
 							>
 							<span class="hydra-text">
-								<span v-html="
-									OrdinalUtils.numberToBMS(
-										player.hydra.deduceOrdinal[0],
-										new Decimal(4),
-									)
-								" />
+								<span
+									v-html="
+										OrdinalUtils.numberToBMS(
+											player.hydra.deduceOrdinal[0],
+											new Decimal(4),
+										)
+									"
+								/>
 							</span>
 							<span
 								class="hydra-text-bottom"
@@ -263,9 +273,10 @@ function hydraAxisHTML(): string {
 						<button
 							class="hydra-button"
 							@click="player.hydra.autoHydraReset = !player.hydra.autoHydraReset"
-
 						>
-						  自<br>动<br>重<br>置<br>:<br>{{player.hydra.autoHydraReset?"开":"关"}}
+							自<br />动<br />重<br />置<br />:<br />{{
+								player.hydra.autoHydraReset ? '开' : '关'
+							}}
 						</button>
 					</td>
 				</tr>
@@ -440,7 +451,7 @@ function hydraAxisHTML(): string {
 				<TDUpgrade upgid="613" />
 				<TDUpgrade upgid="614" />
 			</tr>
-			<tr v-if="Dilute.diluteAmount(6) || player.upgrades[61] && feature.Hydra.pUnlock(2)">
+			<tr v-if="Dilute.diluteAmount(6) || (player.upgrades[61] && feature.Hydra.pUnlock(2))">
 				<TDUpgrade upgid="615" />
 				<TDUpgrade upgid="616" />
 				<TDUpgrade upgid="617" />
