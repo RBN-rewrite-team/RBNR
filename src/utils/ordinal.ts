@@ -185,10 +185,24 @@ export const OrdinalUtils = {
 			otherwise.ascend++;
 			return s + this.numberToBMS(x.log(base), base, --maxLength, otherwise);
 		} else if (x.lt(base.tetrate(base.toNumber()).mul(base.sqr()).pow_base(4).pow_base(4))) {
-		  let temp = this.numberToBMS(x.iteratedlog(base, base.sub(2).toNumber()).div(base.pow(2)), new Decimal(4), maxLength);
-		  let hasEllipsis = temp.endsWith("...")
-		  if (hasEllipsis) temp = temp.slice(0, -3)
-			return '>(' + temp.replace(/^>/, '').slice(1, -1).split(')(').map((s, i) => `${i},${s}`).join(')(') + ')' + (hasEllipsis ? "..." : "");
+			let temp = this.numberToBMS(
+				x.iteratedlog(base, base.sub(2).toNumber()).div(base.pow(2)),
+				new Decimal(4),
+				maxLength,
+			);
+			let hasEllipsis = temp.endsWith('...');
+			if (hasEllipsis) temp = temp.slice(0, -3);
+			return (
+				'>(' +
+				temp
+					.replace(/^>/, '')
+					.slice(1, -1)
+					.split(')(')
+					.map((s, i) => `${i},${s}`)
+					.join(')(') +
+				')' +
+				(hasEllipsis ? '...' : '')
+			);
 		} else {
 			return `(0)(1<sup>ω</sup>)`;
 		}

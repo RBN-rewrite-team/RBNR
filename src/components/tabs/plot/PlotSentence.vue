@@ -7,12 +7,15 @@ const props = defineProps<{
 </script>
 
 <template>
-	<tr><td><div align="center" style="position: relative; width: 100%">
-		<div class="chara_pic" :style="{ 'background-image': image }">
-		</div>
-		<span class="chara_name" v-html="name" />
-		<div class="main" v-html="text" />
-	</div></td></tr>
+	<tr>
+		<td>
+			<div align="center" style="position: relative; width: 100%">
+				<div class="chara_pic" :style="{ 'background-image': image }"></div>
+				<span class="chara_name" v-html="name" />
+				<div class="main" v-html="text" />
+			</div>
+		</td>
+	</tr>
 </template>
 
 <style scoped>

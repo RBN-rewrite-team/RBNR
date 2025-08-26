@@ -4,7 +4,7 @@ import { UIHardReset, UIChangeSave, UIEnterTesting } from '@/core/save/saveui';
 import { notationNamesMap, notations } from '@/utils/format';
 import { reverseUiOptions, themeDetailsMap, themes } from '@/utils/themes';
 import { computed } from 'vue';
-import { isTester } from "@/core/save/testing.ts"
+import { isTester } from '@/core/save/testing.ts';
 
 const validNotations = computed(() =>
 	Object.values(notations).filter((v) => typeof v === 'number'),
@@ -28,6 +28,7 @@ const validThemes = computed(() => Object.values(themes).filter((v) => typeof v 
 		>
 			离线进度：{{ player.options.allowOffline ? '开' : '关' }}
 		</button>
+		<button class="setting_button" @click="player.currentTab = 300">进入存档银行</button>
 		<br />
 		<div v-if="player.singularity.stage < 1">
 			<div class="center_line" />
@@ -74,8 +75,8 @@ const validThemes = computed(() => Object.values(themes).filter((v) => typeof v 
 			class="setting_button"
 			@click="player.options.ui.titlebar = !player.options.ui.titlebar"
 		>
-			标题栏：{{ player.options.ui.titlebar ? '开' : '关' }}
-		</button><br>
+			标题栏：{{ player.options.ui.titlebar ? '开' : '关' }}</button
+		><br />
 		<span v-if="isTester()">您处于测试模式</span>
 	</div>
 	<!-- code... -->

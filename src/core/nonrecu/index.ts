@@ -106,7 +106,7 @@ export const NON_RECURSIVE = {
 		});
 	},
 	reset(force = false) {
-		if (!isTester()) {
+		if (!isTester() && player.nonrecu.resetTimes.gte(2)) {
 			ModalService.show({
 				title: 'WIP!',
 				content: 'Work in progress!',

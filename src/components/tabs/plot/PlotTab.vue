@@ -2,8 +2,10 @@
 import { temp } from '@/core/temp-data';
 import PlotNode from './PlotNode.vue';
 import { unlockedPlots } from '@/core/plot';
-function enterPlot(i: number){
-  if (unlockedPlots()>=i){temp.plotdisplay=i}
+function enterPlot(i: number) {
+	if (unlockedPlots() >= i) {
+		temp.plotdisplay = i;
+	}
 }
 </script>
 
@@ -48,6 +50,6 @@ function enterPlot(i: number){
 
 <style lang="css" scoped>
 .node {
-  position: absolute;
+	position: absolute;
 }
 </style>
