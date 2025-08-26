@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { player } from '@/core/save';
 import { Logarithm } from '../core/exponention/logarithm.ts';
+import { unlockedPlots, viewedPlotLength } from '@/core/plot.ts';
 </script>
 
 <template>
@@ -191,7 +192,6 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 						</div>
 					</template>
 					<template v-if="(player.firstResetBit & 0b10000) == 0b10000">
-
 						<div class="menu1">非递归</div>
 						<div class="menu_line"></div>
 						<div
@@ -203,7 +203,7 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 							非递归
 						</div>
 					</template>
-					
+
 					<div class="menu1">杂项</div>
 					<div class="menu_line"></div>
 					<div
@@ -225,7 +225,11 @@ import { Logarithm } from '../core/exponention/logarithm.ts';
 						:class="{ focus: player.currentTab == 200 }"
 						@click="player.currentTab = 200"
 					>
-						剧情
+						剧情<span
+							class="menu2-newcont"
+							v-if="unlockedPlots() - viewedPlotLength() > 0"
+							>+{{ unlockedPlots() - viewedPlotLength() }}</span
+						>
 					</div>
 					<div
 						class="menu2"

@@ -14,10 +14,13 @@ import { format } from '@/utils/format';
 			<div v-if="!(player.firstResetBit & 0b1000)" style="margin-left: 15px" class="resource">
 				<div style="font-weight: bold; color: var(--suptitle-color)">
 					数值&nbsp;
-					<template v-if="player.singularity.t>666">ω</template>
+					<template v-if="player.singularity.t > 666">ω</template>
 					<template v-else>{{ formatWhole(player.number) }}</template>
 				</div>
-				<div style="font-size: 17px; color: var(--title-color)" v-if="player.singularity.t<666">
+				<div
+					style="font-size: 17px; color: var(--title-color)"
+					v-if="player.singularity.t < 666"
+				>
 					<span
 						v-if="
 							player.singularity.stage < 11 &&
@@ -46,7 +49,13 @@ import { format } from '@/utils/format';
 								feature.Ordinal.base(),
 							)
 						"
+						v-if="
+						  !(player.upgrades[61] && player.hydra.deduceOrdinal[0].gte('e8.072304726028225379e153'))"
 					/>
+					<vue-latex :expression="Ordinal.displayOrdinalColored(
+								player.ordinal.number.floor(),
+								feature.Ordinal.base(),
+							)" v-else />
 				</div>
 				<div style="font-size: 17px; color: rgb(255, 127, 127)" v-if="!player.upgrades[61]">
 					<span
@@ -214,12 +223,12 @@ import { format } from '@/utils/format';
 						{{ formatWhole(player.nonrecu.power) }}
 					</div>
 					<br />
-				<div
-					v-if="true"
-					style="font-size: 17px; display: inline; color: rgb(245, 193, 73)"
-				>
-					(+{{formatWhole(feature.NON_RECURSIVE.gain())}})
-				</div>
+					<div
+						v-if="true"
+						style="font-size: 17px; display: inline; color: rgb(245, 193, 73)"
+					>
+						(+{{ formatWhole(feature.NON_RECURSIVE.gain()) }})
+					</div>
 				</div>
 			</div>
 		</div>

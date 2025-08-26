@@ -4,35 +4,38 @@ import { defineComponent, computed } from 'vue';
 export default defineComponent({
 	name: 'PlusMinusButton',
 	props: {
-	  type: {
-      type: String,
-      default: "plus"
-	  }
+		type: {
+			type: String,
+			default: 'plus',
+		},
 	},
 	emits: ['click'],
 	setup(props, { emit }) {
 		const handleClick = () => {
 			emit('click');
 		};
-		
+
 		const getText = () => {
-		  switch(props.type) {
-		    case "plus": return "+"
-		    case "minus": return "-"
-		    default: return ""
-		  }
-		}
+			switch (props.type) {
+				case 'plus':
+					return '+';
+				case 'minus':
+					return '-';
+				default:
+					return '';
+			}
+		};
 
 		return {
 			handleClick,
-			getText
+			getText,
 		};
 	},
 });
 </script>
 
 <template>
-	<div class="c-slider__button" @click="handleClick">{{getText()}}</div>
+	<div class="c-slider__button" @click="handleClick">{{ getText() }}</div>
 </template>
 
 <style scoped>

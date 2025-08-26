@@ -14,6 +14,7 @@ import { Dilute } from '@/core/hydra/dilute.ts';
 import { startGameLoop } from '@/core/game-loop';
 import { NON_RECURSIVE } from '@/core/nonrecu/index.ts';
 import ModalService from './Modal.ts';
+import { temp } from '@/core/temp-data.ts';
 
 export function init() {
 	feature.SUCCESSOR.initMechanics();
@@ -41,7 +42,12 @@ export function init() {
 	player.run_a_tick_and_froze = false;
 	startGameLoop();
 	const app = createApp(App);
-
+	setInterval(() => {
+		if (temp.plotdisplay && !player.checkedPlots.includes(temp.plotdisplay)) {
+			player.checkedPlots.push(temp.plotdisplay);
+			player.checkedPlots = [...new Set(player.checkedPlots)];
+		}
+	}, 1000);
 	app.use(VueLatex).directive('hold', vHold).mount('#app');
 	hotkeys('a', (event) => {
 		event.preventDefault();

@@ -14,7 +14,7 @@ function getCurrentSolution() {
 
 function getSliderProps(id = 0) {
 	return {
-		min: (id == 0||id==6) ? 0 : Math.min(minS1Level(), 9),
+		min: id == 0 || id == 6 ? 0 : Math.min(minS1Level(), 9),
 		max: 10,
 		width: '24rem',
 		valueInDot: true,
@@ -23,7 +23,7 @@ function getSliderProps(id = 0) {
 		'dot-height': '1.6rem',
 		'dot-class': 'slider-dot-class-dilute',
 		'process-class': 'slider-process-class-dilute',
-		interval: id==6?player.milestones.dut11?0.25:0.5:1,
+		interval: id == 6 ? (player.milestones.dut11 ? 0.25 : 0.5) : 1,
 		style: {
 			'margin-top': '1rem',
 		},
@@ -80,12 +80,14 @@ setInterval(function () {
 	refreshKey.value++;
 }, 40);
 
-function addPreset(){
-	player.hydra.dilute.solventPresets.push(Array.from(player.hydra.dilute.solvent) as typeof player.hydra.dilute.solvent);
+function addPreset() {
+	player.hydra.dilute.solventPresets.push(
+		Array.from(player.hydra.dilute.solvent) as typeof player.hydra.dilute.solvent,
+	);
 }
-function setPreset(preset: typeof player.hydra.dilute.solvent){
+function setPreset(preset: typeof player.hydra.dilute.solvent) {
 	if (!player.hydra.dilute.inDilute)
-	player.hydra.dilute.solvent = Array.from(preset) as typeof player.hydra.dilute.solvent
+		player.hydra.dilute.solvent = Array.from(preset) as typeof player.hydra.dilute.solvent;
 }
 function delPreset(preset: string) {
 	player.hydra.dilute.solventPresets.splice(Number(preset), 1);
@@ -96,10 +98,12 @@ function delPreset(preset: string) {
 	你有<b style="color: red; font-size: 30px">{{ format(getCurrentSolution()) }}</b
 	><span v-if="player.hydra.dilute.inDilute">(本次{{ format(Dilute.solutionGain()) }})</span
 	>九头蛇溶液<br />
-	推演速度×{{ format(Dilute.solutionEff().eff1) }}<br>
+	推演速度×{{ format(Dilute.solutionEff().eff1) }}<br />
 	<span v-if="player.upgrades['69S'] || player.hydra.dilute.prions.gt(1)"
 		>你有<b style="color: red; font-size: 30px">{{ format(Dilute.prions()) }}</b
-		><span v-if="!player.upgrades['69S']">/{{format(player.hydra.totalDeduceOrdinal[0])}}</span>朊病毒<br /><br
+		><span v-if="!player.upgrades['69S']"
+			>/{{ format(player.hydra.totalDeduceOrdinal[0]) }}</span
+		>朊病毒<br /><br
 	/></span>
 	<div v-if="!player.upgrades['614S']">
 		启动稀释后，溶剂{{
@@ -134,9 +138,7 @@ function delPreset(preset: string) {
 			}})九头蛇溶液
 		</div>
 		<div class="solvents">
-			溶剂等级之和使你的推演速度变为<sup>1</sup>/<sub>{{
-				format(Dilute.totSolNerf())
-			}}</sub>
+			溶剂等级之和使你的推演速度变为<sup>1</sup>/<sub>{{ format(Dilute.totSolNerf()) }}</sub>
 			<table>
 				<tbody>
 					<tr>
@@ -364,9 +366,21 @@ function delPreset(preset: string) {
 	<div align="center">
 		<button class="clickable_button" @click="addPreset">添加当前溶剂作为预设</button>
 		<div v-for="preset in Object.entries(player.hydra.dilute.solventPresets)">
-			预设: {{ preset[1].join(',') }} 
-			<button class="clickable_button" style="display: inline" @click="()=>setPreset(preset[1])">使用</button>
-			<button class="clickable_button" style="display: inline" @click="()=>delPreset(preset[0])">删除</button>
+			预设: {{ preset[1].join(',') }}
+			<button
+				class="clickable_button"
+				style="display: inline"
+				@click="() => setPreset(preset[1])"
+			>
+				使用
+			</button>
+			<button
+				class="clickable_button"
+				style="display: inline"
+				@click="() => delPreset(preset[0])"
+			>
+				删除
+			</button>
 		</div>
 	</div>
 	<div align="center">
@@ -403,7 +417,7 @@ function delPreset(preset: string) {
 	</table>
 	<table align="center" style="transform: translateY(80px)">
 		<tbody class="milestones">
-			<TRMilestone :id="'dut'+i" v-for="i in 18" :key="i" />
+			<TRMilestone :id="'dut' + i" v-for="i in 18" :key="i" />
 		</tbody>
 	</table>
 </template>

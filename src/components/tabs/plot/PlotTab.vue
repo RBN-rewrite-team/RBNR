@@ -1,18 +1,48 @@
 <script setup lang="ts">
 import { temp } from '@/core/temp-data';
 import PlotNode from './PlotNode.vue';
-
+import { unlockedPlots } from '@/core/plot';
+function enterPlot(i: number) {
+	if (unlockedPlots() >= i) {
+		temp.plotdisplay = i;
+	}
+}
 </script>
 
 <template>
   <div class="main">
     <h1>剧情设定</h1>
-    <div style="position: relative;">
+    <div style="position: fixed;">
       <PlotNode style="top: 10px; left: 30px;" @click="temp.plotdisplay = 1"><vue-latex expression="-\varepsilon"></vue-latex></PlotNode>
-      <div class="node" style="top: -17.2px;left: 93px;background-color: var(--color);width: 100px;height: 1px;"></div>
-      <PlotNode style="top: -43.2px;left: 202.5px;">未解锁</PlotNode>
-      <div class="node" style="top: -70.2px;left: 265px;background-color: var(--color);width: 100px;height: 1px;"></div>
-      <PlotNode style="top: -97.2px;left: 375px;">未解锁</PlotNode>
+      <div class="node" style="top: 35.7px;left: 93px;background-color: var(--color);width: 100px;height: 1px;"></div>
+      <PlotNode style="top: 10px;left: 202.5px;" @click="enterPlot(2)">
+        <template v-if="unlockedPlots()>=2"><vue-latex expression="0"></vue-latex></template><template v-else>未解锁</template>
+      </PlotNode>
+      <div class="node" style="top: 35.7px;left: 265px;background-color: var(--color);width: 100px;height: 1px;"></div>
+      <PlotNode style="top: 10px;left: 375px;" @click="enterPlot(3)">
+        <template v-if="unlockedPlots()>=3"><vue-latex expression="1"></vue-latex></template><template v-else>未解锁</template>
+      </PlotNode>
+      <PlotNode style="top: 10px;left: 547.5px;" @click="enterPlot(4)">
+        <template v-if="unlockedPlots()>=4"><vue-latex expression="2"></vue-latex></template><template v-else>未解锁</template>
+      </PlotNode>
+      <PlotNode style="top: 100px;left: 30px;" @click="enterPlot(5)">
+        <template v-if="unlockedPlots()>=5"><vue-latex expression="C\cdot4"></vue-latex></template><template v-else>未解锁</template>
+      </PlotNode>
+      <PlotNode style="top: 100px;left: 202.5px;" @click="enterPlot(6)">
+        <template v-if="unlockedPlots()>=6"><vue-latex expression="3"></vue-latex></template><template v-else>未解锁</template>
+      </PlotNode>
+      <PlotNode style="top: 100px;left: 375px;" @click="enterPlot(7)">
+        <template v-if="unlockedPlots()>=7"><vue-latex expression="3\frac{1}{4}"></vue-latex></template><template v-else>未解锁</template>
+      </PlotNode>
+      <PlotNode style="top: 100px;left: 547.5px;" @click="enterPlot(8)">
+        <template v-if="unlockedPlots()>=8"><vue-latex expression="3\frac{1}{2}"></vue-latex></template><template v-else>未解锁</template>
+      </PlotNode>
+      <PlotNode style="top: 200px;left: 30px;" @click="enterPlot(9)">
+        <template v-if="unlockedPlots()>=9"><vue-latex expression="\frac{1}{x}"></vue-latex></template><template v-else>未解锁</template>
+      </PlotNode>
+      <PlotNode style="top: 200px;left: 202.5px;" @click="enterPlot(10)">
+        <template v-if="unlockedPlots()>=10"><vue-latex expression="4"></vue-latex></template><template v-else><vue-latex expression="?"></vue-latex></template>
+      </PlotNode>
       
     </div>
   </div>
@@ -20,6 +50,6 @@ import PlotNode from './PlotNode.vue';
 
 <style lang="css" scoped>
 .node {
-  position: relative;
+	position: absolute;
 }
 </style>
