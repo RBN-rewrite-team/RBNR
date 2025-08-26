@@ -154,9 +154,7 @@ const BMSReq = [
 	'\\text{SHO/BMO} = ψ(a(1;@(1;@(\\cdots))))',
 ] as const;
 
-function getBMSOrdinalLevel() {
-	const num = player.hydra.deduceOrdinal[0];
-	//const num = Decimal.dInf;
+export function getBMSOrdinalLevel(num = player.hydra.deduceOrdinal[0]) {
 	let level = 0;
 	if (num.lt(16)) {
 		if (num.gte(4)) level++;

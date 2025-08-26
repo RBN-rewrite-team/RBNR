@@ -565,7 +565,7 @@ export const Hydra = {
 		if (player.nonrecu.studies_bought.includes(4)) {
 			base = base.mul(1e5).pow(1.05);
 		}
-		return this.powerGainAfterSoftcap2(base);
+		return this.powerGainAfterSoftcap2(base).max(0);
 	},
 	powerGainAfterSoftcap(base: Decimal): Decimal {
 		if (base.gte(this.superSoftcapStart()))
