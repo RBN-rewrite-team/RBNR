@@ -600,7 +600,7 @@ export const Dilute = {
 			reqDescription: '2.45 M-Dilute-5效果',
 			requirement: new Decimal(2.45),
 			get canDone() {
-				return player.hydra.milestoneDut5Eff.gte(2.45);
+				return player.hydra.milestoneDut5Eff.gte(2.45) || player.milestones.nonrec_9;
 			},
 			show: true,
 			currency: '',
