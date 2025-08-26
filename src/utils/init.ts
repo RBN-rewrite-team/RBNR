@@ -42,12 +42,6 @@ export function init() {
 	player.run_a_tick_and_froze = false;
 	startGameLoop();
 	const app = createApp(App);
-	setInterval(() => {
-		if (temp.plotdisplay && !player.checkedPlots.includes(temp.plotdisplay)) {
-			player.checkedPlots.push(temp.plotdisplay);
-			player.checkedPlots = [...new Set(player.checkedPlots)];
-		}
-	}, 1000);
 	app.use(VueLatex).directive('hold', vHold).mount('#app');
 	hotkeys('a', (event) => {
 		event.preventDefault();

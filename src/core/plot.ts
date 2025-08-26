@@ -34,6 +34,11 @@ export function unlockedPlots() {
 	if (player.stat.chapter >= 4) {
 		a++;
 	}
+	if (player.stat.chapter >= 5) {
+		a++;
+	}
+	if(player.upgrades['69R']) a++;
+	if(player.upgrades['69S'] || player.stat.chapter >= 6) a++;
 	return a;
 }
 export function viewedPlotLength() {
@@ -96,10 +101,34 @@ export const plots = [
 		'Numerorum\t这里，就是序数之塔的内部？',
 		'Numerorum\t之前的后继，加法，乘法，指数都被献祭掉了，不过我可以在这个领域继续。',
 	],
+	[
+		'Numerorum\t这里就是……等等!',
+		'旁白\t一个声音突然充斥了高塔的这一层。',
+		'???\tHydra\t你竟然能到达这里，真是让我刮目相看。',
+		'Numerorum\t你在哪？出来！',
+		'???\tHydra\t呵呵呵，你还没有资格见到我。',
+		'Numerorum\t……',
+		'???\tHydra\t不必惊讶，虽然你可能永远也见不到我罢了。',
+	],
+	[
+		'Numerorum\t不好，前面被堵住了。',
+		'Numerorum\t这是什么东西，为什么我碰一下就会感觉头晕……',
+		'旁白\tNumerorum感觉自己浑身力气都被抽走了。',
+		'Numerorum\t不好，被暗算了！我的能量都被这东西抽走了，不行，我得想办法过去。'
+	],
+	[
+		'Numerorum:好了，我算是摸透了这玩意的机制了......这东西没有任何陷阱，我可以不断从中获取力量。',
+		'Numerorum:不用再假装害怕这朊病毒了。'
+	],
 ];
+export function plotLength(id: number): number {
+	if(id <= 0) return 0;
+	return plots[id - 1].length;
+}
 export const characterImages = {
 	Numerorum: 'url(./plot_image/NumerorumColor.png)',
 	EdenGameMaster: 'url(./plot_image/EdenGameMaster.png)',
+	Hydra: 'url(./plot_image/Hydra.png)',
 } as Record<string, string | undefined>;
 export function stringToPlot(a: string) {
 	let res = {
@@ -110,6 +139,13 @@ export function stringToPlot(a: string) {
 	let args = a.split('\t');
 	if (args.length == 1) {
 		res.text = args[0];
+	} else if (args.length == 3) {
+		res.name = args[0];
+		res.text = args[2];
+		let imagea = characterImages[args[1]];
+		if (imagea) {
+			res.image = imagea;
+		}
 	} else {
 		res.name = args[0];
 		res.text = args[1];
