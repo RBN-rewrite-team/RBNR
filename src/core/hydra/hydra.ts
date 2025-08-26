@@ -11,6 +11,7 @@ import type { IntClosedRange } from 'type-fest';
 import { NON_RECURSIVE } from '../nonrecu';
 
 const e326649slog = new Decimal('e326649').slog(Math.E);
+const ee154slog = new Decimal('e8.07230472602822538e153').slog(Math.E);
 
 //Hydra：BMS，1-Y，fffZ
 export const Hydra = {
@@ -568,9 +569,14 @@ export const Hydra = {
 		if (Dilute.diluteAmount(3) > 0) base = base.mul(Hydra.NT4TauEffect());
 		base = base.div(5 ** (Dilute.diluteAmount(0) as number));
 		if (player.hydra.dilute.inDilute) base = base.div(Dilute.totSolNerf());
-
 		if (base.gte('ee125')) base = base.log10().div(1e125).pow(0.5).mul(1e125).pow10();
-		if (base.gte('e8.07230472602822538e153')) base = new Decimal('e8.07230472602822538e153');
+		if (base.gte('e8.07230472602822538e153')) {
+		  if (!player.nonrecu.studies_bought.includes(13)) base = new Decimal('e8.07230472602822538e153');
+		  else base = Decimal.tetrate(
+				Math.E,
+				base.slog(Math.E).sub(ee154slog).div(2).add(ee154slog).toNumber(),
+			);
+		}
 		return base;
 	},
 	deduceEff(i = 0): Decimal {
@@ -862,15 +868,7 @@ export const Hydra = {
 		if (player.upgrades[62]) {
 			let NT4Boost = new Decimal(1);
 			if (player.upgrades[65]) NT4Boost = NT4Boost.mul(Hydra.NT4TauEffect());
-			player.hydra.power = player.hydra.power
-				.add(Hydra.hydraPowerPassiveGeneration().mul(diff))
-				.min('e326649'); // 已经加速过了，不用再写一遍
-			player.hydra.totalPower = player.hydra.totalPower
-				.add(Hydra.hydraPowerPassiveGeneration().mul(diff))
-				.min('e326649');
-			player.hydra.trueTotalPower = player.hydra.trueTotalPower
-				.add(Hydra.hydraPowerPassiveGeneration().mul(diff))
-				.min('e326649');
+			this.addPower(Hydra.hydraPowerPassiveGeneration().mul(diff))
 			player.hydra.powerMult[0] = player.hydra.powerMult[0].add(
 				Hydra.deduceEff(0)
 					.mul(player.hydra.deduceOrdinal[0])
@@ -897,15 +895,21 @@ export const Hydra = {
 			}
 		}
 	},
+	addPower(num: Decimal) {
+	  player.hydra.power = player.hydra.power
+				.add(num).min(player.nonrecu.studies_bought.includes(13)?Infinity:"e326649")
+			player.hydra.totalPower = player.hydra.totalPower
+				.add(num).min(player.nonrecu.studies_bought.includes(13)?Infinity:"e326649")
+			player.hydra.trueTotalPower = player.hydra.trueTotalPower
+				.add(num).min(player.nonrecu.studies_bought.includes(13)?Infinity:"e326649")
+	},
 	hydraReset(i = 0): void {
 		if (player.hydra.deduceOrdinal[player.hydra.visiting].eq(0)) return;
 		player.hydra.powerMult[i] = player.hydra.powerMult[i].add(
 			Hydra.deduceEff(i).mul(player.hydra.deduceOrdinal[i]),
 		);
 		const gain = Hydra.powerGain();
-		player.hydra.power = player.hydra.power.add(gain).min('e326649');
-		player.hydra.totalPower = player.hydra.totalPower.add(gain).min('e326649');
-		player.hydra.trueTotalPower = player.hydra.trueTotalPower.add(gain).min('e326649');
+		this.addPower(gain)
 		player.hydra.deduceProgress[player.hydra.visiting] = new Decimal(0);
 		player.hydra.deduceOrdinal[player.hydra.visiting] = new Decimal(0);
 	},
