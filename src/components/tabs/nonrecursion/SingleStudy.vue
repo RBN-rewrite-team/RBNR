@@ -10,7 +10,10 @@ const props = defineProps<{
 const study = studies[props.study_id];
 
 const useClass = () => {
-	if (player.nonrecu.studies_bought.includes(props.study_id)) {
+	if (study.isChallenge &&  player.nonrecu.studies_bought.includes(props.study_id)) {
+		return 'study-nrc'
+	}
+	if (!study.isChallenge &&  player.nonrecu.studies_bought.includes(props.study_id)) {
 		return 'study-actived';
 	}
 	if (canBuyStudies(props.study_id)) {
