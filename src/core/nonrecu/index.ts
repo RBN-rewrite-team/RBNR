@@ -136,12 +136,6 @@ export const NON_RECURSIVE = {
 		});
 	},
 	reset(force = false) {
-		if (!isTester() && player.nonrecu.resetTimes.lt(3)) {
-			ModalService.show({
-				title: '未完全稳定',
-				content: '本弹窗会出现在非Beta测试版的前三次非递归重置中。',
-			});
-		}
 		if (!this.resetable() && !force) return;
 		player.firstResetBit |= 0b10000;
 		if (!force) this.addPower(this.gain());
