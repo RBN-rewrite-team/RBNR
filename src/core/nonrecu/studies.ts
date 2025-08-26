@@ -382,6 +382,6 @@ export function addTheories(id: 0 | 1 | 2) {
 export function resetTheories() {
 	player.nonrecu.studies_bought = [];
 	player.nonrecu.spentTheories = new Decimal(0);
-	NON_RECURSIVE.reset(true);
-	CHALLENGE.exitChallenge();
+	NON_RECURSIVE.reset();
+	player.challengein = [-1, -1];
 }
