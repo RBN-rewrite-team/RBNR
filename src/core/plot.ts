@@ -39,6 +39,7 @@ export function unlockedPlots() {
 	}
 	if(player.upgrades['69R']) a++;
 	if(player.upgrades['69S'] || player.stat.chapter >= 6) a++;
+	if(player.stat.chapter >= 6) a++;
 	return a;
 }
 export function viewedPlotLength() {
@@ -135,6 +136,30 @@ export const plots = [
 	[
 		'Numerorum\t好了，我算是摸透了这玩意的机制了......这东西没有任何陷阱，我可以不断从中获取力量。',
 		'Numerorum\t不用再假装害怕这朊病毒了。',
+	],
+	[
+		'Numerorum\t这种能量比我所见到的东西都要强大。',
+		'非递归能量蕴含的强大气息在高塔的这一层中回荡。',
+		'Numerorum\t我感觉到它还有很多潜力可以挖掘……',
+		'Numerorum\t或许可以试试研究一下它。',
+		'Numerorum尝试了几种方式来改造非递归能量，最后它成为了非递归定理。',
+		'Numerorum\t这个东西看起来很有用。不过它来之不易，要小心谨慎地安排它。',
+		'忽然，Numerorum在前方看到了熟悉的身影。',
+		'Numerorum\t是你！你竟然登上了高塔。',
+		'EdenGameMaster\t呵呵，我作为天文学家，自然要站在高处了。',
+		'EdenGameMaster\t你可能不知道非递归定理的妙用。',
+		'EdenGameMaster\t我这里有一些困难的挑战……也许会对你有帮助。',
+		'天文学家向Numerorum讲述了一些挑战。',
+		'EdenGameMaster\t你可以向我问一些问题。我在高塔上待过很长时间，对这里比较熟悉。',
+		'Numerorum\t这座高塔有多高呢？',
+		'EdenGameMaster\t很高，以你现在的能力根本无法登顶。',
+		'EdenGameMaster\t而且在高塔上还有两个暴君，他们会千方百计地阻止别人变强。',
+		'Numerorum不禁想到了之前的神秘声音。',
+		'EdenGameMaster\t另外，要记住这件事：当你凝视星空的时候，星空也在凝视你。',
+		'Numerorum\t你是说……天空是有意识的？',
+		'EdenGameMaster\t是的，我们天文学家百分百确定这件事，整个天空都是同一个生命。',
+		'Numerorum\t（如果这样，我的使命或许可以……）',
+		'EdenGameMaster\t差不多就这样了吧，你继续向前吧。这座高塔上有很多攀登者，有些还在试图突破暴君们的阻拦。',
 	],
 ];
 export function plotLength(id: number): number {
