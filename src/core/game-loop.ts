@@ -26,7 +26,10 @@ import { unlockedPlots } from '@/core/plot';
  */
 export let diff = 40;
 export let loopInterval: number;
-export let saveInterval = setInterval(save, 3000);
+export let saveInterval;
+setTimeout(()=>{
+  saveInterval = setInterval(save, 3000)
+},3000)
 export let backupInterval: number;
 export let ordinalSpeedDerivative = new Decimal(0);
 export let ordinalSpeedDerivative2 = new Decimal(0);
