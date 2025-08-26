@@ -132,7 +132,7 @@ export const studies = [
 	}),
 	new Study({
 		id: '42', //7
-		description: '朊病毒增速×10，若未免疫朊病毒则免疫',
+		description: '朊病毒增速×10',
 		cost: new Decimal(5),
 		canBuy() {
 			return false;
@@ -185,10 +185,10 @@ export const studies = [
 	}),
 	new Study({
 		id: '61',
-		description: '移除九头蛇能量的硬上限(没做)',
+		description: '移除九头蛇能量和BMS推演的硬上限',
 		cost: new Decimal(4),
 		canBuy() {
-			return false;
+			return player.nonrecu.studies_bought.includes[8];
 		},
 	}),
 	new Study({

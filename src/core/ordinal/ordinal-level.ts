@@ -113,6 +113,7 @@ const BMSReq = [
 	'\\psi(Ω_3^{Ω_3})',
 	'\\psi(Ω_ω)',
 	'\\psi(Ω_{ω^2})',
+	'\\psi(I)',
 	'\\psi(I_ω)',
 	'\\psi(\\Pi_ω)',
 	'\\psi(\\Pi_ω\\ \\Pi_1-\\Pi_ω)',
@@ -205,6 +206,7 @@ export function getBMSOrdinalLevel(num = player.hydra.deduceOrdinal[0]) {
 	if (num.gte(new Decimal(4).pow(4 ** 64))) level++;
 	if (num.gte(new Decimal(256).pow_base(4).pow_base(4))) level++;
 	if (num.gte(new Decimal(256 + 16).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(280).pow_base(4).pow_base(4))) level++;
 	if (num.gte(new Decimal(256 + 16 * 2).pow_base(4).pow_base(4))) level++;
 	if (num.gte(new Decimal(256 + 16 * 3).pow_base(4).pow_base(4))) level++;
 	if (num.gte(new Decimal(256 + 16 * 4).pow_base(4).pow_base(4))) level++;

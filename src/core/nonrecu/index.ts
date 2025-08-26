@@ -144,6 +144,26 @@ export const NON_RECURSIVE = {
 				return player.nonrecu.resetTimes.gte(this.requirement);
 			},
 		});
+		MILESTONES.create('nonrec_14', {
+			requirement: new Decimal(100),
+			currency: '非递归重置次数',
+			displayName: 'M6-14',
+			description: `非递归重置不再重置九头蛇溶液数量`,
+			show: true,
+			get canDone() {
+				return player.nonrecu.resetTimes.gte(this.requirement);
+			},
+		});
+		MILESTONES.create('nonrec_15', {
+			requirement: new Decimal(200),
+			currency: '非递归重置次数',
+			displayName: 'M6-15',
+			description: `非递归重置不再重置U5-S-15效果`,
+			show: true,
+			get canDone() {
+				return player.nonrecu.resetTimes.gte(this.requirement);
+			},
+		});
 	},
 	reset(force = false) {
 		if (!this.resetable() && !force) return;
@@ -182,8 +202,9 @@ export const NON_RECURSIVE = {
 		player.hydra.dilute.spentTime = 0;
 		player.hydra.dilute.solutionCost = 0;
 		if (!player.milestones.nonrec_12) player.hydra.dilute.solution = 0;
+		else if (player.milestones.nonrec_14) {}
 		else player.hydra.dilute.solution *= 0.01;
-		player.hydra.dilute.highestApocalypse = new Decimal(0);
+		if (!player.milestones.nonrec_15) player.hydra.dilute.highestApocalypse = new Decimal(0);
 		if (player.nonrecu.studies_bought.includes(0)) {
 			player.hydra.power = player.hydra.power.add(20);
 			player.hydra.totalPower = player.hydra.totalPower.add(20);
@@ -231,6 +252,8 @@ export const NON_RECURSIVE = {
 				MUL_EFF,
 				player.hydra.dilute.prions.add(1).mul(1e10).log10().log10().root(4),
 			]);
+		if (player.nonrecu.studies_bought.includes(13))
+			factor.push(['九头蛇能量', MUL_EFF, player.hydra.power.max("e326649").log10().div(326649)]);
 		return factor;
 	},
 	gain(): Decimal {
