@@ -8,12 +8,16 @@ import { predictableRandom } from '@/utils/algorithm';
 
 import { CHALLENGE } from './challenge';
 import { Logarithm } from './exponention/logarithm';
-import { save } from './save';
+import { intervalBackup, save } from './save';
 import { getCurrency } from './currencies';
 import { updateTheme } from '@/utils/themes';
 import { getOrdinalLevel } from './ordinal/ordinal-level.ts';
 import { ORDINAL_BOOSTER } from './ordinal/ordinal-booster.ts';
 import { Dilute } from './hydra/dilute.ts';
+import ModalService from '@/utils/Modal.ts';
+
+import { temp } from '@/core/temp-data';
+import { unlockedPlots } from '@/core/plot';
 
 /**
  * 游戏循环经过了多少时间
@@ -22,16 +26,25 @@ import { Dilute } from './hydra/dilute.ts';
  */
 export let diff = 40;
 export let loopInterval: number;
-export let saveInterval = setInterval(save, 3000);
-
+export let saveInterval;
+setTimeout(()=>{
+  saveInterval = setInterval(save, 3000)
+},3000)
+export let backupInterval: number;
 export let ordinalSpeedDerivative = new Decimal(0);
 export let ordinalSpeedDerivative2 = new Decimal(0);
 export function startGameLoop() {
 	loopInterval = setInterval(gameLoop, 40);
+	backupInterval = setInterval(intervalBackup, 1000);
 }
 
 export function stopGameLoop() {
 	clearInterval(loopInterval);
+	clearInterval(backupInterval);
+}
+
+export function stopSaveLoop() {
+	clearInterval(saveInterval);
 }
 
 export function updateHighestStat() {
@@ -71,16 +84,22 @@ export function qolLoop() {
 	if (player.exponention.logarithm.upgrades_in_dilated.includes('37'))
 		player.buyables['11'] = new Decimal(1000);
 }
+function enterPlot(i: number) {
+	if (unlockedPlots() >= i) {
+		temp.plotdisplay = i;
+	}
+}
 /**
  * 游戏的循环函数（并不是主要的）
  */
 export function gameLoop() {
+	updateTheme();
 	diff = Date.now() - player.lastUpdated;
 	if (diff > 60000) {
-		if (!import.meta.env.DEV) {
+		if (player.options.allowOffline) {
 			simulateTime(diff);
 		} else {
-			diff = 0;
+			player.timeshard.value += Math.floor(diff / 150000);
 		}
 	}
 	if (player.run_a_tick_and_froze) diff = 33;
@@ -93,7 +112,12 @@ export function gameLoop() {
 		throw e;
 	}
 	if (player.singularity.stage >= 1) singularity_UI();
-	updateTheme();
+	
+	let unlp = unlockedPlots();
+	for(let i = 1;i <= unlp;i++)
+	{
+		if(!player.checkedPlots.includes(i) && temp.plotdisplay == 0) enterPlot(i);
+	}
 }
 function r(s: number): number {
 	return Math.random() * s * 2 - s;
@@ -134,8 +158,11 @@ export function simulate(diff: number) {
 			diff *= 3;
 		}
 	}
-	let last = feature.Ordinal.ordinalPerSecond();
+	let last = player.upgrades[61] ? new Decimal(0) : feature.Ordinal.ordinalPerSecond();
 	let last2 = feature.Ordinal.speedDeri();
+	let pre_cardinal_diff = diff;
+
+	if (player.nonrecu.studies_bought.includes(1)) pre_cardinal_diff *= 2;
 	qolLoop();
 	CHALLENGE.challengeLoop();
 	if (player.singularity.stage < 11) {
@@ -215,11 +242,18 @@ export function simulate(diff: number) {
 		}
 		let base = feature.Ordinal.base();
 		if (player.ordinal.number.gte(base.tetrate(base.toNumber()))) player.help.epsilon = true;
+		if ([0, 2, 4, 5, 9, 10, 12, 13].includes(player.currentTab)) {
+			player.currentTab = 14;
+		}
 	}
 	ORDINAL_BOOSTER.boosterLoop();
 	for (const upg_i in upgrades) {
 		const i = upg_i as keyof typeof upgrades;
+		if(player.upgrades[i as keyof typeof player.upgrades] == true) continue;
 		if (upgrades[i] && upgrades[i].keep != null && upgrades[i].keep()) {
+			player.upgrades[i as keyof typeof player.upgrades] = true;
+		}
+		if (upgrades[i] && upgrades[i].auto != null && upgrades[i].auto() && upgrades[i].canAfford()) {
 			player.upgrades[i as keyof typeof player.upgrades] = true;
 		}
 	}
@@ -238,8 +272,9 @@ export function simulate(diff: number) {
 	}
 
 	for (let i in milestones) {
-		if (milestones[i].canDone) {
+		if (milestones[i].canDone && !player.milestones[i]) {
 			player.milestones[i as keyof typeof player.milestones] = true;
+			milestones[i]?.onDone?.();
 		}
 	}
 
@@ -265,20 +300,67 @@ export function simulate(diff: number) {
 		if (player.singularity.t >= 695) player.firstResetBit |= 0b1000;
 		player.singularity.t = Math.min(player.singularity.t, 710);
 	}
-
-	if (player.upgrades[58]) {
-		feature.OrdinalNT.varGainLoop(diff / 1000);
+	if (player.upgrades[517]) {
+		feature.Hydra.hydraUpdate(pre_cardinal_diff / 1000);
+		Dilute.diluteLoop(pre_cardinal_diff, diff);
 	}
 
-	if (player.upgrades[517]) {
-		feature.Hydra.hydraUpdate(diff / 1000);
-		Dilute.diluteLoop();
+	if (player.upgrades[58]) {
+		feature.OrdinalNT.varGainLoop(pre_cardinal_diff / 1000);
 	}
 
 	Logarithm.astronomerUpdate();
 	updateHighestStat();
-	let next = feature.Ordinal.ordinalPerSecond();
+	let next = player.upgrades[61] ? new Decimal(0) : feature.Ordinal.ordinalPerSecond();
 	ordinalSpeedDerivative = next.sub(last).div(diff / 1000);
 	let next2 = feature.Ordinal.speedDeri();
 	ordinalSpeedDerivative2 = next2.sub(last2).div(diff / 1000);
+	checkNaN(player, ['player']);
+}
+
+function checkNaN<T>(obj: T, path: string[]): T {
+	if (obj === null || obj === undefined) {
+		return obj;
+	}
+
+	// 发现并处理 Decimal NaN
+	if (obj instanceof Decimal && !Decimal.isFinite(obj)) {
+		stopGameLoop();
+		if (!player.foundNaN) {
+			ModalService.show({
+				title: '游戏已经停止运行',
+				get content() {
+					return `游戏在检查存档过程中发现了一些异常值，因此游戏自动停止了运行。<br>
+				以下是有关异常值的信息: ${path.join('.')}<br>
+				将<b>存档导出，并将存档和截图发送给开发者</b>，有助于解决这个问题。<br>`;
+				},
+				onConfirm(values) {
+					player.currentTab = 1;
+				},
+			});
+			player.foundNaN = true;
+		}
+		return new Decimal(1) as unknown as T;
+	}
+
+	// 处理数组
+	if (Array.isArray(obj)) {
+		return obj.map((item, index) =>
+			checkNaN(item, path.concat(index.toString())),
+		) as unknown as T;
+	}
+
+	// 处理对象
+	if (typeof obj === 'object' && obj !== null) {
+		const result: any = {};
+		for (const key in obj) {
+			if (obj.hasOwnProperty(key)) {
+				result[key] = checkNaN((obj as any)[key], path.concat(key));
+			}
+		}
+		return result as T;
+	}
+
+	// 其他基本类型
+	return obj;
 }

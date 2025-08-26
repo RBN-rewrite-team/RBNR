@@ -11,6 +11,7 @@ function showChapter(id = 0): boolean {
 	if (id === 3) return player.singularity.t >= 675 || player.exponention.exppower.gt(0);
 	if (id === 4) return player.singularity.t >= 675;
 	if (id === 5) return player.upgrades['517'];
+	if (id === 6) return player.nonrecu.power.gt(0);
 	return false;
 }
 </script>
@@ -92,5 +93,18 @@ function showChapter(id = 0): boolean {
 		</div>
 		<div class="chapter_text" style="color: rgb(200, 190, 245)">第五章</div>
 		<div class="chapter_text_b" style="color: rgb(200, 190, 245)">九头蛇</div>
+	</div>
+
+	<div v-if="showChapter(6)">
+		<div class="chapter_background" style="color: #c98300">Ω</div>
+		<div
+			class="chapter_clickable"
+			style="color: #c98300; background-color: rgb(245, 193, 73)"
+			@click="player.stat.chapter = Math.max(player.stat.chapter, 6)"
+		>
+			长路无间
+		</div>
+		<div class="chapter_text" style="color: rgb(245, 193, 73)">第六章</div>
+		<div class="chapter_text_b" style="color: rgb(245, 193, 73)">非递归</div>
 	</div>
 </template>

@@ -5,26 +5,31 @@ import Slider from '../Slider.vue';
 import { Dilute } from '@/core/hydra/dilute.ts';
 import { computed, ref } from 'vue';
 import TDUpgrade from '../TDUpgrade.vue';
+import TRMilestone from '../TRMilestone.vue';
 import { Currencies, getCurrency } from '@/core/currencies.ts';
 
 function getCurrentSolution() {
 	return player.hydra.dilute.solution;
 }
 
-function getSliderProps(id = 0) { return {
-	min: id == 0 ? 0 : Math.min(minS1Level(), 9),
-	max: 10,
-	width: '24rem',
-	valueInDot: true,
-	tooltip: 'never',
-	'dot-width': '2.2rem',
-	'dot-height': '1.6rem',
-	'dot-class': 'slider-dot-class-dilute',
-	'process-class': 'slider-process-class-dilute',
-	style: {
-		'margin-top': '1rem',
-	},
-}};
+function getSliderProps(id = 0) {
+	return {
+		min: id == 0 || id == 6 ? 0 : Math.min(minS1Level(), 9),
+		max: 10,
+		width: '24rem',
+		valueInDot: true,
+		tooltip: 'never',
+		'dot-width': '2.2rem',
+		'dot-height': '1.6rem',
+		'dot-class': 'slider-dot-class-dilute',
+		'process-class': 'slider-process-class-dilute',
+		interval: id == 6 ? (player.milestones.dut11 ? 0.25 : 0.5) : 1,
+		style: {
+			'margin-top': '1rem',
+		},
+		plusMinusButtons: true,
+	};
+}
 
 const sliderProps2 = {
 	min: 0,
@@ -53,52 +58,66 @@ function switchSolvent9(event: number) {
 	}
 }
 
-let refreshKey = ref(0);
+const refreshKey = ref(0);
 
 function minS1Level() {
-  if (player.hydra.dilute.solvent[6] || player.hydra.dilute.solvent[7]) return 10
-  return Math.max(
-    Math.floor(player.hydra.dilute.solvent[1] / 2),
-    Math.floor(player.hydra.dilute.solvent[2] / 2),
-    player.hydra.dilute.solvent[3],
-    player.hydra.dilute.solvent[4],
-    player.hydra.dilute.solvent[5],
-  )
+	if (player.hydra.dilute.solvent[6] || player.hydra.dilute.solvent[7]) return 10;
+	return Math.max(
+		Math.floor(player.hydra.dilute.solvent[1] / 2),
+		Math.floor(player.hydra.dilute.solvent[2] / 2),
+		player.hydra.dilute.solvent[3],
+		player.hydra.dilute.solvent[4],
+		player.hydra.dilute.solvent[5],
+	);
 }
 
 function fixS1() {
-    if (minS1Level() == 10) player.hydra.dilute.solvent[0] = 10
-    player.hydra.dilute.solvent[0] = Math.max(
-    minS1Level(),
-    player.hydra.dilute.solvent[0]
-  )
+	if (minS1Level() == 10) player.hydra.dilute.solvent[0] = 10;
+	player.hydra.dilute.solvent[0] = Math.max(minS1Level(), player.hydra.dilute.solvent[0]);
 }
 
 setInterval(function () {
 	refreshKey.value++;
 }, 40);
+
+function addPreset() {
+	player.hydra.dilute.solventPresets.push(
+		Array.from(player.hydra.dilute.solvent) as typeof player.hydra.dilute.solvent,
+	);
+}
+function setPreset(preset: typeof player.hydra.dilute.solvent) {
+	if (!player.hydra.dilute.inDilute)
+		player.hydra.dilute.solvent = Array.from(preset) as typeof player.hydra.dilute.solvent;
+}
+function delPreset(preset: string) {
+	player.hydra.dilute.solventPresets.splice(Number(preset), 1);
+}
 </script>
 
 <template :key="refreshKey">
 	你有<b style="color: red; font-size: 30px">{{ format(getCurrentSolution()) }}</b
-	>九头蛇溶液<br /><br />
-	<span v-if="player.hydra.dilute.prionsTime > 0"
+	><span v-if="player.hydra.dilute.inDilute">(本次{{ format(Dilute.solutionGain()) }})</span
+	>九头蛇溶液<br />
+	推演速度×{{ format(Dilute.solutionEff().eff1) }}<br />
+	<span v-if="player.upgrades['69S'] || player.hydra.dilute.prions.gt(1)"
 		>你有<b style="color: red; font-size: 30px">{{ format(Dilute.prions()) }}</b
+		><span v-if="!player.upgrades['69S']"
+			>/{{ format(player.hydra.totalDeduceOrdinal[0]) }}</span
 		>朊病毒<br /><br
 	/></span>
-	<div>
+	<div v-if="!player.upgrades['614S']">
 		启动稀释后，溶剂{{
 			(() => {
-				let a = 1000 / Dilute.diluteAmountOutside(2) ** 2 - player.hydra.dilute.spentTime;
+				let a = Dilute.sol3EffOutside() - player.hydra.dilute.spentTime;
 				return !isFinite(a)
 					? Dilute.diluteAmountOutside(4)
 						? '可能会自毁'
 						: '不会自毁'
 					: '将会在' + a.toFixed(3) + '秒后自毁';
 			})()
-		}}
-	</div><br>
-	部分溶剂将限制溶剂I的最低等级!<br>
+		}}<br />
+	</div>
+	部分溶剂将限制溶剂I的最低等级!<br />
 	<div class="container" style="transform: translateY(-10px)">
 		<div class="dilute">
 			至少选择任何一项溶剂并提升它的等级以进入稀释<br />
@@ -114,15 +133,12 @@ setInterval(function () {
 			选用的削弱等级对九头蛇溶液的获取量影响较大，稀释中的进度对九头蛇溶液的获取量影响较小。<br />
 			你在{{ JSON.stringify(player.hydra.dilute.lastSolvent.map(Number)) }}中最高达到了{{
 				formatWhole(player.hydra.dilute.lastDeduce)
-			}}次推演，这给你带来了{{ format(player.hydra.dilute.solution) }}({{ format(getCurrency(Currencies.SOLUTION)) }})九头蛇溶液
+			}}次推演，这给你带来了{{ format(player.hydra.dilute.solution) }}({{
+				format(getCurrency(Currencies.SOLUTION))
+			}})九头蛇溶液
 		</div>
 		<div class="solvents">
-			溶剂等级之和使你的推演速度变为<sup>1</sup>/<sub>{{
-				(player.hydra.dilute.solvent.slice(0, 6) as number[]).reduce(
-					(total, num): number => total + num,
-					1,
-				) ** 2
-			}}</sub>
+			溶剂等级之和使你的推演速度变为<sup>1</sup>/<sub>{{ format(Dilute.totSolNerf()) }}</sub>
 			<table>
 				<tbody>
 					<tr>
@@ -143,7 +159,13 @@ setInterval(function () {
 										:value="player.hydra.dilute.solvent[0]"
 										:width="'100%'"
 										:disabled="minS1Level() == 10 || canChangeLevel"
-										@input="player.hydra.dilute.solvent[0] = Math.max($event, minS1Level()); fixS1()"
+										@input="
+											player.hydra.dilute.solvent[0] = Math.max(
+												$event,
+												minS1Level(),
+											);
+											fixS1();
+										"
 									/>
 								</div>
 							</div>
@@ -163,7 +185,10 @@ setInterval(function () {
 										:value="player.hydra.dilute.solvent[1]"
 										:width="'100%'"
 										:disabled="canChangeLevel"
-										@input="player.hydra.dilute.solvent[1] = $event; fixS1()"
+										@input="
+											player.hydra.dilute.solvent[1] = $event;
+											fixS1();
+										"
 									/>
 								</div>
 							</div>
@@ -178,7 +203,7 @@ setInterval(function () {
 									<div>
 										选择本溶剂的稀释会在{{
 											(() => {
-												let a = 1000 / Dilute.diluteAmountOutside(2) ** 2;
+												let a = Dilute.sol3EffOutside();
 												return !isFinite(a)
 													? '无穷时间'
 													: a.toFixed(3) + '秒';
@@ -190,7 +215,10 @@ setInterval(function () {
 										:value="player.hydra.dilute.solvent[2]"
 										:width="'100%'"
 										:disabled="canChangeLevel"
-										@input="player.hydra.dilute.solvent[2] = $event; fixS1()"
+										@input="
+											player.hydra.dilute.solvent[2] = $event;
+											fixS1();
+										"
 									/>
 								</div>
 							</div>
@@ -210,7 +238,10 @@ setInterval(function () {
 										:value="player.hydra.dilute.solvent[3]"
 										:width="'100%'"
 										:disabled="canChangeLevel"
-										@input="player.hydra.dilute.solvent[3] = $event; fixS1()"
+										@input="
+											player.hydra.dilute.solvent[3] = $event;
+											fixS1();
+										"
 									/>
 								</div>
 							</div>
@@ -232,7 +263,10 @@ setInterval(function () {
 										:value="player.hydra.dilute.solvent[4]"
 										:width="'100%'"
 										:disabled="canChangeLevel"
-										@input="player.hydra.dilute.solvent[4] = $event; fixS1()"
+										@input="
+											player.hydra.dilute.solvent[4] = $event;
+											fixS1();
+										"
 									/>
 								</div>
 							</div>
@@ -246,15 +280,18 @@ setInterval(function () {
 									</div>
 									<div>
 										推演速度^{{
-											(Dilute.diluteAmountOutside(5) * -0.1 + 1).toFixed(1)
+											(Dilute.diluteAmountOutside(5) * -0.1 + 1).toFixed(2)
 										}}(在其它乘数削弱效果之前)
 									</div>
 									<Slider
-										v-bind="getSliderProps()"
+										v-bind="getSliderProps(6)"
 										:value="player.hydra.dilute.solvent[5]"
 										:width="'100%'"
 										:disabled="canChangeLevel"
-										@input="player.hydra.dilute.solvent[5] = $event; fixS1()"
+										@input="
+											player.hydra.dilute.solvent[5] = $event;
+											fixS1();
+										"
 									/>
 								</div>
 							</div>
@@ -268,13 +305,16 @@ setInterval(function () {
 									<div class="solvent-desc-small">
 										“你发现天上那些黑点不是雨，而是坠落的人类。”
 									</div>
-									<div>转生，飞升，超越，轮回全部无效</div>
+									<div>转生，飞升，超越，轮回全部无效，禁用B5-1-2</div>
 									<Slider
 										v-bind="sliderProps2"
 										:value="Number(player.hydra.dilute.solvent[6])"
 										:width="'100%'"
 										:disabled="canChangeLevel"
-										@input="player.hydra.dilute.solvent[6] = !!$event; fixS1()"
+										@input="
+											player.hydra.dilute.solvent[6] = !!$event;
+											fixS1();
+										"
 									/>
 								</div>
 							</div>
@@ -292,7 +332,10 @@ setInterval(function () {
 										:value="Number(player.hydra.dilute.solvent[7])"
 										:width="'100%'"
 										:disabled="canChangeLevel"
-										@input="player.hydra.dilute.solvent[7] = !!$event; fixS1()"
+										@input="
+											player.hydra.dilute.solvent[7] = !!$event;
+											fixS1();
+										"
 									/>
 								</div>
 							</div>
@@ -320,12 +363,61 @@ setInterval(function () {
 			</table>
 		</div>
 	</div>
-	<div class="clickable_button" @click="Dilute.respec">重新分配</div>
+	<div align="center">
+		<button class="clickable_button" @click="addPreset">添加当前溶剂作为预设</button>
+		<div v-for="preset in Object.entries(player.hydra.dilute.solventPresets)">
+			预设: {{ preset[1].join(',') }}
+			<button
+				class="clickable_button"
+				style="display: inline"
+				@click="() => setPreset(preset[1])"
+			>
+				使用
+			</button>
+			<button
+				class="clickable_button"
+				style="display: inline"
+				@click="() => delPreset(preset[0])"
+			>
+				删除
+			</button>
+		</div>
+	</div>
+	<div align="center">
+		当前可用溶液：{{ format(getCurrency(Currencies.SOLUTION)) }}<br />
+		<button class="clickable_button" @click="Dilute.respec">重新分配</button>
+	</div>
 	<table align="center">
 		<tbody>
 			<tr>
-				<TDUpgrade upgid="61S"></TDUpgrade>
+				<TDUpgrade upgid="61S" />
+				<TDUpgrade upgid="62S" />
+				<TDUpgrade upgid="63S" />
+				<TDUpgrade upgid="64S" />
 			</tr>
+			<tr>
+				<TDUpgrade upgid="65S" />
+				<TDUpgrade upgid="66S" />
+				<TDUpgrade upgid="67S" />
+				<TDUpgrade upgid="68S" />
+			</tr>
+			<tr>
+				<TDUpgrade upgid="69S" />
+				<TDUpgrade upgid="610S" />
+				<TDUpgrade upgid="611S" />
+				<TDUpgrade upgid="612S" />
+			</tr>
+			<tr>
+				<TDUpgrade upgid="613S" />
+				<TDUpgrade upgid="614S" />
+				<TDUpgrade upgid="615S" />
+				<TDUpgrade upgid="616S" />
+			</tr>
+		</tbody>
+	</table>
+	<table align="center" style="transform: translateY(80px)">
+		<tbody class="milestones">
+			<TRMilestone :id="'dut' + i" v-for="i in 18" :key="i" />
 		</tbody>
 	</table>
 </template>

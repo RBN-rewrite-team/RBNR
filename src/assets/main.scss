@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @font-face {
 	font-family: 思源黑体Regular;
 	src: url('./NotoSansCJKsc-Regular.otf');
@@ -160,6 +162,7 @@ body {
 	margin: 0px 0px 10px 0px;
 	flex-grow: 1;
 	text-align: center;
+	overflow: auto;
 }
 
 .background {
@@ -208,8 +211,13 @@ body {
 	border-radius: 4px;
 	color: var(--color);
 	background-color: var(--background-color);
+	position: relative;
 }
-
+.menu2-newcont {
+	position: absolute;
+	color: red;
+	right: 6px;
+}
 .menu2:hover {
 	background-color: var(--hover-color);
 }
@@ -333,7 +341,31 @@ body {
 .reset1:active {
 	background-color: #8fdcff;
 }
+.reset10 {
+	position: absolute;
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	right: 15px;
+	top: 7.5px;
+	overflow: hidden;
+	z-index: 5;
+	/*  font-size: 50px;*/
+	font-weight: bold;
+	line-height: 45px;
+	// color: #009dd9;
+	// text-shadow: #5acaff 1.5px 1.5px 3px;
+	border-radius: 4px;
+	background-color: var(--border-color);
+}
 
+.reset10:hover {
+	// background-color: #c1ebff;
+}
+
+.reset10:active {
+	// background-color: #8fdcff;
+}
 .main {
 	height: 100%;
 	overflow: auto;
@@ -755,7 +787,10 @@ body {
 	font-size: 16px;
 	line-height: 24px;
 }
-
+.nonrec-chals>*>*>*>.challenge {
+	font-size: 13px;
+	line-height: 17px;
+}
 .challenge_button {
 	position: relative;
 	display: block;
@@ -1015,4 +1050,148 @@ tr {
 a {
 	color: #def;
 	text-decoration: none;
+}
+
+.progress-container {
+	padding: 20px 0;
+}
+
+.progress-bar {
+	height: 25px;
+	line-height: 25px;
+	background: #333;
+	overflow: hidden;
+}
+
+.progress-inner {
+	height: 100%;
+	background: #409eff;
+	transition: width 0.3s ease;
+}
+
+.progress-text {
+	text-align: center;
+	color: #888;
+	font-size: 14px;
+	margin-top: 8px;
+}
+
+.study {
+	border: 2px solid var(--border-color);
+	width: fit-content;
+	padding: 5px;
+}
+.study-name {
+	text-align: left;
+	z-index: 2;
+	position: relative;
+}
+.study-desc {
+	z-index: 2;
+	width: 150px;
+	height: 100px;
+	border: 2px solid #c98300;
+	border-radius: 5px;
+	background-color: var(--background-color);
+	font-size: 10px;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	position: relative;
+	&:hover {
+		background-color: var(--hover-color);
+		cursor: pointer;
+	}
+}
+.study-buyable {
+	background-color: #644100;
+	transform: scale(1.05);
+}
+.study-actived {
+	background-color: #c98300;
+	border: 2px solid var(--border-color);
+	&:hover {
+		background-color: color.adjust($color: #c98300, $lightness: 10%);
+		cursor: pointer;
+	}
+}
+.study-nrc {
+	box-shadow: 0px 0px 20px 20px #c98300;
+	background-color: #644100;
+}
+.study-nrc-in{
+	background-color: var(--background-color);
+
+}
+
+.object-node-container {
+	width: 100%;
+	font-family: monospace;
+	font-size: 14px;
+	line-height: 1.4;
+}
+
+.tree-node {
+	margin: 2px 0;
+}
+
+.tree-node-header {
+	display: flex;
+	align-items: center;
+	padding: 4px 8px;
+	border-radius: 4px;
+	transition: background-color 0.2s;
+}
+
+.tree-node-header:hover {
+	background-color: var(--hover-color);
+}
+
+.toggle-icon {
+	cursor: pointer;
+	margin-right: 4px;
+	width: 12px;
+	display: inline-block;
+	user-select: none;
+}
+
+.toggle-spacer {
+	width: 12px;
+	margin-right: 4px;
+	display: inline-block;
+}
+
+.key-name {
+	font-weight: bold;
+	color: #4ec9b0;
+	margin-right: 4px;
+}
+
+.value-display {
+	color: #f3123a;
+}
+
+.value-preview {
+	color: #6a737d;
+	font-style: italic;
+}
+
+.set-value-btn {
+	margin-left: auto;
+	padding: 2px 8px;
+	font-size: 12px;
+	background-color: #e1e1e1;
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+.set-value-btn:hover {
+	background-color: var(--hover-color);
+}
+
+.tree-node-children {
+	border-left: 1px dashed var(--background-color);
+	margin-left: 8px;
 }

@@ -92,14 +92,14 @@ export const resourceGain = {
 		return { value: base, passive, softcaps };
 	},
 	exppower() {
-		let base = feature.EXPONENTION.gain();
+		const base = feature.EXPONENTION.gain();
 		let passive = new Decimal(0);
 		if (player.exponention.logarithm.upgrades_in_dilated.includes('38'))
 			passive = passive.add(0.01);
 		return { value: base, passive };
 	},
 	ordinalNumber() {
-		let base = feature.Ordinal.ordinalPerSecond();
+		const base = feature.Ordinal.ordinalPerSecond();
 		return { value: base };
 	},
 };

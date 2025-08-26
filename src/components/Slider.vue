@@ -588,7 +588,7 @@ export default defineComponent({
 				left: string;
 				top: string;
 			};
-			let ret: dotStylesType = {
+			const ret: dotStylesType = {
 				width: dotWidthVal.value,
 				height: dotHeightVal.value,
 				position: 'absolute',
@@ -610,7 +610,7 @@ export default defineComponent({
 			if (!props.piecewise && !props.piecewiseLabel) {
 				return [];
 			}
-			let arr: PiecewiseObj[] = [];
+			const arr: PiecewiseObj[] = [];
 			for (let i = 0; i <= total.value; i++) {
 				const style =
 					props.direction === 'vertical'
@@ -1152,7 +1152,7 @@ export default defineComponent({
 		};
 
 		const syncValue = (noCb = false) => {
-			let valToEmit = isRange.value ? [...val.value] : val.value;
+			const valToEmit = isRange.value ? [...val.value] : val.value;
 			emit('input', valToEmit);
 			keydownFlag.value && emit('on-keypress', valToEmit);
 			noCb || emit('callback', valToEmit);
@@ -1236,7 +1236,7 @@ export default defineComponent({
 		};
 
 		const dotContents = () => {
-			return props.valueInDot ? Math.round(getValue() as number) : '';
+			return props.valueInDot ? (getValue() as number) : '';
 		};
 
 		// Watchers

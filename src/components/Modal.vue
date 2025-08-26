@@ -8,55 +8,63 @@
 							<component :is="icon" />
 						</div>
 					</slot>
-					<h3>{{ title }}</h3>
+					<span class="modal-title">{{ title }}</span>
 				</div>
 
 				<div class="modal-body">
 					<slot>
-						<div v-if="content" class="modal-content" v-html="content"></div>
-						<div v-if="showProgress" class="progress-container">
-							<div class="progress-bar">
-								<div
-									class="progress-inner"
-									:style="{ width: progress + '%' }"
-								></div>
-							</div>
-							<div class="progress-text">{{ progress.toFixed(2) }}%</div>
+						<!-- 自定义组件模式 -->
+						<div v-if="customComponent" class="custom-component-container">
+							<component
+								:is="customComponent"
+								v-bind="componentProps"
+								@update:props="handleComponentUpdate"
+							>
+								<!-- 渲染自定义插槽 -->
+								<template
+									v-for="(slotContent, slotName) in customSlots"
+									#[slotName]
+								>
+									<component :is="slotContent" />
+								</template>
+							</component>
 						</div>
+						<!-- 进度条模式 -->
+						<ProgressBar v-else-if="showProgress" :progress="progress"></ProgressBar>
 
 						<!-- 正常模式 -->
 						<template v-else>
-							<template v-for="(field, index) in fields" :key="index">
-								<div class="input-group">
-									<label v-if="field.label">{{ field.label }}</label
-									><br />
-									<component
-										:is="field.type === 'textarea' ? 'textarea' : 'input'"
-										v-model="inputValues[index].value"
-										:type="getInputType(field.type)"
-										:placeholder="field.placeholder"
-										:rows="field.rows"
-										class="modal-input"
-										:class="{
-											'input-error':
-												errors[index] && inputValues[index].touched,
-										}"
-										@input="updateValue(index, $event.target.value)"
-										@blur="handleBlur(index)"
-										@keyup.enter="handleConfirm"
-									/>
-									<div
-										v-if="errors[index] && inputValues[index].touched"
-										class="error-message"
-									>
-										{{ errors[index] }}
-									</div>
+							<div v-if="content" class="modal-content" v-html="content"></div>
+						</template>
+
+						<template v-for="(field, index) in fields" :key="index">
+							<div class="input-group">
+								<label v-if="field.label">{{ field.label }}</label
+								><br />
+								<component
+									:is="field.type === 'textarea' ? 'textarea' : 'input'"
+									v-model="inputValues[index].value"
+									:type="getInputType(field.type)"
+									:placeholder="field.placeholder"
+									:rows="field.rows"
+									class="modal-input"
+									:class="{
+										'input-error': errors[index] && inputValues[index].touched,
+									}"
+									@input="updateValue(index, $event.target.value)"
+									@blur="handleBlur(index)"
+									@keyup.enter="handleConfirm"
+								/>
+								<div
+									v-if="errors[index] && inputValues[index].touched"
+									class="error-message"
+								>
+									{{ errors[index] }}
 								</div>
-							</template>
+							</div>
 						</template>
 					</slot>
 				</div>
-
 				<div class="modal-footer">
 					<template v-for="(btn, index) in processedButtons" :key="'btn-' + index">
 						<button
@@ -74,9 +82,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, watch } from 'vue';
-import type { Component } from 'vue';
+import { ref, computed, watch, type Component, type VNode, onMounted } from 'vue';
 import type { FieldConfig, ButtonConfig } from '../utils/Modal';
+import ProgressBar from './ProgressBar';
 
 interface Props {
 	title?: string;
@@ -96,8 +104,11 @@ interface Props {
 	showProgress?: boolean;
 	progress?: number;
 	onClose?: () => void;
+	// 新增：支持自定义组件
+	customComponent?: Component;
+	componentProps?: Record<string, any>;
+	customSlots?: Record<string, () => VNode | VNode[]>;
 }
-
 const props = withDefaults(defineProps<Props>(), {
 	title: '提示',
 	content: '',
@@ -113,10 +124,19 @@ const props = withDefaults(defineProps<Props>(), {
 	customButtons: () => [],
 	showProgress: false,
 	progress: 0,
-	onClose: () => {}
+	onClose: () => {},
+	customComponent: undefined,
+	componentProps: () => ({}),
+	customSlots: () => ({}),
 });
 
-const emit = defineEmits(['update:visible', 'confirm', 'cancel', 'update:values']);
+const emit = defineEmits([
+	'update:visible',
+	'confirm',
+	'cancel',
+	'update:values',
+	'update:componentProps',
+]);
 
 // 响应式数据
 const inputValues = ref(
@@ -126,7 +146,6 @@ const inputValues = ref(
 	})),
 );
 const errors = ref<string[]>([]);
-
 // 计算属性
 const hasErrors = computed(() => errors.value.some(Boolean));
 const processedButtons = computed(() => {
@@ -196,6 +215,10 @@ const handleBlur = (index: number) => {
 	validateFields();
 };
 
+const handleComponentUpdate = (newProps: Record<string, any>) => {
+	emit('update:componentProps', newProps);
+};
+
 const handleConfirm = async () => {
 	inputValues.value.forEach((_, index) => {
 		inputValues.value[index].touched = true;
@@ -219,7 +242,7 @@ const handleMaskClick = () => {
 
 const close = () => {
 	emit('update:visible', false);
-	props?.onClose?.()
+	props?.onClose?.();
 };
 
 // 监听器
@@ -235,6 +258,7 @@ watch(
 defineExpose({
 	handleConfirm,
 	handleCancel,
+	close,
 });
 </script>
 
@@ -253,8 +277,8 @@ defineExpose({
 }
 
 .modal-container {
-	background-color: #fdfdfd;
-	border: 2px solid #c9c9c9;
+	background-color: var(--background-color);
+	border: 2px solid var(--border-color);
 	border-radius: 8px;
 	font-size: 17px;
 	line-height: 25px;
@@ -280,6 +304,10 @@ defineExpose({
 
 .modal-body {
 	padding: 20px;
+}
+
+.custom-component-container {
+	margin: 10px 0;
 }
 
 .input-group {
@@ -347,30 +375,6 @@ defineExpose({
 	}
 }
 
-.progress-container {
-	padding: 20px 0;
-}
-
-.progress-bar {
-	height: 6px;
-	background: #333;
-	border-radius: 3px;
-	overflow: hidden;
-}
-
-.progress-inner {
-	height: 100%;
-	background: #409eff;
-	transition: width 0.3s ease;
-}
-
-.progress-text {
-	text-align: center;
-	color: #888;
-	font-size: 14px;
-	margin-top: 8px;
-}
-
 .modal-slide-enter-active,
 .modal-slide-leave-active {
 	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -399,5 +403,9 @@ defineExpose({
 button {
 	padding: 5px;
 	border-radius: 4px;
+}
+.modal-title,
+.modal-content {
+	color: var(--color);
 }
 </style>

@@ -52,7 +52,7 @@ const preExponent = Object.keys(Addition.buyables)
 	.concat(Object.keys(Successor.buyables))
 	.concat(Object.keys(Multiplication.buyables))
 	.concat(Object.keys(NUMTHEORY.buyables));
-var softcaps: {
+const softcaps: {
 	[key: string]: ISoftcap;
 } = {};
 export type singleReq = [string, () => boolean, [string, string]?];
@@ -64,10 +64,10 @@ export const UPGRADES = {
 	 * @returns 一个对象，字段show是这个函数是否显示，unlocked是是否解锁，字段reach是是否达到解锁要求
 	 */
 	lock(id: keyof typeof upgrades) {
-		let req = upgrades[id].requirements();
+		const req = upgrades[id].requirements();
 		let reach: { [key: string]: boolean } = {},
 			flag = true;
-		for (let i in req) {
+		for (const i in req) {
 			reach[i] = req[i].reachedReq();
 			if (!reach[i]) flag = false;
 		}
@@ -96,10 +96,10 @@ export const UPGRADES = {
 };
 export const BUYABLES = {
 	lock(id: keyof typeof buyables) {
-		let req = buyables[id].requirements();
+		const req = buyables[id].requirements();
 		let reach: { [key: string]: boolean } = {},
 			flag = true;
-		for (let i in req) {
+		for (const i in req) {
 			reach[i] = req[i].reachedReq();
 			if (!reach[i]) flag = false;
 		}
@@ -121,16 +121,16 @@ export const BUYABLES = {
 			'(' +
 			formatWhole(player.buyables[id]) +
 			(function () {
-				let a = buyables[id].more();
+				const a = buyables[id].more();
 				if (a.gte(1)) return '+' + formatWhole(a);
 				return '';
 			})() +
 			')</span><br>';
 		if (!this.lock(id).unlocked && player.buyables[id].eq(0)) {
 			str += '暂未解锁<br>';
-			let req = buyables[id].requirements();
-			let first = true;
-			for (let j in req) {
+			const req = buyables[id].requirements();
+			const first = true;
+			for (const j in req) {
 				if (j != '0') str += ',<br>';
 				if (req[j].reachedReq()) str += '<span style="color: green; font-weight: bold">';
 				else str += '<span style="color: red; font-weight: bold">';
@@ -259,14 +259,14 @@ function overflow_v2(getting: Decimal, existing: Decimal, s: any) {
 			new Decimal(1),
 		);
 	} else {
-		let start = s.start,
+		const start = s.start,
 			power = s.exponent,
 			meta = s.meta ?? 0;
-		let safe = Decimal.iteratedexp(10, meta, new Decimal(1));
-		let stm = start.iteratedlog(10, meta),
+		const safe = Decimal.iteratedexp(10, meta, new Decimal(1));
+		const stm = start.iteratedlog(10, meta),
 			gem = getting.max(safe).iteratedlog(10, meta),
 			exm = existing.iteratedlog(10, meta);
-		let logged = stm.mul(exm.div(stm).root(power).add(gem.div(stm)).pow(power));
+		const logged = stm.mul(exm.div(stm).root(power).add(gem.div(stm)).pow(power));
 		ans = Decimal.iteratedexp(10, meta, logged);
 	}
 	return ans;
@@ -301,7 +301,7 @@ export const SOFTCAPS = {
 			} else return getting;
 		}
 		if (!softcaps[id].fluid) throw new Error('type error');
-		let s = softcaps[id];
+		const s = softcaps[id];
 		return overflow_v2(getting, existing, s);
 	},
 	/**
@@ -313,7 +313,7 @@ export const SOFTCAPS = {
 	staticComputed(id: string, getting: Decimal) {
 		if (!this.reach(id, getting)) return getting;
 		if (softcaps[id].fluid) throw new Error('type error');
-		let s = softcaps[id];
+		const s = softcaps[id];
 		return overflow_v2(new Decimal(0), getting, s);
 	},
 };
@@ -325,6 +325,9 @@ type IMilestone = {
 	show: boolean;
 	description: string;
 	canDone: boolean;
+	req?: boolean;
+	reqDescription?: string;
+	onDone?: () => void;
 };
 
 export const milestones: {

@@ -3,10 +3,96 @@ import { Ordinal } from '@/lib/ordinal/';
 import { formatWhole } from './format';
 
 function bracket(dimension = 0, ascend = 0, ...args: number[]): string {
-	for (let i in args) args[i] += ascend;
+	for (const i in args) args[i] += ascend;
 	while (args.length < dimension) args.push(0);
 	return `(${args.slice(0, dimension).join(',')})`;
 }
+
+// 打个表
+const PostBOOrdinalTable = [
+  [
+    "(0,0,0)(1,1,1)",
+    "(0,0,0)(1,1,1)(1,1,0)",
+    "(0,0,0)(1,1,1)(1,1,0)(2,2,1)",
+    "(0,0,0)(1,1,1)(1,1,0)(2,2,1)(2,2,0)",
+    "(0,0,0)(1,1,1)(1,1,0)(2,2,1)(2,2,0)(3,3,1)",
+    "(0,0,0)(1,1,1)(1,1,1)",
+    "(0,0,0)(1,1,1)(1,1,1)(1,1,1)",
+    "(0,0,0)(1,1,1)(2,0,0)",
+    "(0,0,0)(1,1,1)(2,0,0)(3,1,1)",
+    "(0,0,0)(1,1,1)(2,1,0)",
+    "(0,0,0)(1,1,1)(2,1,0)(1,1,0)(2,2,1)(3,1,0)",
+    "(0,0,0)(1,1,1)(2,1,0)(1,1,0)(2,2,1)(3,1,0)(2,2,0)",
+    "(0,0,0)(1,1,1)(2,1,0)(1,1,0)(2,2,1)(3,1,0)(2,2,1)",
+    "(0,0,0)(1,1,1)(2,1,0)(1,1,0)(2,2,1)(3,1,0)(4,2,1)",
+    "(0,0,0)(1,1,1)(2,1,0)(1,1,0)(2,2,1)(3,2,0)",
+    "(0,0,0)(1,1,1)(2,1,0)(1,1,1)",
+    "(0,0,0)(1,1,1)(2,1,0)(1,1,1)(1,1,0)(2,2,1)(3,1,0)",
+    "(0,0,0)(1,1,1)(2,1,0)(1,1,1)(1,1,0)(2,2,1)(3,1,0)(2,2,1)",
+    "(0,0,0)(1,1,1)(2,1,0)(1,1,1)(1,1,0)(2,2,1)(3,2,0)",
+    "(0,0,0)(1,1,1)(2,1,0)(1,1,1)(1,1,0)(2,2,1)(3,2,0)(2,2,1)",
+    "(0,0,0)(1,1,1)(2,1,0)(1,1,1)(1,1,1)",
+    "(0,0,0)(1,1,1)(2,1,0)(1,1,1)(2,1,0)",
+    "(0,0,0)(1,1,1)(2,1,0)(1,1,1)(2,1,0)(1,1,0)(2,2,1)(3,2,0)(2,2,1)(3,1,0)",
+    "(0,0,0)(1,1,1)(2,1,0)(1,1,1)(2,1,0)(1,1,0)(2,2,1)(3,2,0)(2,2,1)(3,2,0)",
+    "(0,0,0)(1,1,1)(2,1,0)(1,1,1)(2,1,0)(1,1,1)",
+    "(0,0,0)(1,1,1)(2,1,0)(2,0,0)",
+    "(0,0,0)(1,1,1)(2,1,0)(2,1,0)",
+    "(0,0,0)(1,1,1)(2,1,0)(2,1,0)(1,1,1)",
+    "(0,0,0)(1,1,1)(2,1,0)(3,0,0)",
+    "(0,0,0)(1,1,1)(2,1,0)(3,1,0)",
+    "(0,0,0)(1,1,1)(2,1,0)(3,1,0)(1,1,1)",
+    "(0,0,0)(1,1,1)(2,1,0)(3,2,0)",
+    "(0,0,0)(1,1,1)(2,1,0)(3,2,0)(3,2,0)",
+    "(0,0,0)(1,1,1)(2,1,0)(3,2,0)(4,2,0)",
+    "(0,0,0)(1,1,1)(2,1,0)(3,2,0)(4,3,0)",
+    "(0,0,0)(1,1,1)(2,1,0)(3,2,1)",
+    "(0,0,0)(1,1,1)(2,1,0)(3,2,1)(4,2,0)",
+    "(0,0,0)(1,1,1)(2,1,0)(3,2,1)(4,2,0)(3,2,1)",
+    "(0,0,0)(1,1,1)(2,1,0)(3,2,1)(4,2,0)(5,3,0)",
+    "(0,0,0)(1,1,1)(2,1,0)(3,2,1)(4,2,0)(5,3,1)",
+  ],
+  [
+    "(0,0,0)(1,1,1)(2,1,1)",
+    "(0,0,0)(1,1,1)(2,1,1)(2,1,0)",
+    "(0,0,0)(1,1,1)(2,1,1)(2,1,0)(1,1,1)(2,1,0)",
+    "(0,0,0)(1,1,1)(2,1,1)(2,1,0)(1,1,1)(2,1,0)(3,2,1)(4,2,1)(4,1,0)",
+    "(0,0,0)(1,1,1)(2,1,1)(2,1,0)(1,1,1)(2,1,0)(3,2,1)(4,2,1)(4,1,0)(4,2,1)",
+    "(0,0,0)(1,1,1)(2,1,1)(2,1,0)(1,1,1)(2,1,1)",
+    "(0,0,0)(1,1,1)(2,1,1)(2,1,0)(3,2,1)(4,2,1)",
+    "(0,0,0)(1,1,1)(2,1,1)(2,1,1)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,0)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,0)(1,1,1)(2,1,1)(3,1,0)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,0)(2,0,0)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,0)(2,1,0)(3,2,1)(4,2,1)(5,1,0)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,0)(2,1,0)(3,2,1)(4,2,1)(5,1,0)(4,2,1)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,0)(2,1,0)(3,2,1)(4,2,1)(5,2,0)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,0)(2,1,1)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,0)(2,1,1)(3,1,0)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,0)(2,1,1)(3,1,0)(2,0,0)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,0)(3,1,0)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,0)(4,2,1)(5,2,1)(6,1,0)(5,0,0)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,0)(4,2,1)(5,2,1)(6,2,0)",
+  ],
+  [
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,1)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,1)(2,1,1)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,1)(2,1,1)(3,1,0)(2,0,0)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,1)(2,1,1)(3,1,1)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,1)(3,1,0)(2,0,0)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,1)(3,1,1)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,1)(3,1,1)(2,1,1)(3,1,1)(3,1,1)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,1)(4,0,0)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,1)(4,1,0)(2,0,0)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,1)(4,1,0)(3,1,1)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,1)(4,1,0)(4,1,0)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,1)(4,1,0)(5,2,0)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,1)(4,1,0)(5,2,1)(6,2,1)(7,2,1)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,1)(4,1,1)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,1)(4,1,1)(4,1,1)",
+    "(0,0,0)(1,1,1)(2,1,1)(3,1,1)(4,1,1)(5,1,1)",
+  ]
+] as const
 
 export const OrdinalUtils = {
 	numberToOrdinal(x: Decimal, base: Decimal, maxLength = 7, displayMode = true): string {
@@ -16,9 +102,9 @@ export const OrdinalUtils = {
 		//数值转序数
 		const tetration = base.tetrate(base.toNumber());
 		if (x.gte(tetration)) {
-			let prefix = displayMode ? 'ε<sub>0</sub>' : 'e0';
-			let power = x.log(tetration);
-			let powerdisplay = this.numberToOrdinal(power, base, maxLength - 1, displayMode);
+			const prefix = displayMode ? 'ε<sub>0</sub>' : 'e0';
+			const power = x.log(tetration);
+			const powerdisplay = this.numberToOrdinal(power, base, maxLength - 1, displayMode);
 			return (
 				prefix +
 				(displayMode ? '<sup>' : '^(') +
@@ -28,8 +114,8 @@ export const OrdinalUtils = {
 		}
 		if (x.lt(base)) return formatWhole(x);
 		if (maxLength <= 0) return '...';
-		let exp = x.log(base).add(1e-9).floor();
-		let mult = x.div(exp.pow_base(base)).add(1e-9).floor();
+		const exp = x.log(base).add(1e-9).floor();
+		const mult = x.div(exp.pow_base(base)).add(1e-9).floor();
 		let add = x.sub(exp.pow_base(base).mul(mult)).add(1e-9).floor();
 		if (x.gte(base.iteratedexp(2, new Decimal(3)))) add = new Decimal(0);
 		if (displayMode)
@@ -56,8 +142,8 @@ export const OrdinalUtils = {
 		if (x.gte(base.tetrate(base.toNumber()))) return '\\varepsilon_0';
 		if (x.lt(base)) return formatWhole(x);
 		if (maxLength <= 0) return '...';
-		let exp = x.log(base).add(1e-9).floor();
-		let mult = x.div(exp.pow_base(base)).add(1e-9).floor();
+		const exp = x.log(base).add(1e-9).floor();
+		const mult = x.div(exp.pow_base(base)).add(1e-9).floor();
 		let add = x.sub(exp.pow_base(base).mul(mult)).add(1e-9).floor();
 		if (x.gte(base.iteratedexp(2, new Decimal(3)))) add = new Decimal(0);
 		return (
@@ -73,7 +159,7 @@ export const OrdinalUtils = {
 	},
 	numberLogHH(x: Decimal, base: Decimal): Decimal {
 		//数值被HH Log
-		let lbb = base.log(2);
+		// const lbb = base.log(2);
 		if (x.lt(base.pow_base(2).mul(base))) {
 			let k = new Decimal(0),
 				n = new Decimal(0);
@@ -95,8 +181,8 @@ export const OrdinalUtils = {
 		} else if (x.slog(2).lt(8)) {
 			return base.pow(2).add(this.numberLogHH(x.div(base).log(2), base));
 		} else if (x.slog(2).gte(8)) {
-			let s = x.slog(2).floor().sub(2);
-			let lx = x.iteratedlog(2, s.toNumber());
+			const s = x.slog(2).floor().sub(2);
+			const lx = x.iteratedlog(2, s.toNumber());
 			return this.numberLogHH(lx, base).add(base.pow(2).mul(s));
 		} else {
 			let an = new Decimal(1),
@@ -114,9 +200,10 @@ export const OrdinalUtils = {
 		x: Decimal,
 		base: Decimal,
 		maxLength = 20,
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		otherwise: any = { basic: [0, 0], dimension: 1, ascend: 0, id: 0 },
 	): string {
-		//数值转BMS（最多三行）
+		//数值转BMS（最多ω行）
 		if (maxLength <= 0) return '...';
 
 		if (x.lt(1)) return '';
@@ -127,7 +214,7 @@ export const OrdinalUtils = {
 			);
 		else if (x.lt(base.pow(2))) {
 			otherwise.dimension = Math.max(otherwise.dimension, 1);
-			let s = bracket(otherwise.dimension, otherwise.ascend, ...otherwise.basic);
+			const s = bracket(otherwise.dimension, otherwise.ascend, ...otherwise.basic);
 			--maxLength;
 			otherwise.basic = [otherwise.basic[0] + 1, ...otherwise.basic.slice(1)];
 			return s + this.numberToBMS(x.sub(base).add(1), base, --maxLength, otherwise);
@@ -166,8 +253,8 @@ export const OrdinalUtils = {
 				}
 			}
 
-			let k = x.log(base).floor().pow_base(base);
-			let residue = x.sub(k);
+			const k = x.log(base).floor().pow_base(base);
+			const residue = x.sub(k);
 
 			if (residue.gte(base.sub(1))) {
 				otherwise.basic[0]++;
@@ -179,109 +266,47 @@ export const OrdinalUtils = {
 			}
 		} else if (x.lt(base.tetrate(base.toNumber()))) {
 			otherwise.dimension = Math.max(otherwise.dimension, 2);
-			let s = bracket(otherwise.dimension, otherwise.ascend, ...otherwise.basic);
+			const s = bracket(otherwise.dimension, otherwise.ascend, ...otherwise.basic);
 			--maxLength;
 			otherwise.ascend++;
 			return s + this.numberToBMS(x.log(base), base, --maxLength, otherwise);
-		} else {
-			otherwise = { basic: [0, 0], dimension: 1, ascend: 0, id: 0 };
-			return this.numberToTLBMS(x.iteratedlog(base), base, maxLength, otherwise);
-		}
-	},
-	numberToTLBMS(
-		x: Decimal,
-		base: Decimal,
-		maxLength = 15,
-		otherwise: any = { basic: [0, 0], dimension: 1, ascend: 0, id: 0 },
-	): string {
-		//数值转BMS（最多三行）
-		if (maxLength <= 0) return '...';
-
-		if (x.lt(1)) return '';
-		else if (x.lt(base))
+		} else if (x.lt(base.tetrate(base.toNumber()).mul(base.sqr()).pow_base(4).pow_base(4))) {
+		  if (x.lt(base.pow(base).add(base.pow(2)).pow_base(4).pow_base(4))) {
+		    let len = PostBOOrdinalTable[0].length
+		    let index = x.log(base).log(base).sub(256).div(16/len).max(0).floor().toNumber()
+		    return PostBOOrdinalTable[0][index]
+		  }
+		  if (x.lt(base.pow(base).add(base.pow(2).mul(2)).pow_base(4).pow_base(4))) {
+		    let len = PostBOOrdinalTable[1].length
+		    let index = x.log(base).log(base).sub(256+16).div(16/len).max(0).floor().toNumber()
+		    return PostBOOrdinalTable[1][index]
+		  }
+		  if (x.lt(base.pow(base).add(base.pow(2).mul(3)).pow_base(4).pow_base(4))) {
+		    let len = PostBOOrdinalTable[2].length
+		    let index = x.log(base).log(base).sub(256+32).div(16/len).max(0).floor().toNumber()
+		    return PostBOOrdinalTable[2][index]
+		  }
+			let temp = this.numberToBMS(
+				x.iteratedlog(base, base.sub(2).toNumber()).div(base.pow(2)),
+				new Decimal(4),
+				maxLength,
+			);
+			let hasEllipsis = temp.endsWith('...');
+			if (hasEllipsis) temp = temp.slice(0, -3);
 			return (
-				bracket(otherwise.dimension, otherwise.ascend, otherwise.id++, ...otherwise.basic) +
-				this.numberToTLBMS(x.sub(1), base, --maxLength, otherwise)
+				'>(' +
+				temp
+					.replace(/^>/, '')
+					.slice(1, -1)
+					.split(')(')
+					.map((s, i) => `${i},${s}`)
+					.join(')(') +
+				')' +
+				(hasEllipsis ? '...' : '')
 			);
-		else if (x.lt(base.pow(2))) {
-			let s = bracket(
-				otherwise.dimension,
-				otherwise.ascend,
-				otherwise.id++,
-				...otherwise.basic,
-			);
-			otherwise.basic = [otherwise.basic[0] + 1, ...otherwise.basic.slice(1)];
-			return s + this.numberToTLBMS(x.sub(base).add(1), base, --maxLength, otherwise);
-		} else if (x.lt(base.pow(base.pow(base)))) {
-			otherwise.dimension = Math.max(otherwise.dimension, 2);
-			let log = x.log(base);
-			let s = bracket(
-				otherwise.dimension,
-				otherwise.ascend,
-				otherwise.id++,
-				otherwise.basic[0]++,
-				otherwise.basic[1]++,
-			);
-			--maxLength;
-			((s += bracket(
-				otherwise.dimension,
-				otherwise.ascend,
-				otherwise.id++,
-				...otherwise.basic,
-			)),
-				--maxLength);
-			let flag = false,
-				boost = 1;
-			if (log.gte(base)) flag = true;
-			while ((log.gte(3) && !flag) || (log.gte(1) && flag)) {
-				if (log.gte(base.pow(boost))) {
-					((s += bracket(
-						otherwise.dimension,
-						otherwise.ascend,
-						otherwise.id++,
-						++otherwise.basic[0],
-						otherwise.basic[1] + 1,
-					)),
-						--maxLength);
-					if (log.lt(base.pow(boost + 1))) log = log.sub(base.pow(boost));
-					boost++;
-				} else {
-					((s += bracket(
-						otherwise.dimension,
-						otherwise.ascend,
-						otherwise.id++,
-						++otherwise.basic[0],
-						1,
-					)),
-						--maxLength);
-					log = log.sub(1);
-					if (boost > 1) boost = 1;
-				}
-			}
-
-			let k = x.log(base).floor().pow_base(base);
-			let residue = x.sub(k);
-
-			if (residue.gte(base.sub(1))) {
-				otherwise.basic[0]++;
-				otherwise.basic[1] = 0;
-				return (
-					s + this.numberToTLBMS(residue.sub(base).add(2), base, --maxLength, otherwise)
-				);
-			} else {
-				otherwise.dimension = 2;
-				return s + this.numberToTLBMS(residue, base, --maxLength, otherwise);
-			}
-		} else if (x.lt(base.tetrate(base.toNumber()))) {
-			let s = bracket(
-				Math.max(otherwise.dimension, 2),
-				otherwise.ascend,
-				otherwise.id++,
-				...otherwise.basic,
-			);
-			otherwise.ascend++;
-			return s + this.numberToTLBMS(x.log(base), base, --maxLength, otherwise);
-		} else return 'Limit';
+		} else {
+			return `(0)(1<sup>ω</sup>)`;
+		}
 	},
 	/*
 	1: 0
@@ -311,3 +336,5 @@ export const OrdinalUtils = {
   狗操的BMS,那么复杂相思了
 	*/
 };
+
+//for (let i = 0; i <= 4; i+=0.01) console.log(i, OrdinalUtils.numberToBMS(new Decimal(i).mul(16).add(256.00000001).pow_base(4).pow_base(4), new Decimal(4), 30))

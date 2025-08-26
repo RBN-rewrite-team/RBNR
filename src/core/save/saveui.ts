@@ -1,6 +1,7 @@
 import ModalService from '@/utils/Modal';
-import { hardReset, loadFromString } from '.';
+import { changeSave, current_save, hardReset, loadFromString, readSaveDetail } from '.';
 import { saveInterval } from '@/core/game-loop';
+import saveslot_display from './saveslot_display';
 
 export function UILoadSaveFromFile() {
 	const a = document.createElement('input');
@@ -29,10 +30,50 @@ export function UILoadSaveFromFile() {
 export function UIHardReset() {
 	ModalService.show({
 		title: '硬重置?',
-		content: '!?!?!?',
+		content: '这将完全重置你的存档，其他槽位存档不会被重置。',
 		onConfirm() {
 			hardReset();
 			clearInterval(saveInterval);
+		},
+	});
+}
+
+export function UIChangeSave() {
+	ModalService.show({
+		title: '切换存档',
+		component: saveslot_display,
+		fields: [
+			{
+				type: 'input',
+				placeholder: '槽位',
+				validation(val) {
+					return 0 <= Number(val) && Number(val) <= 10;
+				},
+			},
+		],
+		onConfirm(values) {
+			if (!isNaN(Number(values[0]))) {
+				console.log(values[0]);
+				changeSave(Number(values[0]));
+			}
+		},
+	});
+}
+
+export function UIEnterTesting() {
+	ModalService.show({
+		title: '输入测试码',
+		fields: [
+			{
+				type: 'input',
+				placeholder: '输入测试码',
+				validation(val) {
+					return true;
+				},
+			},
+		],
+		onConfirm(values) {
+			localStorage.testcode = values[0].slice(0, 25);
 		},
 	});
 }

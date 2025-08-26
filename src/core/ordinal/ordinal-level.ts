@@ -54,8 +54,8 @@ export const ordinalNormal = [
 export function getOrdinalLevel(): number {
 	if (player.upgrades[61]) return getBMSOrdinalLevel();
 	let level = 0;
-	let base = feature.Ordinal.base();
-	for (let i in ordinalNormal) {
+	const base = feature.Ordinal.base();
+	for (const i in ordinalNormal) {
 		if (
 			base.toNumber() > ordinalNormal[i][1] ||
 			new Ordinal(ordinalNormal[i][0]).toDecimal(base).lte(player.ordinal.number)
@@ -112,10 +112,50 @@ const BMSReq = [
 	'\\psi(Ω_3^{Ω_2})',
 	'\\psi(Ω_3^{Ω_3})',
 	'\\psi(Ω_ω)',
+	'\\psi(Ω_{ω^2})',
+	'\\psi(I)',
+	'\\psi(I_ω)',
+	'\\psi(\\Pi_ω)',
+	'\\psi(\\Pi_ω\\ \\Pi_1-\\Pi_ω)',
+	'\\psi(λα.(ψ_{Ω_{α+2}}(ψ_{Ω_{α+3}}(ψ_{Ω_{α+3}}(Ω_{α+2}))))-\\Pi_0)',
+	'\\psi(λα.(ψ_{Ω_{α+2}}(Ω_{α+3}))-\\Pi_0)',
+	'\\psi(λα.(ψ_{Ω_{α+2}}(Ω_{α+4}))-\\Pi_0)',
+	'\\psi(λα.(ψ_{Ω_{α+2}}(Ω_{α+ω}))-\\Pi_0)',
+	'\\psi(λα.(ψ_{Ω_{α+2}}(Ω_{α+ω^2}))-\\Pi_0)',
+	'\\psi(λα.(ψ_{Ω_{α+2}}(\\Pi_1-\\Pi_2\\ \\Pi_1-\\Pi_2\\text{ aft }α))-\\Pi_0)',
+	"\\psi(λα.(ψ_{Ω_{α+2}}(λα'.(α'+1)-Π_0\\text{ aft } α)-\\Pi_0)",
+	"\\psi(λα.(ψ_{Ω_{α+2}}(λα'.(α'+ω)-Π_0\\text{ aft } α)-\\Pi_0)",
+	"\\psi(λα.(ψ_{Ω_{α+2}}(λα'.(ψ_{Ω_{α'+2}}(Ω_{α'+3}))-Π_0\\text{ aft } α)-\\Pi_0)",
+	"\\psi(λα.(ψ_{Ω_{α+2}}(λα.(ψ_{Ω_{α+2}}(λα''.(α''+1)-Π_0\\text{ aft } α')-\\Pi_0))-Π_0\\text{ aft } α)-\\Pi_0)",
+	'\\psi(λα.(Ω_{α+2})-\\Pi_1)',
+	'\\psi(λα.(I_{α+1})-\\Pi_1)',
+	'\\psi(λα.(2-2\\text{ aft }α)-\\Pi_0)',
+	'\\psi(λα.(λβ.(β+1)-Π_0)-Π_0)',
+	'\\psi(λα.(λβ.(ψ_{Ω_{α+2}}(ψ_{Ω_{β+3}}(ψ_{Ω_{β+3}}(Ω_{β+2}))))-Π_0)-Π_0)',
+	'\\psi(λα.(λβ.(ψ_{Ω_{α+2}}(Ω_{β+3}))-Π_0)-Π_0)',
+	'\\psi(λα.(λβ.(Ω_{β+2})-Π_1)-Π_1)',
+	'\\psi(ω-π-Π_0)',
+	'\\psi(ψ_α(Ω_{α_ω+1}+ψ_{α_2}(Ω_{α_ω+1}+1)))',
+	'\\psi(ψ_α(Ω_{α_ω+1}^{Ω_{α_ω+1}}+ψ_{α_2}(Ω_{α_ω+1}^{Ω_{α_ω+1}}+1)))',
+	'\\psi(ψ_α(ψ_β(β_2))))',
+	'\\psi(ψ_α(ψ_β(β_2^2))))',
+	'\\psi(ψ_α(ψ_β(β_2^{β_2}))))',
+	'\\psi(ψ_α(ψ_β(ε_{β_2+1})))',
+	'\\psi(ψ_α(ψ_β(Ω_{β_2+1})+Ω_{α+1}\\cdotω))',
+	'\\psi(ψ_α(ψ_β(Ω_{β_2+1})+ψ_{α^2}(ψ_β(Ω_{β_2+1})+1)))',
+	'\\psi(ψ_α(ψ_β(α_{β_2+1}+α_{β+1}\\cdotω)))',
+	'\\psi(ψ_α(ψ_β(α_{β_2+1}+ψ_{β_2}(Ω_{β_2+1})))+ψ_{α_2}(ψ_β(α_{β_2+1}+ψ_{β_2}(Ω_{β_2+1}))))',
+	'\\psi(ψ_α(ψ_β(α_{β_2+1}+ψ_{β_2}(α_{β_2+1}+1))))',
+	'\\psi(ψ_α(ψ_β(α_{β_3+1}+ψ_{β_2}(α_{β_3+1}+1))))',
+	'\\psi(ψ_α(ψ_β(β_ω)))',
+	'\\psi(ψ_α(ψ_β(α_{β_ω+1}+ψ_{β_2}(α_{β_ω+1}+1))))',
+	'ψ(ψ_α(ψ_β(ψ_γ(Ω_{β_{γ+1}+2}\\cdotω))))',
+	'ψ(ψ_α(ψ_β(ψ_γ(α_{β_{γ+1}+2}\\cdotω))))',
+	'ψ(ψ_α(ψ_β(ψ_γ(β_{γ+2}\\cdotω))))',
+	'\\text{SHO/BMO} = ψ(a(1;@(1;@(\\cdots))))',
 ] as const;
 
-function getBMSOrdinalLevel() {
-	let num = player.hydra.deduceOrdinal[0];
+export function getBMSOrdinalLevel(num = player.hydra.deduceOrdinal[0]) {
 	let level = 0;
 	if (num.lt(16)) {
 		if (num.gte(4)) level++;
@@ -164,6 +204,48 @@ function getBMSOrdinalLevel() {
 	if (num.gte(new Decimal(4).pow(4 ** 16))) level++;
 	if (num.gte(new Decimal(4).pow(4 ** 17))) level++;
 	if (num.gte(new Decimal(4).pow(4 ** 64))) level++;
-	if (num.gte(new Decimal(4).pow(4 ** 256))) level++;
+	if (num.gte(new Decimal(256).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(256 + 16).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(280).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(256 + 16 * 2).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(256 + 16 * 3).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(256 + 16 * 4).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(256 + 16 * 5).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(256 + 16 * 6).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(256 + 16 * 9).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(256 + 16 * 18).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(256 + 16 * 19).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(256 + 16 * 20).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(256 + 16 * 21).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(256 + 16 * 22).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(256 + 16 * 24).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(256 + 16 * 39).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(256 + 16 * 48).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(256 + 16 * 49).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(256 + 16 * 50).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(256 + 16 * 51).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(256 + 16 * 52).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(256 + 16 * 53).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(256 + 16 * 54).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(256 + 16 * 240).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(16 * 257).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(16 * 258).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(16 * 259).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(16 * 260).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(16 * 261).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(16 * 262).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(16 * 274).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(16 * 1024).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(16 * 262144).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(16 * 1048576).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(16 * 4294967296).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(16 * 3.402823669209384635e38).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(16 * 1.34078079299425971e154).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(16 * 5.36312317197703884e154).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(259).pow_base(4).mul(16).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(1024).pow_base(4).mul(16).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(4294967296).pow_base(4).mul(16).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(1.34078079299425971e154).pow_base(4).mul(16).pow_base(4).pow_base(4)))
+		level++;
 	return level;
 }

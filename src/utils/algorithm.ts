@@ -14,8 +14,8 @@ export function gcd(x: number, y: number): number {
 	if (gcdCache.has(cacheKey)) {
 		return gcdCache.get(cacheKey)!;
 	}
-	let originalX = x;
-	let originalY = y;
+	// const originalX = x;
+	// const originalY = y;
 	// 使用欧几里得算法
 	while (y !== 0) {
 		const temp = y;

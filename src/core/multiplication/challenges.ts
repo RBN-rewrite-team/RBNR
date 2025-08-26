@@ -10,7 +10,7 @@ export const MULTI_CHALS: SingleChallenge[] = [
 		descHard: '你永远无法升级成加法运算。',
 		effect(x) {
 			let base = x.sub(1000).max(0).add(1).log10().mul(0.0001);
-			let cap = 0.25;
+			const cap = 0.25;
 			if (player.exponention.logarithm.upgrades_in_dilated.includes('25')) {
 				if (base.gte(1)) base = base.root(2);
 				return base;

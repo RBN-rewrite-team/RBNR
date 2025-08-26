@@ -89,13 +89,13 @@ export const themeDetailsMap = new Map([
 const root = document.documentElement;
 
 export function updateTheme() {
-	let theme = themeDetailsMap.get(player.options.ui.theme);
+	const theme = themeDetailsMap.get(player.options.ui.theme);
 	if (!theme) return;
-	let ordinary = theme.ordinary;
-	for (let i in ordinary) {
+	const ordinary = theme.ordinary;
+	for (const i in ordinary) {
 		root.style.setProperty(i as keyof typeof ordinary, ordinary[i as keyof typeof ordinary]);
 	}
-	let other = theme.other;
+	const other = theme.other;
 	if (other.filter) {
 		root.style.filter = other.filter;
 	} else root.style.filter = '';

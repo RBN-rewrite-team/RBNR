@@ -7,6 +7,7 @@ import { toRaw } from 'vue';
 import { calculate } from '../../utils/bms-analyze.ts';
 import { player } from '@/core/global';
 import { OrdinalUtils } from '../../utils/ordinal.ts';
+import { getBMSOrdinalLevel, getBMSOLReq } from "../../core/ordinal/ordinal-level.ts"
 
 export class Ordinal {
 	node: MainNode;
@@ -21,10 +22,11 @@ export class Ordinal {
 
 	static displayOrdinalColored(ord: Decimal | number, base: Decimal | number = 10) {
 		if (player.upgrades[61]) {
+		  if (player.hydra.deduceOrdinal[0].gte("e3.773962424821541352e168")) return ">"+getBMSOLReq(getBMSOrdinalLevel()-1)
 			return calculate(
-				OrdinalUtils.numberToBMS(player.hydra.deduceOrdinal[0], new Decimal(4), 20)
+				OrdinalUtils.numberToBMS(player.hydra.deduceOrdinal[0], new Decimal(4), 15)
 					.replace('...', '')
-					.replace('>', ''),
+					.replace(/^>/, ''),
 			);
 		}
 		//return displayOrd(ord, base)
@@ -57,15 +59,15 @@ export function displayOrd(
 				? "<span style='color:red;text-shadow:0 0 3px #fff'>ε<sub>0</sub></span>"
 				: 'ε<sub>0</sub>';
 
-		let power = ord.log(tetration);
-		let powerdisplay = displayOrd(power, base, over, trim, large, multoff, colour);
+		const power = ord.log(tetration);
+		const powerdisplay = displayOrd(power, base, over, trim, large, multoff, colour);
 		return prefix + '<sup>' + powerdisplay + '</sup>';
 	}
 
-	let length = 8;
+	const length = 8;
 	let largeOrd = false;
 
-	while (ord.gte(bigBase) && (trim < length || length === 0) && !largeOrd) {
+	while (ord.gte(bigBase) && trim < length /* || length === 0 */ && !largeOrd) {
 		const exponent = ord.add(0.1).log(bigBase).floor();
 		const basePower = Decimal.pow(bigBase, exponent);
 		let coefficient = Decimal.floor(ord.add(0.1).div(basePower));
@@ -89,7 +91,7 @@ export function displayOrd(
 		const expression = 'ω' + expPart + coeffPart + separator;
 
 		if (colour === 1) {
-			let colorExponent = new Decimal(exponent);
+			const colorExponent = new Decimal(exponent);
 			if (colorExponent.gte(9e15)) colorExponent.layer = 0;
 			const hueValue = colorExponent.mul(8);
 			const colorCode = HSL(hueValue);

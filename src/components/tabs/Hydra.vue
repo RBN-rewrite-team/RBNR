@@ -5,6 +5,8 @@ import TDUpgrade from '../TDUpgrade.vue';
 import TDBuyable from '../TDBuyable.vue';
 import { OrdinalUtils } from '@/utils/ordinal';
 import Decimal from 'break_eternity.js';
+import { Dilute } from '@/core/hydra/dilute';
+import { onBeforeUnmount } from 'vue';
 
 function powerFactorHTML(): string {
 	let s = '';
@@ -35,16 +37,36 @@ function powerFactorHTML(): string {
 			'<sup style="color: rgb(127, 0, 0)">' +
 			format(feature.Hydra.powerSoftcapNerf(feature.Hydra.powerGainBase())) +
 			'</sup>';
+		if (
+			feature.Hydra.logSoftcapNerf(
+				feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase()),
+			).eq(1)
+		)
+			s +=
+				'<span style="color: var(--color)"> = ' +
+				format(feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase())) +
+				'</span>';
+	}
+	let softcapped = feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase());
+	if (!feature.Hydra.logSoftcapNerf(softcapped).eq(1)) {
+		s +=
+			'<span style="color: var(--color)"> = ln<sup style="color: #c98300">' +
+			format(feature.Hydra.logSoftcapNerf(softcapped)) +
+			'</sup></span>';
+		s +=
+			'<span style="color: var(--color)">(' +
+			format(feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase())) +
+			')</span>';
 		s +=
 			'<span style="color: var(--color)"> = ' +
-			format(feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase())) +
+			format(feature.Hydra.powerGainAfterSoftcap2(softcapped)) +
 			'</span>';
 	}
 	return s;
 }
 
 function deduceButtonStyle(): string {
-	let pc = player.hydra.deduceProgress[player.hydra.visiting].mul(100).toNumber();
+	const pc = player.hydra.deduceProgress[player.hydra.visiting].mul(100).toNumber();
 	return (
 		'linear-gradient(to right, rgba(155, 125, 195, 0.5) ' +
 		pc +
@@ -55,14 +77,14 @@ function deduceButtonStyle(): string {
 }
 
 function hydraMilestone(): any {
-	let ms = feature.Hydra.hydraMilestone[player.hydra.visiting];
+	const ms = feature.Hydra.hydraMilestone[player.hydra.visiting];
 	let flag = -1;
-	for (let i in ms) {
+	for (const i in ms) {
 		if (player.hydra.deduceOrdinal[player.hydra.visiting].gte(ms[i][1])) flag++;
 	}
-	let reached = flag == -1 ? '\\text{暂未达成}' : ms[flag][0];
-	let next = ms[flag + 1][0];
-	let progress =
+	const reached = flag == -1 ? '\\text{暂未达成}' : ms[flag][0];
+	const next = ms[flag + 1][0];
+	const progress =
 		'\\text{' +
 		format(player.hydra.deduceOrdinal[player.hydra.visiting].div(ms[flag + 1][1]).mul(100)) +
 		'}\\%';
@@ -70,13 +92,13 @@ function hydraMilestone(): any {
 }
 
 function hydraMilestoneAxis(): any {
-	let axis = [];
-	let ms = feature.Hydra.hydraMilestone[player.hydra.visiting];
-	let now = player.hydra.deduceOrdinal[player.hydra.visiting];
+	const axis = [];
+	const ms = feature.Hydra.hydraMilestone[player.hydra.visiting];
+	const now = player.hydra.deduceOrdinal[player.hydra.visiting];
 	let scale = 0;
 	if (now.gte('1e6')) scale = 1;
 	if (now.gte(4294967296)) scale = 2;
-	for (let i in ms) {
+	for (const i in ms) {
 		let left = 0;
 		if (scale === 0) left = new Decimal(ms[i][1]).div(now).mul(50).toNumber();
 		else if (scale === 1)
@@ -103,8 +125,8 @@ function hydraMilestoneAxis(): any {
 
 function hydraAxisHTML(): string {
 	let s = '';
-	let axis = hydraMilestoneAxis();
-	for (let i in axis) {
+	const axis = hydraMilestoneAxis();
+	for (const i in axis) {
 		s +=
 			'<div style="font-size: 8px; position: absolute; top: 90%; left: ' +
 			axis[i][1] +
@@ -114,8 +136,6 @@ function hydraAxisHTML(): string {
 	}
 	return s;
 }
-
-//setInterval(()=>feature.Hydra.hydraReset(player.hydra.visiting))
 </script>
 
 <template>
@@ -131,17 +151,24 @@ function hydraAxisHTML(): string {
 							:style="{ 'background-image': deduceButtonStyle() }"
 						>
 							<span
+								v-if="feature.Hydra.deduceSpeed().gt(0)"
 								class="hydra-text"
 								style="opacity: 0.5; color: rgb(200, 190, 245); font-size: 60px"
-								>{{ format(feature.Hydra.deduceSpeed()) }}/s</span
+								>{{
+									feature.Hydra.deduceSpeed().gte(1)
+										? format(feature.Hydra.deduceSpeed()) + '/s'
+										: '1/' + format(feature.Hydra.deduceSpeed().recip()) + 's'
+								}}</span
 							>
 							<span class="hydra-text">
-								{{
-									OrdinalUtils.numberToBMS(
-										player.hydra.deduceOrdinal[0],
-										new Decimal(4),
-									)
-								}}
+								<span
+									v-html="
+										OrdinalUtils.numberToBMS(
+											player.hydra.deduceOrdinal[0],
+											new Decimal(4),
+										)
+									"
+								/>
 							</span>
 							<span
 								class="hydra-text-bottom"
@@ -177,12 +204,14 @@ function hydraAxisHTML(): string {
 								>{{ format(feature.Hydra.deduceSpeed()) }}/s</span
 							>
 							<span class="hydra-text">
-								{{
-									OrdinalUtils.numberToBMS(
-										player.hydra.deduceOrdinal[0],
-										new Decimal(4),
-									)
-								}}
+								<span
+									v-html="
+										OrdinalUtils.numberToBMS(
+											player.hydra.deduceOrdinal[0],
+											new Decimal(4),
+										)
+									"
+								/>
 							</span>
 							<span
 								class="hydra-text-bottom"
@@ -212,7 +241,7 @@ function hydraAxisHTML(): string {
 							<div class="hydra-axis-element" style="left: 50%; top: 88%">♦</div>
 						</button>
 					</td>
-					<td style="width: 50%">
+					<td>
 						<button
 							class="hydra-button-reset"
 							@click="feature.Hydra.hydraReset(player.hydra.visiting)"
@@ -238,6 +267,16 @@ function hydraAxisHTML(): string {
 									)
 								}}
 							</span>
+						</button>
+					</td>
+					<td style="width: 30px">
+						<button
+							class="hydra-button"
+							@click="player.hydra.autoHydraReset = !player.hydra.autoHydraReset"
+						>
+							自<br />动<br />重<br />置<br />:<br />{{
+								player.hydra.autoHydraReset ? '开' : '关'
+							}}
 						</button>
 					</td>
 				</tr>
@@ -406,31 +445,35 @@ function hydraAxisHTML(): string {
 				<TDUpgrade upgid="63" />
 				<TDUpgrade upgid="64" />
 			</tr>
-			<tr v-if="player.upgrades[61]">
+			<tr v-if="Dilute.diluteAmount(6) || player.upgrades[61]">
 				<TDUpgrade upgid="611" />
 				<TDUpgrade upgid="612" />
 				<TDUpgrade upgid="613" />
 				<TDUpgrade upgid="614" />
 			</tr>
-			<tr v-if="player.upgrades[61] && feature.Hydra.pUnlock(2)">
+			<tr v-if="Dilute.diluteAmount(6) || (player.upgrades[61] && feature.Hydra.pUnlock(2))">
 				<TDUpgrade upgid="615" />
 				<TDUpgrade upgid="616" />
 				<TDUpgrade upgid="617" />
 				<TDUpgrade upgid="618" />
 			</tr>
-			<tr v-if="player.upgrades[61]">
+			<tr v-if="Dilute.diluteAmount(6) || player.upgrades[61]">
 				<TDBuyable bylid="611" />
 				<TDBuyable bylid="612" />
 				<TDBuyable bylid="613" />
 				<TDBuyable bylid="614" />
 			</tr>
-			<tr v-if="player.upgrades[614]">
+			<tr v-if="Dilute.diluteAmount(6) || player.upgrades[614]">
 				<TDUpgrade upgid="65" />
 				<TDUpgrade upgid="66" />
+				<TDUpgrade upgid="6114" />
+				<TDUpgrade upgid="6113" />
 			</tr>
-			<tr v-if="player.upgrades[65]">
+			<tr v-if="Dilute.diluteAmount(6) || player.upgrades[65]">
 				<TDUpgrade upgid="619" />
 				<TDUpgrade upgid="6110" />
+				<TDUpgrade upgid="6111" />
+				<TDUpgrade upgid="6112" />
 			</tr>
 		</table>
 	</div>
@@ -447,6 +490,7 @@ function hydraAxisHTML(): string {
 	position: relative;
 	z-index: 1;
 }
+
 .hydra-button {
 	&.fast {
 		position: relative;

@@ -13,7 +13,11 @@ const id = props.id as keyof typeof player.milestones;
 	<tr>
 		<td>
 			<div class="milestone" :class="{ done: player.milestones[id] }">
-				<h3 style="display: inline-block">
+				<h3 style="display: inline-block" v-if="milestones[id].req ?? 0">
+					{{ milestones[id].displayName }}:
+					<span v-html="milestones[id].reqDescription" />
+				</h3>
+				<h3 style="display: inline-block" v-else>
 					{{ milestones[id].displayName }}: {{ format(milestones[id].requirement) }}
 					{{ milestones[id].currency }}
 				</h3>
@@ -26,10 +30,12 @@ const id = props.id as keyof typeof player.milestones;
 
 <style lang="scss" scoped>
 .milestone {
-	width: 500px;
-	height: 70px;
+	width: 600px;
+	height: fit-content;
+	min-height: 70px;
 	border: 2px solid red;
 	text-align: center;
+	line-height: 1.4;
 
 	&.done {
 		border-color: green;

@@ -2,24 +2,40 @@ import Decimal from 'break_eternity.js';
 import { type DecimalSource } from 'break_eternity.js';
 import { saveSerializer } from './serializer';
 import { reactive } from 'vue';
-import { notations } from '@/utils/format';
+import { format, notations } from '@/utils/format';
 import { themes } from '@/utils/themes';
-import type { qolUpgs } from '../exponention/qolupg';
 import type { IAstronomer } from '../exponention/logarithm';
-import type { IntRange } from 'type-fest';
 import { buyables, upgrades, milestones } from '../mechanic';
 import type { backupHydraType } from '../hydra/dilute';
 import { Dilute } from '../hydra/dilute';
+import { stopGameLoop } from '../game-loop';
+import { OrdinalUtils } from '@/utils/ordinal';
+import { calculate } from '@/utils/bms-analyze';
+import { displayOrd } from '@/lib/ordinal';
 
-const SAVEID = 'RBN-rewritten-powerful-refactor-test';
-const version = 6 as const;
+const version = 8 as const;
 const zero = new Decimal(0);
+export let current_save = 0;
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
+type KeyStringFromDecimal<T> = {
+	[key in keyof T]: T[key] extends Decimal
+		? string
+		: T[key] extends object
+			? KeyStringFromDecimal<T[key]>
+			: T[key];
+};
+// type Milestones = Record<
+// 	`cb${IntRange<1, 21>}` | 'log_law1' | 'log_law2' | 'log_law3' | 'log_G',
+// 	boolean
+// >;
 
-type Milestones = Record<
-	`cb${IntRange<1, 21>}` | 'log_law1' | 'log_law2' | 'log_law3' | 'log_G',
-	boolean
->;
+function getSaveID(id: number) {
+	if (id == 0) {
+		return 'RBN-rewritten-powerful-refactor-test';
+	} else {
+		return `RBN-rewritten-save-${id}`;
+	}
+}
 
 export interface Player {
 	number: Decimal;
@@ -94,6 +110,7 @@ export interface Player {
 			titlebar: boolean;
 		};
 		challengeDetial: boolean;
+		allowOffline: boolean;
 	};
 	stat: {
 		chapter: number;
@@ -129,14 +146,17 @@ export interface Player {
 	timeshard: {
 		value: number;
 		tf: number;
-		cd: [number, number];
-		last: [number, number];
+		cd: [number, number, number];
+		last: [number, number, number];
 		openTf: boolean;
+		next: [number, number, number];
 	};
 	hydra: {
 		visiting: number;
 		power: Decimal;
 		totalPower: Decimal;
+		trueTotalPower: Decimal;
+		milestoneDut5Eff: Decimal;
 		powerMult: [Decimal, Decimal, Decimal, Decimal];
 		deduceProgress: [Decimal, Decimal, Decimal, Decimal];
 		deduceOrdinal: [Decimal, Decimal, Decimal, Decimal];
@@ -161,12 +181,42 @@ export interface Player {
 			spentTime: number;
 			solution: number;
 			lastDeduce: Decimal;
-			prionsTime: number;
 			solute: Decimal;
 			solutionCost: number;
+			prions: Decimal;
+			highestApocalypse: Decimal;
+			solventPresets: [
+				number,
+				number,
+				number,
+				number,
+				number,
+				number,
+				boolean,
+				boolean,
+				boolean,
+			][];
 		};
+		autoHydraReset: boolean;
+	};
+	nonrecu: {
+		power: Decimal;
+		totalPower: Decimal;
+		resetTimes: Decimal;
+		studies_bought: number[];
+		theories: [Decimal, Decimal, Decimal];
+		spentTheories: Decimal;
+	};
+	backup?: Omit<Player, 'backup'> | null;
+	foundNaN: boolean;
+	checkedPlots: number[];
+	automator: {
+		running: boolean;
+		code: string;
+		currentLine: number;
 	};
 }
+
 function getInitialPlayerData(): Player {
 	return {
 		version: version,
@@ -177,191 +227,16 @@ function getInitialPlayerData(): Player {
 		lastUpdated: Date.now(),
 		saveCreateTime: Date.now(),
 		addpower: zero,
-		upgrades: {
-			'11': false,
-			'12': false,
-			'13': false,
-			'21': false,
-			'22': false,
-			'23': false,
-			'24': false,
-			'25': false,
-			'26': false,
-			'31': false,
-			'32': false,
-			'33': false,
-			'34': false,
-			'35': false,
-			'36': false,
-			'37': false,
-			'38': false,
-			'39': false,
-			'31R': false,
-			'32R': false,
-			'33R': false,
-			'34R': false,
-			'41R': false,
-			'42R': false,
-			'43R': false,
-			'44R': false,
-			'41': false,
-			'42': false,
-			'43': false,
-			'44': false,
-			'45': false,
-			'46': false,
-			'47': false,
-			'48': false,
-			'400q': false,
-			'411q': false,
-			'412q': false,
-			'413q': false,
-			'414q': false,
-			'415q': false,
-			'421q': false,
-			'422q': false,
-			'423q': false,
-			'424q': false,
-			'425q': false,
-			'431q': false,
-			'432q': false,
-			'433q': false,
-			'434q': false,
-			'435q': false,
-			'441q': false,
-			'442q': false,
-			'443q': false,
-			'444q': false,
-			'445q': false,
-			'451q': false,
-			'452q': false,
-			'453q': false,
-			'454q': false,
-			'455q': false,
-			'51': false,
-			'52': false,
-			'53': false,
-			'54': false,
-			'55': false,
-			'56': false,
-			'57': false,
-			'58': false,
-			'59': false,
-			'510': false,
-			'511': false,
-			'512': false,
-			'513': false,
-			'514': false,
-			'515': false,
-			'516': false,
-			'51R': false,
-			'52R': false,
-			'51A': false,
-			'517': false,
-			'61': false,
-			'611': false,
-			'612': false,
-			'613': false,
-			'614': false,
-			'615': false,
-			'616': false,
-			'617': false,
-			'618': false,
-			'619': false,
-			'6110': false,
-			'62': false,
-			'63': false,
-			'64': false,
-			'65': false,
-			'66': false,
-			'61R': false,
-			'62R': false,
-			'63R': false,
-			'64R': false,
-			'65R': false,
-			'66R': false,
-			'67R': false,
-			'68R': false,
-			'69R': false,
-			'61S': false,
-		},
-		buyables: {
-			'11': zero,
-			'21': zero,
-			'31': zero,
-			'32': zero,
-			'33': zero,
-			'31R': zero,
-			'32R': zero,
-			'33R': zero,
-			'34R': zero,
-			'35R': zero,
-			'36R': zero,
-			'37R': zero,
-			'38R': zero,
-			'41R': zero,
-			'42R': zero,
-			'43R': zero,
-			'44R': zero,
-			'41': zero,
-			'42': zero,
-			'43': zero,
-			'44': zero,
-			cb1: zero,
-			pf2: zero,
-			pf3: zero,
-			pf5: zero,
-			pf7: zero,
-			pf11: zero,
-			pf13: zero,
-			pf17: zero,
-			pf19: zero,
-			lgr_emp: zero,
-			lgr_impr: zero,
-			'51R': zero,
-			'52R': zero,
-			'53R': zero,
-			'54R': zero,
-			'55R': zero,
-			'51A': zero,
-			'52A': zero,
-			'53A': zero,
-			'611': zero,
-			'612': zero,
-			'613': zero,
-			'614': zero,
-			'61R': zero,
-			'62R': zero,
-		},
-		milestones: {
-			cb1: false,
-			cb2: false,
-			cb3: false,
-			cb4: false,
-			cb5: false,
-			cb6: false,
-			cb7: false,
-			cb8: false,
-			cb9: false,
-			cb10: false,
-			cb11: false,
-			cb12: false,
-			cb13: false,
-			cb14: false,
-			cb15: false,
-			cb16: false,
-			cb17: false,
-			cb18: false,
-			cb19: false,
-			cb20: false,
-			log_law1: false,
-			log_law2: false,
-			log_law3: false,
-			log_G: false,
-			dil_1: false,
-			dil_2: false,
-			dil_3: false,
-		},
+		upgrades: Object.fromEntries(Object.keys(upgrades).map((key) => [key, false])) as Record<
+			keyof typeof upgrades,
+			boolean
+		>,
+		buyables: Object.fromEntries(
+			Object.keys(buyables).map((key) => [key, new Decimal(0)]),
+		) as Record<keyof typeof buyables, Decimal>,
+		milestones: Object.fromEntries(
+			Object.keys(milestones).map((key) => [key, false]),
+		) as Record<keyof typeof milestones, boolean>,
 		buyable11More: zero,
 		automationCD: {
 			successor: 0,
@@ -427,6 +302,7 @@ function getInitialPlayerData(): Player {
 				titlebar: true,
 			},
 			challengeDetial: false,
+			allowOffline: true,
 		},
 		stat: {
 			chapter: -1,
@@ -440,7 +316,10 @@ function getInitialPlayerData(): Player {
 			highestExppower: zero,
 			highestOrdLevel: 0,
 		},
-		challenges: [[zero, zero, zero, zero, zero]],
+		challenges: [
+			[zero, zero, zero, zero, zero],
+			[zero, zero, zero, zero, zero, zero],
+		],
 		challengein: [-1, -1],
 		singularity: {
 			t: 0,
@@ -461,14 +340,21 @@ function getInitialPlayerData(): Player {
 		timeshard: {
 			value: 0,
 			tf: 0,
-			cd: [Date.now(), Date.now()],
-			last: [0, 0],
+			cd: [Date.now(), Date.now(), Date.now() + 7 * 24 * 60 * 60 * 1000],
+			last: [0, 0, 0],
 			openTf: false,
+			next: [
+				Math.floor(Math.random() * 40 + 10),
+				Math.floor(Math.random() * 320 + 80),
+				Math.floor(Math.random() * 4000 + 1000),
+			],
 		},
 		hydra: {
 			visiting: 0,
 			power: zero,
 			totalPower: zero,
+			trueTotalPower: zero,
+			milestoneDut5Eff: new Decimal(1),
 			powerMult: [new Decimal(1), new Decimal(1), new Decimal(1), new Decimal(1)],
 			deduceProgress: [zero, zero, zero, zero],
 			deduceOrdinal: [zero, zero, zero, zero],
@@ -479,13 +365,31 @@ function getInitialPlayerData(): Player {
 				inDilute: false,
 				solvent: [0, 0, 0, 0, 0, 0, false, false, false],
 				lastSolvent: [0, 0, 0, 0, 0, 0, false, false, false],
+				solventPresets: [],
 				lastDeduce: zero,
 				spentTime: 0,
-				prionsTime: 0,
 				solution: 0,
 				solutionCost: 0,
 				solute: zero,
+				prions: new Decimal(1),
+				highestApocalypse: zero,
 			},
+			autoHydraReset: false,
+		},
+		nonrecu: {
+			power: zero,
+			totalPower: zero,
+			resetTimes: zero,
+			studies_bought: [],
+			theories: [zero, zero, zero],
+			spentTheories: zero,
+		},
+		foundNaN: false,
+		checkedPlots: [],
+		automator: {
+			running: false,
+			code: '',
+			currentLine: 0,
 		},
 	};
 }
@@ -496,6 +400,12 @@ type DeepPartial<T> = T extends (infer U)[]
 		? { [P in keyof T]?: DeepPartial<T[P]> }
 		: T;
 
+/**
+ * 此函数是用来：
+ * 合并两个对象
+ * 合并两个数组
+ * 通用的合并，target是source的部分类型
+ */
 function deepMerge<T extends object>(source: T, target: object): T;
 function deepMerge<T extends unknown[]>(source: T, target: unknown[]): T;
 function deepMerge<T>(source: T, target: DeepPartial<T>): T {
@@ -531,6 +441,7 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 	}
 
 	if (typeof source === 'object' && source !== null) {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const result: any = { ...source };
 
 		if (target === null || target === undefined) return source;
@@ -559,6 +470,7 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 					string
 				>];
 			} else if (targetValue !== null && typeof targetValue === 'object') {
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				result[key] = deepMerge(targetValue, sourceValue as any);
 			} else {
 				result[key] = targetValue;
@@ -574,25 +486,45 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 export let player: Player = getInitialPlayerData();
 
 export function loadFromString(saveContent: string) {
-	let deserialized = saveSerializer.deserialize(saveContent);
+	const deserialized = saveSerializer.deserialize(saveContent);
 	Object.assign(player, deepMerge(player, deserialized));
 	if ((player?.version ?? 0) < 4) {
 		player.hydra.dilute.solvent = [0, 0, 0, 0, 0, 0, false, false, false];
 	}
-	if ((player?.version ?? 0) < 6 && player.upgrades["69R"]) {
-	  Dilute.exitDilute()
+	if ((player?.version ?? 0) < 6 && player.upgrades['69R']) {
+		Dilute.exitDilute();
 		player.hydra.dilute = getInitialPlayerData().hydra.dilute;
-		player.upgrades["61S"] = false
-		player.hydra.power = new Decimal("e2466")
-		player.hydra.powerMult =  [new Decimal(1), new Decimal(1), new Decimal(1), new Decimal(1)]
-		player.hydra.prestige = [new Decimal("e345"), new Decimal("e55"), new Decimal("3.7"), new Decimal("5e35")]
+		player.upgrades['61S'] = false;
+		player.hydra.power = new Decimal('e2466');
+		player.hydra.powerMult = [new Decimal(1), new Decimal(1), new Decimal(1), new Decimal(1)];
+		player.hydra.prestige = [
+			new Decimal('e345'),
+			new Decimal('e55'),
+			new Decimal('3.7'),
+			new Decimal('5e35'),
+		];
 	}
+	if ((player?.version ?? 0) < 7 && player.upgrades['616S']) {
+		if (player.nonrecu.resetTimes.gte(1)) player.firstResetBit |= 0b10000;
+	}
+	if ((player?.version ?? 0) < 8) {
+		player.checkedPlots = player.checkedPlots.filter((x) => x !== 14);
+	}
+
+	// @ts-ignore
+	delete player.hydra.dilute.solvent?.[9];
+	// @ts-ignore
+	delete player.hydra.dilute.lastSolvent?.[9];
 	player.version = version;
 }
 
 export function loadSaves() {
+	const current_save2 = localStorage.getItem('RBN-rewritten-current_save_slot');
+	if (current_save2) {
+		current_save = Number(current_save2);
+	}
 	player = getInitialPlayerData();
-	const saveContent = localStorage.getItem(SAVEID);
+	const saveContent = localStorage.getItem(getSaveID(current_save));
 	try {
 		if (saveContent) {
 			loadFromString(saveContent);
@@ -605,7 +537,7 @@ export function loadSaves() {
 }
 
 export function save() {
-	localStorage.setItem(SAVEID, saveSerializer.serialize(player));
+	localStorage.setItem(getSaveID(current_save), saveSerializer.serialize(player));
 }
 const savefunc = save;
 export function hardReset() {
@@ -615,15 +547,15 @@ export function hardReset() {
 }
 
 export function import_file(): void {
-	let a = document.createElement('input');
+	const a = document.createElement('input');
 	a.setAttribute('type', 'file');
 	a.setAttribute('accept', 'text/plain');
 	a.click();
 	a.onchange = () => {
-		let fr = new FileReader();
+		const fr = new FileReader();
 		if (a.files == null) return void alert('未选择文件');
 		fr.onload = () => {
-			let save = fr.result;
+			const save = fr.result;
 			if (typeof save == 'string') {
 				try {
 					player = getInitialPlayerData();
@@ -631,7 +563,7 @@ export function import_file(): void {
 					player = reactive(player);
 					savefunc();
 					location.reload();
-				} catch (e) {
+				} catch {
 					console.error('Cannot import save');
 				}
 			}
@@ -641,12 +573,12 @@ export function import_file(): void {
 }
 
 export function export_file(): void {
-	let str = saveSerializer.serialize(player);
-	let file = new Blob([str], {
+	const str = saveSerializer.serialize(player);
+	const file = new Blob([str], {
 		type: 'text/plain',
 	});
 	window.URL = window.URL || window.webkitURL;
-	let a = document.createElement('a');
+	const a = document.createElement('a');
 	a.href = window.URL.createObjectURL(file);
 	a.download = 'Road of Big Number Rewritten Save - ' + getCurrentBeijingTime() + '.txt';
 	a.click();
@@ -666,4 +598,99 @@ function getCurrentBeijingTime(): string {
 		o < 0 && (t.setUTCDate(t.getUTCDate() + 1), (o += 24)),
 		`${e}-${r}-${a} ${o.toString().padStart(2, '0')}:${g.toString().padStart(2, '0')}:${i.toString().padStart(2, '0')}.${S.toString().padStart(3, '0')}`
 	);
+}
+
+export function changeSave(id: number) {
+	stopGameLoop();
+	save();
+	localStorage.setItem('RBN-rewritten-current_save_slot', id.toString());
+	location.reload();
+}
+function formatDateToMMddHHmm(date: Date) {
+	// 获取日期组成部分
+	const month = (date.getMonth() + 1).toString().padStart(2, '0');
+	const day = date.getDate().toString().padStart(2, '0');
+	const hours = date.getHours().toString().padStart(2, '0');
+	const minutes = date.getMinutes().toString().padStart(2, '0');
+
+	// 返回格式化后的字符串
+	return `${month}-${day} ${hours}:${minutes}`;
+}
+export function readSaveDetail(id: number) {
+	const savecontent = localStorage.getItem(getSaveID(id));
+	if (!savecontent) {
+		return null;
+	}
+	const savecontent_str = saveSerializer.deserialize(savecontent) as KeyStringFromDecimal<Player>;
+	const details = {
+		version: 0,
+		chapter: 0,
+		number: '',
+		isOrdinal: false,
+		lastSave: '',
+		id: id,
+	};
+	let a = '';
+	details.version = savecontent_str.version;
+	details.chapter = savecontent_str.stat.chapter;
+	if (savecontent_str.stat.chapter >= 4) {
+		details.isOrdinal = true;
+		if (new Decimal(savecontent_str.hydra.deduceOrdinal[0]).gt(0)) {
+			details.number = calculate(
+				OrdinalUtils.numberToBMS(
+					new Decimal(savecontent_str.hydra.deduceOrdinal[0]),
+					new Decimal(4),
+					20,
+				)
+					.replace('...', '')
+					.replace('>', ''),
+			);
+		} else {
+			details.number = 'UNK';
+		}
+	} else {
+		details.isOrdinal = false;
+		details.number = format(savecontent_str.number);
+	}
+	details.lastSave = formatDateToMMddHHmm(new Date(savecontent_str.lastUpdated));
+	return details;
+}
+
+// 深拷贝函数
+function deepCopy<T>(obj: T): T {
+	if (obj === null || typeof obj !== 'object') {
+		return obj;
+	}
+
+	if (Array.isArray(obj)) {
+		return obj.map((item) => deepCopy(item)) as unknown as T;
+	}
+	if (obj instanceof Decimal) {
+		return new Decimal(obj) as T;
+	}
+	const copied = {} as T;
+	for (const key in obj) {
+		if (obj.hasOwnProperty(key)) {
+			copied[key] = deepCopy(obj[key]);
+		}
+	}
+
+	return copied;
+}
+
+// 备份函数，排除backup属性
+function backupPlayer(player: Player): Player {
+	// 创建不包含backup属性的副本
+	const { backup, ...playerWithoutBackup } = player;
+
+	// 深拷贝到backup属性
+	player.backup = deepCopy(playerWithoutBackup) as Player;
+
+	return player;
+}
+export function restoreBackup(backupedPlayer: Player) {
+	player = backupedPlayer;
+}
+export function intervalBackup() {
+	return backupPlayer(player);
 }
