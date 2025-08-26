@@ -37,8 +37,8 @@ export function unlockedPlots() {
 	if (player.stat.chapter >= 5) {
 		a++;
 	}
-	if(player.upgrades['69R']) a++;
-	if(player.upgrades['69S'] || player.stat.chapter >= 6) a++;
+	if (player.upgrades['69R']) a++;
+	if (player.upgrades['69S'] || player.stat.chapter >= 6) a++;
 	return a;
 }
 export function viewedPlotLength() {
@@ -138,7 +138,7 @@ export const plots = [
 	],
 ];
 export function plotLength(id: number): number {
-	if(id <= 0) return 0;
+	if (id <= 0) return 0;
 	return plots[id - 1].length;
 }
 export const characterImages = {
