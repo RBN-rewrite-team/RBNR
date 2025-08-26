@@ -43,6 +43,7 @@ import PlotTab from './components/tabs/plot/PlotTab.vue';
 import SaveBank from './components/tabs/SaveBank.vue';
 import PlotView from './components/tabs/plot/PlotView.vue';
 import NonRecursionTab from './components/tabs/nonrecursion/NonRecursionTab.vue';
+import NonRecursionTabChal from './components/tabs/nonrecursion/NonRecursionTabChal.vue';
 </script>
 
 <template>
@@ -88,6 +89,7 @@ import NonRecursionTab from './components/tabs/nonrecursion/NonRecursionTab.vue'
 				<Hydra v-if="player.currentTab === 19" />
 				<HydraDilute v-if="player.currentTab === 20" />
 				<NonRecursionTab v-if="player.currentTab === 21" />
+				<NonRecursionTabChal v-if="player.currentTab === 22"></NonRecursionTabChal>
 				<PlotTab v-if="player.currentTab === 200" />
 				<SaveBank v-if="player.currentTab === 300" />
 			</div>

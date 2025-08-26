@@ -35,9 +35,7 @@ export class Study {
 	}
 	get description() {
 		if (this.isChallenge) {
-			return `非递归挑战${this.chalID + 1}${CHALLENGE.inChallenge(1, this.chalID) ? '(挑战中)' : ''}<br>${
-				NONREC_CHALS[this.chalID].descHard
-			}`;
+			return `非递归挑战${this.chalID + 1}${CHALLENGE.inChallenge(1, this.chalID) ? '(挑战中)' : ''}<br>目标:${this.config.description.split('\t')[1] ?? ''}`;
 		}
 		return this.config.description;
 	}
@@ -116,7 +114,7 @@ export const studies = [
 	}),
 	new Study({
 		id: 'NRC1', //5
-		description: '非递归挑战1',
+		description: '非递归挑战1\t1.00e326649 九头蛇能量 ',
 		cost: new Decimal(10),
 		canBuy() {
 			return player.nonrecu.studies_bought.includes(3);

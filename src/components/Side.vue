@@ -202,6 +202,14 @@ import { unlockedPlots, viewedPlotLength } from '@/core/plot.ts';
 						>
 							非递归
 						</div>
+						<div
+							class="menu2"
+							:class="{ focus: player.currentTab == 22 }"
+							@click="player.currentTab = 22"
+							v-if="(player.firstResetBit & 0b10000) == 0b10000"
+						>
+							非递归挑战
+						</div>
 					</template>
 
 					<div class="menu1">杂项</div>

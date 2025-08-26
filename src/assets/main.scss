@@ -787,7 +787,10 @@ body {
 	font-size: 16px;
 	line-height: 24px;
 }
-
+.nonrec-chals>*>*>*>.challenge {
+	font-size: 13px;
+	line-height: 17px;
+}
 .challenge_button {
 	position: relative;
 	display: block;
