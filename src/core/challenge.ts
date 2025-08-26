@@ -2,6 +2,7 @@ import type Decimal from 'break_eternity.js';
 import { feature, player } from './global';
 import { MULTI_CHALS } from './multiplication/challenges';
 import { NON_RECURSIVE } from './nonrecu';
+import { NONREC_CHALS } from './nonrecu/non-recursion-challenges';
 export type SingleChallenge<T extends {} = {}> = {
 	name: string;
 	descEasy: string;
@@ -37,7 +38,7 @@ export const CHALLENGE: {
 			NON_RECURSIVE.reset(true);
 		},
 	],
-	challenges: [MULTI_CHALS] as const,
+	challenges: [MULTI_CHALS, NONREC_CHALS] as const,
 
 	enterChallenge(x, y) {
 		if (!this.inChallenge(x, y)) {
@@ -62,7 +63,7 @@ export const CHALLENGE: {
 		return player.challenges[x][y];
 	},
 	challengeLoop() {
-		if (player.challengein[0] !== -1 && player.challengein[1] !== -1) {
+		if (player.challengein[0] === 0 && player.challengein[1] !== -1) {
 			const curchal = this.challenges[player.challengein[0]][player.challengein[1]];
 			curchal.loop?.();
 		}
