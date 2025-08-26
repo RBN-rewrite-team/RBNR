@@ -40,7 +40,7 @@ const req = curupg.requirements();
 
 function actualCost(curupg: Upgrade) {
 	let cost = typeof curupg.cost === 'function' ? curupg.cost() : curupg.cost;
-	if (player.hydra.dilute.inDilute) {
+	if (player.hydra.dilute.inDilute && id.startsWith("6") && !(id.endsWith("S"))) {
 		cost = cost.pow(4 - 3 * 0.75 ** Dilute.diluteAmount(1));
 	}
 	return cost;
