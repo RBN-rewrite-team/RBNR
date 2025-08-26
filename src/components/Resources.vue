@@ -49,7 +49,13 @@ import { format } from '@/utils/format';
 								feature.Ordinal.base(),
 							)
 						"
+						v-if="
+						  !(player.upgrades[61] && player.hydra.deduceOrdinal[0].gte('e8.072304726028225379e153'))"
 					/>
+					<vue-latex :expression="Ordinal.displayOrdinalColored(
+								player.ordinal.number.floor(),
+								feature.Ordinal.base(),
+							)" />
 				</div>
 				<div style="font-size: 17px; color: rgb(255, 127, 127)" v-if="!player.upgrades[61]">
 					<span
