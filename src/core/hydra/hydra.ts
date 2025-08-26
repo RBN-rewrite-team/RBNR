@@ -597,6 +597,9 @@ export const Hydra = {
 		if (player.upgrades['6111'])
 			base = base.mul(upgrades['6111'].effect().mul(player.upgrades[6114] ? base : 1));
 		base = base.mul(NON_RECURSIVE.nonrecEffects()[1].clampMin(1));
+		if (player.nonrecu.studies_bought.includes(8)) {
+			base = base.pow(1.05);
+		}
 		return base;
 	},
 	powerExpNerf(): Decimal {
@@ -615,6 +618,9 @@ export const Hydra = {
 		base = base.mul(Hydra.prestigeEff(0));
 
 		base = base.mul(NON_RECURSIVE.nonrecEffects()[0]);
+		if (player.nonrecu.studies_bought.includes(8)) {
+			base = base.mul(35);
+		}
 		return base;
 	},
 	powerGain(): Decimal {

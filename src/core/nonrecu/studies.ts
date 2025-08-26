@@ -141,11 +141,16 @@ export const studies = [
 		},
 	}),
 	new Study({
-		id: '51',
-		description: '九头蛇能量获取×35, 九头蛇能量获取指数^1.25(没做)',
+		id: '51', // 8
+		description: '九头蛇能量获取×35, 九头蛇能量获取指数^1.25',
 		cost: new Decimal(3),
 		canBuy() {
-			return false;
+			return (
+				!(
+					player.nonrecu.studies_bought.includes(9) ||
+					player.nonrecu.studies_bought.includes(10)
+				) && player.nonrecu.studies_bought.includes(6)
+			);
 		},
 	}),
 	new Study({
