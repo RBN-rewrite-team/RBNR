@@ -33,7 +33,7 @@ const feature = {
 
 	resourceGain: resourceGain,
 	TimeShard: TimeShard,
-	NON_RECURSIVE,
+	NON_RECURSIVE: NON_RECURSIVE,
 };
 
 export { player, feature };
