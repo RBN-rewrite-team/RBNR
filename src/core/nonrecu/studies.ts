@@ -117,7 +117,7 @@ export const studies = [
 	new Study({
 		id: 'NRC1', //5
 		description: '非递归挑战1',
-		cost: new Decimal(10),
+		cost: new Decimal(Infinity ?? 10),
 		canBuy() {
 			return player.nonrecu.studies_bought.includes(3);
 		},
