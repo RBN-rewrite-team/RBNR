@@ -4,15 +4,12 @@ import { onMounted, onUnmounted, ref } from 'vue';
 import PlotSentence from './PlotSentence.vue';
 import { player } from '@/core/save';
 import { plots, stringToPlot } from '@/core/plot';
-const plotview = ref<HTMLDivElement | null>(null);
-const plotcont = ref<HTMLSpanElement | null>(null);
-function exitView() {
-	if (!plotview.value) return;
-	plotview.value.style.opacity = '0';
-	setTimeout(() => {
-		temp.plotdisplay = 0;
-		temp.plotstep = 0;
-	}, 1000);
+const plotview = ref<HTMLDivElement|null>(null)
+const plotcont = ref<HTMLSpanElement|null>(null)
+function exitView(){
+  if (!plotview.value) return;
+  plotview.value.style.opacity="0";
+  setTimeout(()=>{temp.plotdisplay=0; temp.plotstep = 0},250)
 }
 onMounted(() => {
 	if (plotview.value) {
