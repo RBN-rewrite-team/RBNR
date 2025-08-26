@@ -76,7 +76,7 @@ let a: number = -115;
 			</span>
 		</div>
 		<button class="exit" @click="exitView()">×</button>
-		<button class="next" @click="nextStep()">继续(冷却500ms)</button>
+		<button class="next" @click="nextStep()">继续</button>
 	</div>
 </template>
 

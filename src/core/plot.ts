@@ -99,6 +99,7 @@ export const plots = [
 ];
 export const characterImages = {
 	Numerorum: 'url(./plot_image/NumerorumColor.png)',
+	EdenGameMaster: 'url(./plot_image/EdenGameMaster.png)',
 } as Record<string, string | undefined>;
 export function stringToPlot(a: string) {
 	let res = {
