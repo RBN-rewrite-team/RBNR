@@ -40,6 +40,10 @@ export function stopGameLoop() {
 	clearInterval(backupInterval);
 }
 
+export function stopSaveLoop() {
+	clearInterval(saveInterval);
+}
+
 export function updateHighestStat() {
 	player.stat.highestNumber = player.stat.highestNumber.max(player.number);
 	player.stat.highestMulpower = player.stat.highestMulpower.max(player.multiplication.mulpower);

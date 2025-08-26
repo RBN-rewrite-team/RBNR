@@ -13,7 +13,7 @@ import { Dilute } from '@/core/hydra/dilute.ts';
 
 import "../core/automator/parser.ts"
 
-import { startGameLoop, stopGameLoop } from '@/core/game-loop';
+import { startGameLoop, stopGameLoop, stopSaveLoop } from '@/core/game-loop';
 import { NON_RECURSIVE } from '@/core/nonrecu/index.ts';
 import ModalService from './Modal.ts';
 import { temp } from '@/core/temp-data.ts';
@@ -67,6 +67,7 @@ export function init() {
     });
   } catch (e) {
     stopGameLoop()
+    stopSaveLoop()
     throw e
   }
 }
