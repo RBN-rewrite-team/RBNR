@@ -68,12 +68,12 @@ const SemiColen = createToken({
 })
 
 const GreaterThan = createToken({
-  name: "SemiColen",
+  name: "GreaterThan",
   pattern: />/
 })
 
 const LessThan = createToken({
-  name: "SemiColen",
+  name: "LessThan",
   pattern: /</
 })
 
@@ -116,7 +116,7 @@ const LBracket = createToken({ name: "LBracket", pattern: /\[/ })
 const RBracket = createToken({ name: "RBracket", pattern: /\]/ })
 const Assign = createToken({ name: "Assign", pattern: /=/ })
 
-const allTokens = [
+export const allTokens = [
   WhiteSpace,
   
   StringLiteral,
@@ -166,8 +166,5 @@ const allTokens = [
 ]
 
 const AutomatorLexer = new Lexer(allTokens)
-
-//测试
-console.log(AutomatorLexer.tokenize("var Baixie = 1"))
 
 export default AutomatorLexer
