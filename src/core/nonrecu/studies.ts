@@ -4,8 +4,9 @@ import { Hydra } from '../hydra/hydra';
 import { Currencies, getCurrency } from '../currencies';
 import { getTotalTheories } from './total-theories';
 import { NON_RECURSIVE } from '.';
+import type { NONREC_CHALS } from './non-recursion-challenges';
 
-interface StudyConfig {
+type StudyConfig = {
 	id: string;
 	description: string;
 	cost: Decimal;
@@ -13,7 +14,16 @@ interface StudyConfig {
 	effect?(): Decimal;
 	effectDesc?(): string;
 	onBought?(): any;
-}
+} & (
+	| {
+			isChallenge: boolean;
+			chal_id: number;
+	  }
+	| {
+			isChallenge?: never;
+			chal_id?: never;
+	  }
+);
 export class Study {
 	config: StudyConfig;
 	constructor(config: StudyConfig) {
