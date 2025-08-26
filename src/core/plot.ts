@@ -89,7 +89,7 @@ export const plots = [
 		'Numerorum\t我感觉到了……我已经接近了。',
 		'Numerorum\t再努把力。登上高塔，恐怕我就要引来一些对手了。',
 		'来自高塔的注视仍然没有消除，而且随着Numerorum接近高塔而越来越强。',
-		'???\t……',
+		'???\tHydra\t……',
 		'Numerorum\t什么？',
 		'神秘的声音一闪而逝。',
 		'Numerorum\t不好，我好像被盯上了。',
