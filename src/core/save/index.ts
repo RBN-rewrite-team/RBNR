@@ -149,6 +149,7 @@ export interface Player {
 		cd: [number, number, number];
 		last: [number, number, number];
 		openTf: boolean;
+		next: [number, number, number];
 	};
 	hydra: {
 		visiting: number;
@@ -342,6 +343,7 @@ function getInitialPlayerData(): Player {
 			cd: [Date.now(), Date.now(), Date.now() + 7 * 24 * 60 * 60 * 1000],
 			last: [0, 0, 0],
 			openTf: false,
+			next: [Math.floor(Math.random() * 40 + 10), Math.floor(Math.random() * 320 + 80), Math.floor(Math.random() * 4000 + 1000)],
 		},
 		hydra: {
 			visiting: 0,

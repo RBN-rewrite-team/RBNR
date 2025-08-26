@@ -16,6 +16,9 @@ import { ORDINAL_BOOSTER } from './ordinal/ordinal-booster.ts';
 import { Dilute } from './hydra/dilute.ts';
 import ModalService from '@/utils/Modal.ts';
 
+import { temp } from '@/core/temp-data';
+import { unlockedPlots } from '@/core/plot';
+
 /**
  * 游戏循环经过了多少时间
  *
@@ -74,6 +77,11 @@ export function qolLoop() {
 	if (player.exponention.logarithm.upgrades_in_dilated.includes('37'))
 		player.buyables['11'] = new Decimal(1000);
 }
+function enterPlot(i: number) {
+	if (unlockedPlots() >= i) {
+		temp.plotdisplay = i;
+	}
+}
 /**
  * 游戏的循环函数（并不是主要的）
  */
@@ -97,6 +105,12 @@ export function gameLoop() {
 		throw e;
 	}
 	if (player.singularity.stage >= 1) singularity_UI();
+	
+	let unlp = unlockedPlots();
+	for(let i = 1;i <= unlp;i++)
+	{
+		if(!player.checkedPlots.includes(i) && temp.plotdisplay == 0) enterPlot(i);
+	}
 }
 function r(s: number): number {
 	return Math.random() * s * 2 - s;
@@ -228,7 +242,11 @@ export function simulate(diff: number) {
 	ORDINAL_BOOSTER.boosterLoop();
 	for (const upg_i in upgrades) {
 		const i = upg_i as keyof typeof upgrades;
+		if(player.upgrades[i as keyof typeof player.upgrades] == true) continue;
 		if (upgrades[i] && upgrades[i].keep != null && upgrades[i].keep()) {
+			player.upgrades[i as keyof typeof player.upgrades] = true;
+		}
+		if (upgrades[i] && upgrades[i].auto != null && upgrades[i].auto() && upgrades[i].canAfford()) {
 			player.upgrades[i as keyof typeof player.upgrades] = true;
 		}
 	}

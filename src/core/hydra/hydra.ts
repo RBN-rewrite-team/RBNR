@@ -22,6 +22,9 @@ export const Hydra = {
 			cost = new Decimal(0);
 			name = 'U5-1';
 			currency: Currencies = Currencies.HYDRA_POWER;
+			auto(): boolean {
+				return player.milestones.nonrec_10;
+			}
 		})(),
 		'611': new (class U611 extends UpgradeWithEffect<Decimal> {
 			description = '累计九头蛇能量提升BMS推演速度';
@@ -45,6 +48,9 @@ export const Hydra = {
 			keep(): boolean {
 				return player.milestones['dut1'] || player.milestones.nonrec_8;
 			}
+			auto(): boolean {
+				return player.milestones.nonrec_10;
+			}
 		})(),
 		'612': new (class U612 extends Upgrade {
 			description = '推演速度提高100%';
@@ -53,6 +59,9 @@ export const Hydra = {
 			currency: Currencies = Currencies.HYDRA_POWER;
 			keep(): boolean {
 				return player.milestones.dut10 || player.milestones.nonrec_8;
+			}
+			auto(): boolean {
+				return player.milestones.nonrec_10;
 			}
 		})(),
 		'613': new (class U613 extends Upgrade {
@@ -65,6 +74,9 @@ export const Hydra = {
 			currency: Currencies = Currencies.HYDRA_POWER;
 			keep(): boolean {
 				return player.milestones.dut10 || player.milestones.nonrec_8;
+			}
+			auto(): boolean {
+				return player.milestones.nonrec_10;
 			}
 		})(),
 		'614': new (class U614 extends UpgradeWithEffect<Decimal> {
@@ -85,6 +97,9 @@ export const Hydra = {
 			currency: Currencies = Currencies.HYDRA_POWER;
 			keep(): boolean {
 				return player.milestones.dut10 || player.milestones.nonrec_8;
+			}
+			auto(): boolean {
+				return player.milestones.nonrec_10;
 			}
 		})(),
 		'615': new (class U615 extends UpgradeWithEffect<Decimal> {
@@ -115,6 +130,9 @@ export const Hydra = {
 				return player.milestones.nonrec_5;
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
+			auto(): boolean {
+				return player.milestones.nonrec_10;
+			}
 		})(),
 		'616': new (class U616 extends UpgradeWithEffect<Decimal> {
 			description = '每购买一个B5-1-3，U5-1-1效果^+0.01';
@@ -130,6 +148,9 @@ export const Hydra = {
 				return player.buyables[613].mul(0.01).add(1);
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
+			auto(): boolean {
+				return player.milestones.nonrec_10;
+			}
 		})(),
 		'617': new (class U617 extends UpgradeWithEffect<Decimal> {
 			description = '九头蛇能量加成B5-1-2底数';
@@ -147,6 +168,9 @@ export const Hydra = {
 				return eff;
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
+			auto(): boolean {
+				return player.milestones.nonrec_10;
+			}
 		})(),
 		'618': new (class U618 extends UpgradeWithEffect<Decimal> {
 			description = '轮回效果削弱转生/飞升第一软上限';
@@ -162,6 +186,9 @@ export const Hydra = {
 				return Hydra.prestigeEff(3).add(1).recip();
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
+			auto(): boolean {
+				return player.milestones.nonrec_10;
+			}
 		})(),
 		'619': new (class extends UpgradeWithEffect<Decimal> {
 			description = '轮回效果削弱九头蛇能量软上限';
@@ -177,6 +204,9 @@ export const Hydra = {
 				return Hydra.prestigeEff(3).add(1).recip();
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
+			auto(): boolean {
+				return player.milestones.nonrec_10;
+			}
 		})(),
 		'6110': new (class extends UpgradeWithEffect<Decimal> {
 			description = '轮回效果降低B5-1-2~4的价格';
@@ -192,6 +222,9 @@ export const Hydra = {
 				return Hydra.prestigeEff(3).add(1).recip().pow(1.1);
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
+			auto(): boolean {
+				return player.milestones.nonrec_10;
+			}
 		})(),
 		'6111': new (class extends UpgradeWithEffect<Decimal> {
 			description = '移除九头蛇能量的第一软上限，U5-1-8增益九头蛇能量获取';
@@ -207,6 +240,9 @@ export const Hydra = {
 				return upgrades['618'].effect().recip();
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
+			auto(): boolean {
+				return player.milestones.nonrec_10;
+			}
 		})(),
 		'6112': new (class extends Upgrade {
 			description = '移除B5-1-2的软上限';
@@ -216,6 +252,9 @@ export const Hydra = {
 				return player.upgrades['66S'] || player.milestones.nonrec_9;
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
+			auto(): boolean {
+				return player.milestones.nonrec_10;
+			}
 		})(),
 		'6113': new (class extends UpgradeWithEffect<Decimal> {
 			description = '移除转生、飞升的一重软上限，B5-1-4提高转生效果';
@@ -231,6 +270,9 @@ export const Hydra = {
 				return '^' + format(this.effect());
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
+			auto(): boolean {
+				return player.milestones.nonrec_10;
+			}
 		})(),
 		'6114': new (class extends Upgrade {
 			description = '飞升效果与B5-1-2效果相互叠乘';
@@ -240,6 +282,9 @@ export const Hydra = {
 				return player.upgrades['66S'] || player.milestones.nonrec_9;
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
+			auto(): boolean {
+				return player.milestones.nonrec_10;
+			}
 		})(),
 		'62': new (class U62 extends UpgradeWithEffect<Decimal> {
 			description = '基于累计九头蛇能量，每秒获得一定重置时获取的九头蛇能量和乘数';
@@ -270,6 +315,9 @@ export const Hydra = {
 			keep(): boolean {
 				return player.milestones['dut4'] || player.milestones.nonrec_2;
 			}
+			auto(): boolean {
+				return player.milestones.nonrec_10;
+			}
 		})(),
 		'63': new (class U63 extends Upgrade {
 			description = '转生和飞升不再重置九头蛇能量，转生不再重置乘数';
@@ -279,6 +327,9 @@ export const Hydra = {
 				return Dilute.diluteAmount(6) || Hydra.pUnlock(2) || player.milestones.nonrec_9;
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
+			auto(): boolean {
+				return player.milestones.nonrec_10;
+			}
 		})(),
 		'64': new (class U64 extends Upgrade {
 			description = '超越不再重置九头蛇能量，飞升不再重置乘数，转生不重置任何东西。';
@@ -288,6 +339,9 @@ export const Hydra = {
 				return Dilute.diluteAmount(6) || Hydra.pUnlock(3) || player.milestones.nonrec_9;
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
+			auto(): boolean {
+				return player.milestones.nonrec_10;
+			}
 		})(),
 		'65': new (class U64 extends Upgrade {
 			description = '飞升/超越/轮回不再重置任何东西。解锁<b>数论研究4</b>';
@@ -300,6 +354,9 @@ export const Hydra = {
 				return player.milestones.nonrec_5;
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
+			auto(): boolean {
+				return player.milestones.nonrec_10;
+			}
 		})(),
 		'66': new (class U64 extends Upgrade {
 			description = '转生/飞升自动重置阈值为+0 & ×1';
@@ -309,6 +366,9 @@ export const Hydra = {
 				return Dilute.diluteAmount(6) || Hydra.pUnlock(3) || player.milestones.nonrec_9;
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
+			auto(): boolean {
+				return player.milestones.nonrec_10;
+			}
 		})(),
 	},
 	buyables: {
@@ -333,7 +393,7 @@ export const Hydra = {
 				return player.milestones['dut2'];
 			}
 			autoBuyMax(): boolean {
-				return player.milestones.dut9;
+				return player.milestones.dut9 || player.milestones.nonrec_10;
 			}
 			costInverse(x: Decimal): Decimal {
 				let expReduce = new Decimal(1);
@@ -375,7 +435,7 @@ export const Hydra = {
 				return player.milestones['dut2'];
 			}
 			autoBuyMax(): boolean {
-				return player.milestones.dut9;
+				return player.milestones.dut9 || player.milestones.nonrec_10;
 			}
 			costInverse(x: Decimal): Decimal {
 				let expReduce = new Decimal(1);
@@ -420,7 +480,7 @@ export const Hydra = {
 				return player.milestones['dut2'];
 			}
 			autoBuyMax(): boolean {
-				return player.milestones.dut9;
+				return player.milestones.dut9 || player.milestones.nonrec_10;
 			}
 			costInverse(x: Decimal): Decimal {
 				let expReduce = new Decimal(1);
@@ -457,7 +517,7 @@ export const Hydra = {
 				return player.milestones['dut2'];
 			}
 			autoBuyMax(): boolean {
-				return player.milestones.dut9;
+				return player.milestones.dut9 || player.milestones.nonrec_10;
 			}
 			costInverse(x: Decimal): Decimal {
 				let expReduce = new Decimal(1);
