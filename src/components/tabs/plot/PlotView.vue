@@ -44,7 +44,7 @@ function stepPrev() {
 function nextStep() {
 	if (Date.now() >= temp.plotcd) {
 		temp.plotstep++;
-		temp.plotcd = Date.now() + canExitView() ? 0 : 750;
+		temp.plotcd = Date.now() + (canExitView() ? 0 : 750);
 	}
 }
 let a: number = -115;
