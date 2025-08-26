@@ -116,12 +116,11 @@ export const NON_RECURSIVE = {
 		});
 	},
 	reset(force = false) {
-		if (!isTester() && player.nonrecu.resetTimes.gte(2)) {
+		if (!isTester() && player.nonrecu.resetTimes.lt(3)) {
 			ModalService.show({
-				title: 'WIP!',
-				content: 'Work in progress!',
+				title: '未完全稳定',
+				content: '本弹窗会出现在非Beta测试版的前三次非递归重置中。',
 			});
-			return;
 		}
 		if (!this.resetable() && !force) return;
 		player.firstResetBit |= 0b10000;
