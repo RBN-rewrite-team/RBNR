@@ -98,7 +98,7 @@ export const plots = [
 	[
 		'Numerorum来到了天文学家的店铺，它坐落在高塔旁的悬崖边。',
 		'Numerorum\t你就是天文学家？我现在需要一些你们的帮助。',
-		'EdenGameMaster\t你好，我是天文学家的头领，你需要我们来帮你计算吗？',
+		'天文学家\t你好，我是天文学家的头领，你需要我们来帮你计算吗？',
 		'Numerorum\t是的，我现在需要这些数据。',
 	],
 	[
@@ -146,20 +146,20 @@ export const plots = [
 		'Numerorum\t这个东西看起来很有用。不过它来之不易，要小心谨慎地安排它。',
 		'忽然，Numerorum在前方看到了熟悉的身影。',
 		'Numerorum\t是你！你竟然登上了高塔。',
-		'EdenGameMaster\t呵呵，我作为天文学家，自然要站在高处了。',
-		'EdenGameMaster\t你可能不知道非递归定理的妙用。',
-		'EdenGameMaster\t我这里有一些困难的挑战……也许会对你有帮助。',
+		'天文学家\t呵呵，我作为天文学家，自然要站在高处了。',
+		'天文学家\t你可能不知道非递归定理的妙用。',
+		'天文学家\t我这里有一些困难的挑战……也许会对你有帮助。',
 		'天文学家向Numerorum讲述了一些挑战。',
-		'EdenGameMaster\t你可以向我问一些问题。我在高塔上待过很长时间，对这里比较熟悉。',
+		'天文学家\t你可以向我问一些问题。我在高塔上待过很长时间，对这里比较熟悉。',
 		'Numerorum\t这座高塔有多高呢？',
-		'EdenGameMaster\t很高，以你现在的能力根本无法登顶。',
-		'EdenGameMaster\t而且在高塔上还有两个暴君，他们会千方百计地阻止别人变强。',
+		'天文学家\t很高，以你现在的能力根本无法登顶。',
+		'天文学家\t而且在高塔上还有两个暴君，他们会千方百计地阻止别人变强。',
 		'Numerorum不禁想到了之前的神秘声音。',
-		'EdenGameMaster\t另外，要记住这件事：当你凝视星空的时候，星空也在凝视你。',
+		'天文学家\t另外，要记住这件事：当你凝视星空的时候，星空也在凝视你。',
 		'Numerorum\t你是说……天空是有意识的？',
-		'EdenGameMaster\t是的，我们天文学家百分百确定这件事，整个天空都是同一个生命。',
+		'天文学家\t是的，我们天文学家百分百确定这件事，整个天空都是同一个生命。',
 		'Numerorum\t（如果这样，我的使命或许可以……）',
-		'EdenGameMaster\t差不多就这样了吧，你继续向前吧。这座高塔上有很多攀登者，有些还在试图突破暴君们的阻拦。',
+		'天文学家\t差不多就这样了吧，你继续向前吧。这座高塔上有很多攀登者，有些还在试图突破暴君们的阻拦。',
 	],
 ];
 export function plotLength(id: number): number {
@@ -168,7 +168,7 @@ export function plotLength(id: number): number {
 }
 export const characterImages = {
 	Numerorum: 'url(./plot_image/NumerorumColor.png)',
-	EdenGameMaster: 'url(./plot_image/EdenGameMaster.png)',
+	'天文学家': 'url(./plot_image/EdenGameMaster.png)',
 	Hydra: 'url(./plot_image/Hydra.png)',
 } as Record<string, string | undefined>;
 export function stringToPlot(a: string) {
