@@ -114,6 +114,26 @@ export const NON_RECURSIVE = {
 				return player.nonrecu.resetTimes.gte(this.requirement);
 			},
 		});
+		MILESTONES.create('nonrec_11', {
+			requirement: new Decimal(15),
+			currency: '非递归重置次数',
+			displayName: 'M6-11',
+			description: `添加朊病毒因素`,
+			show: true,
+			get canDone() {
+				return player.nonrecu.resetTimes.gte(this.requirement);
+			},
+		});
+		MILESTONES.create('nonrec_12', {
+			requirement: new Decimal(20),
+			currency: '非递归重置次数',
+			displayName: 'M6-12',
+			description: `非递归重置后保留1%的溶剂`,
+			show: true,
+			get canDone() {
+				return player.nonrecu.resetTimes.gte(this.requirement);
+			},
+		});
 	},
 	reset(force = false) {
 		if (!isTester() && player.nonrecu.resetTimes.lt(3)) {
@@ -155,7 +175,8 @@ export const NON_RECURSIVE = {
 		player.hydra.dilute.inDilute = false;
 		player.hydra.dilute.spentTime = 0;
 		player.hydra.dilute.solutionCost = 0;
-		player.hydra.dilute.solution = 0;
+		if(!player.milestones.nonrec_12) player.hydra.dilute.solution = 0;
+		else player.hydra.dilute.solution *= 0.01;
 		player.hydra.dilute.highestApocalypse = new Decimal(0);
 		if (player.nonrecu.studies_bought.includes(0)) {
 			player.hydra.power = player.hydra.power.add(20);
@@ -181,10 +202,11 @@ export const NON_RECURSIVE = {
 		let factor = [];
 		factor.push(['基础值', ADD_EFF, new Decimal(1)]);
 		factor.push(['九头蛇溶液因子', MUL_EFF, new Decimal(player.hydra.dilute.solution / 2.55e8)]);
-		factor.push(['九头蛇能量因子', MUL_EFF, new Decimal(player.hydra.deduceOrdinal[0].max(1).log(4).max(1).log(4).div(256))]);
+		factor.push(['九头蛇能量因子', MUL_EFF, player.hydra.deduceOrdinal[0].max(1).log(4).max(1).log(4).div(256)]);
 		factor.push(['基础值', ADD_EFF, new Decimal(-1)]);
 		factor.push(['基础指数', EXP_EFF, new Decimal(4)]);
 		if(player.nonrecu.studies_bought.includes(6)) factor.push(['非递归研究41', MUL_EFF, new Decimal(10)]);
+		if(player.milestones.nonrec_11) factor.push(['朊病毒(里程碑11)', MUL_EFF, player.hydra.dilute.prions.add(1).mul(1e10).log10().log10().root(4)]);
 		return factor;
 	},
 	gain(): Decimal {
