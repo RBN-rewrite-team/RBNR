@@ -11,6 +11,8 @@ import hotkeys from 'hotkeys-js';
 import { vHold } from './vHold.ts';
 import { Dilute } from '@/core/hydra/dilute.ts';
 
+import "../core/automator/lexer.ts"
+
 import { startGameLoop } from '@/core/game-loop';
 import { NON_RECURSIVE } from '@/core/nonrecu/index.ts';
 import ModalService from './Modal.ts';
