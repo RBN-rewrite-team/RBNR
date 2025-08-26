@@ -67,10 +67,10 @@ class AutomatorParser extends CstParser {
     this.CONSUME(LParen);
     this.SUBRULE(this.expression);
     this.CONSUME(RParen);
-    this.SUBRULE(this.statement);
+    this.SUBRULE1(this.statement);
     this.OPTION(() => {
       this.CONSUME(Else);
-      this.SUBRULE(this.statement);
+      this.SUBRULE2(this.statement);
     });
   });
   
@@ -78,10 +78,10 @@ class AutomatorParser extends CstParser {
     this.CONSUME(For);
     this.CONSUME(LParen);
     this.OPTION(() => this.SUBRULE(this.variableDeclaration));
-    this.CONSUME(SemiColen);
-    this.OPTION(() => this.SUBRULE(this.expression));
-    this.CONSUME(SemiColen);
-    this.OPTION(() => this.SUBRULE(this.expression));
+    this.CONSUME1(SemiColen);
+    this.OPTION1(() => this.SUBRULE1(this.expression));
+    this.CONSUME2(SemiColen);
+    this.OPTION2(() => this.SUBRULE2(this.expression));
     this.CONSUME(RParen);
     this.SUBRULE(this.statement);
   });
@@ -116,10 +116,10 @@ class AutomatorParser extends CstParser {
   });
   
   public parameterList = this.RULE("parameterList", () => {
-    this.CONSUME(Identifier);
+    this.CONSUME1(Identifier);
     this.MANY(() => {
       this.CONSUME(Comma);
-      this.CONSUME(Identifier);
+      this.CONSUME2(Identifier);
     });
   });
   
@@ -230,10 +230,10 @@ class AutomatorParser extends CstParser {
   });
   
   public unaryExpression = this.RULE("unaryExpression", () => {
-    this.OR([
+    this.OR1([
       {
         ALT: () => {
-          this.OR([
+          this.OR2([
             { ALT: () => this.CONSUME(Not) },
             { ALT: () => this.CONSUME(Sub) },
           ]);
