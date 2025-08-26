@@ -8,6 +8,7 @@ import { getCurrency, Currencies } from '../currencies';
 import { format, formatWhole } from '@/utils/format';
 import { MILESTONES } from '../mechanic';
 import { upgrades, buyables } from '../mechanic';
+import { CHALLENGE } from '../challenge';
 
 export type backupHydraType = {
 	upgrades: (`${IntClosedRange<61, 69>}R` | keyof typeof Hydra.upgrades)[];
@@ -230,7 +231,9 @@ export const DiluteUpgrades = {
 			return player.milestones.dut10;
 		}
 		effect(): Decimal {
-			return Dilute.prions().add(1);
+			let a = Dilute.prions().add(1);
+			if (CHALLENGE.inChallenge(1, 0)) a = a.clampMin(1).recip();
+			return a;
 		}
 		effectDescription() {
 			return '×' + format(this.effect());
@@ -351,7 +354,7 @@ export const DiluteUpgrades = {
 				getCurrency(this.currency).gte(this.cost)
 			);
 		}
-		keep() {
+		keep(): boolean {
 			return player.upgrades['616S'];
 		}
 		auto(): boolean {
@@ -378,9 +381,9 @@ export const Dilute = {
 			requirement: new Decimal(4 ** 5),
 			get canDone() {
 				return (
-					player.hydra.dilute.inDilute &&
-					player.hydra.deduceOrdinal[0].gte(this.requirement)
-					|| player.milestones.nonrec_7
+					(player.hydra.dilute.inDilute &&
+						player.hydra.deduceOrdinal[0].gte(this.requirement)) ||
+					player.milestones.nonrec_7
 				);
 			},
 			show: true,
@@ -395,9 +398,9 @@ export const Dilute = {
 			requirement: new Decimal(4 ** 32),
 			get canDone() {
 				return (
-					player.hydra.dilute.inDilute &&
-					player.hydra.deduceOrdinal[0].gte(this.requirement)
-					|| player.milestones.nonrec_7
+					(player.hydra.dilute.inDilute &&
+						player.hydra.deduceOrdinal[0].gte(this.requirement)) ||
+					player.milestones.nonrec_7
 				);
 			},
 			show: true,
@@ -411,11 +414,11 @@ export const Dilute = {
 			requirement: new Decimal(0.135),
 			get canDone() {
 				return (
-					player.hydra.dilute.inDilute &&
-					(diluteAmount(1) as number) >= 10 &&
-					Hydra.prestigeEff(3).gte(0.135) &&
-					player.hydra.dilute.solution >= 19000
-					|| player.milestones.nonrec_7
+					(player.hydra.dilute.inDilute &&
+						(diluteAmount(1) as number) >= 10 &&
+						Hydra.prestigeEff(3).gte(0.135) &&
+						player.hydra.dilute.solution >= 19000) ||
+					player.milestones.nonrec_7
 				);
 			},
 			show: true,
@@ -426,8 +429,7 @@ export const Dilute = {
 			description: '飞升永久不重置任何东西，永久解锁自动飞升，保持U5-2',
 			requirement: new Decimal(25000),
 			get canDone() {
-				return player.hydra.dilute.solution >= 25000
-					|| player.milestones.nonrec_7;
+				return player.hydra.dilute.solution >= 25000 || player.milestones.nonrec_7;
 			},
 			show: true,
 			currency: '九头蛇溶液',
@@ -458,10 +460,10 @@ export const Dilute = {
 			requirement: new Decimal(1e55),
 			get canDone() {
 				return (
-					player.hydra.dilute.inDilute &&
-					(diluteAmount(6) as boolean) &&
-					player.hydra.power.gte(1e55)
-					|| player.milestones.nonrec_7
+					(player.hydra.dilute.inDilute &&
+						(diluteAmount(6) as boolean) &&
+						player.hydra.power.gte(1e55)) ||
+					player.milestones.nonrec_7
 				);
 			},
 			show: true,
@@ -772,6 +774,13 @@ export const Dilute = {
 		player.hydra.totalPower = new Decimal(item.totalPower);
 	},
 	diluteButton() {
+		if (CHALLENGE.inChallenge(1, 0)) {
+			ModalService.show({
+				title: '无法进入/退出稀释',
+				content: '稀释按钮好像坏了...',
+			});
+			return;
+		}
 		if (player.hydra.dilute.inDilute) {
 			this.exitDilute();
 		} else {
@@ -781,7 +790,7 @@ export const Dilute = {
 	diluteLoop(diff: number, trueDiff: number) {
 		if (
 			player.upgrades['69S'] ||
-			player.milestones.nonrec_7 ||
+			(player.milestones.nonrec_7 && !CHALLENGE.inChallenge(1, 0)) ||
 			(player.hydra.totalDeduceOrdinal[0].gte(1) && player.hydra.dilute.inDilute)
 		)
 			player.hydra.dilute.prions = player.hydra.dilute.prions
@@ -795,7 +804,7 @@ export const Dilute = {
 						.root(this.diluteAmount(8) ? 1000 : 1),
 				)
 				.max(1);
-		if(player.milestones.nonrec_7)
+		if (player.milestones.nonrec_7)
 			player.hydra.milestoneDut5Eff = player.hydra.milestoneDut5Eff.max(milestoneDut5Eff());
 		if (player.hydra.dilute.inDilute) {
 			player.hydra.milestoneDut5Eff = player.hydra.milestoneDut5Eff.max(milestoneDut5Eff());
@@ -812,8 +821,12 @@ export const Dilute = {
 						'秒，超出了稀释III的限制。）',
 				});
 				this.exitDilute(false);
+				if (CHALLENGE.inChallenge(1, 0)) {
+					CHALLENGE.exitChallenge();
+				}
 			}
 			if (
+				!CHALLENGE.inChallenge(1, 0) &&
 				!(player.upgrades['69S'] || player.milestones.nonrec_7) &&
 				this.prions().gt(player.hydra.totalDeduceOrdinal[0])
 			) {
@@ -835,6 +848,9 @@ export const Dilute = {
 		if (player.upgrades['69S'] && player.milestones.nonrec_6) base = new Decimal(10);
 		if (player.upgrades['610S']) base = base.mul(upgrades['610S'].effect());
 		if (player.milestones.dut17) base = base.mul(MEff17());
+		if (CHALLENGE.inChallenge(1, 0)) {
+			base = Decimal.pow(10, 2 + CHALLENGE.amountChallenge(1, 0).floor().toNumber());
+		}
 		return base;
 	},
 	/**
@@ -902,4 +918,5 @@ export const Dilute = {
 	Record<string, any> & {
 		diluteReset(): void;
 		respec(): void;
+		prions(): Decimal;
 	};

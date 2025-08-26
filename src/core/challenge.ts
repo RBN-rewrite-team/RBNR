@@ -63,7 +63,7 @@ export const CHALLENGE: {
 		return player.challenges[x][y];
 	},
 	challengeLoop() {
-		if (player.challengein[0] === 0 && player.challengein[1] !== -1) {
+		if (player.challengein[0] !== -1 && player.challengein[1] !== -1) {
 			const curchal = this.challenges[player.challengein[0]][player.challengein[1]];
 			curchal.loop?.();
 		}
