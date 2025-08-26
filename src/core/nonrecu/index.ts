@@ -172,11 +172,12 @@ export const NON_RECURSIVE = {
 		}
 		player.hydra.milestoneDut5Eff = new Decimal(1);
 		if (!player.milestones.nonrec_2) player.hydra.pAuto = [!1, !1, !1, !1];
-		player.hydra.dilute.solvent = [0, 0, 0, 0, 0, 0, !1, !1, !1];
+		//player.hydra.dilute.solvent = [0, 0, 0, 0, 0, 0, !1, !1, !1];
 		player.hydra.dilute.lastSolvent = [0, 0, 0, 0, 0, 0, !1, !1, !1];
 		player.hydra.dilute.lastDeduce = new Decimal(0);
 		player.hydra.dilute.prions = new Decimal(1);
-		if (player.milestones.nonrec_13) player.hydra.dilute.prions = new Decimal('1e150000000');
+		if (player.milestones.nonrec_13 && !force)
+			player.hydra.dilute.prions = new Decimal('1e150000000');
 		player.hydra.dilute.inDilute = false;
 		player.hydra.dilute.spentTime = 0;
 		player.hydra.dilute.solutionCost = 0;
