@@ -21,7 +21,7 @@ const While = createToken({ name: "While", pattern: /while/, longer_alt: Identif
 
 const Const = createToken({ name: "Const", pattern: /const/, longer_alt: Identifier })
 
-const In = createToken({ name: "In", pattern: /in/, longer_alt: Identifier })
+const ForIn = createToken({ name: "ForIn", pattern: /forIn/, longer_alt: Identifier })
 
 const False = createToken({ name: "False", pattern: /false/,longer_alt: Identifier })
 
@@ -139,10 +139,10 @@ export const allTokens = [
   NumberLiteral,
   
   Var,
+  Const,
+  ForIn,
   For,
   While,
-  Const,
-  In,
   False,
   True,
   If,
