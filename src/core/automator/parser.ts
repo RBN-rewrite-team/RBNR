@@ -1,9 +1,8 @@
 import { CstParser } from "chevrotain";
-import { allTokens } from "./lexer";
-
-const {
+import {
+  allTokens,
   Identifier,
-  Var, For, ForIn, While, Const, In, False, True, If, Else, FunctionKeyword,
+  Var, For, ForIn, While, Const, False, True, If, Else, FunctionKeyword,
   And, Or, Not, Xor,
   Add, Sub, Mul, Pow, Mod, Tetrate,
   NumberLiteral, StringLiteral,
@@ -11,7 +10,7 @@ const {
   GreaterThan, LessThan, Equal, NotEqual, LessThanOrEqualTo, GreaterThanOrEqualTo,
   LParen, RParen, LBrace, RBrace, LBracket, RBracket,
   Assign
-} = allTokens;
+} from "./lexer";
 
 class AutomatorParser extends CstParser {
   constructor() {

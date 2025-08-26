@@ -1,130 +1,130 @@
-import { createToken, Lexer, IToken } from "chevrotain";
+import { createToken, Lexer } from "chevrotain";
 
-const Identifier = createToken({
+export const Identifier = createToken({
   name: "Identifier",
   pattern: /[a-zA-Z_][a-zA-Z0-9_]*/
 })
 
-const Var = createToken({
+export const Var = createToken({
   name: "Var",
   pattern: /var/, 
   longer_alt: Identifier,
 })
 
-const For = createToken({
+export const For = createToken({
   name: "For",
   pattern: /for/,
   longer_alt: Identifier,
 })
 
-const While = createToken({ name: "While", pattern: /while/, longer_alt: Identifier })
+export const While = createToken({ name: "While", pattern: /while/, longer_alt: Identifier })
 
-const Const = createToken({ name: "Const", pattern: /const/, longer_alt: Identifier })
+export const Const = createToken({ name: "Const", pattern: /const/, longer_alt: Identifier })
 
-const ForIn = createToken({ name: "ForIn", pattern: /forIn/, longer_alt: Identifier })
+export const ForIn = createToken({ name: "ForIn", pattern: /forIn/, longer_alt: Identifier })
 
-const False = createToken({ name: "False", pattern: /false/,longer_alt: Identifier })
+export const False = createToken({ name: "False", pattern: /false/,longer_alt: Identifier })
 
-const True = createToken({ name: "True", pattern: /true/, longer_alt: Identifier })
+export const True = createToken({ name: "True", pattern: /true/, longer_alt: Identifier })
 
-const If = createToken({ name: "If", pattern: /if/, longer_alt: Identifier })
+export const If = createToken({ name: "If", pattern: /if/, longer_alt: Identifier })
 
-const Else = createToken({ name: "Else", pattern: /else/, longer_alt: Identifier })
+export const Else = createToken({ name: "Else", pattern: /else/, longer_alt: Identifier })
 
-const FunctionKeyword = createToken({ name: "Function", pattern: /function/, longer_alt: Identifier })
+export const FunctionKeyword = createToken({ name: "Function", pattern: /function/, longer_alt: Identifier })
 
-const And = createToken({ name: "And", pattern: /&&/})
+export const And = createToken({ name: "And", pattern: /&&/})
 
-const Or = createToken({ name: "Or", pattern: /\|\|/})
+export const Or = createToken({ name: "Or", pattern: /\|\|/})
 
-const Not = createToken({ name: "Not", pattern: /!/})
+export const Not = createToken({ name: "Not", pattern: /!/})
 
-const Xor = createToken({ name: "Xor", pattern: /\^/})
+export const Xor = createToken({ name: "Xor", pattern: /\^/})
 
-const Add = createToken({ name: "Add", pattern: /\+/})
+export const Add = createToken({ name: "Add", pattern: /\+/})
 
-const Sub = createToken({ name: "Sub", pattern: /-/})
+export const Sub = createToken({ name: "Sub", pattern: /-/})
 
-const Mul = createToken({ name: "Mul", pattern: /\*/})
+export const Mul = createToken({ name: "Mul", pattern: /\*/})
 
-const Pow = createToken({ name: "Pow", pattern: /\*\*/})
+export const Pow = createToken({ name: "Pow", pattern: /\*\*/})
 
-const Mod = createToken({ name: "Mod", pattern: /%/})
+export const Mod = createToken({ name: "Mod", pattern: /%/})
 
-const Tetrate = createToken({ name: "Tetrate", pattern: /\*\*\*/})
+export const Tetrate = createToken({ name: "Tetrate", pattern: /\*\*\*/})
 
-const NumberLiteral = createToken({
+export const NumberLiteral = createToken({
   name: "Number",
   //这里不带符号，防止与加减法混淆
   pattern: /Infinity|NaN|((0|[1-9]\d*)(\.\d+)?([eE][+-]?\d+)?)/,
 });
 
-const Comma = createToken({
+export const Comma = createToken({
   name: "Comma",
   pattern: /,/
 })
 
-const SemiColen = createToken({
+export const SemiColen = createToken({
   name: "SemiColen",
   pattern: /;/
 })
 
-const GreaterThan = createToken({
+export const GreaterThan = createToken({
   name: "GreaterThan",
   pattern: />/
 })
 
-const LessThan = createToken({
+export const LessThan = createToken({
   name: "LessThan",
   pattern: /</
 })
 
-const Equal = createToken({
+export const Equal = createToken({
   name: "Equal",
   pattern: /==/
 })
 
-const NotEqual = createToken({
+export const NotEqual = createToken({
   name: "NotEqual",
   pattern: /!=/
 })
 
-const LessThanOrEqualTo = createToken({
+export const LessThanOrEqualTo = createToken({
   name: "LessThanOrEqualTo",
   pattern: /<=/
 })
 
-const GreaterThanOrEqualTo = createToken({
+export const GreaterThanOrEqualTo = createToken({
   name: "GreaterThanOrEqualTo",
   pattern: />=/
 })
 
-const WhiteSpace = createToken({
+export const WhiteSpace = createToken({
   name: "WhiteSpace",
   pattern: /\s+/,
   group: Lexer.SKIPPED,
 })
 
-const StringLiteral = createToken({
+export const StringLiteral = createToken({
   name: "StringLiteral",
   pattern: /"([^"\\]|\\.)*"|'([^'\\]|\\.)*'/
 });
 
-const LParen = createToken({ name: "LParen", pattern: /\(/ })
-const RParen = createToken({ name: "RParen", pattern: /\)/ })
-const LBrace = createToken({ name: "LBrace", pattern: /{/ })
-const RBrace = createToken({ name: "RBrace", pattern: /}/ })
-const LBracket = createToken({ name: "LBracket", pattern: /\[/ })
-const RBracket = createToken({ name: "RBracket", pattern: /\]/ })
-const Assign = createToken({ name: "Assign", pattern: /=/ })
+export const LParen = createToken({ name: "LParen", pattern: /\(/ })
+export const RParen = createToken({ name: "RParen", pattern: /\)/ })
+export const LBrace = createToken({ name: "LBrace", pattern: /{/ })
+export const RBrace = createToken({ name: "RBrace", pattern: /}/ })
+export const LBracket = createToken({ name: "LBracket", pattern: /\[/ })
+export const RBracket = createToken({ name: "RBracket", pattern: /\]/ })
+export const Assign = createToken({ name: "Assign", pattern: /=/ })
 
-const SingleLineComment = createToken({
+export const SingleLineComment = createToken({
   name: "SingleLineComment",
   pattern: /\/\/[^\n\r]*/,
   group: Lexer.SKIPPED
 });
 
-const MultiLineComment = createToken({
+export const MultiLineComment = createToken({
   name: "MultiLineComment",
   pattern: /\/\*[\s\S]*?\*\//,
   group: Lexer.SKIPPED
@@ -180,8 +180,8 @@ export const allTokens = [
   Sub,
   Mul,
   Mod,
-] as const
+]
 
-const AutomatorLexer = new Lexer(allTokens)
+export const AutomatorLexer = new Lexer(allTokens)
 
 export default AutomatorLexer
