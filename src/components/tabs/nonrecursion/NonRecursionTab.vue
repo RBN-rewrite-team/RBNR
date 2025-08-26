@@ -37,7 +37,7 @@ function gainFactor(): string {
 					>次。
 				</p>
 				<table align="center">
-					<TRMilestone :id="'nonrec_' + i" v-for="i in 10" :key="i"></TRMilestone>
+					<TRMilestone :id="'nonrec_' + i" v-for="i in 12" :key="i"></TRMilestone>
 				</table>
 			</template>
 		</div>
