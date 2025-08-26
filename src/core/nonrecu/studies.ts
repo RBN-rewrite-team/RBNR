@@ -50,6 +50,12 @@ export class Study {
 	onBought() {
 		return this.config.onBought?.();
 	}
+	get isChallenge() {
+		return this.config.isChallenge ?? false;
+	}
+	get chalID() {
+		return this.config.chal_id ?? -1;
+	}
 }
 
 export const studies = [
@@ -109,6 +115,8 @@ export const studies = [
 		canBuy() {
 			return player.nonrecu.studies_bought.includes(3);
 		},
+		isChallenge: true,
+		chal_id: 0,
 	}),
 	new Study({
 		id: '41', //6
