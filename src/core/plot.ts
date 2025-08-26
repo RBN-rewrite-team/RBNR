@@ -37,9 +37,9 @@ export function unlockedPlots() {
 	if (player.stat.chapter >= 5) {
 		a++;
 	}
-	if(player.upgrades['69R']) a++;
-	if(player.upgrades['69S'] || player.stat.chapter >= 6) a++;
-	if(player.stat.chapter >= 6) a++;
+	if (player.upgrades['69R']) a++;
+	if (player.upgrades['69S'] || player.stat.chapter >= 6) a++;
+	if (player.stat.chapter >= 6) a++;
 	return a;
 }
 export function viewedPlotLength() {
@@ -160,6 +160,7 @@ export const plots = [
 		'天文学家\t是的，我们天文学家百分百确定这件事，整个天空都是同一个生命。',
 		'Numerorum\t（如果这样，我的使命或许可以……）',
 		'天文学家\t差不多就这样了吧，你继续向前吧。这座高塔上有很多攀登者，有些还在试图突破暴君们的阻拦。',
+		'天文学家\t比如说一个叫VeryRDefie的人，爬着爬着被<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>α</mi></msub><mo stretchy="false">(</mo><mn>0</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\log_{\alpha}(0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.0573em;"><span style="top:-2.4559em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0037em;">α</span></span></span></span></span><span class="vlist-s">&ZeroWidthSpace;</span></span><span class="vlist-r"><span class="vlist" style="height:0.2441em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord">0</span><span class="mclose">)</span></span></span></span>感染了ω病毒，快要死了。',
 	],
 ];
 export function plotLength(id: number): number {
@@ -168,7 +169,7 @@ export function plotLength(id: number): number {
 }
 export const characterImages = {
 	Numerorum: 'url(./plot_image/NumerorumColor.png)',
-	'天文学家': 'url(./plot_image/EdenGameMaster.png)',
+	天文学家: 'url(./plot_image/EdenGameMaster.png)',
 	Hydra: 'url(./plot_image/Hydra.png)',
 } as Record<string, string | undefined>;
 export function stringToPlot(a: string) {

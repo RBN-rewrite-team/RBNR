@@ -13,7 +13,7 @@ import { OrdinalUtils } from '@/utils/ordinal';
 import { calculate } from '@/utils/bms-analyze';
 import { displayOrd } from '@/lib/ordinal';
 
-const version = 7 as const;
+const version = 8 as const;
 const zero = new Decimal(0);
 export let current_save = 0;
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
@@ -211,10 +211,10 @@ export interface Player {
 	foundNaN: boolean;
 	checkedPlots: number[];
 	automator: {
-	  running: boolean;
-	  code: string;
-	  currentLine: number;
-	}
+		running: boolean;
+		code: string;
+		currentLine: number;
+	};
 }
 
 function getInitialPlayerData(): Player {
@@ -343,7 +343,11 @@ function getInitialPlayerData(): Player {
 			cd: [Date.now(), Date.now(), Date.now() + 7 * 24 * 60 * 60 * 1000],
 			last: [0, 0, 0],
 			openTf: false,
-			next: [Math.floor(Math.random() * 40 + 10), Math.floor(Math.random() * 320 + 80), Math.floor(Math.random() * 4000 + 1000)],
+			next: [
+				Math.floor(Math.random() * 40 + 10),
+				Math.floor(Math.random() * 320 + 80),
+				Math.floor(Math.random() * 4000 + 1000),
+			],
 		},
 		hydra: {
 			visiting: 0,
@@ -383,10 +387,10 @@ function getInitialPlayerData(): Player {
 		foundNaN: false,
 		checkedPlots: [],
 		automator: {
-	    running: false,
-	    code: "",
-	    currentLine: 0,
-	  }
+			running: false,
+			code: '',
+			currentLine: 0,
+		},
 	};
 }
 
@@ -502,6 +506,9 @@ export function loadFromString(saveContent: string) {
 	}
 	if ((player?.version ?? 0) < 7 && player.upgrades['616S']) {
 		if (player.nonrecu.resetTimes.gte(1)) player.firstResetBit |= 0b10000;
+	}
+	if ((player?.version ?? 0) < 8) {
+		player.checkedPlots = player.checkedPlots.filter((x) => x !== 14);
 	}
 
 	// @ts-ignore
