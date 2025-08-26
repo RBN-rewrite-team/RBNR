@@ -5,4 +5,5 @@ export const temp = reactive({
 	plotdisplay: 0,
 	plotstep: 0,
 	plotcd: Date.now(),
+	nonrecpagevisit: [true, true, true],
 });

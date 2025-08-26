@@ -38,7 +38,7 @@ function diluteAmount(id: IntClosedRange<0, 8>): number | boolean {
 export { diluteAmount };
 
 export function milestoneDut5Eff(): Decimal {
-	if (!Dilute.diluteAmount(6)) return new Decimal(1);
+	if (!Dilute.diluteAmount(6) && !player.milestones.nonrec_7) return new Decimal(1);
 	return player.hydra.power
 		.div(1e55)
 		.max(1)
@@ -108,6 +108,9 @@ export const DiluteUpgrades = {
 		effectDescription(): string {
 			return '^' + format(this.effect());
 		}
+		auto(): boolean {
+			return player.milestones.nonrec_10;
+		}
 	})(),
 	'62S': new (class U62S extends UpgradeWithEffect<Decimal> {
 		currency: Currencies = Currencies.SOLUTION;
@@ -122,6 +125,9 @@ export const DiluteUpgrades = {
 		}
 		effectDescription(): string {
 			return 'x' + format(this.effect());
+		}
+		auto(): boolean {
+			return player.milestones.nonrec_10;
 		}
 	})(),
 	'63S': new (class U63S extends UpgradeWithEffect<Decimal> {
@@ -141,6 +147,9 @@ export const DiluteUpgrades = {
 		effectDescription(): string {
 			return 'x' + format(this.effect());
 		}
+		auto(): boolean {
+			return player.milestones.nonrec_10;
+		}
 	})(),
 	'64S': new (class U64S extends UpgradeWithEffect<Decimal> {
 		currency: Currencies = Currencies.SOLUTION;
@@ -155,6 +164,9 @@ export const DiluteUpgrades = {
 		}
 		effectDescription(): string {
 			return 'x' + format(this.effect());
+		}
+		auto(): boolean {
+			return player.milestones.nonrec_10;
 		}
 	})(),
 	'65S': new (class U65S extends UpgradeWithEffect<Decimal> {
@@ -172,12 +184,18 @@ export const DiluteUpgrades = {
 		keep() {
 			return player.milestones.nonrec_5;
 		}
+		auto(): boolean {
+			return player.milestones.nonrec_10;
+		}
 	})(),
 	'66S': new (class U66S extends Upgrade {
 		currency: Currencies = Currencies.SOLUTION;
 		name: string = 'U5-S-6';
 		description: string = '解锁4个九头蛇引擎升级';
 		cost: Decimal = new Decimal(2e6);
+		auto(): boolean {
+			return player.milestones.nonrec_10;
+		}
 	})(),
 	'67S': new (class extends Upgrade {
 		currency: Currencies = Currencies.SOLUTION;
@@ -187,6 +205,9 @@ export const DiluteUpgrades = {
 		show(): boolean {
 			return player.milestones.dut10;
 		}
+		auto(): boolean {
+			return player.milestones.nonrec_10;
+		}
 	})(),
 	'68S': new (class extends Upgrade {
 		currency: Currencies = Currencies.SOLUTION;
@@ -195,6 +216,9 @@ export const DiluteUpgrades = {
 		cost: Decimal = new Decimal(2201250);
 		show(): boolean {
 			return player.milestones.dut10;
+		}
+		auto(): boolean {
+			return player.milestones.nonrec_10;
 		}
 	})(),
 	'69S': new (class extends UpgradeWithEffect<Decimal> {
@@ -211,6 +235,9 @@ export const DiluteUpgrades = {
 		effectDescription() {
 			return '×' + format(this.effect());
 		}
+		auto(): boolean {
+			return player.milestones.nonrec_10;
+		}
 	})(),
 	'610S': new (class extends UpgradeWithEffect<Decimal> {
 		currency: Currencies = Currencies.SOLUTION;
@@ -226,6 +253,9 @@ export const DiluteUpgrades = {
 		effectDescription() {
 			return '×' + format(this.effect());
 		}
+		auto(): boolean {
+			return player.milestones.nonrec_10;
+		}
 	})(),
 	'611S': new (class extends Upgrade {
 		currency: Currencies = Currencies.SOLUTION;
@@ -235,6 +265,9 @@ export const DiluteUpgrades = {
 		show(): boolean {
 			return player.milestones.dut10;
 		}
+		auto(): boolean {
+			return player.milestones.nonrec_10;
+		}
 	})(),
 	'612S': new (class extends Upgrade {
 		currency: Currencies = Currencies.SOLUTION;
@@ -243,6 +276,9 @@ export const DiluteUpgrades = {
 		cost: Decimal = new Decimal(2370000);
 		show(): boolean {
 			return player.milestones.dut10;
+		}
+		auto(): boolean {
+			return player.milestones.nonrec_10;
 		}
 	})(),
 	'613S': new (class extends UpgradeWithEffect<Decimal> {
@@ -265,6 +301,9 @@ export const DiluteUpgrades = {
 		effectDescription(): string {
 			return format(this.effect().mul(100)) + '%';
 		}
+		auto(): boolean {
+			return player.milestones.nonrec_10;
+		}
 	})(),
 	'614S': new (class extends Upgrade {
 		currency: Currencies = Currencies.SOLUTION;
@@ -273,6 +312,9 @@ export const DiluteUpgrades = {
 		cost: Decimal = new Decimal(2501250);
 		show(): boolean {
 			return player.milestones.dut10;
+		}
+		auto(): boolean {
+			return player.milestones.nonrec_10;
 		}
 	})(),
 	'615S': new (class extends UpgradeWithEffect<Decimal> {
@@ -291,6 +333,9 @@ export const DiluteUpgrades = {
 		effectDescription(): string {
 			return (!player.hydra.dilute.inDilute ? '^' : '×') + format(this.effect());
 		}
+		auto(): boolean {
+			return player.milestones.nonrec_10;
+		}
 	})(),
 	'616S': new (class extends Upgrade {
 		currency: Currencies = Currencies.SOLUTION;
@@ -308,6 +353,9 @@ export const DiluteUpgrades = {
 		}
 		keep() {
 			return player.upgrades['616S'];
+		}
+		auto(): boolean {
+			return player.milestones.nonrec_10;
 		}
 	})(),
 };
@@ -332,6 +380,7 @@ export const Dilute = {
 				return (
 					player.hydra.dilute.inDilute &&
 					player.hydra.deduceOrdinal[0].gte(this.requirement)
+					|| player.milestones.nonrec_7
 				);
 			},
 			show: true,
@@ -348,6 +397,7 @@ export const Dilute = {
 				return (
 					player.hydra.dilute.inDilute &&
 					player.hydra.deduceOrdinal[0].gte(this.requirement)
+					|| player.milestones.nonrec_7
 				);
 			},
 			show: true,
@@ -365,6 +415,7 @@ export const Dilute = {
 					(diluteAmount(1) as number) >= 10 &&
 					Hydra.prestigeEff(3).gte(0.135) &&
 					player.hydra.dilute.solution >= 19000
+					|| player.milestones.nonrec_7
 				);
 			},
 			show: true,
@@ -375,7 +426,8 @@ export const Dilute = {
 			description: '飞升永久不重置任何东西，永久解锁自动飞升，保持U5-2',
 			requirement: new Decimal(25000),
 			get canDone() {
-				return player.hydra.dilute.solution >= 25000;
+				return player.hydra.dilute.solution >= 25000
+					|| player.milestones.nonrec_7;
 			},
 			show: true,
 			currency: '九头蛇溶液',
@@ -409,6 +461,7 @@ export const Dilute = {
 					player.hydra.dilute.inDilute &&
 					(diluteAmount(6) as boolean) &&
 					player.hydra.power.gte(1e55)
+					|| player.milestones.nonrec_7
 				);
 			},
 			show: true,
@@ -481,7 +534,7 @@ export const Dilute = {
 			reqDescription: '2,175,000 九头蛇溶液',
 			requirement: new Decimal(2175000),
 			get canDone() {
-				return player.hydra.dilute.solution >= 2175000;
+				return player.hydra.dilute.solution >= 2175000 || player.milestones.nonrec_10;
 			},
 			show: true,
 			currency: '',
@@ -742,6 +795,8 @@ export const Dilute = {
 						.root(this.diluteAmount(8) ? 1000 : 1),
 				)
 				.max(1);
+		if(player.milestones.nonrec_7)
+			player.hydra.milestoneDut5Eff = player.hydra.milestoneDut5Eff.max(milestoneDut5Eff());
 		if (player.hydra.dilute.inDilute) {
 			player.hydra.milestoneDut5Eff = player.hydra.milestoneDut5Eff.max(milestoneDut5Eff());
 			const s3Eff = this.sol3Eff();

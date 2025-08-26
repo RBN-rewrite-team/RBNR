@@ -228,7 +228,11 @@ export function simulate(diff: number) {
 	ORDINAL_BOOSTER.boosterLoop();
 	for (const upg_i in upgrades) {
 		const i = upg_i as keyof typeof upgrades;
+		if(player.upgrades[i as keyof typeof player.upgrades] == true) continue;
 		if (upgrades[i] && upgrades[i].keep != null && upgrades[i].keep()) {
+			player.upgrades[i as keyof typeof player.upgrades] = true;
+		}
+		if (upgrades[i] && upgrades[i].auto != null && upgrades[i].auto() && upgrades[i].canAfford()) {
 			player.upgrades[i as keyof typeof player.upgrades] = true;
 		}
 	}
