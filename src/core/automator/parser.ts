@@ -1,6 +1,6 @@
 import { CstParser } from "chevrotain";
 import {
-  allTokens,
+  allTokens, AutomatorLexer,
   Identifier,
   Var, For, ForIn, While, Const, False, True, If, Else, FunctionKeyword,
   And, Or, Not, Xor,
@@ -15,7 +15,6 @@ import {
 class AutomatorParser extends CstParser {
   constructor() {
     super(allTokens, {
-      outPutCst: true,
       nodeLocationTracking: "full",
     })
     
@@ -124,7 +123,7 @@ class AutomatorParser extends CstParser {
   });
   
   public expressionStatement = this.RULE("expressionStatement", () => {
-    this.SUBRULE(this.expression);
+    this.SUBRULE(this.noAssignmentExpression);
     this.CONSUME(SemiColen);
   });
   
@@ -138,6 +137,10 @@ class AutomatorParser extends CstParser {
   
   public expression = this.RULE("expression", () => {
     this.SUBRULE(this.assignmentExpression);
+  });
+  
+  public noAssignmentExpression = this.RULE("noAssignmentExpression", () => {
+    this.SUBRULE(this.logicalOrExpression);
   });
   
   public assignmentExpression = this.RULE("assignmentExpression", () => {
@@ -296,7 +299,7 @@ export function parseInput(inputText: string) {
   const cst = parser.program();
   
   if (parser.errors.length > 0) {
-    throw new Error("Parsing errors: " + parser.errors.map(e => e.message).join(", "));
+    throw new Error("Parsing errors: " + parser.errors.map(e: any => e.message).join(", "));
   }
   
   return cst;
