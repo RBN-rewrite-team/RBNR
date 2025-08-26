@@ -103,8 +103,8 @@ export const plots = [
 	],
 	[
 		'Numerorum\t这些东西我也研究得差不多了，是时候出发了。',
-		'Numerorum\t这个东西散发的能量足以打破高塔周围的屏障了。',
-		'Numerorum\t不过，我可能需要付出一些代价来激活它。',
+		'Numerorum\t越接近序数之塔，感觉这里的压制就越强。',
+		'Numerorum\t我又有了新的感悟……',
 	],
 	[
 		'Numerorum\t果然，就是这样。',
@@ -163,7 +163,7 @@ export const plots = [
 	],
 ];
 export function plotLength(id: number): number {
-	if(id <= 0) return 0;
+	if (id <= 0) return 0;
 	return plots[id - 1].length;
 }
 export const characterImages = {
