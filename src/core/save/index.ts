@@ -210,6 +210,11 @@ export interface Player {
 	backup?: Omit<Player, 'backup'> | null;
 	foundNaN: boolean;
 	checkedPlots: number[];
+	automator: {
+	  running: boolean;
+	  code: string;
+	  currentLine: number;
+	}
 }
 
 function getInitialPlayerData(): Player {
@@ -377,6 +382,11 @@ function getInitialPlayerData(): Player {
 		},
 		foundNaN: false,
 		checkedPlots: [],
+		automator: {
+	    running: false,
+	    code: "",
+	    currentLine: 0,
+	  }
 	};
 }
 
