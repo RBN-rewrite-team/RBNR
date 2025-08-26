@@ -1,4 +1,4 @@
-import { createToken, Lexer } from "chevrotain";
+import { createToken, Lexer, IToken } from "chevrotain";
 
 const Identifier = createToken({
   name: "Identifier",
@@ -49,6 +49,8 @@ const Mul = createToken({ name: "Mul", pattern: /\*/})
 
 const Pow = createToken({ name: "Pow", pattern: /\*\*/})
 
+const Mod = createToken({ name: "Mod", pattern: /%/})
+
 const Tetrate = createToken({ name: "Tetrate", pattern: /\*\*\*/})
 
 const NumberLiteral = createToken({
@@ -83,7 +85,7 @@ const Equal = createToken({
 })
 
 const NotEqual = createToken({
-  name: "Equal",
+  name: "NotEqual",
   pattern: /!=/
 })
 
@@ -116,8 +118,22 @@ const LBracket = createToken({ name: "LBracket", pattern: /\[/ })
 const RBracket = createToken({ name: "RBracket", pattern: /\]/ })
 const Assign = createToken({ name: "Assign", pattern: /=/ })
 
+const SingleLineComment = createToken({
+  name: "SingleLineComment",
+  pattern: /\/\/[^\n\r]*/,
+  group: Lexer.SKIPPED
+});
+
+const MultiLineComment = createToken({
+  name: "MultiLineComment",
+  pattern: /\/\*[\s\S]*?\*\//,
+  group: Lexer.SKIPPED
+});
+
 export const allTokens = [
   WhiteSpace,
+  SingleLineComment,
+  MultiLineComment,
   
   StringLiteral,
   NumberLiteral,
@@ -163,7 +179,8 @@ export const allTokens = [
   Add,
   Sub,
   Mul,
-]
+  Mod,
+] as const
 
 const AutomatorLexer = new Lexer(allTokens)
 
