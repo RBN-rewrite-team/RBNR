@@ -58,11 +58,11 @@ export const NON_RECURSIVE = {
 				return player.nonrecu.resetTimes.gte(this.requirement);
 			},
 			onDone() {
-			  player.upgrades["65"] = true
-			  player.upgrades["615"] = true
-			  player.upgrades["65R"] = true
-			  player.upgrades["65S"] = true
-			}
+				player.upgrades['65'] = true;
+				player.upgrades['615'] = true;
+				player.upgrades['65R'] = true;
+				player.upgrades['65S'] = true;
+			},
 		});
 		MILESTONES.create('nonrec_6', {
 			requirement: new Decimal(6),
@@ -128,7 +128,17 @@ export const NON_RECURSIVE = {
 			requirement: new Decimal(20),
 			currency: '非递归重置次数',
 			displayName: 'M6-12',
-			description: `非递归重置后保留1%的溶剂`,
+			description: `非递归重置后保留1%的溶液`,
+			show: true,
+			get canDone() {
+				return player.nonrecu.resetTimes.gte(this.requirement);
+			},
+		});
+		MILESTONES.create('nonrec_13', {
+			requirement: new Decimal(50),
+			currency: '非递归重置次数',
+			displayName: 'M6-13',
+			description: `普通的非递归重置初始有1e150,000,000朊病毒`,
 			show: true,
 			get canDone() {
 				return player.nonrecu.resetTimes.gte(this.requirement);
@@ -146,7 +156,7 @@ export const NON_RECURSIVE = {
 		player.upgrades['62S'] = false;
 		player.upgrades['63S'] = false;
 		player.upgrades['64S'] = false;
-		if (!player.milestones.nonrec_5)player.upgrades['65S'] = false;
+		if (!player.milestones.nonrec_5) player.upgrades['65S'] = false;
 		player.upgrades['66S'] = false;
 		player.upgrades['67S'] = false;
 		player.upgrades['68S'] = false;
@@ -161,15 +171,16 @@ export const NON_RECURSIVE = {
 			player.milestones[`dut${i}`] = false;
 		}
 		player.hydra.milestoneDut5Eff = new Decimal(1);
-		if(!player.milestones.nonrec_2) player.hydra.pAuto = [!1, !1, !1, !1];
+		if (!player.milestones.nonrec_2) player.hydra.pAuto = [!1, !1, !1, !1];
 		player.hydra.dilute.solvent = [0, 0, 0, 0, 0, 0, !1, !1, !1];
 		player.hydra.dilute.lastSolvent = [0, 0, 0, 0, 0, 0, !1, !1, !1];
 		player.hydra.dilute.lastDeduce = new Decimal(0);
 		player.hydra.dilute.prions = new Decimal(1);
+		if (player.milestones.nonrec_13) player.hydra.dilute.prions = new Decimal('1e150000000');
 		player.hydra.dilute.inDilute = false;
 		player.hydra.dilute.spentTime = 0;
 		player.hydra.dilute.solutionCost = 0;
-		if(!player.milestones.nonrec_12) player.hydra.dilute.solution = 0;
+		if (!player.milestones.nonrec_12) player.hydra.dilute.solution = 0;
 		else player.hydra.dilute.solution *= 0.01;
 		player.hydra.dilute.highestApocalypse = new Decimal(0);
 		if (player.nonrecu.studies_bought.includes(0)) {
@@ -192,29 +203,50 @@ export const NON_RECURSIVE = {
 		player.nonrecu.totalPower = player.nonrecu.totalPower.add(x);
 	},
 	gainFactor(): any {
-		const ADD_EFF = 0, MUL_EFF = 1, POW_EFF = 2, DIL_EFF = 3, EXP_EFF = 4;
+		const ADD_EFF = 0,
+			MUL_EFF = 1,
+			POW_EFF = 2,
+			DIL_EFF = 3,
+			EXP_EFF = 4;
 		let factor = [];
 		factor.push(['基础值', ADD_EFF, new Decimal(1)]);
-		factor.push(['九头蛇溶液因子', MUL_EFF, new Decimal(player.hydra.dilute.solution / 2.55e8)]);
-		factor.push(['九头蛇能量因子', MUL_EFF, player.hydra.deduceOrdinal[0].max(1).log(4).max(1).log(4).div(256)]);
+		factor.push([
+			'九头蛇溶液因子',
+			MUL_EFF,
+			new Decimal(player.hydra.dilute.solution / 2.55e8),
+		]);
+		factor.push([
+			'九头蛇能量因子',
+			MUL_EFF,
+			player.hydra.deduceOrdinal[0].max(1).log(4).max(1).log(4).div(256),
+		]);
 		factor.push(['基础值', ADD_EFF, new Decimal(-1)]);
 		factor.push(['基础指数', EXP_EFF, new Decimal(4)]);
-		if(player.nonrecu.studies_bought.includes(6)) factor.push(['非递归研究41', MUL_EFF, new Decimal(10)]);
-		if(player.milestones.nonrec_11) factor.push(['朊病毒(里程碑11)', MUL_EFF, player.hydra.dilute.prions.add(1).mul(1e10).log10().log10().root(4)]);
+		if (player.nonrecu.studies_bought.includes(6))
+			factor.push(['非递归研究41', MUL_EFF, new Decimal(10)]);
+		if (player.milestones.nonrec_11)
+			factor.push([
+				'朊病毒(里程碑11)',
+				MUL_EFF,
+				player.hydra.dilute.prions.add(1).mul(1e10).log10().log10().root(4),
+			]);
 		return factor;
 	},
 	gain(): Decimal {
-		const ADD_EFF = 0, MUL_EFF = 1, POW_EFF = 2, DIL_EFF = 3, EXP_EFF = 4;
+		const ADD_EFF = 0,
+			MUL_EFF = 1,
+			POW_EFF = 2,
+			DIL_EFF = 3,
+			EXP_EFF = 4;
 		let factor = this.gainFactor();
 		let base = new Decimal(0);
-		for(let i in factor)
-		{
+		for (let i in factor) {
 			let f = factor[i];
-			if(f[1] == ADD_EFF) base = base.add(f[2]);
-			else if(f[1] == MUL_EFF) base = base.mul(f[2]);
-			else if(f[1] == POW_EFF) base = base.pow(f[2]);
-			else if(f[1] == DIL_EFF) base = base.log10().pow(f[2]).pow10();
-			else if(f[1] == EXP_EFF) base = base.pow_base(f[2]);
+			if (f[1] == ADD_EFF) base = base.add(f[2]);
+			else if (f[1] == MUL_EFF) base = base.mul(f[2]);
+			else if (f[1] == POW_EFF) base = base.pow(f[2]);
+			else if (f[1] == DIL_EFF) base = base.log10().pow(f[2]).pow10();
+			else if (f[1] == EXP_EFF) base = base.pow_base(f[2]);
 		}
 		return base;
 	},
