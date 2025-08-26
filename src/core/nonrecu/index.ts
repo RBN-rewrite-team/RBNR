@@ -176,14 +176,30 @@ export const NON_RECURSIVE = {
 		player.nonrecu.power = player.nonrecu.power.add(x);
 		player.nonrecu.totalPower = player.nonrecu.totalPower.add(x);
 	},
+	gainFactor(): any {
+		const ADD_EFF = 0, MUL_EFF = 1, POW_EFF = 2, DIL_EFF = 3, EXP_EFF = 4;
+		let factor = [];
+		factor.push(['基础值', ADD_EFF, new Decimal(1)]);
+		factor.push(['九头蛇溶液因子', MUL_EFF, new Decimal(player.hydra.dilute.solution / 2.55e8)]);
+		factor.push(['九头蛇能量因子', MUL_EFF, new Decimal(player.hydra.deduceOrdinal[0].max(1).log(4).max(1).log(4).div(256))]);
+		factor.push(['基础值', ADD_EFF, new Decimal(-1)]);
+		factor.push(['基础指数', EXP_EFF, new Decimal(4)]);
+		if(player.nonrecu.studies_bought.includes(6)) factor.push(['非递归研究41', MUL_EFF, new Decimal(10)]);
+		return factor;
+	},
 	gain(): Decimal {
-		let base = new Decimal(player.hydra.dilute.solution / 2.55e8);
-		// 4^((HS/2.55e8)(B_tmp)-1)
-
-		let B_tmp = player.hydra.deduceOrdinal[0].max(1).log(4).max(1).log(4).div(256);
-
-		base = base.mul(B_tmp).sub(1).pow_base(4);
-		if(player.nonrecu.studies_bought.includes(6)) base = base.mul(10);
+		const ADD_EFF = 0, MUL_EFF = 1, POW_EFF = 2, DIL_EFF = 3, EXP_EFF = 4;
+		let factor = this.gainFactor();
+		let base = new Decimal(0);
+		for(let i in factor)
+		{
+			let f = factor[i];
+			if(f[1] == ADD_EFF) base = base.add(f[2]);
+			else if(f[1] == MUL_EFF) base = base.mul(f[2]);
+			else if(f[1] == POW_EFF) base = base.pow(f[2]);
+			else if(f[1] == DIL_EFF) base = base.log10().pow(f[2]).pow10();
+			else if(f[1] == EXP_EFF) base = base.pow_base(f[2]);
+		}
 		return base;
 	},
 	nonrecEffects(): [Decimal, Decimal] {
