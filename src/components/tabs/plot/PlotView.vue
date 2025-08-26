@@ -4,18 +4,21 @@ import { onMounted, onUnmounted, ref } from 'vue';
 import PlotSentence from './PlotSentence.vue';
 import { player } from '@/core/save';
 import { plots, stringToPlot } from '@/core/plot';
-const plotview = ref<HTMLDivElement|null>(null)
-const plotcont = ref<HTMLSpanElement|null>(null)
-function exitView(){
-  if (!plotview.value) return;
-  plotview.value.style.opacity="0";
-  setTimeout(()=>{temp.plotdisplay=0; temp.plotstep = 0},1000)
+const plotview = ref<HTMLDivElement | null>(null);
+const plotcont = ref<HTMLSpanElement | null>(null);
+function exitView() {
+	if (!plotview.value) return;
+	plotview.value.style.opacity = '0';
+	setTimeout(() => {
+		temp.plotdisplay = 0;
+		temp.plotstep = 0;
+	}, 1000);
 }
-onMounted(()=>{
-  if (plotview.value){
-    plotview.value.style.opacity="0";
-  }
-})
+onMounted(() => {
+	if (plotview.value) {
+		plotview.value.style.opacity = '0';
+	}
+});
 /*function stepNext() {
   if (plotcont.value){
     plotcont.value.style.opacity="0";
@@ -37,36 +40,47 @@ function stepPrev() {
   }
 }*/
 function nextStep() {
-	if(Date.now() >= temp.plotcd)
-	{
+	if (Date.now() >= temp.plotcd) {
 		temp.plotstep++;
 		temp.plotcd = Date.now() + 500;
 	}
 }
-let a: number=-115;
-
+let a: number = -115;
 </script>
 
 <template>
-  <div class="plot-view" :style="{'z-index': temp.plotdisplay?7 : -1,opacity: temp.plotdisplay?1:0}" ref="plotview">
-    <div class="plot-content" style="width: 100%">
-      <span ref="plotcont" style="width: 100%">
-	<table style="width: 100%; margin: -200px 50px; border-spacing: 10px; position: absolute; bottom: 0%">
-		<template v-if="temp.plotdisplay">
-			<template v-for="(plotobj, key) in plots[temp.plotdisplay-1]">
-				<PlotSentence v-if="temp.plotstep>key-1"
-					:name="stringToPlot(plotobj).name"
-					:image="stringToPlot(plotobj).image"
-					:text="stringToPlot(plotobj).text"
-					></PlotSentence>
-			</template>
-		</template>
-	</table>
-      </span>
-    </div>
-	<button class="exit" @click="exitView()">×</button>
-	<button class="next" @click="nextStep()">继续(冷却500ms)</button>
-  </div>
+	<div
+		class="plot-view"
+		:style="{ 'z-index': temp.plotdisplay ? 7 : -1, opacity: temp.plotdisplay ? 1 : 0 }"
+		ref="plotview"
+	>
+		<div class="plot-content" style="width: 100%">
+			<span ref="plotcont" style="width: 100%">
+				<table
+					style="
+						width: 100%;
+						margin: -200px 50px;
+						border-spacing: 10px;
+						position: absolute;
+						bottom: 0%;
+					"
+				>
+					<template v-if="temp.plotdisplay">
+						<template v-for="(plotobj, key) in plots[temp.plotdisplay - 1]">
+							<PlotSentence
+								v-if="temp.plotstep > key - 1"
+								:name="stringToPlot(plotobj).name"
+								:image="stringToPlot(plotobj).image"
+								:text="stringToPlot(plotobj).text"
+							></PlotSentence>
+						</template>
+					</template>
+				</table>
+			</span>
+		</div>
+		<button class="exit" @click="exitView()">×</button>
+		<button class="next" @click="nextStep()">继续(冷却500ms)</button>
+	</div>
 </template>
 
 <style lang="scss" scoped>
@@ -88,9 +102,9 @@ let a: number=-115;
 	top: 50%;
 	transform: translate(-50%, -50%);
 
-  display: block;
-  text-align: center;
-  margin: auto;
+	display: block;
+	text-align: center;
+	margin: auto;
 }
 .exit {
 	z-index: 8;

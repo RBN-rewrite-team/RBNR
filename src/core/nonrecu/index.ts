@@ -58,11 +58,11 @@ export const NON_RECURSIVE = {
 				return player.nonrecu.resetTimes.gte(this.requirement);
 			},
 			onDone() {
-			  player.upgrades["65"] = true
-			  player.upgrades["615"] = true
-			  player.upgrades["65R"] = true
-			  player.upgrades["65S"] = true
-			}
+				player.upgrades['65'] = true;
+				player.upgrades['615'] = true;
+				player.upgrades['65R'] = true;
+				player.upgrades['65S'] = true;
+			},
 		});
 		MILESTONES.create('nonrec_6', {
 			requirement: new Decimal(6),
@@ -106,7 +106,7 @@ export const NON_RECURSIVE = {
 		});
 	},
 	reset(force = false) {
-		if (!isTester()) {
+		if (!isTester() || player.nonrecu.resetTimes.gte(2)) {
 			ModalService.show({
 				title: 'WIP!',
 				content: 'Work in progress!',
@@ -123,7 +123,7 @@ export const NON_RECURSIVE = {
 		player.upgrades['62S'] = false;
 		player.upgrades['63S'] = false;
 		player.upgrades['64S'] = false;
-		if (!player.milestones.nonrec_5)player.upgrades['65S'] = false;
+		if (!player.milestones.nonrec_5) player.upgrades['65S'] = false;
 		player.upgrades['66S'] = false;
 		player.upgrades['67S'] = false;
 		player.upgrades['68S'] = false;
@@ -138,7 +138,7 @@ export const NON_RECURSIVE = {
 			player.milestones[`dut${i}`] = false;
 		}
 		player.hydra.milestoneDut5Eff = new Decimal(1);
-		if(!player.milestones.nonrec_2) player.hydra.pAuto = [!1, !1, !1, !1];
+		if (!player.milestones.nonrec_2) player.hydra.pAuto = [!1, !1, !1, !1];
 		player.hydra.dilute.solvent = [0, 0, 0, 0, 0, 0, !1, !1, !1];
 		player.hydra.dilute.lastSolvent = [0, 0, 0, 0, 0, 0, !1, !1, !1];
 		player.hydra.dilute.lastDeduce = new Decimal(0);
@@ -174,7 +174,7 @@ export const NON_RECURSIVE = {
 		let B_tmp = player.hydra.deduceOrdinal[0].max(1).log(4).max(1).log(4).div(256);
 
 		base = base.mul(B_tmp).sub(1).pow_base(4);
-		if(player.nonrecu.studies_bought.includes(6)) base = base.mul(10);
+		if (player.nonrecu.studies_bought.includes(6)) base = base.mul(10);
 		return base;
 	},
 	nonrecEffects(): [Decimal, Decimal] {

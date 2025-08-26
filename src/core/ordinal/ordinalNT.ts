@@ -294,7 +294,7 @@ export const OrdinalNT = {
 				return '×' + format(this.effect());
 			}
 			keep() {
-			  return player.milestones.nonrec_5
+				return player.milestones.nonrec_5;
 			}
 		})(),
 		'66R': new (class extends Upgrade {
@@ -392,7 +392,7 @@ export const OrdinalNT = {
 		if (layer == 4) {
 			if (id == 'x') {
 				if (Dilute.diluteAmount(3) > 0) {
-				  if (player.milestones.nonrec_3) return new Decimal(0)
+					if (player.milestones.nonrec_3) return new Decimal(0);
 					return new Decimal(player.hydra.dilute.spentTime)
 						.pow(Dilute.diluteAmount(3))
 						.sqrt();
@@ -403,7 +403,7 @@ export const OrdinalNT = {
 					prod = prod.mul(new Decimal(1).add(feature.Hydra.prestigeEff(i)));
 				}
 				const prod2 = this.functionL4('f', prod).mul(a);
-				
+
 				return prod2;
 			}
 		}
@@ -500,10 +500,10 @@ export const OrdinalNT = {
 		if (layer == 4) {
 			if (id == 'tau') {
 				if (Dilute.diluteAmount(3) > 0) {
-          if (player.milestones.nonrec_3) return new Decimal(1)
-				  let base = player.numbertheory.GM.x.add(1).pow(0.5).max(1);
-				  if (isNaN(base.mag)) return new Decimal(1)
-				  return base
+					if (player.milestones.nonrec_3) return new Decimal(1);
+					let base = player.numbertheory.GM.x.add(1).pow(0.5).max(1);
+					if (isNaN(base.mag)) return new Decimal(1);
+					return base;
 				}
 				const base = player.numbertheory.GM.x.add(10);
 				return this.functionL4('g', base);

@@ -97,9 +97,7 @@ export const studies = [
 		description: '解锁非递归挑战1(没做)',
 		cost: new Decimal(10),
 		canBuy() {
-			return (
-				player.nonrecu.studies_bought.includes(3)
-			);
+			return player.nonrecu.studies_bought.includes(3);
 		},
 	}),
 	new Study({
@@ -107,9 +105,7 @@ export const studies = [
 		description: '非递归能量获取×10',
 		cost: new Decimal(4),
 		canBuy() {
-			return (
-				player.nonrecu.studies_bought.includes(4)
-			);
+			return player.nonrecu.studies_bought.includes(4);
 		},
 	}),
 	new Study({
@@ -149,9 +145,7 @@ export const studies = [
 		description: '解锁非递归挑战2(没做)',
 		cost: new Decimal(15),
 		canBuy() {
-			return (
-				false
-			);
+			return false;
 		},
 	}),
 	new Study({
@@ -159,9 +153,7 @@ export const studies = [
 		description: '解锁非递归挑战3(没做)',
 		cost: new Decimal(20),
 		canBuy() {
-			return (
-				false
-			);
+			return false;
 		},
 	}),
 	new Study({

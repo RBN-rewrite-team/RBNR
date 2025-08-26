@@ -68,12 +68,12 @@ export function UIEnterTesting() {
 				type: 'input',
 				placeholder: '输入测试码',
 				validation(val) {
-					return true
+					return true;
 				},
 			},
 		],
 		onConfirm(values) {
-			localStorage.testcode = values[0].slice(0,25)
+			localStorage.testcode = values[0].slice(0, 25);
 		},
 	});
 }

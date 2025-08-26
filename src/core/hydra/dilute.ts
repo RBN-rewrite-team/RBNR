@@ -170,7 +170,7 @@ export const DiluteUpgrades = {
 			return 'x' + format(this.effect());
 		}
 		keep() {
-		  return player.milestones.nonrec_5
+			return player.milestones.nonrec_5;
 		}
 	})(),
 	'66S': new (class U66S extends Upgrade {
@@ -565,7 +565,10 @@ export const Dilute = {
 			reqDescription: '1e18,915九头蛇能量',
 			requirement: new Decimal('e18915'),
 			get canDone() {
-				return (player.upgrades['69S']||player.milestones.nonrec_7) && player.hydra.power.gte('e18915');
+				return (
+					(player.upgrades['69S'] || player.milestones.nonrec_7) &&
+					player.hydra.power.gte('e18915')
+				);
 			},
 			show: true,
 			currency: '',
@@ -579,7 +582,10 @@ export const Dilute = {
 			reqDescription: 'e5.0000e103/s推演速度',
 			requirement: new Decimal('e5e103'),
 			get canDone() {
-				return (player.upgrades['69S']||player.milestones.nonrec_7) && Hydra.deduceSpeed(0).gte(this.requirement);
+				return (
+					(player.upgrades['69S'] || player.milestones.nonrec_7) &&
+					Hydra.deduceSpeed(0).gte(this.requirement)
+				);
 			},
 			show: true,
 			currency: '',
@@ -606,9 +612,9 @@ export const Dilute = {
 				Object.keys(Hydra.upgrades),
 			] as const
 		).flat()) {
-		  if (player.milestones.nonrec_5) {
-		    if (["65", "65R", "615"].includes(id2)) continue
-		  }
+			if (player.milestones.nonrec_5) {
+				if (['65', '65R', '615'].includes(id2)) continue;
+			}
 			if (id2 !== '61') player.upgrades[id2 as keyof typeof player.upgrades] = false;
 		}
 		for (const id2 of Object.keys(Hydra.buyables)) {
@@ -721,18 +727,26 @@ export const Dilute = {
 	},
 	diluteLoop(diff: number, trueDiff: number) {
 		if (
-			(player.upgrades['69S']||player.milestones.nonrec_7) ||
+			player.upgrades['69S'] ||
+			player.milestones.nonrec_7 ||
 			(player.hydra.totalDeduceOrdinal[0].gte(1) && player.hydra.dilute.inDilute)
 		)
-			player.hydra.dilute.prions = player.hydra.dilute.prions.mul(
-				this.prionsBase()
-					.pow(((player.milestones.nonrec_3 && !player.upgrades["69S"])?trueDiff:diff) / 1000)
-					.root(this.diluteAmount(8) ? 1000 : 1),
-			).max(1);
+			player.hydra.dilute.prions = player.hydra.dilute.prions
+				.mul(
+					this.prionsBase()
+						.pow(
+							(player.milestones.nonrec_3 && !player.upgrades['69S']
+								? trueDiff
+								: diff) / 1000,
+						)
+						.root(this.diluteAmount(8) ? 1000 : 1),
+				)
+				.max(1);
 		if (player.hydra.dilute.inDilute) {
 			player.hydra.milestoneDut5Eff = player.hydra.milestoneDut5Eff.max(milestoneDut5Eff());
 			const s3Eff = this.sol3Eff();
-			if (!player.milestones.nonrec_3) player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + diff / 1000;
+			if (!player.milestones.nonrec_3)
+				player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + diff / 1000;
 			else player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + trueDiff / 1000;
 			if (!player.upgrades['614S'] && player.hydra.dilute.spentTime > s3Eff) {
 				ModalService.show({
@@ -744,7 +758,10 @@ export const Dilute = {
 				});
 				this.exitDilute(false);
 			}
-			if (!(player.upgrades['69S']||player.milestones.nonrec_7) && this.prions().gt(player.hydra.totalDeduceOrdinal[0])) {
+			if (
+				!(player.upgrades['69S'] || player.milestones.nonrec_7) &&
+				this.prions().gt(player.hydra.totalDeduceOrdinal[0])
+			) {
 				ModalService.show({
 					title: '已退出稀释',
 					content: '朊病毒吃掉了你的脑子！（你的朊病毒超过了你的推演总数量）',
@@ -760,7 +777,7 @@ export const Dilute = {
 	prionsBase() {
 		let base = new Decimal(1 + this.diluteAmount(4) / 100);
 		if (player.upgrades['69S']) base = new Decimal(2);
-		if (player.upgrades['69S']&&player.milestones.nonrec_6) base = new Decimal(10);
+		if (player.upgrades['69S'] && player.milestones.nonrec_6) base = new Decimal(10);
 		if (player.upgrades['610S']) base = base.mul(upgrades['610S'].effect());
 		if (player.milestones.dut17) base = base.mul(MEff17());
 		return base;
@@ -807,26 +824,27 @@ export const Dilute = {
 		return player.hydra.dilute.prions.sub(1);
 	},
 	sol3Eff(): number {
-	  let base = 1000 / player.hydra.dilute.solvent[2] ** 2
-	  if (player.milestones.nonrec_4) base += player.nonrecu.resetTimes.toNumber()
-	  return base
+		let base = 1000 / player.hydra.dilute.solvent[2] ** 2;
+		if (player.milestones.nonrec_4) base += player.nonrecu.resetTimes.toNumber();
+		return base;
 	},
 	sol3EffOutside(): number {
-	  let base = 1000 / player.hydra.dilute.solvent[2] ** 2
-	  if (player.milestones.nonrec_4) base += player.nonrecu.resetTimes.toNumber()
-	  return base
+		let base = 1000 / player.hydra.dilute.solvent[2] ** 2;
+		if (player.milestones.nonrec_4) base += player.nonrecu.resetTimes.toNumber();
+		return base;
 	},
 	totSolNerf(): number {
-	  let exp = 2
-	  if (player.milestones.nonrec_4) exp = 1.5
-	  return (player.hydra.dilute.solvent.slice(0, 6) as number[]).reduce(
-					(total, num): number => total + num,
-					1,
-				) ** exp
-	}
+		let exp = 2;
+		if (player.milestones.nonrec_4) exp = 1.5;
+		return (
+			(player.hydra.dilute.solvent.slice(0, 6) as number[]).reduce(
+				(total, num): number => total + num,
+				1,
+			) ** exp
+		);
+	},
 } as IDilute &
 	Record<string, any> & {
 		diluteReset(): void;
 		respec(): void;
 	};
- 

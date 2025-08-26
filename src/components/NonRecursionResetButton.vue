@@ -3,7 +3,7 @@ import { feature } from '@/core/global';
 import { NON_RECURSIVE } from '@/core/nonrecu';
 </script>
 <template>
-	<button class="reset10" @click="()=>NON_RECURSIVE.reset(false)" style="right: 0px">
+	<button class="reset10" @click="() => NON_RECURSIVE.reset(false)" style="right: 0px">
 		<!-- prettier-ignore !-->
 		<svg style="margin-top: 5px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
 			<!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc. -->
