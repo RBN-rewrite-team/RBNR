@@ -4,8 +4,7 @@ import { Hydra } from '../hydra/hydra';
 import { Currencies, getCurrency } from '../currencies';
 import { getTotalTheories } from './total-theories';
 import { NON_RECURSIVE } from '.';
-import { NONREC_CHALS } from './non-recursion-challenges';
-import { CHALLENGE } from '../challenge';
+import type { NONREC_CHALS } from './non-recursion-challenges';
 
 type StudyConfig = {
 	id: string;
@@ -34,11 +33,6 @@ export class Study {
 		return this.config.id;
 	}
 	get description() {
-		if (this.isChallenge) {
-			return `非递归挑战${this.chalID + 1}${CHALLENGE.inChallenge(1, this.chalID) ? '(挑战中)' : ''}<br>${
-				NONREC_CHALS[this.chalID].descHard
-			}`;
-		}
 		return this.config.description;
 	}
 	get cost() {
@@ -116,7 +110,7 @@ export const studies = [
 	}),
 	new Study({
 		id: 'NRC1', //5
-		description: '非递归挑战1',
+		description: '解锁非递归挑战1(没做)',
 		cost: new Decimal(10),
 		canBuy() {
 			return player.nonrecu.studies_bought.includes(3);
@@ -294,7 +288,6 @@ export const studies = [
 	}),
 ] as const;
 export function canBuyStudies(id: number) {
-	if (player.nonrecu.studies_bought.includes(5)) return false;
 	const study = studies[id] as Study | undefined;
 	if (!study) return false;
 	if (player.nonrecu.studies_bought.includes(id)) return false;

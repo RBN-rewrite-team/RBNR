@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { CHALLENGE } from '@/core/challenge';
 import { buyStudies, canBuyStudies, studies } from '@/core/nonrecu/studies';
 import { player } from '@/core/save';
 import { formatWhole } from '@/utils/format';
@@ -12,11 +11,7 @@ const study = studies[props.study_id];
 
 const useClass = () => {
 	if (study.isChallenge &&  player.nonrecu.studies_bought.includes(props.study_id)) {
-		let a = 'study-nrc'
-		if (CHALLENGE.inChallenge(1, study.chalID)) {
-			a += " study-nrc-in"
-		}
-		return a;
+		return 'study-nrc'
 	}
 	if (!study.isChallenge &&  player.nonrecu.studies_bought.includes(props.study_id)) {
 		return 'study-actived';
@@ -25,24 +20,12 @@ const useClass = () => {
 		return 'study-buyable';
 	}
 };
-function challengeButton(chid: number) {
-	if (!CHALLENGE.inChallenge(1, chid))
-		CHALLENGE.enterChallenge(1, chid);
-	else CHALLENGE.exitChallenge();
-}
-const clickStudy= (studyid: number)=> {
-	if (player.nonrecu.studies_bought.includes(studyid) && study.isChallenge) {
-		challengeButton(study.chalID)
-	} else {
-		buyStudies(studyid);
-	}
-}
 </script>
 
 <template>
 	<div class="study">
 		<div class="study-name">{{ study.id }}</div>
-		<div class="study-desc" @click="clickStudy(props.study_id)" :class="useClass()">
+		<div class="study-desc" @click="buyStudies(props.study_id)" :class="useClass()">
 			<div v-html="study.description"></div>
 			<div>花费: {{ formatWhole(study.cost) }} 非递归理论</div>
 		</div>
