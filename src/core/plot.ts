@@ -37,8 +37,8 @@ export function unlockedPlots() {
 	if (player.stat.chapter >= 5) {
 		a++;
 	}
-	if(player.upgrades['69R']) a++;
-	if(player.upgrades['69S'] || player.stat.chapter >= 6) a++;
+	if (player.upgrades['69R']) a++;
+	if (player.upgrades['69S'] || player.stat.chapter >= 6) a++;
 	return a;
 }
 export function viewedPlotLength() {
@@ -133,12 +133,12 @@ export const plots = [
 		'Numerorum\t不好，被暗算了！我的能量都被这东西抽走了，不行，我得想办法过去。',
 	],
 	[
-		'Numerorum:好了，我算是摸透了这玩意的机制了......这东西没有任何陷阱，我可以不断从中获取力量。',
-		'Numerorum:不用再假装害怕这朊病毒了。',
+		'Numerorum\t好了，我算是摸透了这玩意的机制了......这东西没有任何陷阱，我可以不断从中获取力量。',
+		'Numerorum\t不用再假装害怕这朊病毒了。',
 	],
 ];
 export function plotLength(id: number): number {
-	if(id <= 0) return 0;
+	if (id <= 0) return 0;
 	return plots[id - 1].length;
 }
 export const characterImages = {
