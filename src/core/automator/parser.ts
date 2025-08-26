@@ -299,7 +299,7 @@ export function parseInput(inputText: string) {
   const cst = parser.program();
   
   if (parser.errors.length > 0) {
-    throw new Error("Parsing errors: " + parser.errors.map(e: any => e.message).join(", "));
+    throw new Error("Parsing errors: " + parser.errors.map((e: any) => e.message).join(", "));
   }
   
   return cst;
