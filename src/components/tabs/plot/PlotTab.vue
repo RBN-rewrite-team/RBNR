@@ -50,6 +50,9 @@ function enterPlot(i: number) {
       <PlotNode style="top: 300px;left: 30px;" @click="enterPlot(13)">
         <template v-if="unlockedPlots()>=13"><vue-latex expression="Pri"></vue-latex></template><template v-else><vue-latex expression="?"></vue-latex></template>
       </PlotNode>
+      <PlotNode style="top: 300px;left: 202.5px;" @click="enterPlot(14)">
+        <template v-if="unlockedPlots()>=14"><vue-latex expression="6"></vue-latex></template><template v-else><vue-latex expression="?"></vue-latex></template>
+      </PlotNode>
     </div>
   </div>
 </template>
