@@ -104,6 +104,16 @@ export const NON_RECURSIVE = {
 				return player.nonrecu.resetTimes.gte(this.requirement);
 			},
 		});
+		MILESTONES.create('nonrec_10', {
+			requirement: new Decimal(10),
+			currency: '非递归重置次数',
+			displayName: 'M6-10',
+			description: `自动购买所有的九头蛇引擎升级、九头蛇引擎购买项，保持M-Dilute-10，自动购买所有的稀释升级`,
+			show: true,
+			get canDone() {
+				return player.nonrecu.resetTimes.gte(this.requirement);
+			},
+		});
 	},
 	reset(force = false) {
 		if (!isTester() && player.nonrecu.resetTimes.gte(2)) {

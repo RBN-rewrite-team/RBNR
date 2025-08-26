@@ -28,6 +28,9 @@ export abstract class Upgrade {
 	keep(): boolean {
 		return false;
 	}
+	auto(): boolean {
+		return false;
+	}
 	show(): boolean {
 		return true;
 	}
