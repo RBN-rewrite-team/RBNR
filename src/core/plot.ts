@@ -48,14 +48,19 @@ export function viewedPlotLength() {
 export const plots = [
 	[
 		'大基数在支撑集合论宇宙的序数高塔中飘荡。',
-		'随后，Numerorum来到了这个“大数世界”上。',
-		'Numerorum\t......',
-		'Numerorum\t醒来了呢。',
+		'随后，Numerorum在“大数世界”的边疆醒来。',
+		'Numerorum\t……',
+		'Numerorum\t终于……醒来了。',
+		'Numerorum看看这熟悉又陌生的世界。',
+		'Numerorum\t世界改变了许多。',
+		'Numerorum\t但我的使命还没有完成……',
+		'远处的序数高塔若隐若现。',
 		'Numerorum\t该从哪里开始我的目标呢？',
 		'Numerorum\t负数显然离我的目标有点远。',
 		'Numerorum\t就先从0开始吧。',
 	],
 	[
+		'随着第一次后继运算的进行，Numerorum感受到了曾经的气息。',
 		'Numerorum\t这熟悉的感觉。',
 		'Numerorum\t这一个个连成串的数字，可能是我这一段旅程中唯一的伙伴了。',
 		'Numerorum\t虽然长路漫长，但是好的开始是成功的一半。',
@@ -67,7 +72,10 @@ export const plots = [
 		'Numerorum\t花费这么多数字是值得的。',
 		'Numerorum\t我怎么感觉到谁在看着我？',
 		'Numerorum望向半空中的序数高塔。',
-		'Numerorum\t是谁建造了这么高的建筑？',
+		'高塔高耸入云，无法看穿。',
+		'Numerorum\t注视感来自高塔的顶端。',
+		'能登上高塔之巅的人，Numerorum暂时还无法窥探。',
+		'Numerorum\t究竟是谁建造了这么高的建筑？',
 		'Numerorum\t可惜我现在还很弱小，无法攀登这座高塔。',
 		'Numerorum\t那就立下小目标，先进入序数的层次。',
 	],
@@ -80,11 +88,17 @@ export const plots = [
 	[
 		'Numerorum\t我感觉到了……我已经接近了。',
 		'Numerorum\t再努把力。登上高塔，恐怕我就要引来一些对手了。',
+		'来自高塔的注视仍然没有消除，而且随着Numerorum接近高塔而越来越强。',
+		'???\t……',
+		'Numerorum\t什么？',
+		'神秘的声音一闪而逝。',
+		'Numerorum\t不好，我好像被盯上了。',
 	],
 	[
+		'Numerorum来到了天文学家的店铺，它坐落在高塔旁的悬崖边。',
+		'Numerorum\t你就是天文学家？我现在需要一些你们的帮助。',
 		'EdenGameMaster\t你好，我是天文学家的头领，你需要我们来帮你计算吗？',
-		'Numerorum\temmmm....你们居然把店铺开设在这么接近高塔的地方。',
-		'EdenGameMaster\t或许在高塔上有缘还会再见。',
+		'Numerorum\t是的，我现在需要这些数据。',
 	],
 	[
 		'Numerorum\t这些东西我也研究得差不多了，是时候出发了。',
@@ -109,16 +123,18 @@ export const plots = [
 		'???\tHydra\t呵呵呵，你还没有资格见到我。',
 		'Numerorum\t……',
 		'???\tHydra\t不必惊讶，虽然你可能永远也见不到我罢了。',
+		'Numerorum\t可恶，不要瞧不起人！就算你在高塔的顶端，我也迟早见到你！',
+		'不管Numerorum怎么说，神秘的声音都不再回应。',
 	],
 	[
 		'Numerorum\t不好，前面被堵住了。',
 		'Numerorum\t这是什么东西，为什么我碰一下就会感觉头晕……',
 		'旁白\tNumerorum感觉自己浑身力气都被抽走了。',
-		'Numerorum\t不好，被暗算了！我的能量都被这东西抽走了，不行，我得想办法过去。'
+		'Numerorum\t不好，被暗算了！我的能量都被这东西抽走了，不行，我得想办法过去。',
 	],
 	[
 		'Numerorum:好了，我算是摸透了这玩意的机制了......这东西没有任何陷阱，我可以不断从中获取力量。',
-		'Numerorum:不用再假装害怕这朊病毒了。'
+		'Numerorum:不用再假装害怕这朊病毒了。',
 	],
 ];
 export function plotLength(id: number): number {
