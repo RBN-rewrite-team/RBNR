@@ -50,7 +50,7 @@ import { format } from '@/utils/format';
 							)
 						"
 						v-if="
-						  !(player.upgrades[61] && player.hydra.deduceOrdinal[0].gte('e8.072304726028225379e153'))"
+						  !(player.upgrades[61] && player.hydra.deduceOrdinal[0].gte('e3.773962424821541352e168'))"
 					/>
 					<vue-latex :expression="Ordinal.displayOrdinalColored(
 								player.ordinal.number.floor(),
