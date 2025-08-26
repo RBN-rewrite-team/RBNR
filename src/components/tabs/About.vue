@@ -146,7 +146,8 @@
 			>
 				<h2>存档银行</h2>
 				<br />
-				(没做完)<br />
+				VeryrrDefine<br />
+				RAXH<br />
 				0100000000a7
 			</div>
 			<div
