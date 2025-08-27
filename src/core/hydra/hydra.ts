@@ -571,6 +571,9 @@ export const Hydra = {
 		base = base.div(tsbhBase() ** (Dilute.diluteAmount(0) as number));
 		if (player.hydra.dilute.inDilute) base = base.div(Dilute.totSolNerf());
 		if (base.gte('ee125')) base = base.log10().div(1e125).pow(0.5).mul(1e125).pow10();
+		if (player.nonrecu.studies_bought.includes(14) && base.gte(1e10)) {
+		  base = base.log10().pow(getCurrency(Currencies.NRT).mul(0.01).add(1)).pow10()
+		}
 		if (base.gte('e8.07230472602822538e153')) {
 		  if (!player.nonrecu.studies_bought.includes(13)) base = new Decimal('e8.07230472602822538e153');
 		  else base = Decimal.tetrate(
@@ -578,6 +581,7 @@ export const Hydra = {
 				base.slog(Math.E).sub(ee154slog).div(2).add(ee154slog).toNumber(),
 			);
 		}
+		if (CHALLENGE.inChallenge(1,1)) base = base.min(player.nonrecu.power.cbrt().pow_base(10))
 		return base;
 	},
 	deduceEff(i = 0): Decimal {
@@ -610,6 +614,7 @@ export const Hydra = {
 		if (!CHALLENGE.inChallenge(1, 0)) {
 		  if (player.challenges[1][0].gte(1)) base = base.pow(Dilute.prions().add(1).ln().max(0).add(1).pow(0.5))
 		}
+		if (CHALLENGE.inChallenge(1, 1)) base = base.min(player.nonrecu.power.add(1).log10())
 		return base;
 	},
 	powerExpNerf(): Decimal {
@@ -631,6 +636,7 @@ export const Hydra = {
 		if (player.nonrecu.studies_bought.includes(8)) {
 			base = base.mul(35);
 		}
+		if (CHALLENGE.inChallenge(1,1)) base = base.min(player.nonrecu.power.cbrt().pow_base(10))
 		return base;
 	},
 	powerGain(): Decimal {
@@ -641,7 +647,9 @@ export const Hydra = {
 		if (player.nonrecu.studies_bought.includes(4)) {
 			base = base.mul(1e5).pow(1.05);
 		}
-		return this.powerGainAfterSoftcap2(base).max(0);
+		base = this.powerGainAfterSoftcap2(base).max(0);
+	  if (CHALLENGE.inChallenge(1,1)) base = base.min(player.nonrecu.power.add(1))
+	  return base
 	},
 	powerGainAfterSoftcap(base: Decimal): Decimal {
 		if (base.gte(this.superSoftcapStart()))
@@ -655,7 +663,7 @@ export const Hydra = {
 				.pow10()
 				.pow10()
 				.pow10();
-		
+		if (player.challenges[1][1].gte(1)) base = base.max(10).log10().pow(player.challenges[1][1].pow_base(1.1)).pow10()
 		return base;
 	},
 	powerGainAfterSoftcap2(base: Decimal): Decimal {
@@ -690,6 +698,7 @@ export const Hydra = {
 		if (player.upgrades['613S']) base = base.pow(upgrades['613S'].effect());
 		if (player.milestones.nonrec_3)
 			base = base.root(player.nonrecu.resetTimes.min(25).mul(0.01).add(1));
+		if (player.challenges[1][1].gte(1)) base = base.pow(0.8)
 		return base;
 	},
 	powerGainBase(): Decimal {
@@ -831,6 +840,7 @@ export const Hydra = {
 				.mul(1.698970004336018804)
 				.pow10();
 		if (id == 1 && base.gte(5000)) base = base.sub(4999).log10().add(5000);
+		if (id == 3 && base.gte(1e6)) base = base.div(1e6).log10().add(1).mul(1e6);
 		return base;
 	},
 	deduce(i = 0, bulk = new Decimal(0)): void {
