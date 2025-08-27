@@ -27,9 +27,9 @@ import { unlockedPlots } from '@/core/plot';
 export let diff = 40;
 export let loopInterval: number;
 export let saveInterval: number;
-setTimeout(()=>{
-  saveInterval = setInterval(save, 3000)
-},3000)
+setTimeout(() => {
+	saveInterval = setInterval(save, 3000);
+}, 3000);
 export let backupInterval: number;
 export let ordinalSpeedDerivative = new Decimal(0);
 export let ordinalSpeedDerivative2 = new Decimal(0);
@@ -89,6 +89,9 @@ function enterPlot(i: number) {
 		temp.plotdisplay = i;
 	}
 }
+export function msToTimeshard(diff: number) {
+	return diff / 150000;
+}
 /**
  * 游戏的循环函数（并不是主要的）
  */
@@ -98,25 +101,26 @@ export function gameLoop() {
 	if (diff > 60000) {
 		if (player.options.allowOffline) {
 			simulateTime(diff);
+			stopGameLoop();
+			return;
 		} else {
-			player.timeshard.value += Math.floor(diff / 150000);
+			player.timeshard.value += msToTimeshard(diff);
 		}
 	}
-	if (player.run_a_tick_and_froze) diff = 33;
+	// if (player.run_a_tick_and_froze) diff = 33;
 	if (diff < 0) return;
-	if (!player.run_a_tick_and_froze) player.lastUpdated = Date.now();
-	else player.lastUpdated += 33;
-	try {
-		simulate(diff);
-	} catch (e) {
-		throw e;
-	}
+	// if (!player.run_a_tick_and_froze) player.lastUpdated = Date.now();
+	// else player.lastUpdated += 33;
+	// try {
+	simulate(diff);
+	// } catch (e) {
+	// 	throw e;
+	// }
 	if (player.singularity.stage >= 1) singularity_UI();
-	
+
 	let unlp = unlockedPlots();
-	for(let i = 1;i <= unlp;i++)
-	{
-		if(!player.checkedPlots.includes(i) && temp.plotdisplay == 0) enterPlot(i);
+	for (let i = 1; i <= unlp; i++) {
+		if (!player.checkedPlots.includes(i) && temp.plotdisplay == 0) enterPlot(i);
 	}
 }
 function r(s: number): number {
@@ -149,6 +153,7 @@ function singularity_UI() {
  * @param diff 毫秒数，游戏要运行多少毫秒
  */
 export function simulate(diff: number) {
+	let realtime_diff = diff;
 	if (player.timeshard.openTf && player.timeshard.tf > 0) {
 		if (player.timeshard.tf < diff) {
 			diff += player.timeshard.tf * 2;
@@ -253,7 +258,12 @@ export function simulate(diff: number) {
 		if (upgrades[i] && upgrades[i].keep != null && upgrades[i].keep()) {
 			player.upgrades[i as keyof typeof player.upgrades] = true;
 		}
-		if (upgrades[i] && upgrades[i].auto != null && upgrades[i].auto() && upgrades[i].canAfford()) {
+		if (
+			upgrades[i] &&
+			upgrades[i].auto != null &&
+			upgrades[i].auto() &&
+			upgrades[i].canAfford()
+		) {
 			player.upgrades[i as keyof typeof player.upgrades] = true;
 		}
 	}
@@ -316,6 +326,7 @@ export function simulate(diff: number) {
 	let next2 = feature.Ordinal.speedDeri();
 	ordinalSpeedDerivative2 = next2.sub(last2).div(diff / 1000);
 	checkNaN(player, ['player']);
+	player.lastUpdated += realtime_diff;
 }
 
 function checkNaN<T>(obj: T, path: string[]): T {
