@@ -919,13 +919,16 @@ export const Hydra = {
 	addPower(num: Decimal) {
 		player.hydra.power = player.hydra.power
 			.add(num)
-			.min(player.nonrecu.studies_bought.includes(13) ? Infinity : 'e326649');
+			.min(player.nonrecu.studies_bought.includes(13) ? Infinity : 'e326649')
+			.clampMin(0);
 		player.hydra.totalPower = player.hydra.totalPower
 			.add(num)
-			.min(player.nonrecu.studies_bought.includes(13) ? Infinity : 'e326649');
+			.min(player.nonrecu.studies_bought.includes(13) ? Infinity : 'e326649')
+			.clampMin(0);
 		player.hydra.trueTotalPower = player.hydra.trueTotalPower
 			.add(num)
-			.min(player.nonrecu.studies_bought.includes(13) ? Infinity : 'e326649');
+			.min(player.nonrecu.studies_bought.includes(13) ? Infinity : 'e326649')
+			.clampMin(0);
 	},
 	hydraReset(i = 0): void {
 		if (player.hydra.deduceOrdinal[player.hydra.visiting].eq(0)) return;
