@@ -864,6 +864,7 @@ export const Dilute = {
 			if (player.challenges[1][0].gte(1))
 				base = base.pow(player.challenges[1][0].pow_base(4));
 		}
+		if (player.nonrecu.studies_bought.includes(7)) base = base.pow(10)
 		return base;
 	},
 	/**
