@@ -9,7 +9,7 @@ import { player } from '@/core/save';
 	<div class="main nonrec-chals" align="center">
 		<table>
 			<tr>
-				<TDChallenge v-if="player.nonrecu.studies_bought.includes(5)" :layer="1" :chid="0" ></TDChallenge>
+				<TDChallenge v-if="player.nonrecu.studies_bought.includes(5) || player.challenges[1][0].gt(0)" :layer="1" :chid="0" ></TDChallenge>
 			</tr>
 		</table>
 

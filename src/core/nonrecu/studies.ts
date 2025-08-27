@@ -133,9 +133,9 @@ export const studies = [
 	new Study({
 		id: '42', //7
 		description: '朊病毒增速×10',
-		cost: new Decimal(5),
+		cost: new Decimal(3),
 		canBuy() {
-			return false;
+			return player.challenges[1][0].gt(0) && player.nonrecu.studies_bought.includes(3);
 		},
 	}),
 	new Study({
@@ -230,10 +230,10 @@ export const studies = [
 	}),
 	new Study({
 		id: '73', //18
-		description: '基于本次非递归重置时间提升非九头蛇溶液获取(没做)',
-		cost: new Decimal(5),
+		description: '基于本次非递归重置时间提升九头蛇溶液获取',
+		cost: new Decimal(6),
 		canBuy() {
-			return false;
+			return player.nonrecu.studies_bought.includes(15);
 		},
 	}),
 	new Study({

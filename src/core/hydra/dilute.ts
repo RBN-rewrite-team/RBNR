@@ -808,6 +808,9 @@ export const Dilute = {
 								? trueDiff
 								: diff) / 1000,
 						)
+						.pow(
+						    (player.challenges[1][0].pow_base(4))
+						)
 						.root(this.diluteAmount(8) ? 1000 : 1),
 				)
 				.max(1);
@@ -892,6 +895,7 @@ export const Dilute = {
 			.min(base)
 			.min(ConstantMax)
 			.toNumber();
+		if(player.nonrecu.studies_bought.includes(18)) base *= Number(player.nonrecu.secInThisReset.add(1).ln().mul(0.1).add(1).min(10));
 		let exp = 1;
 		if(player.nonrecu.studies_bought.includes(15)) base *= 1.2, exp *= 1.01;
 		return (deduceMult * base) ** exp;

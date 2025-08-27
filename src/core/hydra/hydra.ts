@@ -606,6 +606,9 @@ export const Hydra = {
 		if (player.nonrecu.studies_bought.includes(8)) {
 			base = base.pow(1.05);
 		}
+		if(player.challenges[1][0].gt(0)) {
+		    base = base.pow(player.hydra.dilute.prions.add(1).ln().add(1).ln());
+		}
 		return base;
 	},
 	powerExpNerf(): Decimal {
