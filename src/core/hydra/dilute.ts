@@ -857,6 +857,8 @@ export const Dilute = {
 		if (player.milestones.dut17) base = base.mul(MEff17());
 		if (CHALLENGE.inChallenge(1, 0)) {
 			base = Decimal.pow(10, 2 + CHALLENGE.amountChallenge(1, 0).floor().toNumber());
+		} else {
+		  if (player.challenges[1][0].gte(1)) base = base.pow(player.challenges[1][0].pow_base(4))
 		}
 		return base;
 	},
