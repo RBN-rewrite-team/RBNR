@@ -651,6 +651,9 @@ export const Hydra = {
 			base = base.mul(1e5).pow(1.05);
 		}
 		base = this.powerGainAfterSoftcap2(base).max(0);
+		if (player.nonrecu.studies_bought.includes(21)) {
+			base = base.clampMin(1).log10().pow(1.1).pow10();
+		}
 		if (CHALLENGE.inChallenge(1, 1)) base = base.min(player.nonrecu.power.add(1));
 		return base;
 	},

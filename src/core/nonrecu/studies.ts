@@ -307,7 +307,7 @@ export const studies = [
 	}),
 	new Study({
 		id: '91', //20
-		description: '九头蛇溶液获取^1.025(没做)',
+		description: '九头蛇溶液获取^1.025',
 		cost: new Decimal(30),
 		canBuy() {
 			return or(19);
@@ -315,7 +315,7 @@ export const studies = [
 	}),
 	new Study({
 		id: '92', //21
-		description: '九头蛇能量获取膨胀1.1(没做)',
+		description: '九头蛇能量获取膨胀1.1',
 		cost: new Decimal(30),
 		canBuy() {
 			return or(19);
