@@ -608,7 +608,7 @@ export const Hydra = {
 			base = base.pow(1.05);
 		}
 		if (!CHALLENGE.inChallenge(1, 0)) {
-		  if (player.challenges[1][0].gte(1)) base = base.pow(Dilute.prions().add(1).ln().max(0).add(1))
+		  if (player.challenges[1][0].gte(1)) base = base.pow(Dilute.prions().add(1).ln().max(0).add(1).pow(0.5))
 		}
 		return base;
 	},

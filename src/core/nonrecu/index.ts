@@ -276,6 +276,7 @@ export const NON_RECURSIVE = {
 			else if (f[1] == DIL_EFF) base = base.log10().pow(f[2]).pow10();
 			else if (f[1] == EXP_EFF) base = base.pow_base(f[2]);
 		}
+		if (base.gte(1e7)) base = base.div(1e7).pow(1/3).mul(1e7)
 		return base;
 	},
 	nonrecEffects(): [Decimal, Decimal] {
