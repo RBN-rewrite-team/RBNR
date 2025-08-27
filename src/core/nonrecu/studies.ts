@@ -187,7 +187,7 @@ export const studies = [
 	}),
 	new Study({
 		id: '52', //9
-		description: '基于当前的非递归能量获得额外的非递归理论(没做)',
+		description: '基于当前的非递归能量获得额外的非递归理论',
 		cost: new Decimal(5),
 		canBuy() {
 			let max = 1
@@ -212,7 +212,7 @@ export const studies = [
 	}),
 	new Study({
 		id: 'NRC2', //11
-		description: '解锁非递归挑战2\t1000九头蛇溶液',
+		description: '解锁非递归挑战2\t4,000,000九头蛇溶液',
 		cost: new Decimal(15),
 		canBuy() {
 			return player.nonrecu.studies_bought.includes(8);
@@ -285,6 +285,9 @@ export const studies = [
 			if (player.nonrecu.studies_bought.includes(19)) base = or(13,14,15), max = 2
 			return base && (sum(16,17,18) < max)
 		},
+		show() {
+		  return player.nonrecu.studies_bought.includes(19)
+		}
 	}),
 	new Study({
 		id: '73', //18
@@ -296,9 +299,6 @@ export const studies = [
 			if (player.nonrecu.studies_bought.includes(19)) base = or(13,14,15), max = 2
 			return base && (sum(16,17,18) < max)
 		},
-		show() {
-		  return player.nonrecu.studies_bought.includes(19)
-		}
 	}),
 	new Study({
 		id: '81', //19
