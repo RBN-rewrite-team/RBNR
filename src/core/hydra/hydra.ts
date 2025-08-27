@@ -575,11 +575,13 @@ export const Hydra = {
 		  base = base.log10().pow(getCurrency(Currencies.NRT).mul(0.01).add(1)).pow10()
 		}
 		if (base.gte('e8.07230472602822538e153')) {
-		  if (!player.nonrecu.studies_bought.includes(13)) base = new Decimal('e8.07230472602822538e153');
-		  else base = Decimal.tetrate(
-				Math.E,
-				base.slog(Math.E).sub(ee154slog).div(2).add(ee154slog).toNumber(),
-			);
+			if (!player.nonrecu.studies_bought.includes(13))
+				base = new Decimal('e8.07230472602822538e153');
+			else
+				base = Decimal.tetrate(
+					Math.E,
+					base.slog(Math.E).sub(ee154slog).div(2).add(ee154slog).toNumber(),
+				);
 		}
 		if (CHALLENGE.inChallenge(1,1)) base = base.min(player.nonrecu.power.cbrt().pow_base(10))
 		return base;
@@ -612,7 +614,8 @@ export const Hydra = {
 			base = base.pow(1.05);
 		}
 		if (!CHALLENGE.inChallenge(1, 0)) {
-		  if (player.challenges[1][0].gte(1)) base = base.pow(Dilute.prions().add(1).ln().max(0).add(1).pow(0.5))
+			if (player.challenges[1][0].gte(1))
+				base = base.pow(Dilute.prions().add(1).ln().max(0).add(1).pow(0.5));
 		}
 		if (CHALLENGE.inChallenge(1, 1)) base = base.min(player.nonrecu.power.add(1).log10())
 		return base;
@@ -654,16 +657,18 @@ export const Hydra = {
 	powerGainAfterSoftcap(base: Decimal): Decimal {
 		if (base.gte(this.superSoftcapStart()))
 			base = base
+				.clampMin(1e10)
 				.log10()
 				.log10()
 				.log10()
-				.div(this.superSoftcapStart().log10().log10().log10())
+				.div(this.superSoftcapStart().clampMin(1e10).log10().log10().log10())
 				.pow(this.powerSoftcapNerf2())
-				.mul(this.superSoftcapStart().log10().log10().log10())
+				.mul(this.superSoftcapStart().clampMin(1e10).log10().log10().log10())
 				.pow10()
 				.pow10()
 				.pow10();
 		if (player.challenges[1][1].gte(1)) base = base.max(10).log10().pow(player.challenges[1][1].pow_base(1.1)).pow10()
+
 		return base;
 	},
 	powerGainAfterSoftcap2(base: Decimal): Decimal {
@@ -672,7 +677,7 @@ export const Hydra = {
 				Math.E,
 				base.slog(Math.E).sub(e326649slog).div(2).add(e326649slog).toNumber(),
 			);
-		
+
 		return base;
 	},
 	superSoftcapStart() {
@@ -754,13 +759,13 @@ export const Hydra = {
 					player.upgrades[66] || player.milestones['dut3']
 						? new Decimal(0)
 						: new Decimal(10).div(
-								player.hydra.totalPower.log10().root(2).sub(10).max(1),
+								player.hydra.totalPower.clampMin(1).log10().root(2).sub(10).max(1),
 							),
 				mul:
 					player.upgrades[66] || player.milestones['dut3']
 						? new Decimal(1)
 						: new Decimal(5).div(
-								player.hydra.totalPower.log10().root(10).max(1).min(5),
+								player.hydra.totalPower.clampMin(1).log10().root(10).max(1).min(5),
 							),
 			};
 		else if (id == 1)
@@ -769,7 +774,7 @@ export const Hydra = {
 					player.upgrades[66] || player.milestones['dut4']
 						? new Decimal(0)
 						: new Decimal(0.2).div(
-								player.hydra.totalPower.log10().root(10).sub(1).max(1),
+								player.hydra.totalPower.clampMin(1).log10().root(10).sub(1).max(1),
 							),
 				mul: new Decimal(1),
 			};
@@ -884,7 +889,7 @@ export const Hydra = {
 		if (player.upgrades[62]) {
 			let NT4Boost = new Decimal(1);
 			if (player.upgrades[65]) NT4Boost = NT4Boost.mul(Hydra.NT4TauEffect());
-			this.addPower(Hydra.hydraPowerPassiveGeneration().mul(diff))
+			this.addPower(Hydra.hydraPowerPassiveGeneration().mul(diff));
 			player.hydra.powerMult[0] = player.hydra.powerMult[0].add(
 				Hydra.deduceEff(0)
 					.mul(player.hydra.deduceOrdinal[0])
@@ -912,12 +917,15 @@ export const Hydra = {
 		}
 	},
 	addPower(num: Decimal) {
-	  player.hydra.power = player.hydra.power
-				.add(num).min(player.nonrecu.studies_bought.includes(13)?Infinity:"e326649")
-			player.hydra.totalPower = player.hydra.totalPower
-				.add(num).min(player.nonrecu.studies_bought.includes(13)?Infinity:"e326649")
-			player.hydra.trueTotalPower = player.hydra.trueTotalPower
-				.add(num).min(player.nonrecu.studies_bought.includes(13)?Infinity:"e326649")
+		player.hydra.power = player.hydra.power
+			.add(num)
+			.min(player.nonrecu.studies_bought.includes(13) ? Infinity : 'e326649');
+		player.hydra.totalPower = player.hydra.totalPower
+			.add(num)
+			.min(player.nonrecu.studies_bought.includes(13) ? Infinity : 'e326649');
+		player.hydra.trueTotalPower = player.hydra.trueTotalPower
+			.add(num)
+			.min(player.nonrecu.studies_bought.includes(13) ? Infinity : 'e326649');
 	},
 	hydraReset(i = 0): void {
 		if (player.hydra.deduceOrdinal[player.hydra.visiting].eq(0)) return;
@@ -925,7 +933,7 @@ export const Hydra = {
 			Hydra.deduceEff(i).mul(player.hydra.deduceOrdinal[i]),
 		);
 		const gain = Hydra.powerGain();
-		this.addPower(gain)
+		this.addPower(gain);
 		player.hydra.deduceProgress[player.hydra.visiting] = new Decimal(0);
 		player.hydra.deduceOrdinal[player.hydra.visiting] = new Decimal(0);
 	},

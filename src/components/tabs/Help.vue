@@ -27,7 +27,7 @@ let highestPage = 0;
 
 <template>
   <div class="main">
-    <div style="display: flex; justify-content: center; align-items: center">
+    <div style="display: flex; justify-content: center; align-items: center; margin-top:5px;">
       <button class="clickable_button" @click="player.help.page = Math.min(Math.max(player.help.page - 1, 1), 1000)">-</button>
       第 {{formatWhole(player.help.page)}} 页
       <button class="clickable_button" @click="nextPage()">+</button>
@@ -272,74 +272,75 @@ let highestPage = 0;
       在<vue-latex expression="\Gamma_0"></vue-latex>后，还有Ackermann 序数 <vue-latex expression="\varphi(1,0,0,0)"></vue-latex>。<br />
       我们可以把<vue-latex expression="\varphi"></vue-latex>函数扩展到任意有限元。
     </div>
-	<div v-else-if="player.help.page == 101">
-		序数折叠函数(OCF)，用另一种方式来枚举不动点。<br />
-		其定义涉及集合论，但行为逻辑可以用非常简单的形式归纳。<br />
-		它的基本形式是<vue-latex expression="\psi(0)=\omega" />，其中的参数每增加1都会让序数乘以<vue-latex expression="\omega" /><br />
-		根据上一条定义，能表达的最大序数是<vue-latex expression="\varepsilon_0" />。<br />
-		随后OCF引入了<vue-latex expression="\Omega" />，它是第一个非递归序数。在OCF的参数末尾的<vue-latex expression="\Omega" />带来一个<vue-latex expression="\Omega" />前运算的不动点。<br />
-		<vue-latex expression="\psi(0)=\omega" /><br />
-		<vue-latex expression="\psi(X+1)=\psi(X)\cdot\omega" /><br />
-		<vue-latex expression="\psi(X*\Omega)=\alpha\mapsto\psi(X*\alpha)FP" />(其中*为加法、乘法、乘方之一)<br />
-		<vue-latex expression="\psi(\sup\ \alpha[n \in N^+])[n]=\psi(\alpha[n])" /><br />
-		以上四条规则构成了一个基本的OCF，它的极限<vue-latex expression="\psi(\varepsilon_{\Omega+1})" />相当于Veblen函数的极限——BHO。<br />
-		稍微修改一下规则，可以炮制出一批这样的OCF。<br />
-		例如，对于第二个非递归序数<vue-latex expression="\Omega_2" />，只需要将<vue-latex expression="\psi(0)" />改成<vue-latex expression="\Omega" />，然后将第三条的<vue-latex expression="\Omega" />改成<vue-latex expression="\Omega_2" />。<br />
-		为了区分，这种OCF表示为<vue-latex expression="\psi_{\Omega_2}(X)" />，它输出<vue-latex expression="\Omega" />的各种不动点。<br />
-		随后，将这个新的OCF的输出结果套入原来的OCF中，极限就被扩展了。<br />
-		为了简化，如果存在<vue-latex expression="\Omega_{X}" />，则<vue-latex expression="\psi(X*\Omega_{X})=\psi(\psi_{\Omega_X}(X*\Omega_X))" /><br />
-		除了<vue-latex expression="\psi_{\Omega_2}(X)" />，还有<vue-latex expression="\psi_{\Omega_3}(X)" />，<vue-latex expression="\psi_{\Omega_4}(X)" />......<br />
-		<vue-latex expression="\Omega_\omega=\sup \Omega_{\omega[n]}" /><br />
-		将其放入OCF中得到的序数是很多记号的极限，也是FGH和SGH的第一个追平点，称为BO。自BO以后，序数分析步入了反射序数时代。<br />
-	</div>
-	<div v-else-if="player.help.page == 102">
-		经过简单的扩展，OCF可以在BO以上继续提升，但这样的提升收效甚微，此处暂且不表。<br />
-		任意递归序数层级的OCF的极限是<vue-latex expression="\psi(\Omega_\Omega)=\alpha\mapsto\psi(\Omega_\alpha)FP" />，它是扩展鸟之记号的极限，被称为BIO。<br />
-		显然可以通过一个更高层的序数来折叠这一过程，因此OCF引入了递归不可达序数，第一个这种序数是<vue-latex expression="I" />。<br />
-		关于它的OCF的定义与<vue-latex expression="\Omega_X" />类似，但<vue-latex expression="\psi_I(X)=\Omega_X" />，因此<vue-latex expression="\psi(I)=\psi(\alpha\mapsto\Omega_{\alpha}FP)" />。<br />
-		<vue-latex expression="\psi(I)" />被称为扩展BO，也就是EBO，它是单独使用<vue-latex expression="\Omega" />的OCF的最终极限。<br />
-		需要注意的是<vue-latex expression="I" />并不能表示为<vue-latex expression="\beta\mapsto\Omega_\beta"></vue-latex>不动点，而是容许点（AP），一个容许序数作为不动点时就是容许点。<br />
-		容许序数不能用比它更小的序数进行递归运算得到。<br />
-		例如<vue-latex expression="\Omega_1"></vue-latex>就无法用比<vue-latex expression="\Omega_1"></vue-latex>更小的序数递归得到。每个<vue-latex expression="\Omega_{\beta+1}"></vue-latex>都是容许序数（<vue-latex expression="\Omega_\omega"></vue-latex>并不是容许序数）。<br>
-		在<vue-latex expression="I" />之上，还可以定义关于更高的递归不可达序数<vue-latex expression="I_X" />的OCF，它的对应规则是<vue-latex expression="\psi_{I_{X+1}}(Y)=\Omega_{I_X+Y}" />。<br />
-		折叠这些OCF的序数是<vue-latex expression="I(1,0)" />，<vue-latex expression="\psi_{I(1,0)}(X)=I_X" /><br />
-		如此，使用Veblen函数的表示法，可以表达最高<vue-latex expression="\psi_{I(1@(1@(...)))}" />的序数，它相当于BMS的<vue-latex expression="(0,0,0)(1,1,1)(2,1,1)(3,1,1)(4,1,0)(5,2,0)" />，被称为SRO。<br />
-		我们可以用一个更高层次的OCF来折叠<vue-latex expression="I(a,b,c...)" />，它就是<vue-latex expression="M" />。<br />
-		<vue-latex expression="\psi_M(X)=\Omega_X" /><br />
-		<vue-latex expression="\psi_M(X*M)=\alpha\mapsto\psi_M(X*\alpha)AP" />(其中*为加法、乘法、乘方之一)<br />
-		<vue-latex expression="\psi_M(\sup\ \alpha[n \in N^+])[n]=\psi_M(\alpha[n])" /><br />
-		例如<vue-latex expression="\psi_M(M)=\beta\mapsto\Omega_\beta \mathrm{ ap.}=I" /><br />
-   
-		含有<vue-latex expression="M" />的OCF可以像普通OCF折叠Veblen一样折叠<vue-latex expression="I" />的Veblen。<br />
-	</div><div v-else-if="player.help.page == 103">
-		以下是<vue-latex expression="\psi_M"></vue-latex>函数的例子<br />
-    <vue-latex expression="\psi_M(M)=I" display-mode/>
-    <vue-latex expression="\psi_M(M+1)=\Omega_{I+1}" display-mode/>
-    <vue-latex expression="\psi_M(M2)=I_2" display-mode/>
-    <vue-latex expression="\psi_M(M3)=I_3" display-mode/>
-    <vue-latex expression="\psi_M(M\Omega)=I_\Omega" display-mode/>
-    <vue-latex expression="\psi_M(M^2)=I(1,0)" display-mode/>
-    <vue-latex expression="\psi_M(M^2+M)=I_{I(1,0)+1}" display-mode/>
-    <vue-latex expression="\psi_M(M^22)=I(1,1)" display-mode/>
-    <vue-latex expression="\psi_M(M^3)=I(2,0)" display-mode/>
-    <vue-latex expression="\psi_M(M^\omega)=I(\omega,0)" display-mode/>
-    <vue-latex expression="\psi_M(M^M)=I(1,0,0)" display-mode/>
-    <vue-latex expression="\psi_M(M^{M^2})=I(1,0,0,0)" display-mode/>
-    <vue-latex expression="\psi_M(M^{M^M})=I(1@(1,0))" display-mode/>
-    <vue-latex expression="\psi_M(\varepsilon_{M+1})=I(1@(1@(1@...))))" display-mode/>
-		</div><div v-else-if="player.help.page == 104">
-		有<vue-latex expression="\Omega"></vue-latex>有<vue-latex expression="\Omega_2"></vue-latex>，有M也有<vue-latex expression="M_2"></vue-latex>。<br />
-		通过取马洛序数的不动点，我们得到<vue-latex expression="M(1,0)" />，之后通过同样的Veblen系统得到一个马洛序数的BHO。<br />
-		达到了新的BHO之后，根据以往的经验，我们可以用一个更强的马洛OCF来折叠普通马洛序数的一系列OCF。<br />
-		这样的OCF的基本规则是<vue-latex expression="\psi_M(1;0)(X)=M_X" />。<br />
-		同样的，也会有<vue-latex expression="M(2;0)" />，<vue-latex expression="M(3;0)" />，<vue-latex expression="M(1,0;0)" />直到一个马洛点的BHO。<br />
-		这个高层的Veblen结构以<vue-latex expression="\psi_N(X*N)=\alpha\mapsto\psi_N(X*\alpha)MP" />来折叠，MP表示马洛点，只有一个不动点本身是马洛序数时才能被称为马洛点。<br />
-		于是，以这样的Veblen+OCF不断互相左脚踩右脚上天的形式，可以得到形形色色乱七八糟的折叠结构，进行梳理之后可以得到反射序数系统。<br />
-		没做完。<br />
-		</div>
-  <div v-if="player.help.page==777">
-    <DeveloperMode></DeveloperMode>
-  </div>
+    <div v-else-if="player.help.page == 101">
+      序数折叠函数(OCF)，用另一种方式来枚举不动点。<br />
+      其定义涉及集合论，但行为逻辑可以用非常简单的形式归纳。<br />
+      它的基本形式是<vue-latex expression="\psi(0)=\omega" />，其中的参数每增加1都会让序数乘以<vue-latex expression="\omega" /><br />
+      根据上一条定义，能表达的最大序数是<vue-latex expression="\varepsilon_0" />。<br />
+      随后OCF引入了<vue-latex expression="\Omega" />，它是第一个非递归序数。在OCF的参数末尾的<vue-latex expression="\Omega" />带来一个<vue-latex expression="\Omega" />前运算的不动点。<br />
+      <vue-latex expression="\psi(0)=\omega" /><br />
+      <vue-latex expression="\psi(X+1)=\psi(X)\cdot\omega" /><br />
+      <vue-latex expression="\psi(X*\Omega)=\alpha\mapsto\psi(X*\alpha)FP" />(其中*为加法、乘法、乘方之一)<br />
+      <vue-latex expression="\psi(\sup\ \alpha[n \in N^+])[n]=\psi(\alpha[n])" /><br />
+      以上四条规则构成了一个基本的OCF，它的极限<vue-latex expression="\psi(\varepsilon_{\Omega+1})" />相当于Veblen函数的极限——BHO。<br />
+      稍微修改一下规则，可以炮制出一批这样的OCF。<br />
+      例如，对于第二个非递归序数<vue-latex expression="\Omega_2" />，只需要将<vue-latex expression="\psi(0)" />改成<vue-latex expression="\Omega" />，然后将第三条的<vue-latex expression="\Omega" />改成<vue-latex expression="\Omega_2" />。<br />
+      为了区分，这种OCF表示为<vue-latex expression="\psi_{\Omega_2}(X)" />，它输出<vue-latex expression="\Omega" />的各种不动点。<br />
+      随后，将这个新的OCF的输出结果套入原来的OCF中，极限就被扩展了。<br />
+      为了简化，如果存在<vue-latex expression="\Omega_{X}" />，则<vue-latex expression="\psi(X*\Omega_{X})=\psi(\psi_{\Omega_X}(X*\Omega_X))" /><br />
+      除了<vue-latex expression="\psi_{\Omega_2}(X)" />，还有<vue-latex expression="\psi_{\Omega_3}(X)" />，<vue-latex expression="\psi_{\Omega_4}(X)" />......<br />
+      <vue-latex expression="\Omega_\omega=\sup \Omega_{\omega[n]}" /><br />
+      将其放入OCF中得到的序数是很多记号的极限，也是FGH和SGH的第一个追平点，称为BO。自BO以后，序数分析步入了反射序数时代。<br />
+    </div>
+    <div v-else-if="player.help.page == 102">
+      经过简单的扩展，OCF可以在BO以上继续提升，但这样的提升收效甚微，此处暂且不表。<br />
+      任意递归序数层级的OCF的极限是<vue-latex expression="\psi(\Omega_\Omega)=\alpha\mapsto\psi(\Omega_\alpha)FP" />，它是扩展鸟之记号的极限，被称为BIO。<br />
+      显然可以通过一个更高层的序数来折叠这一过程，因此OCF引入了递归不可达序数，第一个这种序数是<vue-latex expression="I" />。<br />
+      关于它的OCF的定义与<vue-latex expression="\Omega_X" />类似，但<vue-latex expression="\psi_I(X)=\Omega_X" />，因此<vue-latex expression="\psi(I)=\psi(\alpha\mapsto\Omega_{\alpha}FP)" />。<br />
+      <vue-latex expression="\psi(I)" />被称为扩展BO，也就是EBO，它是单独使用<vue-latex expression="\Omega" />的OCF的最终极限。<br />
+      需要注意的是<vue-latex expression="I" />并不能表示为<vue-latex expression="\beta\mapsto\Omega_\beta"></vue-latex>不动点，而是容许点（AP），一个容许序数作为不动点时就是容许点。<br />
+      容许序数不能用比它更小的序数进行递归运算得到。<br />
+      例如<vue-latex expression="\Omega_1"></vue-latex>就无法用比<vue-latex expression="\Omega_1"></vue-latex>更小的序数递归得到。每个<vue-latex expression="\Omega_{\beta+1}"></vue-latex>都是容许序数（<vue-latex expression="\Omega_\omega"></vue-latex>并不是容许序数）。<br>
+      在<vue-latex expression="I" />之上，还可以定义关于更高的递归不可达序数<vue-latex expression="I_X" />的OCF，它的对应规则是<vue-latex expression="\psi_{I_{X+1}}(Y)=\Omega_{I_X+Y}" />。<br />
+      折叠这些OCF的序数是<vue-latex expression="I(1,0)" />，<vue-latex expression="\psi_{I(1,0)}(X)=I_X" /><br />
+      如此，使用Veblen函数的表示法，可以表达最高<vue-latex expression="\psi_{I(1@(1@(...)))}" />的序数，它相当于BMS的<vue-latex expression="(0,0,0)(1,1,1)(2,1,1)(3,1,1)(4,1,0)(5,2,0)" />，被称为SRO。<br />
+      我们可以用一个更高层次的OCF来折叠<vue-latex expression="I(a,b,c...)" />，它就是<vue-latex expression="M" />。<br />
+      <vue-latex expression="\psi_M(X)=\Omega_X" /><br />
+      <vue-latex expression="\psi_M(X*M)=\alpha\mapsto\psi_M(X*\alpha)AP" />(其中*为加法、乘法、乘方之一)<br />
+      <vue-latex expression="\psi_M(\sup\ \alpha[n \in N^+])[n]=\psi_M(\alpha[n])" /><br />
+      例如<vue-latex expression="\psi_M(M)=\beta\mapsto\Omega_\beta \mathrm{ ap.}=I" /><br />
+    
+      含有<vue-latex expression="M" />的OCF可以像普通OCF折叠Veblen一样折叠<vue-latex expression="I" />的Veblen。<br />
+    </div><div v-else-if="player.help.page == 103">
+      以下是<vue-latex expression="\psi_M"></vue-latex>函数的例子<br />
+      <vue-latex expression="\psi_M(M)=I" display-mode/>
+      <vue-latex expression="\psi_M(M+1)=\Omega_{I+1}" display-mode/>
+      <vue-latex expression="\psi_M(M2)=I_2" display-mode/>
+      <vue-latex expression="\psi_M(M3)=I_3" display-mode/>
+      <vue-latex expression="\psi_M(M\Omega)=I_\Omega" display-mode/>
+      <vue-latex expression="\psi_M(M^2)=I(1,0)" display-mode/>
+      <vue-latex expression="\psi_M(M^2+M)=I_{I(1,0)+1}" display-mode/>
+      <vue-latex expression="\psi_M(M^22)=I(1,1)" display-mode/>
+      <vue-latex expression="\psi_M(M^3)=I(2,0)" display-mode/>
+      <vue-latex expression="\psi_M(M^\omega)=I(\omega,0)" display-mode/>
+      <vue-latex expression="\psi_M(M^M)=I(1,0,0)" display-mode/>
+      <vue-latex expression="\psi_M(M^{M^2})=I(1,0,0,0)" display-mode/>
+      <vue-latex expression="\psi_M(M^{M^M})=I(1@(1,0))" display-mode/>
+      <vue-latex expression="\psi_M(\varepsilon_{M+1})=I(1@(1@(1@...))))" display-mode/>
+    </div>
+    <div v-else-if="player.help.page == 104">
+      有<vue-latex expression="\Omega"></vue-latex>有<vue-latex expression="\Omega_2"></vue-latex>，有M也有<vue-latex expression="M_2"></vue-latex>。<br />
+      通过取马洛序数的不动点，我们得到<vue-latex expression="M(1,0)" />，之后通过同样的Veblen系统得到一个马洛序数的BHO。<br />
+      达到了新的BHO之后，根据以往的经验，我们可以用一个更强的马洛OCF来折叠普通马洛序数的一系列OCF。<br />
+      这样的OCF的基本规则是<vue-latex expression="\psi_M(1;0)(X)=M_X" />。<br />
+      同样的，也会有<vue-latex expression="M(2;0)" />，<vue-latex expression="M(3;0)" />，<vue-latex expression="M(1,0;0)" />直到一个马洛点的BHO。<br />
+      这个高层的Veblen结构以<vue-latex expression="\psi_N(X*N)=\alpha\mapsto\psi_N(X*\alpha)MP" />来折叠，MP表示马洛点，只有一个不动点本身是马洛序数时才能被称为马洛点。<br />
+      于是，以这样的Veblen+OCF不断互相左脚踩右脚上天的形式，可以得到形形色色乱七八糟的折叠结构，进行梳理之后可以得到反射序数系统。<br />
+      没做完。<br />
+    </div>
+    <div v-if="player.help.page==777">
+      <DeveloperMode></DeveloperMode>
+    </div>
     <div v-else-if="player.help.page >= 4321">
       已达到当前版本残局：4321页。
       <!--<br>{{highestPage}}-!-->

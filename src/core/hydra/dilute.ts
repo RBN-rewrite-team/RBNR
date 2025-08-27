@@ -39,10 +39,10 @@ function diluteAmount(id: IntClosedRange<0, 8>): number | boolean {
 export { diluteAmount };
 
 export function tsbhBase(): number {
-    if(player.nonrecu.studies_bought.includes(10)) {
-        return 3;
-    }
-    return 5;
+	if (player.nonrecu.studies_bought.includes(10)) {
+		return 3;
+	}
+	return 5;
 }
 
 export function milestoneDut5Eff(): Decimal {
@@ -68,6 +68,7 @@ export function milestoneDut6Eff(): Decimal {
 	if (player.hydra.dilute.solution < 2050000) return new Decimal(1);
 	return Decimal.log10(player.hydra.dilute.solution - 2050000 + 1)
 		.add(1)
+		.clampMin(1)
 		.log10()
 		.add(1)
 		.pow(0.3);
@@ -76,8 +77,10 @@ export function milestoneDut6Eff(): Decimal {
 export function milestoneDut7Eff(): Decimal {
 	return player.hydra.trueTotalPower
 		.max('e3500')
+		.clampMin(1)
 		.log10()
 		.sub(3500 - 1)
+		.clampMin(1)
 		.log10()
 		.add(1)
 		.pow(player.upgrades['612S'] ? 1 : 0.1);
@@ -85,7 +88,7 @@ export function milestoneDut7Eff(): Decimal {
 
 export function milestoneDut16Eff(): Decimal {
 	return player.hydra.dilute.prions
-		.clampMin(0)
+		.clampMin(1)
 		.log10()
 		.add(1)
 		.pow(player.milestones.dut18 ? player.hydra.milestoneDut5Eff : 1);
@@ -594,7 +597,7 @@ export const Dilute = {
 			displayName: 'M-Dilute-14',
 			description: 'U5-2的效果+1000%',
 			req: true,
-			reqDescription: '2,261,250 九头蛇能量 ',
+			reqDescription: '2,261,250 九头蛇溶液 ',
 			requirement: new Decimal(2261250),
 			get canDone() {
 				return player.hydra.dilute.solution >= 2261250;
@@ -858,7 +861,8 @@ export const Dilute = {
 		if (CHALLENGE.inChallenge(1, 0)) {
 			base = Decimal.pow(10, 2 + CHALLENGE.amountChallenge(1, 0).floor().toNumber());
 		} else {
-		  if (player.challenges[1][0].gte(1)) base = base.pow(player.challenges[1][0].pow_base(4))
+			if (player.challenges[1][0].gte(1))
+				base = base.pow(player.challenges[1][0].pow_base(4));
 		}
 		return base;
 	},
@@ -896,7 +900,7 @@ export const Dilute = {
 			.toNumber();
 		if (player.nonrecu.studies_bought.includes(18)) base *= player.nonrecu.secInThisReset.add(1).ln().mul(0.2).add(1).toNumber()
 		let exp = 1;
-		if(player.nonrecu.studies_bought.includes(15)) base *= 1.2, exp *= 1.01;
+		if (player.nonrecu.studies_bought.includes(15)) ((base *= 1.2), (exp *= 1.01));
 		return (deduceMult * base) ** exp;
 	},
 	solutionEff() {

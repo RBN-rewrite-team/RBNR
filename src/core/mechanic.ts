@@ -116,7 +116,7 @@ export const BUYABLES = {
 			useclass = 'upgrade_buttonbig_unable';
 		let str = '<div class="' + useclass + '">';
 		str +=
-			'<span sytle="font-weight: bold">' +
+			'<b>' +
 			buyables[id].name +
 			'(' +
 			formatWhole(player.buyables[id]) +
@@ -125,7 +125,7 @@ export const BUYABLES = {
 				if (a.gte(1)) return '+' + formatWhole(a);
 				return '';
 			})() +
-			')</span><br>';
+			')</b><br>';
 		if (!this.lock(id).unlocked && player.buyables[id].eq(0)) {
 			str += '暂未解锁<br>';
 			const req = buyables[id].requirements();

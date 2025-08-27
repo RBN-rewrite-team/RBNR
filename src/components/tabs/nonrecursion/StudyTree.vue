@@ -237,7 +237,7 @@ onMounted(()=>initConnectors(connectorsRef))
 .studies-container {
 	position: relative;
 	min-width: 1300px;
-	min-height: 800px
+	min-height: 800px;
 }
 
 .studies_row {
