@@ -40,7 +40,7 @@ const clickStudy= (studyid: number)=> {
 </script>
 
 <template>
-	<div class="study">
+	<div class="study" v-if="study.show()">
 		<div class="study-name">{{ study.id }}</div>
 		<div class="study-desc" @click="clickStudy(props.study_id)" :class="useClass()">
 			<div v-html="study.description"></div>
