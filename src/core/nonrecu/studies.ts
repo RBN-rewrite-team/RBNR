@@ -65,6 +65,9 @@ export class Study {
 	get chalID() {
 		return this.config.chal_id ?? -1;
 	}
+	show() {
+	  return this.config.show?.() ?? true
+	}
 }
 
 export const studies = [
@@ -163,6 +166,9 @@ export const studies = [
 		canBuy() {
 			return false;
 		},
+		show() {
+		  return player.nonrecu.studies_bought.includes(19)
+		}
 	}),
 	new Study({
 		id: '53', //10
@@ -208,6 +214,9 @@ export const studies = [
 		canBuy() {
 			return false;
 		},
+		show() {
+		  return player.nonrecu.studies_bought.includes(19)
+		}
 	}),
 	new Study({
 		id: '63', //15
@@ -240,10 +249,13 @@ export const studies = [
 		canBuy() {
 			return false;
 		},
+		show() {
+		  return player.nonrecu.studies_bought.includes(19)
+		}
 	}),
 	new Study({
 		id: '81', //19
-		description: '你可以任意购买5~7行的任意一个非递归研究 (没做)',
+		description: '你可以任意购买5~7行的任意两个非递归研究，解锁一列5~7行的升级树',
 		cost: new Decimal(15),
 		canBuy() {
 			return false;
@@ -470,6 +482,8 @@ export const updateAllConnectors = () => {
 
 		studyConnections.value.forEach((connection) => {
 			if (!connectorsRef.value) return;
+			if (!studies[connection.from].show()) return
+			if (!studies[connection.to].show()) return
 			const fromStudy = studyRefs.value.get(connection.from);
 			const toStudy = studyRefs.value.get(connection.to);
 
