@@ -11,7 +11,6 @@ import { player } from '@/core/save';
 		<table>
 			<tr>
 				<TDChallenge v-if="player.challenges[1][0].gte(1) || player.nonrecu.studies_bought.includes(5)" :layer="1" :chid="0" ></TDChallenge>
-				<TDChallenge v-if="player.challenges[1][1].gte(1) || player.nonrecu.studies_bought.includes(11)" :layer="1" :chid="1" ></TDChallenge>
 			</tr>
 		</table>
 
