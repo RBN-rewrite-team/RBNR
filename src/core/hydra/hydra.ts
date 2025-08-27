@@ -9,6 +9,7 @@ import { upgrades, buyables } from '../mechanic';
 import { Dilute, milestoneDut16Eff, milestoneDut6Eff, milestoneDut7Eff, tsbhBase } from './dilute';
 import type { IntClosedRange } from 'type-fest';
 import { NON_RECURSIVE } from '../nonrecu';
+import { CHALLENGE } from '../challenge';
 
 const e326649slog = new Decimal('e326649').slog(Math.E);
 const ee154slog = new Decimal('e8.07230472602822538e153').slog(Math.E);
@@ -606,6 +607,9 @@ export const Hydra = {
 		if (player.nonrecu.studies_bought.includes(8)) {
 			base = base.pow(1.05);
 		}
+		if (!CHALLENGE.inChallenge(1, 0)) {
+		  if (player.challenges[1][0].gte(1)) base = base.pow(Dilute.prions().add(1).ln().max(0).add(1))
+		}
 		return base;
 	},
 	powerExpNerf(): Decimal {
@@ -651,6 +655,7 @@ export const Hydra = {
 				.pow10()
 				.pow10()
 				.pow10();
+		
 		return base;
 	},
 	powerGainAfterSoftcap2(base: Decimal): Decimal {
@@ -659,6 +664,7 @@ export const Hydra = {
 				Math.E,
 				base.slog(Math.E).sub(e326649slog).div(2).add(e326649slog).toNumber(),
 			);
+		
 		return base;
 	},
 	superSoftcapStart() {
