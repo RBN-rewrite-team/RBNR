@@ -1,112 +1,8 @@
 <script setup lang="ts">
-import StudyTree from './StudyTree.vue';
 import { formatWhole } from '@/utils/format';
-import { addTheories, canBuyTheories, resetTheories, theoriesCost } from '@/core/nonrecu/studies';
+import { initConnectors, studyRefs, updateAllConnectors, registerStudyRef, addTheories, canBuyTheories, resetTheories, theoriesCost } from '@/core/nonrecu/studies';
 import SingleStudy from './SingleStudy.vue';
-import { ref, onMounted, nextTick, watch, type ComponentPublicInstance } from 'vue';
-
-const studyRefs = ref<Map<number, InstanceType<typeof SingleStudy>>>(new Map());
-const connectorsRef = ref<HTMLElement | null>(null);
-
-const studyConnections = [
-	{ from: 0, to: 2 },
-	{ from: 1, to: 2 },
-	{ from: 1, to: 3 },
-	{ from: 0, to: 3 },
-	{ from: 2, to: 4 },
-	{ from: 3, to: 4 },
-	{ from: 3, to: 5 },
-	{ from: 4, to: 6 },
-	{ from: 5, to: 7 },
-	{ from: 6, to: 8 },
-	{ from: 6, to: 9 },
-	{ from: 6, to: 10 },
-	{ from: 8, to: 11 },
-	{ from: 10, to: 12 },
-	{ from: 8, to: 13 },
-	{ from: 9, to: 14 },
-	{ from: 10, to: 15 },
-	{ from: 13, to: 16 },
-	{ from: 14, to: 17 },
-	{ from: 15, to: 18 },
-	{ from: 16, to: 19 },
-	{ from: 17, to: 19 },
-	{ from: 18, to: 19 },
-	{ from: 19, to: 20 },
-	{ from: 19, to: 21 },
-	{ from: 20, to: 22 },
-	{ from: 21, to: 22 },
-	{ from: 22, to: 23 },
-	{ from: 22, to: 24 },
-	{ from: 22, to: 25 },
-	{ from: 23, to: 26 },
-	{ from: 24, to: 26 },
-	{ from: 25, to: 26 },
-];
-
-const registerStudyRef = (id: number, el: any | InstanceType<typeof SingleStudy> | null) => {
-	if (el) {
-		studyRefs.value.set(id, el);
-	} else {
-		studyRefs.value.delete(id);
-	}
-};
-
-const updateAllConnectors = () => {
-	nextTick(() => {
-		if (!connectorsRef.value) return;
-
-		connectorsRef.value.innerHTML = '';
-
-		studyConnections.forEach((connection) => {
-			if (!connectorsRef.value) return;
-			const fromStudy = studyRefs.value.get(connection.from);
-			const toStudy = studyRefs.value.get(connection.to);
-
-			if (!fromStudy || !toStudy) return;
-
-			const fromEl = fromStudy.$el.children[1]! as HTMLElement;
-			const toEl = toStudy.$el.children[1]! as HTMLElement;
-
-			if (!fromEl || !toEl) return;
-
-			const fromRect = fromEl.getBoundingClientRect();
-			const toRect = toEl.getBoundingClientRect();
-			const containerRect = connectorsRef.value.getBoundingClientRect();
-
-			const startX = (fromRect.left + fromRect.right) / 2 - containerRect.left;
-			const startY = (fromRect.top + fromRect.bottom) / 2 - containerRect.top;
-			const endX = (toRect.left + toRect.right) / 2 - containerRect.left;
-			const endY = (toRect.top + toRect.bottom) / 2 - containerRect.top;
-
-			const dx = endX - startX;
-			const dy = endY - startY;
-			const length = Math.sqrt(dx * dx + dy * dy);
-			const angle = (Math.atan2(dy, dx) * 180) / Math.PI;
-
-			const lineContainer = document.createElement('div');
-			lineContainer.className = 'connection-line';
-			lineContainer.style.position = 'absolute';
-			lineContainer.style.left = `${startX}px`;
-			lineContainer.style.top = `${startY}px`;
-			lineContainer.style.width = `${length}px`;
-			lineContainer.style.transform = `rotate(${angle}deg)`;
-			lineContainer.style.transformOrigin = '0 0';
-			lineContainer.style.zIndex = '1';
-			lineContainer.style.pointerEvents = 'none';
-
-			const line = document.createElement('div');
-			line.className = 'line';
-			line.style.height = '20px';
-			line.style.width = '100%';
-			line.style.background = 'linear-gradient(90deg, #e5c380, #d4af37)';
-			line.style.boxShadow = '0 0 10px rgba(229, 195, 128, 0.7)';
-
-			lineContainer.appendChild(line);
-			connectorsRef.value.appendChild(lineContainer);
-		});
-	});
-};
+import { onMounted, watch, ref } from 'vue';
 
 onMounted(() => {
 	updateAllConnectors();
@@ -118,8 +14,12 @@ watch(
 	() => {
 		updateAllConnectors();
 	},
-	{ deep: true },
+	  { deep: true },
 );
+
+const connectorsRef = ref<HTMLElement | null>(null);
+
+onMounted(()=>initConnectors(connectorsRef))
 </script>
 
 <template>
@@ -337,6 +237,7 @@ watch(
 .studies-container {
 	position: relative;
 	min-width: 1300px;
+	min-height: 800px
 }
 
 .studies_row {
