@@ -5,6 +5,7 @@ import Decimal from 'break_eternity.js';
 import { isTester } from '@/core/save/testing.ts';
 import { MILESTONES } from '../mechanic';
 import { Currencies } from '../currencies';
+import { CHALLENGE } from '../challenge';
 
 export const NON_RECURSIVE = {
 	initMechanics() {
@@ -204,6 +205,7 @@ export const NON_RECURSIVE = {
 		if (!player.milestones.nonrec_12) player.hydra.dilute.solution = 0;
 		else if (player.milestones.nonrec_14) {}
 		else player.hydra.dilute.solution *= 0.01;
+		if (CHALLENGE.inChallenge(1,1)) player.hydra.dilute.solution = 0
 		if (!player.milestones.nonrec_15) player.hydra.dilute.highestApocalypse = new Decimal(0);
 		if (player.nonrecu.studies_bought.includes(0)) {
 			player.hydra.power = player.hydra.power.add(20);
@@ -239,7 +241,7 @@ export const NON_RECURSIVE = {
 			new Decimal(player.hydra.dilute.solution / 2.55e8),
 		]);
 		factor.push([
-			'九头蛇能量因子',
+			'BMS推演进度因子',
 			MUL_EFF,
 			player.hydra.deduceOrdinal[0].max(1).log(4).max(1).log(4).div(256),
 		]);
