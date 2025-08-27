@@ -898,7 +898,6 @@ export const Dilute = {
 			.min(base)
 			.min(ConstantMax)
 			.toNumber();
-		if (player.nonrecu.studies_bought.includes(18)) base *= player.nonrecu.secInThisReset.add(1).ln().mul(0.2).add(1).toNumber()
 		let exp = 1;
 		if (player.nonrecu.studies_bought.includes(15)) ((base *= 1.2), (exp *= 1.01));
 		return (deduceMult * base) ** exp;

@@ -28,21 +28,4 @@ export const NONREC_CHALS: SingleChallenge[] = [
 		  return player.nonrecu.studies_bought.includes(5)
 		}
 	},
-	{
-		name: '能量折叠',
-		get descEasy() {
-			return '九头蛇能量的指数上限为log10(非递归能量+1)，额外乘数上限为10^(非递归能量^1/3)，推演乘数上限为10^(非递归能量^1/3)，九头蛇能量上限为(非递归能量+1)<br><span style="color: red">进入挑战将重置九头蛇溶液</span><br>奖励：首次完成时，九头蛇能量的二重软上限效果×80%，每次挑战完成使九头蛇能量指数^1.1(在二重软上限后)'
-		},
-		get descHard() { return this.descEasy },
-		loop() {
-			if(player.hydra.dilute.solution > player.challenges[1][1].pow_base(10).mul(4e6).toNumber())
-			{
-			    player.challengein = [-1, -1];
-			    player.challenges[1][1] = player.challenges[1][1].add(1).min(5);
-			}
-		},
-		canEnter() {
-		  return player.nonrecu.studies_bought.includes(11)
-		},
-	},
 ] as const;
