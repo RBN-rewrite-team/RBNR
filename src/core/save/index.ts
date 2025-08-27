@@ -12,6 +12,7 @@ import { stopGameLoop } from '../game-loop';
 import { OrdinalUtils } from '@/utils/ordinal';
 import { calculate } from '@/utils/bms-analyze';
 import { displayOrd } from '@/lib/ordinal';
+import { createDeepValidatedReactive } from '../check-decimal-nan';
 
 const version = 8 as const;
 const zero = new Decimal(0);
@@ -535,7 +536,7 @@ export function loadSaves() {
 		console.error('Cannot load save');
 		throw error;
 	}
-	player = reactive(player);
+	player = createDeepValidatedReactive(player);
 }
 
 export function save() {
@@ -562,7 +563,7 @@ export function import_file(): void {
 				try {
 					player = getInitialPlayerData();
 					loadFromString(save);
-					player = reactive(player);
+					player = createDeepValidatedReactive(player);
 					savefunc();
 					location.reload();
 				} catch {
