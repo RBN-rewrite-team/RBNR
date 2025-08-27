@@ -58,7 +58,7 @@ function gainFactor(): string {
 					}}</b
 					>非递归理论，还剩下{{ formatWhole(getCurrency(Currencies.NRT)) }}。
 				</p>
-				<div style="height: 400px; overflow: auto">
+				<div style="height: 1000px; overflow: auto">
 				<StudyTree />
 				</div>
 			</template>
@@ -67,6 +67,7 @@ function gainFactor(): string {
 </template>
 
 <style lang="scss" scoped>
+@use "sass:color";
 .studies_row {
 	display: flex;
 	justify-content: center;
@@ -84,5 +85,8 @@ function gainFactor(): string {
 	border: 2px solid rgb(245, 193, 73);
 	color: #c98300;
 	font-size: 24px;
+	&:hover{
+		background: var(--hover-color);
+	}
 }
 </style>
