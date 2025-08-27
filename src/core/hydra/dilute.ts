@@ -864,7 +864,7 @@ export const Dilute = {
 			if (player.challenges[1][0].gte(1))
 				base = base.pow(player.challenges[1][0].pow_base(4));
 		}
-		if (player.nonrecu.studies_bought.includes(7)) base = base.pow(10)
+		if (player.nonrecu.studies_bought.includes(7)) base = base.pow(10);
 		return base;
 	},
 	/**
@@ -899,9 +899,11 @@ export const Dilute = {
 			.min(base)
 			.min(ConstantMax)
 			.toNumber();
-		if (player.nonrecu.studies_bought.includes(18)) base *= player.nonrecu.secInThisReset.add(1).ln().mul(0.2).add(1).toNumber()
+		if (player.nonrecu.studies_bought.includes(18))
+			base *= player.nonrecu.secInThisReset.add(1).ln().mul(0.2).add(1).toNumber();
 		let exp = 1;
 		if (player.nonrecu.studies_bought.includes(15)) ((base *= 1.2), (exp *= 1.01));
+		if (player.nonrecu.studies_bought.includes(20)) exp *= 1.025;
 		return (deduceMult * base) ** exp;
 	},
 	solutionEff() {

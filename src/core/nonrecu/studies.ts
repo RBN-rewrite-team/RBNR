@@ -7,36 +7,36 @@ import { NON_RECURSIVE } from '.';
 import { NONREC_CHALS } from './non-recursion-challenges';
 import { CHALLENGE } from '../challenge';
 import { ref, nextTick, type ComponentPublicInstance, computed, type Ref } from 'vue';
-import StudyTree from "@/components/tabs/nonrecursion/StudyTree.vue"
-import SingleStudy from "@/components/tabs/nonrecursion/SingleStudy.vue"
+import StudyTree from '@/components/tabs/nonrecursion/StudyTree.vue';
+import SingleStudy from '@/components/tabs/nonrecursion/SingleStudy.vue';
 
-const StudyTreeRef = ref(null)
+const StudyTreeRef = ref(null);
 
 function or(...ids: (number | boolean)[]): boolean {
-  let result = false
-  for (const id of ids) {
-    if (typeof id === "number") result = result || player.nonrecu.studies_bought.includes(id)
-    else result = result || id
-  }
-  return result
+	let result = false;
+	for (const id of ids) {
+		if (typeof id === 'number') result = result || player.nonrecu.studies_bought.includes(id);
+		else result = result || id;
+	}
+	return result;
 }
 
 function and(...ids: (number | boolean)[]): boolean {
-  let result = true
-  for (const id of ids) {
-    if (typeof id === "number") result = result && player.nonrecu.studies_bought.includes(id)
-    else result = result && id
-  }
-  return result
+	let result = true;
+	for (const id of ids) {
+		if (typeof id === 'number') result = result && player.nonrecu.studies_bought.includes(id);
+		else result = result && id;
+	}
+	return result;
 }
 
 function sum(...ids: (number | boolean)[]): number {
-  let result = 0
-  for (const id of ids) {
-    if (typeof id === "number") result += Number(player.nonrecu.studies_bought.includes(id))
-    else result += Number(id)
-  }
-  return result
+	let result = 0;
+	for (const id of ids) {
+		if (typeof id === 'number') result += Number(player.nonrecu.studies_bought.includes(id));
+		else result += Number(id);
+	}
+	return result;
 }
 
 type StudyConfig = {
@@ -47,7 +47,7 @@ type StudyConfig = {
 	effect?(): Decimal;
 	effectDesc?(): string;
 	onBought?(): any;
-	show?(): boolean
+	show?(): boolean;
 } & (
 	| {
 			isChallenge: boolean;
@@ -94,7 +94,7 @@ export class Study {
 		return this.config.chal_id ?? -1;
 	}
 	show() {
-	  return this.config.show?.() ?? true
+		return this.config.show?.() ?? true;
 	}
 }
 
@@ -179,10 +179,9 @@ export const studies = [
 		description: '九头蛇能量获取×35, 九头蛇能量获取指数^1.25',
 		cost: new Decimal(3),
 		canBuy() {
-			let max = 1
-			if (player.nonrecu.studies_bought.includes(19))
-			  max = 2
-			return (sum(8,9,10) < max) && or(6)
+			let max = 1;
+			if (player.nonrecu.studies_bought.includes(19)) max = 2;
+			return sum(8, 9, 10) < max && or(6);
 		},
 	}),
 	new Study({
@@ -190,24 +189,22 @@ export const studies = [
 		description: '基于当前的非递归能量获得额外的非递归理论',
 		cost: new Decimal(5),
 		canBuy() {
-			let max = 1
-			if (player.nonrecu.studies_bought.includes(19))
-			  max = 2
-			return (sum(8,9,10) < max) && or(6)
+			let max = 1;
+			if (player.nonrecu.studies_bought.includes(19)) max = 2;
+			return sum(8, 9, 10) < max && or(6);
 		},
 		show() {
-		  return player.nonrecu.studies_bought.includes(19)
-		}
+			return player.nonrecu.studies_bought.includes(19);
+		},
 	}),
 	new Study({
 		id: '53', //10
 		description: '稀释I的底数从5降低到3',
 		cost: new Decimal(2),
 		canBuy() {
-			let max = 1
-			if (player.nonrecu.studies_bought.includes(19))
-			  max = 2
-			return (sum(8,9,10) < max) && or(6)
+			let max = 1;
+			if (player.nonrecu.studies_bought.includes(19)) max = 2;
+			return sum(8, 9, 10) < max && or(6);
 		},
 	}),
 	new Study({
@@ -233,10 +230,10 @@ export const studies = [
 		description: '移除九头蛇能量和BMS推演的硬上限',
 		cost: new Decimal(4),
 		canBuy() {
-			let base = player.nonrecu.studies_bought.includes(8)
-			  , max = 1;
-			if (player.nonrecu.studies_bought.includes(19)) base = or(8,9,10), max = 2
-			return base && (sum(13,14,15) < max)
+			let base = player.nonrecu.studies_bought.includes(8),
+				max = 1;
+			if (player.nonrecu.studies_bought.includes(19)) ((base = or(8, 9, 10)), (max = 2));
+			return base && sum(13, 14, 15) < max;
 		},
 	}),
 	new Study({
@@ -244,24 +241,24 @@ export const studies = [
 		description: '每个剩余的非递归理论令推演速度膨胀+0.01',
 		cost: new Decimal(4),
 		canBuy() {
-			let base = player.nonrecu.studies_bought.includes(9)
-			  , max = 1;
-			if (player.nonrecu.studies_bought.includes(19)) base = or(8,9,10), max = 2
-			return base && (sum(13,14,15) < max)
+			let base = player.nonrecu.studies_bought.includes(9),
+				max = 1;
+			if (player.nonrecu.studies_bought.includes(19)) ((base = or(8, 9, 10)), (max = 2));
+			return base && sum(13, 14, 15) < max;
 		},
 		show() {
-		  return player.nonrecu.studies_bought.includes(19)
-		}
+			return player.nonrecu.studies_bought.includes(19);
+		},
 	}),
 	new Study({
 		id: '63', //15
 		description: '九头蛇溶液获取x1.2, ^1.01',
 		cost: new Decimal(6),
 		canBuy() {
-			let base = player.nonrecu.studies_bought.includes(10)
-			  , max = 1;
-			if (player.nonrecu.studies_bought.includes(19)) base = or(8,9,10), max = 2
-			return base && (sum(13,14,15) < max)
+			let base = player.nonrecu.studies_bought.includes(10),
+				max = 1;
+			if (player.nonrecu.studies_bought.includes(19)) ((base = or(8, 9, 10)), (max = 2));
+			return base && sum(13, 14, 15) < max;
 		},
 	}),
 	new Study({
@@ -269,10 +266,10 @@ export const studies = [
 		description: '基于本次非递归重置时间提升非递归能量获取',
 		cost: new Decimal(5),
 		canBuy() {
-			let base = player.nonrecu.studies_bought.includes(13)
-			  , max = 1;
-			if (player.nonrecu.studies_bought.includes(19)) base = or(13,14,15), max = 2
-			return base && (sum(16,17,18) < max)
+			let base = player.nonrecu.studies_bought.includes(13),
+				max = 1;
+			if (player.nonrecu.studies_bought.includes(19)) ((base = or(13, 14, 15)), (max = 2));
+			return base && sum(16, 17, 18) < max;
 		},
 	}),
 	new Study({
@@ -280,24 +277,24 @@ export const studies = [
 		description: '基于本次非递归重置时间提升非递归研究52的效果',
 		cost: new Decimal(3),
 		canBuy() {
-			let base = player.nonrecu.studies_bought.includes(14)
-			  , max = 1;
-			if (player.nonrecu.studies_bought.includes(19)) base = or(13,14,15), max = 2
-			return base && (sum(16,17,18) < max)
+			let base = player.nonrecu.studies_bought.includes(14),
+				max = 1;
+			if (player.nonrecu.studies_bought.includes(19)) ((base = or(13, 14, 15)), (max = 2));
+			return base && sum(16, 17, 18) < max;
 		},
 		show() {
-		  return player.nonrecu.studies_bought.includes(19)
-		}
+			return player.nonrecu.studies_bought.includes(19);
+		},
 	}),
 	new Study({
 		id: '73', //18
 		description: '基于本次非递归重置时间提升九头蛇溶液获取',
 		cost: new Decimal(5),
 		canBuy() {
-			let base = player.nonrecu.studies_bought.includes(15)
-			  , max = 1;
-			if (player.nonrecu.studies_bought.includes(19)) base = or(13,14,15), max = 2
-			return base && (sum(16,17,18) < max)
+			let base = player.nonrecu.studies_bought.includes(15),
+				max = 1;
+			if (player.nonrecu.studies_bought.includes(19)) ((base = or(13, 14, 15)), (max = 2));
+			return base && sum(16, 17, 18) < max;
 		},
 	}),
 	new Study({
@@ -305,23 +302,23 @@ export const studies = [
 		description: '你可以任意购买5~7行的任意两个非递归研究，解锁一列5~7行的升级树',
 		cost: new Decimal(15),
 		canBuy() {
-			return or(16,17,18);
+			return or(16, 17, 18);
 		},
 	}),
 	new Study({
 		id: '91', //20
-		description: '九头蛇溶液获取^1.025(没做)',
-		cost: new Decimal(7),
+		description: '九头蛇溶液获取^1.025',
+		cost: new Decimal(30),
 		canBuy() {
-			return false;
+			return or(19);
 		},
 	}),
 	new Study({
 		id: '92', //21
-		description: '九头蛇能量获取膨胀1.1(没做)',
-		cost: new Decimal(7),
+		description: '九头蛇能量获取膨胀1.1',
+		cost: new Decimal(30),
 		canBuy() {
-			return false;
+			return or(19);
 		},
 	}),
 	new Study({
@@ -381,7 +378,7 @@ export function buyStudies(id: number) {
 	player.nonrecu.spentTheories = player.nonrecu.spentTheories.add(study.cost);
 	player.nonrecu.studies_bought.push(id);
 	study.onBought();
-	updateAllConnectors()
+	updateAllConnectors();
 }
 
 export function theoriesCost(id: 0 | 1 | 2) {
@@ -452,65 +449,65 @@ export function resetTheories() {
 	player.nonrecu.spentTheories = new Decimal(0);
 	NON_RECURSIVE.reset();
 	player.challengein = [-1, -1];
-	updateAllConnectors()
+	updateAllConnectors();
 }
 
 export const studyRefs = ref<Map<number, InstanceType<typeof SingleStudy>>>(new Map());
 export let connectorsRef: Ref<HTMLElement>;
 
-const studyConnections = computed(()=>{
-  let connections = [
-	  { from: 0, to: 2 },
-	  { from: 1, to: 2 },
-	  { from: 1, to: 3 },
-	  { from: 0, to: 3 },
-	  { from: 2, to: 4 },
-	  { from: 3, to: 4 },
-	  { from: 3, to: 5 },
-	  { from: 4, to: 6 },
-	  { from: 5, to: 7 },
-	  { from: 6, to: 8 },
-	  { from: 6, to: 9 },
-	  { from: 6, to: 10 },
-	  { from: 8, to: 11 },
-	  { from: 10, to: 12 },
-	  { from: 8, to: 13 },
-	  { from: 9, to: 14 },
-	  { from: 10, to: 15 },
-	  { from: 13, to: 16 },
-	  { from: 14, to: 17 },
-	  { from: 15, to: 18 },
-	  { from: 16, to: 19 },
-	  { from: 17, to: 19 },
-	  { from: 18, to: 19 },
-	  { from: 19, to: 20 },
-	  { from: 19, to: 21 },
-	  { from: 20, to: 22 },
-	  { from: 21, to: 22 },
-	  { from: 22, to: 23 },
-	  { from: 22, to: 24 },
-	  { from: 22, to: 25 },
-	  { from: 23, to: 26 },
-	  { from: 24, to: 26 },
-	  { from: 25, to: 26 },
-  ]
-  if (player.nonrecu.studies_bought.includes(19)) {
-    connections.push(
-      { from: 8, to: 14 },
-      { from: 8, to: 15 },
-      { from: 9, to: 15 },
-      { from: 9, to: 13 },
-      { from: 10, to: 13 },
-      { from: 10, to: 14 },
-      { from: 13, to: 17 },
-      { from: 13, to: 18 },
-      { from: 14, to: 16 },
-      { from: 14, to: 18 },
-      { from: 15, to: 16 },
-      { from: 15, to: 17 },
-    )
-  }
-  return connections
+const studyConnections = computed(() => {
+	let connections = [
+		{ from: 0, to: 2 },
+		{ from: 1, to: 2 },
+		{ from: 1, to: 3 },
+		{ from: 0, to: 3 },
+		{ from: 2, to: 4 },
+		{ from: 3, to: 4 },
+		{ from: 3, to: 5 },
+		{ from: 4, to: 6 },
+		{ from: 5, to: 7 },
+		{ from: 6, to: 8 },
+		{ from: 6, to: 9 },
+		{ from: 6, to: 10 },
+		{ from: 8, to: 11 },
+		{ from: 10, to: 12 },
+		{ from: 8, to: 13 },
+		{ from: 9, to: 14 },
+		{ from: 10, to: 15 },
+		{ from: 13, to: 16 },
+		{ from: 14, to: 17 },
+		{ from: 15, to: 18 },
+		{ from: 16, to: 19 },
+		{ from: 17, to: 19 },
+		{ from: 18, to: 19 },
+		{ from: 19, to: 20 },
+		{ from: 19, to: 21 },
+		{ from: 20, to: 22 },
+		{ from: 21, to: 22 },
+		{ from: 22, to: 23 },
+		{ from: 22, to: 24 },
+		{ from: 22, to: 25 },
+		{ from: 23, to: 26 },
+		{ from: 24, to: 26 },
+		{ from: 25, to: 26 },
+	];
+	if (player.nonrecu.studies_bought.includes(19)) {
+		connections.push(
+			{ from: 8, to: 14 },
+			{ from: 8, to: 15 },
+			{ from: 9, to: 15 },
+			{ from: 9, to: 13 },
+			{ from: 10, to: 13 },
+			{ from: 10, to: 14 },
+			{ from: 13, to: 17 },
+			{ from: 13, to: 18 },
+			{ from: 14, to: 16 },
+			{ from: 14, to: 18 },
+			{ from: 15, to: 16 },
+			{ from: 15, to: 17 },
+		);
+	}
+	return connections;
 });
 
 export const registerStudyRef = (id: number, el: any | InstanceType<typeof SingleStudy> | null) => {
@@ -529,8 +526,8 @@ export const updateAllConnectors = () => {
 
 		studyConnections.value.forEach((connection) => {
 			if (!connectorsRef.value) return;
-			if (!studies[connection.from].show()) return
-			if (!studies[connection.to].show()) return
+			if (!studies[connection.from].show()) return;
+			if (!studies[connection.to].show()) return;
 			const fromStudy = studyRefs.value.get(connection.from);
 			const toStudy = studyRefs.value.get(connection.to);
 
@@ -580,5 +577,5 @@ export const updateAllConnectors = () => {
 };
 
 export const initConnectors = (elem: Ref<any>) => {
-  connectorsRef = elem
-}
+	connectorsRef = elem;
+};
