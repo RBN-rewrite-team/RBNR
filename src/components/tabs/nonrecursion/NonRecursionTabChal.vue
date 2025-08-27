@@ -10,7 +10,7 @@ import { player } from '@/core/save';
 	  在非递归挑战中，溶剂II将增加U5-S系列的价格<br>
 		<table>
 			<tr>
-				<TDChallenge v-if="player.nonrecu.studies_bought.includes(5)" :layer="1" :chid="0" ></TDChallenge>
+				<TDChallenge v-if="player.challenges[1][0].gte(1) || player.nonrecu.studies_bought.includes(5)" :layer="1" :chid="0" ></TDChallenge>
 			</tr>
 		</table>
 

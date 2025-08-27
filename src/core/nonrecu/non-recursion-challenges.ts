@@ -23,5 +23,8 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			    player.challenges[1][0] = player.challenges[1][0].add(1).min(5);
 			}
 		},
+		canEnter() {
+		  return player.nonrecu.studies_bought.includes(5)
+		}
 	},
 ] as const;
