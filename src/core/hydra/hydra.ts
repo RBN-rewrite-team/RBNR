@@ -6,7 +6,7 @@ import { Upgrade, UpgradeWithEffect } from '../upgrade';
 import { CurrencyRequirement, type Requirement } from '../requirements';
 import { Buyable } from '../buyable';
 import { upgrades, buyables } from '../mechanic';
-import { Dilute, milestoneDut16Eff, milestoneDut6Eff, milestoneDut7Eff } from './dilute';
+import { Dilute, milestoneDut16Eff, milestoneDut6Eff, milestoneDut7Eff, tsbhBase } from './dilute';
 import type { IntClosedRange } from 'type-fest';
 import { NON_RECURSIVE } from '../nonrecu';
 
@@ -567,7 +567,7 @@ export const Hydra = {
 			else base = base.pow(upgrades['615S'].effect());
 		}
 		if (Dilute.diluteAmount(3) > 0) base = base.mul(Hydra.NT4TauEffect());
-		base = base.div(5 ** (Dilute.diluteAmount(0) as number));
+		base = base.div(tsbhBase() ** (Dilute.diluteAmount(0) as number));
 		if (player.hydra.dilute.inDilute) base = base.div(Dilute.totSolNerf());
 		if (base.gte('ee125')) base = base.log10().div(1e125).pow(0.5).mul(1e125).pow10();
 		if (base.gte('e8.07230472602822538e153')) {

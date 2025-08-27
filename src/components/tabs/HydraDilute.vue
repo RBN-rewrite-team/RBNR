@@ -2,7 +2,7 @@
 import { player, feature } from '../../core/global.ts';
 import { format, formatWhole } from '@/utils/format';
 import Slider from '../Slider.vue';
-import { Dilute } from '@/core/hydra/dilute.ts';
+import { Dilute, tsbhBase } from '@/core/hydra/dilute.ts';
 import { computed, ref } from 'vue';
 import TDUpgrade from '../TDUpgrade.vue';
 import TRMilestone from '../TRMilestone.vue';
@@ -151,7 +151,7 @@ function delPreset(preset: string) {
 									</div>
 									<div>
 										推演速度和乘数积累速度变为<sup>1</sup>/<sub>{{
-											5 ** Dilute.diluteAmountOutside(0)
+											tsbhBase() ** Dilute.diluteAmountOutside(0)
 										}}</sub>
 									</div>
 									<Slider

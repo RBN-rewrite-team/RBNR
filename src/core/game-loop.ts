@@ -163,6 +163,7 @@ export function simulate(diff: number) {
 	let pre_cardinal_diff = diff;
 
 	if (player.nonrecu.studies_bought.includes(1)) pre_cardinal_diff *= 2;
+	player.nonrecu.secInThisReset = player.nonrecu.secInThisReset.add(pre_cardinal_diff / 1000);
 	qolLoop();
 	CHALLENGE.challengeLoop();
 	if (player.singularity.stage < 11) {

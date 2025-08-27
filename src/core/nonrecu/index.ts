@@ -211,6 +211,7 @@ export const NON_RECURSIVE = {
 			player.hydra.trueTotalPower = player.hydra.trueTotalPower.add(20);
 			player.hydra.dilute.solution = player.hydra.dilute.solution + 20;
 		}
+		player.nonrecu.secInThisReset = new Decimal(0);
 	},
 	resetable() {
 		return (
@@ -254,6 +255,9 @@ export const NON_RECURSIVE = {
 			]);
 		if (player.nonrecu.studies_bought.includes(13))
 			factor.push(['九头蛇能量', MUL_EFF, player.hydra.power.max("e326649").log10().div(326649)]);
+		if (player.nonrecu.studies_bought.includes(16)) {
+		    factor.push(['非递归研究71', MUL_EFF, player.nonrecu.secInThisReset.add(1).mul(10).pow(2).sub(99).root(2).pow(0.75).div(2).add(1)]);
+		}
 		return factor;
 	},
 	gain(): Decimal {

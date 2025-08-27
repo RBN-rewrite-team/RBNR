@@ -206,6 +206,7 @@ export interface Player {
 		studies_bought: number[];
 		theories: [Decimal, Decimal, Decimal];
 		spentTheories: Decimal;
+		secInThisReset: Decimal;
 	};
 	backup?: Omit<Player, 'backup'> | null;
 	foundNaN: boolean;
@@ -383,6 +384,7 @@ function getInitialPlayerData(): Player {
 			studies_bought: [],
 			theories: [zero, zero, zero],
 			spentTheories: zero,
+			secInThisReset: zero,
 		},
 		foundNaN: false,
 		checkedPlots: [],
