@@ -26,7 +26,7 @@ import { unlockedPlots } from '@/core/plot';
  */
 export let diff = 40;
 export let loopInterval: number;
-export let saveInterval;
+export let saveInterval: number;
 setTimeout(()=>{
   saveInterval = setInterval(save, 3000)
 },3000)
