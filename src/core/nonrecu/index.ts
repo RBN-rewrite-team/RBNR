@@ -235,10 +235,12 @@ export const NON_RECURSIVE = {
 			EXP_EFF = 4;
 		let factor = [];
 		factor.push(['基础值', ADD_EFF, new Decimal(1)]);
+	  let solEff = new Decimal(player.hydra.dilute.solution / 2.55e8)
+	  if (solEff.gte(3.5)) solEff = solEff.sub(2.5).log10().add(3.5)
 		factor.push([
 			'九头蛇溶液因子',
 			MUL_EFF,
-			new Decimal(player.hydra.dilute.solution / 2.55e8),
+			solEff,
 		]);
 		factor.push([
 			'BMS推演进度因子',
