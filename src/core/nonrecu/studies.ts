@@ -39,8 +39,6 @@ function sum(...ids: (number | boolean)[]): number {
   return result
 }
 
-window.sum = sum
-
 type StudyConfig = {
 	id: string;
 	description: string;
