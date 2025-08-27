@@ -18,7 +18,7 @@ export const NONREC_CHALS: SingleChallenge[] = [
 				Dilute.diluteReset();
 				player.hydra.dilute.prions = new Decimal(1);
 			}
-			if(player.hydra.power.gte('e326649'))
+			if(player.hydra.power.gte(new Decimal(326649).pow(player.challenges[1][0].add(1)).pow10()))
 			{
 			    player.challengein = [-1, -1];
 			    player.challenges[1][0] = player.challenges[1][0].add(1).min(5);
