@@ -171,7 +171,7 @@ export const studies = [
 		description: '朊病毒增速×10',
 		cost: new Decimal(5),
 		canBuy() {
-			return false;
+			return player.challenges[1][0].gte(2);
 		},
 	}),
 	new Study({
