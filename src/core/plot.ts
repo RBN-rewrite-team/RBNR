@@ -1,5 +1,10 @@
 import { player } from './save';
-
+const LOG_ALPHA_ZERO =
+	'<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>α</mi></msub><mo stretchy="false">(</mo><mn>0</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\log_{\alpha}(0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.0573em;"><span style="top:-2.4559em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0037em;">α</span></span></span></span></span><span class="vlist-s">&ZeroWidthSpace;</span></span><span class="vlist-r"><span class="vlist" style="height:0.2441em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord">0</span><span class="mclose">)</span></span></span></span>';
+const FRAC_1_0 =
+	'<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mn>0</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{1}{0}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">&ZeroWidthSpace;</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>';
+const LN_NEG_X =
+	'<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ln</mi><mo>⁡</mo><mo stretchy="false">(</mo><mo>−</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\ln(-x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">ln</span><span class="mopen">(</span><span class="mord">−</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>';
 export function unlockedPlots() {
 	let a = 1;
 	if (player.stat.chapter >= 0) {
@@ -161,35 +166,41 @@ export const plots = [
 		'天文学家\t是的，我们天文学家百分百确定这件事，整个天空都是同一个生命。',
 		'Numerorum\t（如果这样，我的使命或许可以……）',
 		'天文学家\t差不多就这样了吧，你继续向前吧。这座高塔上有很多攀登者，有些还在试图突破暴君们的阻拦。',
-		'天文学家\t比如说一个叫VeryRDefie的人，爬着爬着被<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mi>α</mi></msub><mo stretchy="false">(</mo><mn>0</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\log_{\alpha}(0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.0573em;"><span style="top:-2.4559em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0037em;">α</span></span></span></span></span><span class="vlist-s">&ZeroWidthSpace;</span></span><span class="vlist-r"><span class="vlist" style="height:0.2441em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord">0</span><span class="mclose">)</span></span></span></span>感染了ω病毒，快要死了。',
+		'天文学家\t比如说一个叫VeryRDefie的人，爬着爬着被' +
+			LOG_ALPHA_ZERO +
+			'感染了ω病毒，快要死了。',
 	],
 	[
-	'Numerorum通过了1次挑战',
-'天文学家\t看来你离高塔的顶端更近了一步。',
-'天文学家离开了。',
-'Numerorum\t看来在这里，朊病毒不仅不会给我帮助，反而会置我于死地。',
-'旁边爬上来了一个人，看起来很紧张。',
-'Numerorum\t你是谁？',
-'???\tVeryRDefie\t我叫VeryRDefie。',
-'Numerorum\t嗯？你就是刚刚天文学家说的那个……',
-'VeryRDefie\t对，要不是我机智，就死在那个可恶的陷阱里面了。',
-'VeryRDefie\t你叫什么名字？',
-'Numerorum\t我叫Numerorum，这陷阱到底是个什么情况？',
-'VeryRDefie\t高塔里这个部位被九头蛇布置了一大堆这样的东西，有些是1/0，有些是ln(-x)，你要小心。',
-'VeryRDefie\t尤其是ω病毒，非常恐怖。如果遇到了，基本上就是必死的局面。',
-'Numerorum\t我看到墙上写了一些字……这些是不是……',
-'墙上写着一行字，依稀能辨认出是一个攀登者在这里遭遇了不幸。',
-'VeryRDefie观察了一下，若有所思。',
-'VeryRDefie\t这个是那个人所拥有的九头蛇能量突然变成了负数。这种也基本上没救了。',
-'VeryRDefie\t之前非递归挑战1和序数前的指数就出现了ω病毒。',
-'Numerorum\t啊？这么危险？！而且居然扩散到了序数之塔外。',
-'VeryRDefie\t我和几个同伴已经把它们清理得差不多了，不过还是要小心。',
-'VeryRDefie\t另外，朊病毒在挑战中不可能帮助你，这些挑战都需要你自力更生。',
-'VeryRDefie\t 但是，在你靠自己的能力突破挑战后，你也会拥有更强大的研究。',
-'VeryRDefie展示了新的非递归研究。',
-'Numerorum\t这些东西我觉得很不错。',
-'Numerorum\t对了，你说你的同伴……是谁？',
-'VeryRDefie\t他们在别的地方。你应该都能遇到。',
+		'Numerorum通过了1次挑战',
+		'天文学家\t看来你离高塔的顶端更近了一步。',
+		'天文学家离开了。',
+		'Numerorum\t看来在这里，朊病毒不仅不会给我帮助，反而会置我于死地。',
+		'旁边爬上来了一个人，看起来很紧张。',
+		'Numerorum\t你是谁？',
+		'???\tVeryRDefie\t我叫VeryRDefie。',
+		'Numerorum\t嗯？你就是刚刚天文学家说的那个……',
+		'VeryRDefie\t对，要不是我机智，就死在那个可恶的陷阱里面了。',
+		'VeryRDefie\t你叫什么名字？',
+		'Numerorum\t我叫Numerorum，这陷阱到底是个什么情况？',
+		'VeryRDefie\t高塔里这个部位被九头蛇布置了一大堆这样的东西，有些是' +
+			FRAC_1_0 +
+			'，有些是' +
+			LN_NEG_X +
+			'，你要小心。',
+		'VeryRDefie\t尤其是ω病毒，非常恐怖。如果遇到了，基本上就是必死的局面。',
+		'Numerorum\t我看到墙上写了一些字……这些是不是……',
+		'墙上写着一行字，依稀能辨认出是一个攀登者在这里遭遇了不幸。',
+		'VeryRDefie观察了一下，若有所思。',
+		'VeryRDefie\t这个是那个人所拥有的九头蛇能量突然变成了负数。这种也基本上没救了。',
+		'VeryRDefie\t之前非递归挑战1和序数前的指数就出现了ω病毒。',
+		'Numerorum\t啊？这么危险？！而且居然扩散到了序数之塔外。',
+		'VeryRDefie\t我和几个同伴已经把它们清理得差不多了，不过还是要小心。',
+		'VeryRDefie\t另外，朊病毒在挑战中不可能帮助你，这些挑战都需要你自力更生。',
+		'VeryRDefie\t 但是，在你靠自己的能力突破挑战后，你也会拥有更强大的研究。',
+		'VeryRDefie展示了新的非递归研究。',
+		'Numerorum\t这些东西我觉得很不错。',
+		'Numerorum\t对了，你说你的同伴……是谁？',
+		'VeryRDefie\t他们在别的地方。你应该都能遇到。',
 	],
 ];
 export function plotLength(id: number): number {
