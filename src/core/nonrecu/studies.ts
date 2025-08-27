@@ -152,7 +152,7 @@ export const studies = [
 		},
 	}),
 	new Study({
-		id: '52',
+		id: '52', //9
 		description: '基于本次非递归重置内将获得的非递归能量获得额外的非递归理论(没做)',
 		cost: new Decimal(5),
 		canBuy() {
@@ -160,15 +160,20 @@ export const studies = [
 		},
 	}),
 	new Study({
-		id: '53',
-		description: '稀释I的底数从5降低到3(没做)',
+		id: '53', //10
+		description: '稀释I的底数从5降低到3',
 		cost: new Decimal(2),
 		canBuy() {
-			return false;
+			return (
+				!(
+					player.nonrecu.studies_bought.includes(8) ||
+					player.nonrecu.studies_bought.includes(9)
+				) && player.nonrecu.studies_bought.includes(6)
+			);
 		},
 	}),
 	new Study({
-		id: 'NRC2',
+		id: 'NRC2', //11
 		description: '解锁非递归挑战2(没做)',
 		cost: new Decimal(15),
 		canBuy() {
@@ -176,7 +181,7 @@ export const studies = [
 		},
 	}),
 	new Study({
-		id: 'NRC3',
+		id: 'NRC3', //12
 		description: '解锁非递归挑战3(没做)',
 		cost: new Decimal(20),
 		canBuy() {
@@ -184,15 +189,15 @@ export const studies = [
 		},
 	}),
 	new Study({
-		id: '61',
+		id: '61', //13
 		description: '移除九头蛇能量和BMS推演的硬上限',
 		cost: new Decimal(4),
 		canBuy() {
-			return player.nonrecu.studies_bought.includes[8];
+			return player.nonrecu.studies_bought.includes(8);
 		},
 	}),
 	new Study({
-		id: '62',
+		id: '62', //14
 		description: '每个剩余的非递归理论令推演速度膨胀+0.01(没做)',
 		cost: new Decimal(4),
 		canBuy() {
@@ -200,23 +205,23 @@ export const studies = [
 		},
 	}),
 	new Study({
-		id: '63',
-		description: '稀释升级价格^0.75(没做)',
+		id: '63', //15
+		description: '九头蛇溶液获取x1.2, ^1.01',
 		cost: new Decimal(6),
 		canBuy() {
-			return false;
+			return player.nonrecu.studies_bought.includes(10);
 		},
 	}),
 	new Study({
-		id: '71',
-		description: '基于本次非递归重置时间提升非递归能量获取(没做)',
+		id: '71', //16
+		description: '基于本次非递归重置时间提升非递归能量获取',
 		cost: new Decimal(5),
 		canBuy() {
-			return false;
+			return player.nonrecu.studies_bought.includes(13);
 		},
 	}),
 	new Study({
-		id: '72',
+		id: '72', //17
 		description: '基于本次非递归重置时间提升非递归研究52的效果(没做)',
 		cost: new Decimal(3),
 		canBuy() {
@@ -224,7 +229,7 @@ export const studies = [
 		},
 	}),
 	new Study({
-		id: '73',
+		id: '73', //18
 		description: '基于本次非递归重置时间提升非九头蛇溶液获取(没做)',
 		cost: new Decimal(5),
 		canBuy() {
@@ -232,7 +237,7 @@ export const studies = [
 		},
 	}),
 	new Study({
-		id: '81',
+		id: '81', //19
 		description: '可以同时购买第5行三岔路的两个分支 (没做)',
 		cost: new Decimal(15),
 		canBuy() {
@@ -240,16 +245,16 @@ export const studies = [
 		},
 	}),
 	new Study({
-		id: '91',
-		description: '九头蛇溶液获取^1.15(没做)',
+		id: '91', //20
+		description: '九头蛇溶液获取^1.025(没做)',
 		cost: new Decimal(7),
 		canBuy() {
 			return false;
 		},
 	}),
 	new Study({
-		id: '92',
-		description: '九头蛇能量获取^1.1(没做)',
+		id: '92', //21
+		description: '九头蛇能量获取膨胀1.1(没做)',
 		cost: new Decimal(7),
 		canBuy() {
 			return false;

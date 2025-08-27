@@ -38,6 +38,13 @@ function diluteAmount(id: IntClosedRange<0, 8>): number | boolean {
 }
 export { diluteAmount };
 
+export function tsbhBase(): number {
+    if(player.nonrecu.studies_bought.includes(10)) {
+        return 3;
+    }
+    return 5;
+}
+
 export function milestoneDut5Eff(): Decimal {
 	if (!Dilute.diluteAmount(6) && !player.milestones.nonrec_7) return new Decimal(1);
 	return player.hydra.power
@@ -885,7 +892,9 @@ export const Dilute = {
 			.min(base)
 			.min(ConstantMax)
 			.toNumber();
-		return deduceMult * base;
+		let exp = 1;
+		if(player.nonrecu.studies_bought.includes(15)) base *= 1.2, exp *= 1.01;
+		return (deduceMult * base) ** exp;
 	},
 	solutionEff() {
 		let eff1 = new Decimal(getCurrency(Currencies.SOLUTION).pow(0.5)).max(1); //推演速度
