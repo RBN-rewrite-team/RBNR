@@ -597,7 +597,7 @@ export const Dilute = {
 			displayName: 'M-Dilute-14',
 			description: 'U5-2的效果+1000%',
 			req: true,
-			reqDescription: '2,261,250 九头蛇能量 ',
+			reqDescription: '2,261,250 九头蛇溶液 ',
 			requirement: new Decimal(2261250),
 			get canDone() {
 				return player.hydra.dilute.solution >= 2261250;
