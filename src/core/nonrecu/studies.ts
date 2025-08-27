@@ -285,6 +285,9 @@ export const studies = [
 			if (player.nonrecu.studies_bought.includes(19)) base = or(13,14,15), max = 2
 			return base && (sum(16,17,18) < max)
 		},
+		show() {
+		  return player.nonrecu.studies_bought.includes(19)
+		}
 	}),
 	new Study({
 		id: '73', //18
@@ -296,9 +299,6 @@ export const studies = [
 			if (player.nonrecu.studies_bought.includes(19)) base = or(13,14,15), max = 2
 			return base && (sum(16,17,18) < max)
 		},
-		show() {
-		  return player.nonrecu.studies_bought.includes(19)
-		}
 	}),
 	new Study({
 		id: '81', //19
