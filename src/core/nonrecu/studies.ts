@@ -12,6 +12,33 @@ import SingleStudy from "@/components/tabs/nonrecursion/SingleStudy.vue"
 
 const StudyTreeRef = ref(null)
 
+function or(...ids: (number | boolean)[]): boolean {
+  let result = false
+  for (const id of ids) {
+    if (typeof id === "number") result = result || player.nonrecu.studies_bought.includes(id)
+    else result = result || id
+  }
+  return result
+}
+
+function and(...ids: (number | boolean)[]): boolean {
+  let result = true
+  for (const id of ids) {
+    if (typeof id === "number") result = result && player.nonrecu.studies_bought.includes(id)
+    else result = result && id
+  }
+  return result
+}
+
+function sum(...ids: (number | boolean)[]): number {
+  let result = 0
+  for (const id of ids) {
+    if (typeof id === "number") result += Number(player.nonrecu.studies_bought.includes(id))
+    else result += Number(id)
+  }
+  return result
+}
+
 type StudyConfig = {
 	id: string;
 	description: string;
@@ -20,6 +47,7 @@ type StudyConfig = {
 	effect?(): Decimal;
 	effectDesc?(): string;
 	onBought?(): any;
+	show?(): boolean
 } & (
 	| {
 			isChallenge: boolean;
@@ -151,20 +179,21 @@ export const studies = [
 		description: '九头蛇能量获取×35, 九头蛇能量获取指数^1.25',
 		cost: new Decimal(3),
 		canBuy() {
-			return (
-				!(
-					player.nonrecu.studies_bought.includes(9) ||
-					player.nonrecu.studies_bought.includes(10)
-				) && player.nonrecu.studies_bought.includes(6)
-			);
+			let max = 1
+			if (player.nonrecu.studies_bought.includes(19))
+			  max = 2
+			return (sum(8,9,10) < max) && or(6)
 		},
 	}),
 	new Study({
 		id: '52', //9
-		description: '基于本次非递归重置内将获得的非递归能量获得额外的非递归理论(没做)',
+		description: '基于当前的非递归能量获得额外的非递归理论(没做)',
 		cost: new Decimal(5),
 		canBuy() {
-			return false;
+			let max = 1
+			if (player.nonrecu.studies_bought.includes(19))
+			  max = 2
+			return (sum(8,9,10) < max) && or(6)
 		},
 		show() {
 		  return player.nonrecu.studies_bought.includes(19)
@@ -175,21 +204,21 @@ export const studies = [
 		description: '稀释I的底数从5降低到3',
 		cost: new Decimal(2),
 		canBuy() {
-			return (
-				!(
-					player.nonrecu.studies_bought.includes(8) ||
-					player.nonrecu.studies_bought.includes(9)
-				) && player.nonrecu.studies_bought.includes(6)
-			);
+			let max = 1
+			if (player.nonrecu.studies_bought.includes(19))
+			  max = 2
+			return (sum(8,9,10) < max) && or(6)
 		},
 	}),
 	new Study({
 		id: 'NRC2', //11
-		description: '解锁非递归挑战2(没做)',
+		description: '解锁非递归挑战2\t1000九头蛇溶液',
 		cost: new Decimal(15),
 		canBuy() {
-			return false;
+			return player.nonrecu.studies_bought.includes(8);
 		},
+		isChallenge: true,
+		chal_id: 1,
 	}),
 	new Study({
 		id: 'NRC3', //12
@@ -204,15 +233,21 @@ export const studies = [
 		description: '移除九头蛇能量和BMS推演的硬上限',
 		cost: new Decimal(4),
 		canBuy() {
-			return player.nonrecu.studies_bought.includes(8);
+			let base = player.nonrecu.studies_bought.includes(8)
+			  , max = 1;
+			if (player.nonrecu.studies_bought.includes(19)) base = or(8,9,10), max = 2
+			return base && (sum(13,14,15) < max)
 		},
 	}),
 	new Study({
 		id: '62', //14
-		description: '每个剩余的非递归理论令推演速度膨胀+0.01(没做)',
+		description: '每个剩余的非递归理论令推演速度膨胀+0.01',
 		cost: new Decimal(4),
 		canBuy() {
-			return false;
+			let base = player.nonrecu.studies_bought.includes(9)
+			  , max = 1;
+			if (player.nonrecu.studies_bought.includes(19)) base = or(8,9,10), max = 2
+			return base && (sum(13,14,15) < max)
 		},
 		show() {
 		  return player.nonrecu.studies_bought.includes(19)
@@ -223,7 +258,10 @@ export const studies = [
 		description: '九头蛇溶液获取x1.2, ^1.01',
 		cost: new Decimal(6),
 		canBuy() {
-			return player.nonrecu.studies_bought.includes(10);
+			let base = player.nonrecu.studies_bought.includes(10)
+			  , max = 1;
+			if (player.nonrecu.studies_bought.includes(19)) base = or(8,9,10), max = 2
+			return base && (sum(13,14,15) < max)
 		},
 	}),
 	new Study({
@@ -231,23 +269,32 @@ export const studies = [
 		description: '基于本次非递归重置时间提升非递归能量获取',
 		cost: new Decimal(5),
 		canBuy() {
-			return player.nonrecu.studies_bought.includes(13);
+			let base = player.nonrecu.studies_bought.includes(13)
+			  , max = 1;
+			if (player.nonrecu.studies_bought.includes(19)) base = or(13,14,15), max = 2
+			return base && (sum(16,17,18) < max)
 		},
 	}),
 	new Study({
 		id: '72', //17
-		description: '基于本次非递归重置时间提升非递归研究52的效果(没做)',
+		description: '基于本次非递归重置时间提升非递归研究52的效果',
 		cost: new Decimal(3),
 		canBuy() {
-			return false;
+			let base = player.nonrecu.studies_bought.includes(14)
+			  , max = 1;
+			if (player.nonrecu.studies_bought.includes(19)) base = or(13,14,15), max = 2
+			return base && (sum(16,17,18) < max)
 		},
 	}),
 	new Study({
 		id: '73', //18
-		description: '基于本次非递归重置时间提升非九头蛇溶液获取(没做)',
+		description: '基于本次非递归重置时间提升九头蛇溶液获取',
 		cost: new Decimal(5),
 		canBuy() {
-			return false;
+			let base = player.nonrecu.studies_bought.includes(15)
+			  , max = 1;
+			if (player.nonrecu.studies_bought.includes(19)) base = or(13,14,15), max = 2
+			return base && (sum(16,17,18) < max)
 		},
 		show() {
 		  return player.nonrecu.studies_bought.includes(19)
@@ -258,7 +305,7 @@ export const studies = [
 		description: '你可以任意购买5~7行的任意两个非递归研究，解锁一列5~7行的升级树',
 		cost: new Decimal(15),
 		canBuy() {
-			return false;
+			return or(16,17,18);
 		},
 	}),
 	new Study({
