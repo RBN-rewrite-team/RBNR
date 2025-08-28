@@ -79,5 +79,11 @@ export const NONREC_CHALS: SingleChallenge[] = [
 		canEnter() {
 			return player.nonrecu.studies_bought.includes(12);
 		},
+		loop() {
+			if (player.hydra.dilute.solution >= 255000000) {
+				player.challengein = [-1, -1];
+				player.challenges[1][2] = player.challenges[1][2].add(1).min(5);
+			}
+		},
 	},
 ] as const;
