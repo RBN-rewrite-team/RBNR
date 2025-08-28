@@ -561,7 +561,6 @@ export const Hydra = {
 		if (player.nonrecu.studies_bought.includes(14) && base.gte(1e10)) {
 		  base = base.log10().pow(getCurrency(Currencies.NRT).mul(0.01).add(1)).pow10()
 		}
-
 		if (Dilute.diluteAmount(5) > 0) base = base.pow(1 - Dilute.diluteAmount(5) * 0.1);
 		if (player.milestones.dut16) {
 			if (player.hydra.dilute.inDilute) base = base.mul(milestoneDut16Eff());
@@ -572,6 +571,7 @@ export const Hydra = {
 			else base = base.pow(upgrades['615S'].effect());
 		}
 		if (Dilute.diluteAmount(3) > 0) base = base.mul(Hydra.NT4TauEffect());
+		if(player.challenges[1][2].gt(0)) base = base.add(1).log10().pow(player.nonrecu.power.pow(10).add(1).ln().pow(player.challenges[1][2].mul(0.1).add(0.1)).add(1).ln().div(5).add(1)).pow10();
 		base = base.div(tsbhBase() ** (Dilute.diluteAmount(0) as number));
 		if (player.hydra.dilute.inDilute) base = base.div(Dilute.totSolNerf());
 		if (base.gte('ee125')) base = base.log10().div(1e125).pow(0.5).mul(1e125).pow10();
