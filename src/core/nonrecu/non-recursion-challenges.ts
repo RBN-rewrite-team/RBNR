@@ -71,7 +71,7 @@ export const NONREC_CHALS: SingleChallenge[] = [
 	{
 		name: '强化稀释',
 		get descEasy() {
-			return '溶剂I的底数为20，溶剂III的时间/5，U5-S-14的最后一条效果无效，MD15无效，溶剂等级无法细化，溶剂VI的效果由 ^1-0.1x 变为 ^1-(完成次数*0.2-0.2)x ，天启中全局速度变为1/1e(10*完成次数)。所有的九头蛇溶液额外倍率无效，公式升级亦无效。<br>奖励：没做。';
+			return '溶剂I的底数为20，溶剂III的时间/5，U5-S-14的最后一条效果无效，MD15无效，溶剂等级无法细化，溶剂VI的效果由 ^1-0.1x 变为 ^1-(完成次数*0.2-0.2)x ，天启中全局速度变为1/1e(10*完成次数)。所有的九头蛇溶液额外倍率无效，公式升级亦无效。<br>奖励：如下。';
 		},
 		get descHard() {
 			return this.descEasy;
@@ -86,10 +86,10 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			}
 		},
 		effect(x): Decimal {
-		    return x.pow_base(4);
+		    return x.gt(0) ? x.mul(0.1).add(0.1) : new Decimal(0);
 		},
 		effD(x): string {
-		    return '朊病毒以ln(ln(x+1)+1)幂增九头蛇能量指数，且朊病毒增速×' + format(x);
+		    return '非递归能量以(1+ln(ln(x^10+1)^' + format(x) + '+1)/5)幂增推演速度指数，当前：^' + format(player.nonrecu.power.pow(10).add(1).ln().pow(x).add(1).ln().div(5).add(1));
 		} 
 	},
 ] as const;
