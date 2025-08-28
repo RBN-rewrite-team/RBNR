@@ -208,7 +208,7 @@ export const plots = [
 	['Numerorum进行了第三个非递归挑战。'],
 	['他使用了满级溶剂进行了稀释...'],
 	['然后...'],
-	['Numerorum\tNumerorumGrey\t澡，溶剂III有ω病毒！'],
+	['Numerorum\tNumerorumGrey\t澡，溶剂IX有ω病毒！'],
 	['Numerorum宕机了...']
 	 */
 ];
