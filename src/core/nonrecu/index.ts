@@ -165,6 +165,16 @@ export const NON_RECURSIVE = {
 				return player.nonrecu.resetTimes.gte(this.requirement);
 			},
 		});
+		MILESTONES.create('nonrec_16', {
+			requirement: new Decimal(1e50),
+			currency: '非递归能量',
+			displayName: 'M6-15',
+			description: `移除B5-1-2的硬上限和飞升效果的三、四重软上限，飞升效果倍增朊病毒获取速度(在非递归挑战中无效)`,
+			show: true,
+			get canDone() {
+				return player.nonrecu.power.gte(this.requirement);
+			},
+		});
 	},
 	reset(force = false) {
 		if (!this.resetable() && !force) return;
