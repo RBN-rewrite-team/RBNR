@@ -166,7 +166,7 @@ export function simulate(diff: number) {
 	}
 	let last = player.upgrades[61] ? new Decimal(0) : feature.Ordinal.ordinalPerSecond();
 	let last2 = feature.Ordinal.speedDeri();
-	let pre_cardinal_diff = diff;
+	let pre_cardinal_diff = (diff *= 1 + player.minigame.ore_gets * 0.0025);
 
 	if (player.nonrecu.studies_bought.includes(1)) pre_cardinal_diff *= 2;
 	player.nonrecu.secInThisReset = player.nonrecu.secInThisReset.add(pre_cardinal_diff / 1000);
