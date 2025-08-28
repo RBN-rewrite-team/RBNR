@@ -1,4 +1,4 @@
-import { WallGameObject, type GameObject } from './game-object';
+import { BoxGameObject, WallGameObject, type GameObject } from './game-object';
 const WGO = () => new WallGameObject();
 const PLACEHOLDER = null;
 export type SingleMap = {
@@ -31,7 +31,7 @@ export const maps: SingleMap[] = [
             convertStringToMap('W0W000000W0W000W00P00W0P0W'),
             convertStringToMap('W0WWWWWW0W0W0P0W0WPW0W000W'),
             
-            convertStringToMap('W00PWW000WPW000WWWPWWWWPWW'),
+            convertStringToMap('W00PWW000WPW000WWWPWWWWPWW', [new BoxGameObject()]),
             convertStringToMap('WWWWWW0WWWWWW0WW00000W0P0W'),
             convertStringToMap('W00000000000000WPW0W0P000W'),
             convertStringToMap('W0WWWWWWWWWWWWWW0W0W0WWWWW'),

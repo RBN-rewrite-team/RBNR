@@ -1,5 +1,5 @@
-import { player } from '../save';
-import { WallGameObject } from './game-object';
+import { deepCopy, player } from '../save';
+import { GameObject, WallGameObject } from './game-object';
 import { maps, type SingleMap } from './map';
 
 export function getCurrentBlock(map: SingleMap | undefined, x: number, y: number) {
@@ -7,7 +7,7 @@ export function getCurrentBlock(map: SingleMap | undefined, x: number, y: number
 }
 export function isUnreachable(map: SingleMap, x: number, y: number) {
 	let obj = getCurrentBlock(map, x, y);
-	if (typeof obj === 'object' && obj instanceof WallGameObject) {
+	if (typeof obj === 'object' && obj instanceof GameObject && obj.solid) {
 		return true;
 	}
 	return false;
@@ -15,7 +15,15 @@ export function isUnreachable(map: SingleMap, x: number, y: number) {
 
 export function getPlayerCurrentMap(): SingleMap {
 	let a = maps[player.minigame.current_room];
-
+	let replacements = player.minigame.replaces.filter(
+		(x) => x.room == player.minigame.current_room,
+	);
+	for (let i = 0; i < replacements.length; i++) {
+		let repl = replacements[i];
+		if (repl.replacedTo == '0') {
+			a.map[repl.x][repl.y] = null;
+		}
+	}
 	return a;
 }
 

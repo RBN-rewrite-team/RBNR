@@ -17,6 +17,8 @@
  */
 export class GameObject {
 	constructor() {}
+	interact() {}
+	solid = false;
 }
 
 export class SpawnPointGameObject extends GameObject {
@@ -28,9 +30,17 @@ export class WallGameObject extends GameObject {
 	constructor() {
 		super();
 	}
+	solid = true;
 }
 
 export class WallInvisibleGameObject extends GameObject {
+	constructor() {
+		super();
+	}
+	solid = true;
+}
+
+export class BoxGameObject extends GameObject {
 	constructor() {
 		super();
 	}
