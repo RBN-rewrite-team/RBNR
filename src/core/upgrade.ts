@@ -37,7 +37,7 @@ export abstract class Upgrade {
 	postBuy() {}
 	canAfford(): boolean {
 		let cost = typeof this.cost === 'function' ? this.cost() : this.cost;
-		if (player.hydra.dilute.inDilute) {
+		if (player.hydra.dilute.inDilute && (this.name.startsWith("U5") && (!this.name.startsWith("U5-S")||player.challengein[0]==1))) {
 			cost = cost.pow(4 - 3 * 0.75 ** diluteAmount(1));
 		}
 		return getCurrency(this.currency).gte(cost);

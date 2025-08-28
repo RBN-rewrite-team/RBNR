@@ -39,10 +39,11 @@ function diluteAmount(id: IntClosedRange<0, 8>): number | boolean {
 export { diluteAmount };
 
 export function tsbhBase(): number {
-    if(player.nonrecu.studies_bought.includes(10)) {
-        return 3;
-    }
-    return 5;
+	if (CHALLENGE.inChallenge(1, 2)) return 20;
+	if (player.nonrecu.studies_bought.includes(10)) {
+		return 3;
+	}
+	return 5;
 }
 
 export function milestoneDut5Eff(): Decimal {
@@ -56,7 +57,11 @@ export function milestoneDut5Eff(): Decimal {
 		.add(1)
 		.log10()
 		.add(1)
-		.pow(player.milestones.dut15 ? 1.5 : Dilute.diluteAmount(5) * 0.1 + 0.5)
+		.pow(
+			player.milestones.dut15 && !CHALLENGE.inChallenge(1, 2)
+				? 1.5
+				: Dilute.diluteAmount(5) * 0.1 + 0.5,
+		)
 		.pow(
 			player.milestones.dut13 || (Dilute.diluteAmount(2) >= 10 && player.upgrades['67S'])
 				? 1.35
@@ -68,6 +73,7 @@ export function milestoneDut6Eff(): Decimal {
 	if (player.hydra.dilute.solution < 2050000) return new Decimal(1);
 	return Decimal.log10(player.hydra.dilute.solution - 2050000 + 1)
 		.add(1)
+		.clampMin(1)
 		.log10()
 		.add(1)
 		.pow(0.3);
@@ -76,8 +82,10 @@ export function milestoneDut6Eff(): Decimal {
 export function milestoneDut7Eff(): Decimal {
 	return player.hydra.trueTotalPower
 		.max('e3500')
+		.clampMin(1)
 		.log10()
 		.sub(3500 - 1)
+		.clampMin(1)
 		.log10()
 		.add(1)
 		.pow(player.upgrades['612S'] ? 1 : 0.1);
@@ -85,7 +93,7 @@ export function milestoneDut7Eff(): Decimal {
 
 export function milestoneDut16Eff(): Decimal {
 	return player.hydra.dilute.prions
-		.clampMin(0)
+		.clampMin(1)
 		.log10()
 		.add(1)
 		.pow(player.milestones.dut18 ? player.hydra.milestoneDut5Eff : 1);
@@ -337,8 +345,8 @@ export const DiluteUpgrades = {
 		}
 		effect(): Decimal {
 			if (player.hydra.dilute.inDilute)
-				return player.hydra.dilute.highestApocalypse.add(1).add(1).add(1).pow(0.75);
-			return player.hydra.dilute.highestApocalypse.add(1).pow(1.25);
+				return player.hydra.dilute.highestApocalypse.add(1).add(1).add(1).pow(0.75).min("e1000");
+			return player.hydra.dilute.highestApocalypse.add(1).pow(1.25).min("e850");
 		}
 		effectDescription(): string {
 			return (!player.hydra.dilute.inDilute ? '^' : '×') + format(this.effect());
@@ -368,6 +376,17 @@ export const DiluteUpgrades = {
 			return player.milestones.nonrec_10;
 		}
 	})(),
+};
+export const DiluteTS = {
+	dilute6() {
+		if (CHALLENGE.inChallenge(1, 2)) return Dilute.diluteAmountOutside(5) * -(+player.challenges[1][2] * 0.2 + 0.2) + 1;
+
+		return Dilute.diluteAmountOutside(5) * -0.1 + 1;
+	},
+	dilute9Speed() {
+		if (CHALLENGE.inChallenge(1, 2)) return player.challenges[1][2].mul(10).toNumber();
+		return 1000;
+	},
 };
 export const Dilute = {
 	respec() {
@@ -594,7 +613,7 @@ export const Dilute = {
 			displayName: 'M-Dilute-14',
 			description: 'U5-2的效果+1000%',
 			req: true,
-			reqDescription: '2,261,250 九头蛇能量 ',
+			reqDescription: '2,261,250 九头蛇溶液 ',
 			requirement: new Decimal(2261250),
 			get canDone() {
 				return player.hydra.dilute.solution >= 2261250;
@@ -822,7 +841,10 @@ export const Dilute = {
 			if (!player.milestones.nonrec_3)
 				player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + diff / 1000;
 			else player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + trueDiff / 1000;
-			if (!player.upgrades['614S'] && player.hydra.dilute.spentTime > s3Eff) {
+			if (
+				(!player.upgrades['614S'] || CHALLENGE.inChallenge(1, 2)) &&
+				player.hydra.dilute.spentTime > s3Eff
+			) {
 				ModalService.show({
 					title: '已退出稀释',
 					content:
@@ -860,7 +882,12 @@ export const Dilute = {
 		if (player.milestones.dut17) base = base.mul(MEff17());
 		if (CHALLENGE.inChallenge(1, 0)) {
 			base = Decimal.pow(10, 2 + CHALLENGE.amountChallenge(1, 0).floor().toNumber());
+		} else {
+			if (player.challenges[1][0].gte(1))
+				base = base.pow(player.challenges[1][0].pow_base(4));
 		}
+		if (player.nonrecu.studies_bought.includes(7)) base = base.pow(10);
+		if (player.challengein[0] != 1 && player.milestones.nonrec_16) base = base.pow(Hydra.prestigeEff(1).add(1))
 		return base;
 	},
 	/**
@@ -897,7 +924,15 @@ export const Dilute = {
 			.toNumber();
 		if(player.nonrecu.studies_bought.includes(18)) base *= Number(player.nonrecu.secInThisReset.add(1).ln().mul(0.1).add(1).min(10));
 		let exp = 1;
-		if(player.nonrecu.studies_bought.includes(15)) base *= 1.2, exp *= 1.01;
+		if (!CHALLENGE.inChallenge(1, 2)) {
+			if (player.nonrecu.studies_bought.includes(18))
+				base *= player.nonrecu.secInThisReset.add(1).ln().mul(0.2).add(1).toNumber();
+			if (player.nonrecu.studies_bought.includes(15)) base *= 1.2;
+		}
+		if (player.nonrecu.studies_bought.includes(15)) {
+			exp *= 1.01;
+		}
+		if (player.nonrecu.studies_bought.includes(20)) exp *= 1.025;
 		return (deduceMult * base) ** exp;
 	},
 	solutionEff() {
@@ -915,6 +950,7 @@ export const Dilute = {
 	sol3EffOutside(): number {
 		let base = 1000 / player.hydra.dilute.solvent[2] ** 2;
 		if (player.milestones.nonrec_4) base += player.nonrecu.resetTimes.toNumber();
+		if (CHALLENGE.inChallenge(1, 2)) base /= 5;
 		return base;
 	},
 	totSolNerf(): number {

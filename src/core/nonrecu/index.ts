@@ -5,6 +5,7 @@ import Decimal from 'break_eternity.js';
 import { isTester } from '@/core/save/testing.ts';
 import { MILESTONES } from '../mechanic';
 import { Currencies } from '../currencies';
+import { CHALLENGE } from '../challenge';
 
 export const NON_RECURSIVE = {
 	initMechanics() {
@@ -164,6 +165,16 @@ export const NON_RECURSIVE = {
 				return player.nonrecu.resetTimes.gte(this.requirement);
 			},
 		});
+		MILESTONES.create('nonrec_16', {
+			requirement: new Decimal(1e50),
+			currency: '非递归能量',
+			displayName: 'M6-15',
+			description: `移除B5-1-2的硬上限和飞升效果的三、四重软上限，飞升效果倍增朊病毒获取速度(在非递归挑战中无效)`,
+			show: true,
+			get canDone() {
+				return player.nonrecu.power.gte(this.requirement);
+			},
+		});
 	},
 	reset(force = false) {
 		if (!this.resetable() && !force) return;
@@ -202,8 +213,10 @@ export const NON_RECURSIVE = {
 		player.hydra.dilute.spentTime = 0;
 		player.hydra.dilute.solutionCost = 0;
 		if (!player.milestones.nonrec_12) player.hydra.dilute.solution = 0;
-		else if (player.milestones.nonrec_14) {}
-		else player.hydra.dilute.solution *= 0.01;
+		else if (player.milestones.nonrec_14) {
+		} else player.hydra.dilute.solution *= 0.01;
+		if (CHALLENGE.inChallenge(1, 1)) player.hydra.dilute.solution = 0;
+		if (CHALLENGE.inChallenge(1, 2)) player.hydra.dilute.solution = 0;
 		if (!player.milestones.nonrec_15) player.hydra.dilute.highestApocalypse = new Decimal(0);
 		if (player.nonrecu.studies_bought.includes(0)) {
 			player.hydra.power = player.hydra.power.add(20);
@@ -233,13 +246,11 @@ export const NON_RECURSIVE = {
 			EXP_EFF = 4;
 		let factor = [];
 		factor.push(['基础值', ADD_EFF, new Decimal(1)]);
+		let solEff = new Decimal(player.hydra.dilute.solution / 2.55e8);
+		if (solEff.gte(3.5)) solEff = solEff.sub(2.5).log10().add(3.5);
+		factor.push(['九头蛇溶液因子', MUL_EFF, solEff]);
 		factor.push([
-			'九头蛇溶液因子',
-			MUL_EFF,
-			new Decimal(player.hydra.dilute.solution / 2.55e8),
-		]);
-		factor.push([
-			'九头蛇能量因子',
+			'BMS推演进度因子',
 			MUL_EFF,
 			player.hydra.deduceOrdinal[0].max(1).log(4).max(1).log(4).div(256),
 		]);
@@ -254,9 +265,25 @@ export const NON_RECURSIVE = {
 				player.hydra.dilute.prions.add(1).mul(1e10).log10().log10().root(4),
 			]);
 		if (player.nonrecu.studies_bought.includes(13))
-			factor.push(['九头蛇能量', MUL_EFF, player.hydra.power.max("e326649").log10().div(326649)]);
+			factor.push([
+				'九头蛇能量',
+				MUL_EFF,
+				player.hydra.power.max('e326649').log10().div(326649),
+			]);
 		if (player.nonrecu.studies_bought.includes(16)) {
-		    factor.push(['非递归研究71', MUL_EFF, player.nonrecu.secInThisReset.add(1).mul(10).pow(2).sub(99).root(2).pow(0.75).div(2).add(1)]);
+			factor.push([
+				'非递归研究71',
+				MUL_EFF,
+				player.nonrecu.secInThisReset
+					.add(1)
+					.mul(10)
+					.pow(2)
+					.sub(99)
+					.root(2)
+					.pow(0.75)
+					.div(2)
+					.add(1),
+			]);
 		}
 		return factor;
 	},
@@ -276,6 +303,11 @@ export const NON_RECURSIVE = {
 			else if (f[1] == DIL_EFF) base = base.log10().pow(f[2]).pow10();
 			else if (f[1] == EXP_EFF) base = base.pow_base(f[2]);
 		}
+		if (base.gte(1e7))
+			base = base
+				.div(1e7)
+				.pow(1 / 3)
+				.mul(1e7);
 		return base;
 	},
 	nonrecEffects(): [Decimal, Decimal] {
@@ -288,5 +320,20 @@ export const NON_RECURSIVE = {
 		 */
 		let expo1 = player.nonrecu.resetTimes.mul(0.05).add(1);
 		return [mult1, expo1];
+	},
+	/**
+	 * 注：每秒获取的非递归能量
+	 */
+	passiveGain() {
+		let a = new Decimal(0);
+
+		if (player.nonrecu.studies_bought.includes(22)) {
+			a = a.add(this.gain().mul(0.01));
+		}
+
+		return a;
+	},
+	loop(diff: number) {
+		this.addPower(this.passiveGain().mul(diff));
 	},
 };

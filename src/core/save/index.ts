@@ -12,8 +12,10 @@ import { stopGameLoop } from '../game-loop';
 import { OrdinalUtils } from '@/utils/ordinal';
 import { calculate } from '@/utils/bms-analyze';
 import { displayOrd } from '@/lib/ordinal';
+import { createDeepValidatedReactive } from '../check-decimal-nan';
+import { NON_RECURSIVE } from "../nonrecu/index.ts"
 
-const version = 8 as const;
+const version = 9 as const;
 const zero = new Decimal(0);
 export let current_save = 0;
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
@@ -512,6 +514,17 @@ export function loadFromString(saveContent: string) {
 	if ((player?.version ?? 0) < 8) {
 		player.checkedPlots = player.checkedPlots.filter((x) => x !== 14);
 	}
+	if ((player?.version ?? 0) < 9) {
+		player.nonrecu.power = player.nonrecu.power.min(1e30)
+		player.challenges[1][0] = player.challenges[1][0].min(1)
+		if (player.nonrecu.studies_bought.includes(19)) {
+		  player.nonrecu.studies_bought = []
+		  player.nonrecu.spentTheories = new Decimal(0)
+		  NON_RECURSIVE.reset(true)
+		}
+		player.hydra.dilute.prions = player.hydra.dilute.prions.min("ee18")
+		player.hydra.deduceOrdinal[0] = player.hydra.deduceOrdinal[0].min("ee3500")
+	}
 
 	// @ts-ignore
 	delete player.hydra.dilute.solvent?.[9];
@@ -535,7 +548,7 @@ export function loadSaves() {
 		console.error('Cannot load save');
 		throw error;
 	}
-	player = reactive(player);
+	player = createDeepValidatedReactive(player);
 }
 
 export function save() {
@@ -562,7 +575,7 @@ export function import_file(): void {
 				try {
 					player = getInitialPlayerData();
 					loadFromString(save);
-					player = reactive(player);
+					player = createDeepValidatedReactive(player);
 					savefunc();
 					location.reload();
 				} catch {

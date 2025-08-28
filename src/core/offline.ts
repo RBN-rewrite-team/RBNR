@@ -1,25 +1,25 @@
 import Async from '@/utils/asyncs';
-import { simulate, startGameLoop, stopGameLoop } from './game-loop';
-import { save } from '@/core/save/';
+import { msToTimeshard, simulate, startGameLoop, stopGameLoop } from './game-loop';
+import { player, save } from '@/core/save/';
 import Modal from '@/utils/Modal';
 import { formatTime } from '@/utils/format';
 export function simulateTime(milliseconds: number): void {
 	if (milliseconds < 0) throw new Error('?');
 
-	if (milliseconds >= 6e5) milliseconds = 6e5 + (milliseconds / 1000 - 600) ** 0.5 * 1000;
-	if (milliseconds >= 3.6e6) milliseconds = 3.6e6;
-
 	let ticks = Math.floor(milliseconds / 40);
-	ticks = Math.min(ticks, 10000);
+	ticks = Math.min(ticks, 1000);
 	let remaining = milliseconds;
 	const startTime = Date.now();
 	const loopFn = () => {
-		const diff = milliseconds / ticks;
-		simulate(diff);
-		remaining -= diff;
+		if (!exited) {
+			const diff = milliseconds / ticks;
+			simulate(diff);
+			remaining -= diff;
+		}
 	};
 	const progress = {};
 	let modal: ReturnType<typeof Modal.show>;
+	let exited = false;
 	Async.run(loopFn, ticks, {
 		batchSize: 1,
 		maxTime: 30,
@@ -30,11 +30,8 @@ export function simulateTime(milliseconds: number): void {
 				showProgress: true,
 				title: '离线进度计算中',
 				content: `已完成0/${ticks}帧的计算`,
-				onClose() {
-					simulate(remaining);
-					startGameLoop();
-					remaining = 0;
-				},
+				closeOnClickMask: false,
+				onClose() {},
 			});
 		},
 		asyncProgress: (doneSoFar: number) => {
@@ -45,6 +42,7 @@ export function simulateTime(milliseconds: number): void {
 		},
 		asyncExit: () => {
 			startGameLoop();
+			exited = true;
 			modal.controller.close();
 		},
 		then: save,
