@@ -71,7 +71,7 @@ export const NONREC_CHALS: SingleChallenge[] = [
 	{
 		name: '强化稀释',
 		get descEasy() {
-			return '溶剂I的底数为20，溶剂III的时间/5，U5-S-14的最后一条效果无效，MD15无效，溶剂等级无法细化，溶剂VI的效果由 ^1-0.1x 变为 ^1-0.2x ，天启中全局速度变为1/1e(10*完成次数)。所有的九头蛇溶液额外倍率无效，公式升级亦无效。';
+			return '溶剂I的底数为20，溶剂III的时间/5，U5-S-14的最后一条效果无效，MD15无效，溶剂等级无法细化，溶剂VI的效果由 ^1-0.1x 变为 ^1-(完成次数*0.2-0.2)x ，天启中全局速度变为1/1e(10*完成次数)。所有的九头蛇溶液额外倍率无效，公式升级亦无效。<br>奖励：没做。';
 		},
 		get descHard() {
 			return this.descEasy;
@@ -80,7 +80,7 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			return player.nonrecu.studies_bought.includes(12);
 		},
 		loop() {
-			if (player.hydra.dilute.solution >= 255000000) {
+			if (player.hydra.dilute.solution >= 255000000 * 5 ** +player.challenges[1][2]) {
 				player.challengein = [-1, -1];
 				player.challenges[1][2] = player.challenges[1][2].add(1).min(5);
 			}
