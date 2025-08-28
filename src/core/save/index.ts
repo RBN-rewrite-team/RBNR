@@ -13,7 +13,8 @@ import { OrdinalUtils } from '@/utils/ordinal';
 import { calculate } from '@/utils/bms-analyze';
 import { displayOrd } from '@/lib/ordinal';
 import { createDeepValidatedReactive } from '../check-decimal-nan';
-import { NON_RECURSIVE } from "../nonrecu/index.ts"
+import { NON_RECURSIVE } from '../nonrecu/index.ts';
+import { initMiniGameData, type PlayerMinigameData } from '../minigame/index.ts';
 
 const version = 9 as const;
 const zero = new Decimal(0);
@@ -210,6 +211,7 @@ export interface Player {
 		spentTheories: Decimal;
 		secInThisReset: Decimal;
 	};
+	minigame: PlayerMinigameData;
 	backup?: Omit<Player, 'backup'> | null;
 	foundNaN: boolean;
 	checkedPlots: number[];
@@ -329,6 +331,7 @@ function getInitialPlayerData(): Player {
 			stage: 0,
 			enabled: false,
 		},
+		minigame: initMiniGameData(),
 		ordinal: {
 			number: new Decimal(10),
 			booster: {
@@ -515,15 +518,15 @@ export function loadFromString(saveContent: string) {
 		player.checkedPlots = player.checkedPlots.filter((x) => x !== 14);
 	}
 	if ((player?.version ?? 0) < 9) {
-		player.nonrecu.power = player.nonrecu.power.min(1e30)
-		player.challenges[1][0] = player.challenges[1][0].min(1)
+		player.nonrecu.power = player.nonrecu.power.min(1e30);
+		player.challenges[1][0] = player.challenges[1][0].min(1);
 		if (player.nonrecu.studies_bought.includes(19)) {
-		  player.nonrecu.studies_bought = []
-		  player.nonrecu.spentTheories = new Decimal(0)
-		  NON_RECURSIVE.reset(true)
+			player.nonrecu.studies_bought = [];
+			player.nonrecu.spentTheories = new Decimal(0);
+			NON_RECURSIVE.reset(true);
 		}
-		player.hydra.dilute.prions = player.hydra.dilute.prions.min("ee18")
-		player.hydra.deduceOrdinal[0] = player.hydra.deduceOrdinal[0].min("ee3500")
+		player.hydra.dilute.prions = player.hydra.dilute.prions.min('ee18');
+		player.hydra.deduceOrdinal[0] = player.hydra.deduceOrdinal[0].min('ee3500');
 	}
 
 	// @ts-ignore
@@ -672,7 +675,7 @@ export function readSaveDetail(id: number) {
 }
 
 // 深拷贝函数
-function deepCopy<T>(obj: T): T {
+export function deepCopy<T>(obj: T): T {
 	if (obj === null || typeof obj !== 'object') {
 		return obj;
 	}
