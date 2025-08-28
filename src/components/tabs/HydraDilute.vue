@@ -2,11 +2,12 @@
 import { player, feature } from '../../core/global.ts';
 import { format, formatWhole } from '@/utils/format';
 import Slider from '../Slider.vue';
-import { Dilute, tsbhBase } from '@/core/hydra/dilute.ts';
+import { Dilute, DiluteTS, tsbhBase } from '@/core/hydra/dilute.ts';
 import { computed, ref } from 'vue';
 import TDUpgrade from '../TDUpgrade.vue';
 import TRMilestone from '../TRMilestone.vue';
 import { Currencies, getCurrency } from '@/core/currencies.ts';
+import { CHALLENGE } from '@/core/challenge.ts';
 
 function getCurrentSolution() {
 	return player.hydra.dilute.solution;
@@ -23,7 +24,7 @@ function getSliderProps(id = 0) {
 		'dot-height': '1.6rem',
 		'dot-class': 'slider-dot-class-dilute',
 		'process-class': 'slider-process-class-dilute',
-		interval: id == 6 ? (player.milestones.dut11 ? 0.25 : 0.5) : 1,
+		interval: (id == 6 && !CHALLENGE.inChallenge(1, 2) )? (player.milestones.dut11 ? 0.25 : 0.5) : 1,
 		style: {
 			'margin-top': '1rem',
 		},
@@ -105,7 +106,7 @@ function delPreset(preset: string) {
 			>/{{ format(player.hydra.totalDeduceOrdinal[0]) }}</span
 		>朊病毒<br /><br
 	/></span>
-	<div v-if="!player.upgrades['614S']">
+	<div v-if="!player.upgrades['614S'] || CHALLENGE.inChallenge(1, 2)">
 		启动稀释后，溶剂{{
 			(() => {
 				let a = Dilute.sol3EffOutside() - player.hydra.dilute.spentTime;
@@ -287,7 +288,7 @@ function delPreset(preset: string) {
 									</div>
 									<div>
 										推演速度^{{
-											(Dilute.diluteAmountOutside(5) * -0.1 + 1).toFixed(2)
+											(DiluteTS.dilute6()).toFixed(2)
 										}}(在其它乘数削弱效果之前)
 									</div>
 									<Slider
