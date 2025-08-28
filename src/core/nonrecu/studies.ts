@@ -129,7 +129,9 @@ export const studies = [
 	}),
 	new Study({
 		id: '22', //3
-		description: '基于九头蛇溶液大幅延迟九头蛇能量双重软上限',
+		get description() {
+			return `基于九头蛇溶液大幅延迟九头蛇能量双重软上限<br>效果: ^${format(Math.log10(player.hydra.dilute.solution + 10))}`;
+		},
 		cost: new Decimal(3),
 		canBuy() {
 			return (
@@ -193,7 +195,21 @@ export const studies = [
 	}),
 	new Study({
 		id: '52', //9
-		description: '基于当前的非递归能量获得额外的非递归理论',
+		get description() {
+			return `基于当前的非递归能量获得额外的非递归理论(购买后可用理论+floor(${format(
+				player.nonrecu.power
+					.add(1)
+					.ln()
+					.add(1)
+					.ln()
+					.mul(
+						player.nonrecu.studies_bought.includes(17)
+							? player.nonrecu.secInThisReset.add(1).log10()
+							: 1,
+					)
+					.sub(5),
+			)}))`;
+		},
 		cost: new Decimal(5),
 		canBuy() {
 			let max = 1;
@@ -251,7 +267,9 @@ export const studies = [
 	}),
 	new Study({
 		id: '62', //14
-		description: '每个剩余的非递归理论令推演速度膨胀+0.01',
+		get description() {
+			return `每个剩余的非递归理论令推演速度膨胀+0.01<br>效果: +${format(getCurrency(Currencies.NRT).mul(0.01).add(1))}`;
+		},
 		cost: new Decimal(4),
 		canBuy() {
 			let base = player.nonrecu.studies_bought.includes(9),
@@ -276,7 +294,20 @@ export const studies = [
 	}),
 	new Study({
 		id: '71', //16
-		description: '基于本次非递归重置时间提升非递归能量获取',
+		get description() {
+			return `基于本次非递归重置时间提升非递归能量获取<br>效果：×${format(
+				player.nonrecu.secInThisReset
+					.add(1)
+					.mul(10)
+					.pow(2)
+					.sub(99)
+					.root(2)
+					.pow(0.75)
+					.div(2)
+					.add(1),
+			)}`;
+		},
+
 		cost: new Decimal(5),
 		canBuy() {
 			let base = player.nonrecu.studies_bought.includes(13),
@@ -287,7 +318,9 @@ export const studies = [
 	}),
 	new Study({
 		id: '72', //17
-		description: '基于本次非递归重置时间提升非递归研究52的效果',
+		get description() {
+			return `基于本次非递归重置时间提升非递归研究52的效果<br>效果：((x+5)×${format(player.nonrecu.secInThisReset.add(1).log10())})-5`;
+		},
 		cost: new Decimal(3),
 		canBuy() {
 			let base = player.nonrecu.studies_bought.includes(14),
@@ -301,7 +334,9 @@ export const studies = [
 	}),
 	new Study({
 		id: '73', //18
-		description: '基于本次非递归重置时间提升九头蛇溶液获取',
+		get description() {
+			return `基于本次非递归重置时间提升九头蛇溶液获取<br>效果：×${format(player.nonrecu.secInThisReset.add(1).ln().mul(0.2).add(1))}`;
+		},
 		cost: new Decimal(5),
 		canBuy() {
 			let base = player.nonrecu.studies_bought.includes(15),
