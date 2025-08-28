@@ -15,6 +15,7 @@
 import ModalService from '@/utils/Modal';
 import { player } from '../save';
 import { guardBattleInfo, meBattleInfo, runBattleFast } from './battle';
+import { currentPlayerLV } from '.';
 
 /**
  * 游戏物体 Nothingness（这里什么都没有）
@@ -148,6 +149,27 @@ export class BoxGameObject extends GameObject {
 			content: '你打开了宝箱，获得了' + price.toFixed(3) + '时间碎片。',
 		});
 		player.timeshard.value += price;
+		player.minigame.replaces.push({
+			room: player.minigame.current_room,
+			x,
+			y,
+			replacedTo: '0',
+		});
+	}
+}
+
+export class HealthRecoveryGameObject extends GameObject {
+	percent: number;
+	constructor(percent: number) {
+		super();
+		this.percent = percent;
+	}
+	interact(x: number, y: number): void {
+		ModalService.show({
+			title: '你回复了HP',
+			content: '你回复了HP',
+		});
+		player.minigame.hp += currentPlayerLV() * 10;
 		player.minigame.replaces.push({
 			room: player.minigame.current_room,
 			x,

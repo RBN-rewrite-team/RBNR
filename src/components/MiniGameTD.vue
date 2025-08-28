@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BoxGameObject, GuardGameObject, OreGameObject, WallGameObject, type GameObject } from '@/core/minigame/game-object';
+import { BoxGameObject, GuardGameObject, HealthRecoveryGameObject, OreGameObject, TeleporterGameObject, WallGameObject, type GameObject } from '@/core/minigame/game-object';
 
 const props = defineProps<{
     game_object: GameObject|null|undefined
@@ -26,6 +26,16 @@ const props = defineProps<{
         <template v-else-if=" (game_object instanceof OreGameObject)  ">
             <td class="ore-object">
                 矿石
+            </td>
+        </template>
+        <template v-else-if=" (game_object instanceof TeleporterGameObject)  ">
+            <td class="ore-object">
+                传送门
+            </td>
+        </template>
+        <template v-else-if=" (game_object instanceof HealthRecoveryGameObject)  ">
+            <td class="ore-object">
+                恢复血量+{{game_object.percent}}%
             </td>
         </template>
         <template v-else>

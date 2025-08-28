@@ -2,6 +2,7 @@ import {
 	BoxGameObject,
 	FakeWallGameObject,
 	GuardGameObject,
+	HealthRecoveryGameObject,
 	OreGameObject,
 	TeleporterGameObject,
 	WallGameObject,
@@ -35,13 +36,14 @@ export function initialMap(): SingleMap[] {
 			map: [
 				convertStringToMap('WWWWWWWWWWWWWWWWWWWWWWWWWW'),
 				convertStringToMap('W0000W000W0000PW0PWP0W000W', [
-					null,
+					new HealthRecoveryGameObject(10),
 					new BoxGameObject(1),
 					new BoxGameObject(1),
 				]),
-				convertStringToMap('W0WW0WWW0W0W0WWW0W0W0W0P0W'),
+				convertStringToMap('W0WW0WWW0W0W0WWW0W0W0W0P0W', [new BoxGameObject(2)]),
 				convertStringToMap('W0W000000W0W000W00P00W0P0W', [
 					new TeleporterGameObject([13, 4], 0),
+					new OreGameObject(),
 				]),
 				convertStringToMap('W0WWWWWW0W0W0P0W0WPW0W000W', [
 					new TeleporterGameObject([18, 3], 0),
@@ -51,28 +53,55 @@ export function initialMap(): SingleMap[] {
 				convertStringToMap('W00PWW000WPW000WWWPWWWWPWW', [
 					new BoxGameObject(1),
 					new OreGameObject(),
+					new GuardGameObject(1),
+					null, // replacement for door
 				]),
-				convertStringToMap('WWWWWWPWWWWWW0WW00000W0P0W', [new GuardGameObject(1)]),
-				convertStringToMap('W00000000000000WPW0W0P000W'),
+				convertStringToMap('WWWWWWPWWWWWW0WW00000W0P0W', [
+					new GuardGameObject(1),
+					new OreGameObject(),
+				]),
+				convertStringToMap('W00000000000000WPW0W0P000W', [
+					new GuardGameObject(1),
+					new FakeWallGameObject(),
+				]),
 				convertStringToMap('W0WWWWWWWWWWWWWW0W0W0WWWWW'),
 				convertStringToMap('W0W000W000P00PPWPW0W00P00P', [
 					new FakeWallGameObject(),
 					new BoxGameObject(1),
 					new OreGameObject(),
+					new GuardGameObject(1),
+					null, //replacementfordoors
+					new BoxGameObject(1),
 				]),
 
 				convertStringToMap('W0W0P0W0W0WWPWWWPW0W0WWWWW', [
 					new TeleporterGameObject([1, 14], 0),
 					new FakeWallGameObject(),
+					new HealthRecoveryGameObject(20),
 				]),
-				convertStringToMap('W0W00000W0WW0WWWPW0W00000W'),
+				convertStringToMap('W0W00000W0WW0WWWPW0W00000W', [new GuardGameObject(1)]),
 				convertStringToMap('W0WWWWWWW0WW0WWW0W0WWWW00W'),
-				convertStringToMap('W0WP0000P0WW0WWWPW0000000W', [null, new FakeWallGameObject()]),
-				convertStringToMap('WPWWWWWWW0WWPWWWPWWWWWWW0P', [
+				convertStringToMap('W0WP0000P0WW0WWWPW000000PW', [
+					null,
+					new FakeWallGameObject(),
+					new GuardGameObject(1),
+					new FakeWallGameObject(),
+				]),
+				convertStringToMap('WPWWWWWWW0WWPWWWPWWWWWWW0W', [
 					new TeleporterGameObject([4, 10], 0),
+					new GuardGameObject(2),
+					new HealthRecoveryGameObject(20),
+					null, //replacement for big 2
 				]),
 
-				convertStringToMap('WWWWWWWWW0WWWWWWPPPPPPWP0W'),
+				convertStringToMap('WWWWWWWWW0WWWWWWPPPPPPWP0W', [
+					new GuardGameObject(1),
+					new GuardGameObject(1),
+					new BoxGameObject(2),
+					new HealthRecoveryGameObject(100),
+					null, // replacement for 2
+					new OreGameObject(),
+				]),
 				convertStringToMap('WWWWWWWWWWWWWWWWWWWWWWWWWW'),
 			],
 			spawnpoint: [1, 1],
