@@ -85,5 +85,11 @@ export const NONREC_CHALS: SingleChallenge[] = [
 				player.challenges[1][2] = player.challenges[1][2].add(1).min(5);
 			}
 		},
+		effect(x): Decimal {
+		    return x.pow_base(4);
+		},
+		effD(x): string {
+		    return '朊病毒以ln(ln(x+1)+1)幂增九头蛇能量指数，且朊病毒增速×' + format(x);
+		} 
 	},
 ] as const;
