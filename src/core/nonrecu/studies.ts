@@ -9,6 +9,7 @@ import { CHALLENGE } from '../challenge';
 import { ref, nextTick, type ComponentPublicInstance, computed, type Ref } from 'vue';
 import StudyTree from '@/components/tabs/nonrecursion/StudyTree.vue';
 import SingleStudy from '@/components/tabs/nonrecursion/SingleStudy.vue';
+import { format } from '@/utils/format';
 
 const StudyTreeRef = ref(null);
 
@@ -150,7 +151,13 @@ export const studies = [
 	}),
 	new Study({
 		id: 'NRC1', //5
-		description: '非递归挑战1\t1.00e326649 九头蛇能量 ',
+		get description() {
+			return (
+				'非递归挑战1\t' +
+				format(new Decimal(326649).pow(player.challenges[1][0].add(1)).pow10()) +
+				' 九头蛇能量 '
+			);
+		},
 		cost: new Decimal(10),
 		canBuy() {
 			return player.nonrecu.studies_bought.includes(3);
@@ -168,7 +175,7 @@ export const studies = [
 	}),
 	new Study({
 		id: '42', //7
-		description: '朊病毒增速×10',
+		description: '朊病毒增速×10(需要两次挑战1才能购买)',
 		cost: new Decimal(5),
 		canBuy() {
 			return player.challenges[1][0].gte(2);
@@ -209,7 +216,13 @@ export const studies = [
 	}),
 	new Study({
 		id: 'NRC2', //11
-		description: '解锁非递归挑战2\t4,000,000九头蛇溶液',
+		get description() {
+			return (
+				'解锁非递归挑战2\t' +
+				format(player.challenges[1][1].pow_base(10).mul(4e6)) +
+				'九头蛇溶液'
+			);
+		},
 		cost: new Decimal(15),
 		canBuy() {
 			return player.nonrecu.studies_bought.includes(8);
