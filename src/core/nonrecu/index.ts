@@ -317,7 +317,7 @@ export const NON_RECURSIVE = {
 		let a = new Decimal(0);
 
 		if (player.nonrecu.studies_bought.includes(22)) {
-			a = a.add(this.gain());
+			a = a.add(this.gain().mul(0.01));
 		}
 
 		return a;
