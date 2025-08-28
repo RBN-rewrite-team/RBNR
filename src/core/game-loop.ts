@@ -18,6 +18,7 @@ import ModalService from '@/utils/Modal.ts';
 
 import { temp } from '@/core/temp-data';
 import { unlockedPlots } from '@/core/plot';
+import { NON_RECURSIVE } from './nonrecu/index.ts';
 
 /**
  * 游戏循环经过了多少时间
@@ -294,7 +295,9 @@ export function simulate(diff: number) {
 			feature.resourceGain.number().value.mul(diff / 1000),
 		);
 	}
-
+	if (player.stat.chapter >= 6) {
+		NON_RECURSIVE.loop(diff / 1000);
+	}
 	if (player.singularity.enabled || Logarithm.logarithm.upgrades_in_dilated.includes('39')) {
 		if (player.singularity.enabled) player.singularity.t += diff / 1000;
 		if (player.singularity.stage < 1 && player.singularity.t > 205) player.singularity.t = 205;

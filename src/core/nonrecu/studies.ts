@@ -335,11 +335,11 @@ export const studies = [
 		},
 	}),
 	new Study({
-		id: '101',
-		description: '每秒获取1%重置时获取的非递归能量(没做)',
+		id: '101', //22
+		description: '每秒获取1%重置时获取的非递归能量',
 		cost: new Decimal(30),
 		canBuy() {
-			return false;
+			return or(20, 21);
 		},
 	}),
 	new Study({
