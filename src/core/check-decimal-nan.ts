@@ -29,7 +29,7 @@ export function createDeepValidatedReactive<T>(obj: T): T {
 					target[key] instanceof Decimal &&
 					typeof value === 'object' &&
 					value instanceof Decimal &&
-					Decimal.isNaN(value)
+					!Decimal.isFinite(value)
 				) {
 					// alert(`不能设置 NaN 到属性 ${String(key)}！`)
 					console.error(`我操称冯，何意味`, target, key);
@@ -75,7 +75,7 @@ export function createDeepValidatedReactive<T>(obj: T): T {
 					target[numericKey] instanceof Decimal &&
 					typeof value === 'object' &&
 					value instanceof Decimal &&
-					Decimal.isNaN(value)
+					!Decimal.isFinite(value)
 				) {
 					console.error(`我操称冯，何意味`, target, key);
 					console.trace();

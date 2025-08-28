@@ -202,6 +202,15 @@ export const plots = [
 		'Numerorum\t对了，你说你的同伴……是谁？',
 		'VeryRDefie\t他们在别的地方。你应该都能遇到。',
 	],
+	/*
+	隐藏剧情
+	['Numerorum\t第三个挑战...'],
+	['Numerorum进行了第三个非递归挑战。'],
+	['他使用了满级溶剂进行了稀释...'],
+	['然后...'],
+	['Numerorum\tNumerorumGrey\t澡，溶剂III有ω病毒！'],
+	['Numerorum宕机了...']
+	 */
 ];
 export function plotLength(id: number): number {
 	if (id <= 0) return 0;

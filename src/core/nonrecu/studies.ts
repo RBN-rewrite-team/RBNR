@@ -248,11 +248,13 @@ export const studies = [
 	}),
 	new Study({
 		id: 'NRC3', //12
-		description: '解锁非递归挑战3(没做)',
+		description: '解锁非递归挑战3(没做)\t255,000,000 溶液',
 		cost: new Decimal(20),
 		canBuy() {
 			return or(10);
 		},
+		isChallenge: true,
+		chal_id: 2,
 	}),
 	new Study({
 		id: '61', //13
