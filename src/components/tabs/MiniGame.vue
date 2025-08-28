@@ -4,13 +4,24 @@ import { player } from '@/core/save';
 import ObjectNode from './developermode/ObjectNode';
 import MiniGameTD from '../MiniGameTD.vue';
 import { getCurrentBlock, getPlayerCurrentMap } from '@/core/minigame/room';
+import { handleKeyPress } from '@/core/minigame/minigame-loop';
 </script>
 
 <template>
 
-    <div class="main"  >
-        <ObjectNode :goal="player.minigame"></ObjectNode>
-        <input placeholder="输入" @keydown="keyboardEventListener">
+    <div class="main">
+        <div style="margin: auto;">
+            玩家Numerorum<br/>
+            当前生命值: {{ player.minigame.hp }}<br/>
+            当前攻击力: NaN(还没做)<br/>
+            <br />
+            描述：何意味。<br />
+        </div>
+        <input placeholder="按箭头在这里按" @keydown="keyboardEventListener">
+        <button @click="handleKeyPress('up')">上</button>
+        <button @click="handleKeyPress('down')">下</button>
+        <button @click="handleKeyPress('left')">左</button>
+        <button @click="handleKeyPress('right')">右</button>
         <table>
             <tbody>
                 <tr>

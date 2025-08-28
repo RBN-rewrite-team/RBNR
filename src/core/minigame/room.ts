@@ -7,7 +7,7 @@ export function getCurrentBlock(map: SingleMap | undefined, x: number, y: number
 }
 export function isUnreachable(map: SingleMap, x: number, y: number) {
 	let obj = getCurrentBlock(map, x, y);
-	if (typeof obj === 'object' && obj instanceof GameObject && obj.solid) {
+	if (typeof obj === 'object' && obj instanceof GameObject && obj.solid()) {
 		return true;
 	}
 	return false;
@@ -21,7 +21,7 @@ export function getPlayerCurrentMap(): SingleMap {
 	for (let i = 0; i < replacements.length; i++) {
 		let repl = replacements[i];
 		if (repl.replacedTo == '0') {
-			a.map[repl.x][repl.y] = null;
+			a.map[repl.y][repl.x] = null;
 		}
 	}
 	return a;

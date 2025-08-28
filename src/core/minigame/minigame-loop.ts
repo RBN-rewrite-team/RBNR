@@ -1,5 +1,5 @@
 import { player } from '../save';
-import { getPlayerCurrentMap, isUnreachable, positionDirection } from './room';
+import { getCurrentBlock, getPlayerCurrentMap, isUnreachable, positionDirection } from './room';
 
 export function miniGameLoop(diff: number) {}
 export type KeyPresses = 'up' | 'down' | 'left' | 'right';
@@ -14,12 +14,12 @@ export function setPosManmade(goalpos: [number, number]) {
 }
 export function handleKeyPress(key: KeyPresses) {
 	if (['up', 'down', 'left', 'right'].includes(key)) {
-		setPosManmade(
-			positionDirection(
-				[player.minigame.current_x, player.minigame.current_y],
-				key as 'up' | 'down' | 'left' | 'right',
-			),
+		let pos = positionDirection(
+			[player.minigame.current_x, player.minigame.current_y],
+			key as 'up' | 'down' | 'left' | 'right',
 		);
+		setPosManmade(pos);
+		getCurrentBlock(getPlayerCurrentMap(), pos[0], pos[1])?.interact?.(pos[0], pos[1]);
 	}
 }
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BoxGameObject, WallGameObject, type GameObject } from '@/core/minigame/game-object';
+import { BoxGameObject, GuardGameObject, WallGameObject, type GameObject } from '@/core/minigame/game-object';
 
 const props = defineProps<{
     game_object: GameObject|null|undefined
@@ -16,6 +16,11 @@ const props = defineProps<{
         <template v-else-if=" (game_object instanceof BoxGameObject)  ">
             <td class="box-object">
                 宝箱    
+            </td>
+        </template>
+        <template v-else-if=" (game_object instanceof GuardGameObject)  ">
+            <td class="box-object">
+                守卫 
             </td>
         </template>
         <template v-else>
@@ -37,6 +42,7 @@ tr{
 }
 .box-object{
     background-color: gold;
+    color: var(--background-color);
 }
 td{ 
     height: 60px;

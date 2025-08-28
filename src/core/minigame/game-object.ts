@@ -12,13 +12,18 @@
 // 	DOOR_CHANCE,
 // }
 
+import ModalService from '@/utils/Modal';
+import { player } from '../save';
+
 /**
  * 游戏物体 Nothingness（这里什么都没有）
  */
 export class GameObject {
 	constructor() {}
-	interact() {}
-	solid = false;
+	interact(x: number, y: number) {}
+	solid() {
+		return false;
+	}
 }
 
 export class SpawnPointGameObject extends GameObject {
@@ -30,18 +35,56 @@ export class WallGameObject extends GameObject {
 	constructor() {
 		super();
 	}
-	solid = true;
+	solid() {
+		return true;
+	}
 }
 
 export class WallInvisibleGameObject extends GameObject {
 	constructor() {
 		super();
 	}
-	solid = true;
+	solid() {
+		return true;
+	}
 }
-
+export class FakeWallGameObject extends WallGameObject {
+	solid() {
+		return false;
+	}
+}
+export class GuardGameObject extends GameObject {
+	solid() {
+		return true;
+	}
+	interact(x: number, y: number): void {
+		ModalService.show({
+			title: '守卫说了句话',
+			content: '何意味',
+		});
+	}
+}
 export class BoxGameObject extends GameObject {
-	constructor() {
+	tier: number;
+	constructor(tier: number) {
 		super();
+		this.tier = tier;
+	}
+	interact(x: number, y: number): void {
+		let price = 0;
+		if (this.tier == 1) price = Math.random() * 5 + 5;
+		if (this.tier == 2) price = Math.random() * 25 + 25;
+		if (this.tier == 3) price = Math.random() * 125 + 125;
+		ModalService.show({
+			title: '你打开了宝箱',
+			content: '你打开了宝箱，获得了' + price.toFixed(3) + '时间碎片。',
+		});
+		player.timeshard.value += price;
+		player.minigame.replaces.push({
+			room: player.minigame.current_room,
+			x,
+			y,
+			replacedTo: '0',
+		});
 	}
 }

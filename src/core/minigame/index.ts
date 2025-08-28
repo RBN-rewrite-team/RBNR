@@ -12,6 +12,7 @@ export interface PlayerMinigameData {
 	current_x: number;
 	current_y: number;
 	replaces: Replacements[];
+	hp: number;
 }
 export function initMiniGameData(): PlayerMinigameData;
 export function initMiniGameData(): PlayerMinigameData {
@@ -20,6 +21,7 @@ export function initMiniGameData(): PlayerMinigameData {
 		current_x: 0,
 		current_y: 0,
 		replaces: [],
+		hp: 10,
 	};
 	return a;
 }
