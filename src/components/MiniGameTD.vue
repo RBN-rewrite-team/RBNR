@@ -9,7 +9,7 @@ const props = defineProps<{
 <template>
     <template v-if="game_object !== null && game_object !== undefined">
         <template v-if=" (game_object instanceof WallGameObject)  ">
-            <td>
+            <td style="background-color: var(--color)">
                 墙    
             </td>
         </template>
@@ -30,7 +30,5 @@ tr{
 td{ 
     height: 60px;
     width: 60px; 
-    background-color: var(--background-color);
-    border: 1px solid red;
 }
 </style>
