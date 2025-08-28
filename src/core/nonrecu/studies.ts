@@ -193,7 +193,20 @@ export const studies = [
 	}),
 	new Study({
 		id: '52', //9
-		description: '基于当前的非递归能量获得额外的非递归理论',
+		get description() {
+			return `基于当前的非递归能量获得额外的非递归理论(购买后可用理论+(${player.nonrecu.power
+				.add(1)
+				.ln()
+				.add(1)
+				.ln()
+				.mul(
+					player.nonrecu.studies_bought.includes(17)
+						? player.nonrecu.secInThisReset.add(1).log10()
+						: 1,
+				)
+				.floor()
+				.sub(5)}))`;
+		},
 		cost: new Decimal(5),
 		canBuy() {
 			let max = 1;
