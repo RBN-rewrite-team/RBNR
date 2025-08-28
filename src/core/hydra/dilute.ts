@@ -39,6 +39,7 @@ function diluteAmount(id: IntClosedRange<0, 8>): number | boolean {
 export { diluteAmount };
 
 export function tsbhBase(): number {
+	if (CHALLENGE.inChallenge(1, 2)) return 20;
 	if (player.nonrecu.studies_bought.includes(10)) {
 		return 3;
 	}
@@ -56,7 +57,11 @@ export function milestoneDut5Eff(): Decimal {
 		.add(1)
 		.log10()
 		.add(1)
-		.pow(player.milestones.dut15 ? 1.5 : Dilute.diluteAmount(5) * 0.1 + 0.5)
+		.pow(
+			player.milestones.dut15 && !CHALLENGE.inChallenge(1, 2)
+				? 1.5
+				: Dilute.diluteAmount(5) * 0.1 + 0.5,
+		)
 		.pow(
 			player.milestones.dut13 || (Dilute.diluteAmount(2) >= 10 && player.upgrades['67S'])
 				? 1.35
@@ -371,6 +376,17 @@ export const DiluteUpgrades = {
 			return player.milestones.nonrec_10;
 		}
 	})(),
+};
+export const DiluteTS = {
+	dilute6() {
+		if (CHALLENGE.inChallenge(1, 2)) return Dilute.diluteAmountOutside(5) * -0.2 + 1;
+
+		return Dilute.diluteAmountOutside(5) * -0.1 + 1;
+	},
+	dilute9Speed() {
+		if (CHALLENGE.inChallenge(1, 2)) return player.challenges[1][2].mul(10).toNumber();
+		return 1000;
+	},
 };
 export const Dilute = {
 	respec() {
@@ -822,7 +838,10 @@ export const Dilute = {
 			if (!player.milestones.nonrec_3)
 				player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + diff / 1000;
 			else player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + trueDiff / 1000;
-			if (!player.upgrades['614S'] && player.hydra.dilute.spentTime > s3Eff) {
+			if (
+				(!player.upgrades['614S'] || CHALLENGE.inChallenge(1, 2)) &&
+				player.hydra.dilute.spentTime > s3Eff
+			) {
 				ModalService.show({
 					title: '已退出稀释',
 					content:
@@ -899,10 +918,15 @@ export const Dilute = {
 			.min(base)
 			.min(ConstantMax)
 			.toNumber();
-		if (player.nonrecu.studies_bought.includes(18))
-			base *= player.nonrecu.secInThisReset.add(1).ln().mul(0.2).add(1).toNumber();
 		let exp = 1;
-		if (player.nonrecu.studies_bought.includes(15)) ((base *= 1.2), (exp *= 1.01));
+		if (!CHALLENGE.inChallenge(1, 2)) {
+			if (player.nonrecu.studies_bought.includes(18))
+				base *= player.nonrecu.secInThisReset.add(1).ln().mul(0.2).add(1).toNumber();
+			if (player.nonrecu.studies_bought.includes(15)) base *= 1.2;
+		}
+		if (player.nonrecu.studies_bought.includes(15)) {
+			exp *= 1.01;
+		}
 		if (player.nonrecu.studies_bought.includes(20)) exp *= 1.025;
 		return (deduceMult * base) ** exp;
 	},
@@ -921,6 +945,7 @@ export const Dilute = {
 	sol3EffOutside(): number {
 		let base = 1000 / player.hydra.dilute.solvent[2] ** 2;
 		if (player.milestones.nonrec_4) base += player.nonrecu.resetTimes.toNumber();
+		if (CHALLENGE.inChallenge(1, 2)) base /= 5;
 		return base;
 	},
 	totSolNerf(): number {

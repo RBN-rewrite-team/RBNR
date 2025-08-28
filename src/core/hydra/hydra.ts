@@ -6,7 +6,14 @@ import { Upgrade, UpgradeWithEffect } from '../upgrade';
 import { CurrencyRequirement, type Requirement } from '../requirements';
 import { Buyable } from '../buyable';
 import { upgrades, buyables } from '../mechanic';
-import { Dilute, milestoneDut16Eff, milestoneDut6Eff, milestoneDut7Eff, tsbhBase } from './dilute';
+import {
+	Dilute,
+	DiluteTS,
+	milestoneDut16Eff,
+	milestoneDut6Eff,
+	milestoneDut7Eff,
+	tsbhBase,
+} from './dilute';
 import type { IntClosedRange } from 'type-fest';
 import { NON_RECURSIVE } from '../nonrecu';
 import { CHALLENGE } from '../challenge';
@@ -561,7 +568,7 @@ export const Hydra = {
 			base = base.log10().pow(getCurrency(Currencies.NRT).mul(0.01).add(1)).pow10();
 		}
 
-		if (Dilute.diluteAmount(5) > 0) base = base.pow(1 - Dilute.diluteAmount(5) * 0.1);
+		if (Dilute.diluteAmount(5) > 0) base = base.pow(DiluteTS.dilute6());
 		if (player.milestones.dut16) {
 			if (player.hydra.dilute.inDilute) base = base.mul(milestoneDut16Eff());
 			else base = base.pow(milestoneDut16Eff());
@@ -877,7 +884,7 @@ export const Hydra = {
 		if (!keepHP) player.hydra.power = new Decimal(0);
 	},
 	hydraUpdate(diff = 0): void {
-		if (Dilute.diluteAmount(8)) diff /= 1000;
+		if (Dilute.diluteAmount(8)) diff /= DiluteTS.dilute9Speed();
 		for (let i = 0; i < 4; i++) {
 			player.hydra.deduceProgress[i] = player.hydra.deduceProgress[i].add(
 				Hydra.deduceSpeed(i).mul(diff),

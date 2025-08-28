@@ -251,7 +251,7 @@ export const studies = [
 		description: '解锁非递归挑战3(没做)',
 		cost: new Decimal(20),
 		canBuy() {
-			return false;
+			return or(10);
 		},
 	}),
 	new Study({
