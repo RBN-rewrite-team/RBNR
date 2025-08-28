@@ -204,12 +204,14 @@ export const plots = [
 	],
 	/*
 	隐藏剧情
-	['Numerorum\t第三个挑战...'],
-	['Numerorum进行了第三个非递归挑战。'],
-	['他使用了满级溶剂进行了稀释...'],
-	['然后...'],
-	['Numerorum\tNumerorumGrey\t澡，溶剂IX有ω病毒！'],
-	['Numerorum宕机了...']
+	[
+		'Numerorum\t第三个挑战...',
+		'Numerorum进行了第三个非递归挑战。',
+		'他使用了满级溶剂进行了稀释...',
+		'然后...',
+		'Numerorum\tNumerorumGrey\tHoly hard shuati，溶剂IX有ω病毒！',
+		'Numerorum宕机了...',
+	]
 	 */
 ];
 export function plotLength(id: number): number {
