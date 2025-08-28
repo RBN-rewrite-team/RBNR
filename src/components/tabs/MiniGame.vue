@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { keyboardEventListener } from '@/core/minigame';
+import { currentPlayerLV, keyboardEventListener } from '@/core/minigame';
 import { player } from '@/core/save';
 import ObjectNode from './developermode/ObjectNode';
 import MiniGameTD from '../MiniGameTD.vue';
 import { getCurrentBlock, getPlayerCurrentMap } from '@/core/minigame/room';
 import { handleKeyPress } from '@/core/minigame/minigame-loop';
+import { meBattleInfo } from '@/core/minigame/battle';
 </script>
 
 <template>
@@ -13,7 +14,12 @@ import { handleKeyPress } from '@/core/minigame/minigame-loop';
         <div style="margin: auto;">
             玩家Numerorum<br/>
             当前生命值: {{ player.minigame.hp }}<br/>
-            当前攻击力: NaN(还没做)<br/>
+            当前攻击力: {{ meBattleInfo().atk }}<br/>
+            当前防御: {{ meBattleInfo().def }}<br/>
+            当前LV: {{ currentPlayerLV() }}<br/>
+            当前XP: {{ player.minigame.xp }}<br/>
+            
+            
             <br />
             描述：何意味。<br />
         </div>

@@ -14,12 +14,14 @@ export function setPosManmade(goalpos: [number, number]) {
 }
 export function handleKeyPress(key: KeyPresses) {
 	if (['up', 'down', 'left', 'right'].includes(key)) {
-		let pos = positionDirection(
-			[player.minigame.current_x, player.minigame.current_y],
-			key as 'up' | 'down' | 'left' | 'right',
-		);
-		setPosManmade(pos);
-		getCurrentBlock(getPlayerCurrentMap(), pos[0], pos[1])?.interact?.(pos[0], pos[1]);
+		if (player.minigame.interact == 0) {
+			let pos = positionDirection(
+				[player.minigame.current_x, player.minigame.current_y],
+				key as 'up' | 'down' | 'left' | 'right',
+			);
+			setPosManmade(pos);
+			getCurrentBlock(getPlayerCurrentMap(), pos[0], pos[1])?.interact?.(pos[0], pos[1]);
+		}
 	}
 }
 
