@@ -5,6 +5,7 @@ import {
 	GuardGameObject,
 	HealthRecoveryGameObject,
 	KeyGameObject,
+	KeyRequiredWallInvisibleGameObject,
 	OreGameObject,
 	RestrictedBoxObject,
 	TeleporterGameObject,
@@ -14,8 +15,10 @@ import type { SingleMap } from '../map';
 import { convertStringToMap } from '../map-functions';
 export const between = (x: number, y: number, z: number) => x <= y && y <= z;
 export function map2_block(x: number, y: number) {
-	if (x < 0) return null;
-	if (y < 0) return null;
+	if (x < 0) return undefined;
+	if (y < 0) return undefined;
+	if (y > 44) return undefined;
+	if (x > 42) return undefined;
 	if (
 		x == 0 ||
 		y == 0 ||
@@ -49,10 +52,29 @@ export function map2_block(x: number, y: number) {
 		(x == 5 && between(27, y, 31)) ||
 		(x == 4 && between(29, y, 31)) ||
 		(x == 9 && y == 32) ||
-		(y == 19 && between(29, x, 42))
+		(y == 19 && between(29, x, 42)) ||
+		(between(31, x, 37) && between(27, y, 29)) ||
+		(x == 31 && y == 30) ||
+		(x == 31 && y == 31) ||
+		(x == 31 && y == 32) ||
+		(x == 31 && y == 33) ||
+		(x == 32 && y == 30) ||
+		(x == 33 && y == 30) ||
+		(x == 34 && y == 30) ||
+		(x == 35 && y == 30) ||
+		(x == 36 && y == 30) ||
+		(y == 33 && between(24, x, 30)) ||
+		y == 44 ||
+		(x == 4 && between(34, y, 39)) ||
+		(x == 3 && y == 39) ||
+		(x == 1 && y == 38)
 	)
 		return new WallGameObject();
 
+	if (between(32, x, 37) && between(31, y, 33)) {
+		return new FakeWallGameObject();
+	}
+	if (x == 37 && y == 30) return new KeyGameObject(6.002);
 	if (y == 1 && between(2, x, 23)) return new FakeWallGameObject();
 
 	if (x == 4 && y == 4) return new GuardGameObject(2);
@@ -149,5 +171,34 @@ export function map2_block(x: number, y: number) {
 	if (x == 41 && y == 18) return new KeyGameObject(1);
 
 	if (x == 38 && y >= 24) return new WallGameObject();
+
+	if (x == 30 && y == 32) return new OreGameObject();
+	if (x == 30 && y == 27) return new RestrictedBoxObject(1);
+	if (x == 29 && y == 27) return new GuardGameObject(5);
+	if (x == 30 && y == 28) return new GuardGameObject(3);
+	if (x == 23 && y == 33) return new DoorGameObject(1.002);
+	if (x == 2 && y == 38) return new DoorGameObject(7.002);
+	if (x == 2 && y == 39) return new GuardGameObject(5);
+	if (x == 1 && y == 39) return new RestrictedBoxObject(1);
+	if (x == 1 && y == 40) return new RestrictedBoxObject(1);
+	if (x == 4 && y == 40) return new GuardGameObject(4);
+	if (x == 5 && y == 39) return new KeyGameObject(8.002);
+
+	if (between(5, x, 11) && y == 37) return new KeyRequiredWallInvisibleGameObject(8.002);
+	if ((x == 12 && y >= 37) || (between(9, x, 11) && between(40, y, 43)) || (x == 15 && y >= 37))
+		return new WallGameObject();
+
+	if ((x == 13 || x == 14) && between(40, y, 42)) {
+		return new FakeWallGameObject();
+	}
+	if (x == 13 && y == 37) return new GuardGameObject(3);
+	if (x == 14 && y == 37) return new GuardGameObject(3);
+	if (x == 13 && y == 38) return new GuardGameObject(4);
+	if (x == 14 && y == 38) return new GuardGameObject(5);
+	if (x == 13 && y == 39) return new RestrictedBoxObject(1);
+	if (x == 14 && y == 39) return new RestrictedBoxObject(1);
+
+	if (x == 13 && y == 43) return new KeyGameObject(9.002);
+	if (x == 14 && y == 43) return new OreGameObject();
 	return null;
 }

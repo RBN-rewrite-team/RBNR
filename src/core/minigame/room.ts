@@ -43,7 +43,7 @@ export function randomBlock(x: bigint, y: bigint) {
 }
 type ArrayContent<T> = T extends Array<infer C> ? C : any;
 export function replacement(
-	bl: GameObject | null,
+	bl: GameObject | null | undefined,
 	replacement: ArrayContent<typeof player.minigame.replaces>,
 ) {
 	if (replacement.replacedTo == '0') {
