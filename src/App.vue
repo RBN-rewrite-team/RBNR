@@ -44,6 +44,7 @@ import SaveBank from './components/tabs/SaveBank.vue';
 import PlotView from './components/tabs/plot/PlotView.vue';
 import NonRecursionTab from './components/tabs/nonrecursion/NonRecursionTab.vue';
 import NonRecursionTabChal from './components/tabs/nonrecursion/NonRecursionTabChal.vue';
+import MiniGame from './components/tabs/MiniGame.vue';
 </script>
 
 <template>
@@ -92,6 +93,7 @@ import NonRecursionTabChal from './components/tabs/nonrecursion/NonRecursionTabC
 				<NonRecursionTabChal v-if="player.currentTab === 22"></NonRecursionTabChal>
 				<PlotTab v-if="player.currentTab === 200" />
 				<SaveBank v-if="player.currentTab === 300" />
+				<MiniGame v-if="player.currentTab === 1225" />
 			</div>
 		</div>
 	</div>
