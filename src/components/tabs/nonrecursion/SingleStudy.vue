@@ -11,14 +11,14 @@ const props = defineProps<{
 const study = studies[props.study_id];
 
 const useClass = () => {
-	if (study.isChallenge &&  player.nonrecu.studies_bought.includes(props.study_id)) {
-		let a = 'study-nrc'
+	if (study.isChallenge && player.nonrecu.studies_bought.includes(props.study_id)) {
+		let a = 'study-nrc';
 		if (CHALLENGE.inChallenge(1, study.chalID)) {
-			a += " study-nrc-in"
+			a += ' study-nrc-in';
 		}
 		return a;
 	}
-	if (!study.isChallenge &&  player.nonrecu.studies_bought.includes(props.study_id)) {
+	if (!study.isChallenge && player.nonrecu.studies_bought.includes(props.study_id)) {
 		return 'study-actived';
 	}
 	if (canBuyStudies(props.study_id)) {
@@ -26,17 +26,16 @@ const useClass = () => {
 	}
 };
 function challengeButton(chid: number) {
-	if (!CHALLENGE.inChallenge(1, chid))
-		CHALLENGE.enterChallenge(1, chid);
+	if (!CHALLENGE.inChallenge(1, chid)) CHALLENGE.enterChallenge(1, chid);
 	else CHALLENGE.exitChallenge();
 }
-const clickStudy= (studyid: number)=> {
+const clickStudy = (studyid: number) => {
 	if (player.nonrecu.studies_bought.includes(studyid) && study.isChallenge) {
-		challengeButton(study.chalID)
+		challengeButton(study.chalID);
 	} else {
 		buyStudies(studyid);
 	}
-}
+};
 </script>
 
 <template>

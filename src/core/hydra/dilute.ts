@@ -345,8 +345,13 @@ export const DiluteUpgrades = {
 		}
 		effect(): Decimal {
 			if (player.hydra.dilute.inDilute)
-				return player.hydra.dilute.highestApocalypse.add(1).add(1).add(1).pow(0.75).min("e1000");
-			return player.hydra.dilute.highestApocalypse.add(1).pow(1.25).min("e850");
+				return player.hydra.dilute.highestApocalypse
+					.add(1)
+					.add(1)
+					.add(1)
+					.pow(0.75)
+					.min('e1000');
+			return player.hydra.dilute.highestApocalypse.add(1).pow(1.25).min('e850');
 		}
 		effectDescription(): string {
 			return (!player.hydra.dilute.inDilute ? '^' : '×') + format(this.effect());
@@ -379,7 +384,8 @@ export const DiluteUpgrades = {
 };
 export const DiluteTS = {
 	dilute6() {
-		if (CHALLENGE.inChallenge(1, 2)) return Dilute.diluteAmountOutside(5) * -(+player.challenges[1][2] * 0.2 + 0.2) + 1;
+		if (CHALLENGE.inChallenge(1, 2))
+			return Dilute.diluteAmountOutside(5) * -(+player.challenges[1][2] * 0.2 + 0.2) + 1;
 
 		return Dilute.diluteAmountOutside(5) * -0.1 + 1;
 	},
@@ -827,9 +833,7 @@ export const Dilute = {
 								? trueDiff
 								: diff) / 1000,
 						)
-						.pow(
-						    (player.challenges[1][0].pow_base(4))
-						)
+						.pow(player.challenges[1][0].pow_base(4))
 						.root(this.diluteAmount(8) ? 1000 : 1),
 				)
 				.max(1);
@@ -887,7 +891,8 @@ export const Dilute = {
 				base = base.pow(player.challenges[1][0].pow_base(4));
 		}
 		if (player.nonrecu.studies_bought.includes(7)) base = base.pow(10);
-		if (player.challengein[0] != 1 && player.milestones.nonrec_16) base = base.pow(Hydra.prestigeEff(1).add(1))
+		if (player.challengein[0] != 1 && player.milestones.nonrec_16)
+			base = base.pow(Hydra.prestigeEff(1).add(1));
 		return base;
 	},
 	/**
@@ -922,7 +927,8 @@ export const Dilute = {
 			.min(base)
 			.min(ConstantMax)
 			.toNumber();
-		if(player.nonrecu.studies_bought.includes(18)) base *= Number(player.nonrecu.secInThisReset.add(1).ln().mul(0.1).add(1).min(10));
+		if (player.nonrecu.studies_bought.includes(18))
+			base *= Number(player.nonrecu.secInThisReset.add(1).ln().mul(0.1).add(1).min(10));
 		let exp = 1;
 		if (!CHALLENGE.inChallenge(1, 2)) {
 			if (player.nonrecu.studies_bought.includes(18))

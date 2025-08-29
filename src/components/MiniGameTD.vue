@@ -1,5 +1,17 @@
 <script setup lang="ts">
-import { BoxGameObject, DoorGameObject, GuardGameObject, HealthRecoveryGameObject, KeyGameObject, OreGameObject, PasswordGameObject, TeleporterGameObject, WallGameObject, WallInvisibleGameObject, type GameObject } from '@/core/minigame/game-object';
+import {
+	BoxGameObject,
+	DoorGameObject,
+	GuardGameObject,
+	HealthRecoveryGameObject,
+	KeyGameObject,
+	OreGameObject,
+	PasswordGameObject,
+	TeleporterGameObject,
+	WallGameObject,
+	WallInvisibleGameObject,
+	type GameObject,
+} from '@/core/minigame/game-object';
 
 const props = defineProps<{
     game_object: GameObject|null|undefined
@@ -67,21 +79,23 @@ function class3() {
 </template>
 
 <style lang="scss" scoped>
-table{margin: auto;}
-tr{
-    height: 60px;
+table {
+	margin: auto;
 }
-.box-object{
-    background-color: gold;
-    color: var(--background-color);
+tr {
+	height: 60px;
 }
-.ore-object{
-    background-color: rgb(0, 81, 255);
-    color: var(--background-color);
+.box-object {
+	background-color: gold;
+	color: var(--background-color);
 }
-td{ 
-    height: 60px;
-    width: 60px; 
-    font-size: smaller;
+.ore-object {
+	background-color: rgb(0, 81, 255);
+	color: var(--background-color);
+}
+td {
+	height: 60px;
+	width: 60px;
+	font-size: smaller;
 }
 </style>

@@ -7,7 +7,7 @@ import ObjectNode from './ObjectNode';
 <template>
 	<div v-if="isDeveloper()" style="text-align: left">
 		开发者模式<br />
-		<button @click="player.currentTab=1225">进入小游戏</button>
+		<button @click="player.currentTab = 1225">进入小游戏</button>
 		<ObjectNode :goal="{ player }"></ObjectNode>
 	</div>
 </template>
