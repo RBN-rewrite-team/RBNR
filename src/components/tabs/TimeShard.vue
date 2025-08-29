@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { player, feature } from '@/core/global';
+import { format, formatTime } from "../../utils/format.ts"
 function timeF(ms = 0) {
 	const s = new Date(ms);
 	return s.toLocaleString();
@@ -10,12 +11,12 @@ function timeF(ms = 0) {
 	<div class="main">
 		<div align="center">
 			你有
-			<span style="color: rgb(255, 63, 255)">{{ player.timeshard.value }}</span>
+			<span style="color: rgb(255, 63, 255)">{{ format(player.timeshard.value) }}</span>
 			时间碎片，转换它以获得同等分钟的3x时间加速效果<br />
 			<span v-if="player.timeshard.tf > 0">
 				你有
 				<span style="color: rgb(127, 31, 127)"
-					>{{ Math.round(player.timeshard.tf / 1000) }}秒</span
+					>{{ formatTime(player.timeshard.tf / 1000) }}</span
 				>
 				的时间加速<br />
 				<button
