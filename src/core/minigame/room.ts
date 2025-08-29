@@ -124,7 +124,9 @@ export function visibleBlocks() {
 			? 3n
 			: 1n;
 	}
-	return 10n;
+	if (player.minigame.current_room == 1) return 3n;
+	if (player.minigame.current_room == 2) return 1n;
+	return import.meta.env.DEV ? 10n : 1n;
 }
 export function isPlayerVisible(x: bigint, y: bigint) {
 	if (x < player.minigame.current_x - visibleBlocks()) return false;
