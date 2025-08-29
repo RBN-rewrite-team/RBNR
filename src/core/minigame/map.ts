@@ -15,7 +15,6 @@ import {
 	type GameObject,
 } from './game-object';
 import { convertStringToMap } from './map-functions';
-import { MAP_DUNGEON2 } from './maps/map-dungeon2';
 export type SingleMap = {
 	map: (GameObject | null)[][];
 	spawnpoint: [number, number];
@@ -115,7 +114,10 @@ export function initialMap(): SingleMap[] {
 			],
 			spawnpoint: [1, 1],
 		},
-		MAP_DUNGEON2,
+		{
+			map: [],
+			spawnpoint: [1, 1],
+		},
 		{
 			map: [
 				convertStringToMap('WWWWWWWWWWWWWWWWWWWWWWWWWWW'),
