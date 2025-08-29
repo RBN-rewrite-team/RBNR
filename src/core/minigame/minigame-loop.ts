@@ -3,7 +3,7 @@ import { getCurrentBlock, isUnreachable, positionDirection } from './room';
 
 export function miniGameLoop(diff: number) {}
 export type KeyPresses = 'up' | 'down' | 'left' | 'right';
-export function setPosManmade(goalpos: [number, number]) {
+export function setPosManmade(goalpos: [bigint, bigint]) {
 	//debugger;
 	let a = !isUnreachable(player.minigame.current_room, goalpos[0], goalpos[1]);
 	console.log(a);

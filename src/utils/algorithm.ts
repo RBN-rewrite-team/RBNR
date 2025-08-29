@@ -98,6 +98,6 @@ export function DecimalsMin(...args: Decimal[]) {
 	}
 }
 
-export function range(a: number, b: number) {
-	return new Array(b - a).fill(0).map((v, i) => i + a);
+export function range(a: bigint, b: bigint) {
+	return new Array(Number(b - a)).fill(0).map((v, i) => BigInt(i) + a);
 }

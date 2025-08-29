@@ -407,6 +407,10 @@ type DeepPartial<T> = T extends (infer U)[]
 		? { [P in keyof T]?: DeepPartial<T[P]> }
 		: T;
 
+function isBigInt(value: unknown): value is bigint {
+	return Object.prototype.toString.call(value) === '[object BigInt]';
+}
+
 /**
  * 此函数是用来：
  * 合并两个对象
@@ -427,7 +431,9 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 
 			if (targetItem === null || sourceItem === null) continue;
 
-			if (
+			if (isBigInt(sourceItem)) {
+				result[i] = BigInt(targetItem as string | number | bigint | boolean);
+			} else if (
 				targetItem !== undefined &&
 				targetItem !== null &&
 				sourceItem !== null &&
@@ -465,7 +471,9 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 				result[key] = targetValue;
 			}
 
-			if (
+			if (isBigInt(sourceValue)) {
+				result[key] = BigInt(targetValue as string | number | bigint | boolean);
+			} else if (
 				sourceValue !== null &&
 				typeof sourceValue === 'object' &&
 				!(sourceValue instanceof Decimal)
@@ -527,6 +535,20 @@ export function loadFromString(saveContent: string) {
 		}
 		player.hydra.dilute.prions = player.hydra.dilute.prions.min('ee18');
 		player.hydra.deduceOrdinal[0] = player.hydra.deduceOrdinal[0].min('ee3500');
+	}
+
+	player.minigame.current_x = BigInt(player.minigame.current_x);
+	player.minigame.current_y = BigInt(player.minigame.current_y);
+
+	for (const replacement of player.minigame.replaces) {
+		if (Number.isInteger(replacement.x)) replacement.x = BigInt(replacement.x);
+		else {
+			replacement.x = 111111n;
+		}
+		if (Number.isInteger(replacement.y)) replacement.y = BigInt(replacement.y);
+		else {
+			replacement.y = 111111n;
+		}
 	}
 
 	// @ts-ignore

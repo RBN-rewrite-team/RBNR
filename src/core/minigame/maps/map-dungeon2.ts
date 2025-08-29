@@ -19,7 +19,7 @@ export const MAP_DUNGEON2: SingleMap = {
 				.fill(0)
 				.map(() => new FakeWallGameObject())
 				.concat([
-					new TeleporterGameObject([0, 0], 0),
+					new TeleporterGameObject([1n, 1n], 0),
 					new HealthRecoveryGameObject(25),
 					new KeyGameObject(2.002),
 					new BoxGameObject(1),

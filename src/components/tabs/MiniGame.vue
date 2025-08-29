@@ -8,9 +8,10 @@ import { handleKeyPress } from '@/core/minigame/minigame-loop';
 import { meBattleInfo } from '@/core/minigame/battle';
 import { range } from '@/utils/algorithm';
 import { temp } from '../../core/temp-data';
+import { format } from '@/utils/format';
 
 function spawn(id: number): void {
-	player.minigame.current_room = id, player.minigame.current_x = 1, player.minigame.current_y = 1;
+	player.minigame.current_room = id, player.minigame.current_x = 1n, player.minigame.current_y = 1n;
 }
 </script>
 
@@ -50,17 +51,17 @@ function spawn(id: number): void {
           <button @click="handleKeyPress('right')" class="clickable_button">→</button>
         </div>
         <div>
-            X: {{ player.minigame.current_x }}
-            Y: {{ player.minigame.current_y }}
+            X: {{ format(player.minigame.current_x.toString()) }}
+            Y: {{ format(player.minigame.current_y.toString()) }}
             <br>
             {{ temp.minigametip }}
         </div>
         <br />
         <table>
             <tbody>
-                <template v-for="y in range(player.minigame.current_y-Math.min(10, visibleBlocks()), player.minigame.current_y+Math.min(10, visibleBlocks())+1)">
+                <template v-for="y in range(player.minigame.current_y- visibleBlocks(), player.minigame.current_y+visibleBlocks()+1n)">
                     <tr>
-                        <template v-for="x in range(player.minigame.current_x-Math.min(10, visibleBlocks()), player.minigame.current_x+Math.min(10, visibleBlocks())+1)">
+                        <template v-for="x in range(player.minigame.current_x-visibleBlocks(), player.minigame.current_x+visibleBlocks()+1n)">
                             <template v-if="player.minigame.current_x!==x || player.minigame.current_y!==y">
                                 <MiniGameTD v-if="isPlayerVisible(x, y)":game_object="getCurrentBlock(player.minigame.current_room, x, y)"></MiniGameTD>
                             </template>
