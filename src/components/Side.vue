@@ -2,6 +2,7 @@
 import { player } from '@/core/save';
 import { Logarithm } from '../core/exponention/logarithm.ts';
 import { unlockedPlots, viewedPlotLength } from '@/core/plot.ts';
+import { isTester } from '@/core/save/testing.ts';
 </script>
 
 <template>
@@ -18,13 +19,20 @@ import { unlockedPlots, viewedPlotLength } from '@/core/plot.ts';
 					>
 						大数之路重制版
 					</div>
-					<div style="font-size: 20px">v0.6 Beta</div>
+					<div style="font-size: 20px">Dungeons Beta</div>
 				</div>
 			</div>
 		</div>
 		<div class="menu" id="menu">
 			<div class="background" style="overflow: auto">
 				<div class="main">
+					<div v-if="isTester()">
+						<div class="menu2"
+							:class="{ focus: player.currentTab == 1225 }"
+							@click="player.currentTab = 1225"
+						>地下城
+						</div>
+					</div>
 					<div v-if="player.singularity.stage < 11">
 						<div class="menu1">后继</div>
 						<div class="menu_line"></div>

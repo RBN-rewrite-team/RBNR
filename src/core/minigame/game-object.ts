@@ -205,8 +205,12 @@ export class EntityGameObject extends GameObject {
 						content:
 							'你被' +
 							innerText +
-							'击杀，返回出生点并清空等级(没做)。获得了 0 技能点(也没做)。',
+							'击杀，返回出生点并清空等级。获得了 0 技能点(Coming S[OoM^OoM]n)。',
 					});
+					player.minigame.x = getPlayerCurrentMap().spawnpoint[0];
+					player.minigame.y = getPlayerCurrentMap().spawnpoint[1];
+					player.minigame.hp = meBattleInfo().maxHp;
+					player.minigame.xp = 0;
 				} else {
 					player.minigame.hp = battlestatus.hp_after_battle;
 					player.minigame.replaces.push({
