@@ -10,6 +10,7 @@ import {
 	MoveableBoxGameObject,
 	OreGameObject,
 	RestrictedBoxObject,
+	SwitchGameObject,
 	TeleporterGameObject,
 	WallGameObject,
 	WallInvisibleGameObject,
@@ -264,6 +265,7 @@ export function map2_block(x: number, y: number) {
 	if (x == 25 && y >= 40) return new WallGameObject();
 	if (x == 23 && y == 42) return new BoxGameObject(3);
 	if (x == 32 && y == 35) return new MoveableBoxGameObject();
+	if (x == 35 && y == 39) return new SwitchGameObject();
 	if (x == 23 && y == 40)
 		return new (class extends BossGameObject {
 			constructor() {

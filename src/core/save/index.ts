@@ -536,7 +536,7 @@ export function loadFromString(saveContent: string) {
 		player.hydra.dilute.prions = player.hydra.dilute.prions.min('ee18');
 		player.hydra.deduceOrdinal[0] = player.hydra.deduceOrdinal[0].min('ee3500');
 	}
-	if((player?.version ?? 0) < 10) {
+	if ((player?.version ?? 0) < 10) {
 		hardResetMiniGame();
 	}
 
@@ -544,6 +544,7 @@ export function loadFromString(saveContent: string) {
 	player.minigame.current_y = BigInt(player.minigame.current_y);
 
 	for (const replacement of player.minigame.replaces) {
+		if (!replacement) continue;
 		replacement.x = BigInt(replacement.x);
 
 		replacement.y = BigInt(replacement.y);
