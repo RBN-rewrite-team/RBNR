@@ -5,6 +5,7 @@ import {
 	GameObject,
 	GuardGameObject,
 	OreGameObject,
+	TeleporterGameObject,
 	WallGameObject,
 } from './game-object';
 import { initialMap, maps, type SingleMap } from './map';
@@ -12,6 +13,11 @@ export function randomBlock(x: number, y: number) {
 	let randomer = predictableRandom(1000000 + x * 1000 + y);
 	if (randomer < 0.1) return new WallGameObject();
 	else if (randomer < 0.21) return new GuardGameObject(1);
+	else if (randomer < 0.2105)
+		return new TeleporterGameObject(
+			[x + Math.floor(randomer * 514), y - Math.floor(randomer * 114)],
+			943360095,
+		);
 	else if (randomer < 0.75) return null;
 	else if (randomer < 0.8) return new BoxGameObject(1);
 	else if (randomer < 0.81) return new BoxGameObject(2);
