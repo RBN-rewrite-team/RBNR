@@ -173,7 +173,7 @@ export function initialMap(): SingleMap[] {
 					new OreGameObject(),
 				]),
 				convertStringToMap('WPPPPPPPPW0WWWWWWWWPW0WWWWW', [
-					new TeleporterGameObject([10, 8], 2),
+					new TeleporterGameObject([8, 10], 2),
 					new OreGameObject(),
 					new DoorGameObject(6.001),
 					new OreGameObject(),
@@ -196,10 +196,11 @@ export function initialMap(): SingleMap[] {
 					new TeleporterGameObject([1, 8], 2),
 					new FakeWallGameObject(),
 				]),
-				convertStringToMap('WPW0WWWPWW0PW00000W000W0P0W', [
+				convertStringToMap('WPW0WWWPWW0PW00000P000W0P0W', [
 					new FakeWallGameObject(),
 					new FakeWallGameObject(),
 					new TeleporterGameObject([25, 9], 2),
+					new FakeWallGameObject(),
 					new FakeWallGameObject(),
 				]),
 				convertStringToMap('W0W0W0P0WWWWWWPWWWWWWWW0WPW', [
@@ -221,7 +222,7 @@ export function initialMap(): SingleMap[] {
 					new FakeWallGameObject(),
 				]),
 
-				convertStringToMap('WPP0WWW0P00P0P0000P00000WPW', [
+				convertStringToMap('WPP0WWW0P00PWP0000P00000WPW', [
 					new KeyGameObject(6.001),
 					new FakeWallGameObject(),
 					new FakeWallGameObject(),
