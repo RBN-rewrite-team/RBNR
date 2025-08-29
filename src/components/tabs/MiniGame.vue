@@ -1,28 +1,20 @@
 <script setup lang="ts">
-import { currentPlayerLV, hardResetMiniGame, keyboardEventListener } from '@/core/minigame';
+import { currentPlayerLV, nextLVxp, hardResetMiniGame, keyboardEventListener } from '@/core/minigame';
 import { player } from '@/core/save';
 import ObjectNode from './developermode/ObjectNode';
 import MiniGameTD from '../MiniGameTD.vue';
 import { getCurrentBlock, getPlayerMap, isPlayerVisible } from '@/core/minigame/room';
 import { handleKeyPress } from '@/core/minigame/minigame-loop';
 import { meBattleInfo } from '@/core/minigame/battle';
+
+function spawn(id: number): void {
+	player.minigame.current_room = id, player.minigame.current_x = 1, player.minigame.current_y = 1;
+}
 </script>
 
 <template>
 
     <div class="main">
-        <div style="margin: auto;">
-            玩家Numerorum<br/>
-            当前生命值: {{ player.minigame.hp.toFixed(1) }}<br/>
-            当前攻击力: {{ meBattleInfo().atk.toFixed(1) }}<br/>
-            当前防御: {{ meBattleInfo().def.toFixed(1) }}<br/>
-            当前LV: {{ currentPlayerLV() }}<br/>
-            当前XP: {{ player.minigame.xp.toFixed(1) }}<br/>
-            
-            
-            <br />
-            描述：没做。<br />
-        </div>
         <div style="display: flex; flex-direction: row; justify-content: center">
           <button @click="handleKeyPress('up')" class="clickable_button">↑</button>
           <button @click="handleKeyPress('down')" class="clickable_button">↓</button>
@@ -67,6 +59,31 @@ import { meBattleInfo } from '@/core/minigame/battle';
                 </tr> -->
             </tbody>
         </table>
+        <div style="margin: auto; position: absolute; left: 0%; top: 0%; width: 400px; height: 200px; background-color: grey;">
+            Numerorum<br/>
+            <div style="position: relative; height: 50px; width: 400px; background-color: black">
+				<div align="center" style="font-size: 17px">生命值：{{meBattleInfo().hp}}/{{meBattleInfo().hpMax}}({{Math.ceil(meBattleInfo().hp / meBattleInfo().hpMax * 100)}}%)</div>
+				<div :style="{position: 'absolute', height: '25px', width: meBattleInfo().hp / meBattleInfo().hpMax * 400 + 'px', 'background-color': 'red'}"></div>
+			</div>
+            <table style="width: 100%">
+			<tbody>
+			<tr>
+			<td>当前攻击力: {{ meBattleInfo().atk }}</td>
+            <td>当前防御: {{ meBattleInfo().def }}</td>
+			</tr>
+			<tr>
+			<td>当前LV: {{ currentPlayerLV() }}</td>
+            <td :style="{'background-image': 'linear-gradient(to right, green ' + (player.minigame.xp / nextLVxp() * 100) + '%, black ' + (player.minigame.xp / nextLVxp() * 100) + '%)'}">当前XP: {{ player.minigame.xp }}/{{ nextLVxp() }}</td>
+			</tr>
+			</tbody>
+			<tr>
+			<td>矿石收集：{{player.minigame.ore_gets}}<br>(+{{player.minigame.ore_gets * 0.25}}%全局速度)</td>
+			</tr>
+			<tr>
+			<td><button @click="spawn(0)">Dungeon 1</button></td>
+			</tr>
+			</table>
+        </div>
     </div>
 </template>
 

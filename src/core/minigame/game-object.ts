@@ -148,7 +148,7 @@ export class EntityGameObject extends GameObject {
 		this.tier = tier;
 	}
 	solid() {
-		return true;
+		return false;
 	}
 	interact(x: number, y: number): void {
 		let guardinfo = guardBattleInfo(this.tier, this.type);
@@ -156,7 +156,7 @@ export class EntityGameObject extends GameObject {
 		const innerText = this.innerText;
 		ModalService.show({
 			title: this.innerText + '属性',
-			content: `HP${guardinfo.hp} ATK${guardinfo.atk} DEF${guardinfo.def}, 点击确认以战斗`,
+			content: `生命值${guardinfo.hp} 攻击力${guardinfo.atk} 防御力${guardinfo.def}, 点击确认以战斗`,
 			onConfirm(values) {
 				let battlestatus = runBattleFast(meBattleInfo(), guardinfo);
 				if (battlestatus.status == 'fail') {

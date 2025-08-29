@@ -72,6 +72,7 @@ export function guardBattleInfo(tier: number, type = 1): Required<BattleInfo> {
 export function meBattleInfo(): BattleInfo {
 	return {
 		hp: player.minigame.hp,
+		hpMax: 10 * currentPlayerLV(),
 		atk: 5 * currentPlayerLV(),
 		def: 0,
 	};
