@@ -24,7 +24,9 @@ const props = defineProps<{
 			<td style="background-color: var(--color)"></td>
 		</template>
 		<template v-else-if="game_object instanceof BoxGameObject">
-			<td class="box-object">宝箱</td>
+			<td class="box-object" v-if="game_object.tier == 1" style="color: rgb(186, 110, 64)">
+				铜宝箱
+			</td>
 		</template>
 		<template v-else-if="game_object instanceof GuardGameObject">
 			<td class="box-object">
