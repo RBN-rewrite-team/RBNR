@@ -193,7 +193,7 @@ export class GuardGameObject extends EntityGameObject {
 		this.type = 1;
 	}
 }
-export class BossGameObject extends EntityGameObject {
+export class BossGameObject extends GuardGameObject {
 	tier = 2;
 	type = 2;
 	innerText: string = '守卫队长';
