@@ -6,4 +6,5 @@ export const temp = reactive({
 	plotstep: 0,
 	plotcd: Date.now(),
 	nonrecpagevisit: [true, false, true],
+	minigametip: '',
 });

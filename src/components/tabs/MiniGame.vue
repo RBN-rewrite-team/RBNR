@@ -7,6 +7,7 @@ import { getCurrentBlock, getPlayerMap, isPlayerVisible, visibleBlocks } from '@
 import { handleKeyPress } from '@/core/minigame/minigame-loop';
 import { meBattleInfo } from '@/core/minigame/battle';
 import { range } from '@/utils/algorithm';
+import { temp } from '../../core/temp-data';
 
 function spawn(id: number): void {
 	player.minigame.current_room = id, player.minigame.current_x = 1, player.minigame.current_y = 1;
@@ -51,6 +52,8 @@ function spawn(id: number): void {
         <div>
             X: {{ player.minigame.current_x }}
             Y: {{ player.minigame.current_y }}
+            <br>
+            {{ temp.minigametip }}
         </div>
         <br />
         <table>
