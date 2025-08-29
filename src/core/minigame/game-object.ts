@@ -207,8 +207,8 @@ export class EntityGameObject extends GameObject {
 							innerText +
 							'击杀，返回出生点并清空等级。获得了 0 技能点(Coming S[OoM^OoM]n)。',
 					});
-					player.minigame.current_x = (getPlayerCurrentMap().spawnpoint[0]).toBigInt();
-					player.minigame.current_y = (getPlayerCurrentMap().spawnpoint[1]).toBigInt();
+					player.minigame.current_x = BigInt(getPlayerCurrentMap().spawnpoint[0]);
+					player.minigame.current_y = BigInt(getPlayerCurrentMap().spawnpoint[1]);
 					player.minigame.hp = meBattleInfo().hpMax;
 					player.minigame.xp = 0;
 				} else {
