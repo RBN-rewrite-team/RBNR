@@ -142,7 +142,7 @@ export class DoorGameObject extends GameObject {
 export class EntityGameObject extends GameObject {
 	tier: number;
 	type: number = 1;
-	innerText: '实体';
+	innerText = '实体';
 	constructor(tier: number) {
 		super();
 		this.tier = tier;
@@ -153,19 +153,21 @@ export class EntityGameObject extends GameObject {
 	interact(x: number, y: number): void {
 		let guardinfo = guardBattleInfo(this.tier, this.type);
 		player.minigame.interact = 1;
+		const innerText = this.innerText;
 		ModalService.show({
 			title: this.innerText + '属性',
 			content: `生命值${guardinfo.hp} 攻击力${guardinfo.atk} 防御力${guardinfo.def}, 点击确认以战斗`,
 			onConfirm(values) {
 				let battlestatus = runBattleFast(meBattleInfo(), guardinfo);
-				if (battlestatus.status == 'fail')
-				{
+				if (battlestatus.status == 'fail') {
 					ModalService.show({
 						title: '死亡',
-						content: '你被' + this.innerText + '击杀，返回出生点并清空等级(没做)。获得了 0 技能点(也没做)。',
+						content:
+							'你被' +
+							innerText +
+							'击杀，返回出生点并清空等级(没做)。获得了 0 技能点(也没做)。',
 					});
-				}
-				else {
+				} else {
 					player.minigame.hp = battlestatus.hp_after_battle;
 					player.minigame.replaces.push({
 						room: player.minigame.current_room,
@@ -187,9 +189,9 @@ export class GuardGameObject extends EntityGameObject {
 	tier = 1;
 	type = 1;
 	innerText: string = '守卫';
-	constructor() {
-		super(1);
-		this.tier = 1;
+	constructor(tier: number) {
+		super(tier);
+		this.tier = tier;
 		this.type = 1;
 	}
 }
