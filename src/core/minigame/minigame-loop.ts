@@ -6,7 +6,7 @@ export type KeyPresses = 'up' | 'down' | 'left' | 'right';
 export function setPosManmade(goalpos: [bigint, bigint]) {
 	//debugger;
 	let a = !isUnreachable(player.minigame.current_room, goalpos[0], goalpos[1]);
-	console.log(a);
+	// console.log(a);
 	if (a) {
 		player.minigame.current_x = goalpos[0];
 		player.minigame.current_y = goalpos[1];

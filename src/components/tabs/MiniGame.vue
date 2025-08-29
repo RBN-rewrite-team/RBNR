@@ -13,6 +13,14 @@ import { format } from '@/utils/format';
 function spawn(id: number): void {
 	player.minigame.current_room = id, player.minigame.current_x = 1n, player.minigame.current_y = 1n;
 }
+function formatbigint(b: bigint) {
+    if (b < 1000n) return b.toString();
+    let a = b.toString();
+    let l = a.length-1;
+    a = a.slice(0,7);
+    a = a.slice(0,1)+"."+a.slice(1,7)+"e"+l.toString();
+    return a;
+}
 </script>
 
 <template>
@@ -51,8 +59,8 @@ function spawn(id: number): void {
           <button @click="handleKeyPress('right')" class="clickable_button">→</button>
         </div>
         <div>
-            X: {{ format(player.minigame.current_x.toString()) }}
-            Y: {{ format(player.minigame.current_y.toString()) }}
+            X: {{ formatbigint(player.minigame.current_x) }}<br>
+            Y: {{ formatbigint(player.minigame.current_y) }}
             <br>
             {{ temp.minigametip }}
         </div>
