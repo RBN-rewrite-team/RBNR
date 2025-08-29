@@ -8,17 +8,20 @@ import { Currencies, getCurrency } from '@/core/currencies';
 import { player, feature } from '@/core/global';
 import { temp } from '@/core/temp-data';
 function gainFactor(): string {
-	const ADD_EFF = 0, MUL_EFF = 1, POW_EFF = 2, DIL_EFF = 3, EXP_EFF = 4;
+	const ADD_EFF = 0,
+		MUL_EFF = 1,
+		POW_EFF = 2,
+		DIL_EFF = 3,
+		EXP_EFF = 4;
 	let string = '';
 	let factor = feature.NON_RECURSIVE.gainFactor();
-	for(let i in factor)
-	{
+	for (let i in factor) {
 		let f = factor[i];
-		if(f[1] == ADD_EFF) string += f[0] + ': +' + format(f[2]) + '<br>';
-		else if(f[1] == MUL_EFF) string += f[0] + ': x' + format(f[2]) + '<br>';
-		else if(f[1] == POW_EFF) string += f[0] + ': ^' + format(f[2]) + '<br>';
-		else if(f[1] == DIL_EFF) string += f[0] + ': 底数为10的指数^' + format(f[2]) + '<br>';
-		else if(f[1] == EXP_EFF) string += f[0] + ': ' + format(f[2]) + '^<br>';
+		if (f[1] == ADD_EFF) string += f[0] + ': +' + format(f[2]) + '<br>';
+		else if (f[1] == MUL_EFF) string += f[0] + ': x' + format(f[2]) + '<br>';
+		else if (f[1] == POW_EFF) string += f[0] + ': ^' + format(f[2]) + '<br>';
+		else if (f[1] == DIL_EFF) string += f[0] + ': 底数为10的指数^' + format(f[2]) + '<br>';
+		else if (f[1] == EXP_EFF) string += f[0] + ': ' + format(f[2]) + '^<br>';
 	}
 	return string;
 }
@@ -26,9 +29,11 @@ function gainFactor(): string {
 
 <template>
 	<div class="main" align="center">
-		<br>
+		<br />
 		<div class="subpage">
-			<div class="subpagetitle" @click="temp.nonrecpagevisit[0] = !temp.nonrecpagevisit[0]">非递归里程碑</div>
+			<div class="subpagetitle" @click="temp.nonrecpagevisit[0] = !temp.nonrecpagevisit[0]">
+				非递归里程碑
+			</div>
 			<template v-if="temp.nonrecpagevisit[0]">
 				<p>
 					你非递归重置了<b style="color: #c98300; font-size: 30px">{{
@@ -42,15 +47,19 @@ function gainFactor(): string {
 			</template>
 		</div>
 		<div class="subpage" style="position: relative">
-			<div class="subpagetitle" @click="temp.nonrecpagevisit[1] = !temp.nonrecpagevisit[1]">能量因素</div>
+			<div class="subpagetitle" @click="temp.nonrecpagevisit[1] = !temp.nonrecpagevisit[1]">
+				能量因素
+			</div>
 			<template v-if="temp.nonrecpagevisit[1]">
-				当前重置后会获得的非递归能量：{{formatWhole(feature.NON_RECURSIVE.gain())}}<br>
-				因素：<br>
+				当前重置后会获得的非递归能量：{{ formatWhole(feature.NON_RECURSIVE.gain()) }}<br />
+				因素：<br />
 				<span v-html="gainFactor()" />
 			</template>
 		</div>
 		<div class="subpage" style="position: relative">
-			<div class="subpagetitle" @click="temp.nonrecpagevisit[2] = !temp.nonrecpagevisit[2]">非递归研究</div>
+			<div class="subpagetitle" @click="temp.nonrecpagevisit[2] = !temp.nonrecpagevisit[2]">
+				非递归研究
+			</div>
 			<template v-if="temp.nonrecpagevisit[2]">
 				<p>
 					你一共有<b style="color: #c98300; font-size: 30px">{{
@@ -59,7 +68,7 @@ function gainFactor(): string {
 					>非递归理论，还剩下{{ formatWhole(getCurrency(Currencies.NRT)) }}。
 				</p>
 				<div style="height: 1000px; overflow: auto">
-				<StudyTree />
+					<StudyTree />
 				</div>
 			</template>
 		</div>
@@ -67,7 +76,7 @@ function gainFactor(): string {
 </template>
 
 <style lang="scss" scoped>
-@use "sass:color";
+@use 'sass:color';
 .studies_row {
 	display: flex;
 	justify-content: center;
@@ -85,7 +94,7 @@ function gainFactor(): string {
 	border: 2px solid rgb(245, 193, 73);
 	color: #c98300;
 	font-size: 24px;
-	&:hover{
+	&:hover {
 		background: var(--hover-color);
 	}
 }

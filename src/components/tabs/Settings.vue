@@ -34,7 +34,7 @@ const validThemes = computed(() => Object.values(themes).filter((v) => typeof v 
 			<button class="setting_button" @click="player.currentTab = 300">进入存档银行</button>
 		</div>
 		<span v-if="isTester()">您处于测试模式</span>
-		
+
 		<br />
 		<div v-if="player.singularity.stage < 1">
 			<div class="center_line" />
