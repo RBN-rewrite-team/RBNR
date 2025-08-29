@@ -1,4 +1,5 @@
 import {
+	BossGameObject,
 	BoxGameObject,
 	DoorGameObject,
 	FakeWallGameObject,
@@ -6,6 +7,7 @@ import {
 	HealthRecoveryGameObject,
 	KeyGameObject,
 	KeyRequiredWallInvisibleGameObject,
+	MoveableBoxGameObject,
 	OreGameObject,
 	RestrictedBoxObject,
 	TeleporterGameObject,
@@ -260,5 +262,16 @@ export function map2_block(x: number, y: number) {
 	if (x == 27 && y == 42) return new BoxGameObject(2);
 	if (x == 32 && y == 37) return new KeyGameObject(12.002);
 	if (x == 25 && y >= 40) return new WallGameObject();
+	if (x == 23 && y == 42) return new BoxGameObject(3);
+	if (x == 32 && y == 35) return new MoveableBoxGameObject();
+	if (x == 23 && y == 40)
+		return new (class extends BossGameObject {
+			constructor() {
+				super();
+				this.type = 6;
+				this.tier = 6;
+			}
+			innerText: string = '使徒';
+		})();
 	return null;
 }

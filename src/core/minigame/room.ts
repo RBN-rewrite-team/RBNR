@@ -4,6 +4,7 @@ import {
 	BoxGameObject,
 	GameObject,
 	GuardGameObject,
+	MoveableBoxGameObject,
 	OreGameObject,
 	TeleporterGameObject,
 	WallGameObject,
@@ -49,6 +50,9 @@ export function replacement(
 	if (replacement.replacedTo == '0') {
 		return null;
 	}
+	if (replacement.replacedTo == 'BOX') {
+		return new MoveableBoxGameObject();
+	}
 	return bl;
 }
 export function getCurrentBlock(room: number, x: bigint, y: bigint) {
@@ -59,8 +63,8 @@ export function getCurrentBlock(room: number, x: bigint, y: bigint) {
 		let replacements = player.minigame.replaces.filter(
 			(b) => b.room == player.minigame.current_room && b.x == x && b.y == y,
 		);
-		if (replacements[0]) {
-			block = replacement(block, replacements[0]);
+		for (let i = 0; i < replacements.length; i++) {
+			replacement(block, replacements[i]);
 		}
 		return block;
 	}
@@ -119,7 +123,7 @@ export function visibleBlocks() {
 			? 3n
 			: 1n;
 	}
-	return 1n;
+	return 7n;
 }
 export function isPlayerVisible(x: bigint, y: bigint) {
 	if (x < player.minigame.current_x - visibleBlocks()) return false;

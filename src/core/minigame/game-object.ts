@@ -16,7 +16,7 @@ import ModalService from '@/utils/Modal';
 import { player } from '../save';
 import { guardBattleInfo, meBattleInfo, runBattleFast } from './battle';
 import { currentPlayerLV } from '.';
-import { getCurrentBlock, getPlayerCurrentMap } from './room';
+import { getCurrentBlock, getPlayerCurrentMap, isUnreachable, positionDirection } from './room';
 import { temp } from '../temp-data';
 
 /**
@@ -329,5 +329,33 @@ export class HealthRecoveryGameObject extends GameObject {
 			y,
 			replacedTo: '0',
 		});
+	}
+}
+export class MoveableBoxGameObject extends GameObject {
+	solid(): boolean {
+		return true;
+	}
+	interact(x: bigint, y: bigint, direction: 'up' | 'down' | 'left' | 'right'): void {
+		let box_pos = positionDirection([x, y], direction);
+		if (!isUnreachable(player.minigame.current_room, ...box_pos)) {
+			player.minigame.replaces.push({
+				x: x,
+				y: y,
+				replacedTo: '0',
+				room: player.minigame.current_room,
+			});
+			player.minigame.replaces.push({
+				x: box_pos[0],
+				y: box_pos[1],
+				replacedTo: 'BOX',
+				room: player.minigame.current_room,
+			});
+			let player_moved = positionDirection(
+				[player.minigame.current_x, player.minigame.current_y],
+				direction,
+			);
+			player.minigame.current_x = player_moved[0];
+			player.minigame.current_y = player_moved[1];
+		}
 	}
 }

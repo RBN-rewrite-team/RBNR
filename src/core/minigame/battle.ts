@@ -58,6 +58,15 @@ export function guardBattleInfo(tier: number, type = 1): Omit<Required<BattleInf
 			m_hp_debuff: 0.9,
 			m_atk_debuff: 0.9,
 		};
+	} else if (type == 6) {
+		return {
+			hp: 25 * tier,
+			atk: 15 * tier,
+			def: 5 * tier,
+			xp: 10,
+			m_hp_debuff: 0.85,
+			m_atk_debuff: 0.85,
+		};
 	} else {
 		return {
 			hp: 1,
