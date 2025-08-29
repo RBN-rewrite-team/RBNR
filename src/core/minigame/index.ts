@@ -20,6 +20,7 @@ export interface PlayerMinigameData {
 	xp: number;
 	ore_gets: number;
 	keys_have: number[];
+	box_gets: number[];
 }
 export function initMiniGameData(): PlayerMinigameData;
 export function initMiniGameData(): PlayerMinigameData {
@@ -33,6 +34,7 @@ export function initMiniGameData(): PlayerMinigameData {
 		interact: 0,
 		xp: 0,
 		ore_gets: 0,
+		box_gets: [0, 0, 0],
 	} satisfies PlayerMinigameData;
 	return a;
 }
