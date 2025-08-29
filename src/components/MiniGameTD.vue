@@ -4,65 +4,65 @@ import { BoxGameObject, DoorGameObject, GuardGameObject, HealthRecoveryGameObjec
 const props = defineProps<{
     game_object: GameObject|null|undefined
 }>()
+
+function style() {
+    if (props.game_object instanceof WallInvisibleGameObject) {
+        return {
+            border: "1px solid red"
+        }
+    }
+    if (props.game_object instanceof WallGameObject) {
+        return {
+            'background-color': "var(--color)"
+        }
+    }
+}
+function class3() {
+    if (props.game_object instanceof KeyGameObject || (props.game_object instanceof PasswordGameObject) || (props.game_object instanceof DoorGameObject) || props.game_object instanceof GuardGameObject || props.game_object instanceof BoxGameObject) {
+        return 'box-object'
+    }
+    if (props.game_object instanceof HealthRecoveryGameObject || props.game_object instanceof TeleporterGameObject || props.game_object instanceof OreGameObject) {
+        return 'ore-object'
+    }
+}
 </script>
 
 <template>
-    <template v-if="game_object !== null && game_object !== undefined">
-        <template v-if=" (game_object instanceof WallGameObject)  ">
-            <td style="background-color: var(--color)">
-            </td>
-        </template>
-        <template v-else-if=" (game_object instanceof BoxGameObject)  ">
-            <td class="box-object">
-                宝箱    
-            </td>
-        </template>
-        <template v-else-if=" (game_object instanceof GuardGameObject)  ">
-            <td class="box-object">
+    <td :class="class3()" :style="style()">
+        <template v-if="game_object !== null && game_object !== undefined">
+            <template v-if=" (game_object instanceof WallGameObject)  ">
+            </template>
+            <template v-else-if=" (game_object instanceof BoxGameObject)  ">
+                 宝箱    
+            </template>
+            <template v-else-if=" (game_object instanceof GuardGameObject)  ">
                 {{ game_object.innerText=="" ? "守卫" : game_object.innerText }} 
-            </td>
-        </template>
-        <template v-else-if=" (game_object instanceof OreGameObject)  ">
-            <td class="ore-object">
-                矿石
-            </td>
-        </template>
-        <template v-else-if=" (game_object instanceof TeleporterGameObject)  ">
-            <td class="ore-object">
-                传送门
-            </td>
-        </template>
-        <template v-else-if=" (game_object instanceof HealthRecoveryGameObject)  ">
-            <td class="ore-object">
-                恢复血量+{{game_object.percent}}%
-            </td>
-        </template>
-        <template v-else-if=" (game_object instanceof DoorGameObject)  ">
-            <td class="box-object">
+            </template>
+            <template v-else-if=" (game_object instanceof OreGameObject)  ">
+                    矿石
+            </template>
+            <template v-else-if=" (game_object instanceof TeleporterGameObject)  ">
+                    传送门
+            </template>
+            <template v-else-if=" (game_object instanceof HealthRecoveryGameObject)  ">
+                    恢复血量+{{game_object.percent}}%
+            </template>
+            <template v-else-if=" (game_object instanceof DoorGameObject)  ">
                 门
-            </td>
+            </template>
+            <template v-else-if=" (game_object instanceof PasswordGameObject)  ">
+                    密码门
+            </template>
+            <template v-else-if=" (game_object instanceof KeyGameObject)  ">
+                    钥匙
+            </template>
+            <template v-else>
+                {{ game_object.innerText=="" ? "不知道，反正是个游戏物体" : game_object.innerText  }}
+            </template>
         </template>
-        <template v-else-if=" (game_object instanceof PasswordGameObject)  ">
-            <td class="box-object">
-                密码门
-            </td>
-        </template>
-        <template v-else-if=" (game_object instanceof KeyGameObject)  ">
-            <td class="box-object">
-                钥匙
-            </td>
-        </template>
-            <template v-else-if="(game_object instanceof WallInvisibleGameObject)"><td style="border: 1px solid red">
-            </td></template>
-        <template v-else>
-            <td>{{ game_object.innerText=="" ? "不知道，反正是个游戏物体" : game_object.innerText  }}</td>
-        </template>
-    </template>
-    <template v-else-if="game_object === undefined"><td>
-        ?
-    </td></template>
-    <template v-else-if="game_object === null"><td>
-    </td></template>
+        <template v-else-if="game_object === undefined">?</template>
+    </td>
+    
     
 </template>
 

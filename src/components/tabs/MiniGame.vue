@@ -70,8 +70,9 @@ function formatbigint(b: bigint) {
                 <template v-for="y in range(player.minigame.current_y- visibleBlocks(), player.minigame.current_y+visibleBlocks()+1n)">
                     <tr>
                         <template v-for="x in range(player.minigame.current_x-visibleBlocks(), player.minigame.current_x+visibleBlocks()+1n)">
-                            <template v-if="player.minigame.current_x!==x || player.minigame.current_y!==y">
-                                <MiniGameTD v-if="isPlayerVisible(x, y)":game_object="getCurrentBlock(player.minigame.current_room, x, y)"></MiniGameTD>
+                            <template v-if="player.minigame.current_x!==x || player.minigame.current_y!==y"
+                            >
+                                <MiniGameTD @click="player.minigame.current_x = x;player.minigame.current_y = y;" v-if="isPlayerVisible(x, y)":game_object="getCurrentBlock(player.minigame.current_room, x, y)"></MiniGameTD>
                             </template>
                             
                             <td v-else style="background-image: url('/plot_image/NumerorumColor.png'); background-size: cover;"></td>
