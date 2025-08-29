@@ -143,14 +143,16 @@ export class EntityGameObject extends GameObject {
 	tier: number;
 	type: number = 1;
 	innerText: '实体';
+	attacked: boolean = false;
 	constructor(tier: number) {
 		super();
 		this.tier = tier;
 	}
 	solid() {
-		return true;
+		return !this.attacked;
 	}
 	interact(x: number, y: number): void {
+		if(this.attacked) return;
 		let guardinfo = guardBattleInfo(this.tier, this.type);
 		player.minigame.interact = 1;
 		ModalService.show({
@@ -167,13 +169,14 @@ export class EntityGameObject extends GameObject {
 				}
 				else {
 					player.minigame.hp = battlestatus.hp_after_battle;
-					player.minigame.replaces.push({
+					/*player.minigame.replaces.push({
 						room: player.minigame.current_room,
 						x,
 						y,
 						replacedTo: '0',
-					});
+					});*/
 					player.minigame.xp += guardinfo.xp;
+					this.attacked = true;
 				}
 				player.minigame.interact = 0;
 			},
