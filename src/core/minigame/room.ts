@@ -89,7 +89,7 @@ export function getPlayerMap(room: number): SingleMap {
 	return a;
 }
 
-export function getPlayerCurrentMap(room: number): SingleMap {
+export function getPlayerCurrentMap(): SingleMap {
 	return getPlayerMap(player.minigame.current_room);
 }
 
