@@ -46,8 +46,14 @@ function class3() {
             </template>
             <template v-else-if="game_object instanceof BoxGameObject">
                 <td class="box-object" v-if="game_object.tier == 1" style="color: rgb(186, 110, 64)">
-				            铜宝箱
-			          </td>
+				    铜宝箱
+			    </td>
+                <td class="box-object" v-if="game_object.tier == 2" style="color: rgb(233, 233, 216)">
+				    银宝箱
+			    </td>
+                <td class="box-object" v-if="game_object.tier == 3" style="color: rgb(218, 178, 115)">
+				    金宝箱
+			    </td>
             </template>
             <template v-else-if=" (game_object instanceof GuardGameObject)  ">
                 {{ game_object.innerText=="" ? "守卫" : game_object.innerText }} 
@@ -75,7 +81,7 @@ function class3() {
             </template>
         </template>
         <template v-else-if="game_object === undefined">?</template>
-    </td
+    </td>
 </template>
 
 <style lang="scss" scoped>
