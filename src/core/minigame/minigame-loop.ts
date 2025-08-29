@@ -1,11 +1,11 @@
 import { player } from '../save';
-import { getCurrentBlock, getPlayerCurrentMap, isUnreachable, positionDirection } from './room';
+import { getCurrentBlock, isUnreachable, positionDirection } from './room';
 
 export function miniGameLoop(diff: number) {}
 export type KeyPresses = 'up' | 'down' | 'left' | 'right';
 export function setPosManmade(goalpos: [number, number]) {
 	//debugger;
-	let a = !isUnreachable(getPlayerCurrentMap(), goalpos[0], goalpos[1]);
+	let a = !isUnreachable(player.minigame.current_room, goalpos[0], goalpos[1]);
 	console.log(a);
 	if (a) {
 		player.minigame.current_x = goalpos[0];
@@ -20,13 +20,16 @@ export function handleKeyPress(key: KeyPresses) {
 				key as 'up' | 'down' | 'left' | 'right',
 			);
 			setPosManmade(pos);
-			getCurrentBlock(getPlayerCurrentMap(), pos[0], pos[1])?.interact?.(pos[0], pos[1]);
+			getCurrentBlock(player.minigame.current_room, pos[0], pos[1])?.interact?.(
+				pos[0],
+				pos[1],
+			);
 		}
 	}
 }
 
 export function keyboardEventListener(e: Event) {
-	console.log(e);
+	if (player.currentTab !== 1225) return;
 	if (e instanceof KeyboardEvent) {
 		switch (e.key) {
 			case 'ArrowUp':
