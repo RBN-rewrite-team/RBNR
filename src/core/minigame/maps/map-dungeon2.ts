@@ -139,5 +139,13 @@ export function map2_block(x: number, y: number) {
 	if (x == 37 && y == 20) return new HealthRecoveryGameObject(25);
 	if (x == 37 && y == 22) return new HealthRecoveryGameObject(25);
 	if (x == 37 && y == 21) return new OreGameObject();
+
+	if (x == 38 && y == 20) return new WallGameObject();
+	if (x == 38 && y == 21) return new WallGameObject();
+	if (x == 38 && y == 22) return new WallGameObject();
+	if (between(29, x, 38) && y == 23) return new WallGameObject();
+	if (x == 37 && y == 24) return new OreGameObject();
+
+	if (x == 41 && y == 18) return new KeyGameObject(1);
 	return null;
 }
