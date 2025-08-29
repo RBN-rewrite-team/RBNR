@@ -14,9 +14,9 @@ import { calculate } from '@/utils/bms-analyze';
 import { displayOrd } from '@/lib/ordinal';
 import { createDeepValidatedReactive } from '../check-decimal-nan';
 import { NON_RECURSIVE } from '../nonrecu/index.ts';
-import { initMiniGameData, type PlayerMinigameData } from '../minigame/index.ts';
+import { initMiniGameData, hardResetMiniGame, type PlayerMinigameData } from '../minigame/index.ts';
 
-const version = 9 as const;
+const version = 10 as const;
 const zero = new Decimal(0);
 export let current_save = 0;
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
@@ -535,6 +535,9 @@ export function loadFromString(saveContent: string) {
 		}
 		player.hydra.dilute.prions = player.hydra.dilute.prions.min('ee18');
 		player.hydra.deduceOrdinal[0] = player.hydra.deduceOrdinal[0].min('ee3500');
+	}
+	if((player?.version ?? 0) < 10) {
+		hardResetMiniGame();
 	}
 
 	player.minigame.current_x = BigInt(player.minigame.current_x);
