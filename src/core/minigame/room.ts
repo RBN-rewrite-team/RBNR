@@ -5,13 +5,32 @@ import {
 	GameObject,
 	GuardGameObject,
 	OreGameObject,
+	TeleporterGameObject,
 	WallGameObject,
 } from './game-object';
 import { initialMap, maps, type SingleMap } from './map';
+
+/**
+ * 目前生成规则
+ * 10%: 墙
+ * 1%: 守卫
+ * 0.05%: 传送门
+ * 68.95%: 棍母
+ * 5%: 奖励 tier1
+ * 1%: 奖励 tier 2
+ * 0.1%: 奖励 tier 3
+ * 0.01%: 奖励 tier 4
+ * 3.89%: 矿石
+ */
 export function randomBlock(x: number, y: number) {
 	let randomer = predictableRandom(1000000 + x * 1000 + y);
-	if (randomer < 0.3) return new WallGameObject();
-	else if (randomer < 0.31) return new GuardGameObject(1);
+	if (randomer < 0.1) return new WallGameObject();
+	else if (randomer < 0.21) return new GuardGameObject(1);
+	else if (randomer < 0.2105)
+		return new TeleporterGameObject(
+			[x + Math.floor(randomer * 514), y - Math.floor(randomer * 114)],
+			943360095,
+		);
 	else if (randomer < 0.75) return null;
 	else if (randomer < 0.8) return new BoxGameObject(1);
 	else if (randomer < 0.81) return new BoxGameObject(2);

@@ -17,6 +17,7 @@ import { player } from '../save';
 import { guardBattleInfo, meBattleInfo, runBattleFast } from './battle';
 import { currentPlayerLV } from '.';
 import { getCurrentBlock } from './room';
+import { temp } from '../temp-data';
 
 /**
  * 游戏物体 Nothingness（这里什么都没有）
@@ -132,10 +133,7 @@ export class OreGameObject extends GameObject {
 		super();
 	}
 	interact(x: number, y: number): void {
-		ModalService.show({
-			title: '你获得了矿石',
-			content: '你获得了矿石，全局速度+0.25%。',
-		});
+		temp.minigametip = '你获得了矿石，全局速度+0.25%。';
 		player.minigame.ore_gets++;
 		player.minigame.replaces.push({
 			room: player.minigame.current_room,
@@ -164,10 +162,7 @@ export class DoorGameObject extends GameObject {
 			});
 			player.minigame.keys_have.filter((x) => x !== this.keyid);
 		} else {
-			ModalService.show({
-				title: '打不开门',
-				content: '你需要一个钥匙才能开门',
-			});
+			temp.minigametip = '你需要一个钥匙才能开门';
 		}
 	}
 	solid() {
@@ -252,11 +247,8 @@ export class BoxGameObject extends GameObject {
 		if (this.tier == 1) price = Math.random() * 5 + 5;
 		if (this.tier == 2) price = Math.random() * 25 + 25;
 		if (this.tier == 3) price = Math.random() * 125 + 125;
-		ModalService.show({
-			title: '你打开了宝箱',
-			content: '你打开了宝箱，获得了' + price.toFixed(3) + '时间碎片。',
-		});
-		player.timeshard.value += price;
+		((temp.minigametip = '你打开了宝箱，获得了' + price.toFixed(3) + '时间碎片。'),
+			(player.timeshard.value += price));
 		player.minigame.replaces.push({
 			room: player.minigame.current_room,
 			x,
@@ -283,10 +275,7 @@ export class RestrictedBoxObject extends BoxGameObject {
 			}
 		}
 		if (restricted) {
-			ModalService.show({
-				title: '无法打开箱子',
-				content: '宝箱周围7x7内怪物清完才能打开',
-			});
+			temp.minigametip = '宝箱周围7x7内怪物清完才能打开';
 		} else {
 			BoxGameObject.prototype.interact.apply(this, [x, y]);
 		}
@@ -299,11 +288,7 @@ export class KeyGameObject extends GameObject {
 		this.keyid = tier;
 	}
 	interact(x: number, y: number): void {
-		ModalService.show({
-			title: '你获得了钥匙',
-			content: '你获得了钥匙',
-		});
-		player.minigame.keys_have.push(this.keyid);
+		((temp.minigametip = '你获得了钥匙'), player.minigame.keys_have.push(this.keyid));
 		player.minigame.replaces.push({
 			room: player.minigame.current_room,
 			x,
@@ -319,11 +304,8 @@ export class HealthRecoveryGameObject extends GameObject {
 		this.percent = percent;
 	}
 	interact(x: number, y: number): void {
-		ModalService.show({
-			title: '你回复了HP',
-			content: '你回复了HP',
-		});
-		player.minigame.hp += ((currentPlayerLV() * this.percent) / 100) * 10;
+		((temp.minigametip = '你回复了HP'),
+			(player.minigame.hp += ((currentPlayerLV() * this.percent) / 100) * 10));
 		player.minigame.replaces.push({
 			room: player.minigame.current_room,
 			x,
