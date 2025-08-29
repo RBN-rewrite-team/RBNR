@@ -82,6 +82,12 @@ function formatbigint(b: bigint) {
 							player.minigame.ore_gets * 0.25
 						}}%全局速度)
 					</td>
+					<td>
+						宝箱收集：<span
+						style="color: rgb(186, 110, 64)" v-html="player.minigame.box_gets[0]" />/<span
+						style="color: rgb(233, 233, 216)" v-html="player.minigame.box_gets[1]" />/<span
+						style="color: rgb(218, 178, 115)" v-html="player.minigame.box_gets[2]" />
+					</td>
 				</tr>
 				<tr>
 					<td><button @click="spawn(0)">Dungeon 1</button></td>
