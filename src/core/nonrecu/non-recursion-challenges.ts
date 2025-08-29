@@ -36,7 +36,7 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			}
 			if (
 				player.hydra.power.gte(
-					new Decimal(326649).pow(player.challenges[1][0].add(1)).pow10(),
+					new Decimal(326649 ** player.challenges[1][0].add(1).toNumber()).pow10(),
 				)
 			) {
 				player.challengein = [-1, -1];
