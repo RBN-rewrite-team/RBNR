@@ -10,6 +10,7 @@ import {
 	RestrictedBoxObject,
 	TeleporterGameObject,
 	WallGameObject,
+	WallInvisibleGameObject,
 } from '../game-object';
 import type { SingleMap } from '../map';
 import { convertStringToMap } from '../map-functions';
@@ -168,7 +169,7 @@ export function map2_block(x: number, y: number) {
 	if (between(29, x, 38) && y == 23) return new WallGameObject();
 	if (x == 37 && y == 24) return new OreGameObject();
 
-	if (x == 41 && y == 18) return new KeyGameObject(1);
+	if (x == 41 && y == 18) return new KeyGameObject(1.002);
 
 	if (x == 38 && y >= 24) return new WallGameObject();
 
@@ -200,5 +201,64 @@ export function map2_block(x: number, y: number) {
 
 	if (x == 13 && y == 43) return new KeyGameObject(9.002);
 	if (x == 14 && y == 43) return new OreGameObject();
+	if (x == 26 && y == 32) return new KeyGameObject(4.002);
+	if (x == 31 && y == 1) return new KeyGameObject(2.002);
+	if (x == 3 && y == 23) return new KeyGameObject(7.002);
+
+	if (x == 17 && y == 36) return new BoxGameObject(1);
+	if (x == 18 && y >= 34) return new WallGameObject();
+	if (x == 16 && y == 37) return new KeyRequiredWallInvisibleGameObject(9.002);
+	if (x == 17 && y == 37) return new KeyRequiredWallInvisibleGameObject(9.002);
+	if (x == 17 && y == 41) return new BoxGameObject(1);
+	if (x == 17 && y == 42) return new BoxGameObject(1);
+	if (x == 17 && y == 43) return new BoxGameObject(1);
+	if (x == 16 && y == 43) return new KeyGameObject(5.002);
+	if (x == 16 && y == 42) return new KeyGameObject(10.002);
+	if (x == 23 && y == 34) return new GuardGameObject(3);
+	if (x == 23 && y == 35) return new GuardGameObject(4);
+	if (x == 23 && y == 36) return new GuardGameObject(5);
+	if (x == 23 && y == 37) return new GuardGameObject(4);
+	if (x == 24 && y == 37) return new GuardGameObject(4);
+	if (x == 22 && y == 37) return new GuardGameObject(4);
+	if (x == 22 && y == 36) return new GuardGameObject(3);
+	if (x == 24 && y == 36) return new GuardGameObject(3);
+	if (x == 22 && y == 34) return new WallGameObject();
+	if (x == 24 && y == 34) return new WallGameObject();
+	if (x == 21 && y == 34) return new OreGameObject();
+	if (x == 25 && y == 34) return new OreGameObject();
+	if (x == 21 && y == 35) return new WallGameObject();
+	if (x == 25 && y == 35) return new WallGameObject();
+	if (x == 21 && y == 36) return new WallGameObject();
+	if (x == 25 && y == 36) return new WallGameObject();
+	if (x == 21 && y == 37) return new WallGameObject();
+	if (x == 25 && y == 37) return new WallGameObject();
+
+	if (x == 23 && y == 38) return new HealthRecoveryGameObject(25);
+	if (x == 23 && y == 39) return new BoxGameObject(1);
+	if (x == 22 && y == 39) return new WallGameObject();
+	if (x == 24 && y == 39) return new WallGameObject();
+	if (x == 22 && y == 40) return new WallGameObject();
+	if (x == 24 && y == 40) return new WallGameObject();
+	if (x == 19 && y == 34) return new KeyGameObject(11.002);
+	if (between(19, x, 21) && y >= 40) return new WallGameObject();
+
+	if (x == 28 && y == 38) return new KeyRequiredWallInvisibleGameObject(10.002);
+
+	if (x == 36 && y == 40) return new DoorGameObject(13.002);
+	if ((x == 28 && (between(34, y, 37) || y == 39)) || (y == 40 && x >= 25))
+		return new WallGameObject();
+
+	if (x == 30 && y == 39) return new BoxGameObject(1);
+	if (x == 30 && y == 38) return new OreGameObject();
+	if (x == 30 && y == 37) return new BoxGameObject(1);
+	if (x == 31 && y == 38) return new DoorGameObject(11.002);
+	if (x == 31 && y == 37) return new WallInvisibleGameObject();
+	if (x == 31 && y == 36) return new WallInvisibleGameObject();
+	if (x == 31 && y == 35) return new WallInvisibleGameObject();
+	if (x == 31 && y == 34) return new WallInvisibleGameObject();
+	if (x == 31 && y == 39) return new WallInvisibleGameObject();
+	if (x == 27 && y == 42) return new BoxGameObject(2);
+	if (x == 32 && y == 37) return new KeyGameObject(12.002);
+	if (x == 25 && y >= 40) return new WallGameObject();
 	return null;
 }
