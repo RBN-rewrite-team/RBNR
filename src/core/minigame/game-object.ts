@@ -74,6 +74,41 @@ export class TeleporterGameObject extends GameObject {
 		return false;
 	}
 }
+export class PasswordGameObject extends GameObject {
+	passwordVerifier: (password: string) => boolean;
+	constructor(passwordVerifier: (password: string) => boolean) {
+		super();
+		this.passwordVerifier = passwordVerifier;
+	}
+	solid() {
+		return true;
+	}
+	interact(x: number, y: number): void {
+		let pV = this.passwordVerifier;
+		ModalService.show({
+			title: '密码门',
+			content: '请输入密码',
+			fields: [
+				{
+					type: 'input',
+					validation(value) {
+						return pV(value);
+					},
+				},
+			],
+			onConfirm(values: string[]) {
+				if (pV(values[0])) {
+					player.minigame.replaces.push({
+						room: player.minigame.current_room,
+						x,
+						y,
+						replacedTo: '0',
+					});
+				}
+			},
+		});
+	}
+}
 export class 没做完TeleporterGameObject extends TeleporterGameObject {
 	destination: [number, number];
 	room: number;
@@ -148,7 +183,7 @@ export class EntityGameObject extends GameObject {
 		this.tier = tier;
 	}
 	solid() {
-		return false;
+		return true;
 	}
 	interact(x: number, y: number): void {
 		let guardinfo = guardBattleInfo(this.tier, this.type);

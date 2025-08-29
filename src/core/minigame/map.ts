@@ -7,6 +7,7 @@ import {
 	HealthRecoveryGameObject,
 	KeyGameObject,
 	OreGameObject,
+	PasswordGameObject,
 	TeleporterGameObject,
 	WallGameObject,
 	WallInvisibleGameObject,
