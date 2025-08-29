@@ -6,6 +6,7 @@ interface BattleInfo {
 	atk: number;
 	def: number;
 	xp?: number;
+	hpMax?: number;
 	m_hp_debuff?: number;
 	m_atk_debuff?: number;
 }
@@ -38,7 +39,7 @@ export function runBattleFast(me: BattleInfo, enemy: BattleInfo): BattleStatus {
 	}
 }
 
-export function guardBattleInfo(tier: number, type = 1): Required<BattleInfo> {
+export function guardBattleInfo(tier: number, type = 1): Omit<Required<BattleInfo>, 'hpMax'> {
 	if (type == 1) {
 		return {
 			hp: 5 * tier,
@@ -69,7 +70,9 @@ export function guardBattleInfo(tier: number, type = 1): Required<BattleInfo> {
 	}
 }
 
-export function meBattleInfo(): BattleInfo {
+export function meBattleInfo(): BattleInfo & {
+	hpMax: NonNullable<BattleInfo['hpMax']>;
+} {
 	return {
 		hp: player.minigame.hp,
 		hpMax: 10 * currentPlayerLV(),
