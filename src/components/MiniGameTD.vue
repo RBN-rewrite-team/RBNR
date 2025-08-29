@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BoxGameObject, DoorGameObject, GuardGameObject, HealthRecoveryGameObject, KeyGameObject, OreGameObject, TeleporterGameObject, WallGameObject, WallInvisibleGameObject, type GameObject } from '@/core/minigame/game-object';
+import { BoxGameObject, DoorGameObject, GuardGameObject, HealthRecoveryGameObject, KeyGameObject, OreGameObject, PasswordGameObject, TeleporterGameObject, WallGameObject, WallInvisibleGameObject, type GameObject } from '@/core/minigame/game-object';
 
 const props = defineProps<{
     game_object: GameObject|null|undefined
@@ -40,6 +40,11 @@ const props = defineProps<{
         <template v-else-if=" (game_object instanceof DoorGameObject)  ">
             <td class="box-object">
                 门
+            </td>
+        </template>
+        <template v-else-if=" (game_object instanceof PasswordGameObject)  ">
+            <td class="box-object">
+                密码门
             </td>
         </template>
         <template v-else-if=" (game_object instanceof KeyGameObject)  ">

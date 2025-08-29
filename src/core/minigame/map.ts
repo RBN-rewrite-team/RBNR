@@ -7,6 +7,7 @@ import {
 	HealthRecoveryGameObject,
 	KeyGameObject,
 	OreGameObject,
+	PasswordGameObject,
 	TeleporterGameObject,
 	WallGameObject,
 	WallInvisibleGameObject,
@@ -89,6 +90,7 @@ export function initialMap(): SingleMap[] {
 					new FakeWallGameObject(),
 					new GuardGameObject(1),
 					new GuardGameObject(1),
+					// new PasswordGameObject((p) => p == '4589uj234g05u90h234]['),
 					new GuardGameObject(1),
 				]),
 				convertStringToMap('WPWWWWWWW0WWPWWWPWWWWWWWPW', [
