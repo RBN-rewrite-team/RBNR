@@ -199,7 +199,7 @@ export class EntityGameObject extends GameObject {
 					});
 					player.minigame.x = getPlayerCurrentMap().spawnpoint[0];
 					player.minigame.y = getPlayerCurrentMap().spawnpoint[1];
-					player.minigame.hp = meBattleInfo().maxHp;
+					player.minigame.hp = meBattleInfo().hpMax;
 					player.minigame.xp = 0;
 				} else {
 					player.minigame.hp = battlestatus.hp_after_battle;
