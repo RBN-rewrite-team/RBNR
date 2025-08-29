@@ -74,6 +74,10 @@ import { meBattleInfo } from '@/core/minigame/battle';
 table{margin: auto;}
 tr{
     height: 60px;
+    
+    &:empty {
+        display: none
+    }
 }
 td{ 
     height: 60px;
