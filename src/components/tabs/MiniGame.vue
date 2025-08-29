@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { currentPlayerLV, nextLVxp, keyboardEventListener } from '@/core/minigame';
+import { currentPlayerLV, nextLVxp, hardResetMiniGame, keyboardEventListener } from '@/core/minigame';
 import { player } from '@/core/save';
 import ObjectNode from './developermode/ObjectNode';
 import MiniGameTD from '../MiniGameTD.vue';
-import { getCurrentBlock, getPlayerCurrentMap } from '@/core/minigame/room';
+import { getCurrentBlock, getPlayerMap, isPlayerVisible } from '@/core/minigame/room';
 import { handleKeyPress } from '@/core/minigame/minigame-loop';
 import { meBattleInfo } from '@/core/minigame/battle';
 
@@ -15,14 +15,25 @@ function spawn(id: number): void {
 <template>
 
     <div class="main">
-        <input placeholder="按箭头在这里按" @keydown="keyboardEventListener">
         <button @click="handleKeyPress('up')">上</button>
         <button @click="handleKeyPress('down')">下</button>
         <button @click="handleKeyPress('left')">左</button>
         <button @click="handleKeyPress('right')">右</button>
+        <button @click="hardResetMiniGame">复位</button>
         <table style="width: 500px; height: 500px">
             <tbody>
-                <tr>
+                <template v-for="row, y in getPlayerMap(player.minigame.current_room).map">
+                    <tr>
+                        <template v-for="block, x in row">
+                            <template v-if="player.minigame.current_x!==x || player.minigame.current_y!==y">
+                                <MiniGameTD v-if="isPlayerVisible(x, y)":game_object="block"></MiniGameTD>
+                            </template>
+                            
+                            <td v-else>Player</td>
+                        </template>
+                    </tr>
+                </template>
+                <!-- <tr>
                     <MiniGameTD :game_object="getCurrentBlock(getPlayerCurrentMap(), player.minigame.current_x-1,player.minigame.current_y-1)"></MiniGameTD>
                     <MiniGameTD :game_object="getCurrentBlock(getPlayerCurrentMap(), player.minigame.current_x,player.minigame.current_y-1)"></MiniGameTD>
                     <MiniGameTD :game_object="getCurrentBlock(getPlayerCurrentMap(), player.minigame.current_x+1,player.minigame.current_y-1)"></MiniGameTD>
@@ -40,7 +51,7 @@ function spawn(id: number): void {
                     <MiniGameTD :game_object="getCurrentBlock(getPlayerCurrentMap(), player.minigame.current_x,player.minigame.current_y+1)"></MiniGameTD>
                     <MiniGameTD :game_object="getCurrentBlock(getPlayerCurrentMap(), player.minigame.current_x+1,player.minigame.current_y+1)"></MiniGameTD>
                     
-                </tr>
+                </tr> -->
             </tbody>
         </table>
         <div style="margin: auto; position: absolute; left: 0%; top: 0%; width: 400px; height: 200px; background-color: grey;">
