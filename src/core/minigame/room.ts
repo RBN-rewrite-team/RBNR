@@ -1,6 +1,6 @@
 import { deepCopy, player } from '../save';
 import { GameObject, WallGameObject } from './game-object';
-import { maps, type SingleMap } from './map';
+import { initialMap, maps, type SingleMap } from './map';
 
 export function getCurrentBlock(map: SingleMap | undefined, x: number, y: number) {
 	return map?.map?.[y]?.[x];
@@ -14,7 +14,7 @@ export function isUnreachable(map: SingleMap, x: number, y: number) {
 }
 
 export function getPlayerCurrentMap(): SingleMap {
-	let a = maps[player.minigame.current_room];
+	let a = initialMap()[player.minigame.current_room];
 	let replacements = player.minigame.replaces.filter(
 		(x) => x.room == player.minigame.current_room,
 	);
@@ -44,4 +44,15 @@ export function positionDirection(
 			let a: never = x;
 	}
 	return [0, 0];
+}
+
+export function visibleBlocks() {
+	return 114;
+}
+export function isPlayerVisible(x: number, y: number) {
+	if (x < player.minigame.current_x - visibleBlocks()) return false;
+	if (x > player.minigame.current_x + visibleBlocks()) return false;
+	if (y < player.minigame.current_y - visibleBlocks()) return false;
+	if (y > player.minigame.current_y + visibleBlocks()) return false;
+	return true;
 }

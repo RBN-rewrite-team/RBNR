@@ -1,11 +1,16 @@
 import {
+	BossGameObject,
 	BoxGameObject,
+	DoorGameObject,
 	FakeWallGameObject,
 	GuardGameObject,
 	HealthRecoveryGameObject,
+	KeyGameObject,
 	OreGameObject,
 	TeleporterGameObject,
 	WallGameObject,
+	WallInvisibleGameObject,
+	没做完TeleporterGameObject,
 	type GameObject,
 } from './game-object';
 const WGO = () => new WallGameObject();
@@ -54,23 +59,32 @@ export function initialMap(): SingleMap[] {
 					new BoxGameObject(1),
 					new OreGameObject(),
 					new GuardGameObject(1),
-					null, // replacement for door
+					new DoorGameObject(2), // replacement for door
 				]),
-				convertStringToMap('WWWWWWPWWWWWW0WW00000W0P0W', [
+				convertStringToMap('WWWWWWPWWWWWW0WW00000WPPPW', [
+					new GuardGameObject(1),
 					new GuardGameObject(1),
 					new OreGameObject(),
+					new GuardGameObject(1),
 				]),
-				convertStringToMap('W00000000000000WPW0W0P000W', [
+				convertStringToMap('W00000000000000WPW0W0PPPPW', [
 					new GuardGameObject(1),
 					new FakeWallGameObject(),
+
+					new GuardGameObject(1),
+
+					new GuardGameObject(1),
+
+					new GuardGameObject(1),
 				]),
 				convertStringToMap('W0WWWWWWWWWWWWWW0W0W0WWWWW'),
-				convertStringToMap('W0W000W000P00PPWPW0W00P00P', [
+				convertStringToMap('W0W000W000P00PPWPW0W0PP0PW', [
 					new FakeWallGameObject(),
 					new BoxGameObject(1),
 					new OreGameObject(),
 					new GuardGameObject(1),
-					null, //replacementfordoors
+					new GuardGameObject(1),
+					new DoorGameObject(1), //replacementfordoors
 					new BoxGameObject(1),
 				]),
 
@@ -80,29 +94,75 @@ export function initialMap(): SingleMap[] {
 					new HealthRecoveryGameObject(20),
 				]),
 				convertStringToMap('W0W00000W0WW0WWWPW0W00000W', [new GuardGameObject(1)]),
-				convertStringToMap('W0WWWWWWW0WW0WWW0W0WWWW00W'),
-				convertStringToMap('W0WP0000P0WW0WWWPW000000PW', [
-					null,
+				convertStringToMap('W0WWWWWWW0WW0WWW0W0WWWWPPW', [
+					new GuardGameObject(1),
+
+					new GuardGameObject(1),
+				]),
+				convertStringToMap('W0WP0000P0WW0WWWPW00000PPW', [
+					new TeleporterGameObject([1, 1], 2),
 					new FakeWallGameObject(),
 					new GuardGameObject(1),
-					new FakeWallGameObject(),
+					new GuardGameObject(1),
+					new GuardGameObject(1),
 				]),
-				convertStringToMap('WPWWWWWWW0WWPWWWPWWWWWWW0W', [
+				convertStringToMap('WPWWWWWWW0WWPWWWPWWWWWWWPW', [
 					new TeleporterGameObject([4, 10], 0),
-					new GuardGameObject(2),
+					new KeyGameObject(2),
 					new HealthRecoveryGameObject(20),
-					null, //replacement for big 2
+					new BossGameObject(), //replacement for big 2
 				]),
 
-				convertStringToMap('WWWWWWWWW0WWWWWWPPPPPPWP0W', [
+				convertStringToMap('WWWWWWWWWPWWWWWWPPPPPPWPPW', [
+					new BoxGameObject(1),
 					new GuardGameObject(1),
 					new GuardGameObject(1),
 					new BoxGameObject(2),
 					new HealthRecoveryGameObject(100),
-					null, // replacement for 2
+					new KeyGameObject(1),
 					new OreGameObject(),
+					null, //replacement for 2
+					new BoxGameObject(2),
 				]),
 				convertStringToMap('WWWWWWWWWWWWWWWWWWWWWWWWWW'),
+			],
+			spawnpoint: [1, 1],
+		},
+		{
+			map: [],
+			spawnpoint: [1, 1],
+		},
+		{
+			map: [
+				convertStringToMap('WWWWWWWWWWWWWWWWWWWWWWWWWWW'),
+				convertStringToMap('W0000000P0W0P0P0000PW000PPW', [
+					new DoorGameObject(1.001),
+					new FakeWallGameObject(),
+					new FakeWallGameObject(),
+					new KeyGameObject(2.001),
+					new FakeWallGameObject(),
+					new KeyGameObject(4.001),
+				]),
+				convertStringToMap('W0WWWWWWW0W0W0WWWWWWWWPWWWW', [new FakeWallGameObject()]),
+				convertStringToMap('W0PWWWWWW0W0W0WPP000P00000W', [
+					new FakeWallGameObject(),
+					new OreGameObject(),
+					new WallInvisibleGameObject(),
+					new FakeWallGameObject(),
+				]),
+				convertStringToMap('WW00PWP0P000W0Wpp0W0WWWWW0W', [
+					new OreGameObject(),
+					new BoxGameObject(1),
+					new FakeWallGameObject(),
+					new FakeWallGameObject(),
+					new FakeWallGameObject(),
+				]),
+
+				convertStringToMap('WWWPWWWWWWWW00WPW0W0W000P0W', [
+					new FakeWallGameObject(),
+					new BoxGameObject(1),
+					new FakeWallGameObject(),
+				]),
 			],
 			spawnpoint: [1, 1],
 		},

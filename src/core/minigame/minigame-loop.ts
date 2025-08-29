@@ -26,7 +26,7 @@ export function handleKeyPress(key: KeyPresses) {
 }
 
 export function keyboardEventListener(e: Event) {
-	console.log(e);
+	if (player.currentTab !== 1225) return;
 	if (e instanceof KeyboardEvent) {
 		switch (e.key) {
 			case 'ArrowUp':
