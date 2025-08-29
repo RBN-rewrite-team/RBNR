@@ -147,5 +147,7 @@ export function map2_block(x: number, y: number) {
 	if (x == 37 && y == 24) return new OreGameObject();
 
 	if (x == 41 && y == 18) return new KeyGameObject(1);
+
+	if (x == 38 && y >= 24) return new WallGameObject();
 	return null;
 }
