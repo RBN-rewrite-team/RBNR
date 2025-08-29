@@ -42,7 +42,7 @@ import { meBattleInfo } from '@/core/minigame/battle';
                                 <MiniGameTD v-if="isPlayerVisible(x, y)":game_object="block"></MiniGameTD>
                             </template>
                             
-                            <td v-else>Player</td>
+                            <td v-else style="background-image: url('/plot_image/NumerorumColor.png'); background-size: cover;"></td>
                         </template>
                     </tr>
                 </template>

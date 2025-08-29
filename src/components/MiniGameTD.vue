@@ -10,7 +10,6 @@ const props = defineProps<{
     <template v-if="game_object !== null && game_object !== undefined">
         <template v-if=" (game_object instanceof WallGameObject)  ">
             <td style="background-color: var(--color)">
-                墙    
             </td>
         </template>
         <template v-else-if=" (game_object instanceof BoxGameObject)  ">
