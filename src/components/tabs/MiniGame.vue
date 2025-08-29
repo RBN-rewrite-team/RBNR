@@ -3,9 +3,10 @@ import { currentPlayerLV, nextLVxp, hardResetMiniGame, keyboardEventListener } f
 import { player } from '@/core/save';
 import ObjectNode from './developermode/ObjectNode';
 import MiniGameTD from '../MiniGameTD.vue';
-import { getCurrentBlock, getPlayerMap, isPlayerVisible } from '@/core/minigame/room';
+import { getCurrentBlock, getPlayerMap, isPlayerVisible, visibleBlocks } from '@/core/minigame/room';
 import { handleKeyPress } from '@/core/minigame/minigame-loop';
 import { meBattleInfo } from '@/core/minigame/battle';
+import { range } from '@/utils/algorithm';
 
 function spawn(id: number): void {
 	player.minigame.current_room = id, player.minigame.current_x = 1, player.minigame.current_y = 1;
@@ -47,14 +48,18 @@ function spawn(id: number): void {
           <button @click="handleKeyPress('left')" class="clickable_button">←</button>
           <button @click="handleKeyPress('right')" class="clickable_button">→</button>
         </div>
+        <div>
+            X: {{ player.minigame.current_x }}
+            Y: {{ player.minigame.current_y }}
+        </div>
         <br />
         <table>
             <tbody>
-                <template v-for="row, y in getPlayerMap(player.minigame.current_room).map">
+                <template v-for="y in range(player.minigame.current_y-Math.min(10, visibleBlocks()), player.minigame.current_y+Math.min(10, visibleBlocks())+1)">
                     <tr>
-                        <template v-for="block, x in row">
+                        <template v-for="x in range(player.minigame.current_x-Math.min(10, visibleBlocks()), player.minigame.current_x+Math.min(10, visibleBlocks())+1)">
                             <template v-if="player.minigame.current_x!==x || player.minigame.current_y!==y">
-                                <MiniGameTD v-if="isPlayerVisible(x, y)":game_object="block"></MiniGameTD>
+                                <MiniGameTD v-if="isPlayerVisible(x, y)":game_object="getCurrentBlock(player.minigame.current_room, x, y)"></MiniGameTD>
                             </template>
                             
                             <td v-else style="background-image: url('/plot_image/NumerorumColor.png'); background-size: cover;"></td>
