@@ -282,200 +282,220 @@ function hydraAxisHTML(): string {
 				</tr>
 			</tbody>
 		</table>
-		<table style="width: 100%; transform: translateY(-40px)"><tbody>
-			<tr>
-				<td style="width: 25%">
-					<button class="hydra-button-short" @click="feature.Hydra.prestige(0)">
-						<span class="hydra-text-short">
-							<span v-if="feature.Hydra.pUnlock(0)">
-								<h3>转生({{ formatWhole(player.hydra.prestige[0]) }})</h3>
-								额外乘数与推演速度<br />x{{
-									format(feature.Hydra.prestigeEff(0, false))
-								}}→{{
-									format(
-										feature.Hydra.prestigeEff(0, true).max(
-											feature.Hydra.prestigeEff(0, false),
-										),
-									)
-								}}(效果×{{
-									format(feature.Hydra.prestigeEff(0, false, true).max(1))
-								}})
+		<table style="width: 100%; transform: translateY(-40px)">
+			<tbody>
+				<tr>
+					<td style="width: 25%">
+						<button class="hydra-button-short" @click="feature.Hydra.prestige(0)">
+							<span class="hydra-text-short">
+								<span v-if="feature.Hydra.pUnlock(0)">
+									<h3>转生({{ formatWhole(player.hydra.prestige[0]) }})</h3>
+									额外乘数与推演速度<br />x{{
+										format(feature.Hydra.prestigeEff(0, false))
+									}}→{{
+										format(
+											feature.Hydra.prestigeEff(0, true).max(
+												feature.Hydra.prestigeEff(0, false),
+											),
+										)
+									}}(效果×{{
+										format(feature.Hydra.prestigeEff(0, false, true).max(1))
+									}})
+								</span>
+								<span v-else>基础乘数≥2解锁</span>
 							</span>
-							<span v-else>基础乘数≥2解锁</span>
-						</span>
-					</button>
-				</td>
-				<td style="width: 25%">
-					<button class="hydra-button-short" @click="feature.Hydra.prestige(1)">
-						<span class="hydra-text-short">
-							<span v-if="feature.Hydra.pUnlock(1)">
-								<h3>飞升({{ formatWhole(player.hydra.prestige[1]) }})</h3>
-								额外指数<br />+{{ format(feature.Hydra.prestigeEff(1, false)) }}→{{
-									format(
-										feature.Hydra.prestigeEff(1, true).max(
-											feature.Hydra.prestigeEff(1, false),
-										),
-									)
-								}}
+						</button>
+					</td>
+					<td style="width: 25%">
+						<button class="hydra-button-short" @click="feature.Hydra.prestige(1)">
+							<span class="hydra-text-short">
+								<span v-if="feature.Hydra.pUnlock(1)">
+									<h3>飞升({{ formatWhole(player.hydra.prestige[1]) }})</h3>
+									额外指数<br />+{{
+										format(feature.Hydra.prestigeEff(1, false))
+									}}→{{
+										format(
+											feature.Hydra.prestigeEff(1, true).max(
+												feature.Hydra.prestigeEff(1, false),
+											),
+										)
+									}}
+								</span>
+								<span v-else>转生效果≥20解锁</span>
 							</span>
-							<span v-else>转生效果≥20解锁</span>
-						</span>
-					</button>
-				</td>
-				<td style="width: 25%">
-					<button class="hydra-button-short" @click="feature.Hydra.prestige(2)">
-						<span class="hydra-text-short">
-							<span v-if="feature.Hydra.pUnlock(2)">
-								<h3>超越({{ format(player.hydra.prestige[2]) }})</h3>
-								乘数获取<br />x{{ format(feature.Hydra.prestigeEff(2, false)) }}→{{
-									format(
-										feature.Hydra.prestigeEff(2, true).max(
-											feature.Hydra.prestigeEff(2, false),
-										),
-									)
-								}}
+						</button>
+					</td>
+					<td style="width: 25%">
+						<button class="hydra-button-short" @click="feature.Hydra.prestige(2)">
+							<span class="hydra-text-short">
+								<span v-if="feature.Hydra.pUnlock(2)">
+									<h3>超越({{ format(player.hydra.prestige[2]) }})</h3>
+									乘数获取<br />x{{
+										format(feature.Hydra.prestigeEff(2, false))
+									}}→{{
+										format(
+											feature.Hydra.prestigeEff(2, true).max(
+												feature.Hydra.prestigeEff(2, false),
+											),
+										)
+									}}
+								</span>
+								<span v-else>飞升效果≥1解锁</span>
 							</span>
-							<span v-else>飞升效果≥1解锁</span>
-						</span>
-					</button>
-				</td>
-				<td style="width: 25%">
-					<button class="hydra-button-short" @click="feature.Hydra.prestige(3)">
-						<span class="hydra-text-short">
-							<span v-if="feature.Hydra.pUnlock(3)">
-								<h3>轮回({{ formatWhole(player.hydra.prestige[3]) }})</h3>
-								转生、超越效果指数<br />x+{{
-									format(feature.Hydra.prestigeEff(3, false))
-								}}→{{
-									format(
-										feature.Hydra.prestigeEff(3, true).max(
-											feature.Hydra.prestigeEff(3, false),
-										),
-									)
-								}}
+						</button>
+					</td>
+					<td style="width: 25%">
+						<button class="hydra-button-short" @click="feature.Hydra.prestige(3)">
+							<span class="hydra-text-short">
+								<span v-if="feature.Hydra.pUnlock(3)">
+									<h3>轮回({{ formatWhole(player.hydra.prestige[3]) }})</h3>
+									转生、超越效果指数<br />x+{{
+										format(feature.Hydra.prestigeEff(3, false))
+									}}→{{
+										format(
+											feature.Hydra.prestigeEff(3, true).max(
+												feature.Hydra.prestigeEff(3, false),
+											),
+										)
+									}}
+								</span>
+								<span v-else>超越效果≥1e10解锁</span>
 							</span>
-							<span v-else>超越效果≥1e10解锁</span>
-						</span>
-					</button>
-				</td>
-			</tr>
-			<tr style="transform: translateY(-100px)">
-				<td style="width: 25%">
-					<button
-						class="hydra-button-sshort"
-						:style="{
-							'background-color': player.hydra.pAuto[0]
-								? 'rgb(155, 125, 195)'
-								: 'var(--background-color)',
-						}"
-						@click="player.hydra.pAuto[0] = !player.hydra.pAuto[0]"
-					>
-						<span class="hydra-text-short">
-							<span v-if="feature.Hydra.pAutoUnlock(0)">
-								自动重置阈值：+{{ format(feature.Hydra.pAutoThreshold(0).add) }} &
-								x{{ format(feature.Hydra.pAutoThreshold(0).mul) }}
+						</button>
+					</td>
+				</tr>
+				<tr style="transform: translateY(-100px)">
+					<td style="width: 25%">
+						<button
+							class="hydra-button-sshort"
+							:style="{
+								'background-color': player.hydra.pAuto[0]
+									? 'rgb(155, 125, 195)'
+									: 'var(--background-color)',
+							}"
+							@click="player.hydra.pAuto[0] = !player.hydra.pAuto[0]"
+						>
+							<span class="hydra-text-short">
+								<span v-if="feature.Hydra.pAutoUnlock(0)">
+									自动重置阈值：+{{
+										format(feature.Hydra.pAutoThreshold(0).add)
+									}}
+									& x{{ format(feature.Hydra.pAutoThreshold(0).mul) }}
+								</span>
+								<span v-else>首次超越解锁自动化</span>
 							</span>
-							<span v-else>首次超越解锁自动化</span>
-						</span>
-					</button>
-				</td>
-				<td style="width: 25%">
-					<button
-						class="hydra-button-sshort"
-						:style="{
-							'background-color': player.hydra.pAuto[1]
-								? 'rgb(155, 125, 195)'
-								: 'var(--background-color)',
-						}"
-						@click="player.hydra.pAuto[1] = !player.hydra.pAuto[1]"
-					>
-						<span class="hydra-text-short">
-							<span v-if="feature.Hydra.pAutoUnlock(1)">
-								自动重置阈值：+{{ format(feature.Hydra.pAutoThreshold(1).add) }} &
-								x{{ format(feature.Hydra.pAutoThreshold(1).mul) }}
+						</button>
+					</td>
+					<td style="width: 25%">
+						<button
+							class="hydra-button-sshort"
+							:style="{
+								'background-color': player.hydra.pAuto[1]
+									? 'rgb(155, 125, 195)'
+									: 'var(--background-color)',
+							}"
+							@click="player.hydra.pAuto[1] = !player.hydra.pAuto[1]"
+						>
+							<span class="hydra-text-short">
+								<span v-if="feature.Hydra.pAutoUnlock(1)">
+									自动重置阈值：+{{
+										format(feature.Hydra.pAutoThreshold(1).add)
+									}}
+									& x{{ format(feature.Hydra.pAutoThreshold(1).mul) }}
+								</span>
+								<span v-else>首次轮回解锁自动化</span>
 							</span>
-							<span v-else>首次轮回解锁自动化</span>
-						</span>
-					</button>
-				</td>
-				<td style="width: 25%">
-					<button
-						class="hydra-button-sshort"
-						:style="{
-							'background-color': player.hydra.pAuto[2]
-								? 'rgb(155, 125, 195)'
-								: 'var(--background-color)',
-						}"
-						@click="player.hydra.pAuto[2] = !player.hydra.pAuto[2]"
-					>
-						<span class="hydra-text-short">
-							<span v-if="feature.Hydra.pAutoUnlock(2)">
-								自动重置阈值：+{{ format(feature.Hydra.pAutoThreshold(2).add) }} &
-								x{{ format(feature.Hydra.pAutoThreshold(2).mul) }}
+						</button>
+					</td>
+					<td style="width: 25%">
+						<button
+							class="hydra-button-sshort"
+							:style="{
+								'background-color': player.hydra.pAuto[2]
+									? 'rgb(155, 125, 195)'
+									: 'var(--background-color)',
+							}"
+							@click="player.hydra.pAuto[2] = !player.hydra.pAuto[2]"
+						>
+							<span class="hydra-text-short">
+								<span v-if="feature.Hydra.pAutoUnlock(2)">
+									自动重置阈值：+{{
+										format(feature.Hydra.pAutoThreshold(2).add)
+									}}
+									& x{{ format(feature.Hydra.pAutoThreshold(2).mul) }}
+								</span>
+								<span v-else>暂时无法自动化</span>
 							</span>
-							<span v-else>暂时无法自动化</span>
-						</span>
-					</button>
-				</td>
-				<td style="width: 25%">
-					<button
-						class="hydra-button-sshort"
-						:style="{
-							'background-color': player.hydra.pAuto[3]
-								? 'rgb(155, 125, 195)'
-								: 'var(--background-color)',
-						}"
-						@click="player.hydra.pAuto[3] = !player.hydra.pAuto[3]"
-					>
-						<span class="hydra-text-short">
-							<span v-if="feature.Hydra.pAutoUnlock(3)">
-								自动重置阈值：+{{ format(feature.Hydra.pAutoThreshold(3).add) }} &
-								x{{ format(feature.Hydra.pAutoThreshold(3).mul) }}
+						</button>
+					</td>
+					<td style="width: 25%">
+						<button
+							class="hydra-button-sshort"
+							:style="{
+								'background-color': player.hydra.pAuto[3]
+									? 'rgb(155, 125, 195)'
+									: 'var(--background-color)',
+							}"
+							@click="player.hydra.pAuto[3] = !player.hydra.pAuto[3]"
+						>
+							<span class="hydra-text-short">
+								<span v-if="feature.Hydra.pAutoUnlock(3)">
+									自动重置阈值：+{{
+										format(feature.Hydra.pAutoThreshold(3).add)
+									}}
+									& x{{ format(feature.Hydra.pAutoThreshold(3).mul) }}
+								</span>
+								<span v-else>暂时无法自动化</span>
 							</span>
-							<span v-else>暂时无法自动化</span>
-						</span>
-					</button>
-				</td>
-			</tr>
-		</tbody></table>
-		<table style="transform: translateY(-220px)"><tbody>
-			<tr>
-				<TDUpgrade upgid="61" />
-				<TDUpgrade upgid="62" />
-				<TDUpgrade upgid="63" />
-				<TDUpgrade upgid="64" />
-			</tr>
-			<tr v-if="Dilute.diluteAmount(6) || player.upgrades[61]">
-				<TDUpgrade upgid="611" />
-				<TDUpgrade upgid="612" />
-				<TDUpgrade upgid="613" />
-				<TDUpgrade upgid="614" />
-			</tr>
-			<tr v-if="Dilute.diluteAmount(6) || (player.upgrades[61] && feature.Hydra.pUnlock(2))">
-				<TDUpgrade upgid="615" />
-				<TDUpgrade upgid="616" />
-				<TDUpgrade upgid="617" />
-				<TDUpgrade upgid="618" />
-			</tr>
-			<tr v-if="Dilute.diluteAmount(6) || player.upgrades[61]">
-				<TDBuyable bylid="611" />
-				<TDBuyable bylid="612" />
-				<TDBuyable bylid="613" />
-				<TDBuyable bylid="614" />
-			</tr>
-			<tr v-if="Dilute.diluteAmount(6) || player.upgrades[614]">
-				<TDUpgrade upgid="65" />
-				<TDUpgrade upgid="66" />
-				<TDUpgrade upgid="6114" />
-				<TDUpgrade upgid="6113" />
-			</tr>
-			<tr v-if="Dilute.diluteAmount(6) || player.upgrades[65]">
-				<TDUpgrade upgid="619" />
-				<TDUpgrade upgid="6110" />
-				<TDUpgrade upgid="6111" />
-				<TDUpgrade upgid="6112" />
-			</tr>
-		</tbody></table>
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<table style="transform: translateY(-220px)">
+			<tbody>
+				<tr>
+					<TDUpgrade upgid="61" />
+					<TDUpgrade upgid="62" />
+					<TDUpgrade upgid="63" />
+					<TDUpgrade upgid="64" />
+				</tr>
+				<tr v-if="Dilute.diluteAmount(6) || player.upgrades[61]">
+					<TDUpgrade upgid="611" />
+					<TDUpgrade upgid="612" />
+					<TDUpgrade upgid="613" />
+					<TDUpgrade upgid="614" />
+				</tr>
+				<tr
+					v-if="
+						Dilute.diluteAmount(6) || (player.upgrades[61] && feature.Hydra.pUnlock(2))
+					"
+				>
+					<TDUpgrade upgid="615" />
+					<TDUpgrade upgid="616" />
+					<TDUpgrade upgid="617" />
+					<TDUpgrade upgid="618" />
+				</tr>
+				<tr v-if="Dilute.diluteAmount(6) || player.upgrades[61]">
+					<TDBuyable bylid="611" />
+					<TDBuyable bylid="612" />
+					<TDBuyable bylid="613" />
+					<TDBuyable bylid="614" />
+				</tr>
+				<tr v-if="Dilute.diluteAmount(6) || player.upgrades[614]">
+					<TDUpgrade upgid="65" />
+					<TDUpgrade upgid="66" />
+					<TDUpgrade upgid="6114" />
+					<TDUpgrade upgid="6113" />
+				</tr>
+				<tr v-if="Dilute.diluteAmount(6) || player.upgrades[65]">
+					<TDUpgrade upgid="619" />
+					<TDUpgrade upgid="6110" />
+					<TDUpgrade upgid="6111" />
+					<TDUpgrade upgid="6112" />
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </template>
 

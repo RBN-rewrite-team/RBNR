@@ -46,7 +46,7 @@ export function currentPlayerLV() {
 }
 
 export function nextLVxp() {
-	return currentPlayerLV() * (currentPlayerLV() + 1) / 2;
+	return (currentPlayerLV() * (currentPlayerLV() + 1)) / 2;
 }
 
 export function hardResetMiniGame() {
@@ -54,12 +54,12 @@ export function hardResetMiniGame() {
 }
 
 export function predictableBigIntRandom(x: bigint): number {
-  let start = 232344573n * (x % 97n) ** 4n
-  const a = 15485863n;
-  const b = 521791n;
-  start = (start * a) % b;
-  for (let i = 0; i < (x * x) % 90n + 90n; i++) {
-    start = (start * a) % b;
-  }
-  return Number(start) / 521791;
+	let start = 232344573n * (x % 97n) ** 4n;
+	const a = 15485863n;
+	const b = 521791n;
+	start = (start * a) % b;
+	for (let i = 0; i < ((x * x) % 90n) + 90n; i++) {
+		start = (start * a) % b;
+	}
+	return Number(start) / 521791;
 }

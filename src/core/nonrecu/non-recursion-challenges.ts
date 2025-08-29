@@ -86,10 +86,15 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			}
 		},
 		effect(x): Decimal {
-		    return x.gt(0) ? x.mul(0.1).add(0.1) : new Decimal(0);
+			return x.gt(0) ? x.mul(0.1).add(0.1) : new Decimal(0);
 		},
 		effD(x): string {
-		    return '非递归能量以(1+ln(ln(x^10+1)^' + format(x) + '+1)/5)幂增推演速度指数，当前：^' + format(player.nonrecu.power.pow(10).add(1).ln().pow(x).add(1).ln().div(5).add(1));
-		} 
+			return (
+				'非递归能量以(1+ln(ln(x^10+1)^' +
+				format(x) +
+				'+1)/5)幂增推演速度指数，当前：^' +
+				format(player.nonrecu.power.pow(10).add(1).ln().pow(x).add(1).ln().div(5).add(1))
+			);
+		},
 	},
 ] as const;

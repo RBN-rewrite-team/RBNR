@@ -29,7 +29,7 @@
 								</template>
 							</component>
 						</div>
-						
+
 						<!-- 正常模式 -->
 						<template v-if="content">
 							<div class="modal-content" v-html="content"></div>
@@ -37,7 +37,6 @@
 
 						<!-- 进度条模式 -->
 						<ProgressBar v-if="showProgress" :progress="progress"></ProgressBar>
-
 
 						<template v-for="(field, index) in fields" :key="index">
 							<div class="input-group">

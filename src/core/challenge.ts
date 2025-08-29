@@ -8,7 +8,7 @@ export type SingleChallenge<T extends {} = {}> = {
 	descEasy: string;
 	descHard: string;
 	loop?(): void; //Run every tick in challenge, use for update challenge amount;
-	canEnter?(): boolean
+	canEnter?(): boolean;
 } & (
 	| {
 			effect(x: Decimal): Decimal;
@@ -46,10 +46,10 @@ export const CHALLENGE: {
 			if (x >= this.challenges.length) throw Error('not a valid error');
 			if (y >= this.challenges[x].length) throw Error('not a valid error');
 
-			if (!(this.challenges[x][y].canEnter?.() ?? true)) return
+			if (!(this.challenges[x][y].canEnter?.() ?? true)) return;
 			player.challengein[0] = x;
 			player.challengein[1] = y;
-			
+
 			this.resetFunctions[x]();
 		}
 	},
