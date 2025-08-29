@@ -61,10 +61,11 @@ export function getCurrentBlock(room: number, x: bigint, y: bigint) {
 		if (room == 943360095) block = randomBlock(x, y);
 		else block = map2_block(Number(x), Number(y));
 		let replacements = player.minigame.replaces.filter(
-			(b) => b.room == player.minigame.current_room && b.x == x && b.y == y,
+			(b) => b.room == room && b.x == x && b.y == y,
 		);
+		if (x == 4n && y == 4n) debugger;
 		for (let i = 0; i < replacements.length; i++) {
-			replacement(block, replacements[i]);
+			block = replacement(block, replacements[i]);
 		}
 		return block;
 	}
@@ -123,7 +124,7 @@ export function visibleBlocks() {
 			? 3n
 			: 1n;
 	}
-	return 1n;
+	return 10n;
 }
 export function isPlayerVisible(x: bigint, y: bigint) {
 	if (x < player.minigame.current_x - visibleBlocks()) return false;
