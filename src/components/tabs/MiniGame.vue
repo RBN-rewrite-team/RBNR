@@ -21,14 +21,18 @@ import { meBattleInfo } from '@/core/minigame/battle';
             
             
             <br />
-            描述：何意味。<br />
+            描述：没做。<br />
         </div>
-        <button @click="handleKeyPress('up')">上</button>
-        <button @click="handleKeyPress('down')">下</button>
-        <button @click="handleKeyPress('left')">左</button>
-        <button @click="handleKeyPress('right')">右</button>
+        <div style="display: flex; flex-direction: row; justify-content: center">
+          <button @click="handleKeyPress('up')" class="clickable_button">↑</button>
+          <button @click="handleKeyPress('down')" class="clickable_button">↓</button>
+          <button @click="handleKeyPress('left')" class="clickable_button">←</button>
+          <button @click="handleKeyPress('right')" class="clickable_button">→</button>
+        </div>
+        <div style="display: flex; flex-direction: row; justify-content: center">
+          <button @click="hardResetMiniGame" class="clickable_button">复位</button>
+        </div>
         <br />
-        <button @click="hardResetMiniGame">复位</button>
         <table>
             <tbody>
                 <template v-for="row, y in getPlayerMap(player.minigame.current_room).map">
@@ -38,7 +42,7 @@ import { meBattleInfo } from '@/core/minigame/battle';
                                 <MiniGameTD v-if="isPlayerVisible(x, y)":game_object="block"></MiniGameTD>
                             </template>
                             
-                            <td v-else>Player</td>
+                            <td v-else style="background-image: url('/plot_image/NumerorumColor.png'); background-size: cover;"></td>
                         </template>
                     </tr>
                 </template>

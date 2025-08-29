@@ -282,7 +282,7 @@ function hydraAxisHTML(): string {
 				</tr>
 			</tbody>
 		</table>
-		<table style="width: 100%; transform: translateY(-40px)">
+		<table style="width: 100%; transform: translateY(-40px)"><tbody>
 			<tr>
 				<td style="width: 25%">
 					<button class="hydra-button-short" @click="feature.Hydra.prestige(0)">
@@ -437,8 +437,8 @@ function hydraAxisHTML(): string {
 					</button>
 				</td>
 			</tr>
-		</table>
-		<table style="transform: translateY(-220px)">
+		</tbody></table>
+		<table style="transform: translateY(-220px)"><tbody>
 			<tr>
 				<TDUpgrade upgid="61" />
 				<TDUpgrade upgid="62" />
@@ -475,7 +475,7 @@ function hydraAxisHTML(): string {
 				<TDUpgrade upgid="6111" />
 				<TDUpgrade upgid="6112" />
 			</tr>
-		</table>
+		</tbody></table>
 	</div>
 </template>
 
