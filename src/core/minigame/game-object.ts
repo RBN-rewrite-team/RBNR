@@ -204,6 +204,7 @@ export class EntityGameObject extends GameObject {
 						x,
 						y,
 						replacedTo: '0',
+						recover: true,
 					});
 					player.minigame.xp += guardinfo.xp;
 				}
