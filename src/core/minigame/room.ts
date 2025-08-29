@@ -9,6 +9,19 @@ import {
 	WallGameObject,
 } from './game-object';
 import { initialMap, maps, type SingleMap } from './map';
+
+/**
+ * 目前生成规则
+ * 10%: 墙
+ * 1%: 守卫
+ * 0.05%: 传送门
+ * 68.95%: 棍母
+ * 5%: 奖励 tier1
+ * 1%: 奖励 tier 2
+ * 0.1%: 奖励 tier 3
+ * 0.01%: 奖励 tier 4
+ * 3.89%: 矿石
+ */
 export function randomBlock(x: number, y: number) {
 	let randomer = predictableRandom(1000000 + x * 1000 + y);
 	if (randomer < 0.1) return new WallGameObject();
