@@ -47,7 +47,7 @@ const props = defineProps<{
                 钥匙
             </td>
         </template>
-            <template v-else-if="(game_object instanceof WallInvisibleGameObject)"><td>
+            <template v-else-if="(game_object instanceof WallInvisibleGameObject)"><td style="border: 1px solid red">
             </td></template>
         <template v-else>
             <td>{{ game_object.innerText=="" ? "不知道，反正是个游戏物体" : game_object.innerText  }}</td>
