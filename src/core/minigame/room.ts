@@ -10,6 +10,7 @@ import {
 } from './game-object';
 import { initialMap, maps, type SingleMap } from './map';
 import { predictableBigIntRandom } from '.';
+import { map2_block } from './maps/map-dungeon2';
 
 /**
  * 目前生成规则
@@ -51,8 +52,10 @@ export function replacement(
 	return bl;
 }
 export function getCurrentBlock(room: number, x: bigint, y: bigint) {
-	if (room == 943360095) {
-		let block = randomBlock(x, y);
+	if (room == 943360095 || room == 1) {
+		let block;
+		if (room == 943360095) block = randomBlock(x, y);
+		else block = map2_block(Number(x), Number(y));
 		let replacements = player.minigame.replaces.filter(
 			(b) => b.room == player.minigame.current_room && b.x == x && b.y == y,
 		);
