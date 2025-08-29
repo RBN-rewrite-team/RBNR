@@ -11,6 +11,7 @@ import MiniGameTD from '../MiniGameTD.vue';
 import {
 	getCurrentBlock,
 	getPlayerMap,
+	getPlayerCurrentMap,
 	isPlayerVisible,
 	visibleBlocks,
 } from '@/core/minigame/room';
@@ -24,6 +25,8 @@ function spawn(id: number): void {
 	((player.minigame.current_room = id),
 		(player.minigame.current_x = 1n),
 		(player.minigame.current_y = 1n));
+	player.minigame.hp = meBattleInfo().hpMax;
+	player.minigame.replaces = player.minigame.replaces.filter((item) => ((item.recover ?? 0) == true));
 }
 function formatbigint(b: bigint) {
 	if (b < 1000n) return b.toString();

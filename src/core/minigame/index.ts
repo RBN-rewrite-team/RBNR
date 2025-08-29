@@ -9,6 +9,7 @@ interface Replacements {
 	x: bigint;
 	y: bigint;
 	replacedTo: string;
+	recover?: boolean;
 }
 export interface PlayerMinigameData {
 	current_room: number;
