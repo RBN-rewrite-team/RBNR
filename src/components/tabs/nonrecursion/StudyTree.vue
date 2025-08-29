@@ -1,6 +1,15 @@
 <script setup lang="ts">
 import { formatWhole } from '@/utils/format';
-import { initConnectors, studyRefs, updateAllConnectors, registerStudyRef, addTheories, canBuyTheories, resetTheories, theoriesCost } from '@/core/nonrecu/studies';
+import {
+	initConnectors,
+	studyRefs,
+	updateAllConnectors,
+	registerStudyRef,
+	addTheories,
+	canBuyTheories,
+	resetTheories,
+	theoriesCost,
+} from '@/core/nonrecu/studies';
 import SingleStudy from './SingleStudy.vue';
 import { onMounted, watch, ref } from 'vue';
 
@@ -14,12 +23,12 @@ watch(
 	() => {
 		updateAllConnectors();
 	},
-	  { deep: true },
+	{ deep: true },
 );
 
 const connectorsRef = ref<HTMLElement | null>(null);
 
-onMounted(()=>initConnectors(connectorsRef))
+onMounted(() => initConnectors(connectorsRef));
 </script>
 
 <template>

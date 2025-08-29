@@ -4,17 +4,21 @@ import { onMounted, onUnmounted, ref } from 'vue';
 import PlotSentence from './PlotSentence.vue';
 import { player } from '@/core/save';
 import { plots, stringToPlot, plotLength } from '@/core/plot';
-const plotview = ref<HTMLDivElement|null>(null)
-const plotcont = ref<HTMLSpanElement|null>(null)
-function exitView(){
-	if(!canExitView()) return;
-  if (!plotview.value) return;
-  plotview.value.style.opacity="0";
-  setTimeout(()=>{player.checkedPlots.push(temp.plotdisplay); temp.plotdisplay=0; temp.plotstep = 0;},250)
+const plotview = ref<HTMLDivElement | null>(null);
+const plotcont = ref<HTMLSpanElement | null>(null);
+function exitView() {
+	if (!canExitView()) return;
+	if (!plotview.value) return;
+	plotview.value.style.opacity = '0';
+	setTimeout(() => {
+		player.checkedPlots.push(temp.plotdisplay);
+		temp.plotdisplay = 0;
+		temp.plotstep = 0;
+	}, 250);
 }
 function canExitView(): boolean {
-	if(player.checkedPlots.includes(temp.plotdisplay)) return true;
-	return temp.plotstep >= (plotLength(temp.plotdisplay));
+	if (player.checkedPlots.includes(temp.plotdisplay)) return true;
+	return temp.plotstep >= plotLength(temp.plotdisplay);
 }
 onMounted(() => {
 	if (plotview.value) {
@@ -80,7 +84,9 @@ let a: number = -115;
 				</table>
 			</span>
 		</div>
-		<button class="exit" @click="exitView()" :style="{opacity: canExitView()?1:0.75}">×<span style="font-size: 8px" v-if="!canExitView()"><br>看完再退出</span></button>
+		<button class="exit" @click="exitView()" :style="{ opacity: canExitView() ? 1 : 0.75 }">
+			×<span style="font-size: 8px" v-if="!canExitView()"><br />看完再退出</span>
+		</button>
 		<button class="next" @click="nextStep()">继续</button>
 	</div>
 </template>

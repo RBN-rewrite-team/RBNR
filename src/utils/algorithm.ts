@@ -97,3 +97,7 @@ export function DecimalsMin(...args: Decimal[]) {
 		return DecimalsMin(Decimal.min(args[0], args[1]), ...args.slice(2));
 	}
 }
+
+export function range(a: bigint, b: bigint) {
+	return new Array(Number(b - a)).fill(0).map((v, i) => BigInt(i) + a);
+}

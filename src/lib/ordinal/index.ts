@@ -7,7 +7,7 @@ import { toRaw } from 'vue';
 import { calculate } from '../../utils/bms-analyze.ts';
 import { player } from '@/core/global';
 import { OrdinalUtils } from '../../utils/ordinal.ts';
-import { getBMSOrdinalLevel, getBMSOLReq } from "../../core/ordinal/ordinal-level.ts"
+import { getBMSOrdinalLevel, getBMSOLReq } from '../../core/ordinal/ordinal-level.ts';
 
 export class Ordinal {
 	node: MainNode;
@@ -22,7 +22,8 @@ export class Ordinal {
 
 	static displayOrdinalColored(ord: Decimal | number, base: Decimal | number = 10) {
 		if (player.upgrades[61]) {
-		  if (player.hydra.deduceOrdinal[0].gte("e3.773962424821541352e168")) return ">"+getBMSOLReq(getBMSOrdinalLevel()-1)
+			if (player.hydra.deduceOrdinal[0].gte('e3.773962424821541352e168'))
+				return '>' + getBMSOLReq(getBMSOrdinalLevel() - 1);
 			return calculate(
 				OrdinalUtils.numberToBMS(player.hydra.deduceOrdinal[0], new Decimal(4), 15)
 					.replace('...', '')

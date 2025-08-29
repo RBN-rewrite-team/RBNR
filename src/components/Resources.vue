@@ -50,12 +50,21 @@ import { format } from '@/utils/format';
 							)
 						"
 						v-if="
-						  !(player.upgrades[61] && player.hydra.deduceOrdinal[0].gte('e3.773962424821541352e168'))"
+							!(
+								player.upgrades[61] &&
+								player.hydra.deduceOrdinal[0].gte('e3.773962424821541352e168')
+							)
+						"
 					/>
-					<vue-latex :expression="Ordinal.displayOrdinalColored(
+					<vue-latex
+						:expression="
+							Ordinal.displayOrdinalColored(
 								player.ordinal.number.floor(),
 								feature.Ordinal.base(),
-							)" v-else />
+							)
+						"
+						v-else
+					/>
 				</div>
 				<div style="font-size: 17px; color: rgb(255, 127, 127)" v-if="!player.upgrades[61]">
 					<span

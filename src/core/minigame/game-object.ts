@@ -17,13 +17,14 @@ import { player } from '../save';
 import { guardBattleInfo, meBattleInfo, runBattleFast } from './battle';
 import { currentPlayerLV } from '.';
 import { getCurrentBlock } from './room';
+import { temp } from '../temp-data';
 
 /**
  * 游戏物体 Nothingness（这里什么都没有）
  */
 export class GameObject {
 	constructor() {}
-	interact(x: number, y: number) {}
+	interact(x: bigint, y: bigint) {}
 	solid() {
 		return false;
 	}
@@ -58,14 +59,14 @@ export class FakeWallGameObject extends WallGameObject {
 	}
 }
 export class TeleporterGameObject extends GameObject {
-	destination: [number, number];
+	destination: [bigint, bigint];
 	room: number;
-	constructor(destination: [number, number], room: number) {
+	constructor(destination: [bigint, bigint], room: number) {
 		super();
 		this.destination = destination;
 		this.room = room;
 	}
-	interact(x: number, y: number): void {
+	interact(x: bigint, y: bigint): void {
 		player.minigame.current_room = this.room;
 		player.minigame.current_x = this.destination[0];
 		player.minigame.current_y = this.destination[1];
@@ -74,15 +75,50 @@ export class TeleporterGameObject extends GameObject {
 		return false;
 	}
 }
+export class PasswordGameObject extends GameObject {
+	passwordVerifier: (password: string) => boolean;
+	constructor(passwordVerifier: (password: string) => boolean) {
+		super();
+		this.passwordVerifier = passwordVerifier;
+	}
+	solid() {
+		return true;
+	}
+	interact(x: bigint, y: bigint): void {
+		let pV = this.passwordVerifier;
+		ModalService.show({
+			title: '密码门',
+			content: '请输入密码',
+			fields: [
+				{
+					type: 'input',
+					validation(value) {
+						return pV(value);
+					},
+				},
+			],
+			onConfirm(values: string[]) {
+				if (pV(values[0])) {
+					player.minigame.replaces.push({
+						room: player.minigame.current_room,
+						x,
+						y,
+						replacedTo: '0',
+					});
+				}
+			},
+		});
+	}
+}
 export class 没做完TeleporterGameObject extends TeleporterGameObject {
-	destination: [number, number];
+	destination: [bigint, bigint];
 	room: number;
-	constructor(destination: [number, number], room: number) {
+	constructor(destination: [bigint, bigint], room: number) {
 		super(destination, room);
 		this.destination = destination;
 		this.room = room;
 	}
-	interact(x: number, y: number): void {
+	interact(x: bigint, y: bigint): void {
 		ModalService.show({
 			title: '没做完',
 			content: '没做完',
@@ -96,11 +132,8 @@ export class OreGameObject extends GameObject {
 	constructor() {
 		super();
 	}
-	interact(x: number, y: number): void {
-		ModalService.show({
-			title: '你获得了矿石',
-			content: '你获得了矿石，全局速度+0.25%。',
-		});
+	interact(x: bigint, y: bigint): void {
+		temp.minigametip = '你获得了矿石，全局速度+0.25%。';
 		player.minigame.ore_gets++;
 		player.minigame.replaces.push({
 			room: player.minigame.current_room,
@@ -119,7 +152,7 @@ export class DoorGameObject extends GameObject {
 		super();
 		this.keyid = keyid;
 	}
-	interact(x: number, y: number): void {
+	interact(x: bigint, y: bigint): void {
 		if (player.minigame.keys_have.includes(this.keyid)) {
 			player.minigame.replaces.push({
 				room: player.minigame.current_room,
@@ -129,10 +162,7 @@ export class DoorGameObject extends GameObject {
 			});
 			player.minigame.keys_have.filter((x) => x !== this.keyid);
 		} else {
-			ModalService.show({
-				title: '打不开门',
-				content: '你需要一个钥匙才能开门',
-			});
+			temp.minigametip = '你需要一个钥匙才能开门';
 		}
 	}
 	solid() {
@@ -148,9 +178,9 @@ export class EntityGameObject extends GameObject {
 		this.tier = tier;
 	}
 	solid() {
-		return false;
+		return true;
 	}
-	interact(x: number, y: number): void {
+	interact(x: bigint, y: bigint): void {
 		let guardinfo = guardBattleInfo(this.tier, this.type);
 		player.minigame.interact = 1;
 		const innerText = this.innerText;
@@ -212,16 +242,13 @@ export class BoxGameObject extends GameObject {
 		this.tier = tier;
 		return this;
 	}
-	interact(x: number, y: number): void {
+	interact(x: bigint, y: bigint): void {
 		let price = 0;
 		if (this.tier == 1) price = Math.random() * 5 + 5;
 		if (this.tier == 2) price = Math.random() * 25 + 25;
 		if (this.tier == 3) price = Math.random() * 125 + 125;
-		ModalService.show({
-			title: '你打开了宝箱',
-			content: '你打开了宝箱，获得了' + price.toFixed(3) + '时间碎片。',
-		});
-		player.timeshard.value += price;
+		((temp.minigametip = '你打开了宝箱，获得了' + price.toFixed(3) + '时间碎片。'),
+			(player.timeshard.value += price));
 		player.minigame.replaces.push({
 			room: player.minigame.current_room,
 			x,
@@ -236,10 +263,10 @@ export class RestrictedBoxObject extends BoxGameObject {
 		super(tier);
 		this.tier = tier;
 	}
-	interact(x: number, y: number): void {
+	interact(x: bigint, y: bigint): void {
 		let restricted = false;
-		for (let x2 = x - 3; x2 <= x + 3; x2++) {
-			for (let y2 = y - 3; y2 <= y + 3; y2++) {
+		for (let x2 = x - 3n; x2 <= x + 3n; x2++) {
+			for (let y2 = y - 3n; y2 <= y + 3n; y2++) {
 				let curblock = getCurrentBlock(player.minigame.current_room, x2, y2);
 				if (curblock instanceof GuardGameObject) {
 					restricted = true;
@@ -248,10 +275,7 @@ export class RestrictedBoxObject extends BoxGameObject {
 			}
 		}
 		if (restricted) {
-			ModalService.show({
-				title: '无法打开箱子',
-				content: '宝箱周围7x7内怪物清完才能打开',
-			});
+			temp.minigametip = '宝箱周围7x7内怪物清完才能打开';
 		} else {
 			BoxGameObject.prototype.interact.apply(this, [x, y]);
 		}
@@ -263,12 +287,8 @@ export class KeyGameObject extends GameObject {
 		super();
 		this.keyid = tier;
 	}
-	interact(x: number, y: number): void {
-		ModalService.show({
-			title: '你获得了钥匙',
-			content: '你获得了钥匙',
-		});
-		player.minigame.keys_have.push(this.keyid);
+	interact(x: bigint, y: bigint): void {
+		((temp.minigametip = '你获得了钥匙'), player.minigame.keys_have.push(this.keyid));
 		player.minigame.replaces.push({
 			room: player.minigame.current_room,
 			x,
@@ -283,12 +303,9 @@ export class HealthRecoveryGameObject extends GameObject {
 		super();
 		this.percent = percent;
 	}
-	interact(x: number, y: number): void {
-		ModalService.show({
-			title: '你回复了HP',
-			content: '你回复了HP',
-		});
-		player.minigame.hp += ((currentPlayerLV() * this.percent) / 100) * 10;
+	interact(x: bigint, y: bigint): void {
+		((temp.minigametip = '你回复了HP'),
+			(player.minigame.hp += ((currentPlayerLV() * this.percent) / 100) * 10));
 		player.minigame.replaces.push({
 			room: player.minigame.current_room,
 			x,
