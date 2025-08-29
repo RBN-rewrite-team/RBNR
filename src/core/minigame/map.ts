@@ -33,11 +33,11 @@ export function initialMap(): SingleMap[] {
 				]),
 				convertStringToMap('W0WW0WWW0W0W0WWW0W0W0W0P0W', [new BoxGameObject(2)]),
 				convertStringToMap('W0W000000W0W000W00P00W0P0W', [
-					new TeleporterGameObject([13, 4], 0),
+					new TeleporterGameObject([13n, 4n], 0),
 					new OreGameObject(),
 				]),
 				convertStringToMap('W0WWWWWW0W0W0P0W0WPW0W000W', [
-					new TeleporterGameObject([18, 3], 0),
+					new TeleporterGameObject([18n, 3n], 0),
 					new BoxGameObject(1),
 				]),
 
@@ -75,7 +75,7 @@ export function initialMap(): SingleMap[] {
 				]),
 
 				convertStringToMap('W0W0P0W0W0WWPWWWPW0W0WWWWW', [
-					new TeleporterGameObject([1, 14], 0),
+					new TeleporterGameObject([1n, 14n], 0),
 					new FakeWallGameObject(),
 					new HealthRecoveryGameObject(20),
 				]),
@@ -86,7 +86,7 @@ export function initialMap(): SingleMap[] {
 					new GuardGameObject(1),
 				]),
 				convertStringToMap('W0WP0000P0WW0WWWPW00000PPW', [
-					new TeleporterGameObject([1, 1], 2),
+					new TeleporterGameObject([1n, 1n], 2),
 					new FakeWallGameObject(),
 					new GuardGameObject(1),
 					new GuardGameObject(1),
@@ -94,7 +94,7 @@ export function initialMap(): SingleMap[] {
 					new GuardGameObject(1),
 				]),
 				convertStringToMap('WPWWWWWWW0WWPWWWPWWWWWWWPW', [
-					new TeleporterGameObject([4, 10], 0),
+					new TeleporterGameObject([4n, 10n], 0),
 					new KeyGameObject(2),
 					new HealthRecoveryGameObject(20),
 					new BossGameObject(), //replacement for big 2
@@ -108,7 +108,7 @@ export function initialMap(): SingleMap[] {
 					new HealthRecoveryGameObject(100),
 					new KeyGameObject(1),
 					new OreGameObject(),
-					new TeleporterGameObject([1, 1], 1), //replacement for 2
+					new TeleporterGameObject([1n, 1n], 1), //replacement for 2
 					new BoxGameObject(2),
 				]),
 				convertStringToMap('WWWWWWWWWWWWWWWWWWWWWWWWWW'),
@@ -157,7 +157,7 @@ export function initialMap(): SingleMap[] {
 					new OreGameObject(),
 				]),
 				convertStringToMap('WPPPPPPPPW0WWWWWWWWPW0WWWWW', [
-					new TeleporterGameObject([8, 10], 2),
+					new TeleporterGameObject([8n, 10n], 2),
 					new OreGameObject(),
 					new DoorGameObject(6.001),
 					new OreGameObject(),
@@ -170,20 +170,20 @@ export function initialMap(): SingleMap[] {
 				convertStringToMap('WWWWWWWWWW0WP00000P0W0000PW', [
 					new KeyGameObject(3.001),
 					new DoorGameObject(2.001),
-					new TeleporterGameObject([11, 11], 2),
+					new TeleporterGameObject([11n, 11n], 2),
 				]),
 
 				convertStringToMap('W000PP0PPW0WWWWWWWWWWPWWWWW', [
 					new FakeWallGameObject(),
 					new WallInvisibleGameObject(),
 					new FakeWallGameObject(),
-					new TeleporterGameObject([1, 8], 2),
+					new TeleporterGameObject([1n, 8n], 2),
 					new FakeWallGameObject(),
 				]),
 				convertStringToMap('WPW0WWWPWW0PW00000P000W0P0W', [
 					new FakeWallGameObject(),
 					new FakeWallGameObject(),
-					new TeleporterGameObject([25, 9], 2),
+					new TeleporterGameObject([25n, 9n], 2),
 					new FakeWallGameObject(),
 					new FakeWallGameObject(),
 				]),
@@ -210,10 +210,10 @@ export function initialMap(): SingleMap[] {
 					new KeyGameObject(6.001),
 					new FakeWallGameObject(),
 					new FakeWallGameObject(),
-					new TeleporterGameObject([25, 15], 2),
+					new TeleporterGameObject([25n, 15n], 2),
 					new OreGameObject(),
 					new FakeWallGameObject(),
-					new TeleporterGameObject([11, 15], 2),
+					new TeleporterGameObject([11n, 15n], 2),
 				]),
 				convertStringToMap('W'.repeat(27)),
 			],

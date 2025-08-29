@@ -24,7 +24,7 @@ import { temp } from '../temp-data';
  */
 export class GameObject {
 	constructor() {}
-	interact(x: number, y: number) {}
+	interact(x: bigint, y: bigint) {}
 	solid() {
 		return false;
 	}
@@ -59,14 +59,14 @@ export class FakeWallGameObject extends WallGameObject {
 	}
 }
 export class TeleporterGameObject extends GameObject {
-	destination: [number, number];
+	destination: [bigint, bigint];
 	room: number;
-	constructor(destination: [number, number], room: number) {
+	constructor(destination: [bigint, bigint], room: number) {
 		super();
 		this.destination = destination;
 		this.room = room;
 	}
-	interact(x: number, y: number): void {
+	interact(x: bigint, y: bigint): void {
 		player.minigame.current_room = this.room;
 		player.minigame.current_x = this.destination[0];
 		player.minigame.current_y = this.destination[1];
@@ -84,7 +84,7 @@ export class PasswordGameObject extends GameObject {
 	solid() {
 		return true;
 	}
-	interact(x: number, y: number): void {
+	interact(x: bigint, y: bigint): void {
 		let pV = this.passwordVerifier;
 		ModalService.show({
 			title: '密码门',
@@ -111,14 +111,14 @@ export class PasswordGameObject extends GameObject {
 	}
 }
 export class 没做完TeleporterGameObject extends TeleporterGameObject {
-	destination: [number, number];
+	destination: [bigint, bigint];
 	room: number;
-	constructor(destination: [number, number], room: number) {
+	constructor(destination: [bigint, bigint], room: number) {
 		super(destination, room);
 		this.destination = destination;
 		this.room = room;
 	}
-	interact(x: number, y: number): void {
+	interact(x: bigint, y: bigint): void {
 		ModalService.show({
 			title: '没做完',
 			content: '没做完',
@@ -132,7 +132,7 @@ export class OreGameObject extends GameObject {
 	constructor() {
 		super();
 	}
-	interact(x: number, y: number): void {
+	interact(x: bigint, y: bigint): void {
 		temp.minigametip = '你获得了矿石，全局速度+0.25%。';
 		player.minigame.ore_gets++;
 		player.minigame.replaces.push({
@@ -152,7 +152,7 @@ export class DoorGameObject extends GameObject {
 		super();
 		this.keyid = keyid;
 	}
-	interact(x: number, y: number): void {
+	interact(x: bigint, y: bigint): void {
 		if (player.minigame.keys_have.includes(this.keyid)) {
 			player.minigame.replaces.push({
 				room: player.minigame.current_room,
@@ -180,7 +180,7 @@ export class EntityGameObject extends GameObject {
 	solid() {
 		return true;
 	}
-	interact(x: number, y: number): void {
+	interact(x: bigint, y: bigint): void {
 		let guardinfo = guardBattleInfo(this.tier, this.type);
 		player.minigame.interact = 1;
 		const innerText = this.innerText;
@@ -242,7 +242,7 @@ export class BoxGameObject extends GameObject {
 		this.tier = tier;
 		return this;
 	}
-	interact(x: number, y: number): void {
+	interact(x: bigint, y: bigint): void {
 		let price = 0;
 		if (this.tier == 1) price = Math.random() * 5 + 5;
 		if (this.tier == 2) price = Math.random() * 25 + 25;
@@ -263,10 +263,10 @@ export class RestrictedBoxObject extends BoxGameObject {
 		super(tier);
 		this.tier = tier;
 	}
-	interact(x: number, y: number): void {
+	interact(x: bigint, y: bigint): void {
 		let restricted = false;
-		for (let x2 = x - 3; x2 <= x + 3; x2++) {
-			for (let y2 = y - 3; y2 <= y + 3; y2++) {
+		for (let x2 = x - 3n; x2 <= x + 3n; x2++) {
+			for (let y2 = y - 3n; y2 <= y + 3n; y2++) {
 				let curblock = getCurrentBlock(player.minigame.current_room, x2, y2);
 				if (curblock instanceof GuardGameObject) {
 					restricted = true;
@@ -287,7 +287,7 @@ export class KeyGameObject extends GameObject {
 		super();
 		this.keyid = tier;
 	}
-	interact(x: number, y: number): void {
+	interact(x: bigint, y: bigint): void {
 		((temp.minigametip = '你获得了钥匙'), player.minigame.keys_have.push(this.keyid));
 		player.minigame.replaces.push({
 			room: player.minigame.current_room,
@@ -303,7 +303,7 @@ export class HealthRecoveryGameObject extends GameObject {
 		super();
 		this.percent = percent;
 	}
-	interact(x: number, y: number): void {
+	interact(x: bigint, y: bigint): void {
 		((temp.minigametip = '你回复了HP'),
 			(player.minigame.hp += ((currentPlayerLV() * this.percent) / 100) * 10));
 		player.minigame.replaces.push({

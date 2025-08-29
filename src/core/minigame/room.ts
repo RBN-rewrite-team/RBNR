@@ -9,7 +9,7 @@ import {
 	WallGameObject,
 } from './game-object';
 import { initialMap, maps, type SingleMap } from './map';
-import { predictableBigIntRandom } from "."
+import { predictableBigIntRandom } from '.';
 
 /**
  * 目前生成规则
@@ -29,7 +29,7 @@ export function randomBlock(x: bigint, y: bigint) {
 	else if (randomer < 0.21) return new GuardGameObject(1);
 	else if (randomer < 0.2105)
 		return new TeleporterGameObject(
-			[x + Math.floor(randomer * 514), y - Math.floor(randomer * 114)],
+			[x + BigInt(Math.floor(randomer * 514)), y - BigInt(Math.floor(randomer * 114))],
 			943360095,
 		);
 	else if (randomer < 0.75) return null;
@@ -50,7 +50,7 @@ export function replacement(
 	}
 	return bl;
 }
-export function getCurrentBlock(room: number, x: number, y: number) {
+export function getCurrentBlock(room: number, x: bigint, y: bigint) {
 	if (room == 943360095) {
 		let block = randomBlock(x, y);
 		let replacements = player.minigame.replaces.filter(
@@ -61,9 +61,9 @@ export function getCurrentBlock(room: number, x: number, y: number) {
 		}
 		return block;
 	}
-	return getPlayerMap(room)?.map?.[y]?.[x];
+	return getPlayerMap(room)?.map?.[Number(y)]?.[Number(x)];
 }
-export function isUnreachable(room: number, x: number, y: number) {
+export function isUnreachable(room: number, x: bigint, y: bigint) {
 	let obj = getCurrentBlock(room, x, y);
 	if (typeof obj === 'object' && obj instanceof GameObject && obj.solid()) {
 		return true;
@@ -78,7 +78,10 @@ export function getPlayerMap(room: number): SingleMap {
 	);
 	for (let i = 0; i < replacements.length; i++) {
 		let repl = replacements[i];
-		a.map[repl.y.toString()][repl.x.toString()] = replacement(a.map[repl.y.toString()][repl.x.toString()], repl);
+		a.map[Number(repl.y)][Number(repl.x)] = replacement(
+			a.map[Number(repl.y)][Number(repl.x)],
+			repl,
+		);
 	}
 	return a;
 }
@@ -88,22 +91,22 @@ export function getPlayerCurrentMap(room: number): SingleMap {
 }
 
 export function positionDirection(
-	pos: [number, number],
+	pos: [bigint, bigint],
 	x: 'up' | 'down' | 'left' | 'right',
-): [number, number] {
+): [bigint, bigint] {
 	switch (x) {
 		case 'up':
-			return [pos[0], pos[1] - 1];
+			return [pos[0], pos[1] - 1n];
 		case 'left':
-			return [pos[0] - 1, pos[1]];
+			return [pos[0] - 1n, pos[1]];
 		case 'right':
-			return [pos[0] + 1, pos[1]];
+			return [pos[0] + 1n, pos[1]];
 		case 'down':
-			return [pos[0], pos[1] + 1];
+			return [pos[0], pos[1] + 1n];
 		default:
 			let a: never = x;
 	}
-	return [0, 0];
+	return [0n, 0n];
 }
 
 export function visibleBlocks() {
@@ -115,7 +118,7 @@ export function visibleBlocks() {
 	}
 	return 7n;
 }
-export function isPlayerVisible(x: number, y: number) {
+export function isPlayerVisible(x: bigint, y: bigint) {
 	if (x < player.minigame.current_x - visibleBlocks()) return false;
 	if (x > player.minigame.current_x + visibleBlocks()) return false;
 	if (y < player.minigame.current_y - visibleBlocks()) return false;

@@ -408,7 +408,7 @@ type DeepPartial<T> = T extends (infer U)[]
 		: T;
 
 function isBigInt(value: unknown): value is bigint {
-  return Object.prototype.toString.call(value) === '[object BigInt]'
+	return Object.prototype.toString.call(value) === '[object BigInt]';
 }
 
 /**
@@ -432,7 +432,7 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 			if (targetItem === null || sourceItem === null) continue;
 
 			if (isBigInt(sourceItem)) {
-			  result[i] = BigInt(targetItem as (string | number | bigint | boolean))
+				result[i] = BigInt(targetItem as string | number | bigint | boolean);
 			} else if (
 				targetItem !== undefined &&
 				targetItem !== null &&
@@ -472,7 +472,7 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 			}
 
 			if (isBigInt(sourceValue)) {
-			  result[key] = BigInt(targetValue as (string | number | bigint | boolean))
+				result[key] = BigInt(targetValue as string | number | bigint | boolean);
 			} else if (
 				sourceValue !== null &&
 				typeof sourceValue === 'object' &&
@@ -536,12 +536,19 @@ export function loadFromString(saveContent: string) {
 		player.hydra.dilute.prions = player.hydra.dilute.prions.min('ee18');
 		player.hydra.deduceOrdinal[0] = player.hydra.deduceOrdinal[0].min('ee3500');
 	}
-	
-	player.minigame.current_x = BigInt(player.minigame.current_x)
-	player.minigame.current_y = BigInt(player.minigame.current_y)
-	
+
+	player.minigame.current_x = BigInt(player.minigame.current_x);
+	player.minigame.current_y = BigInt(player.minigame.current_y);
+
 	for (const replacement of player.minigame.replaces) {
-	  replacement.x = BigInt(replacement.y)
+		if (Number.isInteger(replacement.x)) replacement.x = BigInt(replacement.x);
+		else {
+			replacement.x = 111111n;
+		}
+		if (Number.isInteger(replacement.y)) replacement.y = BigInt(replacement.y);
+		else {
+			replacement.y = 111111n;
+		}
 	}
 
 	// @ts-ignore
