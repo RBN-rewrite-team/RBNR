@@ -4,7 +4,7 @@ import {
 	GuardGameObject,
 	HealthRecoveryGameObject,
 	KeyGameObject,
-	没做完TeleporterGameObject,
+	TeleporterGameObject,
 } from '../game-object';
 import type { SingleMap } from '../map';
 import { convertStringToMap } from '../map-functions';
@@ -19,7 +19,7 @@ export const MAP_DUNGEON2: SingleMap = {
 				.fill(0)
 				.map(() => new FakeWallGameObject())
 				.concat([
-					new 没做完TeleporterGameObject([0, 0], 0),
+					new TeleporterGameObject([0, 0], 0),
 					new HealthRecoveryGameObject(25),
 					new KeyGameObject(2.002),
 					new BoxGameObject(1),
