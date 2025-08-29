@@ -53,6 +53,16 @@ export class WallInvisibleGameObject extends GameObject {
 		return true;
 	}
 }
+export class KeyRequiredWallInvisibleGameObject extends WallInvisibleGameObject {
+	keyid: number;
+	constructor(keyid: number) {
+		super();
+		this.keyid = keyid;
+	}
+	solid() {
+		return !player.minigame.keys_have.includes(this.keyid);
+	}
+}
 export class FakeWallGameObject extends WallGameObject {
 	solid() {
 		return false;
