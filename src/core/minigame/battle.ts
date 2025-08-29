@@ -6,6 +6,8 @@ interface BattleInfo {
 	atk: number;
 	def: number;
 	xp?: number;
+	m_hp_debuff?: number;
+	m_atk_debuff?: number;
 }
 interface BattleStatus {
 	hp_after_battle: number;
@@ -16,8 +18,8 @@ export function runBattleFast(me: BattleInfo, enemy: BattleInfo): BattleStatus {
 	let e = deepCopy(enemy);
 	let m_atk = m.atk - e.def;
 	let e_atk = e.atk - m.def;
-	let m_atkt = Math.ceil(m.hp / e_atk);
-	let e_atkt = Math.ceil(e.hp / m_atk);
+	let m_atkt = Math.ceil((m.hp * (e.m_hp_debuff ?? 1)) / e_atk);
+	let e_atkt = Math.ceil(e.hp / (m_atk * (e.m_atk_debuff ?? 1)));
 	// me first.
 	// m_atkt > e_atkt =
 	// 0 0
@@ -41,8 +43,19 @@ export function guardBattleInfo(tier: number, type = 1): Required<BattleInfo> {
 		return {
 			hp: 5 * tier,
 			atk: 3 * tier,
-			def: 1,
-			xp: 1,
+			def: 1 * tier,
+			xp: 1 * tier,
+			m_hp_debuff: 1,
+			m_atk_debuff: 1,
+		};
+	} else if (type == 2) {
+		return {
+			hp: 20 * tier,
+			atk: 10 * tier,
+			def: 5 * tier,
+			xp: 5,
+			m_hp_debuff: 0.9,
+			m_atk_debuff: 0.9,
 		};
 	} else {
 		return {
@@ -50,6 +63,8 @@ export function guardBattleInfo(tier: number, type = 1): Required<BattleInfo> {
 			atk: 0,
 			def: -99999,
 			xp: 0,
+			m_hp_debuff: 1,
+			m_atk_debuff: 1,
 		};
 	}
 }

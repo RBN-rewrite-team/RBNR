@@ -13,28 +13,13 @@ import {
 	没做完TeleporterGameObject,
 	type GameObject,
 } from './game-object';
-const WGO = () => new WallGameObject();
-const PLACEHOLDER = null;
+import { convertStringToMap } from './map-functions';
+import { MAP_DUNGEON2 } from './maps/map-dungeon2';
 export type SingleMap = {
 	map: (GameObject | null)[][];
 	spawnpoint: [number, number];
 };
-function convertStringToMap(x: string, slots?: (null | GameObject)[]) {
-	let map = [];
-	let placeholdercount = 0;
-	for (let i = 0; i < x.length; i++) {
-		if (x[i] == 'W') {
-			map.push(WGO());
-		}
-		if (x[i] == '0') {
-			map.push(null);
-		}
-		if (x[i] == 'P') {
-			map.push(slots?.[placeholdercount++] ?? null);
-		}
-	}
-	return map;
-}
+
 export function initialMap(): SingleMap[] {
 	return [
 		{
@@ -121,17 +106,14 @@ export function initialMap(): SingleMap[] {
 					new HealthRecoveryGameObject(100),
 					new KeyGameObject(1),
 					new OreGameObject(),
-					null, //replacement for 2
+					new TeleporterGameObject([1, 1], 1), //replacement for 2
 					new BoxGameObject(2),
 				]),
 				convertStringToMap('WWWWWWWWWWWWWWWWWWWWWWWWWW'),
 			],
 			spawnpoint: [1, 1],
 		},
-		{
-			map: [],
-			spawnpoint: [1, 1],
-		},
+		MAP_DUNGEON2,
 		{
 			map: [
 				convertStringToMap('WWWWWWWWWWWWWWWWWWWWWWWWWWW'),

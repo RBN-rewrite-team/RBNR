@@ -47,7 +47,13 @@ export function positionDirection(
 }
 
 export function visibleBlocks() {
-	return 114;
+	if (player.minigame.current_room == 0) {
+		return player.minigame.replaces.filter((x) => x.x == 24 && x.y == 14 && x.room == 0)
+			.length !== 0
+			? 3
+			: 1;
+	}
+	return 3;
 }
 export function isPlayerVisible(x: number, y: number) {
 	if (x < player.minigame.current_x - visibleBlocks()) return false;

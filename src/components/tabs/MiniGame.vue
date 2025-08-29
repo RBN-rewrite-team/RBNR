@@ -36,7 +36,6 @@ import { meBattleInfo } from '@/core/minigame/battle';
                         <template v-for="block, x in row">
                             <template v-if="player.minigame.current_x!==x || player.minigame.current_y!==y">
                                 <MiniGameTD v-if="isPlayerVisible(x, y)":game_object="block"></MiniGameTD>
-                                <td v-else>?</td>
                             </template>
                             
                             <td v-else>Player</td>
