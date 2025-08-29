@@ -42,7 +42,7 @@ export { miniGameLoop } from './minigame-loop';
 export { keyboardEventListener } from './minigame-loop';
 
 export function currentPlayerLV() {
-	return Math.floor(player.minigame.xp + 1);
+	return Math.floor((-1 + (8 * player.minigame.xp + 1) ** 0.5) / 2 + 1);
 }
 
 export function hardResetMiniGame() {
