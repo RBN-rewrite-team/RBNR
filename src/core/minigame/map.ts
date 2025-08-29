@@ -16,7 +16,7 @@ import {
 } from './game-object';
 import { convertStringToMap } from './map-functions';
 export type SingleMap = {
-	map: (GameObject | null)[][];
+	map: (GameObject | null | undefined)[][];
 	spawnpoint: [number, number];
 };
 

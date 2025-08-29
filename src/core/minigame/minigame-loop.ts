@@ -23,6 +23,7 @@ export function handleKeyPress(key: KeyPresses) {
 			getCurrentBlock(player.minigame.current_room, pos[0], pos[1])?.interact?.(
 				pos[0],
 				pos[1],
+				key as 'up' | 'down' | 'left' | 'right',
 			);
 		}
 	}
