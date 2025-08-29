@@ -1,4 +1,4 @@
-import { predictableRandom } from '@/utils/algorithm';
+//import { predictableRandom } from '@/utils/algorithm';
 import { deepCopy, player } from '../save';
 import {
 	BoxGameObject,
@@ -9,6 +9,7 @@ import {
 	WallGameObject,
 } from './game-object';
 import { initialMap, maps, type SingleMap } from './map';
+import { predictableBigIntRandom } from "."
 
 /**
  * 目前生成规则
@@ -22,8 +23,8 @@ import { initialMap, maps, type SingleMap } from './map';
  * 0.01%: 奖励 tier 4
  * 3.89%: 矿石
  */
-export function randomBlock(x: number, y: number) {
-	let randomer = predictableRandom(1000000 + x * 1000 + y);
+export function randomBlock(x: bigint, y: bigint) {
+	let randomer = predictableBigIntRandom(1000000n + x * 1000n + y);
 	if (randomer < 0.1) return new WallGameObject();
 	else if (randomer < 0.21) return new GuardGameObject(1);
 	else if (randomer < 0.2105)
@@ -77,7 +78,7 @@ export function getPlayerMap(room: number): SingleMap {
 	);
 	for (let i = 0; i < replacements.length; i++) {
 		let repl = replacements[i];
-		a.map[repl.y][repl.x] = replacement(a.map[repl.y][repl.x], repl);
+		a.map[repl.y.toString()][repl.x.toString()] = replacement(a.map[repl.y.toString()][repl.x.toString()], repl);
 	}
 	return a;
 }
@@ -107,12 +108,12 @@ export function positionDirection(
 
 export function visibleBlocks() {
 	if (player.minigame.current_room == 0) {
-		return player.minigame.replaces.filter((x) => x.x == 24 && x.y == 14 && x.room == 0)
+		return player.minigame.replaces.filter((x) => x.x == 24n && x.y == 14n && x.room == 0)
 			.length !== 0
-			? 3
-			: 1;
+			? 3n
+			: 1n;
 	}
-	return 7;
+	return 7n;
 }
 export function isPlayerVisible(x: number, y: number) {
 	if (x < player.minigame.current_x - visibleBlocks()) return false;

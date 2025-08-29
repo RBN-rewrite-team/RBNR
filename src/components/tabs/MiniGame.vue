@@ -10,7 +10,7 @@ import { range } from '@/utils/algorithm';
 import { temp } from '../../core/temp-data';
 
 function spawn(id: number): void {
-	player.minigame.current_room = id, player.minigame.current_x = 1, player.minigame.current_y = 1;
+	player.minigame.current_room = id, player.minigame.current_x = 1n, player.minigame.current_y = 1n;
 }
 </script>
 
