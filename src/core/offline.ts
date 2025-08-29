@@ -7,7 +7,7 @@ export function simulateTime(milliseconds: number): void {
 	if (milliseconds < 0) throw new Error('?');
 
 	let ticks = Math.floor(milliseconds / 40);
-	ticks = Math.min(ticks, 1000);
+	ticks = Math.min(ticks, 200);
 	let remaining = milliseconds;
 	const startTime = Date.now();
 	const loopFn = () => {

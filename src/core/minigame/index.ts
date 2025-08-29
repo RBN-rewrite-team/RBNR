@@ -45,6 +45,10 @@ export function currentPlayerLV() {
 	return Math.floor((-1 + (8 * player.minigame.xp + 1) ** 0.5) / 2 + 1);
 }
 
+export function nextLVxp() {
+	return currentPlayerLV() * (currentPlayerLV() + 1) / 2;
+}
+
 export function hardResetMiniGame() {
 	player.minigame = initMiniGameData();
 }

@@ -27,6 +27,10 @@ export function getPlayerMap(room: number): SingleMap {
 	return a;
 }
 
+export function getPlayerCurrentMap(room: number): SingleMap {
+	return getPlayerMap(player.minigame.current_room);
+}
+
 export function positionDirection(
 	pos: [number, number],
 	x: 'up' | 'down' | 'left' | 'right',
