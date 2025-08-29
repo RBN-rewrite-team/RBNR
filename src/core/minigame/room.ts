@@ -6,6 +6,7 @@ import {
 	GuardGameObject,
 	MoveableBoxGameObject,
 	OreGameObject,
+	SwitchOnGameObject,
 	TeleporterGameObject,
 	WallGameObject,
 } from './game-object';
@@ -52,6 +53,9 @@ export function replacement(
 	}
 	if (replacement.replacedTo == 'BOX') {
 		return new MoveableBoxGameObject();
+	}
+	if (replacement.replacedTo == 'ACTIVE_SWITCH') {
+		return new SwitchOnGameObject();
 	}
 	return bl;
 }

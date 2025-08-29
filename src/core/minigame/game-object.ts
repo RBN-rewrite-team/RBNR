@@ -344,12 +344,23 @@ export class MoveableBoxGameObject extends GameObject {
 				replacedTo: '0',
 				room: player.minigame.current_room,
 			});
-			player.minigame.replaces.push({
-				x: box_pos[0],
-				y: box_pos[1],
-				replacedTo: 'BOX',
-				room: player.minigame.current_room,
-			});
+			let goalBlock = getCurrentBlock(player.minigame.current_room, box_pos[0], box_pos[1]);
+			if (!goalBlock || !(goalBlock instanceof SwitchGameObject)) {
+				player.minigame.replaces.push({
+					x: box_pos[0],
+					y: box_pos[1],
+					replacedTo: 'BOX',
+					room: player.minigame.current_room,
+				});
+			} else if (goalBlock instanceof SwitchGameObject && !goalBlock.actived) {
+				player.minigame.replaces.push({
+					x: box_pos[0],
+					y: box_pos[1],
+					replacedTo: 'ACTIVE_SWITCH',
+					room: player.minigame.current_room,
+				});
+				player.minigame.keys_have.push(goalBlock.keyid);
+			}
 			let player_moved = positionDirection(
 				[player.minigame.current_x, player.minigame.current_y],
 				direction,
@@ -357,5 +368,18 @@ export class MoveableBoxGameObject extends GameObject {
 			player.minigame.current_x = player_moved[0];
 			player.minigame.current_y = player_moved[1];
 		}
+	}
+}
+export class SwitchGameObject extends GameObject {
+	actived = false;
+	keyid = 13.002;
+	solid(): boolean {
+		return false;
+	}
+}
+export class SwitchOnGameObject extends SwitchGameObject {
+	actived = true;
+	solid(): boolean {
+		return false;
 	}
 }
