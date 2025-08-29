@@ -105,7 +105,7 @@ export function gameLoop() {
 			stopGameLoop();
 			return;
 		} else {
-			player.timeshard.value += msToTimeshard(diff);
+			player.timeshard.value = player.timeshard.value.add(msToTimeshard(diff));
 		}
 	}
 	// if (player.run_a_tick_and_froze) diff = 33;
@@ -115,7 +115,7 @@ export function gameLoop() {
 	// try {
 	simulate(diff);
 	// } catch (e) {
-	// 	throw e;
+	//	throw e;
 	// }
 	if (player.singularity.stage >= 1) singularity_UI();
 
@@ -155,12 +155,13 @@ function singularity_UI() {
  */
 export function simulate(diff: number) {
 	let realtime_diff = diff;
-	if (player.timeshard.openTf && player.timeshard.tf > 0) {
-		if (player.timeshard.tf < diff) {
-			diff += player.timeshard.tf * 2;
-			player.timeshard.tf = 0;
+	//diff = new Decimal(diff)
+	if (player.timeshard.openTf && player.timeshard.tf.gt(0)) {
+		if (player.timeshard.tf.lt(diff)) {
+			diff = diff+(player.timeshard.tf.mul(2).toNumber());
+			player.timeshard.tf = new Decimal(0);
 		} else {
-			player.timeshard.tf -= diff;
+			player.timeshard.tf = player.timeshard.tf.sub(diff);
 			diff *= 3;
 		}
 	}

@@ -264,7 +264,7 @@ export class BoxGameObject extends GameObject {
 		if (this.tier == 3) price = Math.random() * 125 + 125;
 		player.minigame.box_gets[this.tier - 1]++;
 		((temp.minigametip = '你打开了宝箱，获得了' + price.toFixed(3) + '时间碎片。'),
-			(player.timeshard.value += price));
+			(player.timeshard.value = player.timeshard.value.add(price)));
 		player.minigame.replaces.push({
 			room: player.minigame.current_room,
 			x,

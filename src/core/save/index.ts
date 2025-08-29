@@ -147,8 +147,8 @@ export interface Player {
 		epsilon: boolean;
 	};
 	timeshard: {
-		value: number;
-		tf: number;
+		value: Decimal;
+		tf: Decimal;
 		cd: [number, number, number];
 		last: [number, number, number];
 		openTf: boolean;
@@ -344,8 +344,8 @@ function getInitialPlayerData(): Player {
 			epsilon: false,
 		},
 		timeshard: {
-			value: 0,
-			tf: 0,
+			value: zero,
+			tf: zero,
 			cd: [Date.now(), Date.now(), Date.now() + 7 * 24 * 60 * 60 * 1000],
 			last: [0, 0, 0],
 			openTf: false,
