@@ -1,20 +1,20 @@
 import { deepCopy, player } from '../save';
 import { GameObject, WallGameObject } from './game-object';
-import { maps, type SingleMap } from './map';
+import { initialMap, maps, type SingleMap } from './map';
 
-export function getCurrentBlock(map: SingleMap | undefined, x: number, y: number) {
-	return map?.map?.[y]?.[x];
+export function getCurrentBlock(room: number, x: number, y: number) {
+	return getPlayerMap(room)?.map?.[y]?.[x];
 }
-export function isUnreachable(map: SingleMap, x: number, y: number) {
-	let obj = getCurrentBlock(map, x, y);
+export function isUnreachable(room: number, x: number, y: number) {
+	let obj = getCurrentBlock(room, x, y);
 	if (typeof obj === 'object' && obj instanceof GameObject && obj.solid()) {
 		return true;
 	}
 	return false;
 }
 
-export function getPlayerCurrentMap(): SingleMap {
-	let a = maps[player.minigame.current_room];
+export function getPlayerMap(room: number): SingleMap {
+	let a = initialMap()[player.minigame.current_room];
 	let replacements = player.minigame.replaces.filter(
 		(x) => x.room == player.minigame.current_room,
 	);
@@ -44,4 +44,21 @@ export function positionDirection(
 			let a: never = x;
 	}
 	return [0, 0];
+}
+
+export function visibleBlocks() {
+	if (player.minigame.current_room == 0) {
+		return player.minigame.replaces.filter((x) => x.x == 24 && x.y == 14 && x.room == 0)
+			.length !== 0
+			? 3
+			: 1;
+	}
+	return 3;
+}
+export function isPlayerVisible(x: number, y: number) {
+	if (x < player.minigame.current_x - visibleBlocks()) return false;
+	if (x > player.minigame.current_x + visibleBlocks()) return false;
+	if (y < player.minigame.current_y - visibleBlocks()) return false;
+	if (y > player.minigame.current_y + visibleBlocks()) return false;
+	return true;
 }

@@ -16,6 +16,7 @@ import ModalService from '@/utils/Modal';
 import { player } from '../save';
 import { guardBattleInfo, meBattleInfo, runBattleFast } from './battle';
 import { currentPlayerLV } from '.';
+import { getCurrentBlock } from './room';
 
 /**
  * 游戏物体 Nothingness（这里什么都没有）
@@ -26,6 +27,7 @@ export class GameObject {
 	solid() {
 		return false;
 	}
+	innerText = '';
 }
 
 export class SpawnPointGameObject extends GameObject {
@@ -72,6 +74,24 @@ export class TeleporterGameObject extends GameObject {
 		return false;
 	}
 }
+export class 没做完TeleporterGameObject extends TeleporterGameObject {
+	destination: [number, number];
+	room: number;
+	constructor(destination: [number, number], room: number) {
+		super(destination, room);
+		this.destination = destination;
+		this.room = room;
+	}
+	interact(x: number, y: number): void {
+		ModalService.show({
+			title: '没做完',
+			content: '没做完',
+		});
+	}
+	solid() {
+		return false;
+	}
+}
 export class OreGameObject extends GameObject {
 	constructor() {
 		super();
@@ -93,8 +113,35 @@ export class OreGameObject extends GameObject {
 		return false;
 	}
 }
+export class DoorGameObject extends GameObject {
+	keyid: number;
+	constructor(keyid: number) {
+		super();
+		this.keyid = keyid;
+	}
+	interact(x: number, y: number): void {
+		if (player.minigame.keys_have.includes(this.keyid)) {
+			player.minigame.replaces.push({
+				room: player.minigame.current_room,
+				x,
+				y,
+				replacedTo: '0',
+			});
+			player.minigame.keys_have.filter((x) => x !== this.keyid);
+		} else {
+			ModalService.show({
+				title: '打不开门',
+				content: '你需要一个钥匙才能开门',
+			});
+		}
+	}
+	solid() {
+		return true;
+	}
+}
 export class GuardGameObject extends GameObject {
 	tier: number;
+	type: number = 1;
 	constructor(tier: number) {
 		super();
 		this.tier = tier;
@@ -103,10 +150,10 @@ export class GuardGameObject extends GameObject {
 		return true;
 	}
 	interact(x: number, y: number): void {
-		let guardinfo = guardBattleInfo(this.tier);
+		let guardinfo = guardBattleInfo(this.tier, this.type);
 		player.minigame.interact = 1;
 		ModalService.show({
-			title: '守卫说了句话',
+			title: '守卫属性',
 			content: `HP${guardinfo.hp} ATK${guardinfo.atk} DEF${guardinfo.def}, 点击确认以战斗`,
 			onConfirm(values) {
 				let battlestatus = runBattleFast(meBattleInfo(), guardinfo);
@@ -123,7 +170,7 @@ export class GuardGameObject extends GameObject {
 						y,
 						replacedTo: '0',
 					});
-					player.minigame.xp += 1;
+					player.minigame.xp += guardinfo.xp;
 				}
 				player.minigame.interact = 0;
 			},
@@ -133,11 +180,22 @@ export class GuardGameObject extends GameObject {
 		});
 	}
 }
+export class BossGameObject extends GuardGameObject {
+	tier = 2;
+	type = 2;
+	innerText: string = '守卫队长';
+	constructor() {
+		super(1);
+		this.tier = 2;
+		this.type = 2;
+	}
+}
 export class BoxGameObject extends GameObject {
 	tier: number;
 	constructor(tier: number) {
 		super();
 		this.tier = tier;
+		return this;
 	}
 	interact(x: number, y: number): void {
 		let price = 0;
@@ -157,7 +215,53 @@ export class BoxGameObject extends GameObject {
 		});
 	}
 }
-
+export class RestrictedBoxObject extends BoxGameObject {
+	tier: number;
+	constructor(tier: number) {
+		super(tier);
+		this.tier = tier;
+	}
+	interact(x: number, y: number): void {
+		let restricted = false;
+		for (let x2 = x - 3; x2 <= x + 3; x2++) {
+			for (let y2 = y - 3; y2 <= y + 3; y2++) {
+				let curblock = getCurrentBlock(player.minigame.current_room, x2, y2);
+				if (curblock instanceof GuardGameObject) {
+					restricted = true;
+					break;
+				}
+			}
+		}
+		if (restricted) {
+			ModalService.show({
+				title: '无法打开箱子',
+				content: '宝箱周围7x7内怪物清完才能打开',
+			});
+		} else {
+			BoxGameObject.prototype.interact.apply(this, [x, y]);
+		}
+	}
+}
+export class KeyGameObject extends GameObject {
+	keyid: number;
+	constructor(tier: number) {
+		super();
+		this.keyid = tier;
+	}
+	interact(x: number, y: number): void {
+		ModalService.show({
+			title: '你获得了钥匙',
+			content: '你获得了钥匙',
+		});
+		player.minigame.keys_have.push(this.keyid);
+		player.minigame.replaces.push({
+			room: player.minigame.current_room,
+			x,
+			y,
+			replacedTo: '0',
+		});
+	}
+}
 export class HealthRecoveryGameObject extends GameObject {
 	percent: number;
 	constructor(percent: number) {
@@ -169,7 +273,7 @@ export class HealthRecoveryGameObject extends GameObject {
 			title: '你回复了HP',
 			content: '你回复了HP',
 		});
-		player.minigame.hp += currentPlayerLV() * 10;
+		player.minigame.hp += ((currentPlayerLV() * this.percent) / 100) * 10;
 		player.minigame.replaces.push({
 			room: player.minigame.current_room,
 			x,

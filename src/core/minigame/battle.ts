@@ -1,9 +1,13 @@
+import { currentPlayerLV } from '.';
 import { deepCopy, player } from '../save';
 
 interface BattleInfo {
 	hp: number;
 	atk: number;
 	def: number;
+	xp?: number;
+	m_hp_debuff?: number;
+	m_atk_debuff?: number;
 }
 interface BattleStatus {
 	hp_after_battle: number;
@@ -14,8 +18,8 @@ export function runBattleFast(me: BattleInfo, enemy: BattleInfo): BattleStatus {
 	let e = deepCopy(enemy);
 	let m_atk = m.atk - e.def;
 	let e_atk = e.atk - m.def;
-	let m_atkt = Math.ceil(m.hp / e_atk);
-	let e_atkt = Math.ceil(e.hp / m_atk);
+	let m_atkt = Math.ceil((m.hp * (e.m_hp_debuff ?? 1)) / e_atk);
+	let e_atkt = Math.ceil(e.hp / (m_atk * (e.m_atk_debuff ?? 1)));
 	// me first.
 	// m_atkt > e_atkt =
 	// 0 0
@@ -28,24 +32,47 @@ export function runBattleFast(me: BattleInfo, enemy: BattleInfo): BattleStatus {
 		};
 	} else {
 		return {
-			hp_after_battle: m.hp - e_atk * (m_atkt - 1),
+			hp_after_battle: m.hp - e_atk * (e_atkt - 1),
 			status: 'win',
 		};
 	}
 }
 
-export function guardBattleInfo(tier: number): BattleInfo {
-	return {
-		hp: 5 * tier,
-		atk: 3 * tier,
-		def: 1,
-	};
+export function guardBattleInfo(tier: number, type = 1): Required<BattleInfo> {
+	if (type == 1) {
+		return {
+			hp: 5 * tier,
+			atk: 3 * tier,
+			def: 1 * tier,
+			xp: 1 * tier,
+			m_hp_debuff: 1,
+			m_atk_debuff: 1,
+		};
+	} else if (type == 2) {
+		return {
+			hp: 20 * tier,
+			atk: 10 * tier,
+			def: 5 * tier,
+			xp: 5,
+			m_hp_debuff: 0.9,
+			m_atk_debuff: 0.9,
+		};
+	} else {
+		return {
+			hp: 1,
+			atk: 0,
+			def: -99999,
+			xp: 0,
+			m_hp_debuff: 1,
+			m_atk_debuff: 1,
+		};
+	}
 }
 
 export function meBattleInfo(): BattleInfo {
 	return {
 		hp: player.minigame.hp,
-		atk: 5,
+		atk: 5 * currentPlayerLV(),
 		def: 0,
 	};
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BoxGameObject, GuardGameObject, HealthRecoveryGameObject, OreGameObject, TeleporterGameObject, WallGameObject, type GameObject } from '@/core/minigame/game-object';
+import { BoxGameObject, DoorGameObject, GuardGameObject, HealthRecoveryGameObject, KeyGameObject, OreGameObject, TeleporterGameObject, WallGameObject, WallInvisibleGameObject, type GameObject } from '@/core/minigame/game-object';
 
 const props = defineProps<{
     game_object: GameObject|null|undefined
@@ -20,7 +20,7 @@ const props = defineProps<{
         </template>
         <template v-else-if=" (game_object instanceof GuardGameObject)  ">
             <td class="box-object">
-                守卫 
+                {{ game_object.innerText=="" ? "守卫" : game_object.innerText }} 
             </td>
         </template>
         <template v-else-if=" (game_object instanceof OreGameObject)  ">
@@ -38,8 +38,20 @@ const props = defineProps<{
                 恢复血量+{{game_object.percent}}%
             </td>
         </template>
+        <template v-else-if=" (game_object instanceof DoorGameObject)  ">
+            <td class="box-object">
+                门
+            </td>
+        </template>
+        <template v-else-if=" (game_object instanceof KeyGameObject)  ">
+            <td class="box-object">
+                钥匙
+            </td>
+        </template>
+            <template v-else-if="(game_object instanceof WallInvisibleGameObject)"><td>
+            </td></template>
         <template v-else>
-            <td>Object Non-Existence</td>
+            <td>{{ game_object.innerText=="" ? "不知道，反正是个游戏物体" : game_object.innerText  }}</td>
         </template>
     </template>
     <template v-else-if="game_object === undefined"><td>

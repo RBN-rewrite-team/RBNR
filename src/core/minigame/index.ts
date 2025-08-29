@@ -19,14 +19,16 @@ export interface PlayerMinigameData {
 	interact: number;
 	xp: number;
 	ore_gets: number;
+	keys_have: number[];
 }
 export function initMiniGameData(): PlayerMinigameData;
 export function initMiniGameData(): PlayerMinigameData {
 	let a = {
 		current_room: 0,
-		current_x: 0,
-		current_y: 0,
+		current_x: 1,
+		current_y: 1,
 		replaces: [],
+		keys_have: [],
 		hp: 10,
 		interact: 0,
 		xp: 0,
@@ -40,5 +42,9 @@ export { miniGameLoop } from './minigame-loop';
 export { keyboardEventListener } from './minigame-loop';
 
 export function currentPlayerLV() {
-	return Math.floor(Math.log(Math.max(player.minigame.xp, 1)) / Math.log(1.75) + 1);
+	return Math.floor(player.minigame.xp + 1);
+}
+
+export function hardResetMiniGame() {
+	player.minigame = initMiniGameData();
 }
