@@ -2,18 +2,18 @@ import { deepCopy, player } from '../save';
 import { GameObject, WallGameObject } from './game-object';
 import { initialMap, maps, type SingleMap } from './map';
 
-export function getCurrentBlock(map: SingleMap | undefined, x: number, y: number) {
-	return map?.map?.[y]?.[x];
+export function getCurrentBlock(room: number, x: number, y: number) {
+	return getPlayerMap(room)?.map?.[y]?.[x];
 }
-export function isUnreachable(map: SingleMap, x: number, y: number) {
-	let obj = getCurrentBlock(map, x, y);
+export function isUnreachable(room: number, x: number, y: number) {
+	let obj = getCurrentBlock(room, x, y);
 	if (typeof obj === 'object' && obj instanceof GameObject && obj.solid()) {
 		return true;
 	}
 	return false;
 }
 
-export function getPlayerCurrentMap(): SingleMap {
+export function getPlayerMap(room: number): SingleMap {
 	let a = initialMap()[player.minigame.current_room];
 	let replacements = player.minigame.replaces.filter(
 		(x) => x.room == player.minigame.current_room,

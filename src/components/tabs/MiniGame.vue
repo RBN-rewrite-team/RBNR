@@ -3,7 +3,7 @@ import { currentPlayerLV, hardResetMiniGame, keyboardEventListener } from '@/cor
 import { player } from '@/core/save';
 import ObjectNode from './developermode/ObjectNode';
 import MiniGameTD from '../MiniGameTD.vue';
-import { getCurrentBlock, getPlayerCurrentMap, isPlayerVisible } from '@/core/minigame/room';
+import { getCurrentBlock, getPlayerMap, isPlayerVisible } from '@/core/minigame/room';
 import { handleKeyPress } from '@/core/minigame/minigame-loop';
 import { meBattleInfo } from '@/core/minigame/battle';
 </script>
@@ -31,7 +31,7 @@ import { meBattleInfo } from '@/core/minigame/battle';
         <button @click="hardResetMiniGame">复位</button>
         <table>
             <tbody>
-                <template v-for="row, y in getPlayerCurrentMap().map">
+                <template v-for="row, y in getPlayerMap(player.minigame.current_room).map">
                     <tr>
                         <template v-for="block, x in row">
                             <template v-if="player.minigame.current_x!==x || player.minigame.current_y!==y">

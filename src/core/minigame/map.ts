@@ -150,7 +150,7 @@ export function initialMap(): SingleMap[] {
 					new WallInvisibleGameObject(),
 					new FakeWallGameObject(),
 				]),
-				convertStringToMap('WW00PWP0P000W0Wpp0W0WWWWW0W', [
+				convertStringToMap('WW00PWP0P000W0WPP0W0WWWWW0W', [
 					new OreGameObject(),
 					new BoxGameObject(1),
 					new FakeWallGameObject(),
@@ -163,6 +163,74 @@ export function initialMap(): SingleMap[] {
 					new BoxGameObject(1),
 					new FakeWallGameObject(),
 				]),
+				convertStringToMap('WP00P0000P0W0WWWW0W0W0WWW0W', [
+					new KeyGameObject(1.001),
+					new FakeWallGameObject(),
+					new DoorGameObject(3.001),
+				]),
+				convertStringToMap('WWWWWWWWPW0W000000W0W0WP00W', [
+					new WallInvisibleGameObject(),
+					new OreGameObject(),
+				]),
+				convertStringToMap('WPPPPPPPPW0WWWWWWWWPW0WWWWW', [
+					new TeleporterGameObject([10, 8], 2),
+					new OreGameObject(),
+					new DoorGameObject(6.001),
+					new OreGameObject(),
+					new OreGameObject(),
+					new OreGameObject(),
+					new OreGameObject(),
+					new BoxGameObject(3),
+					new FakeWallGameObject(),
+				]),
+				convertStringToMap('WWWWWWWWWW0WP00000P0W0000PW', [
+					new KeyGameObject(3.001),
+					new DoorGameObject(2.001),
+					new TeleporterGameObject([11, 11], 2),
+				]),
+
+				convertStringToMap('W000PP0PPW0WWWWWWWWWWPWWWWW', [
+					new FakeWallGameObject(),
+					new WallInvisibleGameObject(),
+					new FakeWallGameObject(),
+					new TeleporterGameObject([1, 8], 2),
+					new FakeWallGameObject(),
+				]),
+				convertStringToMap('WPW0WWWPWW0PW00000W000W0P0W', [
+					new FakeWallGameObject(),
+					new FakeWallGameObject(),
+					new TeleporterGameObject([25, 9], 2),
+					new FakeWallGameObject(),
+				]),
+				convertStringToMap('W0W0W0P0WWWWWWPWWWWWWWW0WPW', [
+					new FakeWallGameObject(),
+					new DoorGameObject(4.001),
+					new DoorGameObject(5.001),
+				]),
+				convertStringToMap('W0WPW0WPW000W00P00WP00P0W0W', [
+					new FakeWallGameObject(),
+					new WallInvisibleGameObject(),
+					new FakeWallGameObject(),
+					new KeyGameObject(5.001),
+					new WallInvisibleGameObject(),
+				]),
+				convertStringToMap('WPW0P0P0WWWWWWWW0WWWPWW0W0W', [
+					new WallInvisibleGameObject(),
+					new FakeWallGameObject(),
+					new FakeWallGameObject(),
+					new FakeWallGameObject(),
+				]),
+
+				convertStringToMap('WPP0WWW0P00P0P0000P00000WPW', [
+					new KeyGameObject(6.001),
+					new FakeWallGameObject(),
+					new FakeWallGameObject(),
+					new TeleporterGameObject([25, 15], 2),
+					new OreGameObject(),
+					new FakeWallGameObject(),
+					new TeleporterGameObject([11, 15], 2),
+				]),
+				convertStringToMap('W'.repeat(27)),
 			],
 			spawnpoint: [1, 1],
 		},
