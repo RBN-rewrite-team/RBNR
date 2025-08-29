@@ -541,14 +541,9 @@ export function loadFromString(saveContent: string) {
 	player.minigame.current_y = BigInt(player.minigame.current_y);
 
 	for (const replacement of player.minigame.replaces) {
-		if (Number.isInteger(replacement.x)) replacement.x = BigInt(replacement.x);
-		else {
-			replacement.x = 111111n;
-		}
-		if (Number.isInteger(replacement.y)) replacement.y = BigInt(replacement.y);
-		else {
-			replacement.y = 111111n;
-		}
+		replacement.x = BigInt(replacement.x);
+
+		replacement.y = BigInt(replacement.y);
 	}
 
 	// @ts-ignore
