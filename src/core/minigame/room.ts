@@ -119,7 +119,7 @@ export function visibleBlocks() {
 			? 3n
 			: 1n;
 	}
-	return 7n;
+	return 1n;
 }
 export function isPlayerVisible(x: bigint, y: bigint) {
 	if (x < player.minigame.current_x - visibleBlocks()) return false;

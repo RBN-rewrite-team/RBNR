@@ -24,7 +24,7 @@ import { temp } from '../temp-data';
  */
 export class GameObject {
 	constructor() {}
-	interact(x: bigint, y: bigint) {}
+	interact(x: bigint, y: bigint, direction: 'up' | 'down' | 'left' | 'right') {}
 	solid() {
 		return false;
 	}
