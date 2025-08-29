@@ -26,7 +26,7 @@ function spawn(id: number): void {
 		(player.minigame.current_x = 1n),
 		(player.minigame.current_y = 1n));
 	player.minigame.hp = meBattleInfo().hpMax;
-	player.minigame.replaces = player.minigame.replaces.filter((item) => ((item.recover ?? 0) == true));
+	for(let i in player.minigame.replaces) if(player.minigame.replaces[i].recover) delete player.minigame.replaces[i];
 }
 function formatbigint(b: bigint) {
 	if (b < 1000n) return b.toString();

@@ -270,6 +270,7 @@ export class BoxGameObject extends GameObject {
 			x,
 			y,
 			replacedTo: '0',
+			recover: false,
 		});
 	}
 }
