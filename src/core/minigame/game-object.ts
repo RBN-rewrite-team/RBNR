@@ -16,7 +16,7 @@ import ModalService from '@/utils/Modal';
 import { player } from '../save';
 import { guardBattleInfo, meBattleInfo, runBattleFast } from './battle';
 import { currentPlayerLV } from '.';
-import { getCurrentBlock } from './room';
+import { getCurrentBlock, getPlayerCurrentMap } from './room';
 import { temp } from '../temp-data';
 
 /**
