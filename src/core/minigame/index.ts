@@ -2,10 +2,10 @@
 // import type { GameObject } from './game-object';
 
 import { player } from '../save';
+import type { initializeInfo } from './room';
 
 // import { maps, type SingleMap } from './map';
 interface Replacements {
-	room: number;
 	x: bigint;
 	y: bigint;
 	replacedTo: string;
@@ -15,7 +15,10 @@ export interface PlayerMinigameData {
 	current_room: number;
 	current_x: bigint;
 	current_y: bigint;
-	replaces: Replacements[];
+	ateditor: boolean;
+	replaces: {
+		[key: string]: Replacements[];
+	};
 	hp: number;
 	interact: number;
 	xp: number;
@@ -24,6 +27,9 @@ export interface PlayerMinigameData {
 	box_gets: number[];
 	direction: 'up' | 'down' | 'left' | 'right';
 	taking_box: boolean;
+	editor_mode: 'replace' | 'remove';
+	block: 'W' | '0' | 'FAKEWALL';
+	initializeType: initializeInfo;
 }
 export function initMiniGameData(): PlayerMinigameData;
 export function initMiniGameData(): PlayerMinigameData {
@@ -31,7 +37,7 @@ export function initMiniGameData(): PlayerMinigameData {
 		current_room: 0,
 		current_x: 1n,
 		current_y: 1n,
-		replaces: [],
+		replaces: {},
 		keys_have: [],
 		hp: 10,
 		interact: 0,
@@ -40,6 +46,14 @@ export function initMiniGameData(): PlayerMinigameData {
 		box_gets: [0, 0, 0],
 		direction: 'left',
 		taking_box: false,
+		ateditor: false,
+		editor_mode: 'replace',
+		block: '0',
+		initializeType: {
+			initializeType: 'rect',
+			rect_width: 7n,
+			rect_height: 7n,
+		},
 	} satisfies PlayerMinigameData;
 	return a;
 }

@@ -16,7 +16,7 @@ import { createDeepValidatedReactive } from '../check-decimal-nan';
 import { NON_RECURSIVE } from '../nonrecu/index.ts';
 import { initMiniGameData, hardResetMiniGame, type PlayerMinigameData } from '../minigame/index.ts';
 
-const version = 10 as const;
+const version = 11 as const;
 const zero = new Decimal(0);
 export let current_save = 0;
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
@@ -542,14 +542,30 @@ export function loadFromString(saveContent: string) {
 
 	player.minigame.current_x = BigInt(player.minigame.current_x);
 	player.minigame.current_y = BigInt(player.minigame.current_y);
+	type ValueOf<T> = T extends Record<any, infer V> ? V : any;
+	type ArrayContent<T> = T extends Array<infer C> ? C : any;
+	let repl = player.minigame.replaces as
+		| typeof player.minigame.replaces
+		| ValueOf<typeof player.minigame.replaces>;
+	if (Array.isArray(repl)) {
+		for (const replacement of repl) {
+			if (!replacement) continue;
+			replacement.x = BigInt(replacement.x);
 
-	for (const replacement of player.minigame.replaces) {
-		if (!replacement) continue;
-		replacement.x = BigInt(replacement.x);
-
-		replacement.y = BigInt(replacement.y);
+			replacement.y = BigInt(replacement.y);
+		}
 	}
-
+	let new333: typeof player.minigame.replaces = {};
+	if (Array.isArray(repl)) {
+		for (let repl2 of repl) {
+			let repl3 = repl2 as { room: number } & ArrayContent<
+				ValueOf<typeof player.minigame.replaces>
+			>;
+			if (!new333[repl3.room]) new333[repl3.room] = [];
+			new333[repl3.room].push(repl3);
+		}
+	}
+	player.minigame.replaces = new333;
 	// @ts-ignore
 	delete player.hydra.dilute.solvent?.[9];
 	// @ts-ignore
