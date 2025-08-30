@@ -22,6 +22,8 @@ export interface PlayerMinigameData {
 	ore_gets: number;
 	keys_have: number[];
 	box_gets: number[];
+	direction: 'up' | 'down' | 'left' | 'right';
+	taking_box: boolean;
 }
 export function initMiniGameData(): PlayerMinigameData;
 export function initMiniGameData(): PlayerMinigameData {
@@ -36,6 +38,8 @@ export function initMiniGameData(): PlayerMinigameData {
 		xp: 0,
 		ore_gets: 0,
 		box_gets: [0, 0, 0],
+		direction: 'left',
+		taking_box: false,
 	} satisfies PlayerMinigameData;
 	return a;
 }
