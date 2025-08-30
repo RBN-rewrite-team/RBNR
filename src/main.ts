@@ -4,7 +4,12 @@ import './lib/ordinal/evaluator.ts';
 import './utils/0-y.ts';
 import { init } from './utils/init.ts';
 
-// @ts-expect-error
+declare global {
+  interface BigInt {
+    toJSON(): string;
+  }
+}
+
 BigInt.prototype.toJSON = function () {
 	return this.toString();
 };
