@@ -6,7 +6,7 @@ import { player } from '@/core/save';
 <template>
 	<div class="main nonrec-chals" align="center">
 		在非递归挑战中，溶剂II将增加U5-S系列的价格<br />
-		<table>
+		<table><tbody>
 			<tr>
 				<TDChallenge
 					v-if="
@@ -30,7 +30,7 @@ import { player } from '@/core/save';
 					:chid="2"
 				></TDChallenge>
 			</tr>
-		</table>
+		</tbody></table>
 	</div>
 </template>
 
