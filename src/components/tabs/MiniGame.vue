@@ -112,7 +112,6 @@ function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof
 							当前XP: {{ player.minigame.xp }}/{{ nextLVxp() }}
 						</td>
 					</tr>
-				</tbody>
 				<tr>
 					<td>
 						矿石收集：{{ player.minigame.ore_gets }}<br />(+{{
@@ -129,6 +128,7 @@ function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof
 				<tr>
 					<td><button @click="spawn(0)">Dungeon 1</button></td>
 				</tr>
+				</tbody>
 			</table>
 		</div>
 		<br />

@@ -4,6 +4,7 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import legacy from '@vitejs/plugin-legacy';
 import vueJsx from '@vitejs/plugin-vue-jsx';
+import htmlMinifier from 'vite-plugin-html-minifier'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -16,6 +17,9 @@ export default defineConfig({
 			include: [/\.tsx$/, /\.jsx$/],
 			exclude: [/\.vue$/],
 		}),
+		htmlMinifier({
+      minify: true,
+    }),
 	],
 	resolve: {
 		alias: {
@@ -30,7 +34,6 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          // 定义包到块的映射
           const packageToChunk = {
             'vue': 'vue',
             'katex': 'katex',
