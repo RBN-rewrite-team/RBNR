@@ -64,8 +64,8 @@ export function getCurrentBlock(room: number, x: bigint, y: bigint) {
 		let block;
 		if (room == 943360095) block = randomBlock(x, y);
 		else block = map2_block(Number(x), Number(y));
-		let replacements = player.minigame.replaces.filter(
-			(b) => b.room == room && b.x == x && b.y == y,
+		let replacements = (player.minigame.replaces[room] ?? []).filter(
+			(b) => b.x == x && b.y == y,
 		);
 		for (let i = 0; i < replacements.length; i++) {
 			block = replacement(block, replacements[i]);
@@ -83,10 +83,8 @@ export function isUnreachable(room: number, x: bigint, y: bigint) {
 }
 
 export function getPlayerMap(room: number): SingleMap {
-	let a = initialMap()[player.minigame.current_room];
-	let replacements = player.minigame.replaces.filter(
-		(x) => x.room == player.minigame.current_room,
-	);
+	let a = initialMap()[room];
+	let replacements = player.minigame.replaces[room] ?? [];
 	for (let i = 0; i < replacements.length; i++) {
 		let repl = replacements[i];
 		a.map[Number(repl.y)][Number(repl.x)] = replacement(
@@ -122,7 +120,7 @@ export function positionDirection(
 
 export function visibleBlocks() {
 	if (player.minigame.current_room == 0) {
-		return player.minigame.replaces.filter((x) => x.x == 24n && x.y == 14n && x.room == 0)
+		return (player.minigame.replaces[0] ?? []).filter((x) => x.x == 24n && x.y == 14n)
 			.length !== 0
 			? 3n
 			: 1n;
@@ -160,4 +158,22 @@ export function isTouched(x: bigint, y: bigint) {
 			player.minigame.current_y,
 		])
 	);
+}
+
+export function addReplace(
+	room: number,
+	x: bigint,
+	y: bigint,
+	replacedTo: string,
+	notPermanent: boolean = false,
+) {
+	if (!player.minigame.replaces[room]) {
+		player.minigame.replaces[room] = [];
+	}
+	player.minigame.replaces[room].push({
+		x,
+		y,
+		replacedTo,
+		recover: notPermanent,
+	});
 }

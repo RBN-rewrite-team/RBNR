@@ -15,6 +15,7 @@ import {
 	isPlayerVisible,
 	visibleBlocks,
 	isTouched,
+	addReplace,
 } from '@/core/minigame/room';
 import { handleKeyPress } from '@/core/minigame/minigame-loop';
 import { meBattleInfo } from '@/core/minigame/battle';
@@ -28,7 +29,11 @@ function spawn(id: number): void {
 		(player.minigame.current_x = 1n),
 		(player.minigame.current_y = 1n));
 	player.minigame.hp = meBattleInfo().hpMax;
-	for(let i in player.minigame.replaces) if(player.minigame.replaces[i].recover) delete player.minigame.replaces[i];
+	for (let k in player.minigame.replaces) {
+		let repl = player.minigame.replaces[k]
+		for(let i in repl) if(player.minigame.replaces[k][i].recover) delete player.minigame.replaces[k][i];
+
+	}
 }
 function formatbigint(b: bigint) {
 	if (b < 1000n) return b.toString();
@@ -45,30 +50,21 @@ function formatbigint(b: bigint) {
 function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof getCurrentBlock>) {
 	if (isTouched(x,y) ) {
 		if (block instanceof MoveableBoxGameObject){
-			player.minigame.replaces.push(
-				{
-					recover: false,
-					room: room,
-					x,
-					y,
-					replacedTo: "0"
-				}
+			addReplace(
+				room,x,y,'0',false
 			)
 			player.minigame.taking_box=true;
 			temp.minigametip="已拿起箱子（只能在玩家上下左右1格放下箱子）"
 		} else if (block===null){
-			player.minigame.replaces.push(
-				{
-					recover: false,
-					room: room,
-					x,
-					y,
-					replacedTo: "BOX"
-				}
+			addReplace(
+				room,x,y,'BOX',false
 			)
 			temp.minigametip="已放下箱子"
 		}
 	}
+}
+function atDEV() {
+	return import.meta.env.DEV
 }
 </script>
 
@@ -91,6 +87,7 @@ function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof
 					}"
 				></div>
 			</div>
+			<button v-if="atDEV()">Enter Editor Mode</button>
 			<table style="width: 100%">
 				<tbody>
 					<tr>

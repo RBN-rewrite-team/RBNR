@@ -16,7 +16,13 @@ import ModalService from '@/utils/Modal';
 import { player } from '../save';
 import { guardBattleInfo, meBattleInfo, runBattleFast } from './battle';
 import { currentPlayerLV } from '.';
-import { getCurrentBlock, getPlayerCurrentMap, isUnreachable, positionDirection } from './room';
+import {
+	addReplace,
+	getCurrentBlock,
+	getPlayerCurrentMap,
+	isUnreachable,
+	positionDirection,
+} from './room';
 import { temp } from '../temp-data';
 
 /**
@@ -109,12 +115,7 @@ export class PasswordGameObject extends GameObject {
 			],
 			onConfirm(values: string[]) {
 				if (pV(values[0])) {
-					player.minigame.replaces.push({
-						room: player.minigame.current_room,
-						x,
-						y,
-						replacedTo: '0',
-					});
+					addReplace(player.minigame.current_room, x, y, '0');
 				}
 			},
 		});
@@ -145,12 +146,7 @@ export class OreGameObject extends GameObject {
 	interact(x: bigint, y: bigint): void {
 		temp.minigametip = '你获得了矿石，全局速度+0.25%。';
 		player.minigame.ore_gets++;
-		player.minigame.replaces.push({
-			room: player.minigame.current_room,
-			x,
-			y,
-			replacedTo: '0',
-		});
+		addReplace(player.minigame.current_room, x, y, '0');
 	}
 	solid() {
 		return false;
@@ -164,12 +160,7 @@ export class DoorGameObject extends GameObject {
 	}
 	interact(x: bigint, y: bigint): void {
 		if (player.minigame.keys_have.includes(this.keyid)) {
-			player.minigame.replaces.push({
-				room: player.minigame.current_room,
-				x,
-				y,
-				replacedTo: '0',
-			});
+			addReplace(player.minigame.current_room, x, y, '0');
 			player.minigame.keys_have.filter((x) => x !== this.keyid);
 		} else {
 			temp.minigametip = '你需要一个钥匙才能开门';
@@ -213,13 +204,7 @@ export class EntityGameObject extends GameObject {
 					player.minigame.xp = 0;
 				} else {
 					player.minigame.hp = battlestatus.hp_after_battle;
-					player.minigame.replaces.push({
-						room: player.minigame.current_room,
-						x,
-						y,
-						replacedTo: '0',
-						recover: true,
-					});
+					addReplace(player.minigame.current_room, x, y, '0', true);
 					player.minigame.xp += guardinfo.xp;
 				}
 				player.minigame.interact = 0;
@@ -265,13 +250,7 @@ export class BoxGameObject extends GameObject {
 		player.minigame.box_gets[this.tier - 1]++;
 		((temp.minigametip = '你打开了宝箱，获得了' + price.toFixed(3) + '时间碎片。'),
 			(player.timeshard.value = player.timeshard.value.add(price)));
-		player.minigame.replaces.push({
-			room: player.minigame.current_room,
-			x,
-			y,
-			replacedTo: '0',
-			recover: false,
-		});
+		addReplace(player.minigame.current_room, x, y, '0', false);
 	}
 }
 export class RestrictedBoxObject extends BoxGameObject {
@@ -306,12 +285,7 @@ export class KeyGameObject extends GameObject {
 	}
 	interact(x: bigint, y: bigint): void {
 		((temp.minigametip = '你获得了钥匙'), player.minigame.keys_have.push(this.keyid));
-		player.minigame.replaces.push({
-			room: player.minigame.current_room,
-			x,
-			y,
-			replacedTo: '0',
-		});
+		addReplace(player.minigame.current_room, x, y, '0');
 	}
 }
 export class HealthRecoveryGameObject extends GameObject {
@@ -323,12 +297,7 @@ export class HealthRecoveryGameObject extends GameObject {
 	interact(x: bigint, y: bigint): void {
 		((temp.minigametip = '你回复了HP'),
 			(player.minigame.hp += ((currentPlayerLV() * this.percent) / 100) * 10));
-		player.minigame.replaces.push({
-			room: player.minigame.current_room,
-			x,
-			y,
-			replacedTo: '0',
-		});
+		addReplace(player.minigame.current_room, x, y, '0');
 	}
 }
 export class MoveableBoxGameObject extends GameObject {
@@ -339,26 +308,11 @@ export class MoveableBoxGameObject extends GameObject {
 		let box_pos = positionDirection([x, y], direction);
 		let goalBlock = getCurrentBlock(player.minigame.current_room, box_pos[0], box_pos[1]);
 		if (goalBlock === null || goalBlock instanceof SwitchGameObject) {
-			player.minigame.replaces.push({
-				x: x,
-				y: y,
-				replacedTo: '0',
-				room: player.minigame.current_room,
-			});
+			addReplace(player.minigame.current_room, x, y, '0');
 			if (!goalBlock || !(goalBlock instanceof SwitchGameObject)) {
-				player.minigame.replaces.push({
-					x: box_pos[0],
-					y: box_pos[1],
-					replacedTo: 'BOX',
-					room: player.minigame.current_room,
-				});
+				addReplace(player.minigame.current_room, box_pos[0], box_pos[1], 'BOX');
 			} else if (goalBlock instanceof SwitchGameObject && !goalBlock.actived) {
-				player.minigame.replaces.push({
-					x: box_pos[0],
-					y: box_pos[1],
-					replacedTo: 'ACTIVE_SWITCH',
-					room: player.minigame.current_room,
-				});
+				addReplace(player.minigame.current_room, box_pos[0], box_pos[1], 'ACTIVE_SWITCH');
 				player.minigame.keys_have.push(goalBlock.keyid);
 			}
 			let player_moved = positionDirection(

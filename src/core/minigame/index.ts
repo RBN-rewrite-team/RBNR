@@ -5,7 +5,6 @@ import { player } from '../save';
 
 // import { maps, type SingleMap } from './map';
 interface Replacements {
-	room: number;
 	x: bigint;
 	y: bigint;
 	replacedTo: string;
@@ -15,7 +14,9 @@ export interface PlayerMinigameData {
 	current_room: number;
 	current_x: bigint;
 	current_y: bigint;
-	replaces: Replacements[];
+	replaces: {
+		[key: string]: Replacements[];
+	};
 	hp: number;
 	interact: number;
 	xp: number;
@@ -31,7 +32,7 @@ export function initMiniGameData(): PlayerMinigameData {
 		current_room: 0,
 		current_x: 1n,
 		current_y: 1n,
-		replaces: [],
+		replaces: {},
 		keys_have: [],
 		hp: 10,
 		interact: 0,
