@@ -67,7 +67,6 @@ export function getCurrentBlock(room: number, x: bigint, y: bigint) {
 		let replacements = player.minigame.replaces.filter(
 			(b) => b.room == room && b.x == x && b.y == y,
 		);
-		if (x == 4n && y == 4n) debugger;
 		for (let i = 0; i < replacements.length; i++) {
 			block = replacement(block, replacements[i]);
 		}
@@ -138,4 +137,27 @@ export function isPlayerVisible(x: bigint, y: bigint) {
 	if (y < player.minigame.current_y - visibleBlocks()) return false;
 	if (y > player.minigame.current_y + visibleBlocks()) return false;
 	return true;
+}
+export function positionEqual(xy1: [bigint, bigint], xy2: [bigint, bigint]) {
+	return xy1[0] == xy2[0] && xy1[1] == xy2[1];
+}
+export function isTouched(x: bigint, y: bigint) {
+	return (
+		positionEqual(positionDirection([x, y], 'up'), [
+			player.minigame.current_x,
+			player.minigame.current_y,
+		]) ||
+		positionEqual(positionDirection([x, y], 'down'), [
+			player.minigame.current_x,
+			player.minigame.current_y,
+		]) ||
+		positionEqual(positionDirection([x, y], 'left'), [
+			player.minigame.current_x,
+			player.minigame.current_y,
+		]) ||
+		positionEqual(positionDirection([x, y], 'right'), [
+			player.minigame.current_x,
+			player.minigame.current_y,
+		])
+	);
 }

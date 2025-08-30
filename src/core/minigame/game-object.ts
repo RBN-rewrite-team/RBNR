@@ -337,14 +337,14 @@ export class MoveableBoxGameObject extends GameObject {
 	}
 	interact(x: bigint, y: bigint, direction: 'up' | 'down' | 'left' | 'right'): void {
 		let box_pos = positionDirection([x, y], direction);
-		if (!isUnreachable(player.minigame.current_room, ...box_pos)) {
+		let goalBlock = getCurrentBlock(player.minigame.current_room, box_pos[0], box_pos[1]);
+		if (goalBlock === null || goalBlock instanceof SwitchGameObject) {
 			player.minigame.replaces.push({
 				x: x,
 				y: y,
 				replacedTo: '0',
 				room: player.minigame.current_room,
 			});
-			let goalBlock = getCurrentBlock(player.minigame.current_room, box_pos[0], box_pos[1]);
 			if (!goalBlock || !(goalBlock instanceof SwitchGameObject)) {
 				player.minigame.replaces.push({
 					x: box_pos[0],
@@ -367,6 +367,8 @@ export class MoveableBoxGameObject extends GameObject {
 			);
 			player.minigame.current_x = player_moved[0];
 			player.minigame.current_y = player_moved[1];
+		} else {
+			temp.minigametip = '推不动可以点击箱子拿起';
 		}
 	}
 }
