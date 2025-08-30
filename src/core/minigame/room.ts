@@ -158,6 +158,7 @@ export function getPlayerMap(room: number): SingleMap {
 	let replacements = player.minigame.replaces[room] ?? [];
 	for (let i = 0; i < replacements.length; i++) {
 		let repl = replacements[i];
+		if (!repl) continue;
 		a.map[Number(repl.y)][Number(repl.x)] = replacement(
 			a.map[Number(repl.y)][Number(repl.x)],
 			repl,
