@@ -158,7 +158,7 @@ class NRTCurrency extends Currency {
 	}
 
 	static get current() {
-		return getTotalTheories().sub(player.nonrecu.spentTheories);
+		return getTotalTheories().sub(player.nonrecu.spentTheories).clampMin(0);
 	}
 }
 const currencyMap: Map<Currencies, typeof Currency> = new Map([
