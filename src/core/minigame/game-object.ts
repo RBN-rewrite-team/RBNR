@@ -15,7 +15,7 @@
 import ModalService from '@/utils/Modal';
 import { player } from '../save';
 import { guardBattleInfo, meBattleInfo, runBattleFast } from './battle';
-import { currentPlayerLV } from '.';
+import { currentPlayerLV, getWorldLevel } from '.';
 import { getCurrentBlock, getPlayerCurrentMap, isUnreachable, positionDirection } from './room';
 import { temp } from '../temp-data';
 
@@ -80,6 +80,8 @@ export class TeleporterGameObject extends GameObject {
 		player.minigame.current_room = this.room;
 		player.minigame.current_x = this.destination[0];
 		player.minigame.current_y = this.destination[1];
+		for(let i in player.minigame.replaces) if(player.minigame.replaces[i].recover) delete player.minigame.replaces[i];
+		if(!player.minigame.visited.includes(this.room)) player.minigame.visited.push(this.room);
 	}
 	solid() {
 		return false;
@@ -234,19 +236,22 @@ export class GuardGameObject extends EntityGameObject {
 	tier = 1;
 	type = 1;
 	innerText: string = '守卫';
-	constructor(tier: number) {
-		super(tier);
-		this.tier = tier;
-		this.type = 1;
+	constructor(type: number) {
+		super(1);
+		this.tier = getWorldLevel();
+		this.type = type;
+		if(type == 3) this.innerText = '高级守卫';
+		if(type == 4) this.innerText = '重型守卫';
+		if(type == 5) this.innerText = '魔法师';
 	}
 }
-export class BossGameObject extends GuardGameObject {
+export class BossGameObject extends EntityGameObject {
 	tier = 2;
 	type = 2;
 	innerText: string = '守卫队长';
 	constructor() {
 		super(1);
-		this.tier = 2;
+		this.tier = getWorldLevel();
 		this.type = 2;
 	}
 }

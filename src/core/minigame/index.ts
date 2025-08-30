@@ -13,6 +13,7 @@ interface Replacements {
 }
 export interface PlayerMinigameData {
 	current_room: number;
+	visited: number[];
 	current_x: bigint;
 	current_y: bigint;
 	replaces: Replacements[];
@@ -29,6 +30,7 @@ export function initMiniGameData(): PlayerMinigameData;
 export function initMiniGameData(): PlayerMinigameData {
 	let a = {
 		current_room: 0,
+		visited: [],
 		current_x: 1n,
 		current_y: 1n,
 		replaces: [],
@@ -56,6 +58,11 @@ export function nextLVxp() {
 	return (currentPlayerLV() * (currentPlayerLV() + 1)) / 2;
 }
 
+export function LVpercent() {
+	let k = (currentPlayerLV() * (currentPlayerLV() + 1)) / 2 - (currentPlayerLV() * (currentPlayerLV() - 1)) / 2;
+	return (player.minigame.xp - (currentPlayerLV() * (currentPlayerLV() - 1)) / 2) / k;
+}
+
 export function hardResetMiniGame() {
 	player.minigame = initMiniGameData();
 }
@@ -69,4 +76,13 @@ export function predictableBigIntRandom(x: bigint): number {
 		start = (start * a) % b;
 	}
 	return Number(start) / 521791;
+}
+
+export function getWorldLevel() {
+	try {
+		let base = [1, 10, 1, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100];
+		return base[player.minigame.current_room] + Math.max(0, Math.floor(currentPlayerLV() / 2) - base[player.minigame.current_room] / 2);
+	} catch(err) {
+		return 1;
+	}
 }

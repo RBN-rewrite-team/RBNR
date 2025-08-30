@@ -1,4 +1,4 @@
-import { currentPlayerLV } from '.';
+import { currentPlayerLV, getWorldLevel } from '.';
 import { deepCopy, player } from '../save';
 
 interface BattleInfo {
@@ -40,6 +40,7 @@ export function runBattleFast(me: BattleInfo, enemy: BattleInfo): BattleStatus {
 }
 
 export function guardBattleInfo(tier: number, type = 1): Omit<Required<BattleInfo>, 'hpMax'> {
+	tier = getWorldLevel();
 	if (type == 1) {
 		return {
 			hp: 5 * tier,
@@ -54,16 +55,43 @@ export function guardBattleInfo(tier: number, type = 1): Omit<Required<BattleInf
 			hp: 20 * tier,
 			atk: 10 * tier,
 			def: 5 * tier,
-			xp: 5,
+			xp: 5 * tier,
 			m_hp_debuff: 0.9,
 			m_atk_debuff: 0.9,
+		};
+	} else if(type == 3) {
+		return {
+			hp: 7.5 * tier,
+			atk: 5 * tier,
+			def: 2 * tier,
+			xp: 2 * tier,
+			m_hp_debuff: 0.98,
+			m_atk_debuff: 0.98,
+		};
+	} else if(type == 4) {
+		return {
+			hp: 15 * tier,
+			atk: 4.5 * tier,
+			def: 4 * tier,
+			xp: 3 * tier,
+			m_hp_debuff: 0.99,
+			m_atk_debuff: 0.95,
+		};
+	} else if(type == 5) {
+		return {
+			hp: 9 * tier,
+			atk: 6 * tier,
+			def: 2 * tier,
+			xp: 3 * tier,
+			m_hp_debuff: 0.9,
+			m_atk_debuff: 1,
 		};
 	} else if (type == 6) {
 		return {
 			hp: 25 * tier,
 			atk: 15 * tier,
 			def: 5 * tier,
-			xp: 10,
+			xp: 10 * tier,
 			m_hp_debuff: 0.85,
 			m_atk_debuff: 0.85,
 		};
