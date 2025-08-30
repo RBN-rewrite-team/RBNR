@@ -16,6 +16,8 @@ import {
 	visibleBlocks,
 	isTouched,
 	addReplace,
+	removeReplaces,
+	initializeEditorMap,
 } from '@/core/minigame/room';
 import { handleKeyPress } from '@/core/minigame/minigame-loop';
 import { meBattleInfo } from '@/core/minigame/battle';
@@ -23,6 +25,7 @@ import { range } from '@/utils/algorithm';
 import { temp } from '../../core/temp-data';
 import { format } from '@/utils/format';
 import { MoveableBoxGameObject } from '@/core/minigame/game-object';
+import ModalService from '@/utils/Modal';
 
 function spawn(id: number): void {
 	((player.minigame.current_room = id),
@@ -55,16 +58,36 @@ function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof
 			)
 			player.minigame.taking_box=true;
 			temp.minigametip="已拿起箱子（只能在玩家上下左右1格放下箱子）"
-		} else if (block===null){
+		} else if (block===null && (player.minigame.taking_box)){
 			addReplace(
 				room,x,y,'BOX',false
 			)
 			temp.minigametip="已放下箱子"
 		}
 	}
+	if (player.minigame.ateditor) {
+		// ModalService.show({content: "拜谢"})
+
+		if (player.minigame.editor_mode=='replace') {
+			removeReplaces(room,x,y);
+			addReplace(room,x,y,player.minigame.block, false);
+		}
+		if (player.minigame.editor_mode=='remove') {
+			removeReplaces(room,x,y);
+		}
+	}
 }
 function atDEV() {
 	return import.meta.env.DEV
+}
+function enterEditor() {
+	if (atDEV()) {
+		player.minigame.ateditor=true;
+		player.minigame.current_room=-999;
+		player.minigame.current_x=1n;
+		player.minigame.current_y=1n;
+
+	}
 }
 </script>
 
@@ -87,7 +110,6 @@ function atDEV() {
 					}"
 				></div>
 			</div>
-			<button v-if="atDEV()">Enter Editor Mode</button>
 			<table style="width: 100%">
 				<tbody>
 					<tr>
@@ -130,10 +152,24 @@ function atDEV() {
 		</div>
 		<br />
 		<div style="display: flex; flex-direction: row; justify-content: center">
+			
 			<button @click="handleKeyPress('up')" class="clickable_button">↑</button>
 			<button @click="handleKeyPress('down')" class="clickable_button">↓</button>
 			<button @click="handleKeyPress('left')" class="clickable_button">←</button>
 			<button @click="handleKeyPress('right')" class="clickable_button">→</button>
+			<button class="clickable_button" v-if="atDEV()" @click="enterEditor">Enter Editor Mode</button>
+			
+			
+		</div>
+		<div v-if="player.minigame.ateditor" style="display: flex; flex-direction: row; justify-content: center">
+			<button class="clickable_button" @click="player.minigame.editor_mode='replace'">放置方块</button>
+			<button class="clickable_button" @click="player.minigame.editor_mode='remove'">移除方块</button>
+			<button class="clickable_button" @click="player.minigame.block = 'W'">切换方块类型为 墙</button>
+			<button class="clickable_button" @click="player.minigame.block = '0'">切换方块类型为 空气</button>
+			<button class="clickable_button" @click="player.minigame.block = 'FAKEWALL'">切换方块类型为 假墙</button>
+		</div>
+		<div v-if="player.minigame.ateditor" style="display: flex; flex-direction: row; justify-content: center">
+			<button class="clickable_button" @click="initializeEditorMap">地图方块初始化</button>
 		</div>
 		<div>
 			X: {{ formatbigint(player.minigame.current_x) }}<br />

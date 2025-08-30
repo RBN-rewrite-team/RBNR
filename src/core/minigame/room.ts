@@ -2,17 +2,21 @@
 import { deepCopy, player } from '../save';
 import {
 	BoxGameObject,
+	FakeWallGameObject,
 	GameObject,
 	GuardGameObject,
 	MoveableBoxGameObject,
 	OreGameObject,
+	RestrictedBoxObject,
 	SwitchOnGameObject,
 	TeleporterGameObject,
 	WallGameObject,
+	WallInvisibleGameObject,
 } from './game-object';
 import { initialMap, maps, type SingleMap } from './map';
 import { predictableBigIntRandom } from '.';
 import { map2_block } from './maps/map-dungeon2';
+import ModalService from '@/utils/Modal';
 
 /**
  * 目前生成规则
@@ -51,19 +55,86 @@ export function replacement(
 	if (replacement.replacedTo == '0') {
 		return null;
 	}
+	if (replacement.replacedTo == 'FAKEWALL') {
+		// toJSON avaliable
+		return new FakeWallGameObject();
+	}
+	if (replacement.replacedTo == 'WALL_INVISIBLE') {
+		return new WallInvisibleGameObject();
+	}
+	if (replacement.replacedTo == 'W') {
+		// toJSON avaliable
+		return new WallGameObject();
+	}
+	let tryexec = /TIERBOX_(\d+)/.exec(replacement.replacedTo);
+	if (tryexec && tryexec[1]) {
+		// toJSON avaliable
+		return new BoxGameObject(Number(tryexec[1]));
+	}
+	tryexec = /RESTRICTEDTIERBOX_(\d+)/.exec(replacement.replacedTo);
+	if (tryexec && tryexec[1]) {
+		// toJSON avaliable
+		return new RestrictedBoxObject(Number(tryexec[1]));
+	}
 	if (replacement.replacedTo == 'BOX') {
+		// toJSON avaliable
 		return new MoveableBoxGameObject();
 	}
 	if (replacement.replacedTo == 'ACTIVE_SWITCH') {
+		// toJSON avaliable
 		return new SwitchOnGameObject();
 	}
 	return bl;
 }
+export function blockToJSON(x: null | undefined | GameObject) {
+	if (x === undefined || x === null) {
+		return '0';
+	}
+	if (x instanceof SwitchOnGameObject) {
+		return 'ACTIVE_SWITCH';
+	}
+	if (x instanceof RestrictedBoxObject) {
+		return 'RESTRICTEDTIERBOX_' + x.tier;
+	}
+	if (x instanceof BoxGameObject) {
+		return 'TIERBOX_' + x.tier;
+	}
+	if (x instanceof FakeWallGameObject) {
+		return 'FAKEWALL';
+	}
+	if (x instanceof WallGameObject) {
+		return 'W';
+	}
+	if (x instanceof WallInvisibleGameObject) {
+		return 'WALL_INVISIBLE';
+	}
+	return 'UNSUPPORTED';
+}
+type AA<T> = T extends Record<any, infer V> ? V : any;
+type BB<T> = T extends Array<infer C> ? C : any;
+
 export function getCurrentBlock(room: number, x: bigint, y: bigint) {
-	if (room == 943360095 || room == 1) {
+	if (room == 943360095 || room == 1 || room == -999) {
 		let block;
 		if (room == 943360095) block = randomBlock(x, y);
-		else block = map2_block(Number(x), Number(y));
+		else if (room == 1) block = map2_block(Number(x), Number(y));
+		else if (room == -999) {
+			if (player.minigame.initializeType.initializeType === 'rect') {
+				if (x < 0n || y < 0n) block = undefined;
+				else if (
+					x > player.minigame.initializeType.rect_width ||
+					y > player.minigame.initializeType.rect_height
+				)
+					block = undefined;
+				else if (x == 0n) block = new WallGameObject();
+				else if (y == 0n) block = new WallGameObject();
+				else if (x == player.minigame.initializeType.rect_width)
+					block = new WallGameObject();
+				else if (y == player.minigame.initializeType.rect_height)
+					block = new WallGameObject();
+				else block = null;
+			}
+		}
 		let replacements = (player.minigame.replaces[room] ?? []).filter(
 			(b) => b.x == x && b.y == y,
 		);
@@ -177,3 +248,43 @@ export function addReplace(
 		recover: notPermanent,
 	});
 }
+
+export function removeReplaces(room: number, x: bigint, y: bigint) {
+	if (!player.minigame.replaces[room]) {
+		player.minigame.replaces[room] = [];
+	} else {
+		player.minigame.replaces[room] = player.minigame.replaces[room].filter(
+			(a) => !(a.x == x && a.y == y),
+		);
+	}
+}
+
+export function initializeEditorMap() {
+	ModalService.show({
+		title: '初始化地图',
+		content: '输入地图长宽高',
+		fields: [
+			{
+				type: 'input',
+				validation: (x) => Number.isInteger(Number(x)),
+				placeholder: 'y轴长度',
+			},
+			{
+				type: 'input',
+				validation: (x) => Number.isInteger(Number(x)),
+				placeholder: 'x轴长度',
+			},
+		],
+		onConfirm(values: string[]) {
+			player.minigame.replaces[-999] = [];
+			player.minigame.initializeType.rect_height = BigInt(values[0]);
+			player.minigame.initializeType.rect_width = BigInt(values[1]);
+		},
+	});
+}
+
+export type initializeInfo = {
+	initializeType: 'rect';
+	rect_width: bigint;
+	rect_height: bigint;
+};
