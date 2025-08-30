@@ -5,8 +5,10 @@ import {
 	GuardGameObject,
 	HealthRecoveryGameObject,
 	KeyGameObject,
+	MoveableBoxGameObject,
 	OreGameObject,
 	PasswordGameObject,
+	SwitchGameObject,
 	TeleporterGameObject,
 	WallGameObject,
 	WallInvisibleGameObject,
@@ -30,7 +32,7 @@ function style() {
     }
 }
 function class3() {
-    if (props.game_object instanceof KeyGameObject || (props.game_object instanceof PasswordGameObject) || (props.game_object instanceof DoorGameObject) || props.game_object instanceof GuardGameObject || props.game_object instanceof BoxGameObject) {
+    if (props.game_object instanceof KeyGameObject || (props.game_object instanceof MoveableBoxGameObject) || (props.game_object instanceof SwitchGameObject) || (props.game_object instanceof PasswordGameObject) || (props.game_object instanceof DoorGameObject) || props.game_object instanceof GuardGameObject || props.game_object instanceof BoxGameObject) {
         return 'box-object'
     }
     if (props.game_object instanceof HealthRecoveryGameObject || props.game_object instanceof TeleporterGameObject || props.game_object instanceof OreGameObject) {
@@ -70,11 +72,20 @@ function class3() {
             <template v-else-if=" (game_object instanceof DoorGameObject)  ">
                 门
             </template>
+            <template v-else-if=" (game_object instanceof SwitchGameObject)  ">
+                {{ game_object.actived ? "开关：开": "开关：关" }}
+            </template>
+            <template v-else-if=" (game_object instanceof MoveableBoxGameObject)  ">
+                箱子
+            </template>
             <template v-else-if=" (game_object instanceof PasswordGameObject)  ">
                     密码门
             </template>
             <template v-else-if=" (game_object instanceof KeyGameObject)  ">
                     钥匙
+            </template>
+            <template v-else-if=" (game_object instanceof WallInvisibleGameObject)  ">
+                    
             </template>
             <template v-else>
                 {{ game_object.innerText=="" ? "不知道，反正是个游戏物体" : game_object.innerText  }}

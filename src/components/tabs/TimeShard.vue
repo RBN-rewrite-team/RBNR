@@ -13,10 +13,10 @@ function timeF(ms = 0) {
 			你有
 			<span style="color: rgb(255, 63, 255)">{{ format(player.timeshard.value) }}</span>
 			时间碎片，转换它以获得同等分钟的3x时间加速效果<br />
-			<span v-if="player.timeshard.tf > 0">
+			<span v-if="player.timeshard.tf.gt(0)">
 				你有
 				<span style="color: rgb(127, 31, 127)"
-					>{{ formatTime(player.timeshard.tf / 1000) }}</span
+					>{{ formatTime(player.timeshard.tf.div(1000)) }}</span
 				>
 				的时间加速<br />
 				<button

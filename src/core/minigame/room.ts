@@ -6,6 +6,7 @@ import {
 	GuardGameObject,
 	MoveableBoxGameObject,
 	OreGameObject,
+	SwitchOnGameObject,
 	TeleporterGameObject,
 	WallGameObject,
 } from './game-object';
@@ -53,6 +54,9 @@ export function replacement(
 	if (replacement.replacedTo == 'BOX') {
 		return new MoveableBoxGameObject();
 	}
+	if (replacement.replacedTo == 'ACTIVE_SWITCH') {
+		return new SwitchOnGameObject();
+	}
 	return bl;
 }
 export function getCurrentBlock(room: number, x: bigint, y: bigint) {
@@ -61,10 +65,10 @@ export function getCurrentBlock(room: number, x: bigint, y: bigint) {
 		if (room == 943360095) block = randomBlock(x, y);
 		else block = map2_block(Number(x), Number(y));
 		let replacements = player.minigame.replaces.filter(
-			(b) => b.room == player.minigame.current_room && b.x == x && b.y == y,
+			(b) => b.room == room && b.x == x && b.y == y,
 		);
 		for (let i = 0; i < replacements.length; i++) {
-			replacement(block, replacements[i]);
+			block = replacement(block, replacements[i]);
 		}
 		return block;
 	}
@@ -123,7 +127,9 @@ export function visibleBlocks() {
 			? 3n
 			: 1n;
 	}
-	return 1n;
+	if (player.minigame.current_room == 1) return 3n;
+	if (player.minigame.current_room == 2) return 1n;
+	return import.meta.env.DEV ? 10n : 1n;
 }
 export function isPlayerVisible(x: bigint, y: bigint) {
 	if (x < player.minigame.current_x - visibleBlocks()) return false;
@@ -131,4 +137,27 @@ export function isPlayerVisible(x: bigint, y: bigint) {
 	if (y < player.minigame.current_y - visibleBlocks()) return false;
 	if (y > player.minigame.current_y + visibleBlocks()) return false;
 	return true;
+}
+export function positionEqual(xy1: [bigint, bigint], xy2: [bigint, bigint]) {
+	return xy1[0] == xy2[0] && xy1[1] == xy2[1];
+}
+export function isTouched(x: bigint, y: bigint) {
+	return (
+		positionEqual(positionDirection([x, y], 'up'), [
+			player.minigame.current_x,
+			player.minigame.current_y,
+		]) ||
+		positionEqual(positionDirection([x, y], 'down'), [
+			player.minigame.current_x,
+			player.minigame.current_y,
+		]) ||
+		positionEqual(positionDirection([x, y], 'left'), [
+			player.minigame.current_x,
+			player.minigame.current_y,
+		]) ||
+		positionEqual(positionDirection([x, y], 'right'), [
+			player.minigame.current_x,
+			player.minigame.current_y,
+		])
+	);
 }

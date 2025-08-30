@@ -264,7 +264,7 @@ export class BoxGameObject extends GameObject {
 		if (this.tier == 3) price = Math.random() * 125 + 125;
 		player.minigame.box_gets[this.tier - 1]++;
 		((temp.minigametip = '你打开了宝箱，获得了' + price.toFixed(3) + '时间碎片。'),
-			(player.timeshard.value += price));
+			(player.timeshard.value = player.timeshard.value.add(price)));
 		player.minigame.replaces.push({
 			room: player.minigame.current_room,
 			x,
@@ -337,25 +337,51 @@ export class MoveableBoxGameObject extends GameObject {
 	}
 	interact(x: bigint, y: bigint, direction: 'up' | 'down' | 'left' | 'right'): void {
 		let box_pos = positionDirection([x, y], direction);
-		if (!isUnreachable(player.minigame.current_room, ...box_pos)) {
+		let goalBlock = getCurrentBlock(player.minigame.current_room, box_pos[0], box_pos[1]);
+		if (goalBlock === null || goalBlock instanceof SwitchGameObject) {
 			player.minigame.replaces.push({
 				x: x,
 				y: y,
 				replacedTo: '0',
 				room: player.minigame.current_room,
 			});
-			player.minigame.replaces.push({
-				x: box_pos[0],
-				y: box_pos[1],
-				replacedTo: 'BOX',
-				room: player.minigame.current_room,
-			});
+			if (!goalBlock || !(goalBlock instanceof SwitchGameObject)) {
+				player.minigame.replaces.push({
+					x: box_pos[0],
+					y: box_pos[1],
+					replacedTo: 'BOX',
+					room: player.minigame.current_room,
+				});
+			} else if (goalBlock instanceof SwitchGameObject && !goalBlock.actived) {
+				player.minigame.replaces.push({
+					x: box_pos[0],
+					y: box_pos[1],
+					replacedTo: 'ACTIVE_SWITCH',
+					room: player.minigame.current_room,
+				});
+				player.minigame.keys_have.push(goalBlock.keyid);
+			}
 			let player_moved = positionDirection(
 				[player.minigame.current_x, player.minigame.current_y],
 				direction,
 			);
 			player.minigame.current_x = player_moved[0];
 			player.minigame.current_y = player_moved[1];
+		} else {
+			temp.minigametip = '推不动可以点击箱子拿起';
 		}
+	}
+}
+export class SwitchGameObject extends GameObject {
+	actived = false;
+	keyid = 13.002;
+	solid(): boolean {
+		return false;
+	}
+}
+export class SwitchOnGameObject extends SwitchGameObject {
+	actived = true;
+	solid(): boolean {
+		return false;
 	}
 }

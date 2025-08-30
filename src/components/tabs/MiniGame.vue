@@ -14,12 +14,14 @@ import {
 	getPlayerCurrentMap,
 	isPlayerVisible,
 	visibleBlocks,
+	isTouched,
 } from '@/core/minigame/room';
 import { handleKeyPress } from '@/core/minigame/minigame-loop';
 import { meBattleInfo } from '@/core/minigame/battle';
 import { range } from '@/utils/algorithm';
 import { temp } from '../../core/temp-data';
 import { format } from '@/utils/format';
+import { MoveableBoxGameObject } from '@/core/minigame/game-object';
 
 function spawn(id: number): void {
 	((player.minigame.current_room = id),
@@ -35,6 +37,38 @@ function formatbigint(b: bigint) {
 	a = a.slice(0, 7);
 	a = a.slice(0, 1) + '.' + a.slice(1, 7) + 'e' + l.toString();
 	return a;
+}
+
+/**
+ * 此次更新修复了某些人总是说“你 妈 的”的问题
+ */
+function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof getCurrentBlock>) {
+	if (isTouched(x,y) ) {
+		if (block instanceof MoveableBoxGameObject){
+			player.minigame.replaces.push(
+				{
+					recover: false,
+					room: room,
+					x,
+					y,
+					replacedTo: "0"
+				}
+			)
+			player.minigame.taking_box=true;
+			temp.minigametip="已拿起箱子（只能在玩家上下左右1格放下箱子）"
+		} else if (block===null){
+			player.minigame.replaces.push(
+				{
+					recover: false,
+					room: room,
+					x,
+					y,
+					replacedTo: "BOX"
+				}
+			)
+			temp.minigametip="已放下箱子"
+		}
+	}
 }
 </script>
 
@@ -78,7 +112,6 @@ function formatbigint(b: bigint) {
 							当前XP: {{ player.minigame.xp }}/{{ nextLVxp() }}
 						</td>
 					</tr>
-				</tbody>
 				<tr>
 					<td>
 						矿石收集：{{ player.minigame.ore_gets }}<br />(+{{
@@ -95,6 +128,7 @@ function formatbigint(b: bigint) {
 				<tr>
 					<td><button @click="spawn(0)">Dungeon 1</button></td>
 				</tr>
+				</tbody>
 			</table>
 		</div>
 		<br />
@@ -134,6 +168,7 @@ function formatbigint(b: bigint) {
 							>
 								<MiniGameTD
 									v-if="isPlayerVisible(x, y)"
+									@click="clickBlock(player.minigame.current_room, x, y, getCurrentBlock(player.minigame.current_room, x, y))"
 									:game_object="
 										getCurrentBlock(player.minigame.current_room, x, y)
 									"
