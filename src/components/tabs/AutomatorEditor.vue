@@ -20,7 +20,7 @@ const colors = {
   variables: "#9cdcfe",
 } as const;
 const highlightedCode = computed(() => {
-  let result = highlightAutomator(player.automator.code)
+  let result = highlightAutomator(santize(player.automator.code))
   
   //没做
   
@@ -57,13 +57,13 @@ const santize = (text: string): string => {
 watch(() => player.automator.code, (newCode) => {
   if (newCode !== player.automator.code && editorRef.value) {
     player.automator.code = newCode
-    editorRef.value.innerHTML = newCode
+    editorRef.value.innerText = newCode
   }
 })
 
 onMounted(() => {
   if (editorRef.value) {
-    editorRef.value.innerHTML = player.automator.code
+    editorRef.value.innerText = player.automator.code
   }
 })
 </script>
