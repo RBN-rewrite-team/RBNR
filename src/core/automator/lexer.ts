@@ -199,3 +199,53 @@ export const allTokens = [
 export const AutomatorLexer = new Lexer(allTokens);
 
 export default AutomatorLexer;
+
+export function highlightAutomator(code: string) {
+	// 1. 进行词法分析
+	const lexResult = AutomatorLexer.tokenize(code);
+
+	// 检查词法分析错误
+	if (lexResult.errors.length > 0) {
+		console.error('Lexing errors:', lexResult.errors);
+		// 可以选择返回原始文本或处理错误
+		return code;
+	}
+
+	let result = '';
+	let lastEndOffset = 0;
+	for (const token of lexResult.tokens) {
+		// 添加两个 Token 之间的空白文本
+		if (token.startOffset > lastEndOffset) {
+			const whitespace = code.substring(lastEndOffset, token.startOffset);
+			result += escapeHtml(whitespace)
+				.replace(/ /g, '&nbsp;')
+				.replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;')
+				.replace(/\n/g, '<br>')
+				.replace(/\r/g, '');
+		}
+
+		// 添加高亮 Token
+		const content = escapeHtml(token.image);
+		result += `<span class="automator-${token.tokenType.name.toLowerCase()}">${content}</span>`;
+
+		lastEndOffset = (token.endOffset ?? 0) + 1;
+	}
+
+	// 添加最后的空白文本（如果有）
+	if (lastEndOffset < code.length) {
+		const trailingWhitespace = code.substring(lastEndOffset);
+		result += escapeHtml(trailingWhitespace)
+			.replace(/ /g, '&nbsp;')
+			.replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;')
+			.replace(/\n/g, '<br>')
+			.replace(/\r/g, '');
+	}
+
+	return result;
+}
+
+function escapeHtml(text: string) {
+	const div = document.createElement('div');
+	div.textContent = text;
+	return div.innerHTML;
+}
