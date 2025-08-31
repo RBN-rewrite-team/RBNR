@@ -90,6 +90,33 @@ export const studies = [
 		id: '21', // 1
 		description: '基础攻击+1',
 		cost: new Decimal(2),
+		canBuy() {
+			return or(0);
+		},
+	}),
+	new Study({
+		id: '22', // 2
+		description: '基础HP+5',
+		cost: new Decimal(2),
+		canBuy() {
+			return or(0);
+		},
+	}),
+	new Study({
+		id: '31', // 3
+		description: 'HP*1.5',
+		cost: new Decimal(2),
+		canBuy() {
+			return or(1, 2);
+		},
+	}),
+	new Study({
+		id: '41', // 4
+		description: '攻击*1.2',
+		cost: new Decimal(2),
+		canBuy() {
+			return or(3);
+		},
 	}),
 ] as const;
 
