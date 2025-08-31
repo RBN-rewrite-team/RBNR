@@ -40,7 +40,7 @@ function sum(...ids: (number | boolean)[]): number {
 	return result;
 }
 
-type StudyConfig = {
+export type StudyConfig = {
 	id: string;
 	description: string;
 	cost: Decimal;

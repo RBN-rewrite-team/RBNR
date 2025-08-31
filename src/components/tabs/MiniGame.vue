@@ -28,6 +28,7 @@ import { temp } from '../../core/temp-data';
 import { format } from '@/utils/format';
 import { MoveableBoxGameObject } from '@/core/minigame/game-object';
 import ModalService from '@/utils/Modal';
+import SkillTree from './minigame/SkillTree.vue';
 
 function spawn(id: number): void {
 	((player.minigame.current_room = id),
@@ -157,7 +158,7 @@ function enterEditor() {
 			</table>
 		</div>
 		<br />
-		<div style="display: flex; flex-direction: row; justify-content: center">
+		<div style="display: flex; flex-direction: row; justify-content: centerl; margin-top:150px;">
 			
 			<button @click="handleKeyPress('up')" class="clickable_button">↑</button>
 			<button @click="handleKeyPress('down')" class="clickable_button">↓</button>
@@ -181,6 +182,8 @@ function enterEditor() {
 			X: {{ formatbigint(player.minigame.current_x) }}<br />
 			Y: {{ formatbigint(player.minigame.current_y) }}
 			<br />
+			技能点: {{ player.minigame.skillpoint.toFixed(3) }}
+			<br/>
 			{{ temp.minigametip }}
 		</div>
 		<br />
@@ -246,6 +249,10 @@ function enterEditor() {
                 </tr> -->
 			</tbody>
 		</table>
+		<div>
+			技能树<br>
+			<SkillTree></SkillTree>
+		</div>
 	</div>
 </template>
 
