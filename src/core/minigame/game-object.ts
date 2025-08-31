@@ -86,8 +86,12 @@ export class TeleporterGameObject extends GameObject {
 		player.minigame.current_room = this.room;
 		player.minigame.current_x = this.destination[0];
 		player.minigame.current_y = this.destination[1];
-		for(let i in player.minigame.replaces) if(player.minigame.replaces[i].recover) delete player.minigame.replaces[i];
-		if(!player.minigame.visited.includes(this.room)) player.minigame.visited.push(this.room);
+		for (let i in player.minigame.replaces) {
+			for (let j in player.minigame.replaces[i]) {
+				if (player.minigame.replaces[i][j].recover) delete player.minigame.replaces[i][j];
+			}
+		}
+		if (!player.minigame.visited.includes(this.room)) player.minigame.visited.push(this.room);
 	}
 	solid() {
 		return false;
@@ -225,9 +229,9 @@ export class GuardGameObject extends EntityGameObject {
 		super(1);
 		this.tier = getWorldLevel();
 		this.type = type;
-		if(type == 3) this.innerText = '高级守卫';
-		if(type == 4) this.innerText = '重型守卫';
-		if(type == 5) this.innerText = '魔法师';
+		if (type == 3) this.innerText = '高级守卫';
+		if (type == 4) this.innerText = '重型守卫';
+		if (type == 5) this.innerText = '魔法师';
 	}
 }
 export class BossGameObject extends EntityGameObject {
