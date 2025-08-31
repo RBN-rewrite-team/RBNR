@@ -4,6 +4,8 @@ import {
 	nextLVxp,
 	hardResetMiniGame,
 	keyboardEventListener,
+	getWorldLevel,
+	LVpercent,
 } from '@/core/minigame';
 import { player } from '@/core/save';
 import ObjectNode from './developermode/ObjectNode';
@@ -32,6 +34,7 @@ function spawn(id: number): void {
 		(player.minigame.current_x = 1n),
 		(player.minigame.current_y = 1n));
 	player.minigame.hp = meBattleInfo().hpMax;
+	if(!player.minigame.visited.includes(id)) player.minigame.visited.push(id);
 	for (let k in player.minigame.replaces) {
 		let repl = player.minigame.replaces[k]
 		for(let i in repl) if(player.minigame.replaces[k][i].recover) delete player.minigame.replaces[k][i];
@@ -117,14 +120,16 @@ function enterEditor() {
 						<td>当前防御: {{ meBattleInfo().def }}</td>
 					</tr>
 					<tr>
-						<td>当前LV: {{ currentPlayerLV() }}</td>
+						<td>
+							当前LV: {{ currentPlayerLV() }}<br>
+							(世界等级: {{ getWorldLevel() }})</td>
 						<td
 							:style="{
 								'background-image':
 									'linear-gradient(to right, green ' +
-									(player.minigame.xp / nextLVxp()) * 100 +
+									(LVpercent()) * 100 +
 									'%, black ' +
-									(player.minigame.xp / nextLVxp()) * 100 +
+									(LVpercent()) * 100 +
 									'%)',
 							}"
 						>
@@ -146,6 +151,7 @@ function enterEditor() {
 				</tr>
 				<tr>
 					<td><button @click="spawn(0)">Dungeon 1</button></td>
+					<td v-if="player.minigame.visited.includes(1)"><button @click="spawn(1)">Dungeon 2</button></td>
 				</tr>
 				</tbody>
 			</table>

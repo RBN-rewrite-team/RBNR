@@ -81,7 +81,7 @@ export function map2_block(x: number, y: number) {
 	if (x == 37 && y == 30) return new KeyGameObject(6.002);
 	if (y == 1 && between(2, x, 23)) return new FakeWallGameObject();
 
-	if (x == 4 && y == 4) return new GuardGameObject(2);
+	if (x == 4 && y == 4) return new GuardGameObject(3);
 	if (x == 1 && y == 8) return new BoxGameObject(1);
 	if (x == 2 && y == 8) return new GuardGameObject(3);
 	if (x == 1 && y == 9) return new GuardGameObject(3);
