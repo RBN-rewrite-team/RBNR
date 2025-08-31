@@ -2,6 +2,7 @@
 import { ref, onMounted, watch, nextTick, computed } from 'vue'
 import { player } from "@/core/global"
 import { highlightAutomator } from '@/core/automator/lexer';
+import DOMPurify from 'dompurify';
 
 const emit = defineEmits<{
   (e: 'update:code', code: string): void
@@ -21,8 +22,6 @@ const colors = {
 } as const;
 const highlightedCode = computed(() => {
   let result = highlightAutomator(santize(player.automator.code))
-  
-  //没做
   
   return result
 })
@@ -51,12 +50,18 @@ const handleKeyDown = (e: KeyboardEvent): void => {
 }
 
 const santize = (text: string): string => {
-  return text.replace(/<div><br><\/div>/g, "\n").replace(/<div>/g, "\n").replace(/<\/div>/g, "")
+  return escapeText(DOMPurify.sanitize(text).replace(/<div><br><\/div>/g, "\n").replace(/<div>/g, "").replace(/<\/div>/g, "").replace("<br>", "\n"))
+}
+
+const escapeText = (text: string): string => {
+  let a = document.createElement("textarea")
+  a.innerHTML = text
+  return a.innerText
 }
 
 watch(() => player.automator.code, (newCode) => {
   if (newCode !== player.automator.code && editorRef.value) {
-    player.automator.code = newCode
+    player.automator.code = santize(newCode)
     editorRef.value.innerText = newCode
   }
 })
@@ -65,6 +70,7 @@ onMounted(() => {
   if (editorRef.value) {
     editorRef.value.innerText = player.automator.code
   }
+  handleInput()
 })
 </script>
 

@@ -68,7 +68,7 @@ export const Tetrate = createToken({ name: 'Tetrate', pattern: /\*\*\*/ });
 export const NumberLiteral = createToken({
 	name: 'Number',
 	//这里不带符号，防止与加减法混淆
-	pattern: /Infinity|NaN|((0|[1-9]\d*)(\.\d+)?([eE][+-]?\d+)?)/,
+	pattern: /Infinity|NaN|((\d+(\.\d*)?|\d*\.\d+)?([EeF]([-\+]?)))*(0|\d+(\.\d*)?|\d*\.\d+)/,
 });
 
 export const Comma = createToken({
@@ -142,6 +142,16 @@ export const MultiLineComment = createToken({
 	group: Lexer.SKIPPED,
 });
 
+export const SingleLineCommentWithoutIgnored = createToken({
+	name: 'SingleLineComment',
+	pattern: /\/\/[^\n\r]*/,
+});
+
+export const MultiLineCommentWithoutIgnored = createToken({
+	name: 'MultiLineComment',
+	pattern: /\/\*[\s\S]*?\*\//,
+});
+
 export const allTokens = [
 	WhiteSpace,
 	SingleLineComment,
@@ -196,13 +206,69 @@ export const allTokens = [
 	Mod,
 ];
 
+export const allTokens2 = [
+	WhiteSpace,
+	SingleLineCommentWithoutIgnored,
+	MultiLineCommentWithoutIgnored,
+
+	StringLiteral,
+	NumberLiteral,
+
+	Var,
+	Const,
+	ForIn,
+	For,
+	While,
+	False,
+	True,
+	If,
+	Else,
+	FunctionKeyword,
+	Return,
+
+	Identifier,
+
+	Comma,
+	SemiColen,
+	LParen,
+	RParen,
+	LBrace,
+	RBrace,
+	LBracket,
+	RBracket,
+
+	LessThanOrEqualTo,
+	GreaterThanOrEqualTo,
+	LessThan,
+	GreaterThan,
+	NotEqual,
+	Equal,
+
+	Assign,
+
+	And,
+	Or,
+	Not,
+	Xor,
+
+	Tetrate,
+	Pow,
+	Add,
+	Sub,
+	Mul,
+	Div,
+	Mod,
+];
+
 export const AutomatorLexer = new Lexer(allTokens);
+
+const HighLightLexer = new Lexer(allTokens2);
 
 export default AutomatorLexer;
 
 export function highlightAutomator(code: string) {
 	// 1. 进行词法分析
-	const lexResult = AutomatorLexer.tokenize(code);
+	const lexResult = HighLightLexer.tokenize(code);
 
 	// 检查词法分析错误
 	if (lexResult.errors.length > 0) {
