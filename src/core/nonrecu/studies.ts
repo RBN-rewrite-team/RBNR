@@ -384,8 +384,10 @@ export const studies = [
 		description: '解锁非递归挑战4(没做)',
 		cost: new Decimal(20),
 		canBuy() {
-			return false;
+			return or(22);
 		},
+		isChallenge: true,
+		chal_id: 3,
 	}),
 	new Study({
 		id: 'NRC5',

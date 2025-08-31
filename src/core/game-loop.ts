@@ -158,7 +158,7 @@ export function simulate(diff: number) {
 	//diff = new Decimal(diff)
 	if (player.timeshard.openTf && player.timeshard.tf.gt(0)) {
 		if (player.timeshard.tf.lt(diff)) {
-			diff = diff+(player.timeshard.tf.mul(2).toNumber());
+			diff = diff + player.timeshard.tf.mul(2).toNumber();
 			player.timeshard.tf = new Decimal(0);
 		} else {
 			player.timeshard.tf = player.timeshard.tf.sub(diff);
@@ -169,7 +169,8 @@ export function simulate(diff: number) {
 	let last2 = feature.Ordinal.speedDeri();
 	let pre_cardinal_diff = (diff *= 1 + player.minigame.ore_gets * 0.0025);
 
-	if (player.nonrecu.studies_bought.includes(1)) pre_cardinal_diff *= 2;
+	if (player.nonrecu.studies_bought.includes(1))
+		pre_cardinal_diff *= 2 ** (!CHALLENGE.inChallenge(1, 3) ? 1 : -1);
 	player.nonrecu.secInThisReset = player.nonrecu.secInThisReset.add(pre_cardinal_diff / 1000);
 	qolLoop();
 	CHALLENGE.challengeLoop();
