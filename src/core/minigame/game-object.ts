@@ -16,14 +16,9 @@ import ModalService from '@/utils/Modal';
 import { player } from '../save';
 import { guardBattleInfo, meBattleInfo, runBattleFast } from './battle';
 import { currentPlayerLV, getWorldLevel } from '.';
-import {
-	addReplace,
-	getCurrentBlock,
-	getPlayerCurrentMap,
-	isUnreachable,
-	positionDirection,
-} from './room';
+import { addReplace, getCurrentBlock, positionDirection } from './room';
 import { temp } from '../temp-data';
+import { runDeath } from './death-function';
 
 /**
  * 游戏物体 Nothingness（这里什么都没有）
@@ -187,27 +182,25 @@ export class EntityGameObject extends GameObject {
 	solid() {
 		return true;
 	}
+	battleText() {
+		let guardinfo = guardBattleInfo(this.tier, this.type);
+		let battlestatus = runBattleFast(meBattleInfo(), guardinfo);
+		if (battlestatus.status == 'fail') {
+			return `打了会似(-${battlestatus.extendinfo.hp_cost.toFixed(1)})`;
+		}
+		return `打了HP-${battlestatus.extendinfo.hp_cost.toFixed(1)}`;
+	}
 	interact(x: bigint, y: bigint): void {
 		let guardinfo = guardBattleInfo(this.tier, this.type);
 		player.minigame.interact = 1;
 		const innerText = this.innerText;
 		ModalService.show({
 			title: this.innerText + '属性',
-			content: `生命值${guardinfo.hp} 攻击力${guardinfo.atk} 防御力${guardinfo.def}, 点击确认以战斗`,
+			content: `生命值${guardinfo.hp} 攻击力${guardinfo.atk} 防御力${guardinfo.def}<br>${this.battleText()}, 点击确认以战斗`,
 			onConfirm(values) {
 				let battlestatus = runBattleFast(meBattleInfo(), guardinfo);
 				if (battlestatus.status == 'fail') {
-					ModalService.show({
-						title: '死亡',
-						content:
-							'你被' +
-							innerText +
-							'击杀，返回出生点并清空等级。获得了 0 技能点(Coming S[OoM^OoM]n)。',
-					});
-					player.minigame.current_x = BigInt(getPlayerCurrentMap().spawnpoint[0]);
-					player.minigame.current_y = BigInt(getPlayerCurrentMap().spawnpoint[1]);
-					player.minigame.hp = meBattleInfo().hpMax;
-					player.minigame.xp = 0;
+					runDeath(innerText);
 				} else {
 					player.minigame.hp = battlestatus.hp_after_battle;
 					addReplace(player.minigame.current_room, x, y, '0', true);

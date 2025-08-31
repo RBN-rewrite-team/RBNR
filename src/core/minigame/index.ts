@@ -31,6 +31,8 @@ export interface PlayerMinigameData {
 	editor_mode: 'replace' | 'remove';
 	block: 'W' | '0' | 'FAKEWALL';
 	initializeType: initializeInfo;
+	skillpoint: number;
+	skilltree_bought: number[];
 }
 export function initMiniGameData(): PlayerMinigameData;
 export function initMiniGameData(): PlayerMinigameData {
@@ -56,6 +58,8 @@ export function initMiniGameData(): PlayerMinigameData {
 			rect_width: 7n,
 			rect_height: 7n,
 		},
+		skillpoint: 0,
+		skilltree_bought: [],
 	} satisfies PlayerMinigameData;
 	return a;
 }
@@ -73,7 +77,9 @@ export function nextLVxp() {
 }
 
 export function LVpercent() {
-	let k = (currentPlayerLV() * (currentPlayerLV() + 1)) / 2 - (currentPlayerLV() * (currentPlayerLV() - 1)) / 2;
+	let k =
+		(currentPlayerLV() * (currentPlayerLV() + 1)) / 2 -
+		(currentPlayerLV() * (currentPlayerLV() - 1)) / 2;
 	return (player.minigame.xp - (currentPlayerLV() * (currentPlayerLV() - 1)) / 2) / k;
 }
 
@@ -94,9 +100,15 @@ export function predictableBigIntRandom(x: bigint): number {
 
 export function getWorldLevel() {
 	try {
-		let base = [1, 10, 1, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100];
-		return base[player.minigame.current_room] + Math.max(0, Math.floor(currentPlayerLV() / 2) - base[player.minigame.current_room] / 2);
-	} catch(err) {
+		let base = [
+			1, 10, 1, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100,
+			1e100,
+		];
+		return (
+			base[player.minigame.current_room] +
+			Math.max(0, Math.floor(currentPlayerLV() / 2) - base[player.minigame.current_room] / 2)
+		);
+	} catch (err) {
 		return 1;
 	}
 }

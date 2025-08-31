@@ -1194,3 +1194,39 @@ a {
 	border-left: 1px dashed var(--background-color);
 	margin-left: 8px;
 }
+
+.studies-container {
+	position: relative;
+	min-width: 1300px;
+	min-height: 800px;
+}
+
+.studies_row {
+	display: flex;
+	justify-content: center;
+	position: relative;
+	gap: 30px;
+	margin-bottom: 30px;
+	flex-shrink: none;
+}
+
+.studies_row > .study {
+	margin: 15px;
+	position: relative;
+}
+
+.studies-tree {
+	position: relative;
+	min-height: 300px;
+	padding: 20px;
+}
+
+.connectors-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 1;
+}
