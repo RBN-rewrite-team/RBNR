@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ref, onMounted, watch, nextTick, computed } from 'vue'
 import { player } from "@/core/global"
+import { highlightAutomator } from '@/core/automator/lexer';
 
 const emit = defineEmits<{
   (e: 'update:code', code: string): void
@@ -14,9 +15,12 @@ const lineNumbers = computed(() => {
   const lines = player.automator.code.split('\n').length
   return Array.from({length: lines}, (_, i) => i + 1).join('<br>')
 })
-
+const colors = {
+  keywords: "#569cd6",
+  variables: "#9cdcfe",
+} as const;
 const highlightedCode = computed(() => {
-  let result = santize(player.automator.code)
+  let result = highlightAutomator(player.automator.code)
   
   //没做
   
@@ -191,4 +195,6 @@ onMounted(() => {
   src: url('../../assets/JetBrainsMonoNL-Italic.ttf') format('truetype');
   font-style: italic;
 }
+
+
 </style>

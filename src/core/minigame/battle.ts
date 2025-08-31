@@ -120,7 +120,8 @@ export function guardBattleInfo(tier: number, type = 1): Omit<Required<BattleInf
 		};
 	}
 }
-
+var a = 3;
+a;
 export function meBattleInfo(): BattleInfo & {
 	hpMax: NonNullable<BattleInfo['hpMax']>;
 } {
