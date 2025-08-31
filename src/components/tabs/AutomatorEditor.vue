@@ -47,7 +47,7 @@ const handleKeyDown = (e: KeyboardEvent): void => {
 }
 
 const santize = (text: string): string => {
-  return text.replaceAll("<div><br></div>", "\n").replaceAll("<div>", "\n").replaceAll("</div>", "")
+  return text.replace(/<div><br><\/div>/g, "\n").replace(/<div>/g, "\n").replace(/<\/div>/g, "")
 }
 
 watch(() => player.automator.code, (newCode) => {
