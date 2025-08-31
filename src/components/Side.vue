@@ -33,6 +33,13 @@ import { isTester } from '@/core/save/testing.ts';
 						>地下城
 						</div>
 					</div>
+					<div v-if="isTester() && (player.firstResetBit & 0b10000) == 0b10000">
+						<div class="menu2"
+							:class="{ focus: player.currentTab == 167 }"
+							@click="player.currentTab = 167"
+						>自动机
+						</div>
+					</div>
 					<div v-if="player.singularity.stage < 11">
 						<div class="menu1">后继</div>
 						<div class="menu_line"></div>

@@ -17,6 +17,12 @@ export const For = createToken({
 	longer_alt: Identifier,
 });
 
+export const Return = createToken({
+	name: 'Return',
+	pattern: /return/,
+	longer_alt: Identifier,
+});
+
 export const While = createToken({ name: 'While', pattern: /while/, longer_alt: Identifier });
 
 export const Const = createToken({ name: 'Const', pattern: /const/, longer_alt: Identifier });
@@ -50,6 +56,8 @@ export const Add = createToken({ name: 'Add', pattern: /\+/ });
 export const Sub = createToken({ name: 'Sub', pattern: /-/ });
 
 export const Mul = createToken({ name: 'Mul', pattern: /\*/ });
+
+export const Div = createToken({ name: 'Div', pattern: /\// });
 
 export const Pow = createToken({ name: 'Pow', pattern: /\*\*/ });
 
@@ -152,6 +160,7 @@ export const allTokens = [
 	If,
 	Else,
 	FunctionKeyword,
+	Return,
 
 	Identifier,
 
@@ -183,6 +192,7 @@ export const allTokens = [
 	Add,
 	Sub,
 	Mul,
+	Div,
 	Mod,
 ];
 

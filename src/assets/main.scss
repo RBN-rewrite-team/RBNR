@@ -61,7 +61,7 @@
 	touch-action: manipulation; // disable doubleclick zooming
 	text-size-adjust: none;
 
-	&:not(.katex):not(.katex *) {
+	&:not(.katex):not(.katex *):not(.code-editor):not(.code-editor *) {
 		font-family: '思源黑体Regular';
 	}
 }

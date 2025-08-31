@@ -218,7 +218,7 @@ export interface Player {
 	automator: {
 		running: boolean;
 		code: string;
-		currentLine: number;
+		currentBlockPos: number;
 	};
 }
 
@@ -396,7 +396,7 @@ function getInitialPlayerData(): Player {
 		automator: {
 			running: false,
 			code: '',
-			currentLine: 0,
+			currentBlockPos: 0,
 		},
 	};
 }

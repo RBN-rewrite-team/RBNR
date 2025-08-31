@@ -45,6 +45,7 @@ import PlotView from './components/tabs/plot/PlotView.vue';
 import NonRecursionTab from './components/tabs/nonrecursion/NonRecursionTab.vue';
 import NonRecursionTabChal from './components/tabs/nonrecursion/NonRecursionTabChal.vue';
 import MiniGame from './components/tabs/MiniGame.vue';
+import AutomatorEditor from './components/tabs/AutomatorEditor.vue';
 </script>
 
 <template>
@@ -91,6 +92,7 @@ import MiniGame from './components/tabs/MiniGame.vue';
 				<HydraDilute v-if="player.currentTab === 20" />
 				<NonRecursionTab v-if="player.currentTab === 21" />
 				<NonRecursionTabChal v-if="player.currentTab === 22"></NonRecursionTabChal>
+				<AutomatorEditor v-if="player.currentTab === 167" />
 				<PlotTab v-if="player.currentTab === 200" />
 				<SaveBank v-if="player.currentTab === 300" />
 				<MiniGame v-if="player.currentTab === 1225" />
