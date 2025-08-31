@@ -95,7 +95,7 @@ onMounted(() => {
   color: white;
   font-family: 'JetBrains Mono', monospace;
   font-size: 15px;
-  overflow: auto;
+  overflow: hidden;
   white-space: nowrap;
   word-break: keep-all;
 }
