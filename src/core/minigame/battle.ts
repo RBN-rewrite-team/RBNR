@@ -125,12 +125,20 @@ a;
 export function meBattleInfo(): BattleInfo & {
 	hpMax: NonNullable<BattleInfo['hpMax']>;
 } {
+	let hpMax = 10;
+	if (player.minigame.skilltree_bought.includes(2)) hpMax += 5;
+	hpMax *= currentPlayerLV();
+	if (player.minigame.skilltree_bought.includes(0)) hpMax += 2 * currentPlayerLV();
+	if (player.minigame.skilltree_bought.includes(3)) hpMax *= 1.5;
+
+	let atk = 5;
+	if (player.minigame.skilltree_bought.includes(1)) atk += 1;
+	atk *= currentPlayerLV();
+	if (player.minigame.skilltree_bought.includes(4)) hpMax *= 1.2;
 	return {
 		hp: player.minigame.hp,
-		hpMax:
-			10 * currentPlayerLV() +
-			(player.minigame.skilltree_bought.includes(0) ? 2 * currentPlayerLV() : 0),
-		atk: (5 + (player.minigame.skilltree_bought.includes(1) ? 1 : 0)) * currentPlayerLV(),
+		hpMax,
+		atk,
 		def: 0,
 	};
 }
