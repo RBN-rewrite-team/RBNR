@@ -177,7 +177,12 @@ export const NON_RECURSIVE = {
 		});
 	},
 	reset(force = false) {
-		if (!this.resetable() && !force) return;
+		if (!this.resetable() && !force) {
+			return ModalService.show({
+				title: '重置不了',
+				content: '重置需要 序数到达BO， 255,000,000溶液, 1e326649 九头蛇能量',
+			});
+		}
 		player.firstResetBit |= 0b10000;
 		if (!force) this.addPower(this.gain());
 		if (!force) player.nonrecu.resetTimes = player.nonrecu.resetTimes.add(1);
