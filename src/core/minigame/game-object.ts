@@ -16,14 +16,9 @@ import ModalService from '@/utils/Modal';
 import { player } from '../save';
 import { guardBattleInfo, meBattleInfo, runBattleFast } from './battle';
 import { currentPlayerLV, getWorldLevel } from '.';
-import {
-	addReplace,
-	getCurrentBlock,
-	getPlayerCurrentMap,
-	isUnreachable,
-	positionDirection,
-} from './room';
+import { addReplace, getCurrentBlock, positionDirection } from './room';
 import { temp } from '../temp-data';
+import { runDeath } from './death-function';
 
 /**
  * 游戏物体 Nothingness（这里什么都没有）
@@ -86,8 +81,12 @@ export class TeleporterGameObject extends GameObject {
 		player.minigame.current_room = this.room;
 		player.minigame.current_x = this.destination[0];
 		player.minigame.current_y = this.destination[1];
-		for(let i in player.minigame.replaces) if(player.minigame.replaces[i].recover) delete player.minigame.replaces[i];
-		if(!player.minigame.visited.includes(this.room)) player.minigame.visited.push(this.room);
+		for (let i in player.minigame.replaces) {
+			for (let j in player.minigame.replaces[i]) {
+				if (player.minigame.replaces[i][j].recover) delete player.minigame.replaces[i][j];
+			}
+		}
+		if (!player.minigame.visited.includes(this.room)) player.minigame.visited.push(this.room);
 	}
 	solid() {
 		return false;
@@ -183,27 +182,25 @@ export class EntityGameObject extends GameObject {
 	solid() {
 		return true;
 	}
+	battleText() {
+		let guardinfo = guardBattleInfo(this.tier, this.type);
+		let battlestatus = runBattleFast(meBattleInfo(), guardinfo);
+		if (battlestatus.status == 'fail') {
+			return `打了会似(-${battlestatus.extendinfo.hp_cost.toFixed(1)})`;
+		}
+		return `打了HP-${battlestatus.extendinfo.hp_cost.toFixed(1)}`;
+	}
 	interact(x: bigint, y: bigint): void {
 		let guardinfo = guardBattleInfo(this.tier, this.type);
 		player.minigame.interact = 1;
 		const innerText = this.innerText;
 		ModalService.show({
 			title: this.innerText + '属性',
-			content: `生命值${guardinfo.hp} 攻击力${guardinfo.atk} 防御力${guardinfo.def}, 点击确认以战斗`,
+			content: `生命值${guardinfo.hp} 攻击力${guardinfo.atk} 防御力${guardinfo.def}<br>${this.battleText()}, 点击确认以战斗`,
 			onConfirm(values) {
 				let battlestatus = runBattleFast(meBattleInfo(), guardinfo);
 				if (battlestatus.status == 'fail') {
-					ModalService.show({
-						title: '死亡',
-						content:
-							'你被' +
-							innerText +
-							'击杀，返回出生点并清空等级。获得了 0 技能点(Coming S[OoM^OoM]n)。',
-					});
-					player.minigame.current_x = BigInt(getPlayerCurrentMap().spawnpoint[0]);
-					player.minigame.current_y = BigInt(getPlayerCurrentMap().spawnpoint[1]);
-					player.minigame.hp = meBattleInfo().hpMax;
-					player.minigame.xp = 0;
+					runDeath(innerText);
 				} else {
 					player.minigame.hp = battlestatus.hp_after_battle;
 					addReplace(player.minigame.current_room, x, y, '0', true);
@@ -225,9 +222,9 @@ export class GuardGameObject extends EntityGameObject {
 		super(1);
 		this.tier = getWorldLevel();
 		this.type = type;
-		if(type == 3) this.innerText = '高级守卫';
-		if(type == 4) this.innerText = '重型守卫';
-		if(type == 5) this.innerText = '魔法师';
+		if (type == 3) this.innerText = '高级守卫';
+		if (type == 4) this.innerText = '重型守卫';
+		if (type == 5) this.innerText = '魔法师';
 	}
 }
 export class BossGameObject extends EntityGameObject {

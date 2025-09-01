@@ -2,6 +2,7 @@
 import {
 	BoxGameObject,
 	DoorGameObject,
+	EntityGameObject,
 	GuardGameObject,
 	HealthRecoveryGameObject,
 	KeyGameObject,
@@ -57,8 +58,9 @@ function class3() {
 				    金宝箱
 			    </td>
             </template>
-            <template v-else-if=" (game_object instanceof GuardGameObject)  ">
-                {{ game_object.innerText=="" ? "守卫" : game_object.innerText }} 
+            <template v-else-if=" (game_object instanceof EntityGameObject)  ">
+                {{ game_object.innerText=="" ? "守卫" : game_object.innerText }} <br>
+                <span style="font-size: 10px">{{ game_object.battleText() }}</span>
             </template>
             <template v-else-if=" (game_object instanceof OreGameObject)  ">
                     矿石

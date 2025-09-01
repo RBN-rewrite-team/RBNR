@@ -61,7 +61,7 @@
 	touch-action: manipulation; // disable doubleclick zooming
 	text-size-adjust: none;
 
-	&:not(.katex):not(.katex *) {
+	&:not(.katex):not(.katex *):not(.code-editor):not(.code-editor *) {
 		font-family: '思源黑体Regular';
 	}
 }
@@ -1193,4 +1193,93 @@ a {
 .tree-node-children {
 	border-left: 1px dashed var(--background-color);
 	margin-left: 8px;
+}
+
+.studies-container {
+	position: relative;
+	min-width: 1300px;
+	min-height: 800px;
+}
+
+.studies_row {
+	display: flex;
+	justify-content: center;
+	position: relative;
+	gap: 30px;
+	margin-bottom: 30px;
+	flex-shrink: none;
+}
+
+.studies_row > .study {
+	margin: 15px;
+	position: relative;
+}
+
+.studies-tree {
+	position: relative;
+	min-height: 300px;
+	padding: 20px;
+}
+
+.connectors-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 1;
+}
+
+
+.automator-var{
+  color: #569cd6
+}
+
+.automator-identifier{
+	color: #9cdcfe
+}
+
+.automator-number {
+	color: #b5cea8
+}
+
+.automator-while, .automator-for, .automator-return, .automator-if, .automator-else, .automator-forin, .automator-function {
+	color: #569cd6
+}
+
+.automator-true,
+.automator-false {
+  color: #c586c0;
+}
+
+.automator-stringliteral {
+  color: #ce9178;
+}
+
+.automator-singlelinecomment,
+.automator-multilinecomment {
+  color: #6a9955;
+  font-style: italic;
+}
+
+.automator-lessthanorequalto,
+.automator-greaterthanorequalto,
+.automator-greaterthan,
+.automator-lessthan,
+.automator-notequal,
+.automator-equal,
+.automator-assign,
+.automator-add,
+.automator-sub,
+.automator-mul,
+.automator-div,
+.automator-pow,
+.automator-tetrate,
+.automator-or,
+.automator-and,
+.automator-xor,
+.automator-not,
+{
+  color: #f536a0;
 }

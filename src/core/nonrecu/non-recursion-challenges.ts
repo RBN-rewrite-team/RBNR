@@ -97,4 +97,25 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			);
 		},
 	},
+	{
+		name: '反转研究',
+		get descEasy() {
+			return '挑战中你始终拥有前 2x-1 行研究，其效果完全反转<br>奖励：没做';
+		},
+		get descHard() {
+			return this.descEasy;
+		},
+		canEnter() {
+			return player.nonrecu.studies_bought.includes(22);
+		},
+		loop() {
+			player.nonrecu.studies_bought = [...new Set(player.nonrecu.studies_bought), 11, 12];
+		},
+		effect(x): Decimal {
+			return x.gt(0) ? x.mul(0.1).add(0.1) : new Decimal(0);
+		},
+		effD(x): string {
+			return '没做';
+		},
+	},
 ] as const;

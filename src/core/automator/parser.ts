@@ -20,6 +20,7 @@ import {
 	Add,
 	Sub,
 	Mul,
+	Div,
 	Pow,
 	Mod,
 	Tetrate,
@@ -40,13 +41,12 @@ import {
 	LBracket,
 	RBracket,
 	Assign,
+	Return,
 } from './lexer';
 
-class AutomatorParser extends CstParser {
+export class AutomatorParser extends CstParser {
 	constructor() {
-		super(allTokens, {
-			nodeLocationTracking: 'full',
-		});
+		super(allTokens);
 
 		this.performSelfAnalysis();
 	}
@@ -66,6 +66,7 @@ class AutomatorParser extends CstParser {
 			{ ALT: () => this.SUBRULE(this.forInStatement) },
 			{ ALT: () => this.SUBRULE(this.whileStatement) },
 			{ ALT: () => this.SUBRULE(this.functionDeclaration) },
+			{ ALT: () => this.SUBRULE(this.returnStatement) },
 			{ ALT: () => this.SUBRULE(this.expressionStatement) },
 			{ ALT: () => this.SUBRULE(this.blockStatement) },
 		]);
@@ -140,6 +141,14 @@ class AutomatorParser extends CstParser {
 		this.CONSUME(RParen);
 		this.SUBRULE(this.blockStatement);
 	});
+	
+	public returnStatement = this.RULE('returnStatement', () => {
+	  this.CONSUME(Return);
+	  this.OPTION(() => {
+	    this.SUBRULE(this.expression)
+	  })
+	  this.CONSUME(SemiColen)
+	})
 
 	public parameterList = this.RULE('parameterList', () => {
 		this.CONSUME1(Identifier);
@@ -234,7 +243,7 @@ class AutomatorParser extends CstParser {
 	public multiplicativeExpression = this.RULE('multiplicativeExpression', () => {
 		this.SUBRULE(this.exponentialExpression);
 		this.MANY(() => {
-			this.OR([{ ALT: () => this.CONSUME(Mul) }, { ALT: () => this.CONSUME(Mod) }]);
+			this.OR([{ ALT: () => this.CONSUME(Mul) }, { ALT: () => this.CONSUME(Div) }, { ALT: () => this.CONSUME(Mod) }]);
 			this.SUBRULE2(this.exponentialExpression);
 		});
 	});
@@ -299,20 +308,3 @@ class AutomatorParser extends CstParser {
 const parser = new AutomatorParser();
 
 export default parser;
-
-export function parseInput(inputText: string) {
-	const lexingResult = AutomatorLexer.tokenize(inputText);
-	if (lexingResult.errors.length > 0) {
-		throw new Error('Lexing errors: ' + lexingResult.errors.map((e) => e.message).join(', '));
-	}
-
-	parser.input = lexingResult.tokens;
-
-	const cst = parser.program();
-
-	if (parser.errors.length > 0) {
-		throw new Error('Parsing errors: ' + parser.errors.map((e: any) => e.message).join(', '));
-	}
-
-	return cst;
-}

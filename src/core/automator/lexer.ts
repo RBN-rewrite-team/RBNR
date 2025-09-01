@@ -17,6 +17,12 @@ export const For = createToken({
 	longer_alt: Identifier,
 });
 
+export const Return = createToken({
+	name: 'Return',
+	pattern: /return/,
+	longer_alt: Identifier,
+});
+
 export const While = createToken({ name: 'While', pattern: /while/, longer_alt: Identifier });
 
 export const Const = createToken({ name: 'Const', pattern: /const/, longer_alt: Identifier });
@@ -51,6 +57,8 @@ export const Sub = createToken({ name: 'Sub', pattern: /-/ });
 
 export const Mul = createToken({ name: 'Mul', pattern: /\*/ });
 
+export const Div = createToken({ name: 'Div', pattern: /\// });
+
 export const Pow = createToken({ name: 'Pow', pattern: /\*\*/ });
 
 export const Mod = createToken({ name: 'Mod', pattern: /%/ });
@@ -60,7 +68,7 @@ export const Tetrate = createToken({ name: 'Tetrate', pattern: /\*\*\*/ });
 export const NumberLiteral = createToken({
 	name: 'Number',
 	//这里不带符号，防止与加减法混淆
-	pattern: /Infinity|NaN|((0|[1-9]\d*)(\.\d+)?([eE][+-]?\d+)?)/,
+	pattern: /Infinity|NaN|((\d+(\.\d*)?|\d*\.\d+)?([EeF]([-\+]?)))*(0|\d+(\.\d*)?|\d*\.\d+)/,
 });
 
 export const Comma = createToken({
@@ -134,6 +142,16 @@ export const MultiLineComment = createToken({
 	group: Lexer.SKIPPED,
 });
 
+export const SingleLineCommentWithoutIgnored = createToken({
+	name: 'SingleLineComment',
+	pattern: /\/\/[^\n\r]*/,
+});
+
+export const MultiLineCommentWithoutIgnored = createToken({
+	name: 'MultiLineComment',
+	pattern: /\/\*[\s\S]*?\*\//,
+});
+
 export const allTokens = [
 	WhiteSpace,
 	SingleLineComment,
@@ -152,6 +170,7 @@ export const allTokens = [
 	If,
 	Else,
 	FunctionKeyword,
+	Return,
 
 	Identifier,
 
@@ -183,9 +202,116 @@ export const allTokens = [
 	Add,
 	Sub,
 	Mul,
+	Div,
+	Mod,
+];
+
+export const allTokens2 = [
+	WhiteSpace,
+	SingleLineCommentWithoutIgnored,
+	MultiLineCommentWithoutIgnored,
+
+	StringLiteral,
+	NumberLiteral,
+
+	Var,
+	Const,
+	ForIn,
+	For,
+	While,
+	False,
+	True,
+	If,
+	Else,
+	FunctionKeyword,
+	Return,
+
+	Identifier,
+
+	Comma,
+	SemiColen,
+	LParen,
+	RParen,
+	LBrace,
+	RBrace,
+	LBracket,
+	RBracket,
+
+	LessThanOrEqualTo,
+	GreaterThanOrEqualTo,
+	LessThan,
+	GreaterThan,
+	NotEqual,
+	Equal,
+
+	Assign,
+
+	And,
+	Or,
+	Not,
+	Xor,
+
+	Tetrate,
+	Pow,
+	Add,
+	Sub,
+	Mul,
+	Div,
 	Mod,
 ];
 
 export const AutomatorLexer = new Lexer(allTokens);
 
+const HighLightLexer = new Lexer(allTokens2);
+
 export default AutomatorLexer;
+
+export function highlightAutomator(code: string) {
+	// 1. 进行词法分析
+	const lexResult = HighLightLexer.tokenize(code);
+
+	// 检查词法分析错误
+	if (lexResult.errors.length > 0) {
+		console.error('Lexing errors:', lexResult.errors);
+		// 可以选择返回原始文本或处理错误
+		return code;
+	}
+
+	let result = '';
+	let lastEndOffset = 0;
+	for (const token of lexResult.tokens) {
+		// 添加两个 Token 之间的空白文本
+		if (token.startOffset > lastEndOffset) {
+			const whitespace = code.substring(lastEndOffset, token.startOffset);
+			result += escapeHtml(whitespace)
+				.replace(/ /g, '&nbsp;')
+				.replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;')
+				.replace(/\n/g, '<br>')
+				.replace(/\r/g, '');
+		}
+
+		// 添加高亮 Token
+		const content = escapeHtml(token.image);
+		result += `<span class="automator-${token.tokenType.name.toLowerCase()}">${content}</span>`;
+
+		lastEndOffset = (token.endOffset ?? 0) + 1;
+	}
+
+	// 添加最后的空白文本（如果有）
+	if (lastEndOffset < code.length) {
+		const trailingWhitespace = code.substring(lastEndOffset);
+		result += escapeHtml(trailingWhitespace)
+			.replace(/ /g, '&nbsp;')
+			.replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;')
+			.replace(/\n/g, '<br>')
+			.replace(/\r/g, '');
+	}
+
+	return result;
+}
+
+function escapeHtml(text: string) {
+	const div = document.createElement('div');
+	div.textContent = text;
+	return div.innerHTML;
+}

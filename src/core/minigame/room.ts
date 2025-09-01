@@ -159,6 +159,9 @@ export function getPlayerMap(room: number): SingleMap {
 	for (let i = 0; i < replacements.length; i++) {
 		let repl = replacements[i];
 		if (!repl) continue;
+		if (!a.map[Number(repl.y)]) continue;
+		if (!a.map[Number(repl.y)][Number(repl.x)]) continue;
+
 		a.map[Number(repl.y)][Number(repl.x)] = replacement(
 			a.map[Number(repl.y)][Number(repl.x)],
 			repl,

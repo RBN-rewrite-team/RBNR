@@ -17,6 +17,7 @@
     "@vitejs/plugin-legacy": "^7.2.1",
     "break_eternity.js": "^2.1.2",
     "chevrotain": "^11.0.3",
+    "dompurify": "^3.2.6",
     "hotkeys-js": "^3.13.15",
     "js-sha256": "^0.11.1",
     "katex": "^0.13.24",
