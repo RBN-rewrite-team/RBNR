@@ -60,7 +60,7 @@ function class3() {
             </template>
             <template v-else-if=" (game_object instanceof EntityGameObject)  ">
                 {{ game_object.innerText=="" ? "守卫" : game_object.innerText }} <br>
-                <span style="font-size: 10px">{{ game_object.battleText() }}</span>
+                <span style="font-size: 10px" v-html="game_object.battleText()" />
             </template>
             <template v-else-if=" (game_object instanceof OreGameObject)  ">
                     矿石

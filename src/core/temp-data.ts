@@ -7,4 +7,8 @@ export const temp = reactive({
 	plotcd: Date.now(),
 	nonrecpagevisit: [true, false, true],
 	minigametip: '',
+	dungeonsSP: 0,
+	get innerWidth(): number {
+		return window.innerWidth;
+	},
 });

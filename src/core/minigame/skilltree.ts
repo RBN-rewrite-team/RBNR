@@ -84,12 +84,12 @@ export const studies = [
 	new Study({
 		id: '11', //0
 		description: '每级额外多2生命值',
-		cost: new Decimal(1),
+		cost: new Decimal(5),
 	}),
 	new Study({
 		id: '21', // 1
 		description: '基础攻击+1',
-		cost: new Decimal(2),
+		cost: new Decimal(10),
 		canBuy() {
 			return or(0);
 		},
@@ -97,7 +97,7 @@ export const studies = [
 	new Study({
 		id: '22', // 2
 		description: '基础HP+5',
-		cost: new Decimal(2),
+		cost: new Decimal(10),
 		canBuy() {
 			return or(0);
 		},
@@ -105,7 +105,7 @@ export const studies = [
 	new Study({
 		id: '31', // 3
 		description: 'HP*1.5',
-		cost: new Decimal(2),
+		cost: new Decimal(15),
 		canBuy() {
 			return or(1, 2);
 		},
@@ -113,7 +113,7 @@ export const studies = [
 	new Study({
 		id: '41', // 4
 		description: '攻击*1.2',
-		cost: new Decimal(2),
+		cost: new Decimal(40),
 		canBuy() {
 			return or(3);
 		},

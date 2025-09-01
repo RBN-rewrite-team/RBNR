@@ -93,11 +93,31 @@ function enterEditor() {
 
 	}
 }
+function exitEditor() {
+	if (atDEV()) {
+		player.minigame.ateditor=!true;
+		player.minigame.current_room=0;
+		player.minigame.current_x=1n;
+		player.minigame.current_y=1n;
+	}
+}
 </script>
 
 <template>
 	<div class="main">
-		<div style="width: 400px; height: 200px; background-color: grey">
+		<table style="position: absolute; bottom: 0; left: 0; width: 100%; height: 100px; z-index: 6;"
+		v-if="temp.innerWidth < 800">
+			<tbody>
+				<tr>
+					<td style="width: 25%" @click="temp.dungeonsSP = 0">人物属性</td>
+					<td style="width: 25%" @click="temp.dungeonsSP = 1">技能树</td>
+					<td style="width: 25%" @click="temp.dungeonsSP = 2">地下城</td>
+					<td style="width: 25%" @click="temp.dungeonsSP = 3">？？？</td>
+				</tr>
+			</tbody>
+		</table>
+		<div style="position: absolute; left: 0%; width: 400px; height: 200px; background-color: grey; z-index: 6"
+			v-if="temp.dungeonsSP == 0 || temp.innerWidth >= 800">
 			Numerorum<br />
 			<div style="position: relative; height: 50px; width: 400px; background-color: black">
 				<div align="center" style="font-size: 17px">
@@ -158,15 +178,15 @@ function enterEditor() {
 			</table>
 		</div>
 		<br />
-		<div style="display: flex; flex-direction: row; justify-content: centerl; margin-top:150px;">
+		<div style="position: absolute; left: 125px; bottom: 100px; height: 300px; width: 300px; z-index: 5"
+		v-if="temp.dungeonsSP == 2 || temp.innerWidth >= 800">
 			
-			<button @click="handleKeyPress('up')" class="clickable_button">↑</button>
-			<button @click="handleKeyPress('down')" class="clickable_button">↓</button>
-			<button @click="handleKeyPress('left')" class="clickable_button">←</button>
-			<button @click="handleKeyPress('right')" class="clickable_button">→</button>
-			<button class="clickable_button" v-if="atDEV()" @click="enterEditor">Enter Editor Mode</button>
-			
-			
+			<button @click="handleKeyPress('up')" class="movement_button" style="top: 50px; left: 150px">↑</button>
+			<button @click="handleKeyPress('down')" class="movement_button" style="top: 250px; left: 150px">↓</button>
+			<button @click="handleKeyPress('left')" class="movement_button" style="top: 150px; left: 50px">←</button>
+			<button @click="handleKeyPress('right')" class="movement_button" style="top: 150px; left: 250px">→</button>
+			<button class="clickable_button" v-if="atDEV()" @click="enterEditor" style="position: absolute; top: 90%">编辑模式</button>
+			<button class="clickable_button" v-if="atDEV()" @click="exitEditor" style="position: absolute; top: 100%">退出编辑模式</button>
 		</div>
 		<div v-if="player.minigame.ateditor" style="display: flex; flex-direction: row; justify-content: center">
 			<button class="clickable_button" @click="player.minigame.editor_mode='replace'">放置方块</button>
@@ -178,7 +198,8 @@ function enterEditor() {
 		<div v-if="player.minigame.ateditor" style="display: flex; flex-direction: row; justify-content: center">
 			<button class="clickable_button" @click="initializeEditorMap">地图方块初始化</button>
 		</div>
-		<div>
+		<div style="position: absolute; left: 75%; top: 20px; transform: translateX(-50%)"
+		v-if="temp.dungeonsSP == 2 || temp.innerWidth >= 800">
 			X: {{ formatbigint(player.minigame.current_x) }}<br />
 			Y: {{ formatbigint(player.minigame.current_y) }}
 			<br />
@@ -187,7 +208,9 @@ function enterEditor() {
 			{{ temp.minigametip }}
 		</div>
 		<br />
-		<table>
+		<table
+		:style="{position: 'absolute', left: (temp.dungeonsSP == 2 && temp.innerWidth < 800) ? '25%' : '75%', top: (temp.dungeonsSP == 2 && temp.innerWidth < 800) ? '25%' : '50%', transform: 'translate(-50%, -50%)'}"
+		v-if="temp.dungeonsSP == 2 || temp.innerWidth >= 800">
 			<tbody>
 				<template
 					v-for="y in range(
@@ -249,9 +272,9 @@ function enterEditor() {
                 </tr> -->
 			</tbody>
 		</table>
-		<div>
+		<div v-if="temp.dungeonsSP == 1 || temp.innerWidth >= 800" >
 			技能树<br>
-			<SkillTree></SkillTree>
+			<div style="overflow: auto; position: absolute; left: 50%; transform: translateX(-50%); width: 50%; height: 80%; bottom: 0; scrollbar-width: none"><SkillTree></SkillTree></div>
 		</div>
 	</div>
 </template>
@@ -272,5 +295,15 @@ td {
 	width: 60px;
 	background-color: var(--background-color);
 	border: 1px solid red;
+}
+.movement_button {
+	position: absolute;
+	width: 80px;
+	height: 80px;
+	transform: translate(-50%, -50%);
+	background-color: var(--background-color);
+	color: var(--color);
+	font-size: 30px;
+	border: 2px solid var(--color);
 }
 </style>
