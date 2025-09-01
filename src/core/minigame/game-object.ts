@@ -186,32 +186,24 @@ export class EntityGameObject extends GameObject {
 		let guardinfo = guardBattleInfo(this.tier, this.type);
 		let battlestatus = runBattleFast(meBattleInfo(), guardinfo);
 		if (battlestatus.status == 'fail') {
-			return `打了会似(-${battlestatus.extendinfo.hp_cost.toFixed(1)})`;
+			return `<span style="color: rgb(127, 0, 0)">无法击败</span>`;
 		}
-		return `打了HP-${battlestatus.extendinfo.hp_cost.toFixed(1)}`;
+		if(battlestatus.extendinfo.hp_cost >= meBattleInfo().hp / 2) return `<span style="color: red">HP-${battlestatus.extendinfo.hp_cost.toFixed(1)}</span>`;
+		return `<span style="color: green">HP-${battlestatus.extendinfo.hp_cost.toFixed(1)}</span>`;
 	}
 	interact(x: bigint, y: bigint): void {
 		let guardinfo = guardBattleInfo(this.tier, this.type);
 		player.minigame.interact = 1;
 		const innerText = this.innerText;
-		ModalService.show({
-			title: this.innerText + '属性',
-			content: `生命值${guardinfo.hp} 攻击力${guardinfo.atk} 防御力${guardinfo.def}<br>${this.battleText()}, 点击确认以战斗`,
-			onConfirm(values) {
-				let battlestatus = runBattleFast(meBattleInfo(), guardinfo);
-				if (battlestatus.status == 'fail') {
-					runDeath(innerText);
-				} else {
-					player.minigame.hp = battlestatus.hp_after_battle;
-					addReplace(player.minigame.current_room, x, y, '0', true);
-					player.minigame.xp += guardinfo.xp;
-				}
-				player.minigame.interact = 0;
-			},
-			onClose() {
-				player.minigame.interact = 0;
-			},
-		});
+		let battlestatus = runBattleFast(meBattleInfo(), guardinfo);
+		if (battlestatus.status == 'fail') {
+			runDeath(innerText);
+		} else {
+			player.minigame.hp = battlestatus.hp_after_battle;
+			addReplace(player.minigame.current_room, x, y, '0', true);
+			player.minigame.xp += guardinfo.xp;
+		}
+		player.minigame.interact = 0;
 	}
 }
 export class GuardGameObject extends EntityGameObject {

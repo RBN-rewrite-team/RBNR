@@ -69,6 +69,7 @@ export function init() {
 		hotkeys('ArrowLeft', keyboardEventListener);
 		hotkeys('ArrowRight', keyboardEventListener);
 		//hardResetMiniGame();
+		player.minigame.interact = 0;
 	} catch (e) {
 		stopGameLoop();
 		stopSaveLoop();

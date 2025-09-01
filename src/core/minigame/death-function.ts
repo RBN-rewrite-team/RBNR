@@ -17,7 +17,7 @@ export function runDeath(innerText: string) {
 	});
 	player.minigame.current_x = BigInt(getPlayerCurrentMap().spawnpoint[0]);
 	player.minigame.current_y = BigInt(getPlayerCurrentMap().spawnpoint[1]);
-	player.minigame.hp = meBattleInfo().hpMax;
 	player.minigame.xp = 0;
 	player.minigame.skillpoint += skillgain;
+	player.minigame.hp = meBattleInfo().hpMax;
 }
