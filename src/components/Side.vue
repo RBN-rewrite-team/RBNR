@@ -26,7 +26,7 @@ import { isTester } from '@/core/save/testing.ts';
 		<div class="menu" id="menu">
 			<div class="background" style="overflow: auto">
 				<div class="main">
-					<div v-if="isTester()">
+					<div>
 						<div class="menu2"
 							:class="{ focus: player.currentTab == 1225 }"
 							@click="player.currentTab = 1225"
