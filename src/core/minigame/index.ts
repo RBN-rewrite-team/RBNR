@@ -41,7 +41,9 @@ export function initMiniGameData(): PlayerMinigameData {
 		visited: [],
 		current_x: 1n,
 		current_y: 1n,
-		replaces: {},
+		replaces: {
+			0: [],
+		},
 		keys_have: [],
 		hp: 10,
 		interact: 0,

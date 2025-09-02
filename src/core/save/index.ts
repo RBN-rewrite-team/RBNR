@@ -547,12 +547,17 @@ export function loadFromString(saveContent: string) {
 	let repl = player.minigame.replaces as
 		| typeof player.minigame.replaces
 		| ValueOf<typeof player.minigame.replaces>;
-	if (Array.isArray(repl)) {
-		for (const replacement of repl) {
-			if (!replacement) continue;
-			replacement.x = BigInt(replacement.x);
+	for(const key in repl) {
+		if (repl.hasOwnProperty(key)) {
+            const arr = repl[key];
+			if (Array.isArray(arr)) {
+				for (const replacement of arr) {
+					if (!replacement) continue;
+					replacement.x = BigInt(replacement.x);
 
-			replacement.y = BigInt(replacement.y);
+					replacement.y = BigInt(replacement.y);
+				}
+			}
 		}
 	}
 	let new333: typeof player.minigame.replaces = {};
