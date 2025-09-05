@@ -544,9 +544,7 @@ export function loadFromString(saveContent: string) {
 	player.minigame.current_y = BigInt(player.minigame.current_y);
 	type ValueOf<T> = T extends Record<any, infer V> ? V : any;
 	type ArrayContent<T> = T extends Array<infer C> ? C : any;
-	let repl = player.minigame.replaces as
-		| typeof player.minigame.replaces
-		| ValueOf<typeof player.minigame.replaces>;
+	const repl = player.minigame.replaces;
 	for(const key in repl) {
 		if (repl.hasOwnProperty(key)) {
             const arr = repl[key];
