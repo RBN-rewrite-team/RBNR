@@ -46,18 +46,9 @@ jobs:
           git checkout -b $BRANCH_NAME
           git add .
           git commit -m "style: format code"
-          git push origin $BRANCH_NAME
+          gh pr create --base ${{ env.branch_name }} -l "automated, style" -b "npm run format" -t "Style: Format code"
+          gh pr merge -d -b "npm run format" -m -t "style: format code"
           echo "branch_name=$BRANCH_NAME" >> $GITHUB_ENV
-          
-      - name: Create Pull Request
-        if: steps.changes.outputs.changes == 'true'
-        uses: peter-evans/create-pull-request@v5
-        with:
-          branch: ${{ env.branch_name }}
-          delete-branch: true
-          title: "Style: Format code"
-          body: "Automated code formatting via `npm run format`"
-          labels: "automated, style"
           
       - name: No changes message
         if: steps.changes.outputs.changes == 'false'
