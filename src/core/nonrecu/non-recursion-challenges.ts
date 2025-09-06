@@ -79,7 +79,7 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			return player.nonrecu.studies_bought.includes(12);
 		},
 		loop() {
-			if (player.hydra.dilute.solution.gte(255000000 * 5 ** +player.challenges[1][2])) {
+			if (player.hydra.dilute.solution.gte(255000000 * 5 ** player.challenges[1][2].toNumber())) {
 				player.challengein = [-1, -1];
 				player.challenges[1][2] = player.challenges[1][2].add(1).min(5);
 			}
@@ -99,7 +99,7 @@ export const NONREC_CHALS: SingleChallenge[] = [
 	{
 		name: '反转研究',
 		get descEasy() {
-			return '挑战中你始终拥有前 2x-1 行研究，其效果完全反转<br>奖励：没做';
+			return '挑战中你始终拥有前 2x-1 行研究，其效果完全反转<br>奖励：将非递归研究101的效果变为10%，基于完成次数增加非递归理论总量，前 2x-1 行非递归研究不再消耗任何东西';
 		},
 		get descHard() {
 			return this.descEasy;
@@ -108,13 +108,22 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			return player.nonrecu.studies_bought.includes(22);
 		},
 		loop() {
-			player.nonrecu.studies_bought = [...new Set(player.nonrecu.studies_bought), 11, 12];
+			player.nonrecu.studies_bought = [...new Set(player.nonrecu.studies_bought.concat(getNRC4Kept(player.challenges[1][3].toNumber())))];
+			if (player.hydra.power.gte(new Decimal(6**(player.challenges[1][3].toNumber()+1)).pow_base(2).sub(9).pow_base(2).pow10())) {
+				player.challengein = [-1, -1];
+				player.challenges[1][3] = player.challenges[1][3].add(1).min(5);
+			}
 		},
 		effect(x): Decimal {
-			return x.gt(0) ? x.mul(0.1).add(0.1) : new Decimal(0);
+			return x.gt(0) ? x.mul(0.1).add(1) : new Decimal(1);
 		},
 		effD(x): string {
-			return '没做';
+			return '×'+x;
 		},
 	},
 ] as const;
+
+export function getNRC4Kept(level: number): number[] {
+  let base = [0, 1, 23]
+  return base
+}

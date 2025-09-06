@@ -9,7 +9,8 @@ import { CHALLENGE } from '../challenge';
 import { ref, nextTick, type ComponentPublicInstance, computed, type Ref } from 'vue';
 import StudyTree from '@/components/tabs/nonrecursion/StudyTree.vue';
 import SingleStudy from '@/components/tabs/nonrecursion/SingleStudy.vue';
-import { format } from '@/utils/format';
+import { format, formatWhole } from '@/utils/format';
+import { getNRC4Kept } from './non-recursion-challenges.ts';
 
 const StudyTreeRef = ref(null);
 
@@ -248,7 +249,7 @@ export const studies = [
 	}),
 	new Study({
 		id: 'NRC3', //12
-		description: '解锁非递归挑战3(没做)\t255,000,000 溶液',
+		description: '解锁非递归挑战3(没做)\t'+formatWhole(255000000 * 5 ** player.challenges[1][2].toNumber())+' 溶液',
 		cost: new Decimal(20),
 		canBuy() {
 			return or(10);
@@ -381,7 +382,7 @@ export const studies = [
 	}),
 	new Study({
 		id: 'NRC4',
-		description: '解锁非递归挑战4(没做)',
+		description: '解锁非递归挑战4\t'+format(new Decimal(6**(player.challenges[1][3].toNumber()+1)).pow_base(2).sub(9).pow_base(2).pow10())+"九头蛇能量",
 		cost: new Decimal(20),
 		canBuy() {
 			return or(22);
@@ -427,7 +428,7 @@ export function buyStudies(id: number) {
 	const study = studies[id] as Study | undefined;
 	if (!study) return;
 	if (!canBuyStudies(id)) return;
-	player.nonrecu.spentTheories = player.nonrecu.spentTheories.add(study.cost);
+	if (!getNRC4Kept(player.challenges[1][3].toNumber()).includes(id)) player.nonrecu.spentTheories = player.nonrecu.spentTheories.add(study.cost);
 	player.nonrecu.studies_bought.push(id);
 	study.onBought();
 	updateAllConnectors();
@@ -499,7 +500,7 @@ export function addTheories(id: 0 | 1 | 2) {
 export function resetTheories() {
 	player.nonrecu.studies_bought = [];
 	player.nonrecu.spentTheories = new Decimal(0);
-	NON_RECURSIVE.reset();
+	NON_RECURSIVE.reset(true);
 	player.challengein = [-1, -1];
 	updateAllConnectors();
 }
