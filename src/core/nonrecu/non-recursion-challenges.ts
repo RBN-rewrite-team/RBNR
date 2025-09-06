@@ -99,13 +99,13 @@ export const NONREC_CHALS: SingleChallenge[] = [
 	{
 		name: '反转研究',
 		get descEasy() {
-			return '挑战中你始终拥有前 2x-1 行研究，其效果完全反转<br>奖励：将非递归研究101的效果变为10%，基于完成次数增加非递归理论总量，前 2x-1 行非递归研究不再消耗任何东西';
+			return '挑战中你始终拥有前 2x-1 行研究，其效果完全反转(暂时只能进入第一次)<br>奖励：将非递归研究101的效果变为10%，基于完成次数增加非递归理论总量，前 2x-1 行非递归研究不再消耗任何东西';
 		},
 		get descHard() {
 			return this.descEasy;
 		},
 		canEnter() {
-			return player.nonrecu.studies_bought.includes(22);
+			return player.nonrecu.studies_bought.includes(22) && player.challenges[1][3].lt(1);
 		},
 		loop() {
 			player.nonrecu.studies_bought = [...new Set(player.nonrecu.studies_bought.concat(getNRC4Kept(player.challenges[1][3].toNumber())))];

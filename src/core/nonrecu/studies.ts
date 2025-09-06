@@ -428,7 +428,7 @@ export function buyStudies(id: number) {
 	const study = studies[id] as Study | undefined;
 	if (!study) return;
 	if (!canBuyStudies(id)) return;
-	if (!getNRC4Kept(player.challenges[1][3].toNumber()).includes(id)) player.nonrecu.spentTheories = player.nonrecu.spentTheories.add(study.cost);
+	if (!(player.challenges[1][3].lt(1)&&getNRC4Kept(player.challenges[1][3].toNumber()).includes(id))) player.nonrecu.spentTheories = player.nonrecu.spentTheories.add(study.cost);
 	player.nonrecu.studies_bought.push(id);
 	study.onBought();
 	updateAllConnectors();
