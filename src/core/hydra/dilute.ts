@@ -111,6 +111,22 @@ interface IDilute {
 	diluteAmount(id: IntClosedRange<6, 8>): boolean;
 	diluteAmountOutside(id: IntClosedRange<0, 5>): number;
 	diluteAmountOutside(id: IntClosedRange<6, 8>): boolean;
+	respec(): void;
+	initMechanics(): void;
+	diluteReset(): void;
+	enterDilute(): void;
+	exitDilute(manmade?: boolean): void;
+	solutionCalc(): void;
+	backupHydra(): backupHydraType;
+	restoreHydra(item: backupHydraType): void;
+	diluteButton(): void;
+	diluteLoop(diff: number, trueDiff: number): void;
+	prionsBase(): Decimal;
+	solutionGain(): Decimal;
+	prions(): Decimal;
+	sol3Eff(): number;
+	sol3EffOutside(): number;
+	totSolNerf(): number;
 }
 
 export const DiluteUpgrades = {
@@ -971,9 +987,4 @@ export const Dilute = {
 			) ** exp
 		);
 	},
-} as IDilute &
-	Record<string, any> & {
-		diluteReset(): void;
-		respec(): void;
-		prions(): Decimal;
-	};
+} as IDilute
