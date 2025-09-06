@@ -1,0 +1,61 @@
+name: Code Formatting
+
+on:
+  workflow_dispatch:
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run formatting
+        run: npm run format
+        
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet; then
+            echo "changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "changes=true" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Create and push branch
+        if: steps.changes.outputs.changes == 'true'
+        run: |
+          BRANCH_NAME="format/$(date +%Y%m%d-%H%M%S)"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b $BRANCH_NAME
+          git add .
+          git commit -m "style: format code"
+          git push origin $BRANCH_NAME
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_ENV
+          
+      - name: Create Pull Request
+        if: steps.changes.outputs.changes == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          branch: ${{ env.branch_name }}
+          delete-branch: true
+          title: "Style: Format code"
+          body: "Automated code formatting via `npm run format`"
+          labels: "automated, style"
+          
+      - name: No changes message
+        if: steps.changes.outputs.changes == 'false'
+        run: echo "所有文件都是格式化后的形式!"
