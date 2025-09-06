@@ -735,7 +735,7 @@ export const Dilute = {
 		else {
 			console.warn('Cannot found restore datas');
 		}
-		if (this.solutionGain() > player.hydra.dilute.solution && manmade) {
+		if (this.solutionGain().gte(player.hydra.dilute.solution) && manmade) {
 			this.solutionCalc();
 		}
 		player.hydra.dilute.spentTime = 0;
@@ -744,8 +744,8 @@ export const Dilute = {
 		player.hydra.dilute.inDilute = false;
 	},
 	solutionCalc() {
-		player.hydra.dilute.solution = Decimal.max(
-			player.hydra.dilute.solution,
+		player.hydra.dilute.solution = 
+			player.hydra.dilute.solution.max(
 			this.solutionGain(),
 		);
 		player.hydra.dilute.lastSolvent = Array.from(
