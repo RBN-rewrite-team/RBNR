@@ -735,7 +735,7 @@ export const Dilute = {
 		else {
 			console.warn('Cannot found restore datas');
 		}
-		if (this.solutionGain() > player.hydra.dilute.solution && manmade) {
+		if (this.solutionGain().gt(player.hydra.dilute.solution) && manmade) {
 			this.solutionCalc();
 		}
 		player.hydra.dilute.spentTime = 0;
