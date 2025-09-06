@@ -1,7 +1,7 @@
+import { loadSaves, player, restoreBackup } from '@/core/save';
 import { createApp } from 'vue';
 import App from '@/App.vue';
 import VueLatex from 'vatex';
-import { loadSaves, player, restoreBackup } from '@/core/save';
 import { feature } from '@/core/global.ts';
 import { NUMTHEORY } from '@/core/multiplication/numbertheory.ts';
 import { Exponention } from '@/core/exponention/exponention.ts';
