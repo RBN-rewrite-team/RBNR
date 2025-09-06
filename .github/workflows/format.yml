@@ -47,7 +47,7 @@ jobs:
       - name: Create and push branch
         if: steps.changes.outputs.changes == 'true'
         run: |
-          BRANCH_NAME="format/$(date +%Y%m%d-%H%M%S)"
+          BRANCH_NAME="develop"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b $BRANCH_NAME
@@ -55,15 +55,6 @@ jobs:
           git commit -m "style: format code"
           git push origin $BRANCH_NAME
           echo "branch_name=$BRANCH_NAME" >> $GITHUB_ENV
-          
-      - name: Create and merge PR
-        if: steps.changes.outputs.changes == 'true'
-        run: |
-          PR_URL=$(gh pr create --head ${{ env.branch_name }} --title "Style: Format code" --body "Automated code formatting via `npm run format`")
-          
-          PR_NUMBER=$(echo $PR_URL | grep -o '[0-9]\+$')
-          
-          gh pr merge $PR_NUMBER --delete-branch -m "style: format code"
           
       - name: No changes message
         if: steps.changes.outputs.changes == 'false'
