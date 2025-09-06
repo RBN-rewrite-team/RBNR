@@ -15,9 +15,9 @@ import { displayOrd } from '@/lib/ordinal';
 import { createDeepValidatedReactive } from '../check-decimal-nan';
 import { NON_RECURSIVE } from '../nonrecu/index.ts';
 import { initMiniGameData, hardResetMiniGame, type PlayerMinigameData } from '../minigame/index.ts';
+import { zero, one } from '@/core/constants';
 
 const version = 11 as const;
-const zero = new Decimal(0);
 export let current_save = 0;
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
 type KeyStringFromDecimal<T> = {
@@ -236,9 +236,10 @@ function getInitialPlayerData(): Player {
 			keyof typeof upgrades,
 			boolean
 		>,
-		buyables: Object.fromEntries(
-			Object.keys(buyables).map((key) => [key, new Decimal(0)]),
-		) as Record<keyof typeof buyables, Decimal>,
+		buyables: Object.fromEntries(Object.keys(buyables).map((key) => [key, zero])) as Record<
+			keyof typeof buyables,
+			Decimal
+		>,
 		milestones: Object.fromEntries(
 			Object.keys(milestones).map((key) => [key, false]),
 		) as Record<keyof typeof milestones, boolean>,
@@ -249,24 +250,24 @@ function getInitialPlayerData(): Player {
 		numbertheory: {
 			visiting: 1,
 			euler: {
-				x: new Decimal(1),
-				y: new Decimal(1),
-				z: new Decimal(1),
-				s: new Decimal(1),
+				x: one,
+				y: one,
+				z: one,
+				s: one,
 			},
 			rational_approx: {
-				n: new Decimal(1),
-				m: new Decimal(1),
-				y: new Decimal(1),
+				n: one,
+				m: one,
+				y: one,
 			},
 			GH: {
 				x: new Decimal(11),
-				t31: new Decimal(0),
-				t32: new Decimal(0),
-				t33: new Decimal(0),
+				t31: zero,
+				t32: zero,
+				t33: zero,
 			},
 			GM: {
-				x: new Decimal(0),
+				x: zero,
 			},
 		},
 		currentTab: 0,
@@ -290,7 +291,7 @@ function getInitialPlayerData(): Player {
 				in_dilate: false,
 				upgrades_in_dilated: [],
 				buyables_in_dilated: [],
-				highest_dilate: new Decimal(1),
+				highest_dilate: one,
 			},
 		},
 		options: {
@@ -335,7 +336,7 @@ function getInitialPlayerData(): Player {
 		ordinal: {
 			number: new Decimal(10),
 			booster: {
-				mult: new Decimal(1),
+				mult: one,
 			},
 		},
 		help: {
@@ -360,8 +361,8 @@ function getInitialPlayerData(): Player {
 			power: zero,
 			totalPower: zero,
 			trueTotalPower: zero,
-			milestoneDut5Eff: new Decimal(1),
-			powerMult: [new Decimal(1), new Decimal(1), new Decimal(1), new Decimal(1)],
+			milestoneDut5Eff: one,
+			powerMult: [one, one, one, one],
 			deduceProgress: [zero, zero, zero, zero],
 			deduceOrdinal: [zero, zero, zero, zero],
 			totalDeduceOrdinal: [zero, zero, zero, zero],
@@ -377,7 +378,7 @@ function getInitialPlayerData(): Player {
 				solution: zero,
 				solutionCost: zero,
 				solute: zero,
-				prions: new Decimal(1),
+				prions: one,
 				highestApocalypse: zero,
 			},
 			autoHydraReset: false,
@@ -511,7 +512,7 @@ export function loadFromString(saveContent: string) {
 		player.hydra.dilute = getInitialPlayerData().hydra.dilute;
 		player.upgrades['61S'] = false;
 		player.hydra.power = new Decimal('e2466');
-		player.hydra.powerMult = [new Decimal(1), new Decimal(1), new Decimal(1), new Decimal(1)];
+		player.hydra.powerMult = [one, one, one, one];
 		player.hydra.prestige = [
 			new Decimal('e345'),
 			new Decimal('e55'),
@@ -530,7 +531,7 @@ export function loadFromString(saveContent: string) {
 		player.challenges[1][0] = player.challenges[1][0].min(1);
 		if (player.nonrecu.studies_bought.includes(19)) {
 			player.nonrecu.studies_bought = [];
-			player.nonrecu.spentTheories = new Decimal(0);
+			player.nonrecu.spentTheories = zero;
 			NON_RECURSIVE.reset(true);
 		}
 		player.hydra.dilute.prions = player.hydra.dilute.prions.min('ee18');

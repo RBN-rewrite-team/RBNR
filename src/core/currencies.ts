@@ -133,7 +133,7 @@ class SolutionCurrency extends Currency {
 		if (player.milestones.dut10) return;
 		player.hydra.dilute.solutionCost = new Decimal(player.hydra.dilute.solution)
 			.sub(x)
-			.clamp(0, Number.MAX_VALUE)
+			.clamp(0, Number.MAX_VALUE);
 	}
 
 	static get current() {
