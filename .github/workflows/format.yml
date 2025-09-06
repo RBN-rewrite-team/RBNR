@@ -2,14 +2,7 @@ name: Code Formatting
 
 on:
   workflow_dispatch:
-    inputs:
-      deploy-branch:
-        description: '选择要部署的分支'
-        required: true
-        default: 'develop'
-        type: choice
-        options:
-          - develop
+  
 jobs:
   format:
     runs-on: ubuntu-latest
@@ -17,6 +10,7 @@ jobs:
       contents: write
       pull-requests: write
       issues: write
+    if: github.ref == 'refs/heads/develop'
     
     steps:
       - name: Checkout code
