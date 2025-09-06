@@ -58,10 +58,7 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			return this.descEasy;
 		},
 		loop() {
-			if (
-				player.hydra.dilute.solution.gte(
-				player.challenges[1][1].pow_base(10).mul(4e6))
-			) {
+			if (player.hydra.dilute.solution.gte(player.challenges[1][1].pow_base(10).mul(4e6))) {
 				player.challengein = [-1, -1];
 				player.challenges[1][1] = player.challenges[1][1].add(1).min(5);
 			}

@@ -14,6 +14,7 @@ import { Currencies } from '../currencies.ts';
 import { CurrencyRequirement, Requirement } from '../requirements.ts';
 import { Buyable } from '../buyable.ts';
 import { Logarithm } from '../exponention/logarithm.ts';
+import { zero, one } from '@/core/constants';
 const D179E308 = Decimal.pow(2, 1024);
 export const Multiplication = {
 	upgrades: {
@@ -31,11 +32,11 @@ export const Multiplication = {
 				)();
 				return text;
 			};
-			cost = new Decimal(0);
+			cost = zero;
 			name = 'U2-1';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			requirements() {
-				return [new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(1))];
+				return [new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, one)];
 			}
 			keep(): boolean {
 				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
@@ -43,11 +44,11 @@ export const Multiplication = {
 		})(),
 		'32': new (class U22 extends Upgrade {
 			description: string = '所有后继升级保持为可购买状态';
-			cost = new Decimal(1);
+			cost = one;
 			name = 'U2-2';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			requirements() {
-				return [new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(1))];
+				return [new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, one)];
 			}
 			keep() {
 				return player.upgrades['411q'] && !player.exponention.logarithm.in_dilate;
@@ -292,7 +293,7 @@ export const Multiplication = {
 			get exponent() {
 				let base = new Decimal(2.5);
 				if (player.upgrades[47]) base = base.pow(wgEffect()[4]);
-				return new Decimal(1).div(base);
+				return one.div(base);
 			},
 			meta: 1,
 		});
@@ -304,7 +305,7 @@ export const Multiplication = {
 			meta: 1,
 		});
 	},
-	mulpower_gain(bulk = new Decimal(1)) {
+	mulpower_gain(bulk = one) {
 		let adding = this.gain().mul(bulk);
 		if (player.singularity.stage < 2) {
 			adding = SOFTCAPS.fluidComputed('mulpower^1', adding, player.multiplication.mulpower);
@@ -328,11 +329,11 @@ export const Multiplication = {
 			);
 			if (!player.upgrades[37] || force)
 				for (const i in reset_upgrades) player.upgrades[reset_upgrades[i]] = false;
-			if (!player.upgrades[34] || force) player.buyables[21] = new Decimal(0);
-			if (!player.upgrades['435q']) player.multiplication.pfTime = new Decimal(0);
+			if (!player.upgrades[34] || force) player.buyables[21] = zero;
+			if (!player.upgrades['435q']) player.multiplication.pfTime = zero;
 			Addition.reset();
-			player.totalAddpower = new Decimal(0);
-			player.addpower = new Decimal(0);
+			player.totalAddpower = zero;
+			player.addpower = zero;
 		}
 	},
 	UIreset() {
@@ -351,8 +352,8 @@ export const Multiplication = {
 		});
 	},
 	gain() {
-		if (player.totalAddpower.lt(3125)) return new Decimal(0);
-		if (CHALLENGE.inChallenge(0, 3) && player.totalAddpower.lt(D179E308)) return new Decimal(0);
+		if (player.totalAddpower.lt(3125)) return zero;
+		if (CHALLENGE.inChallenge(0, 3) && player.totalAddpower.lt(D179E308)) return zero;
 		let base = player.totalAddpower.sub(3124).pow(0.1);
 		if (CHALLENGE.inChallenge(0, 3)) base = player.totalAddpower.div(D179E308).pow(1 / 1024);
 		if (player.buyables[32].gt(0)) base = base.mul(buyables[32].effect(player.buyables[32]));

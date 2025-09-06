@@ -9,6 +9,7 @@ import { format, formatWhole } from '@/utils/format';
 import { MILESTONES } from '../mechanic';
 import { upgrades, buyables } from '../mechanic';
 import { CHALLENGE } from '../challenge';
+import { zero, one } from '@/core/constants';
 
 export type backupHydraType = {
 	upgrades: (`${IntClosedRange<61, 69>}R` | keyof typeof Hydra.upgrades)[];
@@ -47,7 +48,7 @@ export function tsbhBase(): number {
 }
 
 export function milestoneDut5Eff(): Decimal {
-	if (!Dilute.diluteAmount(6) && !player.milestones.nonrec_7) return new Decimal(1);
+	if (!Dilute.diluteAmount(6) && !player.milestones.nonrec_7) return one;
 	return player.hydra.power
 		.div(1e55)
 		.max(1)
@@ -70,7 +71,7 @@ export function milestoneDut5Eff(): Decimal {
 }
 
 export function milestoneDut6Eff(): Decimal {
-	if (player.hydra.dilute.solution.gte(2050000)) return new Decimal(1);
+	if (player.hydra.dilute.solution.gte(2050000)) return one;
 	return Decimal.log10(player.hydra.dilute.solution.sub(2050000 - 1))
 		.add(1)
 		.clampMin(1)
@@ -134,7 +135,9 @@ export const DiluteUpgrades = {
 		description: string = '溶液中幅加快推演速度';
 		cost: Decimal = new Decimal(10);
 		effect(): Decimal {
-			return player.hydra.dilute.solution.mul(player.hydra.dilute.solution.div(2).max(10)).pow(0.5)
+			return player.hydra.dilute.solution
+				.mul(player.hydra.dilute.solution.div(2).max(10))
+				.pow(0.5);
 		}
 		effectDescription(): string {
 			return 'x' + format(this.effect());
@@ -399,7 +402,7 @@ export const Dilute = {
 		player.upgrades['64S'] = false;
 		player.upgrades['65S'] = false;
 		player.upgrades['66S'] = false;
-		player.hydra.dilute.solutionCost = new Decimal(0);
+		player.hydra.dilute.solutionCost = zero;
 	},
 	initMechanics() {
 		MILESTONES.create('dut1', {
@@ -570,7 +573,7 @@ export const Dilute = {
 			show: true,
 			currency: '',
 			onDone() {
-				player.hydra.dilute.solutionCost = new Decimal(0);
+				player.hydra.dilute.solutionCost = zero;
 			},
 		});
 		MILESTONES.create('dut11', {
@@ -685,8 +688,6 @@ export const Dilute = {
 		});
 	},
 	diluteReset() {
-		const zero = new Decimal(0),
-			one = new Decimal(1);
 		for (const id2 of (
 			[
 				['61R', '62R', '63R', '64R', '65R', '66R', '67R', '68R'],
@@ -738,12 +739,15 @@ export const Dilute = {
 			this.solutionCalc();
 		}
 		player.hydra.dilute.spentTime = 0;
-		if (!player.milestones.dut16) player.hydra.dilute.prions = new Decimal(1);
-		player.numbertheory.GM.x = new Decimal(0);
+		if (!player.milestones.dut16) player.hydra.dilute.prions = one;
+		player.numbertheory.GM.x = zero;
 		player.hydra.dilute.inDilute = false;
 	},
 	solutionCalc() {
-		player.hydra.dilute.solution = Decimal.max(player.hydra.dilute.solution, this.solutionGain());
+		player.hydra.dilute.solution = Decimal.max(
+			player.hydra.dilute.solution,
+			this.solutionGain(),
+		);
 		player.hydra.dilute.lastSolvent = Array.from(
 			player.hydra.dilute.solvent,
 		) as typeof player.hydra.dilute.solvent;
@@ -791,7 +795,7 @@ export const Dilute = {
 		}
 		for (const id2 in item.buyables) {
 			const id = id2 as keyof typeof item.buyables;
-			player.buyables[id] = new Decimal(item.buyables[id]) ?? new Decimal(0);
+			player.buyables[id] = new Decimal(item.buyables[id]) ?? zero;
 		}
 		player.hydra.prestige[0] = new Decimal(item.prestiges[0]);
 		player.hydra.prestige[1] = new Decimal(item.prestiges[1]);
@@ -910,7 +914,7 @@ export const Dilute = {
 		if (this.diluteAmount(6)) base *= 5;
 		if (this.diluteAmount(7)) base *= 10;
 		if (this.diluteAmount(8)) base *= 100;
-		let baseDecimal = new Decimal(base)
+		let baseDecimal = new Decimal(base);
 		let ConstantMax = new Decimal(100);
 		if (player.nonrecu.studies_bought.includes(2))
 			ConstantMax = ConstantMax.add(
@@ -920,13 +924,17 @@ export const Dilute = {
 			.add(1)
 			.ln()
 			.min(baseDecimal)
-			.min(ConstantMax)
+			.min(ConstantMax);
 		if (player.nonrecu.studies_bought.includes(18))
-			baseDecimal = baseDecimal.mul(player.nonrecu.secInThisReset.add(1).ln().mul(0.1).add(1).min(10));
-		let exp = new Decimal(1);
+			baseDecimal = baseDecimal.mul(
+				player.nonrecu.secInThisReset.add(1).ln().mul(0.1).add(1).min(10),
+			);
+		let exp = one;
 		if (!CHALLENGE.inChallenge(1, 2)) {
 			if (player.nonrecu.studies_bought.includes(18))
-				baseDecimal = baseDecimal.mul(player.nonrecu.secInThisReset.add(1).ln().mul(0.2).add(1));
+				baseDecimal = baseDecimal.mul(
+					player.nonrecu.secInThisReset.add(1).ln().mul(0.2).add(1),
+				);
 			if (player.nonrecu.studies_bought.includes(15)) baseDecimal = baseDecimal.mul(1.2);
 		}
 		if (player.nonrecu.studies_bought.includes(15)) {

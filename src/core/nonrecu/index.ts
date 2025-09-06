@@ -6,11 +6,12 @@ import { isTester } from '@/core/save/testing.ts';
 import { MILESTONES } from '../mechanic';
 import { Currencies } from '../currencies';
 import { CHALLENGE } from '../challenge';
+import { zero, one } from '@/core/constants';
 
 export const NON_RECURSIVE = {
 	initMechanics() {
 		MILESTONES.create('nonrec_1', {
-			requirement: new Decimal(1),
+			requirement: one,
 			currency: '非递归重置次数',
 			displayName: 'M6-1',
 			description: `1.每次非递归重置使得九头蛇能量额外乘数×7.5、获取指数+0.01<br>2.转生/飞升/超越/轮回的自动化在解锁了相应重置就立刻解锁<br>3. BMS推演速度×3`,
@@ -187,7 +188,7 @@ export const NON_RECURSIVE = {
 		if (!force) this.addPower(this.gain());
 		if (!force) player.nonrecu.resetTimes = player.nonrecu.resetTimes.add(1);
 		Dilute.diluteReset();
-		player.hydra.trueTotalPower = new Decimal(0);
+		player.hydra.trueTotalPower = zero;
 		player.upgrades['61S'] = false;
 		player.upgrades['62S'] = false;
 		player.upgrades['63S'] = false;
@@ -206,30 +207,30 @@ export const NON_RECURSIVE = {
 		for (let i = 1; i <= 18; i++) {
 			player.milestones[`dut${i}`] = false;
 		}
-		player.hydra.milestoneDut5Eff = new Decimal(1);
+		player.hydra.milestoneDut5Eff = one;
 		if (!player.milestones.nonrec_2) player.hydra.pAuto = [!1, !1, !1, !1];
 		//player.hydra.dilute.solvent = [0, 0, 0, 0, 0, 0, !1, !1, !1];
 		player.hydra.dilute.lastSolvent = [0, 0, 0, 0, 0, 0, !1, !1, !1];
-		player.hydra.dilute.lastDeduce = new Decimal(0);
-		player.hydra.dilute.prions = new Decimal(1);
+		player.hydra.dilute.lastDeduce = zero;
+		player.hydra.dilute.prions = one;
 		if (player.milestones.nonrec_13 && !force)
 			player.hydra.dilute.prions = new Decimal('1e150000000');
 		player.hydra.dilute.inDilute = false;
 		player.hydra.dilute.spentTime = 0;
-		player.hydra.dilute.solutionCost = new Decimal(0);
-		if (!player.milestones.nonrec_12) player.hydra.dilute.solution = new Decimal(0);
+		player.hydra.dilute.solutionCost = zero;
+		if (!player.milestones.nonrec_12) player.hydra.dilute.solution = zero;
 		else if (player.milestones.nonrec_14) {
 		} else player.hydra.dilute.solution = player.hydra.dilute.solution.mul(0.01);
-		if (CHALLENGE.inChallenge(1, 1)) player.hydra.dilute.solution = new Decimal(0);
-		if (CHALLENGE.inChallenge(1, 2)) player.hydra.dilute.solution = new Decimal(0);
-		if (!player.milestones.nonrec_15) player.hydra.dilute.highestApocalypse = new Decimal(0);
+		if (CHALLENGE.inChallenge(1, 1)) player.hydra.dilute.solution = zero;
+		if (CHALLENGE.inChallenge(1, 2)) player.hydra.dilute.solution = zero;
+		if (!player.milestones.nonrec_15) player.hydra.dilute.highestApocalypse = zero;
 		if (player.nonrecu.studies_bought.includes(0) && !CHALLENGE.inChallenge(1, 3)) {
 			player.hydra.power = player.hydra.power.add(20);
 			player.hydra.totalPower = player.hydra.totalPower.add(20);
 			player.hydra.trueTotalPower = player.hydra.trueTotalPower.add(20);
 			player.hydra.dilute.solution = player.hydra.dilute.solution.add(20);
 		}
-		player.nonrecu.secInThisReset = new Decimal(0);
+		player.nonrecu.secInThisReset = zero;
 	},
 	resetable() {
 		return (
@@ -250,7 +251,7 @@ export const NON_RECURSIVE = {
 			DIL_EFF = 3,
 			EXP_EFF = 4;
 		let factor = [];
-		factor.push(['基础值', ADD_EFF, new Decimal(1)]);
+		factor.push(['基础值', ADD_EFF, one]);
 		let solEff = player.hydra.dilute.solution.div(2.55e8);
 		if (solEff.gte(3.5)) solEff = solEff.sub(2.5).log10().add(3.5);
 		factor.push(['九头蛇溶液因子', MUL_EFF, solEff]);
@@ -299,7 +300,7 @@ export const NON_RECURSIVE = {
 			DIL_EFF = 3,
 			EXP_EFF = 4;
 		let factor = this.gainFactor();
-		let base = new Decimal(0);
+		let base = zero;
 		for (let i in factor) {
 			let f = factor[i];
 			if (f[1] == ADD_EFF) base = base.add(f[2]);
@@ -330,7 +331,7 @@ export const NON_RECURSIVE = {
 	 * 注：每秒获取的非递归能量
 	 */
 	passiveGain() {
-		let a = new Decimal(0);
+		let a = zero;
 
 		if (player.nonrecu.studies_bought.includes(22)) {
 			a = a.add(this.gain().mul(0.01));
