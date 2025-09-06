@@ -20,6 +20,7 @@ import { Currencies } from '../currencies.ts';
 import { CurrencyRequirement, Requirement, UpgradeRequirement } from '../requirements.ts';
 import { Buyable } from '../buyable.ts';
 import { Logarithm } from '../exponention/logarithm.ts';
+import { zero, one } from '@/core/constants';
 
 export const Successor = {
 	upgrades: {
@@ -52,7 +53,7 @@ export const Successor = {
 				return [new CurrencyRequirement(Currencies.NUMBER, new Decimal(100))];
 			}
 			effect(): Decimal {
-				let base = new Decimal(0);
+				let base = zero;
 				if (player.upgrades['11']) base = base.add(1);
 				if (player.upgrades['12']) base = base.add(1);
 				if (player.upgrades['13']) base = base.add(1);
@@ -116,7 +117,7 @@ export const Successor = {
 				return [value, `+${format(value)},+${format(value.div(1000))}`];
 			}
 			more() {
-				let a = new Decimal(0);
+				let a = zero;
 				a = a.add(player.buyable11More);
 				return a;
 			}
@@ -158,7 +159,7 @@ export const Successor = {
 		SOFTCAPS.create('number_C1', {
 			name: 'number_C1',
 			fluid: true,
-			start: new Decimal(1),
+			start: one,
 			exponent: new Decimal(0.5),
 		});
 		SOFTCAPS.create('number^3', {
@@ -220,7 +221,7 @@ export const Successor = {
 	 * @returns 每秒点击多少次后继按钮
 	 */
 	autoSuccessPerSecond() {
-		let base = new Decimal(0);
+		let base = zero;
 		base = base.add(buyables['11'].effect(player.buyables['11']));
 		return base;
 	},
@@ -229,7 +230,7 @@ export const Successor = {
 	 * 获取每点击一次获得多少
 	 */
 	successorBulk() {
-		let base = new Decimal(1);
+		let base = one;
 		if (player.upgrades['12']) base = base.add(upgrades['12'].effect());
 		if (player.upgrades['12'] && player.upgrades[21]) {
 			let count = 0;
@@ -276,7 +277,7 @@ export const Successor = {
 	 * @returns 对数值获取取多少次方
 	 */
 	successorPow() {
-		let base = new Decimal(1);
+		let base = one;
 		if (player.upgrades[42]) base = base.add(0.1);
 		if (player.exponention.logarithm.upgrades_in_dilated.includes('12')) {
 			base = base.mul(

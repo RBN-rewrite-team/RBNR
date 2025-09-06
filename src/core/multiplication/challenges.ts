@@ -2,6 +2,7 @@ import { format } from '@/utils/format';
 import { CHALLENGE, type SingleChallenge } from '../challenge';
 import { player } from '../save';
 import Decimal from 'break_eternity.js';
+import { zero, one } from '@/core/constants';
 
 export const MULTI_CHALS: SingleChallenge[] = [
 	{
@@ -68,7 +69,7 @@ export const MULTI_CHALS: SingleChallenge[] = [
 			return this.descEasy;
 		},
 		effect(x) {
-			if (CHALLENGE.inChallenge(0, 3)) return new Decimal(1);
+			if (CHALLENGE.inChallenge(0, 3)) return one;
 			return x.add(1).pow(64).max(1).min(new Decimal('e1000'));
 		},
 		effD(x) {

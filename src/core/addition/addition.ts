@@ -20,6 +20,7 @@ import { Currencies } from '../currencies.ts';
 import { CurrencyRequirement, Requirement, UpgradeRequirement } from '../requirements.ts';
 import { Buyable } from '../buyable.ts';
 import { Logarithm } from '../exponention/logarithm.ts';
+import { zero, one } from '@/core/constants';
 
 export class AdditionUpgrade extends Upgrade {
 	currency = Currencies.ADDITION_POWER;
@@ -36,14 +37,14 @@ export const Addition = {
 				'使U0-2效果^1.5',
 				'21',
 			);
-			cost = new Decimal(1);
+			cost = one;
 			name = 'U1-1';
 			currency = Currencies.ADDITION_POWER;
 			keep(): boolean {
 				return player.upgrades['421q'] && !player.exponention.logarithm.in_dilate;
 			}
 			requirements() {
-				return [new CurrencyRequirement(Currencies.ADDITION_POWER, new Decimal(1))];
+				return [new CurrencyRequirement(Currencies.ADDITION_POWER, one)];
 			}
 		})(),
 		'22': new (class U12 extends AdditionUpgrade {
@@ -58,7 +59,7 @@ export const Addition = {
 					player.multiplication.B1seriesC1 == 2 ||
 					player.multiplication.B1seriesC1400q == 2
 				)
-					return new Decimal(1);
+					return one;
 				return new Decimal(5);
 			};
 			name = 'U1-2';
@@ -77,7 +78,7 @@ export const Addition = {
 					player.multiplication.B1seriesC1 == 3 ||
 					player.multiplication.B1seriesC1400q == 3
 				)
-					return new Decimal(1);
+					return one;
 				return new Decimal(25);
 			};
 			name = 'U1-3';
@@ -97,7 +98,7 @@ export const Addition = {
 			cost: Decimal | (() => Decimal) = function () {
 				return player.multiplication.B1seriesC1 == 4 ||
 					player.multiplication.B1seriesC1400q == 4
-					? new Decimal(1)
+					? one
 					: new Decimal(125);
 			};
 			name = 'U1-4';
@@ -118,7 +119,7 @@ export const Addition = {
 			cost: Decimal | (() => Decimal) = function () {
 				return player.multiplication.B1seriesC1 == 5 ||
 					player.multiplication.B1seriesC1400q == 5
-					? new Decimal(1)
+					? one
 					: new Decimal(625);
 			};
 			name = 'U1-5';
@@ -131,10 +132,7 @@ export const Addition = {
 			effect() {
 				let exp = new Decimal(0.25);
 				let a;
-				if (
-					((a = MULTI_CHALS[0].effect?.(player.challenges[0][0]) ?? new Decimal(0)),
-					a.gt(0))
-				)
+				if (((a = MULTI_CHALS[0].effect?.(player.challenges[0][0]) ?? zero), a.gt(0)))
 					exp = exp.add(a);
 
 				return player.totalAddpower.pow(exp).add(1).floor();
@@ -243,7 +241,7 @@ export const Addition = {
 			meta: 1,
 		});
 	},
-	addpower_gain(bulk = new Decimal(1)) {
+	addpower_gain(bulk = one) {
 		let adding = this.gain().mul(bulk);
 		if (player.exponention.logarithm.in_dilate) {
 			adding = adding.add(Math.E).ln().ln().mul(10);
@@ -276,9 +274,9 @@ export const Addition = {
 				player.upgrades[11] = false;
 				player.upgrades[12] = false;
 			}
-			player.buyables[11] = new Decimal(0);
-			player.totalNumber = new Decimal(0);
-			player.number = new Decimal(0);
+			player.buyables[11] = zero;
+			player.totalNumber = zero;
+			player.number = zero;
 
 			player.buyable11More = player.buyables[21];
 		}
@@ -312,15 +310,15 @@ export const Addition = {
 		return base.floor();
 	},
 	gainExponent(): Decimal {
-		let base = new Decimal(1);
+		let base = one;
 		if (player.exponention.logarithm.upgrades_in_dilated.includes('13')) {
 			base = base.add(0.1);
 		}
 		return base;
 	},
 	U25effect() {
-		if (!player.upgrades[25]) return new Decimal(0);
-		return upgrades[25]?.effect?.() ?? new Decimal(0);
+		if (!player.upgrades[25]) return zero;
+		return upgrades[25]?.effect?.() ?? zero;
 	},
 	setUPGc1(x: 2 | 3 | 4 | 5) {
 		if (player.multiplication.B1seriesC1 !== x) {

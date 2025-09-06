@@ -479,9 +479,9 @@ export function addTheories(id: 0 | 1 | 2) {
 			break;
 		case 1:
 			if (canBuyTheories(1)) {
-				player.hydra.dilute.solutionCost =
-					player.hydra.dilute.solutionCost.add(
-					theoriesCost(1).clampMax(Number.MAX_VALUE));
+				player.hydra.dilute.solutionCost = player.hydra.dilute.solutionCost.add(
+					theoriesCost(1).clampMax(Number.MAX_VALUE),
+				);
 				player.nonrecu.theories[1] = player.nonrecu.theories[1].add(1);
 			}
 			break;
