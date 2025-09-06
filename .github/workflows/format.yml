@@ -9,12 +9,14 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      issues: write
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -37,6 +39,11 @@ jobs:
             echo "changes=true" >> $GITHUB_OUTPUT
           fi
           
+      - name: Setup GitHub CLI
+        if: steps.changes.outputs.changes == 'true'
+        run: |
+          gh auth login --with-token <<< "${{ secrets.GITHUB_TOKEN }}"
+          
       - name: Create and push branch
         if: steps.changes.outputs.changes == 'true'
         run: |
@@ -46,9 +53,17 @@ jobs:
           git checkout -b $BRANCH_NAME
           git add .
           git commit -m "style: format code"
-          gh pr create --base ${{ env.branch_name }} -l "automated, style" -b "npm run format" -t "Style: Format code"
-          gh pr merge -d -b "npm run format" -m -t "style: format code"
+          git push origin $BRANCH_NAME
           echo "branch_name=$BRANCH_NAME" >> $GITHUB_ENV
+          
+      - name: Create and merge PR
+        if: steps.changes.outputs.changes == 'true'
+        run: |
+          PR_URL=$(gh pr create --base ${{ env.branch_name }} --title "Style: Format code" --body "Automated code formatting via `npm run format`" --label "automated,style")
+          
+          PR_NUMBER=$(echo $PR_URL | grep -o '[0-9]\+$')
+          
+          gh pr merge $PR_NUMBER --delete-branch -m "style: format code"
           
       - name: No changes message
         if: steps.changes.outputs.changes == 'false'
