@@ -2,9 +2,14 @@ name: Code Formatting
 
 on:
   workflow_dispatch:
-    branches:
-      - develop
-
+    inputs:
+      deploy-branch:
+        description: '选择要部署的分支'
+        required: true
+        default: 'develop'
+        type: choice
+        options:
+          - develop
 jobs:
   format:
     runs-on: ubuntu-latest
