@@ -59,7 +59,7 @@ jobs:
       - name: Create and merge PR
         if: steps.changes.outputs.changes == 'true'
         run: |
-          PR_URL=$(gh pr create --base ${{ env.branch_name }} --title "Style: Format code" --body "Automated code formatting via `npm run format`" --label "automated,style")
+          PR_URL=$(gh pr create --head ${{ env.branch_name }} --title "Style: Format code" --body "Automated code formatting via `npm run format`")
           
           PR_NUMBER=$(echo $PR_URL | grep -o '[0-9]\+$')
           
