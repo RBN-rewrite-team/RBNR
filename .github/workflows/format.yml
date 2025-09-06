@@ -54,7 +54,6 @@ jobs:
           git add .
           git commit -m "style: format code"
           git push origin $BRANCH_NAME
-          echo "branch_name=$BRANCH_NAME" >> $GITHUB_ENV
           
       - name: No changes message
         if: steps.changes.outputs.changes == 'false'
