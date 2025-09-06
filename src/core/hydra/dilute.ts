@@ -128,8 +128,8 @@ interface IDilute {
 	sol3EffOutside(): number;
 	totSolNerf(): number;
 	solutionEff(): {
-	  eff1: Decimal
-	}
+		eff1: Decimal;
+	};
 }
 
 export const DiluteUpgrades = {
@@ -763,10 +763,7 @@ export const Dilute = {
 		player.hydra.dilute.inDilute = false;
 	},
 	solutionCalc() {
-		player.hydra.dilute.solution = 
-			player.hydra.dilute.solution.max(
-			this.solutionGain(),
-		);
+		player.hydra.dilute.solution = player.hydra.dilute.solution.max(this.solutionGain());
 		player.hydra.dilute.lastSolvent = Array.from(
 			player.hydra.dilute.solvent,
 		) as typeof player.hydra.dilute.solvent;
@@ -990,4 +987,4 @@ export const Dilute = {
 			) ** exp
 		);
 	},
-} as IDilute
+} as IDilute;
