@@ -127,6 +127,9 @@ interface IDilute {
 	sol3Eff(): number;
 	sol3EffOutside(): number;
 	totSolNerf(): number;
+	solutionEff(): {
+	  eff1: Decimal
+	}
 }
 
 export const DiluteUpgrades = {
