@@ -188,7 +188,8 @@ export class EntityGameObject extends GameObject {
 		if (battlestatus.status == 'fail') {
 			return `<span style="color: rgb(127, 0, 0)">无法击败</span>`;
 		}
-		if(battlestatus.extendinfo.hp_cost >= meBattleInfo().hp / 2) return `<span style="color: red">HP-${battlestatus.extendinfo.hp_cost.toFixed(1)}</span>`;
+		if (battlestatus.extendinfo.hp_cost >= meBattleInfo().hp / 2)
+			return `<span style="color: red">HP-${battlestatus.extendinfo.hp_cost.toFixed(1)}</span>`;
 		return `<span style="color: green">HP-${battlestatus.extendinfo.hp_cost.toFixed(1)}</span>`;
 	}
 	interact(x: bigint, y: bigint): void {

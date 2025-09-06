@@ -141,14 +141,14 @@ export class AutomatorParser extends CstParser {
 		this.CONSUME(RParen);
 		this.SUBRULE(this.blockStatement);
 	});
-	
+
 	public returnStatement = this.RULE('returnStatement', () => {
-	  this.CONSUME(Return);
-	  this.OPTION(() => {
-	    this.SUBRULE(this.expression)
-	  })
-	  this.CONSUME(SemiColen)
-	})
+		this.CONSUME(Return);
+		this.OPTION(() => {
+			this.SUBRULE(this.expression);
+		});
+		this.CONSUME(SemiColen);
+	});
 
 	public parameterList = this.RULE('parameterList', () => {
 		this.CONSUME1(Identifier);
@@ -243,7 +243,11 @@ export class AutomatorParser extends CstParser {
 	public multiplicativeExpression = this.RULE('multiplicativeExpression', () => {
 		this.SUBRULE(this.exponentialExpression);
 		this.MANY(() => {
-			this.OR([{ ALT: () => this.CONSUME(Mul) }, { ALT: () => this.CONSUME(Div) }, { ALT: () => this.CONSUME(Mod) }]);
+			this.OR([
+				{ ALT: () => this.CONSUME(Mul) },
+				{ ALT: () => this.CONSUME(Div) },
+				{ ALT: () => this.CONSUME(Mod) },
+			]);
 			this.SUBRULE2(this.exponentialExpression);
 		});
 	});
