@@ -3,6 +3,7 @@ import type { SingleChallenge } from '../challenge';
 import { Dilute } from '../hydra/dilute';
 import { player } from '../save';
 import { formatWhole, format } from '@/utils/format';
+import { getNRC4Kept } from './studies';
 
 export const NONREC_CHALS: SingleChallenge[] = [
 	{
@@ -122,8 +123,3 @@ export const NONREC_CHALS: SingleChallenge[] = [
 		},
 	},
 ] as const;
-
-export function getNRC4Kept(level: number): number[] {
-  let base = [0, 1, 23]
-  return base
-}

@@ -10,7 +10,6 @@ import { ref, nextTick, type ComponentPublicInstance, computed, type Ref } from 
 import StudyTree from '@/components/tabs/nonrecursion/StudyTree.vue';
 import SingleStudy from '@/components/tabs/nonrecursion/SingleStudy.vue';
 import { format, formatWhole } from '@/utils/format';
-import { getNRC4Kept } from './non-recursion-challenges.ts';
 
 const StudyTreeRef = ref(null);
 
@@ -249,7 +248,7 @@ export const studies = [
 	}),
 	new Study({
 		id: 'NRC3', //12
-		description: '解锁非递归挑战3(没做)\t'+formatWhole(255000000 * 5 ** player.challenges[1][2].toNumber())+' 溶液',
+		get description() { return '解锁非递归挑战3(没做)\t'+formatWhole(255000000 * 5 ** player.challenges[1][2].toNumber())+' 溶液'},
 		cost: new Decimal(20),
 		canBuy() {
 			return or(10);
@@ -382,7 +381,7 @@ export const studies = [
 	}),
 	new Study({
 		id: 'NRC4',
-		description: '解锁非递归挑战4\t'+format(new Decimal(6**(player.challenges[1][3].toNumber()+1)).pow_base(2).sub(9).pow_base(2).pow10())+"九头蛇能量",
+		get description() { return '解锁非递归挑战4\t'+format(new Decimal(6**(player.challenges[1][3].toNumber()+1)).pow_base(2).sub(9).pow_base(2).pow10())+"九头蛇能量"},
 		cost: new Decimal(20),
 		canBuy() {
 			return or(22);
@@ -632,3 +631,8 @@ export const updateAllConnectors = () => {
 export const initConnectors = (elem: Ref<any>) => {
 	connectorsRef = elem;
 };
+
+export function getNRC4Kept(level: number): number[] {
+  let base = [0, 1, 23]
+  return base
+}
