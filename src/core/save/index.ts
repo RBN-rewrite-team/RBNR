@@ -261,7 +261,7 @@ function getInitialPlayerData(): Player {
 				y: DC.D_1,
 			},
 			GH: {
-				x: new Decimal(11),
+				x: DC.D_11,
 				t31: DC.D_0,
 				t32: DC.D_0,
 				t33: DC.D_0,
@@ -334,7 +334,7 @@ function getInitialPlayerData(): Player {
 		},
 		minigame: initMiniGameData(),
 		ordinal: {
-			number: new Decimal(10),
+			number: DC.D_10,
 			booster: {
 				mult: DC.D_1,
 			},
@@ -511,14 +511,9 @@ export function loadFromString(saveContent: string) {
 		Dilute.exitDilute();
 		player.hydra.dilute = getInitialPlayerData().hydra.dilute;
 		player.upgrades['61S'] = false;
-		player.hydra.power = new Decimal('e2466');
+		player.hydra.power = DC.D_E2466;
 		player.hydra.powerMult = [DC.D_1, DC.D_1, DC.D_1, DC.D_1];
-		player.hydra.prestige = [
-			new Decimal('e345'),
-			new Decimal('e55'),
-			new Decimal('3.7'),
-			new Decimal('5e35'),
-		];
+		player.hydra.prestige = [DC.D_E345, DC.D_E55, DC.D_3P7, DC.D_5E35];
 	}
 	if ((player?.version ?? 0) < 7 && player.upgrades['616S']) {
 		if (player.nonrecu.resetTimes.gte(1)) player.firstResetBit |= 0b10000;
@@ -534,8 +529,8 @@ export function loadFromString(saveContent: string) {
 			player.nonrecu.spentTheories = DC.D_0;
 			NON_RECURSIVE.reset(true);
 		}
-		player.hydra.dilute.prions = player.hydra.dilute.prions.min('ee18');
-		player.hydra.deduceOrdinal[0] = player.hydra.deduceOrdinal[0].min('ee3500');
+		player.hydra.dilute.prions = player.hydra.dilute.prions.min(DC.D_EE18);
+		player.hydra.deduceOrdinal[0] = player.hydra.deduceOrdinal[0].min(DC.D_EE3500);
 	}
 	if ((player?.version ?? 0) < 10) {
 		hardResetMiniGame();
@@ -698,7 +693,7 @@ export function readSaveDetail(id: number) {
 			details.number = calculate(
 				OrdinalUtils.numberToBMS(
 					new Decimal(savecontent_str.hydra.deduceOrdinal[0]),
-					new Decimal(4),
+					DC.D_4,
 					20,
 				)
 					.replace('...', '')
