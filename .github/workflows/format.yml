@@ -6,13 +6,9 @@ on:
 jobs:
   format:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-      issues: write
     
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -39,31 +35,19 @@ jobs:
             echo "changes=true" >> $GITHUB_OUTPUT
           fi
           
-      - name: Setup GitHub CLI
+      - name: Configure Git
         if: steps.changes.outputs.changes == 'true'
         run: |
-          gh auth login --with-token <<< "${{ secrets.GITHUB_TOKEN }}"
-          
-      - name: Create and push branch
-        if: steps.changes.outputs.changes == 'true'
-        run: |
-          BRANCH_NAME="format/$(date +%Y%m%d-%H%M%S)"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout -b $BRANCH_NAME
-          git add .
-          git commit -m "style: format code"
-          git push origin $BRANCH_NAME
-          echo "branch_name=$BRANCH_NAME" >> $GITHUB_ENV
           
-      - name: Create and merge PR
+      - name: Commit and push changes
         if: steps.changes.outputs.changes == 'true'
         run: |
-          PR_URL=$(gh pr create --base ${{ env.branch_name }} --title "Style: Format code" --body "Automated code formatting via `npm run format`" --label "automated,style")
+          git add .
+          git commit -m "style: format code"
           
-          PR_NUMBER=$(echo $PR_URL | grep -o '[0-9]\+$')
-          
-          gh pr merge $PR_NUMBER --delete-branch -m "style: format code"
+          git push origin develop
           
       - name: No changes message
         if: steps.changes.outputs.changes == 'false'
