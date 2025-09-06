@@ -2,6 +2,7 @@ name: Code Formatting
 
 on:
   workflow_dispatch:
+    inputs: develop
 
 jobs:
   format:
