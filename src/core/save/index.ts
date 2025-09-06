@@ -15,7 +15,7 @@ import { displayOrd } from '@/lib/ordinal';
 import { createDeepValidatedReactive } from '../check-decimal-nan';
 import { NON_RECURSIVE } from '../nonrecu/index.ts';
 import { initMiniGameData, hardResetMiniGame, type PlayerMinigameData } from '../minigame/index.ts';
-import { zero, one } from '@/core/constants';
+import { DC } from '@/core/constants';
 
 const version = 11 as const;
 export let current_save = 0;
@@ -225,73 +225,73 @@ export interface Player {
 function getInitialPlayerData(): Player {
 	return {
 		version: version,
-		number: zero,
+		number: DC.D_0,
 		frozen: false,
 		run_a_tick_and_froze: false,
-		totalNumber: zero,
+		totalNumber: DC.D_0,
 		lastUpdated: Date.now(),
 		saveCreateTime: Date.now(),
-		addpower: zero,
+		addpower: DC.D_0,
 		upgrades: Object.fromEntries(Object.keys(upgrades).map((key) => [key, false])) as Record<
 			keyof typeof upgrades,
 			boolean
 		>,
-		buyables: Object.fromEntries(Object.keys(buyables).map((key) => [key, zero])) as Record<
+		buyables: Object.fromEntries(Object.keys(buyables).map((key) => [key, DC.D_0])) as Record<
 			keyof typeof buyables,
 			Decimal
 		>,
 		milestones: Object.fromEntries(
 			Object.keys(milestones).map((key) => [key, false]),
 		) as Record<keyof typeof milestones, boolean>,
-		buyable11More: zero,
+		buyable11More: DC.D_0,
 		automationCD: {
 			successor: 0,
 		},
 		numbertheory: {
 			visiting: 1,
 			euler: {
-				x: one,
-				y: one,
-				z: one,
-				s: one,
+				x: DC.D_1,
+				y: DC.D_1,
+				z: DC.D_1,
+				s: DC.D_1,
 			},
 			rational_approx: {
-				n: one,
-				m: one,
-				y: one,
+				n: DC.D_1,
+				m: DC.D_1,
+				y: DC.D_1,
 			},
 			GH: {
 				x: new Decimal(11),
-				t31: zero,
-				t32: zero,
-				t33: zero,
+				t31: DC.D_0,
+				t32: DC.D_0,
+				t33: DC.D_0,
 			},
 			GM: {
-				x: zero,
+				x: DC.D_0,
 			},
 		},
 		currentTab: 0,
-		totalAddpower: zero,
+		totalAddpower: DC.D_0,
 		firstResetBit: 0,
 		multiplication: {
-			mulpower: zero,
-			totalMulpower: zero,
-			pfTime: zero,
+			mulpower: DC.D_0,
+			totalMulpower: DC.D_0,
+			pfTime: DC.D_0,
 			B1seriesC1: 0,
 			B1seriesC1400q: 0,
 		},
 		exponention: {
-			exppower: zero,
-			totalExppower: zero,
-			qolpoints: zero,
+			exppower: DC.D_0,
+			totalExppower: DC.D_0,
+			qolpoints: DC.D_0,
 			logarithm: {
-				observe_datas: zero,
-				calculate_datas: zero,
+				observe_datas: DC.D_0,
+				calculate_datas: DC.D_0,
 				astronomers: [],
 				in_dilate: false,
 				upgrades_in_dilated: [],
 				buyables_in_dilated: [],
-				highest_dilate: one,
+				highest_dilate: DC.D_1,
 			},
 		},
 		options: {
@@ -312,19 +312,19 @@ function getInitialPlayerData(): Player {
 		},
 		stat: {
 			chapter: -1,
-			totalNumber: zero,
-			highestNumber: zero,
-			totalMulpower: zero,
-			highestMulpower: zero,
-			totalAddpower: zero,
-			hightestAddpower: zero,
-			totalExppower: zero,
-			highestExppower: zero,
+			totalNumber: DC.D_0,
+			highestNumber: DC.D_0,
+			totalMulpower: DC.D_0,
+			highestMulpower: DC.D_0,
+			totalAddpower: DC.D_0,
+			hightestAddpower: DC.D_0,
+			totalExppower: DC.D_0,
+			highestExppower: DC.D_0,
 			highestOrdLevel: 0,
 		},
 		challenges: [
-			[zero, zero, zero, zero, zero],
-			[zero, zero, zero, zero, zero, zero],
+			[DC.D_0, DC.D_0, DC.D_0, DC.D_0, DC.D_0],
+			[DC.D_0, DC.D_0, DC.D_0, DC.D_0, DC.D_0, DC.D_0],
 		],
 		challengein: [-1, -1],
 		singularity: {
@@ -336,7 +336,7 @@ function getInitialPlayerData(): Player {
 		ordinal: {
 			number: new Decimal(10),
 			booster: {
-				mult: one,
+				mult: DC.D_1,
 			},
 		},
 		help: {
@@ -345,8 +345,8 @@ function getInitialPlayerData(): Player {
 			epsilon: false,
 		},
 		timeshard: {
-			value: zero,
-			tf: zero,
+			value: DC.D_0,
+			tf: DC.D_0,
 			cd: [Date.now(), Date.now(), Date.now() + 7 * 24 * 60 * 60 * 1000],
 			last: [0, 0, 0],
 			openTf: false,
@@ -358,39 +358,39 @@ function getInitialPlayerData(): Player {
 		},
 		hydra: {
 			visiting: 0,
-			power: zero,
-			totalPower: zero,
-			trueTotalPower: zero,
-			milestoneDut5Eff: one,
-			powerMult: [one, one, one, one],
-			deduceProgress: [zero, zero, zero, zero],
-			deduceOrdinal: [zero, zero, zero, zero],
-			totalDeduceOrdinal: [zero, zero, zero, zero],
-			prestige: [zero, zero, zero, zero],
+			power: DC.D_0,
+			totalPower: DC.D_0,
+			trueTotalPower: DC.D_0,
+			milestoneDut5Eff: DC.D_1,
+			powerMult: [DC.D_1, DC.D_1, DC.D_1, DC.D_1],
+			deduceProgress: [DC.D_0, DC.D_0, DC.D_0, DC.D_0],
+			deduceOrdinal: [DC.D_0, DC.D_0, DC.D_0, DC.D_0],
+			totalDeduceOrdinal: [DC.D_0, DC.D_0, DC.D_0, DC.D_0],
+			prestige: [DC.D_0, DC.D_0, DC.D_0, DC.D_0],
 			pAuto: [false, false, false, false],
 			dilute: {
 				inDilute: false,
 				solvent: [0, 0, 0, 0, 0, 0, false, false, false],
 				lastSolvent: [0, 0, 0, 0, 0, 0, false, false, false],
 				solventPresets: [],
-				lastDeduce: zero,
+				lastDeduce: DC.D_0,
 				spentTime: 0,
-				solution: zero,
-				solutionCost: zero,
-				solute: zero,
-				prions: one,
-				highestApocalypse: zero,
+				solution: DC.D_0,
+				solutionCost: DC.D_0,
+				solute: DC.D_0,
+				prions: DC.D_1,
+				highestApocalypse: DC.D_0,
 			},
 			autoHydraReset: false,
 		},
 		nonrecu: {
-			power: zero,
-			totalPower: zero,
-			resetTimes: zero,
+			power: DC.D_0,
+			totalPower: DC.D_0,
+			resetTimes: DC.D_0,
 			studies_bought: [],
-			theories: [zero, zero, zero],
-			spentTheories: zero,
-			secInThisReset: zero,
+			theories: [DC.D_0, DC.D_0, DC.D_0],
+			spentTheories: DC.D_0,
+			secInThisReset: DC.D_0,
 		},
 		foundNaN: false,
 		checkedPlots: [],
@@ -512,7 +512,7 @@ export function loadFromString(saveContent: string) {
 		player.hydra.dilute = getInitialPlayerData().hydra.dilute;
 		player.upgrades['61S'] = false;
 		player.hydra.power = new Decimal('e2466');
-		player.hydra.powerMult = [one, one, one, one];
+		player.hydra.powerMult = [DC.D_1, DC.D_1, DC.D_1, DC.D_1];
 		player.hydra.prestige = [
 			new Decimal('e345'),
 			new Decimal('e55'),
@@ -531,7 +531,7 @@ export function loadFromString(saveContent: string) {
 		player.challenges[1][0] = player.challenges[1][0].min(1);
 		if (player.nonrecu.studies_bought.includes(19)) {
 			player.nonrecu.studies_bought = [];
-			player.nonrecu.spentTheories = zero;
+			player.nonrecu.spentTheories = DC.D_0;
 			NON_RECURSIVE.reset(true);
 		}
 		player.hydra.dilute.prions = player.hydra.dilute.prions.min('ee18');

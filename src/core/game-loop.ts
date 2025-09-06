@@ -20,7 +20,7 @@ import { temp } from '@/core/temp-data';
 import { unlockedPlots } from '@/core/plot';
 import { NON_RECURSIVE } from './nonrecu/index.ts';
 
-import { zero, one } from '@/core/constants';
+import { DC } from '@/core/constants';
 
 /**
  * 游戏循环经过了多少时间
@@ -34,8 +34,8 @@ setTimeout(() => {
 	saveInterval = setInterval(save, 3000);
 }, 3000);
 export let backupInterval: number;
-export let ordinalSpeedDerivative = zero;
-export let ordinalSpeedDerivative2 = zero;
+export let ordinalSpeedDerivative = DC.D_0;
+export let ordinalSpeedDerivative2 = DC.D_0;
 export function startGameLoop() {
 	loopInterval = setInterval(gameLoop, 40);
 	backupInterval = setInterval(intervalBackup, 1000);
@@ -161,13 +161,13 @@ export function simulate(diff: number) {
 	if (player.timeshard.openTf && player.timeshard.tf.gt(0)) {
 		if (player.timeshard.tf.lt(diff)) {
 			diff = diff + player.timeshard.tf.mul(2).toNumber();
-			player.timeshard.tf = zero;
+			player.timeshard.tf = DC.D_0;
 		} else {
 			player.timeshard.tf = player.timeshard.tf.sub(diff);
 			diff *= 3;
 		}
 	}
-	let last = player.upgrades[61] ? zero : feature.Ordinal.ordinalPerSecond();
+	let last = player.upgrades[61] ? DC.D_0 : feature.Ordinal.ordinalPerSecond();
 	let last2 = feature.Ordinal.speedDeri();
 	let pre_cardinal_diff = (diff *= 1 + player.minigame.ore_gets * 0.0025);
 
@@ -328,7 +328,7 @@ export function simulate(diff: number) {
 
 	Logarithm.astronomerUpdate();
 	updateHighestStat();
-	let next = player.upgrades[61] ? zero : feature.Ordinal.ordinalPerSecond();
+	let next = player.upgrades[61] ? DC.D_0 : feature.Ordinal.ordinalPerSecond();
 	ordinalSpeedDerivative = next.sub(last).div(diff / 1000);
 	let next2 = feature.Ordinal.speedDeri();
 	ordinalSpeedDerivative2 = next2.sub(last2).div(diff / 1000);
@@ -358,7 +358,7 @@ function checkNaN<T>(obj: T, path: string[]): T {
 			});
 			player.foundNaN = true;
 		}
-		return one as unknown as T;
+		return DC.D_1 as unknown as T;
 	}
 
 	// 处理数组
