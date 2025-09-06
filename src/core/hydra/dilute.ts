@@ -70,8 +70,8 @@ export function milestoneDut5Eff(): Decimal {
 }
 
 export function milestoneDut6Eff(): Decimal {
-	if (player.hydra.dilute.solution < 2050000) return new Decimal(1);
-	return Decimal.log10(player.hydra.dilute.solution - 2050000 + 1)
+	if (player.hydra.dilute.solution.gte(2050000)) return new Decimal(1);
+	return Decimal.log10(player.hydra.dilute.solution.sub(2050000 - 1))
 		.add(1)
 		.clampMin(1)
 		.log10()
@@ -119,7 +119,7 @@ export const DiluteUpgrades = {
 		description: string = '溶液大幅加强U5-1-1的效果';
 		cost: Decimal = new Decimal(10);
 		effect(): Decimal {
-			return new Decimal(player.hydra.dilute.solution ** 0.2);
+			return new Decimal(player.hydra.dilute.solution.pow(0.2));
 		}
 		effectDescription(): string {
 			return '^' + format(this.effect());
@@ -134,10 +134,7 @@ export const DiluteUpgrades = {
 		description: string = '溶液中幅加快推演速度';
 		cost: Decimal = new Decimal(10);
 		effect(): Decimal {
-			return new Decimal(
-				(player.hydra.dilute.solution * Math.max(player.hydra.dilute.solution / 2, 10)) **
-					0.5,
-			);
+			return player.hydra.dilute.solution.mul(player.hydra.dilute.solution.div(2).max(10)).pow(0.5)
 		}
 		effectDescription(): string {
 			return 'x' + format(this.effect());
@@ -266,7 +263,7 @@ export const DiluteUpgrades = {
 			return player.milestones.dut10;
 		}
 		effect(): Decimal {
-			return new Decimal(player.hydra.dilute.solution / 2050000).max(1).pow(10);
+			return player.hydra.dilute.solution.div(2050000).max(1).pow(10);
 		}
 		effectDescription() {
 			return '×' + format(this.effect());
@@ -402,7 +399,7 @@ export const Dilute = {
 		player.upgrades['64S'] = false;
 		player.upgrades['65S'] = false;
 		player.upgrades['66S'] = false;
-		player.hydra.dilute.solutionCost = 0;
+		player.hydra.dilute.solutionCost = new Decimal(0);
 	},
 	initMechanics() {
 		MILESTONES.create('dut1', {
@@ -449,7 +446,7 @@ export const Dilute = {
 					(player.hydra.dilute.inDilute &&
 						(diluteAmount(1) as number) >= 10 &&
 						Hydra.prestigeEff(3).gte(0.135) &&
-						player.hydra.dilute.solution >= 19000) ||
+						player.hydra.dilute.solution.gte(19000)) ||
 					player.milestones.nonrec_7
 				);
 			},
@@ -461,7 +458,7 @@ export const Dilute = {
 			description: '飞升永久不重置任何东西，永久解锁自动飞升，保持U5-2',
 			requirement: new Decimal(25000),
 			get canDone() {
-				return player.hydra.dilute.solution >= 25000 || player.milestones.nonrec_7;
+				return player.hydra.dilute.solution.gte(25000) || player.milestones.nonrec_7;
 			},
 			show: true,
 			currency: '九头蛇溶液',
@@ -513,7 +510,7 @@ export const Dilute = {
 			reqDescription: '2,070,000九头蛇溶液',
 			requirement: new Decimal(2070000),
 			get canDone() {
-				return player.hydra.dilute.solution >= 2070000;
+				return player.hydra.dilute.solution.gte(this.requirement);
 			},
 			show: true,
 			currency: '',
@@ -530,7 +527,7 @@ export const Dilute = {
 			requirement: new Decimal(2095000),
 			get canDone() {
 				return (
-					player.hydra.dilute.solution >= 2095000 &&
+					player.hydra.dilute.solution.gte(this.requirement) &&
 					player.hydra.trueTotalPower.gte('e3500')
 				);
 			},
@@ -556,7 +553,7 @@ export const Dilute = {
 			reqDescription: '2,151,250 九头蛇溶液',
 			requirement: new Decimal(2151250),
 			get canDone() {
-				return player.hydra.dilute.solution >= 2151250;
+				return player.hydra.dilute.solution.gte(this.requirement);
 			},
 			show: true,
 			currency: '',
@@ -568,12 +565,12 @@ export const Dilute = {
 			reqDescription: '2,175,000 九头蛇溶液',
 			requirement: new Decimal(2175000),
 			get canDone() {
-				return player.hydra.dilute.solution >= 2175000 || player.milestones.nonrec_10;
+				return player.hydra.dilute.solution.gte(this.requirement);
 			},
 			show: true,
 			currency: '',
 			onDone() {
-				player.hydra.dilute.solutionCost = 0;
+				player.hydra.dilute.solutionCost = new Decimal(0);
 			},
 		});
 		MILESTONES.create('dut11', {
@@ -583,13 +580,10 @@ export const Dilute = {
 			reqDescription: '2,201,250 九头蛇溶液',
 			requirement: new Decimal(2201250),
 			get canDone() {
-				return player.hydra.dilute.solution >= 2201250;
+				return player.hydra.dilute.solution.gte(this.requirement);
 			},
 			show: true,
 			currency: '',
-			onDone() {
-				player.hydra.dilute.solutionCost = 0;
-			},
 		});
 		MILESTONES.create('dut12', {
 			displayName: 'M-Dilute-12',
@@ -622,7 +616,7 @@ export const Dilute = {
 			reqDescription: '2,261,250 九头蛇溶液 ',
 			requirement: new Decimal(2261250),
 			get canDone() {
-				return player.hydra.dilute.solution >= 2261250;
+				return player.hydra.dilute.solution.gte(this.requirement);
 			},
 			show: true,
 			currency: '',
@@ -749,7 +743,7 @@ export const Dilute = {
 		player.hydra.dilute.inDilute = false;
 	},
 	solutionCalc() {
-		player.hydra.dilute.solution = Math.max(player.hydra.dilute.solution, this.solutionGain());
+		player.hydra.dilute.solution = Decimal.max(player.hydra.dilute.solution, this.solutionGain());
 		player.hydra.dilute.lastSolvent = Array.from(
 			player.hydra.dilute.solvent,
 		) as typeof player.hydra.dilute.solvent;
@@ -908,7 +902,7 @@ export const Dilute = {
 		}
 		return player.hydra.dilute.solvent[id];
 	},
-	solutionGain() {
+	solutionGain(): Decimal {
 		let base: number = Array(6)
 			.fill(null)
 			.map((_, index) => this.diluteAmount(index as IntClosedRange<0, 5>))
@@ -916,6 +910,7 @@ export const Dilute = {
 		if (this.diluteAmount(6)) base *= 5;
 		if (this.diluteAmount(7)) base *= 10;
 		if (this.diluteAmount(8)) base *= 100;
+		let baseDecimal = new Decimal(base)
 		let ConstantMax = new Decimal(100);
 		if (player.nonrecu.studies_bought.includes(2))
 			ConstantMax = ConstantMax.add(
@@ -924,22 +919,21 @@ export const Dilute = {
 		const deduceMult = player.hydra.deduceOrdinal[0]
 			.add(1)
 			.ln()
-			.min(base)
+			.min(baseDecimal)
 			.min(ConstantMax)
-			.toNumber();
 		if (player.nonrecu.studies_bought.includes(18))
-			base *= Number(player.nonrecu.secInThisReset.add(1).ln().mul(0.1).add(1).min(10));
-		let exp = 1;
+			baseDecimal = baseDecimal.mul(player.nonrecu.secInThisReset.add(1).ln().mul(0.1).add(1).min(10));
+		let exp = new Decimal(1);
 		if (!CHALLENGE.inChallenge(1, 2)) {
 			if (player.nonrecu.studies_bought.includes(18))
-				base *= player.nonrecu.secInThisReset.add(1).ln().mul(0.2).add(1).toNumber();
-			if (player.nonrecu.studies_bought.includes(15)) base *= 1.2;
+				baseDecimal = baseDecimal.mul(player.nonrecu.secInThisReset.add(1).ln().mul(0.2).add(1));
+			if (player.nonrecu.studies_bought.includes(15)) baseDecimal = baseDecimal.mul(1.2);
 		}
 		if (player.nonrecu.studies_bought.includes(15)) {
-			exp *= 1.01;
+			exp = exp.mul(1.01);
 		}
-		if (player.nonrecu.studies_bought.includes(20)) exp *= 1.025;
-		return (deduceMult * base) ** exp;
+		if (player.nonrecu.studies_bought.includes(20)) exp = exp.mul(1.025);
+		return deduceMult.mul(baseDecimal).pow(exp);
 	},
 	solutionEff() {
 		let eff1 = new Decimal(getCurrency(Currencies.SOLUTION).pow(0.5)).max(1); //推演速度

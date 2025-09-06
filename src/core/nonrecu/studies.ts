@@ -108,7 +108,7 @@ export const studies = [
 			player.hydra.power = player.hydra.power.add(20);
 			player.hydra.totalPower = player.hydra.totalPower.add(20);
 			player.hydra.trueTotalPower = player.hydra.trueTotalPower.add(20);
-			player.hydra.dilute.solution = player.hydra.dilute.solution + 20;
+			player.hydra.dilute.solution = player.hydra.dilute.solution.add(20);
 		},
 	}),
 	new Study({
@@ -130,7 +130,7 @@ export const studies = [
 	new Study({
 		id: '22', //3
 		get description() {
-			return `基于九头蛇溶液大幅延迟九头蛇能量双重软上限<br>效果: ^${format(Math.log10(player.hydra.dilute.solution + 10))}`;
+			return `基于九头蛇溶液大幅延迟九头蛇能量双重软上限<br>效果: ^${format(Decimal.log10(player.hydra.dilute.solution.add(10)))}`;
 		},
 		cost: new Decimal(3),
 		canBuy() {
@@ -480,8 +480,8 @@ export function addTheories(id: 0 | 1 | 2) {
 		case 1:
 			if (canBuyTheories(1)) {
 				player.hydra.dilute.solutionCost =
-					player.hydra.dilute.solutionCost +
-					theoriesCost(1).clampMax(Number.MAX_VALUE).toNumber();
+					player.hydra.dilute.solutionCost.add(
+					theoriesCost(1).clampMax(Number.MAX_VALUE));
 				player.nonrecu.theories[1] = player.nonrecu.theories[1].add(1);
 			}
 			break;

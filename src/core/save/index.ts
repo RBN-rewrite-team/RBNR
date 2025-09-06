@@ -182,10 +182,10 @@ export interface Player {
 				boolean,
 			];
 			spentTime: number;
-			solution: number;
+			solution: Decimal;
 			lastDeduce: Decimal;
 			solute: Decimal;
-			solutionCost: number;
+			solutionCost: Decimal;
 			prions: Decimal;
 			highestApocalypse: Decimal;
 			solventPresets: [
@@ -374,8 +374,8 @@ function getInitialPlayerData(): Player {
 				solventPresets: [],
 				lastDeduce: zero,
 				spentTime: 0,
-				solution: 0,
-				solutionCost: 0,
+				solution: zero,
+				solutionCost: zero,
 				solute: zero,
 				prions: new Decimal(1),
 				highestApocalypse: zero,
