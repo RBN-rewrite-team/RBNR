@@ -134,11 +134,10 @@ class SolutionCurrency extends Currency {
 		player.hydra.dilute.solutionCost = new Decimal(player.hydra.dilute.solution)
 			.sub(x)
 			.clamp(0, Number.MAX_VALUE)
-			.toNumber();
 	}
 
 	static get current() {
-		return new Decimal(player.hydra.dilute.solution - player.hydra.dilute.solutionCost);
+		return player.hydra.dilute.solution.sub(player.hydra.dilute.solutionCost);
 	}
 }
 class NonRecCurrency extends Currency {

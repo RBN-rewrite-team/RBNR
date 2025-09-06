@@ -698,7 +698,7 @@ export const Hydra = {
 	superSoftcapStart() {
 		let base = new Decimal('e2400');
 		if (player.nonrecu.studies_bought.includes(3))
-			base = base.pow(Math.log10(player.hydra.dilute.solution + 10));
+			base = base.pow(player.hydra.dilute.solution.add(10).log10());
 		return base.max(1e10); //不然会炸
 	},
 	powerSoftcapNerf(base: Decimal): Decimal {

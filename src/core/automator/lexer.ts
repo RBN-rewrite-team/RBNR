@@ -308,5 +308,3 @@ function escapeHtml(text: string) {
 	div.textContent = text;
 	return div.innerHTML;
 }
-
-window.escapeHtml = escapeHtml

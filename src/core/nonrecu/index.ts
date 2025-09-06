@@ -216,18 +216,18 @@ export const NON_RECURSIVE = {
 			player.hydra.dilute.prions = new Decimal('1e150000000');
 		player.hydra.dilute.inDilute = false;
 		player.hydra.dilute.spentTime = 0;
-		player.hydra.dilute.solutionCost = 0;
-		if (!player.milestones.nonrec_12) player.hydra.dilute.solution = 0;
+		player.hydra.dilute.solutionCost = new Decimal(0);
+		if (!player.milestones.nonrec_12) player.hydra.dilute.solution = new Decimal(0);
 		else if (player.milestones.nonrec_14) {
-		} else player.hydra.dilute.solution *= 0.01;
-		if (CHALLENGE.inChallenge(1, 1)) player.hydra.dilute.solution = 0;
-		if (CHALLENGE.inChallenge(1, 2)) player.hydra.dilute.solution = 0;
+		} else player.hydra.dilute.solution = player.hydra.dilute.solution.mul(0.01);
+		if (CHALLENGE.inChallenge(1, 1)) player.hydra.dilute.solution = new Decimal(0);
+		if (CHALLENGE.inChallenge(1, 2)) player.hydra.dilute.solution = new Decimal(0);
 		if (!player.milestones.nonrec_15) player.hydra.dilute.highestApocalypse = new Decimal(0);
 		if (player.nonrecu.studies_bought.includes(0) && !CHALLENGE.inChallenge(1, 3)) {
 			player.hydra.power = player.hydra.power.add(20);
 			player.hydra.totalPower = player.hydra.totalPower.add(20);
 			player.hydra.trueTotalPower = player.hydra.trueTotalPower.add(20);
-			player.hydra.dilute.solution = player.hydra.dilute.solution + 20;
+			player.hydra.dilute.solution = player.hydra.dilute.solution.add(20);
 		}
 		player.nonrecu.secInThisReset = new Decimal(0);
 	},
@@ -235,7 +235,7 @@ export const NON_RECURSIVE = {
 		return (
 			player.hydra.deduceOrdinal[0].gte('ee153.90699754796802') &&
 			player.hydra.totalPower.gte('e326649') &&
-			player.hydra.dilute.solution >= 2.55e8
+			player.hydra.dilute.solution.gte(2.55e8)
 		);
 	},
 	addResetGain() {},
@@ -251,7 +251,7 @@ export const NON_RECURSIVE = {
 			EXP_EFF = 4;
 		let factor = [];
 		factor.push(['基础值', ADD_EFF, new Decimal(1)]);
-		let solEff = new Decimal(player.hydra.dilute.solution / 2.55e8);
+		let solEff = player.hydra.dilute.solution.div(2.55e8);
 		if (solEff.gte(3.5)) solEff = solEff.sub(2.5).log10().add(3.5);
 		factor.push(['九头蛇溶液因子', MUL_EFF, solEff]);
 		factor.push([

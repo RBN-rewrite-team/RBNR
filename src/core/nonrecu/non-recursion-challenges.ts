@@ -59,8 +59,8 @@ export const NONREC_CHALS: SingleChallenge[] = [
 		},
 		loop() {
 			if (
-				player.hydra.dilute.solution >
-				player.challenges[1][1].pow_base(10).mul(4e6).toNumber()
+				player.hydra.dilute.solution.gte(
+				player.challenges[1][1].pow_base(10).mul(4e6))
 			) {
 				player.challengein = [-1, -1];
 				player.challenges[1][1] = player.challenges[1][1].add(1).min(5);
@@ -82,7 +82,7 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			return player.nonrecu.studies_bought.includes(12);
 		},
 		loop() {
-			if (player.hydra.dilute.solution >= 255000000 * 5 ** +player.challenges[1][2]) {
+			if (player.hydra.dilute.solution.gte(255000000 * 5 ** +player.challenges[1][2])) {
 				player.challengein = [-1, -1];
 				player.challenges[1][2] = player.challenges[1][2].add(1).min(5);
 			}
