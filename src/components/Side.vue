@@ -27,17 +27,21 @@ import { isTester } from '@/core/save/testing.ts';
 			<div class="background" style="overflow: auto">
 				<div class="main">
 					<div>
-						<div class="menu2"
+						<div
+							class="menu2"
 							:class="{ focus: player.currentTab == 1225 }"
 							@click="player.currentTab = 1225"
-						>地下城
+						>
+							地下城
 						</div>
 					</div>
 					<div v-if="isTester() && (player.firstResetBit & 0b10000) == 0b10000">
-						<div class="menu2"
+						<div
+							class="menu2"
 							:class="{ focus: player.currentTab == 167 }"
 							@click="player.currentTab = 167"
-						>自动机
+						>
+							自动机
 						</div>
 					</div>
 					<div v-if="player.singularity.stage < 11">

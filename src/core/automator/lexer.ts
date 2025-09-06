@@ -270,13 +270,6 @@ export function highlightAutomator(code: string) {
 	// 1. 进行词法分析
 	const lexResult = HighLightLexer.tokenize(code);
 
-	// 检查词法分析错误
-	if (lexResult.errors.length > 0) {
-		console.error('Lexing errors:', lexResult.errors);
-		// 可以选择返回原始文本或处理错误
-		return code;
-	}
-
 	let result = '';
 	let lastEndOffset = 0;
 	for (const token of lexResult.tokens) {
@@ -315,3 +308,5 @@ function escapeHtml(text: string) {
 	div.textContent = text;
 	return div.innerHTML;
 }
+
+window.escapeHtml = escapeHtml

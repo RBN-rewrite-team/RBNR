@@ -1231,36 +1231,41 @@ a {
 	z-index: 1;
 }
 
-
-.automator-var{
-  color: #569cd6
+.automator-var {
+	color: #569cd6;
 }
 
-.automator-identifier{
-	color: #9cdcfe
+.automator-identifier {
+	color: #9cdcfe;
 }
 
 .automator-number {
-	color: #b5cea8
+	color: #b5cea8;
 }
 
-.automator-while, .automator-for, .automator-return, .automator-if, .automator-else, .automator-forin, .automator-function {
-	color: #569cd6
+.automator-while,
+.automator-for,
+.automator-return,
+.automator-if,
+.automator-else,
+.automator-forin,
+.automator-function {
+	color: #569cd6;
 }
 
 .automator-true,
 .automator-false {
-  color: #c586c0;
+	color: #c586c0;
 }
 
 .automator-stringliteral {
-  color: #ce9178;
+	color: #ce9178;
 }
 
 .automator-singlelinecomment,
 .automator-multilinecomment {
-  color: #6a9955;
-  font-style: italic;
+	color: #6a9955;
+	font-style: italic;
 }
 
 .automator-lessthanorequalto,
@@ -1279,7 +1284,6 @@ a {
 .automator-or,
 .automator-and,
 .automator-xor,
-.automator-not,
-{
-  color: #f536a0;
+.automator-not {
+	color: #f536a0;
 }
