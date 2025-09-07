@@ -1080,11 +1080,17 @@ a {
 	border: 2px solid var(--border-color);
 	width: fit-content;
 	padding: 5px;
+	&.blank {
+		border: 2px solid var(--background-color);
+	}
 }
 .study-name {
 	text-align: left;
 	z-index: 2;
 	position: relative;
+	&.blank {
+		color: var(--background-color);
+	}
 }
 .study-desc {
 	z-index: 2;
@@ -1102,6 +1108,11 @@ a {
 	&:hover {
 		background-color: var(--hover-color);
 		cursor: pointer;
+	}
+	&.blank {
+		border: var(--background-color);
+		background-color: var(--background-color);
+		cursor:default;
 	}
 }
 .study-buyable {

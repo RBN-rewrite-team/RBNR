@@ -15,7 +15,7 @@ import { onMounted, watch, ref } from 'vue';
 import { getTotalTheories } from '@/core/nonrecu/total-theories';
 import { Currencies, getCurrency } from '@/core/currencies';
 import { player, feature } from '@/core/global';
-
+import BlankStudy from './BlankStudy.vue';
 onMounted(() => {
 	updateAllConnectors();
 	window.addEventListener('resize', updateAllConnectors);
@@ -240,10 +240,16 @@ onMounted(() => initConnectors(connectorsRef));
 			</div>
 			<div class="studies_row">
 				<SingleStudy
+					:ref="(el) => registerStudyRef(27, el)"
+					:study_id="27"
+					@update:study="updateAllConnectors"
+				/>
+				<SingleStudy
 					:ref="(el) => registerStudyRef(26, el)"
 					:study_id="26"
 					@update:study="updateAllConnectors"
 				/>
+				<BlankStudy></BlankStudy>
 			</div>
 			<div ref="connectorsRef" class="connectors-container"></div>
 		</div>

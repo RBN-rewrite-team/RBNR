@@ -957,6 +957,19 @@ export const Dilute = {
 			exp = exp.mul(1.01);
 		}
 		if (player.nonrecu.studies_bought.includes(20)) exp = exp.mul(1.025);
+
+		if (player.nonrecu.studies_bought.includes(27)) {
+			exp = exp.mul(
+				player.hydra.deduceOrdinal[0]
+					.clampMin(1e10)
+					.log10()
+					.log10()
+					.log10()
+					.pow(0.1)
+					.mul(0.2)
+					.add(1),
+			);
+		}
 		return deduceMult.mul(baseDecimal).pow(exp);
 	},
 	solutionEff() {

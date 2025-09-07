@@ -386,7 +386,7 @@ export const studies = [
 		},
 	}),
 	new Study({
-		id: 'NRC4',
+		id: 'NRC4', //23
 		get description() {
 			return (
 				'解锁非递归挑战4\t' +
@@ -408,7 +408,7 @@ export const studies = [
 		chal_id: 3,
 	}),
 	new Study({
-		id: 'NRC5',
+		id: 'NRC5', //24
 		description: '解锁非递归挑战5(没做)',
 		cost: new Decimal(25),
 		canBuy() {
@@ -416,6 +416,7 @@ export const studies = [
 		},
 	}),
 	new Study({
+		//25
 		id: 'NRC6',
 		description: '解锁非递归挑战6(没做)',
 		cost: new Decimal(30),
@@ -424,11 +425,30 @@ export const studies = [
 		},
 	}),
 	new Study({
-		id: '111',
+		id: '112', //26
 		description: '基于非递归定理增加九头蛇溶液效果指数(没做)',
 		cost: new Decimal(30),
 		canBuy() {
 			return false;
+		},
+	}),
+	new Study({
+		id: '111', //27
+		get description() {
+			return `轮回效果&九头蛇溶液^x,x基于推演进度计算<br>效果: ^${format(
+				player.hydra.deduceOrdinal[0]
+					.clampMin(1e10)
+					.log10()
+					.log10()
+					.log10()
+					.pow(0.1)
+					.mul(0.2)
+					.add(1),
+			)}`;
+		},
+		cost: new Decimal(20),
+		canBuy() {
+			return or(23) && player.challenges[1][3].gte(1);
 		},
 	}),
 ] as const;
@@ -566,6 +586,10 @@ const studyConnections = computed(() => {
 		{ from: 23, to: 26 },
 		{ from: 24, to: 26 },
 		{ from: 25, to: 26 },
+		{
+			from: 23,
+			to: 27,
+		},
 	];
 	if (player.nonrecu.studies_bought.includes(19)) {
 		connections.push(
@@ -580,6 +604,7 @@ const studyConnections = computed(() => {
 			{ from: 14, to: 16 },
 			{ from: 14, to: 18 },
 			{ from: 15, to: 16 },
+			{ from: 15, to: 17 },
 			{ from: 15, to: 17 },
 		);
 	}
