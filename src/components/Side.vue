@@ -219,7 +219,23 @@ import { isTester } from '@/core/save/testing.ts';
 							@click="player.currentTab = 21"
 							v-if="(player.firstResetBit & 0b10000) == 0b10000"
 						>
-							非递归
+							非递归里程碑
+						</div>
+						<div
+							class="menu2"
+							:class="{ focus: player.currentTab == 23 }"
+							@click="player.currentTab = 23"
+							v-if="(player.firstResetBit & 0b10000) == 0b10000"
+						>
+							能量因素
+						</div>
+						<div
+							class="menu2"
+							:class="{ focus: player.currentTab == 24 }"
+							@click="player.currentTab = 24"
+							v-if="(player.firstResetBit & 0b10000) == 0b10000"
+						>
+							非递归研究树
 						</div>
 						<div
 							class="menu2"
