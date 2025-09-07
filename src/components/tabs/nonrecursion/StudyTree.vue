@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { formatWhole,format } from '@/utils/format';
+import { formatWhole, format } from '@/utils/format';
 import {
 	initConnectors,
 	studyRefs,
@@ -35,12 +35,10 @@ onMounted(() => initConnectors(connectorsRef));
 </script>
 
 <template>
-  				<p>
-					你一共有<b style="color: #c98300; font-size: 30px">{{
-						formatWhole(getTotalTheories())
-					}}</b
-					>非递归理论，还剩下{{ formatWhole(getCurrency(Currencies.NRT)) }}。
-				</p>
+	<p>
+		你一共有<b style="color: #c98300; font-size: 30px">{{ formatWhole(getTotalTheories()) }}</b
+		>非递归理论，还剩下{{ formatWhole(getCurrency(Currencies.NRT)) }}。
+	</p>
 	<div class="studies-container">
 		<div class="studies_row">
 			<div class="study">

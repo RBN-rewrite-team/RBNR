@@ -80,7 +80,11 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			return player.nonrecu.studies_bought.includes(12);
 		},
 		loop() {
-			if (player.hydra.dilute.solution.gte(255000000 * 5 ** player.challenges[1][2].toNumber())) {
+			if (
+				player.hydra.dilute.solution.gte(
+					255000000 * 5 ** player.challenges[1][2].toNumber(),
+				)
+			) {
 				player.challengein = [-1, -1];
 				player.challenges[1][2] = player.challenges[1][2].add(1).min(5);
 			}
@@ -109,8 +113,22 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			return player.nonrecu.studies_bought.includes(22) && player.challenges[1][3].lt(1);
 		},
 		loop() {
-			player.nonrecu.studies_bought = [...new Set(player.nonrecu.studies_bought.concat(getNRC4Kept(player.challenges[1][3].toNumber())))];
-			if (player.hydra.power.gte(new Decimal(6**(player.challenges[1][3].toNumber()+1)).pow_base(2).sub(9).pow_base(2).pow10())) {
+			player.nonrecu.studies_bought = [
+				...new Set(
+					player.nonrecu.studies_bought.concat(
+						getNRC4Kept(player.challenges[1][3].toNumber()),
+					),
+				),
+			];
+			if (
+				player.hydra.power.gte(
+					new Decimal(6 ** (player.challenges[1][3].toNumber() + 1))
+						.pow_base(2)
+						.sub(9)
+						.pow_base(2)
+						.pow10(),
+				)
+			) {
 				player.challengein = [-1, -1];
 				player.challenges[1][3] = player.challenges[1][3].add(1).min(5);
 			}
@@ -119,7 +137,7 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			return x.gt(0) ? x.mul(0.1).add(1) : new Decimal(1);
 		},
 		effD(x): string {
-			return '×'+x;
+			return '×' + x;
 		},
 	},
 ] as const;

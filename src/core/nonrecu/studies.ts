@@ -248,7 +248,13 @@ export const studies = [
 	}),
 	new Study({
 		id: 'NRC3', //12
-		get description() { return '解锁非递归挑战3(没做)\t'+formatWhole(255000000 * 5 ** player.challenges[1][2].toNumber())+' 溶液'},
+		get description() {
+			return (
+				'解锁非递归挑战3(没做)\t' +
+				formatWhole(255000000 * 5 ** player.challenges[1][2].toNumber()) +
+				' 溶液'
+			);
+		},
 		cost: new Decimal(20),
 		canBuy() {
 			return or(10);
@@ -381,7 +387,19 @@ export const studies = [
 	}),
 	new Study({
 		id: 'NRC4',
-		get description() { return '解锁非递归挑战4\t'+format(new Decimal(6**(player.challenges[1][3].toNumber()+1)).pow_base(2).sub(9).pow_base(2).pow10())+"九头蛇能量"},
+		get description() {
+			return (
+				'解锁非递归挑战4\t' +
+				format(
+					new Decimal(6 ** (player.challenges[1][3].toNumber() + 1))
+						.pow_base(2)
+						.sub(9)
+						.pow_base(2)
+						.pow10(),
+				) +
+				'九头蛇能量'
+			);
+		},
 		cost: new Decimal(20),
 		canBuy() {
 			return or(22);
@@ -427,7 +445,13 @@ export function buyStudies(id: number) {
 	const study = studies[id] as Study | undefined;
 	if (!study) return;
 	if (!canBuyStudies(id)) return;
-	if (!(player.challenges[1][3].lt(1)&&getNRC4Kept(player.challenges[1][3].toNumber()).includes(id))) player.nonrecu.spentTheories = player.nonrecu.spentTheories.add(study.cost);
+	if (
+		!(
+			player.challenges[1][3].lt(1) &&
+			getNRC4Kept(player.challenges[1][3].toNumber()).includes(id)
+		)
+	)
+		player.nonrecu.spentTheories = player.nonrecu.spentTheories.add(study.cost);
 	player.nonrecu.studies_bought.push(id);
 	study.onBought();
 	updateAllConnectors();
@@ -633,6 +657,6 @@ export const initConnectors = (elem: Ref<any>) => {
 };
 
 export function getNRC4Kept(level: number): number[] {
-  let base = [0, 1, 23]
-  return base
+	let base = [0, 1, 23];
+	return base;
 }

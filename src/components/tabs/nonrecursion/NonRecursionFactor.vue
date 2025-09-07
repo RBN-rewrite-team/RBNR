@@ -20,8 +20,9 @@ function gainFactor(): string {
 	}
 	return string;
 }
-</script>			<template v-if="temp.nonrecpagevisit[1]">
-         				当前重置后会获得的非递归能量：{{ formatWhole(feature.NON_RECURSIVE.gain()) }}<br />
-         				因素：<br />
-         				<span v-html="gainFactor()" />
-         			</template>
+</script>
+<template v-if="temp.nonrecpagevisit[1]">
+	当前重置后会获得的非递归能量：{{ formatWhole(feature.NON_RECURSIVE.gain()) }}<br />
+	因素：<br />
+	<span v-html="gainFactor()" />
+</template>
