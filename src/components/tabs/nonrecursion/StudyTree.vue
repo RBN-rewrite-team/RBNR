@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { formatWhole } from '@/utils/format';
+import { formatWhole,format } from '@/utils/format';
 import {
 	initConnectors,
 	studyRefs,
@@ -12,6 +12,9 @@ import {
 } from '@/core/nonrecu/studies';
 import SingleStudy from './SingleStudy.vue';
 import { onMounted, watch, ref } from 'vue';
+import { getTotalTheories } from '@/core/nonrecu/total-theories';
+import { Currencies, getCurrency } from '@/core/currencies';
+import { player, feature } from '@/core/global';
 
 onMounted(() => {
 	updateAllConnectors();
@@ -32,6 +35,12 @@ onMounted(() => initConnectors(connectorsRef));
 </script>
 
 <template>
+  				<p>
+					你一共有<b style="color: #c98300; font-size: 30px">{{
+						formatWhole(getTotalTheories())
+					}}</b
+					>非递归理论，还剩下{{ formatWhole(getCurrency(Currencies.NRT)) }}。
+				</p>
 	<div class="studies-container">
 		<div class="studies_row">
 			<div class="study">
