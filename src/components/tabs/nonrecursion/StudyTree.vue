@@ -35,11 +35,14 @@ onMounted(() => initConnectors(connectorsRef));
 </script>
 
 <template>
-  <div style="position: sticky;top: 0;background-color: var(--background-color);z-index:3">
-	<p>
-		你一共有<b style="color: #c98300; font-size: 30px">{{ formatWhole(getTotalTheories()) }}</b
-		>非递归理论，还剩下{{ formatWhole(getCurrency(Currencies.NRT)) }}。
-	</p></div>
+	<div style="position: sticky; top: 0; background-color: var(--background-color); z-index: 3">
+		<p>
+			你一共有<b style="color: #c98300; font-size: 30px">{{
+				formatWhole(getTotalTheories())
+			}}</b
+			>非递归理论，还剩下{{ formatWhole(getCurrency(Currencies.NRT)) }}。
+		</p>
+	</div>
 	<div class="studies-container">
 		<div class="studies_row">
 			<div class="study">
