@@ -589,10 +589,7 @@ const studyConnections = computed(() => {
 		{ from: 23, to: 26 },
 		{ from: 24, to: 26 },
 		{ from: 25, to: 26 },
-		{
-			from: 23,
-			to: 27,
-		},
+		{ from: 23, to: 27 },
 	];
 	if (player.nonrecu.studies_bought.includes(19)) {
 		connections.push(

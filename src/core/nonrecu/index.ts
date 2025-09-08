@@ -335,6 +335,8 @@ export const NON_RECURSIVE = {
 
 		if (player.nonrecu.studies_bought.includes(22)) {
 			a = a.add(this.gain().mul(0.01));
+			
+			if (player.challenges[1][3].gte(1)) a = a.add(this.gain().mul(0.09));
 		}
 
 		return a;
