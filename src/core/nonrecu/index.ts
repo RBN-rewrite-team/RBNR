@@ -244,13 +244,13 @@ export const NON_RECURSIVE = {
 		player.nonrecu.power = player.nonrecu.power.add(x);
 		player.nonrecu.totalPower = player.nonrecu.totalPower.add(x);
 	},
-	gainFactor(): any {
+	gainFactor(): [string, number, Decimal][] {
 		const ADD_EFF = 0,
 			MUL_EFF = 1,
 			POW_EFF = 2,
 			DIL_EFF = 3,
 			EXP_EFF = 4;
-		let factor = [];
+		let factor: [string, number, Decimal][] = [];
 		factor.push(['基础值', ADD_EFF, DC.D_1]);
 		let solEff = player.hydra.dilute.solution.div(2.55e8);
 		if (solEff.gte(3.5)) solEff = solEff.sub(2.5).log10().add(3.5);
@@ -335,7 +335,7 @@ export const NON_RECURSIVE = {
 
 		if (player.nonrecu.studies_bought.includes(22)) {
 			a = a.add(this.gain().mul(0.01));
-			
+
 			if (player.challenges[1][3].gte(1)) a = a.add(this.gain().mul(0.09));
 		}
 
