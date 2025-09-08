@@ -392,7 +392,7 @@ export const studies = [
 			return (
 				'解锁非递归挑战4\t' +
 				format(
-					new Decimal(6 ** (player.challenges[1][3].toNumber() + 1))
+					new Decimal(6 + player.challenges[1][3].toNumber() + 1)
 						.pow_base(2)
 						.sub(9)
 						.pow_base(2)
@@ -498,7 +498,9 @@ export function theoriesCost(id: 0 | 1 | 2) {
 		case 1:
 			return player.nonrecu.theories[1].pow10().mul(1e4);
 		case 2:
-			return player.nonrecu.theories[2].pow_base(5);
+		  let base = player.nonrecu.theories[2]
+		  if (base.gte(215)) base = base.div(215).pow(2).mul(215)
+			return base.pow_base(5);
 		default:
 			let a: never = id;
 	}
