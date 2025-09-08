@@ -111,25 +111,6 @@ interface IDilute {
 	diluteAmount(id: IntClosedRange<6, 8>): boolean;
 	diluteAmountOutside(id: IntClosedRange<0, 5>): number;
 	diluteAmountOutside(id: IntClosedRange<6, 8>): boolean;
-	respec(): void;
-	initMechanics(): void;
-	diluteReset(): void;
-	enterDilute(): void;
-	exitDilute(manmade?: boolean): void;
-	solutionCalc(): void;
-	backupHydra(): backupHydraType;
-	restoreHydra(item: backupHydraType): void;
-	diluteButton(): void;
-	diluteLoop(diff: number, trueDiff: number): void;
-	prionsBase(): Decimal;
-	solutionGain(): Decimal;
-	prions(): Decimal;
-	sol3Eff(): number;
-	sol3EffOutside(): number;
-	totSolNerf(): number;
-	solutionEff(): {
-		eff1: Decimal;
-	};
 }
 
 export const DiluteUpgrades = {
@@ -413,7 +394,7 @@ export const DiluteTS = {
 		return 1000;
 	},
 };
-export const Dilute = {
+const Dil = {
 	respec() {
 		player.upgrades['61S'] = false;
 		player.upgrades['62S'] = false;
@@ -893,7 +874,7 @@ export const Dilute = {
 		}
 	},
 	prionsBase() {
-		let base = new Decimal(1 + this.diluteAmount(4) / 100);
+		let base = new Decimal(1 + Dilute.diluteAmount(4) / 100);
 		if (player.upgrades['69S']) base = new Decimal(2);
 		if (player.upgrades['69S'] && player.milestones.nonrec_6) base = new Decimal(10);
 		if (player.upgrades['610S']) base = base.mul(upgrades['610S'].effect());
@@ -913,10 +894,10 @@ export const Dilute = {
 	 * 溶剂数量，在稀释未开启时会设置为falsy
 	 * @returns
 	 */
-	diluteAmount(id) {
+	diluteAmount(id: IntClosedRange<0, 8>) {
 		return diluteAmount(id);
 	},
-	diluteAmountOutside(id) {
+	diluteAmountOutside(id: IntClosedRange<0, 8>) {
 		if (player.hydra.dilute.solvent[8]) {
 			return id < 6 ? 10 : true;
 		}
@@ -925,7 +906,7 @@ export const Dilute = {
 	solutionGain(): Decimal {
 		let base: number = Array(6)
 			.fill(null)
-			.map((_, index) => this.diluteAmount(index as IntClosedRange<0, 5>))
+			.map((_, index) => Dilute.diluteAmount(index as IntClosedRange<0, 5>))
 			.reduce((tot, num) => tot + num * num);
 		if (this.diluteAmount(6)) base *= 5;
 		if (this.diluteAmount(7)) base *= 10;
@@ -1000,4 +981,5 @@ export const Dilute = {
 			) ** exp
 		);
 	},
-} as IDilute;
+};
+export const Dilute = Dil as Omit<typeof Dil, keyof IDilute> & IDilute;
