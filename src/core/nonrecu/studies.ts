@@ -10,6 +10,7 @@ import { ref, nextTick, type ComponentPublicInstance, computed, type Ref } from 
 import StudyTree from '@/components/tabs/nonrecursion/StudyTree.vue';
 import SingleStudy from '@/components/tabs/nonrecursion/SingleStudy.vue';
 import { format, formatWhole } from '@/utils/format';
+import { isDeveloper } from '../save/testing';
 
 const StudyTreeRef = ref(null);
 
@@ -448,7 +449,7 @@ export const studies = [
 		},
 		cost: new Decimal(20),
 		canBuy() {
-			return or(23) && player.challenges[1][3].gte(1);
+			return or(23) && player.challenges[1][3].gte(1) && isDeveloper();
 		},
 	}),
 ] as const;
