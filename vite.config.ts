@@ -4,7 +4,7 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import legacy from '@vitejs/plugin-legacy';
 import vueJsx from '@vitejs/plugin-vue-jsx';
-import htmlMinifier from 'vite-plugin-html-minifier'
+import htmlMinifier from 'vite-plugin-html-minifier';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -18,8 +18,8 @@ export default defineConfig({
 			exclude: [/\.vue$/],
 		}),
 		htmlMinifier({
-      minify: true,
-    }),
+			minify: true,
+		}),
 	],
 	resolve: {
 		alias: {
