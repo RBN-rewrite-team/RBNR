@@ -862,6 +862,18 @@ export const Hydra = {
 				.pow10();
 		if (id == 1 && base.gte(5000)) base = base.sub(4999).log10().add(5000);
 		if (id == 3 && base.gte(1e6)) base = base.div(1e6).log10().add(1).mul(1e6);
+		if (id == 3 && player.nonrecu.studies_bought.includes(27)) {
+			base = base.pow(
+				player.hydra.deduceOrdinal[0]
+					.clampMin(1e10)
+					.log10()
+					.log10()
+					.log10()
+					.pow(0.1)
+					.mul(0.2)
+					.add(1),
+			);
+		}
 		return base;
 	},
 	deduce(i = 0, bulk = DC.D_0): void {
