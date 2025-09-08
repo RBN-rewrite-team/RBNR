@@ -30,37 +30,4 @@ export default defineConfig({
 	server: {
 		host: '0.0.0.0',
 	},
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          const packageToChunk = {
-            'vue': 'vue',
-            'katex': 'katex',
-            'break_eternity.js': 'break_eternity',
-            'pako': 'pako',
-            'chevrotain': 'chevrotain'
-          };
-          
-          for (const [pkg, chunkName] of Object.entries(packageToChunk)) {
-            if (id.includes(`node_modules/${pkg}`) || id.includes(pkg)) {
-              return chunkName;
-            }
-          }
-          
-          if (id.includes('/src/main.ts')) {
-            return 'game';
-          }
-          
-          if (id.match(/\.vue($|\?)/) && !id.includes('node_modules')) {
-            return 'vue-components';
-          }
-          
-          if (id.includes('node_modules')) {
-            return 'vendor';
-          }
-        }
-      }
-    }
-  }
 });
