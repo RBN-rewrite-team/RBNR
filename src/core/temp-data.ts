@@ -5,7 +5,6 @@ export const temp = reactive({
 	plotdisplay: 0,
 	plotstep: 0,
 	plotcd: Date.now(),
-	nonrecpagevisit: [true, false, true],
 	minigametip: '',
 	dungeonsSP: 0,
 	get innerWidth(): number {
