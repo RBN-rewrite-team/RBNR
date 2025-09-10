@@ -738,11 +738,11 @@ export const Hydra = {
 		if (id != 3 && Hydra.pUnlock(id + 1)) return true;
 		if (id == 0) return player.hydra.prestige[0].gt(0) || Hydra.basePower().gte(2);
 		else if (id == 1)
-			return player.hydra.prestige[1].gt(0) || Hydra.prestigeEff(0, true).gte(20);
+			return player.hydra.prestige[1].gt(0) || Hydra.prestigeEff(0, true).max(Hydra.prestigeEff(0, false)).gte(20);
 		else if (id == 2)
-			return player.hydra.prestige[2].gt(0) || Hydra.prestigeEff(1, true).gte(1);
+			return player.hydra.prestige[2].gt(0) || Hydra.prestigeEff(1, true).max(Hydra.prestigeEff(1, false)).gte(1);
 		else if (id == 3)
-			return player.hydra.prestige[3].gt(0) || Hydra.prestigeEff(2, true).gte(1e10);
+			return player.hydra.prestige[3].gt(0) || Hydra.prestigeEff(2, true).max(Hydra.prestigeEff(2, false)).gte(1e10);
 		return false;
 	},
 	pMaxUnlock() {
