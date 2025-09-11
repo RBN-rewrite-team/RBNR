@@ -594,10 +594,17 @@ export function save() {
 	localStorage.setItem(getSaveID(current_save), saveSerializer.serialize(player));
 }
 const savefunc = save;
-export function hardReset() {
-	player = getInitialPlayerData();
+export function hardReset(excludeKey?: (keyof Player)[]) {
+	let tempplayer = getInitialPlayerData();
+	(Object.keys(tempplayer) as (keyof Player)[]).forEach((key) => {
+		if (!excludeKey?.includes?.(key)) {
+			// @ts-expect-error
+			player[key] = tempplayer[key];
+		}
+	});
+
 	save();
-	location.reload();
+	// location.reload();
 }
 
 export function import_file(): void {
