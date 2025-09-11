@@ -38,7 +38,7 @@ export function UIHardReset() {
 	ModalService.show({
 		title: '硬重置?',
 		content:
-			'这将完全重置你的存档，其他槽位存档不会被重置。<br>下面的输入框可以选择保持哪些游戏数据<br>1,3,5,7:保留地下城;2,3,6,7:保留设置;4,5,6,7:保留时间碎片',
+			'这将完全重置你的存档，其他槽位存档不会被重置。<br>下面的输入框可以选择保持哪些游戏数据<br>1:保留地下城,2:保留设置,4:保留时间碎片,8:保留剧情观看记录；请将您需要的保留项对应值全部相加后输入框内。留空或输入值为非正数时结果无效',
 		fields: [
 			{
 				type: 'input',
@@ -48,9 +48,14 @@ export function UIHardReset() {
 		onConfirm(values) {
 			const v = Number(values[0]);
 			let keylistKeeped: Array<keyof Player> = [];
-			if ([1, 3, 5, 7].includes(v)) keylistKeeped.push('minigame');
-			if ([2, 3, 6, 7].includes(v)) keylistKeeped.push('options');
-			if ([4, 5, 6, 7].includes(v)) keylistKeeped.push('timeshard');
+			let isValid = true
+			if (v <= 0 || isNaN(v)) isValid = false
+			if (isValid) {
+			  if ((v & 0b1) === 0b1) keylistKeeped.push('minigame');
+			  if ((v & 0b10) === 0b10) keylistKeeped.push('options');
+			  if ((v & 0b100) === 0b100) keylistKeeped.push('timeshard');
+			  if ((v & 0b1000) === 0b1000) keylistKeeped.push('checkedPlots');
+			}
 			hardReset(keylistKeeped);
 			clearInterval(saveInterval);
 		},
