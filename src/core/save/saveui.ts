@@ -1,12 +1,5 @@
 import ModalService from '@/utils/Modal';
-import {
-	changeSave,
-	current_save,
-	hardReset,
-	loadFromString,
-	readSaveDetail,
-	type Player,
-} from '.';
+import { changeSave, current_save, hardReset, loadFromString, readSaveDetail } from '.';
 import { saveInterval } from '@/core/game-loop';
 import saveslot_display from './saveslot_display';
 
@@ -37,21 +30,9 @@ export function UILoadSaveFromFile() {
 export function UIHardReset() {
 	ModalService.show({
 		title: '硬重置?',
-		content:
-			'这将完全重置你的存档，其他槽位存档不会被重置。<br>下面的输入框可以选择保持哪些游戏数据<br>1,3,5,7:保留地下城;2,3,6,7:保留设置;4,5,6,7:保留时间碎片',
-		fields: [
-			{
-				type: 'input',
-				placeholder: '',
-			},
-		],
-		onConfirm(values) {
-			const v = Number(values[0]);
-			let keylistKeeped: Array<keyof Player> = [];
-			if ([1, 3, 5, 7].includes(v)) keylistKeeped.push('minigame');
-			if ([2, 3, 6, 7].includes(v)) keylistKeeped.push('options');
-			if ([4, 5, 6, 7].includes(v)) keylistKeeped.push('timeshard');
-			hardReset(keylistKeeped);
+		content: '这将完全重置你的存档，其他槽位存档不会被重置。',
+		onConfirm() {
+			hardReset();
 			clearInterval(saveInterval);
 		},
 	});
