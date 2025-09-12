@@ -9,7 +9,7 @@ export type SingleChallenge<T extends {} = {}> = {
 	descHard: string;
 	loop?(): void; //Run every tick in challenge, use for update challenge amount;
 	canEnter?(): boolean;
-	onEnter?(): void;
+	onExit?(): void;
 } & (
 	| {
 			effect(x: Decimal): Decimal;
@@ -52,13 +52,13 @@ export const CHALLENGE: {
 			player.challengein[1] = y;
 
 			this.resetFunctions[x]();
-			this.challenges[x][y].onEnter?.();
 		}
 	},
-	exitChallenge() {
+	exitChallenge(x: number, y: number) {
 		this.resetFunctions[player.challengein[0]]();
 		player.challengein[0] = -1;
 		player.challengein[1] = -1;
+		this.challenges[x][y].onExit?.();
 	},
 	inChallenge(x, y) {
 		return player.challengein[0] == x && player.challengein[1] == y;
