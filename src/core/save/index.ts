@@ -704,8 +704,8 @@ export function readSaveDetail(id: number) {
 					DC.D_4,
 					20,
 				)
-					.replace('...', '')
-					.replace('>', ''),
+					.replace(/\.{3}/g, '')
+					.replace(/>/g, ''),
 			);
 		} else {
 			details.number = 'UNK';
