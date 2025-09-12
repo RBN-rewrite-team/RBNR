@@ -300,6 +300,7 @@ export const SOFTCAPS = {
 				existing = softcaps[id].start;
 			} else return getting;
 		}
+		return softcaps[id].start
 		if (!softcaps[id].fluid) throw new Error('type error');
 		const s = softcaps[id];
 		return overflow_v2(getting, existing, s);
