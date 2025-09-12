@@ -449,7 +449,7 @@ export const studies = [
 		},
 		cost: new Decimal(20),
 		canBuy() {
-			return or(23) && player.challenges[1][3].gte(1) && isDeveloper();
+			return or(23) && player.challenges[1][3].gte(1);
 		},
 	}),
 ] as const;
