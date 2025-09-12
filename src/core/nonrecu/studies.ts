@@ -411,7 +411,7 @@ export const studies = [
 	new Study({
 		id: 'NRC5', //24
 		description: '解锁非递归挑战5(没做)',
-		cost: new Decimal(25),
+		cost: new Decimal(150),
 		canBuy() {
 			return false;
 		},
@@ -420,7 +420,7 @@ export const studies = [
 		//25
 		id: 'NRC6',
 		description: '解锁非递归挑战6(没做)',
-		cost: new Decimal(30),
+		cost: new Decimal(300),
 		canBuy() {
 			return false;
 		},
@@ -428,7 +428,7 @@ export const studies = [
 	new Study({
 		id: '112', //26
 		description: '基于非递归定理增加九头蛇溶液效果指数(没做)',
-		cost: new Decimal(30),
+		cost: new Decimal(300),
 		canBuy() {
 			return false;
 		},
@@ -447,7 +447,7 @@ export const studies = [
 					.add(1),
 			)}`;
 		},
-		cost: new Decimal(20),
+		cost: new Decimal(200),
 		canBuy() {
 			return or(23) && player.challenges[1][3].gte(1);
 		},
@@ -683,5 +683,8 @@ export const initConnectors = (elem: Ref<any>) => {
 
 export function getNRC4Kept(level: number): number[] {
 	let base = [0, 1, 23];
+	let comp = player.challenges[1][3].toNumber()
+	if (CHALLENGE.inChallenge(1, 3)) comp++
+	if (comp >= 1) base.push(2,3,4,5)
 	return base;
 }

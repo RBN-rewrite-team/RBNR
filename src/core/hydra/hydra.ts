@@ -664,9 +664,11 @@ export const Hydra = {
 		if (Dilute.diluteAmount(7) && player.hydra.dilute.spentTime > 5) return DC.D_0;
 		let base = this.powerGainBase();
 		base = this.powerGainAfterSoftcap(base);
-		if (player.nonrecu.studies_bought.includes(4)) {
+		if (!(CHALLENGE.inChallenge(1, 3) && player.challenges[1][3].gte(1)) && player.nonrecu.studies_bought.includes(4)) {
 			base = base.mul(1e5).pow(1.05);
 		}
+		if (!(CHALLENGE.inChallenge(1, 3) && player.challenges[1][3].gte(1)))
+		  base = base.pow(0.95).div(1e5)
 		base = this.powerGainAfterSoftcap2(base).max(0);
 		if (CHALLENGE.inChallenge(1, 1)) base = base.min(player.nonrecu.power.add(1));
 		return base;
@@ -698,8 +700,9 @@ export const Hydra = {
 	},
 	superSoftcapStart() {
 		let base = new Decimal('e2400');
-		if (player.nonrecu.studies_bought.includes(3))
+		if (!(CHALLENGE.inChallenge(1, 3) && player.challenges[1][3].gte(1)) && player.nonrecu.studies_bought.includes(3))
 			base = base.pow(player.hydra.dilute.solution.add(10).log10());
+		if ((CHALLENGE.inChallenge(1, 3) && player.challenges[1][3].gte(1))) base = base.root(player.hydra.dilute.solution.add(10).log10());
 		return base.max(1e10); //不然会炸
 	},
 	powerSoftcapNerf(base: Decimal): Decimal {

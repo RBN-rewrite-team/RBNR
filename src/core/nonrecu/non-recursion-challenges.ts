@@ -104,13 +104,13 @@ export const NONREC_CHALS: SingleChallenge[] = [
 	{
 		name: '反转研究',
 		get descEasy() {
-			return '挑战中你始终拥有前 2x-1 行研究，其效果完全反转(暂时只能进入第一次)<br>奖励：将非递归研究101的效果变为10%，基于完成次数增加非递归理论总量，前 2x-1 行非递归研究和购买本研究不再消耗任何东西';
+			return '挑战中你始终拥有前 2x-1 行研究，其效果完全反转(暂时只能进入第二次)<br>奖励：将非递归研究101的效果变为10%，基于完成次数增加非递归理论总量，前 2x-1 行非递归研究和购买本研究不再消耗任何东西';
 		},
 		get descHard() {
 			return this.descEasy;
 		},
 		canEnter() {
-			return player.nonrecu.studies_bought.includes(22) && player.challenges[1][3].lt(1);
+			return player.nonrecu.studies_bought.includes(22) && player.challenges[1][3].lt(2);
 		},
 		loop() {
 			player.nonrecu.studies_bought = [
@@ -120,7 +120,7 @@ export const NONREC_CHALS: SingleChallenge[] = [
 					),
 				),
 			];
-			if (
+			if (false &&
 				player.hydra.power.gte(
 					new Decimal(6 ** (player.challenges[1][3].toNumber() + 1))
 						.pow_base(2)
@@ -139,5 +139,9 @@ export const NONREC_CHALS: SingleChallenge[] = [
 		effD(x): string {
 			return '×' + x;
 		},
+		onExit() {
+		  player.nonrecu.studies_bought = [];
+	    player.nonrecu.spentTheories = new Decimal(0);
+		}
 	},
 ] as const;
