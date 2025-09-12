@@ -27,7 +27,7 @@ const useClass = () => {
 };
 function challengeButton(chid: number) {
 	if (!CHALLENGE.inChallenge(1, chid)) CHALLENGE.enterChallenge(1, chid);
-	else CHALLENGE.exitChallenge();
+	else CHALLENGE.exitChallenge(1, chid);
 }
 const clickStudy = (studyid: number) => {
 	if (player.nonrecu.studies_bought.includes(studyid) && study.isChallenge) {
