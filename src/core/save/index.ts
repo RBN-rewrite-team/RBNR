@@ -17,6 +17,8 @@ import { NON_RECURSIVE } from '../nonrecu/index.ts';
 import { initMiniGameData, hardResetMiniGame, type PlayerMinigameData } from '../minigame/index.ts';
 import { DC } from '@/core/constants';
 
+export const pubtest = true;
+
 const version = 11 as const;
 export let current_save = 0;
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
@@ -32,12 +34,16 @@ type KeyStringFromDecimal<T> = {
 // 	boolean
 // >;
 
-function getSaveID(id: number) {
+function _getSaveID(id: number) {
 	if (id == 0) {
 		return 'RBN-rewritten-powerful-refactor-test';
 	} else {
 		return `RBN-rewritten-save-${id}`;
 	}
+}
+
+function getSaveID(id: number) {
+  return "pubtesting_"+_getSaveID(id)
 }
 
 export interface Player {
