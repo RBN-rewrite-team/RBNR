@@ -18,16 +18,8 @@ const useClass = () => {
 		return 'study-buyable';
 	}
 };
-function challengeButton(chid: number) {
-	if (!CHALLENGE.inChallenge(1, chid)) CHALLENGE.enterChallenge(1, chid);
-	else CHALLENGE.exitChallenge();
-}
 const clickStudy = (studyid: number) => {
-	if (player.minigame.skilltree_bought.includes(studyid) && study.isChallenge) {
-		challengeButton(study.chalID);
-	} else {
-		buyStudies(studyid);
-	}
+	buyStudies(studyid);
 };
 </script>
 

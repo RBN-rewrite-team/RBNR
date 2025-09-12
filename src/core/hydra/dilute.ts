@@ -853,7 +853,7 @@ const Dil = {
 				});
 				this.exitDilute(false);
 				if (CHALLENGE.inChallenge(1, 0)) {
-					CHALLENGE.exitChallenge();
+					CHALLENGE.exitChallenge(1, 0);
 				}
 			}
 			if (
