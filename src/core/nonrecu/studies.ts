@@ -467,10 +467,8 @@ export function buyStudies(id: number) {
 	if (!study) return;
 	if (!canBuyStudies(id)) return;
 	if (
-		!(
-			player.challenges[1][3].gte(1) &&
-			getNRC4Kept(player.challenges[1][3].toNumber()).includes(id)
-		)
+			player.challenges[1][3].lt(1) ||
+			!getNRC4Kept(player.challenges[1][3].toNumber()).includes(id)
 	)
 		player.nonrecu.spentTheories = player.nonrecu.spentTheories.add(study.cost);
 	player.nonrecu.studies_bought.push(id);
@@ -685,6 +683,6 @@ export function getNRC4Kept(level: number): number[] {
 	let base = [0, 1, 23];
 	let comp = player.challenges[1][3].toNumber()
 	if (CHALLENGE.inChallenge(1, 3)) comp++
-	if (comp >= 1) base.push(2,3,4,5)
+	if (comp >= 2) base.push(2,3,4,5)
 	return base;
 }
