@@ -16,8 +16,7 @@ import { createDeepValidatedReactive } from '../check-decimal-nan';
 import { NON_RECURSIVE } from '../nonrecu/index.ts';
 import { initMiniGameData, hardResetMiniGame, type PlayerMinigameData } from '../minigame/index.ts';
 import { DC } from '@/core/constants';
-
-export const pubtest = true;
+import { pubtest } from "./testing.ts"
 
 const version = 11 as const;
 export let current_save = 0;
