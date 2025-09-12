@@ -103,6 +103,7 @@ export function updateTheme() {
 				ordinary[i as keyof typeof ordinary],
 			);
 	}
+	root.style.setProperty('--font', player.options.ui.user_font ?? '思源黑体Regular');
 	const other = theme.other;
 	if (other.filter) {
 		root.style.filter = other.filter;

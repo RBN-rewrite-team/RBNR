@@ -5,12 +5,15 @@ import { notationNamesMap, notations } from '@/utils/format';
 import { reverseUiOptions, themeDetailsMap, themes } from '@/utils/themes';
 import { computed } from 'vue';
 import { isTester } from '@/core/save/testing.ts';
+import ModalService from '@/utils/Modal';
+import fontUI from '@/core/save/fontUI';
 
 const validNotations = computed(() =>
 	Object.values(notations).filter((v) => typeof v === 'number'),
 );
 
 const validThemes = computed(() => Object.values(themes).filter((v) => typeof v == 'number'));
+const setFontUI = ()=>ModalService.show({title: "设置字体", component: fontUI})
 </script>
 
 <template>
@@ -70,6 +73,8 @@ const validThemes = computed(() => Object.values(themes).filter((v) => typeof v 
 		>
 			{{ themeDetailsMap.get(theme)?.name ?? 'unknown' }} {{ theme }}
 		</button>
+		<br />
+		<button class="setting_button" @click="setFontUI">设置字体</button>
 		<br />
 		<br />
 		<div class="center_line" />

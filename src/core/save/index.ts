@@ -111,6 +111,7 @@ export interface Player {
 			};
 			newsbar: boolean;
 			titlebar: boolean;
+			user_font?: string;
 		};
 		challengeDetial: boolean;
 		allowOffline: boolean;
