@@ -29,10 +29,10 @@ export const CHALLENGE = {
 		function () {
 			NON_RECURSIVE.reset(true);
 		},
-	],
-	challenges: [MULTI_CHALS, NONREC_CHALS] as const,
+	] as (() => void)[],
+	challenges: [MULTI_CHALS, NONREC_CHALS] as SingleChallenge[][],
 
-	enterChallenge(x, y) {
+	enterChallenge(x: number, y: number) {
 		if (!this.inChallenge(x, y)) {
 			if (x >= this.challenges.length) throw Error('not a valid error');
 			if (y >= this.challenges[x].length) throw Error('not a valid error');
@@ -50,10 +50,10 @@ export const CHALLENGE = {
 		player.challengein[1] = -1;
 		this.challenges[x][y].onExit?.();
 	},
-	inChallenge(x, y) {
+	inChallenge(x: number, y: number) {
 		return player.challengein[0] == x && player.challengein[1] == y;
 	},
-	amountChallenge(x, y) {
+	amountChallenge(x: number, y: number) {
 		return player.challenges[x][y];
 	},
 	challengeLoop() {
@@ -62,4 +62,4 @@ export const CHALLENGE = {
 			curchal.loop?.();
 		}
 	},
-} as const;
+};
