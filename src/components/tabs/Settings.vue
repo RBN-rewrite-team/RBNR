@@ -11,7 +11,6 @@ const validNotations = computed(() =>
 );
 
 const validThemes = computed(() => Object.values(themes).filter((v) => typeof v == 'number'));
-
 </script>
 
 <template>
@@ -21,7 +20,7 @@ const validThemes = computed(() => Object.values(themes).filter((v) => typeof v 
 			<div class="setting_button" @click="save()">手动保存</div>
 			<div class="setting_button" @click="import_file()">导入存档</div>
 			<div class="setting_button" @click="export_file()">导出存档</div>
-			<div class="hard_reset" @click="()=>UIHardReset()">硬重置</div>
+			<div class="hard_reset" @click="() => UIHardReset()">硬重置</div>
 		</div>
 		<div>
 			<div class="setting_button" @click="UIChangeSave">切换存档槽位</div>

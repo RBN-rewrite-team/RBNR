@@ -913,7 +913,10 @@ const Dil = {
 		if (this.diluteAmount(8)) base *= 100;
 		let baseDecimal = new Decimal(base);
 		let ConstantMax = new Decimal(100);
-		if (!(CHALLENGE.inChallenge(1, 3) && player.challenges[1][3].gte(1)) && player.nonrecu.studies_bought.includes(2))
+		if (
+			!(CHALLENGE.inChallenge(1, 3) && player.challenges[1][3].gte(1)) &&
+			player.nonrecu.studies_bought.includes(2)
+		)
 			ConstantMax = ConstantMax.add(
 				player.hydra.deduceOrdinal[0].add(1).ln().add(1).slog(10).add(1).pow(2).mul(10),
 			);

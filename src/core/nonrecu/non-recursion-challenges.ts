@@ -120,7 +120,8 @@ export const NONREC_CHALS: SingleChallenge[] = [
 					),
 				),
 			];
-			if (false &&
+			if (
+				false &&
 				player.hydra.power.gte(
 					new Decimal(6 ** (player.challenges[1][3].toNumber() + 1))
 						.pow_base(2)
@@ -140,8 +141,8 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			return '×' + x;
 		},
 		onExit() {
-		  player.nonrecu.studies_bought = [];
-	    player.nonrecu.spentTheories = new Decimal(0);
-		}
+			player.nonrecu.studies_bought = [];
+			player.nonrecu.spentTheories = new Decimal(0);
+		},
 	},
 ] as const;

@@ -467,8 +467,8 @@ export function buyStudies(id: number) {
 	if (!study) return;
 	if (!canBuyStudies(id)) return;
 	if (
-			player.challenges[1][3].lt(1) ||
-			!getNRC4Kept(player.challenges[1][3].toNumber()).includes(id)
+		player.challenges[1][3].lt(1) ||
+		!getNRC4Kept(player.challenges[1][3].toNumber()).includes(id)
 	)
 		player.nonrecu.spentTheories = player.nonrecu.spentTheories.add(study.cost);
 	player.nonrecu.studies_bought.push(id);
@@ -496,8 +496,8 @@ export function theoriesCost(id: 0 | 1 | 2) {
 		case 1:
 			return player.nonrecu.theories[1].pow10().mul(1e4);
 		case 2:
-		  let base = player.nonrecu.theories[2]
-		  if (base.gte(215)) base = base.div(215).pow(2).mul(215)
+			let base = player.nonrecu.theories[2];
+			if (base.gte(215)) base = base.div(215).pow(2).mul(215);
 			return base.pow_base(5);
 		default:
 			let a: never = id;
@@ -681,8 +681,8 @@ export const initConnectors = (elem: Ref<any>) => {
 
 export function getNRC4Kept(level: number): number[] {
 	let base = [0, 1, 23];
-	let comp = player.challenges[1][3].toNumber()
-	if (CHALLENGE.inChallenge(1, 3)) comp++
-	if (comp >= 2) base.push(2,3,4,5)
+	let comp = player.challenges[1][3].toNumber();
+	if (CHALLENGE.inChallenge(1, 3)) comp++;
+	if (comp >= 2) base.push(2, 3, 4, 5);
 	return base;
 }

@@ -664,11 +664,14 @@ export const Hydra = {
 		if (Dilute.diluteAmount(7) && player.hydra.dilute.spentTime > 5) return DC.D_0;
 		let base = this.powerGainBase();
 		base = this.powerGainAfterSoftcap(base);
-		if (!(CHALLENGE.inChallenge(1, 3) && player.challenges[1][3].gte(1)) && player.nonrecu.studies_bought.includes(4)) {
+		if (
+			!(CHALLENGE.inChallenge(1, 3) && player.challenges[1][3].gte(1)) &&
+			player.nonrecu.studies_bought.includes(4)
+		) {
 			base = base.mul(1e5).pow(1.05);
 		}
 		if (!(CHALLENGE.inChallenge(1, 3) && player.challenges[1][3].gte(1)))
-		  base = base.pow(0.95).div(1e5)
+			base = base.pow(0.95).div(1e5);
 		base = this.powerGainAfterSoftcap2(base).max(0);
 		if (CHALLENGE.inChallenge(1, 1)) base = base.min(player.nonrecu.power.add(1));
 		return base;
@@ -700,9 +703,13 @@ export const Hydra = {
 	},
 	superSoftcapStart() {
 		let base = new Decimal('e2400');
-		if (!(CHALLENGE.inChallenge(1, 3) && player.challenges[1][3].gte(1)) && player.nonrecu.studies_bought.includes(3))
+		if (
+			!(CHALLENGE.inChallenge(1, 3) && player.challenges[1][3].gte(1)) &&
+			player.nonrecu.studies_bought.includes(3)
+		)
 			base = base.pow(player.hydra.dilute.solution.add(10).log10());
-		if ((CHALLENGE.inChallenge(1, 3) && player.challenges[1][3].gte(1))) base = base.root(player.hydra.dilute.solution.add(10).log10());
+		if (CHALLENGE.inChallenge(1, 3) && player.challenges[1][3].gte(1))
+			base = base.root(player.hydra.dilute.solution.add(10).log10());
 		return base.max(1e10); //不然会炸
 	},
 	powerSoftcapNerf(base: Decimal): Decimal {
@@ -741,11 +748,20 @@ export const Hydra = {
 		if (id != 3 && Hydra.pUnlock(id + 1)) return true;
 		if (id == 0) return player.hydra.prestige[0].gt(0) || Hydra.basePower().gte(2);
 		else if (id == 1)
-			return player.hydra.prestige[1].gt(0) || Hydra.prestigeEff(0, true).max(Hydra.prestigeEff(0, false)).gte(20);
+			return (
+				player.hydra.prestige[1].gt(0) ||
+				Hydra.prestigeEff(0, true).max(Hydra.prestigeEff(0, false)).gte(20)
+			);
 		else if (id == 2)
-			return player.hydra.prestige[2].gt(0) || Hydra.prestigeEff(1, true).max(Hydra.prestigeEff(1, false)).gte(1);
+			return (
+				player.hydra.prestige[2].gt(0) ||
+				Hydra.prestigeEff(1, true).max(Hydra.prestigeEff(1, false)).gte(1)
+			);
 		else if (id == 3)
-			return player.hydra.prestige[3].gt(0) || Hydra.prestigeEff(2, true).max(Hydra.prestigeEff(2, false)).gte(1e10);
+			return (
+				player.hydra.prestige[3].gt(0) ||
+				Hydra.prestigeEff(2, true).max(Hydra.prestigeEff(2, false)).gte(1e10)
+			);
 		return false;
 	},
 	pMaxUnlock() {

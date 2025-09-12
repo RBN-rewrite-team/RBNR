@@ -48,13 +48,13 @@ export function UIHardReset() {
 		onConfirm(values) {
 			const v = Number(values[0]);
 			let keylistKeeped: Array<keyof Player> = [];
-			let isValid = true
-			if (v <= 0 || isNaN(v)) isValid = false
+			let isValid = true;
+			if (v <= 0 || isNaN(v)) isValid = false;
 			if (isValid) {
-			  if ((v & 0b1) === 0b1) keylistKeeped.push('minigame');
-			  if ((v & 0b10) === 0b10) keylistKeeped.push('options');
-			  if ((v & 0b100) === 0b100) keylistKeeped.push('timeshard');
-			  if ((v & 0b1000) === 0b1000) keylistKeeped.push('checkedPlots');
+				if ((v & 0b1) === 0b1) keylistKeeped.push('minigame');
+				if ((v & 0b10) === 0b10) keylistKeeped.push('options');
+				if ((v & 0b100) === 0b100) keylistKeeped.push('timeshard');
+				if ((v & 0b1000) === 0b1000) keylistKeeped.push('checkedPlots');
 			}
 			hardReset(keylistKeeped);
 			clearInterval(saveInterval);
