@@ -21,17 +21,7 @@ export type SingleChallenge<T extends {} = {}> = {
 	  }
 ) &
 	T;
-export const CHALLENGE: {
-	resetFunctions: (() => void)[];
-	challenges: SingleChallenge[][];
-
-	enterChallenge(x: number, y: number): void;
-	exitChallenge(): void;
-
-	amountChallenge(x: number, y: number): Decimal;
-	inChallenge(x: number, y: number): boolean;
-	challengeLoop(): void;
-} = {
+export const CHALLENGE = {
 	resetFunctions: [
 		function () {
 			feature.MULTIPLICATION.reset(true);
@@ -72,4 +62,4 @@ export const CHALLENGE: {
 			curchal.loop?.();
 		}
 	},
-};
+} as const;
