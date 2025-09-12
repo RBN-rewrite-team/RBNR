@@ -468,7 +468,7 @@ export function buyStudies(id: number) {
 	if (!canBuyStudies(id)) return;
 	if (
 		!(
-			player.challenges[1][3].lt(1) &&
+			player.challenges[1][3].gte(1) &&
 			getNRC4Kept(player.challenges[1][3].toNumber()).includes(id)
 		)
 	)
