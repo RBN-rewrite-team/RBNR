@@ -194,6 +194,10 @@ export function simulate(diff: number) {
 			let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.addpower().passive);
 			feature.ADDITION.addpower_gain(bulk);
 		}
+		
+		if (player.upgrades[46]) {
+		  player.challenges[0][3] = player.challenges[0][3].add(player.multiplication.mulpower.root(200).mul(diff/1000))
+		}
 
 		if (feature.resourceGain.mulpower().passive.gt(0)) {
 			let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.mulpower().passive);
@@ -239,6 +243,8 @@ export function simulate(diff: number) {
 				.add(NUMTHEORY.varY2gain().mul(diff).mul(1e-3))
 				.max(1);
 		}
+		
+		if (player.milestones.dil_5) player.exponention.logarithm.observe_datas = player.exponention.logarithm.observe_datas.add(player.exponention.logarithm.calculate_datas.add(1).log10().pow(2).mul(diff/1000))
 	}
 
 	if (player.firstResetBit & 0b1000) {
@@ -302,7 +308,7 @@ export function simulate(diff: number) {
 	if (player.stat.chapter >= 6) {
 		NON_RECURSIVE.loop(diff / 1000);
 	}
-	if (player.singularity.enabled || Logarithm.logarithm.upgrades_in_dilated.includes('39')) {
+	if (player.singularity.enabled || player.milestones.dil_7) {
 		if (player.singularity.enabled) player.singularity.t += diff / 1000;
 		if (player.singularity.stage < 1 && player.singularity.t > 205) player.singularity.t = 205;
 		if (player.singularity.stage < 2 && player.singularity.t > 250) player.singularity.t = 250;

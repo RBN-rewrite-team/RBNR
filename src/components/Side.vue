@@ -19,7 +19,7 @@ import { getI18NData } from '@/core/i18n-data.ts';
 					>
 						{{ getI18NData('roadofbignumberrewritten') }}
 					</div>
-					<div style="font-size: 15px">Dungeons & Automator Beta</div>
+					<div style="font-size: 15px">Rebalancing Beta</div>
 				</div>
 			</div>
 		</div>
@@ -141,7 +141,7 @@ import { getI18NData } from '@/core/i18n-data.ts';
 							@click="player.currentTab = 14"
 							v-if="
 								player.singularity.enabled ||
-								Logarithm.logarithm.upgrades_in_dilated.includes('39')
+								player.milestones.dil_7
 							"
 						>
 							奇点生成器
@@ -158,10 +158,6 @@ import { getI18NData } from '@/core/i18n-data.ts';
 							class="menu2"
 							:class="{ focus: player.currentTab == 14 }"
 							@click="player.currentTab = 14"
-							v-if="
-								player.singularity.enabled ||
-								Logarithm.logarithm.upgrades_in_dilated.includes('39')
-							"
 						>
 							奇点生成器
 						</div>

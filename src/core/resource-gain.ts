@@ -20,7 +20,6 @@ export const resourceGain = {
 		if (player.exponention.logarithm.in_dilate) {
 			base = base.add(10).ln().ln().div(10);
 		}
-		base = base.mul(feature.SUCCESSOR.autoSuccessPerSecond());
 		if (player.buyables[31].gt(0) && Logarithm.logarithm.buyables_in_dilated.includes('31'))
 			base = base.mul(buyables[31].effect(player.buyables[31]));
 
@@ -29,16 +28,17 @@ export const resourceGain = {
 		}
 		if (
 			player.singularity.enabled ||
-			player.exponention.logarithm.upgrades_in_dilated.includes('39')
+			player.milestones.dil_7
 		)
 			base = base.add(1).pow(feature.SingularityGenerator.getSingularityEffect()).sub(1);
+		base = base.mul(feature.SUCCESSOR.autoSuccessPerSecond());
 		let softcaps = 0,
 			scList = ['number^1', 'number^2', 'number^3', 'number^4', 'number^5'];
 		if (player.singularity.stage < 2)
 			for (let i = 0; i < scList.length; i++) {
-				if (SOFTCAPS.reach(scList[i], player.number)) {
+				if (SOFTCAPS.reach(scList[i], base)) {
 					softcaps++;
-					base = SOFTCAPS.fluidComputed(scList[i], base, player.number);
+					base = SOFTCAPS.staticComputed(scList[i], base)
 				}
 			}
 		if (CHALLENGE.inChallenge(0, 2))
@@ -52,16 +52,16 @@ export const resourceGain = {
 		}
 		if (
 			player.singularity.enabled ||
-			player.exponention.logarithm.upgrades_in_dilated.includes('39')
+			player.milestones.dil_7
 		)
 			base = base.add(1).pow(feature.SingularityGenerator.getSingularityEffect()).sub(1);
 		let softcaps = 0,
 			scList = ['addpower^1', 'addpower^2', 'addpower^3', 'addpower^4', 'addpower^5'];
 		if (player.singularity.stage < 2)
 			for (let i = 0; i < scList.length; i++) {
-				if (SOFTCAPS.reach(scList[i], player.addpower)) {
+				if (SOFTCAPS.reach(scList[i], base)) {
 					softcaps++;
-					base = SOFTCAPS.fluidComputed(scList[i], base, player.addpower);
+					base = SOFTCAPS.staticComputed(scList[i], base)
 				}
 			}
 		let passive = new Decimal(0);
@@ -84,9 +84,9 @@ export const resourceGain = {
 			scList = ['mulpower^1', 'mulpower^2'];
 		if (player.singularity.stage < 2)
 			for (let i = 0; i < scList.length; i++) {
-				if (SOFTCAPS.reach(scList[i], player.multiplication.mulpower)) {
+				if (SOFTCAPS.reach(scList[i], base)) {
 					softcaps++;
-					base = SOFTCAPS.fluidComputed(scList[i], base, player.multiplication.mulpower);
+					base = SOFTCAPS.staticComputed(scList[i], base);
 				}
 			}
 		return { value: base, passive, softcaps };
@@ -96,6 +96,7 @@ export const resourceGain = {
 		let passive = new Decimal(0);
 		if (player.exponention.logarithm.upgrades_in_dilated.includes('38'))
 			passive = passive.add(0.01);
+		if (player.milestones.dil_4) passive = passive.add(10)
 		return { value: base, passive };
 	},
 	ordinalNumber() {

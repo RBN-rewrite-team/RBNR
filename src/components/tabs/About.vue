@@ -2,7 +2,7 @@
 <template>
 	<div class="main">
 		<h1>大数之路重制版</h1>
-		版本: Dungeons & Automator Beta<br />
+		版本: Rebalancing Beta<br />
 		<br />
 		<div style="position: relative; width: 100%">
 			<div

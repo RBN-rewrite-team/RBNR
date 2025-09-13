@@ -142,61 +142,13 @@ export const Successor = {
 		})(),
 	} as const,
 	initMechanics() {
-		SOFTCAPS.create('number^1', {
-			name: 'number^1',
-			fluid: true,
-			start: new Decimal(2).pow(256),
-			exponent: new Decimal(0.75),
-		});
-		SOFTCAPS.create('number^2', {
-			name: 'number^2',
-			fluid: true,
-			get start() {
-				let base = new Decimal(2).pow(1024);
 
-				if (player.upgrades[43]) base = base.pow(2);
-				return base;
-			},
-			exponent: new Decimal(0.75),
-		});
-		SOFTCAPS.create('number_C1', {
-			name: 'number_C1',
-			fluid: true,
-			start: DC.D_1,
-			exponent: new Decimal(0.5),
-		});
-		SOFTCAPS.create('number^3', {
-			name: 'number^3',
-			fluid: true,
-			start: new Decimal('e20000'),
-			exponent: new Decimal(0.5),
-		});
-		SOFTCAPS.create('number^4', {
-			name: 'number^4',
-			fluid: true,
-			start: new Decimal('ee5'),
-			get exponent() {
-				let base = new Decimal(4);
-				if (player.milestones.cb6) base = base.pow(0.5);
-				return base.pow(-1);
-			},
-			meta: 1,
-		});
-		SOFTCAPS.create('number^5', {
-			name: 'number^5',
-			fluid: true,
-			start: new Decimal('ee20'),
-			get exponent() {
-				return player.milestones.cb14 ? new Decimal(0.2) : new Decimal(0.1);
-			},
-			meta: 1,
-		});
 	},
 	/**
 	 * @param bulk 点击多少次后继按钮，默认为1就是用户手动点击
 	 */
 	success(bulk = 1) {
-		let adding = this.successorBulk().pow(this.successorPow()).mul(bulk);
+		let adding = this.successorBulk().pow(this.successorPow())
 		if (player.exponention.logarithm.in_dilate) {
 			adding = adding.add(10).iteratedlog(Math.E, Logarithm.dilateNerf().toNumber()).div(10);
 		}
@@ -205,17 +157,24 @@ export const Successor = {
 		}
 		if (
 			player.singularity.enabled ||
-			player.exponention.logarithm.upgrades_in_dilated.includes('39')
+			player.milestones.dil_7
 		)
 			adding = adding.add(1).pow(feature.SingularityGenerator.getSingularityEffect()).sub(1);
+		let softcaps = 0,
+			scList = ['number^1', 'number^2', 'number^3', 'number^4', 'number^5'];
 		if (player.singularity.stage < 2)
-			for (let i = 1; i <= 5; i++)
-				adding = SOFTCAPS.fluidComputed('number^' + i, adding, player.number);
+			for (let i = 0; i < scList.length; i++) {
+				if (SOFTCAPS.reach(scList[i], adding)) {
+					softcaps++;
+					adding = SOFTCAPS.staticComputed(scList[i], adding)
+				}
+			}
 		if (CHALLENGE.inChallenge(0, 2))
 			adding = SOFTCAPS.fluidComputed('number_C1', adding, player.number);
 		if (CHALLENGE.inChallenge(0, 3)) {
 			adding = adding.mul(predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1);
 		}
+		adding = adding.mul(bulk);
 		player.number = player.number.add(adding).max(0);
 		player.totalNumber = player.totalNumber.add(adding.max(0));
 		player.stat.totalNumber = player.stat.totalNumber.add(adding.max(0));
