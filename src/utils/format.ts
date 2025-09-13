@@ -217,7 +217,7 @@ export function formatGain(a: DecimalSource, e: DecimalSource, resourceName: str
 		}
 
 		if (a.gte('ee10')) {
-			let tower = Math.floor(new Decimal(a).slog(10).toNumber() - 1.3010299956639813);
+			let tower = Math.floor(new Decimal(a).slog(10).toNumber() - 1);
 
 			var oom = new Decimal(g)
 					.iteratedlog(10, tower)

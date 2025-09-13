@@ -163,7 +163,7 @@ export const Multiplication = {
 		'39': new (class U28 extends Upgrade {
 			description: () => string = Logarithm.dilated(
 				'解锁乘法挑战，自动最大购买后继、加法购买项，最大购买乘法购买项',
-				'解锁奇点生成器',
+				'膨胀中获得最高数值的效果变得更好',
 				'39',
 			);
 			cost = new Decimal(1e21);
@@ -211,7 +211,7 @@ export const Multiplication = {
 				return player.upgrades['452q'] && player.singularity.stage < 7;
 			}
 			costInverse(x: Decimal): Decimal {
-				return x.max(1).div(1000).floor().min(500);
+				return x.sub(10).max(0).div(1000).add(1).floor().min(500);
 			}
 		})(),
 		'32': new (class B22 extends Buyable<Decimal> {
@@ -291,6 +291,15 @@ export const Multiplication = {
 	},
 	mulpower_gain(bulk = DC.D_1) {
 		let adding = this.gain().mul(bulk);
+				let softcaps = 0,
+			scList = ['mulpower^1', 'mulpower^2'];
+		if (player.singularity.stage < 2)
+			for (let i = 0; i < scList.length; i++) {
+				if (SOFTCAPS.reach(scList[i], adding)) {
+					softcaps++;
+					adding = SOFTCAPS.staticComputed(scList[i], adding);
+				}
+			}
 		player.multiplication.mulpower = player.multiplication.mulpower.add(adding);
 		player.multiplication.totalMulpower = player.multiplication.totalMulpower.add(adding);
 	},
@@ -346,6 +355,7 @@ export const Multiplication = {
 		if (player.upgrades[47]) base = base.pow(feature.ChessBoard.wgEffect()[0]);
 
 		if (player.milestones.cb19) base = base.log10().pow(getMCB19Effect()).pow_base(10);
+		if (player.upgrades[410]) base = base.pow(upgrades[410].effect());
 
 		if (player.exponention.logarithm.in_dilate) {
 			base = base.add(10).iteratedlog(Math.E, Logarithm.dilateNerf().div(2).toNumber());
@@ -353,7 +363,7 @@ export const Multiplication = {
 
 		if (
 			player.singularity.enabled ||
-			player.exponention.logarithm.upgrades_in_dilated.includes('39')
+			player.milestones.dil_7
 		)
 			base = base.pow(feature.SingularityGenerator.getSingularityEffect());
 

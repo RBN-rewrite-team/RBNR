@@ -154,11 +154,18 @@ export const Successor = {
 		}
 		if (
 			player.singularity.enabled ||
-			player.exponention.logarithm.upgrades_in_dilated.includes('39')
+			player.milestones.dil_7
 		)
 			adding = adding.add(1).pow(feature.SingularityGenerator.getSingularityEffect()).sub(1);
-		if (adding.gte(softcaps['number^1'].start)) adding = adding.div(softcaps['number^1'].start).pow(softcaps['number^1'].exponent).mul(softcaps['number^1'].start)
-		if (adding.gte(softcaps['number^2'].start)) adding = adding.div(softcaps['number^2'].start).pow(softcaps['number^2'].exponent).mul(softcaps['number^2'].start)
+		let softcaps = 0,
+			scList = ['number^1', 'number^2', 'number^3', 'number^4', 'number^5'];
+		if (player.singularity.stage < 2)
+			for (let i = 0; i < scList.length; i++) {
+				if (SOFTCAPS.reach(scList[i], adding)) {
+					softcaps++;
+					adding = SOFTCAPS.staticComputed(scList[i], adding)
+				}
+			}
 		if (CHALLENGE.inChallenge(0, 2))
 			adding = SOFTCAPS.fluidComputed('number_C1', adding, player.number);
 		if (CHALLENGE.inChallenge(0, 3)) {

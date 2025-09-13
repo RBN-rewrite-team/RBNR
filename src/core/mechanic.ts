@@ -22,6 +22,7 @@ import { Hydra } from './hydra/hydra.ts';
 import { Dilute, DiluteUpgrades } from './hydra/dilute.ts';
 import type { Upgrade } from './upgrade.ts';
 import { DC } from '@/core/constants';
+import { getMCB19Effect, wgEffect } from './exponention/chessboard.ts';
 
 const upgrades = {
 	...Successor.upgrades,
@@ -241,11 +242,13 @@ type ISoftcap = {
  * @param meta 不知道
  * @returns 溢出后的数
  */
-function overflow() {
-	/* 废弃 */
+/*
+  function overflow() {
+	废弃
 }
+*/
 
-function overflow_v2(getting: Decimal, existing: Decimal, s: any) {
+/*function overflow_v2(getting: Decimal, existing: Decimal, s: any) {
 	let ans = new Decimal(0);
 	if (s.slog) {
 		ans = Decimal.iteratedexp(
@@ -271,8 +274,42 @@ function overflow_v2(getting: Decimal, existing: Decimal, s: any) {
 		ans = Decimal.iteratedexp(10, meta, logged);
 	}
 	return ans;
+}*/
+function overflow(number: Decimal, start: DecimalSource, power: DecimalSource, meta=0) {
+	if (isNaN(number.mag)) return new Decimal(0)
+	start = new Decimal(start)
+
+	if (number.gt(start)) {
+	  if (meta == 0) {
+	    number = number.div(start).pow(power).mul(start)
+	  } else if (meta == 1) {
+			let s = start.log10()
+			number = number.log10().div(s).pow(power).mul(s).pow10()
+		} else {
+			let s = start.iteratedlog(10,meta)
+			number = Decimal.iteratedexp(10,meta,number.iteratedlog(10,meta).div(s).pow(power).mul(s));
+		}
+	}
+	return number;
 }
 
+function overflowInversed(number: Decimal, start: DecimalSource, power: DecimalSource, meta=1) {
+	if (isNaN(number.mag)) return new Decimal(0)
+	start = new Decimal(start)
+
+	if (number.gt(start)) {
+		if (meta == 0) {
+	    number = number.div(start).root(power).mul(start)
+	  } else if (meta == 1) {
+			let s = start.log10()
+			number = number.log10().div(s).root(power).mul(s).pow10()
+		} else {
+			let s = start.iteratedlog(10,meta)
+			number = Decimal.iteratedexp(10,meta,number.iteratedlog(10,meta).div(s).root(power).mul(s));
+		}
+	}
+	return number;
+}
 export const SOFTCAPS = {
 	create(id: string, info: ISoftcap) {
 		softcaps[id] = info;
@@ -316,9 +353,8 @@ export const SOFTCAPS = {
 	 */
 	staticComputed(id: string, getting: Decimal) {
 		if (!this.reach(id, getting)) return getting;
-		if (softcaps[id].fluid) throw new Error('type error');
 		const s = softcaps[id];
-		return overflow_v2(new Decimal(0), getting, s);
+		return overflow(getting, s.start, s.exponent, s.meta ?? 0);
 	},
 };
 
