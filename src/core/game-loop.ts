@@ -308,7 +308,7 @@ export function simulate(diff: number) {
 	if (player.stat.chapter >= 6) {
 		NON_RECURSIVE.loop(diff / 1000);
 	}
-	if (player.singularity.enabled || player.milestones.dil_7) {
+	if (player.singularity.enabled || Logarithm.logarithm.upgrades_in_dilated.includes('39')) {
 		if (player.singularity.enabled) player.singularity.t += diff / 1000;
 		if (player.singularity.stage < 1 && player.singularity.t > 205) player.singularity.t = 205;
 		if (player.singularity.stage < 2 && player.singularity.t > 250) player.singularity.t = 250;

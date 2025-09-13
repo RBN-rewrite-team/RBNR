@@ -113,7 +113,7 @@ export const OrdinalUtils = {
 			return (
 				prefix +
 				(displayMode ? '<sup>' : '^(') +
-				powerdisplay +
+				(power.add(1e-9).floor().eq(1)?"":powerdisplay) +
 				(displayMode ? '</sup>' : ')')
 			);
 		}

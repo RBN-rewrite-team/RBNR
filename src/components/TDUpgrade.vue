@@ -95,7 +95,7 @@ function actualCost(curupg: Upgrade) {
 								? OrdinalUtils.numberToOrdinal(
 										actualCost(curupg),
 										feature.Ordinal.base(),
-									) + currencyName(curupg.currency)
+									)
 								: format(actualCost(curupg)),
 							currencyName(upgrades[id].currency),
 						)
