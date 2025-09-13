@@ -302,6 +302,7 @@ export const Multiplication = {
 			}
 		player.multiplication.mulpower = player.multiplication.mulpower.add(adding);
 		player.multiplication.totalMulpower = player.multiplication.totalMulpower.add(adding);
+		player.stat.totalMulpower = player.stat.totalMulpower.add(adding);
 	},
 	powerEff() {
 		const base = player.multiplication.totalMulpower.add(1);
@@ -363,7 +364,7 @@ export const Multiplication = {
 
 		if (
 			player.singularity.enabled ||
-			player.milestones.dil_7
+			player.exponention.logarithm.upgrades_in_dilated.includes('39')
 		)
 			base = base.pow(feature.SingularityGenerator.getSingularityEffect());
 
