@@ -239,14 +239,15 @@ export const Multiplication = {
 			}
 		})(),
 		'33': new (class B23 extends Buyable<Decimal> {
-			description: string = '质因数公式变得更好';
+			description: string = '质因数效果增速';
 			name = 'B2-3';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			effect(x: Decimal) {
 				return new Decimal(0.01).mul(x);
 			}
 			effectDescription(x: Decimal) {
-				return '+' + format(this.effect(x));
+			  if (this.effect(x).gte(0.99)) return "瞬间达到上限"
+				return 'x' + format(Decimal.sub(0.99,this.effect(x)).log(0.99));
 			}
 			cost(x: Decimal) {
 				const a = new Decimal(5).pow(x.add(1));
@@ -286,31 +287,10 @@ export const Multiplication = {
 		})(),
 	} as const,
 	initMechanics() {
-		SOFTCAPS.create('mulpower^1', {
-			name: 'mulpower^1',
-			fluid: true,
-			start: new Decimal('e5e6'),
-			get exponent() {
-				let base = new Decimal(2.5);
-				if (player.upgrades[47]) base = base.pow(wgEffect()[4]);
-				return DC.D_1.div(base);
-			},
-			meta: 1,
-		});
-		SOFTCAPS.create('mulpower^2', {
-			name: 'mulpower^2',
-			fluid: true,
-			start: new Decimal('ee9'),
-			exponent: new Decimal(0.25),
-			meta: 1,
-		});
+
 	},
 	mulpower_gain(bulk = DC.D_1) {
 		let adding = this.gain().mul(bulk);
-		if (player.singularity.stage < 2) {
-			adding = SOFTCAPS.fluidComputed('mulpower^1', adding, player.multiplication.mulpower);
-			adding = SOFTCAPS.fluidComputed('mulpower^2', adding, player.multiplication.mulpower);
-		}
 		player.multiplication.mulpower = player.multiplication.mulpower.add(adding);
 		player.multiplication.totalMulpower = player.multiplication.totalMulpower.add(adding);
 	},
