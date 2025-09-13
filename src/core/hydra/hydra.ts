@@ -291,7 +291,7 @@ export const Hydra = {
 		})(),
 		'62': new (class U62 extends UpgradeWithEffect<Decimal> {
 			description = '基于累计九头蛇能量，每秒获得一定重置时获取的九头蛇能量和乘数';
-			cost = new Decimal(1e45);
+			cost = new Decimal(1e35);
 			name = 'U5-2';
 			show(): boolean {
 				return (
