@@ -367,32 +367,19 @@ export const OrdinalUtils = {
 		maxLength = 20,
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		otherwise: number = 0,
-	): any {
-		if (x.lte(0) || maxLength < 0) return [];
+	): number[] {
+		if (x.lte(0) || maxLength <= 0) return [];
 		if (x.lt(base)) {
 			return [otherwise + 1].concat(this.numberToY(x.sub(1), base, maxLength - 1, otherwise));
 		} else if (x.lt(base.pow(2))) {
 			return [otherwise + 1].concat(
 				this.numberToY(x.sub(base).add(1), base, maxLength - 1, otherwise + 1),
 			);
-		} else if (x.lt(base.pow(base))) {
-			let l = x.log(base).floor().toNumber() - 3;
-			let b = [otherwise + 1, otherwise + 2];
-			let thres = 3;
-			for (let i = 0; i < l; i++) {
-				b.push(otherwise + 4 + i * 2);
-				thres += 2;
-			}
-			return b.concat(
-				this.numberToY(x.sub(base.pow(2)).add(1), base, maxLength - 1, otherwise + thres),
-			);
-		} else if (x.lt(base.pow(base.pow(2)))) {
-			return [otherwise + 1, otherwise + 2, otherwise + 4].concat(
-				this.numberToY(x.sub(base.pow(base)).add(1), base, maxLength - 1, otherwise + 6),
-			);
+		} else {
+		  return []
 		}
 	},
 };
 
 for (let i = 0; i <= 4 ** 4 * 2 + 10; i += 1)
-	console.log(i, OrdinalUtils.numberToY(new Decimal(i), new Decimal(4), 30));
+	console.log(i, OrdinalUtils.numberToY(new Decimal(i), new Decimal(4), 100));
