@@ -139,10 +139,7 @@ import { getI18NData } from '@/core/i18n-data.ts';
 							class="menu2"
 							:class="{ focus: player.currentTab == 14 }"
 							@click="player.currentTab = 14"
-							v-if="
-								player.singularity.enabled ||
-								player.milestones.dil_7
-							"
+							v-if="player.singularity.enabled || player.milestones.dil_7"
 						>
 							奇点生成器
 						</div>

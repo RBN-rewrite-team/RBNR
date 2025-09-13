@@ -194,9 +194,11 @@ export function simulate(diff: number) {
 			let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.addpower().passive);
 			feature.ADDITION.addpower_gain(bulk);
 		}
-		
+
 		if (player.upgrades[46]) {
-		  player.challenges[0][3] = player.challenges[0][3].add(player.multiplication.mulpower.root(200).mul(diff/1000))
+			player.challenges[0][3] = player.challenges[0][3].add(
+				player.multiplication.mulpower.root(200).mul(diff / 1000),
+			);
 		}
 
 		if (feature.resourceGain.mulpower().passive.gt(0)) {
@@ -243,8 +245,16 @@ export function simulate(diff: number) {
 				.add(NUMTHEORY.varY2gain().mul(diff).mul(1e-3))
 				.max(1);
 		}
-		
-		if (player.milestones.dil_5) player.exponention.logarithm.observe_datas = player.exponention.logarithm.observe_datas.add(player.exponention.logarithm.calculate_datas.add(1).log10().pow(2).mul(diff/1000))
+
+		if (player.milestones.dil_5)
+			player.exponention.logarithm.observe_datas =
+				player.exponention.logarithm.observe_datas.add(
+					player.exponention.logarithm.calculate_datas
+						.add(1)
+						.log10()
+						.pow(2)
+						.mul(diff / 1000),
+				);
 	}
 
 	if (player.firstResetBit & 0b1000) {

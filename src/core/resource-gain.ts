@@ -26,10 +26,7 @@ export const resourceGain = {
 		if (player.exponention.logarithm.upgrades_in_dilated.includes('31')) {
 			base = base.pow(3);
 		}
-		if (
-			player.singularity.enabled ||
-			player.milestones.dil_7
-		)
+		if (player.singularity.enabled || player.milestones.dil_7)
 			base = base.add(1).pow(feature.SingularityGenerator.getSingularityEffect()).sub(1);
 		base = base.mul(feature.SUCCESSOR.autoSuccessPerSecond());
 		let softcaps = 0,
@@ -38,7 +35,7 @@ export const resourceGain = {
 			for (let i = 0; i < scList.length; i++) {
 				if (SOFTCAPS.reach(scList[i], base)) {
 					softcaps++;
-					base = SOFTCAPS.staticComputed(scList[i], base)
+					base = SOFTCAPS.staticComputed(scList[i], base);
 				}
 			}
 		if (CHALLENGE.inChallenge(0, 2))
@@ -50,10 +47,7 @@ export const resourceGain = {
 		if (player.exponention.logarithm.in_dilate) {
 			base = base.add(Math.E).ln().ln().mul(10);
 		}
-		if (
-			player.singularity.enabled ||
-			player.milestones.dil_7
-		)
+		if (player.singularity.enabled || player.milestones.dil_7)
 			base = base.add(1).pow(feature.SingularityGenerator.getSingularityEffect()).sub(1);
 		let softcaps = 0,
 			scList = ['addpower^1', 'addpower^2', 'addpower^3', 'addpower^4', 'addpower^5'];
@@ -61,7 +55,7 @@ export const resourceGain = {
 			for (let i = 0; i < scList.length; i++) {
 				if (SOFTCAPS.reach(scList[i], base)) {
 					softcaps++;
-					base = SOFTCAPS.staticComputed(scList[i], base)
+					base = SOFTCAPS.staticComputed(scList[i], base);
 				}
 			}
 		let passive = new Decimal(0);
@@ -96,7 +90,7 @@ export const resourceGain = {
 		let passive = new Decimal(0);
 		if (player.exponention.logarithm.upgrades_in_dilated.includes('38'))
 			passive = passive.add(0.01);
-		if (player.milestones.dil_4) passive = passive.add(10)
+		if (player.milestones.dil_4) passive = passive.add(10);
 		return { value: base, passive };
 	},
 	ordinalNumber() {

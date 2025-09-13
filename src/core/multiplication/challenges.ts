@@ -70,9 +70,9 @@ export const MULTI_CHALS: SingleChallenge[] = [
 		},
 		effect(x) {
 			if (CHALLENGE.inChallenge(0, 3)) return DC.D_1;
-			let base = x.add(1).pow(64).max(1)
+			let base = x.add(1).pow(64).max(1);
 			if (!player.upgrades[49]) base = base.min(new Decimal('e1000'));
-			return base
+			return base;
 		},
 		effD(x) {
 			return `首次乘法重置解锁指数层<br>乘法能量获取速度*${format(x)}`;

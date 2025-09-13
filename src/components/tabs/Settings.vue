@@ -13,7 +13,7 @@ const validNotations = computed(() =>
 );
 
 const validThemes = computed(() => Object.values(themes).filter((v) => typeof v == 'number'));
-const setFontUI = ()=>ModalService.show({title: "设置字体", component: fontUI})
+const setFontUI = () => ModalService.show({ title: '设置字体', component: fontUI });
 </script>
 
 <template>

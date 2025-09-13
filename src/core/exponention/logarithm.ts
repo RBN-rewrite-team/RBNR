@@ -6,7 +6,7 @@ import { diff } from '../game-loop';
 import { Buyable } from '../buyable';
 import { Currencies } from '../currencies';
 import { NUMTHEORY } from '../multiplication/numbertheory.ts';
-import { wheatGrain } from "./chessboard.ts"
+import { wheatGrain } from './chessboard.ts';
 export interface IAstronomer {
 	life: number;
 	boost: Decimal;
@@ -182,7 +182,11 @@ export const Logarithm = {
 		MILESTONES.create('dil_5', {
 			displayName: 'M-Dil-5',
 			get description() {
-			  return '基于计算数据生产观测数据<br>效果：+'+ format(player.exponention.logarithm.calculate_datas.add(1).log10().pow(2))+"/s"
+				return (
+					'基于计算数据生产观测数据<br>效果：+' +
+					format(player.exponention.logarithm.calculate_datas.add(1).log10().pow(2)) +
+					'/s'
+				);
 			},
 			requirement: new Decimal(1e26),
 			get canDone() {
@@ -194,7 +198,10 @@ export const Logarithm = {
 		MILESTONES.create('dil_6', {
 			displayName: 'M-Dil-6',
 			get description() {
-			  return '基于麦粒数量增加指数能量获取<br>效果：^'+ format(wheatGrain().log10().add(1).log10().add(1).pow(0.15))
+				return (
+					'基于麦粒数量增加指数能量获取<br>效果：^' +
+					format(wheatGrain().log10().add(1).log10().add(1).pow(0.15))
+				);
 			},
 			requirement: new Decimal(1e26),
 			get canDone() {
@@ -206,11 +213,14 @@ export const Logarithm = {
 		MILESTONES.create('dil_7', {
 			displayName: 'M-Dil-7',
 			get description() {
-			  return '解锁<b>奇点生成器</b>'
+				return '解锁<b>奇点生成器</b>';
 			},
 			requirement: new Decimal(2).pow(8192),
 			get canDone() {
-				return player.exponention.logarithm.in_dilate && player.multiplication.mulpower.gte(this.requirement);
+				return (
+					player.exponention.logarithm.in_dilate &&
+					player.multiplication.mulpower.gte(this.requirement)
+				);
 			},
 			show: true,
 			currency: '膨胀中乘法能量',
@@ -286,7 +296,14 @@ export const Logarithm = {
 	},
 
 	dilateEffect(): [num: Decimal, expo: Decimal] {
-		return [this.logarithm.highest_dilate.pow(player.exponention.logarithm.upgrades_in_dilated.includes('39')?0.75:0.5), this.logarithm.highest_dilate.pow(player.exponention.logarithm.upgrades_in_dilated.includes('39')?1.25:0.75)];
+		return [
+			this.logarithm.highest_dilate.pow(
+				player.exponention.logarithm.upgrades_in_dilated.includes('39') ? 0.75 : 0.5,
+			),
+			this.logarithm.highest_dilate.pow(
+				player.exponention.logarithm.upgrades_in_dilated.includes('39') ? 1.25 : 0.75,
+			),
+		];
 	},
 	dilateNerf(): Decimal {
 		let base = new Decimal(2);

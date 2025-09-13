@@ -181,10 +181,7 @@ export const Addition = {
 				return player.upgrades[39];
 			}
 			costInverse(x: Decimal): Decimal {
-				return x
-					.div(1000)
-					.floor()
-					.min(100);
+				return x.div(1000).floor().min(100);
 			}
 			effect(x: Decimal): Decimal {
 				return x;
@@ -194,18 +191,13 @@ export const Addition = {
 			}
 		})(),
 	} as const,
-	initMechanics() {
-
-	},
+	initMechanics() {},
 	addpower_gain(bulk = DC.D_1) {
 		let adding = this.gain().mul(bulk);
 		if (player.exponention.logarithm.in_dilate) {
 			adding = adding.add(Math.E).ln().ln().mul(10);
 		}
-		if (
-			player.singularity.enabled ||
-			player.milestones.dil_7
-		)
+		if (player.singularity.enabled || player.milestones.dil_7)
 			adding = adding.add(1).pow(feature.SingularityGenerator.getSingularityEffect()).sub(1);
 		if (player.buyables[31].gt(0) && Logarithm.logarithm.upgrades_in_dilated.includes('31'))
 			adding = adding.mul(buyables[31].effect(player.buyables[31]));
@@ -213,12 +205,12 @@ export const Addition = {
 		if (player.singularity.stage < 2)
 			for (let i = 0; i < scList.length; i++) {
 				if (SOFTCAPS.reach(scList[i], adding)) {
-					adding = SOFTCAPS.staticComputed(scList[i], adding)
+					adding = SOFTCAPS.staticComputed(scList[i], adding);
 				}
 			}
-			if (CHALLENGE.inChallenge(0, 3)) {
-			  adding = adding.mul(predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1);
-		  }
+		if (CHALLENGE.inChallenge(0, 3)) {
+			adding = adding.mul(predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1);
+		}
 		player.addpower = player.addpower.add(adding).max(0);
 		player.totalAddpower = player.totalAddpower.add(adding.max(0));
 		player.stat.totalAddpower = player.stat.totalAddpower.add(adding.max(0));

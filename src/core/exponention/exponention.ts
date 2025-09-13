@@ -12,7 +12,7 @@ import { Upgrade, UpgradeWithEffect } from '../upgrade';
 import { CurrencyRequirement, type Requirement } from '../requirements';
 import { Buyable } from '../buyable';
 const D179E308 = Decimal.pow(2, 1024);
-import { wheatGrain } from "./chessboard.ts"
+import { wheatGrain } from './chessboard.ts';
 
 export const Exponention = {
 	upgrades: {
@@ -91,10 +91,10 @@ export const Exponention = {
 			name = 'U3-32';
 			currency: Currencies = Currencies.EXPONENTION_POWER;
 			effect(): Decimal {
-			  return feature.PrimeFactor.power().log10().add(1).log10().add(1)
+				return feature.PrimeFactor.power().log10().add(1).log10().add(1);
 			}
 			effectDescription() {
-			  return "^"+format(this.effect())
+				return '^' + format(this.effect());
 			}
 		})(),
 		'411': new (class extends Upgrade {
@@ -295,15 +295,24 @@ export const Exponention = {
 		let exp = new Decimal(0.5);
 		if (player.upgrades[48]) exp = new Decimal(0.6);
 		if (player.upgrades[411]) exp = new Decimal(0.8);
-		if (player.milestones.dil_6) exp = exp.mul(wheatGrain().log10().add(1).log10().add(1).pow(0.15))
+		if (player.milestones.dil_6)
+			exp = exp.mul(wheatGrain().log10().add(1).log10().add(1).pow(0.15));
 		let base = player.multiplication.totalMulpower.log(2).pow(exp).div(32);
 		if (player.milestones.cb4) base = base.mul(10);
 		if (player.milestones.log_law2)
 			base = base.mul(Logarithm.logarithm.calculate_datas.root(3).max(1));
 
 		if (player.singularity.stage < 1) base = base.mul(Logarithm.dilateEffect()[1]);
-		if (base.gte("e100")) base = base.log10().log10().div(2).pow(0.5).mul(2).pow10().pow10()
-		if (base.gte("e600")) base = base.log10().log10().div(2.778151250383643632).pow(0.5).mul(2.778151250383643632).pow10().pow10()
+		if (base.gte('e100')) base = base.log10().log10().div(2).pow(0.5).mul(2).pow10().pow10();
+		if (base.gte('e600'))
+			base = base
+				.log10()
+				.log10()
+				.div(2.778151250383643632)
+				.pow(0.5)
+				.mul(2.778151250383643632)
+				.pow10()
+				.pow10();
 		return base.floor();
 	},
 	powerEff() {

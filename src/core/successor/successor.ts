@@ -141,24 +141,19 @@ export const Successor = {
 			}
 		})(),
 	} as const,
-	initMechanics() {
-
-	},
+	initMechanics() {},
 	/**
 	 * @param bulk 点击多少次后继按钮，默认为1就是用户手动点击
 	 */
 	success(bulk = 1) {
-		let adding = this.successorBulk().pow(this.successorPow())
+		let adding = this.successorBulk().pow(this.successorPow());
 		if (player.exponention.logarithm.in_dilate) {
 			adding = adding.add(10).iteratedlog(Math.E, Logarithm.dilateNerf().toNumber()).div(10);
 		}
 		if (player.exponention.logarithm.upgrades_in_dilated.includes('31')) {
 			adding = adding.pow(3);
 		}
-		if (
-			player.singularity.enabled ||
-			player.milestones.dil_7
-		)
+		if (player.singularity.enabled || player.milestones.dil_7)
 			adding = adding.add(1).pow(feature.SingularityGenerator.getSingularityEffect()).sub(1);
 		let softcaps = 0,
 			scList = ['number^1', 'number^2', 'number^3', 'number^4', 'number^5'];
@@ -166,7 +161,7 @@ export const Successor = {
 			for (let i = 0; i < scList.length; i++) {
 				if (SOFTCAPS.reach(scList[i], adding)) {
 					softcaps++;
-					adding = SOFTCAPS.staticComputed(scList[i], adding)
+					adding = SOFTCAPS.staticComputed(scList[i], adding);
 				}
 			}
 		if (CHALLENGE.inChallenge(0, 2))

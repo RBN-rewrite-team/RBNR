@@ -264,10 +264,8 @@ defineExpose({
 </script>
 
 <style scoped lang="scss">
-
 button {
 	padding: 5px;
 	border-radius: 4px;
 }
-
 </style>

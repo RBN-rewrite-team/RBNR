@@ -24,12 +24,12 @@ export function maxBlocks() {
 }
 
 function mcb20eff() {
-  let base = player.exponention.exppower.add(10).log10().pow(0.1)
-  if (player.milestones.cb21) base = base.pow(2)
-  if (player.milestones.cb22) base = base.pow(2)
-  if (player.milestones.cb23) base = base.pow(1.1)
-  if (player.milestones.cb24) base = base.pow(3.141592653589793238)
-  return base
+	let base = player.exponention.exppower.add(10).log10().pow(0.1);
+	if (player.milestones.cb21) base = base.pow(2);
+	if (player.milestones.cb22) base = base.pow(2);
+	if (player.milestones.cb23) base = base.pow(1.1);
+	if (player.milestones.cb24) base = base.pow(3.141592653589793238);
+	return base;
 }
 
 export const cb1 = new (class extends Buyable<Decimal> {
@@ -43,7 +43,7 @@ export const cb1 = new (class extends Buyable<Decimal> {
 		return formatWhole(x);
 	}
 	cost(x: Decimal) {
-	  if (player.milestones.cb20) x = x.div(mcb20eff())
+		if (player.milestones.cb20) x = x.div(mcb20eff());
 		let c = x.pow_base(2).mul(100);
 		if (player.milestones.cb2) {
 			c = x.pow(0.99).pow_base(1.85).mul(100);
@@ -69,10 +69,10 @@ export const cb1 = new (class extends Buyable<Decimal> {
 			.max(1)
 			.log(player.milestones.cb2 ? 1.85 : 2)
 			.root(player.milestones.cb2 ? 0.99 : 1)
-			.add(1)
-		if (!player.milestones.cb20) base = base.floor()
-		else base = base.mul(mcb20eff())
-	  return base
+			.add(1);
+		if (!player.milestones.cb20) base = base.floor();
+		else base = base.mul(mcb20eff());
+		return base;
 	}
 	canAfford() {
 		return player.singularity.stage < 3;
@@ -254,7 +254,7 @@ export function initMechanics() {
 		get description() {
 			return '计算速度翻倍，天文学家的效果底数从1.5提升到2';
 		},
-		requirement: new Decimal("1e353"),
+		requirement: new Decimal('1e353'),
 		get canDone() {
 			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
@@ -267,7 +267,7 @@ export function initMechanics() {
 		get description() {
 			return '数值指数^1.125，削弱数值第五个软上限';
 		},
-		requirement: new Decimal("5e361"),
+		requirement: new Decimal('5e361'),
 		get canDone() {
 			return wheatGrain().gte(this.requirement);
 		},
@@ -279,7 +279,7 @@ export function initMechanics() {
 		get description() {
 			return '计算速度和天文学家寿命×10';
 		},
-		requirement: new Decimal("1e366"),
+		requirement: new Decimal('1e366'),
 		get canDone() {
 			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
@@ -292,7 +292,7 @@ export function initMechanics() {
 		get description() {
 			return '清除麦粒效果软上限';
 		},
-		requirement: new Decimal("3e374"),
+		requirement: new Decimal('3e374'),
 		get canDone() {
 			return wheatGrain().gte(this.requirement);
 		},
@@ -304,7 +304,7 @@ export function initMechanics() {
 		get description() {
 			return '天文学家寿命×2，但天文学家时间速度×200';
 		},
-		requirement: new Decimal("1e387"),
+		requirement: new Decimal('1e387'),
 		get canDone() {
 			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
@@ -317,7 +317,7 @@ export function initMechanics() {
 		get description() {
 			return '基于观测数据，棋盘底数×' + format(getMCB18Effect());
 		},
-		requirement: new Decimal("5e428"),
+		requirement: new Decimal('5e428'),
 		get canDone() {
 			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
@@ -332,7 +332,7 @@ export function initMechanics() {
 				'增强麦粒第五个效果并删除其软上限，麦粒让乘法能量指数^' + format(getMCB19Effect())
 			);
 		},
-		requirement: new Decimal("5.5555e555"),
+		requirement: new Decimal('5.5555e555'),
 		get canDone() {
 			return wheatGrain().gte(this.requirement);
 		},
@@ -342,9 +342,12 @@ export function initMechanics() {
 	MILESTONES.create('cb20', {
 		displayName: 'M-CB-20',
 		get description() {
-			return '你可以购买分数个棋盘格，棋盘格可购买数量基于指数能量增加<br>效果：×'+format(mcb20eff());
+			return (
+				'你可以购买分数个棋盘格，棋盘格可购买数量基于指数能量增加<br>效果：×' +
+				format(mcb20eff())
+			);
 		},
-		requirement: new Decimal(2).pow(9*1024),
+		requirement: new Decimal(2).pow(9 * 1024),
 		get canDone() {
 			return wheatGrain().gte(this.requirement) && !player.singularity.enabled;
 		},
@@ -356,7 +359,7 @@ export function initMechanics() {
 		get description() {
 			return 'M-CB-20的效果变为其平方';
 		},
-		requirement: new Decimal("e9000"),
+		requirement: new Decimal('e9000'),
 		get canDone() {
 			return wheatGrain().gte(this.requirement) && !player.singularity.enabled;
 		},
@@ -368,7 +371,7 @@ export function initMechanics() {
 		get description() {
 			return 'M-CB-20的效果再次变为其平方';
 		},
-		requirement: new Decimal("e22000"),
+		requirement: new Decimal('e22000'),
 		get canDone() {
 			return wheatGrain().gte(this.requirement) && !player.singularity.enabled;
 		},
@@ -380,7 +383,7 @@ export function initMechanics() {
 		get description() {
 			return 'M-CB-20的效果再次变为其1.1次方';
 		},
-		requirement: new Decimal("ee6"),
+		requirement: new Decimal('ee6'),
 		get canDone() {
 			return wheatGrain().gte(this.requirement) && !player.singularity.enabled;
 		},
@@ -392,7 +395,7 @@ export function initMechanics() {
 		get description() {
 			return 'M-CB-20的效果再次变为其π次方';
 		},
-		requirement: new Decimal("7.7e7777777"),
+		requirement: new Decimal('7.7e7777777'),
 		get canDone() {
 			return wheatGrain().gte(this.requirement) && !player.singularity.enabled;
 		},
@@ -405,14 +408,14 @@ export function wheatGrain() {
 	const baseVal = base();
 	if (baseVal.eq(1)) return baseVal.mul(maxBlocks());
 	const maxBlocksVal = maxBlocks();
-	let r = 0
-	if (player.milestones.log_law1) r++
-	if (player.milestones.log_law2) r++
-	if (player.milestones.log_law3) r++
-	if (player.milestones.log_G) r++
+	let r = 0;
+	if (player.milestones.log_law1) r++;
+	if (player.milestones.log_law2) r++;
+	if (player.milestones.log_law3) r++;
+	if (player.milestones.log_G) r++;
 	let eff = baseVal.pow(maxBlocksVal).sub(1).div(baseVal.sub(1));
-	if (player.milestones.cb10) eff = eff.pow(1.05 ** r)
-	return eff
+	if (player.milestones.cb10) eff = eff.pow(1.05 ** r);
+	return eff;
 }
 
 export function wgEffect() {

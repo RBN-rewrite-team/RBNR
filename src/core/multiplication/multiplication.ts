@@ -246,8 +246,8 @@ export const Multiplication = {
 				return new Decimal(0.01).mul(x);
 			}
 			effectDescription(x: Decimal) {
-			  if (this.effect(x).gte(0.99)) return "瞬间达到上限"
-				return 'x' + format(Decimal.sub(0.99,this.effect(x)).log(0.99));
+				if (this.effect(x).gte(0.99)) return '瞬间达到上限';
+				return 'x' + format(Decimal.sub(0.99, this.effect(x)).log(0.99));
 			}
 			cost(x: Decimal) {
 				const a = new Decimal(5).pow(x.add(1));
@@ -286,12 +286,10 @@ export const Multiplication = {
 			}
 		})(),
 	} as const,
-	initMechanics() {
-
-	},
+	initMechanics() {},
 	mulpower_gain(bulk = DC.D_1) {
 		let adding = this.gain().mul(bulk);
-				let softcaps = 0,
+		let softcaps = 0,
 			scList = ['mulpower^1', 'mulpower^2'];
 		if (player.singularity.stage < 2)
 			for (let i = 0; i < scList.length; i++) {

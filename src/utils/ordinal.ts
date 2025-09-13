@@ -113,7 +113,7 @@ export const OrdinalUtils = {
 			return (
 				prefix +
 				(displayMode ? '<sup>' : '^(') +
-				(power.add(1e-9).floor().eq(1)?"":powerdisplay) +
+				(power.add(1e-9).floor().eq(1) ? '' : powerdisplay) +
 				(displayMode ? '</sup>' : ')')
 			);
 		}
@@ -376,7 +376,7 @@ export const OrdinalUtils = {
 				this.numberToY(x.sub(base).add(1), base, maxLength - 1, otherwise + 1),
 			);
 		} else {
-		  return []
+			return [];
 		}
 	},
 };
