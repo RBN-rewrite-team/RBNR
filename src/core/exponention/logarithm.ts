@@ -208,7 +208,7 @@ export const Logarithm = {
 			get description() {
 			  return '解锁<b>奇点生成器</b>'
 			},
-			requirement: new Decimal(2).pow(1024),
+			requirement: new Decimal(2).pow(8192),
 			get canDone() {
 				return player.exponention.logarithm.in_dilate && player.multiplication.mulpower.gte(this.requirement);
 			},

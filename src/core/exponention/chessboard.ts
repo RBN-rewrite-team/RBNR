@@ -28,6 +28,7 @@ function mcb20eff() {
   if (player.milestones.cb21) base = base.pow(2)
   if (player.milestones.cb22) base = base.pow(2)
   if (player.milestones.cb23) base = base.pow(1.1)
+  if (player.milestones.cb24) base = base.pow(3.141592653589793238)
   return base
 }
 
@@ -380,6 +381,18 @@ export function initMechanics() {
 			return 'M-CB-20的效果再次变为其1.1次方';
 		},
 		requirement: new Decimal("ee6"),
+		get canDone() {
+			return wheatGrain().gte(this.requirement) && !player.singularity.enabled;
+		},
+		show: true,
+		currency: '麦粒',
+	});
+	MILESTONES.create('cb24', {
+		displayName: 'M-CB-24',
+		get description() {
+			return 'M-CB-20的效果再次变为其π次方';
+		},
+		requirement: new Decimal("7.7e7777777"),
 		get canDone() {
 			return wheatGrain().gte(this.requirement) && !player.singularity.enabled;
 		},
