@@ -40,7 +40,7 @@ export const ORDINAL = {
 		'53': new (class U53 extends Upgrade {
 			description = '底数减少1';
 			cost: () => Decimal = function () {
-				return new Ordinal('w^3').toDecimal(feature.Ordinal.base());
+				return new Ordinal('w^2*7').toDecimal(feature.Ordinal.base());
 			};
 			ordinal = true;
 			name = 'U4-3';
@@ -214,21 +214,15 @@ export const ORDINAL = {
 			currency: Currencies = Currencies.ORDINAL;
 		})(),
 		'517': new (class U517 extends Upgrade {
-			description = '访问九头蛇Hydra';
+			description: () => string = function () {
+				return player.upgrades['516'] ? '访问九头蛇Hydra' : '???????????';
+			};
 			cost: () => Decimal = function () {
 				return new Ordinal('e0').toDecimal(feature.Ordinal.base());
 			};
 			ordinal = true;
 			name = 'U4-17';
 			currency: Currencies = Currencies.ORDINAL;
-			requirements(): Requirement[] {
-				return [
-					new CurrencyRequirement(
-						Currencies.ORDINAL,
-						new Ordinal('e0').toDecimal(feature.Ordinal.base()),
-					),
-				];
-			}
 		})(),
 	} as const,
 	ordinalPerSecond() {
