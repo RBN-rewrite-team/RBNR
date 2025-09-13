@@ -275,9 +275,6 @@ export const NUMTHEORY = {
 			autoBuyMax(): boolean {
 				return player.milestones.dil_3;
 			}
-			canBuy(): boolean {
-			  return player.singularity.stage >= 3
-			}
 		})(),
 		'44R': new (class B44R extends Buyable<Decimal> {
 			description = 'y<sub>2,2</sub>→y<sub>2,2</sub>+0.2';
