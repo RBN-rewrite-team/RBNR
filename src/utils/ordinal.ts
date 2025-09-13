@@ -361,6 +361,38 @@ export const OrdinalUtils = {
 	b^(b^b): 00 11 22 33
   狗操的BMS,那么复杂相思了
 	*/
+	numberToY(
+		x: Decimal,
+		base: Decimal,
+		maxLength = 20,
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		otherwise: number = 0,
+	): any {
+		if (x.lte(0) || maxLength < 0) return [];
+		if (x.lt(base)) {
+			return [otherwise + 1].concat(this.numberToY(x.sub(1), base, maxLength - 1, otherwise));
+		} else if (x.lt(base.pow(2))) {
+			return [otherwise + 1].concat(
+				this.numberToY(x.sub(base).add(1), base, maxLength - 1, otherwise + 1),
+			);
+		} else if (x.lt(base.pow(base))) {
+			let l = x.log(base).floor().toNumber() - 3;
+			let b = [otherwise + 1, otherwise + 2];
+			let thres = 3;
+			for (let i = 0; i < l; i++) {
+				b.push(otherwise + 4 + i * 2);
+				thres += 2;
+			}
+			return b.concat(
+				this.numberToY(x.sub(base.pow(2)).add(1), base, maxLength - 1, otherwise + thres),
+			);
+		} else if (x.lt(base.pow(base.pow(2)))) {
+			return [otherwise + 1, otherwise + 2, otherwise + 4].concat(
+				this.numberToY(x.sub(base.pow(base)).add(1), base, maxLength - 1, otherwise + 6),
+			);
+		}
+	},
 };
 
-//for (let i = 0; i <= 4; i+=0.01) console.log(i, OrdinalUtils.numberToBMS(new Decimal(i).mul(16).add(256.00000001).pow_base(4).pow_base(4), new Decimal(4), 30))
+for (let i = 0; i <= 4 ** 4 * 2 + 10; i += 1)
+	console.log(i, OrdinalUtils.numberToY(new Decimal(i), new Decimal(4), 30));
