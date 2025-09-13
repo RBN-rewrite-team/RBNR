@@ -670,7 +670,7 @@ export const Hydra = {
 		) {
 			base = base.mul(1e5).pow(1.05);
 		}
-		if (!(CHALLENGE.inChallenge(1, 3) && player.challenges[1][3].gte(1)))
+		if (CHALLENGE.inChallenge(1, 3) && player.challenges[1][3].gte(1))
 			base = base.pow(0.95).div(1e5);
 		base = this.powerGainAfterSoftcap2(base).max(0);
 		if (CHALLENGE.inChallenge(1, 1)) base = base.min(player.nonrecu.power.add(1));
