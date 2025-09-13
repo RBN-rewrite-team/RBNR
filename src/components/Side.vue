@@ -141,7 +141,7 @@ import { isTester } from '@/core/save/testing.ts';
 							@click="player.currentTab = 14"
 							v-if="
 								player.singularity.enabled ||
-								Logarithm.logarithm.upgrades_in_dilated.includes('39')
+								player.milestones.dil_7
 							"
 						>
 							奇点生成器
@@ -158,10 +158,6 @@ import { isTester } from '@/core/save/testing.ts';
 							class="menu2"
 							:class="{ focus: player.currentTab == 14 }"
 							@click="player.currentTab = 14"
-							v-if="
-								player.singularity.enabled ||
-								Logarithm.logarithm.upgrades_in_dilated.includes('39')
-							"
 						>
 							奇点生成器
 						</div>

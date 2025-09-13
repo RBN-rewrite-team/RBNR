@@ -182,12 +182,8 @@ export const Addition = {
 			}
 			costInverse(x: Decimal): Decimal {
 				return x
-					.sub(10)
 					.div(1000)
 					.floor()
-					.min(100)
-					.sub(player.buyables[21])
-					.max(0)
 					.min(100);
 			}
 			effect(x: Decimal): Decimal {
@@ -208,16 +204,21 @@ export const Addition = {
 		}
 		if (
 			player.singularity.enabled ||
-			player.exponention.logarithm.upgrades_in_dilated.includes('39')
+			player.milestones.dil_7
 		)
 			adding = adding.add(1).pow(feature.SingularityGenerator.getSingularityEffect()).sub(1);
 		if (player.buyables[31].gt(0) && Logarithm.logarithm.upgrades_in_dilated.includes('31'))
 			adding = adding.mul(buyables[31].effect(player.buyables[31]));
-		if (adding.gte(softcaps['addpower^1'].start)) adding = adding.div(softcaps['addpower^1'].start).pow(softcaps['addpower^1'].exponent).mul(softcaps['addpower^1'].start)
-		if (adding.gte(softcaps['addpower^2'].start)) adding = adding.div(softcaps['addpower^2'].start).pow(softcaps['addpower^2'].exponent).mul(softcaps['addpower^2'].start)
-		if (CHALLENGE.inChallenge(0, 3)) {
-			adding = adding.mul(predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1);
-		}
+		let scList = ['addpower^1', 'addpower^2', 'addpower^3', 'addpower^4', 'addpower^5'];
+		if (player.singularity.stage < 2)
+			for (let i = 0; i < scList.length; i++) {
+				if (SOFTCAPS.reach(scList[i], adding)) {
+					adding = SOFTCAPS.staticComputed(scList[i], adding)
+				}
+			}
+			if (CHALLENGE.inChallenge(0, 3)) {
+			  adding = adding.mul(predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1);
+		  }
 		player.addpower = player.addpower.add(adding).max(0);
 		player.totalAddpower = player.totalAddpower.add(adding.max(0));
 		player.stat.totalAddpower = player.stat.totalAddpower.add(adding.max(0));
@@ -261,6 +262,7 @@ export const Addition = {
 
 		if (player.firstResetBit & 0b100) base = base.pow(buyables[43].effect(player.buyables[43]));
 		if (player.upgrades[47]) base = base.pow(feature.ChessBoard.wgEffect()[1]);
+		if (player.upgrades[410]) base = base.pow(upgrades[410].effect());
 		base = base.pow(Addition.gainExponent());
 		return base.floor();
 	},

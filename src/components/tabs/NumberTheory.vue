@@ -217,10 +217,10 @@ function m2GainLatex() {
 						<tr>
 							<TDBuyable bylid="41R" />
 							<TDBuyable bylid="42R" />
-							<TDBuyable bylid="43R" />
-							<TDBuyable bylid="44R" />
+							<TDBuyable bylid="43R" v-if="player.singularity.stage < 3" />
+							<TDBuyable bylid="44R" v-if="player.singularity.stage < 3" />
 						</tr>
-						<tr>
+						<tr v-if="player.singularity.stage < 3">
 							<TDUpgrade upgid="41R" />
 							<TDUpgrade upgid="42R" />
 							<TDUpgrade upgid="43R" />

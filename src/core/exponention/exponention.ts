@@ -8,10 +8,11 @@ import { CHALLENGE } from '../challenge';
 import { Logarithm } from './logarithm';
 import { feature } from '../global';
 import { Currencies } from '../currencies';
-import { Upgrade } from '../upgrade';
+import { Upgrade, UpgradeWithEffect } from '../upgrade';
 import { CurrencyRequirement, type Requirement } from '../requirements';
 import { Buyable } from '../buyable';
 const D179E308 = Decimal.pow(2, 1024);
+import { wheatGrain } from "./chessboard.ts"
 
 export const Exponention = {
 	upgrades: {
@@ -45,16 +46,16 @@ export const Exponention = {
 			name = 'U3-21';
 			currency: Currencies = Currencies.EXPONENTION_POWER;
 			requirements(): Requirement[] {
-				return [new CurrencyRequirement(Currencies.EXPONENTION_POWER, new Decimal(100))];
+				return [new CurrencyRequirement(Currencies.EXPONENTION_POWER, new Decimal(25))];
 			}
 		})(),
 		'46': new (class U36 extends Upgrade {
-			description = '每秒获得1%重置时的乘法能量';
-			cost = new Decimal(10);
+			description = '每秒获得1%重置时的乘法能量，基于当前乘法能量生产挑战4完成次数';
+			cost = new Decimal(25);
 			name = 'U3-22';
 			currency: Currencies = Currencies.EXPONENTION_POWER;
 			requirements(): Requirement[] {
-				return [new CurrencyRequirement(Currencies.EXPONENTION_POWER, new Decimal(100))];
+				return [new CurrencyRequirement(Currencies.EXPONENTION_POWER, new Decimal(25))];
 			}
 		})(),
 		'47': new (class U37 extends Upgrade {
@@ -71,12 +72,36 @@ export const Exponention = {
 		})(),
 		'48': new (class U38 extends Upgrade {
 			description = '改进指数能量获取公式';
-			cost = new Decimal(1e4);
+			cost = new Decimal(5e3);
 			name = 'U3-24';
 			currency: Currencies = Currencies.EXPONENTION_POWER;
 			requirements(): Requirement[] {
-				return [new CurrencyRequirement(Currencies.EXPONENTION_POWER, new Decimal(1e4))];
+				return [new CurrencyRequirement(Currencies.EXPONENTION_POWER, new Decimal(5e3))];
 			}
+		})(),
+		'49': new (class extends Upgrade {
+			description = '移除乘法挑战4效果的硬上限';
+			cost = new Decimal(2.5e5);
+			name = 'U3-31';
+			currency: Currencies = Currencies.EXPONENTION_POWER;
+		})(),
+		'410': new (class extends UpgradeWithEffect<Decimal> {
+			description = '因数能量增益加法、乘法能量获取';
+			cost = new Decimal(2.5e9);
+			name = 'U3-32';
+			currency: Currencies = Currencies.EXPONENTION_POWER;
+			effect() {
+			  return feature.PrimeFactor.power().log10().add(1).log10().add(1)
+			}
+			effectDescription() {
+			  return "^"+format(this.effect())
+			}
+		})(),
+		'411': new (class extends Upgrade {
+			description = '再次改进指数能量获取公式';
+			cost = new Decimal(1e11);
+			name = 'U3-33';
+			currency: Currencies = Currencies.EXPONENTION_POWER;
 		})(),
 	} as const,
 	buyables: {
@@ -269,12 +294,15 @@ export const Exponention = {
 		if (player.multiplication.totalMulpower.lt(D179E308)) return new Decimal(0);
 		let exp = new Decimal(0.5);
 		if (player.upgrades[48]) exp = new Decimal(0.6);
+		if (player.upgrades[411]) exp = new Decimal(0.8);
+		if (player.milestones.dil_6) exp = exp.mul(wheatGrain().log10().add(1).log10().add(1).pow(0.15))
 		let base = player.multiplication.totalMulpower.log(2).pow(exp).div(32);
 		if (player.milestones.cb4) base = base.mul(10);
 		if (player.milestones.log_law2)
 			base = base.mul(Logarithm.logarithm.calculate_datas.root(3).max(1));
 
 		if (player.singularity.stage < 1) base = base.mul(Logarithm.dilateEffect()[1]);
+		if (base.gte("e100")) base = base.log10().log10().div(2).pow(0.5).mul(2).pow10().pow10()
 		return base.floor();
 	},
 	powerEff() {

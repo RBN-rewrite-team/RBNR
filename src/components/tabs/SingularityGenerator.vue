@@ -13,9 +13,15 @@ function destroy(a: number) {
 			player.upgrades['44R'] = false;
 			player.exponention.logarithm.in_dilate = false;
 			player.milestones['log_G'] = false;
-			player.milestones.cb20 = false;
 			player.options.notation = notations.SCIENTIFIC;
 			feature.EXPONENTION.reset(true, true);
+			player.milestones.dil_1 = false
+			player.milestones.dil_2 = false
+			player.milestones.dil_3 = false
+			player.milestones.dil_4 = false
+			player.milestones.dil_5 = false
+			player.milestones.dil_6 = false
+			player.milestones.dil_7 = false
 			break;
 		case 2:
 			player.exponention.logarithm = {
@@ -30,6 +36,7 @@ function destroy(a: number) {
 			player.milestones['log_law1'] = false;
 			player.milestones['log_law2'] = false;
 			player.milestones['log_law3'] = false;
+			player.milestones['log_G'] = false;
 			player.milestones.cb5 = false;
 			player.milestones.cb9 = false;
 			player.milestones.cb10 = false;
@@ -53,13 +60,20 @@ function destroy(a: number) {
 			player.milestones.cb14 = false;
 			player.milestones.cb16 = false;
 			player.milestones.cb19 = false;
+			player.milestones.cb20 = false;
+			player.milestones.cb21 = false;
+			player.milestones.cb22 = false;
+			player.milestones.cb23 = false;
 			player.upgrades[47] = false;
 			player.upgrades['43R'] = false;
+			player.upgrades['42R'] = false;
+			player.upgrades['41R'] = false;
+			player.numbertheory.rational_approx.m = new Decimal(1)
 			feature.EXPONENTION.reset(true, true);
+			player.buyables['43R'] = new Decimal(0);
+			player.buyables['44R'] = new Decimal(0);
 			break;
 		case 4:
-			player.upgrades['41R'] = false;
-			player.upgrades['42R'] = false;
 			player.upgrades['41'] = false;
 			player.upgrades['42'] = false;
 			player.upgrades['43'] = false;
@@ -67,6 +81,9 @@ function destroy(a: number) {
 			player.upgrades['45'] = false;
 			player.upgrades['46'] = false;
 			player.upgrades['48'] = false;
+			player.upgrades['49'] = false;
+			player.upgrades['410'] = false;
+			player.upgrades['411'] = false;
 			player.upgrades['400q'] = false;
 			for (let i = 1; i <= 5; i++) {
 				for (let j = 1; j <= 5; j++)
@@ -145,6 +162,7 @@ function destroy(a: number) {
 			player.addpower = new Decimal(0);
 			player.totalAddpower = new Decimal(0);
 			player.buyable11More = new Decimal(0);
+			player.buyables[11] = new Decimal(50);
 			break;
 		case 10:
 			player.upgrades[11] = false;
