@@ -42,7 +42,7 @@ function _getSaveID(id: number) {
 }
 
 function getSaveID(id: number) {
-  return "pubtesting_"+_getSaveID(id)
+  return (pubtest?"pubtesting_":"")+_getSaveID(id)
 }
 
 export interface Player {
