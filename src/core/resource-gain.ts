@@ -20,7 +20,6 @@ export const resourceGain = {
 		if (player.exponention.logarithm.in_dilate) {
 			base = base.add(10).ln().ln().div(10);
 		}
-		base = base.mul(feature.SUCCESSOR.autoSuccessPerSecond());
 		if (player.buyables[31].gt(0) && Logarithm.logarithm.buyables_in_dilated.includes('31'))
 			base = base.mul(buyables[31].effect(player.buyables[31]));
 
@@ -32,13 +31,15 @@ export const resourceGain = {
 			player.exponention.logarithm.upgrades_in_dilated.includes('39')
 		)
 			base = base.add(1).pow(feature.SingularityGenerator.getSingularityEffect()).sub(1);
+		base = base.mul(feature.SUCCESSOR.autoSuccessPerSecond());
+		if (base.gte(softcaps['number^1'].start)) base = base.div(softcaps['number^1'].start).pow(softcaps['number^1'].exponent).mul(softcaps['number^1'].start)
+		if (base.gte(softcaps['number^2'].start)) base = base.div(softcaps['number^2'].start).pow(softcaps['number^2'].exponent).mul(softcaps['number^2'].start)
 		let softcaps = 0,
 			scList = ['number^1', 'number^2', 'number^3', 'number^4', 'number^5'];
 		if (player.singularity.stage < 2)
 			for (let i = 0; i < scList.length; i++) {
-				if (SOFTCAPS.reach(scList[i], player.number)) {
+				if (SOFTCAPS.reach(scList[i], base)) {
 					softcaps++;
-					base = SOFTCAPS.fluidComputed(scList[i], base, player.number);
 				}
 			}
 		if (CHALLENGE.inChallenge(0, 2))
@@ -57,11 +58,12 @@ export const resourceGain = {
 			base = base.add(1).pow(feature.SingularityGenerator.getSingularityEffect()).sub(1);
 		let softcaps = 0,
 			scList = ['addpower^1', 'addpower^2', 'addpower^3', 'addpower^4', 'addpower^5'];
+		if (base.gte(softcaps['addpower^1'].start)) base = base.div(softcaps['addpower^1'].start).pow(softcaps['addpower^1'].exponent).mul(softcaps['addpower^1'].start)
+		if (base.gte(softcaps['addpower^2'].start)) base = base.div(softcaps['addpower^2'].start).pow(softcaps['addpower^2'].exponent).mul(softcaps['addpower^2'].start)
 		if (player.singularity.stage < 2)
 			for (let i = 0; i < scList.length; i++) {
 				if (SOFTCAPS.reach(scList[i], player.addpower)) {
 					softcaps++;
-					base = SOFTCAPS.fluidComputed(scList[i], base, player.addpower);
 				}
 			}
 		let passive = new Decimal(0);
