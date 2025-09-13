@@ -303,6 +303,7 @@ export const Exponention = {
 
 		if (player.singularity.stage < 1) base = base.mul(Logarithm.dilateEffect()[1]);
 		if (base.gte("e100")) base = base.log10().log10().div(2).pow(0.5).mul(2).pow10().pow10()
+		if (base.gte("e600")) base = base.log10().log10().div(2.778151250383643632).pow(0.5).mul(2.778151250383643632).pow10().pow10()
 		return base.floor();
 	},
 	powerEff() {
