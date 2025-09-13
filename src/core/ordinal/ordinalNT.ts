@@ -228,7 +228,7 @@ export const OrdinalNT = {
 	upgrades: {
 		'51R': new (class U51 extends Upgrade {
 			description = '将底数降低1';
-			cost = (): Decimal => new Ordinal('w^(w*2)').toDecimal(feature.Ordinal.base());
+			cost = (): Decimal => new Ordinal('w^(w+5)').toDecimal(feature.Ordinal.base());
 			ordinal = true;
 			name = 'U4-R1-1';
 			currency: Currencies = Currencies.ORDINAL;

@@ -1,20 +1,25 @@
 import { predictableRandom } from '@/utils/algorithm';
 
-function randomSymbol(): string {
-	const lowerBoundBasic = 0x4e00; // 基本区起始
-	const upperBoundBasic = 0x9fa5; // 基本区结束
-	const lowerBoundExtendedA = 0x3400; // 扩展A区起始
-	const upperBoundExtendedA = 0x4dbf; // 扩展A区结束
+function randomSymbol(cn = true): string {
+	if (cn == true) {
+		const lowerBoundBasic = 0x4e00; // 基本区起始
+		const upperBoundBasic = 0x9fa5; // 基本区结束
+		const lowerBoundExtendedA = 0x3400; // 扩展A区起始
+		const upperBoundExtendedA = 0x4dbf; // 扩展A区结束
 
-	if (Math.random() < 0.5) {
-		return String.fromCodePoint(
-			Math.floor(Math.random() * (upperBoundBasic - lowerBoundBasic + 1)) + lowerBoundBasic,
-		);
+		if (Math.random() < 0.5) {
+			return String.fromCodePoint(
+				Math.floor(Math.random() * (upperBoundBasic - lowerBoundBasic + 1)) +
+					lowerBoundBasic,
+			);
+		} else {
+			return String.fromCodePoint(
+				Math.floor(Math.random() * (upperBoundExtendedA - lowerBoundExtendedA + 1)) +
+					lowerBoundExtendedA,
+			);
+		}
 	} else {
-		return String.fromCodePoint(
-			Math.floor(Math.random() * (upperBoundExtendedA - lowerBoundExtendedA + 1)) +
-				lowerBoundExtendedA,
-		);
+		return String.fromCodePoint(Math.floor(Math.random() * (0x7e - 0x41 + 1)) + 0x41);
 	}
 }
 
@@ -44,16 +49,16 @@ export const wordShift = {
 		return v;
 	},
 
-	randomCrossWords(str: string, frac: number = 0.7): string {
+	randomCrossWords(str: string, frac: number = 0.7, cn = true): string {
 		if (frac <= 0) return str;
 		const x = str.split('');
 		for (let i = 0; i < x.length * frac; i++) {
 			const randomIndex = Math.floor(
 				predictableRandom((Math.floor(Date.now() / 500) % 964372) + 1.618 * i) * x.length,
 			);
-			x[randomIndex] = randomSymbol();
+			x[randomIndex] = randomSymbol(cn);
 		}
-		return x.join('');
+		return x.join('').replace(' ', '&nbsp;');
 	},
 
 	blendWords(first: string, second: string, param: number): string {
