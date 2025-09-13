@@ -19,7 +19,7 @@ import { isTester } from '@/core/save/testing.ts';
 					>
 						大数之路重制版
 					</div>
-					<div style="font-size: 15px">Rebalancing Beta</div>
+					<div style="font-size: 15px">Dungeons & Automator Beta</div>
 				</div>
 			</div>
 		</div>

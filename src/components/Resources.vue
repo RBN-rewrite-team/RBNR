@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { SOFTCAPS } from '@/core/mechanic';
 import { formatWhole, formatGain } from '@/utils/format';
 import { player } from '@/core/save';
 import { feature } from '@/core/global';
+import { SOFTCAPS } from '@/core/mechanic';
 import { OrdinalUtils } from '@/utils/ordinal';
 import Decimal from 'break_eternity.js';
 import { Ordinal } from '@/lib/ordinal/';

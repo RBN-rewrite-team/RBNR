@@ -38,12 +38,10 @@ export const CHALLENGE = {
 			if (y >= this.challenges[x].length) throw Error('not a valid error');
 
 			if (!(this.challenges[x][y].canEnter?.() ?? true)) return;
-			let a = (x == 0)
-			if (a) this.resetFunctions[x]();
 			player.challengein[0] = x;
 			player.challengein[1] = y;
 
-			if (!a) this.resetFunctions[x]();
+			this.resetFunctions[x]();
 		}
 	},
 	exitChallenge(x: number, y: number) {

@@ -16,7 +16,6 @@ import { createDeepValidatedReactive } from '../check-decimal-nan';
 import { NON_RECURSIVE } from '../nonrecu/index.ts';
 import { initMiniGameData, hardResetMiniGame, type PlayerMinigameData } from '../minigame/index.ts';
 import { DC } from '@/core/constants';
-import { pubtest } from "./testing.ts"
 
 const version = 11 as const;
 export let current_save = 0;
@@ -33,16 +32,12 @@ type KeyStringFromDecimal<T> = {
 // 	boolean
 // >;
 
-function _getSaveID(id: number) {
+function getSaveID(id: number) {
 	if (id == 0) {
 		return 'RBN-rewritten-powerful-refactor-test';
 	} else {
 		return `RBN-rewritten-save-${id}`;
 	}
-}
-
-function getSaveID(id: number) {
-  return "pubtesting_"+_getSaveID(id)
 }
 
 export interface Player {
