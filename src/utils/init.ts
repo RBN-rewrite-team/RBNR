@@ -1,6 +1,5 @@
 import { loadSaves, player, restoreBackup } from '@/core/save';
 import { createApp } from 'vue';
-import App from '@/App.vue';
 import VueLatex from 'vatex';
 import { feature } from '@/core/global.ts';
 import { NUMTHEORY } from '@/core/multiplication/numbertheory.ts';
@@ -16,6 +15,8 @@ import { NON_RECURSIVE } from '@/core/nonrecu/index.ts';
 import ModalService from './Modal.ts';
 import { temp } from '@/core/temp-data.ts';
 import { keyboardEventListener, hardResetMiniGame } from '@/core/minigame/index.ts';
+
+import App from '@/App.vue';
 
 export function init() {
 	try {
@@ -43,8 +44,6 @@ export function init() {
 		player.frozen = false;
 		player.run_a_tick_and_froze = false;
 		startGameLoop();
-		const app = createApp(App);
-		app.use(VueLatex).directive('hold', vHold).mount('#app');
 		hotkeys('a', (event) => {
 			event.preventDefault();
 			feature.ADDITION.UIreset();
@@ -70,6 +69,8 @@ export function init() {
 		hotkeys('ArrowRight', keyboardEventListener);
 		//hardResetMiniGame();
 		player.minigame.interact = 0;
+		const app = createApp(App);
+		app.use(VueLatex).directive('hold', vHold).mount('#app');
 	} catch (e) {
 		stopGameLoop();
 		stopSaveLoop();

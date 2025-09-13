@@ -216,7 +216,7 @@ export function formatGain(a: DecimalSource, e: DecimalSource, resourceName: str
 			if (oom.gte(1e-3)) return '(+' + format(oom) + '数量级<sup>数量级</sup>' + '/s)';
 		}
 
-		if (a.gte('ee100')) {
+		if (a.gte('ee10')) {
 			let tower = Math.floor(new Decimal(a).slog(10).toNumber() - 1.3010299956639813);
 
 			var oom = new Decimal(g)
@@ -238,7 +238,7 @@ export function formatGain(a: DecimalSource, e: DecimalSource, resourceName: str
 			if (rated) return '(+' + format(oom) + '数量级<sup>' + tower + '</sup>' + '/s)';
 		}
 
-		if (a.gte(1e100)) {
+		if (a.gte(1e10)) {
 			const oom = g.div(a).log10().mul(FPS);
 			if (oom.gte(1)) return '(+' + format(oom) + '数量级' + '/s)';
 		}
