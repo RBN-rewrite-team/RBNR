@@ -14,4 +14,4 @@ export function isDeveloper() {
 	return sha256(devcode) == code2;
 }
 
-export const pubtest = true;
+export const pubtest = false;

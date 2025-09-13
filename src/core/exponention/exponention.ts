@@ -90,7 +90,7 @@ export const Exponention = {
 			cost = new Decimal(2.5e9);
 			name = 'U3-32';
 			currency: Currencies = Currencies.EXPONENTION_POWER;
-			effect() {
+			effect(): Decimal {
 			  return feature.PrimeFactor.power().log10().add(1).log10().add(1)
 			}
 			effectDescription() {
