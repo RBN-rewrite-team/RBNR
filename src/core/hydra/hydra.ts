@@ -291,7 +291,7 @@ export const Hydra = {
 		})(),
 		'62': new (class U62 extends UpgradeWithEffect<Decimal> {
 			description = '基于累计九头蛇能量，每秒获得一定重置时获取的九头蛇能量和乘数';
-			cost = new Decimal(1e45);
+			cost = new Decimal(1e35);
 			name = 'U5-2';
 			show(): boolean {
 				return (
@@ -670,7 +670,7 @@ export const Hydra = {
 		) {
 			base = base.mul(1e5).pow(1.05);
 		}
-		if (!(CHALLENGE.inChallenge(1, 3) && player.challenges[1][3].gte(1)))
+		if (CHALLENGE.inChallenge(1, 3) && player.challenges[1][3].gte(1))
 			base = base.pow(0.95).div(1e5);
 		base = this.powerGainAfterSoftcap2(base).max(0);
 		if (CHALLENGE.inChallenge(1, 1)) base = base.min(player.nonrecu.power.add(1));

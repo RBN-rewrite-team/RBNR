@@ -101,6 +101,11 @@ export const OrdinalUtils = {
 		}
 		//数值转序数
 		const tetration = base.tetrate(base.toNumber());
+		const tetration2 = base.tetrate(base.toNumber() * 2 - 1);
+		if (x.gte(tetration2)) {
+			const prefix = displayMode ? 'ε<sub>1</sub>' : 'e1';
+			return prefix;
+		}
 		if (x.gte(tetration)) {
 			const prefix = displayMode ? 'ε<sub>0</sub>' : 'e0';
 			const power = x.log(tetration);
