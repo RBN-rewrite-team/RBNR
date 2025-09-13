@@ -139,16 +139,6 @@ function hydraAxisHTML(): string {
 							class="hydra-button"
 							:style="{ 'background-image': deduceButtonStyle() }"
 						>
-							<span
-								v-if="feature.Hydra.deduceSpeed().gt(0)"
-								class="hydra-text"
-								style="opacity: 0.5; color: rgb(200, 190, 245); font-size: 60px"
-								>{{
-									feature.Hydra.deduceSpeed().gte(1)
-										? format(feature.Hydra.deduceSpeed()) + '/s'
-										: '1/' + format(feature.Hydra.deduceSpeed().recip()) + 's'
-								}}</span
-							>
 							<span class="hydra-text">
 								<span
 									v-html="
@@ -178,6 +168,16 @@ function hydraAxisHTML(): string {
 									/>
 								</div>
 							</span>
+							<span
+								v-if="feature.Hydra.deduceSpeed().gt(0)"
+								class="hydra-text-bottom"
+								style="opacity: 0.5; font-size: 16px; bottom: 0px"
+								>{{
+									feature.Hydra.deduceSpeed().gte(1)
+										? format(feature.Hydra.deduceSpeed()) + '/s'
+										: '1/' + format(feature.Hydra.deduceSpeed().recip()) + 's'
+								}}</span
+							>
 							<div class="hydra-axis-line"></div>
 							<div v-for="i in hydraMilestoneAxis()">
 								<div class="hydra-axis-element" :style="'left: ' + i[1]">
