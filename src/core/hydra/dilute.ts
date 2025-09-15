@@ -71,7 +71,7 @@ export function milestoneDut5Eff(): Decimal {
 }
 
 export function milestoneDut6Eff(): Decimal {
-	if (player.hydra.dilute.solution.gte(2050000)) return DC.D_1;
+	if (player.hydra.dilute.solution.lt(2050000)) return DC.D_1;
 	return Decimal.log10(player.hydra.dilute.solution.max(2050000).sub(2050000 - 1))
 		.add(1)
 		.clampMin(1)
