@@ -424,9 +424,9 @@ function isBigInt(value: unknown): value is bigint {
  * 合并两个数组
  * 通用的合并，target是source的部分类型
  */
-function deepMerge<T extends object>(source: T, target: object): T;
-function deepMerge<T extends unknown[]>(source: T, target: unknown[]): T;
-function deepMerge<T>(source: T, target: DeepPartial<T>): T {
+function deepMerge<T extends object>(source: T, target: object, expectedKey?: string[]): T;
+function deepMerge<T extends unknown[]>(source: T, target: unknown[], expectedKey?: string[]): T;
+function deepMerge<T>(source: T, target: DeepPartial<T>, expectedKey?: string[]): T {
 	if (Array.isArray(source)) {
 		const targetArray = Array.isArray(target) ? target : [];
 		const maxLength = Math.max(source.length, targetArray.length);
@@ -447,7 +447,11 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 				typeof sourceItem === 'object' &&
 				!(sourceItem instanceof Decimal)
 			) {
-				result[i] = deepMerge(sourceItem, targetItem as DeepPartial<typeof sourceItem>);
+				result[i] = deepMerge(
+					sourceItem,
+					targetItem as DeepPartial<typeof sourceItem>,
+					expectedKey,
+				);
 			} else if (sourceItem instanceof Decimal) {
 				result[i] = new Decimal(targetItem as DecimalSource);
 			} else if (sourceItem === undefined && targetItem !== undefined) {
@@ -467,6 +471,7 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 		if (target === null || target === undefined) return source;
 
 		for (const key of new Set([...Object.keys(source), ...Object.keys(target)])) {
+			if ((expectedKey ?? []).includes(key)) continue;
 			const sourceValue = source[key as keyof typeof source];
 			const targetValue = target[key as keyof typeof target];
 
@@ -485,7 +490,10 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 				typeof sourceValue === 'object' &&
 				!(sourceValue instanceof Decimal)
 			) {
-				result[key] = deepMerge(sourceValue, targetValue) as T[Extract<keyof T, string>];
+				result[key] = deepMerge(sourceValue, targetValue, expectedKey) as T[Extract<
+					keyof T,
+					string
+				>];
 			} else if (sourceValue instanceof Decimal) {
 				result[key] = new Decimal(targetValue as DecimalSource) as T[Extract<
 					keyof T,
@@ -493,7 +501,7 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 				>];
 			} else if (targetValue !== null && typeof targetValue === 'object') {
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				result[key] = deepMerge(targetValue, sourceValue as any);
+				result[key] = deepMerge(targetValue, sourceValue as any, expectedKey);
 			} else {
 				result[key] = targetValue;
 			}
@@ -507,9 +515,16 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 
 export let player: Player = getInitialPlayerData();
 
-export function loadFromString(saveContent: string) {
+export function loadFromString(saveContent: string, non_options = false) {
 	const deserialized = saveSerializer.deserialize(saveContent);
-	Object.assign(player, deepMerge(player, deserialized));
+	Object.assign(
+		player,
+		deepMerge(
+			player,
+			deserialized,
+			non_options ? (['options'] satisfies (keyof Player)[]) : [],
+		),
+	);
 	if ((player?.version ?? 0) < 4) {
 		player.hydra.dilute.solvent = [0, 0, 0, 0, 0, 0, false, false, false];
 	}

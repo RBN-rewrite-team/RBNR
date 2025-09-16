@@ -38,8 +38,7 @@ const downloadSave = (saveText: string, title: string) => {
 
 const importSave = (saveText: string) => {
 	if (confirm('确定要导入这个存档吗？当前进度将会被覆盖。')) {
-		loadFromString(saveText);
-		Object.assign(player, reactive(player));
+		loadFromString(saveText, true);
 		save();
 		location.reload();
 	}
