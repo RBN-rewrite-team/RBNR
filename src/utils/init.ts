@@ -45,16 +45,19 @@ export function init() {
 		player.run_a_tick_and_froze = false;
 		startGameLoop();
 		hotkeys('a', (event) => {
+			if (player.singularity.stage >= 11) return;
 			event.preventDefault();
 			feature.ADDITION.UIreset();
 		});
 
 		hotkeys('m', (event) => {
+			if (player.singularity.stage >= 11) return;
 			event.preventDefault();
 			feature.MULTIPLICATION.UIreset();
 		});
 
 		hotkeys('e', (event) => {
+			if (player.singularity.stage >= 11) return;
 			event.preventDefault();
 			feature.EXPONENTION.UIreset();
 		});

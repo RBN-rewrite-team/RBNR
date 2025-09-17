@@ -110,8 +110,6 @@ export function blockToJSON(x: null | undefined | GameObject) {
 	}
 	return 'UNSUPPORTED';
 }
-type AA<T> = T extends Record<any, infer V> ? V : any;
-type BB<T> = T extends Array<infer C> ? C : any;
 
 export function getCurrentBlock(room: number, x: bigint, y: bigint) {
 	if (room == 943360095 || room == 1 || room == -999) {
