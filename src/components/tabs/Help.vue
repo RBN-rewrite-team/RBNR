@@ -301,6 +301,7 @@ let highestPage = 0;
       需要注意的是<vue-latex expression="I" />并不能表示为<vue-latex expression="\beta\mapsto\Omega_\beta"></vue-latex>不动点，而是容许点（AP），一个容许序数作为不动点时就是容许点。<br />
       容许序数不能用比它更小的序数进行递归运算得到。<br />
       例如<vue-latex expression="\Omega_1"></vue-latex>就无法用比<vue-latex expression="\Omega_1"></vue-latex>更小的序数递归得到。每个<vue-latex expression="\Omega_{\beta+1}"></vue-latex>都是容许序数（<vue-latex expression="\Omega_\omega"></vue-latex>并不是容许序数）。<br>
+      需要注意的是容许序数和非递归序数还是有区别的，这一点我们后面会提到<br />
       在<vue-latex expression="I" />之上，还可以定义关于更高的递归不可达序数<vue-latex expression="I_X" />的OCF，它的对应规则是<vue-latex expression="\psi_{I_{X+1}}(Y)=\Omega_{I_X+Y}" />。<br />
       折叠这些OCF的序数是<vue-latex expression="I(1,0)" />，<vue-latex expression="\psi_{I(1,0)}(X)=I_X" /><br />
       如此，使用Veblen函数的表示法，可以表达最高<vue-latex expression="\psi_{I(1@(1@(...)))}" />的序数，它相当于BMS的<vue-latex expression="(0,0,0)(1,1,1)(2,1,1)(3,1,1)(4,1,0)(5,2,0)" />，被称为SRO。<br />
