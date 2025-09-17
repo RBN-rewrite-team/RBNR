@@ -277,7 +277,7 @@ let highestPage = 0;
       其定义涉及集合论，但行为逻辑可以用非常简单的形式归纳。<br />
       它的基本形式是<vue-latex expression="\psi(0)=\omega" />，其中的参数每增加1都会让序数乘以<vue-latex expression="\omega" /><br />
       根据上一条定义，能表达的最大序数是<vue-latex expression="\varepsilon_0" />。<br />
-      随后OCF引入了<vue-latex expression="\Omega" />，它是第一个非递归序数。在OCF的参数末尾的<vue-latex expression="\Omega" />带来一个<vue-latex expression="\Omega" />前运算的不动点。<br />
+      随后OCF引入了<vue-latex expression="\Omega" />，它是第一个非递归序数(或者第一个容许序数)。它在OCF的作用是在OCF的参数末尾的<vue-latex expression="\Omega" />带来一个<vue-latex expression="\Omega" />前运算的不动点。<br />
       <vue-latex expression="\psi(0)=\omega" /><br />
       <vue-latex expression="\psi(X+1)=\psi(X)\cdot\omega" /><br />
       <vue-latex expression="\psi(X*\Omega)=\alpha\mapsto\psi(X*\alpha)FP" />(其中*为加法、乘法、乘方之一)<br />
@@ -291,6 +291,9 @@ let highestPage = 0;
       除了<vue-latex expression="\psi_{\Omega_2}(X)" />，还有<vue-latex expression="\psi_{\Omega_3}(X)" />，<vue-latex expression="\psi_{\Omega_4}(X)" />......<br />
       <vue-latex expression="\Omega_\omega=\sup \Omega_{\omega[n]}" /><br />
       将其放入OCF中得到的序数是很多记号的极限，也是FGH和SGH的第一个追平点，称为BO。自BO以后，序数分析步入了反射序数时代。<br />
+      <!-- 需要注意的是容许序数和非递归序数是有区别的，<br />
+      事实上，这个分歧点在稳定序数<vue-latex expression="\lambda \alpha.(\Omega_{\alpha+1})-\Pi_1" />附近，后面的序数可能会有<vue-latex expression="\omega^{\mathrm{CK}}_{\alpha+1} \not=\Omega_{\alpha+1}" />这种神秘现象，这被称为Non-Gandy现象，目前我们并不用管它。<br /> -->
+      
     </div>
     <div v-else-if="player.help.page == 102">
       经过简单的扩展，OCF可以在BO以上继续提升，但这样的提升收效甚微，此处暂且不表。<br />
@@ -301,7 +304,6 @@ let highestPage = 0;
       需要注意的是<vue-latex expression="I" />并不能表示为<vue-latex expression="\beta\mapsto\Omega_\beta"></vue-latex>不动点，而是容许点（AP），一个容许序数作为不动点时就是容许点。<br />
       容许序数不能用比它更小的序数进行递归运算得到。<br />
       例如<vue-latex expression="\Omega_1"></vue-latex>就无法用比<vue-latex expression="\Omega_1"></vue-latex>更小的序数递归得到。每个<vue-latex expression="\Omega_{\beta+1}"></vue-latex>都是容许序数（<vue-latex expression="\Omega_\omega"></vue-latex>并不是容许序数）。<br>
-      需要注意的是容许序数和非递归序数还是有区别的，这一点我们后面会提到<br />
       在<vue-latex expression="I" />之上，还可以定义关于更高的递归不可达序数<vue-latex expression="I_X" />的OCF，它的对应规则是<vue-latex expression="\psi_{I_{X+1}}(Y)=\Omega_{I_X+Y}" />。<br />
       折叠这些OCF的序数是<vue-latex expression="I(1,0)" />，<vue-latex expression="\psi_{I(1,0)}(X)=I_X" /><br />
       如此，使用Veblen函数的表示法，可以表达最高<vue-latex expression="\psi_{I(1@(1@(...)))}" />的序数，它相当于BMS的<vue-latex expression="(0,0,0)(1,1,1)(2,1,1)(3,1,1)(4,1,0)(5,2,0)" />，被称为SRO。<br />
