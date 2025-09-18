@@ -5,12 +5,12 @@ import { player } from '../save';
 import type { initializeInfo } from './room';
 
 // import { maps, type SingleMap } from './map';
-interface Replacements {
+type Replacements = {
 	x: bigint;
 	y: bigint;
 	replacedTo: string;
 	recover?: boolean;
-}
+};
 export interface PlayerMinigameData {
 	current_room: number;
 	visited: number[];
