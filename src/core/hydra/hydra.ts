@@ -534,13 +534,12 @@ export const Hydra = {
 			}
 		})(),
 	},
-	deduceSpeed(i = 0): Decimal {
-		//推演的速度
-		let base = DC.D_0;
-		if (i == 0 && player.upgrades[61]) base = new Decimal(0.1);
+	deduceSpeedBMS(): Decimal {
+		let base = new Decimal(0);
+		if (player.upgrades[61]) base = new Decimal(0.1);
 		if (player.milestones.nonrecu_4) base = DC.D_1;
-		if (i == 0 && player.upgrades[611]) base = base.mul(upgrades[611].effect());
-		if (i == 0) base = base.mul(buyables[611].effect(player.buyables[611]));
+		if (player.upgrades[611]) base = base.mul(upgrades[611].effect());
+		base = base.mul(buyables[611].effect(player.buyables[611]));
 		if (player.upgrades[612]) {
 			base = base.mul(2);
 			if (player.milestones.nonrec_6) base = base.mul(5);
@@ -601,6 +600,15 @@ export const Hydra = {
 				);
 		}
 		if (CHALLENGE.inChallenge(1, 1)) base = base.min(player.nonrecu.power.cbrt().pow_base(10));
+
+		if (CHALLENGE.inChallenge(1, 4) && base.gt(10))
+			base = base.clampMin(10).log10().log10().add(10);
+		return base;
+	},
+	deduceSpeed(i = 0): Decimal {
+		//推演的速度
+		let base = DC.D_0;
+		if (i == 0) base = this.deduceSpeedBMS();
 		return base;
 	},
 	deduceEff(i = 0): Decimal {
@@ -674,6 +682,7 @@ export const Hydra = {
 			base = base.pow(0.95).div(1e5);
 		base = this.powerGainAfterSoftcap2(base).max(0);
 		if (CHALLENGE.inChallenge(1, 1)) base = base.min(player.nonrecu.power.add(1));
+		if (CHALLENGE.inChallenge(1, 4) && base.gte(10)) base = base.clampMin(10).log10().add(9);
 		return base;
 	},
 	powerGainAfterSoftcap(base: Decimal): Decimal {
