@@ -145,4 +145,17 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			player.nonrecu.spentTheories = new Decimal(0);
 		},
 	},
+	{
+		name: '对数运算',
+		get descEasy() {
+			return '挑战中推演速度>10时=log10(推演速度 clampMin 10)+10';
+		},
+		get descHard() {
+			return this.descEasy;
+		},
+		canEnter() {
+			return player.nonrecu.studies_bought.includes(22) && player.challenges[1][4].lt(2);
+		},
+		loop() {},
+	},
 ] as const;

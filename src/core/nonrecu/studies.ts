@@ -410,11 +410,13 @@ export const studies = [
 	}),
 	new Study({
 		id: 'NRC5', //24
-		description: '解锁非递归挑战5(没做)',
-		cost: new Decimal(150),
+		description: '解锁非递归挑战5(没做)\tIDK',
+		cost: new Decimal(20),
 		canBuy() {
-			return false;
+			return or(22);
 		},
+		isChallenge: true,
+		chal_id: 4,
 	}),
 	new Study({
 		//25
