@@ -411,7 +411,7 @@ export const studies = [
 	new Study({
 		id: 'NRC5', //24
 		description: '解锁非递归挑战5(没做)\tIDK',
-		cost: new Decimal(20),
+		cost: new Decimal(165),
 		canBuy() {
 			return or(22);
 		},
