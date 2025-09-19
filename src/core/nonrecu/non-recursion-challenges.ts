@@ -148,7 +148,7 @@ export const NONREC_CHALS: SingleChallenge[] = [
 	{
 		name: '对数运算',
 		get descEasy() {
-			return '挑战中推演速度>10时=log10(推演速度 clampMin 10)+10';
+			return '挑战中推演速度挑战中推演速度>10时=log10(log10(推演速度 max 10))+10,九头蛇溶液取以10为底对数，重置九头蛇溶液';
 		},
 		get descHard() {
 			return this.descEasy;

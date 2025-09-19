@@ -17,6 +17,7 @@ import { NON_RECURSIVE } from '../nonrecu/index.ts';
 import { initMiniGameData, hardResetMiniGame, type PlayerMinigameData } from '../minigame/index.ts';
 import { DC } from '@/core/constants';
 import { pubtest } from './testing.ts';
+import type { FixedLengthArray } from 'type-fest';
 
 const version = 11 as const;
 export let current_save = 0;
@@ -43,6 +44,11 @@ function _getSaveID(id: number) {
 
 function getSaveID(id: number) {
 	return (pubtest ? 'pubtesting_' : '') + _getSaveID(id);
+}
+
+type NonRecusionTreePreset = {
+  name: string,
+  preset: number[]
 }
 
 export interface Player {
@@ -133,7 +139,7 @@ export interface Player {
 		highestExppower: Decimal;
 		highestOrdLevel: number;
 	};
-	challengein: [number, number];
+	challengein: FixedLengthArray<number, 2>;
 	frozen: boolean;
 	run_a_tick_and_froze: boolean;
 	singularity: {
@@ -155,10 +161,10 @@ export interface Player {
 	timeshard: {
 		value: Decimal;
 		tf: Decimal;
-		cd: [number, number, number];
-		last: [number, number, number];
+		cd: FixedLengthArray<number, 3>;
+		last: FixedLengthArray<number, 3>;
 		openTf: boolean;
-		next: [number, number, number];
+		next: FixedLengthArray<number, 3>;
 	};
 	hydra: {
 		visiting: number;
@@ -166,16 +172,26 @@ export interface Player {
 		totalPower: Decimal;
 		trueTotalPower: Decimal;
 		milestoneDut5Eff: Decimal;
-		powerMult: [Decimal, Decimal, Decimal, Decimal];
-		deduceProgress: [Decimal, Decimal, Decimal, Decimal];
-		deduceOrdinal: [Decimal, Decimal, Decimal, Decimal];
-		totalDeduceOrdinal: [Decimal, Decimal, Decimal, Decimal];
-		prestige: [Decimal, Decimal, Decimal, Decimal];
-		pAuto: [boolean, boolean, boolean, boolean];
+		powerMult: FixedLengthArray<Decimal, 4>;
+		deduceProgress: FixedLengthArray<Decimal, 4>;
+		deduceOrdinal: FixedLengthArray<Decimal, 4>;
+		totalDeduceOrdinal: FixedLengthArray<Decimal, 4>;
+		prestige: FixedLengthArray<Decimal, 4>;
+		pAuto: FixedLengthArray<boolean, 4>;
 		backupHydra?: backupHydraType;
 		dilute: {
 			inDilute: boolean;
-			solvent: [number, number, number, number, number, number, boolean, boolean, boolean];
+			solvent: [
+				number,
+				number,
+				number,
+				number,
+				number,
+				number,
+				boolean,
+				boolean,
+				boolean,
+			];
 			lastSolvent: [
 				number,
 				number,
@@ -213,9 +229,10 @@ export interface Player {
 		totalPower: Decimal;
 		resetTimes: Decimal;
 		studies_bought: number[];
-		theories: [Decimal, Decimal, Decimal];
+		theories: FixedLengthArray<Decimal, 3>;
 		spentTheories: Decimal;
 		secInThisReset: Decimal;
+		studies_preset: FixedLengthArray<NonRecusionTreePreset, 6>
 	};
 	minigame: PlayerMinigameData;
 	backup?: Omit<Player, 'backup'> | null;
@@ -397,6 +414,10 @@ function getInitialPlayerData(): Player {
 			theories: [DC.D_0, DC.D_0, DC.D_0],
 			spentTheories: DC.D_0,
 			secInThisReset: DC.D_0,
+			studies_preset: Array(6).fill(null).map((x, id) => ({
+			  name: String(id),
+			  preset: []
+			}) as NonRecusionTreePreset) as unknown as FixedLengthArray<NonRecusionTreePreset, 6>
 		},
 		foundNaN: false,
 		checkedPlots: [],
