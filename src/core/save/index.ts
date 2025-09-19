@@ -415,7 +415,7 @@ function getInitialPlayerData(): Player {
 			spentTheories: DC.D_0,
 			secInThisReset: DC.D_0,
 			studies_preset: Array(6).fill(null).map((x, id) => ({
-			  name: String(id),
+			  name: String(id + 1),
 			  preset: []
 			}) as NonRecusionTreePreset) as unknown as FixedLengthArray<NonRecusionTreePreset, 6>
 		},
