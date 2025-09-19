@@ -381,5 +381,5 @@ export const OrdinalUtils = {
 	},
 };
 
-for (let i = 0; i <= 4 ** 4 * 2 + 10; i += 1)
-	console.log(i, OrdinalUtils.numberToY(new Decimal(i), new Decimal(4), 100));
+//for (let i = 0; i <= 4 ** 4 * 2 + 10; i += 1)
+//	console.log(i, OrdinalUtils.numberToY(new Decimal(i), new Decimal(4), 100));

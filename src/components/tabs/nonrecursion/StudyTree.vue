@@ -42,8 +42,6 @@ onMounted(() => initConnectors(connectorsRef));
 			}}</b
 			>非递归理论，还剩下{{ formatWhole(getCurrency(Currencies.NRT)) }}。
 		</p>
-	</div>
-	<div class="studies-container">
 		<div class="studies_row">
 			<div class="study">
 				<div class="study-name">NRT1</div>
@@ -79,15 +77,12 @@ onMounted(() => initConnectors(connectorsRef));
 				</div>
 			</div>
 		</div>
-		<div class="studies_row">
-			<div class="study">
-				<div class="study-name">NRTR</div>
-				<div class="study-desc study-buyable" @click="resetTheories">
-					<div>重置研究树</div>
-					<div>花费: 0 非递归能量</div>
-				</div>
-			</div>
+		<div align="center">
+		  <button class="clickable_button">重置研究树</button>
 		</div>
+	</div>
+	<div style="overflow-x: auto">
+	<div class="studies-container">
 		<div class="studies-tree">
 			<div class="studies_row">
 				<SingleStudy
@@ -258,6 +253,7 @@ onMounted(() => initConnectors(connectorsRef));
 			</div>
 			<div ref="connectorsRef" class="connectors-container"></div>
 		</div>
+	</div>
 	</div>
 </template>
 
