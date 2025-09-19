@@ -223,6 +223,7 @@ export const NON_RECURSIVE = {
 		} else player.hydra.dilute.solution = player.hydra.dilute.solution.mul(0.01);
 		if (CHALLENGE.inChallenge(1, 1)) player.hydra.dilute.solution = DC.D_0;
 		if (CHALLENGE.inChallenge(1, 2)) player.hydra.dilute.solution = DC.D_0;
+		if (CHALLENGE.inChallenge(1, 4)) player.hydra.dilute.solution = DC.D_0;
 		if (!player.milestones.nonrec_15) player.hydra.dilute.highestApocalypse = DC.D_0;
 		if (player.nonrecu.studies_bought.includes(0) && !CHALLENGE.inChallenge(1, 3)) {
 			player.hydra.power = player.hydra.power.add(20);
