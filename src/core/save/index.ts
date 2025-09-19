@@ -47,9 +47,9 @@ function getSaveID(id: number) {
 }
 
 type NonRecusionTreePreset = {
-  name: string,
-  preset: number[]
-}
+	name: string;
+	preset: number[];
+};
 
 export interface Player {
 	number: Decimal;
@@ -181,17 +181,7 @@ export interface Player {
 		backupHydra?: backupHydraType;
 		dilute: {
 			inDilute: boolean;
-			solvent: [
-				number,
-				number,
-				number,
-				number,
-				number,
-				number,
-				boolean,
-				boolean,
-				boolean,
-			];
+			solvent: [number, number, number, number, number, number, boolean, boolean, boolean];
 			lastSolvent: [
 				number,
 				number,
@@ -232,7 +222,7 @@ export interface Player {
 		theories: FixedLengthArray<Decimal, 3>;
 		spentTheories: Decimal;
 		secInThisReset: Decimal;
-		studies_preset: FixedLengthArray<NonRecusionTreePreset, 6>
+		studies_preset: FixedLengthArray<NonRecusionTreePreset, 6>;
 	};
 	minigame: PlayerMinigameData;
 	backup?: Omit<Player, 'backup'> | null;
@@ -414,10 +404,15 @@ function getInitialPlayerData(): Player {
 			theories: [DC.D_0, DC.D_0, DC.D_0],
 			spentTheories: DC.D_0,
 			secInThisReset: DC.D_0,
-			studies_preset: Array(6).fill(null).map((x, id) => ({
-			  name: String(id + 1),
-			  preset: []
-			}) as NonRecusionTreePreset) as unknown as FixedLengthArray<NonRecusionTreePreset, 6>
+			studies_preset: Array(6)
+				.fill(null)
+				.map(
+					(x, id) =>
+						({
+							name: String(id + 1),
+							preset: [],
+						}) as NonRecusionTreePreset,
+				) as unknown as FixedLengthArray<NonRecusionTreePreset, 6>,
 		},
 		foundNaN: false,
 		checkedPlots: [],
