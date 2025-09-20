@@ -38,7 +38,6 @@ import TimeShard from './components/tabs/TimeShard.vue';
 import Hydra from './components/tabs/Hydra.vue';
 import HydraDilute from './components/tabs/HydraDilute.vue';
 
-import { isTester } from '@/core/save/testing.ts';
 import PlotTab from './components/tabs/plot/PlotTab.vue';
 import SaveBank from './components/tabs/SaveBank.vue';
 import PlotView from './components/tabs/plot/PlotView.vue';
