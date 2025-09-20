@@ -5,6 +5,7 @@ import {
 	hardReset,
 	loadFromString,
 	readSaveDetail,
+	save as s,
 	type Player,
 } from '.';
 import { saveInterval } from '@/core/game-loop';
@@ -22,7 +23,9 @@ export function UILoadSaveFromFile() {
 			const save = fr.result;
 			if (typeof save == 'string') {
 				try {
-					loadFromString(save);
+					loadFromString(save, true);
+					s();
+					location.reload();
 				} catch {
 					console.error('Cannot load saves from string');
 				}

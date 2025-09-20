@@ -15,6 +15,6 @@ import { player, feature } from '@/core/global';
 		</p>
 	</div>
 	<table align="center">
-		<TRMilestone :id="'nonrec_' + i" v-for="i in 16" :key="i"></TRMilestone>
+		<TRMilestone :id="'nonrec_' + i" v-for="i in 18" :key="i"></TRMilestone>
 	</table>
 </template>
