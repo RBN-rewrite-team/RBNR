@@ -13,6 +13,8 @@ import { CurrencyRequirement, type Requirement } from '../requirements';
 import { Buyable } from '../buyable';
 const D179E308 = Decimal.pow(2, 1024);
 import { wheatGrain } from './chessboard.ts';
+import { DC } from '../constants.ts';
+import { updateResetStatData } from '../stats.ts';
 
 export const Exponention = {
 	upgrades: {
@@ -201,7 +203,7 @@ export const Exponention = {
 	initMechanics() {},
 	reset(force = false, dilate = false) {
 		if (this.gain().gt(0) || force) {
-			this.exppower_gain();
+			this.exppower_gain(DC.D_1, true);
 			Multiplication.reset(true);
 			player.upgrades[31] = false;
 			player.upgrades[32] = false;
@@ -283,11 +285,14 @@ export const Exponention = {
 			},
 		});
 	},
-	exppower_gain(bulk = new Decimal(1)) {
+	exppower_gain(bulk = new Decimal(1), recordtoreset = false) {
 		const adding = this.gain().mul(bulk);
 		player.exponention.exppower = player.exponention.exppower.add(adding);
 		player.exponention.totalExppower = player.exponention.totalExppower.add(adding);
 		player.stat.totalExppower = player.stat.totalExppower.add(adding);
+		if (recordtoreset) {
+			updateResetStatData('recent10ExpReset', adding);
+		}
 	},
 	gain() {
 		if (player.singularity.stage >= 4) return new Decimal(0);

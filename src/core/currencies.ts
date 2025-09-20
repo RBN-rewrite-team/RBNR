@@ -3,6 +3,7 @@ import { player } from './save';
 import { feature } from './global';
 import { getTotalTheories } from './nonrecu/total-theories';
 import { getI18NData, I18NData, type AvaliableLangs, type Avaliables } from './i18n-data';
+import type { ChooseTypes } from '@/utils/types';
 export enum Currencies {
 	NUMBER = 'number',
 	ADDITION_POWER = 'addition',
@@ -17,10 +18,7 @@ export enum Currencies {
 	NONREC = 'nonrec',
 	NRT = 'nrt',
 }
-type ttttttt<A> = keyof {
-	[key in keyof A as A[key] extends string ? key : never]: A[key];
-};
-type I18NCurrencyKey = ttttttt<(typeof I18NData)[AvaliableLangs]>;
+type I18NCurrencyKey = ChooseTypes<(typeof I18NData)[AvaliableLangs], string>;
 abstract class Currency {
 	static i18ndata: I18NCurrencyKey = 'number';
 	static set current(x: Decimal) {

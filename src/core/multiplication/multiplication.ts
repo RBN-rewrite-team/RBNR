@@ -15,6 +15,7 @@ import { CurrencyRequirement, Requirement } from '../requirements.ts';
 import { Buyable } from '../buyable.ts';
 import { Logarithm } from '../exponention/logarithm.ts';
 import { DC } from '@/core/constants';
+import { updateResetStatData } from '../stats.ts';
 const D179E308 = Decimal.pow(2, 1024);
 export const Multiplication = {
 	upgrades: {
@@ -287,7 +288,7 @@ export const Multiplication = {
 		})(),
 	} as const,
 	initMechanics() {},
-	mulpower_gain(bulk = DC.D_1) {
+	mulpower_gain(bulk = DC.D_1, recordtoreset = false) {
 		let adding = this.gain().mul(bulk);
 		let softcaps = 0,
 			scList = ['mulpower^1', 'mulpower^2'];
@@ -298,6 +299,9 @@ export const Multiplication = {
 					adding = SOFTCAPS.staticComputed(scList[i], adding);
 				}
 			}
+		if (recordtoreset) {
+			updateResetStatData('recent10MulReset', adding);
+		}
 		player.multiplication.mulpower = player.multiplication.mulpower.add(adding);
 		player.multiplication.totalMulpower = player.multiplication.totalMulpower.add(adding);
 		player.stat.totalMulpower = player.stat.totalMulpower.add(adding);
@@ -308,7 +312,7 @@ export const Multiplication = {
 	},
 	reset(force = false) {
 		if (this.gain().gt(0) || force) {
-			this.mulpower_gain();
+			this.mulpower_gain(DC.D_1, true);
 			if (CHALLENGE.inChallenge(0, 3)) {
 				player.challenges[0][3] = player.challenges[0][3].add(this.gain());
 			}

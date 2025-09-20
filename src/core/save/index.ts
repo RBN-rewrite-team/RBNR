@@ -18,6 +18,7 @@ import { initMiniGameData, hardResetMiniGame, type PlayerMinigameData } from '..
 import { DC } from '@/core/constants';
 import { pubtest } from './testing.ts';
 import type { FixedLengthArray } from 'type-fest';
+import { getInitialStat, type PlayerStat } from '../stats.ts';
 
 const version = 11 as const;
 export let current_save = 0;
@@ -127,18 +128,7 @@ export interface Player {
 		challengeDetial: boolean;
 		allowOffline: boolean;
 	};
-	stat: {
-		chapter: number;
-		totalNumber: Decimal;
-		highestNumber: Decimal;
-		totalMulpower: Decimal;
-		highestMulpower: Decimal;
-		totalAddpower: Decimal;
-		hightestAddpower: Decimal;
-		totalExppower: Decimal;
-		highestExppower: Decimal;
-		highestOrdLevel: number;
-	};
+	stat: PlayerStat;
 	challengein: FixedLengthArray<number, 2>;
 	frozen: boolean;
 	run_a_tick_and_froze: boolean;
@@ -323,18 +313,7 @@ function getInitialPlayerData(): Player {
 			challengeDetial: false,
 			allowOffline: true,
 		},
-		stat: {
-			chapter: -1,
-			totalNumber: DC.D_0,
-			highestNumber: DC.D_0,
-			totalMulpower: DC.D_0,
-			highestMulpower: DC.D_0,
-			totalAddpower: DC.D_0,
-			hightestAddpower: DC.D_0,
-			totalExppower: DC.D_0,
-			highestExppower: DC.D_0,
-			highestOrdLevel: 0,
-		},
+		stat: getInitialStat(),
 		challenges: [
 			[DC.D_0, DC.D_0, DC.D_0, DC.D_0, DC.D_0],
 			[DC.D_0, DC.D_0, DC.D_0, DC.D_0, DC.D_0, DC.D_0],

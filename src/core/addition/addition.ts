@@ -21,6 +21,7 @@ import { CurrencyRequirement, Requirement, UpgradeRequirement } from '../require
 import { Buyable } from '../buyable.ts';
 import { Logarithm } from '../exponention/logarithm.ts';
 import { DC } from '@/core/constants';
+import { updateResetStatData } from '../stats.ts';
 
 export class AdditionUpgrade extends Upgrade {
 	currency = Currencies.ADDITION_POWER;
@@ -192,7 +193,7 @@ export const Addition = {
 		})(),
 	} as const,
 	initMechanics() {},
-	addpower_gain(bulk = DC.D_1) {
+	addpower_gain(bulk = DC.D_1, recordtoreset = false) {
 		let adding = this.gain().mul(bulk);
 		if (player.exponention.logarithm.in_dilate) {
 			adding = adding.add(Math.E).ln().ln().mul(10);
@@ -211,13 +212,16 @@ export const Addition = {
 		if (CHALLENGE.inChallenge(0, 3)) {
 			adding = adding.mul(predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1);
 		}
+		if (recordtoreset) {
+			updateResetStatData('recent10AddReset', adding);
+		}
 		player.addpower = player.addpower.add(adding).max(0);
 		player.totalAddpower = player.totalAddpower.add(adding.max(0));
 		player.stat.totalAddpower = player.stat.totalAddpower.add(adding.max(0));
 	},
 	reset() {
 		if (this.gain().gt(0)) {
-			this.addpower_gain();
+			this.addpower_gain(DC.D_1, true);
 			if (!player.upgrades[25]) {
 				player.upgrades[11] = false;
 				player.upgrades[12] = false;
