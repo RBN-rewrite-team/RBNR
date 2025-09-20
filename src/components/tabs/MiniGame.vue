@@ -126,7 +126,7 @@ function exitEditor() {
 		>
 			Numerorum<br />
 			<div style="position: relative; height: 50px; width: 400px; background-color: black">
-				<div align="center" style="font-size: 17px; color: var(--background-color)">
+				<div align="center" style="font-size: 17px; color: white">
 					生命值：{{ meBattleInfo().hp }}/{{ meBattleInfo().hpMax }}({{
 						Math.ceil((meBattleInfo().hp / meBattleInfo().hpMax) * 100)
 					}}%)
@@ -159,7 +159,7 @@ function exitEditor() {
 									'%, black ' +
 									LVpercent() * 100 +
 									'%)',
-								color: 'var(--background-color)',
+								color: 'white',
 							}"
 						>
 							当前XP: {{ player.minigame.xp }}/{{ nextLVxp() }}
