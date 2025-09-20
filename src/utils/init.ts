@@ -13,8 +13,7 @@ import { Dilute } from '@/core/hydra/dilute.ts';
 import { startGameLoop, stopGameLoop, stopSaveLoop } from '@/core/game-loop';
 import { NON_RECURSIVE } from '@/core/nonrecu/index.ts';
 import ModalService from './Modal.ts';
-import { temp } from '@/core/temp-data.ts';
-import { keyboardEventListener, hardResetMiniGame } from '@/core/minigame/index.ts';
+import { keyboardEventListener } from '@/core/minigame/index.ts';
 
 import App from '@/App.vue';
 
