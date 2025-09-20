@@ -47,6 +47,7 @@ import NonRecursionTabChal from './components/tabs/nonrecursion/NonRecursionTabC
 import StudyTree from './components/tabs/nonrecursion/StudyTree.vue';
 import MiniGame from './components/tabs/MiniGame.vue';
 import AutomatorEditor from './components/tabs/AutomatorEditor.vue';
+import NonRecursionTabUpgrade from './components/tabs/nonrecursion/NonRecursionTabUpgrade.vue';
 </script>
 
 <template>
@@ -95,6 +96,7 @@ import AutomatorEditor from './components/tabs/AutomatorEditor.vue';
 				<NonRecursionTabChal v-if="player.currentTab === 22" />
 				<NonRecursionFactor v-if="player.currentTab === 23" />
 				<StudyTree v-if="player.currentTab === 24" />
+				<NonRecursionTabUpgrade v-if="player.currentTab === 25"></NonRecursionTabUpgrade>
 				<AutomatorEditor v-if="player.currentTab === 167" />
 				<PlotTab v-if="player.currentTab === 200" />
 				<SaveBank v-if="player.currentTab === 300" />

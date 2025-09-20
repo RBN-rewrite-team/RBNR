@@ -4,6 +4,7 @@ import { Dilute } from '../hydra/dilute';
 import { player } from '../save';
 import { formatWhole, format } from '@/utils/format';
 import { getNRC4Kept } from './studies';
+import { Hydra } from '../hydra/hydra';
 
 export const NONREC_CHALS: SingleChallenge[] = [
 	{
@@ -19,18 +20,10 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			return this.descEasy;
 		},
 		loop() {
+			let e = 0.4667 + Number(player.challenges[1][0]);
+			if (player.upgrades['71']) e = 0.4667 + Number(player.challenges[1][0]) * 0.3;
 			player.hydra.dilute.inDilute = true;
-			player.hydra.dilute.solvent = [
-				10,
-				0.4667 + Number(player.challenges[1][0]),
-				10,
-				10,
-				10,
-				9,
-				!0,
-				!1,
-				!1,
-			];
+			player.hydra.dilute.solvent = [10, e, 10, 10, 10, 9, !0, !1, !1];
 			if (Dilute.prions().sub(1).gte(player.hydra.deduceOrdinal[0])) {
 				Dilute.diluteReset();
 				player.hydra.dilute.prions = new Decimal(1);
@@ -154,8 +147,13 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			return this.descEasy;
 		},
 		canEnter() {
-			return player.nonrecu.studies_bought.includes(22) && player.challenges[1][4].lt(2);
+			return player.nonrecu.studies_bought.includes(22);
 		},
-		loop() {},
+		loop() {
+			const highest = Hydra.deduceSpeedBMS();
+			if (player.challenges[1][4].lt(highest)) {
+				player.challenges[1][4] = highest;
+			}
+		},
 	},
 ] as const;

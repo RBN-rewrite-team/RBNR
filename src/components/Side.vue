@@ -238,6 +238,14 @@ import { getI18NData } from '@/core/i18n-data.ts';
 						>
 							非递归挑战
 						</div>
+						<div
+							class="menu2"
+							:class="{ focus: player.currentTab == 25 }"
+							@click="player.currentTab = 25"
+							v-if="(player.firstResetBit & 0b10000) == 0b10000"
+						>
+							非递归升级
+						</div>
 					</template>
 
 					<div class="menu1">杂项</div>

@@ -7,8 +7,17 @@ import { MILESTONES } from '../mechanic';
 import { Currencies } from '../currencies';
 import { CHALLENGE } from '../challenge';
 import { DC } from '@/core/constants';
+import { Upgrade } from '../upgrade';
 
 export const NON_RECURSIVE = {
+	upgrades: {
+		'71': new (class U71 extends Upgrade {
+			description = 'NRC1挑战限制从0.4667+完成次数削弱到0.4667+完成次数*0.3';
+			cost = Decimal.pow(2, 768);
+			name = 'U6-1';
+			currency: Currencies = Currencies.NONREC;
+		})(),
+	} as const,
 	initMechanics() {
 		MILESTONES.create('nonrec_1', {
 			requirement: DC.D_1,
@@ -169,11 +178,35 @@ export const NON_RECURSIVE = {
 		MILESTONES.create('nonrec_16', {
 			requirement: new Decimal(1e50),
 			currency: '非递归能量',
-			displayName: 'M6-15',
+			displayName: 'M6-16',
 			description: `移除B5-1-2的硬上限和飞升效果的三、四重软上限，飞升效果倍增朊病毒获取速度(在非递归挑战中无效)`,
 			show: true,
 			get canDone() {
 				return player.nonrecu.power.gte(this.requirement);
+			},
+		});
+		MILESTONES.create('nonrec_17', {
+			requirement: new Decimal(29.2),
+			currency: 'NRC4次数',
+			displayName: 'M6-17',
+			description: `每秒自动产生+val(NRC4次数)非递归次数/s`,
+			get show() {
+				return player.challenges[1][4].gte(1);
+			},
+			get canDone() {
+				return player.challenges[1][4].gte(29.2);
+			},
+		});
+		MILESTONES.create('nonrec_18', {
+			requirement: new Decimal(29.7),
+			currency: 'NRC4次数',
+			displayName: 'M6-18',
+			description: `解锁非递归升级`,
+			get show() {
+				return player.challenges[1][4].gte(1);
+			},
+			get canDone() {
+				return player.challenges[1][4].gte(29.7);
 			},
 		});
 	},
@@ -344,5 +377,10 @@ export const NON_RECURSIVE = {
 	},
 	loop(diff: number) {
 		this.addPower(this.passiveGain().mul(diff));
+		if (player.milestones.nonrec_17) {
+			player.nonrecu.resetTimes = player.nonrecu.resetTimes.add(
+				player.challenges[1][4].mul(diff),
+			);
+		}
 	},
 };
