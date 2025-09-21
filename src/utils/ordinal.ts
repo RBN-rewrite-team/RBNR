@@ -361,25 +361,4 @@ export const OrdinalUtils = {
 	b^(b^b): 00 11 22 33
   狗操的BMS,那么复杂相思了
 	*/
-	numberToY(
-		x: Decimal,
-		base: Decimal,
-		maxLength = 20,
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		otherwise: number = 0,
-	): number[] {
-		if (x.lte(0) || maxLength <= 0) return [];
-		if (x.lt(base)) {
-			return [otherwise + 1].concat(this.numberToY(x.sub(1), base, maxLength - 1, otherwise));
-		} else if (x.lt(base.pow(2))) {
-			return [otherwise + 1].concat(
-				this.numberToY(x.sub(base).add(1), base, maxLength - 1, otherwise + 1),
-			);
-		} else {
-			return [];
-		}
-	},
 };
-
-//for (let i = 0; i <= 4 ** 4 * 2 + 10; i += 1)
-//	console.log(i, OrdinalUtils.numberToY(new Decimal(i), new Decimal(4), 100));
