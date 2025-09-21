@@ -415,9 +415,25 @@ export const NON_RECURSIVE = {
 		}
 	},
 	UNOCFdeduceSpeed() {
-		return new Decimal(1);
+		let a = new Decimal(1);
+		a = a.mul(this.UNOCFeff()[1]);
+		return a;
 	},
 	UNOCFeff() {
-		return player.nonrecu.unocf_j.add(1).clampMin(1);
+		/**
+		 * UNOCF to BMS deduce(^)
+		 */
+		let a = player.nonrecu.unocf_j.add(1).clampMin(1);
+		/**
+		 * UNOCF to UNOCF deduce(*)
+		 */
+		let b = player.nonrecu.unocf_j.div(51.2).log2();
+		/**
+		 * UNOCF to solution(*)
+		 */
+		let c = player.nonrecu.unocf_j.div(1024).sqrt();
+		if (player.nonrecu.unocf_j.lt(512)) b = new Decimal(1);
+		if (player.nonrecu.unocf_j.lt(4096)) c = new Decimal(1);
+		return [a, b, c];
 	},
 };

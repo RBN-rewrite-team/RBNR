@@ -10,6 +10,7 @@ import { MILESTONES } from '../mechanic';
 import { upgrades, buyables } from '../mechanic';
 import { CHALLENGE } from '../challenge';
 import { DC } from '@/core/constants';
+import { NON_RECURSIVE } from '../nonrecu';
 
 export type backupHydraType = {
 	upgrades: (`${IntClosedRange<61, 69>}R` | keyof typeof Hydra.upgrades)[];
@@ -872,7 +873,9 @@ const Dil = {
 					player.hydra.deduceOrdinal[0],
 				);
 		}
-		player.hydra.dilute.highestSolution = player.hydra.dilute.highestSolution.max(player.hydra.dilute.solution)
+		player.hydra.dilute.highestSolution = player.hydra.dilute.highestSolution.max(
+			player.hydra.dilute.solution,
+		);
 	},
 	prionsBase() {
 		let base = new Decimal(1 + Dilute.diluteAmount(4) / 100);
@@ -955,6 +958,7 @@ const Dil = {
 					.add(1),
 			);
 		}
+		baseDecimal = baseDecimal.mul(NON_RECURSIVE.UNOCFeff()[2]);
 		return deduceMult.mul(baseDecimal).pow(exp);
 	},
 	solutionEff() {
