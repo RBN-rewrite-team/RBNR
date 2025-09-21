@@ -61,7 +61,7 @@ export const DC = Object.freeze({
 	D_2P288: new Decimal(2 ** 288),
 	D_2P320: new Decimal(2 ** 320),
 	D_2P352: new Decimal(2 ** 352),
-	D_2P1024: new Decimal(2 ** 1024),
+	D_2P1024: Decimal.pow(2, 1024),
 	D_E345: new Decimal('e345'),
 	D_2P2048: Decimal.pow(2, 2048),
 	D_E2466: new Decimal('e2466'),
