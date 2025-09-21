@@ -410,7 +410,7 @@ export const studies = [
 	}),
 	new Study({
 		id: 'NRC5', //24
-		description: '解锁非递归挑战5(没做)\t无',
+		description: '解锁非递归挑战5\t挑战次数为最高推演次数',
 		cost: new Decimal(165),
 		canBuy() {
 			return or(22);
@@ -421,16 +421,18 @@ export const studies = [
 	new Study({
 		//25
 		id: 'NRC6',
-		description: '解锁非递归挑战6(没做)',
+		description: '解锁非递归挑战6\t挑战次数为log10 log10 朊病毒',
 		cost: new Decimal(300),
 		canBuy() {
-			return false;
+			return or(22);
 		},
+		isChallenge: true,
+		chal_id: 5,
 	}),
 	new Study({
 		id: '112', //26
 		description: '基于非递归定理增加九头蛇溶液效果指数(没做)',
-		cost: new Decimal(300),
+		cost: new Decimal(1000000),
 		canBuy() {
 			return false;
 		},
@@ -506,6 +508,28 @@ export function theoriesCost(id: 0 | 1 | 2) {
 	}
 	return new Decimal(1 / 0);
 }
+export function theoriesAmountPossivle(id: 0 | 1 | 2) {
+	switch (id) {
+		case 0:
+			if (player.hydra.power.gte('eeeee14109.999999999884')) {
+				return player.hydra.power.iteratedlog(10, 5).add(489990).div(100).sqrt().ceil();
+			} else if (player.hydra.power.gte('e1776681501950.1848')) {
+				return player.hydra.power.slog().sub(2.5).div(0.05).ceil();
+			} else {
+				return player.hydra.power.clampMin(10).log10().log10().ceil();
+			}
+		case 1:
+			return getCurrency(Currencies.SOLUTION).div(1e4).log10().ceil();
+		case 2:
+			let res = player.nonrecu.power.log(5);
+			let temp = res.div(215).sqrt().mul(215);
+			if (temp.lt(215)) temp = res;
+			return temp.ceil();
+		default:
+			let a: never = id;
+	}
+	return new Decimal(0);
+}
 export function canBuyTheories(id: 0 | 1 | 2) {
 	switch (id) {
 		case 0:
@@ -520,22 +544,28 @@ export function addTheories(id: 0 | 1 | 2) {
 	switch (id) {
 		case 0:
 			if (canBuyTheories(0)) {
+				player.nonrecu.theories[0] = theoriesAmountPossivle(0).sub(1);
+				let a = theoriesAmountPossivle(0);
 				player.hydra.power = player.hydra.power.sub(theoriesCost(0));
-				player.nonrecu.theories[0] = player.nonrecu.theories[0].add(1);
+				player.nonrecu.theories[0] = a;
 			}
 			break;
 		case 1:
 			if (canBuyTheories(1)) {
+				player.nonrecu.theories[1] = theoriesAmountPossivle(1).sub(1);
+				let b = theoriesAmountPossivle(1);
 				player.hydra.dilute.solutionCost = player.hydra.dilute.solutionCost.add(
-					theoriesCost(1).clampMax(Number.MAX_VALUE),
+					theoriesCost(1),
 				);
-				player.nonrecu.theories[1] = player.nonrecu.theories[1].add(1);
+				player.nonrecu.theories[1] = b;
 			}
 			break;
 		case 2:
 			if (canBuyTheories(2)) {
+				player.nonrecu.theories[2] = theoriesAmountPossivle(2).sub(1);
+				let c = theoriesAmountPossivle(2);
 				player.nonrecu.power = player.nonrecu.power.sub(theoriesCost(2));
-				player.nonrecu.theories[2] = player.nonrecu.theories[2].add(1);
+				player.nonrecu.theories[2] = c;
 			}
 			break;
 		default:

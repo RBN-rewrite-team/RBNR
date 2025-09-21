@@ -258,6 +258,18 @@ export const NON_RECURSIVE = {
 				return player.nonrecu.unocf_j.gte(DC.D_2P24);
 			},
 		});
+		MILESTONES.create('nonrec_22', {
+			requirement: DC.D_2P27,
+			currency: 'UNOCF推演次数和2.25NRC6挑战次数',
+			displayName: 'M6-22',
+			description: `朊病毒增速双指数*1.3,只在NRC6和挑战外生效`,
+			get show() {
+				return player.challenges[1][4].gte(1);
+			},
+			get canDone() {
+				return player.nonrecu.unocf_j.gte(DC.D_2P27) && player.challenges[1][5].gte(2.25);
+			},
+		});
 	},
 	reset(force = false) {
 		if (!this.resetable() && !force) {
@@ -307,6 +319,7 @@ export const NON_RECURSIVE = {
 		if (CHALLENGE.inChallenge(1, 1)) player.hydra.dilute.solution = DC.D_0;
 		if (CHALLENGE.inChallenge(1, 2)) player.hydra.dilute.solution = DC.D_0;
 		if (CHALLENGE.inChallenge(1, 4)) player.hydra.dilute.solution = DC.D_0;
+		if (CHALLENGE.inChallenge(1, 5)) player.hydra.dilute.solution = DC.D_0;
 		if (!player.milestones.nonrec_15) player.hydra.dilute.highestApocalypse = DC.D_0;
 		if (player.nonrecu.studies_bought.includes(0) && !CHALLENGE.inChallenge(1, 3)) {
 			player.hydra.power = player.hydra.power.add(20);
