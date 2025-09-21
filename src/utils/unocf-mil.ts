@@ -2,10 +2,10 @@ import { DC } from '@/core/constants';
 import type Decimal from 'break_eternity.js';
 
 export const UNOCF_milestone = [
-	[DC.D_0, 'ω'],
-	[DC.D_4, 'Ω'],
-	[DC.D_5, 'Ω_\\omega'],
-	[DC.D_6, '\\psi_I(I)'],
+	[DC.D_0, 'ω', '(0)(1)'],
+	[DC.D_4, 'Ω', '(0,0)(1,1)'],
+	[DC.D_5, 'Ω_\\omega', '(0,0,0)(1,1,1)'],
+	[DC.D_6, '\\psi_I(I)', '\\mathrm{EBO}'],
 	[DC.D_7, '\\psi_I(I_I)'],
 	[DC.D_8, 'I'],
 	[DC.D_9, 'I_\\omega'],
@@ -25,7 +25,7 @@ export const UNOCF_milestone = [
 	[DC.D_16384, 'ψ_T(2\\space\\mathrm{aft}\\space\\mathrm{2nd}\\space T)'],
 	[DC.D_32768, 'ψ_T(T(1,0))'],
 	[DC.D_65536, 'T'],
-	[DC.D_98304, 'T_\\omega'],
+	[DC.D_98304, 'T_\\omega', '\\mathrm{BGO}'],
 	[DC.D_2P17, 'T\\space1-T'],
 	[DC.D_2P18, '2-T'],
 	[DC.D_2P20, 'T\\space2-T'],
@@ -44,7 +44,7 @@ export const UNOCF_milestone = [
 	[DC.D_2P160, 'ψ_Y(T\\space\\mathrm{aft}\\space Y)'],
 	[DC.D_2P176, 'ψ_Y(X\\space\\mathrm{aft}\\space Y)'],
 	[DC.D_2P192, 'ψ_Y(2\\space\\mathrm{aft}\\space\\mathrm{2nd}\\space Y)'],
-	[DC.D_2P256, 'C(1\\{ω\\}0)'],
+	[DC.D_2P256, 'C(1\\{ω\\}0)', '(0)(1,1,1)(2,2,1)(3,0,0)=\\mathrm{SDO}'],
 	[DC.D_2P256_A_2P255, 'C(1\\{\\Omega\\}0)'],
 	[DC.D_2P262, 'C(1\\{1,0\\}0)'],
 	[DC.D_2P263, 'C(1\\{1;0\\}0)'],
