@@ -315,6 +315,7 @@ export function formatWhole(decimal: DecimalSource): string {
 }
 
 export function formatLaTeX(decimal: DecimalSource) {
+	if (!Decimal.isFinite(decimal)) return '\\omega';
 	switch (player.options.notation) {
 		case notations.FGH:
 			return FGHLatex.format(decimal);
@@ -330,6 +331,7 @@ export function formatLaTeX(decimal: DecimalSource) {
 }
 
 export function formatLaTeXWhole(decimal: DecimalSource) {
+	if (!Decimal.isFinite(decimal)) return '\\omega';
 	switch (player.options.notation) {
 		case notations.FGH:
 			return FGHLatex.format(decimal);

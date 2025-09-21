@@ -214,6 +214,7 @@ export interface Player {
 		spentTheories: Decimal;
 		secInThisReset: Decimal;
 		studies_preset: FixedLengthArray<NonRecusionTreePreset, 6>;
+		unocf_j: Decimal;
 	};
 	minigame: PlayerMinigameData;
 	backup?: Omit<Player, 'backup'> | null;
@@ -394,6 +395,7 @@ function getInitialPlayerData(): Player {
 							preset: [],
 						}) as NonRecusionTreePreset,
 				) as unknown as FixedLengthArray<NonRecusionTreePreset, 6>,
+			unocf_j: new Decimal(0),
 		},
 		foundNaN: false,
 		checkedPlots: [],
@@ -581,8 +583,8 @@ export function loadFromString(saveContent: string, non_options = false) {
 			if (!new333[repl3.room]) new333[repl3.room] = [];
 			new333[repl3.room].push(repl3);
 		}
+		player.minigame.replaces = new333;
 	}
-	player.minigame.replaces = new333;
 	// @ts-ignore
 	delete player.hydra.dilute.solvent?.[9];
 	// @ts-ignore
