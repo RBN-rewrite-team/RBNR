@@ -262,12 +262,36 @@ export const NON_RECURSIVE = {
 			requirement: DC.D_2P27,
 			currency: 'UNOCF推演次数和2.25NRC6挑战次数',
 			displayName: 'M6-22',
-			description: `朊病毒增速双指数*1.3,只在NRC6和挑战外生效`,
+			description: `朊病毒增速双指数*1.3,只在NRC6和挑战外生效(后续的里程碑都需要2.25NRC6挑战次数)`,
 			get show() {
 				return player.challenges[1][4].gte(1);
 			},
 			get canDone() {
 				return player.nonrecu.unocf_j.gte(DC.D_2P27) && player.challenges[1][5].gte(2.25);
+			},
+		});
+		MILESTONES.create('nonrec_23', {
+			requirement: DC.D_2P28,
+			currency: 'UNOCF推演次数',
+			displayName: 'M6-23',
+			description: `加强UNOCF第四效果，UNOCF推演速度^1.75`,
+			get show() {
+				return player.challenges[1][4].gte(1);
+			},
+			get canDone() {
+				return player.nonrecu.unocf_j.gte(DC.D_2P28) && player.challenges[1][5].gte(2.25);
+			},
+		});
+		MILESTONES.create('nonrec_24', {
+			requirement: DC.D_2P37,
+			currency: 'UNOCF推演次数',
+			displayName: 'M6-24',
+			description: `推演速度双指数^2`,
+			get show() {
+				return player.challenges[1][4].gte(1);
+			},
+			get canDone() {
+				return player.nonrecu.unocf_j.gte(DC.D_2P37) && player.challenges[1][5].gte(2.25);
 			},
 		});
 	},
@@ -458,6 +482,9 @@ export const NON_RECURSIVE = {
 		if (player.milestones.nonrec_20) {
 			a = a.mul(1000);
 		}
+		if (player.milestones.nonrec_23) {
+			a = a.pow(1.75);
+		}
 		return a;
 	},
 	UNOCFeff() {
@@ -480,6 +507,8 @@ export const NON_RECURSIVE = {
 		if (player.nonrecu.unocf_j.lt(512)) b = new Decimal(1);
 		if (player.nonrecu.unocf_j.lt(4096)) c = new Decimal(1);
 		if (player.nonrecu.unocf_j.lt(16384)) d = new Decimal(1);
+
+		if (player.milestones.nonrec_23) d = d.mul(1.3);
 		return [a, b, c, d];
 	},
 };

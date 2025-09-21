@@ -36,6 +36,7 @@ export const DC = Object.freeze({
 	D_2P27: new Decimal(2 ** 27),
 	D_2P28: new Decimal(2 ** 28),
 	D_2P32: new Decimal(2 ** 32),
+	D_2P37: new Decimal(2 ** 37),
 	D_2P40: new Decimal(2 ** 40),
 	D_2P48: new Decimal(2 ** 48),
 	D_2P64: new Decimal(2 ** 64),
