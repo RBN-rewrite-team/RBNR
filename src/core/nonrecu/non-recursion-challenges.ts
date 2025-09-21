@@ -103,7 +103,7 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			return this.descEasy;
 		},
 		canEnter() {
-			return player.nonrecu.studies_bought.includes(22) && player.challenges[1][3].lt(2);
+			return player.nonrecu.studies_bought.includes(23) && player.challenges[1][3].lt(2);
 		},
 		loop() {
 			player.nonrecu.studies_bought = [
@@ -147,7 +147,7 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			return this.descEasy;
 		},
 		canEnter() {
-			return player.nonrecu.studies_bought.includes(22);
+			return player.nonrecu.studies_bought.includes(24);
 		},
 		loop() {
 			const highest = Hydra.deduceSpeedBMS();

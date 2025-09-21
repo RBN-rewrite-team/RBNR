@@ -185,6 +185,7 @@ export interface Player {
 			];
 			spentTime: number;
 			solution: Decimal;
+			highestSolution: Decimal;
 			lastDeduce: Decimal;
 			solute: Decimal;
 			solutionCost: Decimal;
@@ -368,6 +369,7 @@ function getInitialPlayerData(): Player {
 				lastDeduce: DC.D_0,
 				spentTime: 0,
 				solution: DC.D_0,
+				highestSolution: DC.D_0,
 				solutionCost: DC.D_0,
 				solute: DC.D_0,
 				prions: DC.D_1,
