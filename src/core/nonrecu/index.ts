@@ -375,6 +375,7 @@ export const NON_RECURSIVE = {
 				.div(1e7)
 				.pow(1 / 3)
 				.mul(1e7);
+		base = base.pow(NON_RECURSIVE.UNOCFeff()[3]);
 		if (base.gte(1e500)) base = base.log10().div(500).pow(0.5).mul(500).pow(10);
 		return base;
 	},
@@ -432,8 +433,13 @@ export const NON_RECURSIVE = {
 		 * UNOCF to solution(*)
 		 */
 		let c = player.nonrecu.unocf_j.div(1024).sqrt();
+		/**
+		 * UNOCF to nonrec_power(^)
+		 */
+		let d = player.nonrecu.unocf_j.log2().log(2).log(2).sqrt();
 		if (player.nonrecu.unocf_j.lt(512)) b = new Decimal(1);
 		if (player.nonrecu.unocf_j.lt(4096)) c = new Decimal(1);
-		return [a, b, c];
+		if (player.nonrecu.unocf_j.lt(16384)) d = new Decimal(1);
+		return [a, b, c, d];
 	},
 };

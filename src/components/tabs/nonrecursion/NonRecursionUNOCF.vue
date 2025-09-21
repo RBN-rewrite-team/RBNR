@@ -32,8 +32,12 @@ let cur = computed(() =>
 			超过4096推演次数解锁UNOCF推演第三效果
 		</p>
 		<p v-else>UNOCF推演使得九头蛇溶液获取*{{ format(NON_RECURSIVE.UNOCFeff()[2]) }}</p>
-		<p v-if="player.nonrecu.unocf_j.gte(4096)">
-			超过4096推演次数解锁UNOCF推演第四效果（没做完）
+		<p v-if="player.nonrecu.unocf_j.gte(4096) && player.nonrecu.unocf_j.lt(16384)">
+			超过16384推演次数解锁UNOCF推演第四效果
+		</p>
+		<p v-else>UNOCF推演使得非递归能量获取^{{ format(NON_RECURSIVE.UNOCFeff()[3]) }}</p>
+		<p v-if="player.nonrecu.unocf_j.gte(16384) && player.nonrecu.unocf_j.lt(1e444444)">
+			超过<Baixie />推演次数解锁UNOCF推演第五效果（没做完）
 		</p>
 		<p>
 			下一个序数为<vue-latex
