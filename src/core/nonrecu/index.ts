@@ -24,6 +24,12 @@ export const NON_RECURSIVE = {
 			name = 'U6-2';
 			currency: Currencies = Currencies.NONREC;
 		})(),
+		'71UN': new (class extends Upgrade {
+			description: string | (() => string) = '开启UNOCF推演, (+1/s)';
+			cost = new Decimal(114514);
+			name = 'U6-UNOCF-1';
+			currency: Currencies = Currencies.NONREC;
+		})(),
 	} as const,
 	initMechanics() {
 		MILESTONES.create('nonrec_1', {
@@ -194,7 +200,7 @@ export const NON_RECURSIVE = {
 		});
 		MILESTONES.create('nonrec_17', {
 			requirement: new Decimal(29.2),
-			currency: 'NRC4次数',
+			currency: 'NRC5次数',
 			displayName: 'M6-17',
 			description: `每秒自动产生(NRC5次数)非递归次数`,
 			get show() {
@@ -206,7 +212,7 @@ export const NON_RECURSIVE = {
 		});
 		MILESTONES.create('nonrec_18', {
 			requirement: new Decimal(29.7),
-			currency: 'NRC4次数',
+			currency: 'NRC5次数',
 			displayName: 'M6-18',
 			description: `解锁非递归升级`,
 			get show() {
@@ -217,8 +223,8 @@ export const NON_RECURSIVE = {
 			},
 		});
 		MILESTONES.create('nonrec_19', {
-			requirement: new Decimal(40),
-			currency: 'NRC4次数',
+			requirement: new Decimal(37),
+			currency: 'NRC5次数',
 			displayName: 'M6-19',
 			description: `解锁UNOCF`,
 			get show() {
@@ -226,6 +232,30 @@ export const NON_RECURSIVE = {
 			},
 			get canDone() {
 				return player.challenges[1][4].gte(37);
+			},
+		});
+		MILESTONES.create('nonrec_20', {
+			requirement: new Decimal(80),
+			currency: 'NRC5次数',
+			displayName: 'M6-20',
+			description: `UNOCF推演速度*1,000`,
+			get show() {
+				return player.challenges[1][4].gte(1);
+			},
+			get canDone() {
+				return player.challenges[1][4].gte(80);
+			},
+		});
+		MILESTONES.create('nonrec_21', {
+			requirement: DC.D_2P24,
+			currency: 'UNOCF推演次数',
+			displayName: 'M6-21',
+			description: `九头蛇能量双指数*1.2`,
+			get show() {
+				return player.challenges[1][4].gte(1);
+			},
+			get canDone() {
+				return player.nonrecu.unocf_j.gte(DC.D_2P24);
 			},
 		});
 	},
@@ -315,7 +345,8 @@ export const NON_RECURSIVE = {
 			player.hydra.deduceOrdinal[0].max(1).log(4).max(1).log(4).div(256),
 		]);
 		factor.push(['基础值', ADD_EFF, new Decimal(-1)]);
-		factor.push(['基础指数', EXP_EFF, new Decimal(4)]);
+		let nonrecbase = new Decimal(4);
+		factor.push(['基础指数', EXP_EFF, nonrecbase]);
 		if (player.nonrecu.studies_bought.includes(6))
 			factor.push(['非递归研究41', MUL_EFF, new Decimal(10)]);
 		if (player.milestones.nonrec_11)
@@ -368,6 +399,7 @@ export const NON_RECURSIVE = {
 				.div(1e7)
 				.pow(1 / 3)
 				.mul(1e7);
+		base = base.pow(NON_RECURSIVE.UNOCFeff()[3]);
 		if (base.gte(1e500)) base = base.log10().div(500).pow(0.5).mul(500).pow(10);
 		return base;
 	},
@@ -403,5 +435,38 @@ export const NON_RECURSIVE = {
 				player.challenges[1][4].mul(diff),
 			);
 		}
+		if (player.upgrades['71UN']) {
+			player.nonrecu.unocf_j = player.nonrecu.unocf_j.add(this.UNOCFdeduceSpeed().mul(diff));
+		}
+	},
+	UNOCFdeduceSpeed() {
+		let a = new Decimal(1);
+		a = a.mul(this.UNOCFeff()[1]);
+		if (player.milestones.nonrec_20) {
+			a = a.mul(1000);
+		}
+		return a;
+	},
+	UNOCFeff() {
+		/**
+		 * UNOCF to BMS deduce(^)
+		 */
+		let a = player.nonrecu.unocf_j.add(1).clampMin(1);
+		/**
+		 * UNOCF to UNOCF deduce(*)
+		 */
+		let b = player.nonrecu.unocf_j.div(51.2).log2();
+		/**
+		 * UNOCF to solution(*)
+		 */
+		let c = player.nonrecu.unocf_j.div(1024).sqrt();
+		/**
+		 * UNOCF to nonrec_power(^)
+		 */
+		let d = player.nonrecu.unocf_j.log2().log(2).log(2).sqrt();
+		if (player.nonrecu.unocf_j.lt(512)) b = new Decimal(1);
+		if (player.nonrecu.unocf_j.lt(4096)) c = new Decimal(1);
+		if (player.nonrecu.unocf_j.lt(16384)) d = new Decimal(1);
+		return [a, b, c, d];
 	},
 };
