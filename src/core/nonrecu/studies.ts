@@ -458,7 +458,6 @@ export const studies = [
 	}),
 ] as const;
 export function canBuyStudies(id: number) {
-	if (player.nonrecu.studies_bought.includes(5)) return false;
 	const study = studies[id] as Study | undefined;
 	if (!study) return false;
 	if (player.nonrecu.studies_bought.includes(id)) return false;
