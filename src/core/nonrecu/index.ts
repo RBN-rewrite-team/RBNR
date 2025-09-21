@@ -321,7 +321,8 @@ export const NON_RECURSIVE = {
 			player.hydra.deduceOrdinal[0].max(1).log(4).max(1).log(4).div(256),
 		]);
 		factor.push(['基础值', ADD_EFF, new Decimal(-1)]);
-		factor.push(['基础指数', EXP_EFF, new Decimal(4)]);
+		let nonrecbase = new Decimal(4);
+		factor.push(['基础指数', EXP_EFF, nonrecbase]);
 		if (player.nonrecu.studies_bought.includes(6))
 			factor.push(['非递归研究41', MUL_EFF, new Decimal(10)]);
 		if (player.milestones.nonrec_11)
@@ -415,5 +416,8 @@ export const NON_RECURSIVE = {
 	},
 	UNOCFdeduceSpeed() {
 		return new Decimal(1);
+	},
+	UNOCFeff() {
+		return player.nonrecu.unocf_j.add(1).clampMin(1);
 	},
 };

@@ -601,8 +601,10 @@ export const Hydra = {
 		}
 		if (CHALLENGE.inChallenge(1, 1)) base = base.min(player.nonrecu.power.cbrt().pow_base(10));
 
+		base = base.pow(NON_RECURSIVE.UNOCFeff());
 		if (CHALLENGE.inChallenge(1, 4) && base.gt(10))
 			base = base.clampMin(10).log10().log10().add(10);
+
 		return base;
 	},
 	deduceSpeed(i = 0): Decimal {
@@ -739,7 +741,7 @@ export const Hydra = {
 		if (player.milestones.nonrec_3)
 			base = base.root(player.nonrecu.resetTimes.min(25).mul(0.01).add(1));
 		if (player.challenges[1][1].gte(1)) base = base.pow(0.8);
-		if (player.upgrades[72]) base = base.pow(0.9)
+		if (player.upgrades[72]) base = base.pow(0.9);
 		return base;
 	},
 	powerGainBase(): Decimal {

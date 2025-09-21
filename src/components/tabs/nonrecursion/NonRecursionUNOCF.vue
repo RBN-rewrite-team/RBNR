@@ -4,6 +4,8 @@ import { player } from '@/core/save';
 import { format, formatLaTeX, formatLaTeXWhole } from '@/utils/format';
 import { UNOCF, UNOCF_milestone } from '@/utils/unocf-mil';
 import { computed } from 'vue';
+import Baixie from '@/components/Baixie.vue';
+import { NON_RECURSIVE } from '@/core/nonrecu';
 let cur = computed(() =>
 	UNOCF.getUNOCFMilestone(UNOCF.getCurMilestoneIndex(player.nonrecu.unocf_j)),
 );
@@ -22,6 +24,7 @@ let cur = computed(() =>
 			/>
 		</p>
 		<p>由于UNOCF机制太复杂，并不是每一次推演都会得到对应的序数</p>
+		<p>UNOCF推演使得BMS推演速度^{{ format(NON_RECURSIVE.UNOCFeff()) }}</p>
 		<p v-if="cur[2]"><vue-latex :expression="'\\psi(' + cur[1] + ')=' + cur[2]" /></p>
 		<p>
 			下一个序数为<vue-latex
