@@ -18,7 +18,8 @@ export const NON_RECURSIVE = {
 			currency: Currencies = Currencies.NONREC;
 		})(),
 		'72': new (class extends Upgrade {
-			description = '不在非递归挑战中时，重置后保留获得过的最高九头蛇溶液数量。大幅削弱九头蛇能量的二重软上限。';
+			description =
+				'不在非递归挑战中时，重置后保留获得过的最高九头蛇溶液数量。大幅削弱九头蛇能量的二重软上限。';
 			cost = Decimal.pow(2, 896);
 			name = 'U6-2';
 			currency: Currencies = Currencies.NONREC;
@@ -215,6 +216,18 @@ export const NON_RECURSIVE = {
 				return player.challenges[1][4].gte(29.7);
 			},
 		});
+		MILESTONES.create('nonrec_19', {
+			requirement: new Decimal(40),
+			currency: 'NRC4次数',
+			displayName: 'M6-19',
+			description: `解锁UNOCF`,
+			get show() {
+				return player.challenges[1][4].gte(1);
+			},
+			get canDone() {
+				return player.challenges[1][4].gte(37);
+			},
+		});
 	},
 	reset(force = false) {
 		if (!this.resetable() && !force) {
@@ -260,7 +273,7 @@ export const NON_RECURSIVE = {
 		if (!player.milestones.nonrec_12) player.hydra.dilute.solution = DC.D_0;
 		else if (player.milestones.nonrec_14) {
 		} else player.hydra.dilute.solution = player.hydra.dilute.solution.mul(0.01);
-		if (player.upgrades[72]) player.hydra.dilute.solution = player.hydra.dilute.highestSolution
+		if (player.upgrades[72]) player.hydra.dilute.solution = player.hydra.dilute.highestSolution;
 		if (CHALLENGE.inChallenge(1, 1)) player.hydra.dilute.solution = DC.D_0;
 		if (CHALLENGE.inChallenge(1, 2)) player.hydra.dilute.solution = DC.D_0;
 		if (CHALLENGE.inChallenge(1, 4)) player.hydra.dilute.solution = DC.D_0;
@@ -355,7 +368,7 @@ export const NON_RECURSIVE = {
 				.div(1e7)
 				.pow(1 / 3)
 				.mul(1e7);
-		if (base.gte(1e500)) base = base.log10().div(500).pow(0.5).mul(500).pow(10)
+		if (base.gte(1e500)) base = base.log10().div(500).pow(0.5).mul(500).pow(10);
 		return base;
 	},
 	nonrecEffects(): [Decimal, Decimal] {

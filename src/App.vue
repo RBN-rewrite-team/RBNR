@@ -48,6 +48,8 @@ import StudyTree from './components/tabs/nonrecursion/StudyTree.vue';
 import MiniGame from './components/tabs/MiniGame.vue';
 import AutomatorEditor from './components/tabs/AutomatorEditor.vue';
 import NonRecursionTabUpgrade from './components/tabs/nonrecursion/NonRecursionTabUpgrade.vue';
+import NonRecursionUNOCF from './components/tabs/nonrecursion/NonRecursionUNOCF.vue';
+import { isTester } from './core/save/testing.ts';
 </script>
 
 <template>
@@ -101,6 +103,9 @@ import NonRecursionTabUpgrade from './components/tabs/nonrecursion/NonRecursionT
 				<PlotTab v-if="player.currentTab === 200" />
 				<SaveBank v-if="player.currentTab === 300" />
 				<MiniGame v-if="player.currentTab === 1225" />
+				<NonRecursionUNOCF
+					v-if="player.currentTab === 26 && isTester()"
+				></NonRecursionUNOCF>
 			</div>
 		</div>
 	</div>
