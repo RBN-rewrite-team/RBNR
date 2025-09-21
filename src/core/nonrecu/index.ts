@@ -234,6 +234,30 @@ export const NON_RECURSIVE = {
 				return player.challenges[1][4].gte(37);
 			},
 		});
+		MILESTONES.create('nonrec_20', {
+			requirement: new Decimal(80),
+			currency: 'NRC5次数',
+			displayName: 'M6-20',
+			description: `UNOCF推演速度*1,000`,
+			get show() {
+				return player.challenges[1][4].gte(1);
+			},
+			get canDone() {
+				return player.challenges[1][4].gte(80);
+			},
+		});
+		MILESTONES.create('nonrec_21', {
+			requirement: DC.D_2P24,
+			currency: 'UNOCF推演次数',
+			displayName: 'M6-21',
+			description: `九头蛇能量双指数*1.2`,
+			get show() {
+				return player.challenges[1][4].gte(1);
+			},
+			get canDone() {
+				return player.nonrecu.unocf_j.gte(DC.D_2P24);
+			},
+		});
 	},
 	reset(force = false) {
 		if (!this.resetable() && !force) {
@@ -418,6 +442,9 @@ export const NON_RECURSIVE = {
 	UNOCFdeduceSpeed() {
 		let a = new Decimal(1);
 		a = a.mul(this.UNOCFeff()[1]);
+		if (player.milestones.nonrec_20) {
+			a = a.mul(1000);
+		}
 		return a;
 	},
 	UNOCFeff() {
