@@ -11,7 +11,7 @@ export function createDeepValidatedReactive<T>(obj: T): T {
 				if (
 					typeof value === 'object' &&
 					value !== null &&
-					value! instanceof Decimal &&
+					!(value instanceof Decimal) &&
 					!Array.isArray(value)
 				) {
 					return processObject(value);
@@ -23,20 +23,12 @@ export function createDeepValidatedReactive<T>(obj: T): T {
 				return value;
 			},
 			set(target, key, value, receiver) {
-				// 检查新值是否为数字且是 NaN
-				if (
-					typeof target[key] === 'object' &&
-					target[key] instanceof Decimal &&
-					typeof value === 'object' &&
-					value instanceof Decimal &&
-					!Decimal.isFinite(value)
-				) {
-					// alert(`不能设置 NaN 到属性 ${String(key)}！`)
+				if (value instanceof Decimal && Decimal.isNaN(value)) {
 					console.error(`我操称冯，何意味`, target, key);
 					console.trace();
+					// alert(`不能设置 NaN 到数组索引 ${String(key)}！`)
 					return true; // 阻止写入
 				}
-
 				// 如果设置的是对象，需要先处理
 				let processedValue = value;
 				if (
@@ -71,11 +63,9 @@ export function createDeepValidatedReactive<T>(obj: T): T {
 				const numericKey = Number(key);
 				if (
 					!isNaN(numericKey) &&
-					typeof target[numericKey] === 'object' &&
-					target[numericKey] instanceof Decimal &&
-					typeof value === 'object' &&
+					typeof value == 'object' &&
 					value instanceof Decimal &&
-					!Decimal.isFinite(value)
+					Decimal.isNaN(value)
 				) {
 					console.error(`我操称冯，何意味`, target, key);
 					console.trace();
