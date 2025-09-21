@@ -3,6 +3,8 @@ import type { SingleChallenge } from '../challenge';
 import { Dilute } from '../hydra/dilute';
 import { player } from '../save';
 import { formatWhole, format } from '@/utils/format';
+import { getNRC4Kept } from './studies';
+import { Hydra } from '../hydra/hydra';
 
 export const NONREC_CHALS: SingleChallenge[] = [
 	{
@@ -18,25 +20,19 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			return this.descEasy;
 		},
 		loop() {
+			let e = 0.4667 + Number(player.challenges[1][0]);
+			if (player.upgrades['71']) e = 0.4667 + Number(player.challenges[1][0]) * 0.3;
 			player.hydra.dilute.inDilute = true;
-			player.hydra.dilute.solvent = [
-				10,
-				0.4667 + Number(player.challenges[1][0]),
-				10,
-				10,
-				10,
-				9,
-				!0,
-				!1,
-				!1,
-			];
+			player.hydra.dilute.solvent = [10, e, 10, 10, 10, 9, !0, !1, !1];
 			if (Dilute.prions().sub(1).gte(player.hydra.deduceOrdinal[0])) {
 				Dilute.diluteReset();
 				player.hydra.dilute.prions = new Decimal(1);
 			}
 			if (
 				player.hydra.power.gte(
-					new Decimal(326649 ** player.challenges[1][0].add(1).toNumber()).pow10().mul(0.99),
+					new Decimal(326649 ** player.challenges[1][0].add(1).toNumber())
+						.pow10()
+						.mul(0.99),
 				)
 			) {
 				player.challengein = [-1, -1];
@@ -56,10 +52,7 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			return this.descEasy;
 		},
 		loop() {
-			if (
-				player.hydra.dilute.solution >
-				player.challenges[1][1].pow_base(10).mul(4e6).toNumber()
-			) {
+			if (player.hydra.dilute.solution.gte(player.challenges[1][1].pow_base(10).mul(4e6))) {
 				player.challengein = [-1, -1];
 				player.challenges[1][1] = player.challenges[1][1].add(1).min(5);
 			}
@@ -80,7 +73,11 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			return player.nonrecu.studies_bought.includes(12);
 		},
 		loop() {
-			if (player.hydra.dilute.solution >= 255000000 * 5 ** +player.challenges[1][2]) {
+			if (
+				player.hydra.dilute.solution.gte(
+					255000000 * 5 ** player.challenges[1][2].toNumber(),
+				)
+			) {
 				player.challengein = [-1, -1];
 				player.challenges[1][2] = player.challenges[1][2].add(1).min(5);
 			}
@@ -100,22 +97,63 @@ export const NONREC_CHALS: SingleChallenge[] = [
 	{
 		name: '反转研究',
 		get descEasy() {
-			return '挑战中你始终拥有前 2x-1 行研究，其效果完全反转<br>奖励：没做';
+			return '挑战中你始终拥有前 2x-1 行研究，其效果完全反转(暂时只能进入第二次)<br>奖励：将非递归研究101的效果变为10%，基于完成次数增加非递归理论总量，前 2x-1 行非递归研究和购买本研究不再消耗任何东西';
 		},
 		get descHard() {
 			return this.descEasy;
 		},
 		canEnter() {
-			return player.nonrecu.studies_bought.includes(22);
+			return player.nonrecu.studies_bought.includes(23) && player.challenges[1][3].lt(2);
 		},
 		loop() {
-			player.nonrecu.studies_bought = [...new Set(player.nonrecu.studies_bought), 11, 12];
+			player.nonrecu.studies_bought = [
+				...new Set(
+					player.nonrecu.studies_bought.concat(
+						getNRC4Kept(player.challenges[1][3].toNumber()),
+					),
+				),
+			];
+			if (
+				false &&
+				player.hydra.power.gte(
+					new Decimal(6 ** (player.challenges[1][3].toNumber() + 1))
+						.pow_base(2)
+						.sub(9)
+						.pow_base(2)
+						.pow10(),
+				)
+			) {
+				player.challengein = [-1, -1];
+				player.challenges[1][3] = player.challenges[1][3].add(1).min(5);
+			}
 		},
 		effect(x): Decimal {
-			return x.gt(0) ? x.mul(0.1).add(0.1) : new Decimal(0);
+			return x.gt(0) ? x.mul(0.1).add(1) : new Decimal(1);
 		},
 		effD(x): string {
-			return '没做';
+			return '×' + x;
+		},
+		onExit() {
+			player.nonrecu.studies_bought = [];
+			player.nonrecu.spentTheories = new Decimal(0);
+		},
+	},
+	{
+		name: '对数运算',
+		get descEasy() {
+			return '挑战中推演速度挑战中推演速度>10时=log10(log10(推演速度 max 10))+10,九头蛇溶液取以10为底对数，重置九头蛇溶液';
+		},
+		get descHard() {
+			return this.descEasy;
+		},
+		canEnter() {
+			return player.nonrecu.studies_bought.includes(24);
+		},
+		loop() {
+			const highest = Hydra.deduceSpeedBMS();
+			if (player.challenges[1][4].lt(highest)) {
+				player.challenges[1][4] = highest;
+			}
 		},
 	},
 ] as const;

@@ -38,8 +38,7 @@ const downloadSave = (saveText: string, title: string) => {
 
 const importSave = (saveText: string) => {
 	if (confirm('确定要导入这个存档吗？当前进度将会被覆盖。')) {
-		loadFromString(saveText);
-		Object.assign(player, reactive(player));
+		loadFromString(saveText, true);
 		save();
 		location.reload();
 	}
@@ -61,7 +60,7 @@ const importSave = (saveText: string) => {
 			<div v-show="isExpanded[chapterKey]" class="saves-container">
 				<div v-for="(item, itemKey) in chapter" :key="itemKey" class="save-item">
 					<div v-if="isSaveItem(item)" class="save-content">
-						<h3 class="save-title">{{ item.title }}</h3>
+						<h3 class="save-title" v-html="item.title"></h3>
 						<p class="save-uploader">上传者: {{ item.uploader }}</p>
 						<div class="save-container">
 							<button

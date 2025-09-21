@@ -14,6 +14,8 @@ import { Currencies } from '../currencies.ts';
 import { CurrencyRequirement, Requirement } from '../requirements.ts';
 import { Buyable } from '../buyable.ts';
 import { Logarithm } from '../exponention/logarithm.ts';
+import { DC } from '@/core/constants';
+import { updateResetStatData } from '../stats.ts';
 const D179E308 = Decimal.pow(2, 1024);
 export const Multiplication = {
 	upgrades: {
@@ -31,11 +33,11 @@ export const Multiplication = {
 				)();
 				return text;
 			};
-			cost = new Decimal(0);
+			cost = DC.D_0;
 			name = 'U2-1';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			requirements() {
-				return [new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(1))];
+				return [new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, DC.D_1)];
 			}
 			keep(): boolean {
 				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
@@ -43,11 +45,11 @@ export const Multiplication = {
 		})(),
 		'32': new (class U22 extends Upgrade {
 			description: string = '所有后继升级保持为可购买状态';
-			cost = new Decimal(1);
+			cost = DC.D_1;
 			name = 'U2-2';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			requirements() {
-				return [new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(1))];
+				return [new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, DC.D_1)];
 			}
 			keep() {
 				return player.upgrades['411q'] && !player.exponention.logarithm.in_dilate;
@@ -162,7 +164,7 @@ export const Multiplication = {
 		'39': new (class U28 extends Upgrade {
 			description: () => string = Logarithm.dilated(
 				'解锁乘法挑战，自动最大购买后继、加法购买项，最大购买乘法购买项',
-				'解锁奇点生成器',
+				'膨胀中获得最高数值的效果变得更好',
 				'39',
 			);
 			cost = new Decimal(1e21);
@@ -210,7 +212,7 @@ export const Multiplication = {
 				return player.upgrades['452q'] && player.singularity.stage < 7;
 			}
 			costInverse(x: Decimal): Decimal {
-				return x.max(1).div(1000).floor().min(500);
+				return x.sub(10).max(0).div(1000).add(1).floor().min(500);
 			}
 		})(),
 		'32': new (class B22 extends Buyable<Decimal> {
@@ -238,14 +240,15 @@ export const Multiplication = {
 			}
 		})(),
 		'33': new (class B23 extends Buyable<Decimal> {
-			description: string = '质因数公式变得更好';
+			description: string = '质因数效果增速';
 			name = 'B2-3';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			effect(x: Decimal) {
 				return new Decimal(0.01).mul(x);
 			}
 			effectDescription(x: Decimal) {
-				return '+' + format(this.effect(x));
+				if (this.effect(x).gte(0.99)) return '瞬间达到上限';
+				return 'x' + format(Decimal.sub(0.99, this.effect(x)).log(0.99));
 			}
 			cost(x: Decimal) {
 				const a = new Decimal(5).pow(x.add(1));
@@ -284,34 +287,24 @@ export const Multiplication = {
 			}
 		})(),
 	} as const,
-	initMechanics() {
-		SOFTCAPS.create('mulpower^1', {
-			name: 'mulpower^1',
-			fluid: true,
-			start: new Decimal('e5e6'),
-			get exponent() {
-				let base = new Decimal(2.5);
-				if (player.upgrades[47]) base = base.pow(wgEffect()[4]);
-				return new Decimal(1).div(base);
-			},
-			meta: 1,
-		});
-		SOFTCAPS.create('mulpower^2', {
-			name: 'mulpower^2',
-			fluid: true,
-			start: new Decimal('ee9'),
-			exponent: new Decimal(0.25),
-			meta: 1,
-		});
-	},
-	mulpower_gain(bulk = new Decimal(1)) {
+	initMechanics() {},
+	mulpower_gain(bulk = DC.D_1, recordtoreset = false) {
 		let adding = this.gain().mul(bulk);
-		if (player.singularity.stage < 2) {
-			adding = SOFTCAPS.fluidComputed('mulpower^1', adding, player.multiplication.mulpower);
-			adding = SOFTCAPS.fluidComputed('mulpower^2', adding, player.multiplication.mulpower);
+		let softcaps = 0,
+			scList = ['mulpower^1', 'mulpower^2'];
+		if (player.singularity.stage < 2)
+			for (let i = 0; i < scList.length; i++) {
+				if (SOFTCAPS.reach(scList[i], adding)) {
+					softcaps++;
+					adding = SOFTCAPS.staticComputed(scList[i], adding);
+				}
+			}
+		if (recordtoreset) {
+			updateResetStatData('recent10MulReset', adding);
 		}
 		player.multiplication.mulpower = player.multiplication.mulpower.add(adding);
 		player.multiplication.totalMulpower = player.multiplication.totalMulpower.add(adding);
+		player.stat.totalMulpower = player.stat.totalMulpower.add(adding);
 	},
 	powerEff() {
 		const base = player.multiplication.totalMulpower.add(1);
@@ -319,7 +312,7 @@ export const Multiplication = {
 	},
 	reset(force = false) {
 		if (this.gain().gt(0) || force) {
-			this.mulpower_gain();
+			this.mulpower_gain(DC.D_1, true);
 			if (CHALLENGE.inChallenge(0, 3)) {
 				player.challenges[0][3] = player.challenges[0][3].add(this.gain());
 			}
@@ -328,11 +321,11 @@ export const Multiplication = {
 			);
 			if (!player.upgrades[37] || force)
 				for (const i in reset_upgrades) player.upgrades[reset_upgrades[i]] = false;
-			if (!player.upgrades[34] || force) player.buyables[21] = new Decimal(0);
-			if (!player.upgrades['435q']) player.multiplication.pfTime = new Decimal(0);
+			if (!player.upgrades[34] || force) player.buyables[21] = DC.D_0;
+			if (!player.upgrades['435q']) player.multiplication.pfTime = DC.D_0;
 			Addition.reset();
-			player.totalAddpower = new Decimal(0);
-			player.addpower = new Decimal(0);
+			player.totalAddpower = DC.D_0;
+			player.addpower = DC.D_0;
 		}
 	},
 	UIreset() {
@@ -351,8 +344,8 @@ export const Multiplication = {
 		});
 	},
 	gain() {
-		if (player.totalAddpower.lt(3125)) return new Decimal(0);
-		if (CHALLENGE.inChallenge(0, 3) && player.totalAddpower.lt(D179E308)) return new Decimal(0);
+		if (player.totalAddpower.lt(3125)) return DC.D_0;
+		if (CHALLENGE.inChallenge(0, 3) && player.totalAddpower.lt(D179E308)) return DC.D_0;
 		let base = player.totalAddpower.sub(3124).pow(0.1);
 		if (CHALLENGE.inChallenge(0, 3)) base = player.totalAddpower.div(D179E308).pow(1 / 1024);
 		if (player.buyables[32].gt(0)) base = base.mul(buyables[32].effect(player.buyables[32]));
@@ -365,6 +358,7 @@ export const Multiplication = {
 		if (player.upgrades[47]) base = base.pow(feature.ChessBoard.wgEffect()[0]);
 
 		if (player.milestones.cb19) base = base.log10().pow(getMCB19Effect()).pow_base(10);
+		if (player.upgrades[410]) base = base.pow(upgrades[410].effect());
 
 		if (player.exponention.logarithm.in_dilate) {
 			base = base.add(10).iteratedlog(Math.E, Logarithm.dilateNerf().div(2).toNumber());

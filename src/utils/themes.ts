@@ -27,6 +27,7 @@ export const themeDetailsMap = new Map([
 				'--border-color': '#d0d0d0',
 				'--hover-color': '#e2e2e2',
 				'--red-hover-color': '#ffd1d1',
+				'--font': '思源黑体Regular',
 			} as const,
 			other: {} as const,
 		},
@@ -44,6 +45,7 @@ export const themeDetailsMap = new Map([
 				'--border-color': '#2f2f2f',
 				'--hover-color': '#1d1d1d',
 				'--red-hover-color': '#2f0000',
+				'--font': '思源黑体Regular',
 			} as const,
 			other: {} as const,
 		},
@@ -61,6 +63,7 @@ export const themeDetailsMap = new Map([
 				'--border-color': '#ffcc99',
 				'--hover-color': '#ff6633',
 				'--red-hover-color': '#ffd1d1',
+				'--font': '思源黑体Regular',
 			} as const,
 			other: {} as const,
 		},
@@ -78,6 +81,7 @@ export const themeDetailsMap = new Map([
 				'--border-color': '#006699',
 				'--hover-color': '#0099cc',
 				'--red-hover-color': '#ffd1d1',
+				'--font': '思源黑体Regular',
 			} as const,
 			other: {
 				filter: 'hue-rotate(15deg) brightness(0.8) contrast(0.9)',
@@ -93,8 +97,13 @@ export function updateTheme() {
 	if (!theme) return;
 	const ordinary = theme.ordinary;
 	for (const i in ordinary) {
-		root.style.setProperty(i as keyof typeof ordinary, ordinary[i as keyof typeof ordinary]);
+		if (i !== '--font')
+			root.style.setProperty(
+				i as keyof typeof ordinary,
+				ordinary[i as keyof typeof ordinary],
+			);
 	}
+	root.style.setProperty('--font', player.options.ui.user_font ?? '思源黑体Regular');
 	const other = theme.other;
 	if (other.filter) {
 		root.style.filter = other.filter;

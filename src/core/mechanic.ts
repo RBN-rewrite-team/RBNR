@@ -21,6 +21,10 @@ import { ORDINAL_BOOSTER } from './ordinal/ordinal-booster.ts';
 import { Hydra } from './hydra/hydra.ts';
 import { Dilute, DiluteUpgrades } from './hydra/dilute.ts';
 import type { Upgrade } from './upgrade.ts';
+import { getI18NData } from './i18n-data.ts';
+import { DC } from '@/core/constants';
+import { getMCB19Effect, wgEffect } from './exponention/chessboard.ts';
+import { NON_RECURSIVE } from './nonrecu/index.ts';
 
 const upgrades = {
 	...Successor.upgrades,
@@ -34,6 +38,7 @@ const upgrades = {
 	...ORDINAL_BOOSTER.upgrades,
 	...Hydra.upgrades,
 	...DiluteUpgrades,
+	...NON_RECURSIVE.upgrades,
 } as const;
 const buyables = {
 	...Successor.buyables,
@@ -169,15 +174,16 @@ export const BUYABLES = {
 					buyables[id].effectDilated(player.buyables[id].add(canBuy.max(1)))[1] +
 					'<br>';
 			str +=
-				'价格：' +
-				(buyables[id].ordinal
-					? OrdinalUtils.numberToOrdinal(
-							buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0))),
-							ORDINAL.base(),
-						)
-					: format(buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0))))) +
-				currencyName(buyables[id].currency) +
-				(canBuy.gte(1) ? '(买' + formatWhole(canBuy) + '个)' : '') +
+				getI18NData('cost_function')(
+					buyables[id].ordinal
+						? OrdinalUtils.numberToOrdinal(
+								buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0))),
+								ORDINAL.base(),
+							)
+						: format(buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0)))),
+					currencyName(buyables[id].currency),
+				) +
+				(canBuy.gte(1) ? getI18NData('buymax_function')(formatWhole(canBuy)) : '') +
 				'<br>';
 		}
 
@@ -240,11 +246,13 @@ type ISoftcap = {
  * @param meta 不知道
  * @returns 溢出后的数
  */
-function overflow() {
-	/* 废弃 */
+/*
+  function overflow() {
+	废弃
 }
+*/
 
-function overflow_v2(getting: Decimal, existing: Decimal, s: any) {
+/*function overflow_v2(getting: Decimal, existing: Decimal, s: any) {
 	let ans = new Decimal(0);
 	if (s.slog) {
 		ans = Decimal.iteratedexp(
@@ -270,8 +278,50 @@ function overflow_v2(getting: Decimal, existing: Decimal, s: any) {
 		ans = Decimal.iteratedexp(10, meta, logged);
 	}
 	return ans;
+}*/
+function overflow(number: Decimal, start: DecimalSource, power: DecimalSource, meta = 0) {
+	if (isNaN(number.mag)) return new Decimal(0);
+	start = new Decimal(start);
+
+	if (number.gt(start)) {
+		if (meta == 0) {
+			number = number.div(start).pow(power).mul(start);
+		} else if (meta == 1) {
+			let s = start.log10();
+			number = number.log10().div(s).pow(power).mul(s).pow10();
+		} else {
+			let s = start.iteratedlog(10, meta);
+			number = Decimal.iteratedexp(
+				10,
+				meta,
+				number.iteratedlog(10, meta).div(s).pow(power).mul(s),
+			);
+		}
+	}
+	return number;
 }
 
+function overflowInversed(number: Decimal, start: DecimalSource, power: DecimalSource, meta = 1) {
+	if (isNaN(number.mag)) return new Decimal(0);
+	start = new Decimal(start);
+
+	if (number.gt(start)) {
+		if (meta == 0) {
+			number = number.div(start).root(power).mul(start);
+		} else if (meta == 1) {
+			let s = start.log10();
+			number = number.log10().div(s).root(power).mul(s).pow10();
+		} else {
+			let s = start.iteratedlog(10, meta);
+			number = Decimal.iteratedexp(
+				10,
+				meta,
+				number.iteratedlog(10, meta).div(s).root(power).mul(s),
+			);
+		}
+	}
+	return number;
+}
 export const SOFTCAPS = {
 	create(id: string, info: ISoftcap) {
 		softcaps[id] = info;
@@ -302,7 +352,12 @@ export const SOFTCAPS = {
 		}
 		if (!softcaps[id].fluid) throw new Error('type error');
 		const s = softcaps[id];
-		return overflow_v2(getting, existing, s);
+		let base = this.reach(id, existing)
+			? s.start.mul(existing.div(s.start).root(s.exponent))
+			: existing;
+		base = base.add(getting).pow(s.exponent).mul(s.start);
+		if (base.lt('ee10')) base = base.sub(existing);
+		return base;
 	},
 	/**
 	 * 基于获取的软上限
@@ -312,12 +367,119 @@ export const SOFTCAPS = {
 	 */
 	staticComputed(id: string, getting: Decimal) {
 		if (!this.reach(id, getting)) return getting;
-		if (softcaps[id].fluid) throw new Error('type error');
 		const s = softcaps[id];
-		return overflow_v2(new Decimal(0), getting, s);
+		return overflow(getting, s.start, s.exponent, s.meta ?? 0);
 	},
 };
 
+SOFTCAPS.create('number^1', {
+	name: 'number^1',
+	fluid: true,
+	start: new Decimal(2).pow(256),
+	exponent: new Decimal(0.75),
+});
+SOFTCAPS.create('number^2', {
+	name: 'number^2',
+	fluid: true,
+	get start() {
+		let base = new Decimal(2).pow(1024);
+
+		if (player.upgrades[43]) base = base.pow(2);
+		return base;
+	},
+	exponent: new Decimal(0.75),
+});
+SOFTCAPS.create('number_C1', {
+	name: 'number_C1',
+	fluid: true,
+	start: DC.D_1,
+	exponent: new Decimal(0.5),
+});
+SOFTCAPS.create('number^3', {
+	name: 'number^3',
+	fluid: true,
+	start: new Decimal('e20000'),
+	exponent: new Decimal(0.5),
+});
+SOFTCAPS.create('number^4', {
+	name: 'number^4',
+	fluid: true,
+	start: new Decimal('ee5'),
+	get exponent() {
+		let base = new Decimal(4);
+		if (player.milestones.cb6) base = base.pow(0.5);
+		return base.pow(-1);
+	},
+	meta: 1,
+});
+SOFTCAPS.create('number^5', {
+	name: 'number^5',
+	fluid: true,
+	start: new Decimal('ee20'),
+	get exponent() {
+		return player.milestones.cb14 ? new Decimal(0.2) : new Decimal(0.1);
+	},
+	meta: 1,
+});
+SOFTCAPS.create('addpower^1', {
+	name: 'addpower^1',
+	fluid: true,
+	start: new Decimal(2).pow(384),
+	exponent: new Decimal(0.75),
+});
+SOFTCAPS.create('addpower^2', {
+	name: 'addpower^2',
+	fluid: true,
+	get start() {
+		let base = new Decimal(2).pow(4096);
+
+		if (player.upgrades[43]) base = base.pow(2);
+		return base;
+	},
+	exponent: new Decimal(0.75),
+});
+SOFTCAPS.create('addpower^3', {
+	name: 'addpower^3',
+	fluid: true,
+	start: new Decimal('e40000'),
+	exponent: new Decimal(0.5),
+});
+SOFTCAPS.create('addpower^4', {
+	name: 'addpower^4',
+	fluid: true,
+	start: new Decimal('ee5'),
+	get exponent() {
+		let base = new Decimal(4);
+		if (player.milestones.cb6) base = base.pow(0.5);
+		return base.pow(-1);
+	},
+	meta: 1,
+});
+SOFTCAPS.create('addpower^5', {
+	name: 'addpower^5',
+	fluid: true,
+	start: new Decimal('ee14'),
+	exponent: new Decimal(0.25),
+	meta: 1,
+});
+SOFTCAPS.create('mulpower^1', {
+	name: 'mulpower^1',
+	fluid: true,
+	start: new Decimal('e5e6'),
+	get exponent() {
+		let base = new Decimal(2.5);
+		if (player.upgrades[47]) base = base.pow(wgEffect()[4]);
+		return DC.D_1.div(base);
+	},
+	meta: 1,
+});
+SOFTCAPS.create('mulpower^2', {
+	name: 'mulpower^2',
+	fluid: true,
+	start: new Decimal('ee9'),
+	exponent: new Decimal(0.25),
+	meta: 1,
+});
 type IMilestone = {
 	requirement: Decimal;
 	currency: string;

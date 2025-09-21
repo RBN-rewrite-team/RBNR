@@ -38,14 +38,18 @@ import TimeShard from './components/tabs/TimeShard.vue';
 import Hydra from './components/tabs/Hydra.vue';
 import HydraDilute from './components/tabs/HydraDilute.vue';
 
-import { isTester } from '@/core/save/testing.ts';
 import PlotTab from './components/tabs/plot/PlotTab.vue';
 import SaveBank from './components/tabs/SaveBank.vue';
 import PlotView from './components/tabs/plot/PlotView.vue';
-import NonRecursionTab from './components/tabs/nonrecursion/NonRecursionTab.vue';
+import NonRecursionMilestones from './components/tabs/nonrecursion/NonRecursionMilestones.vue';
+import NonRecursionFactor from './components/tabs/nonrecursion/NonRecursionFactor.vue';
 import NonRecursionTabChal from './components/tabs/nonrecursion/NonRecursionTabChal.vue';
+import StudyTree from './components/tabs/nonrecursion/StudyTree.vue';
 import MiniGame from './components/tabs/MiniGame.vue';
 import AutomatorEditor from './components/tabs/AutomatorEditor.vue';
+import NonRecursionTabUpgrade from './components/tabs/nonrecursion/NonRecursionTabUpgrade.vue';
+import NonRecursionUNOCF from './components/tabs/nonrecursion/NonRecursionUNOCF.vue';
+import { isTester } from './core/save/testing.ts';
 </script>
 
 <template>
@@ -90,12 +94,18 @@ import AutomatorEditor from './components/tabs/AutomatorEditor.vue';
 				<TimeShard v-if="player.currentTab === 18" />
 				<Hydra v-if="player.currentTab === 19" />
 				<HydraDilute v-if="player.currentTab === 20" />
-				<NonRecursionTab v-if="player.currentTab === 21" />
-				<NonRecursionTabChal v-if="player.currentTab === 22"></NonRecursionTabChal>
+				<NonRecursionMilestones v-if="player.currentTab === 21" />
+				<NonRecursionTabChal v-if="player.currentTab === 22" />
+				<NonRecursionFactor v-if="player.currentTab === 23" />
+				<StudyTree v-if="player.currentTab === 24" />
+				<NonRecursionTabUpgrade v-if="player.currentTab === 25"></NonRecursionTabUpgrade>
 				<AutomatorEditor v-if="player.currentTab === 167" />
 				<PlotTab v-if="player.currentTab === 200" />
 				<SaveBank v-if="player.currentTab === 300" />
 				<MiniGame v-if="player.currentTab === 1225" />
+				<NonRecursionUNOCF
+					v-if="player.currentTab === 26 && isTester()"
+				></NonRecursionUNOCF>
 			</div>
 		</div>
 	</div>

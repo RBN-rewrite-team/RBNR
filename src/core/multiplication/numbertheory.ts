@@ -1,5 +1,4 @@
-import { eulerFunction } from '@/utils/algorithm';
-import { BUYABLES, buyables, upgrades, UPGRADES } from '../mechanic';
+import { buyables, upgrades } from '../mechanic';
 import { player } from '../save';
 import { format, formatWhole } from '@/utils/format';
 import Decimal from 'break_eternity.js';
@@ -420,9 +419,7 @@ export const NUMTHEORY = {
 		return Decimal.fromNumber(sumEulers[x.toNumber()]);
 	},
 	tau1DilateEff() {
-		if (player.milestones.cb20 && !player.singularity.enabled)
-			return NUMTHEORY.funcS().max(10).slog().pow(0.75).div(5).min(1e9);
-		return NUMTHEORY.funcS().max(10).slog().pow(0.6).div(5).min(0.3125);
+		return NUMTHEORY.funcS().max(10).slog().pow(0.6).div(7).min(0.25);
 	},
 	varXgain() {
 		let x = new Decimal(0);

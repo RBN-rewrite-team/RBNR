@@ -20,6 +20,8 @@ import { Currencies } from '../currencies.ts';
 import { CurrencyRequirement, Requirement, UpgradeRequirement } from '../requirements.ts';
 import { Buyable } from '../buyable.ts';
 import { Logarithm } from '../exponention/logarithm.ts';
+import { DC } from '@/core/constants';
+import { updateResetStatData } from '../stats.ts';
 
 export class AdditionUpgrade extends Upgrade {
 	currency = Currencies.ADDITION_POWER;
@@ -36,14 +38,14 @@ export const Addition = {
 				'使U0-2效果^1.5',
 				'21',
 			);
-			cost = new Decimal(1);
+			cost = DC.D_1;
 			name = 'U1-1';
 			currency = Currencies.ADDITION_POWER;
 			keep(): boolean {
 				return player.upgrades['421q'] && !player.exponention.logarithm.in_dilate;
 			}
 			requirements() {
-				return [new CurrencyRequirement(Currencies.ADDITION_POWER, new Decimal(1))];
+				return [new CurrencyRequirement(Currencies.ADDITION_POWER, DC.D_1)];
 			}
 		})(),
 		'22': new (class U12 extends AdditionUpgrade {
@@ -58,7 +60,7 @@ export const Addition = {
 					player.multiplication.B1seriesC1 == 2 ||
 					player.multiplication.B1seriesC1400q == 2
 				)
-					return new Decimal(1);
+					return DC.D_1;
 				return new Decimal(5);
 			};
 			name = 'U1-2';
@@ -77,7 +79,7 @@ export const Addition = {
 					player.multiplication.B1seriesC1 == 3 ||
 					player.multiplication.B1seriesC1400q == 3
 				)
-					return new Decimal(1);
+					return DC.D_1;
 				return new Decimal(25);
 			};
 			name = 'U1-3';
@@ -97,7 +99,7 @@ export const Addition = {
 			cost: Decimal | (() => Decimal) = function () {
 				return player.multiplication.B1seriesC1 == 4 ||
 					player.multiplication.B1seriesC1400q == 4
-					? new Decimal(1)
+					? DC.D_1
 					: new Decimal(125);
 			};
 			name = 'U1-4';
@@ -118,7 +120,7 @@ export const Addition = {
 			cost: Decimal | (() => Decimal) = function () {
 				return player.multiplication.B1seriesC1 == 5 ||
 					player.multiplication.B1seriesC1400q == 5
-					? new Decimal(1)
+					? DC.D_1
 					: new Decimal(625);
 			};
 			name = 'U1-5';
@@ -131,10 +133,7 @@ export const Addition = {
 			effect() {
 				let exp = new Decimal(0.25);
 				let a;
-				if (
-					((a = MULTI_CHALS[0].effect?.(player.challenges[0][0]) ?? new Decimal(0)),
-					a.gt(0))
-				)
+				if (((a = MULTI_CHALS[0].effect?.(player.challenges[0][0]) ?? DC.D_0), a.gt(0)))
 					exp = exp.add(a);
 
 				return player.totalAddpower.pow(exp).add(1).floor();
@@ -183,14 +182,7 @@ export const Addition = {
 				return player.upgrades[39];
 			}
 			costInverse(x: Decimal): Decimal {
-				return x
-					.sub(10)
-					.div(1000)
-					.floor()
-					.min(100)
-					.sub(player.buyables[21])
-					.max(0)
-					.min(100);
+				return x.div(1000).floor().min(100);
 			}
 			effect(x: Decimal): Decimal {
 				return x;
@@ -200,70 +192,28 @@ export const Addition = {
 			}
 		})(),
 	} as const,
-	initMechanics() {
-		SOFTCAPS.create('addpower^1', {
-			name: 'addpower^1',
-			fluid: true,
-			start: new Decimal(2).pow(384),
-			exponent: new Decimal(0.75),
-		});
-		SOFTCAPS.create('addpower^2', {
-			name: 'addpower^2',
-			fluid: true,
-			get start() {
-				let base = new Decimal(2).pow(4096);
-
-				if (player.upgrades[43]) base = base.pow(2);
-				return base;
-			},
-			exponent: new Decimal(0.75),
-		});
-		SOFTCAPS.create('addpower^3', {
-			name: 'addpower^3',
-			fluid: true,
-			start: new Decimal('e40000'),
-			exponent: new Decimal(0.5),
-		});
-		SOFTCAPS.create('addpower^4', {
-			name: 'addpower^4',
-			fluid: true,
-			start: new Decimal('ee5'),
-			get exponent() {
-				let base = new Decimal(4);
-				if (player.milestones.cb6) base = base.pow(0.5);
-				return base.pow(-1);
-			},
-			meta: 1,
-		});
-		SOFTCAPS.create('addpower^5', {
-			name: 'addpower^5',
-			fluid: true,
-			start: new Decimal('ee14'),
-			exponent: new Decimal(0.25),
-			meta: 1,
-		});
-	},
-	addpower_gain(bulk = new Decimal(1)) {
+	initMechanics() {},
+	addpower_gain(bulk = DC.D_1, recordtoreset = false) {
 		let adding = this.gain().mul(bulk);
 		if (player.exponention.logarithm.in_dilate) {
 			adding = adding.add(Math.E).ln().ln().mul(10);
 		}
-		if (
-			player.singularity.enabled ||
-			player.exponention.logarithm.upgrades_in_dilated.includes('39')
-		)
+		if (player.singularity.enabled || player.milestones.dil_7)
 			adding = adding.add(1).pow(feature.SingularityGenerator.getSingularityEffect()).sub(1);
 		if (player.buyables[31].gt(0) && Logarithm.logarithm.upgrades_in_dilated.includes('31'))
 			adding = adding.mul(buyables[31].effect(player.buyables[31]));
-		if (player.singularity.stage < 2) {
-			adding = SOFTCAPS.fluidComputed('addpower^1', adding, player.addpower);
-			adding = SOFTCAPS.fluidComputed('addpower^2', adding, player.addpower);
-			adding = SOFTCAPS.fluidComputed('addpower^3', adding, player.addpower);
-			adding = SOFTCAPS.fluidComputed('addpower^4', adding, player.addpower);
-			adding = SOFTCAPS.fluidComputed('addpower^5', adding, player.addpower);
-		}
+		let scList = ['addpower^1', 'addpower^2', 'addpower^3', 'addpower^4', 'addpower^5'];
+		if (player.singularity.stage < 2)
+			for (let i = 0; i < scList.length; i++) {
+				if (SOFTCAPS.reach(scList[i], adding)) {
+					adding = SOFTCAPS.staticComputed(scList[i], adding);
+				}
+			}
 		if (CHALLENGE.inChallenge(0, 3)) {
 			adding = adding.mul(predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1);
+		}
+		if (recordtoreset) {
+			updateResetStatData('recent10AddReset', adding);
 		}
 		player.addpower = player.addpower.add(adding).max(0);
 		player.totalAddpower = player.totalAddpower.add(adding.max(0));
@@ -271,14 +221,14 @@ export const Addition = {
 	},
 	reset() {
 		if (this.gain().gt(0)) {
-			this.addpower_gain();
+			this.addpower_gain(DC.D_1, true);
 			if (!player.upgrades[25]) {
 				player.upgrades[11] = false;
 				player.upgrades[12] = false;
 			}
-			player.buyables[11] = new Decimal(0);
-			player.totalNumber = new Decimal(0);
-			player.number = new Decimal(0);
+			player.buyables[11] = DC.D_0;
+			player.totalNumber = DC.D_0;
+			player.number = DC.D_0;
 
 			player.buyable11More = player.buyables[21];
 		}
@@ -308,19 +258,20 @@ export const Addition = {
 
 		if (player.firstResetBit & 0b100) base = base.pow(buyables[43].effect(player.buyables[43]));
 		if (player.upgrades[47]) base = base.pow(feature.ChessBoard.wgEffect()[1]);
+		if (player.upgrades[410]) base = base.pow(upgrades[410].effect());
 		base = base.pow(Addition.gainExponent());
 		return base.floor();
 	},
 	gainExponent(): Decimal {
-		let base = new Decimal(1);
+		let base = DC.D_1;
 		if (player.exponention.logarithm.upgrades_in_dilated.includes('13')) {
 			base = base.add(0.1);
 		}
 		return base;
 	},
 	U25effect() {
-		if (!player.upgrades[25]) return new Decimal(0);
-		return upgrades[25]?.effect?.() ?? new Decimal(0);
+		if (!player.upgrades[25]) return DC.D_0;
+		return upgrades[25]?.effect?.() ?? DC.D_0;
 	},
 	setUPGc1(x: 2 | 3 | 4 | 5) {
 		if (player.multiplication.B1seriesC1 !== x) {

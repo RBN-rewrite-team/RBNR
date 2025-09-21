@@ -9,7 +9,8 @@ import { CHALLENGE } from '../challenge';
 import { ref, nextTick, type ComponentPublicInstance, computed, type Ref } from 'vue';
 import StudyTree from '@/components/tabs/nonrecursion/StudyTree.vue';
 import SingleStudy from '@/components/tabs/nonrecursion/SingleStudy.vue';
-import { format } from '@/utils/format';
+import { format, formatWhole } from '@/utils/format';
+import { isDeveloper } from '../save/testing';
 
 const StudyTreeRef = ref(null);
 
@@ -108,7 +109,7 @@ export const studies = [
 			player.hydra.power = player.hydra.power.add(20);
 			player.hydra.totalPower = player.hydra.totalPower.add(20);
 			player.hydra.trueTotalPower = player.hydra.trueTotalPower.add(20);
-			player.hydra.dilute.solution = player.hydra.dilute.solution + 20;
+			player.hydra.dilute.solution = player.hydra.dilute.solution.add(20);
 		},
 	}),
 	new Study({
@@ -130,7 +131,7 @@ export const studies = [
 	new Study({
 		id: '22', //3
 		get description() {
-			return `基于九头蛇溶液大幅延迟九头蛇能量双重软上限<br>效果: ^${format(Math.log10(player.hydra.dilute.solution + 10))}`;
+			return `基于九头蛇溶液大幅延迟九头蛇能量双重软上限<br>效果: ^${format(Decimal.log10(player.hydra.dilute.solution.add(10)))}`;
 		},
 		cost: new Decimal(3),
 		canBuy() {
@@ -248,7 +249,13 @@ export const studies = [
 	}),
 	new Study({
 		id: 'NRC3', //12
-		description: '解锁非递归挑战3(没做)\t255,000,000 溶液',
+		get description() {
+			return (
+				'解锁非递归挑战3(没做)\t' +
+				formatWhole(255000000 * 5 ** player.challenges[1][2].toNumber()) +
+				' 溶液'
+			);
+		},
 		cost: new Decimal(20),
 		canBuy() {
 			return or(10);
@@ -380,8 +387,20 @@ export const studies = [
 		},
 	}),
 	new Study({
-		id: 'NRC4',
-		description: '解锁非递归挑战4(没做)',
+		id: 'NRC4', //23
+		get description() {
+			return (
+				'解锁非递归挑战4\t' +
+				format(
+					new Decimal(6 + player.challenges[1][3].toNumber() + 1)
+						.pow_base(2)
+						.sub(9)
+						.pow_base(2)
+						.pow10(),
+				) +
+				'九头蛇能量'
+			);
+		},
 		cost: new Decimal(20),
 		canBuy() {
 			return or(22);
@@ -390,27 +409,49 @@ export const studies = [
 		chal_id: 3,
 	}),
 	new Study({
-		id: 'NRC5',
-		description: '解锁非递归挑战5(没做)',
-		cost: new Decimal(25),
+		id: 'NRC5', //24
+		description: '解锁非递归挑战5(没做)\t无',
+		cost: new Decimal(165),
 		canBuy() {
-			return false;
+			return or(22);
 		},
+		isChallenge: true,
+		chal_id: 4,
 	}),
 	new Study({
+		//25
 		id: 'NRC6',
 		description: '解锁非递归挑战6(没做)',
-		cost: new Decimal(30),
+		cost: new Decimal(300),
 		canBuy() {
 			return false;
 		},
 	}),
 	new Study({
-		id: '111',
+		id: '112', //26
 		description: '基于非递归定理增加九头蛇溶液效果指数(没做)',
-		cost: new Decimal(30),
+		cost: new Decimal(300),
 		canBuy() {
 			return false;
+		},
+	}),
+	new Study({
+		id: '111', //27
+		get description() {
+			return `轮回效果&九头蛇溶液^x,x基于推演进度计算<br>效果: ^${format(
+				player.hydra.deduceOrdinal[0]
+					.clampMin(1e10)
+					.log10()
+					.log10()
+					.log10()
+					.pow(0.1)
+					.mul(0.2)
+					.add(1),
+			)}`;
+		},
+		cost: new Decimal(20),
+		canBuy() {
+			return or(23) && player.challenges[1][3].gte(1);
 		},
 	}),
 ] as const;
@@ -427,7 +468,11 @@ export function buyStudies(id: number) {
 	const study = studies[id] as Study | undefined;
 	if (!study) return;
 	if (!canBuyStudies(id)) return;
-	player.nonrecu.spentTheories = player.nonrecu.spentTheories.add(study.cost);
+	if (
+		player.challenges[1][3].lt(1) ||
+		!getNRC4Kept(player.challenges[1][3].toNumber()).includes(id)
+	)
+		player.nonrecu.spentTheories = player.nonrecu.spentTheories.add(study.cost);
 	player.nonrecu.studies_bought.push(id);
 	study.onBought();
 	updateAllConnectors();
@@ -453,7 +498,9 @@ export function theoriesCost(id: 0 | 1 | 2) {
 		case 1:
 			return player.nonrecu.theories[1].pow10().mul(1e4);
 		case 2:
-			return player.nonrecu.theories[2].pow_base(5);
+			let base = player.nonrecu.theories[2];
+			if (base.gte(215)) base = base.div(215).pow(2).mul(215);
+			return base.pow_base(5);
 		default:
 			let a: never = id;
 	}
@@ -479,9 +526,9 @@ export function addTheories(id: 0 | 1 | 2) {
 			break;
 		case 1:
 			if (canBuyTheories(1)) {
-				player.hydra.dilute.solutionCost =
-					player.hydra.dilute.solutionCost +
-					theoriesCost(1).clampMax(Number.MAX_VALUE).toNumber();
+				player.hydra.dilute.solutionCost = player.hydra.dilute.solutionCost.add(
+					theoriesCost(1).clampMax(Number.MAX_VALUE),
+				);
 				player.nonrecu.theories[1] = player.nonrecu.theories[1].add(1);
 			}
 			break;
@@ -499,7 +546,7 @@ export function addTheories(id: 0 | 1 | 2) {
 export function resetTheories() {
 	player.nonrecu.studies_bought = [];
 	player.nonrecu.spentTheories = new Decimal(0);
-	NON_RECURSIVE.reset();
+	NON_RECURSIVE.reset(true);
 	player.challengein = [-1, -1];
 	updateAllConnectors();
 }
@@ -542,6 +589,7 @@ const studyConnections = computed(() => {
 		{ from: 23, to: 26 },
 		{ from: 24, to: 26 },
 		{ from: 25, to: 26 },
+		{ from: 23, to: 27 },
 	];
 	if (player.nonrecu.studies_bought.includes(19)) {
 		connections.push(
@@ -556,6 +604,7 @@ const studyConnections = computed(() => {
 			{ from: 14, to: 16 },
 			{ from: 14, to: 18 },
 			{ from: 15, to: 16 },
+			{ from: 15, to: 17 },
 			{ from: 15, to: 17 },
 		);
 	}
@@ -631,3 +680,11 @@ export const updateAllConnectors = () => {
 export const initConnectors = (elem: Ref<any>) => {
 	connectorsRef = elem;
 };
+
+export function getNRC4Kept(level: number): number[] {
+	let base = [0, 1, 23];
+	let comp = player.challenges[1][3].toNumber();
+	if (CHALLENGE.inChallenge(1, 3)) comp++;
+	if (comp >= 2) base.push(2, 3, 4, 5);
+	return base;
+}

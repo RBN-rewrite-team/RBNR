@@ -1,0 +1,61 @@
+name: Code Formatting
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    if: github.ref == 'refs/heads/develop'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run formatting
+        run: npm run format
+        
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet; then
+            echo "changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "changes=true" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Setup GitHub CLI
+        if: steps.changes.outputs.changes == 'true'
+        run: |
+          gh auth login --with-token <<< "${{ secrets.GITHUB_TOKEN }}"
+          
+      - name: Create and push branch
+        if: steps.changes.outputs.changes == 'true'
+        run: |
+          BRANCH_NAME="develop"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout $BRANCH_NAME
+          git add .
+          git commit -m "style: format code"
+          git push origin $BRANCH_NAME
+          
+      - name: No changes message
+        if: steps.changes.outputs.changes == 'false'
+        run: echo "所有文件都是格式化后的形式!"

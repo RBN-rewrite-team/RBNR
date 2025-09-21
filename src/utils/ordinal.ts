@@ -101,6 +101,11 @@ export const OrdinalUtils = {
 		}
 		//数值转序数
 		const tetration = base.tetrate(base.toNumber());
+		const tetration2 = base.tetrate(base.toNumber() * 2 - 1);
+		if (x.gte(tetration2)) {
+			const prefix = displayMode ? 'ε<sub>1</sub>' : 'e1';
+			return prefix;
+		}
 		if (x.gte(tetration)) {
 			const prefix = displayMode ? 'ε<sub>0</sub>' : 'e0';
 			const power = x.log(tetration);
@@ -108,7 +113,7 @@ export const OrdinalUtils = {
 			return (
 				prefix +
 				(displayMode ? '<sup>' : '^(') +
-				powerdisplay +
+				(power.add(1e-9).floor().eq(1) ? '' : powerdisplay) +
 				(displayMode ? '</sup>' : ')')
 			);
 		}
@@ -356,6 +361,25 @@ export const OrdinalUtils = {
 	b^(b^b): 00 11 22 33
   狗操的BMS,那么复杂相思了
 	*/
+	numberToY(
+		x: Decimal,
+		base: Decimal,
+		maxLength = 20,
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		otherwise: number = 0,
+	): number[] {
+		if (x.lte(0) || maxLength <= 0) return [];
+		if (x.lt(base)) {
+			return [otherwise + 1].concat(this.numberToY(x.sub(1), base, maxLength - 1, otherwise));
+		} else if (x.lt(base.pow(2))) {
+			return [otherwise + 1].concat(
+				this.numberToY(x.sub(base).add(1), base, maxLength - 1, otherwise + 1),
+			);
+		} else {
+			return [];
+		}
+	},
 };
 
-//for (let i = 0; i <= 4; i+=0.01) console.log(i, OrdinalUtils.numberToBMS(new Decimal(i).mul(16).add(256.00000001).pow_base(4).pow_base(4), new Decimal(4), 30))
+//for (let i = 0; i <= 4 ** 4 * 2 + 10; i += 1)
+//	console.log(i, OrdinalUtils.numberToY(new Decimal(i), new Decimal(4), 100));

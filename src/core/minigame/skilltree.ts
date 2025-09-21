@@ -40,7 +40,7 @@ type StudyConfig = 何意味 & {
 	isChallenge?: never;
 	chal_id?: never;
 };
-export class Study {
+class Study {
 	config: StudyConfig;
 	constructor(config: StudyConfig) {
 		this.config = config;

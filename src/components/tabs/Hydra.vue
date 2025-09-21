@@ -30,36 +30,25 @@ function powerFactorHTML(): string {
 			'<sup><span style="color: red"> x ' +
 			format(feature.Hydra.powerExpNerf()) +
 			'</span></sup>';
-	s +=
-		'<span style="color: var(--color)"> = ' + format(feature.Hydra.powerGainBase()) + '</span>';
-	if (!feature.Hydra.powerSoftcapNerf(feature.Hydra.powerGainBase()).eq(1)) {
-		s +=
-			'<sup style="color: rgb(127, 0, 0)">' +
-			format(feature.Hydra.powerSoftcapNerf(feature.Hydra.powerGainBase())) +
-			'</sup>';
-		if (
-			feature.Hydra.logSoftcapNerf(
-				feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase()),
-			).eq(1)
-		)
-			s +=
-				'<span style="color: var(--color)"> = ' +
-				format(feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase())) +
-				'</span>';
+	const ft = feature.Hydra.powerGainBase();
+	const nf = feature.Hydra.powerSoftcapNerf(ft);
+	const nf2 = feature.Hydra.powerGainAfterSoftcap(ft);
+	const nf3 = feature.Hydra.logSoftcapNerf(nf2);
+	s += '<span style="color: var(--color)"> = ' + format(ft) + '</span>';
+	if (!nf.eq(1)) {
+		s += '<sup style="color: rgb(127, 0, 0)">' + format(nf) + '</sup>';
+		if (feature.Hydra.logSoftcapNerf(nf2).eq(1))
+			s += '<span style="color: var(--color)"> = ' + format(nf2) + '</span>';
 	}
-	let softcapped = feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase());
-	if (!feature.Hydra.logSoftcapNerf(softcapped).eq(1)) {
+	if (!nf3.eq(1)) {
 		s +=
 			'<span style="color: var(--color)"> = ln<sup style="color: #c98300">' +
-			format(feature.Hydra.logSoftcapNerf(softcapped)) +
+			format(nf3) +
 			'</sup></span>';
-		s +=
-			'<span style="color: var(--color)">(' +
-			format(feature.Hydra.powerGainAfterSoftcap(feature.Hydra.powerGainBase())) +
-			')</span>';
+		s += '<span style="color: var(--color)">(' + format(nf2) + ')</span>';
 		s +=
 			'<span style="color: var(--color)"> = ' +
-			format(feature.Hydra.powerGainAfterSoftcap2(softcapped)) +
+			format(feature.Hydra.powerGainAfterSoftcap2(nf2)) +
 			'</span>';
 	}
 	return s;
@@ -150,16 +139,6 @@ function hydraAxisHTML(): string {
 							class="hydra-button"
 							:style="{ 'background-image': deduceButtonStyle() }"
 						>
-							<span
-								v-if="feature.Hydra.deduceSpeed().gt(0)"
-								class="hydra-text"
-								style="opacity: 0.5; color: rgb(200, 190, 245); font-size: 60px"
-								>{{
-									feature.Hydra.deduceSpeed().gte(1)
-										? format(feature.Hydra.deduceSpeed()) + '/s'
-										: '1/' + format(feature.Hydra.deduceSpeed().recip()) + 's'
-								}}</span
-							>
 							<span class="hydra-text">
 								<span
 									v-html="
@@ -189,6 +168,16 @@ function hydraAxisHTML(): string {
 									/>
 								</div>
 							</span>
+							<span
+								v-if="feature.Hydra.deduceSpeed().gt(0)"
+								class="hydra-text-bottom"
+								style="opacity: 0.5; font-size: 16px; bottom: 0px"
+								>{{
+									feature.Hydra.deduceSpeed().gte(1)
+										? format(feature.Hydra.deduceSpeed()) + '/s'
+										: '1/' + format(feature.Hydra.deduceSpeed().recip()) + 's'
+								}}</span
+							>
 							<div class="hydra-axis-line"></div>
 							<div v-for="i in hydraMilestoneAxis()">
 								<div class="hydra-axis-element" :style="'left: ' + i[1]">

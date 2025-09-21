@@ -13,3 +13,5 @@ export function isDeveloper() {
 	const devcode = localStorage.getItem('developercode') ?? '';
 	return sha256(devcode) == code2;
 }
+
+export const pubtest = false;

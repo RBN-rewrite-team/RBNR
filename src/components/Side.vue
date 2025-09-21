@@ -3,6 +3,7 @@ import { player } from '@/core/save';
 import { Logarithm } from '../core/exponention/logarithm.ts';
 import { unlockedPlots, viewedPlotLength } from '@/core/plot.ts';
 import { isTester } from '@/core/save/testing.ts';
+import { getI18NData } from '@/core/i18n-data.ts';
 </script>
 
 <template>
@@ -11,15 +12,14 @@ import { isTester } from '@/core/save/testing.ts';
 			<div class="background">
 				<div class="title">
 					<div
-						style="
-							font-size: 24px;
-							color: var(--color);
-							text-shadow: var(--title-color) 1px 1px 2px;
-						"
+						style="color: var(--color); text-shadow: var(--title-color) 1px 1px 2px"
+						:style="{
+							'font-size': getI18NData('rbnr_title_size'),
+						}"
 					>
-						大数之路重制版
+						{{ getI18NData('roadofbignumberrewritten') }}
 					</div>
-					<div style="font-size: 15px">Dungeons & Automator Beta</div>
+					<div style="font-size: 15px">UNOCF Beta</div>
 				</div>
 			</div>
 		</div>
@@ -27,28 +27,32 @@ import { isTester } from '@/core/save/testing.ts';
 			<div class="background" style="overflow: auto">
 				<div class="main">
 					<div>
-						<div class="menu2"
+						<div
+							class="menu2"
 							:class="{ focus: player.currentTab == 1225 }"
 							@click="player.currentTab = 1225"
-						>地下城
+						>
+							{{ getI18NData('dungeon_tab') }}
 						</div>
 					</div>
 					<div v-if="isTester() && (player.firstResetBit & 0b10000) == 0b10000">
-						<div class="menu2"
+						<div
+							class="menu2"
 							:class="{ focus: player.currentTab == 167 }"
 							@click="player.currentTab = 167"
-						>自动机
+						>
+							自动机
 						</div>
 					</div>
 					<div v-if="player.singularity.stage < 11">
-						<div class="menu1">后继</div>
+						<div class="menu1">{{ getI18NData('successor') }}</div>
 						<div class="menu_line"></div>
 						<div
 							class="menu2"
 							:class="{ focus: player.currentTab == 0 }"
 							@click="player.currentTab = 0"
 						>
-							后继
+							{{ getI18NData('successor') }}
 						</div>
 					</div>
 					<template v-if="player.upgrades[13] && player.singularity.stage < 10">
@@ -135,10 +139,7 @@ import { isTester } from '@/core/save/testing.ts';
 							class="menu2"
 							:class="{ focus: player.currentTab == 14 }"
 							@click="player.currentTab = 14"
-							v-if="
-								player.singularity.enabled ||
-								Logarithm.logarithm.upgrades_in_dilated.includes('39')
-							"
+							v-if="player.singularity.enabled || player.milestones.dil_7"
 						>
 							奇点生成器
 						</div>
@@ -154,10 +155,6 @@ import { isTester } from '@/core/save/testing.ts';
 							class="menu2"
 							:class="{ focus: player.currentTab == 14 }"
 							@click="player.currentTab = 14"
-							v-if="
-								player.singularity.enabled ||
-								Logarithm.logarithm.upgrades_in_dilated.includes('39')
-							"
 						>
 							奇点生成器
 						</div>
@@ -215,7 +212,23 @@ import { isTester } from '@/core/save/testing.ts';
 							@click="player.currentTab = 21"
 							v-if="(player.firstResetBit & 0b10000) == 0b10000"
 						>
-							非递归
+							非递归里程碑
+						</div>
+						<div
+							class="menu2"
+							:class="{ focus: player.currentTab == 23 }"
+							@click="player.currentTab = 23"
+							v-if="(player.firstResetBit & 0b10000) == 0b10000"
+						>
+							能量因素
+						</div>
+						<div
+							class="menu2"
+							:class="{ focus: player.currentTab == 24 }"
+							@click="player.currentTab = 24"
+							v-if="(player.firstResetBit & 0b10000) == 0b10000"
+						>
+							非递归研究树
 						</div>
 						<div
 							class="menu2"
@@ -224,6 +237,29 @@ import { isTester } from '@/core/save/testing.ts';
 							v-if="(player.firstResetBit & 0b10000) == 0b10000"
 						>
 							非递归挑战
+						</div>
+						<div
+							class="menu2"
+							:class="{ focus: player.currentTab == 25 }"
+							@click="player.currentTab = 25"
+							v-if="
+								(player.firstResetBit & 0b10000) == 0b10000 &&
+								player.milestones.nonrec_18
+							"
+						>
+							非递归升级
+						</div>
+						<div
+							class="menu2"
+							:class="{ focus: player.currentTab == 26 }"
+							@click="player.currentTab = 26"
+							v-if="
+								(player.firstResetBit & 0b10000) == 0b10000 &&
+								player.milestones.nonrec_19 &&
+								isTester()
+							"
+						>
+							UNOCF
 						</div>
 					</template>
 

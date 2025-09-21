@@ -9,6 +9,7 @@ export type SingleChallenge<T extends {} = {}> = {
 	descHard: string;
 	loop?(): void; //Run every tick in challenge, use for update challenge amount;
 	canEnter?(): boolean;
+	onExit?(): void;
 } & (
 	| {
 			effect(x: Decimal): Decimal;
@@ -20,17 +21,7 @@ export type SingleChallenge<T extends {} = {}> = {
 	  }
 ) &
 	T;
-export const CHALLENGE: {
-	resetFunctions: (() => void)[];
-	challenges: SingleChallenge[][];
-
-	enterChallenge(x: number, y: number): void;
-	exitChallenge(): void;
-
-	amountChallenge(x: number, y: number): Decimal;
-	inChallenge(x: number, y: number): boolean;
-	challengeLoop(): void;
-} = {
+export const CHALLENGE = {
 	resetFunctions: [
 		function () {
 			feature.MULTIPLICATION.reset(true);
@@ -38,30 +29,33 @@ export const CHALLENGE: {
 		function () {
 			NON_RECURSIVE.reset(true);
 		},
-	],
-	challenges: [MULTI_CHALS, NONREC_CHALS] as const,
+	] as (() => void)[],
+	challenges: [MULTI_CHALS, NONREC_CHALS] as SingleChallenge[][],
 
-	enterChallenge(x, y) {
+	enterChallenge(x: number, y: number) {
 		if (!this.inChallenge(x, y)) {
 			if (x >= this.challenges.length) throw Error('not a valid error');
 			if (y >= this.challenges[x].length) throw Error('not a valid error');
 
 			if (!(this.challenges[x][y].canEnter?.() ?? true)) return;
+			let a = x == 0;
+			if (a) this.resetFunctions[x]();
 			player.challengein[0] = x;
 			player.challengein[1] = y;
 
-			this.resetFunctions[x]();
+			if (!a) this.resetFunctions[x]();
 		}
 	},
-	exitChallenge() {
+	exitChallenge(x: number, y: number) {
 		this.resetFunctions[player.challengein[0]]();
 		player.challengein[0] = -1;
 		player.challengein[1] = -1;
+		this.challenges[x][y].onExit?.();
 	},
-	inChallenge(x, y) {
+	inChallenge(x: number, y: number) {
 		return player.challengein[0] == x && player.challengein[1] == y;
 	},
-	amountChallenge(x, y) {
+	amountChallenge(x: number, y: number) {
 		return player.challenges[x][y];
 	},
 	challengeLoop() {

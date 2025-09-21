@@ -45,7 +45,7 @@ export function countdown_with_double_derivative(
 
 	const a = cur_dbl_derivative; // 加速度
 	const v0 = cur_derivative; // 初始速度
-	const s = cost; // 需要增长的量
+	const s = cost.sub(curres); // 需要增长的量
 
 	// 情况1：加速度 a = 0（线性增长）
 	if (a.eq(0)) {

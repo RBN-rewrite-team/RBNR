@@ -13,7 +13,7 @@ const chal = CHALLENGE.challenges[props.layer][props.chid];
 function challengeButton() {
 	if (!CHALLENGE.inChallenge(props.layer, props.chid))
 		CHALLENGE.enterChallenge(props.layer, props.chid);
-	else CHALLENGE.exitChallenge();
+	else CHALLENGE.exitChallenge(props.layer, props.chid);
 }
 
 function chalClass() {

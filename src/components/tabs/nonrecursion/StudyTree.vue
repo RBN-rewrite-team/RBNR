@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { formatWhole } from '@/utils/format';
+import { formatWhole, format } from '@/utils/format';
 import {
 	initConnectors,
 	studyRefs,
@@ -12,7 +12,10 @@ import {
 } from '@/core/nonrecu/studies';
 import SingleStudy from './SingleStudy.vue';
 import { onMounted, watch, ref } from 'vue';
-
+import { getTotalTheories } from '@/core/nonrecu/total-theories';
+import { Currencies, getCurrency } from '@/core/currencies';
+import { player, feature } from '@/core/global';
+import BlankStudy from './BlankStudy.vue';
 onMounted(() => {
 	updateAllConnectors();
 	window.addEventListener('resize', updateAllConnectors);
@@ -32,7 +35,13 @@ onMounted(() => initConnectors(connectorsRef));
 </script>
 
 <template>
-	<div class="studies-container">
+	<div style="position: sticky; top: 0; background-color: var(--background-color); z-index: 3">
+		<p>
+			你一共有<b style="color: #c98300; font-size: 30px">{{
+				formatWhole(getTotalTheories())
+			}}</b
+			>非递归理论，还剩下{{ formatWhole(getCurrency(Currencies.NRT)) }}。
+		</p>
 		<div class="studies_row">
 			<div class="study">
 				<div class="study-name">NRT1</div>
@@ -68,179 +77,184 @@ onMounted(() => initConnectors(connectorsRef));
 				</div>
 			</div>
 		</div>
-		<div class="studies_row">
-			<div class="study">
-				<div class="study-name">NRTR</div>
-				<div class="study-desc study-buyable" @click="resetTheories">
-					<div>重置研究树</div>
-					<div>花费: 0 非递归能量</div>
-				</div>
-			</div>
+		<div align="center">
+			<button class="clickable_button" @click="resetTheories">重置研究树</button>
 		</div>
-		<div class="studies-tree">
-			<div class="studies_row">
-				<SingleStudy
-					:ref="(el) => registerStudyRef(0, el)"
-					:study_id="0"
-					@update:study="updateAllConnectors"
-				/>
-				<SingleStudy
-					:ref="(el) => registerStudyRef(1, el)"
-					:study_id="1"
-					@update:study="updateAllConnectors"
-				/>
+	</div>
+	<div style="overflow-x: auto">
+		<div class="studies-container">
+			<div class="studies-tree">
+				<div class="studies_row">
+					<SingleStudy
+						:ref="(el) => registerStudyRef(0, el)"
+						:study_id="0"
+						@update:study="updateAllConnectors"
+					/>
+					<SingleStudy
+						:ref="(el) => registerStudyRef(1, el)"
+						:study_id="1"
+						@update:study="updateAllConnectors"
+					/>
+				</div>
+				<div class="studies_row">
+					<SingleStudy
+						:ref="(el) => registerStudyRef(2, el)"
+						:study_id="2"
+						@update:study="updateAllConnectors"
+					/>
+					<SingleStudy
+						:ref="(el) => registerStudyRef(3, el)"
+						:study_id="3"
+						@update:study="updateAllConnectors"
+					/>
+				</div>
+				<div class="studies_row">
+					<BlankStudy />
+					<SingleStudy
+						:ref="(el) => registerStudyRef(4, el)"
+						:study_id="4"
+						@update:study="updateAllConnectors"
+					/>
+					<SingleStudy
+						:ref="(el) => registerStudyRef(5, el)"
+						:study_id="5"
+						@update:study="updateAllConnectors"
+					/>
+				</div>
+				<div class="studies_row">
+					<BlankStudy />
+					<SingleStudy
+						:ref="(el) => registerStudyRef(6, el)"
+						:study_id="6"
+						@update:study="updateAllConnectors"
+					/>
+					<SingleStudy
+						:ref="(el) => registerStudyRef(7, el)"
+						:study_id="7"
+						@update:study="updateAllConnectors"
+					/>
+				</div>
+				<div class="studies_row">
+					<SingleStudy
+						:ref="(el) => registerStudyRef(11, el)"
+						:study_id="11"
+						@update:study="updateAllConnectors"
+					/>
+					<SingleStudy
+						:ref="(el) => registerStudyRef(8, el)"
+						:study_id="8"
+						@update:study="updateAllConnectors"
+					/>
+					<SingleStudy
+						:ref="(el) => registerStudyRef(9, el)"
+						:study_id="9"
+						@update:study="updateAllConnectors"
+					/>
+					<SingleStudy
+						:ref="(el) => registerStudyRef(10, el)"
+						:study_id="10"
+						@update:study="updateAllConnectors"
+					/>
+					<SingleStudy
+						:ref="(el) => registerStudyRef(12, el)"
+						:study_id="12"
+						@update:study="updateAllConnectors"
+					/>
+				</div>
+				<div class="studies_row">
+					<SingleStudy
+						:ref="(el) => registerStudyRef(13, el)"
+						:study_id="13"
+						@update:study="updateAllConnectors"
+					/>
+					<SingleStudy
+						:ref="(el) => registerStudyRef(14, el)"
+						:study_id="14"
+						@update:study="updateAllConnectors"
+					/>
+					<SingleStudy
+						:ref="(el) => registerStudyRef(15, el)"
+						:study_id="15"
+						@update:study="updateAllConnectors"
+					/>
+				</div>
+				<div class="studies_row">
+					<SingleStudy
+						:ref="(el) => registerStudyRef(16, el)"
+						:study_id="16"
+						@update:study="updateAllConnectors"
+					/>
+					<SingleStudy
+						:ref="(el) => registerStudyRef(17, el)"
+						:study_id="17"
+						@update:study="updateAllConnectors"
+					/>
+					<SingleStudy
+						:ref="(el) => registerStudyRef(18, el)"
+						:study_id="18"
+						@update:study="updateAllConnectors"
+					/>
+				</div>
+				<div class="studies_row">
+					<SingleStudy
+						:ref="(el) => registerStudyRef(19, el)"
+						:study_id="19"
+						@update:study="updateAllConnectors"
+					/>
+				</div>
+				<div class="studies_row">
+					<SingleStudy
+						:ref="(el) => registerStudyRef(20, el)"
+						:study_id="20"
+						@update:study="updateAllConnectors"
+					/>
+					<SingleStudy
+						:ref="(el) => registerStudyRef(21, el)"
+						:study_id="21"
+						@update:study="updateAllConnectors"
+					/>
+				</div>
+				<div class="studies_row">
+					<SingleStudy
+						:ref="(el) => registerStudyRef(22, el)"
+						:study_id="22"
+						@update:study="updateAllConnectors"
+					/>
+				</div>
+				<div class="studies_row">
+					<SingleStudy
+						:ref="(el) => registerStudyRef(23, el)"
+						:study_id="23"
+						@update:study="updateAllConnectors"
+					/>
+					<SingleStudy
+						:ref="(el) => registerStudyRef(24, el)"
+						:study_id="24"
+						@update:study="updateAllConnectors"
+					/>
+					<SingleStudy
+						:ref="(el) => registerStudyRef(25, el)"
+						:study_id="25"
+						@update:study="updateAllConnectors"
+					/>
+				</div>
+				<div class="studies_row">
+					<SingleStudy
+						:ref="(el) => registerStudyRef(27, el)"
+						:study_id="27"
+						@update:study="updateAllConnectors"
+					/>
+					<SingleStudy
+						:ref="(el) => registerStudyRef(26, el)"
+						:study_id="26"
+						@update:study="updateAllConnectors"
+					/>
+					<BlankStudy />
+				</div>
+				<div ref="connectorsRef" class="connectors-container"></div>
 			</div>
-			<div class="studies_row">
-				<SingleStudy
-					:ref="(el) => registerStudyRef(2, el)"
-					:study_id="2"
-					@update:study="updateAllConnectors"
-				/>
-				<SingleStudy
-					:ref="(el) => registerStudyRef(3, el)"
-					:study_id="3"
-					@update:study="updateAllConnectors"
-				/>
-			</div>
-			<div class="studies_row">
-				<SingleStudy
-					:ref="(el) => registerStudyRef(4, el)"
-					:study_id="4"
-					@update:study="updateAllConnectors"
-				/>
-				<SingleStudy
-					:ref="(el) => registerStudyRef(5, el)"
-					:study_id="5"
-					@update:study="updateAllConnectors"
-				/>
-			</div>
-			<div class="studies_row">
-				<SingleStudy
-					:ref="(el) => registerStudyRef(6, el)"
-					:study_id="6"
-					@update:study="updateAllConnectors"
-				/>
-				<SingleStudy
-					:ref="(el) => registerStudyRef(7, el)"
-					:study_id="7"
-					@update:study="updateAllConnectors"
-				/>
-			</div>
-			<div class="studies_row">
-				<SingleStudy
-					:ref="(el) => registerStudyRef(11, el)"
-					:study_id="11"
-					@update:study="updateAllConnectors"
-				/>
-				<SingleStudy
-					:ref="(el) => registerStudyRef(8, el)"
-					:study_id="8"
-					@update:study="updateAllConnectors"
-				/>
-				<SingleStudy
-					:ref="(el) => registerStudyRef(9, el)"
-					:study_id="9"
-					@update:study="updateAllConnectors"
-				/>
-				<SingleStudy
-					:ref="(el) => registerStudyRef(10, el)"
-					:study_id="10"
-					@update:study="updateAllConnectors"
-				/>
-				<SingleStudy
-					:ref="(el) => registerStudyRef(12, el)"
-					:study_id="12"
-					@update:study="updateAllConnectors"
-				/>
-			</div>
-			<div class="studies_row">
-				<SingleStudy
-					:ref="(el) => registerStudyRef(13, el)"
-					:study_id="13"
-					@update:study="updateAllConnectors"
-				/>
-				<SingleStudy
-					:ref="(el) => registerStudyRef(14, el)"
-					:study_id="14"
-					@update:study="updateAllConnectors"
-				/>
-				<SingleStudy
-					:ref="(el) => registerStudyRef(15, el)"
-					:study_id="15"
-					@update:study="updateAllConnectors"
-				/>
-			</div>
-			<div class="studies_row">
-				<SingleStudy
-					:ref="(el) => registerStudyRef(16, el)"
-					:study_id="16"
-					@update:study="updateAllConnectors"
-				/>
-				<SingleStudy
-					:ref="(el) => registerStudyRef(17, el)"
-					:study_id="17"
-					@update:study="updateAllConnectors"
-				/>
-				<SingleStudy
-					:ref="(el) => registerStudyRef(18, el)"
-					:study_id="18"
-					@update:study="updateAllConnectors"
-				/>
-			</div>
-			<div class="studies_row">
-				<SingleStudy
-					:ref="(el) => registerStudyRef(19, el)"
-					:study_id="19"
-					@update:study="updateAllConnectors"
-				/>
-			</div>
-			<div class="studies_row">
-				<SingleStudy
-					:ref="(el) => registerStudyRef(20, el)"
-					:study_id="20"
-					@update:study="updateAllConnectors"
-				/>
-				<SingleStudy
-					:ref="(el) => registerStudyRef(21, el)"
-					:study_id="21"
-					@update:study="updateAllConnectors"
-				/>
-			</div>
-			<div class="studies_row">
-				<SingleStudy
-					:ref="(el) => registerStudyRef(22, el)"
-					:study_id="22"
-					@update:study="updateAllConnectors"
-				/>
-			</div>
-			<div class="studies_row">
-				<SingleStudy
-					:ref="(el) => registerStudyRef(23, el)"
-					:study_id="23"
-					@update:study="updateAllConnectors"
-				/>
-				<SingleStudy
-					:ref="(el) => registerStudyRef(24, el)"
-					:study_id="24"
-					@update:study="updateAllConnectors"
-				/>
-				<SingleStudy
-					:ref="(el) => registerStudyRef(25, el)"
-					:study_id="25"
-					@update:study="updateAllConnectors"
-				/>
-			</div>
-			<div class="studies_row">
-				<SingleStudy
-					:ref="(el) => registerStudyRef(26, el)"
-					:study_id="26"
-					@update:study="updateAllConnectors"
-				/>
-			</div>
-			<div ref="connectorsRef" class="connectors-container"></div>
 		</div>
 	</div>
 </template>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

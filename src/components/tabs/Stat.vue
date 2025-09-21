@@ -13,9 +13,11 @@ import { getOrdinalLevel, ordinalNormal, getBMSOLReq } from '../../core/ordinal/
 			<p>你最高的数值是: {{ format(player.stat.highestNumber) }}</p>
 			<p>你最高的加法能量是: {{ format(player.stat.hightestAddpower) }}</p>
 			<p>你最高的乘法能量是: {{ format(player.stat.highestMulpower) }}</p>
+			<p>你最高的指数能量是: {{ format(player.stat.highestExppower) }}</p>
 			<p>你产生了 {{ format(player.stat.totalNumber) }} 数值</p>
 			<p>你产生了 {{ format(player.stat.totalAddpower) }} 加法能量</p>
 			<p>你产生了 {{ format(player.stat.totalMulpower) }} 乘法能量</p>
+			<p>你产生了 {{ format(player.stat.totalExppower) }} 指数能量</p>
 			<p v-html="physicalScale(player.number)"></p>
 		</template>
 		<div v-if="player.singularity.t > 666 + 2 / 3" style="position: relative">

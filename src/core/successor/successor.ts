@@ -20,6 +20,8 @@ import { Currencies } from '../currencies.ts';
 import { CurrencyRequirement, Requirement, UpgradeRequirement } from '../requirements.ts';
 import { Buyable } from '../buyable.ts';
 import { Logarithm } from '../exponention/logarithm.ts';
+import { DC } from '@/core/constants';
+import { getI18NData } from '../i18n-data.ts';
 
 export const Successor = {
 	upgrades: {
@@ -27,11 +29,13 @@ export const Successor = {
 			currency = Currencies.NUMBER;
 			name = 'U0-1';
 			cost = new Decimal(10);
-			description: () => string = Logarithm.dilated(
-				'解锁B0-1',
-				'B0-1购买次数上限改为1000',
-				'11',
-			);
+			description: () => string = function () {
+				return Logarithm.dilated(
+					getI18NData('unlock_b0_1'),
+					'B0-1购买次数上限改为1000',
+					'11',
+				)();
+			};
 			requirements(): Requirement[] {
 				return [new CurrencyRequirement(Currencies.NUMBER, new Decimal(10))];
 			}
@@ -52,7 +56,7 @@ export const Successor = {
 				return [new CurrencyRequirement(Currencies.NUMBER, new Decimal(100))];
 			}
 			effect(): Decimal {
-				let base = new Decimal(0);
+				let base = DC.D_0;
 				if (player.upgrades['11']) base = base.add(1);
 				if (player.upgrades['12']) base = base.add(1);
 				if (player.upgrades['13']) base = base.add(1);
@@ -116,7 +120,7 @@ export const Successor = {
 				return [value, `+${format(value)},+${format(value.div(1000))}`];
 			}
 			more() {
-				let a = new Decimal(0);
+				let a = DC.D_0;
 				a = a.add(player.buyable11More);
 				return a;
 			}
@@ -137,81 +141,35 @@ export const Successor = {
 			}
 		})(),
 	} as const,
-	initMechanics() {
-		SOFTCAPS.create('number^1', {
-			name: 'number^1',
-			fluid: true,
-			start: new Decimal(2).pow(256),
-			exponent: new Decimal(0.75),
-		});
-		SOFTCAPS.create('number^2', {
-			name: 'number^2',
-			fluid: true,
-			get start() {
-				let base = new Decimal(2).pow(1024);
-
-				if (player.upgrades[43]) base = base.pow(2);
-				return base;
-			},
-			exponent: new Decimal(0.75),
-		});
-		SOFTCAPS.create('number_C1', {
-			name: 'number_C1',
-			fluid: true,
-			start: new Decimal(1),
-			exponent: new Decimal(0.5),
-		});
-		SOFTCAPS.create('number^3', {
-			name: 'number^3',
-			fluid: true,
-			start: new Decimal('e20000'),
-			exponent: new Decimal(0.5),
-		});
-		SOFTCAPS.create('number^4', {
-			name: 'number^4',
-			fluid: true,
-			start: new Decimal('ee5'),
-			get exponent() {
-				let base = new Decimal(4);
-				if (player.milestones.cb6) base = base.pow(0.5);
-				return base.pow(-1);
-			},
-			meta: 1,
-		});
-		SOFTCAPS.create('number^5', {
-			name: 'number^5',
-			fluid: true,
-			start: new Decimal('ee20'),
-			get exponent() {
-				return player.milestones.cb14 ? new Decimal(0.2) : new Decimal(0.1);
-			},
-			meta: 1,
-		});
-	},
+	initMechanics() {},
 	/**
 	 * @param bulk 点击多少次后继按钮，默认为1就是用户手动点击
 	 */
 	success(bulk = 1) {
-		let adding = this.successorBulk().pow(this.successorPow()).mul(bulk);
+		let adding = this.successorBulk().pow(this.successorPow());
 		if (player.exponention.logarithm.in_dilate) {
 			adding = adding.add(10).iteratedlog(Math.E, Logarithm.dilateNerf().toNumber()).div(10);
 		}
 		if (player.exponention.logarithm.upgrades_in_dilated.includes('31')) {
 			adding = adding.pow(3);
 		}
-		if (
-			player.singularity.enabled ||
-			player.exponention.logarithm.upgrades_in_dilated.includes('39')
-		)
+		if (player.singularity.enabled || player.milestones.dil_7)
 			adding = adding.add(1).pow(feature.SingularityGenerator.getSingularityEffect()).sub(1);
+		let softcaps = 0,
+			scList = ['number^1', 'number^2', 'number^3', 'number^4', 'number^5'];
 		if (player.singularity.stage < 2)
-			for (let i = 1; i <= 5; i++)
-				adding = SOFTCAPS.fluidComputed('number^' + i, adding, player.number);
+			for (let i = 0; i < scList.length; i++) {
+				if (SOFTCAPS.reach(scList[i], adding)) {
+					softcaps++;
+					adding = SOFTCAPS.staticComputed(scList[i], adding);
+				}
+			}
 		if (CHALLENGE.inChallenge(0, 2))
 			adding = SOFTCAPS.fluidComputed('number_C1', adding, player.number);
 		if (CHALLENGE.inChallenge(0, 3)) {
 			adding = adding.mul(predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1);
 		}
+		adding = adding.mul(bulk);
 		player.number = player.number.add(adding).max(0);
 		player.totalNumber = player.totalNumber.add(adding.max(0));
 		player.stat.totalNumber = player.stat.totalNumber.add(adding.max(0));
@@ -220,7 +178,7 @@ export const Successor = {
 	 * @returns 每秒点击多少次后继按钮
 	 */
 	autoSuccessPerSecond() {
-		let base = new Decimal(0);
+		let base = DC.D_0;
 		base = base.add(buyables['11'].effect(player.buyables['11']));
 		return base;
 	},
@@ -229,7 +187,7 @@ export const Successor = {
 	 * 获取每点击一次获得多少
 	 */
 	successorBulk() {
-		let base = new Decimal(1);
+		let base = DC.D_1;
 		if (player.upgrades['12']) base = base.add(upgrades['12'].effect());
 		if (player.upgrades['12'] && player.upgrades[21]) {
 			let count = 0;
@@ -276,7 +234,7 @@ export const Successor = {
 	 * @returns 对数值获取取多少次方
 	 */
 	successorPow() {
-		let base = new Decimal(1);
+		let base = DC.D_1;
 		if (player.upgrades[42]) base = base.add(0.1);
 		if (player.exponention.logarithm.upgrades_in_dilated.includes('12')) {
 			base = base.mul(

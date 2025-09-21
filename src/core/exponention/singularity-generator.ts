@@ -26,5 +26,5 @@ export function converage_point() {
 
 export function getSingularityEffect() {
 	// 防止效果溢出至infinity导致疯狂弹窗
-	return new Decimal(2).tetrate(getSingularityEnergy()).clampMax('f1e250');
+	return new Decimal(3).tetrate(getSingularityEnergy()).clampMax('f1e250');
 }

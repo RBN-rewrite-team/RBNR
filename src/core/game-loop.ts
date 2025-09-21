@@ -20,6 +20,8 @@ import { temp } from '@/core/temp-data';
 import { unlockedPlots } from '@/core/plot';
 import { NON_RECURSIVE } from './nonrecu/index.ts';
 
+import { DC } from '@/core/constants';
+
 /**
  * 游戏循环经过了多少时间
  *
@@ -32,8 +34,8 @@ setTimeout(() => {
 	saveInterval = setInterval(save, 3000);
 }, 3000);
 export let backupInterval: number;
-export let ordinalSpeedDerivative = new Decimal(0);
-export let ordinalSpeedDerivative2 = new Decimal(0);
+export let ordinalSpeedDerivative = DC.D_0;
+export let ordinalSpeedDerivative2 = DC.D_0;
 export function startGameLoop() {
 	loopInterval = setInterval(gameLoop, 40);
 	backupInterval = setInterval(intervalBackup, 1000);
@@ -159,13 +161,13 @@ export function simulate(diff: number) {
 	if (player.timeshard.openTf && player.timeshard.tf.gt(0)) {
 		if (player.timeshard.tf.lt(diff)) {
 			diff = diff + player.timeshard.tf.mul(2).toNumber();
-			player.timeshard.tf = new Decimal(0);
+			player.timeshard.tf = DC.D_0;
 		} else {
 			player.timeshard.tf = player.timeshard.tf.sub(diff);
 			diff *= 3;
 		}
 	}
-	let last = player.upgrades[61] ? new Decimal(0) : feature.Ordinal.ordinalPerSecond();
+	let last = player.upgrades[61] ? DC.D_0 : feature.Ordinal.ordinalPerSecond();
 	let last2 = feature.Ordinal.speedDeri();
 	let pre_cardinal_diff = (diff *= 1 + player.minigame.ore_gets * 0.0025);
 
@@ -191,6 +193,12 @@ export function simulate(diff: number) {
 		if (feature.resourceGain.addpower().passive.gt(0)) {
 			let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.addpower().passive);
 			feature.ADDITION.addpower_gain(bulk);
+		}
+
+		if (player.upgrades[46]) {
+			player.challenges[0][3] = player.challenges[0][3].add(
+				player.multiplication.mulpower.root(200).mul(diff / 1000),
+			);
 		}
 
 		if (feature.resourceGain.mulpower().passive.gt(0)) {
@@ -237,6 +245,16 @@ export function simulate(diff: number) {
 				.add(NUMTHEORY.varY2gain().mul(diff).mul(1e-3))
 				.max(1);
 		}
+
+		if (player.milestones.dil_5)
+			player.exponention.logarithm.observe_datas =
+				player.exponention.logarithm.observe_datas.add(
+					player.exponention.logarithm.calculate_datas
+						.add(1)
+						.log10()
+						.pow(2)
+						.mul(diff / 1000),
+				);
 	}
 
 	if (player.firstResetBit & 0b1000) {
@@ -285,7 +303,7 @@ export function simulate(diff: number) {
 	}
 
 	for (let i in milestones) {
-		if (milestones[i].canDone && !player.milestones[i]) {
+		if (!player.milestones[i] && milestones[i].canDone) {
 			player.milestones[i as keyof typeof player.milestones] = true;
 			milestones[i]?.onDone?.();
 		}
@@ -326,7 +344,7 @@ export function simulate(diff: number) {
 
 	Logarithm.astronomerUpdate();
 	updateHighestStat();
-	let next = player.upgrades[61] ? new Decimal(0) : feature.Ordinal.ordinalPerSecond();
+	let next = player.upgrades[61] ? DC.D_0 : feature.Ordinal.ordinalPerSecond();
 	ordinalSpeedDerivative = next.sub(last).div(diff / 1000);
 	let next2 = feature.Ordinal.speedDeri();
 	ordinalSpeedDerivative2 = next2.sub(last2).div(diff / 1000);
@@ -356,7 +374,7 @@ function checkNaN<T>(obj: T, path: string[]): T {
 			});
 			player.foundNaN = true;
 		}
-		return new Decimal(1) as unknown as T;
+		return DC.D_1 as unknown as T;
 	}
 
 	// 处理数组

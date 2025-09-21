@@ -15,9 +15,12 @@ import { displayOrd } from '@/lib/ordinal';
 import { createDeepValidatedReactive } from '../check-decimal-nan';
 import { NON_RECURSIVE } from '../nonrecu/index.ts';
 import { initMiniGameData, hardResetMiniGame, type PlayerMinigameData } from '../minigame/index.ts';
+import { DC } from '@/core/constants';
+import { pubtest } from './testing.ts';
+import type { FixedLengthArray } from 'type-fest';
+import { getInitialStat, type PlayerStat } from '../stats.ts';
 
 const version = 11 as const;
-const zero = new Decimal(0);
 export let current_save = 0;
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
 type KeyStringFromDecimal<T> = {
@@ -32,13 +35,22 @@ type KeyStringFromDecimal<T> = {
 // 	boolean
 // >;
 
-function getSaveID(id: number) {
+function _getSaveID(id: number) {
 	if (id == 0) {
 		return 'RBN-rewritten-powerful-refactor-test';
 	} else {
 		return `RBN-rewritten-save-${id}`;
 	}
 }
+
+function getSaveID(id: number) {
+	return (pubtest ? 'pubtesting_' : '') + _getSaveID(id);
+}
+
+type NonRecusionTreePreset = {
+	name: string;
+	preset: number[];
+};
 
 export interface Player {
 	number: Decimal;
@@ -111,23 +123,13 @@ export interface Player {
 			};
 			newsbar: boolean;
 			titlebar: boolean;
+			user_font?: string;
 		};
 		challengeDetial: boolean;
 		allowOffline: boolean;
 	};
-	stat: {
-		chapter: number;
-		totalNumber: Decimal;
-		highestNumber: Decimal;
-		totalMulpower: Decimal;
-		highestMulpower: Decimal;
-		totalAddpower: Decimal;
-		hightestAddpower: Decimal;
-		totalExppower: Decimal;
-		highestExppower: Decimal;
-		highestOrdLevel: number;
-	};
-	challengein: [number, number];
+	stat: PlayerStat;
+	challengein: FixedLengthArray<number, 2>;
 	frozen: boolean;
 	run_a_tick_and_froze: boolean;
 	singularity: {
@@ -149,10 +151,10 @@ export interface Player {
 	timeshard: {
 		value: Decimal;
 		tf: Decimal;
-		cd: [number, number, number];
-		last: [number, number, number];
+		cd: FixedLengthArray<number, 3>;
+		last: FixedLengthArray<number, 3>;
 		openTf: boolean;
-		next: [number, number, number];
+		next: FixedLengthArray<number, 3>;
 	};
 	hydra: {
 		visiting: number;
@@ -160,12 +162,12 @@ export interface Player {
 		totalPower: Decimal;
 		trueTotalPower: Decimal;
 		milestoneDut5Eff: Decimal;
-		powerMult: [Decimal, Decimal, Decimal, Decimal];
-		deduceProgress: [Decimal, Decimal, Decimal, Decimal];
-		deduceOrdinal: [Decimal, Decimal, Decimal, Decimal];
-		totalDeduceOrdinal: [Decimal, Decimal, Decimal, Decimal];
-		prestige: [Decimal, Decimal, Decimal, Decimal];
-		pAuto: [boolean, boolean, boolean, boolean];
+		powerMult: FixedLengthArray<Decimal, 4>;
+		deduceProgress: FixedLengthArray<Decimal, 4>;
+		deduceOrdinal: FixedLengthArray<Decimal, 4>;
+		totalDeduceOrdinal: FixedLengthArray<Decimal, 4>;
+		prestige: FixedLengthArray<Decimal, 4>;
+		pAuto: FixedLengthArray<boolean, 4>;
 		backupHydra?: backupHydraType;
 		dilute: {
 			inDilute: boolean;
@@ -182,10 +184,11 @@ export interface Player {
 				boolean,
 			];
 			spentTime: number;
-			solution: number;
+			solution: Decimal;
+			highestSolution: Decimal;
 			lastDeduce: Decimal;
 			solute: Decimal;
-			solutionCost: number;
+			solutionCost: Decimal;
 			prions: Decimal;
 			highestApocalypse: Decimal;
 			solventPresets: [
@@ -207,9 +210,11 @@ export interface Player {
 		totalPower: Decimal;
 		resetTimes: Decimal;
 		studies_bought: number[];
-		theories: [Decimal, Decimal, Decimal];
+		theories: FixedLengthArray<Decimal, 3>;
 		spentTheories: Decimal;
 		secInThisReset: Decimal;
+		studies_preset: FixedLengthArray<NonRecusionTreePreset, 6>;
+		unocf_j: Decimal;
 	};
 	minigame: PlayerMinigameData;
 	backup?: Omit<Player, 'backup'> | null;
@@ -225,72 +230,73 @@ export interface Player {
 function getInitialPlayerData(): Player {
 	return {
 		version: version,
-		number: zero,
+		number: DC.D_0,
 		frozen: false,
 		run_a_tick_and_froze: false,
-		totalNumber: zero,
+		totalNumber: DC.D_0,
 		lastUpdated: Date.now(),
 		saveCreateTime: Date.now(),
-		addpower: zero,
+		addpower: DC.D_0,
 		upgrades: Object.fromEntries(Object.keys(upgrades).map((key) => [key, false])) as Record<
 			keyof typeof upgrades,
 			boolean
 		>,
-		buyables: Object.fromEntries(
-			Object.keys(buyables).map((key) => [key, new Decimal(0)]),
-		) as Record<keyof typeof buyables, Decimal>,
+		buyables: Object.fromEntries(Object.keys(buyables).map((key) => [key, DC.D_0])) as Record<
+			keyof typeof buyables,
+			Decimal
+		>,
 		milestones: Object.fromEntries(
 			Object.keys(milestones).map((key) => [key, false]),
 		) as Record<keyof typeof milestones, boolean>,
-		buyable11More: zero,
+		buyable11More: DC.D_0,
 		automationCD: {
 			successor: 0,
 		},
 		numbertheory: {
 			visiting: 1,
 			euler: {
-				x: new Decimal(1),
-				y: new Decimal(1),
-				z: new Decimal(1),
-				s: new Decimal(1),
+				x: DC.D_1,
+				y: DC.D_1,
+				z: DC.D_1,
+				s: DC.D_1,
 			},
 			rational_approx: {
-				n: new Decimal(1),
-				m: new Decimal(1),
-				y: new Decimal(1),
+				n: DC.D_1,
+				m: DC.D_1,
+				y: DC.D_1,
 			},
 			GH: {
-				x: new Decimal(11),
-				t31: new Decimal(0),
-				t32: new Decimal(0),
-				t33: new Decimal(0),
+				x: DC.D_11,
+				t31: DC.D_0,
+				t32: DC.D_0,
+				t33: DC.D_0,
 			},
 			GM: {
-				x: new Decimal(0),
+				x: DC.D_0,
 			},
 		},
 		currentTab: 0,
-		totalAddpower: zero,
+		totalAddpower: DC.D_0,
 		firstResetBit: 0,
 		multiplication: {
-			mulpower: zero,
-			totalMulpower: zero,
-			pfTime: zero,
+			mulpower: DC.D_0,
+			totalMulpower: DC.D_0,
+			pfTime: DC.D_0,
 			B1seriesC1: 0,
 			B1seriesC1400q: 0,
 		},
 		exponention: {
-			exppower: zero,
-			totalExppower: zero,
-			qolpoints: zero,
+			exppower: DC.D_0,
+			totalExppower: DC.D_0,
+			qolpoints: DC.D_0,
 			logarithm: {
-				observe_datas: zero,
-				calculate_datas: zero,
+				observe_datas: DC.D_0,
+				calculate_datas: DC.D_0,
 				astronomers: [],
 				in_dilate: false,
 				upgrades_in_dilated: [],
 				buyables_in_dilated: [],
-				highest_dilate: new Decimal(1),
+				highest_dilate: DC.D_1,
 			},
 		},
 		options: {
@@ -309,21 +315,10 @@ function getInitialPlayerData(): Player {
 			challengeDetial: false,
 			allowOffline: true,
 		},
-		stat: {
-			chapter: -1,
-			totalNumber: zero,
-			highestNumber: zero,
-			totalMulpower: zero,
-			highestMulpower: zero,
-			totalAddpower: zero,
-			hightestAddpower: zero,
-			totalExppower: zero,
-			highestExppower: zero,
-			highestOrdLevel: 0,
-		},
+		stat: getInitialStat(),
 		challenges: [
-			[zero, zero, zero, zero, zero],
-			[zero, zero, zero, zero, zero, zero],
+			[DC.D_0, DC.D_0, DC.D_0, DC.D_0, DC.D_0],
+			[DC.D_0, DC.D_0, DC.D_0, DC.D_0, DC.D_0, DC.D_0],
 		],
 		challengein: [-1, -1],
 		singularity: {
@@ -333,9 +328,9 @@ function getInitialPlayerData(): Player {
 		},
 		minigame: initMiniGameData(),
 		ordinal: {
-			number: new Decimal(10),
+			number: DC.D_10,
 			booster: {
-				mult: new Decimal(1),
+				mult: DC.D_1,
 			},
 		},
 		help: {
@@ -344,8 +339,8 @@ function getInitialPlayerData(): Player {
 			epsilon: false,
 		},
 		timeshard: {
-			value: zero,
-			tf: zero,
+			value: DC.D_0,
+			tf: DC.D_0,
 			cd: [Date.now(), Date.now(), Date.now() + 7 * 24 * 60 * 60 * 1000],
 			last: [0, 0, 0],
 			openTf: false,
@@ -357,39 +352,50 @@ function getInitialPlayerData(): Player {
 		},
 		hydra: {
 			visiting: 0,
-			power: zero,
-			totalPower: zero,
-			trueTotalPower: zero,
-			milestoneDut5Eff: new Decimal(1),
-			powerMult: [new Decimal(1), new Decimal(1), new Decimal(1), new Decimal(1)],
-			deduceProgress: [zero, zero, zero, zero],
-			deduceOrdinal: [zero, zero, zero, zero],
-			totalDeduceOrdinal: [zero, zero, zero, zero],
-			prestige: [zero, zero, zero, zero],
+			power: DC.D_0,
+			totalPower: DC.D_0,
+			trueTotalPower: DC.D_0,
+			milestoneDut5Eff: DC.D_1,
+			powerMult: [DC.D_1, DC.D_1, DC.D_1, DC.D_1],
+			deduceProgress: [DC.D_0, DC.D_0, DC.D_0, DC.D_0],
+			deduceOrdinal: [DC.D_0, DC.D_0, DC.D_0, DC.D_0],
+			totalDeduceOrdinal: [DC.D_0, DC.D_0, DC.D_0, DC.D_0],
+			prestige: [DC.D_0, DC.D_0, DC.D_0, DC.D_0],
 			pAuto: [false, false, false, false],
 			dilute: {
 				inDilute: false,
 				solvent: [0, 0, 0, 0, 0, 0, false, false, false],
 				lastSolvent: [0, 0, 0, 0, 0, 0, false, false, false],
 				solventPresets: [],
-				lastDeduce: zero,
+				lastDeduce: DC.D_0,
 				spentTime: 0,
-				solution: 0,
-				solutionCost: 0,
-				solute: zero,
-				prions: new Decimal(1),
-				highestApocalypse: zero,
+				solution: DC.D_0,
+				highestSolution: DC.D_0,
+				solutionCost: DC.D_0,
+				solute: DC.D_0,
+				prions: DC.D_1,
+				highestApocalypse: DC.D_0,
 			},
 			autoHydraReset: false,
 		},
 		nonrecu: {
-			power: zero,
-			totalPower: zero,
-			resetTimes: zero,
+			power: DC.D_0,
+			totalPower: DC.D_0,
+			resetTimes: DC.D_0,
 			studies_bought: [],
-			theories: [zero, zero, zero],
-			spentTheories: zero,
-			secInThisReset: zero,
+			theories: [DC.D_0, DC.D_0, DC.D_0],
+			spentTheories: DC.D_0,
+			secInThisReset: DC.D_0,
+			studies_preset: Array(6)
+				.fill(null)
+				.map(
+					(x, id) =>
+						({
+							name: String(id + 1),
+							preset: [],
+						}) as NonRecusionTreePreset,
+				) as unknown as FixedLengthArray<NonRecusionTreePreset, 6>,
+			unocf_j: new Decimal(0),
 		},
 		foundNaN: false,
 		checkedPlots: [],
@@ -417,9 +423,9 @@ function isBigInt(value: unknown): value is bigint {
  * 合并两个数组
  * 通用的合并，target是source的部分类型
  */
-function deepMerge<T extends object>(source: T, target: object): T;
-function deepMerge<T extends unknown[]>(source: T, target: unknown[]): T;
-function deepMerge<T>(source: T, target: DeepPartial<T>): T {
+function deepMerge<T extends object>(source: T, target: object, expectedKey?: string[]): T;
+function deepMerge<T extends unknown[]>(source: T, target: unknown[], expectedKey?: string[]): T;
+function deepMerge<T>(source: T, target: DeepPartial<T>, expectedKey?: string[]): T {
 	if (Array.isArray(source)) {
 		const targetArray = Array.isArray(target) ? target : [];
 		const maxLength = Math.max(source.length, targetArray.length);
@@ -440,7 +446,11 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 				typeof sourceItem === 'object' &&
 				!(sourceItem instanceof Decimal)
 			) {
-				result[i] = deepMerge(sourceItem, targetItem as DeepPartial<typeof sourceItem>);
+				result[i] = deepMerge(
+					sourceItem,
+					targetItem as DeepPartial<typeof sourceItem>,
+					expectedKey,
+				);
 			} else if (sourceItem instanceof Decimal) {
 				result[i] = new Decimal(targetItem as DecimalSource);
 			} else if (sourceItem === undefined && targetItem !== undefined) {
@@ -460,6 +470,7 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 		if (target === null || target === undefined) return source;
 
 		for (const key of new Set([...Object.keys(source), ...Object.keys(target)])) {
+			if ((expectedKey ?? []).includes(key)) continue;
 			const sourceValue = source[key as keyof typeof source];
 			const targetValue = target[key as keyof typeof target];
 
@@ -478,7 +489,10 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 				typeof sourceValue === 'object' &&
 				!(sourceValue instanceof Decimal)
 			) {
-				result[key] = deepMerge(sourceValue, targetValue) as T[Extract<keyof T, string>];
+				result[key] = deepMerge(sourceValue, targetValue, expectedKey) as T[Extract<
+					keyof T,
+					string
+				>];
 			} else if (sourceValue instanceof Decimal) {
 				result[key] = new Decimal(targetValue as DecimalSource) as T[Extract<
 					keyof T,
@@ -486,7 +500,7 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 				>];
 			} else if (targetValue !== null && typeof targetValue === 'object') {
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				result[key] = deepMerge(targetValue, sourceValue as any);
+				result[key] = deepMerge(targetValue, sourceValue as any, expectedKey);
 			} else {
 				result[key] = targetValue;
 			}
@@ -500,9 +514,16 @@ function deepMerge<T>(source: T, target: DeepPartial<T>): T {
 
 export let player: Player = getInitialPlayerData();
 
-export function loadFromString(saveContent: string) {
+export function loadFromString(saveContent: string, non_options = false) {
 	const deserialized = saveSerializer.deserialize(saveContent);
-	Object.assign(player, deepMerge(player, deserialized));
+	Object.assign(
+		player,
+		deepMerge(
+			player,
+			deserialized,
+			non_options ? (['options'] satisfies (keyof Player)[]) : [],
+		),
+	);
 	if ((player?.version ?? 0) < 4) {
 		player.hydra.dilute.solvent = [0, 0, 0, 0, 0, 0, false, false, false];
 	}
@@ -510,14 +531,9 @@ export function loadFromString(saveContent: string) {
 		Dilute.exitDilute();
 		player.hydra.dilute = getInitialPlayerData().hydra.dilute;
 		player.upgrades['61S'] = false;
-		player.hydra.power = new Decimal('e2466');
-		player.hydra.powerMult = [new Decimal(1), new Decimal(1), new Decimal(1), new Decimal(1)];
-		player.hydra.prestige = [
-			new Decimal('e345'),
-			new Decimal('e55'),
-			new Decimal('3.7'),
-			new Decimal('5e35'),
-		];
+		player.hydra.power = DC.D_E2466;
+		player.hydra.powerMult = [DC.D_1, DC.D_1, DC.D_1, DC.D_1];
+		player.hydra.prestige = [DC.D_E345, DC.D_E55, DC.D_3P7, DC.D_5E35];
 	}
 	if ((player?.version ?? 0) < 7 && player.upgrades['616S']) {
 		if (player.nonrecu.resetTimes.gte(1)) player.firstResetBit |= 0b10000;
@@ -530,11 +546,11 @@ export function loadFromString(saveContent: string) {
 		player.challenges[1][0] = player.challenges[1][0].min(1);
 		if (player.nonrecu.studies_bought.includes(19)) {
 			player.nonrecu.studies_bought = [];
-			player.nonrecu.spentTheories = new Decimal(0);
+			player.nonrecu.spentTheories = DC.D_0;
 			NON_RECURSIVE.reset(true);
 		}
-		player.hydra.dilute.prions = player.hydra.dilute.prions.min('ee18');
-		player.hydra.deduceOrdinal[0] = player.hydra.deduceOrdinal[0].min('ee3500');
+		player.hydra.dilute.prions = player.hydra.dilute.prions.min(DC.D_EE18);
+		player.hydra.deduceOrdinal[0] = player.hydra.deduceOrdinal[0].min(DC.D_EE3500);
 	}
 	if ((player?.version ?? 0) < 10) {
 		hardResetMiniGame();
@@ -544,12 +560,10 @@ export function loadFromString(saveContent: string) {
 	player.minigame.current_y = BigInt(player.minigame.current_y);
 	type ValueOf<T> = T extends Record<any, infer V> ? V : any;
 	type ArrayContent<T> = T extends Array<infer C> ? C : any;
-	let repl = player.minigame.replaces as
-		| typeof player.minigame.replaces
-		| ValueOf<typeof player.minigame.replaces>;
-	for(const key in repl) {
+	const repl = player.minigame.replaces;
+	for (const key in repl) {
 		if (repl.hasOwnProperty(key)) {
-            const arr = repl[key];
+			const arr = repl[key];
 			if (Array.isArray(arr)) {
 				for (const replacement of arr) {
 					if (!replacement) continue;
@@ -569,8 +583,8 @@ export function loadFromString(saveContent: string) {
 			if (!new333[repl3.room]) new333[repl3.room] = [];
 			new333[repl3.room].push(repl3);
 		}
+		player.minigame.replaces = new333;
 	}
-	player.minigame.replaces = new333;
 	// @ts-ignore
 	delete player.hydra.dilute.solvent?.[9];
 	// @ts-ignore
@@ -600,10 +614,17 @@ export function save() {
 	localStorage.setItem(getSaveID(current_save), saveSerializer.serialize(player));
 }
 const savefunc = save;
-export function hardReset() {
-	player = getInitialPlayerData();
+export function hardReset(excludeKey?: (keyof Player)[]) {
+	let tempplayer = getInitialPlayerData();
+	(Object.keys(tempplayer) as (keyof Player)[]).forEach((key) => {
+		if (!excludeKey?.includes?.(key)) {
+			// @ts-expect-error
+			player[key] = tempplayer[key];
+		}
+	});
+
 	save();
-	location.reload();
+	// location.reload();
 }
 
 export function import_file(): void {
@@ -699,11 +720,11 @@ export function readSaveDetail(id: number) {
 			details.number = calculate(
 				OrdinalUtils.numberToBMS(
 					new Decimal(savecontent_str.hydra.deduceOrdinal[0]),
-					new Decimal(4),
+					DC.D_4,
 					20,
 				)
-					.replace('...', '')
-					.replace('>', ''),
+					.replace(/\.{3}/g, '')
+					.replace(/>/g, ''),
 			);
 		} else {
 			details.number = 'UNK';
