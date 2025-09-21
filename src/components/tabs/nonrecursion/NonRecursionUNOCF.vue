@@ -25,7 +25,9 @@ let cur = computed(() =>
 		</p>
 		<p>由于UNOCF机制太复杂，并不是每一次推演都会得到对应的序数</p>
 		<p v-if="cur[2]"><vue-latex :expression="'\\psi(' + cur[1] + ')=' + cur[2]" /></p>
-		<p>UNOCF推演使得BMS推演速度^{{ format(NON_RECURSIVE.UNOCFeff()[0]) }}</p>
+		<p>
+			UNOCF推演使得BMS推演速度^{{ format(NON_RECURSIVE.UNOCFeff()[0]) }}(BMS推演速度>1时生效)
+		</p>
 		<p v-if="player.nonrecu.unocf_j.lt(512)">超过512推演次数解锁UNOCF推演第二效果</p>
 		<p v-else>UNOCF推演使得UNOCF推演速度*{{ format(NON_RECURSIVE.UNOCFeff()[1]) }}</p>
 		<p v-if="player.nonrecu.unocf_j.gte(512) && player.nonrecu.unocf_j.lt(4096)">

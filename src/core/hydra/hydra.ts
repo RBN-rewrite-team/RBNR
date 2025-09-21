@@ -590,7 +590,7 @@ export const Hydra = {
 		base = base.div(tsbhBase() ** (Dilute.diluteAmount(0) as number));
 		if (player.hydra.dilute.inDilute) base = base.div(Dilute.totSolNerf());
 		if (base.gte('ee125')) base = base.log10().div(1e125).pow(0.5).mul(1e125).pow10();
-		base = base.pow(NON_RECURSIVE.UNOCFeff()[0]);
+		if (base.gt(1)) base = base.pow(NON_RECURSIVE.UNOCFeff()[0]);
 		if (base.gte('e8.07230472602822538e153')) {
 			if (!player.nonrecu.studies_bought.includes(13))
 				base = new Decimal('e8.07230472602822538e153');
