@@ -242,7 +242,7 @@ import { getI18NData } from '@/core/i18n-data.ts';
 							class="menu2"
 							:class="{ focus: player.currentTab == 25 }"
 							@click="player.currentTab = 25"
-							v-if="(player.firstResetBit & 0b10000) == 0b10000"
+							v-if="(player.firstResetBit & 0b10000) == 0b10000 && player.milestones.nonrec_18"
 						>
 							非递归升级
 						</div>

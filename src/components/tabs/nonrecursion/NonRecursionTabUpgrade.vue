@@ -8,6 +8,7 @@ import TDUpgrade from '@/components/TDUpgrade.vue';
 			<tbody>
 				<tr>
 					<TDUpgrade upgid="71"></TDUpgrade>
+					<TDUpgrade upgid="72"></TDUpgrade>
 				</tr>
 			</tbody>
 		</table>

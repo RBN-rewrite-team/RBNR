@@ -872,6 +872,7 @@ const Dil = {
 					player.hydra.deduceOrdinal[0],
 				);
 		}
+		player.hydra.dilute.highestSolution = player.hydra.dilute.highestSolution.max(player.hydra.dilute.solution)
 	},
 	prionsBase() {
 		let base = new Decimal(1 + Dilute.diluteAmount(4) / 100);
