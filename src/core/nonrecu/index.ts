@@ -200,7 +200,7 @@ export const NON_RECURSIVE = {
 		});
 		MILESTONES.create('nonrec_17', {
 			requirement: new Decimal(29.2),
-			currency: 'NRC4次数',
+			currency: 'NRC5次数',
 			displayName: 'M6-17',
 			description: `每秒自动产生(NRC5次数)非递归次数`,
 			get show() {
@@ -212,7 +212,7 @@ export const NON_RECURSIVE = {
 		});
 		MILESTONES.create('nonrec_18', {
 			requirement: new Decimal(29.7),
-			currency: 'NRC4次数',
+			currency: 'NRC5次数',
 			displayName: 'M6-18',
 			description: `解锁非递归升级`,
 			get show() {
@@ -224,7 +224,7 @@ export const NON_RECURSIVE = {
 		});
 		MILESTONES.create('nonrec_19', {
 			requirement: new Decimal(37),
-			currency: 'NRC4次数',
+			currency: 'NRC5次数',
 			displayName: 'M6-19',
 			description: `解锁UNOCF`,
 			get show() {
