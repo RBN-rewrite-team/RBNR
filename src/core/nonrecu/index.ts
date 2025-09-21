@@ -24,6 +24,12 @@ export const NON_RECURSIVE = {
 			name = 'U6-2';
 			currency: Currencies = Currencies.NONREC;
 		})(),
+		'71UN': new (class extends Upgrade {
+			description: string | (() => string) = '开启UNOCF推演, (+1/s)';
+			cost = new Decimal(114514);
+			name = 'U6-UNOCF-1';
+			currency: Currencies = Currencies.NONREC;
+		})(),
 	} as const,
 	initMechanics() {
 		MILESTONES.create('nonrec_1', {
@@ -217,7 +223,7 @@ export const NON_RECURSIVE = {
 			},
 		});
 		MILESTONES.create('nonrec_19', {
-			requirement: new Decimal(40),
+			requirement: new Decimal(37),
 			currency: 'NRC4次数',
 			displayName: 'M6-19',
 			description: `解锁UNOCF`,
@@ -403,5 +409,11 @@ export const NON_RECURSIVE = {
 				player.challenges[1][4].mul(diff),
 			);
 		}
+		if (player.upgrades['71UN']) {
+			player.nonrecu.unocf_j = player.nonrecu.unocf_j.add(this.UNOCFdeduceSpeed().mul(diff));
+		}
+	},
+	UNOCFdeduceSpeed() {
+		return new Decimal(1);
 	},
 };

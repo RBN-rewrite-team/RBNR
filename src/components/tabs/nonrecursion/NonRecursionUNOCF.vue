@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import TDUpgrade from '@/components/TDUpgrade.vue';
 import { player } from '@/core/save';
-import { format, formatLaTeXWhole } from '@/utils/format';
+import { format, formatLaTeX, formatLaTeXWhole } from '@/utils/format';
 import { UNOCF, UNOCF_milestone } from '@/utils/unocf-mil';
 import { computed } from 'vue';
 let cur = computed(() =>
@@ -14,12 +15,13 @@ let cur = computed(() =>
 			你的UNOCF序数为<vue-latex
 				:expression="
 					cur[1] +
-					'=\\operatorname{deduce}(' +
-					formatLaTeXWhole(player.nonrecu.unocf_j) +
-					')'
+					'=\\operatorname{deduce}(\\operatorname{floor}(' +
+					formatLaTeX(player.nonrecu.unocf_j) +
+					'))'
 				"
 			/>
 		</p>
+		<p>由于UNOCF机制太复杂，并不是每一次推演都会得到对应的序数</p>
 		<p v-if="cur[2]"><vue-latex :expression="'\\psi(' + cur[1] + ')=' + cur[2]" /></p>
 		<p>
 			下一个序数为<vue-latex
@@ -37,5 +39,12 @@ let cur = computed(() =>
 				"
 			/>
 		</p>
+		<table style="margin: auto" align="cewter">
+			<tbody>
+				<tr>
+					<TDUpgrade upgid="71UN"></TDUpgrade>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </template>

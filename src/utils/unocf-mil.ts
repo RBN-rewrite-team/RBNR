@@ -2,7 +2,7 @@ import { DC } from '@/core/constants';
 import type Decimal from 'break_eternity.js';
 
 export const UNOCF_milestone = [
-	[DC.D_0, 'ω', '(0)(1)'],
+	[DC.D_0, 'ω', '(0)(1)(2)'],
 	[DC.D_4, 'Ω', '(0,0)(1,1)'],
 	[DC.D_5, 'Ω_\\omega', '(0,0,0)(1,1,1)'],
 	[DC.D_6, '\\psi_I(I)', '\\mathrm{EBO}'],
