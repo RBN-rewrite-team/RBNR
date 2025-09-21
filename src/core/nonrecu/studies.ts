@@ -11,6 +11,7 @@ import StudyTree from '@/components/tabs/nonrecursion/StudyTree.vue';
 import SingleStudy from '@/components/tabs/nonrecursion/SingleStudy.vue';
 import { format, formatWhole } from '@/utils/format';
 import { isDeveloper } from '../save/testing';
+import { wordShift } from '../word-shift';
 
 const StudyTreeRef = ref(null);
 
@@ -178,10 +179,12 @@ export const studies = [
 	}),
 	new Study({
 		id: '42', //7
-		description: '朊病毒增速×10(需要两次挑战1才能购买)',
+		get description() {
+			return '获得一个棍母(需要两次挑战1才能购买)';
+		},
 		cost: new Decimal(5),
 		canBuy() {
-			return player.challenges[1][0].gte(2);
+			return player.challenges[1][0].gte(2) && player.milestones.nrc_17;
 		},
 	}),
 	new Study({

@@ -21,7 +21,7 @@ let cur = computed(() =>
 					formatLaTeX(player.nonrecu.unocf_j) +
 					'))'
 				"
-			/>
+			/>(+{{ format(NON_RECURSIVE.UNOCFdeduceSpeed()) }}/s)
 		</p>
 		<p>由于UNOCF机制太复杂，并不是每一次推演都会得到对应的序数</p>
 		<p v-if="cur[2]"><vue-latex :expression="'\\psi(' + cur[1] + ')=' + cur[2]" /></p>
