@@ -969,8 +969,10 @@ const Dil = {
 			);
 		}
 		baseDecimal = baseDecimal.mul(NON_RECURSIVE.UNOCFeff()[2]);
+		if (player.milestones.nonrec_25) {
+			exp = exp.mul(20);
+		}
 		let res = deduceMult.mul(baseDecimal).pow(exp);
-
 		if (CHALLENGE.inChallenge(1, 5)) {
 			res = res.clampMax(0);
 		}
