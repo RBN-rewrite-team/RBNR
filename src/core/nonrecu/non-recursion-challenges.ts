@@ -156,4 +156,22 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			}
 		},
 	},
+	{
+		name: '极端束缚',
+		get descEasy() {
+			return '挑战中推演硬上限为1，九头蛇溶液硬上限为0';
+		},
+		get descHard() {
+			return this.descEasy;
+		},
+		canEnter() {
+			return player.nonrecu.studies_bought.includes(25);
+		},
+		loop() {
+			const highest = Dilute.prions().add(1).clampMin(10).log10().log10();
+			if (player.challenges[1][5].lt(highest)) {
+				player.challenges[1][5] = highest;
+			}
+		},
+	},
 ] as const;

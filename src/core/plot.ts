@@ -46,6 +46,7 @@ export function unlockedPlots() {
 	if (player.upgrades['69S'] || player.stat.chapter >= 6) a++;
 	if (player.stat.chapter >= 6) a++;
 	if (player.challenges[1][0].gt(0)) a++;
+	if (player.milestones.nonrec_24) a++;
 	return a;
 }
 export function viewedPlotLength() {
@@ -213,6 +214,12 @@ export const plots = [
 		'Numerorum宕机了...',
 	]
 	 */
+	[
+		'Numerorum\t爽，这UNOCF和里程碑就是爽!',
+		'???\tHydra\t不要太爽了，你还没过Small Hydra Ordinal。',
+		'Numerorum\t...时间总有一天会击败你的',
+		'???\tHydra\t实践(时间)是谁？',
+	],
 ];
 export function plotLength(id: number): number {
 	if (id <= 0) return 0;

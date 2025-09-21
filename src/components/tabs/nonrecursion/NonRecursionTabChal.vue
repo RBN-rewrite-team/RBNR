@@ -50,6 +50,14 @@ import { player } from '@/core/save';
 						:layer="1"
 						:chid="4"
 					></TDChallenge>
+					<TDChallenge
+						v-if="
+							player.challenges[1][5].gte(1) ||
+							player.nonrecu.studies_bought.includes(25)
+						"
+						:layer="1"
+						:chid="5"
+					></TDChallenge>
 				</tr>
 			</tbody>
 		</table>

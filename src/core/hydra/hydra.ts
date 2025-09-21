@@ -591,6 +591,8 @@ export const Hydra = {
 		if (player.hydra.dilute.inDilute) base = base.div(Dilute.totSolNerf());
 		if (base.gte('ee125')) base = base.log10().div(1e125).pow(0.5).mul(1e125).pow10();
 		if (base.gt(1)) base = base.pow(NON_RECURSIVE.UNOCFeff()[0]);
+		if (base.gt(1e10) && player.milestones.nonrec_24)
+			base = base.log10().log10().pow(2).pow10().pow10();
 		if (base.gte('e8.07230472602822538e153')) {
 			if (!player.nonrecu.studies_bought.includes(13))
 				base = new Decimal('e8.07230472602822538e153');
@@ -604,7 +606,6 @@ export const Hydra = {
 
 		if (CHALLENGE.inChallenge(1, 4) && base.gt(10))
 			base = base.clampMin(10).log10().log10().add(10);
-
 		return base;
 	},
 	deduceSpeed(i = 0): Decimal {
@@ -946,6 +947,10 @@ export const Hydra = {
 				player.hydra.deduceProgress[i] = player.hydra.deduceProgress[i].sub(bulk);
 				Hydra.deduce(i, bulk);
 			}
+		}
+		if (CHALLENGE.inChallenge(1, 5)) {
+			player.hydra.deduceOrdinal[0] = player.hydra.deduceOrdinal[0].clampMax(1);
+			player.hydra.dilute.solution = player.hydra.dilute.solution.clampMax(0);
 		}
 		if (player.upgrades[62]) {
 			let NT4Boost = DC.D_1;
