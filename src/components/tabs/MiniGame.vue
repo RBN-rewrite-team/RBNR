@@ -280,12 +280,13 @@ function exitEditor() {
 			style="position: absolute; left: 75%; top: 20px; transform: translateX(-50%)"
 			v-if="temp.dungeonsSP == 2 || temp.innerWidth >= 800"
 		>
+			<table><tbody><tr><td style="width: 200px">
 			X: {{ formatbigint(player.minigame.current_x) }}<br />
 			Y: {{ formatbigint(player.minigame.current_y) }}
-			<br />
 			技能点: {{ player.minigame.skillpoint.toFixed(3) }}
-			<br />
-			{{ temp.minigametip }}
+			</td><td style="width: 200px">
+			<span v-html="temp.minigametip" />
+			</td></tr></tbody></table>
 		</div>
 		<br />
 		<table
