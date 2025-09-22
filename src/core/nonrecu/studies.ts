@@ -11,6 +11,7 @@ import StudyTree from '@/components/tabs/nonrecursion/StudyTree.vue';
 import SingleStudy from '@/components/tabs/nonrecursion/SingleStudy.vue';
 import { format, formatWhole } from '@/utils/format';
 import { isDeveloper } from '../save/testing';
+import { wordShift } from '../word-shift';
 
 const StudyTreeRef = ref(null);
 
@@ -40,7 +41,11 @@ function sum(...ids: (number | boolean)[]): number {
 	}
 	return result;
 }
-
+function secInThisReset52717273() {
+	let a = player.nonrecu.secInThisReset;
+	if (player.upgrades['73']) a = a.mul('1e10');
+	return a;
+}
 export type StudyConfig = {
 	id: string;
 	description: string;
@@ -178,10 +183,12 @@ export const studies = [
 	}),
 	new Study({
 		id: '42', //7
-		description: '朊病毒增速×10(需要两次挑战1才能购买)',
+		get description() {
+			return '获得一个棍母(需要两次挑战1才能购买)';
+		},
 		cost: new Decimal(5),
 		canBuy() {
-			return player.challenges[1][0].gte(2);
+			return player.challenges[1][0].gte(2) && player.milestones.nrc_17;
 		},
 	}),
 	new Study({
@@ -205,7 +212,7 @@ export const studies = [
 					.ln()
 					.mul(
 						player.nonrecu.studies_bought.includes(17)
-							? player.nonrecu.secInThisReset.add(1).log10()
+							? secInThisReset52717273().add(1).log10()
 							: 1,
 					)
 					.sub(5),
@@ -305,7 +312,7 @@ export const studies = [
 		id: '71', //16
 		get description() {
 			return `基于本次非递归重置时间提升非递归能量获取<br>效果：×${format(
-				player.nonrecu.secInThisReset
+				secInThisReset52717273()
 					.add(1)
 					.mul(10)
 					.pow(2)
@@ -328,7 +335,7 @@ export const studies = [
 	new Study({
 		id: '72', //17
 		get description() {
-			return `基于本次非递归重置时间提升非递归研究52的效果<br>效果：((x+5)×${format(player.nonrecu.secInThisReset.add(1).log10())})-5`;
+			return `基于本次非递归重置时间提升非递归研究52的效果<br>效果：((x+5)×${format(secInThisReset52717273().add(1).log10())})-5`;
 		},
 		cost: new Decimal(3),
 		canBuy() {
@@ -344,7 +351,7 @@ export const studies = [
 	new Study({
 		id: '73', //18
 		get description() {
-			return `基于本次非递归重置时间提升九头蛇溶液获取<br>效果：×${format(player.nonrecu.secInThisReset.add(1).ln().mul(0.2).add(1))}`;
+			return `基于本次非递归重置时间提升九头蛇溶液获取<br>效果：×${format(secInThisReset52717273().add(1).ln().mul(0.2).add(1))}`;
 		},
 		cost: new Decimal(5),
 		canBuy() {
@@ -410,7 +417,7 @@ export const studies = [
 	}),
 	new Study({
 		id: 'NRC5', //24
-		description: '解锁非递归挑战5(没做)\t无',
+		description: '解锁非递归挑战5\t挑战次数为最高推演次数',
 		cost: new Decimal(165),
 		canBuy() {
 			return or(22);
@@ -421,18 +428,22 @@ export const studies = [
 	new Study({
 		//25
 		id: 'NRC6',
-		description: '解锁非递归挑战6(没做)',
+		description: '解锁非递归挑战6\t挑战次数为log10 log10 朊病毒',
 		cost: new Decimal(300),
 		canBuy() {
-			return false;
+			return or(22);
 		},
+		isChallenge: true,
+		chal_id: 5,
 	}),
 	new Study({
 		id: '112', //26
-		description: '基于非递归定理增加九头蛇溶液效果指数(没做)',
-		cost: new Decimal(300),
+		get description() {
+			return `基于总共的非递归理论增加UNOCF推演速度，此推演需要前置M6-25, 42和101<br>效果：×${format(NON_RECURSIVE.std112())}`;
+		},
+		cost: new Decimal(20000),
 		canBuy() {
-			return false;
+			return and(22, 7) && player.milestones.nonrec_25;
 		},
 	}),
 	new Study({
@@ -456,7 +467,6 @@ export const studies = [
 	}),
 ] as const;
 export function canBuyStudies(id: number) {
-	if (player.nonrecu.studies_bought.includes(5)) return false;
 	const study = studies[id] as Study | undefined;
 	if (!study) return false;
 	if (player.nonrecu.studies_bought.includes(id)) return false;
@@ -506,6 +516,28 @@ export function theoriesCost(id: 0 | 1 | 2) {
 	}
 	return new Decimal(1 / 0);
 }
+export function theoriesAmountPossivle(id: 0 | 1 | 2) {
+	switch (id) {
+		case 0:
+			if (player.hydra.power.gte('eeeee14109.999999999884')) {
+				return player.hydra.power.iteratedlog(10, 5).add(489990).div(100).sqrt().ceil();
+			} else if (player.hydra.power.gte('e1776681501950.1848')) {
+				return player.hydra.power.slog().sub(2.5).div(0.05).ceil();
+			} else {
+				return player.hydra.power.clampMin(10).log10().log10().ceil();
+			}
+		case 1:
+			return getCurrency(Currencies.SOLUTION).div(1e4).log10().ceil();
+		case 2:
+			let res = player.nonrecu.power.log(5);
+			let temp = res.div(215).sqrt().mul(215);
+			if (temp.lt(215)) temp = res;
+			return temp.ceil();
+		default:
+			let a: never = id;
+	}
+	return new Decimal(0);
+}
 export function canBuyTheories(id: 0 | 1 | 2) {
 	switch (id) {
 		case 0:
@@ -520,22 +552,28 @@ export function addTheories(id: 0 | 1 | 2) {
 	switch (id) {
 		case 0:
 			if (canBuyTheories(0)) {
+				player.nonrecu.theories[0] = theoriesAmountPossivle(0).sub(1);
+				let a = theoriesAmountPossivle(0);
 				player.hydra.power = player.hydra.power.sub(theoriesCost(0));
-				player.nonrecu.theories[0] = player.nonrecu.theories[0].add(1);
+				player.nonrecu.theories[0] = a;
 			}
 			break;
 		case 1:
 			if (canBuyTheories(1)) {
+				player.nonrecu.theories[1] = theoriesAmountPossivle(1).sub(1);
+				let b = theoriesAmountPossivle(1);
 				player.hydra.dilute.solutionCost = player.hydra.dilute.solutionCost.add(
-					theoriesCost(1).clampMax(Number.MAX_VALUE),
+					theoriesCost(1),
 				);
-				player.nonrecu.theories[1] = player.nonrecu.theories[1].add(1);
+				player.nonrecu.theories[1] = b;
 			}
 			break;
 		case 2:
 			if (canBuyTheories(2)) {
+				player.nonrecu.theories[2] = theoriesAmountPossivle(2).sub(1);
+				let c = theoriesAmountPossivle(2);
 				player.nonrecu.power = player.nonrecu.power.sub(theoriesCost(2));
-				player.nonrecu.theories[2] = player.nonrecu.theories[2].add(1);
+				player.nonrecu.theories[2] = c;
 			}
 			break;
 		default:

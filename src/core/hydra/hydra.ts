@@ -590,6 +590,9 @@ export const Hydra = {
 		base = base.div(tsbhBase() ** (Dilute.diluteAmount(0) as number));
 		if (player.hydra.dilute.inDilute) base = base.div(Dilute.totSolNerf());
 		if (base.gte('ee125')) base = base.log10().div(1e125).pow(0.5).mul(1e125).pow10();
+		if (base.gt(1)) base = base.pow(NON_RECURSIVE.UNOCFeff()[0]);
+		if (base.gt(1e10) && player.milestones.nonrec_24)
+			base = base.log10().log10().pow(2).pow10().pow10();
 		if (base.gte('e8.07230472602822538e153')) {
 			if (!player.nonrecu.studies_bought.includes(13))
 				base = new Decimal('e8.07230472602822538e153');
@@ -603,6 +606,20 @@ export const Hydra = {
 
 		if (CHALLENGE.inChallenge(1, 4) && base.gt(10))
 			base = base.clampMin(10).log10().log10().add(10);
+		if (CHALLENGE.inChallenge(1, 6)) {
+			if (base.gt(1e10) && player.hydra.dilute.prions.gt(1e10)) {
+				base = base
+					.log10()
+					.log10()
+					.log10()
+					.div(player.hydra.dilute.prions.log10().log10().log10().clampMin(1))
+					.pow10()
+					.pow10()
+					.pow10();
+			} else {
+				base = new Decimal(0);
+			}
+		}
 		return base;
 	},
 	deduceSpeed(i = 0): Decimal {
@@ -683,6 +700,8 @@ export const Hydra = {
 		base = this.powerGainAfterSoftcap2(base).max(0);
 		if (CHALLENGE.inChallenge(1, 1)) base = base.min(player.nonrecu.power.add(1));
 		if (CHALLENGE.inChallenge(1, 4) && base.gte(10)) base = base.clampMin(10).log10().add(9);
+		if (player.milestones.nonrec_21 && base.gte(1e10))
+			base = base.log10().log10().mul(1.2).pow10().pow10();
 		return base;
 	},
 	powerGainAfterSoftcap(base: Decimal): Decimal {
@@ -719,7 +738,7 @@ export const Hydra = {
 			base = base.pow(player.hydra.dilute.solution.add(10).log10());
 		if (CHALLENGE.inChallenge(1, 3) && player.challenges[1][3].gte(1))
 			base = base.root(player.hydra.dilute.solution.add(10).log10());
-		return base.max(1e10); //不然会炸
+		return base.max(10_000_000_001); //不然会炸 ^2
 	},
 	powerSoftcapNerf(base: Decimal): Decimal {
 		if (!base.gte(this.superSoftcapStart())) return DC.D_1;
@@ -739,7 +758,7 @@ export const Hydra = {
 		if (player.milestones.nonrec_3)
 			base = base.root(player.nonrecu.resetTimes.min(25).mul(0.01).add(1));
 		if (player.challenges[1][1].gte(1)) base = base.pow(0.8);
-		if (player.upgrades[72]) base = base.pow(0.9)
+		if (player.upgrades[72]) base = base.pow(0.9);
 		return base;
 	},
 	powerGainBase(): Decimal {
@@ -942,6 +961,15 @@ export const Hydra = {
 				player.hydra.deduceProgress[i] = player.hydra.deduceProgress[i].sub(bulk);
 				Hydra.deduce(i, bulk);
 			}
+		}
+		if (CHALLENGE.inChallenge(1, 5)) {
+			player.hydra.deduceOrdinal[0] = player.hydra.deduceOrdinal[0].clampMax(1);
+			player.hydra.dilute.solution = player.hydra.dilute.solution.clampMax(0);
+		}
+		if (CHALLENGE.inChallenge(1, 6)) {
+			player.hydra.deduceOrdinal[0] = player.hydra.deduceOrdinal[0].clampMax(
+				this.deduceSpeedBMS(),
+			);
 		}
 		if (player.upgrades[62]) {
 			let NT4Boost = DC.D_1;

@@ -10,6 +10,7 @@ import { MILESTONES } from '../mechanic';
 import { upgrades, buyables } from '../mechanic';
 import { CHALLENGE } from '../challenge';
 import { DC } from '@/core/constants';
+import { NON_RECURSIVE } from '../nonrecu';
 
 export type backupHydraType = {
 	upgrades: (`${IntClosedRange<61, 69>}R` | keyof typeof Hydra.upgrades)[];
@@ -744,11 +745,13 @@ const Dil = {
 		player.hydra.dilute.inDilute = false;
 	},
 	solutionCalc() {
-		player.hydra.dilute.solution = player.hydra.dilute.solution.max(this.solutionGain());
-		player.hydra.dilute.lastSolvent = Array.from(
-			player.hydra.dilute.solvent,
-		) as typeof player.hydra.dilute.solvent;
-		player.hydra.dilute.lastDeduce = player.hydra.deduceOrdinal[0];
+		if (!CHALLENGE.inChallenge(1, 5)) {
+			player.hydra.dilute.solution = player.hydra.dilute.solution.max(this.solutionGain());
+			player.hydra.dilute.lastSolvent = Array.from(
+				player.hydra.dilute.solvent,
+			) as typeof player.hydra.dilute.solvent;
+			player.hydra.dilute.lastDeduce = player.hydra.deduceOrdinal[0];
+		}
 	},
 	backupHydra(): backupHydraType {
 		const items: (`${IntClosedRange<61, 69>}R` | keyof typeof Hydra.upgrades)[] = [];
@@ -872,7 +875,9 @@ const Dil = {
 					player.hydra.deduceOrdinal[0],
 				);
 		}
-		player.hydra.dilute.highestSolution = player.hydra.dilute.highestSolution.max(player.hydra.dilute.solution)
+		player.hydra.dilute.highestSolution = player.hydra.dilute.highestSolution.max(
+			player.hydra.dilute.solution,
+		);
 	},
 	prionsBase() {
 		let base = new Decimal(1 + Dilute.diluteAmount(4) / 100);
@@ -889,6 +894,14 @@ const Dil = {
 		if (player.nonrecu.studies_bought.includes(7)) base = base.pow(10);
 		if (player.challengein[0] != 1 && player.milestones.nonrec_16)
 			base = base.pow(Hydra.prestigeEff(1).add(1));
+		if (
+			player.milestones.nonrec_22 &&
+			((player.challengein[0] == -1 && player.challengein[1] == -1) ||
+				(player.challengein[0] == 1 && player.challengein[1] == 5)) &&
+			base.gte(10)
+		) {
+			base = base.log10().log10().mul(1.3).pow10().pow10();
+		}
 		return base;
 	},
 	/**
@@ -955,7 +968,16 @@ const Dil = {
 					.add(1),
 			);
 		}
-		return deduceMult.mul(baseDecimal).pow(exp);
+		baseDecimal = baseDecimal.mul(NON_RECURSIVE.UNOCFeff()[2]);
+		if (player.milestones.nonrec_25) {
+			exp = exp.mul(20);
+		}
+		let res = deduceMult.mul(baseDecimal).pow(exp);
+		if (CHALLENGE.inChallenge(1, 5)) {
+			res = res.clampMax(0);
+		}
+
+		return res;
 	},
 	solutionEff() {
 		let eff1 = new Decimal(getCurrency(Currencies.SOLUTION).pow(0.5)).max(1); //推演速度

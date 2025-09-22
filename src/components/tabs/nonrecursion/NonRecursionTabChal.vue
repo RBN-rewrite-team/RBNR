@@ -9,7 +9,7 @@ import { player } from '@/core/save';
 		注意：所有非递归挑战至多完成5次。
 		<table>
 			<tbody>
-				<tr>
+				<tr style="height: 600px">
 					<TDChallenge
 						v-if="
 							player.challenges[1][0].gte(1) ||
@@ -42,6 +42,8 @@ import { player } from '@/core/save';
 						:layer="1"
 						:chid="3"
 					></TDChallenge>
+				</tr>
+				<tr>
 					<TDChallenge
 						v-if="
 							player.challenges[1][4].gte(1) ||
@@ -49,6 +51,22 @@ import { player } from '@/core/save';
 						"
 						:layer="1"
 						:chid="4"
+					></TDChallenge>
+					<TDChallenge
+						v-if="
+							player.challenges[1][5].gte(1) ||
+							player.nonrecu.studies_bought.includes(25)
+						"
+						:layer="1"
+						:chid="5"
+					></TDChallenge>
+					<TDChallenge
+						v-if="
+							player.challenges[1][6].gte(1) ||
+							player.nonrecu.studies_bought.includes(27)
+						"
+						:layer="1"
+						:chid="6"
 					></TDChallenge>
 				</tr>
 			</tbody>
