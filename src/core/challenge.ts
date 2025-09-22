@@ -28,6 +28,7 @@ export const CHALLENGE = {
 		},
 		function () {
 			NON_RECURSIVE.reset(true);
+			debugger;
 		},
 	] as (() => void)[],
 	challenges: [MULTI_CHALS, NONREC_CHALS] as SingleChallenge[][],

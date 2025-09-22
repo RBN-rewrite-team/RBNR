@@ -294,6 +294,18 @@ export const NON_RECURSIVE = {
 				return player.nonrecu.unocf_j.gte(DC.D_2P37) && player.challenges[1][5].gte(2.25);
 			},
 		});
+		MILESTONES.create('nonrec_25', {
+			requirement: new Decimal(30),
+			currency: 'NRC6挑战次数 & M6-24',
+			displayName: 'M6-25',
+			description: `九头蛇溶液获取^20`,
+			get show() {
+				return player.challenges[1][4].gte(1);
+			},
+			get canDone() {
+				return player.challenges[1][5].gte(30) && player.milestones.nonrec_24;
+			},
+		});
 	},
 	reset(force = false) {
 		if (!this.resetable() && !force) {
