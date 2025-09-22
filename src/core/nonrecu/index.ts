@@ -8,6 +8,7 @@ import { Currencies } from '../currencies';
 import { CHALLENGE } from '../challenge';
 import { DC } from '@/core/constants';
 import { Upgrade } from '../upgrade';
+import { getTotalTheories } from './total-theories';
 
 export const NON_RECURSIVE = {
 	upgrades: {
@@ -265,7 +266,7 @@ export const NON_RECURSIVE = {
 			},
 		});
 		MILESTONES.create('nonrec_22', {
-			requirement: DC.D_2P27,
+			requirement: new Decimal(6e7),
 			currency: 'UNOCF推演次数和2.25NRC6挑战次数',
 			displayName: 'M6-22',
 			description: `朊病毒增速双指数*1.3,只在NRC6和挑战外生效(后续的里程碑都需要2.25NRC6挑战次数)`,
@@ -273,11 +274,11 @@ export const NON_RECURSIVE = {
 				return player.challenges[1][4].gte(1);
 			},
 			get canDone() {
-				return player.nonrecu.unocf_j.gte(DC.D_2P27) && player.challenges[1][5].gte(2.25);
+				return player.nonrecu.unocf_j.gte(6e7) && player.challenges[1][5].gte(2.25);
 			},
 		});
 		MILESTONES.create('nonrec_23', {
-			requirement: DC.D_2P28,
+			requirement: new Decimal(7.5e7),
 			currency: 'UNOCF推演次数',
 			displayName: 'M6-23',
 			description: `加强UNOCF第四效果，UNOCF推演速度^1.75`,
@@ -285,11 +286,11 @@ export const NON_RECURSIVE = {
 				return player.challenges[1][4].gte(1);
 			},
 			get canDone() {
-				return player.nonrecu.unocf_j.gte(DC.D_2P28) && player.challenges[1][5].gte(2.25);
+				return player.nonrecu.unocf_j.gte(7.5e7) && player.challenges[1][5].gte(2.25);
 			},
 		});
 		MILESTONES.create('nonrec_24', {
-			requirement: DC.D_2P37,
+			requirement: new Decimal(1e11),
 			currency: 'UNOCF推演次数',
 			displayName: 'M6-24',
 			description: `推演速度双指数^2`,
@@ -297,11 +298,11 @@ export const NON_RECURSIVE = {
 				return player.challenges[1][4].gte(1);
 			},
 			get canDone() {
-				return player.nonrecu.unocf_j.gte(DC.D_2P37) && player.challenges[1][5].gte(2.25);
+				return player.nonrecu.unocf_j.gte(1e11) && player.challenges[1][5].gte(2.25);
 			},
 		});
 		MILESTONES.create('nonrec_25', {
-			requirement: new Decimal(30),
+			requirement: new Decimal(29),
 			currency: 'NRC6挑战次数 & M6-24',
 			displayName: 'M6-25',
 			description: `九头蛇溶液获取^20`,
@@ -309,7 +310,7 @@ export const NON_RECURSIVE = {
 				return player.challenges[1][4].gte(1);
 			},
 			get canDone() {
-				return player.challenges[1][5].gte(30) && player.milestones.nonrec_24;
+				return player.challenges[1][5].gte(29) && player.milestones.nonrec_24;
 			},
 		});
 	},
@@ -362,6 +363,7 @@ export const NON_RECURSIVE = {
 		if (CHALLENGE.inChallenge(1, 2)) player.hydra.dilute.solution = DC.D_0;
 		if (CHALLENGE.inChallenge(1, 4)) player.hydra.dilute.solution = DC.D_0;
 		if (CHALLENGE.inChallenge(1, 5)) player.hydra.dilute.solution = DC.D_0;
+		if (CHALLENGE.inChallenge(1, 6)) player.hydra.dilute.solution = DC.D_0;
 		if (!player.milestones.nonrec_15) player.hydra.dilute.highestApocalypse = DC.D_0;
 		if (player.nonrecu.studies_bought.includes(0) && !CHALLENGE.inChallenge(1, 3)) {
 			player.hydra.power = player.hydra.power.add(20);
@@ -503,6 +505,9 @@ export const NON_RECURSIVE = {
 		if (player.milestones.nonrec_23) {
 			a = a.pow(1.75);
 		}
+		if (player.nonrecu.studies_bought.includes(26)) {
+			a = a.mul(this.std112());
+		}
 		return a;
 	},
 	UNOCFeff() {
@@ -527,6 +532,15 @@ export const NON_RECURSIVE = {
 		if (player.nonrecu.unocf_j.lt(16384)) d = new Decimal(1);
 
 		if (player.milestones.nonrec_23) d = d.mul(1.3);
+
+		if (CHALLENGE.inChallenge(1, 6)) {
+			[a, b, c, d] = [new Decimal(1), new Decimal(1), new Decimal(1), new Decimal(1)];
+		}
 		return [a, b, c, d];
+	},
+	std112() {
+		let a = getTotalTheories();
+
+		return a.add(1);
 	},
 };

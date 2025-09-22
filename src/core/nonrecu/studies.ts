@@ -438,10 +438,12 @@ export const studies = [
 	}),
 	new Study({
 		id: '112', //26
-		description: '基于非递归定理增加九头蛇溶液效果指数(没做)',
-		cost: new Decimal(1000000),
+		get description() {
+			return `基于总共的非递归理论增加UNOCF推演速度，此推演需要前置M6-25, 42和101<br>效果：×${format(NON_RECURSIVE.std112())}`;
+		},
+		cost: new Decimal(20000),
 		canBuy() {
-			return false;
+			return and(22, 7) && player.milestones.nonrec_25;
 		},
 	}),
 	new Study({

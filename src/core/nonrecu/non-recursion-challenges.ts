@@ -174,4 +174,22 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			}
 		},
 	},
+	{
+		name: '大清算',
+		get descEasy() {
+			return 'UNOCF效果无效，进入挑战时重置九头蛇溶液，当前推演进度被硬上限到推演速度，朊病毒对推演速度造成负面影响（推演速度=10^10(log10 log10 推演/ log10 log10 朊病毒) 当原推演速度和朊病毒同时大于1e10，其余0）';
+		},
+		get descHard() {
+			return this.descEasy;
+		},
+		canEnter() {
+			return player.nonrecu.studies_bought.includes(27);
+		},
+		loop() {
+			// const highest = Dilute.prions().add(1).clampMin(10).log10().log10();
+			// if (player.challenges[1][5].lt(highest)) {
+			// 	player.challenges[1][5] = highest;
+			// }
+		},
+	},
 ] as const;
