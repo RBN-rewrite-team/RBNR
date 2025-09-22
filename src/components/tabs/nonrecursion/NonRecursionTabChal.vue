@@ -78,4 +78,8 @@ import { player } from '@/core/save';
 .main {
 	margin-top: 10px;
 }
+
+tr {
+  height: 400px
+}
 </style>
