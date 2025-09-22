@@ -42,6 +42,8 @@ import { player } from '@/core/save';
 						:layer="1"
 						:chid="3"
 					></TDChallenge>
+				</tr>
+				<tr>
 					<TDChallenge
 						v-if="
 							player.challenges[1][4].gte(1) ||
@@ -67,5 +69,9 @@ import { player } from '@/core/save';
 <style lang="scss" scoped>
 .main {
 	margin-top: 10px;
+}
+
+tr {
+  height: 400px
 }
 </style>
