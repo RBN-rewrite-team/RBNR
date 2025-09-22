@@ -606,6 +606,20 @@ export const Hydra = {
 
 		if (CHALLENGE.inChallenge(1, 4) && base.gt(10))
 			base = base.clampMin(10).log10().log10().add(10);
+		if (CHALLENGE.inChallenge(1, 6)) {
+			if (base.gt(1e10) && player.hydra.dilute.prions.gt(1e10)) {
+				base = base
+					.log10()
+					.log10()
+					.log10()
+					.div(player.hydra.dilute.prions.log10().log10().log10().clampMin(1))
+					.pow10()
+					.pow10()
+					.pow10();
+			} else {
+				base = new Decimal(0);
+			}
+		}
 		return base;
 	},
 	deduceSpeed(i = 0): Decimal {
@@ -724,7 +738,7 @@ export const Hydra = {
 			base = base.pow(player.hydra.dilute.solution.add(10).log10());
 		if (CHALLENGE.inChallenge(1, 3) && player.challenges[1][3].gte(1))
 			base = base.root(player.hydra.dilute.solution.add(10).log10());
-		return base.max(1e10); //不然会炸
+		return base.max(10_000_000_001); //不然会炸 ^2
 	},
 	powerSoftcapNerf(base: Decimal): Decimal {
 		if (!base.gte(this.superSoftcapStart())) return DC.D_1;
@@ -951,6 +965,11 @@ export const Hydra = {
 		if (CHALLENGE.inChallenge(1, 5)) {
 			player.hydra.deduceOrdinal[0] = player.hydra.deduceOrdinal[0].clampMax(1);
 			player.hydra.dilute.solution = player.hydra.dilute.solution.clampMax(0);
+		}
+		if (CHALLENGE.inChallenge(1, 6)) {
+			player.hydra.deduceOrdinal[0] = player.hydra.deduceOrdinal[0].clampMax(
+				this.deduceSpeedBMS(),
+			);
 		}
 		if (player.upgrades[62]) {
 			let NT4Boost = DC.D_1;

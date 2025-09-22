@@ -11,6 +11,7 @@ import StudyTree from '@/components/tabs/nonrecursion/StudyTree.vue';
 import SingleStudy from '@/components/tabs/nonrecursion/SingleStudy.vue';
 import { format, formatWhole } from '@/utils/format';
 import { isDeveloper } from '../save/testing';
+import { wordShift } from '../word-shift';
 
 const StudyTreeRef = ref(null);
 
@@ -40,7 +41,11 @@ function sum(...ids: (number | boolean)[]): number {
 	}
 	return result;
 }
-
+function secInThisReset52717273() {
+	let a = player.nonrecu.secInThisReset;
+	if (player.upgrades['73']) a = a.mul('1e10');
+	return a;
+}
 export type StudyConfig = {
 	id: string;
 	description: string;
@@ -178,10 +183,12 @@ export const studies = [
 	}),
 	new Study({
 		id: '42', //7
-		description: '朊病毒增速×10(需要两次挑战1才能购买)',
+		get description() {
+			return '获得一个棍母(需要两次挑战1才能购买)';
+		},
 		cost: new Decimal(5),
 		canBuy() {
-			return player.challenges[1][0].gte(2);
+			return player.challenges[1][0].gte(2) && player.milestones.nrc_17;
 		},
 	}),
 	new Study({
@@ -205,7 +212,7 @@ export const studies = [
 					.ln()
 					.mul(
 						player.nonrecu.studies_bought.includes(17)
-							? player.nonrecu.secInThisReset.add(1).log10()
+							? secInThisReset52717273().add(1).log10()
 							: 1,
 					)
 					.sub(5),
@@ -305,7 +312,7 @@ export const studies = [
 		id: '71', //16
 		get description() {
 			return `基于本次非递归重置时间提升非递归能量获取<br>效果：×${format(
-				player.nonrecu.secInThisReset
+				secInThisReset52717273()
 					.add(1)
 					.mul(10)
 					.pow(2)
@@ -328,7 +335,7 @@ export const studies = [
 	new Study({
 		id: '72', //17
 		get description() {
-			return `基于本次非递归重置时间提升非递归研究52的效果<br>效果：((x+5)×${format(player.nonrecu.secInThisReset.add(1).log10())})-5`;
+			return `基于本次非递归重置时间提升非递归研究52的效果<br>效果：((x+5)×${format(secInThisReset52717273().add(1).log10())})-5`;
 		},
 		cost: new Decimal(3),
 		canBuy() {
@@ -344,7 +351,7 @@ export const studies = [
 	new Study({
 		id: '73', //18
 		get description() {
-			return `基于本次非递归重置时间提升九头蛇溶液获取<br>效果：×${format(player.nonrecu.secInThisReset.add(1).ln().mul(0.2).add(1))}`;
+			return `基于本次非递归重置时间提升九头蛇溶液获取<br>效果：×${format(secInThisReset52717273().add(1).ln().mul(0.2).add(1))}`;
 		},
 		cost: new Decimal(5),
 		canBuy() {
@@ -431,10 +438,12 @@ export const studies = [
 	}),
 	new Study({
 		id: '112', //26
-		description: '基于非递归定理增加九头蛇溶液效果指数(没做)',
-		cost: new Decimal(1000000),
+		get description() {
+			return `基于总共的非递归理论增加UNOCF推演速度，此推演需要前置M6-25, 42和101<br>效果：×${format(NON_RECURSIVE.std112())}`;
+		},
+		cost: new Decimal(20000),
 		canBuy() {
-			return false;
+			return and(22, 7) && player.milestones.nonrec_25;
 		},
 	}),
 	new Study({
