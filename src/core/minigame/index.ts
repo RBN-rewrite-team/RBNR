@@ -11,6 +11,21 @@ type Replacements = {
 	replacedTo: string;
 	recover?: boolean;
 };
+export type CoreEquipment = {
+	position: 'hea' | 'atk' | 'def';
+	level: number;
+	rarity: number;
+	collaborate: [number, number]; //没做完
+};
+export function equipmentDisplay(eq: CoreEquipment) {
+	let rar = (eq.rarity >= 1.9 ? '<span style="color: cyan">不朽</span>'
+	:(eq.rarity >= 1.8 ? '<span style="color: red">神话</span>'
+	:(eq.rarity >= 1.6 ? '<span style="color: orange">传奇</span>'
+	:(eq.rarity >= 1.4 ? '<span style="color: eqic">史诗</span>'
+	:(eq.rarity >= 1.0 ? '<span style="color: blue">稀有</span>'
+	:('<span>普通</span>'))))))
+	return rar + '#' + (eq.position == 'hea' ? '支持部' : (eq.position == 'atk' ? '打击部' : '防御部')) + '(Lv. ' + eq.level + ')';
+}
 export interface PlayerMinigameData {
 	current_room: number;
 	visited: number[];
@@ -33,6 +48,12 @@ export interface PlayerMinigameData {
 	initializeType: initializeInfo;
 	skillpoint: number;
 	skilltree_bought: number[];
+	coreEquipments: {
+		'hea': CoreEquipment[];
+		'atk': CoreEquipment[];
+		'def': CoreEquipment[];
+	};
+	storeEquipments: CoreEquipment[];
 }
 export function initMiniGameData(): PlayerMinigameData;
 export function initMiniGameData(): PlayerMinigameData {
@@ -62,6 +83,12 @@ export function initMiniGameData(): PlayerMinigameData {
 		},
 		skillpoint: 0,
 		skilltree_bought: [],
+		coreEquipments: {
+			'hea': [],
+			'atk': [],
+			'def': [],
+		},
+		storeEquipments: [],
 	} satisfies PlayerMinigameData;
 	return a;
 }

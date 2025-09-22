@@ -15,10 +15,12 @@
 import ModalService from '@/utils/Modal';
 import { player } from '../save';
 import { guardBattleInfo, meBattleInfo, runBattleFast } from './battle';
-import { currentPlayerLV, getWorldLevel } from '.';
+import { currentPlayerLV, getWorldLevel, equipmentDisplay } from '.';
 import { addReplace, getCurrentBlock, positionDirection } from './room';
 import { temp } from '../temp-data';
 import { runDeath } from './death-function';
+
+import {type CoreEquipment} from '.';
 
 /**
  * 游戏物体 Nothingness（这里什么都没有）
@@ -175,6 +177,7 @@ export class EntityGameObject extends GameObject {
 	tier: number;
 	type: number = 1;
 	innerText = '实体';
+	rate = 2;
 	constructor(tier: number) {
 		super();
 		this.tier = tier;
@@ -192,6 +195,22 @@ export class EntityGameObject extends GameObject {
 			return `<span style="color: red">HP-${battlestatus.extendinfo.hp_cost.toFixed(1)}</span>`;
 		return `<span style="color: green">HP-${battlestatus.extendinfo.hp_cost.toFixed(1)}</span>`;
 	}
+	spoilsDecide() {
+		let baseGain = Math.random() * this.rate;
+		let list: CoreEquipment[] = [];
+		while(baseGain >= 1)
+		{
+			let pos = Math.floor(Math.random() * 3);
+			list.push({
+				position: (pos == 0 ? 'hea' : (pos == 1 ? 'atk' : 'def')),
+				level: getWorldLevel(),
+				rarity: Math.random() * 2, //直接倍率加成等级
+				collaborate: [-1, -1], //没做完
+			});
+			baseGain--;
+		}
+		return list;
+	}
 	interact(x: bigint, y: bigint): void {
 		let guardinfo = guardBattleInfo(this.tier, this.type);
 		player.minigame.interact = 1;
@@ -202,7 +221,16 @@ export class EntityGameObject extends GameObject {
 		} else {
 			player.minigame.hp = battlestatus.hp_after_battle;
 			addReplace(player.minigame.current_room, x, y, '0', true);
+			let spoils = this.spoilsDecide();
+			for(let i in spoils) {
+				player.minigame.storeEquipments.push(spoils[i]);
+			}
 			player.minigame.xp += guardinfo.xp;
+			temp.minigametip = '战斗胜利<br>';
+			temp.minigametip += '获得了<span style="color: gold">' + guardinfo.xp + '</span>XP<br>';
+			for(let i in spoils) {
+				temp.minigametip += '获得了' + equipmentDisplay(spoils[i]) + '<br>';
+			}
 		}
 		player.minigame.interact = 0;
 	}
@@ -210,24 +238,28 @@ export class EntityGameObject extends GameObject {
 export class GuardGameObject extends EntityGameObject {
 	tier = 1;
 	type = 1;
+	rate = 2;
 	innerText: string = '守卫';
 	constructor(type: number) {
 		super(1);
 		this.tier = getWorldLevel();
 		this.type = type;
-		if (type == 3) this.innerText = '高级守卫';
-		if (type == 4) this.innerText = '重型守卫';
-		if (type == 5) this.innerText = '魔法师';
+		if (type == 3) this.innerText = '高级守卫', this.rate = 2.2;
+		if (type == 4) this.innerText = '重型守卫', this.rate = 2.5;
+		if (type == 5) this.innerText = '魔法师', this.rate = 2.5;
 	}
 }
 export class BossGameObject extends EntityGameObject {
 	tier = 2;
 	type = 2;
+	rate = 4;
 	innerText: string = '守卫队长';
-	constructor() {
+	constructor(type: number = 2) {
 		super(1);
 		this.tier = getWorldLevel();
 		this.type = 2;
+		this.rate = 2;
+		if (type == 6) this.innerText = '使徒', this.rate = 5;
 	}
 }
 export class BoxGameObject extends GameObject {

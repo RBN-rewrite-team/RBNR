@@ -267,13 +267,6 @@ export function map2_block(x: number, y: number) {
 	if (x == 32 && y == 35) return new MoveableBoxGameObject();
 	if (x == 35 && y == 39) return new SwitchGameObject();
 	if (x == 23 && y == 40)
-		return new (class extends BossGameObject {
-			constructor() {
-				super();
-				this.type = 6;
-				this.tier = 6;
-			}
-			innerText: string = '使徒';
-		})();
+		return new BossGameObject(6);
 	return null;
 }
