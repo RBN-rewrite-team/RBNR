@@ -724,7 +724,7 @@ export const Hydra = {
 			base = base.pow(player.hydra.dilute.solution.add(10).log10());
 		if (CHALLENGE.inChallenge(1, 3) && player.challenges[1][3].gte(1))
 			base = base.root(player.hydra.dilute.solution.add(10).log10());
-		return base.max(1e10); //不然会炸
+		return base.max(10_000_000_001); //不然会炸 ^2
 	},
 	powerSoftcapNerf(base: Decimal): Decimal {
 		if (!base.gte(this.superSoftcapStart())) return DC.D_1;
@@ -937,6 +937,7 @@ export const Hydra = {
 		if (!keepHP) player.hydra.power = DC.D_0;
 	},
 	hydraUpdate(diff = 0): void {
+		debugger;
 		if (Dilute.diluteAmount(8)) diff /= 1000;
 		for (let i = 0; i < 4; i++) {
 			player.hydra.deduceProgress[i] = player.hydra.deduceProgress[i].add(

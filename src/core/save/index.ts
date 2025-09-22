@@ -12,7 +12,6 @@ import { stopGameLoop } from '../game-loop';
 import { OrdinalUtils } from '@/utils/ordinal';
 import { calculate } from '@/utils/bms-analyze';
 import { displayOrd } from '@/lib/ordinal';
-import { createDeepValidatedReactive } from '../check-decimal-nan';
 import { NON_RECURSIVE } from '../nonrecu/index.ts';
 import { initMiniGameData, hardResetMiniGame, type PlayerMinigameData } from '../minigame/index.ts';
 import { DC } from '@/core/constants';
@@ -607,7 +606,7 @@ export function loadSaves() {
 		console.error('Cannot load save');
 		throw error;
 	}
-	player = createDeepValidatedReactive(player);
+	player = reactive(player);
 }
 
 export function save() {
@@ -641,7 +640,7 @@ export function import_file(): void {
 				try {
 					player = getInitialPlayerData();
 					loadFromString(save);
-					player = createDeepValidatedReactive(player);
+					player = reactive(player);
 					savefunc();
 					location.reload();
 				} catch {
