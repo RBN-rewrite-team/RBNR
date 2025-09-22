@@ -606,6 +606,20 @@ export const Hydra = {
 
 		if (CHALLENGE.inChallenge(1, 4) && base.gt(10))
 			base = base.clampMin(10).log10().log10().add(10);
+		if (CHALLENGE.inChallenge(1, 6)) {
+			if (base.gt(1e10) && player.hydra.dilute.prions.gt(1e10)) {
+				base = base
+					.log10()
+					.log10()
+					.log10()
+					.div(player.hydra.dilute.prions.log10().log10().log10().clampMin(1))
+					.pow10()
+					.pow10()
+					.pow10();
+			} else {
+				base = new Decimal(0);
+			}
+		}
 		return base;
 	},
 	deduceSpeed(i = 0): Decimal {
@@ -937,7 +951,6 @@ export const Hydra = {
 		if (!keepHP) player.hydra.power = DC.D_0;
 	},
 	hydraUpdate(diff = 0): void {
-		debugger;
 		if (Dilute.diluteAmount(8)) diff /= 1000;
 		for (let i = 0; i < 4; i++) {
 			player.hydra.deduceProgress[i] = player.hydra.deduceProgress[i].add(
@@ -952,6 +965,11 @@ export const Hydra = {
 		if (CHALLENGE.inChallenge(1, 5)) {
 			player.hydra.deduceOrdinal[0] = player.hydra.deduceOrdinal[0].clampMax(1);
 			player.hydra.dilute.solution = player.hydra.dilute.solution.clampMax(0);
+		}
+		if (CHALLENGE.inChallenge(1, 6)) {
+			player.hydra.deduceOrdinal[0] = player.hydra.deduceOrdinal[0].clampMax(
+				this.deduceSpeedBMS(),
+			);
 		}
 		if (player.upgrades[62]) {
 			let NT4Boost = DC.D_1;

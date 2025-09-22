@@ -317,7 +317,7 @@ function getInitialPlayerData(): Player {
 		stat: getInitialStat(),
 		challenges: [
 			[DC.D_0, DC.D_0, DC.D_0, DC.D_0, DC.D_0],
-			[DC.D_0, DC.D_0, DC.D_0, DC.D_0, DC.D_0, DC.D_0],
+			[DC.D_0, DC.D_0, DC.D_0, DC.D_0, DC.D_0, DC.D_0, DC.D_0],
 		],
 		challengein: [-1, -1],
 		singularity: {
