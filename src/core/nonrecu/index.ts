@@ -30,6 +30,12 @@ export const NON_RECURSIVE = {
 			name = 'U6-UNOCF-1';
 			currency: Currencies = Currencies.NONREC;
 		})(),
+		'73': new (class extends Upgrade {
+			description: string | (() => string) = '相对于外界，研究52|71|72|73的时间流逝快1000倍';
+			cost = new Decimal('1e750');
+			name = 'U6-3';
+			currency: Currencies = Currencies.NONREC;
+		})(),
 	} as const,
 	initMechanics() {
 		MILESTONES.create('nonrec_1', {
@@ -235,7 +241,7 @@ export const NON_RECURSIVE = {
 			},
 		});
 		MILESTONES.create('nonrec_20', {
-			requirement: new Decimal(80),
+			requirement: new Decimal(70),
 			currency: 'NRC5次数',
 			displayName: 'M6-20',
 			description: `UNOCF推演速度*1,000`,
@@ -243,7 +249,7 @@ export const NON_RECURSIVE = {
 				return player.challenges[1][4].gte(1);
 			},
 			get canDone() {
-				return player.challenges[1][4].gte(80);
+				return player.challenges[1][4].gte(70);
 			},
 		});
 		MILESTONES.create('nonrec_21', {
