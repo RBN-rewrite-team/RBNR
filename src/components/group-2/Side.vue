@@ -255,8 +255,7 @@ import { getI18NData } from '@/core/i18n-data.ts';
 							@click="player.currentTab = 26"
 							v-if="
 								(player.firstResetBit & 0b10000) == 0b10000 &&
-								player.milestones.nonrec_19 &&
-								isTester()
+								player.milestones.nonrec_19
 							"
 						>
 							UNOCF
