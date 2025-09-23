@@ -845,7 +845,7 @@ const Dil = {
 			else player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + trueDiff / 1000;
 			if (
 				(!player.upgrades['614S'] || CHALLENGE.inChallenge(1, 2)) &&
-				player.hydra.dilute.spentTime>(s3Eff)
+				player.hydra.dilute.spentTime > s3Eff
 			) {
 				ModalService.show({
 					title: '已退出稀释',
@@ -918,7 +918,7 @@ const Dil = {
 		return player.hydra.dilute.solvent[id];
 	},
 	solutionGain(getCurrentMax = false): Decimal {
-	  const getAmountFunction = getCurrentMax ? Dilute.diluteAmountOutside : Dilute.diluteAmount
+		const getAmountFunction = getCurrentMax ? Dilute.diluteAmountOutside : Dilute.diluteAmount;
 		let base: number = Array(6)
 			.fill(null)
 			.map((_, index) => getAmountFunction(index as IntClosedRange<0, 5>))
@@ -930,18 +930,15 @@ const Dil = {
 		let ConstantMax = new Decimal(100);
 		if (
 			!(CHALLENGE.inChallenge(1, 3) && player.challenges[1][3].gte(1)) &&
-			player.nonrecu.studies_bought.includes(2) && !getCurrentMax
+			player.nonrecu.studies_bought.includes(2) &&
+			!getCurrentMax
 		)
 			ConstantMax = ConstantMax.add(
 				player.hydra.deduceOrdinal[0].add(1).ln().add(1).slog(10).add(1).pow(2).mul(10),
 			);
-		const deduceMult = getCurrentMax ? baseDecimal
-			.min(ConstantMax) :
-			player.hydra.deduceOrdinal[0]
-			.add(1)
-			.ln()
-			.min(baseDecimal)
-			.min(ConstantMax);
+		const deduceMult = getCurrentMax
+			? baseDecimal.min(ConstantMax)
+			: player.hydra.deduceOrdinal[0].add(1).ln().min(baseDecimal).min(ConstantMax);
 		if (player.nonrecu.studies_bought.includes(18))
 			baseDecimal = baseDecimal.mul(
 				player.nonrecu.secInThisReset.add(1).ln().mul(0.1).add(1).min(10),

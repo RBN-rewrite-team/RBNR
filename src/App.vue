@@ -103,9 +103,7 @@ import { isTester } from './core/save/testing.ts';
 				<PlotTab v-if="player.currentTab === 200" />
 				<SaveBank v-if="player.currentTab === 300" />
 				<MiniGame v-if="player.currentTab === 1225" />
-				<NonRecursionUNOCF
-					v-if="player.currentTab === 26"
-				></NonRecursionUNOCF>
+				<NonRecursionUNOCF v-if="player.currentTab === 26"></NonRecursionUNOCF>
 			</div>
 		</div>
 	</div>

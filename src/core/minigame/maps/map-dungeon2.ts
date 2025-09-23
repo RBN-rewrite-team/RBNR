@@ -266,7 +266,6 @@ export function map2_block(x: number, y: number) {
 	if (x == 23 && y == 42) return new BoxGameObject(3);
 	if (x == 32 && y == 35) return new MoveableBoxGameObject();
 	if (x == 35 && y == 39) return new SwitchGameObject();
-	if (x == 23 && y == 40)
-		return new BossGameObject(6);
+	if (x == 23 && y == 40) return new BossGameObject(6);
 	return null;
 }

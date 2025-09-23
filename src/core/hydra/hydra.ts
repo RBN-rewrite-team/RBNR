@@ -622,7 +622,7 @@ export const Hydra = {
 				base = new Decimal(0);
 			}
 		}
-		return base.min("eee8.07230472602822538e153"); //SHO
+		return base.min('eee8.07230472602822538e153'); //SHO
 	},
 	deduceSpeed(i = 0): Decimal {
 		//推演的速度
