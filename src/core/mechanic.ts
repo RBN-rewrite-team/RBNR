@@ -21,7 +21,6 @@ import { ORDINAL_BOOSTER } from './ordinal/ordinal-booster.ts';
 import { Hydra } from './hydra/hydra.ts';
 import { Dilute, DiluteUpgrades } from './hydra/dilute.ts';
 import type { Upgrade } from './upgrade.ts';
-import { getI18NData } from './i18n-data.ts';
 import { DC } from '@/core/constants';
 import { getMCB19Effect, wgEffect } from './exponention/chessboard.ts';
 import { NON_RECURSIVE } from './nonrecu/index.ts';
@@ -174,16 +173,15 @@ export const BUYABLES = {
 					buyables[id].effectDilated(player.buyables[id].add(canBuy.max(1)))[1] +
 					'<br>';
 			str +=
-				getI18NData('cost_function')(
-					buyables[id].ordinal
-						? OrdinalUtils.numberToOrdinal(
-								buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0))),
-								ORDINAL.base(),
-							)
-						: format(buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0)))),
-					currencyName(buyables[id].currency),
-				) +
-				(canBuy.gte(1) ? getI18NData('buymax_function')(formatWhole(canBuy)) : '') +
+				'价格：' +
+				(buyables[id].ordinal
+					? OrdinalUtils.numberToOrdinal(
+							buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0))),
+							ORDINAL.base(),
+						)
+					: format(buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0))))) +
+				currencyName(buyables[id].currency) +
+				(canBuy.gte(1) ? '(买' + formatWhole(canBuy) + '个)' : '') +
 				'<br>';
 		}
 
