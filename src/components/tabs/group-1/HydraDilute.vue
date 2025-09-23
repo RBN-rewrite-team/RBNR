@@ -117,11 +117,12 @@ function delPreset(preset: string) {
 					? Dilute.diluteAmountOutside(4)
 						? '可能会自毁'
 						: '不会自毁'
-					: '将会在' + a.toFixed(3) + '秒后自毁';
+					: '将会在' + format(a, 3) + '秒后自毁';
 			})()
 		}}<br />
 	</div>
 	部分溶剂将限制溶剂I的最低等级!<br />
+	当前溶剂配置对应获取的溶液数量上限：{{format(Dilute.solutionGain(true))}}<br>
 	<div class="container" style="transform: translateY(-10px)">
 		<div class="dilute">
 			<div>至少选择任何一项溶剂并提升它的等级以进入稀释</div>

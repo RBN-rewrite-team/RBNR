@@ -917,11 +917,15 @@ const Dil = {
 		}
 		return player.hydra.dilute.solvent[id];
 	},
-	solutionGain(): Decimal {
+	solutionGain(getCurrentMax = false): Decimal {
 		let base: number = Array(6)
 			.fill(null)
 			.map((_, index) => Dilute.diluteAmount(index as IntClosedRange<0, 5>))
 			.reduce((tot, num) => tot + num * num);
+		if (getCurrentMax) base = Array(6)
+			.fill(null)
+			.map((_, index) => Dilute.diluteAmountOutside(index as IntClosedRange<0, 5>))
+			.reduce((tot, num) => tot + num * num)
 		if (this.diluteAmount(6)) base *= 5;
 		if (this.diluteAmount(7)) base *= 10;
 		if (this.diluteAmount(8)) base *= 100;
@@ -929,12 +933,14 @@ const Dil = {
 		let ConstantMax = new Decimal(100);
 		if (
 			!(CHALLENGE.inChallenge(1, 3) && player.challenges[1][3].gte(1)) &&
-			player.nonrecu.studies_bought.includes(2)
+			player.nonrecu.studies_bought.includes(2) && !getCurrentMax
 		)
 			ConstantMax = ConstantMax.add(
 				player.hydra.deduceOrdinal[0].add(1).ln().add(1).slog(10).add(1).pow(2).mul(10),
 			);
-		const deduceMult = player.hydra.deduceOrdinal[0]
+		const deduceMult = getCurrentMax ? baseDecimal
+			.min(ConstantMax) :
+			player.hydra.deduceOrdinal[0]
 			.add(1)
 			.ln()
 			.min(baseDecimal)

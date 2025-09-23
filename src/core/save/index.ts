@@ -89,6 +89,7 @@ export interface Player {
 		well_ordering: {
 		  selecting: number;
 		  energy: Decimal;
+		  pages: FixedLengthArray<number, 10>;
 		}
 	};
 	currentTab: number;
@@ -279,7 +280,8 @@ function getInitialPlayerData(): Player {
 			},
 			well_ordering: {
 			  selecting: 1,
-			  energy: DC.D_0
+			  energy: DC.D_0,
+			  pages: [1,1,1,1,1,1,1,1,1,1]
 			}
 		},
 		currentTab: 0,
