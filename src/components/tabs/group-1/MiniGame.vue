@@ -1,4 +1,5 @@
 <script setup lang="ts">
+//@ts-nocheck
 import {
 	currentPlayerLV,
 	nextLVxp,
@@ -101,6 +102,7 @@ function exitEditor() {
 }
 function openCore() {
 	temp.openingCore = !temp.openingCore;
+	//@ts-ignore
 	if(temp.openingCore && temp.coreViewEquipment.rarity == undefined)
 	{
 		if(player.minigame.storeEquipments.length == 0)
@@ -124,7 +126,7 @@ function openCore() {
 	}
 }
 
-function changeCoreView(eq: coreEquipment) {
+function changeCoreView(eq: CoreEquipment) {
 	temp.coreViewEquipment = eq;
 }
 </script>
@@ -253,7 +255,7 @@ function changeCoreView(eq: coreEquipment) {
 			" :style="{'border-color': temp.coreViewColor()}">
 				<div v-if="temp.coreViewEquipment.rarity != undefined">
 					<span v-html="equipmentDisplay(temp.coreViewEquipment)" /><br>
-					真实等级{{equipmentAttribute(temp.coreViewEquipment).realLevel.toFixed(1)}}(稀有度加成{{(temp.coreViewEquipment.rarity ** 2 * 100).toFixed(1)}}%)<br>
+					真实等级{{equipmentAttribute(temp.coreViewEquipment).realLevel.toFixed(1)}}(稀有度加成{{((temp.coreViewEquipment.rarity ?? 0) ** 2 * 100).toFixed(1)}}%)<br>
 					生命值+{{equipmentAttribute(temp.coreViewEquipment).hea.toFixed(1)}}<br>
 					攻击力+{{equipmentAttribute(temp.coreViewEquipment).atk.toFixed(1)}}<br>
 					防御力+{{equipmentAttribute(temp.coreViewEquipment).def.toFixed(1)}}<br>
