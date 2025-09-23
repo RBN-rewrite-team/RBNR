@@ -17,7 +17,13 @@ export type CoreEquipment = {
 	rarity: number;
 	collaborate: [number, number]; //没做完
 };
-export function equipmentDisplay(eq: CoreEquipment) {
+export type CoreEquipmentAttribute = {
+	realLevel: number;
+	hea: number;
+	atk: number;
+	def: number;
+};
+export function equipmentDisplay(eq: CoreEquipment): string {
 	let rar =
 		eq.rarity >= 1.9
 			? '<span style="color: cyan">不朽</span>'
@@ -26,7 +32,7 @@ export function equipmentDisplay(eq: CoreEquipment) {
 				: eq.rarity >= 1.6
 					? '<span style="color: orange">传奇</span>'
 					: eq.rarity >= 1.4
-						? '<span style="color: eqic">史诗</span>'
+						? '<span style="color: purple">史诗</span>'
 						: eq.rarity >= 1.0
 							? '<span style="color: blue">稀有</span>'
 							: '<span>普通</span>';
@@ -38,6 +44,15 @@ export function equipmentDisplay(eq: CoreEquipment) {
 		eq.level +
 		')'
 	);
+}
+export function equipmentAttribute(eq: CoreEquipment): CoreEquipmentAttribute {
+	let realLevel = eq.level * (eq.rarity ** 2);
+	return {
+		realLevel: realLevel,
+		hea: realLevel * 4 * (eq.position == 'hea' ? 1 : 0.2),
+		atk: realLevel * 1 * (eq.position == 'atk' ? 1 : 0.2),
+		def: realLevel * 0.4 * (eq.position == 'def' ? 1 : 0.2),
+	};
 }
 export interface PlayerMinigameData {
 	current_room: number;

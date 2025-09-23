@@ -223,6 +223,11 @@ export class EntityGameObject extends GameObject {
 			let spoils = this.spoilsDecide();
 			for (let i in spoils) {
 				player.minigame.storeEquipments.push(spoils[i]);
+				if(player.minigame.storeEquipments.length >= 50)
+				{
+					player.minigame.storeEquipments = player.minigame.storeEquipments
+					.sort(function(a, b){return -a.level * a.rarity ** 2 + b.level * b.rarity ** 2;}).filter((item, index) => {return index < 50});
+				}
 			}
 			player.minigame.xp += guardinfo.xp;
 			temp.minigametip = '战斗胜利<br>';
