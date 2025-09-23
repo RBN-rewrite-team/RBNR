@@ -101,7 +101,7 @@ function exitEditor() {
 }
 function openCore() {
 	temp.openingCore = !temp.openingCore;
-	if(temp.openingCore && temp.coreViewEquipment.rarity == undefined)
+	if(temp.openingCore && temp.coreViewEquipment !== null)
 	{
 		if(player.minigame.storeEquipments.length == 0)
 		{
@@ -124,7 +124,7 @@ function openCore() {
 	}
 }
 
-function changeCoreView(eq: coreEquipment) {
+function changeCoreView(eq: CoreEquipment) {
 	temp.coreViewEquipment = eq;
 }
 </script>
@@ -251,7 +251,7 @@ function changeCoreView(eq: coreEquipment) {
 				border: 2px solid red;
 				position: relative;
 			" :style="{'border-color': temp.coreViewColor()}">
-				<div v-if="temp.coreViewEquipment.rarity != undefined">
+				<div v-if="temp.coreViewEquipment !== null">
 					<span v-html="equipmentDisplay(temp.coreViewEquipment)" /><br>
 					真实等级{{equipmentAttribute(temp.coreViewEquipment).realLevel.toFixed(1)}}(稀有度加成{{(temp.coreViewEquipment.rarity ** 2 * 100).toFixed(1)}}%)<br>
 					生命值+{{equipmentAttribute(temp.coreViewEquipment).hea.toFixed(1)}}<br>
@@ -268,7 +268,7 @@ function changeCoreView(eq: coreEquipment) {
 				border: 2px solid red;
 				overflow: auto;
 			">
-				<table><td style="width: 30%; border: 0px solid red">
+				<table><tbody><td style="width: 30%; border: 0px solid red">
 				<div v-if="player.minigame.coreEquipments.hea.length > 0"
 				style="
 					height: 50px;
@@ -321,7 +321,7 @@ function changeCoreView(eq: coreEquipment) {
 					border: 2px solid var(--color);
 				" v-else>
 					未装备防御部
-				</div></td></table>
+				</div></td></tbody></table>
 				
 				<div style="display: inline-block; width: calc(90% / 3 - 20px); margin: 10px; border: 2px solid red"
 				v-for="(item, index) in player.minigame.storeEquipments.sort(function(a, b){return -a.level * a.rarity ** 2 + b.level * b.rarity ** 2;})" :key="index" :style="{'border-color': temp.coreViewColor(item)}"
