@@ -439,7 +439,7 @@ export const studies = [
 	new Study({
 		id: '112', //26
 		get description() {
-			return `基于总共的非递归理论增加UNOCF推演速度，此推演需要前置M6-25, 42和101<br>效果：×${format(NON_RECURSIVE.std112())}`;
+			return `基于总共的非递归理论增加UNOCF推演速度，解锁NRC7;此推演需要前置M6-25, 42和101<br>效果：×${format(NON_RECURSIVE.std112())}`;
 		},
 		cost: new Decimal(20000),
 		canBuy() {

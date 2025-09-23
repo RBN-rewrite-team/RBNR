@@ -603,7 +603,9 @@ export const Hydra = {
 				);
 		}
 		if (CHALLENGE.inChallenge(1, 1)) base = base.min(player.nonrecu.power.cbrt().pow_base(10));
-
+		if (player.upgrades[74] && player.nonrecu.studies_bought.includes(13)) {
+			base = base.pow(Dilute.solutionEff().eff2);
+		}
 		if (CHALLENGE.inChallenge(1, 4) && base.gt(10))
 			base = base.clampMin(10).log10().log10().add(10);
 		if (CHALLENGE.inChallenge(1, 6)) {

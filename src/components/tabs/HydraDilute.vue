@@ -100,7 +100,9 @@ function delPreset(preset: string) {
 	你有<b style="color: red; font-size: 30px">{{ format(getCurrentSolution()) }}</b
 	><span v-if="player.hydra.dilute.inDilute">(本次{{ format(Dilute.solutionGain()) }})</span
 	>九头蛇溶液<br />
-	推演速度×{{ format(Dilute.solutionEff().eff1) }}<br />
+	推演速度×{{ format(Dilute.solutionEff().eff1)
+	}}<template v-if="player.upgrades[74]">, ^{{ format(Dilute.solutionEff().eff2) }}</template
+	><br />
 	<span v-if="player.upgrades['69S'] || player.hydra.dilute.prions.gt(1)"
 		>你有<b style="color: red; font-size: 30px">{{ format(Dilute.prions()) }}</b
 		><span v-if="!player.upgrades['69S']"

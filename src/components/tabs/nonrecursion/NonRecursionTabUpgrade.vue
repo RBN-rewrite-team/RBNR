@@ -10,6 +10,7 @@ import TDUpgrade from '@/components/TDUpgrade.vue';
 					<TDUpgrade upgid="71"></TDUpgrade>
 					<TDUpgrade upgid="72"></TDUpgrade>
 					<TDUpgrade upgid="73"></TDUpgrade>
+					<TDUpgrade upgid="74"></TDUpgrade>
 				</tr>
 			</tbody>
 		</table>

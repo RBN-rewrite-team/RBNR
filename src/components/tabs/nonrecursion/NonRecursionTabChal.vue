@@ -63,7 +63,7 @@ import { player } from '@/core/save';
 					<TDChallenge
 						v-if="
 							player.challenges[1][6].gte(1) ||
-							player.nonrecu.studies_bought.includes(27)
+							player.nonrecu.studies_bought.includes(26)
 						"
 						:layer="1"
 						:chid="6"
@@ -80,6 +80,6 @@ import { player } from '@/core/save';
 }
 
 tr {
-  height: 400px
+	height: 400px;
 }
 </style>
