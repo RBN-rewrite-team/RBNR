@@ -845,7 +845,7 @@ const Dil = {
 			else player.hydra.dilute.spentTime = player.hydra.dilute.spentTime + trueDiff / 1000;
 			if (
 				(!player.upgrades['614S'] || CHALLENGE.inChallenge(1, 2)) &&
-				player.hydra.dilute.spentTime > s3Eff
+				player.hydra.dilute.spentTime.gte(s3Eff)
 			) {
 				ModalService.show({
 					title: '已退出稀释',

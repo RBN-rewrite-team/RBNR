@@ -112,7 +112,7 @@ function delPreset(preset: string) {
 	<div v-if="!player.upgrades['614S'] || CHALLENGE.inChallenge(1, 2)">
 		启动稀释后，溶剂{{
 			(() => {
-				let a = Dilute.sol3EffOutside() - player.hydra.dilute.spentTime;
+				let a = Dilute.sol3EffOutside().sub(player.hydra.dilute.spentTime);
 				return !isFinite(a)
 					? Dilute.diluteAmountOutside(4)
 						? '可能会自毁'
