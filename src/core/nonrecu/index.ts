@@ -319,6 +319,18 @@ export const NON_RECURSIVE = {
 				return player.challenges[1][5].gte(29) && player.milestones.nonrec_24;
 			},
 		});
+		MILESTONES.create('nonrec_26', {
+			requirement: new Decimal(1),
+			currency: 'NRC7挑战次数',
+			displayName: 'M6-26',
+			description: `解锁<b>数论研究5 - 良序性</b>`,
+			get show() {
+				return player.milestones.nonrec_25;
+			},
+			get canDone() {
+				return player.challenges[1][6].gte(1);
+			},
+		});
 	},
 	reset(force = false) {
 		if (!this.resetable() && !force) {

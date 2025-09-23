@@ -86,6 +86,9 @@ export interface Player {
 		GM: {
 			x: Decimal;
 		};
+		well_ordering: {
+		  selecting: number;
+		}
 	};
 	currentTab: number;
 	addpower: Decimal;
@@ -273,6 +276,9 @@ function getInitialPlayerData(): Player {
 			GM: {
 				x: DC.D_0,
 			},
+			well_ordering: {
+			  selecting: 1
+			}
 		},
 		currentTab: 0,
 		totalAddpower: DC.D_0,
