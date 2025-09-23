@@ -47,6 +47,7 @@ export function unlockedPlots() {
 	if (player.stat.chapter >= 6) a++;
 	if (player.challenges[1][0].gt(0)) a++;
 	if (player.milestones.nonrec_24) a++;
+	if (player.challenges[1][6].gt(0)) a++;
 	return a;
 }
 export function viewedPlotLength() {
@@ -219,6 +220,15 @@ export const plots = [
 		'???\tHydra\t不要太爽了，你还没过Small Hydra Ordinal。',
 		'Numerorum\t...时间总有一天会击败你的',
 		'???\tHydra\t实践(时间)是谁？',
+	],
+	[
+		'Numerorum\tUNOCF也太强了，但是我还没到达(0)(1³)(2³)(3³)...',
+		'VeryRDefie\t其实可以这样……',
+		'VeryRDefie展示了新的强大非递归研究(coming s∞n)。',
+		'Numerorum\t唉，确实。',
+		'???\tHydra\t...',
+		'VeryRDefie\t嗯？那个神秘的声音又出现了，他很令人<$bx>，散播ω病毒的就是他。',
+		'???\tHydra\t你们两个会遭到',
 	],
 ];
 export function plotLength(id: number): number {

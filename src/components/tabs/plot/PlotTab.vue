@@ -91,6 +91,11 @@ function enterPlot(i: number) {
 					><span style="font-size: 50%">M-6-24</span></template
 				><template v-else><vue-latex expression="?"></vue-latex></template>
 			</PlotNode>
+			<PlotNode style="top: 400px; left: 202.5px" @click="enterPlot(17)">
+				<template v-if="unlockedPlots() >= 17"
+					><span style="font-size: 50%">NRC7</span></template
+				><template v-else><vue-latex expression="?"></vue-latex></template>
+			</PlotNode>
 		</div>
 	</div>
 </template>
