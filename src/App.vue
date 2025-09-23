@@ -104,7 +104,7 @@ import { isTester } from './core/save/testing.ts';
 				<SaveBank v-if="player.currentTab === 300" />
 				<MiniGame v-if="player.currentTab === 1225" />
 				<NonRecursionUNOCF
-					v-if="player.currentTab === 26 && isTester()"
+					v-if="player.currentTab === 26"
 				></NonRecursionUNOCF>
 			</div>
 		</div>
