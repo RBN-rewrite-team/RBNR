@@ -46,7 +46,7 @@ export function equipmentDisplay(eq: CoreEquipment): string {
 	);
 }
 export function equipmentAttribute(eq: CoreEquipment): CoreEquipmentAttribute {
-	let realLevel = eq.level * (eq.rarity ** 2);
+	let realLevel = eq.level * eq.rarity ** 2;
 	return {
 		realLevel: realLevel,
 		hea: realLevel * 4 * (eq.position == 'hea' ? 1 : 0.2),

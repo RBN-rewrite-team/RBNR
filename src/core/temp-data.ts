@@ -1,5 +1,5 @@
 import { reactive } from 'vue';
-import { type CoreEquipment } from "./minigame/index.ts"
+import { type CoreEquipment } from './minigame/index.ts';
 
 export const temp = reactive({
 	select_ach: [0, 0],
@@ -12,14 +12,14 @@ export const temp = reactive({
 		return window.innerWidth;
 	},
 	openingCore: false,
-	coreViewEquipment: null as (null | CoreEquipment),
+	coreViewEquipment: null as null | CoreEquipment,
 	coreViewColor(eq = temp.coreViewEquipment): string {
 		let r = eq?.rarity ?? 0;
-		if(r >= 1.9) return 'cyan';
-		if(r >= 1.8) return 'red';
-		if(r >= 1.6) return 'orange';
-		if(r >= 1.4) return 'purple';
-		if(r >= 1.0) return 'blue';
+		if (r >= 1.9) return 'cyan';
+		if (r >= 1.8) return 'red';
+		if (r >= 1.6) return 'orange';
+		if (r >= 1.4) return 'purple';
+		if (r >= 1.0) return 'blue';
 		return 'var(--color)';
-	}
+	},
 });

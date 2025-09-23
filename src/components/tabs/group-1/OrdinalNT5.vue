@@ -99,46 +99,55 @@ function getCurrentSequenceName(): string {
 			</button>
 		</div>
 		<template v-if="player.numbertheory.well_ordering.pages[0] == 0">
-		<div class="center_line" />
-		<p>以下，用 <vue-latex expression="E" /> 表示空序列，用 <vue-latex expression="\frown" /> 表示数列之间的连接。</p>
-		<p>
-			对于数列 <vue-latex expression="S" />，用 <vue-latex expression="\textrm{length}(S)" /> 表示数列 <vue-latex expression="S" /> 的长度，用
-			<vue-latex expression="S_n(n < \textrm{length}(S))" /> 表示 <vue-latex expression="S" /> 的第 <vue-latex expression="n" /> 项，
-		</p>
-		<p>
-			用 <vue-latex expression="S_\Box" /> 表示 <vue-latex expression="S" /> 的末项，用
-			<vue-latex expression="S^+" /> 表示 <vue-latex expression="S" /> 各项加 <vue-latex expression="1" /> 后的数列。
-		</p>
-		<p>
-			对于数列 <vue-latex expression="S" /> 和满足 <vue-latex expression="m" /> <vue-latex expression="\le n \le \textrm{length}(S)" /> 的自然数
-			<vue-latex expression="m,n" />，<br>将满足 <vue-latex expression="T_x = S_{m+x}(\textrm{if}\ x < n-m)" /> 且
-			<vue-latex expression="\textrm{length}(T) = n-m" /> 的唯一数列 <vue-latex expression="T" /> 表示为
-			<vue-latex expression="\textrm{sub}(S,m,n)" />。
-		</p>
+			<div class="center_line" />
+			<p>
+				以下，用 <vue-latex expression="E" /> 表示空序列，用
+				<vue-latex expression="\frown" /> 表示数列之间的连接。
+			</p>
+			<p>
+				对于数列 <vue-latex expression="S" />，用
+				<vue-latex expression="\textrm{length}(S)" /> 表示数列
+				<vue-latex expression="S" /> 的长度，用
+				<vue-latex expression="S_n(n < \textrm{length}(S))" /> 表示
+				<vue-latex expression="S" /> 的第 <vue-latex expression="n" /> 项，
+			</p>
+			<p>
+				用 <vue-latex expression="S_\Box" /> 表示 <vue-latex expression="S" /> 的末项，用
+				<vue-latex expression="S^+" /> 表示 <vue-latex expression="S" /> 各项加
+				<vue-latex expression="1" /> 后的数列。
+			</p>
+			<p>
+				对于数列 <vue-latex expression="S" /> 和满足 <vue-latex expression="m" />
+				<vue-latex expression="\le n \le \textrm{length}(S)" /> 的自然数
+				<vue-latex expression="m,n" />，<br />将满足
+				<vue-latex expression="T_x = S_{m+x}(\textrm{if}\ x < n-m)" /> 且
+				<vue-latex expression="\textrm{length}(T) = n-m" /> 的唯一数列
+				<vue-latex expression="T" /> 表示为 <vue-latex expression="\textrm{sub}(S,m,n)" />。
+			</p>
 
-		<div class="center_line" />
-		<p>下一步：定义由自然数构成的有限长数列的集合 P， P的递归定义是...</p>
-		<div>
-			<button
-				class="clickable_button"
-				@click="stepProceed(1)"
-				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(1)"
-			>
-				获得P的递归定义，消耗10推演能量</button
-			><template v-else>
-				定义由自然数构成的有限长数列的集合 P，递归定义如下：
-				<ul>
-					<li><vue-latex expression="P_0 := \{E\}" /></li>
-					<li>
-						<vue-latex
-							expression="P_{n+1} := P_n \cup \{S \frown (0) \frown T^+ | S \in P_n \land T \in P_n\}"
-						/>
-					</li>
-					<li><vue-latex expression="P := \bigcup_{n \in \mathbb N} P_n" /></li>
-				</ul>
-				<p>已解锁一个引理</p>
-			</template>
-		</div>
+			<div class="center_line" />
+			<p>下一步：定义由自然数构成的有限长数列的集合 P， P的递归定义是...</p>
+			<div>
+				<button
+					class="clickable_button"
+					@click="stepProceed(1)"
+					v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(1)"
+				>
+					获得P的递归定义，消耗10推演能量</button
+				><template v-else>
+					定义由自然数构成的有限长数列的集合 P，递归定义如下：
+					<ul>
+						<li><vue-latex expression="P_0 := \{E\}" /></li>
+						<li>
+							<vue-latex
+								expression="P_{n+1} := P_n \cup \{S \frown (0) \frown T^+ | S \in P_n \land T \in P_n\}"
+							/>
+						</li>
+						<li><vue-latex expression="P := \bigcup_{n \in \mathbb N} P_n" /></li>
+					</ul>
+					<p>已解锁一个引理</p>
+				</template>
+			</div>
 		</template>
 		<div class="center_line" />
 		<template
@@ -149,9 +158,14 @@ function getCurrentSequenceName(): string {
 		>
 			<div>
 				<h3>引理1(未证明)</h3>
-				<p>1. 对于任意 <vue-latex expression="P" /> 的元素 <vue-latex expression="S" />，有 <vue-latex expression="S" /> = <vue-latex expression="E" /> 或 <vue-latex expression="S_0 = 0" />。</p>
 				<p>
-					2. 对于任意 <vue-latex expression="P" /> 的元素 <vue-latex expression="A,B,C,D" />，若
+					1. 对于任意 <vue-latex expression="P" /> 的元素 <vue-latex expression="S" />，有
+					<vue-latex expression="S" /> = <vue-latex expression="E" /> 或
+					<vue-latex expression="S_0 = 0" />。
+				</p>
+				<p>
+					2. 对于任意 <vue-latex expression="P" /> 的元素
+					<vue-latex expression="A,B,C,D" />，若
 					<vue-latex
 						expression="A \frown (0) \frown B^+ = C \frown (0) \frown
 					D^+"
