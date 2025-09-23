@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { player, feature } from '../../core/global.ts';
+import { player, feature } from '../../../core/global.ts';
 import { format, formatWhole } from '@/utils/format';
-import Slider from '../Slider.vue';
+import Slider from '../../group-2/Slider.vue';
 import { Dilute, DiluteTS, tsbhBase } from '@/core/hydra/dilute.ts';
 import { computed, ref } from 'vue';
-import TDUpgrade from '../TDUpgrade.vue';
-import TRMilestone from '../TRMilestone.vue';
+import TDUpgrade from '../../group-2/TDUpgrade.vue';
+import TRMilestone from '../../group-2/TRMilestone.vue';
 import { Currencies, getCurrency } from '@/core/currencies.ts';
 import { CHALLENGE } from '@/core/challenge.ts';
 

@@ -10,7 +10,7 @@ import {
 	type PropType,
 	type CSSProperties,
 } from 'vue';
-import PlusMinusButton from '@/components/PlusMinusButton.vue';
+import PlusMinusButton from '@/components/group-2/PlusMinusButton.vue';
 
 // 代码修改自https://github.com/NightCatSama/vue-slider-component
 /*

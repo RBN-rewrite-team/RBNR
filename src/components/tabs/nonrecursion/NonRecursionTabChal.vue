@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TDChallenge from '@/components/TDChallenge.vue';
+import TDChallenge from '@/components/group-2/TDChallenge.vue';
 import { player } from '@/core/save';
 </script>
 

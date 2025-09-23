@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ORDINAL_BOOSTER } from '@/core/ordinal/ordinal-booster';
-import TDBuyable from '../TDBuyable.vue';
-import TDUpgrade from '../TDUpgrade.vue';
+import TDBuyable from '../../group-2/TDBuyable.vue';
+import TDUpgrade from '../../group-2/TDUpgrade.vue';
 import { format, formatGain } from '@/utils/format';
 </script>
 

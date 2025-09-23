@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import TDUpgrade from '@/components/TDUpgrade.vue';
+import TDUpgrade from '@/components/group-2/TDUpgrade.vue';
 import { player } from '@/core/save';
 import { format, formatLaTeX, formatLaTeXWhole } from '@/utils/format';
 import { UNOCF, UNOCF_milestone } from '@/utils/unocf-mil';
 import { computed } from 'vue';
-import Baixie from '@/components/Baixie.vue';
+import Baixie from '@/components/group-2/Baixie.vue';
 import { NON_RECURSIVE } from '@/core/nonrecu';
 let cur = computed(() =>
 	UNOCF.getUNOCFMilestone(UNOCF.getCurMilestoneIndex(player.nonrecu.unocf_j)),

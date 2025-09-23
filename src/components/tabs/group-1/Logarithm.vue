@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { Logarithm } from '@/core/exponention/logarithm';
-import TDBuyable from '../TDBuyable.vue';
+import TDBuyable from '../../group-2/TDBuyable.vue';
 import { format, formatGain, formatTime } from '@/utils/format';
 import { player } from '@/core/save';
-import ObserveButton from '../ObserveButton.vue';
+import ObserveButton from '../../group-2/ObserveButton.vue';
 </script>
 
 <template>

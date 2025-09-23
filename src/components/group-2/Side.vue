@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { player } from '@/core/save';
-import { Logarithm } from '../core/exponention/logarithm.ts';
+import { Logarithm } from '../../core/exponention/logarithm.ts';
 import { unlockedPlots, viewedPlotLength } from '@/core/plot.ts';
 import { isTester } from '@/core/save/testing.ts';
 import { getI18NData } from '@/core/i18n-data.ts';

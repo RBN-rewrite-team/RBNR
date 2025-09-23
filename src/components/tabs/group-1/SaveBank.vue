@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import SaveBank from '../../core/save/SaveBank.json';
+import SaveBank from '../../../core/save/SaveBank.json';
 import { reactive } from 'vue';
 import { loadFromString, save } from '@/core/save/index.ts';
 import { player } from '@/core/save/index.ts';

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { format, formatWhole } from '@/utils/format';
-import MultipResetButton from '../MultipResetButton.vue';
+import MultipResetButton from '../../group-2/MultipResetButton.vue';
 import { feature, player } from '@/core/global';
 import { buyables } from '@/core/mechanic';
 const pflist = ['2', '3', '5', '7', '11', '13', '17', '19'] as const;
-import TDBuyable from '../TDBuyable.vue';
+import TDBuyable from '../../group-2/TDBuyable.vue';
 import type { PrimeFactorTypes } from '@/core/save';
 </script>
 

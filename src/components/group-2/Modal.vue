@@ -84,7 +84,7 @@
 
 <script lang="ts" setup>
 import { ref, computed, watch, type Component, type VNode, onMounted } from 'vue';
-import type { FieldConfig, ButtonConfig } from '../utils/Modal';
+import type { FieldConfig, ButtonConfig } from '../../utils/Modal';
 import ProgressBar from './ProgressBar';
 
 interface Props {

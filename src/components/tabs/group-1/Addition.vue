@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { feature } from '@/core/global';
 import { player } from '@/core/save';
-import TDUpgrade from '../TDUpgrade.vue';
-import TDBuyable from '../TDBuyable.vue';
-import AdditionResetButton from '../AdditionResetButton.vue';
+import TDUpgrade from '../../group-2/TDUpgrade.vue';
+import TDBuyable from '../../group-2/TDBuyable.vue';
+import AdditionResetButton from '../../group-2/AdditionResetButton.vue';
 
 // code...
 </script>
