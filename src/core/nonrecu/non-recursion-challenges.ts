@@ -183,7 +183,7 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			return this.descEasy;
 		},
 		canEnter() {
-			return player.nonrecu.studies_bought.includes(27);
+			return player.nonrecu.studies_bought.includes(28);
 		},
 		loop() {
 			if (player.hydra.deduceOrdinal[0].gte('e1e4500000')) {
