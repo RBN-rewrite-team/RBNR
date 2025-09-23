@@ -918,17 +918,14 @@ const Dil = {
 		return player.hydra.dilute.solvent[id];
 	},
 	solutionGain(getCurrentMax = false): Decimal {
+	  const getAmountFunction = getCurrentMax ? Dilute.diluteAmountOutside : Dilute.diluteAmount
 		let base: number = Array(6)
 			.fill(null)
-			.map((_, index) => Dilute.diluteAmount(index as IntClosedRange<0, 5>))
+			.map((_, index) => getAmountFunction(index as IntClosedRange<0, 5>))
 			.reduce((tot, num) => tot + num * num);
-		if (getCurrentMax) base = Array(6)
-			.fill(null)
-			.map((_, index) => Dilute.diluteAmountOutside(index as IntClosedRange<0, 5>))
-			.reduce((tot, num) => tot + num * num)
-		if (this.diluteAmount(6)) base *= 5;
-		if (this.diluteAmount(7)) base *= 10;
-		if (this.diluteAmount(8)) base *= 100;
+		if (getAmountFunction(6)) base *= 5;
+		if (getAmountFunction(7)) base *= 10;
+		if (getAmountFunction(8)) base *= 100;
 		let baseDecimal = new Decimal(base);
 		let ConstantMax = new Decimal(100);
 		if (
