@@ -23,8 +23,7 @@ export type CoreEquipmentAttribute = {
 	atk: number;
 	def: number;
 };
-export function equipmentDisplay(eq: any): string {
-	//@ts-ignore
+export function equipmentDisplay(eq: CoreEquipment): string {
 	let rar =
 		eq.rarity >= 1.9
 			? '<span style="color: cyan">不朽</span>'
@@ -46,7 +45,7 @@ export function equipmentDisplay(eq: any): string {
 		')'
 	);
 }
-export function equipmentAttribute(eq: any): CoreEquipmentAttribute {
+export function equipmentAttribute(eq: CoreEquipment): CoreEquipmentAttribute {
 	let realLevel = eq.level * (eq.rarity ** 2);
 	return {
 		realLevel: realLevel,

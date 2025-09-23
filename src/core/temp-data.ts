@@ -15,7 +15,6 @@ export const temp = reactive({
 	coreViewEquipment: {},
 	//@ts-ignore
 	coreViewColor(eq = temp.coreViewEquipment): string {
-		//@ts-ignore
 		let r = eq.rarity ?? 0;
 		if(r >= 1.9) return 'cyan';
 		if(r >= 1.8) return 'red';
