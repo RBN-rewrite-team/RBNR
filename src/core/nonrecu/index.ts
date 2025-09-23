@@ -37,6 +37,12 @@ export const NON_RECURSIVE = {
 			name = 'U6-3';
 			currency: Currencies = Currencies.NONREC;
 		})(),
+		'74': new (class extends Upgrade {
+			description: string | (() => string) = '大幅度增加九头蛇溶液的效果';
+			cost = new Decimal('e8.75e6');
+			name = 'U6-4';
+			currency: Currencies = Currencies.NONREC;
+		})(),
 	} as const,
 	initMechanics() {
 		MILESTONES.create('nonrec_1', {

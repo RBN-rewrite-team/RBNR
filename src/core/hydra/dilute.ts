@@ -981,7 +981,12 @@ const Dil = {
 	},
 	solutionEff() {
 		let eff1 = new Decimal(getCurrency(Currencies.SOLUTION).pow(0.5)).max(1); //推演速度
-		return { eff1: eff1 };
+		let eff2 = new Decimal(1);
+		if (player.upgrades[74]) {
+			eff1 = eff1.pow10();
+			eff2 = getCurrency(Currencies.SOLUTION).clampMin(10).log10().pow(3).pow10();
+		}
+		return { eff1, eff2 };
 	},
 	prions() {
 		return player.hydra.dilute.prions.sub(1);

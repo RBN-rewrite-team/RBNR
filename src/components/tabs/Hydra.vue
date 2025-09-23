@@ -7,6 +7,7 @@ import { OrdinalUtils } from '@/utils/ordinal';
 import Decimal from 'break_eternity.js';
 import { Dilute } from '@/core/hydra/dilute';
 import { onBeforeUnmount } from 'vue';
+import { calculate } from '@/utils/bms-analyze';
 
 function powerFactorHTML(): string {
 	let s = '';
