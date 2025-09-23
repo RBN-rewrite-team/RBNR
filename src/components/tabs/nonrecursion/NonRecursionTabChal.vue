@@ -63,7 +63,7 @@ import { player } from '@/core/save';
 					<TDChallenge
 						v-if="
 							player.challenges[1][6].gte(1) ||
-							player.nonrecu.studies_bought.includes(26)
+							player.nonrecu.studies_bought.includes(28)
 						"
 						:layer="1"
 						:chid="6"
