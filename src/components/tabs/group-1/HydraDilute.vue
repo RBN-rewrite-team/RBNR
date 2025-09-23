@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { player, feature } from '../../../core/global.ts';
-import { format, formatWhole } from '@/utils/format';
+import { format, formatWhole, formatTime } from '@/utils/format';
 import Slider from '../../group-2/Slider.vue';
 import { Dilute, DiluteTS, tsbhBase } from '@/core/hydra/dilute.ts';
 import { computed, ref } from 'vue';
@@ -117,7 +117,7 @@ function delPreset(preset: string) {
 					? Dilute.diluteAmountOutside(4)
 						? '可能会自毁'
 						: '不会自毁'
-					: '将会在' + format(a, 3) + '秒后自毁';
+					: '将会在' + formatTime(a) + '后自毁';
 			})()
 		}}<br />
 	</div>
@@ -213,9 +213,9 @@ function delPreset(preset: string) {
 										选择本溶剂的稀释会在{{
 											(() => {
 												let a = Dilute.sol3EffOutside();
-												return !isFinite(a)
+												return !a.isFinite()
 													? '无穷时间'
-													: a.toFixed(3) + '秒';
+													: formatTime(a);
 											})()
 										}}内自我毁灭(即强行退出稀释)
 									</div>
