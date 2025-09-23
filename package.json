@@ -45,6 +45,6 @@
     "vite": "^7.1.7",
     "vite-plugin-html-minifier": "^1.0.5",
     "vite-plugin-vue-devtools": "^8.0.2",
-    "vue-tsc": "^3.0.7"
+    "vue-tsc": "^3.0.8"
   }
 }
