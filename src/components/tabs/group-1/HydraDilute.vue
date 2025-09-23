@@ -113,7 +113,7 @@ function delPreset(preset: string) {
 		启动稀释后，溶剂{{
 			(() => {
 				let a = Dilute.sol3EffOutside().sub(player.hydra.dilute.spentTime);
-				return !isFinite(a)
+				return !a.isFinite()
 					? Dilute.diluteAmountOutside(4)
 						? '可能会自毁'
 						: '不会自毁'
