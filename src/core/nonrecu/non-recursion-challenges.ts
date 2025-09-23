@@ -177,15 +177,18 @@ export const NONREC_CHALS: SingleChallenge[] = [
 	{
 		name: '大清算',
 		get descEasy() {
-			return 'UNOCF效果无效，进入挑战时重置九头蛇溶液，当前推演进度被硬上限到推演速度，朊病毒对推演速度造成负面影响（推演速度=10^10(log10 log10 推演/ log10 log10 朊病毒) 当原推演速度和朊病毒同时大于1e10，其余0）';
+			return 'UNOCF效果无效，进入挑战时重置九头蛇溶液，当前推演进度被硬上限到推演速度，朊病毒对推演速度造成负面影响（推演速度=10^10(log10 log10 推演/ log10 log10 朊病毒) 当原推演速度和朊病毒同时大于1e10，其余0）<br>目标：任意一个时刻高达e1e4500000推演次数';
 		},
 		get descHard() {
 			return this.descEasy;
 		},
 		canEnter() {
-			return player.nonrecu.studies_bought.includes(27);
+			return player.nonrecu.studies_bought.includes(28);
 		},
 		loop() {
+			if (player.hydra.deduceOrdinal[0].gte('e1e4500000')) {
+				player.challenges[1][6] = new Decimal(1);
+			}
 			// const highest = Dilute.prions().add(1).clampMin(10).log10().log10();
 			// if (player.challenges[1][5].lt(highest)) {
 			// 	player.challenges[1][5] = highest;

@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { player, feature } from '../../core/global.ts';
-import { format, formatWhole } from '@/utils/format';
-import Slider from '../Slider.vue';
+import { player, feature } from '../../../core/global.ts';
+import { format, formatWhole, formatTime } from '@/utils/format';
+import Slider from '../../group-2/Slider.vue';
 import { Dilute, DiluteTS, tsbhBase } from '@/core/hydra/dilute.ts';
 import { computed, ref } from 'vue';
-import TDUpgrade from '../TDUpgrade.vue';
-import TRMilestone from '../TRMilestone.vue';
+import TDUpgrade from '../../group-2/TDUpgrade.vue';
+import TRMilestone from '../../group-2/TRMilestone.vue';
 import { Currencies, getCurrency } from '@/core/currencies.ts';
 import { CHALLENGE } from '@/core/challenge.ts';
 
@@ -100,7 +100,9 @@ function delPreset(preset: string) {
 	你有<b style="color: red; font-size: 30px">{{ format(getCurrentSolution()) }}</b
 	><span v-if="player.hydra.dilute.inDilute">(本次{{ format(Dilute.solutionGain()) }})</span
 	>九头蛇溶液<br />
-	推演速度×{{ format(Dilute.solutionEff().eff1) }}<br />
+	推演速度×{{ format(Dilute.solutionEff().eff1)
+	}}<template v-if="player.upgrades[74]">, ^{{ format(Dilute.solutionEff().eff2) }}</template
+	><br />
 	<span v-if="player.upgrades['69S'] || player.hydra.dilute.prions.gt(1)"
 		>你有<b style="color: red; font-size: 30px">{{ format(Dilute.prions()) }}</b
 		><span v-if="!player.upgrades['69S']"
@@ -110,16 +112,17 @@ function delPreset(preset: string) {
 	<div v-if="!player.upgrades['614S'] || CHALLENGE.inChallenge(1, 2)">
 		启动稀释后，溶剂{{
 			(() => {
-				let a = Dilute.sol3EffOutside() - player.hydra.dilute.spentTime;
-				return !isFinite(a)
+				let a = Dilute.sol3EffOutside().sub(player.hydra.dilute.spentTime);
+				return !a.isFinite()
 					? Dilute.diluteAmountOutside(4)
 						? '可能会自毁'
 						: '不会自毁'
-					: '将会在' + a.toFixed(3) + '秒后自毁';
+					: '将会在' + formatTime(a) + '后自毁';
 			})()
 		}}<br />
 	</div>
 	部分溶剂将限制溶剂I的最低等级!<br />
+	当前溶剂配置对应获取的溶液数量上限：{{ format(Dilute.solutionGain(true)) }}<br />
 	<div class="container" style="transform: translateY(-10px)">
 		<div class="dilute">
 			<div>至少选择任何一项溶剂并提升它的等级以进入稀释</div>
@@ -210,9 +213,7 @@ function delPreset(preset: string) {
 										选择本溶剂的稀释会在{{
 											(() => {
 												let a = Dilute.sol3EffOutside();
-												return !isFinite(a)
-													? '无穷时间'
-													: a.toFixed(3) + '秒';
+												return !a.isFinite() ? '无穷时间' : formatTime(a);
 											})()
 										}}内自我毁灭(即强行退出稀释)
 									</div>

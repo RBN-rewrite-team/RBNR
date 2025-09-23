@@ -8,8 +8,8 @@ import {
 	LVpercent,
 } from '@/core/minigame';
 import { player } from '@/core/save';
-import ObjectNode from './developermode/ObjectNode';
-import MiniGameTD from '../MiniGameTD.vue';
+import ObjectNode from '../developermode/ObjectNode';
+import MiniGameTD from '../../group-2/MiniGameTD.vue';
 import {
 	getCurrentBlock,
 	getPlayerMap,
@@ -24,11 +24,11 @@ import {
 import { handleKeyPress } from '@/core/minigame/minigame-loop';
 import { meBattleInfo } from '@/core/minigame/battle';
 import { range } from '@/utils/algorithm';
-import { temp } from '../../core/temp-data';
+import { temp } from '../../../core/temp-data';
 import { format } from '@/utils/format';
 import { MoveableBoxGameObject } from '@/core/minigame/game-object';
 import ModalService from '@/utils/Modal';
-import SkillTree from './minigame/SkillTree.vue';
+import SkillTree from '../minigame/SkillTree.vue';
 
 function spawn(id: number): void {
 	((player.minigame.current_room = id),
@@ -280,13 +280,20 @@ function exitEditor() {
 			style="position: absolute; left: 75%; top: 20px; transform: translateX(-50%)"
 			v-if="temp.dungeonsSP == 2 || temp.innerWidth >= 800"
 		>
-			<table><tbody><tr><td style="width: 200px">
-			X: {{ formatbigint(player.minigame.current_x) }}<br />
-			Y: {{ formatbigint(player.minigame.current_y) }}
-			技能点: {{ player.minigame.skillpoint.toFixed(3) }}
-			</td><td style="width: 200px">
-			<span v-html="temp.minigametip" />
-			</td></tr></tbody></table>
+			<table>
+				<tbody>
+					<tr>
+						<td style="width: 200px">
+							X: {{ formatbigint(player.minigame.current_x) }}<br />
+							Y: {{ formatbigint(player.minigame.current_y) }} 技能点:
+							{{ player.minigame.skillpoint.toFixed(3) }}
+						</td>
+						<td style="width: 200px">
+							<span v-html="temp.minigametip" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 		<br />
 		<table

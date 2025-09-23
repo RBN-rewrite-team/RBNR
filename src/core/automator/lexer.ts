@@ -68,7 +68,7 @@ export const Tetrate = createToken({ name: 'Tetrate', pattern: /\*\*\*/ });
 export const NumberLiteral = createToken({
 	name: 'Number',
 	//这里不带符号，防止与加减法混淆
-	pattern: /Infinity|NaN|((\d+(\.\d*)?|\d*\.\d+)?([EeF]([-\+]?)))*(0|\d+(\.\d*)?|\d*\.\d+)/,
+	pattern: /Infinity|NaN|((\d+(\.\d*)?|\d*\.\d+)?([EeFf]([-\+]?)))*(0|\d+(\.\d*)?|\d*\.\d+)/,
 });
 
 export const Comma = createToken({
@@ -113,7 +113,7 @@ export const GreaterThanOrEqualTo = createToken({
 
 export const WhiteSpace = createToken({
 	name: 'WhiteSpace',
-	pattern: /\s+/,
+	pattern: /(\s)+/,
 	group: Lexer.SKIPPED,
 });
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { player, feature } from '@/core/global';
-import { format, formatTime } from '../../utils/format.ts';
+import { format, formatTime } from '../../../utils/format.ts';
 function timeF(ms = 0) {
 	const s = new Date(ms);
 	return s.toLocaleString();

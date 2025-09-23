@@ -9,6 +9,7 @@ import { CHALLENGE } from '../challenge';
 import { DC } from '@/core/constants';
 import { Upgrade } from '../upgrade';
 import { getTotalTheories } from './total-theories';
+import { energyToUNOCFSpeed } from '../ordinal/well_ordering';
 
 export const NON_RECURSIVE = {
 	upgrades: {
@@ -27,7 +28,7 @@ export const NON_RECURSIVE = {
 		})(),
 		'71UN': new (class extends Upgrade {
 			description: string | (() => string) = '开启UNOCF推演, (+1/s)';
-			cost = new Decimal(114514);
+			cost = new Decimal(0);
 			name = 'U6-UNOCF-1';
 			currency: Currencies = Currencies.NONREC;
 		})(),
@@ -35,6 +36,12 @@ export const NON_RECURSIVE = {
 			description: string | (() => string) = '相对于外界，研究52|71|72|73的时间流逝快1000倍';
 			cost = new Decimal('1e750');
 			name = 'U6-3';
+			currency: Currencies = Currencies.NONREC;
+		})(),
+		'74': new (class extends Upgrade {
+			description: string | (() => string) = '大幅度增加九头蛇溶液的效果';
+			cost = new Decimal('e8.75e6');
+			name = 'U6-4';
 			currency: Currencies = Currencies.NONREC;
 		})(),
 	} as const,
@@ -313,6 +320,18 @@ export const NON_RECURSIVE = {
 				return player.challenges[1][5].gte(29) && player.milestones.nonrec_24;
 			},
 		});
+		MILESTONES.create('nonrec_26', {
+			requirement: new Decimal(1),
+			currency: 'NRC7挑战次数',
+			displayName: 'M6-26',
+			description: `解锁<b>数论研究5 - 良序性</b>`,
+			get show() {
+				return player.milestones.nonrec_25;
+			},
+			get canDone() {
+				return player.challenges[1][6].gte(1);
+			},
+		});
 	},
 	reset(force = false) {
 		if (!this.resetable() && !force) {
@@ -508,6 +527,7 @@ export const NON_RECURSIVE = {
 		if (player.nonrecu.studies_bought.includes(26)) {
 			a = a.mul(this.std112());
 		}
+		a = a.mul(energyToUNOCFSpeed());
 		return a;
 	},
 	UNOCFeff() {

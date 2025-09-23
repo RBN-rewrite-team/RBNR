@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TRMilestone from '@/components/TRMilestone.vue';
+import TRMilestone from '@/components/group-2/TRMilestone.vue';
 import { format, formatWhole } from '@/utils/format';
 import { Currencies, getCurrency } from '@/core/currencies';
 import { player, feature } from '@/core/global';
@@ -15,6 +15,6 @@ import { player, feature } from '@/core/global';
 		</p>
 	</div>
 	<table align="center">
-		<TRMilestone :id="'nonrec_' + i" v-for="i in 25" :key="i"></TRMilestone>
+		<TRMilestone :id="'nonrec_' + i" v-for="i in 26" :key="i"></TRMilestone>
 	</table>
 </template>

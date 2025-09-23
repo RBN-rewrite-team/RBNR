@@ -439,9 +439,9 @@ export const studies = [
 	new Study({
 		id: '112', //26
 		get description() {
-			return `基于总共的非递归理论增加UNOCF推演速度，此推演需要前置M6-25, 42和101<br>效果：×${format(NON_RECURSIVE.std112())}`;
+			return `基于总共的非递归理论增加UNOCF推演速度;此推演需要前置M6-25, 42和101<br>效果：×${format(NON_RECURSIVE.std112())}`;
 		},
-		cost: new Decimal(20000),
+		cost: new Decimal(15000),
 		canBuy() {
 			return and(22, 7) && player.milestones.nonrec_25;
 		},
@@ -464,6 +464,18 @@ export const studies = [
 		canBuy() {
 			return or(23) && player.challenges[1][3].gte(1);
 		},
+	}),
+	new Study({
+		id: 'NRC7', //28
+		get description() {
+			return '解锁非递归挑战4\t' + '见挑战页面';
+		},
+		cost: new Decimal(5000),
+		canBuy() {
+			return or(26);
+		},
+		isChallenge: true,
+		chal_id: 6,
 	}),
 ] as const;
 export function canBuyStudies(id: number) {
@@ -628,6 +640,7 @@ const studyConnections = computed(() => {
 		{ from: 24, to: 26 },
 		{ from: 25, to: 26 },
 		{ from: 23, to: 27 },
+		{ from: 26, to: 28 },
 	];
 	if (player.nonrecu.studies_bought.includes(19)) {
 		connections.push(

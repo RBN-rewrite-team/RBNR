@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { player } from '@/core/save';
-import DilateButton from '../DilateButton.vue';
+import DilateButton from '../../group-2/DilateButton.vue';
 import { Logarithm } from '@/core/exponention/logarithm';
 import { feature } from '@/core/global';
 import { format } from '@/utils/format';
 import Decimal from 'break_eternity.js';
-import TRMilestone from '../TRMilestone.vue';
+import TRMilestone from '../../group-2/TRMilestone.vue';
 </script>
 
 <template>

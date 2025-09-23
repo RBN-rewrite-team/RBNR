@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { player } from '@/core/save';
-import { Logarithm } from '../core/exponention/logarithm.ts';
+import { Logarithm } from '../../core/exponention/logarithm.ts';
 import { unlockedPlots, viewedPlotLength } from '@/core/plot.ts';
 import { isTester } from '@/core/save/testing.ts';
 import { getI18NData } from '@/core/i18n-data.ts';
@@ -255,8 +255,7 @@ import { getI18NData } from '@/core/i18n-data.ts';
 							@click="player.currentTab = 26"
 							v-if="
 								(player.firstResetBit & 0b10000) == 0b10000 &&
-								player.milestones.nonrec_19 &&
-								isTester()
+								player.milestones.nonrec_19
 							"
 						>
 							UNOCF
@@ -311,13 +310,6 @@ import { getI18NData } from '@/core/i18n-data.ts';
 						@click="player.currentTab = 18"
 					>
 						时间碎片
-					</div>
-					<div
-						class="menu2"
-						:class="{ focus: player.currentTab == 11 }"
-						@click="player.currentTab = 11"
-					>
-						成就
 					</div>
 				</div>
 			</div>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TDChallenge from '@/components/TDChallenge.vue';
+import TDChallenge from '@/components/group-2/TDChallenge.vue';
 import { player } from '@/core/save';
 </script>
 
@@ -63,7 +63,7 @@ import { player } from '@/core/save';
 					<TDChallenge
 						v-if="
 							player.challenges[1][6].gte(1) ||
-							player.nonrecu.studies_bought.includes(27)
+							player.nonrecu.studies_bought.includes(28)
 						"
 						:layer="1"
 						:chid="6"
@@ -77,5 +77,9 @@ import { player } from '@/core/save';
 <style lang="scss" scoped>
 .main {
 	margin-top: 10px;
+}
+
+tr {
+	height: 400px;
 }
 </style>

@@ -251,6 +251,13 @@ onMounted(() => initConnectors(connectorsRef));
 					/>
 					<BlankStudy />
 				</div>
+				<div class="studies_row">
+					<SingleStudy
+						:ref="(el) => registerStudyRef(28, el)"
+						:study_id="28"
+						@update:study="updateAllConnectors"
+					/>
+				</div>
 				<div ref="connectorsRef" class="connectors-container"></div>
 			</div>
 		</div>

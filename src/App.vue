@@ -2,51 +2,51 @@
 import { player } from './core/global.ts';
 import Decimal from 'break_eternity.js';
 
-import Chapter from './components/Chapter.vue';
+import Chapter from './components/group-2/Chapter.vue';
 
-import Side from './components/Side.vue';
-import NewsTicker from './components/Newsticker.vue';
-import Successor from './components/tabs/Successor.vue';
-import Settings from './components/tabs/Settings.vue';
-import Addition from './components/tabs/Addition.vue';
-import Multip from './components/tabs/Multip.vue';
-import PF from './components/tabs/PF.vue';
-import NumberTheory from './components/tabs/NumberTheory.vue';
-import Stat from './components/tabs/Stat.vue';
-import MultipChals from './components/tabs/MultipChals.vue';
-import About from './components/tabs/About.vue';
+import Side from './components/group-2/Side.vue';
+import NewsTicker from './components/group-2/Newsticker.vue';
+import Successor from './components/tabs/group-1/Successor.vue';
+import Settings from './components/tabs/group-1/Settings.vue';
+import Addition from './components/tabs/group-1/Addition.vue';
+import Multip from './components/tabs/group-1/Multip.vue';
+import PF from './components/tabs/group-1/PF.vue';
+import NumberTheory from './components/tabs/group-1/NumberTheory.vue';
+import Stat from './components/tabs/group-1/Stat.vue';
+import MultipChals from './components/tabs/group-1/MultipChals.vue';
+import About from './components/tabs/group-1/About.vue';
 
-import AdditionResetButton from './components/AdditionResetButton.vue';
-import MultipResetButton from './components/MultipResetButton.vue';
-import ExpResetButton from './components/ExpResetButton.vue';
-import NonRecursionResetButton from './components/NonRecursionResetButton.vue';
-import Resources from './components/Resources.vue';
+import AdditionResetButton from './components/group-2/AdditionResetButton.vue';
+import MultipResetButton from './components/group-2/MultipResetButton.vue';
+import ExpResetButton from './components/group-2/ExpResetButton.vue';
+import NonRecursionResetButton from './components/group-2/NonRecursionResetButton.vue';
+import Resources from './components/group-2/Resources.vue';
 
-import ExpUpgrades from './components/tabs/ExpUpgrades.vue';
-import Achievements from './components/tabs/Achievements.vue';
-import ChessBoard from './components/tabs/ChessBoard.vue';
-import Logarithm from './components/tabs/Logarithm.vue';
-import LogDilate from './components/tabs/LogDilate.vue';
+import ExpUpgrades from './components/tabs/group-1/ExpUpgrades.vue';
+import Achievements from './components/tabs/group-1/Achievements.vue';
+import ChessBoard from './components/tabs/group-1/ChessBoard.vue';
+import Logarithm from './components/tabs/group-1/Logarithm.vue';
+import LogDilate from './components/tabs/group-1/LogDilate.vue';
 
-import SingularityGenerator from './components/tabs/SingularityGenerator.vue';
-import BlackHole from './components/BlackHole.vue';
-import Ordinal from './components/tabs/Ordinal.vue';
-import OrdinalNT from './components/tabs/OrdinalNT.vue';
-import Help from './components/tabs/Help.vue';
-import Accelerator from './components/tabs/Accelerator.vue';
-import TimeShard from './components/tabs/TimeShard.vue';
-import Hydra from './components/tabs/Hydra.vue';
-import HydraDilute from './components/tabs/HydraDilute.vue';
+import SingularityGenerator from './components/tabs/group-1/SingularityGenerator.vue';
+import BlackHole from './components/group-2/BlackHole.vue';
+import Ordinal from './components/tabs/group-1/Ordinal.vue';
+import OrdinalNT from './components/tabs/group-1/OrdinalNT.vue';
+import Help from './components/tabs/group-1/Help.vue';
+import Accelerator from './components/tabs/group-1/Accelerator.vue';
+import TimeShard from './components/tabs/group-1/TimeShard.vue';
+import Hydra from './components/tabs/group-1/Hydra.vue';
+import HydraDilute from './components/tabs/group-1/HydraDilute.vue';
 
 import PlotTab from './components/tabs/plot/PlotTab.vue';
-import SaveBank from './components/tabs/SaveBank.vue';
+import SaveBank from './components/tabs/group-1/SaveBank.vue';
 import PlotView from './components/tabs/plot/PlotView.vue';
 import NonRecursionMilestones from './components/tabs/nonrecursion/NonRecursionMilestones.vue';
 import NonRecursionFactor from './components/tabs/nonrecursion/NonRecursionFactor.vue';
 import NonRecursionTabChal from './components/tabs/nonrecursion/NonRecursionTabChal.vue';
 import StudyTree from './components/tabs/nonrecursion/StudyTree.vue';
-import MiniGame from './components/tabs/MiniGame.vue';
-import AutomatorEditor from './components/tabs/AutomatorEditor.vue';
+import MiniGame from './components/tabs/group-1/MiniGame.vue';
+import AutomatorEditor from './components/tabs/group-1/AutomatorEditor.vue';
 import NonRecursionTabUpgrade from './components/tabs/nonrecursion/NonRecursionTabUpgrade.vue';
 import NonRecursionUNOCF from './components/tabs/nonrecursion/NonRecursionUNOCF.vue';
 import { isTester } from './core/save/testing.ts';
@@ -103,9 +103,7 @@ import { isTester } from './core/save/testing.ts';
 				<PlotTab v-if="player.currentTab === 200" />
 				<SaveBank v-if="player.currentTab === 300" />
 				<MiniGame v-if="player.currentTab === 1225" />
-				<NonRecursionUNOCF
-					v-if="player.currentTab === 26 && isTester()"
-				></NonRecursionUNOCF>
+				<NonRecursionUNOCF v-if="player.currentTab === 26"></NonRecursionUNOCF>
 			</div>
 		</div>
 	</div>

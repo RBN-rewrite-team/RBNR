@@ -18,6 +18,7 @@ import { DC } from '@/core/constants';
 import { pubtest } from './testing.ts';
 import type { FixedLengthArray } from 'type-fest';
 import { getInitialStat, type PlayerStat } from '../stats.ts';
+import { wellOrderPlayerData } from '../ordinal/well_ordering.ts';
 
 const version = 11 as const;
 export let current_save = 0;
@@ -86,6 +87,7 @@ export interface Player {
 		GM: {
 			x: Decimal;
 		};
+		well_ordering: ReturnType<typeof wellOrderPlayerData>;
 	};
 	currentTab: number;
 	addpower: Decimal;
@@ -273,6 +275,7 @@ function getInitialPlayerData(): Player {
 			GM: {
 				x: DC.D_0,
 			},
+			well_ordering: wellOrderPlayerData(),
 		},
 		currentTab: 0,
 		totalAddpower: DC.D_0,

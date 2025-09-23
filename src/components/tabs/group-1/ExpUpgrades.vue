@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { player } from '@/core/save';
 import { feature } from '@/core/global.ts';
-import TDUpgrade from '../TDUpgrade.vue';
-import TDBuyable from '../TDBuyable.vue';
+import TDUpgrade from '../../group-2/TDUpgrade.vue';
+import TDBuyable from '../../group-2/TDBuyable.vue';
 import { format, formatWhole } from '@/utils/format.ts';
 import Decimal from 'break_eternity.js';
 </script>

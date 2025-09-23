@@ -2,12 +2,16 @@
 import { feature, player } from '@/core/global';
 import { OrdinalUtils } from '@/utils/ordinal';
 import { formatWhole } from '@/utils/format';
-import TDUpgrade from '../TDUpgrade.vue';
-import TDBuyable from '../TDBuyable.vue';
+import TDUpgrade from '../../group-2/TDUpgrade.vue';
+import TDBuyable from '../../group-2/TDBuyable.vue';
 </script>
 
 <template>
 	<div class="main">
+		<p style="color: grey; table-align: center">
+			没有人可以把我们从这片康托尔创造的乐园中驱逐出去。————大卫·希尔伯特
+		</p>
+
 		<div style="transform: translateY(60px)">
 			<div align="center">
 				当前你的序数底数为<span

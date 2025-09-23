@@ -11,8 +11,17 @@ const props = defineProps<{
 		<td>
 			<div align="center" style="position: relative; width: 100%">
 				<div class="chara_pic" :style="{ 'background-image': image }"></div>
-				<span class="chara_name" v-html="name" />
-				<div class="main" v-html="text" />
+				<span class="chara_name" v-html="name"></span>
+
+				<div
+					class="main"
+					v-html="
+						text.replace(
+							/<\$bx>/g,
+							'<img src=\'/baixie.png\' style=\'aspect-ratio: 1/1; height: 1em; position: relative; top: 2px\' />',
+						)
+					"
+				></div>
 			</div>
 		</td>
 	</tr>

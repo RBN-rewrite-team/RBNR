@@ -917,28 +917,28 @@ const Dil = {
 		}
 		return player.hydra.dilute.solvent[id];
 	},
-	solutionGain(): Decimal {
+	solutionGain(getCurrentMax = false): Decimal {
+		const getAmountFunction = getCurrentMax ? Dilute.diluteAmountOutside : Dilute.diluteAmount;
 		let base: number = Array(6)
 			.fill(null)
-			.map((_, index) => Dilute.diluteAmount(index as IntClosedRange<0, 5>))
+			.map((_, index) => getAmountFunction(index as IntClosedRange<0, 5>))
 			.reduce((tot, num) => tot + num * num);
-		if (this.diluteAmount(6)) base *= 5;
-		if (this.diluteAmount(7)) base *= 10;
-		if (this.diluteAmount(8)) base *= 100;
+		if (getAmountFunction(6)) base *= 5;
+		if (getAmountFunction(7)) base *= 10;
+		if (getAmountFunction(8)) base *= 100;
 		let baseDecimal = new Decimal(base);
 		let ConstantMax = new Decimal(100);
 		if (
 			!(CHALLENGE.inChallenge(1, 3) && player.challenges[1][3].gte(1)) &&
-			player.nonrecu.studies_bought.includes(2)
+			player.nonrecu.studies_bought.includes(2) &&
+			!getCurrentMax
 		)
 			ConstantMax = ConstantMax.add(
 				player.hydra.deduceOrdinal[0].add(1).ln().add(1).slog(10).add(1).pow(2).mul(10),
 			);
-		const deduceMult = player.hydra.deduceOrdinal[0]
-			.add(1)
-			.ln()
-			.min(baseDecimal)
-			.min(ConstantMax);
+		const deduceMult = getCurrentMax
+			? baseDecimal.min(ConstantMax)
+			: player.hydra.deduceOrdinal[0].add(1).ln().min(baseDecimal).min(ConstantMax);
 		if (player.nonrecu.studies_bought.includes(18))
 			baseDecimal = baseDecimal.mul(
 				player.nonrecu.secInThisReset.add(1).ln().mul(0.1).add(1).min(10),
@@ -981,20 +981,26 @@ const Dil = {
 	},
 	solutionEff() {
 		let eff1 = new Decimal(getCurrency(Currencies.SOLUTION).pow(0.5)).max(1); //推演速度
-		return { eff1: eff1 };
+		let eff2 = new Decimal(1);
+		if (player.upgrades[74]) {
+			eff1 = eff1.pow10();
+			eff2 = getCurrency(Currencies.SOLUTION).clampMin(10).log10().pow(3).pow10();
+		}
+		return { eff1, eff2 };
 	},
 	prions() {
 		return player.hydra.dilute.prions.sub(1);
 	},
-	sol3Eff(): number {
-		let base = 1000 / player.hydra.dilute.solvent[2] ** 2;
-		if (player.milestones.nonrec_4) base += player.nonrecu.resetTimes.toNumber();
+	sol3Eff(): Decimal {
+		let base = new Decimal(1000 / player.hydra.dilute.solvent[2] ** 2);
+		if (player.milestones.nonrec_4) base = base.add(player.nonrecu.resetTimes.toNumber());
+		if (CHALLENGE.inChallenge(1, 2)) base = base.div(5);
 		return base;
 	},
-	sol3EffOutside(): number {
-		let base = 1000 / player.hydra.dilute.solvent[2] ** 2;
-		if (player.milestones.nonrec_4) base += player.nonrecu.resetTimes.toNumber();
-		if (CHALLENGE.inChallenge(1, 2)) base /= 5;
+	sol3EffOutside(): Decimal {
+		let base = new Decimal(1000 / player.hydra.dilute.solvent[2] ** 2);
+		if (player.milestones.nonrec_4) base = base.add(player.nonrecu.resetTimes.toNumber());
+		if (CHALLENGE.inChallenge(1, 2)) base = base.div(5);
 		return base;
 	},
 	totSolNerf(): number {

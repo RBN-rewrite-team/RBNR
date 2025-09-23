@@ -3,8 +3,8 @@ import { feature } from '@/core/global';
 import { BUYABLES } from '@/core/mechanic';
 import { player } from '@/core/save';
 import { format, formatWhole } from '@/utils/format';
-import TDUpgrade from '../TDUpgrade.vue';
-import TDBuyable from '../TDBuyable.vue';
+import TDUpgrade from '../../group-2/TDUpgrade.vue';
+import TDBuyable from '../../group-2/TDBuyable.vue';
 import { getI18NData } from '@/core/i18n-data';
 </script>
 
