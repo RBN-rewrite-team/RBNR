@@ -27,7 +27,7 @@ export const NON_RECURSIVE = {
 		})(),
 		'71UN': new (class extends Upgrade {
 			description: string | (() => string) = '开启UNOCF推演, (+1/s)';
-			cost = new Decimal(114514);
+			cost = new Decimal(0);
 			name = 'U6-UNOCF-1';
 			currency: Currencies = Currencies.NONREC;
 		})(),
