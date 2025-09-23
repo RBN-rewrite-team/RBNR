@@ -997,15 +997,16 @@ const Dil = {
 	prions() {
 		return player.hydra.dilute.prions.sub(1);
 	},
-	sol3Eff(): number {
-		let base = 1000 / player.hydra.dilute.solvent[2] ** 2;
-		if (player.milestones.nonrec_4) base += player.nonrecu.resetTimes.toNumber();
+	sol3Eff(): Decimal {
+		let base = new Decimal(1000 / player.hydra.dilute.solvent[2] ** 2);
+		if (player.milestones.nonrec_4) base = base.add(player.nonrecu.resetTimes.toNumber());
+		if (CHALLENGE.inChallenge(1, 2)) base = base.div(5);
 		return base;
 	},
-	sol3EffOutside(): number {
-		let base = 1000 / player.hydra.dilute.solvent[2] ** 2;
-		if (player.milestones.nonrec_4) base += player.nonrecu.resetTimes.toNumber();
-		if (CHALLENGE.inChallenge(1, 2)) base /= 5;
+	sol3EffOutside(): Decimal {
+		let base = new Decimal(1000 / player.hydra.dilute.solvent[2] ** 2);
+		if (player.milestones.nonrec_4) base = base.add(player.nonrecu.resetTimes.toNumber());
+		if (CHALLENGE.inChallenge(1, 2)) base = base.div(5);
 		return base;
 	},
 	totSolNerf(): number {

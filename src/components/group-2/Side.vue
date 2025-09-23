@@ -311,13 +311,6 @@ import { getI18NData } from '@/core/i18n-data.ts';
 					>
 						时间碎片
 					</div>
-					<div
-						class="menu2"
-						:class="{ focus: player.currentTab == 11 }"
-						@click="player.currentTab = 11"
-					>
-						成就
-					</div>
 				</div>
 			</div>
 		</div>
