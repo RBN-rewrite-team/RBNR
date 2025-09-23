@@ -3,7 +3,7 @@ import { feature, player } from '@/core/global';
 import { format, notations } from '@/utils/format';
 import Decimal from 'break_eternity.js';
 import { ref } from 'vue';
-import { CHALLENGE, type SingleChallenge } from '../../core/challenge.ts';
+import { CHALLENGE, type SingleChallenge } from '../../../core/challenge.ts';
 import { wordShift } from '@/core/word-shift.ts';
 
 function destroy(a: number) {

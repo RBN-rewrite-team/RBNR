@@ -4,7 +4,11 @@ import { feature } from '@/core/global';
 import { format, physicalScale } from '@/utils/format';
 import { OrdinalUtils } from '@/utils/ordinal';
 import { Ordinal } from '@/lib/ordinal/';
-import { getOrdinalLevel, ordinalNormal, getBMSOLReq } from '../../core/ordinal/ordinal-level.ts';
+import {
+	getOrdinalLevel,
+	ordinalNormal,
+	getBMSOLReq,
+} from '../../../core/ordinal/ordinal-level.ts';
 </script>
 
 <template>

@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { OrdinalNT } from '@/core/ordinal/ordinalNT';
-import MultipResetButton from '../MultipResetButton.vue';
+import MultipResetButton from '../../group-2/MultipResetButton.vue';
 import { format, formatLaTeX, formatLaTeXWhole } from '@/utils/format';
 import { player } from '@/core/save';
 import { feature } from '@/core/global';
-import TDUpgrade from '../TDUpgrade.vue';
-import TDBuyable from '../TDBuyable.vue';
+import TDUpgrade from '../../group-2/TDUpgrade.vue';
+import TDBuyable from '../../group-2/TDBuyable.vue';
 import Decimal from 'break_eternity.js';
 import { OrdinalUtils } from '@/utils/ordinal';
 import { Ordinal } from '@/lib/ordinal';
 import { Dilute } from '@/core/hydra/dilute';
-import OrdinalNT5 from "./OrdinalNT5.vue"
+import OrdinalNT5 from './OrdinalNT5.vue';
 
 function varGainLatex(id = 'x', layer = 3) {
 	const exp = OrdinalNT.varExp(id, layer);

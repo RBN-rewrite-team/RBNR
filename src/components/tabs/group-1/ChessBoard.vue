@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { format, formatWhole } from '@/utils/format';
 import { feature, player } from '@/core/global';
-import TDBuyable from '../TDBuyable.vue';
-import TRMilestone from '../TRMilestone.vue';
+import TDBuyable from '../../group-2/TDBuyable.vue';
+import TRMilestone from '../../group-2/TRMilestone.vue';
 </script>
 
 <template>

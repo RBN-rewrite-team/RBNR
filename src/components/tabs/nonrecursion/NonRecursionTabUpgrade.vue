@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import TDUpgrade from '@/components/TDUpgrade.vue';
+import TDUpgrade from '@/components/group-2/TDUpgrade.vue';
 </script>
 
 <template>

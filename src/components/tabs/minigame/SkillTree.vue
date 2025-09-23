@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SingleMinigameSkill from '@/components/SingleMinigameSkill.vue';
+import SingleMinigameSkill from '@/components/group-2/SingleMinigameSkill.vue';
 </script>
 <template>
 	<div class="studies_row">

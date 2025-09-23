@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { NUMTHEORY } from '@/core/multiplication/numbertheory';
-import MultipResetButton from '../MultipResetButton.vue';
+import MultipResetButton from '../../group-2/MultipResetButton.vue';
 import { format, formatLaTeX, formatLaTeXWhole } from '@/utils/format';
 import { player } from '@/core/save';
-import TDUpgrade from '../TDUpgrade.vue';
-import TDBuyable from '../TDBuyable.vue';
+import TDUpgrade from '../../group-2/TDUpgrade.vue';
+import TDBuyable from '../../group-2/TDBuyable.vue';
 import Decimal from 'break_eternity.js';
 
 function xGainLatex() {

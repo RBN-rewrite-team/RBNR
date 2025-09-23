@@ -2,9 +2,9 @@
 import { feature } from '@/core/global';
 import { format } from '@/utils/format';
 import { player } from '@/core/global';
-import MultipResetButton from '../MultipResetButton.vue';
-import TDUpgrade from '../TDUpgrade.vue';
-import TDBuyable from '../TDBuyable.vue';
+import MultipResetButton from '../../group-2/MultipResetButton.vue';
+import TDUpgrade from '../../group-2/TDUpgrade.vue';
+import TDBuyable from '../../group-2/TDBuyable.vue';
 </script>
 
 <template>
