@@ -7,14 +7,13 @@ import { OrdinalUtils } from '@/utils/ordinal';
 import Decimal from 'break_eternity.js';
 import { Ordinal } from '@/lib/ordinal/';
 import { format } from '@/utils/format';
-import { getI18NData } from '@/core/i18n-data';
 </script>
 <template>
 	<div class="resources" style="font-size: 20px" id="resources">
 		<div class="background">
 			<div v-if="!(player.firstResetBit & 0b1000)" style="margin-left: 15px" class="resource">
 				<div style="font-weight: bold; color: var(--suptitle-color)">
-					{{ getI18NData('number') }}&nbsp;
+					数值&nbsp;
 					<template v-if="player.singularity.t > 666">ω</template>
 					<template v-else>{{ formatWhole(player.number) }}</template>
 				</div>

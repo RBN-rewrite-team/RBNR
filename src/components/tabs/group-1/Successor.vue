@@ -5,7 +5,6 @@ import { player } from '@/core/save';
 import { format, formatWhole } from '@/utils/format';
 import TDUpgrade from '../../group-2/TDUpgrade.vue';
 import TDBuyable from '../../group-2/TDBuyable.vue';
-import { getI18NData } from '@/core/i18n-data';
 </script>
 
 <template>
@@ -16,16 +15,15 @@ import { getI18NData } from '@/core/i18n-data';
 				style="width: 240px"
 				@mousedown="feature.SUCCESSOR.success()"
 				v-if="!player.upgrades['25']"
-				v-html="
-					getI18NData('successor_button')(
-						format(feature.SUCCESSOR.successorBulk()) +
-							(feature.SUCCESSOR.successorPow().gt(1)
-								? `<sup>${format(feature.SUCCESSOR.successorPow())}</sup>`
-								: ''),
-						feature.SUCCESSOR.autoSuccessPerSecond(),
-					)
-				"
-			></div>
+			>
+				后继x{{ format(feature.SUCCESSOR.successorBulk())
+				}}<sup v-if="feature.SUCCESSOR.successorPow().gt(1)">{{
+					format(feature.SUCCESSOR.successorPow())
+				}}</sup
+				><span v-if="BUYABLES.lock('11').unlocked"
+					>(自动{{ formatWhole(feature.SUCCESSOR.autoSuccessPerSecond()) }}/s)</span
+				>
+			</div>
 			<div class="clickable_button" @mousedown="feature.SUCCESSOR.success()" v-else>
 				加法+{{ formatWhole(feature.SUCCESSOR.successorBulk())
 				}}<sup v-if="feature.SUCCESSOR.successorPow().gt(1)">{{
