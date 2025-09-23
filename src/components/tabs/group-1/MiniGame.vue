@@ -6,6 +6,9 @@ import {
 	keyboardEventListener,
 	getWorldLevel,
 	LVpercent,
+	equipmentDisplay,
+	equipmentAttribute,
+	type CoreEquipment,
 } from '@/core/minigame';
 import { player } from '@/core/save';
 import ObjectNode from '../developermode/ObjectNode';
@@ -96,6 +99,34 @@ function exitEditor() {
 		player.minigame.current_y = 1n;
 	}
 }
+function openCore() {
+	temp.openingCore = !temp.openingCore;
+	if(temp.openingCore && temp.coreViewEquipment.rarity == undefined)
+	{
+		if(player.minigame.storeEquipments.length == 0)
+		{
+			if(player.minigame.coreEquipments.hea.length == 0)
+			{
+				if(player.minigame.coreEquipments.atk.length == 0)
+				{
+					if(player.minigame.coreEquipments.def.length == 0)
+					{
+						temp.openingCore = !temp.openingCore;
+						return;
+					}
+					temp.coreViewEquipment = player.minigame.coreEquipments.def[0];
+				}
+				temp.coreViewEquipment = player.minigame.coreEquipments.atk[0];
+			}
+			temp.coreViewEquipment = player.minigame.coreEquipments.hea[0];
+		}
+		temp.coreViewEquipment = player.minigame.storeEquipments[0];
+	}
+}
+
+function changeCoreView(eq: coreEquipment) {
+	temp.coreViewEquipment = eq;
+}
 </script>
 
 <template>
@@ -108,7 +139,7 @@ function exitEditor() {
 				<tr>
 					<td style="width: 25%" @click="temp.dungeonsSP = 0">人物属性</td>
 					<td style="width: 25%" @click="temp.dungeonsSP = 1">技能树</td>
-					<td style="width: 25%" @click="temp.dungeonsSP = 2">地下城</td>
+					<td style="width: 25%" @click="temp.dungeonsSP = 2">{{temp.openingCore ? '核心' : '地下城'}}</td>
 					<td style="width: 25%" @click="temp.dungeonsSP = 3">？？？</td>
 				</tr>
 			</tbody>
@@ -127,7 +158,7 @@ function exitEditor() {
 			Numerorum<br />
 			<div style="position: relative; height: 50px; width: 400px; background-color: black">
 				<div align="center" style="font-size: 17px; color: white">
-					生命值：{{ meBattleInfo().hp }}/{{ meBattleInfo().hpMax }}({{
+					生命值：{{ meBattleInfo().hp.toFixed(1) }}/{{ meBattleInfo().hpMax.toFixed(1) }}({{
 						Math.ceil((meBattleInfo().hp / meBattleInfo().hpMax) * 100)
 					}}%)
 				</div>
@@ -143,13 +174,13 @@ function exitEditor() {
 			<table style="width: 100%">
 				<tbody>
 					<tr>
-						<td>当前攻击力: {{ meBattleInfo().atk }}</td>
-						<td>当前防御: {{ meBattleInfo().def }}</td>
+						<td>当前攻击力: {{ meBattleInfo().atk.toFixed(1) }}</td>
+						<td>当前防御: {{ meBattleInfo().def.toFixed(1) }}</td>
 					</tr>
 					<tr>
 						<td>
-							当前LV: {{ currentPlayerLV() }}<br />
-							(世界等级: {{ getWorldLevel() }})
+							当前LV: {{ currentPlayerLV().toFixed(0) }}<br />
+							(世界等级: {{ getWorldLevel().toFixed(1) }})
 						</td>
 						<td
 							:style="{
@@ -162,7 +193,7 @@ function exitEditor() {
 								color: 'white',
 							}"
 						>
-							当前XP: {{ player.minigame.xp }}/{{ nextLVxp() }}
+							当前XP: {{ player.minigame.xp.toFixed(0) }}/{{ nextLVxp().toFixed(0) }}
 						</td>
 					</tr>
 					<tr>
@@ -185,9 +216,15 @@ function exitEditor() {
 						</td>
 					</tr>
 					<tr>
-						<td><button @click="spawn(0)">Dungeon 1</button></td>
-						<td v-if="player.minigame.visited.includes(1)">
-							<button @click="spawn(1)">Dungeon 2</button>
+						<td>
+							<button @click="spawn(0)">Dungeon 1</button><br>
+							<button @click="spawn(1)" v-if="player.minigame.visited.includes(1)">Dungeon 2</button>
+						</td>
+						<td>
+							<button @click="openCore()">
+								核心(装备{{player.minigame.coreEquipments.hea.length + player.minigame.coreEquipments.atk.length + player.minigame.coreEquipments.def.length}}/3)
+							</button><br>
+							仓库装备：{{player.minigame.storeEquipments.length}}/50<span style="color: cyan">(不朽x{{player.minigame.storeEquipments.filter(item => {return item.rarity >= 1.9}).length}})</span>
 						</td>
 					</tr>
 				</tbody>
@@ -197,13 +234,112 @@ function exitEditor() {
 		<div
 			style="
 				position: absolute;
+				right: 0px;
+				top: 50px;
+				height: 80%;
+				width: 400px;
+				z-index: 5;
+				border: 2px solid red;
+			"
+			align="center"
+			v-if="(temp.dungeonsSP == 2 || temp.innerWidth >= 800) && temp.openingCore"
+		>
+			核心(点击查看信息)
+			<div style="
+				height: 40%;
+				width: 95%;
+				border: 2px solid red;
+				position: relative;
+			" :style="{'border-color': temp.coreViewColor()}">
+				<div v-if="temp.coreViewEquipment.rarity != undefined">
+					<span v-html="equipmentDisplay(temp.coreViewEquipment)" /><br>
+					真实等级{{equipmentAttribute(temp.coreViewEquipment).realLevel.toFixed(1)}}(稀有度加成{{(temp.coreViewEquipment.rarity ** 2 * 100).toFixed(1)}}%)<br>
+					生命值+{{equipmentAttribute(temp.coreViewEquipment).hea.toFixed(1)}}<br>
+					攻击力+{{equipmentAttribute(temp.coreViewEquipment).atk.toFixed(1)}}<br>
+					防御力+{{equipmentAttribute(temp.coreViewEquipment).def.toFixed(1)}}<br>
+					<div style="position: absolute; bottom: 0; width: 100%; height: 50px">
+						<div style="height: 40px; width: 25%; border: 2px solid red">装备<br>没做完</div>
+					</div>
+				</div>
+			</div>
+			<div style="
+				height: 50%;
+				width: 95%;
+				border: 2px solid red;
+				overflow: auto;
+			">
+				<table><td style="width: 30%; border: 0px solid red">
+				<div v-if="player.minigame.coreEquipments.hea.length > 0"
+				style="
+					height: 50px;
+					width: 100%;
+					border: 2px solid red;
+				" :style="{'border-color': temp.coreViewColor(player.minigame.coreEquipments.hea[0])}"
+				@click="changeCoreView(player.minigame.coreEquipments.hea[0])">
+					装备的支持部<br><span v-html="equipmentDisplay(player.minigame.coreEquipments.hea[0])" />
+				</div>
+				<div
+				style="
+					height: 50px;
+					width: 100%;
+					border: 2px solid var(--color);
+				" v-else>
+					未装备支持部
+				</div>
+				</td><td style="width: 30%; border: 0px solid red">
+				<div v-if="player.minigame.coreEquipments.atk.length > 0"
+				style="
+					height: 50px;
+					width: 100%;
+					border: 2px solid red;
+				" :style="{'border-color': temp.coreViewColor(player.minigame.coreEquipments.atk[0])}"
+				@click="changeCoreView(player.minigame.coreEquipments.atk[0])">
+					装备的打击部<br><span v-html="equipmentDisplay(player.minigame.coreEquipments.atk[0])" />
+				</div>
+				<div
+				style="
+					height: 50px;
+					width: 100%;
+					border: 2px solid var(--color);
+				" v-else>
+					未装备打击部
+				</div>
+				</td><td style="width: 30%; border: 0px solid red">
+				<div v-if="player.minigame.coreEquipments.def.length > 0"
+				style="
+					height: 50px;
+					width: 100%;
+					border: 2px solid red;
+				" :style="{'border-color': temp.coreViewColor(player.minigame.coreEquipments.def[0])}"
+				@click="changeCoreView(player.minigame.coreEquipments.def[0])">
+					装备的防御部<br><span v-html="equipmentDisplay(player.minigame.coreEquipments.def[0])" />
+				</div>
+				<div
+				style="
+					height: 50px;
+					width: 100%;
+					border: 2px solid var(--color);
+				" v-else>
+					未装备防御部
+				</div></td></table>
+				
+				<div style="display: inline-block; width: calc(90% / 3 - 20px); margin: 10px; border: 2px solid red"
+				v-for="(item, index) in player.minigame.storeEquipments.sort(function(a, b){return -a.level * a.rarity ** 2 + b.level * b.rarity ** 2;})" :key="index" :style="{'border-color': temp.coreViewColor(item)}"
+				@click="changeCoreView(item)">
+					<span v-html="equipmentDisplay(item)" />
+				</div>
+			</div>
+		</div>
+		<div
+			style="
+				position: absolute;
 				left: 125px;
 				bottom: 100px;
 				height: 300px;
 				width: 300px;
 				z-index: 5;
 			"
-			v-if="temp.dungeonsSP == 2 || temp.innerWidth >= 800"
+			v-if="(temp.dungeonsSP == 2 || temp.innerWidth >= 800) && !temp.openingCore"
 		>
 			<button
 				@click="handleKeyPress('up')"
@@ -251,7 +387,7 @@ function exitEditor() {
 			</button>
 		</div>
 		<div
-			v-if="player.minigame.ateditor"
+			v-if="player.minigame.ateditor && !temp.openingCore"
 			style="display: flex; flex-direction: row; justify-content: center"
 		>
 			<button class="clickable_button" @click="player.minigame.editor_mode = 'replace'">
@@ -278,7 +414,7 @@ function exitEditor() {
 		</div>
 		<div
 			style="position: absolute; left: 75%; top: 20px; transform: translateX(-50%)"
-			v-if="temp.dungeonsSP == 2 || temp.innerWidth >= 800"
+			v-if="(temp.dungeonsSP == 2 || temp.innerWidth >= 800) && !temp.openingCore"
 		>
 			<table>
 				<tbody>
@@ -303,7 +439,7 @@ function exitEditor() {
 				top: temp.dungeonsSP == 2 && temp.innerWidth < 800 ? '25%' : '50%',
 				transform: 'translate(-50%, -50%)',
 			}"
-			v-if="temp.dungeonsSP == 2 || temp.innerWidth >= 800"
+			v-if="(temp.dungeonsSP == 2 || temp.innerWidth >= 800) && !temp.openingCore"
 		>
 			<tbody>
 				<template
@@ -373,7 +509,7 @@ function exitEditor() {
                 </tr> -->
 			</tbody>
 		</table>
-		<div v-if="temp.dungeonsSP == 1 || temp.innerWidth >= 800">
+		<div v-if="(temp.dungeonsSP == 1 && temp.innerWidth < 800) || (temp.innerWidth >= 800 && !temp.openingCore)">
 			技能树<br />
 			<div
 				style="
