@@ -9,6 +9,7 @@ import { CHALLENGE } from '../challenge';
 import { DC } from '@/core/constants';
 import { Upgrade } from '../upgrade';
 import { getTotalTheories } from './total-theories';
+import { energyToUNOCFSpeed } from '../ordinal/well_ordering';
 
 export const NON_RECURSIVE = {
 	upgrades: {
@@ -526,6 +527,7 @@ export const NON_RECURSIVE = {
 		if (player.nonrecu.studies_bought.includes(26)) {
 			a = a.mul(this.std112());
 		}
+		a = a.mul(energyToUNOCFSpeed());
 		return a;
 	},
 	UNOCFeff() {

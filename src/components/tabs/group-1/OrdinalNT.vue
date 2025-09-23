@@ -11,6 +11,7 @@ import { OrdinalUtils } from '@/utils/ordinal';
 import { Ordinal } from '@/lib/ordinal';
 import { Dilute } from '@/core/hydra/dilute';
 import OrdinalNT5 from './OrdinalNT5.vue';
+import { isTester } from '@/core/save/testing';
 
 function varGainLatex(id = 'x', layer = 3) {
 	const exp = OrdinalNT.varExp(id, layer);
@@ -231,7 +232,11 @@ function _g() {
 					</tbody>
 				</table>
 			</div>
-			<OrdinalNT5 v-if="player.numbertheory.visiting == 5 && player.milestones.nonrec_26" />
+			<OrdinalNT5
+				v-if="
+					player.numbertheory.visiting == 5 && player.milestones.nonrec_26 && isTester()
+				"
+			/>
 		</div>
 		<br />
 	</div>
