@@ -178,7 +178,7 @@ function getCurrentSequenceName(): string {
 	    			证明引理1.1，消耗100,000推演能量</button
 	    		><template v-else>
 	    		  使用基于 <vue-latex expression="P" /> 构造的结构归纳法证明。<br>若 <vue-latex expression="S = E" />，则显然有 <vue-latex expression="S = E" /> 或 <vue-latex expression="S_0 = 0" />。<br>若存在 <vue-latex expression="(s,t) \in P^2" /> 满足 <vue-latex expression="S = s \frown (0) \frown t^+" />，且两者均满足条件。<br>若 <vue-latex expression="s = E" />，则 <vue-latex expression="S = s \frown (0) \frown t^+ = E \frown (0) \frown t^+ = (0) \frown t^+"/>，所以 <vue-latex expression="S_0 = 0" />。<br>若 <vue-latex expression="s_0 = 0" />，则由于 <vue-latex expression="S = s \frown (0) \frown t^+" />，有 <vue-latex expression="S_0 = 0" />。<br>通过结构归纳法，表明对于任意 <vue-latex expression="P" /> 的元素 <vue-latex expression="S" />，有 <vue-latex expression="S = E" /><br><br>
-	    		  引理1.1奖励：你可以在非递归挑战外自动更新溶液数量，九头蛇能量第二软上限变得更弱，推演能量获取速度×10。
+	    		  引理1.1奖励：你可以自动更新溶液数量，九头蛇能量第二软上限变得更弱，推演能量获取速度×10。
 	    		</template>
 		      <div class="center_line" />
 		      2.
