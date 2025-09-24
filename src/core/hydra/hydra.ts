@@ -764,6 +764,7 @@ export const Hydra = {
 		if (player.numbertheory.well_ordering.steps_proceeded.includes(2)) base = base.pow(0.9);
 		if (player.numbertheory.well_ordering.steps_proceeded.includes(3)) base = base.pow(0.9);
 		if (player.numbertheory.well_ordering.steps_proceeded.includes(6)) base = base.pow(0.8);
+		if (player.numbertheory.well_ordering.steps_proceeded.includes(7)) base = base.pow(0.8);
 		return base;
 	},
 	powerGainBase(): Decimal {
