@@ -176,7 +176,7 @@ export const WellOrderingUpgrades = {
 		effect(): Decimal {
 			return getTotalTheories().add(1).pow(2);
 		}
-		effectDescription(): Decimal {
+		effectDescription(): string {
 			return 'x' + format(this.effect());
 		}
 	})(),
