@@ -14,7 +14,7 @@ function enterPlot(i: number) {
 		<h1>剧情设定</h1>
 		<div style="position: fixed">
 			<PlotNode style="top: 10px; left: 30px" @click="temp.plotdisplay = 1"
-				><vue-latex expression="-\varepsilon"></vue-latex
+				><vue-latex expression="-\epsilon"></vue-latex
 			></PlotNode>
 			<PlotNode style="top: 10px; left: 202.5px" @click="enterPlot(2)">
 				<template v-if="unlockedPlots() >= 2"
