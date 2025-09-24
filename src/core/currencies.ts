@@ -150,6 +150,16 @@ class NonRecCurrency extends Currency {
 		return player.nonrecu.power;
 	}
 }
+class DeduceEnergyCurrency extends Currency {
+	static name = '推演能量';
+	static set current(x: Decimal) {
+		player.numbertheory.well_ordering.energy = x;
+	}
+
+	static get current() {
+		return player.numbertheory.well_ordering.energy;
+	}
+}
 class NRTCurrency extends Currency {
 	static name = '非递归理论';
 	static set current(x: Decimal) {
@@ -173,6 +183,7 @@ const currencyMap: Map<Currencies, typeof Currency> = new Map([
 	[Currencies.SOLUTION, SolutionCurrency],
 	[Currencies.NONREC, NonRecCurrency],
 	[Currencies.NRT, NRTCurrency],
+	[Currencies.DEDUCE_ENERGY, DeduceEnergyCurrency],
 ]);
 
 export function setCurrency(currency: Currencies, value: Decimal) {

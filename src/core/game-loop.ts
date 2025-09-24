@@ -13,6 +13,7 @@ import { getCurrency } from './currencies';
 import { updateTheme } from '@/utils/themes';
 import { getOrdinalLevel } from './ordinal/ordinal-level.ts';
 import { ORDINAL_BOOSTER } from './ordinal/ordinal-booster.ts';
+import { wellOrderingLoop } from './ordinal/well_ordering.ts';
 import { Dilute } from './hydra/dilute.ts';
 import ModalService from '@/utils/Modal.ts';
 
@@ -340,6 +341,10 @@ export function simulate(diff: number) {
 
 	if (player.upgrades[58]) {
 		feature.OrdinalNT.varGainLoop(pre_cardinal_diff / 1000);
+	}
+	
+	if (player.milestones.nonrec_26) {
+	  wellOrderingLoop(pre_cardinal_diff / 1000)
 	}
 
 	Logarithm.astronomerUpdate();
