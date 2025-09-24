@@ -77,6 +77,7 @@ function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof
 		} else if (block === null && player.minigame.taking_box) {
 			addReplace(room, x, y, 'BOX', false);
 			temp.minigametip = '已放下箱子';
+			player.minigame.taking_box = false;
 			putedblock = true;
 		} else if (block instanceof EntityGameObject) {
 			let guardinfo = block.getBattleInfo();
