@@ -14,22 +14,26 @@ import { player } from '@/core/save';
 import ObjectNode from '../developermode/ObjectNode';
 import MiniGameTD from '../../group-2/MiniGameTD.vue';
 import {
-	getCurrentBlock,
-	getPlayerMap,
-	getPlayerCurrentMap,
 	isPlayerVisible,
 	visibleBlocks,
 	isTouched,
-	addReplace,
 	removeReplaces,
 	initializeEditorMap,
 } from '@/core/minigame/room';
+import { addReplace } from '@/core/minigame/replacement';
+import { getCurrentBlock } from '@/core/minigame/block';
 import { handleKeyPress } from '@/core/minigame/minigame-loop';
-import { meBattleInfo } from '@/core/minigame/battle';
+import {
+	calculateRequiredAtkIncrease,
+	calculateRequiredHpIncrease,
+	guardBattleInfo,
+	meBattleInfo,
+	runBattleFast,
+} from '@/core/minigame/battle';
 import { range } from '@/utils/algorithm';
 import { temp } from '../../../core/temp-data';
 import { format } from '@/utils/format';
-import { MoveableBoxGameObject } from '@/core/minigame/game-object';
+import { GuardGameObject, MoveableBoxGameObject } from '@/core/minigame/game-object';
 import ModalService from '@/utils/Modal';
 import SkillTree from '../minigame/SkillTree.vue';
 import { playerSafe, playerToDestination } from '@/core/minigame/path-searcher';
@@ -70,6 +74,23 @@ function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof
 			addReplace(room, x, y, 'BOX', false);
 			temp.minigametip = '已放下箱子';
 			putedblock = true;
+		} else if (block instanceof GuardGameObject) {
+			let guardinfo = guardBattleInfo(block.tier, block.type);
+			let battlestatus = runBattleFast(meBattleInfo(), guardinfo);
+			if (battlestatus.status == 'fail') {
+				let req = calculateRequiredHpIncrease(meBattleInfo(), guardinfo);
+				let req2 = calculateRequiredAtkIncrease(meBattleInfo(), guardinfo);
+				ModalService.show({
+					title: '是否继续战斗?',
+					get content() {
+						return `当前敌人你无法击败，按确定以继续战斗<br>附加信息: ${req.reason}；${req2.reason}`;
+					},
+					onConfirm() {
+						block.interact(x, y);
+					},
+				});
+			}
+			return;
 		}
 	}
 	console.log(!putedblock);

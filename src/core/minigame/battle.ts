@@ -1,3 +1,4 @@
+import { format } from '@/utils/format';
 import { currentPlayerLV, getWorldLevel } from '.';
 import { deepCopy, player } from '../save';
 
@@ -7,13 +8,26 @@ interface BattleInfo {
 	def: number;
 	xp?: number;
 	hpMax?: number;
+	/**
+	 * 敌人对玩家HP造成的减益
+	 */
 	m_hp_debuff?: number;
+	/**
+	 * 敌人对玩家ATK造成的减益
+	 */
 	m_atk_debuff?: number;
 }
 interface BattleStatus {
 	hp_after_battle: number;
 	status: 'fail' | 'win';
 }
+/**
+ * 进行战斗，me为玩家，enemy为敌人
+ *
+ * @returns 玩家在战斗后的属性
+ *
+ * @other This code is fixed by Deepseek
+ */
 export function runBattleFast(
 	me: BattleInfo,
 	enemy: BattleInfo,
@@ -22,35 +36,66 @@ export function runBattleFast(
 		hp_cost: number;
 	};
 } {
-	let m = deepCopy(me);
-	let e = deepCopy(enemy);
-	let m_atk = m.atk - e.def;
-	let e_atk = e.atk - m.def;
-	let m_atkt = Math.ceil((m.hp * (e.m_hp_debuff ?? 1)) / e_atk);
-	let e_atkt = Math.ceil(e.hp / (m_atk * (e.m_atk_debuff ?? 1)));
-	// me first.
-	// m_atkt > e_atkt =
-	// 0 0
-	// 0 1
-	// 1 1
-	if (m_atkt < e_atkt) {
-		return {
-			hp_after_battle: 0,
-			status: 'fail',
+	// 应用debuff计算实际属性
+	const actualMeHp = Math.floor(me.hp * (enemy.m_hp_debuff ?? 1));
+	const actualMeAtk = Math.floor(me.atk * (enemy.m_atk_debuff ?? 1));
 
-			extendinfo: {
-				hp_cost: e_atk * (e_atkt - 1) + m.hp * (1 - (e.m_hp_debuff ?? 1)),
-			},
-		};
-	} else {
-		return {
-			hp_after_battle: m.hp - e_atk * (e_atkt - 1),
-			status: 'win',
-			extendinfo: {
-				hp_cost: e_atk * (e_atkt - 1) + m.hp * (1 - (e.m_hp_debuff ?? 1)),
-			},
-		};
+	// 计算每次攻击造成的伤害
+	const meDamagePerAttack = Math.max(0, actualMeAtk - enemy.def);
+	const enemyDamagePerAttack = Math.max(0, enemy.atk - me.def);
+
+	// 初始化战斗状态
+	let currentMeHp = actualMeHp;
+	let currentEnemyHp = enemy.hp;
+
+	// 记录总伤害（用于计算hp_cost）
+	let totalDamageTaken = 0;
+
+	// 回合制战斗：玩家先攻
+	while (currentMeHp > 0 && currentEnemyHp > 0) {
+		// 玩家攻击回合
+		currentEnemyHp -= meDamagePerAttack;
+		if (currentEnemyHp <= 0) {
+			// 怪物死亡，玩家胜利
+			const hpAfterBattle = currentMeHp;
+			const hpCost = me.hp - hpAfterBattle + (me.hp - actualMeHp); // 战斗伤害 + debuff损失
+
+			return {
+				hp_after_battle: hpAfterBattle,
+				status: 'win',
+				extendinfo: {
+					hp_cost: hpCost,
+				},
+			};
+		}
+
+		// 怪物攻击回合
+		const damageThisRound = enemyDamagePerAttack;
+		currentMeHp -= damageThisRound;
+		totalDamageTaken += damageThisRound;
+
+		if (currentMeHp <= 0) {
+			// 玩家死亡，战斗失败
+			const hpCost = me.hp; // 玩家死亡，消耗全部生命值
+
+			return {
+				hp_after_battle: 0,
+				status: 'fail',
+				extendinfo: {
+					hp_cost: hpCost,
+				},
+			};
+		}
 	}
+
+	// 理论上不会执行到这里，但为了类型安全
+	return {
+		hp_after_battle: 0,
+		status: 'fail',
+		extendinfo: {
+			hp_cost: me.hp,
+		},
+	};
 }
 
 export function guardBattleInfo(tier: number, type = 1): Omit<Required<BattleInfo>, 'hpMax'> {
@@ -120,8 +165,6 @@ export function guardBattleInfo(tier: number, type = 1): Omit<Required<BattleInf
 		};
 	}
 }
-var a = 3;
-a;
 export function meBattleInfo(): BattleInfo & {
 	hpMax: NonNullable<BattleInfo['hpMax']>;
 } {
@@ -140,5 +183,175 @@ export function meBattleInfo(): BattleInfo & {
 		hpMax,
 		atk,
 		def: 0,
+	};
+}
+
+/**
+ * 计算需要提升多少生命值 玩家才能不死亡
+ */
+export function calculateRequiredHpIncrease(
+	me: BattleInfo,
+	enemy: BattleInfo,
+): { requiredHp: number; isPossible: boolean; reason?: string } {
+	// 应用debuff计算实际属性
+	const actualMeAtk = Math.floor(me.atk * (enemy.m_atk_debuff ?? 1));
+	const meDamagePerAttack = Math.max(0, actualMeAtk - enemy.def);
+	const enemyDamagePerAttack = Math.max(0, enemy.atk - me.def);
+
+	// 检查玩家是否能对怪物造成伤害
+	if (meDamagePerAttack <= 0) {
+		return {
+			requiredHp: Infinity,
+			isPossible: false,
+			reason: `玩家不能通过提升生命值来打败敌人`,
+		};
+	}
+
+	// 检查怪物是否能对玩家造成伤害
+	if (enemyDamagePerAttack <= 0) {
+		return {
+			requiredHp: 0,
+			isPossible: true,
+			reason: '怪物无法对玩家造成伤害，玩家当前血量即可获胜',
+		};
+	}
+
+	// 计算击败怪物需要的回合数
+	const roundsToKillEnemy = Math.ceil(enemy.hp / meDamagePerAttack);
+
+	// 计算在这些回合中玩家需要承受的伤害
+	// 由于玩家先攻，怪物攻击次数 = roundsToKillEnemy - 1
+	const totalDamageTaken = enemyDamagePerAttack * (roundsToKillEnemy - 1);
+
+	// 计算考虑debuff后的实际所需血量
+	const debuff = enemy.m_hp_debuff ?? 1;
+	const requiredHpAfterDebuff = totalDamageTaken + 1; // +1 确保存活
+
+	// 计算原始血量需求（考虑debuff前的血量）
+	const requiredOriginalHp = Math.ceil(requiredHpAfterDebuff / debuff);
+
+	// 计算需要增加的血量
+	const currentOriginalHp = me.hp;
+	const hpIncreaseNeeded = Math.max(0, requiredOriginalHp - currentOriginalHp);
+
+	// 检查是否可能（防止数值过大或不合理）
+	const isPossible = hpIncreaseNeeded < 1000000; // 设置一个合理的上限
+
+	return {
+		requiredHp: hpIncreaseNeeded,
+		isPossible: isPossible,
+		reason: isPossible
+			? `玩家提升+${format(hpIncreaseNeeded)}点生命值就可以获胜`
+			: `玩家所需生命值提升过大，需要+${format(hpIncreaseNeeded)}HP，通过提升生命值可能不可行`,
+	};
+}
+
+export function calculateRequiredAtkIncrease(
+	me: BattleInfo,
+	enemy: BattleInfo,
+): { requiredAtk: number; isPossible: boolean; reason?: string } {
+	// 应用debuff计算实际属性
+	const atkDebuff = enemy.m_atk_debuff ?? 1;
+	const hpDebuff = enemy.m_hp_debuff ?? 1;
+
+	const actualMeHp = Math.floor(me.hp * hpDebuff);
+	const enemyDamagePerAttack = Math.max(0, enemy.atk - me.def);
+
+	// 检查怪物是否能对玩家造成伤害
+	if (enemyDamagePerAttack <= 0) {
+		return {
+			requiredAtk: 0,
+			isPossible: true,
+			reason: '怪物无法对玩家造成伤害，玩家当前攻击力即可获胜',
+		};
+	}
+
+	// 检查玩家当前是否能对怪物造成伤害
+	const currentMeDamage = Math.max(0, me.atk * atkDebuff - enemy.def);
+	if (currentMeDamage <= 0) {
+		// 玩家无法破防，需要先达到能造成伤害的水平
+		const minAtkToDamage = Math.ceil((enemy.def + 1) / atkDebuff);
+		const atkIncreaseNeeded = Math.max(0, minAtkToDamage - me.atk);
+
+		// 继续计算破防后还需要多少攻击力才能获胜
+		const meWithMinAtk = { ...me, atk: minAtkToDamage };
+		const resultAfterBreakDef = calculateRequiredAtkAfterBreakDef(meWithMinAtk, enemy);
+
+		if (!resultAfterBreakDef.isPossible) {
+			return {
+				requiredAtk: atkIncreaseNeeded,
+				isPossible: false,
+				reason: `玩家需要至少 +${format(atkIncreaseNeeded)} 点攻击力才能破防，但破防后仍无法获胜`,
+			};
+		}
+
+		return {
+			requiredAtk: atkIncreaseNeeded + resultAfterBreakDef.requiredAtk,
+			isPossible: true,
+			reason: `需要 ${format(atkIncreaseNeeded)} 点攻击力破防，再提升 ${format(resultAfterBreakDef.requiredAtk)} 点才能获胜`,
+		};
+	}
+
+	return calculateRequiredAtkAfterBreakDef(me, enemy);
+}
+
+function calculateRequiredAtkAfterBreakDef(
+	me: BattleInfo,
+	enemy: BattleInfo,
+): { requiredAtk: number; isPossible: boolean; reason?: string } {
+	const atkDebuff = enemy.m_atk_debuff ?? 1;
+	const hpDebuff = enemy.m_hp_debuff ?? 1;
+
+	const actualMeHp = Math.floor(me.hp * hpDebuff);
+	const enemyDamagePerAttack = Math.max(0, enemy.atk - me.def);
+	const currentMeDamage = Math.max(0, me.atk * atkDebuff - enemy.def);
+
+	// 计算玩家能够承受的最大怪物攻击回合数
+	// 由于玩家先攻，怪物攻击次数 = 玩家攻击次数 - 1
+	const maxMonsterAttackRounds = Math.floor(actualMeHp / enemyDamagePerAttack);
+
+	// 玩家需要在这些回合内击败怪物
+	// 需要的玩家攻击次数 = 怪物攻击次数 + 1
+	const requiredPlayerAttackRounds = maxMonsterAttackRounds + 1;
+
+	// 计算每次攻击需要造成的伤害
+	const requiredDamagePerAttack = Math.ceil(enemy.hp / requiredPlayerAttackRounds);
+
+	// 计算需要的原始攻击力（考虑debuff）
+	const requiredActualAtk = requiredDamagePerAttack + enemy.def;
+	const requiredOriginalAtk = Math.ceil(requiredActualAtk / atkDebuff);
+
+	// 计算需要增加的攻击力
+	const atkIncreaseNeeded = Math.max(0, requiredOriginalAtk - me.atk);
+
+	// 检查可行性（设置一个合理的攻击力上限）
+	const isPossible = atkIncreaseNeeded < 10000; // 合理的上限
+
+	if (!isPossible) {
+		return {
+			requiredAtk: atkIncreaseNeeded,
+			isPossible: false,
+			reason: '所需攻击力提升过大，需要+' + format(atkIncreaseNeeded) + '，可能不可行',
+		};
+	}
+
+	// 验证计算结果
+	const verifiedMeDamage = Math.max(0, requiredOriginalAtk * atkDebuff - enemy.def);
+	const actualRoundsToKill = Math.ceil(enemy.hp / verifiedMeDamage);
+	const monsterAttackRounds = actualRoundsToKill - 1;
+	const totalDamageTaken = monsterAttackRounds * enemyDamagePerAttack;
+
+	if (totalDamageTaken >= actualMeHp) {
+		return {
+			requiredAtk: atkIncreaseNeeded + 1, // 保险起见多加1点
+			isPossible: true,
+			reason: `需要提升 ${format(atkIncreaseNeeded)} 点攻击力（验证后建议增加 ${format(atkIncreaseNeeded + 1)} 点）`,
+		};
+	}
+
+	return {
+		requiredAtk: atkIncreaseNeeded,
+		isPossible: true,
+		reason: `需要提升 ${format(atkIncreaseNeeded)} 点攻击力才能获胜`,
 	};
 }

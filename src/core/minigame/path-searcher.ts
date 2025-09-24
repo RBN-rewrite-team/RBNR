@@ -1,7 +1,13 @@
 import { delay } from '@/utils/algorithm';
 import { player } from '../save';
-import { getCurrentBlock } from './room';
-import { BoxGameObject, KeyGameObject, OreGameObject } from './game-object';
+import { getCurrentBlock } from './block';
+import {
+	BoxGameObject,
+	HealthRecoveryGameObject,
+	KeyGameObject,
+	OreGameObject,
+} from './game-object';
+import { interactBlock, type Directions } from './minigame-loop';
 
 export type Path = {
 	steps: bigint;
@@ -123,7 +129,8 @@ export function playerSafe(block: any) {
 		block === null ||
 		block instanceof OreGameObject ||
 		block instanceof BoxGameObject ||
-		block instanceof KeyGameObject
+		block instanceof KeyGameObject ||
+		block instanceof HealthRecoveryGameObject
 	);
 }
 function valueUntilTrue(f: () => boolean) {
@@ -151,11 +158,25 @@ export async function playerToDestination(destination_x: bigint, destination_y: 
 	console.log(paths);
 	player.minigame.interact = 5;
 	for (const path of paths) {
+		const [rx, ry] = [(player.minigame.current_x = path.x), player.minigame.current_y];
 		player.minigame.current_x = path.x;
 		player.minigame.current_y = path.y;
-
+		interactBlock(
+			player.minigame.current_room,
+			path.x,
+			path.y,
+			directionof(rx, ry, path.x, path.y),
+		);
 		await valueUntilTrue(() => player.minigame.interact == 0 || player.minigame.interact == 5);
 		player.minigame.interact = 5;
 	}
 	player.minigame.interact = 0;
+}
+
+export function directionof(x: bigint, y: bigint, x2: bigint, y2: bigint): Directions {
+	if (x + 1n == x2 && y == y2) return 'right';
+	if (x - 1n == x2 && y == y2) return 'left';
+	if (x == x2 && y + 1n == y2) return 'down';
+	if (x == x2 && y - 1n == y2) return 'up';
+	return 'other';
 }
