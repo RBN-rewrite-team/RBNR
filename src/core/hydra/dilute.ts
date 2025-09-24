@@ -753,6 +753,15 @@ const Dil = {
 			player.hydra.dilute.lastDeduce = player.hydra.deduceOrdinal[0];
 		}
 	},
+	solutionCalcOutside() {
+		if (!CHALLENGE.inChallenge(1, 5)) {
+			player.hydra.dilute.solution = player.hydra.dilute.solution.max(this.solutionGain(false,true));
+			player.hydra.dilute.lastSolvent = Array.from(
+				player.hydra.dilute.solvent,
+			) as typeof player.hydra.dilute.solvent;
+			player.hydra.dilute.lastDeduce = player.hydra.deduceOrdinal[0];
+		}
+	},
 	backupHydra(): backupHydraType {
 		const items: (`${IntClosedRange<61, 69>}R` | keyof typeof Hydra.upgrades)[] = [];
 		for (const id2 of Object.keys(Hydra.upgrades)) {
@@ -878,6 +887,7 @@ const Dil = {
 		player.hydra.dilute.highestSolution = player.hydra.dilute.highestSolution.max(
 			player.hydra.dilute.solution,
 		);
+	  if (player.numbertheory.well_ordering.steps_proceeded.includes(2) && this.solutionGain(false,true).gte(player.hydra.dilute.solution)) this.solutionCalcOutside()
 	},
 	prionsBase() {
 		let base = new Decimal(1 + Dilute.diluteAmount(4) / 100);
@@ -917,8 +927,9 @@ const Dil = {
 		}
 		return player.hydra.dilute.solvent[id];
 	},
-	solutionGain(getCurrentMax = false): Decimal {
-		const getAmountFunction = getCurrentMax ? Dilute.diluteAmountOutside : Dilute.diluteAmount;
+	solutionGain(getCurrentMax = false, gettingOutSide = false): Decimal {
+		let getAmountFunction = (getCurrentMax) ? Dilute.diluteAmountOutside : Dilute.diluteAmount;
+		if (gettingOutSide) getAmountFunction = (x: number) => ([10,10,10,10,10,10,true,true,true] as const)[x]
 		let base: number = Array(6)
 			.fill(null)
 			.map((_, index) => getAmountFunction(index as IntClosedRange<0, 5>))

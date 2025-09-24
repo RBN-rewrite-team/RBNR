@@ -24,6 +24,7 @@ import type { Upgrade } from './upgrade.ts';
 import { DC } from '@/core/constants';
 import { getMCB19Effect, wgEffect } from './exponention/chessboard.ts';
 import { NON_RECURSIVE } from './nonrecu/index.ts';
+import { WellOrderingBuyables } from "./ordinal/well_ordering.ts"
 
 const upgrades = {
 	...Successor.upgrades,
@@ -51,6 +52,7 @@ const buyables = {
 	...OrdinalNT.buyables,
 	...ORDINAL_BOOSTER.buyables,
 	...Hydra.buyables,
+	...WellOrderingBuyables
 } as const;
 const preExponent = Object.keys(Addition.buyables)
 	.concat(Object.keys(Successor.buyables))

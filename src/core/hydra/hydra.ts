@@ -761,6 +761,7 @@ export const Hydra = {
 			base = base.root(player.nonrecu.resetTimes.min(25).mul(0.01).add(1));
 		if (player.challenges[1][1].gte(1)) base = base.pow(0.8);
 		if (player.upgrades[72]) base = base.pow(0.9);
+		if (player.numbertheory.well_ordering.steps_proceeded.includes(2)) base = base.pow(0.9);
 		return base;
 	},
 	powerGainBase(): Decimal {
