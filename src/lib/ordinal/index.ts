@@ -31,7 +31,7 @@ export class Ordinal {
 					.replace(/^>/, ''),
 			);
 		}
-		return ordinalToLPrSS(new Decimal(ord), new Decimal(base), 0);
+		// return ordinalToLPrSS(new Decimal(ord), new Decimal(base), 0);
 		//return displayOrd(ord, base)
 		return displayOrd(ord, base, 0, 0, 0, 0, 1);
 	}
