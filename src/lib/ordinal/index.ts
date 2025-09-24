@@ -8,6 +8,7 @@ import { calculate } from '../../utils/bms-analyze.ts';
 import { player } from '@/core/global';
 import { OrdinalUtils } from '../../utils/ordinal.ts';
 import { getBMSOrdinalLevel, getBMSOLReq } from '../../core/ordinal/ordinal-level.ts';
+import { ordinalToLPrSS } from '@/utils/ordinal-to-prss.ts';
 
 export class Ordinal {
 	node: MainNode;
@@ -30,6 +31,7 @@ export class Ordinal {
 					.replace(/^>/, ''),
 			);
 		}
+		// return ordinalToLPrSS(new Decimal(ord), new Decimal(base), 0);
 		//return displayOrd(ord, base)
 		return displayOrd(ord, base, 0, 0, 0, 0, 1);
 	}
