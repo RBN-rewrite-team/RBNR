@@ -32,3 +32,12 @@ export function DecimalsMin(...args: Decimal[]) {
 export function range(a: bigint, b: bigint) {
 	return new Array(Number(b - a)).fill(0).map((v, i) => BigInt(i) + a);
 }
+
+export function delay(millseconds: number) {
+	return new Promise(function (resolve) {
+		const a = setTimeout(() => {
+			clearTimeout(a);
+			resolve(millseconds);
+		}, millseconds);
+	});
+}
