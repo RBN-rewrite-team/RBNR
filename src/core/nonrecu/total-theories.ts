@@ -16,7 +16,8 @@ export function getTotalTheories() {
 						? player.nonrecu.secInThisReset.add(1).log10()
 						: 1,
 				)
-				.floor(),
+				.floor()
+				.max(0),
 		);
 	if (player.challenges[1][3].gt(0))
 		base = base.mul(player.challenges[1][3].mul(0.1).add(1)).floor();
