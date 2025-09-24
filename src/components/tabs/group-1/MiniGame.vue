@@ -32,6 +32,7 @@ import { format } from '@/utils/format';
 import { MoveableBoxGameObject } from '@/core/minigame/game-object';
 import ModalService from '@/utils/Modal';
 import SkillTree from '../minigame/SkillTree.vue';
+import { playerSafe, playerToDestination } from '@/core/minigame/path-searcher';
 
 function spawn(id: number): void {
 	((player.minigame.current_room = id),
@@ -58,6 +59,8 @@ function formatbigint(b: bigint) {
  * 此次更新修复了某些人总是说“你 妈 的”的问题
  */
 function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof getCurrentBlock>) {
+	console.log(room, x, y);
+	let putedblock = false;
 	if (isTouched(x, y)) {
 		if (block instanceof MoveableBoxGameObject) {
 			addReplace(room, x, y, '0', false);
@@ -66,8 +69,10 @@ function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof
 		} else if (block === null && player.minigame.taking_box) {
 			addReplace(room, x, y, 'BOX', false);
 			temp.minigametip = '已放下箱子';
+			putedblock = true;
 		}
 	}
+	console.log(!putedblock);
 	if (player.minigame.ateditor) {
 		// ModalService.show({content: "拜谢"})
 
@@ -78,7 +83,21 @@ function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof
 		if (player.minigame.editor_mode == 'remove') {
 			removeReplaces(room, x, y);
 		}
+	} else if (!putedblock) {
+		console.log(room, x, y);
+		if (playerSafe(block)) {
+			temp.minigametip =
+				'正在尝试前往' + x + ',' + y + '...如果玩家未移动可以点击玩家旁边的位置';
+			playerToDestination(x, y)
+				.then(function () {
+					temp.minigametip = '移动完成';
+				})
+				.catch(function () {
+					temp.minigametip = '无法移动';
+				});
+		}
 	}
+	putedblock = false;
 }
 function atDEV() {
 	return import.meta.env.DEV;
@@ -472,6 +491,7 @@ function changeCoreView(eq: CoreEquipment) {
 				left: temp.dungeonsSP == 2 && temp.innerWidth < 800 ? '25%' : '75%',
 				top: temp.dungeonsSP == 2 && temp.innerWidth < 800 ? '25%' : '50%',
 				transform: 'translate(-50%, -50%)',
+				'z-index': '5',
 			}"
 			v-if="(temp.dungeonsSP == 2 || temp.innerWidth >= 800) && !temp.openingCore"
 		>
@@ -497,7 +517,7 @@ function changeCoreView(eq: CoreEquipment) {
 							>
 								<MiniGameTD
 									v-if="isPlayerVisible(x, y)"
-									@click="
+									@mousedown="
 										clickBlock(
 											player.minigame.current_room,
 											x,
