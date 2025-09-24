@@ -24,7 +24,7 @@ import type { Upgrade } from './upgrade.ts';
 import { DC } from '@/core/constants';
 import { getMCB19Effect, wgEffect } from './exponention/chessboard.ts';
 import { NON_RECURSIVE } from './nonrecu/index.ts';
-import { WellOrderingBuyables } from "./ordinal/well_ordering.ts"
+import { WellOrderingBuyables, WellOrderingUpgrades } from "./ordinal/well_ordering.ts"
 
 const upgrades = {
 	...Successor.upgrades,
@@ -39,6 +39,7 @@ const upgrades = {
 	...Hydra.upgrades,
 	...DiluteUpgrades,
 	...NON_RECURSIVE.upgrades,
+	...WellOrderingUpgrades
 } as const;
 const buyables = {
 	...Successor.buyables,

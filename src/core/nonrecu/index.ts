@@ -514,6 +514,7 @@ export const NON_RECURSIVE = {
 		if (player.upgrades['71UN']) {
 			player.nonrecu.unocf_j = player.nonrecu.unocf_j.add(this.UNOCFdeduceSpeed().mul(diff));
 		}
+		if (player.numbertheory.well_ordering.steps_proceeded.includes(3)) player.challenges[1][4] = player.challenges[1][4].max(player.hydra.deduceOrdinal[0].max(10).log10().log10())
 	},
 	UNOCFdeduceSpeed() {
 		let a = new Decimal(1);
