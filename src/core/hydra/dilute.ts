@@ -904,6 +904,7 @@ const Dil = {
 		if (player.nonrecu.studies_bought.includes(7)) base = base.pow(10);
 		if (player.challengein[0] != 1 && player.milestones.nonrec_16)
 			base = base.pow(Hydra.prestigeEff(1).add(1));
+		if (player.numbertheory.well_ordering.steps_proceeded.includes(3)) base = base.pow(player.numbertheory.well_ordering.energy.add(1).pow(2))
 		if (
 			player.milestones.nonrec_22 &&
 			((player.challengein[0] == -1 && player.challengein[1] == -1) ||

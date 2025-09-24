@@ -16,7 +16,10 @@ export const WellOrderingBuyables = {
       return x.pow_base(1.3).mul(100)
     }
     effect(x: Decimal): Decimal {
-      return x
+      let eff = x
+      if (player.upgrades.U6R13) eff = eff.pow(2)
+      eff = eff.pow(buyables.B6R13.effect(player.buyables.B6R13))
+      return eff
     }
     effectDescription(x: Decimal) {
 			return '+' + formatWhole(this.effect(x));
@@ -39,7 +42,10 @@ export const WellOrderingBuyables = {
       return x.pow_base(1.5).mul(500)
     }
     effect(x: Decimal): Decimal {
-      return x.pow(2)
+      let eff = x.pow(2)
+      eff = eff.pow(buyables.B6R13.effect(player.buyables.B6R13))
+      if (eff.gte(1e9)) eff = eff.log10().div(9).pow(0.5).mul(9).pow10()
+      return eff
     }
     effectDescription(x: Decimal) {
 			return formatWhole(this.effect(x)) + "/s";
@@ -55,7 +61,82 @@ export const WellOrderingBuyables = {
 		}
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
   })(),
+  "B6R13": new (class extends Buyable<Decimal> {
+    name = "B6-R-1-3"
+    description = "前两个购买项的效果指数+0.05"
+    cost(x: Decimal): Decimal {
+      return x.pow(1.2).pow_base(2).mul(1e15)
+    }
+    effect(x: Decimal): Decimal {
+      return x.mul(0.05).add(1)
+    }
+    effectDescription(x: Decimal) {
+			return "+"+format(this.effect(x));
+		}
+		costInverse(x: Decimal): Decimal {
+		  return x.div(1e15).log(2).root(1.2).add(1).floor()
+		}
+		canBuyMax(): boolean {
+		  return false
+		}
+		autoBuyMax(): boolean {
+		  return false
+		}
+		currency: Currencies = Currencies.DEDUCE_ENERGY;
+  })(),
+  "B6R14": new (class extends Buyable<Decimal> {
+    name = "B6-R-1-4"
+    description = "U6-R-1-1的效果指数+0.05"
+    cost(x: Decimal): Decimal {
+      return x.pow(1.2).pow_base(4).mul(1e16)
+    }
+    effect(x: Decimal): Decimal {
+      return x.mul(0.05)
+    }
+    effectDescription(x: Decimal) {
+			return "+"+format(this.effect(x));
+		}
+		costInverse(x: Decimal): Decimal {
+		  return x.div(1e16).log(4).root(1.2).add(1).floor()
+		}
+		canBuyMax(): boolean {
+		  return false
+		}
+		autoBuyMax(): boolean {
+		  return false
+		}
+		currency: Currencies = Currencies.DEDUCE_ENERGY;
+  })(),
 } as const;
+export const WellOrderingUpgrades = {
+  "U6R11": new (class extends UpgradeWithEffect<Decimal> {
+			description = '基于非递归能量加成推演能量获取';
+			cost = new Decimal(5e6);
+			name = 'U6-R-1-1';
+			currency: Currencies = Currencies.DEDUCE_ENERGY;
+			effect(): Decimal {
+			  let exp = new Decimal(0.15)
+			  exp = exp.add(buyables.B6R14.effect(player.buyables.B6R14))
+			  let eff = player.nonrecu.power.add(1).log10().add(1).pow(exp)
+			  return eff
+			}
+			effectDescription(): string {
+			  return "x"+format(this.effect())
+			}
+		})(),
+  "U6R12": new (class extends Upgrade {
+			description = '你可以同时购买三列非递归研究树的第5到第7行';
+			cost = new Decimal(1e8);
+			name = 'U6-R-1-2';
+			currency: Currencies = Currencies.DEDUCE_ENERGY;
+		})(),
+  "U6R13": new (class extends Upgrade {
+			description = 'B6-R-1-1的效果变为其平方';
+			cost = new Decimal(5e9);
+			name = 'U6-R-1-3';
+			currency: Currencies = Currencies.DEDUCE_ENERGY;
+		})(),
+} as const
 export const nt = {
 	get p() {
 		return player.numbertheory.well_ordering;
@@ -67,6 +148,11 @@ export function wellOrderGainPerClick() {
 	a = a.add(buyables.B6R11.effect(player.buyables.B6R11))
 	
 	if (player.numbertheory.well_ordering.steps_proceeded.includes(2)) a = a.mul(10)
+	if (player.numbertheory.well_ordering.steps_proceeded.includes(3)) a = a.mul(player.challenges[1][5].add(1))
+	if (player.numbertheory.well_ordering.steps_proceeded.includes(6)) a = a.mul(player.hydra.dilute.solution.add(1).root(100))
+	if (player.upgrades.U6R11) a = a.mul(upgrades.U6R11.effect())
+	
+	if (a.gte(1e15)) a = a.log10().div(15).pow(0.5).mul(15).pow10()
 
 	return a;
 }
@@ -74,7 +160,7 @@ export function clickWellOrder() {
 	nt.p.energy = nt.p.energy.add(wellOrderGainPerClick());
 }
 
-const ProcceedingCost = [new Decimal(1/0),DC.D_10, new Decimal(1e5)]
+const ProcceedingCost = [new Decimal(1/0),DC.D_10, new Decimal(1e5),new Decimal(5e8),new Decimal(1e15),new Decimal(1e17),new Decimal(1e35)]
 
 export function stepProceed(x: number) {
 	if (!nt.p.steps_proceeded.includes(x)) {
