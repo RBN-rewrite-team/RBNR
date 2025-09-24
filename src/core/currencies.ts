@@ -16,6 +16,7 @@ export enum Currencies {
 	SOLUTION = 'solution',
 	NONREC = 'nonrec',
 	NRT = 'nrt',
+	DEDUCE_ENERGY = 'deduce_energy',
 }
 abstract class Currency {
 	static name: string = '未定义货币';
