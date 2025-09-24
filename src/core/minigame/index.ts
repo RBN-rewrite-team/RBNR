@@ -16,6 +16,8 @@ export type CoreEquipment = {
 	level: number;
 	rarity: number;
 	collaborate: [number, number]; //没做完
+	destroyed?: boolean;
+	equipped?: boolean;
 };
 export type CoreEquipmentAttribute = {
 	realLevel: number;
@@ -52,6 +54,23 @@ export function equipmentAttribute(eq: CoreEquipment): CoreEquipmentAttribute {
 		hea: realLevel * 4 * (eq.position == 'hea' ? 1 : 0.2),
 		atk: realLevel * 1 * (eq.position == 'atk' ? 1 : 0.2),
 		def: realLevel * 0.4 * (eq.position == 'def' ? 1 : 0.2),
+	};
+}
+export function totEqAtt(): CoreEquipmentAttribute {
+	let hea = 0, atk = 0, def = 0;
+	let i = 'hea' as ('hea' | 'atk' | 'def');
+	for(i in player.minigame.coreEquipments)
+	{
+		if(i.length == 0) continue;
+		hea += equipmentAttribute(player.minigame.coreEquipments[i][0]).hea;
+		atk += equipmentAttribute(player.minigame.coreEquipments[i][0]).atk;
+		def += equipmentAttribute(player.minigame.coreEquipments[i][0]).def;
+	}
+	return {
+		realLevel: 0,
+		hea: hea,
+		atk: atk,
+		def: def,
 	};
 }
 export interface PlayerMinigameData {
@@ -168,4 +187,9 @@ export function getWorldLevel() {
 	} catch (err) {
 		return 1;
 	}
+}
+
+export function equipmentDestroyLoop()
+{
+	player.minigame.storeEquipments = player.minigame.storeEquipments.filter((item) => {return !item.destroyed;});
 }

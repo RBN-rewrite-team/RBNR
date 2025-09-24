@@ -23,6 +23,8 @@ import { NON_RECURSIVE } from './nonrecu/index.ts';
 
 import { DC } from '@/core/constants';
 
+import { equipmentDestroyLoop } from '@/core/minigame';
+
 /**
  * 游戏循环经过了多少时间
  *
@@ -126,6 +128,8 @@ export function gameLoop() {
 	for (let i = 1; i <= unlp; i++) {
 		if (!player.checkedPlots.includes(i) && temp.plotdisplay == 0) enterPlot(i);
 	}
+	
+	equipmentDestroyLoop();
 }
 function r(s: number): number {
 	return Math.random() * s * 2 - s;

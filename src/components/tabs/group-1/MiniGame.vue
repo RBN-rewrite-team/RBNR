@@ -167,6 +167,20 @@ function openCore() {
 function changeCoreView(eq: CoreEquipment) {
 	temp.coreViewEquipment = eq;
 }
+
+function equip(eq: CoreEquipment) {
+	eq.equipped = true;
+	player.minigame.coreEquipments[eq.position][0] = eq;
+}
+
+function unload(eq: CoreEquipment) {
+	eq.equipped = false;
+	delete player.minigame.coreEquipments[eq.position][0];
+}
+
+function isEquipped(eq: CoreEquipment) {
+	return eq.equipped ?? false;
+}
 </script>
 
 <template>
@@ -305,7 +319,9 @@ function changeCoreView(eq: CoreEquipment) {
 				:style="{ 'border-color': temp.coreViewColor() }"
 			>
 				<div v-if="temp.coreViewEquipment !== null">
-					<span v-html="equipmentDisplay(temp.coreViewEquipment)" /><br />
+					<span v-html="equipmentDisplay(temp.coreViewEquipment)" />
+					<span v-if="isEquipped(temp.coreViewEquipment)">(已装备)</span>
+					<br />
 					真实等级{{
 						equipmentAttribute(temp.coreViewEquipment).realLevel.toFixed(1)
 					}}(稀有度加成{{ (temp.coreViewEquipment.rarity ** 2 * 100).toFixed(1) }}%)<br />
@@ -313,8 +329,15 @@ function changeCoreView(eq: CoreEquipment) {
 					攻击力+{{ equipmentAttribute(temp.coreViewEquipment).atk.toFixed(1) }}<br />
 					防御力+{{ equipmentAttribute(temp.coreViewEquipment).def.toFixed(1) }}<br />
 					<div style="position: absolute; bottom: 0; width: 100%; height: 50px">
-						<div style="height: 40px; width: 25%; border: 2px solid red">
-							装备<br />没做完
+						<div style="height: 40px; width: 25%; border: 2px solid red"
+						v-if="!(temp.coreViewEquipment.equipped ?? false)"
+						@click="equip(temp.coreViewEquipment)">
+							装备
+						</div>
+						<div style="height: 40px; width: 25%; border: 2px solid orange"
+						v-else
+						@click="unload(temp.coreViewEquipment)">
+							取消装备
 						</div>
 					</div>
 				</div>

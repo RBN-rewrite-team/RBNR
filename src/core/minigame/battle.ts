@@ -1,5 +1,5 @@
 import { format } from '@/utils/format';
-import { currentPlayerLV, getWorldLevel } from '.';
+import { currentPlayerLV, getWorldLevel, totEqAtt } from '.';
 import { deepCopy, player } from '../save';
 
 interface BattleInfo {
@@ -168,12 +168,14 @@ export function guardBattleInfo(tier: number, type = 1): Omit<Required<BattleInf
 export function meBattleInfo(): BattleInfo & {
 	hpMax: NonNullable<BattleInfo['hpMax']>;
 } {
+	let eqE = totEqAtt();
 	let hpMax = 10;
 	if (player.minigame.skilltree_bought.includes(2)) hpMax += 5;
 	if (player.minigame.skilltree_bought.includes(5)) hpMax += 15;
 	if (player.minigame.skilltree_bought.includes(8)) hpMax += 3;
 	hpMax *= currentPlayerLV();
 	if (player.minigame.skilltree_bought.includes(0)) hpMax += 2 * currentPlayerLV();
+	hpMax += eqE.hea;
 	if (player.minigame.skilltree_bought.includes(3)) hpMax *= 1.5;
 	if (player.minigame.skilltree_bought.includes(6)) hpMax *= 1.5;
 
@@ -181,12 +183,16 @@ export function meBattleInfo(): BattleInfo & {
 	if (player.minigame.skilltree_bought.includes(1)) atk += 1;
 	if (player.minigame.skilltree_bought.includes(7)) atk += 2;
 	atk *= currentPlayerLV();
-	if (player.minigame.skilltree_bought.includes(4)) hpMax *= 1.2;
+	atk += eqE.atk;
+	if (player.minigame.skilltree_bought.includes(4)) atk *= 1.2;
+	
+	let def = 0;
+	def += eqE.def;
 	return {
 		hp: player.minigame.hp,
 		hpMax,
 		atk,
-		def: 0,
+		def,
 	};
 }
 
