@@ -2,8 +2,7 @@ import Decimal from 'break_eternity.js';
 import { player } from './save';
 import { feature } from './global';
 import { getTotalTheories } from './nonrecu/total-theories';
-import { getI18NData, I18NData, type AvaliableLangs, type Avaliables } from './i18n-data';
-import type { ChooseTypes } from '@/utils/types';
+
 export enum Currencies {
 	NUMBER = 'number',
 	ADDITION_POWER = 'addition',
@@ -17,10 +16,10 @@ export enum Currencies {
 	SOLUTION = 'solution',
 	NONREC = 'nonrec',
 	NRT = 'nrt',
+	DEDUCE_ENERGY = 'deduce_energy',
 }
-type I18NCurrencyKey = ChooseTypes<(typeof I18NData)[AvaliableLangs], string>;
 abstract class Currency {
-	static i18ndata: I18NCurrencyKey = 'number';
+	static name: string = '未定义货币';
 	static set current(x: Decimal) {
 		throw new ReferenceError('Undefined currency.');
 	}
@@ -31,7 +30,7 @@ abstract class Currency {
 }
 
 class NumberCurrency extends Currency {
-	static i18ndata: I18NCurrencyKey = 'number';
+	static name = '数值';
 	static set current(x: Decimal) {
 		player.number = x;
 	}
@@ -42,7 +41,7 @@ class NumberCurrency extends Currency {
 }
 
 class AdditionPowerCurrency extends Currency {
-	static i18ndata: I18NCurrencyKey = 'add_power';
+	static name = '加法能量';
 	static set current(x: Decimal) {
 		player.addpower = x;
 	}
@@ -53,7 +52,7 @@ class AdditionPowerCurrency extends Currency {
 }
 
 class MultiplicationPowerCurrency extends Currency {
-	static i18ndata: I18NCurrencyKey = 'mul_power';
+	static name = '乘法能量';
 	static set current(x: Decimal) {
 		player.multiplication.mulpower = x;
 	}
@@ -64,7 +63,7 @@ class MultiplicationPowerCurrency extends Currency {
 }
 
 class ExponentionPowerCurrency extends Currency {
-	static i18ndata: I18NCurrencyKey = 'exp_power';
+	static name = '指数能量';
 	static set current(x: Decimal) {
 		player.exponention.exppower = x;
 	}
@@ -75,7 +74,7 @@ class ExponentionPowerCurrency extends Currency {
 }
 
 class QolPointsCurrency extends Currency {
-	static i18ndata: I18NCurrencyKey = 'qol_point';
+	static name = '生活点数';
 	static set current(x: Decimal) {
 		player.exponention.qolpoints = x;
 	}
@@ -86,7 +85,7 @@ class QolPointsCurrency extends Currency {
 }
 
 class Ordinal extends Currency {
-	static i18ndata: I18NCurrencyKey = 'ordinal';
+	static name = '序数';
 	static set current(x: Decimal) {
 		player.ordinal.number = x;
 	}
@@ -97,8 +96,7 @@ class Ordinal extends Currency {
 }
 
 class HydraPowerCurrency extends Currency {
-	static i18ndata: I18NCurrencyKey = 'hydra_power';
-
+	static name = '九头蛇能量';
 	static set current(x: Decimal) {
 		player.hydra.power = x;
 	}
@@ -109,8 +107,7 @@ class HydraPowerCurrency extends Currency {
 }
 
 class X4Currency extends Currency {
-	static i18ndata: I18NCurrencyKey = 'x_4';
-
+	static name = 'x<sub>4</sub>';
 	static set current(x: Decimal) {
 		return;
 	}
@@ -121,7 +118,7 @@ class X4Currency extends Currency {
 }
 
 class T4Currency extends Currency {
-	static i18ndata: I18NCurrencyKey = 'tau_4';
+	static name = 'τ<sub>4</sub>';
 	static set current(x: Decimal) {
 		return;
 	}
@@ -132,7 +129,7 @@ class T4Currency extends Currency {
 }
 
 class SolutionCurrency extends Currency {
-	static i18ndata: I18NCurrencyKey = 'hydra_solution';
+	static name = '九头蛇溶液';
 	static set current(x: Decimal) {
 		if (player.milestones.dut10) return;
 		player.hydra.dilute.solutionCost = new Decimal(player.hydra.dilute.solution)
@@ -145,7 +142,7 @@ class SolutionCurrency extends Currency {
 	}
 }
 class NonRecCurrency extends Currency {
-	static i18ndata: I18NCurrencyKey = 'nonrec_power';
+	static name = '非递归能量';
 	static set current(x: Decimal) {
 		player.nonrecu.power = x;
 	}
@@ -154,8 +151,18 @@ class NonRecCurrency extends Currency {
 		return player.nonrecu.power;
 	}
 }
+class DeduceEnergyCurrency extends Currency {
+	static name = '推演能量';
+	static set current(x: Decimal) {
+		player.numbertheory.well_ordering.energy = x;
+	}
+
+	static get current() {
+		return player.numbertheory.well_ordering.energy;
+	}
+}
 class NRTCurrency extends Currency {
-	static i18ndata: I18NCurrencyKey = 'nonrec_theory';
+	static name = '非递归理论';
 	static set current(x: Decimal) {
 		player.nonrecu.spentTheories = getTotalTheories().sub(x);
 	}
@@ -177,6 +184,7 @@ const currencyMap: Map<Currencies, typeof Currency> = new Map([
 	[Currencies.SOLUTION, SolutionCurrency],
 	[Currencies.NONREC, NonRecCurrency],
 	[Currencies.NRT, NRTCurrency],
+	[Currencies.DEDUCE_ENERGY, DeduceEnergyCurrency],
 ]);
 
 export function setCurrency(currency: Currencies, value: Decimal) {
@@ -201,5 +209,5 @@ export function currencyName(currency: Currencies) {
 	const currencyClass = currencyMap.get(currency);
 	if (!currencyClass) throw ReferenceError('Undefined currency: ' + currency);
 
-	return getI18NData(currencyClass.i18ndata);
+	return currencyClass.name;
 }

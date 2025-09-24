@@ -99,11 +99,11 @@ import { isTester } from './core/save/testing.ts';
 				<NonRecursionFactor v-if="player.currentTab === 23" />
 				<StudyTree v-if="player.currentTab === 24" />
 				<NonRecursionTabUpgrade v-if="player.currentTab === 25"></NonRecursionTabUpgrade>
+				<NonRecursionUNOCF v-if="player.currentTab === 26"></NonRecursionUNOCF>
 				<AutomatorEditor v-if="player.currentTab === 167" />
 				<PlotTab v-if="player.currentTab === 200" />
 				<SaveBank v-if="player.currentTab === 300" />
 				<MiniGame v-if="player.currentTab === 1225" />
-				<NonRecursionUNOCF v-if="player.currentTab === 26"></NonRecursionUNOCF>
 			</div>
 		</div>
 	</div>

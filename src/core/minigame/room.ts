@@ -2,20 +2,12 @@
 import { deepCopy, player } from '../save';
 import {
 	BoxGameObject,
-	FakeWallGameObject,
-	GameObject,
 	GuardGameObject,
-	MoveableBoxGameObject,
 	OreGameObject,
-	RestrictedBoxObject,
-	SwitchOnGameObject,
 	TeleporterGameObject,
 	WallGameObject,
-	WallInvisibleGameObject,
 } from './game-object';
-import { initialMap, maps, type SingleMap } from './map';
 import { predictableBigIntRandom } from '.';
-import { map2_block } from './maps/map-dungeon2';
 import ModalService from '@/utils/Modal';
 
 /**
@@ -46,130 +38,6 @@ export function randomBlock(x: bigint, y: bigint) {
 	else if (randomer < 0.8111) return new BoxGameObject(4);
 	else if (randomer < 0.85) return new OreGameObject();
 	return null;
-}
-type ArrayContent<T> = T extends Array<infer C> ? C : any;
-export function replacement(
-	bl: GameObject | null | undefined,
-	replacement: ArrayContent<typeof player.minigame.replaces>,
-) {
-	if (replacement.replacedTo == '0') {
-		return null;
-	}
-	if (replacement.replacedTo == 'FAKEWALL') {
-		// toJSON avaliable
-		return new FakeWallGameObject();
-	}
-	if (replacement.replacedTo == 'WALL_INVISIBLE') {
-		return new WallInvisibleGameObject();
-	}
-	if (replacement.replacedTo == 'W') {
-		// toJSON avaliable
-		return new WallGameObject();
-	}
-	let tryexec = /TIERBOX_(\d+)/.exec(replacement.replacedTo);
-	if (tryexec && tryexec[1]) {
-		// toJSON avaliable
-		return new BoxGameObject(Number(tryexec[1]));
-	}
-	tryexec = /RESTRICTEDTIERBOX_(\d+)/.exec(replacement.replacedTo);
-	if (tryexec && tryexec[1]) {
-		// toJSON avaliable
-		return new RestrictedBoxObject(Number(tryexec[1]));
-	}
-	if (replacement.replacedTo == 'BOX') {
-		// toJSON avaliable
-		return new MoveableBoxGameObject();
-	}
-	if (replacement.replacedTo == 'ACTIVE_SWITCH') {
-		// toJSON avaliable
-		return new SwitchOnGameObject();
-	}
-	return bl;
-}
-export function blockToJSON(x: null | undefined | GameObject) {
-	if (x === undefined || x === null) {
-		return '0';
-	}
-	if (x instanceof SwitchOnGameObject) {
-		return 'ACTIVE_SWITCH';
-	}
-	if (x instanceof RestrictedBoxObject) {
-		return 'RESTRICTEDTIERBOX_' + x.tier;
-	}
-	if (x instanceof BoxGameObject) {
-		return 'TIERBOX_' + x.tier;
-	}
-	if (x instanceof FakeWallGameObject) {
-		return 'FAKEWALL';
-	}
-	if (x instanceof WallGameObject) {
-		return 'W';
-	}
-	if (x instanceof WallInvisibleGameObject) {
-		return 'WALL_INVISIBLE';
-	}
-	return 'UNSUPPORTED';
-}
-
-export function getCurrentBlock(room: number, x: bigint, y: bigint) {
-	if (room == 943360095 || room == 1 || room == -999) {
-		let block;
-		if (room == 943360095) block = randomBlock(x, y);
-		else if (room == 1) block = map2_block(Number(x), Number(y));
-		else if (room == -999) {
-			if (player.minigame.initializeType.initializeType === 'rect') {
-				if (x < 0n || y < 0n) block = undefined;
-				else if (
-					x > player.minigame.initializeType.rect_width ||
-					y > player.minigame.initializeType.rect_height
-				)
-					block = undefined;
-				else if (x == 0n) block = new WallGameObject();
-				else if (y == 0n) block = new WallGameObject();
-				else if (x == player.minigame.initializeType.rect_width)
-					block = new WallGameObject();
-				else if (y == player.minigame.initializeType.rect_height)
-					block = new WallGameObject();
-				else block = null;
-			}
-		}
-		let replacements = (player.minigame.replaces[room] ?? []).filter(
-			(b) => b.x == x && b.y == y,
-		);
-		for (let i = 0; i < replacements.length; i++) {
-			block = replacement(block, replacements[i]);
-		}
-		return block;
-	}
-	return getPlayerMap(room)?.map?.[Number(y)]?.[Number(x)];
-}
-export function isUnreachable(room: number, x: bigint, y: bigint) {
-	let obj = getCurrentBlock(room, x, y);
-	if (typeof obj === 'object' && obj instanceof GameObject && obj.solid()) {
-		return true;
-	}
-	return false;
-}
-
-export function getPlayerMap(room: number): SingleMap {
-	let a = initialMap()[room];
-	let replacements = player.minigame.replaces[room] ?? [];
-	for (let i = 0; i < replacements.length; i++) {
-		let repl = replacements[i];
-		if (!repl) continue;
-		if (!a.map[Number(repl.y)]) continue;
-		if (!a.map[Number(repl.y)][Number(repl.x)]) continue;
-
-		a.map[Number(repl.y)][Number(repl.x)] = replacement(
-			a.map[Number(repl.y)][Number(repl.x)],
-			repl,
-		);
-	}
-	return a;
-}
-
-export function getPlayerCurrentMap(): SingleMap {
-	return getPlayerMap(player.minigame.current_room);
 }
 
 export function positionDirection(
@@ -231,24 +99,6 @@ export function isTouched(x: bigint, y: bigint) {
 			player.minigame.current_y,
 		])
 	);
-}
-
-export function addReplace(
-	room: number,
-	x: bigint,
-	y: bigint,
-	replacedTo: string,
-	notPermanent: boolean = false,
-) {
-	if (!player.minigame.replaces[room]) {
-		player.minigame.replaces[room] = [];
-	}
-	player.minigame.replaces[room].push({
-		x,
-		y,
-		replacedTo,
-		recover: notPermanent,
-	});
 }
 
 export function removeReplaces(room: number, x: bigint, y: bigint) {

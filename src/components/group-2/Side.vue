@@ -3,7 +3,6 @@ import { player } from '@/core/save';
 import { Logarithm } from '../../core/exponention/logarithm.ts';
 import { unlockedPlots, viewedPlotLength } from '@/core/plot.ts';
 import { isTester } from '@/core/save/testing.ts';
-import { getI18NData } from '@/core/i18n-data.ts';
 </script>
 
 <template>
@@ -12,12 +11,13 @@ import { getI18NData } from '@/core/i18n-data.ts';
 			<div class="background">
 				<div class="title">
 					<div
-						style="color: var(--color); text-shadow: var(--title-color) 1px 1px 2px"
-						:style="{
-							'font-size': getI18NData('rbnr_title_size'),
-						}"
+						style="
+							font-size: 24px;
+							color: var(--color);
+							text-shadow: var(--title-color) 1px 1px 2px;
+						"
 					>
-						{{ getI18NData('roadofbignumberrewritten') }}
+						大数之路重制版
 					</div>
 					<div style="font-size: 15px">UNOCF Beta</div>
 				</div>
@@ -32,7 +32,7 @@ import { getI18NData } from '@/core/i18n-data.ts';
 							:class="{ focus: player.currentTab == 1225 }"
 							@click="player.currentTab = 1225"
 						>
-							{{ getI18NData('dungeon_tab') }}
+							地下城
 						</div>
 					</div>
 					<div v-if="isTester() && (player.firstResetBit & 0b10000) == 0b10000">
@@ -45,14 +45,14 @@ import { getI18NData } from '@/core/i18n-data.ts';
 						</div>
 					</div>
 					<div v-if="player.singularity.stage < 11">
-						<div class="menu1">{{ getI18NData('successor') }}</div>
+						<div class="menu1">后继</div>
 						<div class="menu_line"></div>
 						<div
 							class="menu2"
 							:class="{ focus: player.currentTab == 0 }"
 							@click="player.currentTab = 0"
 						>
-							{{ getI18NData('successor') }}
+							后继
 						</div>
 					</div>
 					<template v-if="player.upgrades[13] && player.singularity.stage < 10">

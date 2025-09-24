@@ -1,8 +1,10 @@
 import { player } from '../save';
-import { getCurrentBlock, isUnreachable, positionDirection } from './room';
+import { isUnreachable, getCurrentBlock } from './block';
+import { positionDirection } from './room';
 
 export function miniGameLoop(diff: number) {}
 export type KeyPresses = 'up' | 'down' | 'left' | 'right';
+export type Directions = 'up' | 'down' | 'left' | 'right' | 'other';
 export function setPosManmade(goalpos: [bigint, bigint]) {
 	//debugger;
 	let a = !isUnreachable(player.minigame.current_room, goalpos[0], goalpos[1]);
@@ -12,6 +14,9 @@ export function setPosManmade(goalpos: [bigint, bigint]) {
 		player.minigame.current_y = goalpos[1];
 	}
 }
+export function interactBlock(room: number, x: bigint, y: bigint, key: Directions) {
+	return getCurrentBlock(room, x, y)?.interact?.(x, y, key);
+}
 export function handleKeyPress(key: KeyPresses) {
 	if (['up', 'down', 'left', 'right'].includes(key)) {
 		if (player.minigame.interact == 0) {
@@ -20,11 +25,7 @@ export function handleKeyPress(key: KeyPresses) {
 				key as 'up' | 'down' | 'left' | 'right',
 			);
 			setPosManmade(pos);
-			getCurrentBlock(player.minigame.current_room, pos[0], pos[1])?.interact?.(
-				pos[0],
-				pos[1],
-				key as 'up' | 'down' | 'left' | 'right',
-			);
+			interactBlock(player.minigame.current_room, pos[0], pos[1], key);
 		}
 	}
 }

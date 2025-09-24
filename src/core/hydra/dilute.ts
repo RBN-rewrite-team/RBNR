@@ -753,6 +753,17 @@ const Dil = {
 			player.hydra.dilute.lastDeduce = player.hydra.deduceOrdinal[0];
 		}
 	},
+	solutionCalcOutside() {
+		if (!CHALLENGE.inChallenge(1, 5)) {
+			player.hydra.dilute.solution = player.hydra.dilute.solution.max(
+				this.solutionGain(false, true),
+			);
+			player.hydra.dilute.lastSolvent = Array.from(
+				player.hydra.dilute.solvent,
+			) as typeof player.hydra.dilute.solvent;
+			player.hydra.dilute.lastDeduce = player.hydra.deduceOrdinal[0];
+		}
+	},
 	backupHydra(): backupHydraType {
 		const items: (`${IntClosedRange<61, 69>}R` | keyof typeof Hydra.upgrades)[] = [];
 		for (const id2 of Object.keys(Hydra.upgrades)) {
@@ -878,6 +889,11 @@ const Dil = {
 		player.hydra.dilute.highestSolution = player.hydra.dilute.highestSolution.max(
 			player.hydra.dilute.solution,
 		);
+		if (
+			player.numbertheory.well_ordering.steps_proceeded.includes(2) &&
+			this.solutionGain(false, true).gte(player.hydra.dilute.solution)
+		)
+			this.solutionCalcOutside();
 	},
 	prionsBase() {
 		let base = new Decimal(1 + Dilute.diluteAmount(4) / 100);
@@ -894,6 +910,15 @@ const Dil = {
 		if (player.nonrecu.studies_bought.includes(7)) base = base.pow(10);
 		if (player.challengein[0] != 1 && player.milestones.nonrec_16)
 			base = base.pow(Hydra.prestigeEff(1).add(1));
+		if (player.numbertheory.well_ordering.steps_proceeded.includes(3))
+			base = base.pow(player.numbertheory.well_ordering.energy.add(1).pow(2));
+		if (player.numbertheory.well_ordering.steps_proceeded.includes(8) && base.gte(10))
+			base = base
+				.log10()
+				.log10()
+				.mul(player.numbertheory.well_ordering.energy.add(1).log10().mul(0.05).add(1))
+				.pow10()
+				.pow10();
 		if (
 			player.milestones.nonrec_22 &&
 			((player.challengein[0] == -1 && player.challengein[1] == -1) ||
@@ -905,7 +930,7 @@ const Dil = {
 		return base;
 	},
 	/**
-	 * 溶剂数量，在稀释未开启时会设置为falsy
+	 * 溶剂数量，在稀释未开启时会设置为false
 	 * @returns
 	 */
 	diluteAmount(id: IntClosedRange<0, 8>) {
@@ -917,8 +942,21 @@ const Dil = {
 		}
 		return player.hydra.dilute.solvent[id];
 	},
-	solutionGain(getCurrentMax = false): Decimal {
-		const getAmountFunction = getCurrentMax ? Dilute.diluteAmountOutside : Dilute.diluteAmount;
+	solutionGain(getCurrentMax = false, gettingOutSide = false): Decimal {
+		let getAmountFunction = getCurrentMax ? Dilute.diluteAmountOutside : Dilute.diluteAmount;
+		if (gettingOutSide)
+			getAmountFunction = (x: IntClosedRange<0, 8>) =>
+				([10, 10, 10, 10, 10, 10, true, true, true] as const)[x] as typeof x extends
+					| 0
+					| 1
+					| 2
+					| 3
+					| 4
+					| 5
+					? 10
+					: typeof x extends 6 | 7 | 8
+						? true
+						: never;
 		let base: number = Array(6)
 			.fill(null)
 			.map((_, index) => getAmountFunction(index as IntClosedRange<0, 5>))

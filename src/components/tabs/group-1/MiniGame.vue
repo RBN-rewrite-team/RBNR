@@ -1,5 +1,4 @@
 <script setup lang="ts">
-//@ts-nocheck
 import {
 	currentPlayerLV,
 	nextLVxp,
@@ -15,24 +14,33 @@ import { player } from '@/core/save';
 import ObjectNode from '../developermode/ObjectNode';
 import MiniGameTD from '../../group-2/MiniGameTD.vue';
 import {
-	getCurrentBlock,
-	getPlayerMap,
-	getPlayerCurrentMap,
 	isPlayerVisible,
 	visibleBlocks,
 	isTouched,
-	addReplace,
 	removeReplaces,
 	initializeEditorMap,
 } from '@/core/minigame/room';
+import { addReplace } from '@/core/minigame/replacement';
+import { getCurrentBlock } from '@/core/minigame/block';
 import { handleKeyPress } from '@/core/minigame/minigame-loop';
-import { meBattleInfo } from '@/core/minigame/battle';
+import {
+	calculateRequiredAtkIncrease,
+	calculateRequiredHpIncrease,
+	guardBattleInfo,
+	meBattleInfo,
+	runBattleFast,
+} from '@/core/minigame/battle';
 import { range } from '@/utils/algorithm';
 import { temp } from '../../../core/temp-data';
 import { format } from '@/utils/format';
-import { MoveableBoxGameObject } from '@/core/minigame/game-object';
+import {
+	EntityGameObject,
+	GuardGameObject,
+	MoveableBoxGameObject,
+} from '@/core/minigame/game-object';
 import ModalService from '@/utils/Modal';
 import SkillTree from '../minigame/SkillTree.vue';
+import { playerSafe, playerToDestination } from '@/core/minigame/path-searcher';
 
 function spawn(id: number): void {
 	((player.minigame.current_room = id),
@@ -59,6 +67,8 @@ function formatbigint(b: bigint) {
  * 此次更新修复了某些人总是说“你 妈 的”的问题
  */
 function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof getCurrentBlock>) {
+	console.log(room, x, y);
+	let putedblock = false;
 	if (isTouched(x, y)) {
 		if (block instanceof MoveableBoxGameObject) {
 			addReplace(room, x, y, '0', false);
@@ -67,8 +77,28 @@ function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof
 		} else if (block === null && player.minigame.taking_box) {
 			addReplace(room, x, y, 'BOX', false);
 			temp.minigametip = '已放下箱子';
+			player.minigame.taking_box = false;
+			putedblock = true;
+		} else if (block instanceof EntityGameObject) {
+			let guardinfo = block.getBattleInfo();
+			let battlestatus = runBattleFast(meBattleInfo(), guardinfo);
+			if (battlestatus.status == 'fail') {
+				let req = calculateRequiredHpIncrease(meBattleInfo(), guardinfo);
+				let req2 = calculateRequiredAtkIncrease(meBattleInfo(), guardinfo);
+				ModalService.show({
+					title: '是否继续战斗?',
+					get content() {
+						return `当前敌人你无法击败，按确定以继续战斗<br>附加信息: ${req.reason}；${req2.reason}`;
+					},
+					onConfirm() {
+						block.interact(x, y);
+					},
+				});
+			}
+			return;
 		}
 	}
+	console.log(!putedblock);
 	if (player.minigame.ateditor) {
 		// ModalService.show({content: "拜谢"})
 
@@ -79,7 +109,21 @@ function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof
 		if (player.minigame.editor_mode == 'remove') {
 			removeReplaces(room, x, y);
 		}
+	} else if (!putedblock) {
+		console.log(room, x, y);
+		if (playerSafe(block)) {
+			temp.minigametip =
+				'正在尝试前往' + x + ',' + y + '...如果玩家未移动可以点击玩家旁边的位置';
+			playerToDestination(x, y)
+				.then(function () {
+					temp.minigametip = '移动完成';
+				})
+				.catch(function () {
+					temp.minigametip = '无法移动';
+				});
+		}
 	}
+	putedblock = false;
 }
 function atDEV() {
 	return import.meta.env.DEV;
@@ -102,17 +146,11 @@ function exitEditor() {
 }
 function openCore() {
 	temp.openingCore = !temp.openingCore;
-	//@ts-ignore
-	if(temp.openingCore && temp.coreViewEquipment.rarity == undefined)
-	{
-		if(player.minigame.storeEquipments.length == 0)
-		{
-			if(player.minigame.coreEquipments.hea.length == 0)
-			{
-				if(player.minigame.coreEquipments.atk.length == 0)
-				{
-					if(player.minigame.coreEquipments.def.length == 0)
-					{
+	if (temp.openingCore && temp.coreViewEquipment !== null) {
+		if (player.minigame.storeEquipments.length == 0) {
+			if (player.minigame.coreEquipments.hea.length == 0) {
+				if (player.minigame.coreEquipments.atk.length == 0) {
+					if (player.minigame.coreEquipments.def.length == 0) {
 						temp.openingCore = !temp.openingCore;
 						return;
 					}
@@ -141,7 +179,9 @@ function changeCoreView(eq: CoreEquipment) {
 				<tr>
 					<td style="width: 25%" @click="temp.dungeonsSP = 0">人物属性</td>
 					<td style="width: 25%" @click="temp.dungeonsSP = 1">技能树</td>
-					<td style="width: 25%" @click="temp.dungeonsSP = 2">{{temp.openingCore ? '核心' : '地下城'}}</td>
+					<td style="width: 25%" @click="temp.dungeonsSP = 2">
+						{{ temp.openingCore ? '核心' : '地下城' }}
+					</td>
 					<td style="width: 25%" @click="temp.dungeonsSP = 3">？？？</td>
 				</tr>
 			</tbody>
@@ -160,9 +200,9 @@ function changeCoreView(eq: CoreEquipment) {
 			Numerorum<br />
 			<div style="position: relative; height: 50px; width: 400px; background-color: black">
 				<div align="center" style="font-size: 17px; color: white">
-					生命值：{{ meBattleInfo().hp.toFixed(1) }}/{{ meBattleInfo().hpMax.toFixed(1) }}({{
-						Math.ceil((meBattleInfo().hp / meBattleInfo().hpMax) * 100)
-					}}%)
+					生命值：{{ meBattleInfo().hp.toFixed(1) }}/{{
+						meBattleInfo().hpMax.toFixed(1)
+					}}({{ Math.ceil((meBattleInfo().hp / meBattleInfo().hpMax) * 100) }}%)
 				</div>
 				<div
 					:style="{
@@ -219,14 +259,27 @@ function changeCoreView(eq: CoreEquipment) {
 					</tr>
 					<tr>
 						<td>
-							<button @click="spawn(0)">Dungeon 1</button><br>
-							<button @click="spawn(1)" v-if="player.minigame.visited.includes(1)">Dungeon 2</button>
+							<button @click="spawn(0)">Dungeon 1</button><br />
+							<button @click="spawn(1)" v-if="player.minigame.visited.includes(1)">
+								Dungeon 2
+							</button>
 						</td>
 						<td>
 							<button @click="openCore()">
-								核心(装备{{player.minigame.coreEquipments.hea.length + player.minigame.coreEquipments.atk.length + player.minigame.coreEquipments.def.length}}/3)
-							</button><br>
-							仓库装备：{{player.minigame.storeEquipments.length}}/50<span style="color: cyan">(不朽x{{player.minigame.storeEquipments.filter(item => {return item.rarity >= 1.9}).length}})</span>
+								核心(装备{{
+									player.minigame.coreEquipments.hea.length +
+									player.minigame.coreEquipments.atk.length +
+									player.minigame.coreEquipments.def.length
+								}}/3)</button
+							><br />
+							仓库装备：{{ player.minigame.storeEquipments.length }}/50<span
+								style="color: cyan"
+								>(不朽x{{
+									player.minigame.storeEquipments.filter((item) => {
+										return item.rarity >= 1.9;
+									}).length
+								}})</span
+							>
 						</td>
 					</tr>
 				</tbody>
@@ -247,87 +300,111 @@ function changeCoreView(eq: CoreEquipment) {
 			v-if="(temp.dungeonsSP == 2 || temp.innerWidth >= 800) && temp.openingCore"
 		>
 			核心(点击查看信息)
-			<div style="
-				height: 40%;
-				width: 95%;
-				border: 2px solid red;
-				position: relative;
-			" :style="{'border-color': temp.coreViewColor()}">
-				<div v-if="temp.coreViewEquipment.rarity != undefined">
-					<span v-html="equipmentDisplay(temp.coreViewEquipment)" /><br>
-					真实等级{{equipmentAttribute(temp.coreViewEquipment).realLevel.toFixed(1)}}(稀有度加成{{((temp.coreViewEquipment.rarity ?? 0) ** 2 * 100).toFixed(1)}}%)<br>
-					生命值+{{equipmentAttribute(temp.coreViewEquipment).hea.toFixed(1)}}<br>
-					攻击力+{{equipmentAttribute(temp.coreViewEquipment).atk.toFixed(1)}}<br>
-					防御力+{{equipmentAttribute(temp.coreViewEquipment).def.toFixed(1)}}<br>
+			<div
+				style="height: 40%; width: 95%; border: 2px solid red; position: relative"
+				:style="{ 'border-color': temp.coreViewColor() }"
+			>
+				<div v-if="temp.coreViewEquipment !== null">
+					<span v-html="equipmentDisplay(temp.coreViewEquipment)" /><br />
+					真实等级{{
+						equipmentAttribute(temp.coreViewEquipment).realLevel.toFixed(1)
+					}}(稀有度加成{{ (temp.coreViewEquipment.rarity ** 2 * 100).toFixed(1) }}%)<br />
+					生命值+{{ equipmentAttribute(temp.coreViewEquipment).hea.toFixed(1) }}<br />
+					攻击力+{{ equipmentAttribute(temp.coreViewEquipment).atk.toFixed(1) }}<br />
+					防御力+{{ equipmentAttribute(temp.coreViewEquipment).def.toFixed(1) }}<br />
 					<div style="position: absolute; bottom: 0; width: 100%; height: 50px">
-						<div style="height: 40px; width: 25%; border: 2px solid red">装备<br>没做完</div>
+						<div style="height: 40px; width: 25%; border: 2px solid red">
+							装备<br />没做完
+						</div>
 					</div>
 				</div>
 			</div>
-			<div style="
-				height: 50%;
-				width: 95%;
-				border: 2px solid red;
-				overflow: auto;
-			">
-				<table><td style="width: 30%; border: 0px solid red">
-				<div v-if="player.minigame.coreEquipments.hea.length > 0"
-				style="
-					height: 50px;
-					width: 100%;
-					border: 2px solid red;
-				" :style="{'border-color': temp.coreViewColor(player.minigame.coreEquipments.hea[0])}"
-				@click="changeCoreView(player.minigame.coreEquipments.hea[0])">
-					装备的支持部<br><span v-html="equipmentDisplay(player.minigame.coreEquipments.hea[0])" />
-				</div>
+			<div style="height: 50%; width: 95%; border: 2px solid red; overflow: auto">
+				<table>
+					<tbody>
+						<td style="width: 30%; border: 0px solid red">
+							<div
+								v-if="player.minigame.coreEquipments.hea.length > 0"
+								style="height: 50px; width: 100%; border: 2px solid red"
+								:style="{
+									'border-color': temp.coreViewColor(
+										player.minigame.coreEquipments.hea[0],
+									),
+								}"
+								@click="changeCoreView(player.minigame.coreEquipments.hea[0])"
+							>
+								装备的支持部<br /><span
+									v-html="equipmentDisplay(player.minigame.coreEquipments.hea[0])"
+								/>
+							</div>
+							<div
+								style="height: 50px; width: 100%; border: 2px solid var(--color)"
+								v-else
+							>
+								未装备支持部
+							</div>
+						</td>
+						<td style="width: 30%; border: 0px solid red">
+							<div
+								v-if="player.minigame.coreEquipments.atk.length > 0"
+								style="height: 50px; width: 100%; border: 2px solid red"
+								:style="{
+									'border-color': temp.coreViewColor(
+										player.minigame.coreEquipments.atk[0],
+									),
+								}"
+								@click="changeCoreView(player.minigame.coreEquipments.atk[0])"
+							>
+								装备的打击部<br /><span
+									v-html="equipmentDisplay(player.minigame.coreEquipments.atk[0])"
+								/>
+							</div>
+							<div
+								style="height: 50px; width: 100%; border: 2px solid var(--color)"
+								v-else
+							>
+								未装备打击部
+							</div>
+						</td>
+						<td style="width: 30%; border: 0px solid red">
+							<div
+								v-if="player.minigame.coreEquipments.def.length > 0"
+								style="height: 50px; width: 100%; border: 2px solid red"
+								:style="{
+									'border-color': temp.coreViewColor(
+										player.minigame.coreEquipments.def[0],
+									),
+								}"
+								@click="changeCoreView(player.minigame.coreEquipments.def[0])"
+							>
+								装备的防御部<br /><span
+									v-html="equipmentDisplay(player.minigame.coreEquipments.def[0])"
+								/>
+							</div>
+							<div
+								style="height: 50px; width: 100%; border: 2px solid var(--color)"
+								v-else
+							>
+								未装备防御部
+							</div>
+						</td>
+					</tbody>
+				</table>
+
 				<div
-				style="
-					height: 50px;
-					width: 100%;
-					border: 2px solid var(--color);
-				" v-else>
-					未装备支持部
-				</div>
-				</td><td style="width: 30%; border: 0px solid red">
-				<div v-if="player.minigame.coreEquipments.atk.length > 0"
-				style="
-					height: 50px;
-					width: 100%;
-					border: 2px solid red;
-				" :style="{'border-color': temp.coreViewColor(player.minigame.coreEquipments.atk[0])}"
-				@click="changeCoreView(player.minigame.coreEquipments.atk[0])">
-					装备的打击部<br><span v-html="equipmentDisplay(player.minigame.coreEquipments.atk[0])" />
-				</div>
-				<div
-				style="
-					height: 50px;
-					width: 100%;
-					border: 2px solid var(--color);
-				" v-else>
-					未装备打击部
-				</div>
-				</td><td style="width: 30%; border: 0px solid red">
-				<div v-if="player.minigame.coreEquipments.def.length > 0"
-				style="
-					height: 50px;
-					width: 100%;
-					border: 2px solid red;
-				" :style="{'border-color': temp.coreViewColor(player.minigame.coreEquipments.def[0])}"
-				@click="changeCoreView(player.minigame.coreEquipments.def[0])">
-					装备的防御部<br><span v-html="equipmentDisplay(player.minigame.coreEquipments.def[0])" />
-				</div>
-				<div
-				style="
-					height: 50px;
-					width: 100%;
-					border: 2px solid var(--color);
-				" v-else>
-					未装备防御部
-				</div></td></table>
-				
-				<div style="display: inline-block; width: calc(90% / 3 - 20px); margin: 10px; border: 2px solid red"
-				v-for="(item, index) in player.minigame.storeEquipments.sort(function(a, b){return -a.level * a.rarity ** 2 + b.level * b.rarity ** 2;})" :key="index" :style="{'border-color': temp.coreViewColor(item)}"
-				@click="changeCoreView(item)">
+					style="
+						display: inline-block;
+						width: calc(90% / 3 - 20px);
+						margin: 10px;
+						border: 2px solid red;
+					"
+					v-for="(item, index) in player.minigame.storeEquipments.sort(function (a, b) {
+						return -a.level * a.rarity ** 2 + b.level * b.rarity ** 2;
+					})"
+					:key="index"
+					:style="{ 'border-color': temp.coreViewColor(item) }"
+					@click="changeCoreView(item)"
+				>
 					<span v-html="equipmentDisplay(item)" />
 				</div>
 			</div>
@@ -440,6 +517,7 @@ function changeCoreView(eq: CoreEquipment) {
 				left: temp.dungeonsSP == 2 && temp.innerWidth < 800 ? '25%' : '75%',
 				top: temp.dungeonsSP == 2 && temp.innerWidth < 800 ? '25%' : '50%',
 				transform: 'translate(-50%, -50%)',
+				'z-index': '5',
 			}"
 			v-if="(temp.dungeonsSP == 2 || temp.innerWidth >= 800) && !temp.openingCore"
 		>
@@ -465,7 +543,7 @@ function changeCoreView(eq: CoreEquipment) {
 							>
 								<MiniGameTD
 									v-if="isPlayerVisible(x, y)"
-									@click="
+									@mousedown="
 										clickBlock(
 											player.minigame.current_room,
 											x,
@@ -511,7 +589,12 @@ function changeCoreView(eq: CoreEquipment) {
                 </tr> -->
 			</tbody>
 		</table>
-		<div v-if="(temp.dungeonsSP == 1 && temp.innerWidth < 800) || (temp.innerWidth >= 800 && !temp.openingCore)">
+		<div
+			v-if="
+				(temp.dungeonsSP == 1 && temp.innerWidth < 800) ||
+				(temp.innerWidth >= 800 && !temp.openingCore)
+			"
+		>
 			技能树<br />
 			<div
 				style="

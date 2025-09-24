@@ -16,18 +16,21 @@ import ModalService from '@/utils/Modal';
 import { player } from '../save';
 import { guardBattleInfo, meBattleInfo, runBattleFast } from './battle';
 import { currentPlayerLV, getWorldLevel, equipmentDisplay } from '.';
-import { addReplace, getCurrentBlock, positionDirection } from './room';
+import { positionDirection } from './room';
+import { addReplace, deleteRecovers } from './replacement';
+import { getCurrentBlock } from './block';
 import { temp } from '../temp-data';
 import { runDeath } from './death-function';
 
 import { type CoreEquipment } from '.';
+import type { Directions } from './minigame-loop';
 
 /**
  * 游戏物体 Nothingness（这里什么都没有）
  */
 export class GameObject {
 	constructor() {}
-	interact(x: bigint, y: bigint, direction: 'up' | 'down' | 'left' | 'right') {}
+	interact(x: bigint, y: bigint, direction: Directions) {}
 	solid() {
 		return false;
 	}
@@ -83,11 +86,7 @@ export class TeleporterGameObject extends GameObject {
 		player.minigame.current_room = this.room;
 		player.minigame.current_x = this.destination[0];
 		player.minigame.current_y = this.destination[1];
-		for (let i in player.minigame.replaces) {
-			for (let j in player.minigame.replaces[i]) {
-				if (player.minigame.replaces[i][j].recover) delete player.minigame.replaces[i][j];
-			}
-		}
+		deleteRecovers();
 		if (!player.minigame.visited.includes(this.room)) player.minigame.visited.push(this.room);
 	}
 	solid() {
@@ -186,7 +185,7 @@ export class EntityGameObject extends GameObject {
 		return true;
 	}
 	battleText() {
-		let guardinfo = guardBattleInfo(this.tier, this.type);
+		let guardinfo = this.getBattleInfo();
 		let battlestatus = runBattleFast(meBattleInfo(), guardinfo);
 		if (battlestatus.status == 'fail') {
 			return `<span style="color: rgb(127, 0, 0)">无法击败</span>`;
@@ -211,7 +210,7 @@ export class EntityGameObject extends GameObject {
 		return list;
 	}
 	interact(x: bigint, y: bigint): void {
-		let guardinfo = guardBattleInfo(this.tier, this.type);
+		let guardinfo = this.getBattleInfo();
 		player.minigame.interact = 1;
 		const innerText = this.innerText;
 		let battlestatus = runBattleFast(meBattleInfo(), guardinfo);
@@ -223,10 +222,14 @@ export class EntityGameObject extends GameObject {
 			let spoils = this.spoilsDecide();
 			for (let i in spoils) {
 				player.minigame.storeEquipments.push(spoils[i]);
-				if(player.minigame.storeEquipments.length >= 50)
-				{
+				if (player.minigame.storeEquipments.length >= 50) {
 					player.minigame.storeEquipments = player.minigame.storeEquipments
-					.sort(function(a, b){return -a.level * a.rarity ** 2 + b.level * b.rarity ** 2;}).filter((item, index) => {return index < 50});
+						.sort(function (a, b) {
+							return -a.level * a.rarity ** 2 + b.level * b.rarity ** 2;
+						})
+						.filter((item, index) => {
+							return index < 50;
+						});
 				}
 			}
 			player.minigame.xp += guardinfo.xp;
@@ -237,6 +240,9 @@ export class EntityGameObject extends GameObject {
 			}
 		}
 		player.minigame.interact = 0;
+	}
+	getBattleInfo() {
+		return guardBattleInfo(this.tier, this.type);
 	}
 }
 export class GuardGameObject extends EntityGameObject {

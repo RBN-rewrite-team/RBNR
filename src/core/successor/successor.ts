@@ -21,7 +21,6 @@ import { CurrencyRequirement, Requirement, UpgradeRequirement } from '../require
 import { Buyable } from '../buyable.ts';
 import { Logarithm } from '../exponention/logarithm.ts';
 import { DC } from '@/core/constants';
-import { getI18NData } from '../i18n-data.ts';
 
 export const Successor = {
 	upgrades: {
@@ -29,13 +28,11 @@ export const Successor = {
 			currency = Currencies.NUMBER;
 			name = 'U0-1';
 			cost = new Decimal(10);
-			description: () => string = function () {
-				return Logarithm.dilated(
-					getI18NData('unlock_b0_1'),
-					'B0-1购买次数上限改为1000',
-					'11',
-				)();
-			};
+			description: () => string = Logarithm.dilated(
+				'解锁B0-1',
+				'B0-1购买次数上限改为1000',
+				'11',
+			);
 			requirements(): Requirement[] {
 				return [new CurrencyRequirement(Currencies.NUMBER, new Decimal(10))];
 			}

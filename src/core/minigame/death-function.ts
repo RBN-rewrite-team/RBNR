@@ -1,8 +1,8 @@
 import ModalService from '@/utils/Modal';
 import { currentPlayerLV } from '.';
-import { getPlayerCurrentMap } from './room';
 import { meBattleInfo } from './battle';
 import { player } from '../save';
+import { roomSpawnPoint } from './spawnpoint';
 
 export function runDeath(innerText: string) {
 	let skillgain = currentPlayerLV() ** 0.5 + 1;
@@ -15,8 +15,8 @@ export function runDeath(innerText: string) {
 			skillgain.toFixed(3) +
 			' 技能点。',
 	});
-	player.minigame.current_x = BigInt(getPlayerCurrentMap().spawnpoint[0]);
-	player.minigame.current_y = BigInt(getPlayerCurrentMap().spawnpoint[1]);
+	player.minigame.current_x = BigInt(roomSpawnPoint()[0]);
+	player.minigame.current_y = BigInt(roomSpawnPoint()[1]);
 	player.minigame.xp = 0;
 	player.minigame.skillpoint += skillgain;
 	player.minigame.hp = meBattleInfo().hpMax;

@@ -198,6 +198,7 @@ export const studies = [
 		canBuy() {
 			let max = 1;
 			if (player.nonrecu.studies_bought.includes(19)) max = 2;
+			if (player.upgrades.U6R12) max = 3;
 			return sum(8, 9, 10) < max && or(6);
 		},
 	}),
@@ -222,6 +223,7 @@ export const studies = [
 		canBuy() {
 			let max = 1;
 			if (player.nonrecu.studies_bought.includes(19)) max = 2;
+			if (player.upgrades.U6R12) max = 3;
 			return sum(8, 9, 10) < max && or(6);
 		},
 		show() {
@@ -235,6 +237,7 @@ export const studies = [
 		canBuy() {
 			let max = 1;
 			if (player.nonrecu.studies_bought.includes(19)) max = 2;
+			if (player.upgrades.U6R12) max = 3;
 			return sum(8, 9, 10) < max && or(6);
 		},
 	}),
@@ -278,6 +281,7 @@ export const studies = [
 			let base = player.nonrecu.studies_bought.includes(8),
 				max = 1;
 			if (player.nonrecu.studies_bought.includes(19)) ((base = or(8, 9, 10)), (max = 2));
+			if (player.upgrades.U6R12) max = 3;
 			return base && sum(13, 14, 15) < max;
 		},
 	}),
@@ -291,6 +295,7 @@ export const studies = [
 			let base = player.nonrecu.studies_bought.includes(9),
 				max = 1;
 			if (player.nonrecu.studies_bought.includes(19)) ((base = or(8, 9, 10)), (max = 2));
+			if (player.upgrades.U6R12) max = 3;
 			return base && sum(13, 14, 15) < max;
 		},
 		show() {
@@ -305,6 +310,7 @@ export const studies = [
 			let base = player.nonrecu.studies_bought.includes(10),
 				max = 1;
 			if (player.nonrecu.studies_bought.includes(19)) ((base = or(8, 9, 10)), (max = 2));
+			if (player.upgrades.U6R12) max = 3;
 			return base && sum(13, 14, 15) < max;
 		},
 	}),
@@ -329,6 +335,7 @@ export const studies = [
 			let base = player.nonrecu.studies_bought.includes(13),
 				max = 1;
 			if (player.nonrecu.studies_bought.includes(19)) ((base = or(13, 14, 15)), (max = 2));
+			if (player.upgrades.U6R12) max = 3;
 			return base && sum(16, 17, 18) < max;
 		},
 	}),
@@ -342,6 +349,7 @@ export const studies = [
 			let base = player.nonrecu.studies_bought.includes(14),
 				max = 1;
 			if (player.nonrecu.studies_bought.includes(19)) ((base = or(13, 14, 15)), (max = 2));
+			if (player.upgrades.U6R12) max = 3;
 			return base && sum(16, 17, 18) < max;
 		},
 		show() {
@@ -358,6 +366,7 @@ export const studies = [
 			let base = player.nonrecu.studies_bought.includes(15),
 				max = 1;
 			if (player.nonrecu.studies_bought.includes(19)) ((base = or(13, 14, 15)), (max = 2));
+			if (player.upgrades.U6R12) max = 3;
 			return base && sum(16, 17, 18) < max;
 		},
 	}),

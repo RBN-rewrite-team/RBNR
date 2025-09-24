@@ -9,6 +9,7 @@ import { CHALLENGE } from '../challenge';
 import { DC } from '@/core/constants';
 import { Upgrade } from '../upgrade';
 import { getTotalTheories } from './total-theories';
+import { addTheories } from './studies.ts';
 import { energyToUNOCFSpeed } from '../ordinal/well_ordering';
 
 export const NON_RECURSIVE = {
@@ -513,6 +514,18 @@ export const NON_RECURSIVE = {
 		}
 		if (player.upgrades['71UN']) {
 			player.nonrecu.unocf_j = player.nonrecu.unocf_j.add(this.UNOCFdeduceSpeed().mul(diff));
+		}
+		if (player.numbertheory.well_ordering.steps_proceeded.includes(3))
+			player.challenges[1][4] = player.challenges[1][4].max(
+				player.hydra.deduceOrdinal[0].max(10).log10().log10(),
+			);
+		if (player.numbertheory.well_ordering.steps_proceeded.includes(7)) {
+			player.challenges[1][5] = player.challenges[1][5].max(
+				player.hydra.dilute.prions.max(10).log10().log10(),
+			);
+			addTheories(0);
+			addTheories(1);
+			addTheories(2);
 		}
 	},
 	UNOCFdeduceSpeed() {

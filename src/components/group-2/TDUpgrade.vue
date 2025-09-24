@@ -12,7 +12,6 @@ import type Decimal from 'break_eternity.js';
 import { countdown } from '@/core/countdown-display';
 import { ORDINAL } from '@/core/ordinal/ordinal';
 import { Dilute } from '@/core/hydra/dilute';
-import { getI18NData } from '@/core/i18n-data';
 
 const props = defineProps<{
 	upgid: keyof typeof upgrades;
@@ -87,20 +86,21 @@ function actualCost(curupg: Upgrade) {
 						效果：<span v-html="curupg.effectDescription(curupg.effect())"></span><br />
 					</template>
 				</template>
-				<div
-					v-if="!permanent"
-					v-html="
-						getI18NData('cost_function')(
-							curupg.ordinal
-								? OrdinalUtils.numberToOrdinal(
-										actualCost(curupg),
-										feature.Ordinal.base(),
-									)
-								: format(actualCost(curupg)),
-							currencyName(upgrades[id].currency),
-						)
-					"
-				></div>
+				<template v-if="!permanent">
+					价格：<span
+						v-if="curupg.ordinal"
+						v-html="
+							OrdinalUtils.numberToOrdinal(
+								actualCost(curupg),
+								feature.Ordinal.base(),
+							) + currencyName(curupg.currency)
+						"
+					/><span
+						v-else
+						v-html="format(actualCost(curupg)) + currencyName(curupg.currency)"
+					/>
+					<br />
+				</template>
 				<span v-else style="color: green; font-weight: bold"> 保持持有<br /> </span>
 				<span> </span>
 			</div>
