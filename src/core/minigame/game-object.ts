@@ -16,18 +16,21 @@ import ModalService from '@/utils/Modal';
 import { player } from '../save';
 import { guardBattleInfo, meBattleInfo, runBattleFast } from './battle';
 import { currentPlayerLV, getWorldLevel, equipmentDisplay } from '.';
-import { addReplace, getCurrentBlock, positionDirection } from './room';
+import { positionDirection } from './room';
+import { addReplace, deleteRecovers } from './replacement';
+import { getCurrentBlock } from './block';
 import { temp } from '../temp-data';
 import { runDeath } from './death-function';
 
 import { type CoreEquipment } from '.';
+import type { Directions } from './minigame-loop';
 
 /**
  * 游戏物体 Nothingness（这里什么都没有）
  */
 export class GameObject {
 	constructor() {}
-	interact(x: bigint, y: bigint, direction: 'up' | 'down' | 'left' | 'right') {}
+	interact(x: bigint, y: bigint, direction: Directions) {}
 	solid() {
 		return false;
 	}
@@ -83,11 +86,7 @@ export class TeleporterGameObject extends GameObject {
 		player.minigame.current_room = this.room;
 		player.minigame.current_x = this.destination[0];
 		player.minigame.current_y = this.destination[1];
-		for (let i in player.minigame.replaces) {
-			for (let j in player.minigame.replaces[i]) {
-				if (player.minigame.replaces[i][j].recover) delete player.minigame.replaces[i][j];
-			}
-		}
+		deleteRecovers();
 		if (!player.minigame.visited.includes(this.room)) player.minigame.visited.push(this.room);
 	}
 	solid() {

@@ -223,5 +223,3 @@ export function initialMap(): SingleMap[] {
 		},
 	];
 }
-// prettier-ignore
-export const maps: SingleMap[] = initialMap()
