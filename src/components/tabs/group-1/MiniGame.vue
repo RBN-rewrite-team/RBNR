@@ -33,7 +33,11 @@ import {
 import { range } from '@/utils/algorithm';
 import { temp } from '../../../core/temp-data';
 import { format } from '@/utils/format';
-import { GuardGameObject, MoveableBoxGameObject } from '@/core/minigame/game-object';
+import {
+	EntityGameObject,
+	GuardGameObject,
+	MoveableBoxGameObject,
+} from '@/core/minigame/game-object';
 import ModalService from '@/utils/Modal';
 import SkillTree from '../minigame/SkillTree.vue';
 import { playerSafe, playerToDestination } from '@/core/minigame/path-searcher';
@@ -74,8 +78,8 @@ function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof
 			addReplace(room, x, y, 'BOX', false);
 			temp.minigametip = '已放下箱子';
 			putedblock = true;
-		} else if (block instanceof GuardGameObject) {
-			let guardinfo = guardBattleInfo(block.tier, block.type);
+		} else if (block instanceof EntityGameObject) {
+			let guardinfo = block.getBattleInfo();
 			let battlestatus = runBattleFast(meBattleInfo(), guardinfo);
 			if (battlestatus.status == 'fail') {
 				let req = calculateRequiredHpIncrease(meBattleInfo(), guardinfo);
