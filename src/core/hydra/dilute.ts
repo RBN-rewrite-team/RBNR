@@ -929,7 +929,7 @@ const Dil = {
 	},
 	solutionGain(getCurrentMax = false, gettingOutSide = false): Decimal {
 		let getAmountFunction = (getCurrentMax) ? Dilute.diluteAmountOutside : Dilute.diluteAmount;
-		if (gettingOutSide) getAmountFunction = (x: number) => ([10,10,10,10,10,10,true,true,true] as const)[x] as (x extends (0 | 1 | 2 | 3 | 4 | 5) ? 10 : x extends (6|7|8) ? true:never)
+		if (gettingOutSide) getAmountFunction = (x: IntClosedRange<0, 8>) => ([10,10,10,10,10,10,true,true,true] as const)[x] as (typeof x extends (0 | 1 | 2 | 3 | 4 | 5) ? 10 : typeof x extends (6|7|8) ? true:never)
 		let base: number = Array(6)
 			.fill(null)
 			.map((_, index) => getAmountFunction(index as IntClosedRange<0, 5>))
