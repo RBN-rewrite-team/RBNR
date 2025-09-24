@@ -288,7 +288,7 @@ export function calculateRequiredAtkIncrease(
 		return {
 			requiredAtk: atkIncreaseNeeded + resultAfterBreakDef.requiredAtk,
 			isPossible: true,
-			reason: `需要 ${format(atkIncreaseNeeded)} 点攻击力破防，再提升 ${format(resultAfterBreakDef.requiredAtk)} 点才能获胜`,
+			reason: `玩家需要提升 ${format(atkIncreaseNeeded)} 点攻击力破防，再提升 ${format(resultAfterBreakDef.requiredAtk)} 点就可以获胜`,
 		};
 	}
 
@@ -345,13 +345,13 @@ function calculateRequiredAtkAfterBreakDef(
 		return {
 			requiredAtk: atkIncreaseNeeded + 1, // 保险起见多加1点
 			isPossible: true,
-			reason: `需要提升 ${format(atkIncreaseNeeded)} 点攻击力（验证后建议增加 ${format(atkIncreaseNeeded + 1)} 点）`,
+			reason: `玩家需要提升 ${format(atkIncreaseNeeded)} 点攻击力（验证后建议增加 ${format(atkIncreaseNeeded + 1)} 点）`,
 		};
 	}
 
 	return {
 		requiredAtk: atkIncreaseNeeded,
 		isPossible: true,
-		reason: `需要提升 ${format(atkIncreaseNeeded)} 点攻击力才能获胜`,
+		reason: `玩家提升 ${format(atkIncreaseNeeded)} 点攻击力就可以获胜`,
 	};
 }

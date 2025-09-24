@@ -185,7 +185,7 @@ export class EntityGameObject extends GameObject {
 		return true;
 	}
 	battleText() {
-		let guardinfo = guardBattleInfo(this.tier, this.type);
+		let guardinfo = this.getBattleInfo();
 		let battlestatus = runBattleFast(meBattleInfo(), guardinfo);
 		if (battlestatus.status == 'fail') {
 			return `<span style="color: rgb(127, 0, 0)">无法击败</span>`;
@@ -210,7 +210,7 @@ export class EntityGameObject extends GameObject {
 		return list;
 	}
 	interact(x: bigint, y: bigint): void {
-		let guardinfo = guardBattleInfo(this.tier, this.type);
+		let guardinfo = this.getBattleInfo();
 		player.minigame.interact = 1;
 		const innerText = this.innerText;
 		let battlestatus = runBattleFast(meBattleInfo(), guardinfo);
@@ -240,6 +240,9 @@ export class EntityGameObject extends GameObject {
 			}
 		}
 		player.minigame.interact = 0;
+	}
+	getBattleInfo() {
+		return guardBattleInfo(this.tier, this.type);
 	}
 }
 export class GuardGameObject extends EntityGameObject {
