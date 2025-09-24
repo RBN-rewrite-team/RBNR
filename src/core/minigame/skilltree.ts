@@ -118,10 +118,41 @@ export const studies = [
 			return or(3);
 		},
 	}),
+	new Study({
+		id: '42', // 5
+		description: '基础HP+15',
+		cost: new Decimal(5),
+		canBuy() {
+			return or(3);
+		},
+	}),
+	new Study({
+		id: '43', // 6
+		description: 'HP*1.5',
+		cost: new Decimal(5),
+		canBuy() {
+			return or(3);
+		},
+	}),
+	new Study({
+		id: '51', // 7
+		description: '每级额外多2攻击',
+		cost: new Decimal(25),
+		canBuy() {
+			return or(4, 5);
+		},
+	}),
+	new Study({
+		id: '52', // 8
+		description: '每级额外多3生命值',
+		cost: new Decimal(25),
+		canBuy() {
+			return or(5, 6);
+		},
+	}),
 ] as const;
 
 export function canBuyStudies(id: number) {
-	if (player.minigame.skilltree_bought.includes(5)) return false;
 	const study = studies[id] as Study | undefined;
 	if (!study) return false;
 	if (player.minigame.skilltree_bought.includes(id)) return false;

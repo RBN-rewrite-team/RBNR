@@ -14,5 +14,11 @@ import SingleMinigameSkill from '@/components/group-2/SingleMinigameSkill.vue';
 	</div>
 	<div class="studies_row">
 		<SingleMinigameSkill :study_id="4"></SingleMinigameSkill>
+		<SingleMinigameSkill :study_id="5"></SingleMinigameSkill>
+		<SingleMinigameSkill :study_id="6"></SingleMinigameSkill>
+	</div>
+	<div class="studies_row">
+		<SingleMinigameSkill :study_id="7"></SingleMinigameSkill>
+		<SingleMinigameSkill :study_id="8"></SingleMinigameSkill>
 	</div>
 </template>

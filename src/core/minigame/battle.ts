@@ -170,12 +170,16 @@ export function meBattleInfo(): BattleInfo & {
 } {
 	let hpMax = 10;
 	if (player.minigame.skilltree_bought.includes(2)) hpMax += 5;
+	if (player.minigame.skilltree_bought.includes(5)) hpMax += 15;
+	if (player.minigame.skilltree_bought.includes(8)) hpMax += 3;
 	hpMax *= currentPlayerLV();
 	if (player.minigame.skilltree_bought.includes(0)) hpMax += 2 * currentPlayerLV();
 	if (player.minigame.skilltree_bought.includes(3)) hpMax *= 1.5;
+	if (player.minigame.skilltree_bought.includes(6)) hpMax *= 1.5;
 
 	let atk = 5;
 	if (player.minigame.skilltree_bought.includes(1)) atk += 1;
+	if (player.minigame.skilltree_bought.includes(7)) atk += 2;
 	atk *= currentPlayerLV();
 	if (player.minigame.skilltree_bought.includes(4)) hpMax *= 1.2;
 	return {
