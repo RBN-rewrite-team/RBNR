@@ -640,7 +640,12 @@ let highestPage = 0;
 			/>，被称为SRO。<br />
 			我们可以用一个更高层次的OCF来折叠<vue-latex
 				expression="I(a,b,c...)"
-			/>，它就是<vue-latex expression="M" />。<br />
+			/>及其序数元、<vue-latex expression="@(1,0)" />变体，它就是<vue-latex
+				expression="M"
+			/>。<br />
+			<vue-latex expression="M" />是在<vue-latex
+				expression="M"
+			/>以下无法通过取若干次容许点而得到的序数，我们把之前的容许点运算成为1-容许点，把类似于容许点的马洛点成为2-容许点，只有一个不动点本身是马洛序数时才能被称为马洛点。<br />
 			<vue-latex expression="\psi_M(X)=\Omega_X" /><br />
 			<vue-latex
 				expression="\psi_M(X*M)=\alpha\mapsto\psi_M(X*\alpha)AP"
@@ -667,7 +672,10 @@ let highestPage = 0;
 			<vue-latex expression="\psi_M(M^M)=I(1,0,0)" display-mode />
 			<vue-latex expression="\psi_M(M^{M^2})=I(1,0,0,0)" display-mode />
 			<vue-latex expression="\psi_M(M^{M^M})=I(1@(1,0))" display-mode />
-			<vue-latex expression="\psi_M(\varepsilon_{M+1})=I(1@(1@(1@...))))" display-mode />
+			<vue-latex
+				expression="\psi_M(\varepsilon_{M+1})=\sup\{I,I(1,0),I(1@(1,0)),I(1@(1@(1,0))),I(1@(1@(1@(1,0)))),\cdots\}"
+				display-mode
+			/>
 		</div>
 		<div v-else-if="player.help.page == 104">
 			有<vue-latex expression="\Omega"></vue-latex>有<vue-latex
@@ -684,8 +692,12 @@ let highestPage = 0;
 			/>，<vue-latex expression="M(1,0;0)" />直到一个马洛点的BHO。<br />
 			这个高层的Veblen结构以<vue-latex
 				expression="\psi_N(X*N)=\alpha\mapsto\psi_N(X*\alpha)MP"
-			/>来折叠，MP表示马洛点，只有一个不动点本身是马洛序数时才能被称为马洛点。<br />
+			/>来折叠，MP表示马洛点。<br />
+			<vue-latex expression="N" />是不可转换序数，它对应的容许点称为3-容许点。<br />
 			于是，以这样的Veblen+OCF不断互相左脚踩右脚上天的形式，可以得到形形色色乱七八糟的折叠结构，进行梳理之后可以得到反射序数系统。<br />
+			我们可以继续：4-容许点, 5-容许点, ..., ω-容许点, ...
+			直到容许点左边的序数取容许点，写成容许点-容许点，对应的序数<b><i>有可能是</i></b
+			>弱紧致序数，<vue-latex expression="K" />。<br />
 			没做完。<br />
 		</div>
 		<div v-if="player.help.page == 777">
