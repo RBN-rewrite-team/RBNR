@@ -709,6 +709,8 @@ export const Hydra = {
 		base = this.powerGainAfterSoftcap2(base).max(0);
 		if (CHALLENGE.inChallenge(1, 1)) base = base.min(player.nonrecu.power.add(1));
 		if (CHALLENGE.inChallenge(1, 4) && base.gte(10)) base = base.clampMin(10).log10().add(9);
+		if (player.nonrecu.studies_bought.includes(21) && base.gte(1e10))
+			base = base.log10().log10().mul(1.1).pow10().pow10();
 		if (player.milestones.nonrec_21 && base.gte(1e10))
 			base = base.log10().log10().mul(1.2).pow10().pow10();
 		return base;
