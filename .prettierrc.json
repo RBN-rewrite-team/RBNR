@@ -4,5 +4,11 @@
   "singleQuote": true,
   "printWidth": 100,
   "useTabs": true,
-  "tabWidth": 4
+  "tabWidth": 4,
+  "overrides": {
+    "files": "./src/utils/y-seq.ts",
+    "options": {
+      "printWidth": 1000
+    }
+  }
 }
