@@ -158,7 +158,7 @@ export async function playerToDestination(destination_x: bigint, destination_y: 
 	console.log(paths);
 	player.minigame.interact = 5;
 	for (const path of paths) {
-		const [rx, ry] = [(player.minigame.current_x = path.x), player.minigame.current_y];
+		const [rx, ry] = [player.minigame.current_x, player.minigame.current_y];
 		player.minigame.current_x = path.x;
 		player.minigame.current_y = path.y;
 		interactBlock(
