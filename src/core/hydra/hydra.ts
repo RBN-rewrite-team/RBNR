@@ -6,8 +6,15 @@ import { Upgrade, UpgradeWithEffect } from '../upgrade';
 import { CurrencyRequirement, type Requirement } from '../requirements';
 import { Buyable } from '../buyable';
 import { upgrades, buyables } from '../mechanic';
-import { Dilute, milestoneDut16Eff, milestoneDut6Eff, milestoneDut7Eff, tsbhBase } from './dilute';
-import type { IntClosedRange } from 'type-fest';
+import {
+	Dilute,
+	milestoneDut16Eff,
+	milestoneDut6Eff,
+	milestoneDut7Eff,
+	tsbhBase,
+	type backupHydraType,
+} from './dilute';
+import type { FixedLengthArray, IntClosedRange } from 'type-fest';
 import { NON_RECURSIVE } from '../nonrecu';
 import { CHALLENGE } from '../challenge';
 import { DC } from '@/core/constants';
@@ -1079,6 +1086,67 @@ export const Hydra = {
 		}
 		if (player.upgrades['64R']) eff = eff.pow(10);
 		return eff;
+	},
+	playerData() {
+		return {
+			visiting: 0,
+			power: DC.D_0,
+			totalPower: DC.D_0,
+			trueTotalPower: DC.D_0,
+			milestoneDut5Eff: DC.D_1,
+			powerMult: [DC.D_1, DC.D_1, DC.D_1, DC.D_1] as FixedLengthArray<Decimal, 4>,
+			deduceProgress: [DC.D_0, DC.D_0, DC.D_0, DC.D_0] as FixedLengthArray<Decimal, 4>,
+			deduceOrdinal: [DC.D_0, DC.D_0, DC.D_0, DC.D_0] as FixedLengthArray<Decimal, 4>,
+			totalDeduceOrdinal: [DC.D_0, DC.D_0, DC.D_0, DC.D_0] as FixedLengthArray<Decimal, 4>,
+			prestige: [DC.D_0, DC.D_0, DC.D_0, DC.D_0] as FixedLengthArray<Decimal, 4>,
+			pAuto: [false, false, false, false] as FixedLengthArray<boolean, 4>,
+			dilute: {
+				inDilute: false,
+				solvent: [0, 0, 0, 0, 0, 0, false, false, false] as [
+					number,
+					number,
+					number,
+					number,
+					number,
+					number,
+					boolean,
+					boolean,
+					boolean,
+				],
+				lastSolvent: [0, 0, 0, 0, 0, 0, false, false, false] as [
+					number,
+					number,
+					number,
+					number,
+					number,
+					number,
+					boolean,
+					boolean,
+					boolean,
+				],
+				solventPresets: [] as [
+					number,
+					number,
+					number,
+					number,
+					number,
+					number,
+					boolean,
+					boolean,
+					boolean,
+				][],
+				lastDeduce: DC.D_0,
+				spentTime: 0,
+				solution: DC.D_0,
+				highestSolution: DC.D_0,
+				solutionCost: DC.D_0,
+				solute: DC.D_0,
+				prions: DC.D_1,
+				highestApocalypse: DC.D_0,
+			},
+			autoHydraReset: false,
+			backupHydra: undefined as undefined | backupHydraType,
+		};
 	},
 } as const;
 

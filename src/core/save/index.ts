@@ -19,6 +19,7 @@ import { pubtest } from './testing.ts';
 import type { FixedLengthArray } from 'type-fest';
 import { getInitialStat, type PlayerStat } from '../stats.ts';
 import { wellOrderPlayerData } from '../ordinal/well_ordering.ts';
+import { Hydra } from '../hydra/hydra.ts';
 
 const version = 11 as const;
 export let current_save = 0;
@@ -46,11 +47,6 @@ function _getSaveID(id: number) {
 function getSaveID(id: number) {
 	return (pubtest ? 'pubtesting_' : '') + _getSaveID(id);
 }
-
-type NonRecusionTreePreset = {
-	name: string;
-	preset: number[];
-};
 
 export interface Player {
 	number: Decimal;
@@ -157,66 +153,8 @@ export interface Player {
 		openTf: boolean;
 		next: FixedLengthArray<number, 3>;
 	};
-	hydra: {
-		visiting: number;
-		power: Decimal;
-		totalPower: Decimal;
-		trueTotalPower: Decimal;
-		milestoneDut5Eff: Decimal;
-		powerMult: FixedLengthArray<Decimal, 4>;
-		deduceProgress: FixedLengthArray<Decimal, 4>;
-		deduceOrdinal: FixedLengthArray<Decimal, 4>;
-		totalDeduceOrdinal: FixedLengthArray<Decimal, 4>;
-		prestige: FixedLengthArray<Decimal, 4>;
-		pAuto: FixedLengthArray<boolean, 4>;
-		backupHydra?: backupHydraType;
-		dilute: {
-			inDilute: boolean;
-			solvent: [number, number, number, number, number, number, boolean, boolean, boolean];
-			lastSolvent: [
-				number,
-				number,
-				number,
-				number,
-				number,
-				number,
-				boolean,
-				boolean,
-				boolean,
-			];
-			spentTime: number;
-			solution: Decimal;
-			highestSolution: Decimal;
-			lastDeduce: Decimal;
-			solute: Decimal;
-			solutionCost: Decimal;
-			prions: Decimal;
-			highestApocalypse: Decimal;
-			solventPresets: [
-				number,
-				number,
-				number,
-				number,
-				number,
-				number,
-				boolean,
-				boolean,
-				boolean,
-			][];
-		};
-		autoHydraReset: boolean;
-	};
-	nonrecu: {
-		power: Decimal;
-		totalPower: Decimal;
-		resetTimes: Decimal;
-		studies_bought: number[];
-		theories: FixedLengthArray<Decimal, 3>;
-		spentTheories: Decimal;
-		secInThisReset: Decimal;
-		studies_preset: FixedLengthArray<NonRecusionTreePreset, 6>;
-		unocf_j: Decimal;
-	};
+	hydra: ReturnType<typeof Hydra.playerData>;
+	nonrecu: ReturnType<typeof NON_RECURSIVE.playerData>;
 	minigame: PlayerMinigameData;
 	backup?: Omit<Player, 'backup'> | null;
 	foundNaN: boolean;
@@ -352,53 +290,8 @@ function getInitialPlayerData(): Player {
 				Math.floor(Math.random() * 4000 + 1000),
 			],
 		},
-		hydra: {
-			visiting: 0,
-			power: DC.D_0,
-			totalPower: DC.D_0,
-			trueTotalPower: DC.D_0,
-			milestoneDut5Eff: DC.D_1,
-			powerMult: [DC.D_1, DC.D_1, DC.D_1, DC.D_1],
-			deduceProgress: [DC.D_0, DC.D_0, DC.D_0, DC.D_0],
-			deduceOrdinal: [DC.D_0, DC.D_0, DC.D_0, DC.D_0],
-			totalDeduceOrdinal: [DC.D_0, DC.D_0, DC.D_0, DC.D_0],
-			prestige: [DC.D_0, DC.D_0, DC.D_0, DC.D_0],
-			pAuto: [false, false, false, false],
-			dilute: {
-				inDilute: false,
-				solvent: [0, 0, 0, 0, 0, 0, false, false, false],
-				lastSolvent: [0, 0, 0, 0, 0, 0, false, false, false],
-				solventPresets: [],
-				lastDeduce: DC.D_0,
-				spentTime: 0,
-				solution: DC.D_0,
-				highestSolution: DC.D_0,
-				solutionCost: DC.D_0,
-				solute: DC.D_0,
-				prions: DC.D_1,
-				highestApocalypse: DC.D_0,
-			},
-			autoHydraReset: false,
-		},
-		nonrecu: {
-			power: DC.D_0,
-			totalPower: DC.D_0,
-			resetTimes: DC.D_0,
-			studies_bought: [],
-			theories: [DC.D_0, DC.D_0, DC.D_0],
-			spentTheories: DC.D_0,
-			secInThisReset: DC.D_0,
-			studies_preset: Array(6)
-				.fill(null)
-				.map(
-					(x, id) =>
-						({
-							name: String(id + 1),
-							preset: [],
-						}) as NonRecusionTreePreset,
-				) as unknown as FixedLengthArray<NonRecusionTreePreset, 6>,
-			unocf_j: new Decimal(0),
-		},
+		hydra: Hydra.playerData(),
+		nonrecu: NON_RECURSIVE.playerData(),
 		foundNaN: false,
 		checkedPlots: [],
 		automator: {
