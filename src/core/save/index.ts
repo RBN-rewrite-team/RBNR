@@ -164,6 +164,7 @@ export interface Player {
 		code: string;
 		currentBlockPos: number;
 	};
+	retribute: 0 | 1 | 2 | 3 | 4;
 }
 
 function getInitialPlayerData(): Player {
@@ -299,6 +300,7 @@ function getInitialPlayerData(): Player {
 			code: '',
 			currentBlockPos: 0,
 		},
+		retribute: 0,
 	};
 }
 
