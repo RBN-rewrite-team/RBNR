@@ -31,6 +31,55 @@ export const RETRIBUTION = {
 		for (const key of resetBuyables) {
 			player.buyables[key] = DC.D_0;
 		}
+		for (const key of [
+			'dut1',
+			'dut2',
+			'dut3',
+			'dut4',
+			'dut5',
+			'dut6',
+			'dut7',
+			'dut8',
+			'dut9',
+			'dut10',
+			'dut11',
+			'dut12',
+			'dut13',
+			'dut14',
+			'dut15',
+			'dut16',
+			'dut17',
+			'dut18',
+
+			'nonrec_1',
+			'nonrec_2',
+			'nonrec_3',
+			'nonrec_4',
+			'nonrec_5',
+			'nonrec_6',
+			'nonrec_7',
+			'nonrec_8',
+			'nonrec_9',
+			'nonrec_10',
+			'nonrec_11',
+			'nonrec_12',
+			'nonrec_13',
+			'nonrec_14',
+			'nonrec_15',
+			'nonrec_16',
+			'nonrec_17',
+			'nonrec_18',
+			'nonrec_19',
+			'nonrec_20',
+			'nonrec_21',
+			'nonrec_22',
+			'nonrec_23',
+			'nonrec_24',
+			'nonrec_25',
+			'nonrec_26',
+		]) {
+			player.milestones[key] = false;
+		}
 		player.numbertheory.well_ordering = wellOrderPlayerData();
 		player.numbertheory.GM.x = DC.D_0;
 		player.currentTab = 19;
@@ -42,3 +91,9 @@ export const RETRIBUTION = {
 		return false;
 	},
 };
+declare global {
+	interface Window {
+		doRetributed: typeof RETRIBUTION.doRetributed;
+	}
+}
+window.doRetributed = RETRIBUTION.doRetributed;

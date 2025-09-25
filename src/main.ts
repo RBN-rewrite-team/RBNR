@@ -16,3 +16,5 @@ BigInt.prototype.toJSON = function () {
 	return this.toString();
 };
 init();
+
+import { RETRIBUTION } from './core/post-nonrec/retribution.ts';
