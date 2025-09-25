@@ -408,9 +408,8 @@ export const studies = [
 			return (
 				'解锁非递归挑战4\t' +
 				format(
-					new Decimal(6 + player.challenges[1][3].toNumber() + 1)
+					new Decimal(6 + player.challenges[1][3].toNumber())
 						.pow_base(2)
-						.sub(9)
 						.pow_base(2)
 						.pow10(),
 				) +
