@@ -232,11 +232,7 @@ function _g() {
 					</tbody>
 				</table>
 			</div>
-			<OrdinalNT5
-				v-if="
-					player.numbertheory.visiting == 5 && player.milestones.nonrec_26 && isTester()
-				"
-			/>
+			<OrdinalNT5 v-if="player.numbertheory.visiting == 5 && player.milestones.nonrec_26" />
 		</div>
 		<br />
 	</div>
