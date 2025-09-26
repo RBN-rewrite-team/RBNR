@@ -722,7 +722,7 @@ let highestPage = 0;
 					expression="\cap"
 				/>是集合的交集运算,也就是取出两个集合中都有的元素，合成为一个集合。
 			</p>
-			<p><vue-latex expression="\mathrm{xth} Y aft X" />是X在Y集合中后的第x个序数</p>
+			<p><vue-latex expression="\mathrm{xth} Y \operatorname{aft} X" />是X在Y集合中后的第x个序数</p>
 			<p><vue-latex expression="\Pi_\alpha" />是公式，具体是什么公式暂时难以所清楚</p>
 			<p>
 				<vue-latex
@@ -801,9 +801,21 @@ let highestPage = 0;
 			</p>
 			<p>
 				例如<vue-latex
-					expression="\Pi_2\operatorname{onto}\mathrm{Ord}=\{\Omega, \Omega_2\}"
-				/>就是取出序数中的所有序数
+					expression="\Pi_2\operatorname{onto}\mathrm{Ord}=\{\Omega, \Omega_2, \cdots, \Omega_{\omega+1}, \cdots,\Omega_{\omega2+1}, \cdots, \Omega_{\Omega+1}, \cdots, \psi_I(I+1), \cdots, I, \cdots\}"
+				/>就是取出序数中的所有容许序数
 			</p>
+			<p>需要注意<vue-latex expression="\Omega_\omega, \Omega_\Omega,\psi_I(I)" />并不是容许序数，因为他们可以由下面的序数自下到上得到，也就是说他们的基本列长度不等于自身，这一点前文也提到过。</p>
+			<p>接下来可以继续迭代：</p>
+			 <vue-latex display-mode expression="1-1-2 = \{\Omega_{\omega^2},\Omega_{\omega^22},\cdots,\Omega_{\Omega},\cdots,I,\cdots\}"/>
+			 <vue-latex display-mode expression="(1-)^{\omega}2 = \{\Omega_{\omega^\omega},\cdots,\Omega_{\Omega},\cdots,I,\cdots\}"/>
+			 <vue-latex display-mode expression="\mathrm{1st} (1-)^{\Omega}2 = \Omega_{\Omega}"/>
+			 <vue-latex display-mode expression="2\space\mathrm{aft} (1-)^{\Omega}2 = \Omega_{\Omega+1}"/>
+			 <vue-latex display-mode expression="\mathrm{1st} (1-)^{(1-)^{\Omega}2}2 = \Omega_{\Omega_{\Omega}}"/>
+			 <vue-latex display-mode expression="\mathrm{1st} (1-)^{(1,0)}2 = \psi_I(I) = \alpha\mapsto(1-)^\alpha2\space\mathrm{fp.}"/>
+			 <p>我们上述得到的<vue-latex
+					expression="(1-)^\alpha2"
+				/>集合里的序数都是非容许序数。我们想问，是否有一个序数既是容许序数，也是容许序数集合的容许点里的序数？</p>
+				<p>这个序数就是前文提过的<vue-latex expression="\beta\mapsto\Omega_\beta\mathrm{ap.}=I=2\space1-2=\Pi_2\cap(\Pi_1\operatorname{onto}\Pi_2)"/></p>
 		</div>
 		<div v-if="player.help.page == 777">
 			<DeveloperMode></DeveloperMode>
