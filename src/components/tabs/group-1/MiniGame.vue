@@ -31,7 +31,7 @@ import {
 	runBattleFast,
 } from '@/core/minigame/battle';
 import { range } from '@/utils/algorithm';
-import { temp } from '../../../core/temp-data';
+import { inPathData, temp } from '../../../core/temp-data';
 import { format } from '@/utils/format';
 import {
 	EntityGameObject,
@@ -565,7 +565,7 @@ function isEquipped(eq: CoreEquipment) {
 								"
 							>
 								<MiniGameTD
-									v-if="isPlayerVisible(x, y)"
+									v-if="isPlayerVisible(x, y) && !inPathData(x, y)"
 									@mousedown="
 										clickBlock(
 											player.minigame.current_room,
@@ -578,6 +578,12 @@ function isEquipped(eq: CoreEquipment) {
 										getCurrentBlock(player.minigame.current_room, x, y)
 									"
 								></MiniGameTD>
+								<td v-else-if="inPathData(x, y)" style="background-color: green; 
+									height: 60px;
+									width: 60px;
+									min-height: 60px;
+									min-width: 60px;">
+								</td>
 							</template>
 
 							<td

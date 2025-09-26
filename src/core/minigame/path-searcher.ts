@@ -147,6 +147,8 @@ function valueUntilTrue(f: () => boolean) {
 }
 
 export async function playerToDestination(destination_x: bigint, destination_y: bigint) {
+	await valueUntilTrue(()=>temp.pathsearch_locker===false);
+	temp.pathsearch_locker = true;
 	const paths = getFastPath(
 		player.minigame.current_room,
 		player.minigame.current_x,
@@ -154,11 +156,14 @@ export async function playerToDestination(destination_x: bigint, destination_y: 
 		destination_x,
 		destination_y,
 	);
-	if (paths.length == 0)
+	if (paths.length == 0){
+		temp.pathsearch_locker = false;
 		throw new Error('Cannot find paths to ' + destination_x + ' ' + destination_y);
+	}
 	temp.minigametip =
-				'正在尝试前往' + destination_x + ',' + destination_y + '...如果玩家未移动可以点击玩家旁边的位置(0/'+paths.length+')';
+		'移动中 0/'+paths.length;
 	console.log(paths);
+	temp.pathdata = paths;
 	player.minigame.interact = 5;
 	let a = 0
 	for (const path of paths) {
@@ -167,7 +172,7 @@ export async function playerToDestination(destination_x: bigint, destination_y: 
 		player.minigame.current_x = path.x;
 		player.minigame.current_y = path.y;
 		temp.minigametip =
-				'正在尝试前往' + destination_x + ',' + destination_y + '...如果玩家未移动可以点击玩家旁边的位置('+a+'/'+paths.length+')';
+				'移动中 '+a+'/'+paths.length;
 		interactBlock(
 			player.minigame.current_room,
 			path.x,
@@ -178,6 +183,8 @@ export async function playerToDestination(destination_x: bigint, destination_y: 
 		player.minigame.interact = 5;
 	}
 	player.minigame.interact = 0;
+	temp.pathdata = [];
+	temp.pathsearch_locker = false;
 }
 
 export function directionof(x: bigint, y: bigint, x2: bigint, y2: bigint): Directions {

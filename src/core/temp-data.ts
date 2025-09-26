@@ -1,5 +1,7 @@
 import { reactive } from 'vue';
 import { type CoreEquipment } from './minigame/index.ts';
+import type { Path } from './minigame/path-searcher.ts';
+import { player } from './global.ts';
 
 export const temp = reactive({
 	select_ach: [0, 0],
@@ -22,4 +24,10 @@ export const temp = reactive({
 		if (r >= 1.0) return 'blue';
 		return 'var(--color)';
 	},
+	pathdata: [] as Path[],
+	pathsearch_locker: false
 });
+export function inPathData(x: bigint,y: bigint){
+	if (player.minigame.interact!==5) return false;
+	return temp.pathdata.findIndex((a)=>a.x==x&&a.y==y) !==-1;
+}
