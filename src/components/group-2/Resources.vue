@@ -97,7 +97,7 @@ import { format } from '@/utils/format';
 					<span v-html="formatGain(player.hydra.deduceOrdinal[0], feature.Hydra.deduceSpeed(0)).replace('(','(推演')"></span>
 				</div>
 				<div style="font-size: 17px; color: rgb(155, 125, 195)" v-if="player.upgrades[61]">
-					(v/推演次数={{ format(feature.Hydra.deduceSpeed(0)) }}/s)
+					(已推演{{format(player.hydra.deduceOrdinal[0])}}次)
 				</div>
 			</div>
 			<div
