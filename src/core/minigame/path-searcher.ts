@@ -8,6 +8,7 @@ import {
 	OreGameObject,
 } from './game-object';
 import { interactBlock, type Directions } from './minigame-loop';
+import { temp } from '../temp-data';
 
 export type Path = {
 	steps: bigint;
@@ -155,12 +156,18 @@ export async function playerToDestination(destination_x: bigint, destination_y: 
 	);
 	if (paths.length == 0)
 		throw new Error('Cannot find paths to ' + destination_x + ' ' + destination_y);
+	temp.minigametip =
+				'正在尝试前往' + destination_x + ',' + destination_y + '...如果玩家未移动可以点击玩家旁边的位置(0/'+paths.length+')';
 	console.log(paths);
 	player.minigame.interact = 5;
+	let a = 0
 	for (const path of paths) {
+		a++
 		const [rx, ry] = [player.minigame.current_x, player.minigame.current_y];
 		player.minigame.current_x = path.x;
 		player.minigame.current_y = path.y;
+		temp.minigametip =
+				'正在尝试前往' + destination_x + ',' + destination_y + '...如果玩家未移动可以点击玩家旁边的位置('+a+'/'+paths.length+')';
 		interactBlock(
 			player.minigame.current_room,
 			path.x,
