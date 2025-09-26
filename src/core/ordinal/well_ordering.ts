@@ -220,9 +220,11 @@ const ProcceedingCost = [
 	new Decimal(5e8),
 	new Decimal(1e15),
 	new Decimal(1e17),
-	new Decimal(1e35),
-	new Decimal(1e55),
+	new Decimal(1e34),
+	new Decimal(1e52),
 	new Decimal(2).pow(1024),
+	new Decimal("3e320"),
+	new Decimal("3e325")
 ];
 
 export function stepProceed(x: number) {

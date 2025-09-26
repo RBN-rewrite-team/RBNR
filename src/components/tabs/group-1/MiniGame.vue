@@ -112,8 +112,7 @@ function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof
 	} else if (!putedblock) {
 		console.log(room, x, y);
 		if (playerSafe(block)) {
-			temp.minigametip =
-				'正在尝试前往' + x + ',' + y + '...如果玩家未移动可以点击玩家旁边的位置';
+			
 			playerToDestination(x, y)
 				.then(function () {
 					temp.minigametip = '移动完成';
@@ -185,6 +184,7 @@ function isEquipped(eq: CoreEquipment) {
 
 <template>
 	<div class="main">
+		
 		<table
 			style="position: absolute; bottom: 0; left: 0; width: 100%; height: 100px; z-index: 6"
 			v-if="temp.innerWidth < 800"
