@@ -12,6 +12,7 @@ import { getTotalTheories } from './total-theories';
 import { addTheories } from './studies.ts';
 import { energyToUNOCFSpeed } from '../ordinal/well_ordering';
 import type { FixedLengthArray } from 'type-fest';
+import { updateResetStatData } from '../stats.ts';
 
 type NonRecusionTreePreset = {
 	name: string;
@@ -348,6 +349,7 @@ export const NON_RECURSIVE = {
 			});
 		}
 		player.firstResetBit |= 0b10000;
+		updateResetStatData('recent10NonRecReset', this.gain())
 		if (!force) this.addPower(this.gain());
 		if (!force) player.nonrecu.resetTimes = player.nonrecu.resetTimes.add(1);
 		Dilute.diluteReset();
