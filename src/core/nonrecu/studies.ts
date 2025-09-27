@@ -574,7 +574,7 @@ export function addTheories(id: 0 | 1 | 2) {
 			if (canBuyTheories(0)) {
 				player.nonrecu.theories[0] = theoriesAmountPossivle(0).sub(1);
 				let a = theoriesAmountPossivle(0);
-				player.hydra.power = player.hydra.power.sub(theoriesCost(0));
+				player.hydra.power = player.hydra.power.sub(theoriesCost(0)).clampMin(0);
 				player.nonrecu.theories[0] = a;
 			}
 			break;
@@ -592,7 +592,8 @@ export function addTheories(id: 0 | 1 | 2) {
 			if (canBuyTheories(2)) {
 				player.nonrecu.theories[2] = theoriesAmountPossivle(2).sub(1);
 				let c = theoriesAmountPossivle(2);
-				player.nonrecu.power = player.nonrecu.power.sub(theoriesCost(2));
+				if (player.nonrecu.power.lt('1e30000'))
+					player.nonrecu.power = player.nonrecu.power.sub(theoriesCost(2)).clampMin(0);
 				player.nonrecu.theories[2] = c;
 			}
 			break;
