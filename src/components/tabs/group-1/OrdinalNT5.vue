@@ -601,7 +601,7 @@ function getCurrentSequenceName(): string {
 				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(12)"
 				style="display: inline-block"
 			>
-				证明引理4，消耗<Baixie />推演能量
+				证明引理4，消耗1.000e695推演能量
 			</button>
 			<template v-else>
 				<p>
@@ -650,7 +650,7 @@ function getCurrentSequenceName(): string {
 						expression="\textrm{trans}(S) := \textrm{trans}(A) + \omega^{\textrm{trans}(B)}"
 					/>。
 				</p>
-				<p style="color: green">引理3效果:<Baixie /></p>
+				<p style="color: green">引理4效果:<Baixie /></p>
 			</template>
 		</template>
 	</div>
