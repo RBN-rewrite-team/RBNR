@@ -1,4 +1,4 @@
-// Retribution: 果报(Guotribution), 代码始终使用retribution及其英语变体
+// Retribution: 果报(Guotribution(实际上就是Retribution)), 代码始终使用retribution及其英语变体
 
 import Decimal from 'break_eternity.js';
 import { Hydra } from '../hydra/hydra';

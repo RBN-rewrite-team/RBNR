@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import TDUpgrade from '@/components/group-2/TDUpgrade.vue';
+import {player} from '@/core/save';
 </script>
 
 <template>
@@ -12,6 +13,10 @@ import TDUpgrade from '@/components/group-2/TDUpgrade.vue';
 					<TDUpgrade upgid="73"></TDUpgrade>
 					<TDUpgrade upgid="74"></TDUpgrade>
 				</tr>
+				<tr><template v-if="player.milestones.nonrec_26">
+					<TDUpgrade upgid="75"></TDUpgrade>
+					<TDUpgrade upgid="76"></TDUpgrade>
+				</template></tr>
 			</tbody>
 		</table>
 	</div>

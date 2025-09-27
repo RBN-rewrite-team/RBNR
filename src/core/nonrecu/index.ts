@@ -52,6 +52,18 @@ export const NON_RECURSIVE = {
 			name = 'U6-4';
 			currency: Currencies = Currencies.NONREC;
 		})(),
+		'75': new (class extends Upgrade {
+			description: string | (() => string) = '推演能量获取速度^1.25';
+			cost = new Decimal('e2.7e20');
+			name = 'U6-5';
+			currency: Currencies = Currencies.NONREC;
+		})(),
+		'76': new (class extends Upgrade {
+			description: string | (() => string) = '解锁更多数论研究5升级';
+			cost = new Decimal('e8e20');
+			name = 'U6-6';
+			currency: Currencies = Currencies.NONREC;
+		})(),
 	} as const,
 	initMechanics() {
 		MILESTONES.create('nonrec_1', {
@@ -332,7 +344,7 @@ export const NON_RECURSIVE = {
 			requirement: new Decimal(1),
 			currency: 'NRC7挑战次数',
 			displayName: 'M6-26',
-			description: `解锁<b>数论研究5 - 良序性</b>`,
+			description: `解锁<b>数论研究5 - 良序性</b>和新的一行升级`,
 			get show() {
 				return player.milestones.nonrec_25;
 			},
