@@ -20,7 +20,7 @@ const resetBuyables = [
 ] as const satisfies (keyof typeof player.buyables)[];
 
 export const RETRIBUTION = {
-	doRetributed() {
+	reset() {
 		player.nonrecu = NON_RECURSIVE.playerData();
 		player.hydra = Hydra.playerData();
 		player.challenges[1] = [DC.D_0, DC.D_0, DC.D_0, DC.D_0, DC.D_0, DC.D_0, DC.D_0];
@@ -84,16 +84,10 @@ export const RETRIBUTION = {
 		player.numbertheory.GM.x = DC.D_0;
 		player.currentTab = 19;
 	},
-	ableToRetributed() {
-		if (player.retribute == 0) {
+	resetable() {
+		if (player.retribution == 0) {
 			return player.hydra.deduceOrdinal[0].gte(DC.D_4P4P256);
 		}
 		return false;
 	},
 };
-declare global {
-	interface Window {
-		doRetributed: typeof RETRIBUTION.doRetributed;
-	}
-}
-window.doRetributed = RETRIBUTION.doRetributed;
