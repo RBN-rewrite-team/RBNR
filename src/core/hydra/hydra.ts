@@ -642,7 +642,7 @@ export const Hydra = {
 		//推演的速度
 		let base = DC.D_0;
 		if (i == 0) base = this.deduceSpeedBMS();
-		return base;
+		return base.isNan() ? DC.D_0 : base;
 	},
 	deduceEff(i = 0): Decimal {
 		//推演一位提高的乘数
