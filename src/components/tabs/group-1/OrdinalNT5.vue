@@ -79,6 +79,8 @@ function getCurrentSequenceName(): string {
 				</tr>
 				<tr>
 					<TDUpgrade upgid="U6R15" />
+					<TDUpgrade upgid="U6R16" />
+					<TDUpgrade upgid="U6R17" />
 				</tr>
 			</tbody>
 		</table>
@@ -683,10 +685,11 @@ function getCurrentSequenceName(): string {
 				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(14)"
 				style="display: inline-block"
 			>
-				证明引理5，消耗<Baixie />推演能量
+				证明引理5，消耗1.000e1125推演能量
 			</button>
 			<template v-else>
-				<p style="color: green">引理5效果:<Baixie /></p>
+				<b>证明从略</b><br>
+				<p style="color: green">引理5效果:推演能量获取速度^1.5。</p>
 			</template>
 		</template>
 	</div>

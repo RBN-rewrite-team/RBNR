@@ -39,7 +39,7 @@ export const WellOrderingBuyables = {
 			return player.upgrades.U6R15;
 		}
 		autoBuyMax(): boolean {
-			return false;
+			return player.upgrades.U6R17;
 		}
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 	})(),
@@ -65,7 +65,7 @@ export const WellOrderingBuyables = {
 			return player.upgrades.U6R15;
 		}
 		autoBuyMax(): boolean {
-			return false;
+			return player.upgrades.U6R17;
 		}
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 	})(),
@@ -88,7 +88,7 @@ export const WellOrderingBuyables = {
 			return player.upgrades.U6R15;
 		}
 		autoBuyMax(): boolean {
-			return false;
+			return player.upgrades.U6R17;
 		}
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 	})(),
@@ -111,18 +111,23 @@ export const WellOrderingBuyables = {
 			return player.upgrades.U6R15;
 		}
 		autoBuyMax(): boolean {
-			return false;
+			return player.upgrades.U6R17;
 		}
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 	})(),
 	B6R15: new (class extends Buyable<Decimal> {
 		name = 'B6-R-1-5';
-		description = 'U6-R-1-3~4的效果底数+0.01';
+		description = 'U6-R-1-3~4的效果底数+0.015';
 		cost(x: Decimal): Decimal {
 			return x.pow_base(1.2).sub(1).pow_base(1e50).mul('1e325');
 		}
+		base(): Decimal {
+			let base = new Decimal(0.015);
+			if(player.upgrades.U6R16) base = base.mul(1.05);
+			return base;
+		}
 		effect(x: Decimal): Decimal {
-			return x.mul(0.015);
+			return x.mul(this.base());
 		}
 		effectDescription(x: Decimal) {
 			return '+' + format(this.effect(x));
@@ -186,6 +191,20 @@ export const WellOrderingUpgrades = {
 		name = 'U6-R-1-5';
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 	})(),
+	U6R16: new (class extends Upgrade {
+		description = 'B6-R-1-5增强5%';
+		cost = new Decimal('1e996');
+		name = 'U6-R-1-6';
+		currency: Currencies = Currencies.DEDUCE_ENERGY;
+		show(): boolean {return player.upgrades[76];};
+	})(),
+	U6R17: new (class extends Upgrade {
+		description = '自动最大B6-R-1~4';
+		cost = new Decimal('1e1750');
+		name = 'U6-R-1-7';
+		currency: Currencies = Currencies.DEDUCE_ENERGY;
+		show(): boolean {return player.upgrades[76];};
+	})(),
 } as const;
 export const nt = {
 	get p() {
@@ -204,6 +223,9 @@ export function wellOrderGainPerClick() {
 		a = a.mul(player.hydra.dilute.solution.add(1).root(100));
 	if (player.upgrades.U6R11) a = a.mul(upgrades.U6R11.effect());
 	if (player.upgrades.U6R14) a = a.mul(upgrades.U6R14.effect());
+	
+	if(player.upgrades[75]) a = a.pow(1.25);
+	if(player.numbertheory.well_ordering.steps_proceeded.includes(14)) a = a.pow(1.5);
 
 	if (a.gte(1e15)) a = a.log10().div(15).pow(0.5).mul(15).pow10();
 
@@ -227,7 +249,8 @@ const ProcceedingCost = [
 	new Decimal('3e325'),
 	new Decimal('1e690'),
 	new Decimal('1e695'),
-	new Decimal(1 / 0),
+	new Decimal('1e700'),
+	new Decimal('1e1125'),
 	new Decimal(1 / 0),
 ];
 
