@@ -47,7 +47,6 @@ export abstract class Upgrade {
 		return getCurrency(this.currency).gte(cost);
 	}
 }
-
 export abstract class UpgradeWithEffect<T = any> extends Upgrade {
 	effect(): T {
 		throw new ReferenceError('Undefined effect');
