@@ -629,6 +629,13 @@ export const Hydra = {
 				base = new Decimal(0);
 			}
 		}
+		if (
+			player.numbertheory.well_ordering.steps_proceeded.includes(12) &&
+			player.nonrecu.studies_bought.includes(13) &&
+			base.gt(1e10)
+		) {
+			base = base.log10().log10().pow(1.2).pow10().pow10();
+		}
 		return base.min('eee8.07230472602822538e153'); //SHO
 	},
 	deduceSpeed(i = 0): Decimal {
