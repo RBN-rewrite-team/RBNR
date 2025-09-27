@@ -114,11 +114,9 @@ export const NONREC_CHALS: SingleChallenge[] = [
 				),
 			];
 			if (
-				false &&
 				player.hydra.power.gte(
-					new Decimal(6 ** (player.challenges[1][3].toNumber() + 1))
+					new Decimal(6 ** (player.challenges[1][3].toNumber()))
 						.pow_base(2)
-						.sub(9)
 						.pow_base(2)
 						.pow10(),
 				)

@@ -640,7 +640,12 @@ let highestPage = 0;
 			/>，被称为SRO。<br />
 			我们可以用一个更高层次的OCF来折叠<vue-latex
 				expression="I(a,b,c...)"
-			/>，它就是<vue-latex expression="M" />。<br />
+			/>及其序数元、<vue-latex expression="@(1,0)" />变体，它就是<vue-latex
+				expression="M"
+			/>。<br />
+			<vue-latex expression="M" />是在<vue-latex
+				expression="M"
+			/>以下无法通过取若干次容许点而得到的序数，我们把之前的容许点运算成为1-容许点，把类似于容许点的马洛点成为2-容许点，只有一个不动点本身是马洛序数时才能被称为马洛点。<br />
 			<vue-latex expression="\psi_M(X)=\Omega_X" /><br />
 			<vue-latex
 				expression="\psi_M(X*M)=\alpha\mapsto\psi_M(X*\alpha)AP"
@@ -667,7 +672,10 @@ let highestPage = 0;
 			<vue-latex expression="\psi_M(M^M)=I(1,0,0)" display-mode />
 			<vue-latex expression="\psi_M(M^{M^2})=I(1,0,0,0)" display-mode />
 			<vue-latex expression="\psi_M(M^{M^M})=I(1@(1,0))" display-mode />
-			<vue-latex expression="\psi_M(\varepsilon_{M+1})=I(1@(1@(1@...))))" display-mode />
+			<vue-latex
+				expression="\psi_M(\varepsilon_{M+1})=\sup\{I,I(1,0),I(1@(1,0)),I(1@(1@(1,0))),I(1@(1@(1@(1,0)))),\cdots\}"
+				display-mode
+			/>
 		</div>
 		<div v-else-if="player.help.page == 104">
 			有<vue-latex expression="\Omega"></vue-latex>有<vue-latex
@@ -684,9 +692,130 @@ let highestPage = 0;
 			/>，<vue-latex expression="M(1,0;0)" />直到一个马洛点的BHO。<br />
 			这个高层的Veblen结构以<vue-latex
 				expression="\psi_N(X*N)=\alpha\mapsto\psi_N(X*\alpha)MP"
-			/>来折叠，MP表示马洛点，只有一个不动点本身是马洛序数时才能被称为马洛点。<br />
+			/>来折叠，MP表示马洛点。<br />
+			<vue-latex expression="N" />是不可转换序数，它对应的容许点称为3-容许点。<br />
 			于是，以这样的Veblen+OCF不断互相左脚踩右脚上天的形式，可以得到形形色色乱七八糟的折叠结构，进行梳理之后可以得到反射序数系统。<br />
-			没做完。<br />
+			我们可以继续：4-容许点, 5-容许点, ..., ω-容许点, ...
+			直到容许点左边的序数取容许点，写成容许点-容许点，对应的序数<b><i>有可能是</i></b
+			>弱紧致序数，<vue-latex expression="K" />。<br />
+		</div>
+		<!--TODO: 忘记做aft了-->
+		<div v-else-if="player.help.page == 105">
+			<p>
+				反射序数有深刻的集合论背景，包括但不限于<vue-latex
+					expression="\Delta_0, \Pi_\alpha, \Sigma_\alpha"
+				/>公式，可构造宇宙等。
+			</p>
+			<p>
+				反射序数有一些符号:
+				<vue-latex
+					expression="n\mathrm{th}, \operatorname{onto}, \cap, \Pi_\alpha, \mathrm{Ord}, \operatorname{aft}"
+				/>
+			</p>
+			<p><vue-latex expression="n\mathrm{th} X" />是X的第几个序数</p>
+			<p>
+				<vue-latex expression="\Pi_\alpha\mathrm{onto} X" />是
+				取出所有X中的序数，满足反射公式<vue-latex expression="\Pi_alpha" />。
+			</p>
+			<p>
+				<vue-latex
+					expression="\cap"
+				/>是集合的交集运算,也就是取出两个集合中都有的元素，合成为一个集合。
+			</p>
+			<p><vue-latex expression="\mathrm{xth} Y \operatorname{aft} X" />是X在Y集合中后的第x个序数</p>
+			<p><vue-latex expression="\Pi_\alpha" />是公式，具体是什么公式暂时难以所清楚</p>
+			<p>
+				<vue-latex
+					expression="\mathrm{Ord}=\{0,1,2,\cdots,\omega,\omega+1,\cdots,\Omega,\cdots,\omega_1,\cdots\}"
+				/>是所有序数组成的类。
+			</p>
+			<p>
+				之前前人证明过，<vue-latex expression="\Pi_0\operatorname{onto}X" />和<vue-latex
+					expression="\Pi_1\operatorname{onto}X"
+				/>是取出X中的所有极限点。
+			</p>
+			<p>
+				例如<vue-latex
+					expression="\Pi_1\operatorname{onto}\mathrm{Ord}"
+				/>就是取出序数的所有极限点，等于<vue-latex
+					expression="\lbrace\omega,\omega\cdot2,\omega\cdot3,\cdots,\omega^2,\cdots\rbrace"
+				/>
+			</p>
+			<p>
+				<vue-latex
+					expression="2\mathrm{nd}\Pi_1\operatorname{onto}\mathrm{Ord}"
+				/>就是取出这个集合的第二个序数，等于<vue-latex expression="\omega\cdot2" />
+			</p>
+			<p>
+				我们可以继续计算<vue-latex
+					expression="\Pi_1\operatorname{onto}\Pi_1\operatorname{onto}\mathrm{Ord}"
+				/>就是取出<vue-latex
+					expression="\Pi_1\operatorname{onto}\mathrm{Ord}"
+				/>的所有极限点，等于<vue-latex
+					expression="\lbrace\omega^2,\omega^2\cdot2,\omega^2\cdot3,\cdots,\omega^3,\cdots\rbrace"
+				/>
+			</p>
+			<p>
+				<vue-latex
+					expression="\Pi_1\operatorname{onto}\Pi_1\operatorname{onto}\mathrm{Ord}"
+				/>这个形式太麻烦，我们可以写成<vue-latex
+					expression="1-1-\mathrm{Ord}"
+				/>或<vue-latex expression="1-1" />
+			</p>
+			<p>
+				把1-重复写，可以得到
+				<vue-latex expression="1-1-\cdots-1" />，等于<vue-latex
+					expression="\omega^\omega"
+				/>，把1-简写成<vue-latex expression="(1-)^\alpha" />,比如说<vue-latex
+					expression="1-1-\cdots-1=(1-)^\omega1=\omega^\omega"
+				/>
+			</p>
+			<p>进一步，可以有</p>
+			<vue-latex display-mode expression="(1-)^{\omega^2}1=\omega^{\omega^2}"></vue-latex>
+			<vue-latex
+				display-mode
+				expression="(1-)^{(1-)^{\omega}}1=\omega^{\omega^\omega}"
+			></vue-latex>
+			<p>
+				这个三角形的指数塔可以不断延续下去，直到无穷层。利用 Veblen
+				函数的不动点模式，我们将其记为
+			</p>
+			<vue-latex
+				display-mode
+				expression="\mathrm{1st}(1-)^{(1,0)}1=\mathrm{1st}\{\varepsilon_0, \varepsilon_1, \varepsilon_2,\cdots\}=\varphi(1,0)"
+			></vue-latex>
+			<vue-latex display-mode expression="(1-)^{(1,1)}1=\varepsilon_\omega"></vue-latex>
+			<vue-latex display-mode expression="(1-)^{(2,0)}1=\zeta_0"></vue-latex>
+			<p>
+				我们发现我们还在走Velben函数的旅程，所以我们使用<vue-latex
+					expression="\Pi_2"
+				/>反射序数。
+			</p>
+			<!--部分内容取自大数理论20250915 P372-->
+		</div>
+		<div v-else-if="player.help.page == 106">
+			<p>
+				之前前人证明过，<vue-latex
+					expression="\Pi_2\operatorname{onto}X"
+				/>是取出X中的所有容许点。
+			</p>
+			<p>
+				例如<vue-latex
+					expression="\Pi_2\operatorname{onto}\mathrm{Ord}=\{\Omega, \Omega_2, \cdots, \Omega_{\omega+1}, \cdots,\Omega_{\omega2+1}, \cdots, \Omega_{\Omega+1}, \cdots, \psi_I(I+1), \cdots, I, \cdots\}"
+				/>就是取出序数中的所有容许序数
+			</p>
+			<p>需要注意<vue-latex expression="\Omega_\omega, \Omega_\Omega,\psi_I(I)" />并不是容许序数，因为他们可以由下面的序数自下到上得到，也就是说他们的基本列长度不等于自身，这一点前文也提到过。</p>
+			<p>接下来可以继续迭代：</p>
+			 <vue-latex display-mode expression="1-1-2 = \{\Omega_{\omega^2},\Omega_{\omega^22},\cdots,\Omega_{\Omega},\cdots,I,\cdots\}"/>
+			 <vue-latex display-mode expression="(1-)^{\omega}2 = \{\Omega_{\omega^\omega},\cdots,\Omega_{\Omega},\cdots,I,\cdots\}"/>
+			 <vue-latex display-mode expression="\mathrm{1st} (1-)^{\Omega}2 = \Omega_{\Omega}"/>
+			 <vue-latex display-mode expression="2\space\mathrm{aft} (1-)^{\Omega}2 = \Omega_{\Omega+1}"/>
+			 <vue-latex display-mode expression="\mathrm{1st} (1-)^{(1-)^{\Omega}2}2 = \Omega_{\Omega_{\Omega}}"/>
+			 <vue-latex display-mode expression="\mathrm{1st} (1-)^{(1,0)}2 = \psi_I(I) = \alpha\mapsto(1-)^\alpha2\space\mathrm{fp.}"/>
+			 <p>我们上述得到的<vue-latex
+					expression="(1-)^\alpha2"
+				/>集合里的序数都是非容许序数。我们想问，是否有一个序数既是容许序数，也是容许序数集合的容许点里的序数？</p>
+				<p>这个序数就是前文提过的<vue-latex expression="\beta\mapsto\Omega_\beta\mathrm{ap.}=I=2\space1-2=\Pi_2\cap(\Pi_1\operatorname{onto}\Pi_2)"/></p>
 		</div>
 		<div v-if="player.help.page == 777">
 			<DeveloperMode></DeveloperMode>

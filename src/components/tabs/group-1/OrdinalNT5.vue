@@ -123,8 +123,8 @@ function getCurrentSequenceName(): string {
 					]++
 				"
 			>
-				+
-			</button>
+				+</button
+			>(第{{ player.numbertheory.well_ordering.pages[0] + 1 }}页)
 		</div>
 		<template v-if="player.numbertheory.well_ordering.pages[0] == 0">
 			<div class="center_line" />
@@ -380,7 +380,7 @@ function getCurrentSequenceName(): string {
 				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(6)"
 				style="display: inline-block"
 			>
-				证明引理2.1，消耗1.0000e35推演能量</button
+				证明引理2.1，消耗1.0000e34推演能量</button
 			><template v-else>
 				令 <vue-latex expression="S := \textrm{gen}(A,E)" />，则
 				<vue-latex expression="S = A \frown (0) \frown E^+ = A \frown (0)" />，<br />所以
@@ -399,7 +399,7 @@ function getCurrentSequenceName(): string {
 				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(7)"
 				style="display: inline-block"
 			>
-				证明引理2.2，消耗1.0000e55推演能量</button
+				证明引理2.2，消耗1.0000e52推演能量</button
 			><template v-else>
 				令 <vue-latex expression="S := \textrm{gen}(A,\textrm{gen}(B,E))" />，则
 				<vue-latex
@@ -481,6 +481,212 @@ function getCurrentSequenceName(): string {
 					expression="\textrm{expand}(S,n) = \textrm{sub}(S,0,r) \frown \underbrace{\textrm{bp}(S) \frown \cdots \frown \textrm{bp}(S)}_{n} = A \frown (0) \frown \textrm{sub}(S,\textrm{length}(A)+1,r) \frown \underbrace{\textrm{bp}(S) \frown \cdots \frown \textrm{bp}(S)}_{n} = A \frown (0) \frown \textrm{expand}(B \frown (0) \frown C^+,n)^+"
 				/>。<br />
 				<span style="color: green">引理2.3奖励：推演能量巨幅加成朊病毒获取速度</span>
+			</template>
+		</template>
+		<template
+			v-if="
+				player.numbertheory.well_ordering.pages[0] == 4 &&
+				player.numbertheory.well_ordering.steps_proceeded.includes(8)
+			"
+		>
+			<h3>引理3</h3>
+			<button
+				class="clickable_button"
+				@click="stepProceed(9)"
+				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(9)"
+				style="display: inline-block"
+			>
+				解锁引理3，消耗3.000e320推演能量
+			</button>
+			<template v-else>
+				<p><vue-latex expression="\textrm{expand}" /> 的值域</p>
+				<p>
+					对于任意 <vue-latex expression="S \in P" /> 和
+					<vue-latex expression="n \in \mathbb N" />，有
+					<vue-latex expression="S = E" /> 或
+					<vue-latex expression="\textrm{expand}(S,n) \in P" />。
+				</p>
+			</template>
+			<div class="center-line"></div>
+			<button
+				class="clickable_button"
+				@click="stepProceed(10)"
+				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(10)"
+				style="display: inline-block"
+			>
+				证明引理3，消耗3.000e325推演能量
+			</button>
+			<template v-else>
+				<p>
+					使用基于 <vue-latex expression="P" /> 构造的结构归纳法。若
+					<vue-latex expression="S = E" />，情况显然。若存在
+					<vue-latex expression="(T,U) \in P^2" /> 满足
+					<vue-latex expression="S = \textrm{gen}(T,U)" />，且两者均满足条件。若
+					<vue-latex expression="U = E" />，则由引理 2.1，有
+					<vue-latex expression="\textrm{expand}(S,n) = T \in P" />。接下来，假设存在
+					<vue-latex expression="(V,W) \in P^2" /> 满足
+					<vue-latex expression="U = \textrm{gen}(V,W)" />，且两者均满足条件。若
+					<vue-latex expression="W = E" />，则
+					<vue-latex expression="S = \textrm{gen}(T,\textrm{gen}(V,E))" />，由引理 2.2，有
+					<vue-latex
+						expression="\textrm{expand}(S,n) = T \frown \underbrace{(0) \frown V^+ \frown \cdots \frown (0) \frown V^+}_n"
+					/>。此处对 <vue-latex expression="n" /> 使用数学归纳法，有
+					<vue-latex expression="\textrm{expand}(S,0) = T \in P" />，且
+					<vue-latex
+						expression="\textrm{expand}(S,k+1) = \textrm{expand}(S,k) \frown (0) \frown V^+ = \textrm{gen} (\textrm{expand}(S,k),V)"
+					/>，因此可以证明对于任意 <vue-latex expression="n \in \mathbb N" />，有
+					<vue-latex expression="\textrm{expand}(S,n) \in P" />。若
+					<vue-latex expression="W \neq E" />，则
+					<vue-latex expression="S = \textrm{gen}(T,\textrm{gen}(V,W))" />，由引理 2.3，有
+					<vue-latex
+						expression="\textrm{expand}(S,n) = \textrm{gen}(T,\textrm{expand}(\textrm{gen}(V,W),n)) = \textrm{gen}(T,\textrm{expand}(U,n)) \in P"
+					/>。 因此，对于任意 <vue-latex expression="S \in P" />，有
+					<vue-latex expression="S = E" /> 或
+					<vue-latex expression="\textrm{expand}(S,n) \in P" />。
+				</p>
+				<p>
+					引理 2 是通过 <vue-latex expression="P" /> 的结构对
+					<vue-latex expression="\textrm{expand}" /> 行为进行分类的方法。引理 3 表明
+					<vue-latex expression="\textrm{expand}" /> 的输出
+					<vue-latex expression="P" /> 的元素。
+				</p>
+				<p>
+					通过 <vue-latex expression="P" /> 的结构递归定义映射
+					<vue-latex expression="\textrm{trans} : P \to \varepsilon_0" />。注意
+					<vue-latex expression="\varepsilon_0" /> 是对加法和
+					<vue-latex expression="\omega" /> 幂封闭的序数。 - 若
+					<vue-latex expression="S = E" />，则
+					<vue-latex expression="\textrm{trans}(S) := 0" />。 - 若存在
+					<vue-latex expression="(A,B) \in P^2" /> 满足
+					<vue-latex expression="S = \textrm{gen}(A,B)" />，则
+					<vue-latex
+						expression="\textrm{trans}(S) := \textrm{trans}(A) + \omega^{\textrm{trans}(B)}"
+					/>。
+				</p>
+				<p style="color: green">
+					引理3效果:B6-R-1-3, B6-R-1-4的底数再一次翻倍，比引理2.2奖励弱，没做完
+				</p>
+			</template>
+		</template>
+		<template
+			v-if="
+				player.numbertheory.well_ordering.pages[0] == 5 &&
+				player.numbertheory.well_ordering.steps_proceeded.includes(10)
+			"
+		>
+			<h3>引理4</h3>
+			<button
+				class="clickable_button"
+				@click="stepProceed(11)"
+				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(11)"
+				style="display: inline-block"
+			>
+				解锁引理4，消耗1.000e690推演能量
+			</button>
+			<template v-else>
+				<p><vue-latex expression="\textrm{expand}" /> 的递减性</p>
+				<p>
+					对于任意 <vue-latex expression="S \in P" /> 和
+					<vue-latex expression="n \in \mathbb N" />，有
+					<vue-latex expression="S = E" /> 或
+					<vue-latex
+						expression="\textrm{trans}(\textrm{expand}(S,n)) < \textrm{trans}(S)"
+					/>。
+				</p>
+			</template>
+			<div class="center-line"></div>
+			<button
+				class="clickable_button"
+				@click="stepProceed(12)"
+				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(12)"
+				style="display: inline-block"
+			>
+				证明引理4，消耗1.000e695推演能量
+			</button>
+			<template v-else>
+				<p>
+					使用基于 <vue-latex expression="P" /> 构造的结构归纳法。若
+					<vue-latex expression="S = E" />，情况显然。若存在
+					<vue-latex expression="(T,U) \in P^2" /> 满足
+					<vue-latex expression="S = \textrm{gen}(T,U)" />，且两者均满足条件。若
+					<vue-latex expression="U = E" />，则由引理 2.1，有
+					<vue-latex expression="\textrm{expand}(S,n) = T \in P" />。接下来，假设存在
+					<vue-latex expression="(V,W) \in P^2" /> 满足
+					<vue-latex expression="U = \textrm{gen}(V,W)" />，且两者均满足条件。若
+					<vue-latex expression="W = E" />，则
+					<vue-latex expression="S = \textrm{gen}(T,\textrm{gen}(V,E))" />，由引理 2.2，有
+					<vue-latex
+						expression="\textrm{expand}(S,n) = T \frown \underbrace{(0) \frown V^+ \frown \cdots \frown (0) \frown V^+}_n"
+					/>。此处对 <vue-latex expression="n" /> 使用数学归纳法，有
+					<vue-latex expression="\textrm{expand}(S,0) = T \in P" />，且
+					<vue-latex
+						expression="\textrm{expand}(S,k+1) = \textrm{expand}(S,k) \frown (0) \frown V^+ = \textrm{gen} (\textrm{expand}(S,k),V)"
+					/>，因此可以证明对于任意 <vue-latex expression="n \in \mathbb N" />，有
+					<vue-latex expression="\textrm{expand}(S,n) \in P" />。若
+					<vue-latex expression="W \neq E" />，则
+					<vue-latex expression="S = \textrm{gen}(T,\textrm{gen}(V,W))" />，由引理 2.3，有
+					<vue-latex
+						expression="\textrm{expand}(S,n) = \textrm{gen}(T,\textrm{expand}(\textrm{gen}(V,W),n)) = \textrm{gen}(T,\textrm{expand}(U,n)) \in P"
+					/>。 因此，对于任意 <vue-latex expression="S \in P" />，有
+					<vue-latex expression="S = E" /> 或
+					<vue-latex expression="\textrm{expand}(S,n) \in P" />。
+				</p>
+				<p>
+					引理 2 是通过 <vue-latex expression="P" /> 的结构对
+					<vue-latex expression="\textrm{expand}" /> 行为进行分类的方法。引理 3 表明
+					<vue-latex expression="\textrm{expand}" /> 的输出
+					<vue-latex expression="P" /> 的元素。
+				</p>
+				<p>
+					通过 <vue-latex expression="P" /> 的结构递归定义映射
+					<vue-latex expression="\textrm{trans} : P \to \varepsilon_0" />。注意
+					<vue-latex expression="\varepsilon_0" /> 是对加法和
+					<vue-latex expression="\omega" /> 幂封闭的序数。 - 若
+					<vue-latex expression="S = E" />，则
+					<vue-latex expression="\textrm{trans}(S) := 0" />。 - 若存在
+					<vue-latex expression="(A,B) \in P^2" /> 满足
+					<vue-latex expression="S = \textrm{gen}(A,B)" />，则
+					<vue-latex
+						expression="\textrm{trans}(S) := \textrm{trans}(A) + \omega^{\textrm{trans}(B)}"
+					/>。
+				</p>
+				<p style="color: green">引理4效果:BMS推演速度双指数^1.2</p>
+			</template>
+		</template>
+		<template
+			v-if="
+				player.numbertheory.well_ordering.pages[0] == 6 &&
+				player.numbertheory.well_ordering.steps_proceeded.includes(12)
+			"
+		>
+			<h3>引理5</h3>
+			<button
+				class="clickable_button"
+				@click="stepProceed(13)"
+				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(13)"
+				style="display: inline-block"
+			>
+				解锁引理5，消耗1.000e700推演能量
+			</button>
+			<template v-else>
+				<p>
+					对于任意
+					<vue-latex expression="S\in P, a:\mathbb N \rightarrow \mathbb N" />，都存在
+					<vue-latex expression="k \in \mathbb N" /> 使得
+					<vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}]=E" />.
+				</p>
+			</template>
+			<div class="center-line"></div>
+			<button
+				class="clickable_button"
+				@click="stepProceed(14)"
+				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(14)"
+				style="display: inline-block"
+			>
+				证明引理5，消耗<Baixie />推演能量
+			</button>
+			<template v-else>
+				<p style="color: green">引理5效果:<Baixie /></p>
 			</template>
 		</template>
 	</div>

@@ -31,7 +31,7 @@ import {
 	runBattleFast,
 } from '@/core/minigame/battle';
 import { range } from '@/utils/algorithm';
-import { temp } from '../../../core/temp-data';
+import { inPathData, temp } from '../../../core/temp-data';
 import { format } from '@/utils/format';
 import {
 	EntityGameObject,
@@ -112,8 +112,7 @@ function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof
 	} else if (!putedblock) {
 		console.log(room, x, y);
 		if (playerSafe(block)) {
-			temp.minigametip =
-				'正在尝试前往' + x + ',' + y + '...如果玩家未移动可以点击玩家旁边的位置';
+			
 			playerToDestination(x, y)
 				.then(function () {
 					temp.minigametip = '移动完成';
@@ -185,6 +184,7 @@ function isEquipped(eq: CoreEquipment) {
 
 <template>
 	<div class="main">
+		
 		<table
 			style="position: absolute; bottom: 0; left: 0; width: 100%; height: 100px; z-index: 6"
 			v-if="temp.innerWidth < 800"
@@ -565,7 +565,7 @@ function isEquipped(eq: CoreEquipment) {
 								"
 							>
 								<MiniGameTD
-									v-if="isPlayerVisible(x, y)"
+									v-if="isPlayerVisible(x, y) && !inPathData(x, y)"
 									@mousedown="
 										clickBlock(
 											player.minigame.current_room,
@@ -578,6 +578,12 @@ function isEquipped(eq: CoreEquipment) {
 										getCurrentBlock(player.minigame.current_room, x, y)
 									"
 								></MiniGameTD>
+								<td v-else-if="inPathData(x, y)" style="background-color: green; 
+									height: 60px;
+									width: 60px;
+									min-height: 60px;
+									min-width: 60px;">
+								</td>
 							</template>
 
 							<td

@@ -57,11 +57,12 @@ export function equipmentAttribute(eq: CoreEquipment): CoreEquipmentAttribute {
 	};
 }
 export function totEqAtt(): CoreEquipmentAttribute {
-	let hea = 0, atk = 0, def = 0;
-	let i = 'hea' as ('hea' | 'atk' | 'def');
-	for(i in player.minigame.coreEquipments)
-	{
-		if(i.length == 0) continue;
+	let hea = 0,
+		atk = 0,
+		def = 0;
+	let i = 'hea' as 'hea' | 'atk' | 'def';
+	for (i in player.minigame.coreEquipments) {
+		if (player.minigame.coreEquipments[i].length == 0) continue;
 		hea += equipmentAttribute(player.minigame.coreEquipments[i][0]).hea;
 		atk += equipmentAttribute(player.minigame.coreEquipments[i][0]).atk;
 		def += equipmentAttribute(player.minigame.coreEquipments[i][0]).def;
@@ -189,7 +190,8 @@ export function getWorldLevel() {
 	}
 }
 
-export function equipmentDestroyLoop()
-{
-	player.minigame.storeEquipments = player.minigame.storeEquipments.filter((item) => {return !item.destroyed;});
+export function equipmentDestroyLoop() {
+	player.minigame.storeEquipments = player.minigame.storeEquipments.filter((item) => {
+		return !item.destroyed;
+	});
 }

@@ -11,6 +11,13 @@ import { Upgrade } from '../upgrade';
 import { getTotalTheories } from './total-theories';
 import { addTheories } from './studies.ts';
 import { energyToUNOCFSpeed } from '../ordinal/well_ordering';
+import type { FixedLengthArray } from 'type-fest';
+import { updateResetStatData } from '../stats.ts';
+
+type NonRecusionTreePreset = {
+	name: string;
+	preset: number[];
+};
 
 export const NON_RECURSIVE = {
 	upgrades: {
@@ -342,6 +349,7 @@ export const NON_RECURSIVE = {
 			});
 		}
 		player.firstResetBit |= 0b10000;
+		updateResetStatData('recent10NonRecReset', this.gain())
 		if (!force) this.addPower(this.gain());
 		if (!force) player.nonrecu.resetTimes = player.nonrecu.resetTimes.add(1);
 		Dilute.diluteReset();
@@ -575,5 +583,26 @@ export const NON_RECURSIVE = {
 		let a = getTotalTheories();
 
 		return a.add(1);
+	},
+	playerData() {
+		return {
+			power: DC.D_0,
+			totalPower: DC.D_0,
+			resetTimes: DC.D_0,
+			studies_bought: [] as number[],
+			theories: [DC.D_0, DC.D_0, DC.D_0],
+			spentTheories: DC.D_0,
+			secInThisReset: DC.D_0,
+			studies_preset: Array(6)
+				.fill(null)
+				.map(
+					(x, id) =>
+						({
+							name: String(id + 1),
+							preset: [],
+						}) as NonRecusionTreePreset,
+				) as unknown as FixedLengthArray<NonRecusionTreePreset, 6>,
+			unocf_j: new Decimal(0),
+		};
 	},
 };
