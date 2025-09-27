@@ -650,7 +650,43 @@ function getCurrentSequenceName(): string {
 						expression="\textrm{trans}(S) := \textrm{trans}(A) + \omega^{\textrm{trans}(B)}"
 					/>。
 				</p>
-				<p style="color: green">引理4效果:<Baixie /></p>
+				<p style="color: green">引理4效果:BMS推演速度双指数^1.2</p>
+			</template>
+		</template>
+		<template
+			v-if="
+				player.numbertheory.well_ordering.pages[0] == 6 &&
+				player.numbertheory.well_ordering.steps_proceeded.includes(12)
+			"
+		>
+			<h3>引理5</h3>
+			<button
+				class="clickable_button"
+				@click="stepProceed(13)"
+				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(13)"
+				style="display: inline-block"
+			>
+				解锁引理5，消耗1.000e700推演能量
+			</button>
+			<template v-else>
+				<p>
+					对于任意
+					<vue-latex expression="S\in P, a:\mathbb N \rightarrow \mathbb N" />，都存在
+					<vue-latex expression="k \in \mathbb N" /> 使得
+					<vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}]=E" />.
+				</p>
+			</template>
+			<div class="center-line"></div>
+			<button
+				class="clickable_button"
+				@click="stepProceed(14)"
+				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(14)"
+				style="display: inline-block"
+			>
+				证明引理5，消耗<Baixie />推演能量
+			</button>
+			<template v-else>
+				<p style="color: green">引理5效果:<Baixie /></p>
 			</template>
 		</template>
 	</div>
