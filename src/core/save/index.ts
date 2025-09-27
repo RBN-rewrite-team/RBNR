@@ -670,5 +670,6 @@ export function restoreBackup(backupedPlayer: Player) {
 	player = backupedPlayer;
 }
 export function intervalBackup() {
+	if (player.foundNaN) return player;
 	return backupPlayer(player);
 }
