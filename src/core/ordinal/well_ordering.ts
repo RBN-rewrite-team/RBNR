@@ -253,7 +253,7 @@ export function energyToUNOCFSpeed() {
 }
 
 export function wellOrderingLoop(diff: number) {
-	player.numbertheory.well_ordering.energy = player.numbertheory.well_ordering.energy.add(
-		buyables.B6R11.effect(player.buyables.B6R11).mul(diff).mul(wellOrderGainPerClick()),
-	);
+	player.numbertheory.well_ordering.energy = player.numbertheory.well_ordering.energy
+		.add(buyables.B6R11.effect(player.buyables.B6R11).mul(diff).mul(wellOrderGainPerClick()))
+		.clampMax('f1e250');
 }
