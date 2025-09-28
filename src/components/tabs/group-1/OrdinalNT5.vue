@@ -688,7 +688,7 @@ function getCurrentSequenceName(): string {
 				证明引理5，消耗1.000e1125推演能量
 			</button>
 			<template v-else>
-				<b>证明从略</b><br>
+				<b>假设这样的 <vue-latex expression="k \in \mathbb N"/> 不存在。则对于每个 <vue-latex expression="k \in \mathbb N"/>，有 <vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}] \neq E"/>，所以 <vue-latex expression="\textrm{trans}(S[a_0][a_1]\cdots[a_{k-1}]) \neq 0"/>。因此，如果 <vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}]"/> 有定义，则 <vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}][a_k]"/> 也有定义。通过数学归纳法，对于任意 <vue-latex expression="k \in \mathbb N"/>，<vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}]"/> 都有定义。然而，由引理 4，有 <vue-latex expression="\textrm{trans}(S) > \textrm{trans}(S[a_0]) > \textrm{trans}(S[a_0][a_1]) > \cdots "/>，这是一个序数的无限下降链。这与序数的良基性矛盾。由反证法，存在 <vue-latex expression="k \in \mathbb N"/> 使得 <vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}] = E"/>。</b><br>
 				<p style="color: green">引理5效果:推演能量获取速度^1.5。</p>
 			</template>
 		</template>
