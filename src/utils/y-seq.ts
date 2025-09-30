@@ -399,7 +399,7 @@ function flattenMountain(m: Mountain): Record<string, Mountain> {
 /**
  * 无固定底数
  */
-export const Y_Milestones: [Decimal, string, ...string[]][] = [
+export const Y_Milestones = [
 	[new Decimal(0), 'Y()', '0'],
 	[new Decimal(1), 'Y(1)', '1'],
 	[new Decimal(2), 'Y(1,1)', '2'],
