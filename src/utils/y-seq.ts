@@ -40,6 +40,30 @@ function getYSequenceWithoutColon(Y: string): {
 
 // https://naruyoko.github.io/MEGAwhYmountain/
 
+/*
+MIT License
+
+Copyright (c) 2021 Naruyoko
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
 function parseSequenceElement(str: string, i: number): Partial<LeafMountain> & { value: number; position: number; parentIndex: number } {
 	if (str.indexOf('v') === -1 || !isFinite(Number(str.substring(str.indexOf('v') + 1)))) {
 		const numval = Number(str);
@@ -109,7 +133,7 @@ function sumArray(s: number[]): number {
 	return r;
 }
 
-function calcMountain(s: string | Array<Partial<LeafMountain> & { value: number; position: number; parentIndex: number }> | NodeMountain, maxDim: number = Infinity): Mountain {
+export function calcMountain(s: string | Array<Partial<LeafMountain> & { value: number; position: number; parentIndex: number }> | NodeMountain, maxDim: number = Infinity): Mountain {
 	if (maxDim === undefined) maxDim = Infinity;
 	const coordOffset: number[] = typeof s === 'object' && 'coord' in s ? s.coord : [];
 
