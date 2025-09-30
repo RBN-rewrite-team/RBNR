@@ -104,12 +104,10 @@ import { isTester } from './core/save/testing.ts';
 				<PlotTab v-if="player.currentTab === 200" />
 				<SaveBank v-if="player.currentTab === 300" />
 				<MiniGame v-if="player.currentTab === 1225" />
-				
 			</div>
 		</div>
 	</div>
 	<BlackHole />
 	<Chapter />
 	<PlotView />
-	
 </template>

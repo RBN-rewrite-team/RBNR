@@ -185,7 +185,7 @@ export function meBattleInfo(): BattleInfo & {
 	atk *= currentPlayerLV();
 	atk += eqE.atk;
 	if (player.minigame.skilltree_bought.includes(4)) atk *= 1.2;
-	
+
 	let def = 0;
 	def += eqE.def;
 	return {

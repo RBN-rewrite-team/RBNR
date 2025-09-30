@@ -112,7 +112,6 @@ function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof
 	} else if (!putedblock) {
 		console.log(room, x, y);
 		if (playerSafe(block)) {
-			
 			playerToDestination(x, y)
 				.then(function () {
 					temp.minigametip = '移动完成';
@@ -184,7 +183,6 @@ function isEquipped(eq: CoreEquipment) {
 
 <template>
 	<div class="main">
-		
 		<table
 			style="position: absolute; bottom: 0; left: 0; width: 100%; height: 100px; z-index: 6"
 			v-if="temp.innerWidth < 800"
@@ -329,14 +327,18 @@ function isEquipped(eq: CoreEquipment) {
 					攻击力+{{ equipmentAttribute(temp.coreViewEquipment).atk.toFixed(1) }}<br />
 					防御力+{{ equipmentAttribute(temp.coreViewEquipment).def.toFixed(1) }}<br />
 					<div style="position: absolute; bottom: 0; width: 100%; height: 50px">
-						<div style="height: 40px; width: 25%; border: 2px solid red"
-						v-if="!(temp.coreViewEquipment.equipped ?? false)"
-						@click="equip(temp.coreViewEquipment)">
+						<div
+							style="height: 40px; width: 25%; border: 2px solid red"
+							v-if="!(temp.coreViewEquipment.equipped ?? false)"
+							@click="equip(temp.coreViewEquipment)"
+						>
 							装备
 						</div>
-						<div style="height: 40px; width: 25%; border: 2px solid orange"
-						v-else
-						@click="unload(temp.coreViewEquipment)">
+						<div
+							style="height: 40px; width: 25%; border: 2px solid orange"
+							v-else
+							@click="unload(temp.coreViewEquipment)"
+						>
 							取消装备
 						</div>
 					</div>
@@ -578,12 +580,16 @@ function isEquipped(eq: CoreEquipment) {
 										getCurrentBlock(player.minigame.current_room, x, y)
 									"
 								></MiniGameTD>
-								<td v-else-if="inPathData(x, y)" style="background-color: green; 
-									height: 60px;
-									width: 60px;
-									min-height: 60px;
-									min-width: 60px;">
-								</td>
+								<td
+									v-else-if="inPathData(x, y)"
+									style="
+										background-color: green;
+										height: 60px;
+										width: 60px;
+										min-height: 60px;
+										min-width: 60px;
+									"
+								></td>
 							</template>
 
 							<td

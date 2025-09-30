@@ -123,7 +123,7 @@ export const WellOrderingBuyables = {
 		}
 		base(): Decimal {
 			let base = new Decimal(0.015);
-			if(player.upgrades.U6R16) base = base.mul(1.05);
+			if (player.upgrades.U6R16) base = base.mul(1.05);
 			return base;
 		}
 		effect(x: Decimal): Decimal {
@@ -196,14 +196,18 @@ export const WellOrderingUpgrades = {
 		cost = new Decimal('1e996');
 		name = 'U6-R-1-6';
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
-		show(): boolean {return player.upgrades[76];};
+		show(): boolean {
+			return player.upgrades[76];
+		}
 	})(),
 	U6R17: new (class extends Upgrade {
 		description = '自动最大B6-R-1~4';
 		cost = new Decimal('1e1750');
 		name = 'U6-R-1-7';
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
-		show(): boolean {return player.upgrades[76];};
+		show(): boolean {
+			return player.upgrades[76];
+		}
 	})(),
 } as const;
 export const nt = {
@@ -223,9 +227,9 @@ export function wellOrderGainPerClick() {
 		a = a.mul(player.hydra.dilute.solution.add(1).root(100));
 	if (player.upgrades.U6R11) a = a.mul(upgrades.U6R11.effect());
 	if (player.upgrades.U6R14) a = a.mul(upgrades.U6R14.effect());
-	
-	if(player.upgrades[75]) a = a.pow(1.25);
-	if(player.numbertheory.well_ordering.steps_proceeded.includes(14)) a = a.pow(1.5);
+
+	if (player.upgrades[75]) a = a.pow(1.25);
+	if (player.numbertheory.well_ordering.steps_proceeded.includes(14)) a = a.pow(1.5);
 
 	if (a.gte(1e15)) a = a.log10().div(15).pow(0.5).mul(15).pow10();
 

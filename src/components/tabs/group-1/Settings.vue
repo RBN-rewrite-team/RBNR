@@ -18,7 +18,6 @@ const setFontUI = () => ModalService.show({ title: '设置字体', component: fo
 
 <template>
 	<div class="main" v-if="player.currentTab === 1" align="center">
-		
 		<h3>存档设置</h3>
 		<div>
 			<div class="setting_button" @click="save()">手动保存</div>

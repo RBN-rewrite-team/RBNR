@@ -147,7 +147,7 @@ function valueUntilTrue(f: () => boolean) {
 }
 
 export async function playerToDestination(destination_x: bigint, destination_y: bigint) {
-	await valueUntilTrue(()=>temp.pathsearch_locker===false);
+	await valueUntilTrue(() => temp.pathsearch_locker === false);
 	temp.pathsearch_locker = true;
 	const paths = getFastPath(
 		player.minigame.current_room,
@@ -156,23 +156,21 @@ export async function playerToDestination(destination_x: bigint, destination_y: 
 		destination_x,
 		destination_y,
 	);
-	if (paths.length == 0){
+	if (paths.length == 0) {
 		temp.pathsearch_locker = false;
 		throw new Error('Cannot find paths to ' + destination_x + ' ' + destination_y);
 	}
-	temp.minigametip =
-		'移动中 0/'+paths.length;
+	temp.minigametip = '移动中 0/' + paths.length;
 	console.log(paths);
 	temp.pathdata = paths;
 	player.minigame.interact = 5;
-	let a = 0
+	let a = 0;
 	for (const path of paths) {
-		a++
+		a++;
 		const [rx, ry] = [player.minigame.current_x, player.minigame.current_y];
 		player.minigame.current_x = path.x;
 		player.minigame.current_y = path.y;
-		temp.minigametip =
-				'移动中 '+a+'/'+paths.length;
+		temp.minigametip = '移动中 ' + a + '/' + paths.length;
 		interactBlock(
 			player.minigame.current_room,
 			path.x,
