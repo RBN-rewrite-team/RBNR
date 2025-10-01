@@ -17,7 +17,7 @@ const Y = reactive({
 const getYDimensionsLim = (type: string) => {
 	if (type === '1-Y') return 2;
 	if (type === 'ω-Y') return Infinity;
-	throw new Error('Unknown type');
+	throw new TypeError('Unknown type');
 };
 
 const calculatedMountain = computed(() => calcMountain(Y.Y, getYDimensionsLim(Y.type)));
@@ -86,6 +86,7 @@ function draw() {
 				if (d > 1) currentRow++;
 				if (cycles === 1 && d > 1) {
 					const lines = d - 1;
+					ctx.strokeStyle = "#777"
 					ctx.beginPath();
 					for (let i = 0; i < lines; i++) {
 						let y =
@@ -98,6 +99,7 @@ function draw() {
 						ctx.lineTo(canvas.width - lineThickness / 2, y);
 					}
 					ctx.stroke();
+					ctx.strokeStyle = getRootCssVariable("--color")
 				}
 				break;
 			}
