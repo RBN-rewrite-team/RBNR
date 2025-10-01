@@ -41,10 +41,10 @@ function draw() {
 	const columnPosition: [number, number][] = [];
 	const rowPosition: Record<string, number> = {};
 	const calculatedMount = calculatedMountain.value as Mountain;
-	
+
 	let maxRowLabelWidth = 0;
 	const rowLabels: string[] = [];
-	
+
 	for (let cycles = 0; cycles < 2; cycles++) {
 		let currentRow = 0;
 		let renderingIndex = [0];
@@ -56,14 +56,17 @@ function draw() {
 			];
 		}
 		renderingIndex.unshift(0);
-	  ctx.font = `400 ${numberSize}px "Computer Modern"`;
+		ctx.font = `400 ${numberSize}px "Computer Modern"`;
 		while (true) {
 			tempMountain = findByIndex(calculatedMount, renderingIndex.slice(1, -1).reverse())!;
 			if (cycles === 1) {
 				render1Dmountain(calculatedMount, tempMountain, rowPosition, columnPosition);
 			} else {
 				rowPosition['c' + tempMountain.coord.slice(1).join(',')] = currentRow;
-				const rowLabel = tempMountain.coord.length < 1 ? "0" : tempMountain.coord.slice(1).reverse().join(',');
+				const rowLabel =
+					tempMountain.coord.length < 1
+						? '0'
+						: tempMountain.coord.slice(1).reverse().join(',');
 				rowLabels[currentRow] = rowLabel;
 				const textWidth = ctx.measureText(rowLabel).width;
 				maxRowLabelWidth = Math.max(maxRowLabelWidth, textWidth);
@@ -89,7 +92,8 @@ function draw() {
 							currentRow * rowHeight -
 							numberSize -
 							gap +
-							(rowHeight * (i + 1)) / (lines + 1) + numberSize * 2;
+							(rowHeight * (i + 1)) / (lines + 1) +
+							numberSize * 2;
 						ctx.moveTo(maxRowLabelWidth + gap * 2, y);
 						ctx.lineTo(canvas.width - lineThickness / 2, y);
 					}
@@ -103,22 +107,22 @@ function draw() {
 					let bottomRow = calculatedMount as NodeMountain;
 					while (bottomRow.dim > 1)
 						bottomRow = (bottomRow as NodeMountain).arr[0] as NodeMountain;
-					
+
 					let totalWidth = maxRowLabelWidth + gap * 2;
 					for (let i = 0; i < bottomRow.arr.length; i++) {
 						columnPosition.push([columnWidth, totalWidth]);
 						totalWidth += columnWidth;
 					}
-					
+
 					const totalHeight = (rowPosition['c'] + 1) * rowHeight + numberSize * 2;
 					let dpr = devicePixelRatio ?? 1;
 					if (visualViewport) dpr *= visualViewport.scale;
-					
+
 					canvas.style.width = totalWidth + 'px';
 					canvas.style.height = totalHeight + 'px';
 					canvas.width = totalWidth * dpr;
 					canvas.height = totalHeight * dpr;
-					
+
 					ctx.fillStyle = getRootCssVariable('--background-color') ?? 'white';
 					ctx.fillRect(0, 0, canvas.width, canvas.height);
 					ctx.fillStyle = getRootCssVariable('--color') ?? 'black';
@@ -133,10 +137,10 @@ function draw() {
 			}
 		}
 		if (cycles === 1) {
-			ctx.fillStyle = "#777";
+			ctx.fillStyle = '#777';
 			ctx.font = `400 ${numberSize}px serif`;
-			ctx.fillText("行标", numberSize + gap, rowHeight);
-			ctx.fillStyle = getRootCssVariable("--color");
+			ctx.fillText('行标', numberSize + gap, rowHeight);
+			ctx.fillStyle = getRootCssVariable('--color');
 		}
 	}
 }
@@ -153,23 +157,20 @@ function render1Dmountain(
 	const ctx = canvas.getContext('2d');
 
 	if (!ctx) return;
-	
-	const rowLabel = tempMountain.coord.length < 1 ? "0" : tempMountain.coord.slice(1).reverse().join(',');
+
+	const rowLabel =
+		tempMountain.coord.length < 1 ? '0' : tempMountain.coord.slice(1).reverse().join(',');
 	const rowLabelWidth = ctx.measureText(rowLabel).width;
 	const rowLabelAreaWidth = rowLabelWidth + gap * 2;
-	
+
 	const rowID = rowPosition['c' + tempMountain.coord.slice(1).join(',')];
-	
+
 	// 绘制行标
-	ctx.fillStyle = "#777";
-	ctx.textAlign = "center";
-	ctx.fillText(
-		rowLabel,
-		rowLabelAreaWidth / 2,
-		(rowID + 1) * rowHeight - gap + numberSize * 2,
-	);
-	ctx.fillStyle = getRootCssVariable("--color");
-	
+	ctx.fillStyle = '#777';
+	ctx.textAlign = 'center';
+	ctx.fillText(rowLabel, rowLabelAreaWidth / 2, (rowID + 1) * rowHeight - gap + numberSize * 2);
+	ctx.fillStyle = getRootCssVariable('--color');
+
 	// 绘制数据
 	ctx.beginPath();
 	for (let k = 0; k < (tempMountain as NodeMountain).arr.length; k++) {
