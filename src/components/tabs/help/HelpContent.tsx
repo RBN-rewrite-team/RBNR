@@ -3,6 +3,7 @@ import convertTextToComponent from "./text-to-component-convert";
 import { player } from "@/core/save";
 import ordinal1 from './contents/ordinal-1.txt?raw';
 import ordinal2 from './contents/ordinal-2.txt?raw';
+import ordinal3 from './contents/fgh-1.txt?raw';
 // prettier-ignore
 export const HELP_CONTENT = [
     {
@@ -14,6 +15,13 @@ export const HELP_CONTENT = [
         page: 2,
         content: ordinal2,
         unlocked() {return true},
+    },
+    {
+        page: 3,
+        content: ordinal3,
+        unlocked() {
+            return player.upgrades[58];
+        },
     }
 ] as const satisfies {page: number; content: string; unlocked: ()=>boolean}[] 
 export default defineComponent({

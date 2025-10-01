@@ -17,57 +17,6 @@ import HelpContent from './HelpContent';
 			<div class="center_line" />
 		</div>
 		<HelpContent />
-		<div v-if="player.help.page == 3 && player.upgrades[58]">
-			快速增长层次(Fast-Growing Hierachy, FGH)为每一个递归序数<vue-latex
-				expression="\alpha"
-			/>指定了一个快速增长的函数<vue-latex expression="f_\alpha(n)" /><br />
-			它的定义如下：<br /><br />
-			1. 对于任意自然数<vue-latex expression="n" />，<vue-latex
-				expression="f_0(n) = n+1"
-			/><br />
-			2. 对于任意后继序数<vue-latex expression="\alpha" />和自然数<vue-latex
-				expression="n"
-			/>，<vue-latex expression="f_{\alpha+1}(n) = f_\alpha^n(n)" /><br />
-			3. 对于任意极限序数<vue-latex expression="\alpha" />和自然数<vue-latex
-				expression="n"
-			/>，<vue-latex expression="f_\alpha(n) = f_{\alpha[n]}(n)" /><br /><br />
-			事实上，从序数到函数的映射实际上有很多种，FGH仅仅是其中使用最广泛的一种。<br />
-			假如我们采用不同的迭代模式作为外壳，那么我们就可以得到其他的增长层次，<br />它们也同样可以为每个序数指定一个增长的函数。<br />
-			在不同的增长层次之中，极限序数的对角化过程是完全一致的，<br />只不过是初始条件和后继序数的递推规则有所不同。<br /><br />
-			对于任意序数<vue-latex expression="\alpha" />，中等增长层次(Middle-Growing Hierachy,
-			MGH), <vue-latex expression="m_\alpha(n)" />定义如下：<br />
-			1. 对于任意自然数<vue-latex expression="n" />，<vue-latex
-				expression="m_0(n) = n + 1"
-			/><br />
-			2. 对于任意后继序数<vue-latex expression="\alpha" />和自然数<vue-latex
-				expression="n"
-			/>，<vue-latex expression="m_{\alpha+1}(n) = m_\alpha(m_\alpha(n))" /><br />
-			3. 对于任意极限序数<vue-latex expression="\alpha" />和自然数<vue-latex
-				expression="n"
-			/>，<vue-latex expression="m_\alpha(n) = m_{\alpha[n]}(n)" /><br /><br />
-			对于任意序数<vue-latex expression="\alpha" />，Hardy 层次(Hardy Hierachy, HH),
-			<vue-latex expression="H_\alpha(n)" />定义如下：<br />
-			1. 对于任意自然数<vue-latex expression="n" />，<vue-latex
-				expression="H_0(n) = n"
-			/><br />
-			2. 对于任意后继序数<vue-latex expression="\alpha" />和自然数<vue-latex
-				expression="n"
-			/>，<vue-latex expression="H_{\alpha+1}(n) = H_\alpha(n+1)" /><br />
-			3. 对于任意极限序数<vue-latex expression="\alpha" />和自然数<vue-latex
-				expression="n"
-			/>，<vue-latex expression="H_\alpha(n) = H_{\alpha[n]}(n)" /><br /><br />
-			对于任意序数<vue-latex expression="\alpha" />，缓慢增长层次(Slow-Growing Hierachy, SGH),
-			<vue-latex expression="g_\alpha(n)" />定义如下：<br />
-			1. 对于任意自然数<vue-latex expression="n" />，<vue-latex
-				expression="g_0(n) = 0"
-			/><br />
-			2. 对于任意后继序数<vue-latex expression="\alpha" />和自然数<vue-latex
-				expression="n"
-			/>，<vue-latex expression="g_{\alpha+1}(n) = g_\alpha(n)+1" /><br />
-			3. 对于任意极限序数<vue-latex expression="\alpha" />和自然数<vue-latex
-				expression="n"
-			/>，<vue-latex expression="g_\alpha(n) = g_{\alpha[n]}(n)" /><br /><br />
-		</div>
 		<div v-if="player.help.page == 4 && player.upgrades[58]">
 			我们仍然遗留了一个问题没有解决，<br />
 			那就是利用不同基本列所定义的极限序数所对应的函数<vue-latex
