@@ -31,6 +31,22 @@ export function setMusic() {
 		});
 	}
 }
+export function reinitializeMusic() {
+	if (player.options.music) {
+		checkAudioElementBefore((el) => {
+			el.src = MUSICS[player.options.music - 1];
+			el.play().catch((x) => {
+				ModalService.show({
+					title: '不能播放音乐',
+					content: '不知道，你可以点击确认按钮重新播放音乐',
+					onConfirm() {
+						reinitializeMusic();
+					},
+				});
+			});
+		});
+	}
+}
 export function setMusicUrlAndPlay() {
 	ModalService.show({
 		title: '输入URL地址',
@@ -42,7 +58,7 @@ export function setMusicUrlAndPlay() {
 			},
 		],
 		onConfirm(values: string[]) {
-			player.options.music = MUSICS.length + 1;
+			player.options.music = 0;
 
 			checkAudioElementBefore((el) => {
 				el.src = values[0];
