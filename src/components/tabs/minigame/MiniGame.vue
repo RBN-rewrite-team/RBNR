@@ -11,7 +11,6 @@ import {
 	type CoreEquipment,
 } from '@/core/minigame';
 import { player } from '@/core/save';
-import ObjectNode from '../developermode/ObjectNode';
 import MiniGameTD from './MiniGameTD.vue';
 import {
 	isPlayerVisible,
