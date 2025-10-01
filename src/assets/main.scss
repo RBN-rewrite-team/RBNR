@@ -5,6 +5,11 @@
 	src: url('./NotoSansCJKsc-Regular.otf');
 }
 
+@font-face {
+	font-family: Computer Modern;
+	src: url('./cmunrm.ttf');
+}
+
 @keyframes large {
 	0% {
 		transform: scale(1);

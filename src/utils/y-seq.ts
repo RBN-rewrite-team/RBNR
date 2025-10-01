@@ -1,6 +1,6 @@
 import Decimal from 'break_eternity.js';
 
-interface LeafMountain {
+export interface LeafMountain {
 	dim: 0;
 	forcedParent: boolean;
 	leftLegCoord: null | number[];
@@ -11,13 +11,13 @@ interface LeafMountain {
 	coord: number[];
 }
 
-interface NodeMountain {
-	arr: Mountain[];
+export interface NodeMountain {
+	arr: [Mountain, ...Mountain[]];
 	coord: number[];
 	dim: Exclude<number, 0>;
 }
 
-type Mountain = LeafMountain | NodeMountain;
+export type Mountain = LeafMountain | NodeMountain;
 
 function getYSequenceWithoutColon(Y: string): {
 	type: string;
@@ -331,7 +331,7 @@ function indexFromCoord(m: Mountain, coord: number[], d: number = 0): number[] |
 	}
 }
 
-function findByIndex(m: Mountain, index: number[]): Mountain | null {
+export function findByIndex(m: Mountain, index: number[]): Mountain | null {
 	if (!index) return null;
 	let current: Mountain = m;
 	for (let i = 0; i < index.length; i++) {
@@ -343,7 +343,7 @@ function findByIndex(m: Mountain, index: number[]): Mountain | null {
 	return current;
 }
 
-function findByCoord(m: Mountain, coord: number[], d?: number): Mountain | null {
+export function findByCoord(m: Mountain, coord: number[], d?: number): Mountain | null {
 	return findByIndex(m, indexFromCoord(m, coord, d) || []);
 }
 
@@ -714,10 +714,25 @@ export const Y_Milestones = [
 	[new Decimal(2 ** 260), 'Y(1,3,4,4)', 'BTBMS(0)(1^{(2,2)})'],
 	[new Decimal(2 ** 264), 'Y(1,3,4,5)', 'BTBMS(0)(1^{(2^{(3,3)})})'],
 	[new Decimal(2 ** 268), 'Y(1,3,4,6)', 'BTBMS(0)(1^{(2^{(3^{(4^{...})})})})'],
+	[new Decimal(2 ** 270), 'Y(1,3,4,6,10)'],
+	[new Decimal(2 ** 271), 'Y(1,3,4,6,10,18)'],
 	[new Decimal(2 ** 272), 'Y(1,3,4,7)'],
+	[new Decimal(2 ** 276), 'Y(1,3,4,7,7)'],
+	[new Decimal(2 ** 280), 'Y(1,3,4,7,11)'],
+	[new Decimal(2 ** 282), 'Y(1,3,4,7,11,11)'],
+	[new Decimal(2 ** 284), 'Y(1,3,4,7,11,18)'],
+	[new Decimal(2 ** 285), 'Y(1,3,4,7,11,18,18)'],
+	[new Decimal(2 ** 286), 'Y(1,3,4,7,11,18,29)'],
+	[new Decimal(2 ** 286 * 1.5), 'Y(1,3,4,7,11,18,29,29)'],
+	[new Decimal(2 ** 287), 'Y(1,3,4,7,11,18,29,47)'],
 	[new Decimal(2 ** 288), 'Y(1,3,5)'],
+	[new Decimal(2 ** 296), 'Y(1,3,5,5)'],
 	[new Decimal(2 ** 304), 'Y(1,3,5,7)'],
+	[new Decimal(2 ** 312), 'Y(1,3,5,7,9)'],
+	[new Decimal(2 ** 316), 'Y(1,3,5,7,9,11)'],
 	[new Decimal(2 ** 320), 'Y(1,3,6)'],
+	[new Decimal(2 ** 328), 'Y(1,3,6,6)'],
+	[new Decimal(2 ** 336), 'Y(1,3,6,12)'],
 	[new Decimal(2 ** 352), 'Y(1,3,7)'],
 	[new Decimal(2 ** 384), 'Y(1,3,8)'],
 	[new Decimal(2 ** 448), 'Y(1,3,9)'],
