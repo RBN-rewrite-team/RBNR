@@ -584,6 +584,9 @@ export const NON_RECURSIVE = {
 		 * UNOCF to prion virus
 		 */
 		let e = player.nonrecu.unocf_j.clampMin(10).log10().div(20).clampMin(1);
+
+		if (player.numbertheory.well_ordering.steps_proceeded.includes(16)) e = e.mul(30000);
+
 		if (player.nonrecu.unocf_j.lt(512)) b = new Decimal(1);
 		if (player.nonrecu.unocf_j.lt(4096)) c = new Decimal(1);
 		if (player.nonrecu.unocf_j.lt(16384)) d = new Decimal(1);

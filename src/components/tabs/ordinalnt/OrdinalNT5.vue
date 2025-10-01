@@ -680,7 +680,9 @@ function getCurrentSequenceName(): string {
 	</div>
 	<div v-if="player.numbertheory.well_ordering.selecting === 2" align="center">
 		<convertTextToComponent :text="bmsdefinition" />
+		<div class="center_line"></div>
 		<PageSelect />
+		<div class="center_line"></div>
 		<template v-if="player.numbertheory.well_ordering.pages[1] == 0">
 			<button
 				class="clickable_button"
@@ -702,6 +704,14 @@ function getCurrentSequenceName(): string {
 				</button>
 				<template v-else>
 					<convertTextToComponent :text="bmswellorder1prove" />
+					<p style="color: green">效果: UNOCF第五效果×30,000</p>
+					<button
+						class="clickable_button"
+						@click="stepProceed(17)"
+						v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(17)"
+					>
+						解锁引理2，消耗1.000e4000推演能量
+					</button>
 				</template>
 			</template>
 		</template>

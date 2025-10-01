@@ -267,6 +267,7 @@ const ProcceedingCost = [
 	new Decimal('1e1125'),
 	new Decimal('1e2435'),
 	new Decimal('1e2940'),
+	new Decimal('1e4000'),
 	new Decimal(1 / 0),
 ];
 
