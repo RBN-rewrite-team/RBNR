@@ -50,6 +50,8 @@ import AutomatorEditor from './components/tabs/group-1/AutomatorEditor.vue';
 import NonRecursionTabUpgrade from './components/tabs/nonrecursion/NonRecursionTabUpgrade.vue';
 import Mountain from './components/tabs/y/Mountain.vue';
 import NonRecursionUNOCF from './components/tabs/nonrecursion/NonRecursionUNOCF.vue';
+
+import Retribution from './components/tabs/group-1/Retribution.vue';
 </script>
 
 <template>
@@ -101,6 +103,7 @@ import NonRecursionUNOCF from './components/tabs/nonrecursion/NonRecursionUNOCF.
 				<NonRecursionTabUpgrade v-if="player.currentTab === 25"></NonRecursionTabUpgrade>
 				<NonRecursionUNOCF v-if="player.currentTab === 26"></NonRecursionUNOCF>
 				<Mountain v-if="player.currentTab === 27"></Mountain>
+				<Retribution v-if="player.currentTab === 28" />
 				<AutomatorEditor v-if="player.currentTab === 167" />
 				<PlotTab v-if="player.currentTab === 200" />
 				<SaveBank v-if="player.currentTab === 300" />

@@ -202,6 +202,14 @@ import { isTester } from '@/core/save/testing.ts';
 						>
 							稀释
 						</div>
+						<div
+							class="menu2"
+							:class="{ focus: player.currentTab == 28 }"
+							@click="player.currentTab = 28"
+							v-if="player.upgrades['U6R18'] && isTester()"
+						>
+							果报
+						</div>
 					</template>
 					<template v-if="(player.firstResetBit & 0b10000) == 0b10000">
 						<div class="menu1">非递归</div>
