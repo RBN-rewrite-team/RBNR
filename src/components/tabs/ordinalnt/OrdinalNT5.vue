@@ -698,7 +698,7 @@ function getCurrentSequenceName(): string {
 					v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(16)"
 					style="display: inline-block"
 				>
-					证明引理1，消耗1.000e2440推演能量
+					证明引理1，消耗1.000e2940推演能量
 				</button>
 				<template v-else>
 					<convertTextToComponent :text="bmswellorder1prove" />
