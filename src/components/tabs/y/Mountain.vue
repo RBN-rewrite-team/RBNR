@@ -12,7 +12,7 @@ import { ref, reactive, computed, onMounted, onUnmounted, watch, nextTick } from
 const Y = reactive({
 	Y: '1,6,30,155,575,1046,867',
 	type: 'ω-Y',
-});
+}); // 后面会改
 
 const getYDimensionsLim = (type: string) => {
 	if (type === '1-Y') return 2;

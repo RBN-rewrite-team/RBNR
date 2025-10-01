@@ -56,9 +56,6 @@ let cur = computed(() =>
 		<p v-else-if="player.nonrecu.unocf_j.gte(16384)">
 			UNOCF推演使得朊病毒增长速度双指数×{{ format(NON_RECURSIVE.UNOCFeff()[4]) }}
 		</p>
-		<p v-if="player.nonrecu.unocf_j.gte('1e1900') && player.nonrecu.unocf_j.lt(1e333)">
-			超过<Baixie />推演次数解锁UNOCF推演第六效果（没做完）
-		</p>
 		<p>
 			下一个序数为<vue-latex
 				:expression="

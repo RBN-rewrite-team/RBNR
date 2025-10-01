@@ -14,7 +14,11 @@ import { component as convertTextToComponent } from '../help/text-to-component-c
 import prssdefinition from './ordinalnt5-content/prss-definition.txt?raw';
 import bmsdefinition from './ordinalnt5-content/bms-definition.txt?raw';
 import bmswellorder1 from './ordinalnt5-content/bms-wellorder-1.txt?raw';
+import bmswellorder2 from './ordinalnt5-content/bms-wellorder-2.txt?raw';
+import bmswellorder3 from './ordinalnt5-content/bms-wellorder-3.txt?raw';
 import bmswellorder1prove from './ordinalnt5-content/bms-wellorder-1-prove.txt?raw';
+import bmswellorder2prove from './ordinalnt5-content/bms-wellorder-2-prove.txt?raw';
+import bmswellorder3prove from './ordinalnt5-content/bms-wellorder-3-prove.txt?raw';
 import PageSelect from './PageSelect.vue';
 function getCurrentSequenceName(): string {
 	const selecting = player.numbertheory.well_ordering.selecting;
@@ -75,6 +79,9 @@ function getCurrentSequenceName(): string {
 				</tr>
 				<tr>
 					<TDBuyable bylid="B6R15" />
+					<TDBuyable bylid="B6R21" />
+					<TDUpgrade upgid="U6R21" />
+					<TDUpgrade upgid="U6R22" />
 				</tr>
 				<tr>
 					<TDUpgrade upgid="U6R11" />
@@ -710,10 +717,56 @@ function getCurrentSequenceName(): string {
 						@click="stepProceed(17)"
 						v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(17)"
 					>
-						解锁引理2，消耗1.000e4000推演能量
+						解锁引理2，消耗1.000e2975推演能量
 					</button>
 				</template>
 			</template>
 		</template>
+		<template v-if="player.numbertheory.well_ordering.pages[1] == 1&&player.numbertheory.well_ordering.steps_proceeded.includes(17)">
+			<convertTextToComponent :text="bmswellorder2" />
+			<button
+				class="clickable_button"
+				@click="stepProceed(18)"
+				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(18)"
+			>
+				证明引理2，消耗1.000e8320推演能量
+			</button>
+      <template v-else>
+        <convertTextToComponent :text="bmswellorder2prove" />
+        <p style="color: green">
+          奖励：移除九头蛇能量的二重软上限，略微降低B6-R-2-1价格的增长速度。
+        </p>
+        					<button
+						class="clickable_button"
+						@click="stepProceed(19)"
+						v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(19)"
+					>
+						解锁引理3，消耗1.00e42,258推演能量
+					</button>
+      </template>
+    </template>
+		<template v-if="player.numbertheory.well_ordering.pages[1] == 2&&player.numbertheory.well_ordering.steps_proceeded.includes(19)">
+			<convertTextToComponent :text="bmswellorder3" />
+			<button
+				class="clickable_button"
+				@click="stepProceed(20)"
+				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(20)"
+			>
+				证明引理3，消耗1.000e75,000推演能量
+			</button>
+      <template v-else>
+        <convertTextToComponent :text="bmswellorder3prove" />
+        <p style="color: green">
+          奖励：推演能量加成BMS推演速度。
+        </p>
+        					<button
+						class="clickable_button"
+						@click="stepProceed(21)"
+						v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(21)"
+					>
+						解锁引理4，消耗???推演能量
+					</button>
+      </template>
+    </template>
 	</div>
 </template>
