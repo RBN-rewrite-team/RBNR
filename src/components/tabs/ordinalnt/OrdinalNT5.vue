@@ -757,7 +757,7 @@ function getCurrentSequenceName(): string {
       <template v-else>
         <convertTextToComponent :text="bmswellorder3prove" />
         <p style="color: green">
-          奖励：推演能量加成BMS推演速度。
+          奖励：大幅度加成BMS推演速度。
         </p>
         					<button
 						class="clickable_button"
