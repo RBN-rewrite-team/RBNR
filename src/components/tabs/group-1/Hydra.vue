@@ -36,7 +36,7 @@ function powerFactorHTML(): string {
 	const nf = feature.Hydra.powerSoftcapNerf(ft);
 	const nf2 = feature.Hydra.powerGainAfterSoftcap(ft);
 	const nf3 = feature.Hydra.logSoftcapNerf(nf2);
-	s += '<span style="color: var(--color)"> = ' + format(ft) + '</span>';
+	if (nf3.eq(1))s += '<span style="color: var(--color)"> = ' + format(ft) + '</span>';
 	if (!nf.eq(1)) {
 		s += '<sup style="color: rgb(127, 0, 0)">' + format(nf) + '</sup>';
 		if (feature.Hydra.logSoftcapNerf(nf2).eq(1))

@@ -636,6 +636,12 @@ export const Hydra = {
 		) {
 			base = base.log10().log10().pow(1.2).pow10().pow10();
 		}
+		if (
+			player.numbertheory.well_ordering.steps_proceeded.includes(20)&&
+			base.gt("ee10")
+		) {
+			base = base.log10().log10().log10().pow(1.2).pow10().pow10().pow10();
+		}
 		return base.min('eee8.07230472602822538e153'); //SHO
 	},
 	deduceSpeed(i = 0): Decimal {
@@ -748,6 +754,7 @@ export const Hydra = {
 		return base;
 	},
 	superSoftcapStart() {
+	  if (player.numbertheory.well_ordering.steps_proceeded.includes(17)) return new Decimal(Infinity)
 		let base = new Decimal('e2400');
 		if (
 			!(CHALLENGE.inChallenge(1, 3) && player.challenges[1][3].gte(1)) &&
@@ -764,7 +771,7 @@ export const Hydra = {
 	},
 	logSoftcapNerf(base: Decimal): Decimal {
 		if (!base.gte('e326649')) return DC.D_1;
-		else return this.powerGainAfterSoftcap(base).slog(Math.E).neg().add(base.slog(Math.E));
+		else return this.powerGainAfterSoftcap2(base).slog(Math.E).neg().add(base.slog(Math.E));
 	},
 	powerSoftcapNerf2(): Decimal {
 		let base = new Decimal(0.1);
@@ -781,6 +788,7 @@ export const Hydra = {
 		if (player.numbertheory.well_ordering.steps_proceeded.includes(3)) base = base.pow(0.9);
 		if (player.numbertheory.well_ordering.steps_proceeded.includes(6)) base = base.pow(0.8);
 		if (player.numbertheory.well_ordering.steps_proceeded.includes(7)) base = base.pow(0.8);
+		if (player.numbertheory.well_ordering.steps_proceeded.includes(17)) base = base.pow(0);
 		return base;
 	},
 	powerGainBase(): Decimal {

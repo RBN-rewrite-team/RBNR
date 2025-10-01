@@ -497,7 +497,7 @@ export const NON_RECURSIVE = {
 				.pow(1 / 3)
 				.mul(1e7);
 		base = base.pow(NON_RECURSIVE.UNOCFeff()[3]);
-		if (base.gte(1e500)) base = base.log10().div(500).pow(0.5).mul(500).pow(10);
+		if ((!player.upgrades.U6R21) && base.gte(1e500)) base = base.log10().div(500).pow(0.5).mul(500).pow(10);
 		return base;
 	},
 	nonrecEffects(): [Decimal, Decimal] {
