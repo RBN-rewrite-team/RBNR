@@ -670,7 +670,7 @@ function getCurrentSequenceName(): string {
 					都有定义。然而，由引理 4，有
 					<vue-latex
 						expression="\textrm{trans}(S) > \textrm{trans}(S[a_0]) > \textrm{trans}(S[a_0][a_1]) > \cdots "
-					/>，这是一个序数的无限下降链。这与序数的良基性矛盾。由反证法，存在
+					/>，这是一个序数的无穷降链。这与序数的良基性矛盾。由反证法，存在
 					<vue-latex expression="k \in \mathbb N" /> 使得
 					<vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}] = E" />。</b
 				><br />
