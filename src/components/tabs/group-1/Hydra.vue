@@ -8,6 +8,7 @@ import Decimal from 'break_eternity.js';
 import { Dilute } from '@/core/hydra/dilute';
 import { onBeforeUnmount } from 'vue';
 import { calculate } from '@/utils/bms-analyze';
+import convertBMStoMatrixComponent from '@/components/convertBMStoMatrixComponent';
 
 function powerFactorHTML(): string {
 	let s = '';
@@ -489,6 +490,7 @@ function hydraAxisHTML(): string {
 				</tr>
 			</tbody>
 		</table>
+		<!-- <convertBMStoMatrixComponent matrix="(1,3,4,2,5,8,10)(3,4)(1,5045)(333,2005890)" /> -->
 	</div>
 </template>
 
