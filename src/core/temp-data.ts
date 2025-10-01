@@ -25,9 +25,9 @@ export const temp = reactive({
 		return 'var(--color)';
 	},
 	pathdata: [] as Path[],
-	pathsearch_locker: false
+	pathsearch_locker: false,
 });
-export function inPathData(x: bigint,y: bigint){
-	if (player.minigame.interact!==5) return false;
-	return temp.pathdata.findIndex((a)=>a.x==x&&a.y==y) !==-1;
+export function inPathData(x: bigint, y: bigint) {
+	if (player.minigame.interact !== 5) return false;
+	return temp.pathdata.findIndex((a) => a.x == x && a.y == y) !== -1;
 }

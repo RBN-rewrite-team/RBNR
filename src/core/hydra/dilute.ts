@@ -927,6 +927,9 @@ const Dil = {
 		) {
 			base = base.log10().log10().mul(1.3).pow10().pow10();
 		}
+		if (NON_RECURSIVE.UNOCFeff()[4].gt(1) && base.gte(10)) {
+			base = base.log10().log10().mul(NON_RECURSIVE.UNOCFeff()[4]).pow10().pow10();
+		}
 		return base;
 	},
 	/**

@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.2",
-    "@types/node": "^24.5.2",
+    "@types/node": "^24.6.1",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vitejs/plugin-vue-jsx": "^5.1.1",
     "@vue/eslint-config-prettier": "^10.2.0",
@@ -37,14 +37,14 @@
     "@vue/tsconfig": "^0.7.0",
     "eslint": "^9.36.0",
     "eslint-plugin-vue": "^10.5.0",
-    "jiti": "^2.6.0",
+    "jiti": "^2.6.1",
     "npm-run-all2": "^8.0.4",
     "prettier": "3.6.2",
     "sass-embedded": "^1.93.2",
-    "typescript": "~5.9.2",
+    "typescript": "~5.9.3",
     "vite": "^7.1.7",
     "vite-plugin-html-minifier": "^1.0.5",
     "vite-plugin-vue-devtools": "^8.0.2",
-    "vue-tsc": "^3.0.8"
+    "vue-tsc": "^3.1.0"
   }
 }

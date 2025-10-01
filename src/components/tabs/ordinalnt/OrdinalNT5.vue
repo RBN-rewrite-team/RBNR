@@ -10,7 +10,12 @@ import {
 import TDUpgrade from '../../group-2/TDUpgrade.vue';
 import TDBuyable from '../../group-2/TDBuyable.vue';
 import Baixie from '@/components/group-2/Baixie.vue';
-
+import { component as convertTextToComponent } from '../help/text-to-component-convert.tsx';
+import prssdefinition from './ordinalnt5-content/prss-definition.txt?raw';
+import bmsdefinition from './ordinalnt5-content/bms-definition.txt?raw';
+import bmswellorder1 from './ordinalnt5-content/bms-wellorder-1.txt?raw';
+import bmswellorder1prove from './ordinalnt5-content/bms-wellorder-1-prove.txt?raw';
+import PageSelect from './PageSelect.vue';
 function getCurrentSequenceName(): string {
 	const selecting = player.numbertheory.well_ordering.selecting;
 	if (selecting === 0) return '无';
@@ -81,53 +86,15 @@ function getCurrentSequenceName(): string {
 					<TDUpgrade upgid="U6R15" />
 					<TDUpgrade upgid="U6R16" />
 					<TDUpgrade upgid="U6R17" />
+					<TDUpgrade upgid="U6R18" />
 				</tr>
 			</tbody>
 		</table>
 	</div>
 	<div v-if="player.numbertheory.well_ordering.selecting === 1" align="center">
-		初等序列<vue-latex expression="(a_0,a_1,\ldots,a_{m-1},a_m)" />定义如下：
-		<vue-latex expression="1.\ () = 0" display-mode />
-		<vue-latex expression="2.\ (\#,0) = (\#)+1" display-mode />
-		<div>
-			<vue-latex
-				expression="3.\ (\#_1,{\color{Red} a_i,\#_2},a_k) = (\#_1,{\color{Red} a_i,\#_2},{\color{Blue} a_i,\#_2},\ldots)"
-			/>，其中<vue-latex expression="\#_1,\#_2" />为任意两段合法序列，<vue-latex
-				expression="a_k>0"
-			/>，<br /><vue-latex expression="a_i = a_k-1" />为<vue-latex
-				expression="a_k"
-			/>前首个小于<vue-latex expression="a_k" />的数，<br />省略号代表任意有限次循环的极限。
-		</div>
+		<convertTextToComponent :text="prssdefinition" />
 		<div class="center_line" />
-		<div>
-			<button
-				class="clickable_button"
-				style="display: inline-block"
-				@click="
-					player.numbertheory.well_ordering.pages[
-						player.numbertheory.well_ordering.selecting - 1
-					] = Math.max(
-						player.numbertheory.well_ordering.pages[
-							player.numbertheory.well_ordering.selecting - 1
-						] - 1,
-						0,
-					)
-				"
-			>
-				-
-			</button>
-			<button
-				class="clickable_button"
-				style="display: inline-block"
-				@click="
-					player.numbertheory.well_ordering.pages[
-						player.numbertheory.well_ordering.selecting - 1
-					]++
-				"
-			>
-				+</button
-			>(第{{ player.numbertheory.well_ordering.pages[0] + 1 }}页)
-		</div>
+		<PageSelect />
 		<template v-if="player.numbertheory.well_ordering.pages[0] == 0">
 			<div class="center_line" />
 			<p>
@@ -688,8 +655,64 @@ function getCurrentSequenceName(): string {
 				证明引理5，消耗1.000e1125推演能量
 			</button>
 			<template v-else>
-				<b>证明从略</b><br>
+				<b
+					>假设这样的 <vue-latex expression="k \in \mathbb N" /> 不存在。则对于每个
+					<vue-latex expression="k \in \mathbb N" />，有
+					<vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}] \neq E" />，所以
+					<vue-latex
+						expression="\textrm{trans}(S[a_0][a_1]\cdots[a_{k-1}]) \neq 0"
+					/>。因此，如果 <vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}]" /> 有定义，则
+					<vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}][a_k]" />
+					也有定义。通过数学归纳法，对于任意
+					<vue-latex expression="k \in \mathbb N" />，<vue-latex
+						expression="S[a_0][a_1]\cdots[a_{k-1}]"
+					/>
+					都有定义。然而，由引理 4，有
+					<vue-latex
+						expression="\textrm{trans}(S) > \textrm{trans}(S[a_0]) > \textrm{trans}(S[a_0][a_1]) > \cdots "
+					/>，这是一个序数的无穷降链。这与序数的良基性矛盾。由反证法，存在
+					<vue-latex expression="k \in \mathbb N" /> 使得
+					<vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}] = E" />。</b
+				><br />
 				<p style="color: green">引理5效果:推演能量获取速度^1.5。</p>
+			</template>
+		</template>
+	</div>
+	<div v-if="player.numbertheory.well_ordering.selecting === 2" align="center">
+		<convertTextToComponent :text="bmsdefinition" />
+		<div class="center_line"></div>
+		<PageSelect />
+		<div class="center_line"></div>
+		<template v-if="player.numbertheory.well_ordering.pages[1] == 0">
+			<button
+				class="clickable_button"
+				@click="stepProceed(15)"
+				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(15)"
+				style="display: inline-block"
+			>
+				定义引理1，消耗1.000e2435推演能量
+			</button>
+			<template v-else>
+				<convertTextToComponent :text="bmswellorder1" />
+				<button
+					class="clickable_button"
+					@click="stepProceed(16)"
+					v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(16)"
+					style="display: inline-block"
+				>
+					证明引理1，消耗1.000e2940推演能量
+				</button>
+				<template v-else>
+					<convertTextToComponent :text="bmswellorder1prove" />
+					<p style="color: green">效果: UNOCF第五效果×30,000</p>
+					<button
+						class="clickable_button"
+						@click="stepProceed(17)"
+						v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(17)"
+					>
+						解锁引理2，消耗1.000e4000推演能量
+					</button>
+				</template>
 			</template>
 		</template>
 	</div>

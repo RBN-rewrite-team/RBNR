@@ -1,9 +1,435 @@
 import Decimal from 'break_eternity.js';
 
+export interface LeafMountain {
+	dim: 0;
+	forcedParent: boolean;
+	leftLegCoord: null | number[];
+	rightLegCoord: null | number[];
+	value: number;
+	parentIndex: number;
+	position: number;
+	coord: number[];
+}
+
+export interface NodeMountain {
+	arr: Mountain[];
+	coord: number[];
+	dim: Exclude<number, 0>;
+}
+
+export type Mountain = LeafMountain | NodeMountain;
+
+function getYSequenceWithoutColon(Y: string): {
+	type: string;
+	Y: string;
+} {
+	let type = '???';
+	if (Y.startsWith('Y(')) {
+		type = '1-Y';
+		Y = Y.slice(2, -1);
+	}
+	if (Y.startsWith('ω-Y(')) {
+		type = 'ω-Y';
+		Y = Y.slice(4, -1);
+	}
+	return {
+		type,
+		Y,
+	};
+}
+
+// https://naruyoko.github.io/MEGAwhYmountain/
+
+/*
+MIT License
+
+Copyright (c) 2021 Naruyoko
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
+function parseSequenceElement(str: string, i: number): Partial<LeafMountain> & { value: number; position: number; parentIndex: number } {
+	if (str.indexOf('v') === -1 || !isFinite(Number(str.substring(str.indexOf('v') + 1)))) {
+		const numval = Number(str);
+		return {
+			value: numval,
+			position: i,
+			parentIndex: -1,
+		};
+	} else {
+		return {
+			value: Number(str.substring(0, str.indexOf('v'))),
+			position: i,
+			parentIndex: Math.max(Math.min(i - 1, Number(str.substring(str.indexOf('v') + 1))), -1),
+			forcedParent: true,
+		};
+	}
+}
+
+function parseSequenceString(s: string): Array<Partial<LeafMountain> & { value: number; position: number; parentIndex: number }> {
+	return s.split(',').map(parseSequenceElement);
+}
+
+function equalVector(s: number[], t: number[], d: number = 0): boolean {
+	for (let i = d, l = Math.max(s.length, t.length); i < l; i++) {
+		if ((s[i] || 0) !== (t[i] || 0)) return false;
+	}
+	return true;
+}
+
+function addVector(s: number[], t: number[]): number[] {
+	const r: number[] = [];
+	for (let i = 0, l = Math.max(s.length, t.length); i < l; i++) {
+		r.push((s[i] || 0) + (t[i] || 0));
+	}
+	return r;
+}
+
+function stBasis(d: number): number[] {
+	const r: number[] = [];
+	while (r.length < d) r.push(0);
+	r.push(1);
+	return r;
+}
+
+function basis(d: number, k: number): number[] {
+	const r: number[] = [];
+	while (r.length < d) r.push(0);
+	r.push(k);
+	return r;
+}
+
+function incrementCoord(s: number[], d: number): number[] {
+	const r = s.slice(0);
+	for (let i = 0; i < d; i++) r[i] = 0;
+	return addVector(r, stBasis(d));
+}
+
+function addCoord(s: number[], d: number, k: number): number[] {
+	const r = s.slice(0);
+	for (let i = 0; i < d; i++) r[i] = 0;
+	return addVector(r, basis(d, k));
+}
+
+function sumArray(s: number[]): number {
+	let r = 0;
+	for (let i = 0; i < s.length; i++) r += s[i];
+	return r;
+}
+
+export function calcMountain(s: string | Array<Partial<LeafMountain> & { value: number; position: number; parentIndex: number }> | NodeMountain, maxDim: number = Infinity): Mountain {
+	if (maxDim === undefined) maxDim = Infinity;
+	const coordOffset: number[] = typeof s === 'object' && 'coord' in s ? s.coord : [];
+
+	if (typeof s === 'string') s = parseSequenceString(s);
+
+	if (Array.isArray(s) && s.length <= 1) {
+		return {
+			dim: 1,
+			arr: [
+				{
+					dim: 0,
+					value: s[0].value,
+					position: s[0].position,
+					coord: coordOffset.slice(0),
+					parentIndex: s[0].parentIndex,
+					forcedParent: s[0].forcedParent,
+					leftLegCoord: null,
+					rightLegCoord: null,
+				},
+			],
+			coord: coordOffset.slice(0),
+		} as NodeMountain;
+	} else if (!Array.isArray(s) && s.arr.length <= 1) {
+		return s.arr[0];
+	} else {
+		let m: NodeMountain;
+		if (Array.isArray(s)) {
+			m = {
+				dim: 1,
+				arr: [],
+				coord: coordOffset.slice(0),
+			};
+			for (let i = 0; i < s.length; i++) {
+				m.arr.push({
+					dim: 0,
+					value: s[i].value,
+					position: s[i].position,
+					coord: addCoord(coordOffset, 0, i),
+					parentIndex: s[i].parentIndex,
+					forcedParent: s[i].forcedParent,
+					leftLegCoord: null,
+					rightLegCoord: null,
+				} as LeafMountain);
+				if (!s[i].forcedParent) {
+					for (let j = i; j >= 0; j--) {
+						if (s[j].value < s[i].value) {
+							(m.arr[i] as LeafMountain).parentIndex = j;
+							break;
+						}
+					}
+				}
+			}
+		} else {
+			m = s;
+		}
+
+		const lastPosition = sumArray(m.arr[m.arr.length - 1].coord);
+		let dimensions = 1;
+		while (dimensions <= maxDim) {
+			const uppers = calcDifference(m);
+			if (uppers.arr.length < 1) break;
+			const upperm = calcMountain(uppers, dimensions);
+			const upperdim = upperm.dim;
+			let raisedupperm: NodeMountain = upperm as NodeMountain;
+			while (raisedupperm.dim <= dimensions) {
+				raisedupperm = {
+					dim: raisedupperm.dim + 1,
+					arr: [raisedupperm],
+					coord: raisedupperm.coord.slice(0),
+				};
+			}
+			raisedupperm.coord = coordOffset.slice(0);
+			raisedupperm.arr.unshift(m);
+			m = raisedupperm;
+			dimensions++;
+		}
+		return m;
+	}
+}
+
+function calcDifference(m: NodeMountain): NodeMountain {
+	const coordOffset = incrementCoord(m.coord, m.dim);
+	const rightLegs: Mountain[] = [];
+	const rightLegTree: number[] = [];
+	const rightLegPositions: number[] = [];
+
+	if (m.dim === 1) {
+		for (let i = 0; i < m.arr.length; i++) {
+			rightLegs.push(m.arr[i]);
+			rightLegTree.push((m.arr[i] as LeafMountain).parentIndex);
+			rightLegPositions.push(sumArray(m.arr[i].coord));
+		}
+	} else {
+		for (let i = 0; i <= getLastPosition(m); i++) {
+			const node = findHighestWithPosition(m, i);
+			if (node) rightLegPositions.push(i);
+		}
+		for (let i = 0; i < rightLegPositions.length; i++) {
+			const node = findHighestWithPosition(m, rightLegPositions[i]);
+			if (node) {
+				rightLegs.push(node);
+				let parentNode: Mountain | null = node;
+				while (parentNode) {
+					let grandParentNode = parent(m, parentNode as LeafMountain);
+					if (!grandParentNode) grandParentNode = leftLeg(m, parentNode as LeafMountain);
+					if (!grandParentNode) {
+						rightLegTree.push(-1);
+						break;
+					}
+					parentNode = grandParentNode;
+					if ((parentNode as LeafMountain).parentIndex === -1 && rightLegPositions.indexOf(sumArray(parentNode.coord)) !== -1) {
+						rightLegTree.push(rightLegPositions.indexOf(sumArray(parentNode.coord)));
+						break;
+					}
+				}
+				if (!parentNode) rightLegTree.push(-1);
+			}
+		}
+	}
+
+	const rightLegInR: number[] = [];
+	const rInRightLeg: number[] = [];
+	const rightLegParents: number[] = [];
+	const r: NodeMountain = {
+		dim: 1,
+		arr: [],
+		coord: coordOffset,
+	};
+
+	for (let i = 0; i < rightLegs.length; i++) {
+		let pi = i;
+		while (pi > -1 && !((rightLegs[pi] as LeafMountain).value < (rightLegs[i] as LeafMountain).value && (rightLegs[pi].coord[m.dim - 1] || 0) < (rightLegs[i].coord[m.dim - 1] || 0))) {
+			pi = rightLegTree[pi];
+		}
+		rightLegParents.push(pi);
+		if (pi !== -1) {
+			rightLegInR.push(r.arr.length);
+			rInRightLeg.push(i);
+			r.arr.push({
+				dim: 0,
+				value: (rightLegs[i] as LeafMountain).value - (rightLegs[pi] as LeafMountain).value,
+				position: rightLegPositions[i],
+				coord: addCoord(coordOffset, 0, rightLegPositions[i] - sumArray(coordOffset)),
+				parentIndex: -1,
+				forcedParent: true,
+				leftLegCoord: rightLegs[pi].coord.slice(0),
+				rightLegCoord: rightLegs[i].coord.slice(0),
+			} as LeafMountain);
+		} else {
+			rightLegInR.push(-1);
+		}
+	}
+
+	for (let i = 0; i < r.arr.length; i++) {
+		let pi = rInRightLeg[i];
+		while (true) {
+			const ppi = rightLegParents[pi];
+			if (ppi === -1 || rightLegInR[ppi] === -1) break;
+			pi = ppi;
+			if ((r.arr[rightLegInR[pi]] as LeafMountain).value < (r.arr[i] as LeafMountain).value) {
+				(r.arr[i] as LeafMountain).parentIndex = rightLegInR[pi];
+				break;
+			}
+		}
+	}
+	return r;
+}
+
+function indexFromCoord(m: Mountain, coord: number[], d: number = 0): number[] | null {
+	const r: number[] = [];
+	let currentMountain: Mountain = m;
+
+	while (true) {
+		if (currentMountain.dim <= d) {
+			if (equalVector(currentMountain.coord, coord, d)) return r;
+			else return null;
+		}
+
+		if (currentMountain.dim === 1) {
+			for (let i = 0; i < (currentMountain as NodeMountain).arr.length + 1; i++) {
+				if (i === (currentMountain as NodeMountain).arr.length) return null;
+				if (((currentMountain as NodeMountain).arr[i].coord[0] || 0) === (coord[0] || 0)) {
+					r.push(i);
+					currentMountain = (currentMountain as NodeMountain).arr[i];
+					break;
+				}
+			}
+		} else {
+			const nodeMountain = currentMountain as NodeMountain;
+			const i = coord[nodeMountain.dim - 1] || 0;
+			if (i >= nodeMountain.arr.length) return null;
+			r.push(i);
+			currentMountain = nodeMountain.arr[i];
+		}
+	}
+}
+
+export function findByIndex(m: Mountain, index: number[]): Mountain | null {
+	if (!index) return null;
+	let current: Mountain = m;
+	for (let i = 0; i < index.length; i++) {
+		const node = current as NodeMountain;
+		const idx = index[i] < 0 ? node.arr.length + index[i] : index[i];
+		if (idx >= node.arr.length) return null;
+		current = node.arr[idx];
+	}
+	return current;
+}
+
+export function findByCoord(m: Mountain, coord: number[], d?: number): Mountain | null {
+	return findByIndex(m, indexFromCoord(m, coord, d) || []);
+}
+
+function getLastPosition(m: Mountain): number {
+	let current: Mountain = m;
+	while (current.dim > 1) {
+		current = (current as NodeMountain).arr[0];
+	}
+	return ((current as NodeMountain).arr[(current as NodeMountain).arr.length - 1] as LeafMountain).position;
+}
+
+function findHighestWithPosition(m: Mountain, position: number): LeafMountain | null {
+	if (m.dim === 0) {
+		if ((m as LeafMountain).position === position) return m as LeafMountain;
+		else return null;
+	} else {
+		const node = m as NodeMountain;
+		if (node.arr.length === 0) return null;
+
+		if (node.dim === 1) {
+			let min = 0;
+			let max = node.arr.length - 1;
+			if ((node.arr[min] as LeafMountain).position > position || (node.arr[max] as LeafMountain).position < position) return null;
+			if ((node.arr[min] as LeafMountain).position === position) return node.arr[min] as LeafMountain;
+			if ((node.arr[max] as LeafMountain).position === position) return node.arr[max] as LeafMountain;
+
+			while (min !== max) {
+				const mid = Math.floor((min + max) / 2);
+				if ((node.arr[mid] as LeafMountain).position === position) return node.arr[mid] as LeafMountain;
+				else if (min === mid) return null;
+				else if ((node.arr[mid] as LeafMountain).position < position) min = mid;
+				else if ((node.arr[mid] as LeafMountain).position > position) max = mid;
+			}
+			return null;
+		} else {
+			for (let i = node.arr.length - 1; i >= 0; i--) {
+				let lowestRow: Mountain = node.arr[i];
+				while (lowestRow && lowestRow.dim > 1) {
+					lowestRow = (lowestRow as NodeMountain).arr[0];
+				}
+				if (!lowestRow) continue;
+				const nodeInLowestRow = findHighestWithPosition(lowestRow, position);
+				if (nodeInLowestRow) {
+					if (node.dim === 2) return nodeInLowestRow;
+					else return findHighestWithPosition(node.arr[i], position);
+				}
+			}
+			return null;
+		}
+	}
+}
+
+function parent(m: NodeMountain, node: LeafMountain): Mountain | null {
+	if (node.dim !== 0 || node.parentIndex === -1) return null;
+	const index = indexFromCoord(m, node.coord);
+	if (!index) return null;
+	index[index.length - 1] = node.parentIndex;
+	return findByIndex(m, index);
+}
+
+function leftLeg(m: NodeMountain, node: LeafMountain): Mountain | null {
+	if (node.dim !== 0 || !node.leftLegCoord) return null;
+	return findByCoord(m, node.leftLegCoord);
+}
+
+function rightLeg(m: NodeMountain, node: LeafMountain): Mountain | null {
+	if (node.dim !== 0 || !node.rightLegCoord) return null;
+	return findByCoord(m, node.rightLegCoord);
+}
+
+function flattenMountain(m: Mountain): Record<string, Mountain> {
+	const r: Record<string, Mountain> = {};
+	if (m.dim === 0) {
+		r[m.coord.join(',')] = m;
+	} else {
+		const node = m as NodeMountain;
+		for (let i = 0; i < node.arr.length; i++) {
+			Object.assign(r, flattenMountain(node.arr[i]));
+		}
+	}
+	return r;
+}
 /**
  * 无固定底数
  */
-export const Y_Milestones: [Decimal, string, ...string[]][] = [
+export const Y_Milestones = [
 	[new Decimal(0), 'Y()', '0'],
 	[new Decimal(1), 'Y(1)', '1'],
 	[new Decimal(2), 'Y(1,1)', '2'],
@@ -151,18 +577,7 @@ export const Y_Milestones: [Decimal, string, ...string[]][] = [
 	[new Decimal(49152), 'Y(1,2,4,8,16,32,64,128)', '(0)(1^7)'],
 	[new Decimal(57344), 'Y(1,2,4,8,16,32,64,128,256)', '(0)(1^8)'],
 	[new Decimal(61440), 'Y(1,2,4,8,16,32,64,128,256,512)', '(0)(1^9)'],
-	[new Decimal(63488), 'Y(1,2,4,8,16,32,64,128,...,2^{10})', '(0)(1^10)'],
-	[new Decimal(64512), 'Y(1,2,4,8,16,32,64,128,...,2^{11})', '(0)(1^11)'],
-	[new Decimal(65024), 'Y(1,2,4,8,16,32,64,128,...,2^{12})', '(0)(1^12)'],
-	[new Decimal(65280), 'Y(1,2,4,8,16,32,64,128,...,2^{13})', '(0)(1^13)'],
-	[new Decimal(65408), 'Y(1,2,4,8,16,32,64,128,...,2^{14})', '(0)(1^14)'],
-	[new Decimal(65472), 'Y(1,2,4,8,16,32,64,128,...,2^{15})', '(0)(1^15)'],
-	[new Decimal(65504), 'Y(1,2,4,8,16,32,64,128,...,2^{16})', '(0)(1^16)'],
-	[new Decimal(65520), 'Y(1,2,4,8,16,32,64,128,...,2^{17})', '(0)(1^17)'],
-	[new Decimal(65528), 'Y(1,2,4,8,16,32,64,128,...,2^{18})', '(0)(1^18)'],
-	[new Decimal(65532), 'Y(1,2,4,8,16,32,64,128,...,2^{19})', '(0)(1^19)'],
-	[new Decimal(65534), 'Y(1,2,4,8,16,32,64,128,...,2^{20})', '(0)(1^20)'],
-	[new Decimal(65535), 'Y(1,2,4,8,16,32,64,128,...,2^{21})', '(0)(1^21)'],
+	[new Decimal(63488), 'Y(1,2,4,8,16,32,64,128,256,512,1024)', '(0)(1^{10})'],
 	[new Decimal(65536), 'Y(1,3)', '(0)(1^ω)', 'SHO'],
 	[new Decimal(66560), 'Y(1,3,1,3)', '(0)(1^ω)(0)(1^ω)'],
 	[new Decimal(67584), 'Y(1,3,1,3,1,3)', '(0)(1^ω)(0)(1^ω)(0)(1^ω)'],
@@ -267,14 +682,71 @@ export const Y_Milestones: [Decimal, string, ...string[]][] = [
 	[new Decimal(2 ** 194), 'Y(1,3,4,2,5,8,9,12,15,15)', '(0)(1^{(0)(1^{ω^3})})'],
 	[new Decimal(2 ** 195), 'Y(1,3,4,2,5,8,9,12,15,16)', '(0)(1^{(0)(1^{ω^ω})})'],
 	[new Decimal(2 ** 195 * 1.5), 'Y(1,3,4,2,5,8,9,12,15,16,19)', '(0)(1^{(0)(1^{(0)(1^ω)})})'],
-	[new Decimal(2 ** 196), 'Y(1,3,4,2,5,8,10)', '(0)(1^{Ω})'],
-	[new Decimal(2 ** 198), 'Y(1,3,4,2,5,8,10,4,9,14,17)', '(0)(1^{Ω_2})'],
-	[new Decimal(2 ** 199), 'Y(1,3,4,2,5,8,10,4,9,14,17,8)', '(0)(1^{Ω_ω})'],
-	[new Decimal(2 ** 200), 'Y(1,3,4,2,5,8,10,4,9,14,17,10)', '(0)(1^{1^{1^{...}}})'],
-	[new Decimal(1.34078079299425971e154), 'Y(1,4)'],
-	[new Decimal('ee153.90699754796802'), 'Y(1,ω)'],
-	[new Decimal('(e^3.402823669209385e+38)153.90699754796802'), 'ω-Y(1,ω)'],
-	[new Decimal('(e^1.3407807929942597e+154)153.90699754796802'), 'Ω-Y(1,ω)'],
+	[new Decimal(2 ** 196), 'Y(1,3,4,2,5,8,10)', 'BTBMS(0)(1^{(2,1)})', '(0)(1^{Ω})', 'ΩSSO'],
+	//Bubby3’s TBMS
+	[new Decimal(2 ** 197), 'Y(1,3,4,2,5,8,10,4)', 'BTBMS(0)(1^{(2,1)})(1,1)'],
+	[new Decimal(2 ** 198), 'Y(1,3,4,2,5,8,10,4,9)', 'BTBMS(0)(1^{(2,1)})(1,1)(2,2,1^{(3)})'],
+	[new Decimal(2 ** 199), 'Y(1,3,4,2,5,8,10,4,9,14,15,18,21,23)', 'BTBMS(0)(1^{(2,1)})(1,1)(2,2,1^{(3)}))(4,1^{(5,1)})'],
+	[new Decimal(2 ** 199 * 1.5), 'Y(1,3,4,2,5,8,10,4,9,14,15,18,21,23,13,21)', 'BTBMS(0)(1^{(2,1)})(1,1)(2,2,1^{(3)}))(4,1^{(5,1)},1)'],
+	[new Decimal(2 ** 200), 'Y(1,3,4,2,5,8,10,4,9,14,15,18,21,23,14)', 'BTBMS(0)(1^{(2,1)})(1,1)(2,2,1^{(3)}))(4,1^{(5,1)}(3))'],
+	[new Decimal(2 ** 201), 'Y(1,3,4,2,5,8,10,4,9,14,16)', 'BTBMS(0)(1^{(2,1)})(1,1)(2,2,1^{(3,1)})'],
+	[new Decimal(2 ** 208), 'Y(1,3,4,2,5,8,10,4,9,14,17)', 'BTBMS(0)(1^{(2,1)})(1,1)(2,2,1^{(3,2)})', '(0)(1^{Ω_2})'],
+	[new Decimal(2 ** 209), 'Y(1,3,4,2,5,8,10,4,9,14,17,8)', 'BTBMS(0)(1^{(2,1)})(1,1,1)', '(0)(1^{Ω_ω})'],
+	[new Decimal(2 ** 210), 'Y(1,3,4,2,5,8,10,4,9,14,17,10)', 'BTBMS(0)(1^{(2,1)})(2)', '(0)(1^{1^{1^{...}}})'],
+	[new Decimal(2 ** 211), 'Y(1,3,4,2,5,8,10,4,9,14,17,11)', 'BTBMS(0)(1^{(2,1)})(2,1)'],
+	[new Decimal(2 ** 213), 'Y(1,3,4,2,5,8,10,4,9,14,17,13)', 'BTBMS(0)(1^{(2,1)})(2,1,1)'],
+	[new Decimal(2 ** 214), 'Y(1,3,4,2,5,8,10,4,9,14,17,14)', 'BTBMS(0)(1^{(2,1)})(2^{(3,1)}(3))'],
+	[new Decimal(2 ** 215), 'Y(1,3,4,2,5,8,10,4,9,14,17,14,18)', 'BTBMS(0)(1^{(2,1)})(2^{(3,1,1)})'],
+	[new Decimal(2 ** 216), 'Y(1,3,4,2,5,8,10,5)', 'BTBMS(0)(1^{(2,1)})(2^{(3,1^{(4)})})'],
+	[new Decimal(2 ** 217), 'Y(1,3,4,2,5,8,10,5,8,10)', 'BTBMS(0)(1^{(2,1)})(2^{(3,1^{(4,1)})})'],
+	[new Decimal(2 ** 218), 'Y(1,3,4,2,5,8,10,6)', 'BTBMS(0)(1^{(2,1)})(2^{(3,2)})'],
+	[new Decimal(2 ** 219), 'Y(1,3,4,2,5,8,10,7)', 'BTBMS(0)(1^{(2,1)})(2^{(3,2)})(2^{(3,1^{(4,2)})})(3,1)'],
+	[new Decimal(2 ** 220), 'Y(1,3,4,2,5,8,10,8)', 'BTBMS(0)(1^{(2,1)})(2^{(3,2)})(3)'],
+	[new Decimal(2 ** 224), 'Y(1,3,4,2,5,8,10,15)', 'BTBMS(0)(1^{(2,1)},1^{(2)})'],
+	[new Decimal(2 ** 225), 'Y(1,3,4,2,5,8,10,15,20)', 'BTBMS(0)(1^{(2,1)},1^{(2)(2)})'],
+	[new Decimal(2 ** 226), 'Y(1,3,4,2,5,8,10,15,20,24)', 'BTBMS(0)(1^{(2,1)},1^{(2,1)})'],
+	[new Decimal(2 ** 227), 'Y(1,3,4,2,5,8,11)', 'BTBMS(0)(1^{(2,1)(2)})'],
+	[new Decimal(2 ** 230), 'Y(1,3,4,2,5,8,11,11)', 'BTBMS(0)(1^{(2,1)(3,1)(2)})'],
+	[new Decimal(2 ** 231), 'Y(1,3,4,2,5,8,11,12)', 'BTBMS(0)(1^{(2,1)(3,1)(4)})'],
+	[new Decimal(2 ** 232), 'Y(1,3,4,2,5,8,11,13)', 'BTBMS(0)(1^{(2,1)(3,1)(4,1)})'],
+	[new Decimal(2 ** 236), 'Y(1,3,4,2,5,9)', 'BTBMS(0)(1^{(2,1)(3,2)})'],
+	[new Decimal(2 ** 256), 'Y(1,3,4,3)', 'BTBMS(0)(1^{(2,1^{(3)})})', 'GHO'],
+	[new Decimal(2 ** 260), 'Y(1,3,4,4)', 'BTBMS(0)(1^{(2,2)})'],
+	[new Decimal(2 ** 264), 'Y(1,3,4,5)', 'BTBMS(0)(1^{(2^{(3,3)})})'],
+	[new Decimal(2 ** 268), 'Y(1,3,4,6)', 'BTBMS(0)(1^{(2^{(3^{(4^{...})})})})'],
+	[new Decimal(2 ** 270), 'Y(1,3,4,6,10)'],
+	[new Decimal(2 ** 271), 'Y(1,3,4,6,10,18)'],
+	[new Decimal(2 ** 272), 'Y(1,3,4,7)'],
+	[new Decimal(2 ** 276), 'Y(1,3,4,7,7)'],
+	[new Decimal(2 ** 280), 'Y(1,3,4,7,11)'],
+	[new Decimal(2 ** 282), 'Y(1,3,4,7,11,11)'],
+	[new Decimal(2 ** 284), 'Y(1,3,4,7,11,18)'],
+	[new Decimal(2 ** 285), 'Y(1,3,4,7,11,18,18)'],
+	[new Decimal(2 ** 286), 'Y(1,3,4,7,11,18,29)'],
+	[new Decimal(2 ** 286 * 1.5), 'Y(1,3,4,7,11,18,29,29)'],
+	[new Decimal(2 ** 287), 'Y(1,3,4,7,11,18,29,47)'],
+	[new Decimal(2 ** 288), 'Y(1,3,5)'],
+	[new Decimal(2 ** 296), 'Y(1,3,5,5)'],
+	[new Decimal(2 ** 304), 'Y(1,3,5,7)'],
+	[new Decimal(2 ** 312), 'Y(1,3,5,7,9)'],
+	[new Decimal(2 ** 316), 'Y(1,3,5,7,9,11)'],
+	[new Decimal(2 ** 320), 'Y(1,3,6)'],
+	[new Decimal(2 ** 328), 'Y(1,3,6,6)'],
+	[new Decimal(2 ** 336), 'Y(1,3,6,12)'],
+	[new Decimal(2 ** 352), 'Y(1,3,7)'],
+	[new Decimal(2 ** 384), 'Y(1,3,8)'],
+	[new Decimal(2 ** 448), 'Y(1,3,9)'],
+	[new Decimal(2 ** 480), 'Y(1,3,9,27)'],
+	[new Decimal(2 ** 496), 'Y(1,3,9,27,81)'],
+	[new Decimal(2 ** 504), 'Y(1,3,9,27,81,243)'],
+	[new Decimal(2 ** 508), 'Y(1,3,9,27,81,243,729)'],
+	[new Decimal(2 ** 510), 'Y(1,3,9,27,81,243,729,2187)'],
+	[new Decimal(2 ** 511), 'Y(1,3,9,27,81,243,729,2187,6561)'],
+	[new Decimal(2 ** 512), 'Y(1,4)'],
+	[new Decimal('9.630466979614933e2585827972'), 'Y(1,5)'],
+	[new Decimal('ee153.90699754796802'), 'Y(1,ω)', 'SYO'],
+	[new Decimal('(e^3.402823669209385e+38)153.90699754796802'), 'ω-Y(1,ω)', 'MHO'],
+	// [new Decimal('(e^1.3407807929942597e+154)153.90699754796802'), 'Ω-Y(1,ω)'],
 ] as const;
 
 export function getCurrentYMilestoneIndex(target: Decimal): number {

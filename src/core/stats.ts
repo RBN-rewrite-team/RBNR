@@ -49,10 +49,9 @@ export function updateResetStatData(
 	resetkey: ChooseTypes<PlayerStat, ResetRecord[]>,
 	gain: Decimal,
 ) {
-	player.stat[resetkey].splice(0,0,{
+	player.stat[resetkey].splice(0, 0, {
 		last: Date.now(),
 		gain,
 	});
 	player.stat[resetkey] = player.stat[resetkey].slice(0, 10);
 }
- 

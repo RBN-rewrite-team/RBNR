@@ -1,0 +1,25 @@
+我们仍然遗留了一个问题没有解决，那就是利用不同基本列所定义的极限序数所对应的函数\(f_\alpha(n) = f_{a[n]}(n)\)是不同的。
+以极限序数\(\omega\)为例，若取基本列为\(\omega = \sup\{0, 1, 2, \cdots\}\)，则有\(f_\omega(n) = f_n(n)\)；
+若取基本列为\(\omega = \sup\{1, 10, 100, 1000, \cdots\}\)，则有\(f_\omega(n) = f_{10^n}(n)\)。
+上述两个基本列可以给出相同的极限序数\(\omega\)，但是它们所对应的函数的增长速度却并不相同。
+为此，我们需要定义“标准基本列”，以便对这种情况进行规范。
+但在此之前，由于形如\(1+\omega=\omega\)这种结果，在讨论序数的基本列之前，我们需要先对序数进行标准化。
+我们通常使用的标准形式是 Cantor 标准型，它定义为如下形式：\[\alpha = \omega^{\alpha_0}+\omega^{\alpha_1}+\cdots\omega^{\alpha_n}\]
+其中，\(\alpha_0\ge a_1\ge \cdots\ge a_n\)。可以证明，任意一个序数都可以写成 Cantor 标准型。
+例如，对于序数\[\omega^{\omega^{\omega^{19728}}+\omega^{\omega}\cdot3+2}\cdot2+\omega^{\omega^3+1}+1\]
+我们可以序数乘法展开，并稍微变形，得到\[\omega^{\omega^{\omega^{19728}}+\omega^{\omega^1}+\omega^{\omega^1}+\omega^{\omega^1}+\omega^0+\omega^0}+\omega^{\omega^{\omega^{19728}}+\omega^{\omega^1}+\omega^{\omega^1}+\omega^{\omega^1}+\omega^0+\omega^0}+\omega^{\omega^3+\omega^0}+\omega^0\]
+我们可以递归地对\(\varepsilon_0\)之前的序数定义如下标准形式：
+1. 0是标准形式
+2. 如果\(\alpha, \beta\)是标准形式而且\(\alpha \ge \beta\)，那么\(\alpha+\beta\)是标准形式
+3. 如果\(\alpha\)是标准形式而且\(\omega^\alpha>\alpha\)，那么\(\omega^\alpha\)是标准形式
+
+容易验证，所有的自然数\(n\)都是标准形式。值得注意的是，上述定义中并没有涉及序数乘法。
+习惯上，我们仍然容许\(\alpha\cdot n\)这样的表达式存在，作为\(\underbrace{\alpha+\alpha+\cdots+\alpha}_{n\text{个}\alpha}\)的简写。
+由第二条规则可知，若\(\alpha\)是标准形式，n是自然数，则\(\alpha\cdot n\)也是标准形式，
+在转换为标准形式后，我们便可以定义极限序数的标准基本列了。
+\(\varepsilon_0\)以下极限序数的标准基本列定义为：
+1. \(\omega[n] = n\)
+2. 对于任意序数\(\alpha\)，极限序数\(\beta\)，自然数\(n\)，\((\alpha+\beta)[n] = \alpha+\beta[n]\)
+3. 对于任意序数\(\alpha\)，自然数\(n\)，\(\omega^{\alpha+1}[n] = \omega^\alpha\cdot n\)
+4. 对于任意极限序数\(\alpha\)，自然数\(n\)，\(\omega^\alpha[n] = \omega^{\alpha[n]}\)
+除此之外，根据上述第二条规则，容易得出\(\alpha\cdot(m+1)[n] = \alpha\cdot m+\alpha[n]\)

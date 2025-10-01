@@ -16,6 +16,7 @@ import ModalService from './Modal.ts';
 import { keyboardEventListener } from '@/core/minigame/index.ts';
 
 import App from '@/App.vue';
+import { reinitializeMusic } from '@/core/music.ts';
 
 export function init() {
 	try {
@@ -78,4 +79,5 @@ export function init() {
 		stopSaveLoop();
 		throw e;
 	}
+	reinitializeMusic();
 }

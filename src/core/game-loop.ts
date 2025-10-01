@@ -128,7 +128,7 @@ export function gameLoop() {
 	for (let i = 1; i <= unlp; i++) {
 		if (!player.checkedPlots.includes(i) && temp.plotdisplay == 0) enterPlot(i);
 	}
-	
+
 	equipmentDestroyLoop();
 }
 function r(s: number): number {

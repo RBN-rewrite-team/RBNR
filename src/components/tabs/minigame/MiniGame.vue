@@ -11,8 +11,7 @@ import {
 	type CoreEquipment,
 } from '@/core/minigame';
 import { player } from '@/core/save';
-import ObjectNode from '../developermode/ObjectNode';
-import MiniGameTD from '../../group-2/MiniGameTD.vue';
+import MiniGameTD from './MiniGameTD.vue';
 import {
 	isPlayerVisible,
 	visibleBlocks,
@@ -41,19 +40,9 @@ import {
 import ModalService from '@/utils/Modal';
 import SkillTree from '../minigame/SkillTree.vue';
 import { playerSafe, playerToDestination } from '@/core/minigame/path-searcher';
+import MobileTable from './mobileTable.vue';
+import NumerorumDetails from './NumerorumDetails.vue';
 
-function spawn(id: number): void {
-	((player.minigame.current_room = id),
-		(player.minigame.current_x = 1n),
-		(player.minigame.current_y = 1n));
-	player.minigame.hp = meBattleInfo().hpMax;
-	if (!player.minigame.visited.includes(id)) player.minigame.visited.push(id);
-	for (let k in player.minigame.replaces) {
-		let repl = player.minigame.replaces[k];
-		for (let i in repl)
-			if (player.minigame.replaces[k][i].recover) delete player.minigame.replaces[k][i];
-	}
-}
 function formatbigint(b: bigint) {
 	if (b < 1000n) return b.toString();
 	let a = b.toString();
@@ -112,7 +101,6 @@ function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof
 	} else if (!putedblock) {
 		console.log(room, x, y);
 		if (playerSafe(block)) {
-			
 			playerToDestination(x, y)
 				.then(function () {
 					temp.minigametip = '移动完成';
@@ -143,26 +131,6 @@ function exitEditor() {
 		player.minigame.current_y = 1n;
 	}
 }
-function openCore() {
-	temp.openingCore = !temp.openingCore;
-	if (temp.openingCore && temp.coreViewEquipment !== null) {
-		if (player.minigame.storeEquipments.length == 0) {
-			if (player.minigame.coreEquipments.hea.length == 0) {
-				if (player.minigame.coreEquipments.atk.length == 0) {
-					if (player.minigame.coreEquipments.def.length == 0) {
-						temp.openingCore = !temp.openingCore;
-						return;
-					}
-					temp.coreViewEquipment = player.minigame.coreEquipments.def[0];
-				}
-				temp.coreViewEquipment = player.minigame.coreEquipments.atk[0];
-			}
-			temp.coreViewEquipment = player.minigame.coreEquipments.hea[0];
-		}
-		temp.coreViewEquipment = player.minigame.storeEquipments[0];
-	}
-}
-
 function changeCoreView(eq: CoreEquipment) {
 	temp.coreViewEquipment = eq;
 }
@@ -184,121 +152,8 @@ function isEquipped(eq: CoreEquipment) {
 
 <template>
 	<div class="main">
-		
-		<table
-			style="position: absolute; bottom: 0; left: 0; width: 100%; height: 100px; z-index: 6"
-			v-if="temp.innerWidth < 800"
-		>
-			<tbody>
-				<tr>
-					<td style="width: 25%" @click="temp.dungeonsSP = 0">人物属性</td>
-					<td style="width: 25%" @click="temp.dungeonsSP = 1">技能树</td>
-					<td style="width: 25%" @click="temp.dungeonsSP = 2">
-						{{ temp.openingCore ? '核心' : '地下城' }}
-					</td>
-					<td style="width: 25%" @click="temp.dungeonsSP = 3">？？？</td>
-				</tr>
-			</tbody>
-		</table>
-		<div
-			style="
-				position: absolute;
-				left: 0%;
-				width: 400px;
-				height: 200px;
-				background-color: grey;
-				z-index: 6;
-			"
-			v-if="temp.dungeonsSP == 0 || temp.innerWidth >= 800"
-		>
-			Numerorum<br />
-			<div style="position: relative; height: 50px; width: 400px; background-color: black">
-				<div align="center" style="font-size: 17px; color: white">
-					生命值：{{ meBattleInfo().hp.toFixed(1) }}/{{
-						meBattleInfo().hpMax.toFixed(1)
-					}}({{ Math.ceil((meBattleInfo().hp / meBattleInfo().hpMax) * 100) }}%)
-				</div>
-				<div
-					:style="{
-						position: 'absolute',
-						height: '25px',
-						width: (meBattleInfo().hp / meBattleInfo().hpMax) * 400 + 'px',
-						'background-color': 'red',
-					}"
-				></div>
-			</div>
-			<table style="width: 100%">
-				<tbody>
-					<tr>
-						<td>当前攻击力: {{ meBattleInfo().atk.toFixed(1) }}</td>
-						<td>当前防御: {{ meBattleInfo().def.toFixed(1) }}</td>
-					</tr>
-					<tr>
-						<td>
-							当前LV: {{ currentPlayerLV().toFixed(0) }}<br />
-							(世界等级: {{ getWorldLevel().toFixed(1) }})
-						</td>
-						<td
-							:style="{
-								'background-image':
-									'linear-gradient(to right, green ' +
-									LVpercent() * 100 +
-									'%, black ' +
-									LVpercent() * 100 +
-									'%)',
-								color: 'white',
-							}"
-						>
-							当前XP: {{ player.minigame.xp.toFixed(0) }}/{{ nextLVxp().toFixed(0) }}
-						</td>
-					</tr>
-					<tr>
-						<td>
-							矿石收集：{{ player.minigame.ore_gets }}<br />(+{{
-								player.minigame.ore_gets * 0.25
-							}}%全局速度)
-						</td>
-						<td>
-							宝箱收集：<span
-								style="color: rgb(186, 110, 64)"
-								v-html="player.minigame.box_gets[0]"
-							/>/<span
-								style="color: rgb(233, 233, 216)"
-								v-html="player.minigame.box_gets[1]"
-							/>/<span
-								style="color: rgb(218, 178, 115)"
-								v-html="player.minigame.box_gets[2]"
-							/>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<button @click="spawn(0)">Dungeon 1</button><br />
-							<button @click="spawn(1)" v-if="player.minigame.visited.includes(1)">
-								Dungeon 2
-							</button>
-						</td>
-						<td>
-							<button @click="openCore()">
-								核心(装备{{
-									player.minigame.coreEquipments.hea.length +
-									player.minigame.coreEquipments.atk.length +
-									player.minigame.coreEquipments.def.length
-								}}/3)</button
-							><br />
-							仓库装备：{{ player.minigame.storeEquipments.length }}/50<span
-								style="color: cyan"
-								>(不朽x{{
-									player.minigame.storeEquipments.filter((item) => {
-										return item.rarity >= 1.9;
-									}).length
-								}})</span
-							>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+		<MobileTable />
+		<NumerorumDetails />
 		<br />
 		<div
 			style="
@@ -329,14 +184,18 @@ function isEquipped(eq: CoreEquipment) {
 					攻击力+{{ equipmentAttribute(temp.coreViewEquipment).atk.toFixed(1) }}<br />
 					防御力+{{ equipmentAttribute(temp.coreViewEquipment).def.toFixed(1) }}<br />
 					<div style="position: absolute; bottom: 0; width: 100%; height: 50px">
-						<div style="height: 40px; width: 25%; border: 2px solid red"
-						v-if="!(temp.coreViewEquipment.equipped ?? false)"
-						@click="equip(temp.coreViewEquipment)">
+						<div
+							style="height: 40px; width: 25%; border: 2px solid red"
+							v-if="!(temp.coreViewEquipment.equipped ?? false)"
+							@click="equip(temp.coreViewEquipment)"
+						>
 							装备
 						</div>
-						<div style="height: 40px; width: 25%; border: 2px solid orange"
-						v-else
-						@click="unload(temp.coreViewEquipment)">
+						<div
+							style="height: 40px; width: 25%; border: 2px solid orange"
+							v-else
+							@click="unload(temp.coreViewEquipment)"
+						>
 							取消装备
 						</div>
 					</div>
@@ -578,12 +437,16 @@ function isEquipped(eq: CoreEquipment) {
 										getCurrentBlock(player.minigame.current_room, x, y)
 									"
 								></MiniGameTD>
-								<td v-else-if="inPathData(x, y)" style="background-color: green; 
-									height: 60px;
-									width: 60px;
-									min-height: 60px;
-									min-width: 60px;">
-								</td>
+								<td
+									v-else-if="inPathData(x, y)"
+									style="
+										background-color: green;
+										height: 60px;
+										width: 60px;
+										min-height: 60px;
+										min-width: 60px;
+									"
+								></td>
 							</template>
 
 							<td

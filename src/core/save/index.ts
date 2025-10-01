@@ -124,6 +124,8 @@ export interface Player {
 		};
 		challengeDetial: boolean;
 		allowOffline: boolean;
+		music: number;
+		music_url: string;
 	};
 	stat: PlayerStat;
 	challengein: FixedLengthArray<number, 2>;
@@ -253,6 +255,8 @@ function getInitialPlayerData(): Player {
 				newsbar: true,
 				titlebar: true,
 			},
+			music: 0,
+			music_url: '',
 			challengeDetial: false,
 			allowOffline: true,
 		},
