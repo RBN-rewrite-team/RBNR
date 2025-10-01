@@ -210,7 +210,7 @@ export const WellOrderingUpgrades = {
 		}
 	})(),
 	U6R18: new (class extends Upgrade {
-		description = '推演能量×1e100';
+		description = '推演能量×1e100<br>解锁<b style="color: purple">果报</b>';
 		cost = new Decimal('1e1800');
 		name = 'U6-R-1-8';
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
