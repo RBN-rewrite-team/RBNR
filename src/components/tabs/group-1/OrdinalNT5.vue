@@ -10,7 +10,8 @@ import {
 import TDUpgrade from '../../group-2/TDUpgrade.vue';
 import TDBuyable from '../../group-2/TDBuyable.vue';
 import Baixie from '@/components/group-2/Baixie.vue';
-
+import { component as convertTextToComponent } from '../help/text-to-component-convert.tsx';
+import prssdefinition from '../ordinalnt5-content/prss-definition.txt?raw';
 function getCurrentSequenceName(): string {
 	const selecting = player.numbertheory.well_ordering.selecting;
 	if (selecting === 0) return '无';
@@ -86,18 +87,7 @@ function getCurrentSequenceName(): string {
 		</table>
 	</div>
 	<div v-if="player.numbertheory.well_ordering.selecting === 1" align="center">
-		初等序列<vue-latex expression="(a_0,a_1,\ldots,a_{m-1},a_m)" />定义如下：
-		<vue-latex expression="1.\ () = 0" display-mode />
-		<vue-latex expression="2.\ (\#,0) = (\#)+1" display-mode />
-		<div>
-			<vue-latex
-				expression="3.\ (\#_1,{\color{Red} a_i,\#_2},a_k) = (\#_1,{\color{Red} a_i,\#_2},{\color{Blue} a_i,\#_2},\ldots)"
-			/>，其中<vue-latex expression="\#_1,\#_2" />为任意两段合法序列，<vue-latex
-				expression="a_k>0"
-			/>，<br /><vue-latex expression="a_i = a_k-1" />为<vue-latex
-				expression="a_k"
-			/>前首个小于<vue-latex expression="a_k" />的数，<br />省略号代表任意有限次循环的极限。
-		</div>
+		<convertTextToComponent :text="prssdefinition" />
 		<div class="center_line" />
 		<div>
 			<button
