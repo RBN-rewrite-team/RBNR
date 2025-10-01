@@ -32,7 +32,7 @@ import SingularityGenerator from './components/tabs/group-1/SingularityGenerator
 import BlackHole from './components/group-2/BlackHole.vue';
 import Ordinal from './components/tabs/group-1/Ordinal.vue';
 import OrdinalNT from './components/tabs/group-1/OrdinalNT.vue';
-import Help from './components/tabs/group-1/Help.vue';
+import Help from './components/tabs/help/Help.vue';
 import Accelerator from './components/tabs/group-1/Accelerator.vue';
 import TimeShard from './components/tabs/group-1/TimeShard.vue';
 import Hydra from './components/tabs/group-1/Hydra.vue';
@@ -48,7 +48,7 @@ import StudyTree from './components/tabs/nonrecursion/StudyTree.vue';
 import MiniGame from './components/tabs/group-1/MiniGame.vue';
 import AutomatorEditor from './components/tabs/group-1/AutomatorEditor.vue';
 import NonRecursionTabUpgrade from './components/tabs/nonrecursion/NonRecursionTabUpgrade.vue';
-import Mountain from "./components/tabs/y/Mountain.vue"
+import Mountain from './components/tabs/y/Mountain.vue';
 import NonRecursionUNOCF from './components/tabs/nonrecursion/NonRecursionUNOCF.vue';
 import { isTester } from './core/save/testing.ts';
 </script>

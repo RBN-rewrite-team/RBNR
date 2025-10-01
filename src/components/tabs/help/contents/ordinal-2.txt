@@ -1,0 +1,31 @@
+与自然数类似，序数之间也可以进行运算。对自然数之间的运算规则进行推广，我们便可以得到序数之间的运算规则
+序数的加法定义为：
+1. 对任意序数\(\alpha\)，\(\alpha+0 = \alpha\)
+2. 对任意序数\(\alpha, \beta\)，\(\alpha+\beta = (\alpha+\beta)\)
+3. 对任意序数\(\alpha\)和极限序数\(\beta\)，\(\alpha+\beta = \sup\{\alpha+γ|γ<\beta\}\)
+特别地，如果我们考虑的极限序数的基本列为\(\beta[n]\)，那么上述第三条规则可以进一步表示为
+\[a+\beta=\sup_n\{\alpha+\beta[n]\}"\]
+注意，序数的加法并不满足交换律，但可以验证，序数的加法仍然满足结合律。
+类似的，序数的乘法定义为：
+1. 对任意序数\(\alpha\)，\(\alpha\cdot0 = 0\)
+2. 对任意序数\(\alpha, \beta\)，\(\alpha\cdot\beta = \alpha\cdot\beta+\alpha\)
+3. 对任意序数\(\alpha\)和极限序数\(\beta\)，\(\alpha\cdot\beta = \sup\{\alpha\cdotγ|γ<\beta\}\)
+特别地，如果我们考虑的极限序数的基本列为\(\beta[n]\)，那么上述第三条规则可以进一步表示为
+\[a\cdot\beta=\sup_n\{\alpha\cdot\beta[n]\}"\]
+由上述定义可知，序数的加法满足结合律和左分配律
+\[(\alpha\cdot\beta)\cdotγ = \alpha\cdot(\beta\cdotγ),\]
+\[\alpha\cdot(\beta+γ) = \alpha\cdot\beta+\alpha\cdotγ\]
+右分配律是不满足的，例如：
+\[(\omega+1)\cdot2 = (\omega+1)+(\omega+1) = \omega+(1+\omega)+1 = \omega+\omega+1 = \omega\cdot2+1\]
+可以验证，序数的乘法同样不满足交换律
+类似的，序数的指数定义为：
+1. 对任意序数\(\alpha\)，\(\alpha^0 = 1\)
+2. 对任意序数\(\alpha, \beta\)，\(\alpha^{\beta} = \alpha^\beta\cdot\alpha\)
+3. 对任意序数\(\alpha\)和极限序数\(\beta\)，\(\alpha^\beta = \sup\{\alpha^γ|γ<\beta\}\)
+特别地，如果我们考虑的极限序数的基本列为\(\beta[n]\)，那么上述第三条规则可以进一步表示为
+\[a^\beta=\sup_n\{\alpha^{\beta[n]}\}"\]
+可以验证，序数指数满足如下的运算规则：
+\[\alpha^{\beta+γ} = \alpha^\beta\cdot\alpha^γ,"\]
+\[(\alpha^\beta)^γ = \alpha^{\beta\cdotγ}"\]
+相比于自然数运算来说，序数运算的一个重要特征是不动点的存在。
+我们称某个序数\(\beta\)是\(\alpha\mapsto f(\alpha)\)的不动点，指的是若将\(\beta\)变换为\(f(\beta)\)，有\(\beta = f(\beta)\)
