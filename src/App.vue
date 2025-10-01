@@ -31,7 +31,7 @@ import LogDilate from './components/tabs/group-1/LogDilate.vue';
 import SingularityGenerator from './components/tabs/group-1/SingularityGenerator.vue';
 import BlackHole from './components/group-2/BlackHole.vue';
 import Ordinal from './components/tabs/group-1/Ordinal.vue';
-import OrdinalNT from './components/tabs/group-1/OrdinalNT.vue';
+import OrdinalNT from './components/tabs/ordinalnt/OrdinalNT.vue';
 import Help from './components/tabs/help/Help.vue';
 import Accelerator from './components/tabs/group-1/Accelerator.vue';
 import TimeShard from './components/tabs/group-1/TimeShard.vue';
@@ -45,12 +45,11 @@ import NonRecursionMilestones from './components/tabs/nonrecursion/NonRecursionM
 import NonRecursionFactor from './components/tabs/nonrecursion/NonRecursionFactor.vue';
 import NonRecursionTabChal from './components/tabs/nonrecursion/NonRecursionTabChal.vue';
 import StudyTree from './components/tabs/nonrecursion/StudyTree.vue';
-import MiniGame from './components/tabs/group-1/MiniGame.vue';
+import MiniGame from './components/tabs/minigame/MiniGame.vue';
 import AutomatorEditor from './components/tabs/group-1/AutomatorEditor.vue';
 import NonRecursionTabUpgrade from './components/tabs/nonrecursion/NonRecursionTabUpgrade.vue';
 import Mountain from './components/tabs/y/Mountain.vue';
 import NonRecursionUNOCF from './components/tabs/nonrecursion/NonRecursionUNOCF.vue';
-import { isTester } from './core/save/testing.ts';
 </script>
 
 <template>
