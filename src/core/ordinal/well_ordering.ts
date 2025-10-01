@@ -209,7 +209,17 @@ export const WellOrderingUpgrades = {
 			return player.upgrades[76];
 		}
 	})(),
+	U6R18: new (class extends Upgrade {
+		description = '推演能量×1e100';
+		cost = new Decimal('1e1790');
+		name = 'U6-R-1-8';
+		currency: Currencies = Currencies.DEDUCE_ENERGY;
+		show(): boolean {
+			return player.upgrades[76];
+		}
+	})(),
 } as const;
+
 export const nt = {
 	get p() {
 		return player.numbertheory.well_ordering;
@@ -232,7 +242,7 @@ export function wellOrderGainPerClick() {
 	if (player.numbertheory.well_ordering.steps_proceeded.includes(14)) a = a.pow(1.5);
 
 	if (a.gte(1e15)) a = a.log10().div(15).pow(0.5).mul(15).pow10();
-
+	if (player.upgrades.U6R18) a = a.mul(1e100);
 	return a;
 }
 export function clickWellOrder() {
@@ -255,6 +265,8 @@ const ProcceedingCost = [
 	new Decimal('1e695'),
 	new Decimal('1e700'),
 	new Decimal('1e1125'),
+	new Decimal('1e2435'),
+	new Decimal('1e2440'),
 	new Decimal(1 / 0),
 ];
 
