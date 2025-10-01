@@ -57,5 +57,9 @@ import {
 				<vue-latex :expression="getBMSOLReq(getOrdinalLevel())" />
 			</div>
 		</div>
+		<p>
+			Your Numerorum is
+			{{ format((Date.now() - player.saveCreateTime) / 1000 / 31536000) }} years old.
+		</p>
 	</div>
 </template>
