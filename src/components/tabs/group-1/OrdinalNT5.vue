@@ -12,6 +12,7 @@ import TDBuyable from '../../group-2/TDBuyable.vue';
 import Baixie from '@/components/group-2/Baixie.vue';
 import { component as convertTextToComponent } from '../help/text-to-component-convert.tsx';
 import prssdefinition from '../ordinalnt5-content/prss-definition.txt?raw';
+import bmsdefinition from '../ordinalnt5-content/bms-definition.txt?raw';
 function getCurrentSequenceName(): string {
 	const selecting = player.numbertheory.well_ordering.selecting;
 	if (selecting === 0) return '无';
@@ -700,5 +701,8 @@ function getCurrentSequenceName(): string {
 				<p style="color: green">引理5效果:推演能量获取速度^1.5。</p>
 			</template>
 		</template>
+	</div>
+	<div v-if="player.numbertheory.well_ordering.selecting === 2" align="center">
+		<convertTextToComponent :text="bmsdefinition" />
 	</div>
 </template>
