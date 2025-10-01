@@ -42,7 +42,7 @@ function draw() {
 	const rowPosition: Record<string, number> = {};
 	const calculatedMount = calculatedMountain.value as Mountain;
 
-	let maxRowLabelWidth = 0;
+	let maxRowLabelWidth = columnWidth;
 	const rowLabels: string[] = [];
 
 	for (let cycles = 0; cycles < 2; cycles++) {
@@ -167,13 +167,11 @@ function render1Dmountain(
 
 	const rowID = rowPosition['c' + tempMountain.coord.slice(1).join(',')];
 
-	// 绘制行标
 	ctx.fillStyle = '#777';
 	ctx.textAlign = 'center';
 	ctx.fillText(rowLabel, rowLabelAreaWidth / 2, (rowID + 1) * rowHeight - gap + numberSize * 2);
 	ctx.fillStyle = getRootCssVariable('--color');
 
-	// 绘制数据
 	ctx.beginPath();
 	for (let k = 0; k < (tempMountain as NodeMountain).arr.length; k++) {
 		const point = (tempMountain as NodeMountain).arr[k] as LeafMountain;
