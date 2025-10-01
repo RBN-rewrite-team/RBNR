@@ -25,12 +25,12 @@ function getYSequenceWithoutColon(Y: string): {
 } {
 	let type = '???';
 	if (Y.startsWith('Y(')) {
-	  type = '1-Y';
-	  Y = Y.slice(2, -1);
+		type = '1-Y';
+		Y = Y.slice(2, -1);
 	}
 	if (Y.startsWith('ω-Y(')) {
-	  type = 'ω-Y';
-	  Y = Y.slice(4, -1);
+		type = 'ω-Y';
+		Y = Y.slice(4, -1);
 	}
 	return {
 		type,
