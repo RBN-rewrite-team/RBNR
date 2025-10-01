@@ -31,7 +31,7 @@ import LogDilate from './components/tabs/group-1/LogDilate.vue';
 import SingularityGenerator from './components/tabs/group-1/SingularityGenerator.vue';
 import BlackHole from './components/group-2/BlackHole.vue';
 import Ordinal from './components/tabs/group-1/Ordinal.vue';
-import OrdinalNT from './components/tabs/group-1/OrdinalNT.vue';
+import OrdinalNT from './components/tabs/ordinalnt/OrdinalNT.vue';
 import Help from './components/tabs/help/Help.vue';
 import Accelerator from './components/tabs/group-1/Accelerator.vue';
 import TimeShard from './components/tabs/group-1/TimeShard.vue';
