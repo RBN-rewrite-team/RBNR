@@ -12,7 +12,7 @@ export interface LeafMountain {
 }
 
 export interface NodeMountain {
-	arr: [Mountain, ...Mountain[]];
+	arr: Mountain[];
 	coord: number[];
 	dim: Exclude<number, 0>;
 }
