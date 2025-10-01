@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { calcMountain, findByIndex, findByCoord, type Mountain, type NodeMountain, type LeafMountain } from "../../../utils/y-seq"
-import { ref, reactive, computed, onMounted, watch, nextTick } from "vue"
+import { ref, reactive, computed, onMounted, onUnmounted, watch, nextTick } from "vue"
 const Y = reactive({
   Y: "1,10",
   type: "ω-Y"
@@ -15,11 +15,11 @@ const getYDimensionsLim = (type: string) => {
 const calculatedMountain = computed(() => calcMountain(Y.Y, getYDimensionsLim(Y.type)))
 const mountain = ref<HTMLElement | null>(null)
 
-const rowHeight = 128
-const columnWidth = 128
-const lineThickness = 4
-const numberSize = 40
-const gap = 12
+const rowHeight = 32
+const columnWidth = 32
+const lineThickness = 1
+const numberSize = 10
+const gap = 3
 
 function draw() {
   if (!mountain.value) return
@@ -75,7 +75,7 @@ function draw() {
       if (d >= calculatedMount.dim) {
         if (cycles === 0) {
           let bottomRow = calculatedMount as NodeMountain
-          while (bottomRow.dim > 1) bottomRow = (tempMountain as NodeMountain).arr[0] as NodeMountain
+          while (bottomRow.dim > 1) bottomRow = (bottomRow as NodeMountain).arr[0] as NodeMountain
           ctx.font = `400 ${numberSize}px Computer Modern`
           let totalWidth = 0;
           for (let i = 0; i < bottomRow.arr.length; i++) {
@@ -83,10 +83,12 @@ function draw() {
             totalWidth += columnWidth
           }
           const totalHeight = (rowPosition["c"] + 1) * rowHeight
-          canvas.style.width = totalWidth / 4 + "px"
-          canvas.width = totalWidth
-          canvas.style.height = totalHeight / 4 + "px"
-          canvas.height = totalHeight
+          let dpr = (devicePixelRatio ?? 1)
+          if (typeof visualViewport !== "undefined") dpr *= visualViewport.scale
+          canvas.style.width = totalWidth + "px"
+          canvas.style.height = totalHeight + "px"
+          canvas.width = totalWidth * dpr
+          canvas.height = totalHeight * dpr
           ctx.fillStyle = getRootCssVariable("--background-color") ?? "white"
           ctx.fillRect(0, 0, canvas.width, canvas.height);
           ctx.fillStyle = getRootCssVariable("--color") ?? "black"
@@ -94,6 +96,7 @@ function draw() {
           ctx.lineWidth = lineThickness
           ctx.font = `400 ${numberSize}px Computer Modern`
           ctx.textAlign = "center"
+          ctx.scale(dpr, dpr)
         }
         break;
       }
@@ -131,6 +134,9 @@ function getRootCssVariable(variableName: string): string {
 watch(calculatedMountain, draw)
 
 onMounted(()=>{nextTick(draw)})
+
+let interval = setInterval(draw, 40)
+onUnmounted(()=>clearInterval(draw))
 </script>
 
 <template>
