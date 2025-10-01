@@ -7,6 +7,7 @@ import { computed } from 'vue';
 import { isTester } from '@/core/save/testing.ts';
 import ModalService from '@/utils/Modal';
 import fontUI from '@/core/save/fontUI';
+import { setMusic as incMusic, MUSIC_TEXT, setMusicUrlAndPlay } from '@/core/music';
 
 const validNotations = computed(() =>
 	Object.values(notations).filter((v) => typeof v === 'number'),
@@ -91,6 +92,11 @@ const setFontUI = () => ModalService.show({ title: '设置字体', component: fo
 		>
 			标题栏：{{ player.options.ui.titlebar ? '开' : '关' }}</button
 		><br />
+		<div class="center_line"></div>
+		<button class="setting_button" @click="incMusic">
+			音乐: {{ MUSIC_TEXT[player.options.music] }}
+		</button>
+		<button class="setting_button" @click="setMusicUrlAndPlay">自定义音乐</button>
 	</div>
 	<!-- code... -->
 </template>
