@@ -45,12 +45,11 @@ import NonRecursionMilestones from './components/tabs/nonrecursion/NonRecursionM
 import NonRecursionFactor from './components/tabs/nonrecursion/NonRecursionFactor.vue';
 import NonRecursionTabChal from './components/tabs/nonrecursion/NonRecursionTabChal.vue';
 import StudyTree from './components/tabs/nonrecursion/StudyTree.vue';
-import MiniGame from './components/tabs/group-1/MiniGame.vue';
+import MiniGame from './components/tabs/minigame/MiniGame.vue';
 import AutomatorEditor from './components/tabs/group-1/AutomatorEditor.vue';
 import NonRecursionTabUpgrade from './components/tabs/nonrecursion/NonRecursionTabUpgrade.vue';
 import Mountain from './components/tabs/y/Mountain.vue';
 import NonRecursionUNOCF from './components/tabs/nonrecursion/NonRecursionUNOCF.vue';
-import { isTester } from './core/save/testing.ts';
 </script>
 
 <template>
