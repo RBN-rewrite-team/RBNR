@@ -580,16 +580,26 @@ export const NON_RECURSIVE = {
 		 * UNOCF to nonrec_power(^)
 		 */
 		let d = player.nonrecu.unocf_j.log2().log(2).log(2).sqrt();
+		/**
+		 * UNOCF to prion virus
+		 */
+		let e = player.nonrecu.unocf_j.clampMin(10).log10().div(20).clampMin(1);
 		if (player.nonrecu.unocf_j.lt(512)) b = new Decimal(1);
 		if (player.nonrecu.unocf_j.lt(4096)) c = new Decimal(1);
 		if (player.nonrecu.unocf_j.lt(16384)) d = new Decimal(1);
+		if (player.nonrecu.unocf_j.lt('1e1900')) e = new Decimal(1);
 
 		if (player.milestones.nonrec_23) d = d.mul(1.3);
-
 		if (CHALLENGE.inChallenge(1, 6)) {
-			[a, b, c, d] = [new Decimal(1), new Decimal(1), new Decimal(1), new Decimal(1)];
+			[a, b, c, d, e] = [
+				new Decimal(1),
+				new Decimal(1),
+				new Decimal(1),
+				new Decimal(1),
+				new Decimal(1),
+			];
 		}
-		return [a, b, c, d];
+		return [a, b, c, d, e];
 	},
 	std112() {
 		let a = getTotalTheories();

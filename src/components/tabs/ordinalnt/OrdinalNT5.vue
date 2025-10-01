@@ -13,6 +13,9 @@ import Baixie from '@/components/group-2/Baixie.vue';
 import { component as convertTextToComponent } from '../help/text-to-component-convert.tsx';
 import prssdefinition from './ordinalnt5-content/prss-definition.txt?raw';
 import bmsdefinition from './ordinalnt5-content/bms-definition.txt?raw';
+import bmswellorder1 from './ordinalnt5-content/bms-wellorder-1.txt?raw';
+import bmswellorder1prove from './ordinalnt5-content/bms-wellorder-1-prove.txt?raw';
+import PageSelect from './PageSelect.vue';
 function getCurrentSequenceName(): string {
 	const selecting = player.numbertheory.well_ordering.selecting;
 	if (selecting === 0) return '无';
@@ -83,6 +86,7 @@ function getCurrentSequenceName(): string {
 					<TDUpgrade upgid="U6R15" />
 					<TDUpgrade upgid="U6R16" />
 					<TDUpgrade upgid="U6R17" />
+					<TDUpgrade upgid="U6R18" />
 				</tr>
 			</tbody>
 		</table>
@@ -90,35 +94,7 @@ function getCurrentSequenceName(): string {
 	<div v-if="player.numbertheory.well_ordering.selecting === 1" align="center">
 		<convertTextToComponent :text="prssdefinition" />
 		<div class="center_line" />
-		<div>
-			<button
-				class="clickable_button"
-				style="display: inline-block"
-				@click="
-					player.numbertheory.well_ordering.pages[
-						player.numbertheory.well_ordering.selecting - 1
-					] = Math.max(
-						player.numbertheory.well_ordering.pages[
-							player.numbertheory.well_ordering.selecting - 1
-						] - 1,
-						0,
-					)
-				"
-			>
-				-
-			</button>
-			<button
-				class="clickable_button"
-				style="display: inline-block"
-				@click="
-					player.numbertheory.well_ordering.pages[
-						player.numbertheory.well_ordering.selecting - 1
-					]++
-				"
-			>
-				+</button
-			>(第{{ player.numbertheory.well_ordering.pages[0] + 1 }}页)
-		</div>
+		<PageSelect />
 		<template v-if="player.numbertheory.well_ordering.pages[0] == 0">
 			<div class="center_line" />
 			<p>
@@ -704,5 +680,30 @@ function getCurrentSequenceName(): string {
 	</div>
 	<div v-if="player.numbertheory.well_ordering.selecting === 2" align="center">
 		<convertTextToComponent :text="bmsdefinition" />
+		<PageSelect />
+		<template v-if="player.numbertheory.well_ordering.pages[1] == 0">
+			<button
+				class="clickable_button"
+				@click="stepProceed(15)"
+				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(15)"
+				style="display: inline-block"
+			>
+				定义引理1，消耗1.000e2435推演能量
+			</button>
+			<template v-else>
+				<convertTextToComponent :text="bmswellorder1" />
+				<button
+					class="clickable_button"
+					@click="stepProceed(16)"
+					v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(16)"
+					style="display: inline-block"
+				>
+					证明引理1，消耗1.000e2440推演能量
+				</button>
+				<template v-else>
+					<convertTextToComponent :text="bmswellorder1prove" />
+				</template>
+			</template>
+		</template>
 	</div>
 </template>
