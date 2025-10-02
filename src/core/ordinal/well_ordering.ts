@@ -271,7 +271,9 @@ export const WellOrderingUpgrades = {
 			return player.numbertheory.well_ordering.steps_proceeded.includes(18);
 		}
 		effect() {
-		  return player.nonrecu.secInThisReset.pow_base(10)
+		  let base = player.nonrecu.secInThisReset.pow_base(10)
+		  if (base.gte("e2.5e7")) base = base.log10().div(2.5e7).pow(0.5).sub(1).mul(2).add(1).mul(2.5e7).pow10()
+		  return base
 		}
 		effectDescription() {
 		  return "x"+format(this.effect())
@@ -331,6 +333,9 @@ const ProcceedingCost = [
 	new Decimal('1e8320'),
 	new Decimal('1e42258'),
 	new Decimal('1e75000'),
+	new Decimal('e5e5'),
+	new Decimal('ee6'),
+	new Decimal('ee8'),
 	new Decimal(1 / 0),
 ];
 

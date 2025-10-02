@@ -110,6 +110,7 @@ export function gameLoop() {
 			stopGameLoop();
 			return;
 		} else {
+		  diff = 60000
 			player.timeshard.value = player.timeshard.value.add(msToTimeshard(diff));
 		}
 	}
@@ -178,7 +179,9 @@ export function simulate(diff: number) {
 
 	if (player.nonrecu.studies_bought.includes(1))
 		pre_cardinal_diff *= 2 ** (!CHALLENGE.inChallenge(1, 3) ? 1 : -1);
-	player.nonrecu.secInThisReset = player.nonrecu.secInThisReset.add(pre_cardinal_diff / 1000);
+	let nonrecuDiffForSecInThisReset = new Decimal(pre_cardinal_diff / 1000)
+	if (player.upgrades[77]) nonrecuDiffForSecInThisReset = nonrecuDiffForSecInThisReset.mul(upgrades[77].effect())
+	player.nonrecu.secInThisReset = player.nonrecu.secInThisReset.add(nonrecuDiffForSecInThisReset);
 	qolLoop();
 	CHALLENGE.challengeLoop();
 	if (player.singularity.stage < 11) {

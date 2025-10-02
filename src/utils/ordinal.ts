@@ -301,7 +301,7 @@ export const OrdinalUtils = {
 					.toNumber();
 				return PostBOOrdinalTable[1][index];
 			}
-			if (x.lt(base.pow(base).add(base.pow(2).mul(3)).pow_base(4).pow_base(4))) {
+			if (x.lt("ee8.07230472602822538e153")) {
 				let len = PostBOOrdinalTable[2].length;
 				let index = x
 					.log(base)
@@ -312,7 +312,7 @@ export const OrdinalUtils = {
 					.floor()
 					.toNumber();
 				return PostBOOrdinalTable[2][index];
-			}
+			
 			let temp = this.numberToBMS(
 				x.iteratedlog(base, base.sub(2).toNumber()).div(base.pow(2)),
 				new Decimal(4),
@@ -333,6 +333,7 @@ export const OrdinalUtils = {
 			);
 		} else {
 			return `(0)(1<sup>ω</sup>)`;
+		}
 		}
 	},
 	/*

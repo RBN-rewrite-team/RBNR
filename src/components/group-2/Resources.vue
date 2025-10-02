@@ -7,6 +7,7 @@ import { OrdinalUtils } from '@/utils/ordinal';
 import Decimal from 'break_eternity.js';
 import { Ordinal } from '@/lib/ordinal/';
 import { format } from '@/utils/format';
+import { temp } from "../../core/temp-data.ts"
 </script>
 <template>
 	<div class="resources" style="font-size: 20px" id="resources">
@@ -97,7 +98,7 @@ import { format } from '@/utils/format';
 					<span
 						v-html="
 							formatGain(
-								player.hydra.deduceOrdinal[0],
+								temp.lastBMSDeduce,
 								feature.Hydra.deduceSpeed(0),
 							).replace('(', '(推演')
 						"

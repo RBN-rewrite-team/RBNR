@@ -17,6 +17,8 @@ import { player } from '@/core/save';
 					<template v-if="player.milestones.nonrec_26">
 						<TDUpgrade upgid="75"></TDUpgrade>
 						<TDUpgrade upgid="76"></TDUpgrade>
+						<TDUpgrade upgid="77"></TDUpgrade>
+						<TDUpgrade upgid="78"></TDUpgrade>
 					</template>
 				</tr>
 			</tbody>
