@@ -74,18 +74,28 @@ export const WellOrderingBuyables = {
 		name = 'B6-R-1-3';
 		description = '前两个购买项的效果指数+0.05';
 		cost(x: Decimal): Decimal {
-			return x.pow(1.2).pow_base(2).mul(1e15).pow(buyables.B6R21.effect(player.buyables.B6R21));
+			return x
+				.pow(1.2)
+				.pow_base(2)
+				.mul(1e15)
+				.pow(buyables.B6R21.effect(player.buyables.B6R21));
 		}
 		effect(x: Decimal): Decimal {
 			let base = x.mul(B6R13_B6R14_base()).add(1);
-			if (base.gte(2500)) base = base.div(2500).pow(0.5).sub(1).mul(2).add(1).mul(2500)
-			return base
+			if (base.gte(2500)) base = base.div(2500).pow(0.5).sub(1).mul(2).add(1).mul(2500);
+			return base;
 		}
 		effectDescription(x: Decimal) {
 			return '+' + format(this.effect(x).sub(1));
 		}
 		costInverse(x: Decimal): Decimal {
-			return x.root(buyables.B6R21.effect(player.buyables.B6R21)).div(1e15).log(2).root(1.2).add(1).floor();
+			return x
+				.root(buyables.B6R21.effect(player.buyables.B6R21))
+				.div(1e15)
+				.log(2)
+				.root(1.2)
+				.add(1)
+				.floor();
 		}
 		canBuyMax(): boolean {
 			return player.upgrades.U6R15;
@@ -103,8 +113,8 @@ export const WellOrderingBuyables = {
 		}
 		effect(x: Decimal): Decimal {
 			let base = x.mul(B6R13_B6R14_base());
-			if (base.gte(1250)) base = base.div(1250).pow(0.5).sub(1).mul(2).add(1).mul(1250)
-			return base
+			if (base.gte(1250)) base = base.div(1250).pow(0.5).sub(1).mul(2).add(1).mul(1250);
+			return base;
 		}
 		effectDescription(x: Decimal) {
 			return '+' + format(this.effect(x));
@@ -152,21 +162,22 @@ export const WellOrderingBuyables = {
 		name = 'B6-R-2-1';
 		description = '基于推演能量降低B6-R-1-3~4价格';
 		cost(x: Decimal): Decimal {
-			return x.pow_base(this.base()).sub(1).pow_base("1e1800").mul('1e2975');
+			return x.pow_base(this.base()).sub(1).pow_base('1e1800').mul('1e2975');
 		}
 		effect(x: Decimal): Decimal {
 			return x.pow_base(0.95);
 		}
 		base(): Decimal {
-		  let base = new Decimal(2)
-		  if (player.numbertheory.well_ordering.steps_proceeded.includes(18)) base = new Decimal(1.95)
-		  return base.max(1.000001)
+			let base = new Decimal(2);
+			if (player.numbertheory.well_ordering.steps_proceeded.includes(18))
+				base = new Decimal(1.95);
+			return base.max(1.000001);
 		}
 		effectDescription(x: Decimal) {
 			return '^' + format(this.effect(x));
 		}
 		costInverse(x: Decimal): Decimal {
-			return x.div('1e2975').log("1e1800").add(1).log(this.base()).add(1).floor();
+			return x.div('1e2975').log('1e1800').add(1).log(this.base()).add(1).floor();
 		}
 		canBuyMax(): boolean {
 			return false;
@@ -176,7 +187,7 @@ export const WellOrderingBuyables = {
 		}
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 		show(): boolean {
-		  return player.numbertheory.well_ordering.steps_proceeded.includes(17)
+			return player.numbertheory.well_ordering.steps_proceeded.includes(17);
 		}
 	})(),
 } as const;
@@ -272,12 +283,13 @@ export const WellOrderingUpgrades = {
 			return player.numbertheory.well_ordering.steps_proceeded.includes(18);
 		}
 		effect() {
-		  let base = player.nonrecu.secInThisReset.pow_base(10)
-		  if (base.gte("e2.5e7")) base = base.log10().div(2.5e7).pow(0.5).sub(1).mul(2).add(1).mul(2.5e7).pow10()
-		  return base
+			let base = player.nonrecu.secInThisReset.pow_base(10);
+			if (base.gte('e2.5e7'))
+				base = base.log10().div(2.5e7).pow(0.5).sub(1).mul(2).add(1).mul(2.5e7).pow10();
+			return base;
 		}
 		effectDescription() {
-		  return "x"+format(this.effect())
+			return 'x' + format(this.effect());
 		}
 	})(),
 } as const;
@@ -360,9 +372,15 @@ export function wellOrderPlayerData() {
 export function energyToUNOCFSpeed() {
 	return player.numbertheory.well_ordering.energy.add(1).clampMin(1);
 }
-
+export function wellOrderingGain(diff: number) {
+	let a = buyables.B6R11.effect(player.buyables.B6R11).mul(diff).mul(wellOrderGainPerClick());
+	if (player.numbertheory.well_ordering.energy.gte('e1.5e8') && player.retribution < 1) {
+		a = a.clampMax(player.numbertheory.well_ordering.energy.mul('1e1000000'));
+	}
+	return a;
+}
 export function wellOrderingLoop(diff: number) {
 	player.numbertheory.well_ordering.energy = player.numbertheory.well_ordering.energy
-		.add(buyables.B6R11.effect(player.buyables.B6R11).mul(diff).mul(wellOrderGainPerClick()))
-		.clampMax('f1e250');
+		.add(wellOrderingGain(diff))
+		.clampMax('1e750000000');
 }

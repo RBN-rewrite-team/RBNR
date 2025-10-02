@@ -725,7 +725,12 @@ function getCurrentSequenceName(): string {
 				</template>
 			</template>
 		</template>
-		<template v-if="player.numbertheory.well_ordering.pages[1] == 1&&player.numbertheory.well_ordering.steps_proceeded.includes(17)">
+		<template
+			v-if="
+				player.numbertheory.well_ordering.pages[1] == 1 &&
+				player.numbertheory.well_ordering.steps_proceeded.includes(17)
+			"
+		>
 			<convertTextToComponent :text="bmswellorder2" />
 			<button
 				class="clickable_button"
@@ -734,21 +739,26 @@ function getCurrentSequenceName(): string {
 			>
 				证明引理2，消耗1.000e8320推演能量
 			</button>
-      <template v-else>
-        <convertTextToComponent :text="bmswellorder2prove" />
-        <p style="color: green">
-          奖励：移除九头蛇能量的二重软上限，略微降低B6-R-2-1价格的增长速度。
-        </p>
-        					<button
-						class="clickable_button"
-						@click="stepProceed(19)"
-						v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(19)"
-					>
-						解锁引理3，消耗1.00e42,258推演能量
-					</button>
-      </template>
-    </template>
-		<template v-if="player.numbertheory.well_ordering.pages[1] == 2&&player.numbertheory.well_ordering.steps_proceeded.includes(19)">
+			<template v-else>
+				<convertTextToComponent :text="bmswellorder2prove" />
+				<p style="color: green">
+					奖励：移除九头蛇能量的二重软上限，略微降低B6-R-2-1价格的增长速度。
+				</p>
+				<button
+					class="clickable_button"
+					@click="stepProceed(19)"
+					v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(19)"
+				>
+					解锁引理3，消耗1.00e42,258推演能量
+				</button>
+			</template>
+		</template>
+		<template
+			v-if="
+				player.numbertheory.well_ordering.pages[1] == 2 &&
+				player.numbertheory.well_ordering.steps_proceeded.includes(19)
+			"
+		>
 			<convertTextToComponent :text="bmswellorder3" />
 			<button
 				class="clickable_button"
@@ -757,21 +767,24 @@ function getCurrentSequenceName(): string {
 			>
 				证明引理3，消耗1.000e75,000推演能量
 			</button>
-      <template v-else>
-        <convertTextToComponent :text="bmswellorder3prove" />
-        <p style="color: green">
-          奖励：大幅度加成BMS推演速度。
-        </p>
-        					<button
-						class="clickable_button"
-						@click="stepProceed(21)"
-						v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(21)"
-					>
-						解锁引理4，消耗1.00e500,000推演能量
-					</button>
-      </template>
-    </template>
-		<template v-if="player.numbertheory.well_ordering.pages[1] == 3&&player.numbertheory.well_ordering.steps_proceeded.includes(21)">
+			<template v-else>
+				<convertTextToComponent :text="bmswellorder3prove" />
+				<p style="color: green">奖励：大幅度加成BMS推演速度。</p>
+				<button
+					class="clickable_button"
+					@click="stepProceed(21)"
+					v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(21)"
+				>
+					解锁引理4，消耗1.00e500,000推演能量
+				</button>
+			</template>
+		</template>
+		<template
+			v-if="
+				player.numbertheory.well_ordering.pages[1] == 3 &&
+				player.numbertheory.well_ordering.steps_proceeded.includes(21)
+			"
+		>
 			<convertTextToComponent :text="bmswellorder4" />
 			<button
 				class="clickable_button"
@@ -780,25 +793,37 @@ function getCurrentSequenceName(): string {
 			>
 				证明引理4，消耗1.0e1,000,000推演能量
 			</button>
-      <template v-else>
-        <convertTextToComponent :text="bmswellorder4prove" />
-        <p style="color: green">
-          奖励：大幅度加成BMS推演速度。
-        </p>
-        					<button
-						class="clickable_button"
-						@click="stepProceed(23)"
-						v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(23)"
-					>
-						证明BMS的良序性，消耗e100,000,000推演能量。
-					</button>
-      </template>
-    </template>
-		<template v-if="player.numbertheory.well_ordering.pages[1] == 4&&player.numbertheory.well_ordering.steps_proceeded.includes(23)">
+			<template v-else>
+				<convertTextToComponent :text="bmswellorder4prove" />
+				<p style="color: green">奖励：大幅度加成BMS推演速度。</p>
+				<button
+					class="clickable_button"
+					@click="stepProceed(23)"
+					v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(23)"
+				>
+					证明BMS的良序性，消耗e100,000,000推演能量。
+				</button>
+			</template>
+		</template>
+		<template
+			v-if="
+				player.numbertheory.well_ordering.pages[1] == 4 &&
+				player.numbertheory.well_ordering.steps_proceeded.includes(23)
+			"
+		>
 			<convertTextToComponent :text="bmswellorder" />
-			   <p style="color: green">
-          奖励：你可以进行第一次果报重置......
-        </p>
-    </template>
+			<p style="color: green">
+				奖励：你可以进行第一次果报重置......在e150000000推演能量之后，BMS推演速度的slog+{{
+					format(
+						player.numbertheory.well_ordering.energy
+							.log10()
+							.sub(150000000)
+							.div(500000000)
+							.clampMin(0)
+							.clampMax(1),
+					)
+				}},
+			</p>
+		</template>
 	</div>
 </template>

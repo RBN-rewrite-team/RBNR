@@ -545,6 +545,7 @@ export const Hydra = {
 	deduceSpeedBMS(): Decimal {
 		let base = new Decimal(0);
 		if (player.upgrades[61]) base = new Decimal(0.1);
+		if (player.retribution >= 1) base = base = new Decimal(1);
 		if (player.milestones.nonrecu_4) base = DC.D_1;
 		if (player.upgrades[611]) base = base.mul(upgrades[611].effect());
 		base = base.mul(buyables[611].effect(player.buyables[611]));
@@ -642,6 +643,22 @@ export const Hydra = {
 		}
 		if (player.numbertheory.well_ordering.steps_proceeded.includes(22) && base.gt('ee10')) {
 			base = base.log10().log10().log10().pow(1.2).pow10().pow10().pow10();
+		}
+		if (player.numbertheory.well_ordering.steps_proceeded.includes(23) && base.gte(1e10)) {
+			base = Decimal.tetrate(
+				10,
+				base
+					.slog()
+					.add(
+						player.numbertheory.well_ordering.energy
+							.log10()
+							.sub(150000000)
+							.div(500000000)
+							.clampMin(0)
+							.clampMax(1),
+					)
+					.toNumber(),
+			);
 		}
 		return base.min('eee8.07230472602822538e153'); //SHO
 	},
@@ -1091,7 +1108,7 @@ export const Hydra = {
 				new Decimal('ee616.2890708878432'),
 			],
 			['\\psi(\\omega-\\pi-\\Pi_0)', new Decimal('ee2465.8173642473444')],
-			['\\mathrm{SHO}', new Decimal('eee153.90699754796802')],
+			['\\mathrm{SHO}', new Decimal('eeee153.90699754796802')],
 			['\\text{已达BMS极限}', new Decimal(1e400)],
 		],
 		[],

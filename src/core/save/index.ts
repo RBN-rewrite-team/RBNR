@@ -21,7 +21,7 @@ import { getInitialStat, type PlayerStat } from '../stats.ts';
 import { wellOrderPlayerData } from '../ordinal/well_ordering.ts';
 import { Hydra } from '../hydra/hydra.ts';
 
-const version = 11 as const;
+const version = 12 as const;
 export let current_save = 0;
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
 type KeyStringFromDecimal<T> = {
@@ -458,6 +458,11 @@ export function loadFromString(saveContent: string, non_options = false) {
 	if ((player?.version ?? 0) < 10) {
 		hardResetMiniGame();
 	}
+	if ((player?.version ?? 0) < 12) {
+		player.hydra.deduceOrdinal[1] = new Decimal(0);
+		player.hydra.deduceOrdinal[2] = new Decimal(0);
+		player.hydra.deduceOrdinal[3] = new Decimal(0);
+	}
 
 	player.minigame.current_x = BigInt(player.minigame.current_x);
 	player.minigame.current_y = BigInt(player.minigame.current_y);
@@ -620,15 +625,7 @@ export function readSaveDetail(id: number) {
 	if (savecontent_str.stat.chapter >= 4) {
 		details.isOrdinal = true;
 		if (new Decimal(savecontent_str.hydra.deduceOrdinal[0]).gt(0)) {
-			details.number = calculate(
-				OrdinalUtils.numberToBMS(
-					new Decimal(savecontent_str.hydra.deduceOrdinal[0]),
-					DC.D_4,
-					20,
-				)
-					.replace(/\.{3}/g, '')
-					.replace(/>/g, ''),
-			);
+			details.number = format(savecontent_str.hydra.deduceOrdinal[0]);
 		} else {
 			details.number = 'UNK';
 		}
