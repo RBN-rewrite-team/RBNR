@@ -7,13 +7,13 @@ import { MILESTONES } from '../mechanic';
 import { Currencies } from '../currencies';
 import { CHALLENGE } from '../challenge';
 import { DC } from '@/core/constants';
-import { Upgrade } from '../upgrade';
+import { Upgrade,UpgradeWithEffect } from '../upgrade';
 import { getTotalTheories } from './total-theories';
 import { addTheories } from './studies.ts';
 import { energyToUNOCFSpeed } from '../ordinal/well_ordering';
 import type { FixedLengthArray } from 'type-fest';
 import { updateResetStatData } from '../stats.ts';
-
+import{format}from "../../utils/format.ts"
 type NonRecusionTreePreset = {
 	name: string;
 	preset: number[];
@@ -61,6 +61,24 @@ export const NON_RECURSIVE = {
 		'76': new (class extends Upgrade {
 			description: string | (() => string) = '解锁更多数论研究5升级';
 			cost = new Decimal('e8e20');
+			name = 'U6-6';
+			currency: Currencies = Currencies.NONREC;
+		})(),
+		'77': new (class extends UpgradeWithEffect<Decimal> {
+			description = '非递归能量加成当前非递归中的时间获取速度';
+			cost = new Decimal('e5e74');
+			name = 'U6-7';
+			currency: Currencies = Currencies.NONREC;
+			effect(): Decimal {
+			  return player.nonrecu.power.max(1e10).log10().log10().pow(player.upgrades[78]?2:1)
+			}
+			effectDescription() {
+			  return "x"+format(this.effect())
+			}
+		})(),
+		'78': new (class extends Upgrade {
+			description: string | (() => string) = 'U6-7效果变为其平方';
+			cost = new Decimal('ee160');
 			name = 'U6-6';
 			currency: Currencies = Currencies.NONREC;
 		})(),

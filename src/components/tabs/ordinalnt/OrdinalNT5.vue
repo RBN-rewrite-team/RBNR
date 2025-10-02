@@ -16,9 +16,12 @@ import bmsdefinition from './ordinalnt5-content/bms-definition.txt?raw';
 import bmswellorder1 from './ordinalnt5-content/bms-wellorder-1.txt?raw';
 import bmswellorder2 from './ordinalnt5-content/bms-wellorder-2.txt?raw';
 import bmswellorder3 from './ordinalnt5-content/bms-wellorder-3.txt?raw';
+import bmswellorder4 from './ordinalnt5-content/bms-wellorder-4.txt?raw';
+import bmswellorder from './ordinalnt5-content/bms-wellorder.txt?raw';
 import bmswellorder1prove from './ordinalnt5-content/bms-wellorder-1-prove.txt?raw';
 import bmswellorder2prove from './ordinalnt5-content/bms-wellorder-2-prove.txt?raw';
 import bmswellorder3prove from './ordinalnt5-content/bms-wellorder-3-prove.txt?raw';
+import bmswellorder4prove from './ordinalnt5-content/bms-wellorder-4-prove.txt?raw';
 import PageSelect from './PageSelect.vue';
 function getCurrentSequenceName(): string {
 	const selecting = player.numbertheory.well_ordering.selecting;
@@ -764,9 +767,38 @@ function getCurrentSequenceName(): string {
 						@click="stepProceed(21)"
 						v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(21)"
 					>
-						解锁引理4，消耗???推演能量
+						解锁引理4，消耗1.00e500,000推演能量
 					</button>
       </template>
+    </template>
+		<template v-if="player.numbertheory.well_ordering.pages[1] == 3&&player.numbertheory.well_ordering.steps_proceeded.includes(21)">
+			<convertTextToComponent :text="bmswellorder4" />
+			<button
+				class="clickable_button"
+				@click="stepProceed(22)"
+				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(22)"
+			>
+				证明引理4，消耗1.0e1,000,000推演能量
+			</button>
+      <template v-else>
+        <convertTextToComponent :text="bmswellorder4prove" />
+        <p style="color: green">
+          奖励：大幅度加成BMS推演速度。
+        </p>
+        					<button
+						class="clickable_button"
+						@click="stepProceed(23)"
+						v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(23)"
+					>
+						证明BMS的良序性，消耗e100,000,000推演能量。
+					</button>
+      </template>
+    </template>
+		<template v-if="player.numbertheory.well_ordering.pages[1] == 4&&player.numbertheory.well_ordering.steps_proceeded.includes(23)">
+			<convertTextToComponent :text="bmswellorder" />
+			   <p style="color: green">
+          奖励：你可以进行第一次果报重置......
+        </p>
     </template>
 	</div>
 </template>

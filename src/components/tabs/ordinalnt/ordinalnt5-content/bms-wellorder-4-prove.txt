@@ -1,0 +1,13 @@
+
+证明.
+我们构造一个 \(\Sigma_{n+1}\) 公式，当在 \(L_\beta\) 中解释时，断言蕴涵左侧语句的所有真实例，当在 \(L_\alpha\) 中解释时，断言蕴涵右侧语句的相应实例。一个小问题是第一个断言是无条件的。然而，\(f(\delta_0)<\alpha\) 部分只是断言 \(f(\delta_0)\) 存在于 \(L_\alpha\) 中，这将通过存在量化变量来完成，并且由于 \(\gamma<\alpha\le\delta_0\) 必然为真，\(\gamma<f(\delta_0)\) 等价于 \(\gamma<\delta_0\Rightarrow\gamma<f(\delta_0)\)，这是一个条件语句。
+
+我们构造一个以 \(\gamma_0,\gamma_1,...,\gamma_{|X|-1}\) 为参数的公式，这些是 \(X\) 的所有元素。由于它们是小于 \(\alpha\) 的序数，它们在 \(L_\alpha\) 中，因此我们可以将它们用作我们希望使用 \(\alpha\) 和 \(\beta\) 之间的稳定性关系来反射的公式中的参数。
+
+令 \(\varphi_0(\eta,\xi)\) 为断言 \(\eta<\xi\) 的公式。令 \(\varphi_1(\eta,\xi,k)\) 为断言 \(\eta<_k\xi\) 的公式。令 \(\varphi_2(\eta,k)\) 为断言 \(\eta<_kOrd\) 的公式，即 \(\langle L_\eta,\in\rangle\prec_{\Sigma_{k+1}}\langle L,\in\rangle\)。
+
+\(\varphi_0\) 显然是 \(\Sigma_0\) 的，因为它就是原子公式 \(\eta\in\xi\)。这意味着它是 \(\Sigma_{n+1}\) 的。\(\varphi_1\) 只需要断言 \(L_\xi\) 的存在、其特征（特别是它是 \(L\) 的一个层级，这简单来说就是将 \(V=L\) 相对化到它，并且其中的序数正好是 \(\xi\) 的元素，这是平凡的 \(\Sigma_0\)），然后需要断言 \(\varphi_2(\eta,k)\) 在 \(L_\xi\) 中的相对化成立。一阶公式到集合的相对化总是平凡的 \(\Sigma_0\)。假设 \(\varphi_2\) 是一阶的，那么 \(\varphi_1\) 中唯一的无界量词是存在量化 \(L_\xi\) 的量词。那么 \(\varphi_1\) 是 \(\Sigma_1\) 的，这意味着它也是 \(\Sigma_{n+1}\) 的。最后，\(\varphi_2(\eta,k)\) 是 \(\Pi_{k+1}\) 的，如 [kranakis]（定理 1.8）所示，这意味着它是 \(\Sigma_{k+2}\) 的，因此是一阶的。在所有非相对化的 \(\varphi_2\) 的使用中，我们将要求 \(k<n\)，这意味着 \(k+2\le n+1\)，因此它是 \(\Sigma_{n+1}\) 的。
+
+\(X\) 和 \(Y\) 是有限的，并且它们的所有元素都小于 \(\sigma\)，所以对于每个 \(\eta,\xi\in X\cup Y\)，只有有限多个 \(k\) 使得 \(\varphi_1(\eta,\xi,k)\) 为真。那么存在有限多个 \(\varphi_0(\gamma_i,\delta_j)\)、\(\varphi_1(\gamma_i,\delta_j,k)\)、\(\varphi_0(\delta_i,\delta_j)\)、\(\varphi_1(\delta_i,\delta_j,k)\) 和 \(\varphi_2(\delta_i,m)\)（其中 \(k\in\mathbb{N}\) 且 \(m<n\)）的实例，当每个 \(\delta_i\) 被解释为 \(Y\) 的第 \(i\) 个元素时，这些实例为真。因此它们的合取 \(\varphi\) 是有限多个 \(\Sigma_{n+1}\) 公式的合取，所以它本身是一个 \(\Sigma_{n+1}\) 公式。那么我们只需要一个 \(\Sigma_{n+1}\) 公式 \(\psi\) 来断言所有的 \(\delta_i\) 都是序数，这是平凡的。
+
+现在，公式 \(\psi\land\varphi\) 是 \(\Sigma_{n+1}\) 的，因此公式 \(\exists\delta_0,\delta_1,...,\delta_{|Y|-1}(\psi\land\varphi)\) 也是 \(\Sigma_{n+1}\) 的。在 \(L_\beta\) 中，该存在量词的见证是 \(Y\) 的元素，因此该公式在 \(L_\beta\) 中为真。那么由 \(\alpha<_n\beta\)，它在 \(L_\alpha\) 中必须为真，并且由于它编码了 \(X\) 的元素、\(Y\) 的元素和 \(\beta\) 之间所有需要反射到 \(X\) 的元素、\(Y'\) 的元素和 \(\alpha\) 之间的关系的那些关系，该公式在 \(L_\alpha\) 中的见证形成一个集合 \(Y'\)，该集合与唯一的序同构 \(f: Y\to Y'\) 一起满足引理中的条件。□
