@@ -236,7 +236,7 @@ export function getBMSOrdinalLevel(num = player.hydra.deduceOrdinal[0]) {
 	if (num.gte(new Decimal(16 * 4294967296).pow_base(4).pow_base(4))) level++;
 	if (num.gte(new Decimal(16 * 3.402823669209384635e38).pow_base(4).pow_base(4))) level++;
 	if (num.gte(new Decimal(16 * 1.34078079299425971e154).pow_base(4).pow_base(4))) level++;
-	if (num.gte(new Decimal(16 * 5.36312317197703884e154).pow_base(4).pow_base(4))) level++;
+	if (num.gte("eee8.07230472602822538e153")) level++;
 		level++;
 	return level;
 }
