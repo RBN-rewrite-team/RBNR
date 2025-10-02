@@ -17,8 +17,9 @@ export const Y_SEQ = {
 					Decimal,
 					Decimal,
 				],
-			],
-		};
+				[0, 0, 0, 0] as [number, number, number, number],
+			] as const,
+		} as const;
 	},
 	startPrice() {
 		return [new Decimal(10), new Decimal('1f400'), new Decimal('1f400'), new Decimal('1f400')];
@@ -46,6 +47,9 @@ export const Y_SEQ = {
 			player.postnonrec.yseq.dimensions[0][id].max(boughtcount);
 	},
 	dimensionEffect(id: 0 | 1 | 2 | 3) {
-		return player.postnonrec.yseq.dimensions[0][id];
+		return player.postnonrec.yseq.dimensions[0][id].mul(0.05);
+	},
+	yseqDeduceSpeed() {
+		return this.dimensionEffect(0);
 	},
 } as const;

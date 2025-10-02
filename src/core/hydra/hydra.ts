@@ -19,6 +19,7 @@ import { NON_RECURSIVE } from '../nonrecu';
 import { CHALLENGE } from '../challenge';
 import { DC } from '@/core/constants';
 import { temp } from '../../core/temp-data.ts';
+import { Y_SEQ } from '../post-nonrec/y-seq.ts';
 
 const e326649slog = new Decimal('e326649').slog(Math.E);
 const ee154slog = new Decimal('e8.07230472602822538e153').slog(Math.E);
@@ -666,6 +667,7 @@ export const Hydra = {
 		//推演的速度
 		let base = DC.D_0;
 		if (i == 0) base = this.deduceSpeedBMS();
+		if (i == 1) base = Y_SEQ.yseqDeduceSpeed();
 		return base.isNan() ? DC.D_0 : base;
 	},
 	deduceEff(i = 0): Decimal {
