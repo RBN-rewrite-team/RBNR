@@ -90,4 +90,5 @@ export const RETRIBUTION = {
 		}
 		return false;
 	},
+	name: () => player.options.isGuoGao ? "果糕" : "果报"
 };
