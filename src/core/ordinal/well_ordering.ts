@@ -371,9 +371,15 @@ export function wellOrderPlayerData() {
 export function energyToUNOCFSpeed() {
 	return player.numbertheory.well_ordering.energy.add(1).clampMin(1);
 }
-
+export function wellOrderingGain(diff: number) {
+	let a = buyables.B6R11.effect(player.buyables.B6R11).mul(diff).mul(wellOrderGainPerClick());
+	if (player.numbertheory.well_ordering.energy.gte('e1.5e8') && player.retribution < 1) {
+		a = a.clampMax(player.numbertheory.well_ordering.energy.mul('1e1000000'));
+	}
+	return a;
+}
 export function wellOrderingLoop(diff: number) {
 	player.numbertheory.well_ordering.energy = player.numbertheory.well_ordering.energy
-		.add(buyables.B6R11.effect(player.buyables.B6R11).mul(diff).mul(wellOrderGainPerClick()))
-		.clampMax('1e200000000');
+		.add(wellOrderingGain(diff))
+		.clampMax('1e750000000');
 }

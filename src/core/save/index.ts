@@ -618,15 +618,7 @@ export function readSaveDetail(id: number) {
 	if (savecontent_str.stat.chapter >= 4) {
 		details.isOrdinal = true;
 		if (new Decimal(savecontent_str.hydra.deduceOrdinal[0]).gt(0)) {
-			details.number = calculate(
-				OrdinalUtils.numberToBMS(
-					new Decimal(savecontent_str.hydra.deduceOrdinal[0]),
-					DC.D_4,
-					20,
-				)
-					.replace(/\.{3}/g, '')
-					.replace(/>/g, ''),
-			);
+			details.number = format(savecontent_str.hydra.deduceOrdinal[0]);
 		} else {
 			details.number = 'UNK';
 		}
