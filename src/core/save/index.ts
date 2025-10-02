@@ -126,6 +126,7 @@ export interface Player {
 		allowOffline: boolean;
 		music: number;
 		music_url: string;
+		isGuoGao: boolean;
 	};
 	stat: PlayerStat;
 	challengein: FixedLengthArray<number, 2>;
@@ -259,6 +260,7 @@ function getInitialPlayerData(): Player {
 			music_url: '',
 			challengeDetial: false,
 			allowOffline: true,
+			isGuoGao: false
 		},
 		stat: getInitialStat(),
 		challenges: [

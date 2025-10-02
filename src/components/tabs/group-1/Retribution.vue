@@ -11,8 +11,8 @@ function retributionText() {
 </script>
 
 <template>
-	<div class="base">
-		<h1>果报</h1>
+	<div class="baseRetribution">
+		<h1>{{ RETRIBUTION.name() }}</h1>
 		<br />
 		<h3>
 			¶此间便是尽头之路¶<br />
@@ -26,15 +26,15 @@ function retributionText() {
 	</div>
 </template>
 
-<style scoped>
-.base {
+<style>
+.baseRetribution {
 	width: 100%;
 	height: 100%;
-	animation: baseA 0.25s infinite;
+	animation: baseRetributionA 0.25s infinite;
 	background-image: linear-gradient(rgb(18, 0, 0) 0%, rgb(192, 0, 0) 100%);
 }
 
-@keyframes baseA {
+@keyframes baseRetributionA {
 	0%,
 	15% {
 		text-shadow:
@@ -65,6 +65,45 @@ function retributionText() {
 	}
 }
 
+@keyframes baseRetributionAbox {
+	0%,
+	15% {
+		box-shadow:
+			1px 1px 0px red,
+			1px -1px 0px blue,
+			1px -3px 0px green;
+	}
+	25%,
+	40% {
+		box-shadow:
+			-1px -2px 0px red,
+			-1px 0px 0px blue,
+			-1px 2px 0px green;
+	}
+	50%,
+	65% {
+		box-shadow:
+			-2px -2px 0px red,
+			0px -1px 0px blue,
+			2px 0px 0px green;
+	}
+	75%,
+	90% {
+		box-shadow:
+			3px 2px 0px red,
+			2px 2px 0px blue,
+			1px 2px 0px green;
+	}
+}
+
+.retribution {
+	height: 250px;
+	width: 50%;
+	border: 2px solid red;
+	animation: baseRetributionAbox 0.25s infinite;
+	background-color: var(--background-color);
+	color: var(--color);
+}
 @keyframes baseAbox {
 	0%,
 	15% {
