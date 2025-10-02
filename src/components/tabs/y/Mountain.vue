@@ -86,7 +86,7 @@ function draw() {
 				if (d > 1) currentRow++;
 				if (cycles === 1 && d > 1) {
 					const lines = d - 1;
-					ctx.strokeStyle = "#777"
+					ctx.strokeStyle = '#777';
 					ctx.beginPath();
 					for (let i = 0; i < lines; i++) {
 						let y =
@@ -99,7 +99,7 @@ function draw() {
 						ctx.lineTo(canvas.width - lineThickness / 2, y);
 					}
 					ctx.stroke();
-					ctx.strokeStyle = getRootCssVariable("--color")
+					ctx.strokeStyle = getRootCssVariable('--color');
 				}
 				break;
 			}

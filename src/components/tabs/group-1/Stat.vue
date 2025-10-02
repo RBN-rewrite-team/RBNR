@@ -9,29 +9,28 @@ import {
 	ordinalNormal,
 	getBMSOLReq,
 } from '../../../core/ordinal/ordinal-level.ts';
-import { Moon } from "lunarphase-js"
-import { ref, onMounted, onUnmounted, } from 'vue';
-
+import { Moon } from 'lunarphase-js';
+import { ref, onMounted, onUnmounted } from 'vue';
 
 const LunarMap = {
-  "New": "新月",
-  "Waxing Crescent": "峨眉月",
-  "First Quarter": "上弦月",
-  "Waxing Gibbous": "盈凸月",
-  "Full": "满月",
-  "Waning Gibbous": "亏凸月",
-  "Last Quarter": "下弦月",
-  "Waning Crescent": "残月",
-}
+	New: '新月',
+	'Waxing Crescent': '峨眉月',
+	'First Quarter': '上弦月',
+	'Waxing Gibbous': '盈凸月',
+	Full: '满月',
+	'Waning Gibbous': '亏凸月',
+	'Last Quarter': '下弦月',
+	'Waning Crescent': '残月',
+};
 
 function getCNLunarPhase() {
-  const phase = Moon.lunarPhase()
-  return LunarMap[phase] ?? phase
+	const phase = Moon.lunarPhase();
+	return LunarMap[phase] ?? phase;
 }
 
-let updateKey = ref(0)
-let interval = setInterval(()=>updateKey.value++)
-onUnmounted(()=>clearInterval(interval))
+let updateKey = ref(0);
+let interval = setInterval(() => updateKey.value++);
+onUnmounted(() => clearInterval(interval));
 </script>
 
 <template>
@@ -85,7 +84,9 @@ onUnmounted(()=>clearInterval(interval))
 			{{ format((Date.now() - player.saveCreateTime) / 1000 / 31536000) }}年。
 		</p>
 		<p :key="updateKey">
-		  (北半球)月相：{{getCNLunarPhase()}}，月龄占比：{{format(Moon.lunarAgePercent()*100,7)}}%，地月距离：{{format(Moon.lunarDistance()*6371000)}}米
+			(北半球)月相：{{ getCNLunarPhase() }}，月龄占比：{{
+				format(Moon.lunarAgePercent() * 100, 7)
+			}}%，地月距离：{{ format(Moon.lunarDistance() * 6371000) }}米
 		</p>
 	</div>
 </template>

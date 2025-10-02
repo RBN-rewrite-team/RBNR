@@ -2,7 +2,7 @@ import { reactive } from 'vue';
 import { type CoreEquipment } from './minigame/index.ts';
 import type { Path } from './minigame/path-searcher.ts';
 import { player } from './global.ts';
-import Decimal from "break_eternity.js"
+import Decimal from 'break_eternity.js';
 
 export const temp = reactive({
 	select_ach: [0, 0],
@@ -27,7 +27,7 @@ export const temp = reactive({
 	},
 	pathdata: [] as Path[],
 	pathsearch_locker: false,
-	lastBMSDeduce: new Decimal(0)//修复推演速度显示bug
+	lastBMSDeduce: new Decimal(0), //修复推演速度显示bug
 });
 export function inPathData(x: bigint, y: bigint) {
 	if (player.minigame.interact !== 5) return false;

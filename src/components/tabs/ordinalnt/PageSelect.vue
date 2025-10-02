@@ -31,8 +31,9 @@ import { player } from '@/core/save';
 		>
 			+</button
 		>(第{{
-			player.numbertheory.well_ordering.pages[player.numbertheory.well_ordering.selecting - 1] +
-			1
+			player.numbertheory.well_ordering.pages[
+				player.numbertheory.well_ordering.selecting - 1
+			] + 1
 		}}页)
 	</div>
 </template>
