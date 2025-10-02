@@ -162,7 +162,7 @@ import { isTester } from '@/core/save/testing.ts';
 							class="menu2"
 							:class="{ focus: player.currentTab == 15 }"
 							@click="player.currentTab = 15"
-							v-if="player.firstResetBit & 0b1000"
+							v-if="player.firstResetBit & 0b1000 && player.retribution == 0"
 						>
 							序数
 						</div>
@@ -178,7 +178,7 @@ import { isTester } from '@/core/save/testing.ts';
 							class="menu2"
 							:class="{ focus: player.currentTab == 17 }"
 							@click="player.currentTab = 17"
-							v-if="player.upgrades[59]"
+							v-if="player.upgrades[59] && player.retribution == 0"
 						>
 							加速器
 						</div>
