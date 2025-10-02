@@ -277,13 +277,13 @@ import { getCurrentOrdinal } from '../../utils/y-seq.ts';
 					</div>
 				</div>
 				<div class="resource" style="margin-left: 15px" v-if="player.retribution == 1">
-					<div style="font-weight: bold; color: gold">
+					<div style="font-weight: bold; color: #5d8aa8">
 						序数&nbsp;
 						<vue-latex :expression="getCurrentOrdinal(player.hydra.deduceOrdinal[1])" />
 					</div>
 				</div>
 				<div class="resource" style="margin-left: 350px" v-if="player.retribution == 1">
-					<div style="font-weight: bold; color: aquamarine">
+					<div style="font-weight: bold; color: #007f00">
 						压缩九头蛇能量&nbsp;
 						{{ formatWhole(player.hydra.compressedPower) }}
 					</div>
