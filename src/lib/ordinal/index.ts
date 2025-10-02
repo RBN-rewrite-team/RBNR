@@ -23,8 +23,10 @@ export class Ordinal {
 
 	static displayOrdinalColored(ord: Decimal | number, base: Decimal | number = 10) {
 		if (player.upgrades[61]) {
-			if (player.hydra.deduceOrdinal[0].gte('e3.773962424821541352e168'))
+			if (player.hydra.deduceOrdinal[0].gte('e3.773962424821541352e168')) {
+			  if (player.hydra.deduceOrdinal[0].gte('eee8.07230472602822538e153')) return getBMSOLReq(getBMSOrdinalLevel() - 1)
 				return '>' + getBMSOLReq(getBMSOrdinalLevel() - 1);
+			}
 			return calculate(
 				OrdinalUtils.numberToBMS(player.hydra.deduceOrdinal[0], new Decimal(4), 15)
 					.replace('...', '')

@@ -152,7 +152,7 @@ const BMSReq = [
 	'ψ(ψ_α(ψ_β(ψ_γ(Ω_{β_{γ+1}+2}\\cdotω))))',
 	'ψ(ψ_α(ψ_β(ψ_γ(α_{β_{γ+1}+2}\\cdotω))))',
 	'ψ(ψ_α(ψ_β(ψ_γ(β_{γ+2}\\cdotω))))',
-	'\\text{SHO/BMO} = ψ(a(1;@(1;@(\\cdots))))',
+	'\\text{SHO} = ψ(a(1;@(1;@(\\cdots))))',
 ] as const;
 
 export function getBMSOrdinalLevel(num = player.hydra.deduceOrdinal[0]) {
