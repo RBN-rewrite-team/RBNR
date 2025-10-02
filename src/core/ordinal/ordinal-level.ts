@@ -147,7 +147,12 @@ const BMSReq = [
 	'\\psi(ψ_α(ψ_β(α_{β_2+1}+ψ_{β_2}(Ω_{β_2+1})))+ψ_{α_2}(ψ_β(α_{β_2+1}+ψ_{β_2}(Ω_{β_2+1}))))',
 	'\\psi(ψ_α(ψ_β(α_{β_2+1}+ψ_{β_2}(α_{β_2+1}+1))))',
 	'\\psi(ψ_α(ψ_β(α_{β_3+1}+ψ_{β_2}(α_{β_3+1}+1))))',
-	'\\text{SHO} = ψ(a(1;@(1;@(\\cdots))))',
+	'\\psi(ψ_α(ψ_β(β_ω)))',
+	'\\psi(ψ_α(ψ_β(α_{β_ω+1}+ψ_{β_2}(α_{β_ω+1}+1))))',
+	'ψ(ψ_α(ψ_β(ψ_γ(Ω_{β_{γ+1}+2}\\cdotω))))',
+	'ψ(ψ_α(ψ_β(ψ_γ(α_{β_{γ+1}+2}\\cdotω))))',
+	'ψ(ψ_α(ψ_β(ψ_γ(β_{γ+2}\\cdotω))))',
+	'\\text{SHO/BMO} = ψ(a(1;@(1;@(\\cdots))))',
 ] as const;
 
 export function getBMSOrdinalLevel(num = player.hydra.deduceOrdinal[0]) {
@@ -236,7 +241,11 @@ export function getBMSOrdinalLevel(num = player.hydra.deduceOrdinal[0]) {
 	if (num.gte(new Decimal(16 * 4294967296).pow_base(4).pow_base(4))) level++;
 	if (num.gte(new Decimal(16 * 3.402823669209384635e38).pow_base(4).pow_base(4))) level++;
 	if (num.gte(new Decimal(16 * 1.34078079299425971e154).pow_base(4).pow_base(4))) level++;
-	if (num.gte("eee8.07230472602822538e153")) level++;
+	if (num.gte(new Decimal(16 * 5.36312317197703884e154).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(259).pow_base(4).mul(16).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(1024).pow_base(4).mul(16).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(4294967296).pow_base(4).mul(16).pow_base(4).pow_base(4))) level++;
+	if (num.gte(new Decimal(1.34078079299425971e154).pow_base(4).mul(16).pow_base(4).pow_base(4)))
 		level++;
 	return level;
 }

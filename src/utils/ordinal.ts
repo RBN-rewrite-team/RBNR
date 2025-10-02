@@ -301,7 +301,7 @@ export const OrdinalUtils = {
 					.toNumber();
 				return PostBOOrdinalTable[1][index];
 			}
-			if (x.lt('ee8.07230472602822538e153')) {
+			if (x.lt(base.pow(base).add(base.pow(2).mul(3)).pow_base(4).pow_base(4))) {
 				let len = PostBOOrdinalTable[2].length;
 				let index = x
 					.log(base)
