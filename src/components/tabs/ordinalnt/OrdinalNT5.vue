@@ -543,7 +543,7 @@ function getCurrentSequenceName(): string {
 					/>。
 				</p>
 				<p style="color: green">
-					引理3效果:B6-R-1-3, B6-R-1-4的底数再一次翻倍，比引理2.2奖励弱，没做完
+					引理3效果:B6-R-1-3, B6-R-1-4的底数再一次翻倍
 				</p>
 			</template>
 		</template>
