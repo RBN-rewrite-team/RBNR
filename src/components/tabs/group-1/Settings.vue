@@ -90,12 +90,9 @@ const setFontUI = () => ModalService.show({ title: '设置字体', component: fo
 			class="setting_button"
 			@click="player.options.ui.titlebar = !player.options.ui.titlebar"
 		>
-			标题栏：{{ player.options.ui.titlebar ? '开' : '关' }}</button
-		>
-		<button
-			class="setting_button"
-			@click="player.options.isGuoGao = !player.options.isGuoGao"
-		>
+			标题栏：{{ player.options.ui.titlebar ? '开' : '关' }}
+		</button>
+		<button class="setting_button" @click="player.options.isGuoGao = !player.options.isGuoGao">
 			果糕层级：{{ player.options.isGuoGao ? '开' : '关' }}</button
 		><br />
 		<div class="center_line"></div>

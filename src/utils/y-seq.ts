@@ -777,7 +777,7 @@ export function getCurrentYMilestoneIndex(target: Decimal): number {
 export const getCurrentYMilestone = (target: Decimal) => Y_Milestones[getCurrentYMilestoneIndex(target)];
 
 export function getCurrentOrdinal(ord: Decimal): string {
-  let milestone = getCurrentYMilestone(ord)
-  if (milestone?.[2] === undefined) return milestone[1]
-  return milestone.slice(2).join("=")
+	let milestone = getCurrentYMilestone(ord);
+	if (milestone?.[2] === undefined) return milestone[1];
+	return milestone.slice(2).join('=');
 }

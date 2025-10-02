@@ -96,7 +96,7 @@ export const RETRIBUTION = {
 					if (!import.meta.env.DEV) {
 						ModalService.show({
 							title: '无法重置',
-							content: RETRIBUTION.name()+'加载失败，原因：WIP feature',
+							content: RETRIBUTION.name() + '加载失败，原因：WIP feature',
 						});
 						return;
 					}
@@ -113,5 +113,5 @@ export const RETRIBUTION = {
 		}
 		return false;
 	},
-	name: () => player.options.isGuoGao ? "果糕" : "果报"
+	name: () => (player.options.isGuoGao ? '果糕' : '果报'),
 };

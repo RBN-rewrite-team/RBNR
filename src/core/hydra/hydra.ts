@@ -744,7 +744,7 @@ export const Hydra = {
 			base = base.log10().log10().mul(1.1).pow10().pow10();
 		if (player.milestones.nonrec_21 && base.gte(1e10))
 			base = base.log10().log10().mul(1.2).pow10().pow10();
-		return base.min("ee8.07230472602822538e153");
+		return base.min('ee8.07230472602822538e153');
 	},
 	powerGainAfterSoftcap(base: Decimal): Decimal {
 		if (base.gte(this.superSoftcapStart()))
@@ -1054,13 +1054,16 @@ export const Hydra = {
 	addPower(num: Decimal) {
 		player.hydra.power = player.hydra.power
 			.add(num)
-			.min(player.nonrecu.studies_bought.includes(13) ? Infinity : 'e326649').min("ee8.07230472602822538e153");
+			.min(player.nonrecu.studies_bought.includes(13) ? Infinity : 'e326649')
+			.min('ee8.07230472602822538e153');
 		player.hydra.totalPower = player.hydra.totalPower
 			.add(num)
-			.min(player.nonrecu.studies_bought.includes(13) ? Infinity : 'e326649').min("ee8.07230472602822538e153");
+			.min(player.nonrecu.studies_bought.includes(13) ? Infinity : 'e326649')
+			.min('ee8.07230472602822538e153');
 		player.hydra.trueTotalPower = player.hydra.trueTotalPower
 			.add(num)
-			.min(player.nonrecu.studies_bought.includes(13) ? Infinity : 'e326649').min("ee8.07230472602822538e153");
+			.min(player.nonrecu.studies_bought.includes(13) ? Infinity : 'e326649')
+			.min('ee8.07230472602822538e153');
 	},
 	hydraReset(i = 0): void {
 		if (player.hydra.deduceOrdinal[player.hydra.visiting].eq(0)) return;

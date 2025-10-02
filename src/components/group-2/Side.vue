@@ -3,7 +3,7 @@ import { player } from '@/core/save';
 import { Logarithm } from '../../core/exponention/logarithm.ts';
 import { unlockedPlots, viewedPlotLength } from '@/core/plot.ts';
 import { isTester } from '@/core/save/testing.ts';
-import { RETRIBUTION } from "@/core/post-nonrec/retribution"
+import { RETRIBUTION } from '@/core/post-nonrec/retribution';
 </script>
 
 <template>
@@ -217,7 +217,7 @@ import { RETRIBUTION } from "@/core/post-nonrec/retribution"
 							@click="player.currentTab = 28"
 							v-if="player.upgrades['U6R18'] && isTester()"
 						>
-							{{RETRIBUTION.name()}}
+							{{ RETRIBUTION.name() }}
 						</div>
 					</template>
 					<template v-if="(player.firstResetBit & 0b10000) == 0b10000">

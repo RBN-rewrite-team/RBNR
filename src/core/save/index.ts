@@ -260,7 +260,7 @@ function getInitialPlayerData(): Player {
 			music_url: '',
 			challengeDetial: false,
 			allowOffline: true,
-			isGuoGao: false
+			isGuoGao: false,
 		},
 		stat: getInitialStat(),
 		challenges: [

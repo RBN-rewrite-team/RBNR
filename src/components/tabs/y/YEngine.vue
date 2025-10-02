@@ -1,7 +1,3 @@
-<script lang="ts">
+<script lang="ts"></script>
 
-</script>
-
-<template>
-
-</template>
+<template></template>
