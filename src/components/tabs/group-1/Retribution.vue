@@ -3,7 +3,7 @@ import { RETRIBUTION } from "@/core/post-nonrec/retribution"
 </script>
 
 <template>
-	<div class="base">
+	<div class="baseRetribution">
 		<h1>{{RETRIBUTION.name()}}</h1><br>
 		<h3>¶此间便是尽头之路¶<br>
 		达到记号的极限之后，证明记号的良序性，即可来此获得启示<br>
@@ -13,15 +13,15 @@ import { RETRIBUTION } from "@/core/post-nonrec/retribution"
 	</div>
 </template>
 
-<style scoped>
-	.base {
+<style>
+	.baseRetribution {
 		width: 100%;
 		height: 100%;
-		animation: baseA 0.25s infinite;
+		animation: baseRetributionA 0.25s infinite;
 		background-image: linear-gradient(rgb(18, 0, 0) 0%, rgb(192, 0, 0) 100%);
 	}
 	
-	@keyframes baseA {
+	@keyframes baseRetributionA {
 		0%, 15% {
 			text-shadow: 1px 1px 0px red, 1px -1px 0px blue, 1px -3px 0px green;
 		}
@@ -36,7 +36,7 @@ import { RETRIBUTION } from "@/core/post-nonrec/retribution"
 		}
 	}
 	
-	@keyframes baseAbox {
+	@keyframes baseRetributionAbox {
 		0%, 15% {
 			box-shadow: 1px 1px 0px red, 1px -1px 0px blue, 1px -3px 0px green;
 		}
@@ -55,7 +55,7 @@ import { RETRIBUTION } from "@/core/post-nonrec/retribution"
 		height: 250px;
 		width: 50%;
 		border: 2px solid red;
-		animation: baseAbox 0.25s infinite;
+		animation: baseRetributionAbox 0.25s infinite;
 		background-color: var(--background-color);
 		color: var(--color);
 	}
