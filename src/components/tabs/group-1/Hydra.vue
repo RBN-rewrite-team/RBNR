@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { player, feature } from '@/core/global';
-import { format, formatWhole } from '@/utils/format';
+import { format, formatWhole,formatGain } from '@/utils/format';
 import TDUpgrade from '../../group-2/TDUpgrade.vue';
 import TDBuyable from '../../group-2/TDBuyable.vue';
 import { OrdinalUtils } from '@/utils/ordinal';
@@ -9,6 +9,8 @@ import { Dilute } from '@/core/hydra/dilute';
 import { onBeforeUnmount } from 'vue';
 import { calculate } from '@/utils/bms-analyze';
 import convertBMStoMatrixComponent from '@/components/convertBMStoMatrixComponent';
+import { Ordinal } from '@/lib/ordinal/';
+import { temp } from "@/core/temp-data.ts"
 
 function powerFactorHTML(): string {
 	let s = '';
@@ -125,6 +127,53 @@ function hydraAxisHTML(): string {
 
 <template>
 	<div class="main" align="center">
+	  <template v-if="player.retribution >= 1"><span style="color: red"><h3>序数				<span
+						v-html="
+							Ordinal.displayOrdinalColored(
+								player.ordinal.number.floor(),
+								feature.Ordinal.base(),
+							)
+						"
+						v-if="
+							!(
+								player.upgrades[61] &&
+								player.hydra.deduceOrdinal[0].gte('e3.773962424821541352e168')
+							)
+						"
+					/>
+					<vue-latex
+						:expression="
+							Ordinal.displayOrdinalColored(
+								player.ordinal.number.floor(),
+								feature.Ordinal.base(),
+							)
+						"
+						v-else
+					/></h3></span>
+		<span>你已经推演了{{formatWhole(player.hydra.deduceOrdinal[0])}}次<span v-html="formatGain(
+								temp.lastBMSDeduce,
+								feature.Hydra.deduceSpeed(0),
+							)" /></span>
+		<div style="font-weight: bold; color: rgb(200, 190, 245)">
+					九头蛇能量&nbsp;
+					<div style="display: inline; text-shadow: rgb(0, 20, 127) 1px 1px 2px">
+						{{ formatWhole(player.hydra.power) }}
+					</div>
+					<br />
+				</div>
+				<div
+					v-if="feature.Hydra.hydraPowerPassiveGeneration().gt(0)"
+					style="font-size: 17px; display: inline; color: rgb(200, 190, 245)"
+				>
+					<span
+						v-html="
+							formatGain(
+								player.hydra.power,
+								feature.Hydra.hydraPowerPassiveGeneration(),
+							)
+						"
+					/>
+				</div></template><br>
 		<h3 style="color: rgb(200, 190, 245)" v-html="powerFactorHTML()"></h3>
 		<table style="width: 100%">
 			<tbody>

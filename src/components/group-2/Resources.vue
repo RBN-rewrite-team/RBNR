@@ -8,10 +8,13 @@ import Decimal from 'break_eternity.js';
 import { Ordinal } from '@/lib/ordinal/';
 import { format } from '@/utils/format';
 import { temp } from "../../core/temp-data.ts"
+import { getCurrentOrdinal } from "../../utils/y-seq.ts"
 </script>
 <template>
+  <div>
 	<div class="resources" style="font-size: 20px" id="resources">
 		<div class="background">
+		  <div v-if="player.retribution == 0">
 			<div v-if="!(player.firstResetBit & 0b1000)" style="margin-left: 15px" class="resource">
 				<div style="font-weight: bold; color: var(--suptitle-color)">
 					数值&nbsp;
@@ -40,7 +43,7 @@ import { temp } from "../../core/temp-data.ts"
 					</span>
 				</div>
 			</div>
-			<div v-else style="margin-left: 15px" class="resource">
+			<div style="margin-left: 15px" class="resource">
 				<div style="font-weight: bold; color: rgb(255, 63, 63)">
 					序数&nbsp;
 					<span
@@ -251,6 +254,20 @@ import { temp } from "../../core/temp-data.ts"
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="resource" style="margin-left: 15px" v-if="player.retribution == 1">
+		    <div style="font-weight: bold; color: gold">
+					序数&nbsp;
+					<vue-latex :expression="getCurrentOrdinal(player.hydra.deduceOrdinal[1])" />
+				</div>
+		  </div>
+		<div class="resource" style="margin-left: 350px" v-if="player.retribution == 1">
+		    <div style="font-weight: bold; color: aquamarine">
+					压缩九头蛇能量&nbsp;
+					{{ formatWhole(player.hydra.compressedPower) }}
+				</div>
+		  </div>
+		</div>
 		</div>
 	</div>
 </template>
