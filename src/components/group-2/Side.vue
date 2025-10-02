@@ -197,6 +197,14 @@ import { RETRIBUTION } from "@/core/post-nonrec/retribution"
 						</div>
 						<div
 							class="menu2"
+							:class="{ focus: player.currentTab == 27 }"
+							@click="player.currentTab = 27"
+							v-if="player.retribution >= 1"
+						>
+							Y序列
+						</div>
+						<div
+							class="menu2"
 							:class="{ focus: player.currentTab == 20 }"
 							@click="player.currentTab = 20"
 							v-if="player.upgrades['69R']"
