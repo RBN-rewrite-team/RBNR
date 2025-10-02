@@ -20,6 +20,7 @@ import type { FixedLengthArray } from 'type-fest';
 import { getInitialStat, type PlayerStat } from '../stats.ts';
 import { wellOrderPlayerData } from '../ordinal/well_ordering.ts';
 import { Hydra } from '../hydra/hydra.ts';
+import { POST_NONREC } from '../post-nonrec/index.ts';
 
 const version = 12 as const;
 export let current_save = 0;
@@ -168,6 +169,7 @@ export interface Player {
 		currentBlockPos: number;
 	};
 	retribution: 0 | 1 | 2 | 3 | 4;
+	postnonrec: ReturnType<typeof POST_NONREC.playerData>;
 }
 
 function getInitialPlayerData(): Player {
@@ -307,6 +309,7 @@ function getInitialPlayerData(): Player {
 			currentBlockPos: 0,
 		},
 		retribution: 0,
+		postnonrec: POST_NONREC.playerData(),
 	};
 }
 
