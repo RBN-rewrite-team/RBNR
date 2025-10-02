@@ -47,7 +47,8 @@ export const Y_SEQ = {
 			player.postnonrec.yseq.dimensions[0][id].max(boughtcount);
 	},
 	dimensionEffect(id: 0 | 1 | 2 | 3) {
-		return player.postnonrec.yseq.dimensions[0][id].mul(0.05);
+		if (id == 0) return player.postnonrec.yseq.dimensions[0][id].mul(0.05);
+		return new Decimal(0);
 	},
 	yseqDeduceSpeed() {
 		return this.dimensionEffect(0);
