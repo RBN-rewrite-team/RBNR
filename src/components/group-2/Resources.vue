@@ -53,7 +53,7 @@ import { getCurrentOrdinal } from '../../utils/y-seq.ts';
 							</span>
 						</div>
 					</div>
-					<div style="margin-left: 15px" class="resource">
+					<div style="margin-left: 15px" class="resource" v-else>
 						<div style="font-weight: bold; color: rgb(255, 63, 63)">
 							序数&nbsp;
 							<span
