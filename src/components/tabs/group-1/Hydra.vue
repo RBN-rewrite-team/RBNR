@@ -498,7 +498,7 @@ function hydraAxisHTML(): string {
 					<TDUpgrade upgid="63" />
 					<TDUpgrade upgid="64" />
 				</tr>
-				<tr v-if="Dilute.diluteAmount(6) || player.upgrades[61]">
+				<tr v-if="player.retribution===0&&(Dilute.diluteAmount(6) || player.upgrades[61])">
 					<TDUpgrade upgid="611" />
 					<TDUpgrade upgid="612" />
 					<TDUpgrade upgid="613" />
@@ -506,7 +506,7 @@ function hydraAxisHTML(): string {
 				</tr>
 				<tr
 					v-if="
-						Dilute.diluteAmount(6) || (player.upgrades[61] && feature.Hydra.pUnlock(2))
+						player.retribution===0&&(Dilute.diluteAmount(6) || (player.upgrades[61] && feature.Hydra.pUnlock(2)))
 					"
 				>
 					<TDUpgrade upgid="615" />
@@ -514,7 +514,7 @@ function hydraAxisHTML(): string {
 					<TDUpgrade upgid="617" />
 					<TDUpgrade upgid="618" />
 				</tr>
-				<tr v-if="Dilute.diluteAmount(6) || player.upgrades[61]">
+				<tr v-if="(Dilute.diluteAmount(6) || player.upgrades[61])">
 					<TDBuyable bylid="611" />
 					<TDBuyable bylid="612" />
 					<TDBuyable bylid="613" />
