@@ -110,7 +110,7 @@ export function gameLoop() {
 			stopGameLoop();
 			return;
 		} else {
-		  diff = 60000
+			diff = 60000;
 			player.timeshard.value = player.timeshard.value.add(msToTimeshard(diff));
 		}
 	}
@@ -179,8 +179,9 @@ export function simulate(diff: number) {
 
 	if (player.nonrecu.studies_bought.includes(1))
 		pre_cardinal_diff *= 2 ** (!CHALLENGE.inChallenge(1, 3) ? 1 : -1);
-	let nonrecuDiffForSecInThisReset = new Decimal(pre_cardinal_diff / 1000)
-	if (player.upgrades[77]) nonrecuDiffForSecInThisReset = nonrecuDiffForSecInThisReset.mul(upgrades[77].effect())
+	let nonrecuDiffForSecInThisReset = new Decimal(pre_cardinal_diff / 1000);
+	if (player.upgrades[77])
+		nonrecuDiffForSecInThisReset = nonrecuDiffForSecInThisReset.mul(upgrades[77].effect());
 	player.nonrecu.secInThisReset = player.nonrecu.secInThisReset.add(nonrecuDiffForSecInThisReset);
 	qolLoop();
 	CHALLENGE.challengeLoop();
@@ -284,8 +285,12 @@ export function simulate(diff: number) {
 	ORDINAL_BOOSTER.boosterLoop();
 	for (const upg_i in upgrades) {
 		const i = upg_i as keyof typeof upgrades;
+
 		if (upgrades[i] && upgrades[i].keep != null && upgrades[i].keep()) {
-			player.upgrades[i as keyof typeof player.upgrades] = true;
+			if (upgrades[i].name.startsWith('U5-1-') && player.retribution != 0) {
+			} else {
+				player.upgrades[i as keyof typeof player.upgrades] = true;
+			}
 		}
 		if (
 			upgrades[i] &&

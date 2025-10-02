@@ -78,7 +78,11 @@ export const UPGRADES = {
 			reach[i] = req[i].reachedReq();
 			if (!reach[i]) flag = false;
 		}
-		return { show: upgrades[id].show(), unlocked: flag, reach: reach };
+		let a = upgrades[id].show();
+		if (upgrades[id].name.startsWith('U5-1-') && player.retribution != 0) {
+			a = false;
+		}
+		return { show: a, unlocked: flag, reach: reach };
 	},
 	/**
 	 * 购买一个函数
@@ -110,7 +114,8 @@ export const BUYABLES = {
 			reach[i] = req[i].reachedReq();
 			if (!reach[i]) flag = false;
 		}
-		return { show: buyables[id].show(), unlocked: flag, reach: reach };
+		let a = buyables[id].show();
+		return { show: a, unlocked: flag, reach: reach };
 	},
 	singleHTML(id: keyof typeof buyables) {
 		let useclass = 'upgrade_buttonbig';

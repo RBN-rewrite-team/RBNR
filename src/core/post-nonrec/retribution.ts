@@ -6,6 +6,7 @@ import { NON_RECURSIVE } from '../nonrecu';
 import { player } from '../save';
 import { DC } from '../constants';
 import { wellOrderPlayerData } from '../ordinal/well_ordering';
+import ModalService from '@/utils/Modal';
 // prettier-ignore
 const resetUpgrades = [
     /*'61',*/'610S','611','6110','6111','6112','6113','6114','611S','612','612S','613','613S','614','614S','615','615S','616S',
@@ -83,6 +84,21 @@ export const RETRIBUTION = {
 		player.numbertheory.well_ordering = wellOrderPlayerData();
 		player.numbertheory.GM.x = DC.D_0;
 		player.currentTab = 19;
+	},
+	resetUI() {
+		if (this.resetable()) {
+			ModalService.show({
+				title: '果报',
+				content:
+					'你会失去你所有的非递归进度，以及当前九头蛇进度，以及升级...<br>但是你会获得启示，获得更恐怖的力量...',
+				confirmText: '确定...',
+				onConfirm() {
+					RETRIBUTION.reset();
+					// 类型安全不要删
+					if (player.retribution == 0) player.retribution = 1;
+				},
+			});
+		}
 	},
 	resetable() {
 		if (player.retribution == 0) {
