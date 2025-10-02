@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import { RETRIBUTION } from "@/core/post-nonrec/retribution"
 </script>
 
 <template>
 	<div class="base">
-		<h1>果报</h1><br>
+		<h1>{{RETRIBUTION.name()}}</h1><br>
 		<h3>¶此间便是尽头之路¶<br>
 		达到记号的极限之后，证明记号的良序性，即可来此获得启示<br>
 		……以期获得更恐怖的力量……</h3><br>
