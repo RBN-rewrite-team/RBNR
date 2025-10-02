@@ -93,13 +93,6 @@ export const RETRIBUTION = {
 					'你会失去你所有的非递归进度，以及当前九头蛇进度，以及升级...<br>但是你会获得启示，获得更恐怖的力量...',
 				confirmText: '确定...',
 				onConfirm() {
-					if (!import.meta.env.DEV) {
-						ModalService.show({
-							title: '无法重置',
-							content: RETRIBUTION.name() + '加载失败，原因：WIP feature',
-						});
-						return;
-					}
 					RETRIBUTION.reset();
 					// 类型安全不要删
 					if (player.retribution == 0) player.retribution = 1;
