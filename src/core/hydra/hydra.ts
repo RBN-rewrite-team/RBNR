@@ -18,7 +18,7 @@ import type { FixedLengthArray, IntClosedRange } from 'type-fest';
 import { NON_RECURSIVE } from '../nonrecu';
 import { CHALLENGE } from '../challenge';
 import { DC } from '@/core/constants';
-import { temp } from "../../core/temp-data.ts"
+import { temp } from '../../core/temp-data.ts';
 
 const e326649slog = new Decimal('e326649').slog(Math.E);
 const ee154slog = new Decimal('e8.07230472602822538e153').slog(Math.E);
@@ -637,19 +637,13 @@ export const Hydra = {
 		) {
 			base = base.log10().log10().pow(1.2).pow10().pow10();
 		}
-		if (
-			player.numbertheory.well_ordering.steps_proceeded.includes(20)&&
-			base.gt("ee10")
-		) {
+		if (player.numbertheory.well_ordering.steps_proceeded.includes(20) && base.gt('ee10')) {
 			base = base.log10().log10().log10().pow(1.2).pow10().pow10().pow10();
 		}
-		if (
-			player.numbertheory.well_ordering.steps_proceeded.includes(22)&&
-			base.gt("ee10")
-		) {
+		if (player.numbertheory.well_ordering.steps_proceeded.includes(22) && base.gt('ee10')) {
 			base = base.log10().log10().log10().pow(1.2).pow10().pow10().pow10();
 		}
-		return base.min('ee8.07230472602822538e153'); //SHO
+		return base.min('eee8.07230472602822538e153'); //SHO
 	},
 	deduceSpeed(i = 0): Decimal {
 		//推演的速度
@@ -761,7 +755,8 @@ export const Hydra = {
 		return base;
 	},
 	superSoftcapStart() {
-	  if (player.numbertheory.well_ordering.steps_proceeded.includes(17)) return new Decimal(Infinity)
+		if (player.numbertheory.well_ordering.steps_proceeded.includes(17))
+			return new Decimal(Infinity);
 		let base = new Decimal('e2400');
 		if (
 			!(CHALLENGE.inChallenge(1, 3) && player.challenges[1][3].gte(1)) &&
@@ -989,7 +984,7 @@ export const Hydra = {
 	},
 	hydraUpdate(diff = 0): void {
 		if (Dilute.diluteAmount(8)) diff /= 1000;
-		temp.lastBMSDeduce = player.hydra.deduceOrdinal[0]
+		temp.lastBMSDeduce = player.hydra.deduceOrdinal[0];
 		for (let i = 0; i < 4; i++) {
 			player.hydra.deduceProgress[i] = player.hydra.deduceProgress[i].add(
 				Hydra.deduceSpeed(i).mul(diff),
