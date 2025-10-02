@@ -82,7 +82,7 @@ export const NON_RECURSIVE = {
 		})(),
 		'78': new (class extends Upgrade {
 			description: string | (() => string) = 'U6-7效果变为其平方';
-			cost = new Decimal('ee160');
+			cost = new Decimal('e4e174');
 			name = 'U6-6';
 			currency: Currencies = Currencies.NONREC;
 		})(),
