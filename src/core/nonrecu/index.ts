@@ -444,8 +444,8 @@ export const NON_RECURSIVE = {
 	},
 	addResetGain() {},
 	addPower(x: Decimal) {
-		player.nonrecu.power = player.nonrecu.power.add(x);
-		player.nonrecu.totalPower = player.nonrecu.totalPower.add(x);
+		player.nonrecu.power = player.nonrecu.power.add(x).min("ee8.07230472602822538e153");
+		player.nonrecu.totalPower = player.nonrecu.totalPower.add(x).min("ee8.07230472602822538e153");
 	},
 	gainFactor(): [string, number, Decimal][] {
 		const ADD_EFF = 0,
@@ -521,7 +521,7 @@ export const NON_RECURSIVE = {
 		base = base.pow(NON_RECURSIVE.UNOCFeff()[3]);
 		if (!player.upgrades.U6R21 && base.gte(1e500))
 			base = base.log10().div(500).pow(0.5).mul(500).pow(10);
-		return base;
+		return base.min("ee8.07230472602822538e153");
 	},
 	nonrecEffects(): [Decimal, Decimal] {
 		/**

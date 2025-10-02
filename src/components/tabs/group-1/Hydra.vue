@@ -13,13 +13,7 @@ import convertBMStoMatrixComponent from '@/components/convertBMStoMatrixComponen
 function powerFactorHTML(): string {
 	let s = '';
 	s +=
-		format(player.hydra.powerMult[0]) +
-		' x ' +
-		format(player.hydra.powerMult[1]) +
-		' x ' +
-		format(player.hydra.powerMult[2]) +
-		' x ' +
-		format(player.hydra.powerMult[3]);
+		format(player.hydra.powerMult[0])
 	if (!feature.Hydra.powerExtraMult().eq(1))
 		s +=
 			' x <span style="color: rgb(155, 125, 195)">' +

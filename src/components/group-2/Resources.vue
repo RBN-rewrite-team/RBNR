@@ -105,7 +105,7 @@ import { temp } from "../../core/temp-data.ts"
 					></span>
 				</div>
 				<div style="font-size: 17px; color: rgb(155, 125, 195)" v-if="player.upgrades[61]">
-					(已推演{{ format(player.hydra.deduceOrdinal[0]) }}次)
+					(已推演{{ formatWhole(player.hydra.deduceOrdinal[0]) }}次)
 				</div>
 			</div>
 			<div
