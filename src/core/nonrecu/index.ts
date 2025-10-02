@@ -7,13 +7,13 @@ import { MILESTONES } from '../mechanic';
 import { Currencies } from '../currencies';
 import { CHALLENGE } from '../challenge';
 import { DC } from '@/core/constants';
-import { Upgrade,UpgradeWithEffect } from '../upgrade';
+import { Upgrade, UpgradeWithEffect } from '../upgrade';
 import { getTotalTheories } from './total-theories';
 import { addTheories } from './studies.ts';
 import { energyToUNOCFSpeed } from '../ordinal/well_ordering';
 import type { FixedLengthArray } from 'type-fest';
 import { updateResetStatData } from '../stats.ts';
-import{format}from "../../utils/format.ts"
+import { format } from '../../utils/format.ts';
 type NonRecusionTreePreset = {
 	name: string;
 	preset: number[];
@@ -70,10 +70,14 @@ export const NON_RECURSIVE = {
 			name = 'U6-7';
 			currency: Currencies = Currencies.NONREC;
 			effect(): Decimal {
-			  return player.nonrecu.power.max(1e10).log10().log10().pow(player.upgrades[78]?2:1)
+				return player.nonrecu.power
+					.max(1e10)
+					.log10()
+					.log10()
+					.pow(player.upgrades[78] ? 2 : 1);
 			}
 			effectDescription() {
-			  return "x"+format(this.effect())
+				return 'x' + format(this.effect());
 			}
 		})(),
 		'78': new (class extends Upgrade {
@@ -515,7 +519,8 @@ export const NON_RECURSIVE = {
 				.pow(1 / 3)
 				.mul(1e7);
 		base = base.pow(NON_RECURSIVE.UNOCFeff()[3]);
-		if ((!player.upgrades.U6R21) && base.gte(1e500)) base = base.log10().div(500).pow(0.5).mul(500).pow(10);
+		if (!player.upgrades.U6R21 && base.gte(1e500))
+			base = base.log10().div(500).pow(0.5).mul(500).pow(10);
 		return base;
 	},
 	nonrecEffects(): [Decimal, Decimal] {

@@ -643,6 +643,22 @@ export const Hydra = {
 		if (player.numbertheory.well_ordering.steps_proceeded.includes(22) && base.gt('ee10')) {
 			base = base.log10().log10().log10().pow(1.2).pow10().pow10().pow10();
 		}
+		if (player.numbertheory.well_ordering.steps_proceeded.includes(23) && base.gte(1e10)) {
+			base = Decimal.tetrate(
+				10,
+				base
+					.slog()
+					.add(
+						player.numbertheory.well_ordering.energy
+							.log10()
+							.sub(150000000)
+							.div(500000000)
+							.clampMin(0)
+							.clampMax(1),
+					)
+					.toNumber(),
+			);
+		}
 		return base.min('eee8.07230472602822538e153'); //SHO
 	},
 	deduceSpeed(i = 0): Decimal {
@@ -1091,7 +1107,7 @@ export const Hydra = {
 				new Decimal('ee616.2890708878432'),
 			],
 			['\\psi(\\omega-\\pi-\\Pi_0)', new Decimal('ee2465.8173642473444')],
-			['\\mathrm{SHO}', new Decimal('eee153.90699754796802')],
+			['\\mathrm{SHO}', new Decimal('eeee153.90699754796802')],
 			['\\text{已达BMS极限}', new Decimal(1e400)],
 		],
 		[],
