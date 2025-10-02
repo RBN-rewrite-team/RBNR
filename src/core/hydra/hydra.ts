@@ -545,6 +545,7 @@ export const Hydra = {
 	deduceSpeedBMS(): Decimal {
 		let base = new Decimal(0);
 		if (player.upgrades[61]) base = new Decimal(0.1);
+		if (player.retribution >= 1) base = base = new Decimal(1);
 		if (player.milestones.nonrecu_4) base = DC.D_1;
 		if (player.upgrades[611]) base = base.mul(upgrades[611].effect());
 		base = base.mul(buyables[611].effect(player.buyables[611]));
