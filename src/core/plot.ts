@@ -36,18 +36,24 @@ export function unlockedPlots() {
 	if (player.singularity.enabled || player.stat.chapter >= 4) {
 		a++;
 	}
-	if (player.stat.chapter >= 4) {
+	if (player.stat.chapter >= 4 || player.retribution >= 1) {
 		a++;
 	}
-	if (player.stat.chapter >= 5) {
+	if (player.stat.chapter >= 5 || player.retribution >= 1) {
 		a++;
 	}
-	if (player.upgrades['69R']) a++;
-	if (player.upgrades['69S'] || player.stat.chapter >= 6) a++;
-	if (player.stat.chapter >= 6) a++;
-	if (player.challenges[1][0].gt(0)) a++;
-	if (player.milestones.nonrec_24) a++;
-	if (player.challenges[1][6].gt(0)) a++;
+	if (player.upgrades['69R'] || player.retribution >= 1) a++;
+	if (player.upgrades['69S'] || player.stat.chapter >= 6 || player.retribution >= 1) a++;
+	if (player.stat.chapter >= 6 || player.retribution >= 1) a++;
+	if (player.challenges[1][0].gt(0) || player.retribution >= 1) a++;
+	if (player.milestones.nonrec_24 || player.retribution >= 1) a++;
+	if (player.challenges[1][6].gt(0) || player.retribution >= 1) a++;
+	if (player.numbertheory.well_ordering.energy.gte('1e750000000') || player.retribution >= 1) a++;
+	if (
+		(player.numbertheory.well_ordering.energy.gte('1e750000000') && player.currentTab == 28) ||
+		player.retribution >= 1
+	)
+		a++;
 	return a;
 }
 export function viewedPlotLength() {
@@ -229,6 +235,56 @@ export const plots = [
 		'???\tHydra\t...',
 		'VeryRDefie\t嗯？那个神秘的声音又出现了，他很令人<$bx>，散播ω病毒的就是他。',
 		'???\tHydra\t你们两个会遭到',
+	],
+	[
+		'Numerorum\t这个(Bashicu)矩阵系统基本上就是这样了。还有什么？',
+		'旁白\tNumerorum脑中灵光一闪。',
+		'Numerorum\t或许我可以以这个的启发去寻找更强力的记号。我或许可以试试用我所有的解数来创造出这样的东西。', // 你会遭到报应的
+	],
+	[
+		'Numerorum\t冷静。',
+		'Numerorum\t这里似乎是非递归的最后尽头了。',
+		'Numerorum\t我需要重新审视。',
+		'Numerorum\t或许我的路线错了……？',
+		'Numerorum\t如果无法更进一步，那暴君是如何成长起来的？',
+		'Numerorum\t等等！谁在那里？',
+		'一个巨大的石像出现在眼前。',
+		'???\tColossus\t这是……一个访问者？',
+		'???\tColossus\t我已经很久没有看到能够到达这里的人了。',
+		'Numerorum\t嗯？与我同行的那些人……',
+		'???\tColossus\t上一个来者是VeryRDefie。在此之前不知多少岁月，还有一个叫Alpha VII的人来过。',
+		'Numerorum\t那你有没有见过一个天文学家？',
+		'???\tColossus\t没有。我是巨像，Colossus，你叫什么名字？',
+		'Numerorum\tNumerorum。',
+		'Colossus\t嗯，我知道了。',
+		'Colossus\t你现在已经触摸到了所谓非递归分析的顶端了。',
+		'Colossus\t再往后的路无比难走。',
+		'Numerorum\t那要怎么办才好呢？',
+		'Colossus\t哈哈哈……你有没有听说过……',
+		'Colossus\t九头蛇。',
+		'Numerorum\t嗯？！是那个暴君！',
+		'Colossus\t是的。只有九头蛇一脉的力量能越过后面的天堑。',
+		'Numerorum\t可是……',
+		'Colossus\t别忘了，你已经有了一些九头蛇之力了。',
+		'Colossus\t或许你需要重新感受它们……',
+		'Numerorum\t九头蛇之力……',
+		'Colossus\t没错。你所到达的所谓极限，不过是九头蛇力量的冰山一角。',
+		'Colossus\t继续提升的路，是很明确的。',
+		'Numerorum\t继续沿着九头蛇的来路？',
+		'Colossus\t没错，来吧，我来给你一些启示……',
+		'Colossus为Numerorum降下了一些启示。',
+		'Numerorum\t我似乎知道怎么继续了。',
+		'Numerorum\t但这种结构和我之前所接触的完全不同。',
+		'Colossus\t那就重头再来，用不了多少功夫。',
+		'Colossus\t哈哈……当年九头蛇从这里经过，为我带来了这些惊喜。',
+		'Colossus\t它当年的目标是击败盘踞塔上的旧王Array。',
+		'Colossus\t啊哈，屠龙勇士，终成恶龙。',
+		'Colossus\t有趣的是，之后，所有反对暴君九头蛇之人都走上同一条路。',
+		'Colossus\t这是因循的果报。',
+		'Colossus\t这是宿命的轮回。',
+		'Numerorum\t呼……我准备好了。',
+		'Colossus\t那就来吧。',
+		'Colossus\t等待你的将是新的时代。',
 	],
 ];
 export function plotLength(id: number): number {
