@@ -1,4 +1,5 @@
 import Decimal from 'break_eternity.js';
+import { upgrades } from '@/core/mechanic.ts';
 import { player } from '../save';
 
 export const Y_SEQ = {
@@ -56,7 +57,9 @@ export const Y_SEQ = {
 		return this.dimensionEffect(0);
 	},
 	resetGain() {
-		return player.hydra.deduceOrdinal[1];
+		let base = player.hydra.deduceOrdinal[1];
+		if(player.upgrades[621]) base = base.mul(upgrades[621].effect());
+		return base;
 	},
 	reset() {
 		if(this.resetGain().lt(1)) return;

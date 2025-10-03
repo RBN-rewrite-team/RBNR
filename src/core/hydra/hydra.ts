@@ -382,8 +382,14 @@ export const Hydra = {
 				return player.milestones.nonrec_10;
 			}
 		})(),
-		'621': new (class U621 extends Upgrade {
-			description = '？？？';
+		'621': new (class U621 extends UpgradeWithEffect<Decimal> {
+			description = '九头蛇能量增益压缩九头蛇能量';
+			effect(): Decimal {
+				return player.hydra.power.add(10).log10().root(10).min(1e10);
+			}
+			effectDescription(): string {
+				return 'x' + format(this.effect());
+			}
 			cost = new Decimal('1e35');
 			name = 'U5-2-1';
 			currency: Currencies = Currencies.HYDRA_POWER;

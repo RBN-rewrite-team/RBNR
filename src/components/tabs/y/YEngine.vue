@@ -14,7 +14,7 @@ const a = computed(() => {
 <template>
 	<div class="main" align="center">
 		<div class="dims">
-			<h3>累计压缩九头蛇能量使BMS推演速度×{{player.hydra.totalCompressedPower.add(1)}}</h3>
+			<h3>累计压缩九头蛇能量使BMS推演速度×{{formatWhole(player.hydra.totalCompressedPower.add(1))}}</h3>
 			<div class="y-seq-inner">
 				<div class="progress">
 					<div class="progress-inner"></div>
