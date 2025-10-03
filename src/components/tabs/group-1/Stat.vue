@@ -11,6 +11,7 @@ import {
 } from '../../../core/ordinal/ordinal-level.ts';
 import { Moon } from 'lunarphase-js';
 import { ref, onMounted, onUnmounted } from 'vue';
+import Mountain from "../y/Mountain.vue"
 
 const LunarMap = {
 	New: '新月',
@@ -60,7 +61,7 @@ onUnmounted(() => clearInterval(interval));
 				>ω</span
 			><br />
 
-			<div>
+			<div v-if="player.retribution === 0">
 				当前序数等级：{{ getOrdinalLevel() }}<br />
 				累计最高序数等级：{{ player.stat.highestOrdLevel }}<br />
 				下一序数等级要求：<vue-latex
@@ -88,5 +89,6 @@ onUnmounted(() => clearInterval(interval));
 				format(Moon.lunarAgePercent() * 100, 7)
 			}}%，地月距离：{{ format(Moon.lunarDistance() * 6371000) }}米
 		</p>
+		<Mountain v-if="player.retribution === 1" />
 	</div>
 </template>

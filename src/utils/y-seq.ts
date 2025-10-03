@@ -19,7 +19,7 @@ export interface NodeMountain {
 
 export type Mountain = LeafMountain | NodeMountain;
 
-function getYSequenceWithoutColon(Y: string): {
+export function getYSequenceWithoutColon(Y: string): {
 	type: string;
 	Y: string;
 } {
