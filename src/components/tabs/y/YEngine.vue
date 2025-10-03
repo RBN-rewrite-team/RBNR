@@ -46,7 +46,7 @@ const a = computed(() => {
 				class="dim-single"
 				style="background: linear-gradient(135deg, #1a6c5e, #1fb286, #ef2dfd)"
 			>
-				重置Y序列进度维度，获得0压缩九头蛇能量
+				重置Y序列维度，获得0压缩九头蛇能量
 			</div>
 		</div>
 	</div>
@@ -79,6 +79,6 @@ const a = computed(() => {
 	height: 100%;
 	position: relative;
 	background: #007f00;
-	transition: 100ms;
+	transition: 0ms;
 }
 </style>
