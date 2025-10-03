@@ -4,6 +4,7 @@ import { player } from '@/core/save';
 import { formatTime, format, formatWhole } from '@/utils/format';
 import { getCurrentOrdinal, getCurrentYMilestone, getCurrentYMilestoneIndex } from '@/utils/y-seq';
 import { computed } from 'vue';
+import TDUpgrade from '@/components/group-2/TDUpgrade.vue';
 
 const a = computed(() => {
 	return player.hydra.deduceProgress[1].toNumber() * 100 + '%';
@@ -11,8 +12,9 @@ const a = computed(() => {
 </script>
 
 <template>
-	<div class="main">
+	<div class="main" align="center">
 		<div class="dims">
+			<h3>累计压缩九头蛇能量使BMS推演速度×{{player.hydra.totalCompressedPower.add(1)}}</h3>
 			<div class="y-seq-inner">
 				<div class="progress">
 					<div class="progress-inner"></div>
@@ -31,22 +33,28 @@ const a = computed(() => {
 				</div>
 			</div>
 			<div class="dim-single">
-				<span>第一Y序列维度</span>
+				<span>第一Y序列维度({{formatWhole(player.postnonrec.yseq.dimensions[0][0])}}+{{formatWhole(player.postnonrec.yseq.dimensions[1][0])}})</span>
 				<span>每秒推演{{ format(POST_NONREC.Y_SEQ.dimensionEffect(0)) }}次</span>
-				<div class="buy" @click="() => POST_NONREC.Y_SEQ.buyDimensions(0)">购买<br>价格: {{ formatWhole(POST_NONREC.Y_SEQ.dimensionsCost(0)) }}压缩九头蛇能量</div>
+				<div class="buy" @click="() => POST_NONREC.Y_SEQ.buyDimensions(0)">购买最大<br>需求: {{ formatWhole(POST_NONREC.Y_SEQ.dimensionsCost(0)) }}压缩九头蛇能量</div>
 			</div>
 			<div class="dim-single">
-				<span>第二Y序列维度</span>
+				<span>第二Y序列维度({{formatWhole(player.postnonrec.yseq.dimensions[0][1])}}+{{formatWhole(player.postnonrec.yseq.dimensions[1][1])}})</span>
 				<span>每秒生产{{ format(POST_NONREC.Y_SEQ.dimensionEffect(1)) }}第一Y序列维度</span>
-				<div class="buy" @click="() => POST_NONREC.Y_SEQ.buyDimensions(1)">购买<br>价格: {{ formatWhole(POST_NONREC.Y_SEQ.dimensionsCost(1)) }}压缩九头蛇能量</div>
+				<div class="buy" @click="() => POST_NONREC.Y_SEQ.buyDimensions(1)">购买最大<br>需求: {{ formatWhole(POST_NONREC.Y_SEQ.dimensionsCost(1)) }}压缩九头蛇能量</div>
 			</div>
 			<div
 				class="dim-single-centered"
 				style="background: linear-gradient(135deg, #1a6c5e, #1fb286, #ef2dfd)"
+				@click="POST_NONREC.Y_SEQ.reset()"
 			>
-				重置Y序列维度，获得0压缩九头蛇能量
+				重置Y序列维度，获得{{format(POST_NONREC.Y_SEQ.resetGain())}}压缩九头蛇能量
 			</div>
 		</div>
+		<table>
+			<tr>
+				<TDUpgrade upgid="621" />
+			</tr>
+		</table>
 	</div>
 </template>
 

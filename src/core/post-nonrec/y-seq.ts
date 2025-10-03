@@ -22,13 +22,13 @@ export const Y_SEQ = {
 		} as const;
 	},
 	startPrice() {
-		return [new Decimal(10), new Decimal('1f400'), new Decimal('1f400'), new Decimal('1f400')];
+		return [new Decimal(1), new Decimal(100), new Decimal('1f400'), new Decimal('1f400')];
 	},
 	priceRatio() {
-		return [new Decimal(10), new Decimal('1f400'), new Decimal('1f400'), new Decimal('1f400')];
+		return [new Decimal(10 ** (1 / 3)), new Decimal(10 ** (1 / 2)), new Decimal('1f400'), new Decimal('1f400')];
 	},
 	dimensionsCost(id: 0 | 1 | 2 | 3) {
-		if (id == 0 && player.postnonrec.yseq.dimensions[0][0].lt(1)) return new Decimal(1);
+		if (id == 0 && player.postnonrec.yseq.dimensions[0][0].lt(1)) return new Decimal(0);
 		return this.priceRatio()
 			[id].pow(player.postnonrec.yseq.dimensions[0][id])
 			.mul(this.startPrice()[id]);
@@ -37,20 +37,38 @@ export const Y_SEQ = {
 		return new Decimal(1 / 0);
 	},
 	buyDimensions(id: 0 | 1 | 2 | 3) {
+		if(player.hydra.compressedPower.lt(this.dimensionsCost(id))) return;
 		let boughtcount = player.hydra.compressedPower
 			.div(this.startPrice()[id])
 			.log(this.priceRatio()[id])
-			.floor();
-		if (id == 0 && player.postnonrec.yseq.dimensions[0][0].lt(1)) boughtcount = new Decimal(1);
+			.floor().add(1);
+		if (id == 0 && player.postnonrec.yseq.dimensions[0][0].lt(1)) boughtcount = boughtcount.max(1);
 
 		player.postnonrec.yseq.dimensions[0][id] =
 			player.postnonrec.yseq.dimensions[0][id].max(boughtcount);
 	},
 	dimensionEffect(id: 0 | 1 | 2 | 3) {
-		if (id == 0) return player.postnonrec.yseq.dimensions[0][id].mul(0.05);
+		if (id == 0) return player.postnonrec.yseq.dimensions[0][id].add(player.postnonrec.yseq.dimensions[1][id]).mul(0.05);
+		else if(id == 1) return player.postnonrec.yseq.dimensions[0][id].add(player.postnonrec.yseq.dimensions[1][id]).mul(0.1);
 		return new Decimal(0);
 	},
 	yseqDeduceSpeed() {
 		return this.dimensionEffect(0);
+	},
+	resetGain() {
+		return player.hydra.deduceOrdinal[1];
+	},
+	reset() {
+		if(this.resetGain().lt(1)) return;
+		let gain = this.resetGain();
+		player.hydra.compressedPower = player.hydra.compressedPower.add(gain);
+		player.hydra.totalCompressedPower = player.hydra.totalCompressedPower.add(gain);
+		player.hydra.deduceOrdinal[1] = new Decimal(0);
+		player.hydra.deduceProgress[1] = new Decimal(0);
+		player.postnonrec.yseq.dimensions = [
+				[new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0)],
+				[new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0)],
+				[0, 0, 0, 0],
+			];
 	},
 } as const;
