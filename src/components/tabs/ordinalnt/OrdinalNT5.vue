@@ -542,9 +542,7 @@ function getCurrentSequenceName(): string {
 						expression="\textrm{trans}(S) := \textrm{trans}(A) + \omega^{\textrm{trans}(B)}"
 					/>。
 				</p>
-				<p style="color: green">
-					引理3效果:B6-R-1-3, B6-R-1-4的底数再一次翻倍
-				</p>
+				<p style="color: green">引理3效果:B6-R-1-3, B6-R-1-4的底数再一次翻倍</p>
 			</template>
 		</template>
 		<template
