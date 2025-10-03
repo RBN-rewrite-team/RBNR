@@ -33,17 +33,15 @@ const a = computed(() => {
 			<div class="dim-single">
 				<span>第一Y序列维度</span>
 				<span>每秒推演{{ format(POST_NONREC.Y_SEQ.dimensionEffect(0)) }}次</span>
-				<div>价格: {{ format(POST_NONREC.Y_SEQ.dimensionsCost(0)) }}压缩九头蛇能量</div>
-				<div class="buy" @click="() => POST_NONREC.Y_SEQ.buyDimensions(0)">购买</div>
+				<div class="buy" @click="() => POST_NONREC.Y_SEQ.buyDimensions(0)">购买<br>价格: {{ formatWhole(POST_NONREC.Y_SEQ.dimensionsCost(0)) }}压缩九头蛇能量</div>
 			</div>
 			<div class="dim-single">
 				<span>第二Y序列维度</span>
-				<div>价格: {{ format(POST_NONREC.Y_SEQ.dimensionsCost(1)) }}压缩九头蛇能量</div>
 				<span>每秒生产{{ format(POST_NONREC.Y_SEQ.dimensionEffect(1)) }}第一Y序列维度</span>
-				<div class="buy" @click="() => POST_NONREC.Y_SEQ.buyDimensions(1)">购买</div>
+				<div class="buy" @click="() => POST_NONREC.Y_SEQ.buyDimensions(1)">购买<br>价格: {{ formatWhole(POST_NONREC.Y_SEQ.dimensionsCost(1)) }}压缩九头蛇能量</div>
 			</div>
 			<div
-				class="dim-single"
+				class="dim-single-centered"
 				style="background: linear-gradient(135deg, #1a6c5e, #1fb286, #ef2dfd)"
 			>
 				重置Y序列维度，获得0压缩九头蛇能量
@@ -58,6 +56,15 @@ const a = computed(() => {
 	margin: auto;
 }
 .dim-single {
+	min-height: 60px;
+	display: flex;
+	justify-content: space-between;
+	padding: 0 20px;
+	align-items: center;
+	border: 5px;
+	overflow: hidden;
+}
+.dim-single-centered {
 	min-height: 60px;
 	display: flex;
 	justify-content: space-around;
@@ -80,5 +87,10 @@ const a = computed(() => {
 	position: relative;
 	background: #007f00;
 	transition: 0ms;
+}
+.buy {
+  border: 2px solid #007f00;
+  height: 50px;
+  width: 300px;
 }
 </style>
