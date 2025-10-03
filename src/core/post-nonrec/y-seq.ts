@@ -39,9 +39,6 @@ export const Y_SEQ = {
 			[id].pow(player.postnonrec.yseq.dimensions[0][id])
 			.mul(this.startPrice()[id]);
 	},
-	dimensionInterval(id: 0 | 1 | 2 | 3) {
-		return new Decimal(1 / 0);
-	},
 	buyDimensions(id: 0 | 1 | 2 | 3) {
 		if (player.hydra.compressedPower.lt(this.dimensionsCost(id))) return;
 		let boughtcount = player.hydra.compressedPower
@@ -56,23 +53,12 @@ export const Y_SEQ = {
 			player.postnonrec.yseq.dimensions[0][id].max(boughtcount);
 	},
 	dimensionEffect(id: 0 | 1 | 2 | 3) {
-		if (id == 0)
-			return player.postnonrec.yseq.dimensions[0][id]
+	  const mul = [0.05, 0.1, 0.2, 0.4]
+	  let boost = new Decimal(1)
+	  if (player.upgrades[622]) boost = boost.mul(player.postnonrec.yseq.dimensions[0][id].pow_base(upgrades[622].effect()))
+		return player.postnonrec.yseq.dimensions[0][id]
 				.add(player.postnonrec.yseq.dimensions[1][id])
-				.mul(0.05);
-		else if (id == 1)
-			return player.postnonrec.yseq.dimensions[0][id]
-				.add(player.postnonrec.yseq.dimensions[1][id])
-				.mul(0.1);
-		else if (id == 2)
-			return player.postnonrec.yseq.dimensions[0][id]
-				.add(player.postnonrec.yseq.dimensions[1][id])
-				.mul(0.2);
-		else if (id == 3)
-			return player.postnonrec.yseq.dimensions[0][id]
-				.add(player.postnonrec.yseq.dimensions[1][id])
-				.mul(0.4);
-		return new Decimal(0);
+				.mul(mul?.[id]??0.05).mul(boost);
 	},
 	yseqDeduceSpeed() {
 		return this.dimensionEffect(0);

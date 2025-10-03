@@ -397,6 +397,21 @@ export const Hydra = {
 				return player.retribution >= 1;
 			}
 		})(),
+		'622': new (class extends UpgradeWithEffect<Decimal> {
+			description = '每购买一个维度，它的效果变为原来的一定倍数';
+			effect(): Decimal {
+				return new Decimal(1.05);
+			}
+			effectDescription(): string {
+				return 'x' + format(this.effect());
+			}
+			cost = new Decimal('1e75');
+			name = 'U5-2-2';
+			currency: Currencies = Currencies.HYDRA_POWER;
+			show(): boolean {
+				return player.retribution >= 1;
+			}
+		})(),
 	},
 	buyables: {
 		'611': new (class B611 extends Buyable<Decimal> {
