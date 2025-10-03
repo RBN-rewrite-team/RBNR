@@ -4,6 +4,7 @@ import { player } from '@/core/save';
 import { formatTime, format, formatWhole } from '@/utils/format';
 import { getCurrentOrdinal, getCurrentYMilestone, getCurrentYMilestoneIndex } from '@/utils/y-seq';
 import { computed } from 'vue';
+import TDUpgrade from '@/components/group-2/TDUpgrade.vue';
 
 const a = computed(() => {
 	return player.hydra.deduceProgress[1].toNumber() * 100 + '%';
@@ -11,7 +12,7 @@ const a = computed(() => {
 </script>
 
 <template>
-	<div class="main">
+	<div class="main" align="center">
 		<div class="dims">
 			<h3>累计压缩九头蛇能量使BMS推演速度×{{player.hydra.totalCompressedPower.add(1)}}</h3>
 			<div class="y-seq-inner">
@@ -49,6 +50,11 @@ const a = computed(() => {
 				重置Y序列维度，获得{{format(POST_NONREC.Y_SEQ.resetGain())}}压缩九头蛇能量
 			</div>
 		</div>
+		<table>
+			<tr>
+				<TDUpgrade upgid="621" />
+			</tr>
+		</table>
 	</div>
 </template>
 

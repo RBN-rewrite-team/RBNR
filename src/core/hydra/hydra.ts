@@ -382,6 +382,15 @@ export const Hydra = {
 				return player.milestones.nonrec_10;
 			}
 		})(),
+		'621': new (class U621 extends Upgrade {
+			description = '？？？';
+			cost = new Decimal('1e35');
+			name = 'U5-2-1';
+			currency: Currencies = Currencies.HYDRA_POWER;
+			show(): boolean {
+				return player.retribution >= 1;
+			}
+		})(),
 	},
 	buyables: {
 		'611': new (class B611 extends Buyable<Decimal> {
