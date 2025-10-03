@@ -5,6 +5,8 @@ import {
 	EntityGameObject,
 	GuardGameObject,
 	HealthRecoveryGameObject,
+	HighPlaceClimbGameObject,
+	HighPlaceGameObject,
 	KeyGameObject,
 	MoveableBoxGameObject,
 	OreGameObject,
@@ -51,6 +53,11 @@ function class3() {
 	) {
 		return 'ore-object';
 	}
+	if (
+		props.game_object instanceof HighPlaceClimbGameObject ||
+		props.game_object instanceof HighPlaceGameObject
+	)
+		return 'highplace';
 }
 </script>
 
@@ -85,6 +92,10 @@ function class3() {
 				{{ game_object.innerText == '' ? '守卫' : game_object.innerText }} <br />
 				<span style="font-size: 10px" v-html="game_object.battleText()" />
 			</template>
+			<template v-else-if="game_object instanceof HighPlaceClimbGameObject" class="highplace"
+				>↑</template
+			>
+			<template v-else-if="game_object instanceof HighPlaceGameObject"></template>
 			<template v-else-if="game_object instanceof OreGameObject"> 矿石 </template>
 			<template v-else-if="game_object instanceof TeleporterGameObject"> 传送门 </template>
 			<template v-else-if="game_object instanceof HealthRecoveryGameObject">
@@ -122,6 +133,9 @@ tr {
 .ore-object {
 	background-color: rgb(0, 81, 255);
 	color: var(--background-color);
+}
+.highplace {
+	background-color: grey;
 }
 td {
 	height: 60px;

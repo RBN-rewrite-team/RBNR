@@ -31,7 +31,7 @@ import type { Directions } from './minigame-loop';
 export class GameObject {
 	constructor() {}
 	interact(x: bigint, y: bigint, direction: Directions) {}
-	solid() {
+	solid(direction: Directions = 'other', playerxy: [bigint, bigint]) {
 		return false;
 	}
 	innerText = '';
@@ -373,6 +373,20 @@ export class SwitchGameObject extends GameObject {
 export class SwitchOnGameObject extends SwitchGameObject {
 	actived = true;
 	solid(): boolean {
+		return false;
+	}
+}
+
+export class HighPlaceGameObject extends GameObject {
+	solid(direction: Directions, playerxy: [bigint, bigint]): boolean {
+		const curblock = getCurrentBlock(player.minigame.current_room, ...playerxy);
+		return !(
+			curblock instanceof HighPlaceGameObject || curblock instanceof HighPlaceClimbGameObject
+		);
+	}
+}
+export class HighPlaceClimbGameObject extends GameObject {
+	solid(direction: Directions, playerxy: [bigint, bigint]) {
 		return false;
 	}
 }
