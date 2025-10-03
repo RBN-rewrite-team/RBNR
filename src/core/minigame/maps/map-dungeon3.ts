@@ -3,8 +3,8 @@ import { WallGameObject } from '../game-object';
 import { between } from './map-dungeon2';
 
 export function map3_block(x: number, y: number) {
-	if (y == 0) return new WallGameObject();
-	if (x == 0) return new WallGameObject();
+	if (y == 0 || y == 198) return new WallGameObject();
+	if (x == 0 || x == 75) return new WallGameObject();
 	if (between(1, x, 6) && y == 5) return new WallGameObject();
 
 	if (x == 11 && y == 3) return new HighPlaceClimbGameObject();
