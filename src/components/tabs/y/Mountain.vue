@@ -19,7 +19,7 @@ const getYDimensionsLim = (type: string) => {
 	if (type === 'ω-Y') return Infinity;
 	throw new TypeError('Unknown type');
 };
-window.Y = Y
+
 const calculatedMountain = computed(() => calcMountain(Y.value.Y, getYDimensionsLim(Y.value.type)));
 const mountain = ref<HTMLElement | null>(null);
 
