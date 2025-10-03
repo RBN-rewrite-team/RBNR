@@ -12,7 +12,6 @@ const a = computed(() => {
 
 <template>
 	<div class="main">
-		<h1>Y序列维度引擎(没做完)</h1>
 		<div class="dims">
 			<div class="y-seq-inner">
 				<div class="progress">
@@ -39,9 +38,8 @@ const a = computed(() => {
 			</div>
 			<div class="dim-single">
 				<span>第二Y序列维度</span>
-				<span>每{{ format(POST_NONREC.Y_SEQ.dimensionInterval(1)) }}秒生产一次</span>
 				<div>价格: {{ format(POST_NONREC.Y_SEQ.dimensionsCost(1)) }}压缩九头蛇能量</div>
-				<span>每次+{{ format(POST_NONREC.Y_SEQ.dimensionEffect(1)) }}第一Y序列维度</span>
+				<span>每秒生产{{ format(POST_NONREC.Y_SEQ.dimensionEffect(1)) }}第一Y序列维度</span>
 				<div class="buy" @click="() => POST_NONREC.Y_SEQ.buyDimensions(1)">购买</div>
 			</div>
 			<div
@@ -56,7 +54,6 @@ const a = computed(() => {
 
 <style lang="scss" scoped>
 .dims {
-	background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
 	width: 95%;
 	margin: auto;
 }
@@ -81,7 +78,7 @@ const a = computed(() => {
 	width: v-bind(a);
 	height: 100%;
 	position: relative;
-	background: linear-gradient(135deg, #1a6c5e, #1fb286, #ef2dfd);
+	background: #007f00;
 	transition: 100ms;
 }
 </style>

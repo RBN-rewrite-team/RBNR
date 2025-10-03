@@ -110,7 +110,7 @@ export function gameLoop() {
 			stopGameLoop();
 			return;
 		} else {
-			diff = 60000;
+			diff = Math.min(60000,diff);
 			player.timeshard.value = player.timeshard.value.add(msToTimeshard(diff));
 		}
 	}
@@ -366,7 +366,7 @@ export function simulate(diff: number) {
 	let next2 = feature.Ordinal.speedDeri();
 	ordinalSpeedDerivative2 = next2.sub(last2).div(diff / 1000);
 	checkNaN(player, ['player']);
-	player.lastUpdated += realtime_diff;
+	player.lastUpdated = Date.now();
 }
 
 function checkNaN<T>(obj: T, path: string[]): T {
