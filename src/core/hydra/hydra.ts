@@ -385,7 +385,7 @@ export const Hydra = {
 		'621': new (class U621 extends UpgradeWithEffect<Decimal> {
 			description = '九头蛇能量增益压缩九头蛇能量';
 			effect(): Decimal {
-				return player.hydra.power.add(10).log10().root(10).min(1e10);
+				return player.hydra.power.add(10).log10().root(10).pow(player.upgrades[623]?2:1).min(1e10);
 			}
 			effectDescription(): string {
 				return 'x' + format(this.effect());
@@ -400,13 +400,24 @@ export const Hydra = {
 		'622': new (class extends UpgradeWithEffect<Decimal> {
 			description = '每购买一个维度，它的效果变为原来的一定倍数';
 			effect(): Decimal {
-				return new Decimal(1.05);
+				let base = new Decimal(1.05);
+				if (player.upgrades[623]) base = base.pow(2)
+				return base
 			}
 			effectDescription(): string {
 				return 'x' + format(this.effect());
 			}
 			cost = new Decimal('1e75');
 			name = 'U5-2-2';
+			currency: Currencies = Currencies.HYDRA_POWER;
+			show(): boolean {
+				return player.retribution >= 1;
+			}
+		})(),
+		'623': new (class extends Upgrade {
+			description = '平方U5-2-1~2的效果';
+			cost = new Decimal('1e90');
+			name = 'U5-2-3';
 			currency: Currencies = Currencies.HYDRA_POWER;
 			show(): boolean {
 				return player.retribution >= 1;
