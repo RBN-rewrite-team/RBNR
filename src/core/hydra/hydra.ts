@@ -565,6 +565,7 @@ export const Hydra = {
 		if (player.upgrades['64S']) base = base.mul(upgrades['64S'].effect());
 		if (player.upgrades['69S']) base = base.mul(upgrades['69S'].effect());
 		if (player.milestones.nonrec_1) base = base.mul(3);
+		if(player.retribution >= 1) base = base.mul(player.hydra.totalCompressedPower.add(1));
 		if (player.milestones.dut5) base = base.pow(player.hydra.milestoneDut5Eff);
 		if (player.milestones.dut6) base = base.pow(milestoneDut6Eff());
 		if (player.milestones.dut7) base = base.pow(milestoneDut7Eff());
@@ -1050,6 +1051,13 @@ export const Hydra = {
 						Hydra.prestige(i);
 					}
 				}
+			}
+		}
+		if(player.retribution >= 1)
+		{
+			for(let i = 0;i < 2;i++)
+			{
+				player.postnonrec.yseq.dimensions[1][i] = player.postnonrec.yseq.dimensions[1][i].add(Y_SEQ.dimensionEffect(i + 1).mul(diff));
 			}
 		}
 	},
