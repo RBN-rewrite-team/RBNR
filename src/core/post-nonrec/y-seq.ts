@@ -90,6 +90,6 @@ export const Y_SEQ = {
 		player.hydra.deduceOrdinal[1] = new Decimal(0);
 		player.hydra.deduceProgress[1] = new Decimal(0);
 		for (let i = 0; i < 2; i++)
-			for (let j = 0; j < 3; j++) player.postnonrec.yseq.dimensions[i][j] = new Decimal(0);
+			for (let j = 0; j < 4; j++) player.postnonrec.yseq.dimensions[i][j] = new Decimal(0);
 	},
 } as const;
