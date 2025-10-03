@@ -555,3 +555,9 @@ export {
 	ReturnStatementNode,
 	parseAndConvertToAst,
 };
+declare global {
+	interface Window {
+		parseAndConvertToAst: typeof parseAndConvertToAst;
+	}
+}
+window.parseAndConvertToAst = parseAndConvertToAst;
