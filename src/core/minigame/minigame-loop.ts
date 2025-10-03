@@ -5,9 +5,19 @@ import { positionDirection } from './room';
 export function miniGameLoop(diff: number) {}
 export type KeyPresses = 'up' | 'down' | 'left' | 'right';
 export type Directions = 'up' | 'down' | 'left' | 'right' | 'other';
-export function setPosManmade(goalpos: [bigint, bigint]) {
+export function setPosManmade(
+	goalpos: [bigint, bigint],
+	direction: Directions,
+	playerxy: [bigint, bigint],
+) {
 	//debugger;
-	let a = !isUnreachable(player.minigame.current_room, goalpos[0], goalpos[1]);
+	let a = !isUnreachable(
+		player.minigame.current_room,
+		goalpos[0],
+		goalpos[1],
+		direction,
+		playerxy,
+	);
 	// console.log(a);
 	if (a) {
 		player.minigame.current_x = goalpos[0];
@@ -24,7 +34,10 @@ export function handleKeyPress(key: KeyPresses) {
 				[player.minigame.current_x, player.minigame.current_y],
 				key as 'up' | 'down' | 'left' | 'right',
 			);
-			setPosManmade(pos);
+			setPosManmade(pos, key, [
+				player.minigame.current_x + 0n,
+				player.minigame.current_y + 0n,
+			]);
 			interactBlock(player.minigame.current_room, pos[0], pos[1], key);
 		}
 	}

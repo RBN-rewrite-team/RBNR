@@ -68,6 +68,7 @@ export function visibleBlocks() {
 	}
 	if (player.minigame.current_room == 1) return 3n;
 	if (player.minigame.current_room == 2) return 1n;
+	if (player.minigame.current_room == 4) return 3n;
 	return import.meta.env.DEV ? 10n : 1n;
 }
 export function isPlayerVisible(x: bigint, y: bigint) {

@@ -142,7 +142,7 @@ function equip(eq: CoreEquipment) {
 
 function unload(eq: CoreEquipment) {
 	eq.equipped = false;
-	delete player.minigame.coreEquipments[eq.position][0];
+	player.minigame.coreEquipments[eq.position].splice(0, 1); // commit q changed `delete` to `splice`
 }
 
 function isEquipped(eq: CoreEquipment) {

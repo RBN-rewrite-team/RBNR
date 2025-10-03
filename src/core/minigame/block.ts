@@ -10,6 +10,8 @@ import {
 } from './game-object';
 import { initialMap } from './map';
 import { map2_block } from './maps/map-dungeon2';
+import { map3_block } from './maps/map-dungeon3';
+import type { Directions } from './minigame-loop';
 import { replacement } from './replacement';
 import { randomBlock } from './room';
 
@@ -39,12 +41,13 @@ export function blockToJSON(x: null | undefined | GameObject) {
 }
 
 export function getCurrentBlock(room: number, x: bigint, y: bigint, nonreplaced = false) {
-	if (room == 943360095 || room == 1 || room == -999 || room == 0 || room == 2) {
+	if (room == 943360095 || room == 1 || room == -999 || room == 0 || room == 2 || room == 4) {
 		let block;
 		if (room == 943360095) block = randomBlock(x, y);
 		else if (room == 0 || room == 2) {
 			block = initialMap()[room].map[Number(y)]?.[Number(x)];
 		} else if (room == 1) block = map2_block(Number(x), Number(y));
+		else if (room == 4) block = map3_block(Number(x), Number(y));
 		else if (room == -999) {
 			if (player.minigame.initializeType.initializeType === 'rect') {
 				if (x < 0n || y < 0n) block = undefined;
@@ -74,9 +77,15 @@ export function getCurrentBlock(room: number, x: bigint, y: bigint, nonreplaced 
 	}
 	return undefined;
 }
-export function isUnreachable(room: number, x: bigint, y: bigint) {
+export function isUnreachable(
+	room: number,
+	x: bigint,
+	y: bigint,
+	direction: Directions = 'other',
+	playerxy: [bigint, bigint],
+) {
 	let obj = getCurrentBlock(room, x, y);
-	if (typeof obj === 'object' && obj instanceof GameObject && obj.solid()) {
+	if (typeof obj === 'object' && obj instanceof GameObject && obj.solid(direction, playerxy)) {
 		return true;
 	}
 	return false;
