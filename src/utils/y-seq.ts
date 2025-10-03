@@ -23,17 +23,16 @@ function getYSequenceWithoutColon(Y: string): {
 	type: string;
 	Y: string;
 } {
-	let type = '???';
 	if (Y.startsWith('Y(')) {
-		type = '1-Y';
-		Y = Y.slice(2, -1);
+		return {type:'1-Y',
+		Y:Y.slice(2, -1)};
 	}
 	if (Y.startsWith('ω-Y(')) {
-		type = 'ω-Y';
-		Y = Y.slice(4, -1);
+		return {type:'ω-Y',
+		Y:Y.slice(4, -1)};
 	}
 	return {
-		type,
+		type: "???",
 		Y,
 	};
 }
@@ -83,7 +82,7 @@ function parseSequenceElement(str: string, i: number): Partial<LeafMountain> & {
 }
 
 function parseSequenceString(s: string): Array<Partial<LeafMountain> & { value: number; position: number; parentIndex: number }> {
-	return s.split(',').map(parseSequenceElement);
+	return s.split(/,\s*/).map(parseSequenceElement);
 }
 
 function equalVector(s: number[], t: number[], d: number = 0): boolean {

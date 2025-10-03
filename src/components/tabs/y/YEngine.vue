@@ -21,7 +21,8 @@ const a = computed(() => {
 			</h3>
 			<div class="y-seq-inner">
 				<div class="progress">
-					<div class="progress-inner"></div>
+					<div v-if="POST_NONREC.Y_SEQ.dimensionEffect(0).lt(10)" class="progress-inner"></div>
+					<div v-else class="progress-inner-fast" />
 					<div
 						style="
 							position: absolute;
@@ -131,17 +132,50 @@ const a = computed(() => {
 	height: 70px;
 	position: relative;
 	border: 2px solid #007f00;
+	overflow: hidden
 }
 .progress-inner {
 	width: v-bind(a);
 	height: 100%;
 	position: relative;
-	background: #007f00;
+	background: rgba(0,127,0,0.5);
 	transition: 0ms;
 }
 .buy {
 	border: 2px solid #007f00;
 	height: 50px;
 	width: 300px;
+}
+.progress-inner-fast {
+	height: 100%;
+	position: absolute;
+	transition: 0ms;
+	background: linear-gradient(
+		-45deg,
+		rgba(0,127,0, 0.3) 0,
+		rgba(0,127,0, 0.3) 25%,
+		rgba(0,127,0, 0.5) 25%,
+		rgba(0,127,0, 0.5) 50%,
+		rgba(0,127,0, 0.3) 50%,
+		rgba(0,127,0, 0.3) 75%,
+		rgba(0,127,0, 0.5) 75%,
+		rgba(0,127,0, 0.5)
+	);
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	background-size: 200px 200px;
+	background-repeat: repeat;
+	animation: scroll_left 3s linear infinite;
+	width: 200%;
+}
+@keyframes scroll_left {
+	0% {
+		transform: translateX(0%);
+	}
+	100% {
+		transform: translateX(-50%);
+	}
 }
 </style>

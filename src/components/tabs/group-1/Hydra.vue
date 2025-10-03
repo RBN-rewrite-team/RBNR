@@ -181,7 +181,7 @@ function hydraAxisHTML(): string {
 				<tr>
 					<td style="width: 50%">
 						<button
-							v-if="feature.Hydra.deduceSpeed().lt(100)"
+							v-if="feature.Hydra.deduceSpeed().lt(10)"
 							class="hydra-button"
 							:style="{ 'background-image': deduceButtonStyle() }"
 						>
