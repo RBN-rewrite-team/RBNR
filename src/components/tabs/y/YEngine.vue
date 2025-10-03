@@ -12,7 +12,7 @@ const a = computed(() => {
 </script>
 
 <template>
-	<div class="main" align="center">
+	<div class="main">
 		<div class="dims">
 			<h3>累计压缩九头蛇能量使BMS推演速度×{{player.hydra.totalCompressedPower.add(1)}}</h3>
 			<div class="y-seq-inner">
@@ -50,7 +50,7 @@ const a = computed(() => {
 				重置Y序列维度，获得{{format(POST_NONREC.Y_SEQ.resetGain())}}压缩九头蛇能量
 			</div>
 		</div>
-		<table>
+		<table align="center">
 			<tr>
 				<TDUpgrade upgid="621" />
 			</tr>
@@ -88,6 +88,7 @@ const a = computed(() => {
 .progress {
 	height: 70px;
 	position: relative;
+	border: 2px solid #007f00;
 }
 .progress-inner {
 	width: v-bind(a);
