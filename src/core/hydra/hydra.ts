@@ -1066,7 +1066,7 @@ export const Hydra = {
 		{
 			for(let i = 0;i < 2;i++)
 			{
-				player.postnonrec.yseq.dimensions[1][i] = player.postnonrec.yseq.dimensions[1][i].add(Y_SEQ.dimensionEffect(i + 1).mul(diff));
+				player.postnonrec.yseq.dimensions[1][i] = player.postnonrec.yseq.dimensions[1][i].add(Y_SEQ.dimensionEffect((i + 1) as (0 | 1 | 2 | 3)).mul(diff));
 			}
 		}
 	},

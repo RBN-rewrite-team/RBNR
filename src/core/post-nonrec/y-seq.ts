@@ -65,10 +65,6 @@ export const Y_SEQ = {
 		player.hydra.totalCompressedPower = player.hydra.totalCompressedPower.add(gain);
 		player.hydra.deduceOrdinal[1] = new Decimal(0);
 		player.hydra.deduceProgress[1] = new Decimal(0);
-		player.postnonrec.yseq.dimensions = [
-				[new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0)],
-				[new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0)],
-				[0, 0, 0, 0],
-			];
+		for(let i = 0;i < 2;i++) for(let j = 0;j < 3;j++) player.postnonrec.yseq.dimensions[i][j] = new Decimal(0);
 	},
 } as const;
