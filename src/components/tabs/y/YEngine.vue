@@ -96,6 +96,7 @@ const a = computed(() => {
 		<table align="center">
 			<tr>
 				<TDUpgrade upgid="621" />
+				<TDUpgrade upgid="622" />
 			</tr>
 		</table>
 	</div>
