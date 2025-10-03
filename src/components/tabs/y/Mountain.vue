@@ -6,28 +6,28 @@ import {
 	type Mountain,
 	type NodeMountain,
 	type LeafMountain,
+	getYSequenceWithoutColon,
+	getCurrentYMilestone
 } from '../../../utils/y-seq';
 import { ref, reactive, computed, onMounted, onUnmounted, watch, nextTick } from 'vue';
+import { player } from "@/core/global"
 
-const Y = reactive({
-	Y: '1,6,30,155,575,1046,867',
-	type: 'ω-Y',
-}); // 后面会改
+const Y = computed(()=>getYSequenceWithoutColon(getCurrentYMilestone(player.hydra.deduceOrdinal[1])[1]))
 
 const getYDimensionsLim = (type: string) => {
 	if (type === '1-Y') return 2;
 	if (type === 'ω-Y') return Infinity;
 	throw new TypeError('Unknown type');
 };
-
-const calculatedMountain = computed(() => calcMountain(Y.Y, getYDimensionsLim(Y.type)));
+window.Y = Y
+const calculatedMountain = computed(() => calcMountain(Y.value.Y, getYDimensionsLim(Y.value.type)));
 const mountain = ref<HTMLElement | null>(null);
 
-const rowHeight = 32;
-const columnWidth = 32;
-const lineThickness = 1;
-const numberSize = 10;
-const gap = 3;
+const rowHeight = 48;
+const columnWidth = 48;
+const lineThickness = 1.5;
+const numberSize = 15;
+const gap = 4.5;
 
 function draw() {
 	if (!mountain.value) return;
@@ -118,7 +118,7 @@ function draw() {
 
 					const totalHeight = (rowPosition['c'] + 1) * rowHeight + numberSize * 2;
 					let dpr = devicePixelRatio ?? 1;
-					if (visualViewport) dpr *= visualViewport.scale;
+					if (visualViewport) dpr *= Math.min(visualViewport.scale,2);
 
 					canvas.style.width = totalWidth + 'px';
 					canvas.style.height = totalHeight + 'px';
@@ -211,8 +211,6 @@ function render1Dmountain(
 function getRootCssVariable(variableName: string): string {
 	return getComputedStyle(document.documentElement).getPropertyValue(variableName).trim();
 }
-
-watch(calculatedMountain, draw);
 
 onMounted(() => {
 	nextTick(draw);
