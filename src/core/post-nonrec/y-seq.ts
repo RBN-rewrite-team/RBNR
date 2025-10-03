@@ -11,13 +11,13 @@ export const Y_SEQ = {
 					Decimal,
 					Decimal,
 					Decimal,
-				],
+				], // amount
 				[new Decimal(0), new Decimal(0), new Decimal(0), new Decimal(0)] as [
 					Decimal,
 					Decimal,
 					Decimal,
 					Decimal,
-				],
+				], // bought
 				[0, 0, 0, 0] as [number, number, number, number],
 			] as const,
 		} as const;
