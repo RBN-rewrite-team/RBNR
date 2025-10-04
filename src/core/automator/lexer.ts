@@ -36,6 +36,7 @@ export const True = createToken({ name: 'True', pattern: /true/, longer_alt: Ide
 export const If = createToken({ name: 'If', pattern: /if/, longer_alt: Identifier });
 
 export const Else = createToken({ name: 'Else', pattern: /else/, longer_alt: Identifier });
+export const Call = createToken({ name: 'Call', pattern: /call/, longer_alt: Identifier });
 
 export const FunctionKeyword = createToken({
 	name: 'Function',
@@ -172,6 +173,8 @@ export const allTokens = [
 	FunctionKeyword,
 	Return,
 
+	Call,
+
 	Identifier,
 
 	Comma,
@@ -225,6 +228,7 @@ export const allTokens2 = [
 	Else,
 	FunctionKeyword,
 	Return,
+	Call,
 
 	Identifier,
 

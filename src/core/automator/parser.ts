@@ -42,6 +42,7 @@ import {
 	RBracket,
 	Assign,
 	Return,
+	Call,
 } from './lexer';
 
 export class AutomatorParser extends CstParser {
@@ -333,6 +334,10 @@ export class AutomatorParser extends CstParser {
 					this.CONSUME(RBracket);
 				},
 			},
+			// 添加函数调用作为表达式
+			{
+				ALT: () => this.SUBRULE(this.callExpression),
+			},
 		]);
 	});
 
@@ -344,11 +349,16 @@ export class AutomatorParser extends CstParser {
 		});
 	});
 
+	// 修改 callExpression，移除分号，使其可以作为表达式
 	public callExpression = this.RULE('callExpression', () => {
+		this.CONSUME(Call);
 		this.SUBRULE(this.expression);
 		this.CONSUME(LParen);
-		this.SUBRULE(this.argumentsList);
+		this.OPTION(() => {
+			this.SUBRULE(this.argumentsList);
+		});
 		this.CONSUME(RParen);
+		// 移除 this.CONSUME(SemiColen); 使其可以作为表达式
 	});
 }
 
