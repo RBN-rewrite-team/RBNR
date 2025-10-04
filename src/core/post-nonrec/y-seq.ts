@@ -106,6 +106,11 @@ export const Y_SEQ = {
 				this.u627effect().mul(diff),
 			);
 		}
+		if (player.upgrades[628]) {
+		  let gain = this.resetGain()
+			player.hydra.compressedPower = player.hydra.compressedPower.add(gain.mul(diff))
+			player.hydra.totalCompressedPower = player.hydra.totalCompressedPower.add(gain.mul(diff))
+		}
 	},
 	u627effect(): Decimal {
 		return player.hydra.deduceOrdinal[1].clampMin(1).log10().div(2);
