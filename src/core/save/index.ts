@@ -258,13 +258,13 @@ function getInitialPlayerData(): Player {
 				},
 				newsbar: true,
 				titlebar: true,
-				hardMode: false
 			},
 			music: 0,
 			music_url: '',
 			challengeDetial: false,
 			allowOffline: true,
 			isGuoGao: false,
+			hardMode: false
 		},
 		stat: getInitialStat(),
 		challenges: [
