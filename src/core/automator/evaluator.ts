@@ -20,6 +20,7 @@ import {
 } from './compiler';
 import { Environment, parentEnvironment } from './environment';
 import { Callable, CodeCallable, ReturnTag } from './a-objects';
+import { player } from '../save';
 let interrupt = false;
 const operators = {
 	'+': 'add',

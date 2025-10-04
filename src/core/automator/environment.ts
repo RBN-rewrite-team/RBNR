@@ -35,9 +35,23 @@ class PutFunction extends Callable {
 		});
 	}
 }
+class DelayFunction extends Callable {
+	call(env: Environment, ...args: any[]) {
+		return new Promise<void>(function (resolve) {
+			setTimeout(() => {
+				resolve();
+			}, args[0].toNumber());
+		});
+	}
+}
 const putf = new PutFunction();
+const delayf = new DelayFunction();
 const parentEnvironment = new Environment();
+
 parentEnvironment.set('puts', putf);
 parentEnvironment.set('print', putf);
 parentEnvironment.set('cout', putf);
+parentEnvironment.set('delay', delayf);
+parentEnvironment.set('wait', delayf);
+
 export { parentEnvironment };

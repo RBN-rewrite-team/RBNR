@@ -103,6 +103,18 @@ onMounted(() => {
 				></div>
 			</div>
 		</div>
+		<h2>自动机语法</h2>
+		<p>var a = 3; 声明一个变量</p>
+		<p>a = 3; 赋值一个变量</p>
+		<p>3+3, 3-3, 3/3, 3*3, 3**3, 3***3(重幂)数学运算</p>
+		<p>function a(b,c,d) {xxx; return e;} 函数， 返回</p>
+		<p>call a(e); 调用函数</p>
+		<p>if (a) {b;} else {c;} 如果， 否则</p>
+		<p>for (var a=b;b;c) {d;} for循环</p>
+		<p>while (b) {c;} while循环</p>
+		<h2>内置函数</h2>
+		<p>puts print cout 弹窗，输出内容</p>
+		<p>delay wait 等待xxx毫秒</p>
 	</div>
 </template>
 

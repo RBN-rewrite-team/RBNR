@@ -4,7 +4,6 @@ import Decimal from 'break_eternity.js';
 
 class ASTNode {
 	type: string;
-
 	constructor(type: string) {
 		this.type = type;
 	}
