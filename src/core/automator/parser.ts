@@ -105,9 +105,8 @@ export class AutomatorParser extends CstParser {
 		this.CONSUME(For);
 		this.CONSUME(LParen);
 		this.OPTION(() => this.SUBRULE(this.variableDeclaration));
-		this.CONSUME1(SemiColen);
 		this.OPTION1(() => this.SUBRULE1(this.expression));
-		this.CONSUME2(SemiColen);
+		this.CONSUME1(SemiColen);
 		this.OPTION2(() => this.SUBRULE2(this.expression));
 		this.CONSUME(RParen);
 		this.SUBRULE(this.statement);

@@ -27,7 +27,7 @@ export const While = createToken({ name: 'While', pattern: /while/, longer_alt: 
 
 export const Const = createToken({ name: 'Const', pattern: /const/, longer_alt: Identifier });
 
-export const ForIn = createToken({ name: 'ForIn', pattern: /forIn/, longer_alt: Identifier });
+export const ForIn = createToken({ name: 'ForIn', pattern: /for(i|I)n/, longer_alt: Identifier });
 
 export const False = createToken({ name: 'False', pattern: /false/, longer_alt: Identifier });
 

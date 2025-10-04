@@ -108,12 +108,17 @@ class IfStatementNode extends ASTNode {
 }
 
 class ForStatementNode extends ASTNode {
-	init: ASTNode | null;
+	init: VariableDeclarationNode | null;
 	test: ASTNode | null;
 	update: ASTNode | null;
 	body: ASTNode;
 
-	constructor(init: ASTNode | null, test: ASTNode | null, update: ASTNode | null, body: ASTNode) {
+	constructor(
+		init: VariableDeclarationNode | null,
+		test: ASTNode | null,
+		update: ASTNode | null,
+		body: ASTNode,
+	) {
 		super('ForStatement');
 		this.init = init;
 		this.test = test;
