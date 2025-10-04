@@ -489,6 +489,15 @@ export const Hydra = {
 				return player.retribution == 1;
 			}
 		})(),
+		'6210': new (class extends Upgrade {
+			description = '每购买一个第 1~4 Y序列维度，它的效果×(1+维度序号×0.05)';
+			cost = new Decimal('1e35');
+			name = 'U5-2-10';
+			currency: Currencies = Currencies.COMP_HYDRA;
+			show(): boolean {
+				return player.retribution == 1;
+			}
+		})(),
 	},
 	buyables: {
 		'611': new (class B611 extends Buyable<Decimal> {

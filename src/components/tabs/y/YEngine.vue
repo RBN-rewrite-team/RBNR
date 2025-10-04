@@ -157,6 +157,7 @@ const dim4progress = computed(() => {
 			</tr>
 			<tr>
 				<TDUpgrade upgid="629" />
+				<TDUpgrade upgid="6210" />
 			</tr>
 		</table>
 	</div>
