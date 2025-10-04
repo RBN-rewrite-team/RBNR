@@ -57,7 +57,7 @@ export const Y_SEQ = {
 	  let boost = new Decimal(1)
 	  if (player.upgrades[622]) boost = boost.mul(player.postnonrec.yseq.dimensions[0][id].pow_base(upgrades[622].effect()))
 		return player.postnonrec.yseq.dimensions[0][id]
-				.add(player.postnonrec.yseq.dimensions[1][id])
+				.add(player.postnonrec.yseq.dimensions[1][id].floor())
 				.mul(mul?.[id]??0.05).mul(boost);
 	},
 	yseqDeduceSpeed() {
