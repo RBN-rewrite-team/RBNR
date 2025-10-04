@@ -191,9 +191,10 @@ function getInitialPlayerData(): Player {
 			keyof typeof buyables,
 			Decimal
 		>,
-		milestones: Object.fromEntries(
-			Object.keys(milestones).map((key) => [key, false]),
-		) as Record<keyof typeof milestones, boolean>,
+		milestones: Object.fromEntries(Object.keys(milestones).map((key) => [key, false])) as Record<
+			keyof typeof milestones,
+			boolean
+		>,
 		buyable11More: DC.D_0,
 		automationCD: {
 			successor: 0,
@@ -402,10 +403,7 @@ function deepMerge<T>(source: T, target: DeepPartial<T>, expectedKey?: string[])
 					string
 				>];
 			} else if (sourceValue instanceof Decimal) {
-				result[key] = new Decimal(targetValue as DecimalSource) as T[Extract<
-					keyof T,
-					string
-				>];
+				result[key] = new Decimal(targetValue as DecimalSource) as T[Extract<keyof T, string>];
 			} else if (targetValue !== null && typeof targetValue === 'object') {
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				result[key] = deepMerge(targetValue, sourceValue as any, expectedKey);
@@ -426,11 +424,7 @@ export function loadFromString(saveContent: string, non_options = false) {
 	const deserialized = saveSerializer.deserialize(saveContent);
 	Object.assign(
 		player,
-		deepMerge(
-			player,
-			deserialized,
-			non_options ? (['options'] satisfies (keyof Player)[]) : [],
-		),
+		deepMerge(player, deserialized, non_options ? (['options'] satisfies (keyof Player)[]) : []),
 	);
 	if ((player?.version ?? 0) < 4) {
 		player.hydra.dilute.solvent = [0, 0, 0, 0, 0, 0, false, false, false];

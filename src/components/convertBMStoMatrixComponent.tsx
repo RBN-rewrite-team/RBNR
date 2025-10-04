@@ -6,9 +6,7 @@ export function bmsToLatex(x: string) {
 	 * (a1,a2,a3)(b1,b2,b3)... \begin{pmatrix} a1& b1& ..
 	 */
 
-	const matrix = x
-		.split(')(')
-		.map((x) => x.split(',').map((t) => parseInt(t.replace(/\D/g, ''))));
+	const matrix = x.split(')(').map((x) => x.split(',').map((t) => parseInt(t.replace(/\D/g, ''))));
 
 	/**
      * \begin{pmatrix}

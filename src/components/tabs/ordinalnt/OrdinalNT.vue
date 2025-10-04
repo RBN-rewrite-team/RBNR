@@ -47,18 +47,14 @@ function _g() {
 			<div
 				class="clickable_button"
 				style="position: absolute"
-				@mousedown="
-					player.numbertheory.visiting = Math.max(player.numbertheory.visiting - 1, 1)
-				"
+				@mousedown="player.numbertheory.visiting = Math.max(player.numbertheory.visiting - 1, 1)"
 			>
 				-
 			</div>
 			<div
 				class="clickable_button"
 				style="position: absolute; left: 60px"
-				@mousedown="
-					player.numbertheory.visiting = Math.min(player.numbertheory.visiting + 1, 9)
-				"
+				@mousedown="player.numbertheory.visiting = Math.min(player.numbertheory.visiting + 1, 9)"
 			>
 				+
 			</div>
@@ -113,10 +109,7 @@ function _g() {
 					/>
 					<vue-latex
 						v-if="player.buyables['54R'].gte(1)"
-						:expression="
-							'\\dot{t_{3, 1}} = ' +
-							formatLaTeX(player.buyables['54R'].gte(1) ? 1 : 0)
-						"
+						:expression="'\\dot{t_{3, 1}} = ' + formatLaTeX(player.buyables['54R'].gte(1) ? 1 : 0)"
 						display-mode
 					/>
 					<vue-latex
@@ -126,10 +119,7 @@ function _g() {
 					/>
 					<vue-latex
 						v-if="player.buyables['55R'].gte(1)"
-						:expression="
-							'\\dot{t_{3, 2}} = ' +
-							formatLaTeX(player.buyables['55R'].gte(1) ? 1 : 0)
-						"
+						:expression="'\\dot{t_{3, 2}} = ' + formatLaTeX(player.buyables['55R'].gte(1) ? 1 : 0)"
 						display-mode
 					/>
 					<vue-latex
@@ -139,9 +129,7 @@ function _g() {
 					/>
 					<vue-latex
 						v-if="player.upgrades['512']"
-						:expression="
-							'\\dot{t_{3, 3}} = ' + formatLaTeX(player.upgrades[512] ? 1 : 0)
-						"
+						:expression="'\\dot{t_{3, 3}} = ' + formatLaTeX(player.upgrades[512] ? 1 : 0)"
 						display-mode
 					/>
 					<table align="center">
@@ -165,14 +153,10 @@ function _g() {
 				>
 			</div>
 			<div
-				v-if="
-					(player.upgrades['69R'] || player.upgrades[65]) &&
-					player.numbertheory.visiting == 4
-				"
+				v-if="(player.upgrades['69R'] || player.upgrades[65]) && player.numbertheory.visiting == 4"
 			>
 				<h2>增长模式</h2>
-				τ<sub>4</sub
-				>{{ Dilute.diluteAmount(3) <= 0 ? '增' : '减' }}益BMS推演和U5-2的速度<br />
+				τ<sub>4</sub>{{ Dilute.diluteAmount(3) <= 0 ? '增' : '减' }}益BMS推演和U5-2的速度<br />
 				<vue-latex
 					:expression="`\\dot{x_4} = a\\cdot f\\left(\\prod_{n = 1}^${feature.Hydra.pMaxUnlock()}e_n+1\\right) = ${formatLaTeX(OrdinalNT.varGain('x', 4))}`"
 					display-mode
@@ -195,14 +179,8 @@ function _g() {
 				/>
 				<vue-latex :expression="`f(x) = ${f()}`" display-mode />
 				<vue-latex :expression="`g(x) = ${g()}`" display-mode />
-				<vue-latex
-					:expression="`e_n = \\text{第\\textit{n}个九头蛇重置项目的效果}`"
-					display-mode
-				/>
-				<vue-latex
-					:expression="`x_4 = ${formatLaTeX(player.numbertheory.GM.x)}`"
-					display-mode
-				/>
+				<vue-latex :expression="`e_n = \\text{第\\textit{n}个九头蛇重置项目的效果}`" display-mode />
+				<vue-latex :expression="`x_4 = ${formatLaTeX(player.numbertheory.GM.x)}`" display-mode />
 				价格对应资源为x<sub>4</sub>, τ<sub>4</sub>的购买项/升级不消耗任何东西。
 				<table align="center">
 					<tbody>

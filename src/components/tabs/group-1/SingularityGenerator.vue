@@ -231,11 +231,7 @@ setInterval(function () {
 				"
 			>
 				现在的{{
-					wordShift.wordCycle(
-						['数值', '加法能量', '乘法能量', '指数能量', '奇点能量'],
-						false,
-						t,
-					)
+					wordShift.wordCycle(['数值', '加法能量', '乘法能量', '指数能量', '奇点能量'], false, t)
 				}}太多了......我需要献祭我的对数膨胀和记数法才能走得更远......
 			</button>
 			<button
@@ -247,11 +243,7 @@ setInterval(function () {
 				"
 			>
 				现在的{{
-					wordShift.wordCycle(
-						['数值', '加法能量', '乘法能量', '指数能量', '奇点能量'],
-						false,
-						t,
-					)
+					wordShift.wordCycle(['数值', '加法能量', '乘法能量', '指数能量', '奇点能量'], false, t)
 				}}太多了......我需要献祭我的对数运算和软上限才能走得更远......
 			</button>
 			<button
@@ -263,11 +255,7 @@ setInterval(function () {
 				"
 			>
 				现在的{{
-					wordShift.wordCycle(
-						['数值', '加法能量', '乘法能量', '指数能量', '奇点能量'],
-						false,
-						t,
-					)
+					wordShift.wordCycle(['数值', '加法能量', '乘法能量', '指数能量', '奇点能量'], false, t)
 				}}太多了......我需要献祭我的棋盘才能走得更远......
 			</button>
 			<button
@@ -279,11 +267,7 @@ setInterval(function () {
 				"
 			>
 				现在的{{
-					wordShift.wordCycle(
-						['数值', '加法能量', '乘法能量', '指数能量', '奇点能量'],
-						false,
-						t,
-					)
+					wordShift.wordCycle(['数值', '加法能量', '乘法能量', '指数能量', '奇点能量'], false, t)
 				}}太多了......我需要献祭我的指数层级才能走得更远......
 			</button>
 			<button

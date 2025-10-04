@@ -8,14 +8,13 @@ import { player } from '@/core/save';
 			class="clickable_button"
 			style="display: inline-block"
 			@click="
-				player.numbertheory.well_ordering.pages[
-					player.numbertheory.well_ordering.selecting - 1
-				] = Math.max(
-					player.numbertheory.well_ordering.pages[
-						player.numbertheory.well_ordering.selecting - 1
-					] - 1,
-					0,
-				)
+				player.numbertheory.well_ordering.pages[player.numbertheory.well_ordering.selecting - 1] =
+					Math.max(
+						player.numbertheory.well_ordering.pages[
+							player.numbertheory.well_ordering.selecting - 1
+						] - 1,
+						0,
+					)
 			"
 		>
 			-
@@ -24,16 +23,12 @@ import { player } from '@/core/save';
 			class="clickable_button"
 			style="display: inline-block"
 			@click="
-				player.numbertheory.well_ordering.pages[
-					player.numbertheory.well_ordering.selecting - 1
-				]++
+				player.numbertheory.well_ordering.pages[player.numbertheory.well_ordering.selecting - 1]++
 			"
 		>
 			+</button
 		>(第{{
-			player.numbertheory.well_ordering.pages[
-				player.numbertheory.well_ordering.selecting - 1
-			] + 1
+			player.numbertheory.well_ordering.pages[player.numbertheory.well_ordering.selecting - 1] + 1
 		}}页)
 	</div>
 </template>

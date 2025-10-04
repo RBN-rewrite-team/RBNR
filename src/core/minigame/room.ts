@@ -61,8 +61,7 @@ export function positionDirection(
 
 export function visibleBlocks() {
 	if (player.minigame.current_room == 0) {
-		return (player.minigame.replaces[0] ?? []).filter((x) => x.x == 24n && x.y == 14n)
-			.length !== 0
+		return (player.minigame.replaces[0] ?? []).filter((x) => x.x == 24n && x.y == 14n).length !== 0
 			? 3n
 			: 1n;
 	}

@@ -30,9 +30,7 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			}
 			if (
 				player.hydra.power.gte(
-					new Decimal(326649 ** player.challenges[1][0].add(1).toNumber())
-						.pow10()
-						.mul(0.99),
+					new Decimal(326649 ** player.challenges[1][0].add(1).toNumber()).pow10().mul(0.99),
 				)
 			) {
 				player.challengein = [-1, -1];
@@ -73,11 +71,7 @@ export const NONREC_CHALS: SingleChallenge[] = [
 			return player.nonrecu.studies_bought.includes(12);
 		},
 		loop() {
-			if (
-				player.hydra.dilute.solution.gte(
-					255000000 * 5 ** player.challenges[1][2].toNumber(),
-				)
-			) {
+			if (player.hydra.dilute.solution.gte(255000000 * 5 ** player.challenges[1][2].toNumber())) {
 				player.challengein = [-1, -1];
 				player.challenges[1][2] = player.challenges[1][2].add(1).min(5);
 			}
@@ -108,17 +102,12 @@ export const NONREC_CHALS: SingleChallenge[] = [
 		loop() {
 			player.nonrecu.studies_bought = [
 				...new Set(
-					player.nonrecu.studies_bought.concat(
-						getNRC4Kept(player.challenges[1][3].toNumber()),
-					),
+					player.nonrecu.studies_bought.concat(getNRC4Kept(player.challenges[1][3].toNumber())),
 				),
 			];
 			if (
 				player.hydra.power.gte(
-					new Decimal(6 ** player.challenges[1][3].toNumber())
-						.pow_base(2)
-						.pow_base(2)
-						.pow10(),
+					new Decimal(6 ** player.challenges[1][3].toNumber()).pow_base(2).pow_base(2).pow10(),
 				)
 			) {
 				player.challengein = [-1, -1];

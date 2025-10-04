@@ -5,10 +5,7 @@
 		版本: UNOCF Beta<br />
 		<br />
 		<div style="position: relative; width: 100%">
-			<div
-				style="position: absolute; top: 0px; left: 0%; height: 100px; width: 25%"
-				align="center"
-			>
+			<div style="position: absolute; top: 0px; left: 0%; height: 100px; width: 25%" align="center">
 				<h2>开发群群主</h2>
 				<br />
 				LSO - The Reflection Arc

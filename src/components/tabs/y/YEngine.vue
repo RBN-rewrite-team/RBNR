@@ -52,24 +52,14 @@ const dim4progress = computed(() => {
 	<div class="main">
 		<div class="dims">
 			<h3>
-				累计压缩九头蛇能量使BMS推演速度×{{
-					formatWhole(player.hydra.totalCompressedPower.add(1))
-				}}
+				累计压缩九头蛇能量使BMS推演速度×{{ formatWhole(player.hydra.totalCompressedPower.add(1)) }}
 			</h3>
 			<div class="y-seq-inner">
 				<div class="progress">
-					<div
-						v-if="POST_NONREC.Y_SEQ.dimensionEffect(0).lt(10)"
-						class="progress-inner"
-					></div>
+					<div v-if="POST_NONREC.Y_SEQ.dimensionEffect(0).lt(10)" class="progress-inner"></div>
 					<div v-else class="progress-inner-fast" />
 					<div
-						style="
-							position: absolute;
-							top: 50%;
-							left: 50%;
-							transform: translate(-50%, -50%);
-						"
+						style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)"
 						v-html="
 							`已推演${formatWhole(player.hydra.deduceOrdinal[1])}次<br>` +
 							getCurrentYMilestone(player.hydra.deduceOrdinal[1])[1]
@@ -88,8 +78,7 @@ const dim4progress = computed(() => {
 				>
 				<span>每秒推演{{ format(POST_NONREC.Y_SEQ.dimensionEffect(0)) }}次</span>
 				<div class="buy" @click="() => POST_NONREC.Y_SEQ.buyDimensions(0)">
-					购买最大<br />需求:
-					{{ formatWhole(POST_NONREC.Y_SEQ.dimensionsCost(0)) }}压缩九头蛇能量
+					购买最大<br />需求: {{ formatWhole(POST_NONREC.Y_SEQ.dimensionsCost(0)) }}压缩九头蛇能量
 				</div>
 			</div>
 			<div
@@ -103,8 +92,7 @@ const dim4progress = computed(() => {
 				>
 				<span>每秒生产{{ format(POST_NONREC.Y_SEQ.dimensionEffect(1)) }}第一Y序列维度</span>
 				<div class="buy" @click="() => POST_NONREC.Y_SEQ.buyDimensions(1)">
-					购买最大<br />需求:
-					{{ formatWhole(POST_NONREC.Y_SEQ.dimensionsCost(1)) }}压缩九头蛇能量
+					购买最大<br />需求: {{ formatWhole(POST_NONREC.Y_SEQ.dimensionsCost(1)) }}压缩九头蛇能量
 				</div>
 			</div>
 			<div
@@ -118,8 +106,7 @@ const dim4progress = computed(() => {
 				>
 				<span>每秒生产{{ format(POST_NONREC.Y_SEQ.dimensionEffect(2)) }}第二Y序列维度</span>
 				<div class="buy" @click="() => POST_NONREC.Y_SEQ.buyDimensions(2)">
-					购买最大<br />需求:
-					{{ formatWhole(POST_NONREC.Y_SEQ.dimensionsCost(2)) }}压缩九头蛇能量
+					购买最大<br />需求: {{ formatWhole(POST_NONREC.Y_SEQ.dimensionsCost(2)) }}压缩九头蛇能量
 				</div>
 			</div>
 			<div class="dim-single dim4_progress_bar" :class="{ fast: Y_SEQ.u627effect().gte(10) }">
@@ -130,15 +117,12 @@ const dim4progress = computed(() => {
 				>
 				<span>每秒生产{{ format(POST_NONREC.Y_SEQ.dimensionEffect(3)) }}第三Y序列维度</span>
 				<div class="buy" @click="() => POST_NONREC.Y_SEQ.buyDimensions(3)">
-					购买最大<br />需求:
-					{{ formatWhole(POST_NONREC.Y_SEQ.dimensionsCost(3)) }}压缩九头蛇能量
+					购买最大<br />需求: {{ formatWhole(POST_NONREC.Y_SEQ.dimensionsCost(3)) }}压缩九头蛇能量
 				</div>
 			</div>
 			<div class="dim-single-centered hydra_reset" @click="POST_NONREC.Y_SEQ.reset()">
 				<span style="display: relative; z-index: 1"
-					>重置Y序列维度，获得{{
-						format(POST_NONREC.Y_SEQ.resetGain())
-					}}压缩九头蛇能量</span
+					>重置Y序列维度，获得{{ format(POST_NONREC.Y_SEQ.resetGain()) }}压缩九头蛇能量</span
 				>
 			</div>
 		</div>

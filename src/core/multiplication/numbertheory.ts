@@ -369,12 +369,7 @@ export const NUMTHEORY = {
 				return false;
 			}
 			effect() {
-				return player.numbertheory.rational_approx.m
-					.sub(5000000)
-					.max(1)
-					.root(20)
-					.ln()
-					.add(1);
+				return player.numbertheory.rational_approx.m.sub(5000000).max(1).root(20).ln().add(1);
 			}
 			effectDescription(x: Decimal) {
 				return '×' + format(x);
@@ -428,8 +423,7 @@ export const NUMTHEORY = {
 		if (player.buyables['36R'].gte(1)) exp = exp.add(player.buyables['36R'].mul(0.085));
 		if (player.buyables['31R'].gte(1))
 			x = x.add(buyables['31R'].effect(player.buyables['31R']).pow(exp));
-		if (player.buyables['32R'].gte(1))
-			x = x.mul(buyables['32R'].effect(player.buyables['32R']));
+		if (player.buyables['32R'].gte(1)) x = x.mul(buyables['32R'].effect(player.buyables['32R']));
 		if (player.upgrades['31R']) x = x.mul(upgrades['31R'].effect?.() ?? 1);
 		return x.mul(player.numbertheory.euler.y.floor()).mul(player.numbertheory.euler.s);
 	},

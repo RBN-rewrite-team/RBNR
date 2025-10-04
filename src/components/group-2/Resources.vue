@@ -15,11 +15,7 @@ import { getCurrentOrdinal } from '../../utils/y-seq.ts';
 		<div class="resources" style="font-size: 20px" id="resources">
 			<div class="background">
 				<div v-if="player.retribution == 0">
-					<div
-						v-if="!(player.firstResetBit & 0b1000)"
-						style="margin-left: 15px"
-						class="resource"
-					>
+					<div v-if="!(player.firstResetBit & 0b1000)" style="margin-left: 15px" class="resource">
 						<div style="font-weight: bold; color: var(--suptitle-color)">
 							数值&nbsp;
 							<template v-if="player.singularity.t > 666">ω</template>
@@ -31,20 +27,13 @@ import { getCurrentOrdinal } from '../../utils/y-seq.ts';
 						>
 							<span
 								v-if="
-									player.singularity.stage < 11 &&
-									feature.SUCCESSOR.autoSuccessPerSecond().eq(0)
+									player.singularity.stage < 11 && feature.SUCCESSOR.autoSuccessPerSecond().eq(0)
 								"
 								>(需要通过后继获得)</span
 							>
 							<span
 								v-else
-								v-html="
-									formatGain(
-										player.number,
-										feature.resourceGain.number().value,
-										'',
-									)
-								"
+								v-html="formatGain(player.number, feature.resourceGain.number().value, '')"
 							></span
 							>({{ formatWhole(player.totalNumber) }})
 							<br />
@@ -66,9 +55,7 @@ import { getCurrentOrdinal } from '../../utils/y-seq.ts';
 								v-if="
 									!(
 										player.upgrades[61] &&
-										player.hydra.deduceOrdinal[0].gte(
-											'e3.773962424821541352e168',
-										)
+										player.hydra.deduceOrdinal[0].gte('e3.773962424821541352e168')
 									)
 								"
 							/>
@@ -82,10 +69,7 @@ import { getCurrentOrdinal } from '../../utils/y-seq.ts';
 								v-else
 							/>
 						</div>
-						<div
-							style="font-size: 17px; color: rgb(255, 127, 127)"
-							v-if="!player.upgrades[61]"
-						>
+						<div style="font-size: 17px; color: rgb(255, 127, 127)" v-if="!player.upgrades[61]">
 							<span
 								v-html="
 									'(+' +
@@ -112,23 +96,14 @@ import { getCurrentOrdinal } from '../../utils/y-seq.ts';
 								"
 							></span>
 						</div>
-						<div
-							style="font-size: 17px; color: rgb(155, 125, 195)"
-							v-if="player.upgrades[61]"
-						>
+						<div style="font-size: 17px; color: rgb(155, 125, 195)" v-if="player.upgrades[61]">
 							<span
 								v-html="
-									formatGain(
-										temp.lastBMSDeduce,
-										feature.Hydra.deduceSpeed(0),
-									).replace('(', '(推演')
+									formatGain(temp.lastBMSDeduce, feature.Hydra.deduceSpeed(0)).replace('(', '(推演')
 								"
 							></span>
 						</div>
-						<div
-							style="font-size: 17px; color: rgb(155, 125, 195)"
-							v-if="player.upgrades[61]"
-						>
+						<div style="font-size: 17px; color: rgb(155, 125, 195)" v-if="player.upgrades[61]">
 							(已推演{{ formatWhole(player.hydra.deduceOrdinal[0]) }}次)
 						</div>
 					</div>
@@ -251,12 +226,7 @@ import { getCurrentOrdinal } from '../../utils/y-seq.ts';
 							style="font-size: 17px; display: inline; color: rgb(200, 190, 245)"
 						>
 							<span
-								v-html="
-									formatGain(
-										player.hydra.power,
-										feature.Hydra.hydraPowerPassiveGeneration(),
-									)
-								"
+								v-html="formatGain(player.hydra.power, feature.Hydra.hydraPowerPassiveGeneration())"
 							/>
 						</div>
 					</div>
@@ -267,10 +237,7 @@ import { getCurrentOrdinal } from '../../utils/y-seq.ts';
 								{{ formatWhole(player.nonrecu.power) }}
 							</div>
 							<br />
-							<div
-								v-if="true"
-								style="font-size: 17px; display: inline; color: rgb(245, 193, 73)"
-							>
+							<div v-if="true" style="font-size: 17px; display: inline; color: rgb(245, 193, 73)">
 								(+{{ formatWhole(feature.NON_RECURSIVE.gain()) }})
 							</div>
 						</div>

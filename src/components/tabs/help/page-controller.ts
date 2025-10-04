@@ -9,9 +9,7 @@ export function nextPage() {
 	if (player.help.milestone == 2) adder = 3;
 	if (player.help.page >= 1000)
 		player.help.page +=
-			Math.random() > 0.99 ** ((player.help.page - 1000) ** 0.612881628721905905)
-				? -1
-				: adder;
+			Math.random() > 0.99 ** ((player.help.page - 1000) ** 0.612881628721905905) ? -1 : adder;
 	else player.help.page++;
 }
 export function lastPage() {

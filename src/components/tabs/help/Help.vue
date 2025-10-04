@@ -42,8 +42,9 @@ import HelpContent from './HelpContent';
 					display-mode
 				/>
 				其中，fp.是不动点(Fixed Point)的缩写<br />
-				我们称<vue-latex expression="\varepsilon_0" />为SCO(Small Cantor
-				Ordinal)，由于<vue-latex expression="\varepsilon_0" />已经是<vue-latex
+				我们称<vue-latex expression="\varepsilon_0" />为SCO(Small Cantor Ordinal)，由于<vue-latex
+					expression="\varepsilon_0"
+				/>已经是<vue-latex
 					expression="\alpha\mapsto \omega^\alpha"
 				/>的不动点，继续进行该操作不会有任何作用。<br />
 				不过，我们并非无法继续，只需要将<vue-latex
@@ -128,18 +129,16 @@ import HelpContent from './HelpContent';
 					expression="\varepsilon_{\alpha+1}[0] = \varepsilon_\alpha+1, \varepsilon_{\alpha+1}[n+1] = \omega^{\varepsilon_{\alpha+1}[n]}"
 				/><br />
 				7.
-				<vue-latex
-					expression="\varepsilon_{\alpha}[n] = \varepsilon_{\alpha[n]}"
-				/>，其中<vue-latex expression="\alpha" />是极限序数<br />
+				<vue-latex expression="\varepsilon_{\alpha}[n] = \varepsilon_{\alpha[n]}" />，其中<vue-latex
+					expression="\alpha"
+				/>是极限序数<br />
 				我们将对<vue-latex expression="\varepsilon_{\varepsilon_0}"></vue-latex
 				>进行基本列展开，每一次展开四列。 1.
 				<vue-latex expression="\varepsilon_{\varepsilon_0}[4]"></vue-latex><br />
 				2. <vue-latex expression="\varepsilon_{\varepsilon_0[4]}"></vue-latex><br />
-				3. <vue-latex expression="\varepsilon_{\omega^{\varepsilon_0[3]}}"></vue-latex
-				><br />
+				3. <vue-latex expression="\varepsilon_{\omega^{\varepsilon_0[3]}}"></vue-latex><br />
 				4.
-				<vue-latex expression="\varepsilon_{\omega^{\omega^{\varepsilon_0[2]}}}"></vue-latex
-				><br />
+				<vue-latex expression="\varepsilon_{\omega^{\omega^{\varepsilon_0[2]}}}"></vue-latex><br />
 				5.
 				<vue-latex
 					expression="\varepsilon_{\omega^{\omega^{\omega^{\varepsilon_0[1]}}}}"
@@ -151,19 +150,14 @@ import HelpContent from './HelpContent';
 				></vue-latex
 				><br />
 				7.
-				<vue-latex
-					expression="\varepsilon_{\omega^{\omega^{\omega^{\omega^{0}}}}}"
-				></vue-latex
+				<vue-latex expression="\varepsilon_{\omega^{\omega^{\omega^{\omega^{0}}}}}"></vue-latex
 				><br />
-				8. <vue-latex expression="\varepsilon_{\omega^{\omega^{\omega^{1}}}}"></vue-latex
-				><br />
+				8. <vue-latex expression="\varepsilon_{\omega^{\omega^{\omega^{1}}}}"></vue-latex><br />
 				9. <vue-latex expression="\varepsilon_{\omega^{\omega^{\omega}}}"></vue-latex><br />
 				10. <vue-latex expression="\varepsilon_{\omega^{\omega^{4}}}"></vue-latex><br />
 				11. <vue-latex expression="\varepsilon_{\omega^{\omega^{3}4}}"></vue-latex><br />
 				12.
-				<vue-latex
-					expression="\varepsilon_{\omega^{\omega^{3}3+\omega^{2}3+\omega3+4}}"
-				></vue-latex
+				<vue-latex expression="\varepsilon_{\omega^{\omega^{3}3+\omega^{2}3+\omega3+4}}"></vue-latex
 				><br />
 			</div>
 			<div v-else-if="player.help.epsilon && player.help.page == 8">
@@ -210,16 +204,15 @@ import HelpContent from './HelpContent';
 				><br />
 			</div>
 			<div v-else-if="player.help.epsilon && player.help.page == 9">
-				下面我们考虑<vue-latex expression="\alpha\mapsto\zeta_\alpha"></vue-latex
-				>的映射。<br />
+				下面我们考虑<vue-latex expression="\alpha\mapsto\zeta_\alpha"></vue-latex>的映射。<br />
 				从0开始重复作用上述映射，所得到的极限就是<vue-latex expression="\eta_0"></vue-latex
 				>，基本列<br />
 				<vue-latex
 					expression="\eta_0 = \sup\left\{0, \zeta_0, \zeta_{\zeta_0}, \zeta_{\zeta_{\zeta_0}}, \cdots\right\}"
 					display-mode
 				/>
-				<vue-latex expression="\eta_0 = \varepsilon_{\eta_0} = \zeta_{\eta_0} "></vue-latex
-				>， 基本列展开方法和<vue-latex expression="\zeta_\alpha"></vue-latex>相似，<br />
+				<vue-latex expression="\eta_0 = \varepsilon_{\eta_0} = \zeta_{\eta_0} "></vue-latex>，
+				基本列展开方法和<vue-latex expression="\zeta_\alpha"></vue-latex>相似，<br />
 				1.<vue-latex expression="\eta_0[0] = 0" /><br />
 				2.<vue-latex expression="\eta_0[n+1] = \zeta_{\eta_0[n]}" /><br />
 				3.<vue-latex expression="\alpha"></vue-latex>为极限序数，<vue-latex
@@ -238,8 +231,7 @@ import HelpContent from './HelpContent';
 					expression="\alpha"
 				/>的一元Veblen函数<vue-latex expression="\varphi(\alpha)" />，<br />
 				它实际上就等于<vue-latex expression="\omega^\alpha" /><br />
-				接下来有二元Veblen函数<vue-latex expression="\varphi(\alpha,\beta)"></vue-latex
-				>。<br />
+				接下来有二元Veblen函数<vue-latex expression="\varphi(\alpha,\beta)"></vue-latex>。<br />
 				1. <vue-latex expression="\varphi(0,\alpha)=\varphi(\alpha)"></vue-latex><br />
 				2.
 				<vue-latex
@@ -267,11 +259,11 @@ import HelpContent from './HelpContent';
 					expression="\varphi(1,1) = \gamma\mapsto\omega^\gamma\textrm{ fp. }\varphi(1,0) = \varepsilon_1"
 				></vue-latex
 				>,<br />
-				我们可以推导出<vue-latex
-					expression="\varphi(1,\alpha) = \varepsilon_\alpha"
+				我们可以推导出<vue-latex expression="\varphi(1,\alpha) = \varepsilon_\alpha"></vue-latex
+				>，同样的，<vue-latex expression="\varphi(2,\alpha) = \zeta_\alpha"></vue-latex>，<vue-latex
+					expression="\varphi(3,\alpha) = \eta_\alpha"
 				></vue-latex
-				>，同样的，<vue-latex expression="\varphi(2,\alpha) = \zeta_\alpha"></vue-latex
-				>，<vue-latex expression="\varphi(3,\alpha) = \eta_\alpha"></vue-latex>。<br />
+				>。<br />
 			</div>
 			<div v-else-if="player.help.epsilon && player.help.page == 10">
 				接下来定义一个序数,<vue-latex
@@ -330,9 +322,9 @@ import HelpContent from './HelpContent';
 				/>改成<vue-latex expression="\Omega" />，然后将第三条的<vue-latex
 					expression="\Omega"
 				/>改成<vue-latex expression="\Omega_2" />。<br />
-				为了区分，这种OCF表示为<vue-latex
-					expression="\psi_{\Omega_2}(X)"
-				/>，它输出<vue-latex expression="\Omega" />的各种不动点。<br />
+				为了区分，这种OCF表示为<vue-latex expression="\psi_{\Omega_2}(X)" />，它输出<vue-latex
+					expression="\Omega"
+				/>的各种不动点。<br />
 				随后，将这个新的OCF的输出结果套入原来的OCF中，极限就被扩展了。<br />
 				为了简化，如果存在<vue-latex expression="\Omega_{X}" />，则<vue-latex
 					expression="\psi(X*\Omega_{X})=\psi(\psi_{\Omega_X}(X*\Omega_X))"
@@ -355,9 +347,7 @@ import HelpContent from './HelpContent';
 				/>。<br />
 				关于它的OCF的定义与<vue-latex expression="\Omega_X" />类似，但<vue-latex
 					expression="\psi_I(X)=\Omega_X"
-				/>，因此<vue-latex
-					expression="\psi(I)=\psi(\alpha\mapsto\Omega_{\alpha}FP)"
-				/>。<br />
+				/>，因此<vue-latex expression="\psi(I)=\psi(\alpha\mapsto\Omega_{\alpha}FP)" />。<br />
 				<vue-latex expression="\psi(I)" />被称为扩展BO，也就是EBO，它是单独使用<vue-latex
 					expression="\Omega"
 				/>的OCF的最终极限。<br />
@@ -370,13 +360,10 @@ import HelpContent from './HelpContent';
 					expression="\Omega_1"
 				></vue-latex
 				>更小的序数递归得到。每个<vue-latex expression="\Omega_{\beta+1}"></vue-latex
-				>都是容许序数（<vue-latex expression="\Omega_\omega"></vue-latex
-				>并不是容许序数）。<br />
+				>都是容许序数（<vue-latex expression="\Omega_\omega"></vue-latex>并不是容许序数）。<br />
 				在<vue-latex expression="I" />之上，还可以定义关于更高的递归不可达序数<vue-latex
 					expression="I_X"
-				/>的OCF，它的对应规则是<vue-latex
-					expression="\psi_{I_{X+1}}(Y)=\Omega_{I_X+Y}"
-				/>。<br />
+				/>的OCF，它的对应规则是<vue-latex expression="\psi_{I_{X+1}}(Y)=\Omega_{I_X+Y}" />。<br />
 				折叠这些OCF的序数是<vue-latex expression="I(1,0)" />，<vue-latex
 					expression="\psi_{I(1,0)}(X)=I_X"
 				/><br />
@@ -397,12 +384,8 @@ import HelpContent from './HelpContent';
 				<vue-latex
 					expression="\psi_M(X*M)=\alpha\mapsto\psi_M(X*\alpha)AP"
 				/>(其中*为加法、乘法、乘方之一)<br />
-				<vue-latex
-					expression="\psi_M(\sup\ \alpha[n \in N^+])[n]=\psi_M(\alpha[n])"
-				/><br />
-				例如<vue-latex
-					expression="\psi_M(M)=\beta\mapsto\Omega_\beta \mathrm{ ap.}=I"
-				/><br />
+				<vue-latex expression="\psi_M(\sup\ \alpha[n \in N^+])[n]=\psi_M(\alpha[n])" /><br />
+				例如<vue-latex expression="\psi_M(M)=\beta\mapsto\Omega_\beta \mathrm{ ap.}=I" /><br />
 
 				含有<vue-latex expression="M" />的OCF可以像普通OCF折叠Veblen一样折叠<vue-latex
 					expression="I"
@@ -429,9 +412,7 @@ import HelpContent from './HelpContent';
 				/>
 			</div>
 			<div v-else-if="player.help.page == 104">
-				有<vue-latex expression="\Omega"></vue-latex>有<vue-latex
-					expression="\Omega_2"
-				></vue-latex
+				有<vue-latex expression="\Omega"></vue-latex>有<vue-latex expression="\Omega_2"></vue-latex
 				>，有M也有<vue-latex expression="M_2"></vue-latex>。<br />
 				通过取马洛序数的不动点，我们得到<vue-latex
 					expression="M(1,0)"
@@ -474,9 +455,7 @@ import HelpContent from './HelpContent';
 					/>是集合的交集运算,也就是取出两个集合中都有的元素，合成为一个集合。
 				</p>
 				<p>
-					<vue-latex
-						expression="\mathrm{xth} Y \operatorname{aft} X"
-					/>是X在Y集合中后的第x个序数
+					<vue-latex expression="\mathrm{xth} Y \operatorname{aft} X" />是X在Y集合中后的第x个序数
 				</p>
 				<p><vue-latex expression="\Pi_\alpha" />是公式，具体是什么公式暂时难以所清楚</p>
 				<p>
@@ -513,9 +492,9 @@ import HelpContent from './HelpContent';
 				<p>
 					<vue-latex
 						expression="\Pi_1\operatorname{onto}\Pi_1\operatorname{onto}\mathrm{Ord}"
-					/>这个形式太麻烦，我们可以写成<vue-latex
-						expression="1-1-\mathrm{Ord}"
-					/>或<vue-latex expression="1-1" />
+					/>这个形式太麻烦，我们可以写成<vue-latex expression="1-1-\mathrm{Ord}" />或<vue-latex
+						expression="1-1"
+					/>
 				</p>
 				<p>
 					把1-重复写，可以得到
@@ -532,8 +511,7 @@ import HelpContent from './HelpContent';
 					expression="(1-)^{(1-)^{\omega}}1=\omega^{\omega^\omega}"
 				></vue-latex>
 				<p>
-					这个三角形的指数塔可以不断延续下去，直到无穷层。利用 Veblen
-					函数的不动点模式，我们将其记为
+					这个三角形的指数塔可以不断延续下去，直到无穷层。利用 Veblen 函数的不动点模式，我们将其记为
 				</p>
 				<vue-latex
 					display-mode
@@ -542,9 +520,7 @@ import HelpContent from './HelpContent';
 				<vue-latex display-mode expression="(1-)^{(1,1)}1=\varepsilon_\omega"></vue-latex>
 				<vue-latex display-mode expression="(1-)^{(2,0)}1=\zeta_0"></vue-latex>
 				<p>
-					我们发现我们还在走Velben函数的旅程，所以我们使用<vue-latex
-						expression="\Pi_2"
-					/>反射序数。
+					我们发现我们还在走Velben函数的旅程，所以我们使用<vue-latex expression="\Pi_2" />反射序数。
 				</p>
 				<!--部分内容取自大数理论20250915 P372-->
 			</div>
@@ -573,10 +549,7 @@ import HelpContent from './HelpContent';
 					display-mode
 					expression="(1-)^{\omega}2 = \{\Omega_{\omega^\omega},\cdots,\Omega_{\Omega},\cdots,I,\cdots\}"
 				/>
-				<vue-latex
-					display-mode
-					expression="\mathrm{1st} (1-)^{\Omega}2 = \Omega_{\Omega}"
-				/>
+				<vue-latex display-mode expression="\mathrm{1st} (1-)^{\Omega}2 = \Omega_{\Omega}" />
 				<vue-latex
 					display-mode
 					expression="2\space\mathrm{aft} (1-)^{\Omega}2 = \Omega_{\Omega+1}"

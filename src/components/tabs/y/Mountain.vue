@@ -66,9 +66,7 @@ function draw() {
 			} else {
 				rowPosition['c' + tempMountain.coord.slice(1).join(',')] = currentRow;
 				const rowLabel =
-					tempMountain.coord.length < 1
-						? '0'
-						: tempMountain.coord.slice(1).reverse().join(',');
+					tempMountain.coord.length < 1 ? '0' : tempMountain.coord.slice(1).reverse().join(',');
 				rowLabels[currentRow] = rowLabel;
 				const textWidth = ctx.measureText(rowLabel).width;
 				maxRowLabelWidth = Math.max(maxRowLabelWidth, textWidth);
@@ -109,8 +107,7 @@ function draw() {
 			if (d >= calculatedMount.dim) {
 				if (cycles === 0) {
 					let bottomRow = calculatedMount as NodeMountain;
-					while (bottomRow.dim > 1)
-						bottomRow = (bottomRow as NodeMountain).arr[0] as NodeMountain;
+					while (bottomRow.dim > 1) bottomRow = (bottomRow as NodeMountain).arr[0] as NodeMountain;
 
 					let totalWidth = maxRowLabelWidth + gap * 2;
 					for (let i = 0; i < bottomRow.arr.length; i++) {
@@ -193,8 +190,7 @@ function render1Dmountain(
 				columnPosition[point.position][1] + columnPosition[point.position][0] / 2,
 				(rowID + 1) * rowHeight + numberSize * 2,
 			);
-			const parentPosition = (findByCoord(mount, point.leftLegCoord!) as LeafMountain)
-				.position;
+			const parentPosition = (findByCoord(mount, point.leftLegCoord!) as LeafMountain).position;
 			ctx.lineTo(
 				columnPosition[parentPosition][1] + columnPosition[parentPosition][0] / 2,
 				(rowID + 2) * rowHeight + numberSize - gap,

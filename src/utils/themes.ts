@@ -98,10 +98,7 @@ export function updateTheme() {
 	const ordinary = theme.ordinary;
 	for (const i in ordinary) {
 		if (i !== '--font')
-			root.style.setProperty(
-				i as keyof typeof ordinary,
-				ordinary[i as keyof typeof ordinary],
-			);
+			root.style.setProperty(i as keyof typeof ordinary, ordinary[i as keyof typeof ordinary]);
 	}
 	root.style.setProperty('--font', player.options.ui.user_font ?? '思源黑体Regular');
 	const other = theme.other;

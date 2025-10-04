@@ -259,10 +259,7 @@ import { RETRIBUTION } from '@/core/post-nonrec/retribution';
 							class="menu2"
 							:class="{ focus: player.currentTab == 25 }"
 							@click="player.currentTab = 25"
-							v-if="
-								(player.firstResetBit & 0b10000) == 0b10000 &&
-								player.milestones.nonrec_18
-							"
+							v-if="(player.firstResetBit & 0b10000) == 0b10000 && player.milestones.nonrec_18"
 						>
 							非递归升级
 						</div>
@@ -270,10 +267,7 @@ import { RETRIBUTION } from '@/core/post-nonrec/retribution';
 							class="menu2"
 							:class="{ focus: player.currentTab == 26 }"
 							@click="player.currentTab = 26"
-							v-if="
-								(player.firstResetBit & 0b10000) == 0b10000 &&
-								player.milestones.nonrec_19
-							"
+							v-if="(player.firstResetBit & 0b10000) == 0b10000 && player.milestones.nonrec_19"
 						>
 							UNOCF
 						</div>
@@ -300,9 +294,7 @@ import { RETRIBUTION } from '@/core/post-nonrec/retribution';
 						:class="{ focus: player.currentTab == 200 }"
 						@click="player.currentTab = 200"
 					>
-						剧情<span
-							class="menu2-newcont"
-							v-if="unlockedPlots() - viewedPlotLength() > 0"
+						剧情<span class="menu2-newcont" v-if="unlockedPlots() - viewedPlotLength() > 0"
 							>+{{ unlockedPlots() - viewedPlotLength() }}</span
 						>
 					</div>

@@ -14,9 +14,7 @@ import Decimal from 'break_eternity.js';
 				>^{{ format(feature.EXPONENTION.powerEff()) }}</span
 			>
 			数值增益<br />
-			战利品提供了<span style="color: rgb(127, 127, 255)"
-				>^{{ format(new Decimal(1.03)) }}</span
-			>
+			战利品提供了<span style="color: rgb(127, 127, 255)">^{{ format(new Decimal(1.03)) }}</span>
 			数值增益
 		</span>
 		<br />
@@ -56,9 +54,7 @@ import Decimal from 'break_eternity.js';
 		<h2 style="color: rgb(255, 127, 255)">QoL点数升级</h2>
 		<span
 			>你有
-			<span style="color: rgb(255, 127, 255)">{{
-				formatWhole(player.exponention.qolpoints)
-			}}</span>
+			<span style="color: rgb(255, 127, 255)">{{ formatWhole(player.exponention.qolpoints) }}</span>
 			Qol点数</span
 		>
 		<table align="center">

@@ -31,10 +31,9 @@ import TRMilestone from '../../group-2/TRMilestone.vue';
 			</p>
 			<p>在膨胀中购买升级和购买项会永久提升它们的效果。</p>
 			<p>
-				对数膨胀内获得的最高数值{{ format(Logarithm.logarithm.highest_dilate) }}会增加对
-				数值（^{{ format(Logarithm.dilateEffect()[0]) }}），指数能量(*{{
-					format(Logarithm.dilateEffect()[1])
-				}})的获取。
+				对数膨胀内获得的最高数值{{ format(Logarithm.logarithm.highest_dilate) }}会增加对 数值（^{{
+					format(Logarithm.dilateEffect()[0])
+				}}），指数能量(*{{ format(Logarithm.dilateEffect()[1]) }})的获取。
 			</p>
 			<table>
 				<tbody class="milestones">

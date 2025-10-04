@@ -11,8 +11,7 @@ const StudyTreeRef = ref(null);
 function or(...ids: (number | boolean)[]): boolean {
 	let result = false;
 	for (const id of ids) {
-		if (typeof id === 'number')
-			result = result || player.minigame.skilltree_bought.includes(id);
+		if (typeof id === 'number') result = result || player.minigame.skilltree_bought.includes(id);
 		else result = result || id;
 	}
 	return result;
@@ -21,8 +20,7 @@ function or(...ids: (number | boolean)[]): boolean {
 function and(...ids: (number | boolean)[]): boolean {
 	let result = true;
 	for (const id of ids) {
-		if (typeof id === 'number')
-			result = result && player.minigame.skilltree_bought.includes(id);
+		if (typeof id === 'number') result = result && player.minigame.skilltree_bought.includes(id);
 		else result = result && id;
 	}
 	return result;

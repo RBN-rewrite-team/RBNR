@@ -101,10 +101,7 @@ function openCore() {
 						宝箱收集：<span
 							style="color: rgb(186, 110, 64)"
 							v-html="player.minigame.box_gets[0]"
-						/>/<span
-							style="color: rgb(233, 233, 216)"
-							v-html="player.minigame.box_gets[1]"
-						/>/<span
+						/>/<span style="color: rgb(233, 233, 216)" v-html="player.minigame.box_gets[1]" />/<span
 							style="color: rgb(218, 178, 115)"
 							v-html="player.minigame.box_gets[2]"
 						/>
@@ -113,9 +110,7 @@ function openCore() {
 				<tr>
 					<td>
 						<button @click="spawn(0)">Dungeon 1</button><br />
-						<button @click="spawn(1)" v-if="player.minigame.visited.includes(1)">
-							Dungeon 2
-						</button>
+						<button @click="spawn(1)" v-if="player.minigame.visited.includes(1)">Dungeon 2</button>
 					</td>
 					<td>
 						<button @click="openCore()">
@@ -125,8 +120,7 @@ function openCore() {
 								player.minigame.coreEquipments.def.length
 							}}/3)</button
 						><br />
-						仓库装备：{{ player.minigame.storeEquipments.length }}/50<span
-							style="color: cyan"
+						仓库装备：{{ player.minigame.storeEquipments.length }}/50<span style="color: cyan"
 							>(不朽x{{
 								player.minigame.storeEquipments.filter((item) => {
 									return item.rarity >= 1.9;

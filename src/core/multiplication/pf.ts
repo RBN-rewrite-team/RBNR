@@ -34,10 +34,7 @@ export const PrimeFactor = {
 							.div(2)
 							.floor();
 					}
-					if (
-						player.exponention.logarithm.upgrades_in_dilated.includes('36') &&
-						Number(i) !== 0
-					) {
+					if (player.exponention.logarithm.upgrades_in_dilated.includes('36') && Number(i) !== 0) {
 						return player.buyables[('pf' + pflist[Number(i) - 1]) as PrimeFactorTypes]
 							.div(4)
 							.floor();
@@ -65,16 +62,11 @@ export const PrimeFactor = {
 									('pf' +
 										(Number(pf) == 2
 											? 0
-											: Number(
-													pflist[Number(i) - 1],
-												))) as keyof typeof player.buyables
+											: Number(pflist[Number(i) - 1]))) as keyof typeof player.buyables
 								].gte(1);
 							}
 							reqDescription(): string {
-								return (
-									'购买质因数' +
-									(Number(pf) == 2 ? 0 : Number(pflist[Number(i) - 1]))
-								);
+								return '购买质因数' + (Number(pf) == 2 ? 0 : Number(pflist[Number(i) - 1]));
 							}
 							progress = undefined;
 						})(),
@@ -84,9 +76,7 @@ export const PrimeFactor = {
 					return (
 						player.singularity.stage < 7 &&
 						((this.pfid ?? 1) <= 3 ||
-							player.buyables[
-								('pf' + this.pprev) as keyof typeof player.buyables
-							].gte(1))
+							player.buyables[('pf' + this.pprev) as keyof typeof player.buyables].gte(1))
 					);
 				}
 				canBuyMax() {
@@ -140,8 +130,7 @@ export const PrimeFactor = {
 	powerEff() {
 		const sec = player.multiplication.pfTime.div(1000);
 		let exp = new Decimal(0.99);
-		if (!player.buyables['33'].eq(0))
-			exp = exp.sub(buyables['33'].effect(player.buyables['33']));
+		if (!player.buyables['33'].eq(0)) exp = exp.sub(buyables['33'].effect(player.buyables['33']));
 		let base = this.power()
 			.root(2)
 			.pow(new Decimal(1).sub(exp.pow(sec)));

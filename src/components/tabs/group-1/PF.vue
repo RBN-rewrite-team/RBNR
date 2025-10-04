@@ -26,9 +26,7 @@ import type { PrimeFactorTypes } from '@/core/save';
 							)
 						}}</sup></span
 					><span v-if="pf != '19'"> × </span> </span
-				>)<span
-					style="color: rgb(127, 127, 255)"
-					v-if="feature.PrimeFactor.powerpow().gt(1)"
+				>)<span style="color: rgb(127, 127, 255)" v-if="feature.PrimeFactor.powerpow().gt(1)"
 					><sup>{{ format(feature.PrimeFactor.powerpow()) }}</sup></span
 				><br />
 				基于本次乘法重置耗时提供<span style="color: #cc33ff; font-weight: bold"

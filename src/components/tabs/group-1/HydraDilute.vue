@@ -24,8 +24,7 @@ function getSliderProps(id = 0) {
 		'dot-height': '1.6rem',
 		'dot-class': 'slider-dot-class-dilute',
 		'process-class': 'slider-process-class-dilute',
-		interval:
-			id == 6 && !CHALLENGE.inChallenge(1, 2) ? (player.milestones.dut11 ? 0.25 : 0.5) : 1,
+		interval: id == 6 && !CHALLENGE.inChallenge(1, 2) ? (player.milestones.dut11 ? 0.25 : 0.5) : 1,
 		style: {
 			'margin-top': '1rem',
 		},
@@ -105,8 +104,7 @@ function delPreset(preset: string) {
 	><br />
 	<span v-if="player.upgrades['69S'] || player.hydra.dilute.prions.gt(1)"
 		>你有<b style="color: red; font-size: 30px">{{ format(Dilute.prions()) }}</b
-		><span v-if="!player.upgrades['69S']"
-			>/{{ format(player.hydra.totalDeduceOrdinal[0]) }}</span
+		><span v-if="!player.upgrades['69S']">/{{ format(player.hydra.totalDeduceOrdinal[0]) }}</span
 		>朊病毒<br /><br
 	/></span>
 	<div v-if="!player.upgrades['614S'] || CHALLENGE.inChallenge(1, 2)">
@@ -169,10 +167,7 @@ function delPreset(preset: string) {
 										:width="'100%'"
 										:disabled="minS1Level() == 10 || canChangeLevel"
 										@input="
-											player.hydra.dilute.solvent[0] = Math.max(
-												$event,
-												minS1Level(),
-											);
+											player.hydra.dilute.solvent[0] = Math.max($event, minS1Level());
 											fixS1();
 										"
 									/>
@@ -185,9 +180,7 @@ function delPreset(preset: string) {
 									<div>溶剂II: 阿尔兹海默症</div>
 									<div class="solvent-desc-small">“你变得越来越健忘......”</div>
 									<div>
-										所有升级、购买项成本^{{
-											format(4 - 3 * 0.75 ** Dilute.diluteAmountOutside(1))
-										}}
+										所有升级、购买项成本^{{ format(4 - 3 * 0.75 ** Dilute.diluteAmountOutside(1)) }}
 									</div>
 									<Slider
 										v-bind="getSliderProps()"
@@ -236,9 +229,7 @@ function delPreset(preset: string) {
 							<div class="solvent" style="border-color: rgb(127, 0, 0)">
 								<div>
 									<div>溶剂IV: 数论地狱</div>
-									<div class="solvent-desc-small">
-										“数学家的最新研究打开了地狱的大门.....”
-									</div>
+									<div class="solvent-desc-small">“数学家的最新研究打开了地狱的大门.....”</div>
 									<div>数论研究选项卡下的数论研究4效果反转</div>
 									<Slider
 										v-bind="getSliderProps()"
@@ -282,14 +273,8 @@ function delPreset(preset: string) {
 							<div class="solvent" style="border-color: rgb(127, 0, 0)">
 								<div>
 									<div>溶剂VI：核食惊魂</div>
-									<div class="solvent-desc-small">
-										“他摸着女儿的第二个头说:海鲜当然能吃！”
-									</div>
-									<div>
-										推演速度^{{
-											DiluteTS.dilute6().toFixed(2)
-										}}(在其它乘数削弱效果之前)
-									</div>
+									<div class="solvent-desc-small">“他摸着女儿的第二个头说:海鲜当然能吃！”</div>
+									<div>推演速度^{{ DiluteTS.dilute6().toFixed(2) }}(在其它乘数削弱效果之前)</div>
 									<Slider
 										v-bind="getSliderProps(6)"
 										:value="player.hydra.dilute.solvent[5]"
@@ -309,9 +294,7 @@ function delPreset(preset: string) {
 							<div class="solvent" style="border-color: rgb(63, 0, 63)">
 								<div>
 									<div>溶剂VII:天堂已满</div>
-									<div class="solvent-desc-small">
-										“你发现天上那些黑点不是雨，而是坠落的人类。”
-									</div>
+									<div class="solvent-desc-small">“你发现天上那些黑点不是雨，而是坠落的人类。”</div>
 									<div>转生，飞升，超越，轮回全部无效，禁用B5-1-2</div>
 									<Slider
 										v-bind="sliderProps2"
@@ -330,9 +313,7 @@ function delPreset(preset: string) {
 							<div class="solvent" style="border-color: rgb(63, 0, 63)">
 								<div>
 									<div>溶剂VIII:坠毁</div>
-									<div class="solvent-desc-small">
-										“试图升天的人类迎来了自己的末日。”
-									</div>
+									<div class="solvent-desc-small">“试图升天的人类迎来了自己的末日。”</div>
 									<div>进入稀释后5秒后便无法获得任何九头蛇能量。</div>
 									<Slider
 										v-bind="sliderProps2"
@@ -374,18 +355,10 @@ function delPreset(preset: string) {
 		<button class="clickable_button" @click="addPreset">添加当前溶剂作为预设</button>
 		<div v-for="preset in Object.entries(player.hydra.dilute.solventPresets)">
 			预设: {{ preset[1].join(',') }}
-			<button
-				class="clickable_button"
-				style="display: inline"
-				@click="() => setPreset(preset[1])"
-			>
+			<button class="clickable_button" style="display: inline" @click="() => setPreset(preset[1])">
 				使用
 			</button>
-			<button
-				class="clickable_button"
-				style="display: inline"
-				@click="() => delPreset(preset[0])"
-			>
+			<button class="clickable_button" style="display: inline" @click="() => delPreset(preset[0])">
 				删除
 			</button>
 		</div>

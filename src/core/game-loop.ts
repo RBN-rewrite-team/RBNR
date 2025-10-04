@@ -256,14 +256,13 @@ export function simulate(diff: number) {
 		}
 
 		if (player.milestones.dil_5)
-			player.exponention.logarithm.observe_datas =
-				player.exponention.logarithm.observe_datas.add(
-					player.exponention.logarithm.calculate_datas
-						.add(1)
-						.log10()
-						.pow(2)
-						.mul(diff / 1000),
-				);
+			player.exponention.logarithm.observe_datas = player.exponention.logarithm.observe_datas.add(
+				player.exponention.logarithm.calculate_datas
+					.add(1)
+					.log10()
+					.pow(2)
+					.mul(diff / 1000),
+			);
 	}
 
 	if (player.firstResetBit & 0b1000) {
@@ -292,12 +291,7 @@ export function simulate(diff: number) {
 				player.upgrades[i as keyof typeof player.upgrades] = true;
 			}
 		}
-		if (
-			upgrades[i] &&
-			upgrades[i].auto != null &&
-			upgrades[i].auto() &&
-			upgrades[i].canAfford()
-		) {
+		if (upgrades[i] && upgrades[i].auto != null && upgrades[i].auto() && upgrades[i].canAfford()) {
 			player.upgrades[i as keyof typeof player.upgrades] = true;
 		}
 	}
@@ -396,9 +390,7 @@ function checkNaN<T>(obj: T, path: string[]): T {
 
 	// 处理数组
 	if (Array.isArray(obj)) {
-		return obj.map((item, index) =>
-			checkNaN(item, path.concat(index.toString())),
-		) as unknown as T;
+		return obj.map((item, index) => checkNaN(item, path.concat(index.toString()))) as unknown as T;
 	}
 
 	// 处理对象

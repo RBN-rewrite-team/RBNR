@@ -136,9 +136,7 @@ export const DiluteUpgrades = {
 		description: string = '溶液中幅加快推演速度';
 		cost: Decimal = new Decimal(10);
 		effect(): Decimal {
-			return player.hydra.dilute.solution
-				.mul(player.hydra.dilute.solution.div(2).max(10))
-				.pow(0.5);
+			return player.hydra.dilute.solution.mul(player.hydra.dilute.solution.div(2).max(10)).pow(0.5);
 		}
 		effectDescription(): string {
 			return 'x' + format(this.effect());
@@ -309,10 +307,7 @@ export const DiluteUpgrades = {
 			return player.milestones.dut10;
 		}
 		effect(): Decimal {
-			return Decimal.add(
-				1,
-				player.hydra.power.max('e17000').slog(10).sub(2.728280896245905).max(0),
-			)
+			return Decimal.add(1, player.hydra.power.max('e17000').slog(10).sub(2.728280896245905).max(0))
 				.recip()
 				.pow(4)
 				.max(0.9);
@@ -346,12 +341,7 @@ export const DiluteUpgrades = {
 		}
 		effect(): Decimal {
 			if (player.hydra.dilute.inDilute)
-				return player.hydra.dilute.highestApocalypse
-					.add(1)
-					.add(1)
-					.add(1)
-					.pow(0.75)
-					.min('e1000');
+				return player.hydra.dilute.highestApocalypse.add(1).add(1).add(1).pow(0.75).min('e1000');
 			return player.hydra.dilute.highestApocalypse.add(1).pow(1.25).min('e850');
 		}
 		effectDescription(): string {
@@ -414,8 +404,7 @@ const Dil = {
 			requirement: new Decimal(4 ** 5),
 			get canDone() {
 				return (
-					(player.hydra.dilute.inDilute &&
-						player.hydra.deduceOrdinal[0].gte(this.requirement)) ||
+					(player.hydra.dilute.inDilute && player.hydra.deduceOrdinal[0].gte(this.requirement)) ||
 					player.milestones.nonrec_7
 				);
 			},
@@ -431,8 +420,7 @@ const Dil = {
 			requirement: new Decimal(4 ** 32),
 			get canDone() {
 				return (
-					(player.hydra.dilute.inDilute &&
-						player.hydra.deduceOrdinal[0].gte(this.requirement)) ||
+					(player.hydra.dilute.inDilute && player.hydra.deduceOrdinal[0].gte(this.requirement)) ||
 					player.milestones.nonrec_7
 				);
 			},
@@ -506,8 +494,7 @@ const Dil = {
 			displayName: 'M-Dilute-6',
 			get description() {
 				return (
-					'在2,050,000以上的累计九头蛇溶液数量增益推演速度<br>效果：^' +
-					format(milestoneDut6Eff())
+					'在2,050,000以上的累计九头蛇溶液数量增益推演速度<br>效果：^' + format(milestoneDut6Eff())
 				);
 			},
 			req: true,
@@ -522,9 +509,7 @@ const Dil = {
 		MILESTONES.create('dut7', {
 			displayName: 'M-Dilute-7',
 			get description() {
-				return (
-					'(稀释不重置)累计九头蛇能量增益推演速度<br>效果：^' + format(milestoneDut7Eff())
-				);
+				return '(稀释不重置)累计九头蛇能量增益推演速度<br>效果：^' + format(milestoneDut7Eff());
 			},
 			req: true,
 			reqDescription: '2,095,000九头蛇溶液 & 1e3500九头蛇能量',
@@ -651,8 +636,7 @@ const Dil = {
 			requirement: new Decimal('e18915'),
 			get canDone() {
 				return (
-					(player.upgrades['69S'] || player.milestones.nonrec_7) &&
-					player.hydra.power.gte('e18915')
+					(player.upgrades['69S'] || player.milestones.nonrec_7) && player.hydra.power.gte('e18915')
 				);
 			},
 			show: true,
@@ -837,11 +821,7 @@ const Dil = {
 			player.hydra.dilute.prions = player.hydra.dilute.prions
 				.mul(
 					this.prionsBase()
-						.pow(
-							(player.milestones.nonrec_3 && !player.upgrades['69S']
-								? trueDiff
-								: diff) / 1000,
-						)
+						.pow((player.milestones.nonrec_3 && !player.upgrades['69S'] ? trueDiff : diff) / 1000)
 						.pow(player.challenges[1][0].pow_base(4))
 						.root(this.diluteAmount(8) ? 1000 : 1),
 				)
@@ -860,10 +840,7 @@ const Dil = {
 			) {
 				ModalService.show({
 					title: '已退出稀释',
-					content:
-						'你被地球爆炸给炸死了！（你已进入稀释' +
-						s3Eff +
-						'秒，超出了稀释III的限制。）',
+					content: '你被地球爆炸给炸死了！（你已进入稀释' + s3Eff + '秒，超出了稀释III的限制。）',
 				});
 				this.exitDilute(false);
 				if (CHALLENGE.inChallenge(1, 0)) {
@@ -904,8 +881,7 @@ const Dil = {
 		if (CHALLENGE.inChallenge(1, 0)) {
 			base = Decimal.pow(10, 2 + CHALLENGE.amountChallenge(1, 0).floor().toNumber());
 		} else {
-			if (player.challenges[1][0].gte(1))
-				base = base.pow(player.challenges[1][0].pow_base(4));
+			if (player.challenges[1][0].gte(1)) base = base.pow(player.challenges[1][0].pow_base(4));
 		}
 		if (player.nonrecu.studies_bought.includes(7)) base = base.pow(10);
 		if (player.challengein[0] != 1 && player.milestones.nonrec_16)
@@ -987,9 +963,7 @@ const Dil = {
 		let exp = DC.D_1;
 		if (!CHALLENGE.inChallenge(1, 2)) {
 			if (player.nonrecu.studies_bought.includes(18))
-				baseDecimal = baseDecimal.mul(
-					player.nonrecu.secInThisReset.add(1).ln().mul(0.2).add(1),
-				);
+				baseDecimal = baseDecimal.mul(player.nonrecu.secInThisReset.add(1).ln().mul(0.2).add(1));
 			if (player.nonrecu.studies_bought.includes(15)) baseDecimal = baseDecimal.mul(1.2);
 		}
 		if (player.nonrecu.studies_bought.includes(15)) {

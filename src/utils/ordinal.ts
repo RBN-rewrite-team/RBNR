@@ -127,18 +127,14 @@ export const OrdinalUtils = {
 		if (displayMode)
 			return (
 				'ω' +
-				(exp.gt(1)
-					? '<sup>' + this.numberToOrdinal(exp, base, maxLength, true) + '</sup>'
-					: '') +
+				(exp.gt(1) ? '<sup>' + this.numberToOrdinal(exp, base, maxLength, true) + '</sup>' : '') +
 				(mult.gt(1) ? formatWhole(mult) : '') +
 				(add.gt(0) ? '+' + this.numberToOrdinal(add, base, --maxLength, true) : '')
 			);
 		else
 			return (
 				'w' +
-				(exp.gt(1)
-					? '^(' + this.numberToOrdinal(exp, base, --maxLength, false) + ')'
-					: '') +
+				(exp.gt(1) ? '^(' + this.numberToOrdinal(exp, base, --maxLength, false) + ')' : '') +
 				(mult.gt(1) ? '*(' + formatWhole(mult) + ')' : '') +
 				(add.gt(0) ? '+' + this.numberToOrdinal(add, base, --maxLength, false) : '')
 			);

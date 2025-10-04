@@ -147,8 +147,7 @@ export const BUYABLES = {
 				if (req[j].reachedReq()) str += '<span style="color: green; font-weight: bold">';
 				else str += '<span style="color: red; font-weight: bold">';
 				str += req[j].reqDescription();
-				if (!req[j].reachedReq() && req[j].progress)
-					str += '(' + req[j].progress().join('/') + ')';
+				if (!req[j].reachedReq() && req[j].progress) str += '(' + req[j].progress().join('/') + ')';
 				str += '</span>';
 			}
 		} else {
@@ -157,10 +156,7 @@ export const BUYABLES = {
 				if (buyables[id].canBuy != null) canBuy = buyables[id].canBuy(player.buyables[id]);
 			}
 			str += buyables[id].description + '<br>';
-			if (
-				buyables[id].descriptionDilated &&
-				Logarithm.logarithm.buyables_in_dilated.includes(id)
-			)
+			if (buyables[id].descriptionDilated && Logarithm.logarithm.buyables_in_dilated.includes(id))
 				str += buyables[id].descriptionDilated + '<br>';
 			if (buyables[id].effect != null)
 				str +=
@@ -297,11 +293,7 @@ function overflow(number: Decimal, start: DecimalSource, power: DecimalSource, m
 			number = number.log10().div(s).pow(power).mul(s).pow10();
 		} else {
 			let s = start.iteratedlog(10, meta);
-			number = Decimal.iteratedexp(
-				10,
-				meta,
-				number.iteratedlog(10, meta).div(s).pow(power).mul(s),
-			);
+			number = Decimal.iteratedexp(10, meta, number.iteratedlog(10, meta).div(s).pow(power).mul(s));
 		}
 	}
 	return number;

@@ -23,9 +23,7 @@ export const ORDINAL = {
 				return new Decimal(1);
 			}
 			effectDescription(): string {
-				return (
-					'+' + OrdinalUtils.numberToOrdinal(this.effect(), feature.Ordinal.base()) + '/s'
-				);
+				return '+' + OrdinalUtils.numberToOrdinal(this.effect(), feature.Ordinal.base()) + '/s';
 			}
 			currency: Currencies = Currencies.ORDINAL;
 		})(),

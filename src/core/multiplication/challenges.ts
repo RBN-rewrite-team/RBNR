@@ -31,8 +31,7 @@ export const MULTI_CHALS: SingleChallenge[] = [
 		descEasy: '数值、加法能量获取被做除法，因数能量效果随时间而降低',
 		get descHard() {
 			return (
-				'数值和加法能量产量除以' +
-				`${format(2 ** 128)},因数能量效果公式变为*cap^(1-0.99999^sec)`
+				'数值和加法能量产量除以' + `${format(2 ** 128)},因数能量效果公式变为*cap^(1-0.99999^sec)`
 			);
 		},
 		effect(x) {
