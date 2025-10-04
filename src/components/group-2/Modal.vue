@@ -21,7 +21,10 @@
 								@update:props="handleComponentUpdate"
 							>
 								<!-- 渲染自定义插槽 -->
-								<template v-for="(slotContent, slotName) in customSlots" #[slotName]>
+								<template
+									v-for="(slotContent, slotName) in customSlots"
+									#[slotName]
+								>
 									<component :is="slotContent" />
 								</template>
 							</component>
@@ -53,7 +56,10 @@
 									@blur="handleBlur(index)"
 									@keyup.enter="handleConfirm"
 								/>
-								<div v-if="errors[index] && inputValues[index].touched" class="error-message">
+								<div
+									v-if="errors[index] && inputValues[index].touched"
+									class="error-message"
+								>
 									{{ errors[index] }}
 								</div>
 							</div>
@@ -62,7 +68,11 @@
 				</div>
 				<div class="modal-footer">
 					<template v-for="(btn, index) in processedButtons" :key="'btn-' + index">
-						<button :class="btn.class" @click="btn.handler" :disabled="btn.disabled || loading">
+						<button
+							:class="btn.class"
+							@click="btn.handler"
+							:disabled="btn.disabled || loading"
+						>
 							{{ btn.text }}
 						</button>
 					</template>

@@ -22,9 +22,12 @@ export const Multiplication = {
 		'31': new (class U21 extends Upgrade {
 			description: () => string = function () {
 				let counts = '1';
-				if (player.upgrades['400q']) counts = "<span style='font-size: 19px;'><b>2</b></span>";
+				if (player.upgrades['400q'])
+					counts = "<span style='font-size: 19px;'><b>2</b></span>";
 				const text = Logarithm.dilated(
-					'你可以选择' + counts + '个U1系列升级将其价格降低到1加法能量，改变选择将进行乘法重置',
+					'你可以选择' +
+						counts +
+						'个U1系列升级将其价格降低到1加法能量，改变选择将进行乘法重置',
 					'后继运算指数+3',
 					'31',
 				)();
@@ -123,12 +126,18 @@ export const Multiplication = {
 			}
 		})(),
 		'37': new (class U27 extends Upgrade {
-			description: () => string = Logarithm.dilated('乘法重置保留加法升级', '膨胀中保持B0-1', '37');
+			description: () => string = Logarithm.dilated(
+				'乘法重置保留加法升级',
+				'膨胀中保持B0-1',
+				'37',
+			);
 			cost = new Decimal(1000);
 			name = 'U2-7';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			requirements() {
-				return [new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(1000))];
+				return [
+					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(1000)),
+				];
 			}
 			keep() {
 				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
@@ -144,7 +153,9 @@ export const Multiplication = {
 			name = 'U2-8';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			requirements() {
-				return [new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(10000))];
+				return [
+					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(10000)),
+				];
 			}
 			keep() {
 				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
@@ -160,7 +171,9 @@ export const Multiplication = {
 			name = 'U2-9';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			requirements() {
-				return [new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(1e21))];
+				return [
+					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(1e21)),
+				];
 			}
 			keep() {
 				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;

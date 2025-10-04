@@ -12,7 +12,11 @@ const id = props.id as keyof typeof player.milestones;
 <template>
 	<tr>
 		<td>
-			<div class="milestone" :class="{ done: player.milestones[id] }" v-if="milestones[id].show">
+			<div
+				class="milestone"
+				:class="{ done: player.milestones[id] }"
+				v-if="milestones[id].show"
+			>
 				<h3 style="display: inline-block" v-if="milestones[id].req ?? 0">
 					{{ milestones[id].displayName }}:
 					<span v-html="milestones[id].reqDescription" />

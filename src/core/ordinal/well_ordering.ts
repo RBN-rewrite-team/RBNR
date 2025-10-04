@@ -74,7 +74,11 @@ export const WellOrderingBuyables = {
 		name = 'B6-R-1-3';
 		description = '前两个购买项的效果指数+0.05';
 		cost(x: Decimal): Decimal {
-			return x.pow(1.2).pow_base(2).mul(1e15).pow(buyables.B6R21.effect(player.buyables.B6R21));
+			return x
+				.pow(1.2)
+				.pow_base(2)
+				.mul(1e15)
+				.pow(buyables.B6R21.effect(player.buyables.B6R21));
 		}
 		effect(x: Decimal): Decimal {
 			let base = x.mul(B6R13_B6R14_base()).add(1);
@@ -165,7 +169,8 @@ export const WellOrderingBuyables = {
 		}
 		base(): Decimal {
 			let base = new Decimal(2);
-			if (player.numbertheory.well_ordering.steps_proceeded.includes(18)) base = new Decimal(1.95);
+			if (player.numbertheory.well_ordering.steps_proceeded.includes(18))
+				base = new Decimal(1.95);
 			return base.max(1.000001);
 		}
 		effectDescription(x: Decimal) {

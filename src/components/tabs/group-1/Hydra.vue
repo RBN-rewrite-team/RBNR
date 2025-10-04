@@ -24,7 +24,9 @@ function powerFactorHTML(): string {
 		s = '(' + s + ')<sup>' + format(feature.Hydra.powerExp()) + '</sup>';
 	if (!feature.Hydra.powerExpNerf().eq(1))
 		s +=
-			'<sup><span style="color: red"> x ' + format(feature.Hydra.powerExpNerf()) + '</span></sup>';
+			'<sup><span style="color: red"> x ' +
+			format(feature.Hydra.powerExpNerf()) +
+			'</span></sup>';
 	const ft = feature.Hydra.powerGainBase();
 	const nf = feature.Hydra.powerSoftcapNerf(ft);
 	const nf2 = feature.Hydra.powerGainAfterSoftcap(ft);
@@ -86,7 +88,12 @@ function hydraMilestoneAxis(): any {
 		let left = 0;
 		if (scale === 0) left = new Decimal(ms[i][1]).div(now).mul(50).toNumber();
 		else if (scale === 1)
-			left = new Decimal(ms[i][1]).max(10).log10().div(now.max(10).log10()).mul(50).toNumber();
+			left = new Decimal(ms[i][1])
+				.max(10)
+				.log10()
+				.div(now.max(10).log10())
+				.mul(50)
+				.toNumber();
 		else if (scale === 2)
 			left = new Decimal(ms[i][1])
 				.max(10)
@@ -125,7 +132,10 @@ function hydraAxisHTML(): string {
 					序数
 					<span
 						v-html="
-							Ordinal.displayOrdinalColored(player.ordinal.number.floor(), feature.Ordinal.base())
+							Ordinal.displayOrdinalColored(
+								player.ordinal.number.floor(),
+								feature.Ordinal.base(),
+							)
 						"
 						v-if="
 							!(
@@ -136,7 +146,10 @@ function hydraAxisHTML(): string {
 					/>
 					<vue-latex
 						:expression="
-							Ordinal.displayOrdinalColored(player.ordinal.number.floor(), feature.Ordinal.base())
+							Ordinal.displayOrdinalColored(
+								player.ordinal.number.floor(),
+								feature.Ordinal.base(),
+							)
 						"
 						v-else
 					/></h3
@@ -157,7 +170,9 @@ function hydraAxisHTML(): string {
 				style="font-size: 17px; display: inline; color: rgb(200, 190, 245)"
 			>
 				<span
-					v-html="formatGain(player.hydra.power, feature.Hydra.hydraPowerPassiveGeneration())"
+					v-html="
+						formatGain(player.hydra.power, feature.Hydra.hydraPowerPassiveGeneration())
+					"
 				/>
 			</div>
 		</div>
@@ -174,10 +189,18 @@ function hydraAxisHTML(): string {
 						>
 							<span class="hydra-text">
 								<span
-									v-html="OrdinalUtils.numberToBMS(player.hydra.deduceOrdinal[0], new Decimal(4))"
+									v-html="
+										OrdinalUtils.numberToBMS(
+											player.hydra.deduceOrdinal[0],
+											new Decimal(4),
+										)
+									"
 								/>
 							</span>
-							<span class="hydra-text-bottom" style="color: rgb(155, 125, 195); font-size: 12px">
+							<span
+								class="hydra-text-bottom"
+								style="color: rgb(155, 125, 195); font-size: 12px"
+							>
 								<div style="transform: scale(0.75)">
 									<vue-latex
 										:expression="
@@ -219,10 +242,18 @@ function hydraAxisHTML(): string {
 							>
 							<span class="hydra-text">
 								<span
-									v-html="OrdinalUtils.numberToBMS(player.hydra.deduceOrdinal[0], new Decimal(4))"
+									v-html="
+										OrdinalUtils.numberToBMS(
+											player.hydra.deduceOrdinal[0],
+											new Decimal(4),
+										)
+									"
 								/>
 							</span>
-							<span class="hydra-text-bottom" style="color: rgb(155, 125, 195); font-size: 12px">
+							<span
+								class="hydra-text-bottom"
+								style="color: rgb(155, 125, 195); font-size: 12px"
+							>
 								<div style="transform: scale(0.75)">
 									<vue-latex
 										:expression="
@@ -280,7 +311,9 @@ function hydraAxisHTML(): string {
 							class="hydra-button"
 							@click="player.hydra.autoHydraReset = !player.hydra.autoHydraReset"
 						>
-							自<br />动<br />重<br />置<br />:<br />{{ player.hydra.autoHydraReset ? '开' : '关' }}
+							自<br />动<br />重<br />置<br />:<br />{{
+								player.hydra.autoHydraReset ? '开' : '关'
+							}}
 						</button>
 					</td>
 				</tr>
@@ -294,11 +327,17 @@ function hydraAxisHTML(): string {
 							<span class="hydra-text-short">
 								<span v-if="feature.Hydra.pUnlock(0)">
 									<h3>转生({{ formatWhole(player.hydra.prestige[0]) }})</h3>
-									额外乘数与推演速度<br />x{{ format(feature.Hydra.prestigeEff(0, false)) }}→{{
+									额外乘数与推演速度<br />x{{
+										format(feature.Hydra.prestigeEff(0, false))
+									}}→{{
 										format(
-											feature.Hydra.prestigeEff(0, true).max(feature.Hydra.prestigeEff(0, false)),
+											feature.Hydra.prestigeEff(0, true).max(
+												feature.Hydra.prestigeEff(0, false),
+											),
 										)
-									}}(效果×{{ format(feature.Hydra.prestigeEff(0, false, true).max(1)) }})
+									}}(效果×{{
+										format(feature.Hydra.prestigeEff(0, false, true).max(1))
+									}})
 								</span>
 								<span v-else>基础乘数≥2解锁</span>
 							</span>
@@ -309,9 +348,13 @@ function hydraAxisHTML(): string {
 							<span class="hydra-text-short">
 								<span v-if="feature.Hydra.pUnlock(1)">
 									<h3>飞升({{ formatWhole(player.hydra.prestige[1]) }})</h3>
-									额外指数<br />+{{ format(feature.Hydra.prestigeEff(1, false)) }}→{{
+									额外指数<br />+{{
+										format(feature.Hydra.prestigeEff(1, false))
+									}}→{{
 										format(
-											feature.Hydra.prestigeEff(1, true).max(feature.Hydra.prestigeEff(1, false)),
+											feature.Hydra.prestigeEff(1, true).max(
+												feature.Hydra.prestigeEff(1, false),
+											),
 										)
 									}}
 								</span>
@@ -324,9 +367,13 @@ function hydraAxisHTML(): string {
 							<span class="hydra-text-short">
 								<span v-if="feature.Hydra.pUnlock(2)">
 									<h3>超越({{ format(player.hydra.prestige[2]) }})</h3>
-									乘数获取<br />x{{ format(feature.Hydra.prestigeEff(2, false)) }}→{{
+									乘数获取<br />x{{
+										format(feature.Hydra.prestigeEff(2, false))
+									}}→{{
 										format(
-											feature.Hydra.prestigeEff(2, true).max(feature.Hydra.prestigeEff(2, false)),
+											feature.Hydra.prestigeEff(2, true).max(
+												feature.Hydra.prestigeEff(2, false),
+											),
 										)
 									}}
 								</span>
@@ -339,9 +386,13 @@ function hydraAxisHTML(): string {
 							<span class="hydra-text-short">
 								<span v-if="feature.Hydra.pUnlock(3)">
 									<h3>轮回({{ formatWhole(player.hydra.prestige[3]) }})</h3>
-									转生、超越效果指数<br />x+{{ format(feature.Hydra.prestigeEff(3, false)) }}→{{
+									转生、超越效果指数<br />x+{{
+										format(feature.Hydra.prestigeEff(3, false))
+									}}→{{
 										format(
-											feature.Hydra.prestigeEff(3, true).max(feature.Hydra.prestigeEff(3, false)),
+											feature.Hydra.prestigeEff(3, true).max(
+												feature.Hydra.prestigeEff(3, false),
+											),
 										)
 									}}
 								</span>
@@ -363,9 +414,10 @@ function hydraAxisHTML(): string {
 						>
 							<span class="hydra-text-short">
 								<span v-if="feature.Hydra.pAutoUnlock(0)">
-									自动重置阈值：+{{ format(feature.Hydra.pAutoThreshold(0).add) }} & x{{
-										format(feature.Hydra.pAutoThreshold(0).mul)
+									自动重置阈值：+{{
+										format(feature.Hydra.pAutoThreshold(0).add)
 									}}
+									& x{{ format(feature.Hydra.pAutoThreshold(0).mul) }}
 								</span>
 								<span v-else>首次超越解锁自动化</span>
 							</span>
@@ -383,9 +435,10 @@ function hydraAxisHTML(): string {
 						>
 							<span class="hydra-text-short">
 								<span v-if="feature.Hydra.pAutoUnlock(1)">
-									自动重置阈值：+{{ format(feature.Hydra.pAutoThreshold(1).add) }} & x{{
-										format(feature.Hydra.pAutoThreshold(1).mul)
+									自动重置阈值：+{{
+										format(feature.Hydra.pAutoThreshold(1).add)
 									}}
+									& x{{ format(feature.Hydra.pAutoThreshold(1).mul) }}
 								</span>
 								<span v-else>首次轮回解锁自动化</span>
 							</span>
@@ -403,9 +456,10 @@ function hydraAxisHTML(): string {
 						>
 							<span class="hydra-text-short">
 								<span v-if="feature.Hydra.pAutoUnlock(2)">
-									自动重置阈值：+{{ format(feature.Hydra.pAutoThreshold(2).add) }} & x{{
-										format(feature.Hydra.pAutoThreshold(2).mul)
+									自动重置阈值：+{{
+										format(feature.Hydra.pAutoThreshold(2).add)
 									}}
+									& x{{ format(feature.Hydra.pAutoThreshold(2).mul) }}
 								</span>
 								<span v-else>暂时无法自动化</span>
 							</span>
@@ -423,9 +477,10 @@ function hydraAxisHTML(): string {
 						>
 							<span class="hydra-text-short">
 								<span v-if="feature.Hydra.pAutoUnlock(3)">
-									自动重置阈值：+{{ format(feature.Hydra.pAutoThreshold(3).add) }} & x{{
-										format(feature.Hydra.pAutoThreshold(3).mul)
+									自动重置阈值：+{{
+										format(feature.Hydra.pAutoThreshold(3).add)
 									}}
+									& x{{ format(feature.Hydra.pAutoThreshold(3).mul) }}
 								</span>
 								<span v-else>暂时无法自动化</span>
 							</span>
@@ -445,7 +500,11 @@ function hydraAxisHTML(): string {
 					<TDUpgrade upgid="63" />
 					<TDUpgrade upgid="64" />
 				</tr>
-				<tr v-if="player.retribution === 0 && (Dilute.diluteAmount(6) || player.upgrades[61])">
+				<tr
+					v-if="
+						player.retribution === 0 && (Dilute.diluteAmount(6) || player.upgrades[61])
+					"
+				>
 					<TDUpgrade upgid="611" />
 					<TDUpgrade upgid="612" />
 					<TDUpgrade upgid="613" />
@@ -454,7 +513,8 @@ function hydraAxisHTML(): string {
 				<tr
 					v-if="
 						player.retribution === 0 &&
-						(Dilute.diluteAmount(6) || (player.upgrades[61] && feature.Hydra.pUnlock(2)))
+						(Dilute.diluteAmount(6) ||
+							(player.upgrades[61] && feature.Hydra.pUnlock(2)))
 					"
 				>
 					<TDUpgrade upgid="615" />

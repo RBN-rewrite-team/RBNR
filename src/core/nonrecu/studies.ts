@@ -127,7 +127,10 @@ export const studies = [
 		description: '九头蛇溶液的常数硬上限改为软上限',
 		cost: new Decimal(3),
 		canBuy() {
-			return player.nonrecu.studies_bought.includes(0) || player.nonrecu.studies_bought.includes(1);
+			return (
+				player.nonrecu.studies_bought.includes(0) ||
+				player.nonrecu.studies_bought.includes(1)
+			);
 		},
 	}),
 	new Study({
@@ -137,7 +140,10 @@ export const studies = [
 		},
 		cost: new Decimal(3),
 		canBuy() {
-			return player.nonrecu.studies_bought.includes(0) || player.nonrecu.studies_bought.includes(1);
+			return (
+				player.nonrecu.studies_bought.includes(0) ||
+				player.nonrecu.studies_bought.includes(1)
+			);
 		},
 	}),
 	new Study({
@@ -145,7 +151,10 @@ export const studies = [
 		description: '九头蛇能量×100000再^1.05',
 		cost: new Decimal(3),
 		canBuy() {
-			return player.nonrecu.studies_bought.includes(2) || player.nonrecu.studies_bought.includes(3);
+			return (
+				player.nonrecu.studies_bought.includes(2) ||
+				player.nonrecu.studies_bought.includes(3)
+			);
 		},
 	}),
 	new Study({
@@ -236,7 +245,9 @@ export const studies = [
 		id: 'NRC2', //11
 		get description() {
 			return (
-				'解锁非递归挑战2\t' + format(player.challenges[1][1].pow_base(10).mul(4e6)) + '九头蛇溶液'
+				'解锁非递归挑战2\t' +
+				format(player.challenges[1][1].pow_base(10).mul(4e6)) +
+				'九头蛇溶液'
 			);
 		},
 		cost: new Decimal(15),
@@ -307,7 +318,15 @@ export const studies = [
 		id: '71', //16
 		get description() {
 			return `基于本次非递归重置时间提升非递归能量获取<br>效果：×${format(
-				secInThisReset52717273().add(1).mul(10).pow(2).sub(99).root(2).pow(0.75).div(2).add(1),
+				secInThisReset52717273()
+					.add(1)
+					.mul(10)
+					.pow(2)
+					.sub(99)
+					.root(2)
+					.pow(0.75)
+					.div(2)
+					.add(1),
 			)}`;
 		},
 
@@ -389,7 +408,10 @@ export const studies = [
 			return (
 				'解锁非递归挑战4\t' +
 				format(
-					new Decimal(6 + player.challenges[1][3].toNumber()).pow_base(2).pow_base(2).pow10(),
+					new Decimal(6 + player.challenges[1][3].toNumber())
+						.pow_base(2)
+						.pow_base(2)
+						.pow10(),
 				) +
 				'九头蛇能量'
 			);
@@ -492,9 +514,16 @@ export function theoriesCost(id: 0 | 1 | 2) {
 			if (player.nonrecu.theories[0].lte(10)) {
 				return player.nonrecu.theories[0].pow10().pow10();
 			} else if (player.nonrecu.theories[0].lte(70)) {
-				return Decimal.tetrate(10, player.nonrecu.theories[0].mul(0.05).add(2.5).toNumber());
+				return Decimal.tetrate(
+					10,
+					player.nonrecu.theories[0].mul(0.05).add(2.5).toNumber(),
+				);
 			} else {
-				return Decimal.tetrate(10, 5, player.nonrecu.theories[0].pow(2).mul(100).sub(489990));
+				return Decimal.tetrate(
+					10,
+					5,
+					player.nonrecu.theories[0].pow(2).mul(100).sub(489990),
+				);
 			}
 		case 1:
 			return player.nonrecu.theories[1].pow10().mul(1e4);
@@ -553,7 +582,9 @@ export function addTheories(id: 0 | 1 | 2) {
 			if (canBuyTheories(1)) {
 				player.nonrecu.theories[1] = theoriesAmountPossivle(1).sub(1);
 				let b = theoriesAmountPossivle(1);
-				player.hydra.dilute.solutionCost = player.hydra.dilute.solutionCost.add(theoriesCost(1));
+				player.hydra.dilute.solutionCost = player.hydra.dilute.solutionCost.add(
+					theoriesCost(1),
+				);
 				player.nonrecu.theories[1] = b;
 			}
 			break;

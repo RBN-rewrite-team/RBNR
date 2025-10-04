@@ -65,7 +65,8 @@ export const notationNamesMap = new Map([
 ]);
 
 function exponentialFormat(num: Decimal, precision: number, mantissa = true): string {
-	if (player.options.notation == notations.LOGARITHMIC) return 'e' + format(num.log10(), precision);
+	if (player.options.notation == notations.LOGARITHMIC)
+		return 'e' + format(num.log10(), precision);
 	const eng = player.options.notation == notations.ENGINEERING;
 	let e = num.log10().floor();
 	if (eng) e = num.log10().div(3).floor().mul(3);
@@ -116,15 +117,21 @@ export function format(decimal: DecimalSource, precision = 4): string {
 		case notations.TERNARY:
 			return precision == 0 ? TernaryWhole.format(decimal) : TernaryFormat.format(decimal);
 		case notations.QUATERNARY:
-			return precision == 0 ? QuaternaryWhole.format(decimal) : QuaternaryFormat.format(decimal);
+			return precision == 0
+				? QuaternaryWhole.format(decimal)
+				: QuaternaryFormat.format(decimal);
 		case notations.SEXIMAL:
 			return precision == 0 ? SeximalWhole.format(decimal) : SeximalFormat.format(decimal);
 		case notations.OCTAL:
 			return precision == 0 ? OctalWhole.format(decimal) : OctalFormat.format(decimal);
 		case notations.DUODECIMAL:
-			return precision == 0 ? DuodecimalFormat.format(decimal) : DuodecimalWhole.format(decimal);
+			return precision == 0
+				? DuodecimalFormat.format(decimal)
+				: DuodecimalWhole.format(decimal);
 		case notations.HEXADECIMAL:
-			return precision == 0 ? HexadecimalFormat.format(decimal) : HexadecimalWhole.format(decimal);
+			return precision == 0
+				? HexadecimalFormat.format(decimal)
+				: HexadecimalWhole.format(decimal);
 		case notations.BASE36:
 			return precision == 0 ? Base36Format.format(decimal) : Base36Whole.format(decimal);
 		case notations.BASE62:
@@ -278,7 +285,9 @@ export function formatTime(ex: DecimalSource, acc = 3, type = 's'): string {
 	}
 	if (ex.gte(60)) {
 		var n = ex.div(60).floor();
-		return (n.gt(0) || type == 'm' ? format(n, 0) + '分' : '') + formatTime(ex.mod(60), acc, '分');
+		return (
+			(n.gt(0) || type == 'm' ? format(n, 0) + '分' : '') + formatTime(ex.mod(60), acc, '分')
+		);
 	}
 	return ex.gt(0) || type == 's' ? format(ex, acc) + '秒' : '';
 }
@@ -500,7 +509,8 @@ export function physicalScale(value: DecimalSource): string {
 		value = value.recip();
 	}
 	if (negative && !recip) return '（暂不支持负数，所以使用其绝对值替代）' + physicalScale(value);
-	if (!negative && recip) return '（这个数太小了，所以使用其倒数作为替代）' + physicalScale(value);
+	if (!negative && recip)
+		return '（这个数太小了，所以使用其倒数作为替代）' + physicalScale(value);
 	if (negative && recip)
 		return '（这个数是一个负数且非常小，所以使用其倒数的相反数替代）' + physicalScale(value);
 	// let dn = new DefaultNotation();
@@ -529,11 +539,21 @@ export function physicalScale(value: DecimalSource): string {
 		const amount = inverse_factorial(value, factorials).div(scaleResult[2]);
 		if (factorials == 0)
 			return (
-				'拥有' + format(value) + '个原子，你可以填满' + format(amount) + ' ' + scaleResult[1] + '.'
+				'拥有' +
+				format(value) +
+				'个原子，你可以填满' +
+				format(amount) +
+				' ' +
+				scaleResult[1] +
+				'.'
 			);
 		else if (factorials == 1)
 			return (
-				format(value) + '是重新排列' + format(amount) + scaleResult[1] + '中所有原子的方法种数。'
+				format(value) +
+				'是重新排列' +
+				format(amount) +
+				scaleResult[1] +
+				'中所有原子的方法种数。'
 			);
 		else if (factorials == 2)
 			return (
@@ -870,9 +890,10 @@ function physicalScaleInternal(value: Decimal): [number, string, Decimal, ...any
 				'完全填满的可观测宇宙',
 			];
 			const atoms = [
-				1, 2.51e7, 1.00369e11, 1.00369e14, 3.0408e18, 2.306e22, 1.46036e25, 7.02583e27, 3.2118e29,
-				1.5055e31, 6.02215e35, 4.0216e41, 2.1205e44, 1.33e50, 6.5074e53, 6.81697e56, 3.428e61,
-				7.8395e68, 6.817e73, 1e80, 4.564e90, 6.916e97, 4.841e101, 4.703e109,
+				1, 2.51e7, 1.00369e11, 1.00369e14, 3.0408e18, 2.306e22, 1.46036e25, 7.02583e27,
+				3.2118e29, 1.5055e31, 6.02215e35, 4.0216e41, 2.1205e44, 1.33e50, 6.5074e53,
+				6.81697e56, 3.428e61, 7.8395e68, 6.817e73, 1e80, 4.564e90, 6.916e97, 4.841e101,
+				4.703e109,
 			].map(toDecimal);
 			let index = 0;
 			while (index < objects.length - 1 && atoms[index + 1].lte(value)) index++;
@@ -938,9 +959,9 @@ function physicalScaleInternal(value: Decimal): [number, string, Decimal, ...any
 			'observable universes',
 		];
 		const heights = [
-			5.6692908e-8, 0.000125787444, 0.11811024, 66, 399.21258, 21600, 32598.43, 2090281.8, 9.8622e7,
-			3.009921e9, 9.094488e10, 3.533808e13, 1.0626162e15, 9.430902e18, 1.95348e23, 1.1621016e25,
-			4.4919702e26, 2.094018e29,
+			5.6692908e-8, 0.000125787444, 0.11811024, 66, 399.21258, 21600, 32598.43, 2090281.8,
+			9.8622e7, 3.009921e9, 9.094488e10, 3.533808e13, 1.0626162e15, 9.430902e18, 1.95348e23,
+			1.1621016e25, 4.4919702e26, 2.094018e29,
 		].map(toDecimal);
 		const types = [4, 4, 4, 4, 4, 4, 4, 4, 5, 4, 5, 5, 5, 5, 4, 4, 4];
 		let index = 0;
@@ -1017,7 +1038,8 @@ abstract class Notation {
 	): this {
 		if (negativeString !== undefined) this.negativeString = negativeString;
 		if (infinityString !== undefined) this.infinityString = infinityString;
-		if (negativeInfinityString !== undefined) this.negativeInfinityString = negativeInfinityString;
+		if (negativeInfinityString !== undefined)
+			this.negativeInfinityString = negativeInfinityString;
 		if (NaNString !== undefined) this.NaNString = NaNString;
 		if (isInfinite !== undefined) this.isInfinite = isInfinite;
 		return this;
@@ -1117,7 +1139,9 @@ function scientifify(
 					b = round(b, rounding);
 					loopWatch = true;
 				} else if (b.gt(lowerLimit)) {
-					b = unroundedB.mul(baseD.pow(e)).div(baseD.pow(nextEngineeringValue(e, engineeringsD)));
+					b = unroundedB
+						.mul(baseD.pow(e))
+						.div(baseD.pow(nextEngineeringValue(e, engineeringsD)));
 					e = nextEngineeringValue(e, engineeringsD);
 					unroundedB = b;
 					if (loopWatch) b = lowerLimit; //If we've gone both up and down, the mantissa is too close to the boundary, so just set it to the boundary value
@@ -1126,7 +1150,9 @@ function scientifify(
 				} else checkComplete = true;
 			} else {
 				if (b.gte(upperLimit)) {
-					b = unroundedB.mul(baseD.pow(e)).div(baseD.pow(nextEngineeringValue(e, engineeringsD)));
+					b = unroundedB
+						.mul(baseD.pow(e))
+						.div(baseD.pow(nextEngineeringValue(e, engineeringsD)));
 					e = nextEngineeringValue(e, engineeringsD);
 					unroundedB = b;
 					if (loopWatch) b = lowerLimit; //If we've gone both up and down, the mantissa is too close to the boundary, so just set it to the boundary value
@@ -1433,7 +1459,8 @@ function hyperscientifify(
 	}
 	let unroundedB = b;
 	b = round(b, rounding);
-	if (e.abs().gte(9e15)) b = baseD.iteratedexp(hypermantissaPowerD.toNumber(), Decimal.dOne, true);
+	if (e.abs().gte(9e15))
+		b = baseD.iteratedexp(hypermantissaPowerD.toNumber(), Decimal.dOne, true);
 	else {
 		let oldB = Decimal.dZero;
 		let checkComplete = false;
@@ -1632,7 +1659,8 @@ export function BaseConvert(
 		digitPosition >= -places &&
 		precisionSoFar < precision
 	) {
-		if (digitPosition == -places) digits.push(Math.round(value / Math.pow(baseNum, digitPosition)));
+		if (digitPosition == -places)
+			digits.push(Math.round(value / Math.pow(baseNum, digitPosition)));
 		else digits.push(Math.floor(value / Math.pow(baseNum, digitPosition)));
 		value -= digits[digits.length - 1] * Math.pow(baseNum, digitPosition);
 		if (
@@ -1759,7 +1787,8 @@ export function BaseConvert(
 			digitChars.length != 0
 		) {
 			if (reverseDigits)
-				result = commaChars[(digitChars.length / commaSpacing - 1) % commaChars.length] + result;
+				result =
+					commaChars[(digitChars.length / commaSpacing - 1) % commaChars.length] + result;
 			else result += commaChars[(digitChars.length / commaSpacing - 1) % commaChars.length];
 		}
 	}
@@ -1785,7 +1814,11 @@ export function BaseConvert(
 				digitLocation = base;
 				for (let d = 0; d < specialDigits.length; d++) {
 					if (
-						specialDigits[d][0](digitPosition, startDigitPosition - digitPosition, value) &&
+						specialDigits[d][0](
+							digitPosition,
+							startDigitPosition - digitPosition,
+							value,
+						) &&
 						specialDigits[d][1].length > digits[0] + negaDigits
 					) {
 						digitLocation = specialDigits[d][1];
@@ -2133,7 +2166,8 @@ export class AlternateBaseNotation extends Notation {
 		if (value.abs().lt(1)) {
 			if (
 				this.negExpChars != null &&
-				(this.negExpChars[0] == true || multabs(value.abs()).gte(Decimal.pow(baseNum, this.maxnum)))
+				(this.negExpChars[0] == true ||
+					multabs(value.abs()).gte(Decimal.pow(baseNum, this.maxnum)))
 			)
 				return this.negExpChars[1][0] + this.format(value.recip()) + this.negExpChars[1][1];
 			negExp = true;
@@ -2167,7 +2201,9 @@ export class AlternateBaseNotation extends Notation {
 			let afterChar = this._expChars[0][1];
 			if (exponent < 0 && this.negExpChars !== null && this.negExpChars[0] !== false) {
 				if (this.negExpChars[0] === true)
-					return this.negExpChars[1][0] + this.format(value.recip()) + this.negExpChars[1][1];
+					return (
+						this.negExpChars[1][0] + this.format(value.recip()) + this.negExpChars[1][1]
+					);
 				beforeChar = this.negExpChars[0][0];
 				afterChar = this.negExpChars[0][1];
 				exponent *= -1;
@@ -2214,7 +2250,11 @@ export class AlternateBaseNotation extends Notation {
 				negative = true;
 				value = value.neg();
 			}
-			if (value.lt(Decimal.iteratedexp(baseNum, this.max_exps_in_a_row + 1, this.maxnum, true))) {
+			if (
+				value.lt(
+					Decimal.iteratedexp(baseNum, this.max_exps_in_a_row + 1, this.maxnum, true),
+				)
+			) {
 				let added_es = 0;
 				while (value.gte(Decimal.pow(baseNum, this.maxnum))) {
 					added_es++;
@@ -2225,7 +2265,12 @@ export class AlternateBaseNotation extends Notation {
 				for (let e = 0; e < added_es; e++)
 					result = this._expChars[1][0] + result + this._expChars[1][1];
 			} else if (value.lt(Decimal.tetrate(baseNum, this.maxnum.toNumber(), 1, true))) {
-				let [mantissa, exponent] = hyperscientifify(value, baseNum, 0, this.hypermantissaPower);
+				let [mantissa, exponent] = hyperscientifify(
+					value,
+					baseNum,
+					0,
+					this.hypermantissaPower,
+				);
 				let unroundedmantissa = mantissa;
 				mantissa = unroundedmantissa
 					.mul(Math.pow(baseNum, sigFigPlaces))
@@ -2708,11 +2753,17 @@ export function commasAndDecimals(
 		if (ending == 0) return '0';
 		let decimalString = String(ending);
 		if (exponent >= 0)
-			result = commasAndDecimals(ending / Math.pow(10, places), placesAbove1, placesBelow1, commas);
+			result = commasAndDecimals(
+				ending / Math.pow(10, places),
+				placesAbove1,
+				placesBelow1,
+				commas,
+			);
 		else {
 			result = '0' + decimalChar;
 			for (let i = 1; i < Math.abs(exponent); i++) result += '0';
-			while (decimalString.length < places + exponent + 1) decimalString = '0' + decimalString;
+			while (decimalString.length < places + exponent + 1)
+				decimalString = '0' + decimalString;
 			while (decimalString[decimalString.length - 1] == '0')
 				decimalString = decimalString.substring(0, decimalString.length - 1);
 			if (decimalString !== '.') result += decimalString;
@@ -3034,12 +3085,20 @@ export class OmegaMetaZeroNotation extends Notation {
 	private _bracketsInExp: [string, string, string, string, string, string][] = this._brackets;
 	public firstBracketsInExp: [string, string, string, string, string, string][] =
 		this.firstBrackets;
-	public lastBracketsInExp: [string, string, string, string, string, string][] = this.lastBrackets;
+	public lastBracketsInExp: [string, string, string, string, string, string][] =
+		this.lastBrackets;
 	public expInnerNotation: Notation | null = null;
 	public uncertainChar: string = '◯';
 	public uncertainThreshold: Decimal = new Decimal(636152238258658);
 	private _maxVisibleLayers: number = 4;
-	public layerChars: [string, string, string, string, string, string] = ['', '', '◖', '◗', '', ''];
+	public layerChars: [string, string, string, string, string, string] = [
+		'',
+		'',
+		'◖',
+		'◗',
+		'',
+		'',
+	];
 	public layerAfter: boolean = false;
 	private _maxVisibleLayersPost: number = 1;
 	public layerOffset: boolean = false;
@@ -3141,7 +3200,9 @@ export class OmegaMetaZeroNotation extends Notation {
 					digitValues: Decimal[],
 			  ) => boolean)[] = [(value) => true, (value) => value.gt(0), (value) => value.gt(0)],
 		brackets: [string, string, string, string, string, string][] = [['', '', '[', ']', '', '']],
-		firstBrackets: [string, string, string, string, string, string][] = [['', '', '', '', '', '']],
+		firstBrackets: [string, string, string, string, string, string][] = [
+			['', '', '', '', '', ''],
+		],
 		lastBrackets: [string, string, string, string, string, string][] = [],
 		reverseDigits: boolean = false,
 		maxVisibleDigits: number = 3,
@@ -3275,14 +3336,18 @@ export class OmegaMetaZeroNotation extends Notation {
 				const offset = copiedRemainders[cleared].div(limits[cleared]).floor();
 				if (cleared == limits.length - 1) {
 					if (copiedRemainders[cleared].lt(0)) {
-						copiedRemainders[cleared] = copiedRemainders[cleared].sub(offset.mul(limits[cleared]));
+						copiedRemainders[cleared] = copiedRemainders[cleared].sub(
+							offset.mul(limits[cleared]),
+						);
 						copiedRemainders.pop();
 						cleared--;
 					} else break;
 				}
 				if (cleared == copiedRemainders.length - 1) copiedRemainders.push(Decimal.dZero);
 				copiedRemainders[cleared + 1] = copiedRemainders[cleared + 1].plus(offset);
-				copiedRemainders[cleared] = copiedRemainders[cleared].sub(offset.mul(limits[cleared]));
+				copiedRemainders[cleared] = copiedRemainders[cleared].sub(
+					offset.mul(limits[cleared]),
+				);
 			}
 		}
 		for (let r = 0; r < remainders.length; r++)
@@ -3291,7 +3356,14 @@ export class OmegaMetaZeroNotation extends Notation {
 		for (let s = 0; s < remainders.length; s++) {
 			const thisRemainder = remainders[s];
 			if (
-				this._symbolShown[s](thisRemainder, s, remainders, digitIndex, decimalPlaces, digitValues)
+				this._symbolShown[s](
+					thisRemainder,
+					s,
+					remainders,
+					digitIndex,
+					decimalPlaces,
+					digitValues,
+				)
 			) {
 				const towerHeight = thisRemainder.div(this._symbols[s].length).floor();
 				const numRemainder = thisRemainder.mod(this._symbols[s].length, true).toNumber();
@@ -3351,7 +3423,12 @@ export class OmegaMetaZeroNotation extends Notation {
 			if (l < this._maxVisibleLayersPost) layerMantissaLimit = layerLimit;
 			l++;
 			if (layerLimit.gte('e100')) {
-				layerLimit = Decimal.iteratedexp(digitBase, this._maxVisibleLayers - l, layerLimit, true);
+				layerLimit = Decimal.iteratedexp(
+					digitBase,
+					this._maxVisibleLayers - l,
+					layerLimit,
+					true,
+				);
 				if (l < this._maxVisibleLayersPost)
 					layerMantissaLimit = Decimal.iteratedexp(
 						digitBase,
@@ -3422,7 +3499,11 @@ export class OmegaMetaZeroNotation extends Notation {
 			}
 			digits.push(currentValue.mul(Decimal.pow(digitBase, decimalPlaces)).floor());
 			digits.reverse();
-			while (digits.length > decimalPlaces && digits.length > 1 && digits[digits.length - 1].eq(0))
+			while (
+				digits.length > decimalPlaces &&
+				digits.length > 1 &&
+				digits[digits.length - 1].eq(0)
+			)
 				digits.pop();
 			let cleared = 0;
 			let copiedDigits: Decimal[] = [];
@@ -3484,16 +3565,20 @@ export class OmegaMetaZeroNotation extends Notation {
 					if (scientific) {
 						if (digits.length - s - 1 < this.firstBracketsInExp.length)
 							usedBrackets = this.firstBracketsInExp[digits.length - s - 1];
-						else if (s < this.lastBracketsInExp.length) usedBrackets = this.lastBracketsInExp[s];
+						else if (s < this.lastBracketsInExp.length)
+							usedBrackets = this.lastBracketsInExp[s];
 						else usedBrackets = this._bracketsInExp[s % this._bracketsInExp.length];
 					} else {
 						if (s < decimalPlaces)
-							usedBrackets = this.decimalBrackets[(-s - 1) % this._decimalBrackets.length];
+							usedBrackets =
+								this.decimalBrackets[(-s - 1) % this._decimalBrackets.length];
 						else if (digits.length - s - 1 < this.firstBrackets.length)
 							usedBrackets = this.firstBrackets[digits.length - s - 1];
 						else if (s - decimalPlaces < this.lastBrackets.length)
 							usedBrackets = this.lastBrackets[s - decimalPlaces];
-						else usedBrackets = this._brackets[(s - decimalPlaces) % this._brackets.length];
+						else
+							usedBrackets =
+								this._brackets[(s - decimalPlaces) % this._brackets.length];
 					}
 					result = usedBrackets[0] + result + usedBrackets[1];
 					let symbolStr = this.formatSingleDigit(
@@ -3637,7 +3722,10 @@ export class OmegaMetaZeroNotation extends Notation {
 		for (let t = 0; t < towerChars.length; t++) {
 			const tc = towerChars[t];
 			if (tc === true)
-				newTowerChars.push([this.symbols[t][this.symbols[t].length - 1] + '<sup>', '</sup>']);
+				newTowerChars.push([
+					this.symbols[t][this.symbols[t].length - 1] + '<sup>',
+					'</sup>',
+				]);
 			else if (tc === false)
 				newTowerChars.push([this.symbols[t][this.symbols[t].length - 1] + '^', '']);
 			else newTowerChars.push(tc);
@@ -3751,7 +3839,9 @@ export class OmegaMetaZeroNotation extends Notation {
 		if (maxVisibleDigits < 1)
 			throw new RangeError('maxVisibleDigits cannot be below 1 in Omega Meta Zero notation');
 		if (maxVisibleDigits % 1 != 0)
-			throw new RangeError('maxVisibleDigits must be a whole number in Omega Meta Zero notation');
+			throw new RangeError(
+				'maxVisibleDigits must be a whole number in Omega Meta Zero notation',
+			);
 		this._maxVisibleDigits = maxVisibleDigits;
 	}
 
@@ -3761,7 +3851,9 @@ export class OmegaMetaZeroNotation extends Notation {
 
 	public set maxVisibleDigitsInExp(maxVisibleDigits: number) {
 		if (maxVisibleDigits < 1)
-			throw new RangeError('maxVisibleDigitsInExp cannot be below 1 in Omega Meta Zero notation');
+			throw new RangeError(
+				'maxVisibleDigitsInExp cannot be below 1 in Omega Meta Zero notation',
+			);
 		if (maxVisibleDigits % 1 != 0)
 			throw new RangeError(
 				'maxVisibleDigitsInExp must be a whole number in Omega Meta Zero notation',
@@ -3777,7 +3869,9 @@ export class OmegaMetaZeroNotation extends Notation {
 		if (maxVisibleLayers < 0)
 			throw new RangeError('maxVisibleLayers cannot be below 0 in Omega Meta Zero notation');
 		if (maxVisibleLayers % 1 != 0)
-			throw new RangeError('maxVisibleLayers must be a whole number in Omega Meta Zero notation');
+			throw new RangeError(
+				'maxVisibleLayers must be a whole number in Omega Meta Zero notation',
+			);
 		this._maxVisibleLayers = maxVisibleLayers;
 	}
 
@@ -3787,7 +3881,9 @@ export class OmegaMetaZeroNotation extends Notation {
 
 	public set maxVisibleLayersPost(maxVisibleLayers: number) {
 		if (maxVisibleLayers < 0)
-			throw new RangeError('maxVisibleLayersPost cannot be below 0 in Omega Meta Zero notation');
+			throw new RangeError(
+				'maxVisibleLayersPost cannot be below 0 in Omega Meta Zero notation',
+			);
 		if (maxVisibleLayers % 1 != 0)
 			throw new RangeError(
 				'maxVisibleLayersPost  must be a whole number in Omega Meta Zero notation',
@@ -3803,7 +3899,9 @@ export class OmegaMetaZeroNotation extends Notation {
 		if (decimalPlaces < 0)
 			throw new RangeError('decimalPlaces cannot be below 0 in Omega Meta Zero notation');
 		if (decimalPlaces % 1 != 0)
-			throw new RangeError('decimalPlaces must be a whole number in Omega Meta Zero notation');
+			throw new RangeError(
+				'decimalPlaces must be a whole number in Omega Meta Zero notation',
+			);
 		this._decimalPlaces = decimalPlaces;
 	}
 
@@ -3811,7 +3909,9 @@ export class OmegaMetaZeroNotation extends Notation {
 		return this._decimalBrackets;
 	}
 
-	public set decimalBrackets(decimalBrackets: [string, string, string, string, string, string][]) {
+	public set decimalBrackets(
+		decimalBrackets: [string, string, string, string, string, string][],
+	) {
 		if (decimalBrackets.length == 0) decimalBrackets = [['', '', '', '', '', '']];
 		this._decimalBrackets = decimalBrackets;
 	}
@@ -3957,7 +4057,9 @@ export class HyperscientificNotation extends Notation {
 			let afterChar = this._expChars[0][1];
 			if (exponent.lt(0) && this.negExpChars !== null && this.negExpChars[0] !== false) {
 				if (this.negExpChars[0] === true)
-					return this.negExpChars[1][0] + this.format(value.recip()) + this.negExpChars[1][1];
+					return (
+						this.negExpChars[1][0] + this.format(value.recip()) + this.negExpChars[1][1]
+					);
 				beforeChar = this.negExpChars[0][0];
 				afterChar = this.negExpChars[0][1];
 				exponent = exponent.neg();
@@ -3970,7 +4072,9 @@ export class HyperscientificNotation extends Notation {
 			if (value.lt(1) && this.negExpChars !== null)
 				return this.negExpChars[1][0] + this.format(value.recip()) + this.negExpChars[1][1];
 			let added_Fs = 0;
-			while (value.gte(iteratedexpmult(this._base, 1, this._maxnum.toNumber(), this._expMult))) {
+			while (
+				value.gte(iteratedexpmult(this._base, 1, this._maxnum.toNumber(), this._expMult))
+			) {
 				added_Fs++;
 				value = multslog(value, this._base, this._expMult).mul(this._hyperexpMult);
 			}
@@ -4228,7 +4332,11 @@ export class HyperscientificIterationsNotation extends Notation {
 		while (sciArray.length > 0) {
 			let numStr = '';
 			let toFormat = sciArray[0];
-			if (this.negExpChars !== null && typeof this.negExpChars[0] !== 'boolean' && toFormat.lt(0)) {
+			if (
+				this.negExpChars !== null &&
+				typeof this.negExpChars[0] !== 'boolean' &&
+				toFormat.lt(0)
+			) {
 				toFormat = toFormat.neg();
 				beforeChar = this.negExpChars[0][0];
 				afterChar = this.negExpChars[0][1];
@@ -5108,7 +5216,11 @@ export class FastGrowingHierarchyNotation extends Notation {
 				}
 			}
 			initialRun[3] = false;
-			roundedValues[3] = roundedValues[2] = roundedValues[1] = roundedValues[0] = currentValue;
+			roundedValues[3] =
+				roundedValues[2] =
+				roundedValues[1] =
+				roundedValues[0] =
+					currentValue;
 			while (roundedValues[2].gte(this._maximums[2]) || initialRun[2]) {
 				initialRun[1] = initialRun[0] = true;
 				currentValue = roundedValues[2];
@@ -5143,9 +5255,10 @@ export class FastGrowingHierarchyNotation extends Notation {
 						currentValue = iteratedFGH1(currentValue, -iterations1);
 						iterations[1] = iterations[1].plus(iterations1);
 						while (currentValue.gte(this._maximums[1])) {
-							iterations1 = nextEngineeringValue(iterations[1], this._engineerings[1]).sub(
+							iterations1 = nextEngineeringValue(
 								iterations[1],
-							);
+								this._engineerings[1],
+							).sub(iterations[1]);
 							currentValue = iteratedFGH1(currentValue, -iterations1);
 							iterations[1] = iterations[1].plus(iterations1);
 						}
@@ -5164,9 +5277,10 @@ export class FastGrowingHierarchyNotation extends Notation {
 							roundedValue = round(currentValue, this.rounding);
 							iterations[0] = iterations[0].plus(iterations0);
 							while (roundedValue.gte(this._maximums[0])) {
-								iterations0 = nextEngineeringValue(iterations[0], this._engineerings[0]).sub(
+								iterations0 = nextEngineeringValue(
 									iterations[0],
-								);
+									this._engineerings[0],
+								).sub(iterations[0]);
 								currentValue = iteratedFGH0(currentValue, -iterations0);
 								roundedValue = round(currentValue, this.rounding);
 								iterations[0] = iterations[0].plus(iterations0);
@@ -5177,7 +5291,10 @@ export class FastGrowingHierarchyNotation extends Notation {
 					}
 					roundedValues[1] = this.FGHEvaluate(roundedValues[0], [iterations[0]]);
 				}
-				roundedValues[2] = this.FGHEvaluate(roundedValues[1], [Decimal.dZero, iterations[1]]);
+				roundedValues[2] = this.FGHEvaluate(roundedValues[1], [
+					Decimal.dZero,
+					iterations[1],
+				]);
 			}
 			roundedValues[3] = this.FGHEvaluate(roundedValues[2], [
 				Decimal.dZero,
@@ -5227,7 +5344,8 @@ export class FastGrowingHierarchyNotation extends Notation {
 						this._iterationChars[f][2];
 			}
 		}
-		if (anyIterations || this.edgeChars[2]) result = this.edgeChars[0] + result + this.edgeChars[1];
+		if (anyIterations || this.edgeChars[2])
+			result = this.edgeChars[0] + result + this.edgeChars[1];
 		return result;
 	}
 
@@ -5323,9 +5441,12 @@ export class FastGrowingHierarchyNotation extends Notation {
 	public set iterationInnerNotations(iterationInnerNotations: Notation | Notation[]) {
 		if (!Array.isArray(iterationInnerNotations))
 			iterationInnerNotations = [iterationInnerNotations];
-		if (iterationInnerNotations.length == 0) iterationInnerNotations.push(new DefaultNotation());
+		if (iterationInnerNotations.length == 0)
+			iterationInnerNotations.push(new DefaultNotation());
 		while (iterationInnerNotations.length < 4)
-			iterationInnerNotations.push(iterationInnerNotations[iterationInnerNotations.length - 1]);
+			iterationInnerNotations.push(
+				iterationInnerNotations[iterationInnerNotations.length - 1],
+			);
 		this._iterationInnerNotations = iterationInnerNotations;
 	}
 
@@ -5335,7 +5456,8 @@ export class FastGrowingHierarchyNotation extends Notation {
 
 	public set functionShown(functionShown: ((value: Decimal) => boolean)[]) {
 		if (functionShown.length == 0) functionShown.push((value) => value.gt(0));
-		while (functionShown.length < 4) functionShown.push(functionShown[functionShown.length - 1]);
+		while (functionShown.length < 4)
+			functionShown.push(functionShown[functionShown.length - 1]);
 		this._functionShown = functionShown;
 	}
 }
@@ -5530,7 +5652,9 @@ export class ExpandedDefaultNotation extends Notation {
 			value = value.neg();
 		}
 		let result = '';
-		if (multabs(value.abs()).lt(iteratedexpmult(this._logBase, this._maxnum, 1, this._expMult))) {
+		if (
+			multabs(value.abs()).lt(iteratedexpmult(this._logBase, this._maxnum, 1, this._expMult))
+		) {
 			let [mantissa, exponent] = scientifify(
 				value,
 				this._logBase,
@@ -5543,7 +5667,9 @@ export class ExpandedDefaultNotation extends Notation {
 			let afterChar = this._expChars[0][1];
 			if (exponent.lt(0) && this.negExpChars !== null && this.negExpChars[0] !== false) {
 				if (this.negExpChars[0] === true)
-					return this.negExpChars[1][0] + this.format(value.recip()) + this.negExpChars[1][1];
+					return (
+						this.negExpChars[1][0] + this.format(value.recip()) + this.negExpChars[1][1]
+					);
 				beforeChar = this.negExpChars[0][0];
 				afterChar = this.negExpChars[0][1];
 				exponent = exponent.neg();
@@ -5556,14 +5682,21 @@ export class ExpandedDefaultNotation extends Notation {
 			let negExp = false;
 			if (value.lt(1)) {
 				if (this.negExpChars != null)
-					return this.negExpChars[1][0] + this.format(value.recip()) + this.negExpChars[1][1];
+					return (
+						this.negExpChars[1][0] + this.format(value.recip()) + this.negExpChars[1][1]
+					);
 				negExp = true;
 				const [m, e] = scientifify(value, 10, this.rounding);
 				value = e.neg().pow10().mul(m);
 			}
 			if (
 				value.lt(
-					iteratedexpmult(this._logBase, this._maxnum, this.max_es_in_a_row + 1, this._expMult),
+					iteratedexpmult(
+						this._logBase,
+						this._maxnum,
+						this.max_es_in_a_row + 1,
+						this._expMult,
+					),
 				)
 			) {
 				let added_es = 0;
@@ -5605,7 +5738,9 @@ export class ExpandedDefaultNotation extends Notation {
 					result = this._expChars[2][0] + exponentStr + this._expChars[2][1] + baseStr;
 				else result = baseStr + this._expChars[2][0] + exponentStr + this._expChars[2][1];
 			} else {
-				let exponent = multslog(value, this._logBase, this._expMult).mul(this._hyperexpMult);
+				let exponent = multslog(value, this._logBase, this._expMult).mul(
+					this._hyperexpMult,
+				);
 				if (negExp) exponent = exponent.neg();
 				result = this._expChars[3][0] + this.format(exponent) + this._expChars[3][1];
 			}
@@ -5922,7 +6057,11 @@ export class PolynomialNotation extends Notation {
 				value.lt(this._value.pow(this.minimumTerm.neg().div(2))))
 		) {
 			result +=
-				this.innerNotation.format(1) + this.divisionSign + '(' + this.format(value.recip()) + ')';
+				this.innerNotation.format(1) +
+				this.divisionSign +
+				'(' +
+				this.format(value.recip()) +
+				')';
 			return result;
 		}
 		const baseString = this.variableStr;
@@ -6006,12 +6145,15 @@ export class PolynomialNotation extends Notation {
 					) {
 						coefficientString = this.innerNotation.format(coefficient);
 						coefficientString =
-							this.coefficientStrings[0] + coefficientString + this.coefficientStrings[1];
+							this.coefficientStrings[0] +
+							coefficientString +
+							this.coefficientStrings[1];
 					}
 					subresult = powerString;
 					const usedSign = reciprocal ? this.divisionSign : this.multiplicationSign;
 					if (coefficientString) {
-						if (this.multiplicationBefore) subresult = coefficientString + usedSign + powerString;
+						if (this.multiplicationBefore)
+							subresult = coefficientString + usedSign + powerString;
 						else subresult = powerString + usedSign + coefficientString;
 					}
 				}
@@ -6031,8 +6173,11 @@ export class PolynomialNotation extends Notation {
 		} else if (bottomExps.gt(this.maxExps)) {
 			let superexpString = '';
 			if (bottomExps.lt(this._value))
-				superexpString = this.expStrings[2][0] + this.format(bottomExps) + this.expStrings[2][1];
-			else superexpString = this.expStrings[3][0] + this.format(bottomExps) + this.expStrings[3][1];
+				superexpString =
+					this.expStrings[2][0] + this.format(bottomExps) + this.expStrings[2][1];
+			else
+				superexpString =
+					this.expStrings[3][0] + this.format(bottomExps) + this.expStrings[3][1];
 			if (this.superexpBefore) result = superexpString + result;
 			else result += superexpString;
 		}
@@ -6858,7 +7003,8 @@ export class StandardNotation extends Notation {
 					this.prefixes.layer2[0][coefficient.mod(10).toNumber()] +
 					this.prefixes.layer2[1][coefficient.div(10).floor().mod(10).toNumber()];
 			if (coefficient.gte(100))
-				coefficientPart += this.prefixes.layer2[2][coefficient.div(100).floor().mod(10).toNumber()];
+				coefficientPart +=
+					this.prefixes.layer2[2][coefficient.div(100).floor().mod(10).toNumber()];
 			if (coefficient.gt(1) || superillion.eq(0)) {
 				result += coefficientPart;
 				charsSoFar += coefficientPart.length;
@@ -6926,14 +7072,17 @@ export class StandardNotation extends Notation {
 						this.prefixes.layer3[2][coefficient.div(100).floor().mod(10).toNumber()];
 					if (coefficient.lt(100))
 						coefficientPart += this.prefixes.layer3[0][coefficient.mod(100).toNumber()];
-					else coefficientPart += this.prefixes.layer3[1][coefficient.mod(100).toNumber()];
+					else
+						coefficientPart += this.prefixes.layer3[1][coefficient.mod(100).toNumber()];
 				} else {
 					coefficientPart =
 						this.prefixes.layer3[0][coefficient.mod(10).toNumber()] +
 						this.prefixes.layer3[1][coefficient.div(10).floor().mod(10).toNumber()];
 					if (coefficient.gte(100))
 						coefficientPart +=
-							this.prefixes.layer3[2][coefficient.div(100).floor().mod(10).toNumber()];
+							this.prefixes.layer3[2][
+								coefficient.div(100).floor().mod(10).toNumber()
+							];
 				}
 			}
 			let superPart = '';
@@ -7470,7 +7619,8 @@ export class StandardNotation extends Notation {
 	}
 
 	public set entriesLimit(entriesLimit: number) {
-		if (entriesLimit <= 0) throw new RangeError('Non-positive entriesLimit in Standard Notation');
+		if (entriesLimit <= 0)
+			throw new RangeError('Non-positive entriesLimit in Standard Notation');
 		this._entriesLimit = entriesLimit;
 	}
 	public get charLimit() {
@@ -7579,7 +7729,10 @@ export function hypersplit(
 			iteratedexpmult(
 				baseD,
 				limits[1],
-				previousEngineeringValue(maximumsD[2].div(hyperexpMult), hyperengineeringsD).toNumber(),
+				previousEngineeringValue(
+					maximumsD[2].div(hyperexpMult),
+					hyperengineeringsD,
+				).toNumber(),
 				expMultD,
 			),
 		);
@@ -7598,7 +7751,10 @@ export function hypersplit(
 			iteratedexpmult(
 				baseD,
 				limits[1],
-				previousEngineeringValue(maximumsD[2].div(hyperexpMult), hyperengineeringsD).toNumber(),
+				previousEngineeringValue(
+					maximumsD[2].div(hyperexpMult),
+					hyperengineeringsD,
+				).toNumber(),
 				expMultD,
 			),
 		);
@@ -7773,14 +7929,18 @@ export function hypersplit(
 				iteratedexpmult(
 					baseD,
 					hypermantissa,
-					tetration.sub(previousEngineeringValue(tetration, hyperengineeringsD)).toNumber(),
+					tetration
+						.sub(previousEngineeringValue(tetration, hyperengineeringsD))
+						.toNumber(),
 					expMultD,
 				).lt(limits[1])
 			) {
 				hypermantissa = iteratedexpmult(
 					baseD,
 					hypermantissa,
-					tetration.sub(previousEngineeringValue(tetration, hyperengineeringsD)).toNumber(),
+					tetration
+						.sub(previousEngineeringValue(tetration, hyperengineeringsD))
+						.toNumber(),
 					expMultD,
 				);
 				tetration = previousEngineeringValue(tetration, hyperengineeringsD);
@@ -7794,10 +7954,19 @@ export function hypersplit(
 		mantissaPower = Decimal.dZero;
 		[mantissa, exponent] = [hypermantissa, new Decimal(0)];
 		if (mantissaRemoved) {
-			[mantissa, exponent] = [new Decimal(0), round(hypermantissa.log(baseD), mantissaRounding)];
+			[mantissa, exponent] = [
+				new Decimal(0),
+				round(hypermantissa.log(baseD), mantissaRounding),
+			];
 		} else if (amountRemoved < 1 && mantissa.gte(originalMaximumsD[0])) {
 			mantissaPower = limits[0].log(baseD).sub(engineeringsD[engineeringsD.length - 1]); // Not a perfect value, but we'll let the loop below fix the errors. We guarantee mantissaPower behaves as we want it to here because mantissaPower cares about the lower limit while hypersplit cares about the upper limit, and once engineerings is involved the two won't coincide so easily.
-			[mantissa, exponent] = scientifify(hypermantissa, baseD, 0, mantissaPower, engineeringsD);
+			[mantissa, exponent] = scientifify(
+				hypermantissa,
+				baseD,
+				0,
+				mantissaPower,
+				engineeringsD,
+			);
 		}
 		let unroundedmantissa = new Decimal(mantissa);
 		mantissa = round(mantissa, mantissaRounding);
@@ -7993,7 +8162,12 @@ export class IncreasingOperatorNotation extends Notation {
 			Decimal.dInf,
 			Decimal.dInf,
 		],
-		operatorChars: [[string, string], [string, string], [string, string], [string, string]][] = [
+		operatorChars: [
+			[string, string],
+			[string, string],
+			[string, string],
+			[string, string],
+		][] = [
 			[
 				['10 + ', ''],
 				['10 + ', ''],
@@ -8370,7 +8544,9 @@ export class IncreasingOperatorNotation extends Notation {
 		);
 		if (!argumentMaximums[2].isFinite()) argumentMaximums[2] = Decimal.dInf;
 		if (this._rootBehavior === null) {
-			symbolicMaximums.push(argumentMaximums[2].pow(this._bases[2].pow(this._thresholds[2][2])));
+			symbolicMaximums.push(
+				argumentMaximums[2].pow(this._bases[2].pow(this._thresholds[2][2])),
+			);
 			if (!symbolicMaximums[2].isFinite()) symbolicMaximums[2] = Decimal.dInf;
 			let nestedRootMaximum = symbolicMaximums[2].max(this._thresholds[2][3]);
 			for (let r = 0; r < this._thresholds[2][4]; r++)
@@ -8462,7 +8638,12 @@ export class IncreasingOperatorNotation extends Notation {
 				let currentValue = argumentMaximums[4];
 				let iterations = 0;
 				while (iterations < nestedSRootMaximum.toNumber()) {
-					currentValue = Decimal.tetrate(currentValue, this._bases[4].toNumber(), 1, true);
+					currentValue = Decimal.tetrate(
+						currentValue,
+						this._bases[4].toNumber(),
+						1,
+						true,
+					);
 					iterations++;
 					if (currentValue.gte('F10')) {
 						currentValue = currentValue.layeradd10(
@@ -8485,7 +8666,11 @@ export class IncreasingOperatorNotation extends Notation {
 			if (!symbolicMaximums[4].isFinite()) symbolicMaximums[4] = Decimal.dInf;
 			let nestedSRootMaximum = symbolicMaximums[4];
 			for (let r = 0; r < this._thresholds[4][4] && nestedSRootMaximum.isFinite(); r++)
-				nestedSRootMaximum = argumentMaximums[4].tetrate(nestedSRootMaximum.toNumber(), 1, true);
+				nestedSRootMaximum = argumentMaximums[4].tetrate(
+					nestedSRootMaximum.toNumber(),
+					1,
+					true,
+				);
 			nestingMaximums.push(nestedSRootMaximum);
 		}
 		if (!nestingMaximums[4].isFinite()) nestingMaximums[4] = Decimal.dInf;
@@ -8528,7 +8713,8 @@ export class IncreasingOperatorNotation extends Notation {
 		if (value.lt(this.minnum) && (value.neq(0) || this._maximums[0].lt(0))) {
 			if (value.eq(0)) return this.plainInnerNotation.format(0);
 			let recipStr = ['', ''];
-			if (this.recipString === null) recipStr = [this.plainInnerNotation.format(1) + ' / (', ')'];
+			if (this.recipString === null)
+				recipStr = [this.plainInnerNotation.format(1) + ' / (', ')'];
 			else recipStr = this.recipString;
 			return recipStr[0] + this.format(value.recip()) + recipStr[1];
 		}
@@ -8554,7 +8740,8 @@ export class IncreasingOperatorNotation extends Notation {
 						this._preAdditionFormats[prf][3] +
 						this._preAdditionFormats[prf][6].format(argument) +
 						this._preAdditionFormats[prf][4];
-				result = this._preAdditionFormats[prf][1] + result + this._preAdditionFormats[prf][2];
+				result =
+					this._preAdditionFormats[prf][1] + result + this._preAdditionFormats[prf][2];
 				return result;
 			}
 		}
@@ -8579,7 +8766,11 @@ export class IncreasingOperatorNotation extends Notation {
 			argument = value.div(this._bases[1].pow(operatorNum));
 		} else if (operator == 2) {
 			if (this._rootBehavior === null) {
-				operatorNum = value.log(this.argumentMaximums[2]).log(this._bases[2]).floor().plus(1);
+				operatorNum = value
+					.log(this.argumentMaximums[2])
+					.log(this._bases[2])
+					.floor()
+					.plus(1);
 				argument = value.root(this._bases[2].pow(operatorNum));
 			} else if (this._rootBehavior[0] === false) {
 				operatorNum = value
@@ -8636,7 +8827,9 @@ export class IncreasingOperatorNotation extends Notation {
 						: Decimal.iteratedlog(
 								argument,
 								10,
-								operatorNum.mul(Math.ceil(this._bases[4].toNumber()) - 1).toNumber(),
+								operatorNum
+									.mul(Math.ceil(this._bases[4].toNumber()) - 1)
+									.toNumber(),
 								true,
 							);
 				while (argument.gte(this.argumentMaximums[4])) {
@@ -8677,8 +8870,14 @@ export class IncreasingOperatorNotation extends Notation {
 			else argumentStr = this.format(argument);
 			if (this._argumentShown[operator][0](argument)) {
 				result = argumentStr;
-				if (this._parenthesize[operator][0][2] || argument.gte(this._thresholds[operator][0]))
-					result = this._parenthesize[operator][0][0] + result + this._parenthesize[operator][0][1];
+				if (
+					this._parenthesize[operator][0][2] ||
+					argument.gte(this._thresholds[operator][0])
+				)
+					result =
+						this._parenthesize[operator][0][0] +
+						result +
+						this._parenthesize[operator][0][1];
 				for (let i = 0; i < operatorNum.toNumber(); i++)
 					result =
 						this._operatorChars[operator][i == 0 ? 0 : 1][0] +
@@ -8689,12 +8888,16 @@ export class IncreasingOperatorNotation extends Notation {
 				const replacementAbove = this._argumentShown[operator][3];
 				if (replacementBelow === undefined)
 					result =
-						this._operatorChars[operator][0][0] + result + this._operatorChars[operator][0][1];
+						this._operatorChars[operator][0][0] +
+						result +
+						this._operatorChars[operator][0][1];
 				else result = replacementBelow[0] + result + replacementBelow[1];
 				for (let i = 1; i < operatorNum.toNumber(); i++) {
 					if (replacementAbove === undefined)
 						result =
-							this._operatorChars[operator][1][0] + result + this._operatorChars[operator][1][1];
+							this._operatorChars[operator][1][0] +
+							result +
+							this._operatorChars[operator][1][1];
 					else result = replacementAbove[0] + result + replacementAbove[1];
 				}
 			}
@@ -8706,17 +8909,28 @@ export class IncreasingOperatorNotation extends Notation {
 			else argumentStr = this.format(argument);
 			if (this._parenthesize[operator][1][2] || argument.gte(this._thresholds[operator][0]))
 				argumentStr =
-					this._parenthesize[operator][1][0] + argumentStr + this._parenthesize[operator][1][1];
+					this._parenthesize[operator][1][0] +
+					argumentStr +
+					this._parenthesize[operator][1][1];
 			if (operatorNum.lt(this._thresholds[operator][3]))
 				operatorStr = this._innerNotations[operator][2].format(operatorNum);
 			else operatorStr = this.format(operatorNum);
-			if (this._parenthesize[operator][2][2] || operatorNum.gte(this._thresholds[operator][3]))
+			if (
+				this._parenthesize[operator][2][2] ||
+				operatorNum.gte(this._thresholds[operator][3])
+			)
 				operatorStr =
-					this._parenthesize[operator][2][0] + operatorStr + this._parenthesize[operator][2][1];
+					this._parenthesize[operator][2][0] +
+					operatorStr +
+					this._parenthesize[operator][2][1];
 			argumentStr =
-				this._operatorChars[operator][2][0] + argumentStr + this._operatorChars[operator][2][1];
+				this._operatorChars[operator][2][0] +
+				argumentStr +
+				this._operatorChars[operator][2][1];
 			operatorStr =
-				this._operatorChars[operator][3][0] + operatorStr + this._operatorChars[operator][3][1];
+				this._operatorChars[operator][3][0] +
+				operatorStr +
+				this._operatorChars[operator][3][1];
 			if (!this._argumentShown[operator][1](argument)) result = operatorStr;
 			else if (this._nestingBefore[operator]) result = operatorStr + argumentStr;
 			else result = argumentStr + operatorStr;
@@ -8743,7 +8957,8 @@ export class IncreasingOperatorNotation extends Notation {
 			throw new RangeError('Addition base <= 0 in Increasing Operator notation');
 		if (basesD[1].lte(1))
 			throw new RangeError('Multiplication base <= 1 in Increasing Operator notation');
-		if (basesD[2].lte(1)) throw new RangeError('Root height <= 1 in Increasing Operator notation');
+		if (basesD[2].lte(1))
+			throw new RangeError('Root height <= 1 in Increasing Operator notation');
 		if (basesD[3].lte(1.44466786100976613366))
 			throw new RangeError('Exponent base <= e^(1/e) in Increasing Operator notation');
 		if (basesD[4].lte(1))
@@ -8818,7 +9033,8 @@ export class IncreasingOperatorNotation extends Notation {
 				['(10^^)^', ' '],
 			],
 		];
-		while (operatorChars.length < 6) operatorChars.push(defaultOperatorChars[operatorChars.length]);
+		while (operatorChars.length < 6)
+			operatorChars.push(defaultOperatorChars[operatorChars.length]);
 		this._operatorChars = operatorChars;
 	}
 
@@ -8933,7 +9149,8 @@ export class IncreasingOperatorNotation extends Notation {
 
 	public set nestingBefore(nestingBefore: boolean[]) {
 		while (nestingBefore.length < 6) {
-			if (nestingBefore.length == 0 || nestingBefore.length % 2 == 1) nestingBefore.push(true);
+			if (nestingBefore.length == 0 || nestingBefore.length % 2 == 1)
+				nestingBefore.push(true);
 			else nestingBefore.push(false);
 		}
 		this._nestingBefore = nestingBefore;
@@ -8983,7 +9200,11 @@ export class IncreasingOperatorNotation extends Notation {
 		if (!Array.isArray(innerNotations))
 			innerNotations = [[innerNotations, innerNotations, innerNotations]];
 		if (innerNotations.length == 0)
-			innerNotations.push([new DefaultNotation(), new DefaultNotation(), new DefaultNotation()]);
+			innerNotations.push([
+				new DefaultNotation(),
+				new DefaultNotation(),
+				new DefaultNotation(),
+			]);
 		while (innerNotations.length < 6)
 			innerNotations.push(innerNotations[innerNotations.length - 1]);
 		this._innerNotations = innerNotations;
@@ -9206,7 +9427,9 @@ export class ScientificNotation extends Notation {
 			let afterChar = this._expChars[0][1];
 			if (exponent.lt(0) && this.negExpChars !== null && this.negExpChars[0] !== false) {
 				if (this.negExpChars[0] === true)
-					return this.negExpChars[1][0] + this.format(value.recip()) + this.negExpChars[1][1];
+					return (
+						this.negExpChars[1][0] + this.format(value.recip()) + this.negExpChars[1][1]
+					);
 				beforeChar = this.negExpChars[0][0];
 				afterChar = this.negExpChars[0][1];
 				exponent = exponent.neg();
@@ -9219,7 +9442,9 @@ export class ScientificNotation extends Notation {
 			let negExp = false;
 			if (value.lt(1)) {
 				if (this.negExpChars != null)
-					return this.negExpChars[1][0] + this.format(value.recip()) + this.negExpChars[1][1];
+					return (
+						this.negExpChars[1][0] + this.format(value.recip()) + this.negExpChars[1][1]
+					);
 				negExp = true;
 				const [m, e] = scientifify(
 					value,
@@ -9297,7 +9522,9 @@ export class ScientificNotation extends Notation {
 	public set base(base: DecimalSource) {
 		const baseD = toDecimal(base);
 		if (baseD.pow(this._expMult.recip()).lte(1.44466786100976613366))
-			throw new RangeError("Bases with convergent tetration don't work for Scientific Notation");
+			throw new RangeError(
+				"Bases with convergent tetration don't work for Scientific Notation",
+			);
 		this._base = baseD;
 	}
 
@@ -9309,7 +9536,9 @@ export class ScientificNotation extends Notation {
 		const expMultD = toDecimal(expMult);
 		if (expMultD.eq(0)) throw new RangeError('expMult should not be zero');
 		if (this._base.pow(expMultD.recip()).lte(1.44466786100976613366))
-			throw new RangeError("Bases with convergent tetration don't work for Scientific Notation");
+			throw new RangeError(
+				"Bases with convergent tetration don't work for Scientific Notation",
+			);
 		this._expMult = expMultD;
 	}
 
@@ -9447,14 +9676,20 @@ export class ScientificIterationsNotation extends Notation {
 		if (
 			added_es <
 			iterations -
-				multslog(new Decimal(Number.MAX_SAFE_INTEGER), this._base, this._expMult).ceil().toNumber()
+				multslog(new Decimal(Number.MAX_SAFE_INTEGER), this._base, this._expMult)
+					.ceil()
+					.toNumber()
 		)
 			added_es =
 				iterations -
-				multslog(new Decimal(Number.MAX_SAFE_INTEGER), this._base, this._expMult).ceil().toNumber();
+				multslog(new Decimal(Number.MAX_SAFE_INTEGER), this._base, this._expMult)
+					.ceil()
+					.toNumber();
 		if (added_es < 0) added_es = 0;
 		if (negExp && this.negExpChars !== null && (added_es > 0 || this.negExpChars[0] === true))
-			return this.negExpChars[1][0] + this.format(originalValue.recip()) + this.negExpChars[1][1];
+			return (
+				this.negExpChars[1][0] + this.format(originalValue.recip()) + this.negExpChars[1][1]
+			);
 		value = iteratedmultlog(value, this._base, added_es, this._expMult);
 		const sciArray = [value];
 		for (let i = 0; i < iterations - added_es; i++) {
@@ -9530,7 +9765,9 @@ export class ScientificIterationsNotation extends Notation {
 
 	public set iterations(iterations: number) {
 		if (iterations % 1 != 0)
-			throw new RangeError('Scientific Iterations Notation requires a whole number of iterations');
+			throw new RangeError(
+				'Scientific Iterations Notation requires a whole number of iterations',
+			);
 		this._iterations = iterations;
 	}
 
@@ -9719,7 +9956,9 @@ export class HypersplitNotation extends Notation {
 					hp[0].neq(0))
 			)
 				result +=
-					this._delimiters[0][0] + this._innerNotations[0].format(hp[0]) + this._delimiters[0][1];
+					this._delimiters[0][0] +
+					this._innerNotations[0].format(hp[0]) +
+					this._delimiters[0][1];
 			else if (
 				orderArray[0] == 1 &&
 				(this._showZeroes[1] > 0 ||
@@ -9727,16 +9966,24 @@ export class HypersplitNotation extends Notation {
 					hp[1].neq(0))
 			)
 				result +=
-					this._delimiters[1][0] + this._innerNotations[1].format(hp[1]) + this._delimiters[1][1];
+					this._delimiters[1][0] +
+					this._innerNotations[1].format(hp[1]) +
+					this._delimiters[1][1];
 			else if (
 				orderArray[0] == 2 &&
-				(this._showZeroes[2] > 0 || (this._showZeroes[2] == 0 && hp[3].neq(0)) || hp[2].neq(0))
+				(this._showZeroes[2] > 0 ||
+					(this._showZeroes[2] == 0 && hp[3].neq(0)) ||
+					hp[2].neq(0))
 			)
 				result +=
-					this._delimiters[2][0] + this._innerNotations[2].format(hp[2]) + this._delimiters[2][1];
+					this._delimiters[2][0] +
+					this._innerNotations[2].format(hp[2]) +
+					this._delimiters[2][1];
 			else if (orderArray[0] == 3 && (this._showZeroes[3] > 0 || hp[3].neq(0)))
 				result +=
-					this._delimiters[3][0] + this._innerNotations[3].format(hp[3]) + this._delimiters[3][1];
+					this._delimiters[3][0] +
+					this._innerNotations[3].format(hp[3]) +
+					this._delimiters[3][1];
 			orderArray.shift();
 		}
 		return result;
@@ -9758,7 +10005,9 @@ export class HypersplitNotation extends Notation {
 	public set base(base: DecimalSource) {
 		const baseD = toDecimal(base);
 		if (baseD.pow(this._expMultipliers[0].recip()).lte(1.44466786100976613366))
-			throw new RangeError("Bases with convergent tetration don't work for Hypersplit Notation");
+			throw new RangeError(
+				"Bases with convergent tetration don't work for Hypersplit Notation",
+			);
 		this._base = baseD;
 	}
 
@@ -9842,7 +10091,9 @@ export class HypersplitNotation extends Notation {
 		if (!Array.isArray(expMultipliers)) expMultipliers = [expMultipliers];
 		while (expMultipliers.length < 3) expMultipliers.push(Decimal.dOne);
 		if (this._base.pow(Decimal.recip(expMultipliers[0])).lte(1.44466786100976613366))
-			throw new RangeError("Bases with convergent tetration don't work for Hypersplit Notation");
+			throw new RangeError(
+				"Bases with convergent tetration don't work for Hypersplit Notation",
+			);
 		this._expMultipliers = expMultipliers.map(toDecimal);
 	}
 }
@@ -9982,7 +10233,11 @@ const uppercaseAlphabet = [
  * Default is [null, null, null], i.e. no concatenation occurs.
  */
 export class LettersNotation extends Notation {
-	private _letters: [string[], string[], string[]] = [lowercaseAlphabet, uppercaseAlphabet, ['@']];
+	private _letters: [string[], string[], string[]] = [
+		lowercaseAlphabet,
+		uppercaseAlphabet,
+		['@'],
+	];
 	private _negaLetters: [number, number, number] = [-1, -1, -1];
 	public rounding: DecimalSource | ((value: Decimal) => Decimal) = Decimal.dZero;
 	private _base: Decimal = new Decimal(1000);
@@ -10001,7 +10256,11 @@ export class LettersNotation extends Notation {
 		[(placeValue: number, fromStart?: number, outerValue?: number) => boolean, string[]][],
 		[(placeValue: number, fromStart?: number, outerValue?: number) => boolean, string[]][],
 	] = [[], [], []];
-	public fixedLetters: [[number, string][], [number, string][], [number, string][]] = [[], [], []];
+	public fixedLetters: [[number, string][], [number, string][], [number, string][]] = [
+		[],
+		[],
+		[],
+	];
 	public concatenation: [
 		null | [boolean, string, string, Notation?],
 		null | [boolean, string, string, Notation?],
@@ -10099,7 +10358,11 @@ export class LettersNotation extends Notation {
 							.plus(1);
 						value = uppercaseLetterAddition.gte(4.5e15)
 							? Decimal.dOne
-							: value.iteratedlog(10, uppercaseLetterAddition.mul(2).toNumber(), true);
+							: value.iteratedlog(
+									10,
+									uppercaseLetterAddition.mul(2).toNumber(),
+									true,
+								);
 						uppercaseLetter = uppercaseLetter.plus(uppercaseLetterAddition);
 					}
 					while (value.gte(this._base.pow(lowercaseLimit))) {
@@ -10261,7 +10524,10 @@ export class LettersNotation extends Notation {
 			for (let o = 0; o < orderArray.length; o++) {
 				if (resultArray[orderArray[o]]) addAHyperseparator = true;
 			}
-			if (orderArray.length != 0 && (this.alwaysHyperseparate || (visible && addAHyperseparator)))
+			if (
+				orderArray.length != 0 &&
+				(this.alwaysHyperseparate || (visible && addAHyperseparator))
+			)
 				lettersStr += this.hyperseparator;
 		}
 		if (negExp) lettersStr = this.divisionChar[0] + lettersStr + this.divisionChar[1];

@@ -11,7 +11,9 @@ export default defineComponent({
 					<input
 						value={player.options.ui.user_font}
 						onChange={($event) =>
-							(player.options.ui.user_font = ($event.target as HTMLInputElement).value)
+							(player.options.ui.user_font = (
+								$event.target as HTMLInputElement
+							).value)
 						}
 						class="modal-input"
 					/>

@@ -49,10 +49,17 @@ export const Addition = {
 			}
 		})(),
 		'22': new (class U12 extends AdditionUpgrade {
-			description: () => string = Logarithm.dilated('后继批量提高到4倍', '后继指数＋0.2', '22');
+			description: () => string = Logarithm.dilated(
+				'后继批量提高到4倍',
+				'后继指数＋0.2',
+				'22',
+			);
 
 			cost: Decimal | (() => Decimal) = function () {
-				if (player.multiplication.B1seriesC1 == 2 || player.multiplication.B1seriesC1400q == 2)
+				if (
+					player.multiplication.B1seriesC1 == 2 ||
+					player.multiplication.B1seriesC1400q == 2
+				)
 					return DC.D_1;
 				return new Decimal(5);
 			};
@@ -68,7 +75,10 @@ export const Addition = {
 			description = '移除B0-1价格的常数项，B0-1最多购买次数+50';
 
 			cost: Decimal | (() => Decimal) = function () {
-				if (player.multiplication.B1seriesC1 == 3 || player.multiplication.B1seriesC1400q == 3)
+				if (
+					player.multiplication.B1seriesC1 == 3 ||
+					player.multiplication.B1seriesC1400q == 3
+				)
 					return DC.D_1;
 				return new Decimal(25);
 			};
@@ -87,7 +97,8 @@ export const Addition = {
 				'24',
 			);
 			cost: Decimal | (() => Decimal) = function () {
-				return player.multiplication.B1seriesC1 == 4 || player.multiplication.B1seriesC1400q == 4
+				return player.multiplication.B1seriesC1 == 4 ||
+					player.multiplication.B1seriesC1400q == 4
 					? DC.D_1
 					: new Decimal(125);
 			};
@@ -107,7 +118,8 @@ export const Addition = {
 			);
 
 			cost: Decimal | (() => Decimal) = function () {
-				return player.multiplication.B1seriesC1 == 5 || player.multiplication.B1seriesC1400q == 5
+				return player.multiplication.B1seriesC1 == 5 ||
+					player.multiplication.B1seriesC1400q == 5
 					? DC.D_1
 					: new Decimal(625);
 			};

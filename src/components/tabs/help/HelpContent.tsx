@@ -36,11 +36,15 @@ export default defineComponent({
 	setup() {
 		return function () {
 			let a = () => {
-				const currentHelpContentIndex = HELP_CONTENT.findIndex((x) => x.page == player.help.page);
+				const currentHelpContentIndex = HELP_CONTENT.findIndex(
+					(x) => x.page == player.help.page,
+				);
 				if (currentHelpContentIndex == -1) return '';
 
 				const currentHelpContent = HELP_CONTENT[currentHelpContentIndex];
-				const isUnlocked = currentHelpContent.unlocked ? currentHelpContent.unlocked() : true;
+				const isUnlocked = currentHelpContent.unlocked
+					? currentHelpContent.unlocked()
+					: true;
 				if (isUnlocked) return convertTextToComponent(currentHelpContent.content);
 				return '';
 			};

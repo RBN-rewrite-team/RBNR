@@ -445,7 +445,9 @@ export const NON_RECURSIVE = {
 	addResetGain() {},
 	addPower(x: Decimal) {
 		player.nonrecu.power = player.nonrecu.power.add(x).min('ee8.07230472602822538e153');
-		player.nonrecu.totalPower = player.nonrecu.totalPower.add(x).min('ee8.07230472602822538e153');
+		player.nonrecu.totalPower = player.nonrecu.totalPower
+			.add(x)
+			.min('ee8.07230472602822538e153');
 	},
 	gainFactor(): [string, number, Decimal][] {
 		const ADD_EFF = 0,
@@ -475,12 +477,24 @@ export const NON_RECURSIVE = {
 				player.hydra.dilute.prions.add(1).mul(1e10).log10().log10().root(4),
 			]);
 		if (player.nonrecu.studies_bought.includes(13))
-			factor.push(['九头蛇能量', MUL_EFF, player.hydra.power.max('e326649').log10().div(326649)]);
+			factor.push([
+				'九头蛇能量',
+				MUL_EFF,
+				player.hydra.power.max('e326649').log10().div(326649),
+			]);
 		if (player.nonrecu.studies_bought.includes(16)) {
 			factor.push([
 				'非递归研究71',
 				MUL_EFF,
-				player.nonrecu.secInThisReset.add(1).mul(10).pow(2).sub(99).root(2).pow(0.75).div(2).add(1),
+				player.nonrecu.secInThisReset
+					.add(1)
+					.mul(10)
+					.pow(2)
+					.sub(99)
+					.root(2)
+					.pow(0.75)
+					.div(2)
+					.add(1),
 			]);
 		}
 		return factor;
@@ -539,7 +553,9 @@ export const NON_RECURSIVE = {
 	loop(diff: number) {
 		this.addPower(this.passiveGain().mul(diff));
 		if (player.milestones.nonrec_17) {
-			player.nonrecu.resetTimes = player.nonrecu.resetTimes.add(player.challenges[1][4].mul(diff));
+			player.nonrecu.resetTimes = player.nonrecu.resetTimes.add(
+				player.challenges[1][4].mul(diff),
+			);
 		}
 		if (player.upgrades['71UN']) {
 			player.nonrecu.unocf_j = player.nonrecu.unocf_j.add(this.UNOCFdeduceSpeed().mul(diff));

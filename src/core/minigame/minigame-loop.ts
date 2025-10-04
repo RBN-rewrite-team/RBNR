@@ -11,7 +11,13 @@ export function setPosManmade(
 	playerxy: [bigint, bigint],
 ) {
 	//debugger;
-	let a = !isUnreachable(player.minigame.current_room, goalpos[0], goalpos[1], direction, playerxy);
+	let a = !isUnreachable(
+		player.minigame.current_room,
+		goalpos[0],
+		goalpos[1],
+		direction,
+		playerxy,
+	);
 	// console.log(a);
 	if (a) {
 		player.minigame.current_x = goalpos[0];
@@ -28,7 +34,10 @@ export function handleKeyPress(key: KeyPresses) {
 				[player.minigame.current_x, player.minigame.current_y],
 				key as 'up' | 'down' | 'left' | 'right',
 			);
-			setPosManmade(pos, key, [player.minigame.current_x + 0n, player.minigame.current_y + 0n]);
+			setPosManmade(pos, key, [
+				player.minigame.current_x + 0n,
+				player.minigame.current_y + 0n,
+			]);
 			interactBlock(player.minigame.current_room, pos[0], pos[1], key);
 		}
 	}

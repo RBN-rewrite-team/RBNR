@@ -126,7 +126,11 @@ export const OrdinalNT = {
 				return false;
 			}
 			costInverse(x: Decimal): Decimal {
-				return x.max(1).log(new Ordinal('w^w').toDecimal(feature.Ordinal.base())).max(1).floor();
+				return x
+					.max(1)
+					.log(new Ordinal('w^w').toDecimal(feature.Ordinal.base()))
+					.max(1)
+					.floor();
 			}
 		})(),
 		'55R': new (class B54R extends Buyable<Decimal> {
@@ -389,7 +393,9 @@ export const OrdinalNT = {
 			if (id == 'x') {
 				if (Dilute.diluteAmount(3) > 0) {
 					if (player.milestones.nonrec_3) return new Decimal(0);
-					return new Decimal(player.hydra.dilute.spentTime).pow(Dilute.diluteAmount(3)).sqrt();
+					return new Decimal(player.hydra.dilute.spentTime)
+						.pow(Dilute.diluteAmount(3))
+						.sqrt();
 				}
 				let prod = new Decimal(1);
 				const a = buyables['61R'].effect(player.buyables['61R']);
@@ -435,7 +441,8 @@ export const OrdinalNT = {
 	varGainLoop(diff = 0.04): void {
 		if (!player.upgrades[61]) {
 			player.numbertheory.GH.x = player.numbertheory.GH.x.add(this.varGain('x', 3).mul(diff));
-			if (player.upgrades[512]) player.numbertheory.GH.t33 = player.numbertheory.GH.t33.add(diff);
+			if (player.upgrades[512])
+				player.numbertheory.GH.t33 = player.numbertheory.GH.t33.add(diff);
 		}
 		if (Dilute.diluteAmount(3) > 0 || player.upgrades[65])
 			player.numbertheory.GM.x = player.numbertheory.GM.x.add(this.varGain('x', 4).mul(diff));

@@ -175,7 +175,8 @@ function getCurrentSequenceName(): string {
 					<vue-latex expression="S_0 = 0" />。
 				</p>
 				<p>
-					2. 对于任意 <vue-latex expression="P" /> 的元素 <vue-latex expression="A,B,C,D" />，若
+					2. 对于任意 <vue-latex expression="P" /> 的元素
+					<vue-latex expression="A,B,C,D" />，若
 					<vue-latex
 						expression="A \frown (0) \frown B^+ = C \frown (0) \frown
 					D^+"
@@ -197,8 +198,9 @@ function getCurrentSequenceName(): string {
 					<vue-latex expression="S = E" />，则显然有 <vue-latex expression="S = E" /> 或
 					<vue-latex expression="S_0 = 0" />。<br />若存在
 					<vue-latex expression="(s,t) \in P^2" /> 满足
-					<vue-latex expression="S = s \frown (0) \frown t^+" />，且两者均满足条件。<br />若
-					<vue-latex expression="s = E" />，则
+					<vue-latex
+						expression="S = s \frown (0) \frown t^+"
+					/>，且两者均满足条件。<br />若 <vue-latex expression="s = E" />，则
 					<vue-latex
 						expression="S = s \frown (0) \frown t^+ = E \frown (0) \frown t^+ = (0) \frown t^+"
 					/>，所以 <vue-latex expression="S_0 = 0" />。<br />若
@@ -223,12 +225,15 @@ function getCurrentSequenceName(): string {
 				><template v-else>
 					证明其逆否命题。<br />即，由 <vue-latex expression="A \neq C" /> 或
 					<vue-latex expression="B \neq D" /> 推导出
-					<vue-latex expression="A \frown (0) \frown B^+ \neq C \frown (0) \frown D^+" />。<br />若
-					<vue-latex expression="A \neq C" />，则要么
+					<vue-latex
+						expression="A \frown (0) \frown B^+ \neq C \frown (0) \frown D^+"
+					/>。<br />若 <vue-latex expression="A \neq C" />，则要么
 					<vue-latex expression="\textrm{length}(A) \neq \textrm{length}(C)" />，要么存在
 					<vue-latex expression="n < \textrm{length}(A)" /> 满足
 					<vue-latex expression="A_n \neq C_n" />。<br />若
-					<vue-latex expression="\textrm{length}(A) \neq \textrm{length}(C)" />（不失一般性，设
+					<vue-latex
+						expression="\textrm{length}(A) \neq \textrm{length}(C)"
+					/>（不失一般性，设
 					<vue-latex expression="\textrm{length}(A) < \textrm{length}(C)" />），<br />则
 					<vue-latex
 						expression="(C \frown (0) \frown D^+)_{\textrm{length}(C)} = ((0) \frown D^+)_{0} = 0"
@@ -238,12 +243,15 @@ function getCurrentSequenceName(): string {
 					<vue-latex
 						expression="A \frown (0) \frown B^+ \neq C \frown (0) \frown D^+"
 					/>。<br />若存在 <vue-latex expression="n < \textrm{length}(A)" /> 满足
-					<vue-latex expression="A_n \neq C_n" />，则对于该 <vue-latex expression="n" />，有
+					<vue-latex expression="A_n \neq C_n" />，则对于该
+					<vue-latex expression="n" />，有
 					<vue-latex
 						expression="(A \frown (0) \frown B^+)_n \neq (C \frown (0) \frown D^+)_n"
 					/>，<br />所以
-					<vue-latex expression="A \frown (0) \frown B^+ \neq C \frown (0) \frown D^+" />。<br />若
-					<vue-latex expression="A = C" /> 且 <vue-latex expression="B \neq D" />，则
+					<vue-latex
+						expression="A \frown (0) \frown B^+ \neq C \frown (0) \frown D^+"
+					/>。<br />若 <vue-latex expression="A = C" /> 且
+					<vue-latex expression="B \neq D" />，则
 					<vue-latex
 						expression="A \frown (0) \frown B^+ = C \frown (0) \frown B^+ \neq C \frown (0) \frown D^+"
 					/>。<br />综上，若 <vue-latex expression="A \neq C" /> 或
@@ -291,7 +299,9 @@ function getCurrentSequenceName(): string {
 			若 <vue-latex expression="S_\Box > 0" />，则（由引理1.1）<vue-latex
 				expression="0 \in \{i \in \mathbb N | i < \textrm{length}(S) \land S_i < S_\Box\}"
 			/>，因此
-			<vue-latex expression="\{i \in \mathbb N | i < \textrm{length}(S) \land S_i < S_\Box\}" />
+			<vue-latex
+				expression="\{i \in \mathbb N | i < \textrm{length}(S) \land S_i < S_\Box\}"
+			/>
 			非空。<br />
 			定义
 			<vue-latex
@@ -471,7 +481,8 @@ function getCurrentSequenceName(): string {
 				<p><vue-latex expression="\textrm{expand}" /> 的值域</p>
 				<p>
 					对于任意 <vue-latex expression="S \in P" /> 和
-					<vue-latex expression="n \in \mathbb N" />，有 <vue-latex expression="S = E" /> 或
+					<vue-latex expression="n \in \mathbb N" />，有
+					<vue-latex expression="S = E" /> 或
 					<vue-latex expression="\textrm{expand}(S,n) \in P" />。
 				</p>
 			</template>
@@ -515,13 +526,15 @@ function getCurrentSequenceName(): string {
 				<p>
 					引理 2 是通过 <vue-latex expression="P" /> 的结构对
 					<vue-latex expression="\textrm{expand}" /> 行为进行分类的方法。引理 3 表明
-					<vue-latex expression="\textrm{expand}" /> 的输出 <vue-latex expression="P" /> 的元素。
+					<vue-latex expression="\textrm{expand}" /> 的输出
+					<vue-latex expression="P" /> 的元素。
 				</p>
 				<p>
 					通过 <vue-latex expression="P" /> 的结构递归定义映射
 					<vue-latex expression="\textrm{trans} : P \to \varepsilon_0" />。注意
 					<vue-latex expression="\varepsilon_0" /> 是对加法和
-					<vue-latex expression="\omega" /> 幂封闭的序数。 - 若 <vue-latex expression="S = E" />，则
+					<vue-latex expression="\omega" /> 幂封闭的序数。 - 若
+					<vue-latex expression="S = E" />，则
 					<vue-latex expression="\textrm{trans}(S) := 0" />。 - 若存在
 					<vue-latex expression="(A,B) \in P^2" /> 满足
 					<vue-latex expression="S = \textrm{gen}(A,B)" />，则
@@ -551,8 +564,11 @@ function getCurrentSequenceName(): string {
 				<p><vue-latex expression="\textrm{expand}" /> 的递减性</p>
 				<p>
 					对于任意 <vue-latex expression="S \in P" /> 和
-					<vue-latex expression="n \in \mathbb N" />，有 <vue-latex expression="S = E" /> 或
-					<vue-latex expression="\textrm{trans}(\textrm{expand}(S,n)) < \textrm{trans}(S)" />。
+					<vue-latex expression="n \in \mathbb N" />，有
+					<vue-latex expression="S = E" /> 或
+					<vue-latex
+						expression="\textrm{trans}(\textrm{expand}(S,n)) < \textrm{trans}(S)"
+					/>。
 				</p>
 			</template>
 			<div class="center-line"></div>
@@ -595,13 +611,15 @@ function getCurrentSequenceName(): string {
 				<p>
 					引理 2 是通过 <vue-latex expression="P" /> 的结构对
 					<vue-latex expression="\textrm{expand}" /> 行为进行分类的方法。引理 3 表明
-					<vue-latex expression="\textrm{expand}" /> 的输出 <vue-latex expression="P" /> 的元素。
+					<vue-latex expression="\textrm{expand}" /> 的输出
+					<vue-latex expression="P" /> 的元素。
 				</p>
 				<p>
 					通过 <vue-latex expression="P" /> 的结构递归定义映射
 					<vue-latex expression="\textrm{trans} : P \to \varepsilon_0" />。注意
 					<vue-latex expression="\varepsilon_0" /> 是对加法和
-					<vue-latex expression="\omega" /> 幂封闭的序数。 - 若 <vue-latex expression="S = E" />，则
+					<vue-latex expression="\omega" /> 幂封闭的序数。 - 若
+					<vue-latex expression="S = E" />，则
 					<vue-latex expression="\textrm{trans}(S) := 0" />。 - 若存在
 					<vue-latex expression="(A,B) \in P^2" /> 满足
 					<vue-latex expression="S = \textrm{gen}(A,B)" />，则
@@ -649,8 +667,9 @@ function getCurrentSequenceName(): string {
 					>假设这样的 <vue-latex expression="k \in \mathbb N" /> 不存在。则对于每个
 					<vue-latex expression="k \in \mathbb N" />，有
 					<vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}] \neq E" />，所以
-					<vue-latex expression="\textrm{trans}(S[a_0][a_1]\cdots[a_{k-1}]) \neq 0" />。因此，如果
-					<vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}]" /> 有定义，则
+					<vue-latex
+						expression="\textrm{trans}(S[a_0][a_1]\cdots[a_{k-1}]) \neq 0"
+					/>。因此，如果 <vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}]" /> 有定义，则
 					<vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}][a_k]" />
 					也有定义。通过数学归纳法，对于任意
 					<vue-latex expression="k \in \mathbb N" />，<vue-latex

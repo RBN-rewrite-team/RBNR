@@ -56,14 +56,18 @@ function m2GainLatex() {
 			<div
 				class="clickable_button"
 				style="position: absolute"
-				@mousedown="player.numbertheory.visiting = Math.max(player.numbertheory.visiting - 1, 1)"
+				@mousedown="
+					player.numbertheory.visiting = Math.max(player.numbertheory.visiting - 1, 1)
+				"
 			>
 				-
 			</div>
 			<div
 				class="clickable_button"
 				style="position: absolute; left: 60px"
-				@mousedown="player.numbertheory.visiting = Math.min(player.numbertheory.visiting + 1, 9)"
+				@mousedown="
+					player.numbertheory.visiting = Math.min(player.numbertheory.visiting + 1, 9)
+				"
 			>
 				+
 			</div>
@@ -95,7 +99,10 @@ function m2GainLatex() {
 					display-mode
 				/>
 				<vue-latex :expression="zGainLatex()" display-mode />
-				<vue-latex :expression="'s = ' + formatLaTeX(player.numbertheory.euler.s)" display-mode />
+				<vue-latex
+					:expression="'s = ' + formatLaTeX(player.numbertheory.euler.s)"
+					display-mode
+				/>
 				<vue-latex :expression="sGainLatex()" display-mode />
 				<p style="font-size: 120%">
 					<b
@@ -179,15 +186,16 @@ function m2GainLatex() {
 				<vue-latex :expression="y2GainLatex()" display-mode />
 				<p style="font-size: 120%">
 					<b
-						>研究2加成：质因数效果^<vue-latex expression="\tau_2" />，质因数速度×<vue-latex
-							expression="\tau_2^4"
+						>研究2加成：质因数效果^<vue-latex
+							expression="\tau_2" />，质因数速度×<vue-latex expression="\tau_2^4"
 					/></b>
 				</p>
 				<br />
 				<button
 					class="clickable_button"
 					@click="
-						player.numbertheory.rational_approx.n = player.numbertheory.rational_approx.n.add(1)
+						player.numbertheory.rational_approx.n =
+							player.numbertheory.rational_approx.n.add(1)
 					"
 					style="display: inline-block; margin: 5px"
 				>
@@ -196,7 +204,8 @@ function m2GainLatex() {
 				<button
 					class="clickable_button"
 					@click="
-						player.numbertheory.rational_approx.m = player.numbertheory.rational_approx.m.add(1)
+						player.numbertheory.rational_approx.m =
+							player.numbertheory.rational_approx.m.add(1)
 					"
 					v-if="player.milestones.cb8"
 					style="display: inline-block; margin: 5px"

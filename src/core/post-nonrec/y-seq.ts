@@ -51,7 +51,8 @@ export const Y_SEQ = {
 			.log(this.priceRatio()[id])
 			.floor()
 			.add(1);
-		if (id == 0 && player.postnonrec.yseq.dimensions[0][0].lt(1)) boughtcount = boughtcount.max(1);
+		if (id == 0 && player.postnonrec.yseq.dimensions[0][0].lt(1))
+			boughtcount = boughtcount.max(1);
 
 		player.postnonrec.yseq.dimensions[0][id] =
 			player.postnonrec.yseq.dimensions[0][id].max(boughtcount);
@@ -60,7 +61,9 @@ export const Y_SEQ = {
 		const mul = [0.05, 0.1, 0.2, 0.4];
 		let boost = new Decimal(1);
 		if (player.upgrades[622])
-			boost = boost.mul(player.postnonrec.yseq.dimensions[0][id].pow_base(upgrades[622].effect()));
+			boost = boost.mul(
+				player.postnonrec.yseq.dimensions[0][id].pow_base(upgrades[622].effect()),
+			);
 		let res = player.postnonrec.yseq.dimensions[0][id]
 			.add(player.postnonrec.yseq.dimensions[1][id].floor())
 			.mul(mul?.[id] ?? 0.05)
@@ -95,7 +98,8 @@ export const Y_SEQ = {
 			);
 		}
 		if (player.upgrades[624]) {
-			player.postnonrec.yseq.dimensions[0][0] = player.postnonrec.yseq.dimensions[0][0].clampMin(1);
+			player.postnonrec.yseq.dimensions[0][0] =
+				player.postnonrec.yseq.dimensions[0][0].clampMin(1);
 		}
 		if (player.upgrades[627]) {
 			player.postnonrec.yseq.dimensions[1][3] = player.postnonrec.yseq.dimensions[1][3].add(

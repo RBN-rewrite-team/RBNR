@@ -162,7 +162,9 @@ export function initMechanics() {
 		displayName: 'M-CB-6',
 		get description() {
 			return (
-				'基于指数能量，棋盘底数×' + format(getMCB6Effect()) + '，并使数值和加法能量溢出效果减半'
+				'基于指数能量，棋盘底数×' +
+				format(getMCB6Effect()) +
+				'，并使数值和加法能量溢出效果减半'
 			);
 		},
 		requirement: new Decimal(1e18),
@@ -326,7 +328,9 @@ export function initMechanics() {
 	MILESTONES.create('cb19', {
 		displayName: 'M-CB-19',
 		get description() {
-			return '增强麦粒第五个效果并删除其软上限，麦粒让乘法能量指数^' + format(getMCB19Effect());
+			return (
+				'增强麦粒第五个效果并删除其软上限，麦粒让乘法能量指数^' + format(getMCB19Effect())
+			);
 		},
 		requirement: new Decimal('5.5555e555'),
 		get canDone() {
@@ -339,7 +343,8 @@ export function initMechanics() {
 		displayName: 'M-CB-20',
 		get description() {
 			return (
-				'你可以购买分数个棋盘格，棋盘格可购买数量基于指数能量增加<br>效果：×' + format(mcb20eff())
+				'你可以购买分数个棋盘格，棋盘格可购买数量基于指数能量增加<br>效果：×' +
+				format(mcb20eff())
 			);
 		},
 		requirement: new Decimal(2).pow(9 * 1024),

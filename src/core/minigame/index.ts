@@ -178,7 +178,8 @@ export function predictableBigIntRandom(x: bigint): number {
 export function getWorldLevel() {
 	try {
 		let base = [
-			1, 10, 1, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100,
+			1, 10, 1, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100,
+			1e100,
 		];
 		return (
 			base[player.minigame.current_room] +

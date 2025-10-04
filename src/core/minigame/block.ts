@@ -58,13 +58,17 @@ export function getCurrentBlock(room: number, x: bigint, y: bigint, nonreplaced 
 					block = undefined;
 				else if (x == 0n) block = new WallGameObject();
 				else if (y == 0n) block = new WallGameObject();
-				else if (x == player.minigame.initializeType.rect_width) block = new WallGameObject();
-				else if (y == player.minigame.initializeType.rect_height) block = new WallGameObject();
+				else if (x == player.minigame.initializeType.rect_width)
+					block = new WallGameObject();
+				else if (y == player.minigame.initializeType.rect_height)
+					block = new WallGameObject();
 				else block = null;
 			}
 		}
 		if (!nonreplaced) {
-			let replacements = (player.minigame.replaces[room] ?? []).filter((b) => b.x == x && b.y == y);
+			let replacements = (player.minigame.replaces[room] ?? []).filter(
+				(b) => b.x == x && b.y == y,
+			);
 			for (let i = 0; i < replacements.length; i++) {
 				block = replacement(block, replacements[i]);
 			}

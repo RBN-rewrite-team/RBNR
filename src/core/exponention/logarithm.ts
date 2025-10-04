@@ -36,7 +36,9 @@ export const Logarithm = {
 			cost(x: Decimal): Decimal {
 				let base = new Decimal(10);
 				if (player.milestones.log_law3)
-					base = base.sub(Logarithm.logarithm.calculate_datas.max(1).log10().pow(0.7).min(4));
+					base = base.sub(
+						Logarithm.logarithm.calculate_datas.max(1).log10().pow(0.7).min(4),
+					);
 				return Decimal.pow(
 					base,
 					Decimal.pow(x.add(2), 2).sub(
@@ -68,7 +70,9 @@ export const Logarithm = {
 			cost(x: Decimal): Decimal {
 				let base = new Decimal(10);
 				if (player.milestones.log_law3)
-					base = base.sub(Logarithm.logarithm.calculate_datas.max(1).log10().pow(0.7).min(4));
+					base = base.sub(
+						Logarithm.logarithm.calculate_datas.max(1).log10().pow(0.7).min(4),
+					);
 				return Decimal.pow(
 					10,
 					Decimal.pow(x.add(2), x.add(1).min(5)).sub(

@@ -28,7 +28,11 @@ export const Successor = {
 			currency = Currencies.NUMBER;
 			name = 'U0-1';
 			cost = new Decimal(10);
-			description: () => string = Logarithm.dilated('解锁B0-1', 'B0-1购买次数上限改为1000', '11');
+			description: () => string = Logarithm.dilated(
+				'解锁B0-1',
+				'B0-1购买次数上限改为1000',
+				'11',
+			);
 			requirements(): Requirement[] {
 				return [new CurrencyRequirement(Currencies.NUMBER, new Decimal(10))];
 			}
@@ -66,7 +70,11 @@ export const Successor = {
 			currency = Currencies.NUMBER;
 			name = 'U0-3';
 			cost = new Decimal(1000);
-			description: () => string = Logarithm.dilated('解锁加法层', '加法能量获取指数+0.1', '13');
+			description: () => string = Logarithm.dilated(
+				'解锁加法层',
+				'加法能量获取指数+0.1',
+				'13',
+			);
 			requirements(): Requirement[] {
 				return [new CurrencyRequirement(Currencies.NUMBER, new Decimal(1000))];
 			}
@@ -181,7 +189,8 @@ export const Successor = {
 		if (player.upgrades['12'] && player.upgrades[21]) {
 			let count = 0;
 			for (const i of [21, 22, 23, 24, 25, 26]) {
-				if (player.upgrades[i.toString() as '21' | '22' | '23' | '24' | '25' | '26']) count++;
+				if (player.upgrades[i.toString() as '21' | '22' | '23' | '24' | '25' | '26'])
+					count++;
 			}
 			base = base.add(count);
 		}

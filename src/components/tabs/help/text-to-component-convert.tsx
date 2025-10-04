@@ -32,7 +32,11 @@ export default function convertTextToComponent(text2: string): JSX.Element {
 		else if (part.length >= 4 && part.startsWith('\\[') && part.endsWith('\\]')) {
 			const latexExpression = part.slice(2, -2);
 			elements.push(
-				<VueLatex key={`display-${keyCounter}`} expression={latexExpression} display-mode />,
+				<VueLatex
+					key={`display-${keyCounter}`}
+					expression={latexExpression}
+					display-mode
+				/>,
 			);
 		}
 		// 处理换行符

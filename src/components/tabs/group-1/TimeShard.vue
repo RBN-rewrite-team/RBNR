@@ -19,7 +19,10 @@ function timeF(ms = 0) {
 					formatTime(player.timeshard.tf.div(1000))
 				}}</span>
 				的时间加速<br />
-				<button class="setting_button" @click="player.timeshard.openTf = !player.timeshard.openTf">
+				<button
+					class="setting_button"
+					@click="player.timeshard.openTf = !player.timeshard.openTf"
+				>
 					启用：{{ player.timeshard.openTf ? '开' : '关' }}
 				</button>
 			</span>

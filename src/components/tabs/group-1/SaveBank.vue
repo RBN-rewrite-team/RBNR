@@ -65,7 +65,12 @@ const importSave = (saveText: string) => {
 						<div class="save-container">
 							<button
 								class="btn download-btn-btn"
-								@click="downloadSave(item['save-text'], chapter.title + ' - ' + item.title)"
+								@click="
+									downloadSave(
+										item['save-text'],
+										chapter.title + ' - ' + item.title,
+									)
+								"
 							>
 								下载存档
 							</button>

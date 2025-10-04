@@ -118,7 +118,9 @@ export const UNOCF_milestone = [
 export const UNOCF = {
 	getCurMilestoneIndex(p: Decimal) {
 		let a = UNOCF_milestone.findIndex((a, i) => {
-			return (i == UNOCF_milestone.length - 1 || p.lt(UNOCF_milestone[i + 1][0])) && p.gte(a[0]);
+			return (
+				(i == UNOCF_milestone.length - 1 || p.lt(UNOCF_milestone[i + 1][0])) && p.gte(a[0])
+			);
 		});
 		return a;
 	},

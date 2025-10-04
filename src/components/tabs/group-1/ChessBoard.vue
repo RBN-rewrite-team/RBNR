@@ -60,7 +60,9 @@ import TRMilestone from '../../group-2/TRMilestone.vue';
 							<div class="block">
 								<b style="color: rgb(127, 127, 255); font-size: 20px">
 									{{ formatWhole(feature.ChessBoard.base())
-									}}<sup>{{ formatWhole(feature.ChessBoard.maxBlocks().sub(1)) }}</sup>
+									}}<sup>{{
+										formatWhole(feature.ChessBoard.maxBlocks().sub(1))
+									}}</sup>
 								</b>
 							</div>
 						</td>

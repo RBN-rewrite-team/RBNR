@@ -19,7 +19,9 @@ export function countdown(
 	else
 		return (
 			'~' +
-			formatTime(countdown_with_double_derivative(cost, curres, speed, speed_deri) ?? Infinity)
+			formatTime(
+				countdown_with_double_derivative(cost, curres, speed, speed_deri) ?? Infinity,
+			)
 		);
 }
 

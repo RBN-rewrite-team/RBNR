@@ -76,7 +76,9 @@ function actualCost(curupg: Upgrade) {
 					<!-- (Logarithm.logarithm.upgrades_in_dilated.includes(id)&&curupg.dilated) ? curupg.dilated :  -->
 					<span
 						v-html="
-							typeof curupg.description === 'function' ? curupg.description() : curupg.description
+							typeof curupg.description === 'function'
+								? curupg.description()
+								: curupg.description
 						"
 					></span
 					><br />
@@ -88,10 +90,15 @@ function actualCost(curupg: Upgrade) {
 					价格：<span
 						v-if="curupg.ordinal"
 						v-html="
-							OrdinalUtils.numberToOrdinal(actualCost(curupg), feature.Ordinal.base()) +
-							currencyName(curupg.currency)
+							OrdinalUtils.numberToOrdinal(
+								actualCost(curupg),
+								feature.Ordinal.base(),
+							) + currencyName(curupg.currency)
 						"
-					/><span v-else v-html="format(actualCost(curupg)) + currencyName(curupg.currency)" />
+					/><span
+						v-else
+						v-html="format(actualCost(curupg)) + currencyName(curupg.currency)"
+					/>
 					<br />
 				</template>
 				<span v-else style="color: green; font-weight: bold"> 保持持有<br /> </span>

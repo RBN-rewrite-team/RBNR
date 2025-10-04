@@ -177,9 +177,9 @@ function isEquipped(eq: CoreEquipment) {
 					<span v-html="equipmentDisplay(temp.coreViewEquipment)" />
 					<span v-if="isEquipped(temp.coreViewEquipment)">(已装备)</span>
 					<br />
-					真实等级{{ equipmentAttribute(temp.coreViewEquipment).realLevel.toFixed(1) }}(稀有度加成{{
-						(temp.coreViewEquipment.rarity ** 2 * 100).toFixed(1)
-					}}%)<br />
+					真实等级{{
+						equipmentAttribute(temp.coreViewEquipment).realLevel.toFixed(1)
+					}}(稀有度加成{{ (temp.coreViewEquipment.rarity ** 2 * 100).toFixed(1) }}%)<br />
 					生命值+{{ equipmentAttribute(temp.coreViewEquipment).hea.toFixed(1) }}<br />
 					攻击力+{{ equipmentAttribute(temp.coreViewEquipment).atk.toFixed(1) }}<br />
 					防御力+{{ equipmentAttribute(temp.coreViewEquipment).def.toFixed(1) }}<br />
@@ -209,7 +209,9 @@ function isEquipped(eq: CoreEquipment) {
 								v-if="player.minigame.coreEquipments.hea.length > 0"
 								style="height: 50px; width: 100%; border: 2px solid red"
 								:style="{
-									'border-color': temp.coreViewColor(player.minigame.coreEquipments.hea[0]),
+									'border-color': temp.coreViewColor(
+										player.minigame.coreEquipments.hea[0],
+									),
 								}"
 								@click="changeCoreView(player.minigame.coreEquipments.hea[0])"
 							>
@@ -217,7 +219,10 @@ function isEquipped(eq: CoreEquipment) {
 									v-html="equipmentDisplay(player.minigame.coreEquipments.hea[0])"
 								/>
 							</div>
-							<div style="height: 50px; width: 100%; border: 2px solid var(--color)" v-else>
+							<div
+								style="height: 50px; width: 100%; border: 2px solid var(--color)"
+								v-else
+							>
 								未装备支持部
 							</div>
 						</td>
@@ -226,7 +231,9 @@ function isEquipped(eq: CoreEquipment) {
 								v-if="player.minigame.coreEquipments.atk.length > 0"
 								style="height: 50px; width: 100%; border: 2px solid red"
 								:style="{
-									'border-color': temp.coreViewColor(player.minigame.coreEquipments.atk[0]),
+									'border-color': temp.coreViewColor(
+										player.minigame.coreEquipments.atk[0],
+									),
 								}"
 								@click="changeCoreView(player.minigame.coreEquipments.atk[0])"
 							>
@@ -234,7 +241,10 @@ function isEquipped(eq: CoreEquipment) {
 									v-html="equipmentDisplay(player.minigame.coreEquipments.atk[0])"
 								/>
 							</div>
-							<div style="height: 50px; width: 100%; border: 2px solid var(--color)" v-else>
+							<div
+								style="height: 50px; width: 100%; border: 2px solid var(--color)"
+								v-else
+							>
 								未装备打击部
 							</div>
 						</td>
@@ -243,7 +253,9 @@ function isEquipped(eq: CoreEquipment) {
 								v-if="player.minigame.coreEquipments.def.length > 0"
 								style="height: 50px; width: 100%; border: 2px solid red"
 								:style="{
-									'border-color': temp.coreViewColor(player.minigame.coreEquipments.def[0]),
+									'border-color': temp.coreViewColor(
+										player.minigame.coreEquipments.def[0],
+									),
 								}"
 								@click="changeCoreView(player.minigame.coreEquipments.def[0])"
 							>
@@ -251,7 +263,10 @@ function isEquipped(eq: CoreEquipment) {
 									v-html="equipmentDisplay(player.minigame.coreEquipments.def[0])"
 								/>
 							</div>
-							<div style="height: 50px; width: 100%; border: 2px solid var(--color)" v-else>
+							<div
+								style="height: 50px; width: 100%; border: 2px solid var(--color)"
+								v-else
+							>
 								未装备防御部
 							</div>
 						</td>
@@ -287,7 +302,11 @@ function isEquipped(eq: CoreEquipment) {
 			"
 			v-if="(temp.dungeonsSP == 2 || temp.innerWidth >= 800) && !temp.openingCore"
 		>
-			<button @click="handleKeyPress('up')" class="movement_button" style="top: 50px; left: 150px">
+			<button
+				@click="handleKeyPress('up')"
+				class="movement_button"
+				style="top: 50px; left: 150px"
+			>
 				↑
 			</button>
 			<button
@@ -398,7 +417,12 @@ function isEquipped(eq: CoreEquipment) {
 								player.minigame.current_x + visibleBlocks() + 1n,
 							)"
 						>
-							<template v-if="player.minigame.current_x !== x || player.minigame.current_y !== y">
+							<template
+								v-if="
+									player.minigame.current_x !== x ||
+									player.minigame.current_y !== y
+								"
+							>
 								<MiniGameTD
 									v-if="isPlayerVisible(x, y) && !inPathData(x, y)"
 									@mousedown="
@@ -409,7 +433,9 @@ function isEquipped(eq: CoreEquipment) {
 											getCurrentBlock(player.minigame.current_room, x, y),
 										)
 									"
-									:game_object="getCurrentBlock(player.minigame.current_room, x, y)"
+									:game_object="
+										getCurrentBlock(player.minigame.current_room, x, y)
+									"
 								></MiniGameTD>
 								<td
 									v-else-if="inPathData(x, y)"

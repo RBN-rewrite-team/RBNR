@@ -9,7 +9,8 @@ function randomSymbol(cn = true): string {
 
 		if (Math.random() < 0.5) {
 			return String.fromCodePoint(
-				Math.floor(Math.random() * (upperBoundBasic - lowerBoundBasic + 1)) + lowerBoundBasic,
+				Math.floor(Math.random() * (upperBoundBasic - lowerBoundBasic + 1)) +
+					lowerBoundBasic,
 			);
 		} else {
 			return String.fromCodePoint(
@@ -37,7 +38,11 @@ export const wordShift = {
 				(mod5 + 0.6) / 1.2,
 			);
 		} else if (mod5 > 4.4) {
-			v = this.blendWords(list[largeTick], list[(largeTick + 1) % list.length], (mod5 - 4.4) / 1.2);
+			v = this.blendWords(
+				list[largeTick],
+				list[(largeTick + 1) % list.length],
+				(mod5 - 4.4) / 1.2,
+			);
 		}
 
 		v = this.randomCrossWords(v, 0.1 * Math.pow(mod5 - 2.5, 4) - 0.6);

@@ -35,7 +35,10 @@ const setFontUI = () => ModalService.show({ title: '设置字体', component: fo
 			>
 				离线进度：{{ player.options.allowOffline ? '开' : '关' }}
 			</button>
-			<button class="setting_button" @click="player.options.hardMode = !player.options.hardMode">
+			<button
+				class="setting_button"
+				@click="player.options.hardMode = !player.options.hardMode"
+			>
 				困难模式：{{ player.options.hardMode ? '开' : '关' }}
 			</button>
 			<button class="setting_button" @click="player.currentTab = 300">进入存档银行</button>
@@ -83,7 +86,10 @@ const setFontUI = () => ModalService.show({ title: '设置字体', component: fo
 		<br />
 		<div class="center_line" />
 		<h3>界面</h3>
-		<button class="setting_button" @click="player.options.ui.newsbar = !player.options.ui.newsbar">
+		<button
+			class="setting_button"
+			@click="player.options.ui.newsbar = !player.options.ui.newsbar"
+		>
 			新闻栏：{{ player.options.ui.newsbar ? '开' : '关' }}
 		</button>
 		<button

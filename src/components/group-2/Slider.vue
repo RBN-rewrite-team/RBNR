@@ -290,7 +290,8 @@ export default defineComponent({
 			const tooltipDirectionComputed = tooltipDirection.value[0];
 			if (dot0.value) {
 				const style: Record<string, string> = {};
-				style[tooltipDirectionComputed] = `-${dotAxialSizePx.value / 2 - size.value / 2 + 9}px`;
+				style[tooltipDirectionComputed] =
+					`-${dotAxialSizePx.value / 2 - size.value / 2 + 9}px`;
 				style['left'] = `50%`;
 				return style;
 			}
@@ -373,7 +374,10 @@ export default defineComponent({
 			if (isRange.value) {
 				return props.data
 					? currentValue.value
-					: [getIndexByValue(currentValue.value[0]), getIndexByValue(currentValue.value[1])];
+					: [
+							getIndexByValue(currentValue.value[0]),
+							getIndexByValue(currentValue.value[1]),
+						];
 			} else {
 				return getIndexByValue(currentValue.value);
 			}
@@ -449,7 +453,10 @@ export default defineComponent({
 				} else {
 					return [
 						[dotAxialSizePx.value / 2, (position.value as [number, number])[1]],
-						[(position.value as [number, number])[0], size.value - dotAxialSizePx.value / 2],
+						[
+							(position.value as [number, number])[0],
+							size.value - dotAxialSizePx.value / 2,
+						],
 					];
 				}
 			} else {
@@ -464,11 +471,13 @@ export default defineComponent({
 							[
 								minimum.value,
 								maximum.value -
-									(fixedValue.value * (spacing.value * multiple.value)) / multiple.value,
+									(fixedValue.value * (spacing.value * multiple.value)) /
+										multiple.value,
 							],
 							[
 								minimum.value +
-									(fixedValue.value * (spacing.value * multiple.value)) / multiple.value,
+									(fixedValue.value * (spacing.value * multiple.value)) /
+										multiple.value,
 								maximum.value,
 							],
 						]
@@ -547,7 +556,9 @@ export default defineComponent({
 			} else if (typeof props.tooltipStyle === 'function') {
 				return props.tooltipStyle(val.value, currentIndex.value);
 			} else {
-				return isRange.value ? [props.tooltipStyle, props.tooltipStyle] : props.tooltipStyle;
+				return isRange.value
+					? [props.tooltipStyle, props.tooltipStyle]
+					: props.tooltipStyle;
 			}
 		});
 
@@ -710,7 +721,11 @@ export default defineComponent({
 		};
 
 		const blurSlider = (e: MouseEvent) => {
-			const dot = isRange.value ? (focusSlider.value === 0 ? dot0.value : dot1.value) : dot0.value;
+			const dot = isRange.value
+				? focusSlider.value === 0
+					? dot0.value
+					: dot1.value
+				: dot0.value;
 			if (!dot || dot === e.target || (dot as HTMLElement).contains(e.target as Node)) {
 				return false;
 			}
@@ -746,13 +761,15 @@ export default defineComponent({
 		};
 
 		const wrapClick = (e: MouseEvent) => {
-			if (isDisabled.value || !props.clickable || processFlag.value || dragFlag.value) return false;
+			if (isDisabled.value || !props.clickable || processFlag.value || dragFlag.value)
+				return false;
 			const pos = getPos(e);
 			if (isRange.value) {
 				if (disabledArray.value.every((b) => b === false)) {
 					currentSlider.value =
 						pos >
-						((position.value as [number, number])[1] - (position.value as [number, number])[0]) /
+						((position.value as [number, number])[1] -
+							(position.value as [number, number])[0]) /
 							2 +
 							(position.value as [number, number])[0]
 							? 1
@@ -824,9 +841,15 @@ export default defineComponent({
 
 			if (processFlag.value && processSign.value) {
 				currentSlider.value = 0;
-				setValueOnPos(processSign.value!.pos[0] + getPos(posEvent) - processSign.value.start, true);
+				setValueOnPos(
+					processSign.value!.pos[0] + getPos(posEvent) - processSign.value.start,
+					true,
+				);
 				currentSlider.value = 1;
-				setValueOnPos(processSign.value!.pos[1] + getPos(posEvent) - processSign.value.start, true);
+				setValueOnPos(
+					processSign.value!.pos[1] + getPos(posEvent) - processSign.value.start,
+					true,
+				);
 			} else {
 				dragFlag.value = true;
 				setValueOnPos(getPos(posEvent), true);
@@ -891,7 +914,10 @@ export default defineComponent({
 				setTransform(range[anotherSlider]);
 				setCurrentValue(valueRange[anotherSlider]);
 				if (isRange.value && (props.fixed || isLessRange(pos, index))) {
-					setTransform((limit.value[idleSlider.value] as [number, number])[anotherSlider], true);
+					setTransform(
+						(limit.value[idleSlider.value] as [number, number])[anotherSlider],
+						true,
+					);
 					setCurrentValue(
 						(valueLimit.value[idleSlider.value] as [number, number])[anotherSlider],
 						isDrag,
@@ -961,13 +987,15 @@ export default defineComponent({
 
 		const getValueByIndex = (index: number) => {
 			return (
-				(spacing.value * multiple.value * index + minimum.value * multiple.value) / multiple.value
+				(spacing.value * multiple.value * index + minimum.value * multiple.value) /
+				multiple.value
 			);
 		};
 
 		const getIndexByValue = (value: number) => {
 			return (
-				Math.round((value - minimum.value) * multiple.value) / (spacing.value * multiple.value)
+				Math.round((value - minimum.value) * multiple.value) /
+				(spacing.value * multiple.value)
 			);
 		};
 
@@ -984,7 +1012,8 @@ export default defineComponent({
 				const numVal = getValueByIndex(val as number);
 				if (isRange.value) {
 					currentSlider.value =
-						numVal > (currentValue.value[1] - currentValue.value[0]) / 2 + currentValue.value[0]
+						numVal >
+						(currentValue.value[1] - currentValue.value[0]) / 2 + currentValue.value[0]
 							? 1
 							: 0;
 				}
@@ -1015,7 +1044,9 @@ export default defineComponent({
 				return false;
 			}
 			fixedValue.value = Math.max(
-				props.fixed ? (currentIndex.value as number[])[1] - (currentIndex.value as number[])[0] : 0,
+				props.fixed
+					? (currentIndex.value as number[])[1] - (currentIndex.value as number[])[0]
+					: 0,
 				props.minRange || 0,
 			);
 		};
@@ -1115,7 +1146,8 @@ export default defineComponent({
 
 		const isActive = (index: number) => {
 			return (
-				index >= (indexRange.value as number[])[0] && index <= (indexRange.value as number[])[1]
+				index >= (indexRange.value as number[])[0] &&
+				index <= (indexRange.value as number[])[1]
 			);
 		};
 
@@ -1137,10 +1169,14 @@ export default defineComponent({
 		const getStaticData = () => {
 			if (elem.value) {
 				size.value =
-					props.direction === 'vertical' ? elem.value.offsetHeight : elem.value.offsetWidth;
+					props.direction === 'vertical'
+						? elem.value.offsetHeight
+						: elem.value.offsetWidth;
 				if (dot0.value) {
 					dotAxialSizePx.value =
-						props.direction === 'vertical' ? dot0.value.clientHeight : dot0.value.clientWidth;
+						props.direction === 'vertical'
+							? dot0.value.clientHeight
+							: dot0.value.clientWidth;
 				}
 			}
 		};
@@ -1168,7 +1204,8 @@ export default defineComponent({
 				const tooltip1Left = tooltip1Rect.left;
 				const tooltip0Y = tooltip0Rect.top;
 				const tooltip1Y = tooltip1Rect.top + tooltip1Rect.height;
-				const horizontalOverlap = props.direction === 'horizontal' && tooltip0Right > tooltip1Left;
+				const horizontalOverlap =
+					props.direction === 'horizontal' && tooltip0Right > tooltip1Left;
 				const verticalOverlap = props.direction === 'vertical' && tooltip1Y > tooltip0Y;
 				if (horizontalOverlap || verticalOverlap) {
 					handleDisplayMergedTooltip(true);
@@ -1226,7 +1263,9 @@ export default defineComponent({
 			() => props.min,
 			(val) => {
 				if (val > props.max) {
-					return printError('The minimum value can not be greater than the maximum value.');
+					return printError(
+						'The minimum value can not be greater than the maximum value.',
+					);
 				}
 				const resetVal = limitValue(val);
 				setValue(resetVal);
@@ -1392,7 +1431,12 @@ export default defineComponent({
 
 <template>
 	<div
-		:class="['l-slider', flowDirection, disabledClass, { 'l-slider--has-label': piecewiseLabel }]"
+		:class="[
+			'l-slider',
+			flowDirection,
+			disabledClass,
+			{ 'l-slider--has-label': piecewiseLabel },
+		]"
 		v-show="show"
 	>
 		<PlusMinusButton v-if="plusMinusButtons" type="minus" @click="increment(-1)" />
@@ -1438,7 +1482,10 @@ export default defineComponent({
 						></div>
 						<div
 							ref="tooltip0"
-							:class="['ad-slider-tooltip-' + tooltipDirection[0], 'ad-slider-tooltip-wrap']"
+							:class="[
+								'ad-slider-tooltip-' + tooltipDirection[0],
+								'ad-slider-tooltip-wrap',
+							]"
 						>
 							<span class="ad-slider-tooltip" :style="tooltipStyles[0]">{{
 								xformatter ? formatting(val[0]) : val[0]
@@ -1472,7 +1519,10 @@ export default defineComponent({
 						></div>
 						<div
 							ref="tooltip1"
-							:class="['ad-slider-tooltip-' + tooltipDirection[1], 'ad-slider-tooltip-wrap']"
+							:class="[
+								'ad-slider-tooltip-' + tooltipDirection[1],
+								'ad-slider-tooltip-wrap',
+							]"
 						>
 							<span class="ad-slider-tooltip" :style="tooltipStyles[1]">{{
 								xformatter ? formatting(val[1]) : val[1]
@@ -1499,11 +1549,19 @@ export default defineComponent({
 					>
 						<div
 							:class="['l-slider__dot-handle', 'c-slider__dot-handle', dotClass]"
-							:style="[sliderStyles, focusFlag && focusSlider === 0 ? focusStyles : null]"
+							:style="[
+								sliderStyles,
+								focusFlag && focusSlider === 0 ? focusStyles : null,
+							]"
 						>
 							{{ dotContents() }}
 						</div>
-						<div :class="['ad-slider-tooltip-' + tooltipDirection, 'ad-slider-tooltip-wrap']">
+						<div
+							:class="[
+								'ad-slider-tooltip-' + tooltipDirection,
+								'ad-slider-tooltip-wrap',
+							]"
+						>
 							<span class="ad-slider-tooltip" :style="tooltipStyles">{{
 								xformatter ? formatting(val) : val
 							}}</span>
@@ -1520,13 +1578,19 @@ export default defineComponent({
 						<span
 							v-if="piecewise"
 							class="ad-slider-piecewise-dot"
-							:style="[piecewiseStyle, isActive(piecewiseObj.index) ? piecewiseActiveStyle : null]"
+							:style="[
+								piecewiseStyle,
+								isActive(piecewiseObj.index) ? piecewiseActiveStyle : null,
+							]"
 						></span>
 
 						<span
 							v-if="piecewiseLabel"
 							class="ad-slider-piecewise-label"
-							:style="[labelStyle, isActive(piecewiseObj.index) ? labelActiveStyle : null]"
+							:style="[
+								labelStyle,
+								isActive(piecewiseObj.index) ? labelActiveStyle : null,
+							]"
 						>
 							{{ piecewiseObj.label }}
 						</span>

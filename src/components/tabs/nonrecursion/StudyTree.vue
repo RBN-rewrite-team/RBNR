@@ -37,7 +37,9 @@ onMounted(() => initConnectors(connectorsRef));
 <template>
 	<div style="position: sticky; top: 0; background-color: var(--background-color); z-index: 3">
 		<p>
-			你一共有<b style="color: #c98300; font-size: 30px">{{ formatWhole(getTotalTheories()) }}</b
+			你一共有<b style="color: #c98300; font-size: 30px">{{
+				formatWhole(getTotalTheories())
+			}}</b
 			>非递归理论，还剩下{{ formatWhole(getCurrency(Currencies.NRT)) }}。
 		</p>
 		<div class="studies_row">
