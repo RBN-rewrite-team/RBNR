@@ -49,7 +49,7 @@ const dim4progress = computed(() => {
 					></div>
 				</div>
 			</div>
-			<div class="dim-single dim1_progress_bar">
+			<div class="dim-single dim1_progress_bar" :class="{fast: POST_NONREC.Y_SEQ.dimensionEffect(1).gte(10)}">
 				<span
 					>第一Y序列维度({{ formatWhole(player.postnonrec.yseq.dimensions[0][0]) }}+{{
 						formatWhole(player.postnonrec.yseq.dimensions[1][0])
@@ -61,7 +61,7 @@ const dim4progress = computed(() => {
 					{{ formatWhole(POST_NONREC.Y_SEQ.dimensionsCost(0)) }}压缩九头蛇能量
 				</div>
 			</div>
-			<div class="dim-single dim2_progress_bar">
+			<div class="dim-single dim2_progress_bar" :class="{fast: POST_NONREC.Y_SEQ.dimensionEffect(2).gte(10)}">
 				<span
 					>第二Y序列维度({{ formatWhole(player.postnonrec.yseq.dimensions[0][1]) }}+{{
 						formatWhole(player.postnonrec.yseq.dimensions[1][1])
@@ -73,7 +73,7 @@ const dim4progress = computed(() => {
 					{{ formatWhole(POST_NONREC.Y_SEQ.dimensionsCost(1)) }}压缩九头蛇能量
 				</div>
 			</div>
-			<div class="dim-single dim3_progress_bar">
+			<div class="dim-single dim3_progress_bar" :class="{fast: POST_NONREC.Y_SEQ.dimensionEffect(3).gte(10)}">
 				<span
 					>第三Y序列维度({{ formatWhole(player.postnonrec.yseq.dimensions[0][2]) }}+{{
 						formatWhole(player.postnonrec.yseq.dimensions[1][2])
@@ -136,6 +136,24 @@ const dim4progress = computed(() => {
     background: transparentize($color, 0.5);
     transition: 0ms;
     z-index: 0;
+  }
+  
+  &.fast::before {
+    background: linear-gradient(
+      -45deg,
+      transparentize($color, 0.7) 0,
+      transparentize($color, 0.7) 25%,
+      transparentize($color, 0.5) 25%,
+      transparentize($color, 0.5) 50%,
+      transparentize($color, 0.7) 50%,
+      transparentize($color, 0.7) 75%,
+      transparentize($color, 0.5) 75%,
+      transparentize($color, 0.5)
+    );
+    background-size: 200px 200px;
+    background-repeat: repeat;
+    animation: scroll_left 3s linear infinite;
+    width: 200%;
   }
 }
 .dim-single {
