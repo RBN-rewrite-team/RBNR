@@ -80,9 +80,24 @@ export async function evaluateBinaryExpressionNode(node: BinaryExpressionNode, e
 
 	if (left instanceof Decimal && right instanceof Decimal) {
 		if (
-			['+', '-', '*', '/', '%', '**', '^', '***', '^^', '<=', '>=', '<', '>', '==', '!=', '^^'].includes(
-				node.operator,
-			)
+			[
+				'+',
+				'-',
+				'*',
+				'/',
+				'%',
+				'**',
+				'^',
+				'***',
+				'^^',
+				'<=',
+				'>=',
+				'<',
+				'>',
+				'==',
+				'!=',
+				'^^',
+			].includes(node.operator)
 		) {
 			const methodName =
 				operators[

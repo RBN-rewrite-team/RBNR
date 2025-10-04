@@ -721,7 +721,11 @@ const Dil = {
 		player.hydra.dilute.inDilute = true;
 	},
 	enterDilute() {
-		if (player.hydra.dilute.solvent.map((x: number | boolean) => Number(x)).reduce((x, y) => x + y) < 1) {
+		if (
+			player.hydra.dilute.solvent
+				.map((x: number | boolean) => Number(x))
+				.reduce((x, y) => x + y) < 1
+		) {
 			ModalService.show({
 				title: '无法开启稀释',
 				content: '先选择任意一个溶剂再开开启稀释！',

@@ -134,11 +134,12 @@ const dim4progress = computed(() => {
 					{{ formatWhole(POST_NONREC.Y_SEQ.dimensionsCost(3)) }}压缩九头蛇能量
 				</div>
 			</div>
-			<div
-				class="dim-single-centered hydra_reset"
-				@click="POST_NONREC.Y_SEQ.reset()"
-			>
-				<span style="display: relative; z-index: 1">重置Y序列维度，获得{{ format(POST_NONREC.Y_SEQ.resetGain()) }}压缩九头蛇能量</span>
+			<div class="dim-single-centered hydra_reset" @click="POST_NONREC.Y_SEQ.reset()">
+				<span style="display: relative; z-index: 1"
+					>重置Y序列维度，获得{{
+						format(POST_NONREC.Y_SEQ.resetGain())
+					}}压缩九头蛇能量</span
+				>
 			</div>
 		</div>
 		<table align="center">
@@ -231,20 +232,20 @@ const dim4progress = computed(() => {
 	align-items: center;
 	border: 5px;
 	overflow: hidden;
-	
+
 	&.hydra_reset {
-	  background: linear-gradient(135deg, #1a6c5e, #1fb286, #ef2dfd);
-	  position: relative;
-	  
-	  &::before {
-	    content: "";
-	    background: var(--background-color);
-	    position: absolute;
-	    width: calc(100% - 4px);
-	    height: calc(100% - 4px);
-	    top: 2px;
-	    left: 2px;
-	  }
+		background: linear-gradient(135deg, #1a6c5e, #1fb286, #ef2dfd);
+		position: relative;
+
+		&::before {
+			content: '';
+			background: var(--background-color);
+			position: absolute;
+			width: calc(100% - 4px);
+			height: calc(100% - 4px);
+			top: 2px;
+			left: 2px;
+		}
 	}
 }
 .y-seq-inner {
