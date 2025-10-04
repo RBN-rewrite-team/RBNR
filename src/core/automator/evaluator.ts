@@ -13,6 +13,7 @@ import {
 	parseAndConvertToAst,
 	StringLiteralNode,
 	VariableDeclarationNode,
+	WhileStatementNode,
 } from './compiler';
 import { Environment } from './environment';
 
@@ -23,7 +24,7 @@ const operators = {
 	'/': 'div',
 	'%': 'mod',
 	'**': 'pow',
-	'***': 'tetrate',
+	'^^': 'tetrate',
 	'<': 'lt',
 	'>': 'gt',
 	'<=': 'lte',
@@ -48,13 +49,22 @@ export async function evaluateForStatementNode(node: ForStatementNode, env: Envi
 	}
 	return r;
 }
+export async function evaluateWhileStatementNode(node: WhileStatementNode, env: Environment) {
+	const condition = node.condition;
+	const body = node.body;
+	let r = null;
+	while (await evaluateNode(condition, env)) {
+		r = await evaluateNode(body, env);
+	}
+	return r;
+}
 export async function evaluateBinaryExpressionNode(node: BinaryExpressionNode, env: Environment) {
 	const left = await evaluateNode(node.left, env);
 	const right = await evaluateNode(node.right, env);
 
 	if (left instanceof Decimal && right instanceof Decimal) {
 		if (
-			['+', '-', '*', '/', '%', '**', '<=', '>=', '<', '>', '==', '!=', '***'].includes(
+			['+', '-', '*', '/', '%', '**', '<=', '>=', '<', '>', '==', '!=', '^^'].includes(
 				node.operator,
 			)
 		) {
@@ -73,7 +83,7 @@ export async function evaluateBinaryExpressionNode(node: BinaryExpressionNode, e
 						| '>'
 						| '=='
 						| '!='
-						| '***'
+						| '^^'
 				];
 			if (methodName === 'tetrate') return left[methodName](right.toNumber());
 			else return left[methodName](right);
@@ -136,6 +146,8 @@ export async function evaluateNode(node: ASTNode, env: Environment): Promise<any
 		return await evaluateBinaryExpressionNode(node, env);
 	} else if (node instanceof ForStatementNode) {
 		return await evaluateForStatementNode(node, env);
+	} else if (node instanceof WhileStatementNode) {
+		return await evaluateWhileStatementNode(node, env);
 	}
 	console.error(node);
 	throw new Error('Not implemented for ');
