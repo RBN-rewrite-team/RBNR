@@ -5,18 +5,23 @@ import {
 	ASTNode,
 	BinaryExpressionNode,
 	BlockStatementNode,
+	CallExpressionNode,
 	ExpressionStatementNode,
 	ForStatementNode,
+	FunctionDeclarationNode,
 	IdentifierNode,
 	IfStatementNode,
 	NumericLiteralNode,
 	parseAndConvertToAst,
+	ReturnStatementNode,
 	StringLiteralNode,
 	VariableDeclarationNode,
 	WhileStatementNode,
 } from './compiler';
-import { Environment } from './environment';
-
+import { Environment, parentEnvironment } from './environment';
+import { Callable, CodeCallable, ReturnTag } from './a-objects';
+import { player } from '../save';
+let interrupt = false;
 const operators = {
 	'+': 'add',
 	'-': 'sub',
@@ -32,6 +37,15 @@ const operators = {
 	'==': 'eq',
 	'!=': 'neq',
 } as const;
+export async function evaluateFunctionDeclarationNode(
+	node: FunctionDeclarationNode,
+	env: Environment,
+) {
+	const callable = new CodeCallable(node);
+
+	env.set(node.name, callable);
+	return callable;
+}
 export async function evaluateForStatementNode(node: ForStatementNode, env: Environment) {
 	const variabledeclaration = node.init;
 	if (!variabledeclaration) throw new Error('Cannot found Variable Declaration of for statement');
@@ -104,10 +118,21 @@ export async function evaluateAssignmentNode(
 	env.set(node.identifierName, rightvalue);
 	return rightvalue;
 }
+export async function evaluateCallExpressionNode(node: CallExpressionNode, env: Environment) {
+	const leftval = await evaluateNode(node.becalled, env);
+	const argsevaluated = [];
+	for (let i = 0; i < node.arguments.length; i++) {
+		argsevaluated.push(await evaluateNode(node.arguments[i], env));
+	}
 
+	if (leftval instanceof Callable) {
+		return await leftval.call(env, ...argsevaluated);
+	}
+	throw new Error('left Value is not callable');
+}
 export function evaluateIdentifierNode(node: IdentifierNode, env: Environment) {
 	const trytest = env.get(node.name);
-	if (trytest === 'nul') throw new Error('Cannot found ' + node.name);
+	if (trytest === null || trytest === undefined) throw new Error('Cannot found ' + node.name);
 	return trytest;
 }
 export async function evaluateArrayExpressionNode(node: ArrayExpressionNode, env: Environment) {
@@ -124,6 +149,10 @@ export async function evaluateIfStatementNode(node: IfStatementNode, env: Enviro
 		if (node.alternate === null) return null;
 		return await evaluateNode(node.alternate, env);
 	}
+}
+export async function evaluateReturnStatementNode(node: ReturnStatementNode, env: Environment) {
+	if (node.argument === null) throw new Error('Cannot find node argument');
+	return new ReturnTag(await evaluateNode(node.argument, env));
 }
 export async function evaluateNode(node: ASTNode, env: Environment): Promise<any> {
 	if (node instanceof BlockStatementNode) {
@@ -148,6 +177,12 @@ export async function evaluateNode(node: ASTNode, env: Environment): Promise<any
 		return await evaluateForStatementNode(node, env);
 	} else if (node instanceof WhileStatementNode) {
 		return await evaluateWhileStatementNode(node, env);
+	} else if (node instanceof ReturnStatementNode) {
+		return await evaluateReturnStatementNode(node, env);
+	} else if (node instanceof FunctionDeclarationNode) {
+		return await evaluateFunctionDeclarationNode(node, env);
+	} else if (node instanceof CallExpressionNode) {
+		return await evaluateCallExpressionNode(node, env);
 	}
 	console.error(node);
 	throw new Error('Not implemented for ');
@@ -159,11 +194,15 @@ export async function evaluateBlockStatement(
 	let result;
 	for (const node of program.body) {
 		result = await evaluateNode(node, env);
+		if (result instanceof ReturnTag) {
+			return result.value;
+		}
+		if (interrupt) return result;
 	}
 	return result;
 }
 export async function compileAndEvaluate(code: string, env: Environment = window.env1) {
-	return evaluateNode(parseAndConvertToAst(code), env);
+	return await evaluateNode(parseAndConvertToAst(code), env);
 }
 
 declare global {
@@ -173,4 +212,4 @@ declare global {
 	}
 }
 window.compileAndEvaluate = compileAndEvaluate;
-window.env1 = new Environment();
+window.env1 = new Environment(parentEnvironment);

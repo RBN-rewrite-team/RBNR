@@ -4,7 +4,6 @@ import Decimal from 'break_eternity.js';
 
 class ASTNode {
 	type: string;
-
 	constructor(type: string) {
 		this.type = type;
 	}
@@ -242,6 +241,8 @@ class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 			return this.visit(ctx.expressionStatement);
 		} else if (ctx.blockStatement) {
 			return this.visit(ctx.blockStatement);
+		} else if (ctx.callExpression) {
+			return this.visit(ctx.callExpression);
 		}
 		throw new Error('Unknown statement type');
 	}
@@ -510,6 +511,11 @@ class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 		} else if (ctx.LBracket) {
 			const elements = ctx.arrayElements ? this.visit(ctx.arrayElements[0]) : [];
 			return new ArrayExpressionNode(elements);
+		} else if (ctx.callExpression) {
+			return new CallExpressionNode(
+				this.visit(ctx.callExpression[0].children.expression[0]),
+				this.visit(ctx.callExpression[0].children.argumentsList[0]),
+			);
 		}
 
 		console.log(ctx);
@@ -526,6 +532,23 @@ class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 		}
 
 		return elements;
+	}
+
+	argumentsList(ctx: any) {
+		const elements: ASTNode[] = [];
+
+		if (ctx.expression) {
+			for (const expr of ctx.expression) {
+				elements.push(this.visit(expr));
+			}
+		}
+
+		return elements;
+	}
+	callExpression(ctx: any) {
+		const parameters = ctx.argumentsList ? this.visit(ctx.argumentsList[0]) : [];
+		const body = this.visit(ctx.expression[0]);
+		return new CallExpressionNode(body, parameters);
 	}
 }
 
@@ -568,6 +591,7 @@ export {
 	ArrayExpressionNode,
 	CstToAstVisitor,
 	ReturnStatementNode,
+	CallExpressionNode,
 	parseAndConvertToAst,
 };
 declare global {
