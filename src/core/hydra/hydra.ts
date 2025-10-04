@@ -474,7 +474,7 @@ export const Hydra = {
 		'628': new (class extends Upgrade {
 			description = '飞升的效果公式变得更好，U5-2-1再次平方';
 			cost = new Decimal('1e20');
-			name = 'U5-2-7';
+			name = 'U5-2-8';
 			currency: Currencies = Currencies.COMP_HYDRA;
 			show(): boolean {
 				return player.retribution == 1;
