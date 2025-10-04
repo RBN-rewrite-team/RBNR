@@ -385,7 +385,12 @@ export const Hydra = {
 		'621': new (class U621 extends UpgradeWithEffect<Decimal> {
 			description = '九头蛇能量增益压缩九头蛇能量';
 			effect(): Decimal {
-				return player.hydra.power.add(10).log10().root(10).pow(player.upgrades[623]?2:1).min(1e10);
+				return player.hydra.power
+					.add(10)
+					.log10()
+					.root(10)
+					.pow(player.upgrades[623] ? 2 : 1)
+					.min(1e10);
 			}
 			effectDescription(): string {
 				return 'x' + format(this.effect());
@@ -401,8 +406,8 @@ export const Hydra = {
 			description = '每购买一个维度，它的效果变为原来的一定倍数';
 			effect(): Decimal {
 				let base = new Decimal(1.05);
-				if (player.upgrades[623]) base = base.pow(2)
-				return base
+				if (player.upgrades[623]) base = base.pow(2);
+				return base;
 			}
 			effectDescription(): string {
 				return 'x' + format(this.effect());
@@ -411,7 +416,7 @@ export const Hydra = {
 			name = 'U5-2-2';
 			currency: Currencies = Currencies.HYDRA_POWER;
 			show(): boolean {
-				return player.retribution >= 1;
+				return player.retribution == 1;
 			}
 		})(),
 		'623': new (class extends Upgrade {
@@ -420,7 +425,25 @@ export const Hydra = {
 			name = 'U5-2-3';
 			currency: Currencies = Currencies.HYDRA_POWER;
 			show(): boolean {
-				return player.retribution >= 1;
+				return player.retribution == 1;
+			}
+		})(),
+		'624': new (class extends Upgrade {
+			description = '任意一个时刻至少会有一个第一Y序列维度';
+			cost = new Decimal('5e10');
+			name = 'U5-2-4';
+			currency: Currencies = Currencies.COMP_HYDRA;
+			show(): boolean {
+				return player.retribution == 1;
+			}
+		})(),
+		'625': new (class extends Upgrade {
+			description = '所有维度的生产为原来的3倍';
+			cost = new Decimal('2e11');
+			name = 'U5-2-5';
+			currency: Currencies = Currencies.COMP_HYDRA;
+			show(): boolean {
+				return player.retribution == 1;
 			}
 		})(),
 	},
@@ -1099,6 +1122,10 @@ export const Hydra = {
 				player.postnonrec.yseq.dimensions[1][i] = player.postnonrec.yseq.dimensions[1][
 					i
 				].add(Y_SEQ.dimensionEffect((i + 1) as 0 | 1 | 2 | 3).mul(diff));
+			}
+			if (player.upgrades[624]) {
+				player.postnonrec.yseq.dimensions[0][0] =
+					player.postnonrec.yseq.dimensions[0][0].clampMin(1);
 			}
 		}
 	},
