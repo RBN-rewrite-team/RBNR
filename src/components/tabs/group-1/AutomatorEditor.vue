@@ -4,6 +4,7 @@ import { player } from '@/core/global';
 import { highlightAutomator } from '@/core/automator/lexer';
 import DOMPurify from 'dompurify';
 import { runAutomator } from '@/core/automator';
+import { format } from '@/utils/format';
 
 const emit = defineEmits<{
 	(e: 'update:code', code: string): void;
@@ -88,6 +89,11 @@ onMounted(() => {
 	<div align="center">
 		自动机<br />
 		<button class="clickable_button" @click="runAutomator">运行</button>
+		<p>
+			自动机每运行一个语句就需要耗费0.1时间碎片，你当前有
+			<span style="color: rgb(255, 63, 255)">{{ format(player.timeshard.value) }}</span>
+			时间碎片
+		</p>
 		<div class="code-editor" align="left">
 			<div ref="gutterRef" class="gutter" v-html="lineNumbers"></div>
 			<div class="editor-container">

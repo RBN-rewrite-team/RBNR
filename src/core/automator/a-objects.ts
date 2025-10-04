@@ -3,7 +3,7 @@ import { Environment } from './environment';
 import { evaluateNode } from './evaluator';
 
 export class Callable {
-	async call(env: Environment, ...args: any[]) {}
+	async call(env: Environment, ...args: any[]): Promise<any> {}
 }
 export class CodeCallable extends Callable {
 	body: BlockStatementNode;

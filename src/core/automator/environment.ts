@@ -56,6 +56,17 @@ class ToStringFunction extends Callable {
 const putf = new PutFunction();
 const delayf = new DelayFunction();
 const toStringFunction = new ToStringFunction();
+const maxFunction = new (class MaxFunction extends Callable {
+	async call(env: Environment, ...args: any[]) {
+		return Math.max(...args);
+	}
+})();
+const minFunction = new (class MinFunction extends Callable {
+	async call(env: Environment, ...args: any[]) {
+		return Math.min(...args);
+	}
+})();
+
 const parentEnvironment = new (class extends Environment {})();
 
 parentEnvironment.set('puts', putf);
@@ -65,5 +76,7 @@ parentEnvironment.set('dialog', putf);
 parentEnvironment.set('delay', delayf);
 parentEnvironment.set('wait', delayf);
 parentEnvironment.set('string', toStringFunction);
+parentEnvironment.set('max', maxFunction);
+parentEnvironment.set('min', minFunction);
 
 export { parentEnvironment };

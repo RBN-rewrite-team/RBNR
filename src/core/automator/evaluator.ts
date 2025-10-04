@@ -193,6 +193,10 @@ export async function evaluateBlockStatement(
 ): Promise<any> {
 	let result;
 	for (const node of program.body) {
+		if (player.timeshard.value.lt(0.1)) {
+			return result;
+		}
+		player.timeshard.value = player.timeshard.value.sub(0.1);
 		result = await evaluateNode(node, env);
 		if (result instanceof ReturnTag) {
 			return result.value;
