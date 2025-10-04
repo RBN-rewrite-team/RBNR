@@ -191,6 +191,16 @@ class ExpressionStatementNode extends ASTNode {
 	}
 }
 
+class CallExpressionNode extends ASTNode {
+	becalled: ASTNode;
+	arguments: ASTNode[];
+
+	constructor(becalled: ASTNode, args: ASTNode[]) {
+		super('CallExpression');
+		this.becalled = becalled;
+		this.arguments = args;
+	}
+}
 class ArrayExpressionNode extends ASTNode {
 	elements: ASTNode[];
 

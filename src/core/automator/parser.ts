@@ -72,6 +72,10 @@ export class AutomatorParser extends CstParser {
 		]);
 	});
 
+	/**
+	 * var a = 3;
+	 * const a = 3;
+	 * */
 	public variableDeclaration = this.RULE('variableDeclaration', () => {
 		this.OR([{ ALT: () => this.CONSUME(Var) }, { ALT: () => this.CONSUME(Const) }]);
 		this.CONSUME(Identifier);
@@ -82,6 +86,9 @@ export class AutomatorParser extends CstParser {
 		this.CONSUME(SemiColen);
 	});
 
+	/**
+	 * b = 3;
+	 */
 	public assignment = this.RULE('assignment', () => {
 		this.CONSUME(Identifier);
 		this.CONSUME(Assign);
@@ -89,6 +96,9 @@ export class AutomatorParser extends CstParser {
 		this.CONSUME(SemiColen);
 	});
 
+	/**
+	 * if (b) c; [else d;]
+	 */
 	public ifStatement = this.RULE('ifStatement', () => {
 		this.CONSUME(If);
 		this.CONSUME(LParen);
@@ -101,6 +111,9 @@ export class AutomatorParser extends CstParser {
 		});
 	});
 
+	/**
+	 * for (var a = 3; beta; gamma) delta;
+	 */
 	public forStatement = this.RULE('forStatement', () => {
 		this.CONSUME(For);
 		this.CONSUME(LParen);
@@ -112,6 +125,10 @@ export class AutomatorParser extends CstParser {
 		this.SUBRULE(this.statement);
 	});
 
+	/**
+	 * forin (a; iterable) beta;
+	 * forIn (a; iterable) beta;
+	 */
 	public forInStatement = this.RULE('forInStatement', () => {
 		this.CONSUME(ForIn);
 		this.CONSUME(LParen);
@@ -122,6 +139,9 @@ export class AutomatorParser extends CstParser {
 		this.SUBRULE(this.statement);
 	});
 
+	/**
+	 * while (alpha) beta;
+	 */
 	public whileStatement = this.RULE('whileStatement', () => {
 		this.CONSUME(While);
 		this.CONSUME(LParen);
@@ -130,6 +150,9 @@ export class AutomatorParser extends CstParser {
 		this.SUBRULE(this.statement);
 	});
 
+	/**
+	 * function alpha(beta, gamma,...) {}
+	 */
 	public functionDeclaration = this.RULE('functionDeclaration', () => {
 		this.CONSUME(FunctionKeyword);
 		this.CONSUME(Identifier);
@@ -141,6 +164,9 @@ export class AutomatorParser extends CstParser {
 		this.SUBRULE(this.blockStatement);
 	});
 
+	/**
+	 * return sth;
+	 */
 	public returnStatement = this.RULE('returnStatement', () => {
 		this.CONSUME(Return);
 		this.OPTION(() => {
@@ -157,6 +183,17 @@ export class AutomatorParser extends CstParser {
 		});
 	});
 
+	public argumentsList = this.RULE('argumentsList', () => {
+		this.SUBRULE(this.expression);
+		this.MANY(() => {
+			this.CONSUME(Comma);
+			this.SUBRULE1(this.expression);
+		});
+	});
+
+	/**
+	 * a;
+	 */
 	public expressionStatement = this.RULE('expressionStatement', () => {
 		this.SUBRULE(this.noAssignmentExpression);
 		this.CONSUME(SemiColen);
@@ -305,6 +342,13 @@ export class AutomatorParser extends CstParser {
 			this.CONSUME(Comma);
 			this.SUBRULE2(this.expression);
 		});
+	});
+
+	public callExpression = this.RULE('callExpression', () => {
+		this.SUBRULE(this.expression);
+		this.CONSUME(LParen);
+		this.SUBRULE(this.argumentsList);
+		this.CONSUME(RParen);
 	});
 }
 
