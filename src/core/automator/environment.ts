@@ -1,6 +1,7 @@
 import ModalService from '@/utils/Modal';
 import { Callable } from './a-objects';
 import { formatResult } from '.';
+import { Call } from './lexer';
 
 export class Environment {
 	parent: Environment | null = null;
@@ -44,9 +45,18 @@ class DelayFunction extends Callable {
 		});
 	}
 }
+class ToStringFunction extends Callable {
+	call(env: Environment, ...args: any[]) {
+		if (args.length == 0 || args.length >= 2) {
+			throw new Error('1 argument required, but no or more arguments');
+		}
+		return args[0].toString();
+	}
+}
 const putf = new PutFunction();
 const delayf = new DelayFunction();
-const parentEnvironment = new Environment();
+const toStringFunction = new ToStringFunction();
+const parentEnvironment = new (class extends Environment {})();
 
 parentEnvironment.set('puts', putf);
 parentEnvironment.set('print', putf);
@@ -54,5 +64,6 @@ parentEnvironment.set('cout', putf);
 parentEnvironment.set('dialog', putf);
 parentEnvironment.set('delay', delayf);
 parentEnvironment.set('wait', delayf);
+parentEnvironment.set('string', toStringFunction);
 
 export { parentEnvironment };

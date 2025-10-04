@@ -514,7 +514,9 @@ class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 		} else if (ctx.callExpression) {
 			return new CallExpressionNode(
 				this.visit(ctx.callExpression[0].children.expression[0]),
-				this.visit(ctx.callExpression[0].children.argumentsList[0]),
+				ctx.callExpression[0].children.argumentsList
+					? this.visit(ctx.callExpression[0].children.argumentsList[0])
+					: [],
 			);
 		}
 
