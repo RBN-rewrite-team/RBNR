@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RETRIBUTION } from '@/core/post-nonrec/retribution';
 import { player } from '@/core/save';
+import TDUpgrade from '@/components/group-2/TDUpgrade.vue';
 
 function retributionText() {
 	if (player.retribution < 1) {
@@ -23,6 +24,11 @@ function retributionText() {
 		<button class="retribution" @click="RETRIBUTION.resetUI">
 			{{ retributionText() }}
 		</button>
+		<table align="center">
+			<tr>
+				<TDUpgrade upgid="U6R18" />
+			</tr>
+		</table>
 	</div>
 </template>
 
@@ -32,6 +38,7 @@ function retributionText() {
 	height: 100%;
 	animation: baseRetributionA 0.25s infinite;
 	background-image: linear-gradient(rgb(18, 0, 0) 0%, rgb(192, 0, 0) 100%);
+	overflow: auto;
 }
 
 @keyframes baseRetributionA {
