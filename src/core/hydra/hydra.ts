@@ -1,6 +1,6 @@
 import Decimal from 'break_eternity.js';
 import { player, feature } from '@/core/global';
-import { format, formatWhole } from '@/utils/format';
+import { format, formatMult, formatWhole } from '@/utils/format';
 import { Currencies, getCurrency } from '../currencies';
 import { Upgrade, UpgradeWithEffect } from '../upgrade';
 import { CurrencyRequirement, type Requirement } from '../requirements';
@@ -444,6 +444,30 @@ export const Hydra = {
 			currency: Currencies = Currencies.COMP_HYDRA;
 			show(): boolean {
 				return player.retribution == 1;
+			}
+		})(),
+		'626': new (class extends Upgrade {
+			description = '4个维度的价格增长减少50%';
+			cost = new Decimal('1e13');
+			name = 'U5-2-6';
+			currency: Currencies = Currencies.COMP_HYDRA;
+			show(): boolean {
+				return player.retribution == 1;
+			}
+		})(),
+		'627': new (class extends UpgradeWithEffect<Decimal> {
+			description = 'Y序列推演次数生产第四Y序列维度';
+			cost = new Decimal('1e17');
+			name = 'U5-2-7';
+			currency: Currencies = Currencies.COMP_HYDRA;
+			show(): boolean {
+				return player.retribution == 1;
+			}
+			effect() {
+				return Y_SEQ.u627effect();
+			}
+			effectDescription(values: Decimal): string {
+				return formatMult(Y_SEQ.u627effect());
 			}
 		})(),
 	},
@@ -1118,15 +1142,7 @@ export const Hydra = {
 			}
 		}
 		if (player.retribution >= 1) {
-			for (let i = 0; i < 3; i++) {
-				player.postnonrec.yseq.dimensions[1][i] = player.postnonrec.yseq.dimensions[1][
-					i
-				].add(Y_SEQ.dimensionEffect((i + 1) as 0 | 1 | 2 | 3).mul(diff));
-			}
-			if (player.upgrades[624]) {
-				player.postnonrec.yseq.dimensions[0][0] =
-					player.postnonrec.yseq.dimensions[0][0].clampMin(1);
-			}
+			Y_SEQ.update(diff);
 		}
 	},
 	addPower(num: Decimal) {

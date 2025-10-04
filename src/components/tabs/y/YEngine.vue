@@ -5,6 +5,7 @@ import { formatTime, format, formatWhole } from '@/utils/format';
 import { getCurrentOrdinal, getCurrentYMilestone, getCurrentYMilestoneIndex } from '@/utils/y-seq';
 import { computed } from 'vue';
 import TDUpgrade from '@/components/group-2/TDUpgrade.vue';
+import { Y_SEQ } from '@/core/post-nonrec/y-seq';
 
 const a = computed(() => {
 	return player.hydra.deduceProgress[1].toNumber() * 100 + '%';
@@ -121,7 +122,7 @@ const dim4progress = computed(() => {
 					{{ formatWhole(POST_NONREC.Y_SEQ.dimensionsCost(2)) }}压缩九头蛇能量
 				</div>
 			</div>
-			<div class="dim-single dim4_progress_bar">
+			<div class="dim-single dim4_progress_bar" :class="{ fast: Y_SEQ.u627effect().gte(10) }">
 				<span
 					>第四Y序列维度({{ formatWhole(player.postnonrec.yseq.dimensions[0][3]) }}+{{
 						formatWhole(player.postnonrec.yseq.dimensions[1][3])
@@ -150,6 +151,8 @@ const dim4progress = computed(() => {
 			</tr>
 			<tr>
 				<TDUpgrade upgid="625" />
+				<TDUpgrade upgid="626" />
+				<TDUpgrade upgid="627" />
 			</tr>
 		</table>
 	</div>
