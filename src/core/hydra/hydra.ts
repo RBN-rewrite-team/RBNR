@@ -390,6 +390,7 @@ export const Hydra = {
 					.log10()
 					.root(10)
 					.pow(player.upgrades[623] ? 2 : 1)
+					.pow(player.upgrades[628] ? 2 : 1)
 					.min(1e10);
 			}
 			effectDescription(): string {
@@ -468,6 +469,15 @@ export const Hydra = {
 			}
 			effectDescription(values: Decimal): string {
 				return formatMult(Y_SEQ.u627effect());
+			}
+		})(),
+		'628': new (class extends Upgrade {
+			description = '飞升的效果公式变得更好，U5-2-1再次平方';
+			cost = new Decimal('1e20');
+			name = 'U5-2-7';
+			currency: Currencies = Currencies.COMP_HYDRA;
+			show(): boolean {
+				return player.retribution == 1;
 			}
 		})(),
 	},
@@ -1007,7 +1017,7 @@ export const Hydra = {
 		if (id == 0)
 			base = num.max(1).pow(0.3).mul(num.add(2).log(2)).pow(Hydra.prestigeEff(3).add(1));
 		else if (id == 1) {
-			if (player.upgrades[613])
+			if (player.upgrades[613]||player.upgrades[628])
 				base = num.max(1).log10().mul(4).root(2).div(4).sub(0.389).max(0).mul(2.5);
 			else base = num.div(2).max(1).log10().mul(4).root(2).div(4).sub(0.4).max(0).mul(2.5);
 		} else if (id == 2) {
