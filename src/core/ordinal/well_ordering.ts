@@ -277,7 +277,7 @@ export const WellOrderingUpgrades = {
 	})(),
 	U6R22: new (class extends UpgradeWithEffect<Decimal> {
 		description = '当前非递归内重置时间加成推演能量获取速度';
-		cost = new Decimal('1e42260');
+		cost = () => new Decimal(player.options.hardMode ? '1e42260' : '1e42258');
 		name = 'U6-R-2-2';
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 		show(): boolean {
