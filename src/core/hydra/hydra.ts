@@ -1017,7 +1017,7 @@ export const Hydra = {
 		if (id == 0)
 			base = num.max(1).pow(0.3).mul(num.add(2).log(2)).pow(Hydra.prestigeEff(3).add(1));
 		else if (id == 1) {
-			if (player.upgrades[613]||player.upgrades[628])
+			if (player.upgrades[613] || player.upgrades[628])
 				base = num.max(1).log10().mul(4).root(2).div(4).sub(0.389).max(0).mul(2.5);
 			else base = num.div(2).max(1).log10().mul(4).root(2).div(4).sub(0.4).max(0).mul(2.5);
 		} else if (id == 2) {

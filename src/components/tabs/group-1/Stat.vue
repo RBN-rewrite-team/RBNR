@@ -11,7 +11,7 @@ import {
 } from '../../../core/ordinal/ordinal-level.ts';
 import { Moon } from 'lunarphase-js';
 import { ref, onMounted, onUnmounted } from 'vue';
-import Mountain from "../y/Mountain.vue"
+import Mountain from '../y/Mountain.vue';
 
 const LunarMap = {
 	New: '新月',

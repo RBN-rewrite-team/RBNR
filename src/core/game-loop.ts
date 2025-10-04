@@ -110,7 +110,7 @@ export function gameLoop() {
 			stopGameLoop();
 			return;
 		} else {
-			diff = Math.min(60000,diff);
+			diff = Math.min(60000, diff);
 			player.timeshard.value = player.timeshard.value.add(msToTimeshard(diff));
 		}
 	}
