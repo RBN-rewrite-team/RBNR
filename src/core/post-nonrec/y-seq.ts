@@ -107,7 +107,7 @@ export const Y_SEQ = {
 			);
 		}
 	},
-	u627effect() {
+	u627effect(): Decimal {
 		return player.hydra.deduceOrdinal[1].clampMin(1).log10().div(2);
 	},
 } as const;
