@@ -120,19 +120,20 @@ const dim4progress = computed(() => {
 	width: 95%;
 	margin: auto;
 }
-@mixin dim_progress_bar($width-var) {
+@mixin dim_progress_bar($width-var, $color) {
   position: relative;
-  border: 2px solid #007f00;
-  pointer-events: none;
+  border: 2px solid $color;
+  --current-dim-color: #{$color};
   
   &::before {
+    pointer-events: none;
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: #{$width-var};
     height: 100%;
-    background: rgba(0,127,0,0.5);
+    background: transparentize($color, 0.5);
     transition: 0ms;
     z-index: 0;
   }
@@ -147,20 +148,19 @@ const dim4progress = computed(() => {
 	overflow: hidden;
 	
 	&.dim1_progress_bar {
-	  @include dim_progress_bar(v-bind(dim1progress))
+	  @include dim_progress_bar(v-bind(dim1progress), #7f0000)
 	}
 	
 	&.dim2_progress_bar {
-	  @include dim_progress_bar(v-bind(dim2progress))
+	  @include dim_progress_bar(v-bind(dim2progress), #7f007f)
 	}
 	
 	&.dim3_progress_bar {
-	  @include dim_progress_bar(v-bind(dim3progress))
+	  @include dim_progress_bar(v-bind(dim3progress), #7f7f00)
 	}
 	
 	&.dim4_progress_bar {
-	  position: relative;
-    border: 2px solid #007f00;
+	  @include dim_progress_bar(v-bind(dim4progress), #c17f00)
 	}
 }
 .dim-single-centered {
@@ -191,7 +191,7 @@ const dim4progress = computed(() => {
 	transition: 0ms;
 }
 .buy {
-	border: 2px solid #007f00;
+	border: 2px solid var(--current-dim-color);
 	height: 50px;
 	width: 300px;
 }
