@@ -12,7 +12,7 @@ import {
 import { ref, reactive, computed, onMounted, onUnmounted, watch, nextTick } from 'vue';
 import { player } from "@/core/global"
 
-const Y = computed(()=>getYSequenceWithoutColon(getCurrentYMilestone(player.hydra.deduceOrdinal[1])[1]))
+const Y = computed(()=>getYSequenceWithoutColon(getCurrentYMilestone(player.hydra.deduceOrdinal[1])[1]));
 
 const getYDimensionsLim = (type: string) => {
 	if (type === '1-Y') return 2;
