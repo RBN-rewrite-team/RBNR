@@ -60,12 +60,10 @@ export const Y_SEQ = {
 	dimensionEffect(id: 0 | 1 | 2 | 3) {
 		const mul = [0.05, 0.1, 0.2, 0.4];
 		let boost = new Decimal(1);
-		let base = new Decimal(1)
-		if (player.upgrades[622])base = upgrades[622].effect()
-		if (player.upgrades[6210]) base = base.mul(1+id*0.05)
-		boost = boost.mul(
-				player.postnonrec.yseq.dimensions[0][id].pow_base(base),
-			);
+		let base = new Decimal(1);
+		if (player.upgrades[622]) base = upgrades[622].effect();
+		if (player.upgrades[6210]) base = base.mul(1 + id * 0.05);
+		boost = boost.mul(player.postnonrec.yseq.dimensions[0][id].pow_base(base));
 		let res = player.postnonrec.yseq.dimensions[0][id]
 			.add(player.postnonrec.yseq.dimensions[1][id].floor())
 			.mul(mul?.[id] ?? 0.05)
@@ -73,7 +71,6 @@ export const Y_SEQ = {
 		if (player.upgrades[625]) {
 			res = res.mul(3);
 		}
-		if (player.upgrades[6210]) 
 		return res;
 	},
 	yseqDeduceSpeed() {
@@ -110,9 +107,11 @@ export const Y_SEQ = {
 			);
 		}
 		if (player.upgrades[629]) {
-		  let gain = this.resetGain()
-			player.hydra.compressedPower = player.hydra.compressedPower.add(gain.mul(diff))
-			player.hydra.totalCompressedPower = player.hydra.totalCompressedPower.add(gain.mul(diff))
+			let gain = this.resetGain();
+			player.hydra.compressedPower = player.hydra.compressedPower.add(gain.mul(diff));
+			player.hydra.totalCompressedPower = player.hydra.totalCompressedPower.add(
+				gain.mul(diff),
+			);
 		}
 	},
 	u627effect(): Decimal {
