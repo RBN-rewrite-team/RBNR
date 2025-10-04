@@ -51,6 +51,7 @@ const parentEnvironment = new Environment();
 parentEnvironment.set('puts', putf);
 parentEnvironment.set('print', putf);
 parentEnvironment.set('cout', putf);
+parentEnvironment.set('dialog', putf);
 parentEnvironment.set('delay', delayf);
 parentEnvironment.set('wait', delayf);
 
