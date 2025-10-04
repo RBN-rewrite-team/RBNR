@@ -26,12 +26,16 @@ export const Y_SEQ = {
 		return [new Decimal(1), new Decimal(100), new Decimal(10000), new Decimal(1000000)];
 	},
 	priceRatio() {
-		return [
+		let priceRatio = [
 			new Decimal(10 ** (1 / 3)),
 			new Decimal(10 ** (1 / 2)),
 			new Decimal(10),
 			new Decimal(100),
 		];
+		if (player.upgrades[626]) {
+			priceRatio = priceRatio.map((x) => x.pow(0.5));
+		}
+		return priceRatio;
 	},
 	dimensionsCost(id: 0 | 1 | 2 | 3) {
 		if (id == 0 && player.postnonrec.yseq.dimensions[0][0].lt(1)) return new Decimal(0);
@@ -41,7 +45,8 @@ export const Y_SEQ = {
 	},
 	buyDimensions(id: 0 | 1 | 2 | 3) {
 		if (player.hydra.compressedPower.lt(this.dimensionsCost(id))) return;
-		let boughtcount = player.hydra.compressedPower.max(1)
+		let boughtcount = player.hydra.compressedPower
+			.max(1)
 			.div(this.startPrice()[id])
 			.log(this.priceRatio()[id])
 			.floor()
@@ -53,12 +58,20 @@ export const Y_SEQ = {
 			player.postnonrec.yseq.dimensions[0][id].max(boughtcount);
 	},
 	dimensionEffect(id: 0 | 1 | 2 | 3) {
-	  const mul = [0.05, 0.1, 0.2, 0.4]
-	  let boost = new Decimal(1)
-	  if (player.upgrades[622]) boost = boost.mul(player.postnonrec.yseq.dimensions[0][id].pow_base(upgrades[622].effect()))
-		return player.postnonrec.yseq.dimensions[0][id]
-				.add(player.postnonrec.yseq.dimensions[1][id].floor())
-				.mul(mul?.[id]??0.05).mul(boost);
+		const mul = [0.05, 0.1, 0.2, 0.4];
+		let boost = new Decimal(1);
+		if (player.upgrades[622])
+			boost = boost.mul(
+				player.postnonrec.yseq.dimensions[0][id].pow_base(upgrades[622].effect()),
+			);
+		let res = player.postnonrec.yseq.dimensions[0][id]
+			.add(player.postnonrec.yseq.dimensions[1][id].floor())
+			.mul(mul?.[id] ?? 0.05)
+			.mul(boost);
+		if (player.upgrades[625]) {
+			res = res.mul(3);
+		}
+		return res;
 	},
 	yseqDeduceSpeed() {
 		return this.dimensionEffect(0);
@@ -77,5 +90,24 @@ export const Y_SEQ = {
 		player.hydra.deduceProgress[1] = new Decimal(0);
 		for (let i = 0; i < 2; i++)
 			for (let j = 0; j < 4; j++) player.postnonrec.yseq.dimensions[i][j] = new Decimal(0);
+	},
+	update(diff: number) {
+		for (let i = 0; i < 3; i++) {
+			player.postnonrec.yseq.dimensions[1][i] = player.postnonrec.yseq.dimensions[1][i].add(
+				Y_SEQ.dimensionEffect((i + 1) as 0 | 1 | 2 | 3).mul(diff),
+			);
+		}
+		if (player.upgrades[624]) {
+			player.postnonrec.yseq.dimensions[0][0] =
+				player.postnonrec.yseq.dimensions[0][0].clampMin(1);
+		}
+		if (player.upgrades[627]) {
+			player.postnonrec.yseq.dimensions[1][3] = player.postnonrec.yseq.dimensions[1][3].add(
+				this.u627effect().mul(diff),
+			);
+		}
+	},
+	u627effect() {
+		return player.hydra.deduceOrdinal[1].clampMin(1).log10().div(2);
 	},
 } as const;

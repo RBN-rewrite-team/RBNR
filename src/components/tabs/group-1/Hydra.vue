@@ -126,8 +126,8 @@ function hydraAxisHTML(): string {
 
 <template>
 	<div class="main" align="center">
-		<template v-if="player.retribution >= 1"
-			><span style="color: red"
+		<div v-if="player.retribution >= 1">
+			<span style="color: red; display: block; height: 50px"
 				><h3>
 					序数
 					<span
@@ -173,8 +173,10 @@ function hydraAxisHTML(): string {
 					v-html="
 						formatGain(player.hydra.power, feature.Hydra.hydraPowerPassiveGeneration())
 					"
-				/></div></template
-		><br />
+				/>
+			</div>
+		</div>
+		<br />
 		<h3 style="color: rgb(200, 190, 245)" v-html="powerFactorHTML()"></h3>
 		<table style="width: 100%">
 			<tbody>
@@ -498,7 +500,11 @@ function hydraAxisHTML(): string {
 					<TDUpgrade upgid="63" />
 					<TDUpgrade upgid="64" />
 				</tr>
-				<tr v-if="player.retribution===0&&(Dilute.diluteAmount(6) || player.upgrades[61])">
+				<tr
+					v-if="
+						player.retribution === 0 && (Dilute.diluteAmount(6) || player.upgrades[61])
+					"
+				>
 					<TDUpgrade upgid="611" />
 					<TDUpgrade upgid="612" />
 					<TDUpgrade upgid="613" />
@@ -506,7 +512,9 @@ function hydraAxisHTML(): string {
 				</tr>
 				<tr
 					v-if="
-						player.retribution===0&&(Dilute.diluteAmount(6) || (player.upgrades[61] && feature.Hydra.pUnlock(2)))
+						player.retribution === 0 &&
+						(Dilute.diluteAmount(6) ||
+							(player.upgrades[61] && feature.Hydra.pUnlock(2)))
 					"
 				>
 					<TDUpgrade upgid="615" />
@@ -514,7 +522,7 @@ function hydraAxisHTML(): string {
 					<TDUpgrade upgid="617" />
 					<TDUpgrade upgid="618" />
 				</tr>
-				<tr v-if="(Dilute.diluteAmount(6) || player.upgrades[61])">
+				<tr v-if="Dilute.diluteAmount(6) || player.upgrades[61]">
 					<TDBuyable bylid="611" />
 					<TDBuyable bylid="612" />
 					<TDBuyable bylid="613" />

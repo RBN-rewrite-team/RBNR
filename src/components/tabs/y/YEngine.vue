@@ -5,21 +5,46 @@ import { formatTime, format, formatWhole } from '@/utils/format';
 import { getCurrentOrdinal, getCurrentYMilestone, getCurrentYMilestoneIndex } from '@/utils/y-seq';
 import { computed } from 'vue';
 import TDUpgrade from '@/components/group-2/TDUpgrade.vue';
+import { Y_SEQ } from '@/core/post-nonrec/y-seq';
 
 const a = computed(() => {
 	return player.hydra.deduceProgress[1].toNumber() * 100 + '%';
 });
 const dim1progress = computed(() => {
-	return player.postnonrec.yseq.dimensions[1][0].sub(player.postnonrec.yseq.dimensions[1][0].floor()).toNumber() * 100 + "%";
+	return (
+		player.postnonrec.yseq.dimensions[1][0]
+			.sub(player.postnonrec.yseq.dimensions[1][0].floor())
+			.toNumber() *
+			100 +
+		'%'
+	);
 });
 const dim2progress = computed(() => {
-	return player.postnonrec.yseq.dimensions[1][1].sub(player.postnonrec.yseq.dimensions[1][1].floor()).toNumber() * 100 + "%";
+	return (
+		player.postnonrec.yseq.dimensions[1][1]
+			.sub(player.postnonrec.yseq.dimensions[1][1].floor())
+			.toNumber() *
+			100 +
+		'%'
+	);
 });
 const dim3progress = computed(() => {
-	return player.postnonrec.yseq.dimensions[1][2].sub(player.postnonrec.yseq.dimensions[1][2].floor()).toNumber() * 100 + "%";
+	return (
+		player.postnonrec.yseq.dimensions[1][2]
+			.sub(player.postnonrec.yseq.dimensions[1][2].floor())
+			.toNumber() *
+			100 +
+		'%'
+	);
 });
 const dim4progress = computed(() => {
-	return player.postnonrec.yseq.dimensions[1][3].sub(player.postnonrec.yseq.dimensions[1][3].floor()).toNumber() * 100 + "%";
+	return (
+		player.postnonrec.yseq.dimensions[1][3]
+			.sub(player.postnonrec.yseq.dimensions[1][3].floor())
+			.toNumber() *
+			100 +
+		'%'
+	);
 });
 </script>
 
@@ -33,7 +58,10 @@ const dim4progress = computed(() => {
 			</h3>
 			<div class="y-seq-inner">
 				<div class="progress">
-					<div v-if="POST_NONREC.Y_SEQ.dimensionEffect(0).lt(10)" class="progress-inner"></div>
+					<div
+						v-if="POST_NONREC.Y_SEQ.dimensionEffect(0).lt(10)"
+						class="progress-inner"
+					></div>
 					<div v-else class="progress-inner-fast" />
 					<div
 						style="
@@ -49,7 +77,10 @@ const dim4progress = computed(() => {
 					></div>
 				</div>
 			</div>
-			<div class="dim-single dim1_progress_bar" :class="{fast: POST_NONREC.Y_SEQ.dimensionEffect(1).gte(10)}">
+			<div
+				class="dim-single dim1_progress_bar"
+				:class="{ fast: POST_NONREC.Y_SEQ.dimensionEffect(1).gte(10) }"
+			>
 				<span
 					>第一Y序列维度({{ formatWhole(player.postnonrec.yseq.dimensions[0][0]) }}+{{
 						formatWhole(player.postnonrec.yseq.dimensions[1][0])
@@ -61,7 +92,10 @@ const dim4progress = computed(() => {
 					{{ formatWhole(POST_NONREC.Y_SEQ.dimensionsCost(0)) }}压缩九头蛇能量
 				</div>
 			</div>
-			<div class="dim-single dim2_progress_bar" :class="{fast: POST_NONREC.Y_SEQ.dimensionEffect(2).gte(10)}">
+			<div
+				class="dim-single dim2_progress_bar"
+				:class="{ fast: POST_NONREC.Y_SEQ.dimensionEffect(2).gte(10) }"
+			>
 				<span
 					>第二Y序列维度({{ formatWhole(player.postnonrec.yseq.dimensions[0][1]) }}+{{
 						formatWhole(player.postnonrec.yseq.dimensions[1][1])
@@ -73,7 +107,10 @@ const dim4progress = computed(() => {
 					{{ formatWhole(POST_NONREC.Y_SEQ.dimensionsCost(1)) }}压缩九头蛇能量
 				</div>
 			</div>
-			<div class="dim-single dim3_progress_bar" :class="{fast: POST_NONREC.Y_SEQ.dimensionEffect(3).gte(10)}">
+			<div
+				class="dim-single dim3_progress_bar"
+				:class="{ fast: POST_NONREC.Y_SEQ.dimensionEffect(3).gte(10) }"
+			>
 				<span
 					>第三Y序列维度({{ formatWhole(player.postnonrec.yseq.dimensions[0][2]) }}+{{
 						formatWhole(player.postnonrec.yseq.dimensions[1][2])
@@ -85,7 +122,7 @@ const dim4progress = computed(() => {
 					{{ formatWhole(POST_NONREC.Y_SEQ.dimensionsCost(2)) }}压缩九头蛇能量
 				</div>
 			</div>
-			<div class="dim-single dim4_progress_bar">
+			<div class="dim-single dim4_progress_bar" :class="{ fast: Y_SEQ.u627effect().gte(10) }">
 				<span
 					>第四Y序列维度({{ formatWhole(player.postnonrec.yseq.dimensions[0][3]) }}+{{
 						formatWhole(player.postnonrec.yseq.dimensions[1][3])
@@ -110,6 +147,12 @@ const dim4progress = computed(() => {
 				<TDUpgrade upgid="621" />
 				<TDUpgrade upgid="622" />
 				<TDUpgrade upgid="623" />
+				<TDUpgrade upgid="624" />
+			</tr>
+			<tr>
+				<TDUpgrade upgid="625" />
+				<TDUpgrade upgid="626" />
+				<TDUpgrade upgid="627" />
 			</tr>
 		</table>
 	</div>
@@ -121,40 +164,40 @@ const dim4progress = computed(() => {
 	margin: auto;
 }
 @mixin dim_progress_bar($width-var, $color) {
-  position: relative;
-  border: 2px solid $color;
-  --current-dim-color: #{$color};
-  
-  &::before {
-    pointer-events: none;
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: #{$width-var};
-    height: 100%;
-    background: transparentize($color, 0.5);
-    transition: 0ms;
-    z-index: 0;
-  }
-  
-  &.fast::before {
-    background: linear-gradient(
-      -45deg,
-      transparentize($color, 0.7) 0,
-      transparentize($color, 0.7) 25%,
-      transparentize($color, 0.5) 25%,
-      transparentize($color, 0.5) 50%,
-      transparentize($color, 0.7) 50%,
-      transparentize($color, 0.7) 75%,
-      transparentize($color, 0.5) 75%,
-      transparentize($color, 0.5)
-    );
-    background-size: 200px 200px;
-    background-repeat: repeat;
-    animation: scroll_left 3s linear infinite;
-    width: 200%;
-  }
+	position: relative;
+	border: 2px solid $color;
+	--current-dim-color: #{$color};
+
+	&::before {
+		pointer-events: none;
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: #{$width-var};
+		height: 100%;
+		background: transparentize($color, 0.5);
+		transition: 0ms;
+		z-index: 0;
+	}
+
+	&.fast::before {
+		background: linear-gradient(
+			-45deg,
+			transparentize($color, 0.7) 0,
+			transparentize($color, 0.7) 25%,
+			transparentize($color, 0.5) 25%,
+			transparentize($color, 0.5) 50%,
+			transparentize($color, 0.7) 50%,
+			transparentize($color, 0.7) 75%,
+			transparentize($color, 0.5) 75%,
+			transparentize($color, 0.5)
+		);
+		background-size: 200px 200px;
+		background-repeat: repeat;
+		animation: scroll_left 3s linear infinite;
+		width: 200%;
+	}
 }
 .dim-single {
 	min-height: 60px;
@@ -164,21 +207,21 @@ const dim4progress = computed(() => {
 	align-items: center;
 	border: 5px;
 	overflow: hidden;
-	
+
 	&.dim1_progress_bar {
-	  @include dim_progress_bar(v-bind(dim1progress), #7f0000)
+		@include dim_progress_bar(v-bind(dim1progress), #7f0000);
 	}
-	
+
 	&.dim2_progress_bar {
-	  @include dim_progress_bar(v-bind(dim2progress), #7f007f)
+		@include dim_progress_bar(v-bind(dim2progress), #7f007f);
 	}
-	
+
 	&.dim3_progress_bar {
-	  @include dim_progress_bar(v-bind(dim3progress), #7f7f00)
+		@include dim_progress_bar(v-bind(dim3progress), #7f7f00);
 	}
-	
+
 	&.dim4_progress_bar {
-	  @include dim_progress_bar(v-bind(dim4progress), #c17f00)
+		@include dim_progress_bar(v-bind(dim4progress), #c17f00);
 	}
 }
 .dim-single-centered {
@@ -198,14 +241,14 @@ const dim4progress = computed(() => {
 	height: 70px;
 	position: relative;
 	border: 2px solid #007f00;
-	overflow: hidden
+	overflow: hidden;
 }
 
 .progress-inner {
 	width: v-bind(a);
 	height: 100%;
 	position: relative;
-	background: rgba(0,127,0,0.5);
+	background: rgba(0, 127, 0, 0.5);
 	transition: 0ms;
 }
 .buy {
@@ -219,14 +262,14 @@ const dim4progress = computed(() => {
 	transition: 0ms;
 	background: linear-gradient(
 		-45deg,
-		rgba(0,127,0, 0.3) 0,
-		rgba(0,127,0, 0.3) 25%,
-		rgba(0,127,0, 0.5) 25%,
-		rgba(0,127,0, 0.5) 50%,
-		rgba(0,127,0, 0.3) 50%,
-		rgba(0,127,0, 0.3) 75%,
-		rgba(0,127,0, 0.5) 75%,
-		rgba(0,127,0, 0.5)
+		rgba(0, 127, 0, 0.3) 0,
+		rgba(0, 127, 0, 0.3) 25%,
+		rgba(0, 127, 0, 0.5) 25%,
+		rgba(0, 127, 0, 0.5) 50%,
+		rgba(0, 127, 0, 0.3) 50%,
+		rgba(0, 127, 0, 0.3) 75%,
+		rgba(0, 127, 0, 0.5) 75%,
+		rgba(0, 127, 0, 0.5)
 	);
 	top: 0px;
 	left: 0px;
