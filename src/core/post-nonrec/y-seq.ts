@@ -48,7 +48,6 @@ export const Y_SEQ = {
 			.add(1);
 		if (id == 0 && player.postnonrec.yseq.dimensions[0][0].lt(1))
 			boughtcount = boughtcount.max(1);
-		console.log(boughtcount)
 
 		player.postnonrec.yseq.dimensions[0][id] =
 			player.postnonrec.yseq.dimensions[0][id].max(boughtcount);
