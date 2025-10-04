@@ -9,6 +9,18 @@ import TDUpgrade from '@/components/group-2/TDUpgrade.vue';
 const a = computed(() => {
 	return player.hydra.deduceProgress[1].toNumber() * 100 + '%';
 });
+const dim1progress = computed(() => {
+	return player.postnonrec.yseq.dimensions[1][0].sub(player.postnonrec.yseq.dimensions[1][0].floor()).toNumber() * 100 + "%";
+});
+const dim2progress = computed(() => {
+	return player.postnonrec.yseq.dimensions[1][1].sub(player.postnonrec.yseq.dimensions[1][1].floor()).toNumber() * 100 + "%";
+});
+const dim3progress = computed(() => {
+	return player.postnonrec.yseq.dimensions[1][2].sub(player.postnonrec.yseq.dimensions[1][2].floor()).toNumber() * 100 + "%";
+});
+const dim4progress = computed(() => {
+	return player.postnonrec.yseq.dimensions[1][3].sub(player.postnonrec.yseq.dimensions[1][3].floor()).toNumber() * 100 + "%";
+});
 </script>
 
 <template>
@@ -37,7 +49,7 @@ const a = computed(() => {
 					></div>
 				</div>
 			</div>
-			<div class="dim-single">
+			<div class="dim-single dim1_progress_bar">
 				<span
 					>第一Y序列维度({{ formatWhole(player.postnonrec.yseq.dimensions[0][0]) }}+{{
 						formatWhole(player.postnonrec.yseq.dimensions[1][0])
@@ -49,7 +61,7 @@ const a = computed(() => {
 					{{ formatWhole(POST_NONREC.Y_SEQ.dimensionsCost(0)) }}压缩九头蛇能量
 				</div>
 			</div>
-			<div class="dim-single">
+			<div class="dim-single dim2_progress_bar">
 				<span
 					>第二Y序列维度({{ formatWhole(player.postnonrec.yseq.dimensions[0][1]) }}+{{
 						formatWhole(player.postnonrec.yseq.dimensions[1][1])
@@ -61,7 +73,7 @@ const a = computed(() => {
 					{{ formatWhole(POST_NONREC.Y_SEQ.dimensionsCost(1)) }}压缩九头蛇能量
 				</div>
 			</div>
-			<div class="dim-single">
+			<div class="dim-single dim3_progress_bar">
 				<span
 					>第三Y序列维度({{ formatWhole(player.postnonrec.yseq.dimensions[0][2]) }}+{{
 						formatWhole(player.postnonrec.yseq.dimensions[1][2])
@@ -73,7 +85,7 @@ const a = computed(() => {
 					{{ formatWhole(POST_NONREC.Y_SEQ.dimensionsCost(2)) }}压缩九头蛇能量
 				</div>
 			</div>
-			<div class="dim-single">
+			<div class="dim-single dim4_progress_bar">
 				<span
 					>第四Y序列维度({{ formatWhole(player.postnonrec.yseq.dimensions[0][3]) }}+{{
 						formatWhole(player.postnonrec.yseq.dimensions[1][3])
@@ -108,6 +120,23 @@ const a = computed(() => {
 	width: 95%;
 	margin: auto;
 }
+@mixin dim_progress_bar($width-var) {
+  position: relative;
+  border: 2px solid #007f00;
+  pointer-events: none;
+  
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: #{$width-var};
+    height: 100%;
+    background: rgba(0,127,0,0.5);
+    transition: 0ms;
+    z-index: 0;
+  }
+}
 .dim-single {
 	min-height: 60px;
 	display: flex;
@@ -116,6 +145,23 @@ const a = computed(() => {
 	align-items: center;
 	border: 5px;
 	overflow: hidden;
+	
+	&.dim1_progress_bar {
+	  @include dim_progress_bar(v-bind(dim1progress))
+	}
+	
+	&.dim2_progress_bar {
+	  @include dim_progress_bar(v-bind(dim2progress))
+	}
+	
+	&.dim3_progress_bar {
+	  @include dim_progress_bar(v-bind(dim3progress))
+	}
+	
+	&.dim4_progress_bar {
+	  position: relative;
+    border: 2px solid #007f00;
+	}
 }
 .dim-single-centered {
 	min-height: 60px;
@@ -136,6 +182,7 @@ const a = computed(() => {
 	border: 2px solid #007f00;
 	overflow: hidden
 }
+
 .progress-inner {
 	width: v-bind(a);
 	height: 100%;
