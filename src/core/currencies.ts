@@ -11,6 +11,7 @@ export enum Currencies {
 	QOL_POINTS = 'qol',
 	ORDINAL = 'ordinal',
 	HYDRA_POWER = 'hydra',
+	COMP_HYDRA = 'compressed_hydra',
 	X4 = 'x4',
 	T4 = 'τ4',
 	SOLUTION = 'solution',
@@ -105,6 +106,16 @@ class HydraPowerCurrency extends Currency {
 		return player.hydra.power;
 	}
 }
+class CompressedHydraPowerCurrency extends Currency {
+	static name = '压缩九头蛇能量';
+	static set current(x: Decimal) {
+		player.hydra.compressedPower = x;
+	}
+
+	static get current() {
+		return player.hydra.compressedPower;
+	}
+}
 
 class X4Currency extends Currency {
 	static name = 'x<sub>4</sub>';
@@ -185,6 +196,7 @@ const currencyMap: Map<Currencies, typeof Currency> = new Map([
 	[Currencies.NONREC, NonRecCurrency],
 	[Currencies.NRT, NRTCurrency],
 	[Currencies.DEDUCE_ENERGY, DeduceEnergyCurrency],
+	[Currencies.COMP_HYDRA, CompressedHydraPowerCurrency],
 ]);
 
 export function setCurrency(currency: Currencies, value: Decimal) {
