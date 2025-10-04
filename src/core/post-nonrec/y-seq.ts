@@ -41,13 +41,14 @@ export const Y_SEQ = {
 	},
 	buyDimensions(id: 0 | 1 | 2 | 3) {
 		if (player.hydra.compressedPower.lt(this.dimensionsCost(id))) return;
-		let boughtcount = player.hydra.compressedPower
+		let boughtcount = player.hydra.compressedPower.max(1)
 			.div(this.startPrice()[id])
 			.log(this.priceRatio()[id])
 			.floor()
 			.add(1);
 		if (id == 0 && player.postnonrec.yseq.dimensions[0][0].lt(1))
 			boughtcount = boughtcount.max(1);
+		console.log(boughtcount)
 
 		player.postnonrec.yseq.dimensions[0][id] =
 			player.postnonrec.yseq.dimensions[0][id].max(boughtcount);
