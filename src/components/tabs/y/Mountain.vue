@@ -7,12 +7,14 @@ import {
 	type NodeMountain,
 	type LeafMountain,
 	getYSequenceWithoutColon,
-	getCurrentYMilestone
+	getCurrentYMilestone,
 } from '../../../utils/y-seq';
 import { ref, reactive, computed, onMounted, onUnmounted, watch, nextTick } from 'vue';
-import { player } from "@/core/global"
+import { player } from '@/core/global';
 
-const Y = computed(()=>getYSequenceWithoutColon(getCurrentYMilestone(player.hydra.deduceOrdinal[1])[1]));
+const Y = computed(() =>
+	getYSequenceWithoutColon(getCurrentYMilestone(player.hydra.deduceOrdinal[1])[1]),
+);
 
 const getYDimensionsLim = (type: string) => {
 	if (type === '1-Y') return 2;
@@ -118,7 +120,7 @@ function draw() {
 
 					const totalHeight = (rowPosition['c'] + 1) * rowHeight + numberSize * 2;
 					let dpr = devicePixelRatio ?? 1;
-					if (visualViewport) dpr *= Math.min(visualViewport.scale,2);
+					if (visualViewport) dpr *= Math.min(visualViewport.scale, 2);
 
 					canvas.style.width = totalWidth + 'px';
 					canvas.style.height = totalHeight + 'px';

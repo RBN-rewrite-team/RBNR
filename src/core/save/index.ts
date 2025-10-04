@@ -264,7 +264,7 @@ function getInitialPlayerData(): Player {
 			challengeDetial: false,
 			allowOffline: true,
 			isGuoGao: false,
-			hardMode: false
+			hardMode: false,
 		},
 		stat: getInitialStat(),
 		challenges: [
