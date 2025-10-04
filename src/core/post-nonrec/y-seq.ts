@@ -106,7 +106,7 @@ export const Y_SEQ = {
 				this.u627effect().mul(diff),
 			);
 		}
-		if (player.upgrades[628]) {
+		if (player.upgrades[629]) {
 		  let gain = this.resetGain()
 			player.hydra.compressedPower = player.hydra.compressedPower.add(gain.mul(diff))
 			player.hydra.totalCompressedPower = player.hydra.totalCompressedPower.add(gain.mul(diff))
