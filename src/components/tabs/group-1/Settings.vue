@@ -37,9 +37,9 @@ const setFontUI = () => ModalService.show({ title: '设置字体', component: fo
 			</button>
 			<button
 				class="setting_button"
-				@click="player.options.hardMode = !player.options.hardMode"
+				@click="player.options.hardMode = true"
 			>
-				困难模式：{{ player.options.hardMode ? '开' : '关' }}
+				困难模式：{{ player.options.hardMode ? '开(已锁定)' : '关' }}
 			</button>
 			<button class="setting_button" @click="player.currentTab = 300">进入存档银行</button>
 		</div>
