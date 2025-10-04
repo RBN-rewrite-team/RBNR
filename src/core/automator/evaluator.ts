@@ -29,6 +29,8 @@ const operators = {
 	'/': 'div',
 	'%': 'mod',
 	'**': 'pow',
+	'^': 'pow',
+	'***': 'tetrate',
 	'^^': 'tetrate',
 	'<': 'lt',
 	'>': 'gt',
@@ -78,7 +80,7 @@ export async function evaluateBinaryExpressionNode(node: BinaryExpressionNode, e
 
 	if (left instanceof Decimal && right instanceof Decimal) {
 		if (
-			['+', '-', '*', '/', '%', '**', '<=', '>=', '<', '>', '==', '!=', '^^'].includes(
+			['+', '-', '*', '/', '%', '**', '^', '***', '^^', '<=', '>=', '<', '>', '==', '!=', '^^'].includes(
 				node.operator,
 			)
 		) {
@@ -91,6 +93,9 @@ export async function evaluateBinaryExpressionNode(node: BinaryExpressionNode, e
 						| '/'
 						| '%'
 						| '**'
+						| '^'
+						| '***'
+						| '^^'
 						| '<='
 						| '>='
 						| '<'
