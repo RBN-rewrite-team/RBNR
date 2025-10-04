@@ -3,6 +3,7 @@ import { ref, onMounted, watch, nextTick, computed } from 'vue';
 import { player } from '@/core/global';
 import { highlightAutomator } from '@/core/automator/lexer';
 import DOMPurify from 'dompurify';
+import { runAutomator } from '@/core/automator';
 
 const emit = defineEmits<{
 	(e: 'update:code', code: string): void;
@@ -85,7 +86,8 @@ onMounted(() => {
 
 <template>
 	<div align="center">
-		自动机(只做了编辑器)<br />
+		自动机<br />
+		<button class="clickable_button" @click="runAutomator">运行</button>
 		<div class="code-editor" align="left">
 			<div ref="gutterRef" class="gutter" v-html="lineNumbers"></div>
 			<div class="editor-container">
@@ -93,7 +95,7 @@ onMounted(() => {
 				<div
 					ref="editorRef"
 					class="editor"
-					contenteditable
+					contenteditable="plaintext-only"
 					spellcheck="false"
 					@input="handleInput"
 					@scroll="handleScroll"

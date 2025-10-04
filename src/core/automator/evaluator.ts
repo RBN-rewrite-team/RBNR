@@ -6,6 +6,7 @@ import {
 	BinaryExpressionNode,
 	BlockStatementNode,
 	ExpressionStatementNode,
+	ForStatementNode,
 	IdentifierNode,
 	IfStatementNode,
 	NumericLiteralNode,
@@ -22,17 +23,60 @@ const operators = {
 	'/': 'div',
 	'%': 'mod',
 	'**': 'pow',
+	'***': 'tetrate',
+	'<': 'lt',
+	'>': 'gt',
+	'<=': 'lte',
+	'>=': 'gte',
+	'==': 'eq',
+	'!=': 'neq',
 } as const;
-
+export async function evaluateForStatementNode(node: ForStatementNode, env: Environment) {
+	const variabledeclaration = node.init;
+	if (!variabledeclaration) throw new Error('Cannot found Variable Declaration of for statement');
+	const condition = node.test;
+	const increment = node.update;
+	if (!condition) throw new Error('cannot found test statement');
+	if (!increment) throw new Error('cannot found update statement');
+	let r = null;
+	for (
+		await evaluateAssignmentNode(variabledeclaration, env);
+		await evaluateNode(condition, env);
+		await evaluateNode(increment, env)
+	) {
+		r = await evaluateNode(node.body, env);
+	}
+	return r;
+}
 export async function evaluateBinaryExpressionNode(node: BinaryExpressionNode, env: Environment) {
 	const left = await evaluateNode(node.left, env);
 	const right = await evaluateNode(node.right, env);
 
 	if (left instanceof Decimal && right instanceof Decimal) {
-		if (['+', '-', '*', '/', '%', '**'].includes(node.operator)) {
-			const methodName = operators[node.operator as '+' | '-' | '*' | '/' | '%' | '**'];
-
-			return left[methodName](right);
+		if (
+			['+', '-', '*', '/', '%', '**', '<=', '>=', '<', '>', '==', '!=', '***'].includes(
+				node.operator,
+			)
+		) {
+			const methodName =
+				operators[
+					node.operator as
+						| '+'
+						| '-'
+						| '*'
+						| '/'
+						| '%'
+						| '**'
+						| '<='
+						| '>='
+						| '<'
+						| '>'
+						| '=='
+						| '!='
+						| '***'
+				];
+			if (methodName === 'tetrate') return left[methodName](right.toNumber());
+			else return left[methodName](right);
 		}
 	} else if (typeof left === 'string' && typeof right === 'string') {
 		if (node.operator === '+') return left + right;
@@ -90,6 +134,8 @@ export async function evaluateNode(node: ASTNode, env: Environment): Promise<any
 		return await evaluateIfStatementNode(node, env);
 	} else if (node instanceof BinaryExpressionNode) {
 		return await evaluateBinaryExpressionNode(node, env);
+	} else if (node instanceof ForStatementNode) {
+		return await evaluateForStatementNode(node, env);
 	}
 	console.error(node);
 	throw new Error('Not implemented for ');
