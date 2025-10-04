@@ -258,7 +258,7 @@ export const WellOrderingUpgrades = {
 	})(),
 	U6R18: new (class extends Upgrade {
 		description = () =>
-			`推演能量×1e100<br>解锁<b class="baseRetribution">${RETRIBUTION.name()}</b>`;
+			`推演能量×1e100<br>解锁<b class="baseRetribution">${RETRIBUTION.name()}</b><br>困难模式下价格降低！`;
 		cost = () => new Decimal(player.options.hardMode ? '1e1788' : '1e1800');
 		name = 'U6-R-1-8';
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
