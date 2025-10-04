@@ -89,7 +89,7 @@ export const NON_RECURSIVE = {
 	} as const,
 	initMechanics() {
 		MILESTONES.create('nonrec_1', {
-			requirement: DC.D_1,
+			get requirement(){return new Decimal(player.options.hardMode ? 1 : 1)},
 			currency: '非递归重置次数',
 			displayName: 'M6-1',
 			description: `1.每次非递归重置使得九头蛇能量额外乘数×7.5、获取指数+0.01<br>2.转生/飞升/超越/轮回的自动化在解锁了相应重置就立刻解锁<br>3. BMS推演速度×3`,
@@ -99,7 +99,7 @@ export const NON_RECURSIVE = {
 			},
 		});
 		MILESTONES.create('nonrec_2', {
-			requirement: new Decimal(2),
+			get requirement(){return new Decimal(player.options.hardMode ? 2 : 2)},
 			currency: '非递归重置次数',
 			displayName: 'M6-2',
 			description: `转生/飞升/超越/轮回的重置阈值为+0、×1，且不重置任何东西，保持U5-2，U5-2的效果硬下限为100%`,
@@ -109,7 +109,7 @@ export const NON_RECURSIVE = {
 			},
 		});
 		MILESTONES.create('nonrec_3', {
-			requirement: new Decimal(3),
+			get requirement(){return new Decimal(player.options.hardMode ? 4 : 3)},
 			currency: '非递归重置次数',
 			displayName: 'M6-3',
 			description: `1. 基于非递归重置次数加成转生基本效果和超越效果底数<br>2. 移除九头蛇能量的一重软上限，每次非递归重置使九头蛇能量的二重软上限效果÷+0.01<br>3.全局速度倍率对溶剂III的倒计时、购买U-S-9之前的朊病毒不生效，溶剂4仅禁用数论研究`,
@@ -119,7 +119,7 @@ export const NON_RECURSIVE = {
 			},
 		});
 		MILESTONES.create('nonrec_4', {
-			requirement: new Decimal(4),
+			get requirement(){return new Decimal(player.options.hardMode ? 5 : 4)},
 			currency: '非递归重置次数',
 			displayName: 'M6-4',
 			description: `1.每次非递归重置让溶剂3的容许秒数额外+1<br>2. 溶剂总等级的削弱效果变得更弱<br>3. BMS基础推演速度为1/s<br>4. U5-2的效果硬下限为200%`,
@@ -129,7 +129,7 @@ export const NON_RECURSIVE = {
 			},
 		});
 		MILESTONES.create('nonrec_5', {
-			requirement: new Decimal(5),
+			get requirement(){return new Decimal(player.options.hardMode ? 7 : 5)},
 			currency: '非递归重置次数',
 			displayName: 'M6-5',
 			description: `保持解锁U5-5, U5-1-5, U5-R1-5, U5-S-5`,
@@ -145,7 +145,7 @@ export const NON_RECURSIVE = {
 			},
 		});
 		MILESTONES.create('nonrec_6', {
-			requirement: new Decimal(6),
+			get requirement(){return new Decimal(player.options.hardMode ? 8 : 6)},
 			currency: '非递归重置次数',
 			displayName: 'M6-6',
 			description: `提高U5-1-2(100%→1000%)，U5-1-5，U5-R1-2(^1.125→^1.25)，U5-2，U5-S-9(×2/s→×10/s)的效果`,
@@ -155,7 +155,7 @@ export const NON_RECURSIVE = {
 			},
 		});
 		MILESTONES.create('nonrec_7', {
-			requirement: new Decimal(7),
+			get requirement(){return new Decimal(player.options.hardMode ? 10 : 7)},
 			currency: '非递归重置次数',
 			displayName: 'M6-7',
 			description: `你初始便免疫朊病毒，任何时候都可以增强M-Dilute-5的效果，且前5个稀释里程碑永久解锁`,
@@ -165,7 +165,7 @@ export const NON_RECURSIVE = {
 			},
 		});
 		MILESTONES.create('nonrec_8', {
-			requirement: new Decimal(8),
+			get requirement(){return new Decimal(player.options.hardMode ? 12 : 8)},
 			currency: '非递归重置次数',
 			displayName: 'M6-8',
 			description: `一开始就保持U5-1-1~4，保持数论研究4的升级，自动化数论研究4的购买项`,
@@ -175,7 +175,7 @@ export const NON_RECURSIVE = {
 			},
 		});
 		MILESTONES.create('nonrec_9', {
-			requirement: new Decimal(9),
+			get requirement(){return new Decimal(player.options.hardMode ? 14 : 9)},
 			currency: '非递归重置次数',
 			displayName: 'M6-9',
 			description: `一开始就解锁所有的九头蛇引擎升级、九头蛇引擎购买项和稀释升级，保持M-Dilute-15`,
@@ -185,7 +185,7 @@ export const NON_RECURSIVE = {
 			},
 		});
 		MILESTONES.create('nonrec_10', {
-			requirement: new Decimal(10),
+			get requirement(){return new Decimal(player.options.hardMode ? 16 : 10)},
 			currency: '非递归重置次数',
 			displayName: 'M6-10',
 			description: `自动购买所有的九头蛇引擎升级、九头蛇引擎购买项，保持M-Dilute-10，自动购买所有的稀释升级`,
@@ -195,7 +195,7 @@ export const NON_RECURSIVE = {
 			},
 		});
 		MILESTONES.create('nonrec_11', {
-			requirement: new Decimal(15),
+			get requirement(){return new Decimal(player.options.hardMode ? 20 : 15)},
 			currency: '非递归重置次数',
 			displayName: 'M6-11',
 			description: `添加朊病毒因素`,
@@ -205,7 +205,7 @@ export const NON_RECURSIVE = {
 			},
 		});
 		MILESTONES.create('nonrec_12', {
-			requirement: new Decimal(20),
+			get requirement(){return new Decimal(player.options.hardMode ? 30 : 20)},
 			currency: '非递归重置次数',
 			displayName: 'M6-12',
 			description: `非递归重置后保留1%的溶液`,
@@ -215,7 +215,7 @@ export const NON_RECURSIVE = {
 			},
 		});
 		MILESTONES.create('nonrec_13', {
-			requirement: new Decimal(50),
+			get requirement(){return new Decimal(player.options.hardMode ? 60 : 40)},
 			currency: '非递归重置次数',
 			displayName: 'M6-13',
 			description: `普通的非递归重置初始有1e150,000,000朊病毒`,
@@ -225,7 +225,7 @@ export const NON_RECURSIVE = {
 			},
 		});
 		MILESTONES.create('nonrec_14', {
-			requirement: new Decimal(100),
+			get requirement(){return new Decimal(player.options.hardMode ? 150 : 60)},
 			currency: '非递归重置次数',
 			displayName: 'M6-14',
 			description: `非递归重置不再重置九头蛇溶液数量`,
