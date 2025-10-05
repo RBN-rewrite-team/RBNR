@@ -105,6 +105,9 @@ parentEnvironment.set('max', maxFunction);
 parentEnvironment.set('min', minFunction);
 parentEnvironment.set('get', getFunction);
 parentEnvironment.set('set', setFunction);
-
 parentEnvironment.isReadonly = true;
+
+export function tryInclude(pkg: string) {
+	throw new Error('Cannot find package ' + pkg);
+}
 export { parentEnvironment };
