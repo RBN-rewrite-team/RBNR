@@ -3,6 +3,7 @@ import { Callable } from './a-objects';
 import { formatResult } from '.';
 import { Call } from './lexer';
 import { player } from "../global"
+import Decimal from "break_eternity.js"
 
 export class Environment {
 	parent: Environment | null = null;
