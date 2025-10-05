@@ -71,6 +71,11 @@ const getFunction = new (class GetFunction extends Callable {
 		return args[0][args[1]];
 	}
 })();
+const setFunction = new (class SetFunction extends Callable {
+	async call(env: Environment, ...args: any[]) {
+		return (args[0][args[1]] = args[2]);
+	}
+})();
 
 const parentEnvironment = new (class extends Environment {})();
 
@@ -84,5 +89,6 @@ parentEnvironment.set('string', toStringFunction);
 parentEnvironment.set('max', maxFunction);
 parentEnvironment.set('min', minFunction);
 parentEnvironment.set('get', getFunction);
+parentEnvironment.set('set', setFunction);
 
 export { parentEnvironment };
