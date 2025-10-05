@@ -42,19 +42,19 @@ export const Y_SEQ = {
 		let base = this.priceRatio()
 			[id].pow(player.postnonrec.yseq.dimensions[0][id])
 			.mul(this.startPrice()[id]);
-			
-		let excess = player.postnonrec.yseq.dimensions[0][id].sub(this.purchasesBeforeScaling(id))
+
+		let excess = player.postnonrec.yseq.dimensions[0][id].sub(this.purchasesBeforeScaling(id));
 		if (excess.gt(0)) {
-		  base = base.mul(this.LogScalingRatio().mul(excess).mul(excess.add(1)).mul(0.5).pow10())
+			base = base.mul(this.LogScalingRatio().mul(excess).mul(excess.add(1)).mul(0.5).pow10());
 		}
-		return base
+		return base;
 	},
 	scalingStart() {
-	  return new Decimal(2**384)
+		return new Decimal(2 ** 384);
 	},
 	LogScalingRatio() {
-	  let base = new Decimal(1.15).log10()
-	  return base
+		let base = new Decimal(1.15).log10();
+		return base;
 	},
 	buyDimensions(id: 0 | 1 | 2 | 3): void {
 		if (player.hydra.compressedPower.lt(this.dimensionsCost(id))) return;
@@ -65,46 +65,60 @@ export const Y_SEQ = {
 			.add(1);
 		if (id == 0 && player.postnonrec.yseq.dimensions[0][0].lt(1))
 			boughtcount = boughtcount.max(1);
-			
-		const purchasesBeforeScaling = this.purchasesBeforeScaling(id)
-		
-		  let logPriceRatio = this.priceRatio()[id].log10()
-		  let logStartPrice = this.startPrice()[id].log10()
-		  let logScalingRatio = this.LogScalingRatio()
-		  
+
+		const purchasesBeforeScaling = this.purchasesBeforeScaling(id);
+
+		let logPriceRatio = this.priceRatio()[id].log10();
+		let logStartPrice = this.startPrice()[id].log10();
+		let logScalingRatio = this.LogScalingRatio();
+
 		if (boughtcount.gte(purchasesBeforeScaling)) {
-		  let discrim = (logPriceRatio.mul(2).add(logScalingRatio)).pow(2)
-		    .sub(logScalingRatio.mul(purchasesBeforeScaling.mul(logPriceRatio).add(logStartPrice)).mul(8))
-		    .add(player.hydra.compressedPower.log10().mul(logScalingRatio).mul(8))
-		  if (discrim.lt(0)) boughtcount = new Decimal(0)
-		  else boughtcount = purchasesBeforeScaling.add(0.5).sub(logPriceRatio.div(logScalingRatio))
-		    .add(discrim.sqrt().div(logScalingRatio.mul(2)))
+			let discrim = logPriceRatio
+				.mul(2)
+				.add(logScalingRatio)
+				.pow(2)
+				.sub(
+					logScalingRatio
+						.mul(purchasesBeforeScaling.mul(logPriceRatio).add(logStartPrice))
+						.mul(8),
+				)
+				.add(player.hydra.compressedPower.log10().mul(logScalingRatio).mul(8));
+			if (discrim.lt(0)) boughtcount = new Decimal(0);
+			else
+				boughtcount = purchasesBeforeScaling
+					.add(0.5)
+					.sub(logPriceRatio.div(logScalingRatio))
+					.add(discrim.sqrt().div(logScalingRatio.mul(2)));
 		}
-		
-		boughtcount = boughtcount.floor()
-		
-		if (boughtcount.lt(player.postnonrec.yseq.dimensions[0][id])) return
-		
+
+		boughtcount = boughtcount.floor();
+
+		if (boughtcount.lt(player.postnonrec.yseq.dimensions[0][id])) return;
+
 		let logPrice: Decimal;
-		if (boughtcount.lte(purchasesBeforeScaling.add(1))) logPrice = boughtcount.sub(1).mul(logPriceRatio).add(logStartPrice)
+		if (boughtcount.lte(purchasesBeforeScaling.add(1)))
+			logPrice = boughtcount.sub(1).mul(logPriceRatio).add(logStartPrice);
 		else {
-		  const pExcess = boughtcount.sub(purchasesBeforeScaling)
-		  logPrice = boughtcount.sub(1).mul(logPriceRatio).add(logStartPrice)
-		    .add(logScalingRatio.mul(pExcess).mul(pExcess-1).mul(0.5))
+			const pExcess = boughtcount.sub(purchasesBeforeScaling);
+			logPrice = boughtcount
+				.sub(1)
+				.mul(logPriceRatio)
+				.add(logStartPrice)
+				.add(logScalingRatio.mul(pExcess).mul(pExcess.sub(1)).mul(0.5));
 		}
-		
-		player.hydra.compressedPower = player.hydra.compressedPower.sub(logPrice.pow10())
+
+		player.hydra.compressedPower = player.hydra.compressedPower.sub(logPrice.pow10());
 
 		player.postnonrec.yseq.dimensions[0][id] =
 			player.postnonrec.yseq.dimensions[0][id].max(boughtcount);
 	},
 	purchasesBeforeScaling(id: 0 | 1 | 2 | 3) {
-	  return this.scalingStart()
+		return this.scalingStart()
 			.max(1)
 			.div(this.startPrice()[id])
 			.log(this.priceRatio()[id])
 			.floor()
-			.add(1)
+			.add(1);
 	},
 	dimensionEffect(id: 0 | 1 | 2 | 3) {
 		const mul = [0.05, 0.1, 0.2, 0.4];
@@ -124,7 +138,7 @@ export const Y_SEQ = {
 	},
 	yseqDeduceSpeed() {
 		let base = this.dimensionEffect(0);
-		return base
+		return base;
 	},
 	resetGain() {
 		let base = player.hydra.deduceOrdinal[1];
