@@ -50,7 +50,7 @@ export const Y_SEQ = {
 		return base
 	},
 	scalingStart() {
-	  return new Decimal(2**256)
+	  return new Decimal(2**384)
 	},
 	LogScalingRatio() {
 	  let base = new Decimal(1.05).log10()
