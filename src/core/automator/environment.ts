@@ -66,6 +66,11 @@ const minFunction = new (class MinFunction extends Callable {
 		return Math.min(...args);
 	}
 })();
+const getFunction = new (class GetFunction extends Callable {
+	async call(env: Environment, ...args: any[]) {
+		return args[0][args[1]];
+	}
+})();
 
 const parentEnvironment = new (class extends Environment {})();
 
@@ -78,5 +83,6 @@ parentEnvironment.set('wait', delayf);
 parentEnvironment.set('string', toStringFunction);
 parentEnvironment.set('max', maxFunction);
 parentEnvironment.set('min', minFunction);
+parentEnvironment.set('get', getFunction);
 
 export { parentEnvironment };

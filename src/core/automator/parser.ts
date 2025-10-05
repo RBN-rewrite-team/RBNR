@@ -43,6 +43,7 @@ import {
 	Assign,
 	Return,
 	Call,
+	Colen,
 } from './lexer';
 
 export class AutomatorParser extends CstParser {
@@ -338,6 +339,10 @@ export class AutomatorParser extends CstParser {
 			{
 				ALT: () => this.SUBRULE(this.callExpression),
 			},
+			// 添加 hash table 表达式
+			{
+				ALT: () => this.SUBRULE(this.hashTableExpression),
+			},
 		]);
 	});
 
@@ -359,6 +364,23 @@ export class AutomatorParser extends CstParser {
 		});
 		this.CONSUME(RParen);
 		// 移除 this.CONSUME(SemiColen); 使其可以作为表达式
+	});
+
+	public hashTableExpression = this.RULE('hashTableExpression', () => {
+		this.CONSUME(LBrace);
+		this.CONSUME(Identifier);
+		this.CONSUME(Colen);
+		this.SUBRULE(this.expression);
+		this.MANY(() => {
+			this.CONSUME(Comma);
+			this.CONSUME1(Identifier);
+			this.CONSUME1(Colen);
+			this.SUBRULE1(this.expression);
+		});
+		this.OPTION(() => {
+			this.CONSUME1(Comma);
+		});
+		this.CONSUME(RBrace);
 	});
 }
 
