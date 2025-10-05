@@ -165,6 +165,9 @@ export async function evaluateCallExpressionNode(node: CallExpressionNode, env: 
 	if (leftval instanceof Callable) {
 		return await leftval.call(env, ...argsevaluated);
 	} else if (typeof leftval === 'function') {
+		// @ts-expect-error
+		if (leftval === async function () {}.constructor.__proto__)
+			throw new Error('cannot call Function');
 		return await leftval(...argsevaluated);
 	}
 	throw new Error('left Value is not callable');
