@@ -177,6 +177,7 @@ const dim4progress = computed(() => {
 </template>
 
 <style lang="scss" scoped>
+import "sass:color"
 .dims {
 	width: 95%;
 	margin: auto;
