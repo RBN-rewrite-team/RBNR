@@ -44,6 +44,7 @@ import {
 	Return,
 	Call,
 	Colen,
+	Include,
 } from './lexer';
 
 export class AutomatorParser extends CstParser {
@@ -71,6 +72,7 @@ export class AutomatorParser extends CstParser {
 			{ ALT: () => this.SUBRULE(this.returnStatement) },
 			{ ALT: () => this.SUBRULE(this.expressionStatement) },
 			{ ALT: () => this.SUBRULE(this.blockStatement) },
+			{ ALT: () => this.SUBRULE(this.includeStatement) },
 		]);
 	});
 
@@ -381,6 +383,12 @@ export class AutomatorParser extends CstParser {
 			this.CONSUME1(Comma);
 		});
 		this.CONSUME(RBrace);
+	});
+
+	public includeStatement = this.RULE('includeStatement', () => {
+		this.CONSUME(Include);
+		this.CONSUME(Identifier);
+		this.CONSUME(SemiColen);
 	});
 }
 

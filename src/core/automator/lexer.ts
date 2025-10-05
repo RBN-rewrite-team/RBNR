@@ -34,6 +34,11 @@ export const False = createToken({ name: 'False', pattern: /false/, longer_alt: 
 export const True = createToken({ name: 'True', pattern: /true/, longer_alt: Identifier });
 
 export const If = createToken({ name: 'If', pattern: /if/, longer_alt: Identifier });
+export const Include = createToken({
+	name: 'Include',
+	pattern: /(include|#include|import)/,
+	longer_alt: Identifier,
+});
 
 export const Else = createToken({ name: 'Else', pattern: /else/, longer_alt: Identifier });
 export const Call = createToken({ name: 'Call', pattern: /call/, longer_alt: Identifier });
@@ -181,6 +186,7 @@ export const allTokens = [
 	Return,
 
 	Call,
+	Include,
 
 	Identifier,
 
@@ -238,6 +244,7 @@ export const allTokens2 = [
 	FunctionKeyword,
 	Return,
 	Call,
+	Include,
 
 	Identifier,
 

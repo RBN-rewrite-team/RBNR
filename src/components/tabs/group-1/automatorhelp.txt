@@ -12,9 +12,17 @@ while (b) {c;} while循环
     c: 3,
 } 哈希表
 ===
+内置函数
 puts print cout dialog 弹窗，输出内容
 delay wait 等待xxx毫秒
 get(hashtable, key) 获取hashtable中的key键值
 string(x) 将其他数值转换成字符串
+===
+include sth;导入包
+可以使用#include sth; import sth;别名。
+目前所内置的包: math
+
+===
+math包
 max(a,b,c,...)取出若干个数值中最大的一个
 min(a,b,c,...)取出若干个数值中最小的一个

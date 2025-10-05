@@ -12,6 +12,7 @@ import {
 	HashTableExpressionNode,
 	IdentifierNode,
 	IfStatementNode,
+	IncludeStatementNode,
 	NumericLiteralNode,
 	parseAndConvertToAst,
 	ReturnStatementNode,
@@ -19,7 +20,7 @@ import {
 	VariableDeclarationNode,
 	WhileStatementNode,
 } from './compiler';
-import { Environment, parentEnvironment } from './environment';
+import { Environment, parentEnvironment, tryInclude } from './environment';
 import { Callable, CodeCallable, ReturnTag } from './a-objects';
 import { player } from '../save';
 let interrupt = false;
@@ -228,6 +229,8 @@ export async function evaluateNode(node: ASTNode, env: Environment): Promise<any
 		return await evaluateCallExpressionNode(node, env);
 	} else if (node instanceof HashTableExpressionNode) {
 		return await evaluateHashTableExpressionNode(node, env);
+	} else if (node instanceof IncludeStatementNode) {
+		return tryInclude(node.include);
 	}
 	console.error(node);
 	throw new Error('Not implemented for ');

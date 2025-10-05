@@ -217,6 +217,14 @@ class HashTableExpressionNode extends ASTNode {
 		this.hashtable = hashtable;
 	}
 }
+
+class IncludeStatementNode extends ASTNode {
+	include: string;
+	constructor(include: string) {
+		super('IncludeStatementNode');
+		this.include = include;
+	}
+}
 class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 	constructor() {
 		super();
@@ -251,6 +259,8 @@ class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 			return this.visit(ctx.blockStatement);
 		} else if (ctx.callExpression) {
 			return this.visit(ctx.callExpression);
+		} else if (ctx.includeStatement) {
+			return this.visit(ctx.includeStatement);
 		}
 		throw new Error('Unknown statement type');
 	}
@@ -575,6 +585,10 @@ class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 
 		throw new Error("Don't know how to convert a hashtableexpression ctx to ast");
 	}
+
+	includeStatement(ctx: any) {
+		return new IncludeStatementNode(ctx.Identifier[0].image);
+	}
 }
 
 function parseAndConvertToAst(code: string) {
@@ -618,6 +632,7 @@ export {
 	ReturnStatementNode,
 	CallExpressionNode,
 	HashTableExpressionNode,
+	IncludeStatementNode,
 	parseAndConvertToAst,
 };
 declare global {

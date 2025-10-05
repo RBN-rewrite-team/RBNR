@@ -101,10 +101,18 @@ parentEnvironment.set('dialog', putf);
 parentEnvironment.set('delay', delayf);
 parentEnvironment.set('wait', delayf);
 parentEnvironment.set('string', toStringFunction);
-parentEnvironment.set('max', maxFunction);
-parentEnvironment.set('min', minFunction);
 parentEnvironment.set('get', getFunction);
 parentEnvironment.set('set', setFunction);
-
 parentEnvironment.isReadonly = true;
+
+export function tryInclude(pkg: string) {
+	if (pkg == 'math') {
+		parentEnvironment.isReadonly = false;
+		parentEnvironment.set('max', maxFunction);
+		parentEnvironment.set('min', minFunction);
+		parentEnvironment.isReadonly = true;
+		return;
+	}
+	throw new Error('Cannot find package ' + pkg);
+}
 export { parentEnvironment };
