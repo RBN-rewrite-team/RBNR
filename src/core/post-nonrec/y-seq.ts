@@ -39,23 +39,59 @@ export const Y_SEQ = {
 	},
 	dimensionsCost(id: 0 | 1 | 2 | 3) {
 		if (id == 0 && player.postnonrec.yseq.dimensions[0][0].lt(1)) return new Decimal(0);
-		return this.priceRatio()
+		let base = this.priceRatio()
 			[id].pow(player.postnonrec.yseq.dimensions[0][id])
 			.mul(this.startPrice()[id]);
+			
+		let excess = player.postnonrec.yseq.dimensions[0][id].sub(this.purchasesBeforeScaling(id))
+		if (excess.gt(0)) {
+		  base = base.mul(this.LogScalingRatio().mul(excess).mul(excess.add(1)).mul(0.5).pow10())
+		}
+		return base
 	},
-	buyDimensions(id: 0 | 1 | 2 | 3) {
+	scalingStart() {
+	  return new Decimal(2**256)
+	},
+	LogScalingRatio() {
+	  let base = new Decimal(1.05).log10()
+	  return base
+	},
+	buyDimensions(id: 0 | 1 | 2 | 3): void {
 		if (player.hydra.compressedPower.lt(this.dimensionsCost(id))) return;
 		let boughtcount = player.hydra.compressedPower
 			.max(1)
 			.div(this.startPrice()[id])
 			.log(this.priceRatio()[id])
-			.floor()
 			.add(1);
 		if (id == 0 && player.postnonrec.yseq.dimensions[0][0].lt(1))
 			boughtcount = boughtcount.max(1);
+			
+		const purchasesBeforeScaling = this.purchasesBeforeScaling(id)
+		
+		if (boughtcount.gte(purchasesBeforeScaling)) {
+		  let logPriceRatio = this.priceRatio()[id].log10()
+		  let logStartPrice = this.startPrice()[id].log10()
+		  let logScalingRatio = this.LogScalingRatio()
+		  let discrim = (logPriceRatio.mul(2).add(logScalingRatio)).pow(2)
+		    .sub(logScalingRatio.mul(purchasesBeforeScaling.mul(logPriceRatio).add(logStartPrice)).mul(8))
+		    .add(player.hydra.compressedPower.log10().mul(logScalingRatio).mul(8))
+		  if (discrim.lt(0)) boughtcount = new Decimal(0)
+		  else boughtcount = purchasesBeforeScaling.add(0.5).sub(logPriceRatio.div(logScalingRatio))
+		    .add(discrim.sqrt().div(logScalingRatio.mul(2)))
+		}
+		
+		boughtcount = boughtcount.floor()
 
 		player.postnonrec.yseq.dimensions[0][id] =
 			player.postnonrec.yseq.dimensions[0][id].max(boughtcount);
+	},
+	purchasesBeforeScaling(id: 0 | 1 | 2 | 3) {
+	  return this.scalingStart()
+			.max(1)
+			.div(this.startPrice()[id])
+			.log(this.priceRatio()[id])
+			.floor()
+			.add(1)
 	},
 	dimensionEffect(id: 0 | 1 | 2 | 3) {
 		const mul = [0.05, 0.1, 0.2, 0.4];
