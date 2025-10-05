@@ -53,7 +53,7 @@ export const Y_SEQ = {
 	  return new Decimal(2**384)
 	},
 	LogScalingRatio() {
-	  let base = new Decimal(1.05).log10()
+	  let base = new Decimal(1.15).log10()
 	  return base
 	},
 	buyDimensions(id: 0 | 1 | 2 | 3): void {
