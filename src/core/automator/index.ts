@@ -7,7 +7,7 @@ import { format } from '@/utils/format';
 export function formatResult(result: any): string {
 	if (result instanceof Decimal) return format(result);
 	else if (typeof result == 'string') {
-		return `"${result.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`;
+		return `"${result.replace(/\\/g, '\\\\')}"`;
 	} else if (Array.isArray(result)) {
 		return `[${result.map((x) => formatResult(x)).join(',')}]`;
 	} else if (result === undefined) return `No result`;
