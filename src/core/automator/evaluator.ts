@@ -9,6 +9,7 @@ import {
 	ExpressionStatementNode,
 	ForStatementNode,
 	FunctionDeclarationNode,
+	HashTableExpressionNode,
 	IdentifierNode,
 	IfStatementNode,
 	NumericLiteralNode,
@@ -39,6 +40,22 @@ const operators = {
 	'==': 'eq',
 	'!=': 'neq',
 } as const;
+export async function evaluateHashTableExpressionNode(
+	node: HashTableExpressionNode,
+	env: Environment,
+) {
+	const res: {
+		[key: string]: any;
+	} = {
+		toString() {
+			return JSON.stringify(this);
+		},
+	};
+	for (const key in node.hashtable) {
+		res[key] = await evaluateNode(node.hashtable[key], env);
+	}
+	return res;
+}
 export async function evaluateFunctionDeclarationNode(
 	node: FunctionDeclarationNode,
 	env: Environment,
@@ -203,6 +220,8 @@ export async function evaluateNode(node: ASTNode, env: Environment): Promise<any
 		return await evaluateFunctionDeclarationNode(node, env);
 	} else if (node instanceof CallExpressionNode) {
 		return await evaluateCallExpressionNode(node, env);
+	} else if (node instanceof HashTableExpressionNode) {
+		return await evaluateHashTableExpressionNode(node, env);
 	}
 	console.error(node);
 	throw new Error('Not implemented for ');

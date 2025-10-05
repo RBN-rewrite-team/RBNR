@@ -208,7 +208,15 @@ class ArrayExpressionNode extends ASTNode {
 		this.elements = elements;
 	}
 }
-
+class HashTableExpressionNode extends ASTNode {
+	hashtable: {
+		[key: string]: ASTNode;
+	};
+	constructor(hashtable: { [key: string]: ASTNode }) {
+		super('HashTableExpression');
+		this.hashtable = hashtable;
+	}
+}
 class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 	constructor() {
 		super();
@@ -518,6 +526,8 @@ class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 					? this.visit(ctx.callExpression[0].children.argumentsList[0])
 					: [],
 			);
+		} else if (ctx.hashTableExpression) {
+			return this.hashTableExpression(ctx.hashTableExpression);
 		}
 
 		console.log(ctx);
@@ -551,6 +561,19 @@ class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 		const parameters = ctx.argumentsList ? this.visit(ctx.argumentsList[0]) : [];
 		const body = this.visit(ctx.expression[0]);
 		return new CallExpressionNode(body, parameters);
+	}
+	hashTableExpression(ctx: any) {
+		const a = ctx[0].children;
+		const map: {
+			[key: string]: ASTNode;
+		} = {};
+		for (let i = 0; i < a.Identifier.length; i++) {
+			map[a.Identifier[i].image] = this.visit(a.expression[i]);
+		}
+		return new HashTableExpressionNode(map);
+		console.error(ctx);
+
+		throw new Error("Don't know how to convert a hashtableexpression ctx to ast");
 	}
 }
 
@@ -594,6 +617,7 @@ export {
 	CstToAstVisitor,
 	ReturnStatementNode,
 	CallExpressionNode,
+	HashTableExpressionNode,
 	parseAndConvertToAst,
 };
 declare global {

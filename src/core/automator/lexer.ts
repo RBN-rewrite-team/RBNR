@@ -81,6 +81,10 @@ export const SemiColen = createToken({
 	name: 'SemiColen',
 	pattern: /;/,
 });
+export const Colen = createToken({
+	name: 'SemiColen',
+	pattern: /:/,
+});
 
 export const GreaterThan = createToken({
 	name: 'GreaterThan',
@@ -122,7 +126,10 @@ export const StringLiteral = createToken({
 	name: 'StringLiteral',
 	pattern: /"([^"\\]|\\.)*"|'([^'\\]|\\.)*'/,
 });
-
+export const Dot = createToken({
+	name: 'Dot',
+	pattern: /\./,
+});
 export const LParen = createToken({ name: 'LParen', pattern: /\(/ });
 export const RParen = createToken({ name: 'RParen', pattern: /\)/ });
 export const LBrace = createToken({ name: 'LBrace', pattern: /{/ });
@@ -179,6 +186,8 @@ export const allTokens = [
 
 	Comma,
 	SemiColen,
+	Colen,
+	Dot,
 	LParen,
 	RParen,
 	LBrace,
@@ -234,6 +243,8 @@ export const allTokens2 = [
 
 	Comma,
 	SemiColen,
+	Colen,
+	Dot,
 	LParen,
 	RParen,
 	LBrace,
