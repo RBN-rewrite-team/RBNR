@@ -68,10 +68,11 @@ export const Y_SEQ = {
 			
 		const purchasesBeforeScaling = this.purchasesBeforeScaling(id)
 		
-		if (boughtcount.gte(purchasesBeforeScaling)) {
 		  let logPriceRatio = this.priceRatio()[id].log10()
 		  let logStartPrice = this.startPrice()[id].log10()
 		  let logScalingRatio = this.LogScalingRatio()
+		  
+		if (boughtcount.gte(purchasesBeforeScaling)) {
 		  let discrim = (logPriceRatio.mul(2).add(logScalingRatio)).pow(2)
 		    .sub(logScalingRatio.mul(purchasesBeforeScaling.mul(logPriceRatio).add(logStartPrice)).mul(8))
 		    .add(player.hydra.compressedPower.log10().mul(logScalingRatio).mul(8))
@@ -81,6 +82,18 @@ export const Y_SEQ = {
 		}
 		
 		boughtcount = boughtcount.floor()
+		
+		if (boughtcount.lt(player.hydra.compressedPower)) return
+		
+		let logPrice: Decimal;
+		if (boughtcount.lte(purchasesBeforeScaling.add(1))) logPrice = boughtcount.sub(1).mul(logPriceRatio).add(logStartPrice)
+		else {
+		  const pExcess = boughtcount.sub(purchasesBeforeScaling)
+		  logPrice = boughtcount.sub(1).mul(logPriceRatio).add(logStartPrice)
+		    .add(logScalingRatio.mul(pExcess).mul(pExcess-1).mul(0.5))
+		}
+		
+		player.hydra.compressedPower = player.hydra.compressedPower.sub(logPrice.pow10())
 
 		player.postnonrec.yseq.dimensions[0][id] =
 			player.postnonrec.yseq.dimensions[0][id].max(boughtcount);
