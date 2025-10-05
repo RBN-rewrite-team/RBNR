@@ -68,6 +68,7 @@ const minFunction = new (class MinFunction extends Callable {
 })();
 const getFunction = new (class GetFunction extends Callable {
 	async call(env: Environment, ...args: any[]) {
+		if (args[0] === window) throw new Error('检测到越界访问行为，该访问已被禁止');
 		return args[0][args[1]];
 	}
 })();
