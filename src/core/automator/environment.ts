@@ -6,17 +6,28 @@ import { Call } from './lexer';
 export class Environment {
 	parent: Environment | null = null;
 	map: Map<string, any> = new Map();
-	constructor(parent?: Environment) {
+	isReadonly: boolean = false;
+	constructor(parent?: Environment, readonly = false) {
 		if (parent) this.parent = parent;
+		this.isReadonly = readonly;
 	}
 	get(key: string): any {
 		return this.map.get(key) ?? this.parent?.get?.(key);
 	}
 	set(key: string, value: any) {
+		//检测当前或上游环境是否有readonly key
+		if (this.readonlykey(key)) throw new Error('Cannot set to readonly object');
+
 		return this.map.set(key, value);
 	}
 	has(key: string): boolean {
 		return this.map.has(key) ? (this.parent?.has?.(key) ?? false) : false;
+	}
+	readonlykey(key: string): boolean {
+		if (this.isReadonly) return true;
+		if (!this.parent) return false;
+
+		return this.parent.readonlykey(key);
 	}
 }
 
@@ -93,4 +104,5 @@ parentEnvironment.set('min', minFunction);
 parentEnvironment.set('get', getFunction);
 parentEnvironment.set('set', setFunction);
 
+parentEnvironment.isReadonly = true;
 export { parentEnvironment };
