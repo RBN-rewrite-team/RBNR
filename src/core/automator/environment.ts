@@ -68,13 +68,15 @@ const minFunction = new (class MinFunction extends Callable {
 })();
 const getFunction = new (class GetFunction extends Callable {
 	async call(env: Environment, ...args: any[]) {
-		if (args[0] === window) throw new Error('检测到越界访问行为，该访问已被禁止');
+	  if (["constructor", "__proto__"].includes(args[1])) return undefined
+		if (args[0] instanceof Window) return undefined
 		return args[0][args[1]];
 	}
 })();
 const setFunction = new (class SetFunction extends Callable {
 	async call(env: Environment, ...args: any[]) {
-		if (args[0] === window) throw new Error('检测到越界访问行为，该访问已被禁止');
+	  if (["constructor", "__proto__"].includes(args[1])) return undefined
+		if (args[0] instanceof Window) return args[2]
 		return (args[0][args[1]] = args[2]);
 	}
 })();
