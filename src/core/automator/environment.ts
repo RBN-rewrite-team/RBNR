@@ -2,6 +2,7 @@ import ModalService from '@/utils/Modal';
 import { Callable } from './a-objects';
 import { formatResult } from '.';
 import { Call } from './lexer';
+import { player } from "../global"
 
 export class Environment {
 	parent: Environment | null = null;
@@ -97,6 +98,11 @@ const setFunction = new (class SetFunction extends Callable {
 		return (args[0][args[1]] = args[2]);
 	}
 })();
+const getPlayerData = new (class getPlayerData extends Callable {
+  async call(env: Environment, ...args: any[]) {
+    return Object.freeze(JSON.parse(JSON.stringify(player)))
+  }
+})
 
 const parentEnvironment = new (class extends Environment {})();
 
@@ -109,6 +115,7 @@ parentEnvironment.set('wait', delayf);
 parentEnvironment.set('string', toStringFunction);
 parentEnvironment.set('get', getFunction);
 parentEnvironment.set('set', setFunction);
+parentEnvironment.set('player', getPlayerData);
 parentEnvironment.isReadonly = true;
 
 export function tryInclude(pkg: string) {
