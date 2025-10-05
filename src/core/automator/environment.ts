@@ -24,7 +24,7 @@ export class Environment {
 		return this.map.has(key) ? (this.parent?.has?.(key) ?? false) : false;
 	}
 	readonlykey(key: string): boolean {
-		if (this.isReadonly) return true;
+		if (this.map.has(key) && this.isReadonly) return true;
 		if (!this.parent) return false;
 
 		return this.parent.readonlykey(key);
@@ -79,15 +79,15 @@ const minFunction = new (class MinFunction extends Callable {
 })();
 const getFunction = new (class GetFunction extends Callable {
 	async call(env: Environment, ...args: any[]) {
-	  if (["constructor", "__proto__"].includes(args[1])) return undefined
-		if (args[0] instanceof Window) return undefined
+		if (['constructor', '__proto__'].includes(args[1])) return undefined;
+		if (args[0] instanceof Window) return undefined;
 		return args[0][args[1]];
 	}
 })();
 const setFunction = new (class SetFunction extends Callable {
 	async call(env: Environment, ...args: any[]) {
-	  if (["constructor", "__proto__"].includes(args[1])) return undefined
-		if (args[0] instanceof Window) return args[2]
+		if (['constructor', '__proto__'].includes(args[1])) return undefined;
+		if (args[0] instanceof Window) return args[2];
 		return (args[0][args[1]] = args[2]);
 	}
 })();
