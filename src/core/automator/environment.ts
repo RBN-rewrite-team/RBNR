@@ -69,12 +69,18 @@ const delayf = new DelayFunction();
 const toStringFunction = new ToStringFunction();
 const maxFunction = new (class MaxFunction extends Callable {
 	async call(env: Environment, ...args: any[]) {
-		return Math.max(...args);
+		let max = new Decimal(-Infinity)
+		for (const number of args) {
+		  max = max.max(number)
+		}
 	}
 })();
 const minFunction = new (class MinFunction extends Callable {
 	async call(env: Environment, ...args: any[]) {
-		return Math.min(...args);
+		let min = new Decimal(Infinity)
+		for (const number of args) {
+		  min = min.min(number)
+		}
 	}
 })();
 const getFunction = new (class GetFunction extends Callable {
