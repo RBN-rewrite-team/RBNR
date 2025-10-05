@@ -194,7 +194,7 @@ const dim4progress = computed(() => {
 		left: 0;
 		width: #{$width-var};
 		height: 100%;
-		background: transparentize($color, 0.5);
+		background: color.adjust($color, $alpha: -0.5);
 		transition: 0ms;
 		z-index: 0;
 	}
@@ -202,14 +202,14 @@ const dim4progress = computed(() => {
 	&.fast::before {
 		background: linear-gradient(
 			-45deg,
-			transparentize($color, 0.7) 0,
-			transparentize($color, 0.7) 25%,
-			transparentize($color, 0.5) 25%,
-			transparentize($color, 0.5) 50%,
-			transparentize($color, 0.7) 50%,
-			transparentize($color, 0.7) 75%,
-			transparentize($color, 0.5) 75%,
-			transparentize($color, 0.5)
+			color.adjust($color, $alpha: -0.7) 0,
+			color.adjust($color, $alpha: -0.7) 25%,
+			color.adjust($color, $alpha: -0.5) 25%,
+			color.adjust($color, $alpha: -0.5) 50%,
+			color.adjust($color, $alpha: -0.7) 50%,
+			color.adjust($color, $alpha: -0.7) 75%,
+			color.adjust($color, $alpha: -0.5) 75%,
+			color.adjust($color, $alpha: -0.5)
 		);
 		background-size: 200px 200px;
 		background-repeat: repeat;
