@@ -164,6 +164,8 @@ export async function evaluateCallExpressionNode(node: CallExpressionNode, env: 
 
 	if (leftval instanceof Callable) {
 		return await leftval.call(env, ...argsevaluated);
+	} else if (typeof leftval === 'function') {
+		return await leftval(env, ...argsevaluated);
 	}
 	throw new Error('left Value is not callable');
 }
