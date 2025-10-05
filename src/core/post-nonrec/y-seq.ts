@@ -75,7 +75,6 @@ export const Y_SEQ = {
 	},
 	yseqDeduceSpeed() {
 		let base = this.dimensionEffect(0);
-		if (base.gte(2**256)) base = base.log2().div(256).pow(0.5).sub(1).mul(2).add(1).mul(256).pow2()
 		return base
 	},
 	resetGain() {
