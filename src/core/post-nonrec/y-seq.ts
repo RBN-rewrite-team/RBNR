@@ -83,7 +83,7 @@ export const Y_SEQ = {
 		
 		boughtcount = boughtcount.floor()
 		
-		if (boughtcount.lt(player.hydra.compressedPower)) return
+		if (boughtcount.lt(player.postnonrec.yseq.dimensions[0][id])) return
 		
 		let logPrice: Decimal;
 		if (boughtcount.lte(purchasesBeforeScaling.add(1))) logPrice = boughtcount.sub(1).mul(logPriceRatio).add(logStartPrice)
