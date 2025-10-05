@@ -1,0 +1,20 @@
+var a = 3; 声明一个变量
+a = 3; 赋值一个变量
+3+3, 3-3, 3/3, 3*3, 3**3, 3***3(重幂)数学运算
+function a(b,c,d) {xxx; return e;} 函数， 返回
+call a(e); 调用函数
+if (a) {b;} else {c;} 如果， 否则
+for (var a=b;b;c) {d;} for循环
+while (b) {c;} while循环
+
+{
+    a: "bbb",
+    c: 3,
+} 哈希表
+===
+puts print cout dialog 弹窗，输出内容
+delay wait 等待xxx毫秒
+get(hashtable, key) 获取hashtable中的key键值
+string(x) 将其他数值转换成字符串
+max(a,b,c,...)取出若干个数值中最大的一个
+min(a,b,c,...)取出若干个数值中最小的一个

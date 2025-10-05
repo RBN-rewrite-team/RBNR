@@ -1,0 +1,25 @@
+var a = 3; // 声明一个变量
+a=3+2**114514***1919810; // 数学运算
+a=a**a; //可以使用变量
+
+var b = "114514"; // 字符串
+b = b + "11"; //字符串拼接
+
+function c() {
+    return 5;
+} // 一个函数
+call c(); //输出 5
+
+var d = {
+    alphabeta: "gammadelta",
+    epsilonzeta: "etatheta",
+}; //哈基米
+//哈希表
+call get(d, 0); // 获取哈希表的内容
+
+var e = ["1145","1419"]; // 数组
+call get(e, 0); //获取数组中的内容
+
+call puts(a); //输出内容
+call puts(b);
+call puts(c);
