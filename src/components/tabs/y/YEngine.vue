@@ -81,11 +81,14 @@ const dim4progress = computed(() => {
 				class="dim-single dim1_progress_bar"
 				:class="{ fast: POST_NONREC.Y_SEQ.dimensionEffect(1).gte(10) }"
 			>
+			  <div style="text-align: left">
 				<span
 					>第一Y序列维度({{ formatWhole(player.postnonrec.yseq.dimensions[0][0]) }}+{{
 						formatWhole(player.postnonrec.yseq.dimensions[1][0])
 					}})</span
-				>
+				><br>
+				×{{format(Y_SEQ.dimensionBoost(0))}}
+				</div>
 				<span>每秒推演{{ format(POST_NONREC.Y_SEQ.dimensionEffect(0)) }}次</span>
 				<div class="buy" @click="() => POST_NONREC.Y_SEQ.buyDimensions(0)">
 					购买最大<br />需求:
@@ -96,11 +99,15 @@ const dim4progress = computed(() => {
 				class="dim-single dim2_progress_bar"
 				:class="{ fast: POST_NONREC.Y_SEQ.dimensionEffect(2).gte(10) }"
 			>
+			  <div style="text-align: left">
 				<span
 					>第二Y序列维度({{ formatWhole(player.postnonrec.yseq.dimensions[0][1]) }}+{{
 						formatWhole(player.postnonrec.yseq.dimensions[1][1])
 					}})</span
 				>
+				<br>
+				×{{format(Y_SEQ.dimensionBoost(1))}}
+				</div>
 				<span>每秒生产{{ format(POST_NONREC.Y_SEQ.dimensionEffect(1)) }}第一Y序列维度</span>
 				<div class="buy" @click="() => POST_NONREC.Y_SEQ.buyDimensions(1)">
 					购买最大<br />需求:
@@ -111,11 +118,14 @@ const dim4progress = computed(() => {
 				class="dim-single dim3_progress_bar"
 				:class="{ fast: POST_NONREC.Y_SEQ.dimensionEffect(3).gte(10) }"
 			>
+			  <div style="text-align: left">
 				<span
 					>第三Y序列维度({{ formatWhole(player.postnonrec.yseq.dimensions[0][2]) }}+{{
 						formatWhole(player.postnonrec.yseq.dimensions[1][2])
 					}})</span
-				>
+				><br>
+				×{{format(Y_SEQ.dimensionBoost(2))}}
+        </div>
 				<span>每秒生产{{ format(POST_NONREC.Y_SEQ.dimensionEffect(2)) }}第二Y序列维度</span>
 				<div class="buy" @click="() => POST_NONREC.Y_SEQ.buyDimensions(2)">
 					购买最大<br />需求:
@@ -123,11 +133,14 @@ const dim4progress = computed(() => {
 				</div>
 			</div>
 			<div class="dim-single dim4_progress_bar" :class="{ fast: Y_SEQ.u627effect().gte(10) }">
+			  <div style="text-align: left">
 				<span
 					>第四Y序列维度({{ formatWhole(player.postnonrec.yseq.dimensions[0][3]) }}+{{
 						formatWhole(player.postnonrec.yseq.dimensions[1][3])
 					}})</span
-				>
+				><br>
+				×{{format(Y_SEQ.dimensionBoost(3))}}
+				</div>
 				<span>每秒生产{{ format(POST_NONREC.Y_SEQ.dimensionEffect(3)) }}第三Y序列维度</span>
 				<div class="buy" @click="() => POST_NONREC.Y_SEQ.buyDimensions(3)">
 					购买最大<br />需求:
@@ -205,7 +218,7 @@ const dim4progress = computed(() => {
 	}
 }
 .dim-single {
-	min-height: 60px;
+	min-height: 70px;
 	display: flex;
 	justify-content: space-between;
 	padding: 0 20px;
@@ -230,7 +243,7 @@ const dim4progress = computed(() => {
 	}
 }
 .dim-single-centered {
-	min-height: 60px;
+	min-height: 70px;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
