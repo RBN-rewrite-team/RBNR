@@ -39,6 +39,9 @@ function retributionText() {
 	animation: baseRetributionA 0.25s infinite;
 	background-image: linear-gradient(rgb(18, 0, 0) 0%, rgb(192, 0, 0) 100%);
 	overflow: auto;
+	background-image: url('Retribution.png');
+	background-repeat: no-repeat;
+	background-position: center center;
 }
 
 @keyframes baseRetributionA {
