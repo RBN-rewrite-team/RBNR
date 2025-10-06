@@ -52,6 +52,7 @@ import YEngine from './components/tabs/y/YEngine.vue';
 import NonRecursionUNOCF from './components/tabs/nonrecursion/NonRecursionUNOCF.vue';
 
 import Retribution from './components/tabs/group-1/Retribution.vue';
+import RetributionAnimation from './components/tabs/group-1/RetributionAnimation.vue';
 </script>
 
 <template>
@@ -112,6 +113,7 @@ import Retribution from './components/tabs/group-1/Retribution.vue';
 		</div>
 	</div>
 	<BlackHole />
+	<RetributionAnimation />
 	<Chapter />
 	<PlotView />
 </template>

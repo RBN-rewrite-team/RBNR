@@ -28,6 +28,7 @@ export const temp = reactive({
 	pathdata: [] as Path[],
 	pathsearch_locker: false,
 	lastBMSDeduce: new Decimal(0), //修复推演速度显示bug
+	retribution: 0,
 });
 export function inPathData(x: bigint, y: bigint) {
 	if (player.minigame.interact !== 5) return false;

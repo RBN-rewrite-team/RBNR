@@ -20,7 +20,7 @@ import { RETRIBUTION } from '@/core/post-nonrec/retribution';
 					>
 						大数之路重制版
 					</div>
-					<div style="font-size: 15px">Retribution Beta</div>
+					<div style="font-size: 15px">Retribution</div>
 				</div>
 			</div>
 		</div>
@@ -215,7 +215,7 @@ import { RETRIBUTION } from '@/core/post-nonrec/retribution';
 							class="menu2"
 							:class="{ focus: player.currentTab == 28 }"
 							@click="player.currentTab = 28"
-							v-if="player.upgrades['U6R18'] && isTester()"
+							v-if="player.upgrades['U6R18']"
 						>
 							{{ RETRIBUTION.name() }}
 						</div>

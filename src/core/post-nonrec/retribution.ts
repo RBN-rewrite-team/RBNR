@@ -6,6 +6,7 @@ import { NON_RECURSIVE } from '../nonrecu';
 import { player } from '../save';
 import { DC } from '../constants';
 import { wellOrderPlayerData } from '../ordinal/well_ordering';
+import { temp } from '../temp-data';
 import ModalService from '@/utils/Modal';
 // prettier-ignore
 const resetUpgrades = [
@@ -93,9 +94,13 @@ export const RETRIBUTION = {
 					'你会失去你所有的非递归进度，以及当前九头蛇进度，以及升级...<br>但是你会获得启示，获得更恐怖的力量...',
 				confirmText: '确定...',
 				onConfirm() {
-					RETRIBUTION.reset();
-					// 类型安全不要删
-					if (player.retribution == 0) player.retribution = 1;
+					temp.retribution = 1;
+					setTimeout(function(){
+						temp.retribution = 0;
+						RETRIBUTION.reset();
+						// 类型安全不要删
+						if (player.retribution == 0) player.retribution = 1;
+					}, 20000);
 				},
 			});
 		}
