@@ -127,7 +127,7 @@ export const achievements = [
 			id: 9,
 		},
 		{
-			title: '欧拉，但不是你想的那个欧拉',
+			title: '欧拉函数',
 			desc: '解锁数论研究',
 			satisfied() {
 				return player.stat.chapter >= 4 || player.upgrades[35];
