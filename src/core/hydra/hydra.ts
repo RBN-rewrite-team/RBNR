@@ -498,6 +498,24 @@ export const Hydra = {
 				return player.retribution == 1;
 			}
 		})(),
+		'6211': new (class extends Upgrade {
+			description = 'U5-2-7的效果立方';
+			cost = new Decimal('1e55');
+			name = 'U5-2-11';
+			currency: Currencies = Currencies.COMP_HYDRA;
+			show(): boolean {
+				return player.retribution == 1;
+			}
+		})(),
+		'6212': new (class extends Upgrade {
+			description = '转生~轮回不重置任何东西，且轮回效果+50%';
+			cost = new Decimal('1e64');
+			name = 'U5-2-11';
+			currency: Currencies = Currencies.COMP_HYDRA;
+			show(): boolean {
+				return player.retribution == 1;
+			}
+		})(),
 	},
 	buyables: {
 		'611': new (class B611 extends Buyable<Decimal> {
@@ -1065,6 +1083,7 @@ export const Hydra = {
 			base = base.sub(999).log10().add(1000);
 		if (id == 2 && base.gte(1e10)) base = base.log10().div(10).pow(0.5).mul(10).pow_base(10);
 		if (id == 3 && player.upgrades['65R']) base = base.mul(upgrades['65R'].effect());
+		if (id == 3 && player.upgrades[6212]) base = base.mul(1.5);
 		if (id == 1 && player.upgrades['68R']) base = base.mul(upgrades['68R'].effect());
 		if (id == 3 && base.gte(0.05)) base = base.sub(0.05).mul(0.5).add(0.05);
 		if (!player.upgrades['614S'] && id == 3 && base.gte(0.1))
@@ -1107,6 +1126,7 @@ export const Hydra = {
 		if (i == 0 && player.upgrades[64]) return;
 		if (i == 0 && player.milestones['dut3']) return;
 		if (i == 1 && player.milestones['dut4']) return;
+		if (player.upgrades[6212]) return;
 		if (i <= 1 && player.upgrades[63]) keepHP = true;
 		if (i == 2 && player.upgrades[64]) keepHP = true;
 		if (i == 0 && player.upgrades[63]) keepO = true;

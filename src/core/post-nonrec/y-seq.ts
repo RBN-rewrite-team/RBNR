@@ -182,6 +182,8 @@ export const Y_SEQ = {
 		}
 	},
 	u627effect(): Decimal {
-		return player.hydra.deduceOrdinal[1].clampMin(1).log10().div(2);
+		let base = player.hydra.deduceOrdinal[1].clampMin(1).log10().div(2);
+		if(player.upgrades[6211]) base = base.pow(3);
+		return base;
 	},
 } as const;
