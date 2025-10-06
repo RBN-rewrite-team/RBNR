@@ -2,6 +2,7 @@
 import { RETRIBUTION } from '@/core/post-nonrec/retribution';
 import { player } from '@/core/save';
 import TDUpgrade from '@/components/group-2/TDUpgrade.vue';
+import { themes } from '@/utils/themes';
 
 function retributionText() {
 	if (player.retribution < 1) {
@@ -9,6 +10,7 @@ function retributionText() {
 	}
 	return '?';
 }
+player.options.ui.theme = themes.DARK;
 </script>
 
 <template>
