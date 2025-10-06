@@ -86,6 +86,15 @@ export const RETRIBUTION = {
 		player.numbertheory.GM.x = DC.D_0;
 		player.currentTab = 19;
 	},
+	replayAnimation() {
+		temp.retribution = 1;
+		setTimeout(function () {
+			temp.retribution = 0.5;
+			setTimeout(function () {
+				temp.retribution = 0;
+			}, 5000);
+		}, 20000);
+	},
 	resetUI() {
 		if (this.resetable()) {
 			ModalService.show({
@@ -94,9 +103,8 @@ export const RETRIBUTION = {
 					'你会失去你所有的非递归进度，以及当前九头蛇进度，以及升级...<br>但是你会获得启示，获得更恐怖的力量...',
 				confirmText: '确定...',
 				onConfirm() {
-					temp.retribution = 1;
-					setTimeout(function(){
-						temp.retribution = 0;
+					RETRIBUTION.replayAnimation();
+					setTimeout(function () {
 						RETRIBUTION.reset();
 						// 类型安全不要删
 						if (player.retribution == 0) player.retribution = 1;
