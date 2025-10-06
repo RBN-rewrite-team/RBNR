@@ -44,9 +44,6 @@ export const Addition = {
 			keep(): boolean {
 				return player.upgrades['421q'] && !player.exponention.logarithm.in_dilate;
 			}
-			requirements() {
-				return [new CurrencyRequirement(Currencies.ADDITION_POWER, DC.D_1)];
-			}
 		})(),
 		'22': new (class U12 extends AdditionUpgrade {
 			description: () => string = Logarithm.dilated(
@@ -67,9 +64,6 @@ export const Addition = {
 			keep(): boolean {
 				return player.upgrades['421q'] && !player.exponention.logarithm.in_dilate;
 			}
-			requirements() {
-				return [new CurrencyRequirement(Currencies.ADDITION_POWER, new Decimal(5))];
-			}
 		})(),
 		'23': new (class U13 extends AdditionUpgrade {
 			description = '移除B0-1价格的常数项，B0-1最多购买次数+50';
@@ -85,9 +79,6 @@ export const Addition = {
 			name = 'U1-3';
 			keep(): boolean {
 				return player.upgrades['421q'] && !player.exponention.logarithm.in_dilate;
-			}
-			requirements() {
-				return [new CurrencyRequirement(Currencies.ADDITION_POWER, new Decimal(25))];
 			}
 		})(),
 		'24': new (class U14 extends AdditionUpgrade {
@@ -106,9 +97,6 @@ export const Addition = {
 			keep(): boolean {
 				return player.upgrades['421q'] && !player.exponention.logarithm.in_dilate;
 			}
-			requirements() {
-				return [new CurrencyRequirement(Currencies.ADDITION_POWER, new Decimal(125))];
-			}
 		})(),
 		'25': new (class U15 extends AdditionUpgradeWithEffect {
 			description: () => string = Logarithm.dilated(
@@ -126,9 +114,6 @@ export const Addition = {
 			name = 'U1-5';
 			keep(): boolean {
 				return player.upgrades['421q'] && !player.exponention.logarithm.in_dilate;
-			}
-			requirements() {
-				return [new CurrencyRequirement(Currencies.ADDITION_POWER, new Decimal(625))];
 			}
 			effect() {
 				let exp = new Decimal(0.25);
@@ -150,9 +135,6 @@ export const Addition = {
 			name = 'U1-6';
 			keep(): boolean {
 				return player.upgrades['421q'] && !player.exponention.logarithm.in_dilate;
-			}
-			requirements() {
-				return [new CurrencyRequirement(Currencies.ADDITION_POWER, new Decimal(625))];
 			}
 			show() {
 				return player.singularity.stage < 9;

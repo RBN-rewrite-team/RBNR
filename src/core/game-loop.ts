@@ -24,6 +24,7 @@ import { NON_RECURSIVE } from './nonrecu/index.ts';
 import { DC } from '@/core/constants';
 
 import { equipmentDestroyLoop } from '@/core/minigame';
+import { achLoop } from './achievements.ts';
 
 /**
  * 游戏循环经过了多少时间
@@ -131,6 +132,7 @@ export function gameLoop() {
 	}
 
 	equipmentDestroyLoop();
+	achLoop();
 }
 function r(s: number): number {
 	return Math.random() * s * 2 - s;
