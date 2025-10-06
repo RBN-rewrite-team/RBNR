@@ -24,7 +24,7 @@ export const achievements = [
 			title: '道↓理↑生一',
 			desc: '数值到达1',
 			satisfied() {
-				return player.number.gte(1) && player.stat.chapter >= 0;
+				return player.number.gte(1) || player.stat.chapter >= 0;
 			},
 			id: 0,
 		},
