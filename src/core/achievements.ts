@@ -24,7 +24,7 @@ export const achievements = [
 			title: '道↓理↑生一',
 			desc: '数值到达1',
 			satisfied() {
-				return player.number.gte(1) && player.stat.chapter >= 0;
+				return player.number.gte(1) || player.stat.chapter >= 0;
 			},
 			id: 0,
 		},
@@ -127,7 +127,7 @@ export const achievements = [
 			id: 9,
 		},
 		{
-			title: '欧拉，但不是你想的那个欧拉',
+			title: '欧拉函数',
 			desc: '解锁数论研究',
 			satisfied() {
 				return player.stat.chapter >= 4 || player.upgrades[35];
