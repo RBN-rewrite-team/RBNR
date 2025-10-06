@@ -91,6 +91,7 @@ export interface Player {
 	totalAddpower: Decimal;
 	firstResetBit: number;
 	challenges: Decimal[][];
+	achievements: number[];
 	multiplication: {
 		mulpower: Decimal;
 		totalMulpower: Decimal;
@@ -178,6 +179,7 @@ function getInitialPlayerData(): Player {
 		version: version,
 		number: DC.D_0,
 		frozen: false,
+		achievements: [],
 		run_a_tick_and_froze: false,
 		totalNumber: DC.D_0,
 		lastUpdated: Date.now(),

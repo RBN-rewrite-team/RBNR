@@ -315,6 +315,13 @@ import { RETRIBUTION } from '@/core/post-nonrec/retribution';
 					</div>
 					<div
 						class="menu2"
+						:class="{ focus: player.currentTab == 11 }"
+						@click="player.currentTab = 11"
+					>
+						成就
+					</div>
+					<div
+						class="menu2"
 						:class="{ focus: player.currentTab == 16 }"
 						@click="player.currentTab = 16"
 						v-if="player.firstResetBit & 0b1000"
