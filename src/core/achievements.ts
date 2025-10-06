@@ -118,5 +118,21 @@ export const achievements = [
 			},
 			id: 8,
 		},
+		{
+			title: '获得一亿资源可以得到什么？微不足道罢了。',
+			desc: '获得100,000,000数字',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.number.gte(1e8);
+			},
+			id: 9,
+		},
+		{
+			title: '欧拉，但不是你想的那个欧拉',
+			desc: '解锁数论研究',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.upgrades[35];
+			},
+			id: 10,
+		},
 	],
 ] as const;
