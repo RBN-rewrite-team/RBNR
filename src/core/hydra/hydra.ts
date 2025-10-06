@@ -510,7 +510,7 @@ export const Hydra = {
 		'6212': new (class extends Upgrade {
 			description = '转生~轮回不重置任何东西，且轮回效果+50%';
 			cost = new Decimal('1e64');
-			name = 'U5-2-11';
+			name = 'U5-2-12';
 			currency: Currencies = Currencies.COMP_HYDRA;
 			show(): boolean {
 				return player.retribution == 1;
