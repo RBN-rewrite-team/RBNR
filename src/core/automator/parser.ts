@@ -45,6 +45,7 @@ import {
 	Call,
 	Colen,
 	Include,
+	Dot,
 } from './lexer';
 
 export class AutomatorParser extends CstParser {
@@ -345,6 +346,10 @@ export class AutomatorParser extends CstParser {
 			{
 				ALT: () => this.SUBRULE(this.hashTableExpression),
 			},
+			// 添加 x.bbb getProperty 表达式
+			{
+				ALT: () => this.SUBRULE(this.getPropertyExpression),
+			},
 		]);
 	});
 
@@ -366,6 +371,13 @@ export class AutomatorParser extends CstParser {
 		});
 		this.CONSUME(RParen);
 		// 移除 this.CONSUME(SemiColen); 使其可以作为表达式
+	});
+
+	public getPropertyExpression = this.RULE('getPropertyExpression', () => {
+		this.CONSUME(Colen);
+		this.SUBRULE(this.expression);
+		this.CONSUME(Dot);
+		this.CONSUME(Identifier);
 	});
 
 	public hashTableExpression = this.RULE('hashTableExpression', () => {

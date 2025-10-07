@@ -1,9 +1,9 @@
 import ModalService from '@/utils/Modal';
-import { Callable } from './a-objects';
+import { Callable, Dictionary } from './a-objects';
 import { formatResult } from '.';
 import { Call } from './lexer';
-import { player } from "../global"
-import Decimal from "break_eternity.js"
+import { player } from '../global';
+import Decimal from 'break_eternity.js';
 
 export class Environment {
 	parent: Environment | null = null;
@@ -71,39 +71,41 @@ const delayf = new DelayFunction();
 const toStringFunction = new ToStringFunction();
 const maxFunction = new (class MaxFunction extends Callable {
 	async call(env: Environment, ...args: any[]) {
-		let max = new Decimal(-Infinity)
+		let max = new Decimal(-Infinity);
 		for (const number of args) {
-		  max = max.max(number)
+			max = max.max(number);
 		}
 	}
 })();
 const minFunction = new (class MinFunction extends Callable {
 	async call(env: Environment, ...args: any[]) {
-		let min = new Decimal(Infinity)
+		let min = new Decimal(Infinity);
 		for (const number of args) {
-		  min = min.min(number)
+			min = min.min(number);
 		}
 	}
 })();
 const getFunction = new (class GetFunction extends Callable {
 	async call(env: Environment, ...args: any[]) {
-		if (['constructor', '__proto__'].includes(args[1])) return undefined;
-		if (args[0] instanceof Window) return undefined;
-		return args[0][args[1]];
+		if (args[0].get) {
+			return args[0].get(args[1]);
+		}
+		throw new Error('cannot get index of non-gettable');
 	}
 })();
 const setFunction = new (class SetFunction extends Callable {
 	async call(env: Environment, ...args: any[]) {
-		if (['constructor', '__proto__'].includes(args[1])) return undefined;
-		if (args[0] instanceof Window) return args[2];
-		return (args[0][args[1]] = args[2]);
+		if (args[0].set) {
+			return args[0].set(args[1], args[2]);
+		}
+		throw new Error('cannot set index of non-settable');
 	}
 })();
 const getPlayerData = new (class getPlayerData extends Callable {
-  async call(env: Environment, ...args: any[]) {
-    return Object.freeze(JSON.parse(JSON.stringify(player)))
-  }
-})
+	async call(env: Environment, ...args: any[]) {
+		return Object.freeze(JSON.parse(JSON.stringify(player)));
+	}
+})();
 
 const parentEnvironment = new (class extends Environment {})();
 

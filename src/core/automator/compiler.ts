@@ -225,6 +225,15 @@ class IncludeStatementNode extends ASTNode {
 		this.include = include;
 	}
 }
+class GetPropertyNode extends ASTNode {
+	expression: ASTNode;
+	property: string;
+	constructor(expression: ASTNode, property: string) {
+		super('GetPropertyNode');
+		this.expression = expression;
+		this.property = property;
+	}
+}
 class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 	constructor() {
 		super();
@@ -538,6 +547,8 @@ class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 			);
 		} else if (ctx.hashTableExpression) {
 			return this.hashTableExpression(ctx.hashTableExpression);
+		} else if (ctx.getPropertyExpression) {
+			return this.getPropertyExpression(ctx.getPropertyExpression);
 		}
 
 		console.log(ctx);
@@ -589,6 +600,13 @@ class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 	includeStatement(ctx: any) {
 		return new IncludeStatementNode(ctx.Identifier[0].image);
 	}
+
+	getPropertyExpression(ctx: any) {
+		return new GetPropertyNode(
+			this.visit(ctx[0].children.expression[0]),
+			ctx[0].children.Identifier[0].image,
+		);
+	}
 }
 
 function parseAndConvertToAst(code: string) {
@@ -633,6 +651,7 @@ export {
 	CallExpressionNode,
 	HashTableExpressionNode,
 	IncludeStatementNode,
+	GetPropertyNode,
 	parseAndConvertToAst,
 };
 declare global {

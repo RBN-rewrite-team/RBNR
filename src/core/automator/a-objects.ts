@@ -1,6 +1,8 @@
+import type { Entries } from 'type-fest';
 import type { ASTNode, BlockStatementNode, FunctionDeclarationNode } from './compiler';
 import { Environment } from './environment';
 import { evaluateNode } from './evaluator';
+import type Decimal from 'break_eternity.js';
 
 export class Callable {
 	async call(env: Environment, ...args: any[]): Promise<any> {}
@@ -29,5 +31,45 @@ export class ReturnTag<T> {
 	value: T;
 	constructor(value: T) {
 		this.value = value;
+	}
+}
+
+export class Dictionary<K = any, V = any> {
+	keymap: Map<K, V> = new Map();
+	get(key: any) {
+		console.log(this.keymap, key);
+		return this.keymap.get(key);
+	}
+	set(key: any, value: any) {
+		return this.keymap.set(key, value);
+	}
+	has(key: any) {
+		return this.keymap.has(key);
+	}
+	// dont use in automator env
+	mapEntries() {
+		return this.keymap.entries();
+	}
+	toString() {
+		let res = '(';
+		for (let a of this.mapEntries()) {
+			res = res.concat(`${a[0]}=>${a[1]},`);
+		}
+		res = res.slice(0, -1) + ')';
+		return res;
+	}
+}
+export class AutomatorArray extends Dictionary<string, any> {
+	constructor(arr: ArrayLike<any>) {
+		super();
+		for (const entr of Object.entries(arr)) {
+			this.keymap.set(String(entr[0]), entr[1]);
+		}
+	}
+	get(key: Decimal) {
+		return this.keymap.get(String(key));
+	}
+	set(key: Decimal, value: any) {
+		return this.keymap.set(String(key), value);
 	}
 }
