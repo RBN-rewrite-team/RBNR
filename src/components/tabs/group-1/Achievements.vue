@@ -58,12 +58,15 @@ const a = computed(() => {
 		>
 			<p style="font-size: 10px">
 				<b
-					>{{ temp.select_ach[0] + 1 }}-{{ temp.select_ach[1] + 1 }}&nbsp;{{
+					><template v-if="achievements[temp.select_ach[0]][temp.select_ach[1]].secret ?? false">限定成就</template>
+					<template v-else>{{ temp.select_ach[0] + 1 }}-{{ temp.select_ach[1] + 1 }}</template>&nbsp;{{
 						achievements[temp.select_ach[0]][temp.select_ach[1]].title
 					}}</b
 				>
 			</p>
-			<p>{{ achievements[temp.select_ach[0]][temp.select_ach[1]].desc }}</p>
+			<p>{{ player.achievements.includes(
+					achievements[temp.select_ach[0]][temp.select_ach[1]].id,
+				) || !(achievements[temp.select_ach[0]][temp.select_ach[1]].secret ?? false) ? achievements[temp.select_ach[0]][temp.select_ach[1]].desc : '???' }}</p>
 			<p>奖励：1成就点</p>
 		</div>
 	</div>

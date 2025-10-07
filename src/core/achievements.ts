@@ -6,6 +6,7 @@ interface IAchievement {
 	title: string;
 	desc: string;
 	satisfied?(): boolean;
+	secret?: boolean;
 }
 
 export function achLoop() {
@@ -133,6 +134,35 @@ export const achievements = [
 				return player.stat.chapter >= 4 || player.upgrades[35];
 			},
 			id: 10,
+		},
+	],
+	[
+		{
+			title: '限定成就1',
+			desc: '在首次加法重置前拥有1e6点数',
+			satisfied() {
+				return player.stat.chapter < 1 && player.number.gte(1e6);
+			},
+			secret: true,
+			id: 1001,
+		},
+		{
+			title: '限定成就2',
+			desc: '在首次乘法重置前拥有1e6加法能量',
+			satisfied() {
+				return player.stat.chapter < 2 && player.addpower.gte(1e6);
+			},
+			secret: true,
+			id: 1002,
+		},
+		{
+			title: '限定成就3',
+			desc: '进入困难模式',
+			satisfied() {
+				return player.options.hardMode;
+			},
+			secret: true,
+			id: 1003,
 		},
 	],
 ] as const;
