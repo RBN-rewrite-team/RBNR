@@ -9,7 +9,6 @@ interface IAchievement {
 	title: string;
 	desc: string;
 	satisfied?(): boolean;
-	secret?: boolean;
 }
 
 export function achLoop() {

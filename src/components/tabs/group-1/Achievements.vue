@@ -59,8 +59,7 @@ const numberdisplay = () => {
 		>
 			<p style="font-size: 10px">
 				<b
-					><template v-if="achievements[temp.select_ach[0]][temp.select_ach[1]].secret ?? false">限定成就</template>
-					<template v-else>{{ temp.select_ach[0] + 1 }}-{{ temp.select_ach[1] + 1 }}</template>&nbsp;{{
+					>{{ temp.select_ach[0] + 1 }}-{{ temp.select_ach[1] + 1 }}&nbsp;{{
 						achievements[temp.select_ach[0]][temp.select_ach[1]].title
 					}}</b
 				>
