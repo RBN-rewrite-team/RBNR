@@ -246,6 +246,16 @@ export const achievements = [
 
 			hidden: true,
 		},
+		{
+			title: "I'll happily smith some temporary runes for you.",
+			desc: '获得2天的加速时间',
+			satisfied() {
+				return player.timeshard.tf.gte(86400000);
+			},
+			id: -3,
+
+			hidden: true,
+		},
 	],
 	[
 		{
