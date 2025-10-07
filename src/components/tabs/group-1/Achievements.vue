@@ -1,19 +1,22 @@
 <script setup lang="ts">
-import { achievements } from '@/core/achievements';
+import {
+	achievements,
+	getAchTag,
+	getTempSelectedAch,
+	showSelectedAchievementsDesc,
+} from '@/core/achievements';
 import { player } from '@/core/save';
 import { temp } from '@/core/temp-data';
 import { VueLatex } from 'vatex';
 import { computed } from 'vue';
-const a = computed(() => {
-	return player.stat.chapter >= 4
-		? "<span style='color: red'>数值? 数值是什么，我们现在是序数</span>"
-		: '数值';
-});
+const numberdisplay = () => {
+	let a = player.stat.chapter >= 4 ? "<span style='color: red'>???</span>" : '数值';
+	return a;
+};
 </script>
 
 <template>
 	<div style="height: 20px"></div>
-
 	<div class="upgrade" style="height: 20px">
 		<div style="width: 400px; line-height: 20px">
 			你有&nbsp;{{ player.achievements.length }}&nbsp;成就点
@@ -21,7 +24,7 @@ const a = computed(() => {
 	</div>
 	<div class="upgrade" style="height: 30px">
 		<div style="width: 250px; line-height: 30px">
-			成就点使<template v-html="a"></template>获取
+			成就点使<span v-html="numberdisplay()"></span>获取
 			<div style="display: inline; font-weight: bold; color: #169500">×1.000</div>
 			<br />
 			公式：
@@ -40,16 +43,14 @@ const a = computed(() => {
 				v-for="ach in Object.entries(row[1])"
 				@click="temp.select_ach = [parseInt(row[0]), parseInt(ach[0])]"
 			>
-				{{ parseInt(row[0]) + 1 }}-{{ parseInt(ach[0]) + 1 }}
+				{{ getAchTag(ach, row) }}
 			</div>
 		</div>
 	</div>
 	<div class="upgrade" style="height: auto; margin-top: 30px">
 		<div
 			:class="
-				player.achievements.includes(
-					achievements[temp.select_ach[0]][temp.select_ach[1]].id,
-				)
+				player.achievements.includes(getTempSelectedAch().id)
 					? 'autobuyer_bought'
 					: 'autobuyer'
 			"
@@ -58,12 +59,15 @@ const a = computed(() => {
 		>
 			<p style="font-size: 10px">
 				<b
-					>{{ temp.select_ach[0] + 1 }}-{{ temp.select_ach[1] + 1 }}&nbsp;{{
-						achievements[temp.select_ach[0]][temp.select_ach[1]].title
-					}}</b
+					>{{
+						getAchTag(
+							[String(temp.select_ach[1]), getTempSelectedAch()],
+							[temp.select_ach[0]],
+						)
+					}}&nbsp;{{ getTempSelectedAch().title }}</b
 				>
 			</p>
-			<p>{{ achievements[temp.select_ach[0]][temp.select_ach[1]].desc }}</p>
+			<p v-if="showSelectedAchievementsDesc()">{{ getTempSelectedAch().desc }}</p>
 			<p>奖励：1成就点</p>
 		</div>
 	</div>
