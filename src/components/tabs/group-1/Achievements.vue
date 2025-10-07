@@ -65,9 +65,6 @@ const numberdisplay = () => {
 					}}</b
 				>
 			</p>
-			<p>{{ player.achievements.includes(
-					achievements[temp.select_ach[0]][temp.select_ach[1]].id,
-				) || !(achievements[temp.select_ach[0]][temp.select_ach[1]].secret ?? false) ? achievements[temp.select_ach[0]][temp.select_ach[1]].desc : '???' }}</p>
 			<p>奖励：1成就点</p>
 		</div>
 	</div>
