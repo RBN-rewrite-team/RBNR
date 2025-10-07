@@ -15,7 +15,7 @@ function diluteAmount(id: IntClosedRange<0, 8>): number | boolean {
 	return player.hydra.dilute.solvent[id];
 } //没办法导入
 
-export abstract class Upgrade {
+export class Upgrade {
 	currency: Currencies = Currencies.NUMBER;
 
 	description: string | (() => string) = '数值获取×114514';
@@ -47,7 +47,7 @@ export abstract class Upgrade {
 		return getCurrency(this.currency).gte(cost);
 	}
 }
-export abstract class UpgradeWithEffect<T = any> extends Upgrade {
+export class UpgradeWithEffect<T = any> extends Upgrade {
 	effect(): T {
 		throw new ReferenceError('Undefined effect');
 	}
