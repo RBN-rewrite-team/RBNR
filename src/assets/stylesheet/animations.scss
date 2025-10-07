@@ -1,0 +1,46 @@
+
+@keyframes large {
+	0% {
+		transform: scale(1);
+		color: var(--title-color);
+		text-shadow: #c9c9c9 1px 1px 2px;
+	}
+	100% {
+		transform: scale(1.8);
+		color: #ff6a11;
+		text-shadow: #db8f63 1px 1px 2px;
+	}
+}
+
+@-webkit-keyframes large {
+	0% {
+		transform: scale(1);
+		color: var(--title-color);
+		text-shadow: #c9c9c9 1px 1px 2px;
+	}
+	100% {
+		transform: scale(1.8);
+		color: #ff6a11;
+		text-shadow: #db8f63 1px 1px 2px;
+	}
+}
+@keyframes chapter {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes chapterDelay {
+	0% {
+		opacity: 0;
+	}
+	40% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
