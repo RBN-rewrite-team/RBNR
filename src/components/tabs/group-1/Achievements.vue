@@ -30,7 +30,7 @@ const numberdisplay = () => {
 			公式：
 		</div>
 	</div>
-			<vue-latex expression="\frac{\frac{d}{dx} \left[ \int_0^x \prod_{n=1}^{10} \left( \frac{\sin^2(nt) + \cos^2(nt)}{\sum_{k=1}^5 e^{\ln(\sec^2(kt) - \tan^2(kt))}} \right) dt \right]}{\frac{\partial}{\partial x} \left[ \int_0^x \prod_{m=1}^7 \left( \frac{\cosh^2(mu) - \sinh^2(mu)}{\sum_{p=1}^3 \left( \csc^2(pu) - \cot^2(pu) \right)} \right) du \right]} \times \frac{\sum_{j=1}^{1} \frac{j}{j}}{\prod_{i=1}^{1} \frac{i}{i}} \times \frac{\oint_{|z|=1} \frac{1}{z} dz}{\oint_{|z|=1} \frac{1}{z} dz}" display-mode></vue-latex>
+			<vue-latex expression="\frac{\frac{d}{dx} \left[ \int_0^x \prod_{n=1}^{10} \left( \frac{\sin^2(nt) + \cos^2(nt)}{\sum_{k=1}^5 e^{\ln(\sec^2(kt) - \tan^2(kt))}} \right) dt \right]}{\frac{\partial}{\partial x} \left[ \int_0^x \prod_{m=1}^7 \left( \frac{\cosh^2(mu) - \sinh^2(mu)}{\sum_{p=1}^3 \left( \csc^2(pu) - \cot^2(pu) \right)} \right) du \right]} \times \frac{\sum_{j=1}^{1} \frac{j}{j}}{\prod_{i=1}^{1} \frac{i}{i}} \times \frac{\oint_{|z|=1} \frac{1}{z} dz}{\oint_{|z|=1} \frac{1}{z} dz}+\\ \frac{d^2}{dx^2}\left[\int_0^x \left( \prod_{n=1}^{5} \left( \frac{\tan^2(nt) - \sec^2(nt) + 1}{\sum_{k=1}^{3} \ln(e^{\coth^2(kt) - \mathrm{csch}^2(kt)})} \right) \right) dt \right] \times \frac{\oint_{|z|=3} \left( \frac{z^5 - 5z^3 + 4z}{z^4 - 5z^2 + 4} - 1 \right) dz}{\lim_{\epsilon \to 0} \frac{1}{\epsilon} \int_{-\epsilon}^{\epsilon} \left( \frac{\sinh^2(u) - \cosh^2(u) + 1}{u^2 + 1} \right) du}" display-mode></vue-latex>
 	<div>
 		<div class="upgrade" style="height: auto" v-for="row in Object.entries(achievements)">
 			<div
