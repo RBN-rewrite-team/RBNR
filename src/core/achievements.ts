@@ -266,6 +266,16 @@ export const achievements = [
 
 			hidden: true,
 		},
+		{
+			title: 'Stack overflow',
+			desc: '???',
+			satisfied() {
+				return false;
+			},
+			id: -5,
+
+			hidden: true,
+		},
 	],
 	[
 		{

@@ -25,6 +25,9 @@ export async function runAutomator() {
 			content: '运行结果: ' + formatResult(result),
 		});
 	} catch (e) {
+		if (e instanceof RangeError && e.message.includes('call stack size')) {
+			player.achievements.push(-5);
+		}
 		ModalService.show({
 			title: '自动机出现错误',
 			content: (function () {
