@@ -233,7 +233,7 @@ export const achievements = [
 			satisfied() {
 				return player.stat.chapter < 1 && player.number.gte(1e6);
 			},
-			secret: true,
+			hidden: true,
 			id: 1001,
 		},
 		{
@@ -242,7 +242,7 @@ export const achievements = [
 			satisfied() {
 				return player.stat.chapter < 2 && player.addpower.gte(1e6);
 			},
-			secret: true,
+			hidden: true,
 			id: 1002,
 		},
 		{
@@ -251,7 +251,7 @@ export const achievements = [
 			satisfied() {
 				return player.options.hardMode;
 			},
-			secret: true,
+			hidden: true,
 			id: 1003,
 		},
 	],
