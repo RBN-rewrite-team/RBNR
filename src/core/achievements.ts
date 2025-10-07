@@ -268,11 +268,21 @@ export const achievements = [
 		},
 		{
 			title: 'Stack overflow',
-			desc: '???',
+			desc: '在自动机里产生任何形式的Range error maxinum call stack exceeded',
 			satisfied() {
 				return false;
 			},
 			id: -5,
+
+			hidden: true,
+		},
+		{
+			title: '666拜谢被反转了',
+			desc: '在启用颜色反转时点击拜谢',
+			satisfied() {
+				return false;
+			},
+			id: -6,
 
 			hidden: true,
 		},
