@@ -59,11 +59,16 @@ const numberdisplay = () => {
 		>
 			<p style="font-size: 10px">
 				<b
-					>{{ temp.select_ach[0] + 1 }}-{{ temp.select_ach[1] + 1 }}&nbsp;{{
-						achievements[temp.select_ach[0]][temp.select_ach[1]].title
-					}}</b
+					>{{
+						getAchTag(
+							[String(temp.select_ach[1]), getTempSelectedAch()],
+							[temp.select_ach[0]],
+						)
+					}}&nbsp;{{ getTempSelectedAch().title }}</b
 				>
 			</p>
+			<p v-if="showSelectedAchievementsDesc()">{{ getTempSelectedAch().desc }}</p>
+
 			<p>奖励：1成就点</p>
 		</div>
 	</div>
