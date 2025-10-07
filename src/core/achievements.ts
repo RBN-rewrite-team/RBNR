@@ -237,12 +237,52 @@ export const achievements = [
 			hidden: true,
 		},
 		{
-			title: '',
-			desc: '',
+			title: 'Literal',
+			desc: '按字面意思操作',
 			satisfied() {
 				return false;
 			},
 			id: -2,
+
+			hidden: true,
+		},
+		{
+			title: "I'll happily smith some temporary runes for you.",
+			desc: '获得2天的加速时间',
+			satisfied() {
+				return player.timeshard.tf.gte(172800000);
+			},
+			id: -3,
+
+			hidden: true,
+		},
+		{
+			title: 'ψ(Ω<sup>ψ(Ω<sup>7</sup>)</sup>)',
+			desc: '获得10天的加速时间',
+			satisfied() {
+				return player.timeshard.tf.gte(864000000);
+			},
+			id: -4,
+
+			hidden: true,
+		},
+		{
+			title: 'Stack overflow',
+			desc: '在自动机里产生任何形式的Range error maxinum call stack exceeded',
+			satisfied() {
+				return false;
+			},
+			id: -5,
+
+			hidden: true,
+		},
+		{
+			title: '666拜谢被反转了',
+			desc: '在启用颜色反转时点击拜谢',
+			satisfied() {
+				return false;
+			},
+			id: -6,
 
 			hidden: true,
 		},
