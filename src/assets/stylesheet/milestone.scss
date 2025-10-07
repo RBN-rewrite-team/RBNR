@@ -1,0 +1,45 @@
+
+.milestone1 {
+	display: flex;
+	width: 100%;
+	margin-top: 10px;
+	font-size: 16px;
+	text-align: center;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+}
+
+.milestone_button1 {
+	position: relative;
+	display: block;
+	width: 300px;
+	height: 50px;
+	padding: 0px 4px;
+	margin: 6px 0px;
+	background-color: var(--background-color);
+	border: 2px solid #ffa1a1;
+	text-align: center;
+	line-height: 24px;
+}
+
+.milestone_button1:hover {
+	background-color: var(--red-hover-color);
+}
+
+.milestone_button1_bought {
+	position: relative;
+	display: block;
+	width: 300px;
+	height: 50px;
+	padding: 0px 4px;
+	margin: 6px 0px;
+	background-color: #83ec70;
+	border: 2px solid #169500;
+	text-align: center;
+	line-height: 24px;
+}
+
+.milestone_button1_bought:hover {
+	background-color: #4bd433;
+}
