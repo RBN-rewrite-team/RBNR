@@ -29,6 +29,7 @@ export const achievements = [
 			satisfied() {
 				return player.number.gte(1) || player.stat.chapter >= 0;
 			},
+			secret: false,
 			id: 0,
 		},
 		{
@@ -37,6 +38,7 @@ export const achievements = [
 			satisfied() {
 				return Successor.autoSuccessPerSecond().gt(0) || player.stat.chapter >= 1;
 			},
+			secret: false,
 			id: 1,
 		},
 		{
@@ -45,6 +47,7 @@ export const achievements = [
 			satisfied() {
 				return player.stat.chapter >= 1;
 			},
+			secret: false,
 			id: 2,
 		},
 		{
@@ -53,6 +56,7 @@ export const achievements = [
 			satisfied() {
 				return player.stat.chapter >= 2 || player.buyables[21].gte(1);
 			},
+			secret: false,
 			id: 3,
 		},
 		{
@@ -61,6 +65,7 @@ export const achievements = [
 			satisfied() {
 				return player.stat.chapter >= 2 || player.upgrades[25];
 			},
+			secret: false,
 			id: 4,
 		},
 		{
@@ -69,6 +74,7 @@ export const achievements = [
 			satisfied() {
 				return player.stat.chapter >= 2;
 			},
+			secret: false,
 			id: 5,
 		},
 		{
@@ -77,6 +83,7 @@ export const achievements = [
 			satisfied() {
 				return player.stat.chapter >= 3 || player.upgrades[31];
 			},
+			secret: false,
 			id: 6,
 		},
 		{
@@ -87,6 +94,7 @@ export const achievements = [
 					player.stat.chapter >= 4 || player.buyables[11].add(buyables[11].more()).gte(50)
 				);
 			},
+			secret: false,
 			id: 7,
 		},
 	],
@@ -100,6 +108,7 @@ export const achievements = [
 					player.buyables[11].add(buyables[11].more()).gte(100)
 				);
 			},
+			secret: false,
 			id: 8,
 		},
 		{
@@ -119,6 +128,7 @@ export const achievements = [
 						.gte(1)
 				);
 			},
+			secret: false,
 			id: 9,
 		},
 		{
@@ -127,6 +137,7 @@ export const achievements = [
 			satisfied() {
 				return player.stat.chapter >= 4 || player.number.gte(1e8);
 			},
+			secret: false,
 			id: 10,
 		},
 		{
@@ -135,6 +146,7 @@ export const achievements = [
 			satisfied() {
 				return player.stat.chapter >= 4 || player.upgrades[35];
 			},
+			secret: false,
 			id: 11,
 		},
 		{
@@ -143,6 +155,7 @@ export const achievements = [
 			satisfied() {
 				return player.stat.chapter >= 4 || player.upgrades[36];
 			},
+			secret: false,
 			id: 12,
 		},
 		{
@@ -151,6 +164,7 @@ export const achievements = [
 			satisfied() {
 				return player.stat.chapter >= 4 || player.upgrades[37];
 			},
+			secret: false,
 			id: 13,
 		},
 		{
@@ -159,6 +173,7 @@ export const achievements = [
 			satisfied() {
 				return player.stat.chapter >= 4 || player.upgrades[38];
 			},
+			secret: false,
 			id: 14,
 		},
 		{
@@ -167,6 +182,7 @@ export const achievements = [
 			satisfied() {
 				return player.stat.chapter >= 4 || player.buyables['pf19'].gte(1);
 			},
+			secret: false,
 			id: 15,
 		},
 	],
@@ -177,6 +193,7 @@ export const achievements = [
 			satisfied() {
 				return player.stat.chapter >= 4 || player.number.gte(DC.D_2P256);
 			},
+			secret: false,
 			id: 16,
 		},
 		{
@@ -185,6 +202,7 @@ export const achievements = [
 			satisfied() {
 				return player.stat.chapter >= 4 || player.upgrades[39];
 			},
+			secret: false,
 			id: 17,
 		},
 		{
@@ -193,6 +211,7 @@ export const achievements = [
 			satisfied() {
 				return player.stat.chapter >= 4 || player.buyables['33R'].gte(1);
 			},
+			secret: false,
 			id: 18,
 		},
 		{
@@ -201,6 +220,7 @@ export const achievements = [
 			satisfied() {
 				return player.stat.chapter >= 3;
 			},
+			secret: false,
 			id: 19,
 		},
 	],
@@ -213,6 +233,7 @@ export const achievements = [
 				return player.numbertheory.visiting == 9;
 			},
 			id: -1,
+			secret: false,
 			hidden: true,
 		},
 		{
@@ -222,6 +243,7 @@ export const achievements = [
 				return false;
 			},
 			id: -2,
+			secret: false,
 			hidden: true,
 		},
 	],
