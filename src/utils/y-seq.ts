@@ -36,6 +36,7 @@ export function getYSequenceWithoutColon(Y: string): {
 }
 
 // https://naruyoko.github.io/MEGAwhYmountain/
+// https://naruyoko.github.io/StudyAndExpandSequence/
 
 /*
 MIT License
@@ -437,6 +438,593 @@ function flattenMountain(m: Mountain): Record<string, Mountain> {
 	}
 	return r;
 }
+
+//展开
+
+function cloneMountain(mountain: Mountain): Mountain {
+  const newMountain = Object.assign({}, mountain);
+  if (mountain.dim === 0) {
+    const leafMountain = newMountain as LeafMountain;
+    leafMountain.coord = leafMountain.coord.slice(0);
+    leafMountain.leftLegCoord = leafMountain.leftLegCoord && leafMountain.leftLegCoord.slice(0);
+    leafMountain.rightLegCoord = leafMountain.rightLegCoord && leafMountain.rightLegCoord.slice(0);
+    return leafMountain;
+  } else {
+    const nodeMountain = newMountain as NodeMountain;
+    nodeMountain.arr = nodeMountain.arr.map(cloneMountain);
+    nodeMountain.coord = nodeMountain.coord.slice(0);
+    return nodeMountain;
+  }
+}
+
+function getBadRoot(s: string | Mountain): Mountain | null {
+  let mountain: Mountain;
+  if (typeof s === "string") mountain = calcMountain(s);
+  else mountain = s;
+  
+  const lastPosition = getLastPosition(mountain);
+  const highestNode = findHighestWithPosition(mountain, lastPosition);
+  
+  if (!highestNode) return null;
+  
+  return leftLeg(mountain as NodeMountain, highestNode);
+}
+
+function filterEmpty(mountain: Mountain): Mountain {
+  if (mountain.dim > 0) {
+    for (let i = (mountain as NodeMountain).arr.length - 1; i >= 0; i--) {
+      filterEmpty((mountain as NodeMountain).arr[i]);
+      if ((mountain as NodeMountain).arr[i].dim > 0 && ((mountain as NodeMountain).arr[i] as NodeMountain).arr.length === 0) {
+        (mountain as NodeMountain).arr.slice(i, 1);
+      }
+    }
+  }
+  return mountain;
+}
+
+function findHighestWithPositionBelow(m: Mountain, sub: Mountain, position: number): Mountain | null {
+  let crawlIndex = indexFromCoord(m, sub.coord, sub.dim);
+  if (!crawlIndex) return null;
+  
+  while (true) {
+    crawlIndex[crawlIndex.length - 1]--;
+    while (crawlIndex.length > 0 && crawlIndex[crawlIndex.length - 1] < 0) {
+      crawlIndex.pop();
+      if (crawlIndex.length === 0) break;
+      crawlIndex[crawlIndex.length - 1]--;
+    }
+    if (crawlIndex.length === 0) break;
+    
+    const node = findByIndex(m, crawlIndex);
+    if (node) {
+      const result = findHighestWithPosition(node, position);
+      if (result) return result;
+    }
+  }
+  return null;
+}
+
+function expand(
+  s: string | Mountain, 
+  n: number, 
+  legBasedAscension: boolean = false, 
+  stringify: boolean = true
+): string | Mountain {
+  let mountain: Mountain;
+  if (typeof s === "string") mountain = calcMountain(s);
+  else mountain = s;
+  
+  const result = cloneMountain(mountain);
+  const badRoot = getBadRoot(mountain);
+  const cutPosition = getLastPosition(mountain);
+  const topCut = findHighestWithPosition(mountain, cutPosition);
+  
+  if (!topCut) {
+    throw new Error("Cannot find top cut");
+  }
+  
+  let cutLookup: Mountain | null = topCut;
+  while (cutLookup) {
+    const parentRow = findByCoord(result, cutLookup.coord, 1) as NodeMountain;
+    parentRow.arr.pop();
+    cutLookup = rightLeg(result as NodeMountain, cutLookup as LeafMountain);
+  }
+  
+  filterEmpty(result);
+  
+    const belowCopyStackBase: Array<[Mountain, Mountain, Mountain | null, number, boolean]> = [];
+    const aboveCopyStackBase: Array<[Mountain, Mountain]> = [];
+    
+  if (badRoot) {
+    const badRootPosition = (badRoot as LeafMountain).position;
+    const badRootRow = findByCoord(mountain, badRoot.coord, 1) as NodeMountain;
+    
+    let bottomCut: Mountain = mountain;
+    while ((bottomCut as NodeMountain).dim > 1) {
+      bottomCut = (bottomCut as NodeMountain).arr[0];
+    }
+    bottomCut = (bottomCut as NodeMountain).arr[(bottomCut as NodeMountain).arr.length - 1];
+    
+    const topCutIndex = indexFromCoord(mountain, topCut.coord);
+    if (!topCutIndex) {
+      throw new Error("Cannot find top cut index");
+    }
+    
+    let crawlIndex = topCutIndex.slice(0, -1);
+    while (true) {
+      crawlIndex[crawlIndex.length - 1]--;
+      while (crawlIndex.length > 0 && crawlIndex[crawlIndex.length - 1] < 0) {
+        crawlIndex.pop();
+        if (crawlIndex.length === 0) break;
+        crawlIndex[crawlIndex.length - 1]--;
+      }
+      if (crawlIndex.length === 0) break;
+      
+      const sourceSubMountain = findByIndex(mountain, crawlIndex);
+      const destSubMountain = findByIndex(result, crawlIndex);
+      if (sourceSubMountain && destSubMountain) {
+        belowCopyStackBase.push([sourceSubMountain, destSubMountain, null, 0, false]);
+      }
+    }
+    
+    crawlIndex = topCutIndex.slice(0, -1);
+    const initialMountain = findByIndex(mountain, crawlIndex);
+    if (initialMountain && indexFromCoord(result, initialMountain.coord, 1)) {
+      while (true) {
+        const sourceSubMountain = findByIndex(mountain, crawlIndex);
+        const destSubMountain = findByIndex(result, crawlIndex);
+        if (sourceSubMountain && destSubMountain) {
+          aboveCopyStackBase.unshift([sourceSubMountain, destSubMountain]);
+        }
+        
+        crawlIndex[crawlIndex.length - 1]++;
+        const parentMountain = findByIndex(mountain, crawlIndex.slice(0, -1));
+        while (crawlIndex.length > 0 && parentMountain && 
+               crawlIndex[crawlIndex.length - 1] >= (parentMountain as NodeMountain).arr.length) {
+          crawlIndex.pop();
+          if (crawlIndex.length === 0) break;
+          crawlIndex[crawlIndex.length - 1]++;
+        }
+        if (crawlIndex.length === 0) break;
+      }
+    }
+  }
+  
+  let debugout = "";
+  const subCutCache: Record<string, Mountain | null> = {};
+  const subBadRootCache: Record<string, Mountain | null> = {};
+  const subBadRootRowCache: Record<string, NodeMountain | null> = {};
+  const topNodeCache: Record<string, Mountain | null> = {};
+  const isAscendingCache: Record<string, boolean> = {};
+  
+  for (let i = 0; i <= n && badRoot; i++) { // iteration
+    for (let x = i === 0 ? cutPosition : (badRoot as LeafMountain).position + 1; x < cutPosition + (i < n ? 1 : 0); x++) {
+      let nodeBelow: LeafMountain | null = null;
+      const belowCopyStack = belowCopyStackBase.slice(0);
+      
+      while (belowCopyStack.length) {
+        const popItem = belowCopyStack.pop()!;
+        const sourceSubMountain = popItem[0];
+        const destSubMountain = popItem[1];
+        const cleanCopySource = popItem[2];
+        const cleanCopyOffset = popItem[3];
+        const ignoreBelow = popItem[4];
+        
+        const sourceSubMountainID = sourceSubMountain.coord.join(",") + "," + sourceSubMountain.dim;
+        
+        if (subCutCache[sourceSubMountainID] === undefined) {
+          const subCut = findHighestWithPosition(sourceSubMountain, cutPosition);
+          const subBadRoot = findHighestWithPosition(sourceSubMountain, (badRoot as LeafMountain).position);
+          const subBadRootRow = subBadRoot ? findByCoord(sourceSubMountain, subBadRoot.coord, 1) as NodeMountain : null;
+          
+          subCutCache[sourceSubMountainID] = subCut;
+          subBadRootCache[sourceSubMountainID] = subBadRoot;
+          subBadRootRowCache[sourceSubMountainID] = subBadRootRow;
+        }
+        
+        const subCut = subCutCache[sourceSubMountainID];
+        const subBadRoot = subBadRootCache[sourceSubMountainID];
+        const subBadRootRow = subBadRootRowCache[sourceSubMountainID];
+        
+        const sourceSubMountainAndPositionID = sourceSubMountainID + "," + x;
+        
+        if (topNodeCache[sourceSubMountainAndPositionID] === undefined) {
+          const topNode = findHighestWithPosition(sourceSubMountain, x);
+          topNodeCache[sourceSubMountainAndPositionID] = topNode;
+          
+          if (!topNode) continue;
+          
+          if (legBasedAscension) {
+            const nodeInSubBadRootRow = subBadRootRow ? findHighestWithPosition(subBadRootRow, x) : null;
+            let currentNode = nodeInSubBadRootRow;
+            while (currentNode && currentNode.position > (badRoot as LeafMountain).position) {
+              const leftLegPosition = currentNode.leftLegCoord ? sumArray(currentNode.leftLegCoord) : currentNode.position - 1;
+              currentNode = findHighestWithPosition(subBadRootRow!, leftLegPosition);
+            }
+            const isAscending = currentNode && currentNode.position === (badRoot as LeafMountain).position;
+            isAscendingCache[sourceSubMountainAndPositionID] = isAscending;
+          } else {
+            const referenceRow = (subBadRootRow && subBadRootRow.coord[1] && 
+              findByCoord(sourceSubMountain, addCoord(subBadRootRow.coord, 1, -1), 1) as NodeMountain) ?? subBadRootRow;
+            let nodeInReferenceRow = referenceRow ? findHighestWithPosition(referenceRow, x) : null;
+            while (nodeInReferenceRow && nodeInReferenceRow.position > (badRoot as LeafMountain).position) {
+              nodeInReferenceRow = parent(referenceRow!, nodeInReferenceRow);
+            }
+            const isAscending = nodeInReferenceRow && nodeInReferenceRow.position === (badRoot as LeafMountain).position;
+            isAscendingCache[sourceSubMountainAndPositionID] = isAscending;
+          }
+        } else {
+          const topNode = topNodeCache[sourceSubMountainAndPositionID];
+          if (!topNode) continue;
+          const isAscending = isAscendingCache[sourceSubMountainAndPositionID];
+        }
+        
+        const topNode = topNodeCache[sourceSubMountainAndPositionID]!;
+        const isAscending = isAscendingCache[sourceSubMountainAndPositionID];
+        
+        if (sourceSubMountain.dim === 1) {
+          const position = x + (cutPosition - (badRoot as LeafMountain).position) * i;
+          const sourceNode = findHighestWithPosition(cleanCopySource ?? sourceSubMountain, x) as LeafMountain;
+          
+          let sourceLeftLegPosition = sourceNode.leftLegCoord ? sumArray(sourceNode.leftLegCoord) : -1;
+          const leftLegPosition = sourceLeftLegPosition >= (badRoot as LeafMountain).position ? 
+            sourceLeftLegPosition + (cutPosition - (badRoot as LeafMountain).position) * i : sourceLeftLegPosition;
+          
+          const nodeLeftDown = findHighestWithPositionBelow(result, destSubMountain, leftLegPosition);
+          const leftLegCoord = nodeLeftDown ? nodeLeftDown.coord : null;
+          const rightLegCoord = nodeBelow ? nodeBelow.coord : null;
+          
+          if (nodeBelow) {
+            if (leftLegCoord && equalVector(leftLegCoord, rightLegCoord!, 1)) {
+              const leftLegIndex = indexFromCoord(result, leftLegCoord);
+              if (leftLegIndex) {
+                nodeBelow.parentIndex = leftLegIndex[leftLegIndex.length - 1];
+              }
+            } else {
+              nodeBelow.parentIndex = -1;
+            }
+          }
+          
+          nodeBelow = {
+            dim: 0,
+            value: NaN,
+            position: position,
+            coord: addCoord(destSubMountain.coord, 0, position - sumArray(destSubMountain.coord)),
+            parentIndex: -1,
+            forcedParent: sourceNode.forcedParent,
+            leftLegCoord: leftLegCoord,
+            rightLegCoord: rightLegCoord
+          } as LeafMountain;
+          
+          (destSubMountain as NodeMountain).arr.push(nodeBelow);
+        } else {
+          const subCutHeight = (subCut ? subCut.coord[sourceSubMountain.dim - 1] : 0) || 0;
+          const subBadRootHeight = (subBadRoot ? subBadRoot.coord[sourceSubMountain.dim - 1] : 0) || 0;
+          const topNodeHeight = topNode.coord[sourceSubMountain.dim - 1] || 0;
+          
+          if (isAscending) {
+            if (cleanCopySource) {
+              let generationsFromSubBadRoot = 0;
+              const nodeInCleanCopySource = findHighestWithPosition(cleanCopySource, x) as LeafMountain;
+              
+              if (nodeInCleanCopySource.leftLegCoord) {
+                let lowAncestorNode: Mountain | null = nodeInCleanCopySource;
+                while (lowAncestorNode && (lowAncestorNode as LeafMountain).position > (badRoot as LeafMountain).position) {
+                  lowAncestorNode = findHighestWithPosition(cleanCopySource, sumArray((lowAncestorNode as LeafMountain).leftLegCoord!));
+                  generationsFromSubBadRoot++;
+                }
+              } else {
+                generationsFromSubBadRoot = x - (badRoot as LeafMountain).position;
+              }
+              
+              const lastReplacedCut = findHighestWithPosition(destSubMountain, (badRoot as LeafMountain).position + (cutPosition - (badRoot as LeafMountain).position) * i);
+              const lastReplacedCutHeight = (lastReplacedCut ? lastReplacedCut.coord[sourceSubMountain.dim - 1] : 0) || 0;
+              const targetHeight = i === 0 ? topNodeHeight : lastReplacedCutHeight + generationsFromSubBadRoot - cleanCopyOffset;
+              
+              if (ignoreBelow) {
+                while ((destSubMountain as NodeMountain).arr.length < targetHeight + 1) {
+                  (destSubMountain as NodeMountain).arr.push({
+                    dim: (destSubMountain as NodeMountain).dim - 1,
+                    arr: [],
+                    coord: addCoord(destSubMountain.coord, (destSubMountain as NodeMountain).dim - 1, (destSubMountain as NodeMountain).arr.length)
+                  } as NodeMountain);
+                }
+                
+                for (let j = targetHeight; j >= 0; j--) {
+                  belowCopyStack.push([
+                    (sourceSubMountain as NodeMountain).arr[subBadRootHeight],
+                    (destSubMountain as NodeMountain).arr[j],
+                    cleanCopySource,
+                    Math.max(j - lastReplacedCutHeight + cleanCopyOffset, 0),
+                    true
+                  ]);
+                }
+              } else {
+                if (!lastReplacedCut || cleanCopyOffset) throw new Error("Something went wrong");
+                
+                while ((destSubMountain as NodeMountain).arr.length < targetHeight + 1) {
+                  (destSubMountain as NodeMountain).arr.push({
+                    dim: (destSubMountain as NodeMountain).dim - 1,
+                    arr: [],
+                    coord: addCoord(destSubMountain.coord, (destSubMountain as NodeMountain).dim - 1, (destSubMountain as NodeMountain).arr.length)
+                  } as NodeMountain);
+                }
+                
+                for (let j = targetHeight; j >= 0; j--) {
+                  if (j < subBadRootHeight) {
+                    belowCopyStack.push([
+                      (sourceSubMountain as NodeMountain).arr[j],
+                      (destSubMountain as NodeMountain).arr[j],
+                      null, 0, false
+                    ]);
+                  } else {
+                    belowCopyStack.push([
+                      (sourceSubMountain as NodeMountain).arr[subBadRootHeight],
+                      (destSubMountain as NodeMountain).arr[j],
+                      cleanCopySource,
+                      Math.max(j - lastReplacedCutHeight + cleanCopyOffset, 0),
+                      j > subBadRootHeight
+                    ]);
+                  }
+                }
+              }
+            } else {
+              if (cleanCopyOffset) throw new Error("Something went wrong");
+              
+              if (ignoreBelow) {
+                const lastReplacedCut = findHighestWithPosition(destSubMountain, (badRoot as LeafMountain).position + (cutPosition - (badRoot as LeafMountain).position) * i);
+                const lastReplacedCutHeight = (lastReplacedCut ? lastReplacedCut.coord[sourceSubMountain.dim - 1] : 0) || 0 ;
+                
+                if (!lastReplacedCut && cleanCopyOffset) throw new Error("Something went wrong");
+                
+                const targetHeight = i === 0 ? topNodeHeight : lastReplacedCutHeight + topNodeHeight;
+                
+                while ((destSubMountain as NodeMountain).arr.length < targetHeight - subBadRootHeight + 1) {
+                  (destSubMountain as NodeMountain).arr.push({
+                    dim: (destSubMountain as NodeMountain).dim - 1,
+                    arr: [],
+                    coord: addCoord(destSubMountain.coord, (destSubMountain as NodeMountain).dim - 1, (destSubMountain as NodeMountain).arr.length)
+                  } as NodeMountain);
+                }
+                
+                for (let j = targetHeight; j >= subBadRootHeight; j--) {
+                  if (j < lastReplacedCutHeight + subBadRootHeight + (sourceSubMountain.dim === 2 ? 1 : 0)) {
+                    belowCopyStack.push([
+                      (sourceSubMountain as NodeMountain).arr[subBadRootHeight],
+                      (destSubMountain as NodeMountain).arr[j - subBadRootHeight],
+                      subBadRootRow!,
+                      0,
+                      true
+                    ]);
+                  } else {
+                    belowCopyStack.push([
+                      (sourceSubMountain as NodeMountain).arr[j - lastReplacedCutHeight],
+                      (destSubMountain as NodeMountain).arr[j - subBadRootHeight],
+                      null,
+                      0,
+                      !!((j === lastReplacedCutHeight ? 1 : 0) + subBadRootHeight)
+                    ]);
+                  }
+                }
+              } else {
+                while ((destSubMountain as NodeMountain).arr.length < topNodeHeight + (subCutHeight - subBadRootHeight) * i + 1) {
+                  (destSubMountain as NodeMountain).arr.push({
+                    dim: (destSubMountain as NodeMountain).dim - 1,
+                    arr: [],
+                    coord: addCoord(destSubMountain.coord, (destSubMountain as NodeMountain).dim - 1, (destSubMountain as NodeMountain).arr.length)
+                  } as NodeMountain);
+                }
+                
+                for (let j = topNodeHeight + (subCutHeight - subBadRootHeight) * i; j >= 0; j--) {
+                  if (j < subBadRootHeight) {
+                    belowCopyStack.push([
+                      (sourceSubMountain as NodeMountain).arr[j],
+                      (destSubMountain as NodeMountain).arr[j],
+                      null, 0, false
+                    ]);
+                  } else if (j < subBadRootHeight + (subCutHeight - subBadRootHeight) * i + (sourceSubMountain.dim === 2 ? 1 : 0)) {
+                    belowCopyStack.push([
+                      (sourceSubMountain as NodeMountain).arr[subBadRootHeight],
+                      (destSubMountain as NodeMountain).arr[j],
+                      subBadRootRow!,
+                      0,
+                      j > subBadRootHeight
+                    ]);
+                  } else {
+                    belowCopyStack.push([
+                      (sourceSubMountain as NodeMountain).arr[j - (subCutHeight - subBadRootHeight) * i],
+                      (destSubMountain as NodeMountain).arr[j],
+                      null,
+                      0,
+                      i !== 0 && j === subBadRootHeight + (subCutHeight - subBadRootHeight) * i
+                    ]);
+                  }
+                }
+              }
+            }
+          } else {
+            if (cleanCopySource || cleanCopyOffset || ignoreBelow) throw new Error("Something went wrong");
+            
+            while ((destSubMountain as NodeMountain).arr.length < topNodeHeight + 1) {
+              (destSubMountain as NodeMountain).arr.push({
+                dim: (destSubMountain as NodeMountain).dim - 1,
+                arr: [],
+                coord: addCoord(destSubMountain.coord, (destSubMountain as NodeMountain).dim - 1, (destSubMountain as NodeMountain).arr.length)
+              } as NodeMountain);
+            }
+            
+            for (let j = topNodeHeight; j >= 0; j--) {
+              belowCopyStack.push([
+                (sourceSubMountain as NodeMountain).arr[j],
+                (destSubMountain as NodeMountain).arr[j],
+                null, 0, false
+              ]);
+            }
+          }
+        }
+      }
+      
+      const aboveCopySourceX = x === cutPosition ? (badRoot as LeafMountain).position : x;
+      const aboveCopyStack = aboveCopyStackBase.slice(0);
+      
+      while (aboveCopyStack.length) {
+        const popItem = aboveCopyStack.pop()!;
+        const sourceSubMountain = popItem[0];
+        const destSubMountain = popItem[1];
+        const topNode = findHighestWithPosition(sourceSubMountain, aboveCopySourceX);
+        
+        if (!topNode) continue;
+        
+        if (sourceSubMountain.dim === 1) {
+          const position = x + (cutPosition - (badRoot as LeafMountain).position) * i;
+          const nodeInSourceSubMountain = topNode as LeafMountain;
+          
+          let sourceLeftLegPosition = nodeInSourceSubMountain.leftLegCoord ? sumArray(nodeInSourceSubMountain.leftLegCoord) : -1;
+          const leftLegPosition = sourceLeftLegPosition >= (badRoot as LeafMountain).position ? 
+            sourceLeftLegPosition + (cutPosition - (badRoot as LeafMountain).position) * i : sourceLeftLegPosition;
+          
+          const nodeLeftDown = findHighestWithPositionBelow(result, destSubMountain, leftLegPosition);
+          const leftLegCoord = nodeLeftDown ? nodeLeftDown.coord : null;
+          const rightLegCoord = nodeBelow ? nodeBelow.coord : null;
+          
+          if (nodeBelow) {
+            if (leftLegCoord && equalVector(leftLegCoord, rightLegCoord!, 1)) {
+              const leftLegIndex = indexFromCoord(result, leftLegCoord);
+              if (leftLegIndex) {
+                nodeBelow.parentIndex = leftLegIndex[leftLegIndex.length - 1];
+              }
+            } else {
+              nodeBelow.parentIndex = -1;
+            }
+          }
+          
+          nodeBelow = {
+            dim: 0,
+            value: NaN,
+            position: position,
+            coord: addCoord(destSubMountain.coord, 0, position - sumArray(destSubMountain.coord)),
+            parentIndex: -1,
+            forcedParent: nodeInSourceSubMountain.forcedParent,
+            leftLegCoord,
+            rightLegCoord
+          } as LeafMountain;
+          
+          (destSubMountain as NodeMountain).arr.push(nodeBelow);
+        } else {
+          const topNodeHeight = topNode?.coord[sourceSubMountain.dim - 1] ?? 0;
+          for (let j = topNodeHeight; j >= 0; j--) {
+            aboveCopyStack.push([(sourceSubMountain as NodeMountain).arr[j], (destSubMountain as NodeMountain).arr[j]]);
+          }
+        }
+      }
+    }
+  }
+  
+  let lastBottomNode: Mountain | null = result;
+  while (lastBottomNode && (lastBottomNode as NodeMountain).dim > 0) {
+    if ((lastBottomNode as NodeMountain).dim === 1) {
+      lastBottomNode = (lastBottomNode as NodeMountain).arr[(lastBottomNode as NodeMountain).arr.length - 1];
+    } else {
+      lastBottomNode = (lastBottomNode as NodeMountain).arr[0];
+    }
+  }
+  
+  const resultLength = lastBottomNode ? (lastBottomNode as LeafMountain).position : 0;
+  
+    let node: LeafMountain;
+    let aboveNode: Mountain | null = null;
+    node = findHighestWithPosition(result, 2) as LeafMountain;
+  for (let x = 0; x <= resultLength; x++) {
+    while (node) {
+      if (isNaN((node as LeafMountain).value)) {
+        if (aboveNode) {
+          const pseudoParentNode = leftLeg(result as NodeMountain, aboveNode as LeafMountain);
+          if (pseudoParentNode === null) {
+            console.log(debugout);
+            throw new Error("Mountain not complete");
+          }
+          
+          if (node.coord.length < pseudoParentNode.coord.length) {
+            console.warn("The left leg is in an awkward position from the right leg:", pseudoParentNode, node, aboveNode);
+            debugout += "Warning: The left leg is in an awkward position from the right leg " + 
+              [pseudoParentNode.coord, node.coord, aboveNode.coord].map(JSON.stringify).join(",") + "<br>";
+          } else if (node.coord.length === pseudoParentNode.coord.length) {
+            for (let i = node.coord.length - 1; i >= 0; i--) {
+              if ((i === 0 && !equalVector(node.coord, aboveNode.coord, 2)) || 
+                  node.coord[i] < pseudoParentNode.coord[i] || 
+                  (equalVector(node.coord, aboveNode.coord, i + 1) && node.coord[i] > pseudoParentNode.coord[i] + 1)) {
+                console.warn("The left leg is in an awkward position from the right leg:", pseudoParentNode, node, aboveNode);
+                debugout += "Warning: The left leg is in an awkward position from the right leg " + 
+                  [pseudoParentNode.coord, node.coord, aboveNode.coord].map(JSON.stringify).join(",") + "<br>";
+              } else if (node.coord[i] > pseudoParentNode.coord[i]) break;
+            }
+          }
+          
+          (node as LeafMountain).value = (pseudoParentNode as LeafMountain).value + (aboveNode as LeafMountain).value;
+        } else {
+          (node as LeafMountain).value = 1;
+        }
+      }
+      
+      aboveNode = node;
+      node = rightLeg(result as NodeMountain, node as LeafMountain);
+    }
+  }
+  
+  let rr: string | Mountain;
+  if (stringify) {
+    const rrArray: string[] = [];
+    if ((result as NodeMountain).arr.length) {
+      let bottomrow: Mountain = result;
+      while ((bottomrow as NodeMountain).dim > 1) {
+        bottomrow = (bottomrow as NodeMountain).arr[0];
+      }
+      
+      for (let i = 0; i < (bottomrow as NodeMountain).arr.length; i++) {
+        const leaf = (bottomrow as NodeMountain).arr[i] as LeafMountain;
+        rrArray.push(leaf.value + (leaf.forcedParent ? "v" + leaf.parentIndex : ""));
+      }
+    }
+    rr = rrArray.join(",");
+  } else {
+    rr = result;
+  }
+  
+  if (debugout) {
+    console.log(debugout);
+  }
+  
+  return rr;
+}
+
+function expandmulti(
+  s: string | Mountain, 
+  nstring: string, 
+  legBasedAscension: boolean = false,
+  maxDimensions: number = Infinity
+): string | Mountain {
+  let result = calcMountain(s, maxDimensions);
+  
+  if (result.dim > maxDimensions) {
+    const lastPosition = getLastPosition(result);
+    for (let x = 0; x <= lastPosition; x++) {
+      const node = findHighestWithPosition(result, x);
+      if (node && (node as LeafMountain).value !== 1) {
+        return "Aborted: Maximum dimensions reached.";
+      }
+    }
+  }
+  
+  const nValues = nstring.split(",");
+  for (let i of nValues) {
+    result = expand(result, +i, legBasedAscension) as Mountain;
+  }
+  
+  return result;
+}
+
+const maxLength = 20;
+window.expandmulti = expandmulti
 /**
  * 无固定底数
  */
