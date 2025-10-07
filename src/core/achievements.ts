@@ -228,7 +228,7 @@ export const achievements = [
 	[
 		{
 			title: '大数理论',
-			desc: '翻到数论研究9',
+			desc: '在解锁之前，翻到数论研究9',
 			satisfied() {
 				return player.numbertheory.visiting == 9;
 			},
