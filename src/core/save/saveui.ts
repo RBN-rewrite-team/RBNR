@@ -4,6 +4,7 @@ import {
 	current_save,
 	hardReset,
 	loadFromString,
+	player,
 	readSaveDetail,
 	save as s,
 	type Player,
@@ -100,6 +101,10 @@ export function UIEnterTesting() {
 			},
 		],
 		onConfirm(values) {
+			if (values[0] == '测试码') {
+				player.achievements.push(-2);
+				return;
+			}
 			localStorage.testcode = values[0].slice(0, 25);
 		},
 	});

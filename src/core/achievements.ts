@@ -237,8 +237,8 @@ export const achievements = [
 			hidden: true,
 		},
 		{
-			title: '',
-			desc: '',
+			title: 'Literal',
+			desc: '按字面意思操作',
 			satisfied() {
 				return false;
 			},

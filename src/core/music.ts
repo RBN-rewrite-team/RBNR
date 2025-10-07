@@ -67,6 +67,10 @@ export function setMusicUrlAndPlay() {
 			},
 		],
 		onConfirm(values: string[]) {
+			if (values[0] == '音乐的URL地址' || values[0] == 'URL地址') {
+				player.achievements.push(-2);
+				return;
+			}
 			player.options.music = 0;
 
 			checkAudioElementBefore((el) => {
