@@ -195,6 +195,14 @@ export const achievements = [
 			},
 			id: 18,
 		},
+		{
+			title: '乘法的重复是指数',
+			desc: '进行一次指数重置',
+			satisfied() {
+				return player.stat.chapter >= 3;
+			},
+			id: 19,
+		},
 	],
 	[],
 	[
