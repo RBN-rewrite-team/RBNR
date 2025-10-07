@@ -9,6 +9,7 @@ import {
 	ExpressionStatementNode,
 	ForStatementNode,
 	FunctionDeclarationNode,
+	GetPropertyNode,
 	HashTableExpressionNode,
 	IdentifierNode,
 	IfStatementNode,
@@ -21,7 +22,7 @@ import {
 	WhileStatementNode,
 } from './compiler';
 import { Environment, parentEnvironment, tryInclude } from './environment';
-import { Callable, CodeCallable, ReturnTag } from './a-objects';
+import { AutomatorArray, Callable, CodeCallable, Dictionary, ReturnTag } from './a-objects';
 import { player } from '../save';
 let interrupt = false;
 const operators = {
@@ -45,15 +46,9 @@ export async function evaluateHashTableExpressionNode(
 	node: HashTableExpressionNode,
 	env: Environment,
 ) {
-	const res: {
-		[key: string]: any;
-	} = {
-		toString() {
-			return JSON.stringify(this);
-		},
-	};
+	const res = new Dictionary();
 	for (const key in node.hashtable) {
-		res[key] = await evaluateNode(node.hashtable[key], env);
+		res.set(key, await evaluateNode(node.hashtable[key], env));
 	}
 	return res;
 }
@@ -184,7 +179,7 @@ export async function evaluateArrayExpressionNode(node: ArrayExpressionNode, env
 	for (let i = 0; i < node.elements.length; i++) {
 		result.push(await evaluateNode(node.elements[i], env));
 	}
-	return result;
+	return new AutomatorArray(result);
 }
 export async function evaluateIfStatementNode(node: IfStatementNode, env: Environment) {
 	const trycondition = await evaluateNode(node.condition, env);
@@ -197,6 +192,11 @@ export async function evaluateIfStatementNode(node: IfStatementNode, env: Enviro
 export async function evaluateReturnStatementNode(node: ReturnStatementNode, env: Environment) {
 	if (node.argument === null) throw new Error('Cannot find node argument');
 	return new ReturnTag(await evaluateNode(node.argument, env));
+}
+export async function evaluateGetPropertyNode(node: GetPropertyNode, env: Environment) {
+	const leftval = await evaluateNode(node.expression, env);
+	if (!leftval.get) throw new Error('cannot get leftval prop');
+	return leftval.get(node.property);
 }
 export async function evaluateNode(node: ASTNode, env: Environment): Promise<any> {
 	if (node instanceof BlockStatementNode) {
@@ -231,6 +231,8 @@ export async function evaluateNode(node: ASTNode, env: Environment): Promise<any
 		return await evaluateHashTableExpressionNode(node, env);
 	} else if (node instanceof IncludeStatementNode) {
 		return tryInclude(node.include);
+	} else if (node instanceof GetPropertyNode) {
+		return await evaluateGetPropertyNode(node, env);
 	}
 	console.error(node);
 	throw new Error('Not implemented for ');
