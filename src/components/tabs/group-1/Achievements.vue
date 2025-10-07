@@ -10,7 +10,7 @@ import { temp } from '@/core/temp-data';
 import { VueLatex } from 'vatex';
 import { computed } from 'vue';
 const numberdisplay = () => {
-	let a = player.stat.chapter >= 4 ? "<span style='color: red'>???</span>" : '数值';
+	let a = player.stat.chapter >= 4 ? "<span style='color: red'>所有推演速度</span>" : '数值';
 	return a;
 };
 </script>
@@ -18,14 +18,14 @@ const numberdisplay = () => {
 <template>
 	<div style="height: 20px"></div>
 	<div class="upgrade" style="height: 20px">
-		<div style="width: 400px; line-height: 20px">
+		<div style="width: 500px; line-height: 20px">
 			你有&nbsp;{{ player.achievements.length }}&nbsp;成就点
 		</div>
 	</div>
 	<div class="upgrade" style="min-height: 30px">
-		<div style="width: 250px; line-height: 30px">
+		<div style="width: 450px; line-height: 30px">
 			成就点使<span v-html="numberdisplay()"></span>获取
-			<div style="display: inline; font-weight: bold; color: #169500">×1.000</div>
+			<div style="display: inline; font-weight: bold; color: #169500">^1.0000</div>
 			<br />
 			公式：
 		</div>
