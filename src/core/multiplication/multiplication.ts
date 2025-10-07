@@ -182,6 +182,23 @@ export const Multiplication = {
 				return player.singularity.stage < 6;
 			}
 		})(),
+		'310': new (class U210 extends Upgrade {
+			description = '乘法能量获取^1.1';
+			cost = new Decimal(1e50);
+			name = 'U2-10';
+			currency: Currencies = Currencies.MULTIPLICATION_POWER;
+			requirements() {
+				return [
+					new CurrencyRequirement(Currencies.MULTIPLICATION_POWER, new Decimal(1e50)),
+				];
+			}
+			keep() {
+				return player.upgrades['451q'] && !player.exponention.logarithm.in_dilate;
+			}
+			show() {
+				return player.singularity.stage < 6;
+			}
+		})(),
 	} as const,
 	buyables: {
 		'31': new (class B21 extends Buyable<Decimal> {
@@ -363,6 +380,7 @@ export const Multiplication = {
 		if (player.exponention.logarithm.in_dilate) {
 			base = base.add(10).iteratedlog(Math.E, Logarithm.dilateNerf().div(2).toNumber());
 		}
+		if (player.upgrades[310]) base = base.pow(1.1);
 
 		if (
 			player.singularity.enabled ||

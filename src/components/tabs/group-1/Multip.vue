@@ -35,6 +35,9 @@ import TDBuyable from '../../group-2/TDBuyable.vue';
 						<TDBuyable bylid="32" />
 						<TDBuyable bylid="33" />
 					</tr>
+					<tr>
+						<TDUpgrade upgid="310" />
+					</tr>
 				</tbody>
 			</table>
 		</div>
