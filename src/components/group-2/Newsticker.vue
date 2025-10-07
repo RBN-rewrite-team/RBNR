@@ -2,6 +2,7 @@
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
 // import { player } from '@/saves/index'
 import news from '@/core/news-data';
+import { component as convertTextToComponent } from '../tabs/help/text-to-component-convert';
 
 interface NewsMessage {
 	id: string;
@@ -107,7 +108,7 @@ const scrollMessage = () => {
 const onLineClick = () => {
 	const updatedText = currentNews.value?.onClick?.();
 	if (updatedText && line.value) {
-		line.value.innerHTML = updatedText;
+		currentnewstext.value = updatedText;
 	}
 };
 
@@ -120,11 +121,14 @@ onBeforeUnmount(() => {
 	document.removeEventListener('visibilitychange', restart);
 	clearAllTimers();
 });
+const currentnewstext = ref('新闻未加载');
 </script>
 
 <template>
 	<div class="news-ticker" ref="ticker">
-		<span ref="line" class="news-line news-ticker__line" @click="onLineClick" />
+		<span ref="line" class="news-line news-ticker__line" @click="onLineClick"
+			><convertTextToComponent :text="currentnewstext" />
+		</span>
 	</div>
 </template>
 

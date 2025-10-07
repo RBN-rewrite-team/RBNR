@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { component as convertTextToComponent } from '../help/text-to-component-convert';
+
 const props = defineProps<{
 	name: string;
 	image: string;
@@ -13,15 +15,9 @@ const props = defineProps<{
 				<div class="chara_pic" :style="{ 'background-image': image }"></div>
 				<span class="chara_name" v-html="name"></span>
 
-				<div
-					class="main"
-					v-html="
-						text.replace(
-							/<\$bx>/g,
-							'<img src=\'/baixie.png\' style=\'aspect-ratio: 1/1; height: 1em; position: relative; top: 2px\' />',
-						)
-					"
-				></div>
+				<div class="main">
+					<convertTextToComponent :text="text" />
+				</div>
 			</div>
 		</td>
 	</tr>

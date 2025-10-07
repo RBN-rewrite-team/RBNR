@@ -3,6 +3,7 @@
  * \( \)会被转换成latex公式
  * \n会被转换成<br />
  */
+import Baixie from '@/components/group-2/Baixie.vue';
 import { VueLatex } from 'vatex';
 import { defineComponent, type PropType } from 'vue';
 import type { JSX } from 'vue/jsx-runtime';
@@ -16,7 +17,7 @@ export default function convertTextToComponent(text2: string): JSX.Element {
 	let keyCounter = 0;
 
 	// 更精确的正则表达式，避免匹配部分公式
-	const regex = /(\\\([^]*?\\\)|\\\[[^]*?\\\]|\n|===)/;
+	const regex = /(\\\([^]*?\\\)|\\\[[^]*?\\\]|\n|===|<\$bx>)/;
 
 	const processPart = (part: string) => {
 		if (!part) return;
@@ -42,6 +43,10 @@ export default function convertTextToComponent(text2: string): JSX.Element {
 		// 处理换行符
 		else if (part === '\n') {
 			elements.push(<br key={`br-${keyCounter}`} />);
+		}
+		// 处理<$bx>
+		else if (part === '<$bx>') {
+			elements.push(<Baixie key={`bx-${keyCounter}`} />);
 		}
 		// 处理 hr 符号
 		else if (part === '===') {
