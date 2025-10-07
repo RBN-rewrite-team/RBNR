@@ -391,6 +391,7 @@ export const Hydra = {
 					.root(10)
 					.pow(player.upgrades[623] ? 2 : 1)
 					.pow(player.upgrades[628] ? 2 : 1)
+					.pow(player.upgrades[6213] ? 3 : 1)
 					.min(1e10);
 			}
 			effectDescription(): string {
@@ -408,6 +409,7 @@ export const Hydra = {
 			effect(): Decimal {
 				let base = new Decimal(1.05);
 				if (player.upgrades[623]) base = base.pow(2);
+				if (player.upgrades[6214]) base = base.pow(1.25);
 				return base;
 			}
 			effectDescription(): string {
@@ -511,6 +513,24 @@ export const Hydra = {
 			description = '转生~轮回不重置任何东西，且轮回效果+50%';
 			cost = new Decimal('1e64');
 			name = 'U5-2-12';
+			currency: Currencies = Currencies.COMP_HYDRA;
+			show(): boolean {
+				return player.retribution == 1;
+			}
+		})(),
+		'6213': new (class extends Upgrade {
+			description = 'U5-2-1的效果变为其立方';
+			cost = new Decimal('1e80');
+			name = 'U5-2-13';
+			currency: Currencies = Currencies.COMP_HYDRA;
+			show(): boolean {
+				return player.retribution == 1;
+			}
+		})(),
+		'6214': new (class extends Upgrade {
+			description = 'U5-2-2的效果变为其1.25次方';
+			cost = new Decimal('1.115e115');
+			name = 'U5-2-14';
 			currency: Currencies = Currencies.COMP_HYDRA;
 			show(): boolean {
 				return player.retribution == 1;

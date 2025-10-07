@@ -2,8 +2,8 @@ import ModalService from '@/utils/Modal';
 import { Callable } from './a-objects';
 import { formatResult } from '.';
 import { Call } from './lexer';
-import { player } from "../global"
-import Decimal from "break_eternity.js"
+import { player } from '../global';
+import Decimal from 'break_eternity.js';
 
 export class Environment {
 	parent: Environment | null = null;
@@ -71,17 +71,17 @@ const delayf = new DelayFunction();
 const toStringFunction = new ToStringFunction();
 const maxFunction = new (class MaxFunction extends Callable {
 	async call(env: Environment, ...args: any[]) {
-		let max = new Decimal(-Infinity)
+		let max = new Decimal(-Infinity);
 		for (const number of args) {
-		  max = max.max(number)
+			max = max.max(number);
 		}
 	}
 })();
 const minFunction = new (class MinFunction extends Callable {
 	async call(env: Environment, ...args: any[]) {
-		let min = new Decimal(Infinity)
+		let min = new Decimal(Infinity);
 		for (const number of args) {
-		  min = min.min(number)
+			min = min.min(number);
 		}
 	}
 })();
@@ -100,10 +100,10 @@ const setFunction = new (class SetFunction extends Callable {
 	}
 })();
 const getPlayerData = new (class getPlayerData extends Callable {
-  async call(env: Environment, ...args: any[]) {
-    return Object.freeze(JSON.parse(JSON.stringify(player)))
-  }
-})
+	async call(env: Environment, ...args: any[]) {
+		return Object.freeze(JSON.parse(JSON.stringify(player)));
+	}
+})();
 
 const parentEnvironment = new (class extends Environment {})();
 

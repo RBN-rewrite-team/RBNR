@@ -130,25 +130,25 @@ function sumArray(s: number[]): number {
 	return r;
 }
 
-function findParents(sequence: Array<{value: number, position: number}>): number[] {
-  const parentIndices: number[] = new Array(sequence.length).fill(-1);
-  const stack: number[] = [];
-  
-  for (let i = 0; i < sequence.length; i++) {
-    while (stack.length > 0 && sequence[stack[stack.length - 1]].value >= sequence[i].value) {
-      stack.pop();
-    }
-    
-    if (stack.length > 0) {
-      parentIndices[i] = stack[stack.length - 1];
-    } else {
-      parentIndices[i] = -1;
-    }
-    
-    stack.push(i);
-  }
-  
-  return parentIndices;
+function findParents(sequence: Array<{ value: number; position: number }>): number[] {
+	const parentIndices: number[] = new Array(sequence.length).fill(-1);
+	const stack: number[] = [];
+
+	for (let i = 0; i < sequence.length; i++) {
+		while (stack.length > 0 && sequence[stack[stack.length - 1]].value >= sequence[i].value) {
+			stack.pop();
+		}
+
+		if (stack.length > 0) {
+			parentIndices[i] = stack[stack.length - 1];
+		} else {
+			parentIndices[i] = -1;
+		}
+
+		stack.push(i);
+	}
+
+	return parentIndices;
 }
 
 export function calcMountain(s: string | Array<Partial<LeafMountain> & { value: number; position: number; parentIndex: number }> | NodeMountain, maxDim: number = Infinity): Mountain {
@@ -184,7 +184,7 @@ export function calcMountain(s: string | Array<Partial<LeafMountain> & { value: 
 				arr: [],
 				coord: coordOffset.slice(0),
 			};
-		  const parentIndices = findParents(s)
+			const parentIndices = findParents(s);
 			for (let i = 0; i < s.length; i++) {
 				m.arr.push({
 					dim: 0,

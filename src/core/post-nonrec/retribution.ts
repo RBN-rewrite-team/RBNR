@@ -95,7 +95,7 @@ export const RETRIBUTION = {
 				confirmText: '确定...',
 				onConfirm() {
 					temp.retribution = 1;
-					setTimeout(function(){
+					setTimeout(function () {
 						temp.retribution = 0;
 						RETRIBUTION.reset();
 						// 类型安全不要删

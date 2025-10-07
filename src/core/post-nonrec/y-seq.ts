@@ -107,7 +107,9 @@ export const Y_SEQ = {
 				.add(logScalingRatio.mul(pExcess).mul(pExcess.sub(1)).mul(0.5));
 		}
 
-		player.hydra.compressedPower = player.hydra.compressedPower.sub(logPrice.pow10());
+		const finalCost = boughtcount.lte(1) && id == 0 ? new Decimal(0) : logPrice.pow10();
+
+		player.hydra.compressedPower = player.hydra.compressedPower.sub();
 
 		player.postnonrec.yseq.dimensions[0][id] =
 			player.postnonrec.yseq.dimensions[0][id].max(boughtcount);
@@ -121,7 +123,7 @@ export const Y_SEQ = {
 			.add(1);
 	},
 	dimensionEffect(id: 0 | 1 | 2 | 3) {
-		let boost = this.dimensionBoost(id)
+		let boost = this.dimensionBoost(id);
 		let res = player.postnonrec.yseq.dimensions[0][id]
 			.add(player.postnonrec.yseq.dimensions[1][id].floor())
 			.mul(boost);
@@ -137,7 +139,7 @@ export const Y_SEQ = {
 		if (player.upgrades[625]) {
 			boost = boost.mul(3);
 		}
-		return boost
+		return boost;
 	},
 	yseqDeduceSpeed() {
 		let base = this.dimensionEffect(0);
@@ -183,7 +185,7 @@ export const Y_SEQ = {
 	},
 	u627effect(): Decimal {
 		let base = player.hydra.deduceOrdinal[1].clampMin(1).log10().div(2);
-		if(player.upgrades[6211]) base = base.pow(3);
+		if (player.upgrades[6211]) base = base.pow(3);
 		return base;
 	},
 } as const;
