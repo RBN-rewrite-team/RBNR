@@ -15,7 +15,8 @@ DisableDevtool({
     next();
   },
   rewriteHTML: "111",
-  interval: 100
+  interval: 100,
+  ignore: isDeveloper
 });
 declare global {
 	interface Window {
