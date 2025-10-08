@@ -17,7 +17,9 @@ export async function runAutomator() {
 	try {
 		const result = await compileAndEvaluate(
 			player.automator.code,
-			new Environment(parentEnvironment),
+			new (class extends Environment {
+				nodeclarecheck: boolean = false;
+			})(parentEnvironment),
 		);
 
 		ModalService.show({

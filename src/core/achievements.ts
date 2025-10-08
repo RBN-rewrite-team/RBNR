@@ -223,6 +223,15 @@ export const achievements = [
 
 			id: 19,
 		},
+		{
+			title: '2指数能量',
+			desc: '获得1e1233乘法能量',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.multiplication.mulpower.gte('1e1233');
+			},
+
+			id: 20,
+		},
 	],
 	[],
 	[

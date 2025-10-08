@@ -339,6 +339,18 @@ export const OrdinalNT = {
 				return player.milestones.nonrec_8;
 			}
 		})(),
+		'621R': new (class extends Upgrade {
+			description = 'x<sub>4</sub>加成压缩九头蛇能量';
+			cost = new Decimal('1e1000');
+			currency: Currencies = Currencies.HYDRA_POWER;
+			name = 'U5-R1-2-1';
+			keep() {
+				return player.milestones.nonrec_8;
+			}
+			show() {
+				return player.retribution >= 1;
+			}
+		})(),
 	} as const,
 	initMechanics() {},
 	varExp(id = 'x', layer = 3): Decimal {

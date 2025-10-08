@@ -63,11 +63,12 @@ export async function evaluateFunctionDeclarationNode(
 }
 export async function evaluateForStatementNode(node: ForStatementNode, env: Environment) {
 	const variabledeclaration = node.init;
-	if (!variabledeclaration) throw new Error('Cannot found Variable Declaration of for statement');
+	if (!variabledeclaration)
+		throw new ReferenceError('Cannot found Variable Declaration of for statement');
 	const condition = node.test;
 	const increment = node.update;
-	if (!condition) throw new Error('cannot found test statement');
-	if (!increment) throw new Error('cannot found update statement');
+	if (!condition) throw new ReferenceError('cannot found test statement');
+	if (!increment) throw new ReferenceError('cannot found update statement');
 	let r = null;
 	for (
 		await evaluateAssignmentNode(variabledeclaration, env);
@@ -139,14 +140,18 @@ export async function evaluateBinaryExpressionNode(node: BinaryExpressionNode, e
 		if (node.operator === '+') return left + right;
 	}
 	console.error(node);
-	throw new Error('Binary Expression Invalid');
+	throw new SyntaxError('Binary Expression Invalid');
 }
 
 export async function evaluateAssignmentNode(
 	node: VariableDeclarationNode | AssignmentNode,
 	env: Environment,
 ): Promise<any> {
-	if (node.expression === null) throw new Error('Received null expression');
+	if (node instanceof VariableDeclarationNode) {
+		env.adddeclare(node.identifierName);
+		if (node.expression === null) return;
+	}
+	if (node.expression === null) throw new ReferenceError('Received null expression');
 	const rightvalue = await evaluateNode(node.expression, env);
 	env.set(node.identifierName, rightvalue);
 	return rightvalue;
@@ -167,11 +172,12 @@ export async function evaluateCallExpressionNode(node: CallExpressionNode, env: 
 	// 		throw new Error('cannot call Function');
 	// 	return await leftval(...argsevaluated);
 	// }
-	throw new Error('left Value is not callable');
+	throw new TypeError('left Value is not callable');
 }
 export function evaluateIdentifierNode(node: IdentifierNode, env: Environment) {
 	const trytest = env.get(node.name);
-	if (trytest === null || trytest === undefined) throw new Error('Cannot found ' + node.name);
+	if (trytest === null || trytest === undefined)
+		throw new ReferenceError('Cannot found ' + node.name);
 	return trytest;
 }
 export async function evaluateArrayExpressionNode(node: ArrayExpressionNode, env: Environment) {
@@ -266,4 +272,6 @@ declare global {
 	}
 }
 window.compileAndEvaluate = compileAndEvaluate;
-window.env1 = new Environment(parentEnvironment);
+window.env1 = new (class extends Environment {
+	nodeclarecheck: boolean = false;
+})(parentEnvironment);
