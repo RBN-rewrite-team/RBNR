@@ -1,9 +1,9 @@
 import Decimal from 'break_eternity.js';
-import { expandmulti, calcMountain, findByCoord, findByIndex } from "./y-expand.js"
-import type { Mountain, NodeMountain, LeafMountain } from "./y-expand.js"
+import { wYexpand, calcMountain, findByCoord, findByIndex } from './y-expand.js';
+import type { Mountain, NodeMountain, LeafMountain } from './y-expand.js';
 
-export { expandmulti, calcMountain, findByCoord, findByIndex }
-export type { Mountain, NodeMountain, LeafMountain }
+export { wYexpand, calcMountain, findByCoord, findByIndex };
+export type { Mountain, NodeMountain, LeafMountain };
 
 export function getYSequenceWithoutColon(Y: string): {
 	type: string;

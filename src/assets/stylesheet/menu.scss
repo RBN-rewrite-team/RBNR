@@ -1,4 +1,3 @@
-
 .menu1 {
 	width: 100px;
 	margin-top: 15px;
@@ -19,24 +18,24 @@
 	color: var(--color);
 	background-color: var(--background-color);
 	position: relative;
-    &:hover {
-        background-color: var(--hover-color);
-    }
-    &:active {
-        background-color: #c9c9c9;
-    }
-    &.focus {
-        color: #ffffff;
-        background-color: #4f4f4f;
+	&:hover {
+		background-color: var(--hover-color);
+	}
+	&:active {
+		background-color: #c9c9c9;
+	}
+	&.focus {
+		color: #ffffff;
+		background-color: #4f4f4f;
 
-        &:hover {
-            background-color: #666666;
-        }
+		&:hover {
+			background-color: #666666;
+		}
 
-        &:active {
-            background-color: #7b7b7b;
-        }
-    }
+		&:active {
+			background-color: #7b7b7b;
+		}
+	}
 }
 .menu2-newcont {
 	position: absolute;
@@ -51,7 +50,6 @@
 	margin-bottom: 10px;
 	background-color: var(--border-color);
 }
-
 
 .menu {
 	width: 100%;

@@ -6,8 +6,7 @@ function timeF(ms = 0) {
 	return s.toLocaleString();
 }
 function openHard() {
-	if(!player.options.hardMode)
-	{
+	if (!player.options.hardMode) {
 		player.options.hardMode = true;
 		player.timeshard.value = player.timeshard.value.add(1000);
 	}
@@ -33,11 +32,10 @@ function openHard() {
 					启用：{{ player.timeshard.openTf ? '开' : '关' }}
 				</button>
 			</span>
-			<button
-				class="setting_button"
-				@click="openHard"
-			>
-				获得1000时间碎片，但进入困难模式。{{ player.options.hardMode ? '(已锁定)' : '(未开启)' }}<br>
+			<button class="setting_button" @click="openHard">
+				获得1000时间碎片，但进入困难模式。{{
+					player.options.hardMode ? '(已锁定)' : '(未开启)'
+				}}<br />
 				困难模式没做完。
 			</button>
 			<table>
