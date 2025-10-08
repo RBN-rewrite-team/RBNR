@@ -63,7 +63,7 @@ export class Dictionary<K = any, V extends {} = any> {
 		let res = '(';
 		for (let a of this.mapEntries()) {
 			if (a[1] instanceof Dictionary) {
-				let q = '...';
+				let q = '{...}';
 				let pass = true;
 				if (parent) {
 					for (let i = 0; i < (parent.length ?? 0); i++) {
