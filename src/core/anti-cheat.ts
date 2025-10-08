@@ -4,6 +4,9 @@ import ModalService from '@/utils/Modal';
 import type { Player } from './save';
 import Decimal from 'break_eternity.js';
 import { OrdinalUtils } from '@/utils/ordinal';
+import DisableDevtool from 'disable-devtool';
+
+DisableDevtool();
 declare global {
 	interface Window {
 		game: object;
