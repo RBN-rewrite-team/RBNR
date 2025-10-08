@@ -18,7 +18,7 @@ export class Environment {
 	get(key: string): any {
 		let res = this.map.get(key) ?? this.parent?.get?.(key);
 		if (res === undefined && !this.nodeclarecheck && !this.declared.has(key)) {
-			throw new Error('未声明变量');
+			throw new ReferenceError('未声明变量');
 		}
 		return res;
 	}
@@ -26,7 +26,7 @@ export class Environment {
 		//检测当前或上游环境是否有readonly key
 		if (this.readonlykey(key)) throw new Error('Cannot set to readonly object');
 		if (!this.nodeclarecheck && !this.declared.has(key)) {
-			throw new Error('赋值前先声明变量');
+			throw new ReferenceError('赋值前先声明变量');
 		}
 		return this.map.set(key, value);
 	}
@@ -72,7 +72,7 @@ class DelayFunction extends Callable {
 class ToStringFunction extends Callable {
 	call(env: Environment, ...args: any[]) {
 		if (args.length == 0 || args.length >= 2) {
-			throw new Error('1 argument required, but no or more arguments');
+			throw new TypeError('1 argument required, but no or more arguments');
 		}
 		return args[0].toString();
 	}
@@ -101,7 +101,7 @@ const getFunction = new (class GetFunction extends Callable {
 		if (args[0].get) {
 			return args[0].get(args[1]);
 		}
-		throw new Error('cannot get index of non-gettable');
+		throw new ReferenceError('cannot get index of non-gettable');
 	}
 })();
 const setFunction = new (class SetFunction extends Callable {
@@ -109,7 +109,7 @@ const setFunction = new (class SetFunction extends Callable {
 		if (args[0].set) {
 			return args[0].set(args[1], args[2]);
 		}
-		throw new Error('cannot set index of non-settable');
+		throw new ReferenceError('cannot set index of non-settable');
 	}
 })();
 const getPlayerData = new (class getPlayerData extends Callable {
@@ -140,6 +140,6 @@ export function tryInclude(pkg: string) {
 		parentEnvironment.isReadonly = true;
 		return;
 	}
-	throw new Error('Cannot find package ' + pkg);
+	throw new ReferenceError('Cannot find package ' + pkg);
 }
 export { parentEnvironment };

@@ -1,3 +1,4 @@
+import { ACompilieError, ALexerError, AParserError } from './a-errors.ts';
 import AutomatorLexer from './lexer.ts';
 import parserInstance, { AutomatorParser } from './parser.ts';
 import Decimal from 'break_eternity.js';
@@ -271,7 +272,7 @@ class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 		} else if (ctx.includeStatement) {
 			return this.visit(ctx.includeStatement);
 		}
-		throw new Error('Unknown statement type');
+		throw new ACompilieError('Unknown statement type');
 	}
 
 	variableDeclaration(ctx: any) {
@@ -358,7 +359,7 @@ class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 			const right = this.visit(ctx.assignmentExpression[0]);
 
 			if (left.type !== 'Identifier') {
-				throw new Error('Left side of assignment must be an identifier');
+				throw new ACompilieError('Left side of assignment must be an identifier');
 			}
 
 			return new AssignmentNode((left as IdentifierNode).name, right);
@@ -552,7 +553,7 @@ class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 		}
 
 		console.log(ctx);
-		throw new Error('Unknown primary expression');
+		throw new ACompilieError('Unknown primary expression');
 	}
 
 	arrayElements(ctx: any) {
@@ -613,7 +614,7 @@ function parseAndConvertToAst(code: string) {
 	const lexResult = AutomatorLexer.tokenize(code);
 
 	if (lexResult.errors.length > 0) {
-		throw new Error('词法分析出错：' + lexResult.errors.map((e) => e.message).join(', '));
+		throw new ALexerError('词法分析出错：' + lexResult.errors.map((e) => e.message).join(', '));
 	}
 
 	const parser = new AutomatorParser();
@@ -621,7 +622,7 @@ function parseAndConvertToAst(code: string) {
 	const cst = parser.program();
 
 	if (parser.errors.length > 0) {
-		throw new Error('语法解析出错：' + parser.errors.map((e) => e.message).join(', '));
+		throw new AParserError('语法解析出错：' + parser.errors.map((e) => e.message).join(', '));
 	}
 
 	const visitor = new CstToAstVisitor();
