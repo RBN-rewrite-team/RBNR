@@ -540,7 +540,10 @@ import HelpContent from './HelpContent';
 					expression="\mathrm{1st}(1-)^{(1,0)}1=\mathrm{1st}\{\varepsilon_0, \varepsilon_1, \varepsilon_2,\cdots\}=\varphi(1,0)"
 				></vue-latex>
 				<vue-latex display-mode expression="(1-)^{(1,1)}1=\varepsilon_\omega"></vue-latex>
-				<vue-latex display-mode expression="(1-)^{(2,0)}1=\zeta_0"></vue-latex>
+				<vue-latex
+					display-mode
+					expression="(1-)^{(2,0)}1=\varepsilon_{\varepsilon_0}"
+				></vue-latex>
 				<p>
 					我们发现我们还在走Velben函数的旅程，所以我们使用<vue-latex
 						expression="\Pi_2"
@@ -592,7 +595,7 @@ import HelpContent from './HelpContent';
 				<p>
 					我们上述得到的<vue-latex
 						expression="(1-)^\alpha2"
-					/>集合里的序数都是非容许序数。我们想问，是否有一个序数既是容许序数，也是容许序数集合的容许点里的序数？
+					/>集合里的序数都是非容许序数。我们想问，是否有一个序数既是容许序数，也是容许序数集合的极限点里的序数？
 				</p>
 				<p>
 					这个序数就是前文提过的<vue-latex
