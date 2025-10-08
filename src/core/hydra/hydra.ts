@@ -360,7 +360,12 @@ export const Hydra = {
 			cost = new Decimal('1e1000');
 			name = 'U5-5';
 			show(): boolean {
-				return player.milestones.nonrec_5 || Dilute.diluteAmount(6) || Hydra.pUnlock(3);
+				return (
+					player.milestones.nonrec_5 ||
+					Dilute.diluteAmount(6) ||
+					Hydra.pUnlock(3) ||
+					player.retribution >= 1
+				);
 			}
 			keep() {
 				return player.milestones.nonrec_5;

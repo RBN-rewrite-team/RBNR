@@ -53,6 +53,7 @@ import NonRecursionUNOCF from './components/tabs/nonrecursion/NonRecursionUNOCF.
 
 import Retribution from './components/tabs/group-1/Retribution.vue';
 import RetributionAnimation from './components/tabs/group-1/RetributionAnimation.vue';
+import DeveloperMode from './components/tabs/devonly/DeveloperMode.vue';
 </script>
 
 <template>
@@ -109,6 +110,7 @@ import RetributionAnimation from './components/tabs/group-1/RetributionAnimation
 				<PlotTab v-if="player.currentTab === 200" />
 				<SaveBank v-if="player.currentTab === 300" />
 				<MiniGame v-if="player.currentTab === 1225" />
+				<DeveloperMode v-if="player.currentTab === 500" />
 			</div>
 		</div>
 	</div>
