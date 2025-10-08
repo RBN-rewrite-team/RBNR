@@ -6,6 +6,10 @@ import type Decimal from 'break_eternity.js';
 
 export class Callable {
 	async call(env: Environment, ...args: any[]): Promise<any> {}
+
+	toString() {
+		return `[javascript function]`;
+	}
 }
 export class CodeCallable extends Callable {
 	body: BlockStatementNode;
@@ -25,6 +29,9 @@ export class CodeCallable extends Callable {
 		this.body = body.body;
 		this.node = body;
 	}
+	toString(): string {
+		return `function`;
+	}
 }
 
 export class ReturnTag<T> {
@@ -34,13 +41,15 @@ export class ReturnTag<T> {
 	}
 }
 
-export class Dictionary<K = any, V = any> {
+export class Dictionary<K = any, V extends {} = any> {
 	keymap: Map<K, V> = new Map();
+	readonly: boolean = false;
 	get(key: any) {
 		console.log(this.keymap, key);
 		return this.keymap.get(key);
 	}
 	set(key: any, value: any) {
+		if (this.readonly) throw new Error('Cannot set to readonly Dictionary');
 		return this.keymap.set(key, value);
 	}
 	has(key: any) {
@@ -50,10 +59,28 @@ export class Dictionary<K = any, V = any> {
 	mapEntries() {
 		return this.keymap.entries();
 	}
-	toString() {
+	toString(parent?: any[]) {
 		let res = '(';
 		for (let a of this.mapEntries()) {
-			res = res.concat(`${a[0]}=>${a[1]},`);
+			if (a[1] instanceof Dictionary) {
+				let q = '{recursion object}';
+				let pass = true;
+				if (parent) {
+					for (let i = 0; i < (parent.length ?? 0); i++) {
+						if (parent[i] === a[1]) {
+							pass = false;
+							break;
+						}
+					}
+				}
+				if (pass) {
+					q = a[1].toString((parent ?? []).concat([this]));
+				}
+
+				res = res.concat(`${a[0]}=>${q},`);
+			} else {
+				res = res.concat(`${a[0]}=>${a[1].toString()},`);
+			}
 		}
 		res = res.slice(0, -1) + ')';
 		return res;

@@ -12,7 +12,6 @@ import examplecode from './examplecode.rbnr.txt?raw';
 const emit = defineEmits<{
 	(e: 'update:code', code: string): void;
 }>();
-
 const editorRef = ref<HTMLDivElement>();
 const highlightRef = ref<HTMLDivElement>();
 const gutterRef = ref<HTMLDivElement>();
@@ -351,7 +350,6 @@ onMounted(() => {
 		自动机<br />
 		<div class="toolbar">
 			<button class="clickable_button" @click="runAutomator">运行</button>
-			<button class="clickable_button" @click="formatCode">格式化</button>
 			<button class="clickable_button" @click="clearCode">清空</button>
 			<button class="clickable_button" @click="undo" :disabled="historyIndex <= 0">
 				撤销
