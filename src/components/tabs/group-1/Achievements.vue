@@ -19,7 +19,8 @@ const numberdisplay = () => {
 	<div style="height: 20px"></div>
 	<div class="upgrade" style="height: 20px">
 		<div style="width: 500px; line-height: 20px">
-			你有&nbsp;{{ player.achievements.length }}&nbsp;成就点
+			你有&nbsp;{{ player.achievements.length }}&nbsp;成就点<br />
+			成就目前只做到了指数层级重置
 		</div>
 	</div>
 	<div class="upgrade" style="min-height: 30px">

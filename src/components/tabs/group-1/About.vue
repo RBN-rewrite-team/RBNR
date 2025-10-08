@@ -2,7 +2,7 @@
 <template>
 	<div class="main">
 		<h1>大数之路重制版</h1>
-		版本: UNOCF Beta<br />
+		版本: Retribution (介于v0.6~v0.7之间)<br />
 		<br />
 		<div style="position: relative; width: 100%">
 			<div
