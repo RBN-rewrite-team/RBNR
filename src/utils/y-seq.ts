@@ -1,8 +1,9 @@
 import Decimal from 'break_eternity.js';
 import { wYexpand, calcMountain, findByCoord, findByIndex } from './y-expand.js';
+import { expand } from './1y-expand.js';
 import type { Mountain, NodeMountain, LeafMountain } from './y-expand.js';
 
-export { wYexpand, calcMountain, findByCoord, findByIndex };
+export { calcMountain, findByCoord, findByIndex };
 export type { Mountain, NodeMountain, LeafMountain };
 
 export function getYSequenceWithoutColon(Y: string): {
@@ -378,7 +379,9 @@ export function getCurrentYMilestoneIndex(target: Decimal): number {
 	return resultIndex;
 }
 
-export const getCurrentYMilestone = (target: Decimal) => Y_Milestones[getCurrentYMilestoneIndex(target)];
+export const getCurrentYMilestone = (target: Decimal): [any, string, ...string[]] => {
+	return Y_Milestones[getCurrentYMilestoneIndex(target)];
+};
 
 export function getCurrentOrdinal(ord: Decimal): string {
 	let milestone = getCurrentYMilestone(ord);
