@@ -133,7 +133,6 @@ parentEnvironment.set('string', toStringFunction);
 parentEnvironment.set('get', getFunction);
 parentEnvironment.set('set', setFunction);
 parentEnvironment.set('player', getPlayerData);
-parentEnvironment.set('ω', new Decimal(Infinity));
 parentEnvironment.isReadonly = true;
 
 export function tryInclude(pkg: string) {
