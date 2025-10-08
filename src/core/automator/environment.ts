@@ -9,17 +9,25 @@ export class Environment {
 	parent: Environment | null = null;
 	map: Map<string, any> = new Map();
 	isReadonly: boolean = false;
+	declared: Set<string> = new Set();
+	nodeclarecheck = true;
 	constructor(parent?: Environment, readonly = false) {
 		if (parent) this.parent = parent;
 		this.isReadonly = readonly;
 	}
 	get(key: string): any {
-		return this.map.get(key) ?? this.parent?.get?.(key);
+		let res = this.map.get(key) ?? this.parent?.get?.(key);
+		if (res === undefined && !this.nodeclarecheck && !this.declared.has(key)) {
+			throw new Error('未声明变量');
+		}
+		return res;
 	}
 	set(key: string, value: any) {
 		//检测当前或上游环境是否有readonly key
 		if (this.readonlykey(key)) throw new Error('Cannot set to readonly object');
-
+		if (!this.nodeclarecheck && !this.declared.has(key)) {
+			throw new Error('赋值前先声明变量');
+		}
 		return this.map.set(key, value);
 	}
 	has(key: string): boolean {
@@ -30,6 +38,9 @@ export class Environment {
 		if (!this.parent) return false;
 
 		return this.parent.readonlykey(key);
+	}
+	adddeclare(key: string) {
+		return this.declared.add(key);
 	}
 }
 

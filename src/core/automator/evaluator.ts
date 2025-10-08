@@ -266,4 +266,6 @@ declare global {
 	}
 }
 window.compileAndEvaluate = compileAndEvaluate;
-window.env1 = new Environment(parentEnvironment);
+window.env1 = new (class extends Environment {
+	nodeclarecheck: boolean = false;
+})(parentEnvironment);
