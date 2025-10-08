@@ -11,5 +11,7 @@
     "jsx": "preserve",
     "jsxFactory": "h",
     "jsxFragmentFactory": "Fragment",
-  }
+  },
+  "allowJs": true,
+  "strict": true
 }
