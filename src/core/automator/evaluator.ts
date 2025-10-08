@@ -57,7 +57,7 @@ export async function evaluateFunctionDeclarationNode(
 	env: Environment,
 ) {
 	const callable = new CodeCallable(node);
-
+	env.adddeclare(node.name);
 	env.set(node.name, callable);
 	return callable;
 }
