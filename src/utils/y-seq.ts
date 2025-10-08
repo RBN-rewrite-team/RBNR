@@ -555,7 +555,6 @@ function expand(
       crawlIndex[crawlIndex.length - 1]--;
       while (crawlIndex.length > 0 && crawlIndex[crawlIndex.length - 1] < 0) {
         crawlIndex.pop();
-        if (crawlIndex.length === 0) break;
         crawlIndex[crawlIndex.length - 1]--;
       }
       if (crawlIndex.length === 0) break;
@@ -568,8 +567,7 @@ function expand(
     }
     
     crawlIndex = topCutIndex.slice(0, -1);
-    const initialMountain = findByIndex(mountain, crawlIndex);
-    if (initialMountain && indexFromCoord(result, initialMountain.coord, 1)) {
+    if (indexFromCoord(result, findByIndex(mountain, crawlIndex).coord, 1)) {
       while (true) {
         const sourceSubMountain = findByIndex(mountain, crawlIndex);
         const destSubMountain = findByIndex(result, crawlIndex);
@@ -597,8 +595,10 @@ function expand(
   const topNodeCache: Record<string, Mountain | null> = {};
   const isAscendingCache: Record<string, boolean> = {};
   
+  
+  const badRootPosition = (badRoot as LeafMountain).position
   for (let i = 0; i <= n && badRoot; i++) { // iteration
-    for (let x = i === 0 ? cutPosition : (badRoot as LeafMountain).position + 1; x < cutPosition + (i < n ? 1 : 0); x++) {
+    for (let x = i === 0 ? cutPosition : badRootPosition + 1; x < cutPosition + (i < n ? 1 : 0); x++) {
       let nodeBelow: LeafMountain | null = null;
       const belowCopyStack = belowCopyStackBase.slice(0);
       
@@ -614,7 +614,7 @@ function expand(
         
         if (subCutCache[sourceSubMountainID] === undefined) {
           const subCut = findHighestWithPosition(sourceSubMountain, cutPosition);
-          const subBadRoot = findHighestWithPosition(sourceSubMountain, (badRoot as LeafMountain).position);
+          const subBadRoot = findHighestWithPosition(sourceSubMountain, badRootPosition);
           const subBadRootRow = subBadRoot ? findByCoord(sourceSubMountain, subBadRoot.coord, 1) as NodeMountain : null;
           
           subCutCache[sourceSubMountainID] = subCut;
@@ -635,22 +635,21 @@ function expand(
           if (!topNode) continue;
           
           if (legBasedAscension) {
-            const nodeInSubBadRootRow = subBadRootRow ? findHighestWithPosition(subBadRootRow, x) : null;
-            let currentNode = nodeInSubBadRootRow;
-            while (currentNode && currentNode.position > (badRoot as LeafMountain).position) {
-              const leftLegPosition = currentNode.leftLegCoord ? sumArray(currentNode.leftLegCoord) : currentNode.position - 1;
-              currentNode = findHighestWithPosition(subBadRootRow!, leftLegPosition);
+            let nodeInSubBadRootRow = subBadRootRow ? findHighestWithPosition(subBadRootRow, x) : null;
+            while (nodeInSubBadRootRow && nodeInSubBadRootRow.position > badRootPosition) {
+              const leftLegPosition = nodeInSubBadRootRow.leftLegCoord ? sumArray(nodeInSubBadRootRow.leftLegCoord) : nodeInSubBadRootRow.position - 1;
+              nodeInSubBadRootRow = findHighestWithPosition(subBadRootRow!, leftLegPosition);
             }
-            const isAscending = currentNode && currentNode.position === (badRoot as LeafMountain).position;
+            const isAscending = nodeInSubBadRootRow && nodeInSubBadRootRow.position === badRootPosition;
             isAscendingCache[sourceSubMountainAndPositionID] = isAscending;
           } else {
-            const referenceRow = (subBadRootRow && subBadRootRow.coord[1] && 
-              findByCoord(sourceSubMountain, addCoord(subBadRootRow.coord, 1, -1), 1) as NodeMountain) ?? subBadRootRow;
+            const referenceRow = (subBadRootRow?.coord[1] ?
+              findByCoord(sourceSubMountain, addCoord(subBadRootRow.coord, 1, -1), 1) as NodeMountain : null) ?? subBadRootRow;
             let nodeInReferenceRow = referenceRow ? findHighestWithPosition(referenceRow, x) : null;
-            while (nodeInReferenceRow && nodeInReferenceRow.position > (badRoot as LeafMountain).position) {
+            while (nodeInReferenceRow && nodeInReferenceRow.position > badRootPosition) {
               nodeInReferenceRow = parent(referenceRow!, nodeInReferenceRow);
             }
-            const isAscending = nodeInReferenceRow && nodeInReferenceRow.position === (badRoot as LeafMountain).position;
+            const isAscending = !!nodeInReferenceRow && nodeInReferenceRow.position === badRootPosition;
             isAscendingCache[sourceSubMountainAndPositionID] = isAscending;
           }
         } else {
@@ -663,12 +662,12 @@ function expand(
         const isAscending = isAscendingCache[sourceSubMountainAndPositionID];
         
         if (sourceSubMountain.dim === 1) {
-          const position = x + (cutPosition - (badRoot as LeafMountain).position) * i;
+          const position = x + (cutPosition - badRootPosition) * i;
           const sourceNode = findHighestWithPosition(cleanCopySource ?? sourceSubMountain, x) as LeafMountain;
           
           let sourceLeftLegPosition = sourceNode.leftLegCoord ? sumArray(sourceNode.leftLegCoord) : -1;
-          const leftLegPosition = sourceLeftLegPosition >= (badRoot as LeafMountain).position ? 
-            sourceLeftLegPosition + (cutPosition - (badRoot as LeafMountain).position) * i : sourceLeftLegPosition;
+          const leftLegPosition = sourceLeftLegPosition >= badRootPosition ? 
+            sourceLeftLegPosition + (cutPosition - badRootPosition) * i : sourceLeftLegPosition;
           
           const nodeLeftDown = findHighestWithPositionBelow(result, destSubMountain, leftLegPosition);
           const leftLegCoord = nodeLeftDown ? nodeLeftDown.coord : null;
@@ -709,15 +708,15 @@ function expand(
               
               if (nodeInCleanCopySource.leftLegCoord) {
                 let lowAncestorNode: Mountain | null = nodeInCleanCopySource;
-                while (lowAncestorNode && (lowAncestorNode as LeafMountain).position > (badRoot as LeafMountain).position) {
+                while (lowAncestorNode && (lowAncestorNode as LeafMountain).position > badRootPosition) {
                   lowAncestorNode = findHighestWithPosition(cleanCopySource, sumArray((lowAncestorNode as LeafMountain).leftLegCoord!));
                   generationsFromSubBadRoot++;
                 }
               } else {
-                generationsFromSubBadRoot = x - (badRoot as LeafMountain).position;
+                generationsFromSubBadRoot = x - badRootPosition;
               }
               
-              const lastReplacedCut = findHighestWithPosition(destSubMountain, (badRoot as LeafMountain).position + (cutPosition - (badRoot as LeafMountain).position) * i);
+              const lastReplacedCut = findHighestWithPosition(destSubMountain, badRootPosition + (cutPosition - badRootPosition) * i);
               const lastReplacedCutHeight = (lastReplacedCut ? lastReplacedCut.coord[sourceSubMountain.dim - 1] : 0) || 0;
               const targetHeight = i === 0 ? topNodeHeight : lastReplacedCutHeight + generationsFromSubBadRoot - cleanCopyOffset;
               
@@ -772,7 +771,7 @@ function expand(
               if (cleanCopyOffset) throw new Error("Something went wrong");
               
               if (ignoreBelow) {
-                const lastReplacedCut = findHighestWithPosition(destSubMountain, (badRoot as LeafMountain).position + (cutPosition - (badRoot as LeafMountain).position) * i);
+                const lastReplacedCut = findHighestWithPosition(destSubMountain, badRootPosition + (cutPosition - badRootPosition) * i);
                 const lastReplacedCutHeight = (lastReplacedCut ? lastReplacedCut.coord[sourceSubMountain.dim - 1] : 0) || 0 ;
                 
                 if (!lastReplacedCut && cleanCopyOffset) throw new Error("Something went wrong");
@@ -864,7 +863,7 @@ function expand(
         }
       }
       
-      const aboveCopySourceX = x === cutPosition ? (badRoot as LeafMountain).position : x;
+      const aboveCopySourceX = x === cutPosition ? badRootPosition : x;
       const aboveCopyStack = aboveCopyStackBase.slice(0);
       
       while (aboveCopyStack.length) {
@@ -876,12 +875,12 @@ function expand(
         if (!topNode) continue;
         
         if (sourceSubMountain.dim === 1) {
-          const position = x + (cutPosition - (badRoot as LeafMountain).position) * i;
+          const position = x + (cutPosition - badRootPosition) * i;
           const nodeInSourceSubMountain = topNode as LeafMountain;
           
           let sourceLeftLegPosition = nodeInSourceSubMountain.leftLegCoord ? sumArray(nodeInSourceSubMountain.leftLegCoord) : -1;
-          const leftLegPosition = sourceLeftLegPosition >= (badRoot as LeafMountain).position ? 
-            sourceLeftLegPosition + (cutPosition - (badRoot as LeafMountain).position) * i : sourceLeftLegPosition;
+          const leftLegPosition = sourceLeftLegPosition >= badRootPosition ? 
+            sourceLeftLegPosition + (cutPosition - badRootPosition) * i : sourceLeftLegPosition;
           
           const nodeLeftDown = findHighestWithPositionBelow(result, destSubMountain, leftLegPosition);
           const leftLegCoord = nodeLeftDown ? nodeLeftDown.coord : null;
@@ -931,9 +930,9 @@ function expand(
   
   const resultLength = lastBottomNode ? (lastBottomNode as LeafMountain).position : 0;
   
-    let node: LeafMountain;
-    let aboveNode: Mountain | null = null;
-    node = findHighestWithPosition(result, 2) as LeafMountain;
+  let node: LeafMountain;
+  let aboveNode: Mountain | null = null;
+  node = findHighestWithPosition(result, 2) as LeafMountain;
   for (let x = 0; x <= resultLength; x++) {
     while (node) {
       if (isNaN((node as LeafMountain).value)) {
