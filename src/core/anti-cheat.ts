@@ -6,7 +6,7 @@ import Decimal from 'break_eternity.js';
 import { OrdinalUtils } from '@/utils/ordinal';
 import DisableDevtool from 'disable-devtool';
 
-DisableDevtool();
+DisableDevtool.md5('df17d82024bd335488f86e0c9c4ed23c');
 declare global {
 	interface Window {
 		game: object;
