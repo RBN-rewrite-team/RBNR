@@ -5,18 +5,18 @@ import type { Player } from './save';
 import Decimal from 'break_eternity.js';
 import { OrdinalUtils } from '@/utils/ordinal';
 import DisableDevtool from 'disable-devtool';
-import { isDeveloper } from "./save/testing.ts"
+import { isDeveloper } from './save/testing.ts';
 
 DisableDevtool({
-  url: 'https://www.bilibili.com/video/BV1uT4y1P7CX',
-  onDevtoolOpen(type, next) {
-    clearInterval(loopInterval);
+	onDevtoolOpen(type, next) {
+		clearInterval(loopInterval);
 
-    next();
-  },
-  rewriteHTML: "111",
-  interval: 100,
-  ignore: isDeveloper
+		next();
+	},
+	rewriteHTML: '111',
+	interval: 100,
+	md5: 'df17d82024bd335488f86e0c9c4ed23c',
+	ignore: isDeveloper,
 });
 declare global {
 	interface Window {
