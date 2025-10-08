@@ -2,7 +2,7 @@ import { createToken, Lexer } from 'chevrotain';
 
 export const Identifier = createToken({
 	name: 'Identifier',
-	pattern: /[a-zA-Z_][a-zA-Z0-9_]*/,
+	pattern: /[a-zA-Z_\x80-\uffff][a-zA-Z0-9_\x80-\uffff]*/,
 });
 
 export const Var = createToken({

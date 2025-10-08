@@ -84,8 +84,10 @@ const maxFunction = new (class MaxFunction extends Callable {
 	async call(env: Environment, ...args: any[]) {
 		let max = new Decimal(-Infinity);
 		for (const number of args) {
+			console.log(max, number);
 			max = max.max(number);
 		}
+		return max;
 	}
 })();
 const minFunction = new (class MinFunction extends Callable {
@@ -94,6 +96,7 @@ const minFunction = new (class MinFunction extends Callable {
 		for (const number of args) {
 			min = min.min(number);
 		}
+		return min;
 	}
 })();
 const getFunction = new (class GetFunction extends Callable {
@@ -130,13 +133,17 @@ parentEnvironment.set('string', toStringFunction);
 parentEnvironment.set('get', getFunction);
 parentEnvironment.set('set', setFunction);
 parentEnvironment.set('player', getPlayerData);
+parentEnvironment.set('ω', new Decimal(Infinity));
 parentEnvironment.isReadonly = true;
 
 export function tryInclude(pkg: string) {
 	if (pkg == 'math') {
+		const readonlyDictionary = new Dictionary();
+		readonlyDictionary.set('max', maxFunction);
+		readonlyDictionary.set('min', minFunction);
+		readonlyDictionary.readonly = true;
 		parentEnvironment.isReadonly = false;
-		parentEnvironment.set('max', maxFunction);
-		parentEnvironment.set('min', minFunction);
+		parentEnvironment.set('math', readonlyDictionary);
 		parentEnvironment.isReadonly = true;
 		return;
 	}

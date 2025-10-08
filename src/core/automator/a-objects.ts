@@ -6,6 +6,10 @@ import type Decimal from 'break_eternity.js';
 
 export class Callable {
 	async call(env: Environment, ...args: any[]): Promise<any> {}
+
+	toString() {
+		return `[javascript function]`;
+	}
 }
 export class CodeCallable extends Callable {
 	body: BlockStatementNode;
@@ -25,6 +29,9 @@ export class CodeCallable extends Callable {
 		this.body = body.body;
 		this.node = body;
 	}
+	toString(): string {
+		return `function`;
+	}
 }
 
 export class ReturnTag<T> {
@@ -36,11 +43,13 @@ export class ReturnTag<T> {
 
 export class Dictionary<K = any, V = any> {
 	keymap: Map<K, V> = new Map();
+	readonly: boolean = false;
 	get(key: any) {
 		console.log(this.keymap, key);
 		return this.keymap.get(key);
 	}
 	set(key: any, value: any) {
+		if (this.readonly) throw new Error('Cannot set to readonly Dictionary');
 		return this.keymap.set(key, value);
 	}
 	has(key: any) {
