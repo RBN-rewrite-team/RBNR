@@ -146,6 +146,10 @@ export async function evaluateAssignmentNode(
 	node: VariableDeclarationNode | AssignmentNode,
 	env: Environment,
 ): Promise<any> {
+	if (node instanceof VariableDeclarationNode) {
+		env.adddeclare(node.identifierName);
+		if (node.expression === null) return;
+	}
 	if (node.expression === null) throw new Error('Received null expression');
 	const rightvalue = await evaluateNode(node.expression, env);
 	env.set(node.identifierName, rightvalue);
