@@ -11,6 +11,12 @@ function openHard() {
 		player.timeshard.value = player.timeshard.value.add(1000);
 	}
 }
+function unlAuto() {
+	if (player.timeshard.value.gte(1000) && !player.timeshard.unlAuto) {
+		player.timeshard.unlAuto = true;
+		player.timeshard.value = player.timeshard.value.sub(1000);
+	}
+}
 </script>
 
 <template>
@@ -32,12 +38,25 @@ function openHard() {
 					启用：{{ player.timeshard.openTf ? '开' : '关' }}
 				</button>
 			</span>
+			<br />
 			<button class="setting_button" @click="openHard">
 				获得1000时间碎片，但进入困难模式。{{
 					player.options.hardMode ? '(已锁定)' : '(未开启)'
 				}}<br />
 				困难模式没做完。
 			</button>
+			<br />
+			<button
+				class="setting_button"
+				@click="unlAuto"
+				v-if="(player.firstResetBit & 0b10000) == 0b10000"
+			>
+				花费1000时间碎片，解锁自动机
+			</button>
+			<!-- <div v-if="player.timeshard.unlAuto">
+				<h2>自动机商店</h2>
+				<p>花费</p>
+			</div> -->
 			<table>
 				<tbody>
 					<tr>

@@ -36,7 +36,11 @@ import { RETRIBUTION } from '@/core/post-nonrec/retribution';
 							地下城
 						</div>
 					</div>
-					<div v-if="isTester() && (player.firstResetBit & 0b10000) == 0b10000">
+					<div
+						v-if="
+							player.timeshard.unlAuto && (player.firstResetBit & 0b10000) == 0b10000
+						"
+					>
 						<div
 							class="menu2"
 							:class="{ focus: player.currentTab == 167 }"

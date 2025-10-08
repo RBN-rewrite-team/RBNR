@@ -158,6 +158,7 @@ export interface Player {
 		last: FixedLengthArray<number, 3>;
 		openTf: boolean;
 		next: FixedLengthArray<number, 3>;
+		unlAuto: boolean;
 	};
 	hydra: ReturnType<typeof Hydra.playerData>;
 	nonrecu: ReturnType<typeof NON_RECURSIVE.playerData>;
@@ -302,6 +303,7 @@ function getInitialPlayerData(): Player {
 				Math.floor(Math.random() * 320 + 80),
 				Math.floor(Math.random() * 4000 + 1000),
 			],
+			unlAuto: false,
 		},
 		hydra: Hydra.playerData(),
 		nonrecu: NON_RECURSIVE.playerData(),

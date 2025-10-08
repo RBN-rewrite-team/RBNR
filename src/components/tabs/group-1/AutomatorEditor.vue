@@ -73,34 +73,34 @@ const handleKeyDown = (e: KeyboardEvent): void => {
 		e.preventDefault();
 		insertTextAtCursor('  ');
 	}
-	// Ctrl+/ 注释/取消注释
-	else if (e.key === '/' && (e.ctrlKey || e.metaKey)) {
-		e.preventDefault();
-		toggleComment();
-	}
-	// Ctrl+Z 撤销
-	else if (e.key === 'z' && (e.ctrlKey || e.metaKey) && !e.shiftKey) {
-		e.preventDefault();
-		undo();
-	}
-	// Ctrl+Y 或 Ctrl+Shift+Z 重做
-	else if (
-		(e.key === 'y' && (e.ctrlKey || e.metaKey)) ||
-		(e.key === 'z' && (e.ctrlKey || e.metaKey) && e.shiftKey)
-	) {
-		e.preventDefault();
-		redo();
-	}
-	// Ctrl+D 复制当前行
-	else if (e.key === 'd' && (e.ctrlKey || e.metaKey)) {
-		e.preventDefault();
-		duplicateLine();
-	}
-	// Ctrl+L 选择当前行
-	else if (e.key === 'l' && (e.ctrlKey || e.metaKey)) {
-		e.preventDefault();
-		selectCurrentLine();
-	}
+	// // Ctrl+/ 注释/取消注释
+	// else if (e.key === '/' && (e.ctrlKey || e.metaKey)) {
+	// 	e.preventDefault();
+	// 	toggleComment();
+	// }
+	// // Ctrl+Z 撤销
+	// else if (e.key === 'z' && (e.ctrlKey || e.metaKey) && !e.shiftKey) {
+	// 	e.preventDefault();
+	// 	undo();
+	// }
+	// // Ctrl+Y 或 Ctrl+Shift+Z 重做
+	// else if (
+	// 	(e.key === 'y' && (e.ctrlKey || e.metaKey)) ||
+	// 	(e.key === 'z' && (e.ctrlKey || e.metaKey) && e.shiftKey)
+	// ) {
+	// 	e.preventDefault();
+	// 	redo();
+	// }
+	// // Ctrl+D 复制当前行
+	// else if (e.key === 'd' && (e.ctrlKey || e.metaKey)) {
+	// 	e.preventDefault();
+	// 	duplicateLine();
+	// }
+	// // Ctrl+L 选择当前行
+	// else if (e.key === 'l' && (e.ctrlKey || e.metaKey)) {
+	// 	e.preventDefault();
+	// 	selectCurrentLine();
+	// }
 };
 
 // 在光标位置插入文本
@@ -384,12 +384,12 @@ onMounted(() => {
 				></div>
 			</div>
 		</div>
-		<div class="shortcut-hints">
+		<!-- <div class="shortcut-hints">
 			<small
 				>快捷键: Ctrl+/ 注释 | Ctrl+Z 撤销 | Ctrl+Y 重做 | Ctrl+D 复制行 | Ctrl+L
 				选择行</small
 			>
-		</div>
+		</div> -->
 		<h2>自动机语法</h2>
 		<textToComponent :text="automatorhelp" />
 		<button class="clickable_button" @click="player.automator.code = examplecode">
