@@ -41,7 +41,7 @@ export class ReturnTag<T> {
 	}
 }
 
-export class Dictionary<K = any, V = any> {
+export class Dictionary<K = any, V extends {} = any> {
 	keymap: Map<K, V> = new Map();
 	readonly: boolean = false;
 	get(key: any) {
@@ -59,10 +59,28 @@ export class Dictionary<K = any, V = any> {
 	mapEntries() {
 		return this.keymap.entries();
 	}
-	toString() {
+	toString(parent?: any[]) {
 		let res = '(';
 		for (let a of this.mapEntries()) {
-			res = res.concat(`${a[0]}=>${a[1]},`);
+			if (a[1] instanceof Dictionary) {
+				let q = '...';
+				let pass = true;
+				if (parent) {
+					for (let i = 0; i < (parent.length ?? 0); i++) {
+						if (parent[i] === a[1]) {
+							pass = false;
+							break;
+						}
+					}
+				}
+				if (pass) {
+					q = a[1].toString((parent ?? []).concat([this]));
+				}
+
+				res = res.concat(`${a[0]}=>${q},`);
+			} else {
+				res = res.concat(`${a[0]}=>${a[1].toString()},`);
+			}
 		}
 		res = res.slice(0, -1) + ')';
 		return res;
