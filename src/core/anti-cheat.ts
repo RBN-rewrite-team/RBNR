@@ -17,6 +17,7 @@ DisableDevtool({
 	interval: 100,
 	md5: 'df17d82024bd335488f86e0c9c4ed23c',
 	ignore: isDeveloper,
+	url: 'https://www.bilibili.com/video/BV1uT4y1P7CX',
 });
 declare global {
 	interface Window {
