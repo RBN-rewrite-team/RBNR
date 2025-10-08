@@ -5,15 +5,24 @@ import type { Player } from './save';
 import Decimal from 'break_eternity.js';
 import { OrdinalUtils } from '@/utils/ordinal';
 import DisableDevtool from 'disable-devtool';
+import { isDeveloper } from "./save/testing.ts"
 
-DisableDevtool.md5('df17d82024bd335488f86e0c9c4ed23c');
+DisableDevtool({
+  url: 'https://www.bilibili.com/video/BV1uT4y1P7CX',
+  onDevtoolOpen(type, next) {
+    clearInterval(loopInterval);
+
+    next();
+  },
+  rewriteHTML: "111",
+  interval: 100
+});
 declare global {
 	interface Window {
 		game: object;
 		player: Player;
 		Modal: typeof ModalService;
 		Decimal: typeof Decimal;
-		numberToBMS: typeof OrdinalUtils.numberToBMS;
 	}
 }
 
@@ -36,7 +45,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		window.player = player;
 		window.Modal = ModalService;
 		window.Decimal = Decimal;
-		window.numberToBMS = OrdinalUtils.numberToBMS.bind(OrdinalUtils);
 	}
 });
 let cheat = false;
