@@ -380,6 +380,7 @@ export function getCurrentYMilestoneIndex(target: Decimal): number {
 }
 
 export const getCurrentYMilestone = (target: Decimal): [any, string, ...string[]] => {
+	//@ts-ignore
 	return Y_Milestones[getCurrentYMilestoneIndex(target)];
 };
 
