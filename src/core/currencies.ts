@@ -18,6 +18,7 @@ export enum Currencies {
 	NONREC = 'nonrec',
 	NRT = 'nrt',
 	DEDUCE_ENERGY = 'deduce_energy',
+	TIME_SHARD = 'ts',
 }
 abstract class Currency {
 	static name: string = '未定义货币';
@@ -182,6 +183,16 @@ class NRTCurrency extends Currency {
 		return getTotalTheories().sub(player.nonrecu.spentTheories).clampMin(0);
 	}
 }
+class TimeShard extends Currency {
+	static name = '时间碎片';
+	static set current(x: Decimal) {
+		player.timeshard.value = x;
+	}
+
+	static get current() {
+		return player.timeshard.value;
+	}
+}
 const currencyMap: Map<Currencies, typeof Currency> = new Map([
 	[Currencies.NUMBER, NumberCurrency],
 	[Currencies.ADDITION_POWER, AdditionPowerCurrency],
@@ -197,6 +208,7 @@ const currencyMap: Map<Currencies, typeof Currency> = new Map([
 	[Currencies.NRT, NRTCurrency],
 	[Currencies.DEDUCE_ENERGY, DeduceEnergyCurrency],
 	[Currencies.COMP_HYDRA, CompressedHydraPowerCurrency],
+	[Currencies.TIME_SHARD, TimeShard],
 ]);
 
 export function setCurrency(currency: Currencies, value: Decimal) {

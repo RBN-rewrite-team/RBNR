@@ -25,6 +25,7 @@ import { DC } from '@/core/constants';
 import { getMCB19Effect, wgEffect } from './exponention/chessboard.ts';
 import { NON_RECURSIVE } from './nonrecu/index.ts';
 import { WellOrderingBuyables, WellOrderingUpgrades } from './ordinal/well_ordering.ts';
+import { TimeShard } from './timeshard/timeshard.ts';
 
 const upgrades = {
 	...Successor.upgrades,
@@ -40,6 +41,7 @@ const upgrades = {
 	...DiluteUpgrades,
 	...NON_RECURSIVE.upgrades,
 	...WellOrderingUpgrades,
+	...TimeShard.upgrades,
 } as const;
 const buyables = {
 	...Successor.buyables,

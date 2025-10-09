@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { player, feature } from '@/core/global';
 import { format, formatTime } from '../../../utils/format.ts';
+import TDUpgrade from '@/components/group-2/TDUpgrade.vue';
 function timeF(ms = 0) {
 	const s = new Date(ms);
 	return s.toLocaleString();
@@ -212,6 +213,21 @@ function unlAuto() {
 								</button>
 							</div>
 						</td>
+					</tr>
+					<tr>
+						<TDUpgrade upgid="ts01" />
+						<TDUpgrade upgid="ts02" />
+						<TDUpgrade upgid="ts03" />
+					</tr>
+					<tr>
+						<TDUpgrade upgid="ts11" />
+						<TDUpgrade upgid="ts12" />
+						<TDUpgrade upgid="ts13" />
+					</tr>
+					<tr>
+						<TDUpgrade upgid="ts21" />
+						<TDUpgrade upgid="ts22" />
+						<TDUpgrade upgid="ts23" />
 					</tr>
 				</tbody>
 			</table>

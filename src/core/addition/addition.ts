@@ -237,6 +237,10 @@ export const Addition = {
 
 		if (player.upgrades[41]) base = base.mul(10);
 		if (player.upgrades[47]) base = base.mul(feature.ChessBoard.wgEffect()[3]);
+		
+		if(player.upgrades.ts11 && player.stat.chapter == 1) base = base.mul(1.5);
+		if(player.upgrades.ts12) base = base.mul(1.5);
+		if(player.upgrades.ts13 && player.stat.chapter == 1) base = base.mul(2);
 
 		if (player.firstResetBit & 0b100) base = base.pow(buyables[43].effect(player.buyables[43]));
 		if (player.upgrades[47]) base = base.pow(feature.ChessBoard.wgEffect()[1]);
