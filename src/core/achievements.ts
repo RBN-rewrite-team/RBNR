@@ -20,6 +20,7 @@ export function achLoop() {
 			}
 		}
 	}
+	player.achievements = [...new Set(player.achievements)];
 }
 export const achievements = [
 	[
@@ -293,6 +294,15 @@ export const achievements = [
 			},
 			id: -6,
 
+			hidden: true,
+		},
+		{
+			title: '我刚才是不是看错了',
+			desc: '在模糊下购买研究树112右边的研究',
+			satisfied() {
+				return false;
+			},
+			id: -7,
 			hidden: true,
 		},
 	],
