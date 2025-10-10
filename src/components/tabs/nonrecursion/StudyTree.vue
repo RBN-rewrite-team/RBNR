@@ -249,7 +249,16 @@ onMounted(() => initConnectors(connectorsRef));
 						:study_id="26"
 						@update:study="updateAllConnectors"
 					/>
-					<BlankStudy />
+					<BlankStudy
+						v-if="player.retribution == 0 || player.options.ui.otherwise.blur == false"
+					/>
+					<div class="study" v-else @click="player.achievements.push(-7)">
+						<div class="study-name">113</div>
+						<div class="study-desc">
+							<div>获得Never gonna give you up</div>
+							<div>花费: Never gonna</div>
+						</div>
+					</div>
 				</div>
 				<div class="studies_row">
 					<SingleStudy
