@@ -413,6 +413,7 @@ export const Hydra = {
 			effect(): Decimal {
 				let base = new Decimal(1.05);
 				if (player.upgrades[623]) base = base.pow(2);
+				if (player.upgrades['622R']) base = base.add(upgrades['622R'].effect());
 				return base;
 			}
 			effectDescription(): string {

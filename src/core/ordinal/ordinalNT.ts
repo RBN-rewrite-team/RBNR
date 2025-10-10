@@ -1,6 +1,6 @@
 import { BUYABLES, buyables, upgrades, UPGRADES } from '../mechanic';
 import { player, feature } from '../global';
-import { format, formatWhole } from '@/utils/format';
+import { format, formatMult, formatWhole } from '@/utils/format';
 import { OrdinalUtils } from '@/utils/ordinal';
 import { Ordinal } from '@/lib/ordinal/';
 import Decimal from 'break_eternity.js';
@@ -349,6 +349,24 @@ export const OrdinalNT = {
 			}
 			show() {
 				return player.retribution >= 1;
+			}
+		})(),
+		'622R': new (class extends UpgradeWithEffect<Decimal> {
+			description = 'τ<sub>4</sub>加成U5-2-2效果';
+			cost = new Decimal('1e1260');
+			currency: Currencies = Currencies.HYDRA_POWER;
+			name = 'U5-R1-2-2';
+			keep() {
+				return player.milestones.nonrec_8;
+			}
+			show() {
+				return player.retribution >= 1;
+			}
+			effect(): Decimal {
+				return OrdinalNT.varComputed('tau', 4).clampMin(1).log10().div(10);
+			}
+			effectDescription(values: Decimal): string {
+				return '+' + format(values);
 			}
 		})(),
 	} as const,

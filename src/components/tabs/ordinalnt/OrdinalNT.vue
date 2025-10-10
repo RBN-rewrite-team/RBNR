@@ -225,6 +225,7 @@ function _g() {
 						<tr>
 							<TDUpgrade upgid="69R" />
 							<TDUpgrade upgid="621R" />
+							<TDUpgrade upgid="622R" />
 						</tr>
 					</tbody>
 				</table>
