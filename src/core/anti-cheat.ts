@@ -13,7 +13,7 @@ DisableDevtool({
 
 		next();
 	},
-	rewriteHTML: '111',
+	rewriteHTML: '检测到恶意高危行为',
 	interval: 100,
 	md5: 'df17d82024bd335488f86e0c9c4ed23c',
 	ignore: isDeveloper,
