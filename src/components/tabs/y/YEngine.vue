@@ -155,6 +155,16 @@ const dim4progress = computed(() => {
 				>
 			</div>
 		</div>
+		<div class="resetbar">
+			<div class="resets">
+				<div class="text-psd-center">
+					转生<sub>2</sub>(0.0000)<br />Y序列生产×1.0000<br />(Coming s∞n)
+				</div>
+			</div>
+			<div class="resets"><div class="text-psd-center">Coming s∞n</div></div>
+			<div class="resets"><div class="text-psd-center">Coming s∞n</div></div>
+			<div class="resets"><div class="text-psd-center">Coming s∞n</div></div>
+		</div>
 		<table align="center">
 			<tr>
 				<TDUpgrade upgid="621" />
@@ -327,5 +337,25 @@ const dim4progress = computed(() => {
 	100% {
 		transform: translateX(-50%);
 	}
+}
+.resets {
+	border: 1px solid var(--color);
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+.resetbar {
+	width: 95%;
+	margin: auto;
+	display: flex;
+	justify-content: space-around;
+	height: 90px;
+}
+.text-psd-center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 14px;
 }
 </style>
