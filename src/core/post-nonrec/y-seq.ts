@@ -147,7 +147,7 @@ export const Y_SEQ = {
 		let base = player.hydra.deduceOrdinal[1];
 		if (player.upgrades[621]) base = base.mul(upgrades[621].effect());
 		if (player.upgrades['621R']) base = base.mul(player.numbertheory.GM.x.clampMin(1));
-		return base;
+		return base.clampMax('e1e10');
 	},
 	reset() {
 		if (this.resetGain().lt(1)) return;
