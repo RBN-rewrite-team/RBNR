@@ -229,6 +229,9 @@ function unlAuto() {
 						<TDUpgrade upgid="ts22" />
 						<TDUpgrade upgid="ts23" />
 					</tr>
+					<tr>
+						<TDUpgrade upgid="ts_auto_pkg_hydra" />
+					</tr>
 				</tbody>
 			</table>
 		</div>

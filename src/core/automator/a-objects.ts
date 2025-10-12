@@ -45,7 +45,6 @@ export class Dictionary<K = any, V extends {} = any> {
 	keymap: Map<K, V> = new Map();
 	readonly: boolean = false;
 	get(key: any) {
-		console.log(this.keymap, key);
 		return this.keymap.get(key);
 	}
 	set(key: any, value: any) {

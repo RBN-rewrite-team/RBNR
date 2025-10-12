@@ -1,9 +1,11 @@
 import ModalService from '@/utils/Modal';
-import { Callable, Dictionary } from './a-objects';
+import { AutomatorArray, Callable, Dictionary } from './a-objects';
 import { formatResult } from '.';
 import { Call } from './lexer';
 import { player } from '../global';
 import Decimal from 'break_eternity.js';
+import { Hydra } from '../hydra/hydra';
+import { Dilute } from '../hydra/dilute';
 
 export class Environment {
 	parent: Environment | null = null;
@@ -135,6 +137,57 @@ parentEnvironment.set('set', setFunction);
 parentEnvironment.set('player', getPlayerData);
 parentEnvironment.isReadonly = true;
 
+const hydraResetFunction = new (class hydraReset extends Callable {
+	async call(env: Environment, ...args: any[]) {
+		if (args[0] instanceof Decimal) {
+			if (args[0].eq(0)) {
+				Hydra.hydraReset();
+				return;
+			} else if (args[0].eq(1)) {
+				Hydra.prestige(0);
+				return;
+			} else if (args[0].eq(2)) {
+				Hydra.prestige(1);
+				return;
+			} else if (args[0].eq(3)) {
+				Hydra.prestige(2);
+				return;
+			} else if (args[0].eq(4)) {
+				Hydra.prestige(3);
+				return;
+			}
+		}
+		throw new TypeError('错误的:hydra.reset参数');
+	}
+})();
+const hydraDiluteFunction = new (class hydraReset extends Callable {
+	async call(env: Environment, ...args: any[]) {
+		if (args[0] === undefined) {
+			return Dilute.diluteButton();
+		}
+		if (args[0] instanceof Decimal) {
+		}
+		throw new TypeError('错误的:hydra.dilute参数');
+	}
+})();
+const hydraDiluteSetFunction = new (class hydraReset extends Callable {
+	async call(env: Environment, ...args: any[]) {
+		if (args[0] instanceof Decimal && args[1] instanceof Decimal) {
+			if (player.hydra.dilute.inDilute) return;
+			const i = args[0].toNumber();
+			const v = args[1].toNumber();
+			if ([1, 2, 3, 4, 5, 6, 7, 8, 9].includes(i)) {
+				if (i == 7 || i == 8 || i == 9) {
+					player.hydra.dilute.solvent[i - 1] = !!v;
+				} else {
+					player.hydra.dilute.solvent[i - 1] = v;
+				}
+				return;
+			}
+		}
+		throw new TypeError('错误的:hydra.dilute参数');
+	}
+})();
 export function tryInclude(pkg: string) {
 	if (pkg == 'math') {
 		const readonlyDictionary = new Dictionary();
@@ -143,6 +196,30 @@ export function tryInclude(pkg: string) {
 		readonlyDictionary.readonly = true;
 		parentEnvironment.isReadonly = false;
 		parentEnvironment.set('math', readonlyDictionary);
+		parentEnvironment.isReadonly = true;
+		return;
+	}
+	if (pkg == 'hydra' && player.upgrades['ts_auto_pkg_hydra']) {
+		const readonlyDictionaryHydra = new (class extends Dictionary {
+			get(key: any) {
+				if (key !== 'deduces') {
+					return Dictionary.prototype.get.call(this, key);
+				}
+				if (key == 'deduces') {
+					return new AutomatorArray([player.hydra.deduceOrdinal[0].add(1).sub(1)]);
+				}
+				return undefined;
+			}
+			set(key: any, value: any) {
+				return Dictionary.prototype.set.call(this, key, value);
+			}
+		})();
+		readonlyDictionaryHydra.set('reset', hydraResetFunction);
+		readonlyDictionaryHydra.set('dilute', hydraDiluteFunction);
+		readonlyDictionaryHydra.set('diluteset', hydraDiluteSetFunction);
+		readonlyDictionaryHydra.readonly = true;
+		parentEnvironment.isReadonly = false;
+		parentEnvironment.set('hydra', readonlyDictionaryHydra);
 		parentEnvironment.isReadonly = true;
 		return;
 	}

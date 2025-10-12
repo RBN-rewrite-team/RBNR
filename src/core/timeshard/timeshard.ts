@@ -41,10 +41,13 @@ export const TimeShard = {
 		player.timeshard.value = player.timeshard.value.sub(minute);
 		player.timeshard.tf = player.timeshard.tf.add(minute * 6e4 * mul);
 	},
-	
+
 	upgrades: {
 		ts01: new (class extends Upgrade {
-			description = () => (player.stat.chapter == 0 ? 'x1.5后继批量' : '<span style="color: red; font-weight: bold">(需要在第0章)</span>');
+			description = () =>
+				player.stat.chapter == 0
+					? 'x1.5后继批量'
+					: '<span style="color: red; font-weight: bold">(需要在第0章)</span>';
 			cost = new Decimal(20);
 			name = '第0章加速包';
 			currency: Currencies = Currencies.TIME_SHARD;
@@ -62,7 +65,10 @@ export const TimeShard = {
 			}
 		})(),
 		ts03: new (class extends Upgrade {
-			description = () => (player.stat.chapter == 0 ? 'x2后继批量' : '<span style="color: red; font-weight: bold">(需要在第0章)</span>');
+			description = () =>
+				player.stat.chapter == 0
+					? 'x2后继批量'
+					: '<span style="color: red; font-weight: bold">(需要在第0章)</span>';
 			cost = new Decimal(60);
 			name = '第0章超级加速包';
 			currency: Currencies = Currencies.TIME_SHARD;
@@ -71,7 +77,10 @@ export const TimeShard = {
 			}
 		})(),
 		ts11: new (class extends Upgrade {
-			description = () => (player.stat.chapter == 1 ? 'x1.5加法能量' : '<span style="color: red; font-weight: bold">(需要在第1章)</span>');
+			description = () =>
+				player.stat.chapter == 1
+					? 'x1.5加法能量'
+					: '<span style="color: red; font-weight: bold">(需要在第1章)</span>';
 			cost = new Decimal(30);
 			name = '第1章加速包';
 			currency: Currencies = Currencies.TIME_SHARD;
@@ -89,7 +98,10 @@ export const TimeShard = {
 			}
 		})(),
 		ts13: new (class extends Upgrade {
-			description = () => (player.stat.chapter == 1 ? 'x2加法能量' : '<span style="color: red; font-weight: bold">(需要在第1章)</span>');
+			description = () =>
+				player.stat.chapter == 1
+					? 'x2加法能量'
+					: '<span style="color: red; font-weight: bold">(需要在第1章)</span>';
 			cost = new Decimal(90);
 			name = '第1章超级加速包';
 			currency: Currencies = Currencies.TIME_SHARD;
@@ -98,7 +110,10 @@ export const TimeShard = {
 			}
 		})(),
 		ts21: new (class extends Upgrade {
-			description = () => (player.stat.chapter == 2 ? 'x2乘法能量' : '<span style="color: red; font-weight: bold">(需要在第2章)</span>');
+			description = () =>
+				player.stat.chapter == 2
+					? 'x2乘法能量'
+					: '<span style="color: red; font-weight: bold">(需要在第2章)</span>';
 			cost = new Decimal(50);
 			name = '第2章加速包';
 			currency: Currencies = Currencies.TIME_SHARD;
@@ -116,7 +131,10 @@ export const TimeShard = {
 			}
 		})(),
 		ts23: new (class extends Upgrade {
-			description = () => (player.stat.chapter == 2 ? 'x3乘法能量' : '<span style="color: red; font-weight: bold">(需要在第2章)</span>');
+			description = () =>
+				player.stat.chapter == 2
+					? 'x3乘法能量'
+					: '<span style="color: red; font-weight: bold">(需要在第2章)</span>';
 			cost = new Decimal(150);
 			name = '第2章超级加速包';
 			currency: Currencies = Currencies.TIME_SHARD;
@@ -124,5 +142,14 @@ export const TimeShard = {
 				return player.stat.chapter >= 2;
 			}
 		})(),
-	},
+		ts_auto_pkg_hydra: new (class extends Upgrade {
+			description = '获得自动机hydra包，可以使用include hydra;导入';
+			cost = new Decimal(2000);
+			name = '自动机hydra包';
+			currency: Currencies = Currencies.TIME_SHARD;
+			show(): boolean {
+				return (player.firstResetBit & 0b10000) == 0b10000;
+			}
+		})(),
+	} as const,
 };

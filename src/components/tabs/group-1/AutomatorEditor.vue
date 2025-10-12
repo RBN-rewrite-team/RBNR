@@ -8,6 +8,7 @@ import { format } from '@/utils/format';
 import { component as textToComponent } from '../help/text-to-component-convert';
 import automatorhelp from './automatorhelp.txt?raw';
 import examplecode from './examplecode.rbnr.txt?raw';
+import { setInterrupt } from '@/core/automator/evaluator';
 
 const emit = defineEmits<{
 	(e: 'update:code', code: string): void;
@@ -343,6 +344,7 @@ onMounted(() => {
 	}
 	handleInput();
 });
+const interrupt = () => setInterrupt(true);
 </script>
 
 <template>
@@ -361,6 +363,7 @@ onMounted(() => {
 			>
 				重做
 			</button>
+			<button class="clickable_button" @click="interrupt">停止运行</button>
 		</div>
 		<p>
 			自动机每运行一个语句就需要耗费0.1时间碎片，你当前有
@@ -390,6 +393,17 @@ onMounted(() => {
 		</div> -->
 		<h2>自动机语法</h2>
 		<textToComponent :text="automatorhelp" />
+		<div v-if="player.upgrades['ts_auto_pkg_hydra']">
+			<div class="center_line"></div>
+			hydra包<br />使用include hydra;导入<br />
+			call :hydra.reset(0); 进行一次九头蛇能量重置<br />
+			call :hydra.reset(1); 进行一次转生<br />
+			call :hydra.reset(2); 进行一次飞升<br />
+			call :hydra.reset(3); 进行一次超越<br />
+			call :hydra.reset(4); 轮回<br />
+			call :hydra.dilute(); 进入/退出稀释<br />
+		</div>
+		<br />
 		<button class="clickable_button" @click="player.automator.code = examplecode">
 			加载示例代码
 		</button>

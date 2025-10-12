@@ -5,6 +5,7 @@ import {
 	ASTNode,
 	BinaryExpressionNode,
 	BlockStatementNode,
+	BooleanLiteralNode,
 	CallExpressionNode,
 	ExpressionStatementNode,
 	ForStatementNode,
@@ -76,6 +77,7 @@ export async function evaluateForStatementNode(node: ForStatementNode, env: Envi
 		await evaluateNode(increment, env)
 	) {
 		r = await evaluateNode(node.body, env);
+		if (interrupt) return;
 	}
 	return r;
 }
@@ -85,6 +87,7 @@ export async function evaluateWhileStatementNode(node: WhileStatementNode, env: 
 	let r = null;
 	while (await evaluateNode(condition, env)) {
 		r = await evaluateNode(body, env);
+		if (interrupt) return;
 	}
 	return r;
 }
@@ -161,6 +164,7 @@ export async function evaluateCallExpressionNode(node: CallExpressionNode, env: 
 	const argsevaluated = [];
 	for (let i = 0; i < node.arguments.length; i++) {
 		argsevaluated.push(await evaluateNode(node.arguments[i], env));
+		if (interrupt) return;
 	}
 
 	if (leftval instanceof Callable) {
@@ -184,6 +188,7 @@ export async function evaluateArrayExpressionNode(node: ArrayExpressionNode, env
 	const result = [];
 	for (let i = 0; i < node.elements.length; i++) {
 		result.push(await evaluateNode(node.elements[i], env));
+		if (interrupt) return result;
 	}
 	return new AutomatorArray(result);
 }
@@ -205,6 +210,7 @@ export async function evaluateGetPropertyNode(node: GetPropertyNode, env: Enviro
 	return leftval.get(node.property);
 }
 export async function evaluateNode(node: ASTNode, env: Environment): Promise<any> {
+	if (interrupt) return;
 	if (node instanceof BlockStatementNode) {
 		return await evaluateBlockStatement(node, env);
 	} else if (node instanceof VariableDeclarationNode || node instanceof AssignmentNode) {
@@ -239,6 +245,8 @@ export async function evaluateNode(node: ASTNode, env: Environment): Promise<any
 		return tryInclude(node.include);
 	} else if (node instanceof GetPropertyNode) {
 		return await evaluateGetPropertyNode(node, env);
+	} else if (node instanceof BooleanLiteralNode) {
+		return node.value;
 	}
 	console.error(node);
 	throw new Error('Not implemented for ');
@@ -262,7 +270,10 @@ export async function evaluateBlockStatement(
 	return result;
 }
 export async function compileAndEvaluate(code: string, env: Environment = window.env1) {
-	return await evaluateNode(parseAndConvertToAst(code), env);
+	interrupt = false;
+	let res = await evaluateNode(parseAndConvertToAst(code), env);
+	if (interrupt) interrupt = false;
+	return res;
 }
 
 declare global {
@@ -275,3 +286,7 @@ window.compileAndEvaluate = compileAndEvaluate;
 window.env1 = new (class extends Environment {
 	nodeclarecheck: boolean = false;
 })(parentEnvironment);
+
+export function setInterrupt(a: boolean) {
+	interrupt = a;
+}
