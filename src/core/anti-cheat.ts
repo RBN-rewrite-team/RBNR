@@ -1,5 +1,5 @@
 import { player } from '@/core/global.ts';
-import { loopInterval } from '@/core/game-loop';
+import { loopInterval, saveInterval } from '@/core/game-loop';
 import ModalService from '@/utils/Modal';
 import type { Player } from './save';
 import Decimal from 'break_eternity.js';
@@ -10,14 +10,15 @@ import { isDeveloper } from './save/testing.ts';
 DisableDevtool({
 	onDevtoolOpen(type, next) {
 		clearInterval(loopInterval);
+		clearInterval(saveInterval);
+		document.body.innerHTML = "检测到恶意高危行为"
 
 		next();
 	},
 	rewriteHTML: '检测到恶意高危行为',
-	interval: 100,
+	interval: 200,
 	md5: 'df17d82024bd335488f86e0c9c4ed23c',
-	ignore: isDeveloper,
-	url: 'https://www.bilibili.com/video/BV1uT4y1P7CX',
+	url: 'https://localhost',
 });
 declare global {
 	interface Window {
