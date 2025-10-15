@@ -53,7 +53,7 @@ function isZero(a: Term | number): a is [] {
 /**
  * 判断一个序数是否有限
  */
-function isFinite(a: Term): boolean {
+function isOrdinalFinite(a: Term): boolean {
 	return isZero(a) || (isZero(a[0]) && isZero(a[1]));
 }
 
@@ -275,7 +275,7 @@ function findMatrixParentTerm(matrix: Matrix, findRow: number, relativeColumn: n
 /**
  * 有哪些项的坏根是column
  */
-function countChileColumnsForColumn(matrix: Matrix, column: number): number[] {
+function countChildColumnsForColumn(matrix: Matrix, column: number): number[] {
 	const X: number[] = [];
 	for (let i = 0; i < matrix.length; i++) {
 		if (findMatrixParentTerm(matrix, 0, i) === column) {
@@ -285,18 +285,25 @@ function countChileColumnsForColumn(matrix: Matrix, column: number): number[] {
 	return X;
 }
 
-function U(matrix: Matrix, column: number): number {
+function maybeCheckOmega_omegaLikeFunction(matrix: Matrix, column: number): number {
 	/**第2项是0的matrix， 第3项是1的matrix， 和后面没了的matrix为-1（找后面的？ */
 	if (matrix[column][1] === 0 || matrix[column][2] === 1 || column + 1 === matrix.length) {
 		return -1;
 	}
 	const parentTerm = findMatrixParentTerm(matrix, 1, column);
-	const L: MatrixRow = [matrix[parentTerm][0] + 1, matrix[column][1], matrix[parentTerm][2] + 1];
+	/**
+	 * 找column父项，为[x+1, 当前列psi_x数, z+1]， 可能是找Ω_ω特殊情况
+	 */
+	const maybeCheckOmega_omega: MatrixRow = [
+		matrix[parentTerm][0] + 1,
+		matrix[column][1],
+		matrix[parentTerm][2] + 1,
+	];
 	if (
 		findMatrixParentTerm(matrix, 1, column) === findMatrixParentTerm(matrix, 1, column + 1) &&
-		matrix[column + 1][0] === L[0] &&
-		matrix[column + 1][1] === L[1] &&
-		matrix[column + 1][2] === L[2]
+		matrix[column + 1][0] === maybeCheckOmega_omega[0] &&
+		matrix[column + 1][1] === maybeCheckOmega_omega[1] &&
+		matrix[column + 1][2] === maybeCheckOmega_omega[2]
 	) {
 		return column + 1;
 	}
@@ -306,9 +313,9 @@ function U(matrix: Matrix, column: number): number {
 		if (
 			q >= 0 &&
 			findMatrixParentTerm(matrix, 1, column) === findMatrixParentTerm(matrix, 1, q) &&
-			matrix[q][0] === L[0] &&
-			matrix[q][1] === L[1] &&
-			matrix[q][2] === L[2] &&
+			matrix[q][0] === maybeCheckOmega_omega[0] &&
+			matrix[q][1] === maybeCheckOmega_omega[1] &&
+			matrix[q][2] === maybeCheckOmega_omega[2] &&
 			matrix[column + 1][0] > matrix[q][0]
 		) {
 			return q;
@@ -317,32 +324,52 @@ function U(matrix: Matrix, column: number): number {
 	return -1;
 }
 
-function v(M: Matrix, n: number): Term {
-	if (M[n][1] === 0) {
+function matrix_xthAdm(matrix: Matrix, index: number): Term {
+	// 对于[1,0]，为ω系序数，返回0
+	if (matrix[index][1] === 0) {
 		return [];
 	}
-	if (M[n][2] === 0) {
-		const u = U(M, n) >= 0 ? lastTerm3(v(M, U(M, n))) : ONE;
-		return add(v(M, findMatrixParentTerm(M, 1, n)), u);
+	// 对于[x,y,0]
+	if (matrix[index][2] === 0) {
+		// 可能是前有Ω_ω列，需要检查,比如说[0,0,0][1,1,1][2,1][3,2]
+		// 通常检查BO以下BMS u默认为1
+		const u =
+			maybeCheckOmega_omegaLikeFunction(matrix, index) >= 0
+				? lastTerm3(matrix_xthAdm(matrix, maybeCheckOmega_omegaLikeFunction(matrix, index)))
+				: ONE;
+		return add(matrix_xthAdm(matrix, findMatrixParentTerm(matrix, 1, index)), u);
 	}
-	let p: Term = ONE;
-	for (const i of countChileColumnsForColumn(M, n)) {
-		if (!(M[i][0] === M[n][0] + 1 && M[i][1] === M[n][1] && M[i][2] === 1)) {
+	let omega_power_x_counter: Term = ONE;
+	for (const i of countChildColumnsForColumn(matrix, index)) {
+		if (
+			!(
+				matrix[i][0] === matrix[index][0] + 1 &&
+				matrix[i][1] === matrix[index][1] &&
+				matrix[i][2] === 1
+			)
+		) {
 			continue;
 		}
 		let q: Term = [];
-		for (const j of countChileColumnsForColumn(M, i)) {
-			q = add(q, o(M, j));
+		for (const j of countChildColumnsForColumn(matrix, i)) {
+			q = add(q, convertMatrixToTerm(matrix, j));
 		}
-		p = add(p, exp(q));
+		omega_power_x_counter = add(omega_power_x_counter, exp(q));
 	}
-	return add(v(M, findMatrixParentTerm(M, 1, n)), exp(p));
+	return add(
+		matrix_xthAdm(matrix, findMatrixParentTerm(matrix, 1, index)),
+		exp(omega_power_x_counter),
+	);
 }
 
-function o(matrix: Matrix, index: number): Term {
-	let S: Term = [];
-	const u: number[] = [...Array(matrix.length).keys()].map((x) => U(matrix, x));
-	for (const i of countChileColumnsForColumn(matrix, index)) {
+/**主要的矩阵转换成序数的函数 */
+function convertMatrixToTerm(matrix: Matrix, index: number): Term {
+	let psiInner: Term = [];
+	const maybeOmega_omega_columns: number[] = [...Array(matrix.length).keys()].map((x) =>
+		maybeCheckOmega_omegaLikeFunction(matrix, x),
+	);
+	/**如果没有找到此列的坏根，就说明遇到(0)(1) index=1或者(0)(1)(2)(1), index=2这个情况 */
+	for (const i of countChildColumnsForColumn(matrix, index)) {
 		if (
 			matrix[i][0] === matrix[index][0] + 1 &&
 			matrix[i][1] === matrix[index][1] &&
@@ -350,8 +377,8 @@ function o(matrix: Matrix, index: number): Term {
 		) {
 			continue;
 		}
-		if (u.includes(i)) {
-			const c = countChileColumnsForColumn(matrix, i);
+		if (maybeOmega_omega_columns.includes(i)) {
+			const c = countChildColumnsForColumn(matrix, i);
 			if (c.length > 0) {
 				const last = c[c.length - 1];
 				if (
@@ -365,9 +392,10 @@ function o(matrix: Matrix, index: number): Term {
 				continue;
 			}
 		}
-		S = add(S, o(matrix, i));
+		//对psiInner内的序数进行递归处理，
+		psiInner = add(psiInner, convertMatrixToTerm(matrix, i));
 	}
-	return [v(matrix, index), S, []];
+	return [matrix_xthAdm(matrix, index), psiInner, []];
 }
 
 /**
@@ -376,35 +404,43 @@ function o(matrix: Matrix, index: number): Term {
 function matrixToTerm(matrix: Matrix): Term {
 	let ordinal_term: Term = [];
 	for (let index = 0; index < matrix.length; index++) {
+		/**把整个矩阵分成(0,0,0)xxxx(0,0,0)xxx */
 		if (matrix[index][0] === 0 && matrix[index][1] === 0 && matrix[index][2] === 0) {
-			ordinal_term = add(ordinal_term, o(matrix, index));
+			ordinal_term = add(ordinal_term, convertMatrixToTerm(matrix, index));
 		}
 	}
-	return sf(ordinal_term);
+	return toStandardize(ordinal_term);
 }
 
-function sp(a: Term, b: Term, c: Term): Term {
+function toStandardize2(a: Term, b: Term, c: Term): Term {
 	if (isZero(c)) {
 		return [a, b, []];
 	}
 	const termC = c as [Term, Term, Term];
 	if (lt(b, termC[1]) && gt(c, [a, [], []])) {
 		const t = truncate(termC[1], succ(termC[0]));
-		return sp(a, add(t, sub([termC[0], termC[1], []], [termC[0], t, []])), termC[2]);
+		return toStandardize2(
+			a,
+			add(t, sub([termC[0], termC[1], []], [termC[0], t, []])),
+			termC[2],
+		);
 	}
-	return sp(a, add(b, [termC[0], termC[1], []]), termC[2]);
+	return toStandardize2(a, add(b, [termC[0], termC[1], []]), termC[2]);
 }
 
-function sf(a: Term): Term {
+function toStandardize(a: Term): Term {
 	if (isZero(a)) return [];
 	const termA = a as [Term, Term, Term];
-	return add(sp(sf(termA[0]), [], sf(termA[1])), sf(termA[2]));
+	return add(
+		toStandardize2(toStandardize(termA[0]), [], toStandardize(termA[1])),
+		toStandardize(termA[2]),
+	);
 }
 
 /**
  * 将ψa(x)(a>0)转化为Ω_a^b*c的形式
  */
-function g(a: Term): [Term, Term] {
+function toStandardize3(a: Term): [Term, Term] {
 	if (isZero(a)) {
 		return [[], []];
 	}
@@ -475,7 +511,7 @@ function termToString(q: Term | number, maxLength = 40): string {
 		 * 对于ψ_α(x), x<ψ_α+1(0),写成Ω_x*ω^xxx的形式
 		 */
 	} else if (lt(termA[1], [succ(termA[0]), [], []])) {
-		const [first, second] = g(termA);
+		const [first, second] = toStandardize3(termA);
 		m = omega(termA[0]);
 		if (gt(first, ONE)) {
 			m += `<sup>${termToString(first, --maxLength)}</sup>`;
@@ -504,6 +540,7 @@ const EBO = [
 
 export function calculate(BMS: string): string {
 	if (BMS === '(0)(1<sup>ω</sup>)') return 'ψ(a(1;@(1;@(...))))';
+	debugger;
 	const cleanBMS = BMS.replace(/\s+/g, '');
 
 	if (cleanBMS == '') return '0';
@@ -554,3 +591,4 @@ export function calculate(BMS: string): string {
 		throw error;
 	}
 }
+// window.calculate = calculate;
