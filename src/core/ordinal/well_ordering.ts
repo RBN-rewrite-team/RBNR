@@ -240,7 +240,7 @@ export const WellOrderingUpgrades = {
 	})(),
 	U6R16: new (class extends Upgrade {
 		description = 'B6-R-1-5增强5%';
-		cost = new Decimal('1e996');
+		cost = new Decimal('9.95e995');
 		name = 'U6-R-1-6';
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 		show(): boolean {
@@ -249,7 +249,7 @@ export const WellOrderingUpgrades = {
 	})(),
 	U6R17: new (class extends Upgrade {
 		description = '自动最大B6-R-1~4';
-		cost = new Decimal('1e1750');
+		cost = new Decimal('1.749e1749');
 		name = 'U6-R-1-7';
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 		show(): boolean {
@@ -259,7 +259,7 @@ export const WellOrderingUpgrades = {
 	U6R18: new (class extends Upgrade {
 		description = () =>
 			`推演能量×1e100<br>解锁<b class="baseRetribution">${RETRIBUTION.name()}</b>`;
-		cost = () => new Decimal('1e1800');
+		cost = () => new Decimal('1.794e1794');
 		name = 'U6-R-1-8';
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 		show(): boolean {
@@ -268,7 +268,7 @@ export const WellOrderingUpgrades = {
 	})(),
 	U6R21: new (class extends Upgrade {
 		description = '移除非递归能量的二重软上限';
-		cost = new Decimal('1e42258');
+		cost = new Decimal('4.2257e42257');
 		name = 'U6-R-2-1';
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 		show(): boolean {
