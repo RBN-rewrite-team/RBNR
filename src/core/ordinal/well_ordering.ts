@@ -259,7 +259,7 @@ export const WellOrderingUpgrades = {
 	U6R18: new (class extends Upgrade {
 		description = () =>
 			`推演能量×1e100<br>解锁<b class="baseRetribution">${RETRIBUTION.name()}</b>`;
-		cost = () => new Decimal('1.794e1794');
+		cost = () => new Decimal('1e1777');
 		name = 'U6-R-1-8';
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 		show(): boolean {
