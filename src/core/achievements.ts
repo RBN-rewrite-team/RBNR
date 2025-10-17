@@ -430,7 +430,7 @@ export const achievements = [
 	],
 	[
 		{
-			title: '超越无限',
+			title: '超越real.无限',
 			desc: '获得ω数值',
 			satisfied() {
 				return player.stat.chapter >= 4 || player.singularity.t >= 666.6666666666666666;
