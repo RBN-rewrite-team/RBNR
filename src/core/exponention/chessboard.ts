@@ -359,7 +359,7 @@ export function initMechanics() {
 		get description() {
 			return 'M-CB-20的效果变为其平方';
 		},
-		requirement: new Decimal('e9000'),
+		requirement: new Decimal('e7500'),
 		get canDone() {
 			return wheatGrain().gte(this.requirement) && !player.singularity.enabled;
 		},
@@ -371,7 +371,7 @@ export function initMechanics() {
 		get description() {
 			return 'M-CB-20的效果再次变为其平方';
 		},
-		requirement: new Decimal('e22000'),
+		requirement: new Decimal('e21000'),
 		get canDone() {
 			return wheatGrain().gte(this.requirement) && !player.singularity.enabled;
 		},
@@ -383,7 +383,7 @@ export function initMechanics() {
 		get description() {
 			return 'M-CB-20的效果再次变为其1.1次方';
 		},
-		requirement: new Decimal('ee6'),
+		requirement: new Decimal('e6.5e5'),
 		get canDone() {
 			return wheatGrain().gte(this.requirement) && !player.singularity.enabled;
 		},
