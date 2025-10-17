@@ -30,8 +30,6 @@ function minS1Level() {
 	);
 }
 
-function diluteAmount(id: IntClosedRange<0, 8>): number;
-function diluteAmount(id: IntClosedRange<6, 8>): boolean;
 function diluteAmount(id: IntClosedRange<0, 8>): number | boolean {
 	if (!player.hydra.dilute.inDilute) return id < 6 ? 0 : false;
 	if (player.hydra.dilute.solvent[8]) {
@@ -496,7 +494,7 @@ const Dil = {
 			get canDone() {
 				return (
 					(player.hydra.dilute.inDilute &&
-						diluteAmount(6) &&
+						(diluteAmount(6) as boolean) &&
 						player.hydra.power.gte(1e55)) ||
 					player.milestones.nonrec_7
 				);

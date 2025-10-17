@@ -3,7 +3,17 @@ import { Currencies, getCurrency } from './currencies';
 import type { Requirement } from './requirements';
 import { player } from './global';
 import type { IntClosedRange } from 'type-fest';
-import { diluteAmount } from './hydra/dilute';
+//import { diluteAmount } from './hydra/dilute';
+
+function diluteAmount(id: IntClosedRange<0, 8>): number;
+function diluteAmount(id: IntClosedRange<6, 8>): boolean;
+function diluteAmount(id: IntClosedRange<0, 8>): number | boolean {
+	if (!player.hydra.dilute.inDilute) return id < 6 ? 0 : false;
+	if (player.hydra.dilute.solvent[8]) {
+		return id < 6 ? 10 : true;
+	}
+	return player.hydra.dilute.solvent[id];
+} //没办法导入
 
 export class Upgrade {
 	currency: Currencies = Currencies.NUMBER;
