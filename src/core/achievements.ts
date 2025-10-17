@@ -409,6 +409,35 @@ export const achievements = [
 
 			id: 37,
 		},
+		{
+			title: '10^^4',
+			desc: '获得ee1.000e10数值',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.number.gte('eee10');
+			},
+
+			id: 38,
+		},
+		{
+			title: '10^^100',
+			desc: '获得1.000F100数值',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.number.gte(Decimal.tetrate(10, 100));
+			},
+
+			id: 39,
+		},
+	],
+	[
+		{
+			title: '超越无限',
+			desc: '获得ω数值',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.singularity.t >= 666.6666666666666666;
+			},
+
+			id: 40,
+		},
 	],
 	[
 		{
