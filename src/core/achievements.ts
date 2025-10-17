@@ -4,12 +4,14 @@ import { player } from './save';
 import { Successor } from './successor/successor';
 import { temp } from './temp-data';
 import { DC } from './constants';
+import { getInterval } from './stats';
+import { QolUpgrades } from './exponention/qolupg';
 
-interface IAchievement {
-	title: string;
-	desc: string;
-	satisfied?(): boolean;
-}
+// interface IAchievement {
+// 	title: string;
+// 	desc: string;
+// 	satisfied?(): boolean;
+// }
 
 export function achLoop() {
 	for (const row of achievements) {
@@ -232,6 +234,118 @@ export const achievements = [
 			},
 
 			id: 20,
+		},
+		{
+			title: '那很快了',
+			desc: '在1分钟内进行指数重置',
+			satisfied() {
+				return player.stat.chapter >= 4 || getInterval('recent10ExpReset') <= 60000;
+			},
+
+			id: 21,
+		},
+		{
+			title: '前四行集齐了/打call',
+			desc: '购买前四行QOL升级（4-QOL-00不算一行)',
+			satisfied() {
+				return (
+					player.stat.chapter >= 4 ||
+					(QolUpgrades.row3AllUnlocked() &&
+						QolUpgrades.row1AllUnlocked() &&
+						QolUpgrades.row2AllUnlocked() &&
+						player.upgrades['400q'] &&
+						player.upgrades['441q'] &&
+						player.upgrades['442q'] &&
+						player.upgrades['443q'] &&
+						player.upgrades['444q'] &&
+						player.upgrades['445q'])
+				);
+			},
+
+			id: 22,
+		},
+		{
+			title: '那很很很快了',
+			desc: '在1秒内进行指数重置',
+			satisfied() {
+				return player.stat.chapter >= 4 || getInterval('recent10ExpReset') <= 1000;
+			},
+
+			id: 23,
+		},
+	],
+	[
+		{
+			title: '终于不用点乘法重置了',
+			desc: '购买U3-22',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.upgrades['46'];
+			},
+
+			id: 24,
+		},
+		{
+			title: '√2 not in Q',
+			desc: '解锁数论研究2',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.upgrades['45'];
+			},
+
+			id: 25,
+		},
+		{
+			title: '棋盘学大变（×）',
+			desc: '解锁棋盘',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.upgrades['47'];
+			},
+
+			id: 26,
+		},
+		{
+			title: '需要用1MiB才能存下这个数字，但是我们用的是10^x',
+			desc: '获得e1,048,575数值',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.number.gte('e1048575');
+			},
+
+			id: 27,
+		},
+		{
+			title: '你不是说好了每格两倍吗，怎么变成三倍了/发怒/发怒',
+			desc: '获得M-CB-1里程碑',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.milestones['cb1'];
+			},
+
+			id: 28,
+		},
+		{
+			title: '急急急',
+			desc: '获得U3-24',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.upgrades['48'];
+			},
+
+			id: 29,
+		},
+		{
+			title: '天文学大变',
+			desc: '雇佣一名天文学家',
+			satisfied() {
+				return player.stat.chapter >= 3.1;
+			},
+
+			id: 30,
+		},
+		{
+			title: '指数指数时代',
+			desc: '获得超过e6.871e10数字',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.number.gte('e68719476736');
+			},
+
+			id: 31,
 		},
 	],
 	[],

@@ -55,3 +55,10 @@ export function updateResetStatData(
 	});
 	player.stat[resetkey] = player.stat[resetkey].slice(0, 10);
 }
+
+export function getInterval(resetkey: ChooseTypes<PlayerStat, ResetRecord[]>) {
+	if (player.stat[resetkey].length == 0) return 1 / 0;
+	else if (player.stat[resetkey].length == 1)
+		return player.stat[resetkey][0].last - player.saveCreateTime;
+	else return player.stat[resetkey][0].last - player.stat[resetkey][1].last;
+}
