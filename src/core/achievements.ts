@@ -348,7 +348,68 @@ export const achievements = [
 			id: 31,
 		},
 	],
-	[],
+	[
+		{
+			title: '全力推进...好吧并不是很全',
+			desc: '购买U3-33（温馨提示：成就32-33有时间墙，不少于15分钟）',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.upgrades['411'];
+			},
+
+			id: 32,
+		},
+		{
+			title: 'Dilate',
+			desc: '解锁对数膨胀...应该很普通吧。',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.milestones['log_G'];
+			},
+
+			id: 33,
+		},
+		{
+			title: 'Restart',
+			desc: '进入对数膨胀',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.exponention.logarithm.in_dilate;
+			},
+
+			id: 34,
+		},
+		{
+			title: '膨胀中的乘法',
+			desc: '在对数膨胀中购买U1-6',
+			satisfied() {
+				return (
+					player.stat.chapter >= 4 ||
+					player.exponention.logarithm.upgrades_in_dilated.includes('26')
+				);
+			},
+
+			id: 35,
+		},
+		{
+			title: '膨胀中的挑战',
+			desc: '在对数膨胀中购买U2-9',
+			satisfied() {
+				return (
+					player.stat.chapter >= 4 ||
+					player.exponention.logarithm.upgrades_in_dilated.includes('39')
+				);
+			},
+
+			id: 36,
+		},
+		{
+			title: '1/x',
+			desc: '解锁奇点生成器',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.milestones['dil_7'];
+			},
+
+			id: 37,
+		},
+	],
 	[
 		{
 			title: '大数理论',
