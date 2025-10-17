@@ -143,7 +143,7 @@ function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof
 	</table>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 table {
 	margin: auto;
 }
