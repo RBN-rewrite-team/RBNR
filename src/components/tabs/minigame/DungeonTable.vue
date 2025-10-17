@@ -14,7 +14,7 @@ import { getCurrentBlock } from '@/core/minigame/block';
 import { MoveableBoxGameObject, EntityGameObject } from '@/core/minigame/game-object';
 import { playerSafe, playerToDestination } from '@/core/minigame/path-searcher';
 import ModalService from '@/utils/Modal';
-
+import MiniGameTD from './MiniGameTD.vue';
 function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof getCurrentBlock>) {
 	console.log(room, x, y);
 	let putedblock = false;
@@ -142,3 +142,22 @@ function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof
 		</tbody>
 	</table>
 </template>
+
+<style lang="scss">
+table {
+	margin: auto;
+}
+tr {
+	height: 60px;
+
+	&:empty {
+		display: none;
+	}
+}
+td {
+	height: 60px;
+	width: 60px;
+	background-color: var(--background-color);
+	border: 1px solid red;
+}
+</style>
