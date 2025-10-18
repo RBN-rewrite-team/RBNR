@@ -1,17 +1,11 @@
 import Decimal from 'break_eternity.js';
 import { player } from '../save';
-import { Hydra } from '../hydra/hydra';
 import { Currencies, getCurrency } from '../currencies';
-import { getTotalTheories } from './total-theories';
 import { NON_RECURSIVE } from '.';
-import { NONREC_CHALS } from './non-recursion-challenges';
 import { CHALLENGE } from '../challenge';
 import { ref, nextTick, type ComponentPublicInstance, computed, type Ref } from 'vue';
-import StudyTree from '@/components/tabs/nonrecursion/StudyTree.vue';
 import SingleStudy from '@/components/tabs/nonrecursion/SingleStudy.vue';
 import { format, formatWhole } from '@/utils/format';
-import { isDeveloper } from '../save/testing';
-import { wordShift } from '../word-shift';
 
 const StudyTreeRef = ref(null);
 

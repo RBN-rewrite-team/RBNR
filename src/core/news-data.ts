@@ -45,14 +45,7 @@ const news = [{id: "news1", text: "不会做增量游戏怎么办？看风灵作
 {id: "news40.1", text: "Omi gaming在逼氪大赛中获得了第一名"},
 {id: "news41", text: "后继层级曾经延伸到了2<sup>1024</sup>这么大的数字"},
 {id: "news42", text: "黑塔女士举世无双！黑塔女士聪明绝顶！黑塔女士沉鱼落雁！钥落千星，才震银宇，难描绝美，短言难述…解弧波算法之真谛，造模拟宇宙为真知，虚构难藏实之魅力，真伪何妨追随与否，此刻……黑门永存！"},
-{id: "news42.1",text:`大黑举报Zia即将被24.1挂B站
-2025/9/27 13时40分 24.1交流大群 NXtuVTQynRMs555：
-9月27日13时，有部分群友在玩Zia机器人时发现机器人被举报永封，
-举报者为溜溜溜大黑，溜溜溜大黑以神权闻名整个增量圈，
-后有人请求24.1把溜溜溜大黑挂B站，
-24.1同意挂人，
-后续消息请等待播放
-`},
+{id: "news42.1",text:`你的意思是你比他们善良几百万的负一次方倍？`},
 {id: "news43", text: "<b>大机罢</b>"},
 {id: "news44", text: "如果你只挂了1个加法能量，那你简直是fvv，如果你挂了6个加法能量，那么你是速通或者正常人，如果你挂了31个加法能量，那么你很有实力，如果你挂了156个加法能量，说明你把这个网页给弄忘了"},
 {id: "news45", text: "oiiaiioiiaii __猫__ oiiaiioiiaii __猫__ oiiaiioiiaii __猫__ oiiaiioiiaii __猫__ "},
@@ -75,14 +68,15 @@ const news = [{id: "news1", text: "不会做增量游戏怎么办？看风灵作
 {id: "news62", text: "我们的留言板上写着指数层级早已前瞻完成，但你猜真的完成了吗"},
 {id: "news63", text: "什么？你问我们没事干的时候干什么？我们RBNR制作组没有没事干的时候"},
 {id: "news64", text: "发散是反时间墙，时间墙是反发散，既不发散又不时间墙是正常的，既发散又时间墙是增量游戏作者故意设计的"},
-{id: "news65", text: "130001溶剂with40多分钟时间墙boost版本"},
+{id: "news65", text: "IMR isn't back"},
 {id: "news66", text: "LHO未必是LHO，可能是滚木"},
-{id: "news67", text: "有人不知道小米手机怎么刷root，很简单的，只需要先解bl(Bootloader)锁……75，cào，答题没通过！"},
+{id: "news67", text: "有人不知道小...cào，答题似了！"},
 {id: "news68", text: "LHO=(ω→ω→LRO)_2"},
 {id: "news69", text: "你怎么敢定义LHO"},
 {id: "news70", unlocked(){return player.stat.chapter>=5}, text: "Hydra对Numerorum的打压已经到了无以复加的地步，致命发散和永恒之墙阻挡着我们的旅程，如此恶行实在令人发指。愿所有为RBNR事业牺牲的Numerorum一路走好。"},
 {id: "news71", unlocked(){return player.stat.chapter>=6}, text: "23日晚上，Numerorum抱团冲击非递归时遭遇大劫，感染了ω病毒、时间停止病毒或卡死病毒，几乎全军覆没。"},
-{id: "news72", text: "为什么以“意义不明”为由删除了一个用户页😰"}
+{id: "news72", text: "为什么以“意义不明”为由删除了一个用户页😰"},
+{id: "news73", text: "这做的什么...3.162277，660168，3795...东西？"}
 ] as const as {
 	id: string;
 	text: string;

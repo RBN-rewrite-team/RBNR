@@ -1,6 +1,6 @@
 import Async from '@/utils/asyncs';
-import { msToTimeshard, simulate, startGameLoop, stopGameLoop } from './game-loop';
-import { player, save } from '@/core/save/';
+import { simulate, startGameLoop, stopGameLoop } from './game-loop';
+import { save } from '@/core/save/';
 import Modal from '@/utils/Modal';
 import { formatTime } from '@/utils/format';
 export function simulateTime(milliseconds: number): void {
