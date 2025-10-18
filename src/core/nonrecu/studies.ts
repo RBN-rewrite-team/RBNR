@@ -530,7 +530,7 @@ export function theoriesCost(id: 0 | 1 | 2) {
 	}
 	return new Decimal(1 / 0);
 }
-export function theoriesAmountPossivle(id: 0 | 1 | 2) {
+export function theoriesAmountPossible(id: 0 | 1 | 2) {
 	switch (id) {
 		case 0:
 			if (player.hydra.power.gte('eeeee14109.999999999884')) {
@@ -566,16 +566,16 @@ export function addTheories(id: 0 | 1 | 2) {
 	switch (id) {
 		case 0:
 			if (canBuyTheories(0)) {
-				player.nonrecu.theories[0] = theoriesAmountPossivle(0).sub(1);
-				let a = theoriesAmountPossivle(0);
+				player.nonrecu.theories[0] = theoriesAmountPossible(0).sub(1);
+				let a = theoriesAmountPossible(0);
 				player.hydra.power = player.hydra.power.sub(theoriesCost(0)).clampMin(0);
 				player.nonrecu.theories[0] = a;
 			}
 			break;
 		case 1:
 			if (canBuyTheories(1)) {
-				player.nonrecu.theories[1] = theoriesAmountPossivle(1).sub(1);
-				let b = theoriesAmountPossivle(1);
+				player.nonrecu.theories[1] = theoriesAmountPossible(1).sub(1);
+				let b = theoriesAmountPossible(1);
 				player.hydra.dilute.solutionCost = player.hydra.dilute.solutionCost.add(
 					theoriesCost(1),
 				);
@@ -584,8 +584,8 @@ export function addTheories(id: 0 | 1 | 2) {
 			break;
 		case 2:
 			if (canBuyTheories(2)) {
-				player.nonrecu.theories[2] = theoriesAmountPossivle(2).sub(1);
-				let c = theoriesAmountPossivle(2);
+				player.nonrecu.theories[2] = theoriesAmountPossible(2).sub(1);
+				let c = theoriesAmountPossible(2);
 				if (player.nonrecu.power.lt('1e30000'))
 					player.nonrecu.power = player.nonrecu.power.sub(theoriesCost(2)).clampMin(0);
 				player.nonrecu.theories[2] = c;
