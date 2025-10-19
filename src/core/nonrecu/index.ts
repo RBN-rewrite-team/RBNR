@@ -331,7 +331,9 @@ export const NON_RECURSIVE = {
 			},
 		});
 		MILESTONES.create('nonrec_21', {
-			requirement: DC.D_2P24,
+			get requirement() {
+				return player.retribution == 1 ? new Decimal(2 ** 22) : DC.D_2P24;
+			},
 			currency: 'UNOCF推演次数',
 			displayName: 'M6-21',
 			description: `九头蛇能量双指数*1.2`,
@@ -339,11 +341,13 @@ export const NON_RECURSIVE = {
 				return player.challenges[1][4].gte(1);
 			},
 			get canDone() {
-				return player.nonrecu.unocf_j.gte(DC.D_2P24);
+				return player.nonrecu.unocf_j.gte(this.requirement);
 			},
 		});
 		MILESTONES.create('nonrec_22', {
-			requirement: new Decimal(6e7),
+			get requirement() {
+				return player.retribution == 1 ? new Decimal(1e7) : new Decimal(6e7);
+			},
 			currency: 'UNOCF推演次数和2.25NRC6挑战次数',
 			displayName: 'M6-22',
 			description: `朊病毒增速双指数*1.3,只在NRC6和挑战外生效(后续的里程碑都需要2.25NRC6挑战次数)`,
@@ -351,11 +355,13 @@ export const NON_RECURSIVE = {
 				return player.challenges[1][4].gte(1);
 			},
 			get canDone() {
-				return player.nonrecu.unocf_j.gte(6e7) && player.challenges[1][5].gte(2.25);
+				return player.nonrecu.unocf_j.gte(this.requirement) && player.challenges[1][5].gte(2.25);
 			},
 		});
 		MILESTONES.create('nonrec_23', {
-			requirement: new Decimal(7.5e7),
+			get requirement() {
+				return player.retribution == 1 ? new Decimal(1.5e7) : new Decimal(7.5e7);
+			},
 			currency: 'UNOCF推演次数',
 			displayName: 'M6-23',
 			description: `加强UNOCF第四效果，UNOCF推演速度^1.75`,
@@ -363,11 +369,13 @@ export const NON_RECURSIVE = {
 				return player.challenges[1][4].gte(1);
 			},
 			get canDone() {
-				return player.nonrecu.unocf_j.gte(7.5e7) && player.challenges[1][5].gte(2.25);
+				return player.nonrecu.unocf_j.gte(this.requirement) && player.challenges[1][5].gte(2.25);
 			},
 		});
 		MILESTONES.create('nonrec_24', {
-			requirement: new Decimal(1e11),
+			get requirement() {
+				return player.retribution == 1 ? new Decimal(1e9) : new Decimal(1e11);
+			},
 			currency: 'UNOCF推演次数',
 			displayName: 'M6-24',
 			description: `推演速度双指数^2`,
@@ -375,7 +383,7 @@ export const NON_RECURSIVE = {
 				return player.challenges[1][4].gte(1);
 			},
 			get canDone() {
-				return player.nonrecu.unocf_j.gte(1e11) && player.challenges[1][5].gte(2.25);
+				return player.nonrecu.unocf_j.gte(this.requirement) && player.challenges[1][5].gte(2.25);
 			},
 		});
 		MILESTONES.create('nonrec_25', {

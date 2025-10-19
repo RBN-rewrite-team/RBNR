@@ -167,7 +167,8 @@ export const OrdinalNT = {
 		'61R': new (class B61R extends Buyable<Decimal> {
 			description = 'a = a + 1';
 			cost(x: Decimal): Decimal {
-				let base = new Decimal('ee3').mul(x.pow_base(1e50));
+				let cbase = player.retribution == 1 ? new Decimal('1e900') : new Decimal('ee3');
+				let base = cbase.mul(x.pow_base(1e50));
 				if (player.hydra.dilute.inDilute) {
 					base = base.pow(4 - 3 * 0.75 ** player.hydra.dilute.solvent[1]);
 				}
@@ -188,10 +189,11 @@ export const OrdinalNT = {
 				return player.milestones.nonrec_8;
 			}
 			costInverse(x: Decimal): Decimal {
+				let cbase = player.retribution == 1 ? new Decimal('1e900') : new Decimal('ee3');
 				let expReduce = new Decimal(1);
 				if (player.hydra.dilute.inDilute)
 					expReduce = expReduce.mul(4 - 3 * 0.75 ** player.hydra.dilute.solvent[1]);
-				return x.root(expReduce).div('ee3').max(1).log(1e50).floor().add(1);
+				return x.root(expReduce).div(cbase).max(1).log(1e50).floor().add(1);
 			}
 		})(),
 		'62R': new (class B62R extends Buyable<Decimal> {
@@ -299,7 +301,7 @@ export const OrdinalNT = {
 		})(),
 		'66R': new (class extends Upgrade {
 			description = 'g(x)的对数底数降低为5';
-			cost = new Decimal('1.1551e1551');
+			cost = () => player.retribution == 1 ? new Decimal('1e1500') : new Decimal('1.1551e1551');
 			currency = Currencies.HYDRA_POWER;
 			name = 'U5-R1-6';
 			keep() {
@@ -308,7 +310,7 @@ export const OrdinalNT = {
 		})(),
 		'67R': new (class extends Upgrade {
 			description = 'g(x)的对数底数降低为2';
-			cost = new Decimal('1e1900');
+			cost = () => player.retribution == 1 ? new Decimal('1e1600') : new Decimal('1e1900');
 			currency = Currencies.HYDRA_POWER;
 			name = 'U5-R1-7';
 			keep() {
@@ -316,15 +318,15 @@ export const OrdinalNT = {
 			}
 		})(),
 		'68R': new (class extends UpgradeWithEffect<Decimal> {
-			description = 'U5-R1-5加成以减弱的效果对飞升生效';
-			cost = new Decimal('2.085e2085');
+			description = () => 'U5-R1-5加成以减弱的效果对飞升生效' + (player.retribution == 1 ? '<br>由于果报，效果增强' : '');
+			cost = () => player.retribution == 1 ? new Decimal('1e1800') : new Decimal('2.085e2085');
 			currency = Currencies.HYDRA_POWER;
 			name = 'U5-R1-8';
 			effectDescription() {
 				return '×' + format(this.effect());
 			}
 			effect(): Decimal {
-				return upgrades['65R'].effect().pow(0.25);
+				return upgrades['65R'].effect().pow(player.retribution == 1 ? 0.4 : 0.25);
 			}
 			keep() {
 				return player.milestones.nonrec_8;
@@ -353,7 +355,7 @@ export const OrdinalNT = {
 		})(),
 		'622R': new (class extends UpgradeWithEffect<Decimal> {
 			description = 'τ<sub>4</sub>加成U5-2-2效果';
-			cost = new Decimal('1e1260');
+			cost = new Decimal('1e1080');
 			currency: Currencies = Currencies.HYDRA_POWER;
 			name = 'U5-R1-2-2';
 			keep() {
