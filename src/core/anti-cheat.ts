@@ -19,6 +19,8 @@ DisableDevtool({
 	interval: 200,
 	md5: 'df17d82024bd335488f86e0c9c4ed23c',
 	url: 'https://localhost',
+	ignore: isDeveloper,
+	detectors: [0,1,2,3,4,6,7] // Debugger容易被利用
 });
 declare global {
 	interface Window {
