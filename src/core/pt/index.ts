@@ -18,7 +18,7 @@ export const Analysis = {
 	, 'Z<sub>ω</sub>'
 	, 'ZFC'],
 	
-	analysisUnlocked(id) {
+	analysisUnlocked(id: number) {
 		if(dayOfWeek()[0] == id) return true;
 		if(dayOfWeek()[0] == 0) return true;
 		return false;

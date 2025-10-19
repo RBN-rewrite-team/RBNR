@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { deflate, inflate } from 'pako';
 
 function simpleEncrypt(data: Uint8Array, key: string): Uint8Array {
