@@ -614,6 +614,9 @@ export const NON_RECURSIVE = {
 			a = a.mul(this.std112());
 		}
 		a = a.mul(energyToUNOCFSpeed());
+		if (player.retribution >= 1) {
+			a = a.mul(3);
+		}
 		return a;
 	},
 	UNOCFeff() {

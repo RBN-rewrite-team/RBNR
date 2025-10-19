@@ -148,7 +148,13 @@ export const Y_SEQ = {
 		if (player.upgrades[621]) base = base.mul(upgrades[621].effect());
 		if (player.upgrades['621R']) base = base.mul(player.numbertheory.GM.x.clampMin(1));
 		if (!player.nonrecu.studies_bought.includes(29)) base = base.clampMax('e1e10');
-		return base;
+		if (base.gte('eee50')) {
+			base = Decimal.tetrate(
+				10,
+				base.slog(10).sub(4.305916097091442).div(2).add(4.305916097091442).toNumber(),
+			);
+		}
+		return base.clampMax('eeeee10');
 	},
 	reset() {
 		if (this.resetGain().lt(1)) return;
