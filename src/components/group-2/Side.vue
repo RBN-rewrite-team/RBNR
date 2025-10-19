@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { player } from '@/core/save';
-import { Logarithm } from '../../core/exponention/logarithm.ts';
-import { unlockedPlots, viewedPlotLength } from '@/core/plot.ts';
-import { isTester } from '@/core/save/testing.ts';
+import { Logarithm } from '../../core/exponention/logarithm';
+import { unlockedPlots, viewedPlotLength } from '@/core/plot';
+import { isTester } from '@/core/save/testing';
 import { RETRIBUTION } from '@/core/post-nonrec/retribution';
 </script>
 
@@ -282,7 +282,7 @@ import { RETRIBUTION } from '@/core/post-nonrec/retribution';
 							UNOCF
 						</div>
 					</template>
-					<template v-if="(player.retribution >= 1) && isTester()">
+					<template v-if="player.retribution >= 1 && isTester()">
 						<div class="menu1">证明论</div>
 						<div class="menu_line"></div>
 						<div

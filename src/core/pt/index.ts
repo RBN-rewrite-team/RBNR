@@ -48,4 +48,4 @@ export const Analysis = {
 			analysisFailed: [0, 0, 0, 0, 0, 0, 0],
 		};
 	},
-};
+} as const;
