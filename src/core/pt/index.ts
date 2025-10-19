@@ -1,8 +1,8 @@
-import {player, feature} from '@/core/global';
-import {format, formatWhole} from '@/utils/format';
+import { player, feature } from '@/core/global';
+import { format, formatWhole } from '@/utils/format';
 import Decimal from 'break_eternity.js';
 
-export function dayOfWeek(): [number, string]{
+export function dayOfWeek(): [number, string] {
 	const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
 	let date = new Date();
 	let dayOfWeek = date.getDay();
@@ -10,37 +10,35 @@ export function dayOfWeek(): [number, string]{
 }
 
 export const Analysis = {
-	systems: ['PA'
-	, 'KP'
-	, 'Π<sub>1</sub>-CA<sub>0</sub>'
-	, 'Π<sub>2</sub>-CA<sub>0</sub>'
-	, 'Z<sub>2</sub>'
-	, 'Z<sub>ω</sub>'
-	, 'ZFC'],
-	
+	systems: [
+		'PA',
+		'KP',
+		'Π<sub>1</sub>-CA<sub>0</sub>',
+		'Π<sub>2</sub>-CA<sub>0</sub>',
+		'Z<sub>2</sub>',
+		'Z<sub>ω</sub>',
+		'ZFC',
+	],
+
 	analysisUnlocked(id: number): boolean {
-		if(dayOfWeek()[0] == id) return true;
-		if(dayOfWeek()[0] == 0) return true;
+		if (dayOfWeek()[0] == id) return true;
+		if (dayOfWeek()[0] == 0) return true;
 		return false;
 	},
-	
+
 	singleAnalysis() {
-		for(let d = 0;d < 7;d++)
-		{
-			if(!analysisUnlocked(d)) continue;
-			if(player.pt.analysis[d] >= 11) continue;
-			if(Math.random() <= 0.05 || player.pt.analysisFailed[d] >= 19)
-			{
+		for (let d = 0; d < 7; d++) {
+			if (!Analysis.analysisUnlocked(d)) continue;
+			if (player.pt.analysis[d] >= 11) continue;
+			if (Math.random() <= 0.05 || player.pt.analysisFailed[d] >= 19) {
 				player.pt.analysis[d]++;
 				player.pt.analysisFailed[d] = 0;
-			}
-			else
-			{
+			} else {
 				player.pt.analysisFailed[d]++;
 			}
 		}
 	},
-	
+
 	playerData() {
 		return {
 			power: new Decimal(0),
@@ -50,4 +48,4 @@ export const Analysis = {
 			analysisFailed: [0, 0, 0, 0, 0, 0, 0],
 		};
 	},
-}
+};
