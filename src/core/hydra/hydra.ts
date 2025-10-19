@@ -20,6 +20,7 @@ import { CHALLENGE } from '../challenge';
 import { DC } from '@/core/constants';
 import { temp } from '../../core/temp-data.ts';
 import { Y_SEQ } from '../post-nonrec/y-seq.ts';
+import { Analysis } from '@/core/pt';
 
 const e326649slog = new Decimal('e326649').slog(Math.E);
 const ee154slog = new Decimal('e8.07230472602822538e153').slog(Math.E);
@@ -706,6 +707,7 @@ export const Hydra = {
 		if (player.upgrades['69S']) base = base.mul(upgrades['69S'].effect());
 		if (player.milestones.nonrec_1) base = base.mul(3);
 		if (player.retribution >= 1) base = base.mul(player.hydra.totalCompressedPower.add(1));
+		base = base.mul(Analysis.systemEffect[0].value(player.pt.analysis[0]));
 		if (player.milestones.dut5) base = base.pow(player.hydra.milestoneDut5Eff);
 		if (player.milestones.dut6) base = base.pow(milestoneDut6Eff());
 		if (player.milestones.dut7) base = base.pow(milestoneDut7Eff());

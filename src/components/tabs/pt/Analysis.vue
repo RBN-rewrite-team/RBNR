@@ -22,6 +22,7 @@ function unlockedList(): string {
 		<div class="system">
 			<h3 v-html="count + ': ' + Analysis.systems[count - 1]" /><br>
 			解析进度：{{player.pt.analysis[count - 1]}}/11(本次解析已尝试{{player.pt.analysisFailed[count - 1]}}次)<br>
+			解析效果：{{Analysis.systemEffect[count - 1].desc(player.pt.analysis[count - 1])}}<br>
 		</div>
 	</div>
 </template>

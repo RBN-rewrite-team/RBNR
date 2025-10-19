@@ -19,7 +19,36 @@ export const Analysis = {
 		'Z<sub>ω</sub>',
 		'ZFC',
 	],
-
+	systemEffect: {
+		0: {
+			value(x): Decimal{return new Decimal(1e10).pow(x);},
+			desc(x): string{return '九头蛇能量获取×' + format(this.value(x));},
+		},
+		1: {
+			value(x): Decimal{return new Decimal(1e8).pow(x);},
+			desc(x): string{return '非递归能量获取×' + format(this.value(x));},
+		},
+		2: {
+			value(x): Decimal{return new Decimal(1);},
+			desc(x): string{return '';},
+		},
+		3: {
+			value(x): Decimal{return new Decimal(1);},
+			desc(x): string{return '';},
+		},
+		4: {
+			value(x): Decimal{return new Decimal(1);},
+			desc(x): string{return '';},
+		},
+		5: {
+			value(x): Decimal{return new Decimal(1);},
+			desc(x): string{return '';},
+		},
+		6: {
+			value(x): Decimal{return new Decimal(1);},
+			desc(x): string{return '';},
+		},
+	},
 	analysisUnlocked(id: number): boolean {
 		if (dayOfWeek()[0] == id) return true;
 		if (dayOfWeek()[0] == 0) return true;
@@ -30,7 +59,7 @@ export const Analysis = {
 		for (let d = 0; d < 7; d++) {
 			if (!Analysis.analysisUnlocked(d)) continue;
 			if (player.pt.analysis[d] >= 11) continue;
-			if (Math.random() <= 0.05 || player.pt.analysisFailed[d] >= 19) {
+			if (Math.random() <= 0.05 || player.pt.analysis[d] == 0 || player.pt.analysisFailed[d] >= 19) {
 				player.pt.analysis[d]++;
 				player.pt.analysisFailed[d] = 0;
 			} else {
