@@ -54,6 +54,8 @@ import NonRecursionUNOCF from './components/tabs/nonrecursion/NonRecursionUNOCF.
 import Retribution from './components/tabs/group-1/Retribution.vue';
 import RetributionAnimation from './components/tabs/group-1/RetributionAnimation.vue';
 import DeveloperMode from './components/tabs/devonly/DeveloperMode.vue';
+
+import Analysis from './components/tabs/pt/Analysis.vue';
 </script>
 
 <template>
@@ -106,6 +108,7 @@ import DeveloperMode from './components/tabs/devonly/DeveloperMode.vue';
 				<NonRecursionUNOCF v-if="player.currentTab === 26"></NonRecursionUNOCF>
 				<YEngine v-if="player.currentTab === 27"></YEngine>
 				<Retribution v-if="player.currentTab === 28" />
+				<Analysis v-if="player.currentTab === 29" />
 				<AutomatorEditor v-if="player.currentTab === 167" />
 				<PlotTab v-if="player.currentTab === 200" />
 				<SaveBank v-if="player.currentTab === 300" />

@@ -20,7 +20,7 @@ import { RETRIBUTION } from '@/core/post-nonrec/retribution';
 					>
 						大数之路重制版
 					</div>
-					<div style="font-size: 15px">Retribution</div>
+					<div style="font-size: 15px">Retribution / PT Alpha</div>
 				</div>
 			</div>
 		</div>
@@ -280,6 +280,17 @@ import { RETRIBUTION } from '@/core/post-nonrec/retribution';
 							"
 						>
 							UNOCF
+						</div>
+					</template>
+					<template v-if="(player.retribution >= 1) && isTester()">
+						<div class="menu1">证明论</div>
+						<div class="menu_line"></div>
+						<div
+							class="menu2"
+							:class="{ focus: player.currentTab == 29 }"
+							@click="player.currentTab = 29"
+						>
+							解析
 						</div>
 					</template>
 
