@@ -981,6 +981,15 @@ const Dil = {
 			ConstantMax = ConstantMax.add(
 				player.hydra.deduceOrdinal[0].add(1).ln().add(1).slog(10).add(1).pow(2).mul(10),
 			);
+		if (
+			player.retribution >= 1 &&
+			player.hydra.dilute.inDilute &&
+			player.hydra.dilute.solvent.toString().startsWith('10,10,10,10,10,10,true,true') &&
+			!CHALLENGE.inChallenge(1, 4)
+		) {
+			ConstantMax = ConstantMax.mul(10);
+			ConstantMax = ConstantMax.mul(player.hydra.dilute.spentTime + 1);
+		}
 		const deduceMult = getCurrentMax
 			? baseDecimal.min(ConstantMax)
 			: player.hydra.deduceOrdinal[0].add(1).ln().min(baseDecimal).min(ConstantMax);

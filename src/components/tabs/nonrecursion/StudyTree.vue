@@ -180,6 +180,11 @@ onMounted(() => initConnectors(connectorsRef));
 				</div>
 				<div class="studies_row">
 					<SingleStudy
+						:ref="(el) => registerStudyRef(29, el)"
+						:study_id="29"
+						@update:study="updateAllConnectors"
+					/>
+					<SingleStudy
 						:ref="(el) => registerStudyRef(16, el)"
 						:study_id="16"
 						@update:study="updateAllConnectors"

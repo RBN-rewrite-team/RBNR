@@ -66,6 +66,10 @@ export function init() {
 			event.preventDefault();
 			feature.Hydra.hydraReset(player.hydra.visiting);
 		});
+		hotkeys('n', (event) => {
+			event.preventDefault();
+			feature.NON_RECURSIVE.reset();
+		});
 		hotkeys('ArrowUp', keyboardEventListener);
 		hotkeys('ArrowDown', keyboardEventListener);
 		hotkeys('ArrowLeft', keyboardEventListener);

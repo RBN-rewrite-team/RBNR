@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { player, feature } from '@/core/global';
-import { format, formatWhole, formatGain } from '@/utils/format';
+import { format, formatWhole, formatGain, formatTime } from '@/utils/format';
 import TDUpgrade from '../../group-2/TDUpgrade.vue';
 import TDBuyable from '../../group-2/TDBuyable.vue';
 import { OrdinalUtils } from '@/utils/ordinal';
@@ -223,7 +223,7 @@ function hydraAxisHTML(): string {
 								>{{
 									feature.Hydra.deduceSpeed().gte(1)
 										? format(feature.Hydra.deduceSpeed()) + '/s'
-										: '1/' + format(feature.Hydra.deduceSpeed().recip()) + 's'
+										: '1/' + formatTime(feature.Hydra.deduceSpeed().recip())
 								}}</span
 							>
 							<div class="hydra-axis-line"></div>
