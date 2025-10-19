@@ -1,10 +1,9 @@
 import { deflate, inflate } from 'pako';
-import { pubtest } from './testing.ts';
 
 export const saveSerializer = {
 	encoder: new TextEncoder(),
 	decoder: new TextDecoder(),
-	startString: pubtest ? 'RBNTestingSaveFile' : 'RBNSaveFile',
+	startString: 'RBNSaveFile',
 	endString: 'EndOfSaveFile',
 	steps: [
 		{
