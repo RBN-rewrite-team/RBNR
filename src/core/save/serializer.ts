@@ -9,6 +9,11 @@ function simpleDecrypt(data: Uint8Array, key: string): Uint8Array {
 	return simpleEncrypt(data, key);
 }
 
+type SerializeStep = {
+	serialize: (x: any) => any;
+	deserialize: (x: any) => any;
+};
+
 export const saveSerializer = {
 	encoder: new TextEncoder(),
 	decoder: new TextDecoder(),
@@ -21,16 +26,16 @@ export const saveSerializer = {
 
 	newSteps: [
 		{
-			serialize: (x: object | unknown[] | string) => JSON.stringify(x),
-			deserialize: (x: string) => JSON.parse(x),
+			serialize: (x: object | unknown[] | string): string => JSON.stringify(x),
+			deserialize: (x: string): any => JSON.parse(x),
 		},
 		{
-			serialize: (x: string) => saveSerializer.encoder.encode(x),
-			deserialize: (x: Uint8Array) => saveSerializer.decoder.decode(x),
+			serialize: (x: string): Uint8Array => saveSerializer.encoder.encode(x),
+			deserialize: (x: Uint8Array): string => saveSerializer.decoder.decode(x),
 		},
 		{
-			serialize: (x: Uint8Array) => deflate(x),
-			deserialize: (x: Uint8Array) => inflate(x),
+			serialize: (x: Uint8Array): Uint8Array => deflate(x),
+			deserialize: (x: Uint8Array): Uint8Array => inflate(x),
 		},
 		// 数据加密
 		{
@@ -71,33 +76,34 @@ export const saveSerializer = {
 			},
 		},
 		{
-			serialize: (x: string) => btoa(x),
-			deserialize: (x: string) => atob(x),
+			serialize: (x: string): string => btoa(x),
+			deserialize: (x: string): string => atob(x),
 		},
 		{
-			serialize: (x: string) =>
+			serialize: (x: string): string =>
 				x.replace(/=+$/g, '').replace(/0/g, '0a').replace(/\+/g, '0b').replace(/\//g, '0c'),
-			deserialize: (x: string) =>
+			deserialize: (x: string): string =>
 				x.replace(/0b/g, '+').replace(/0c/g, '/').replace(/0a/g, '0'),
 		},
 		{
-			serialize: (x: string) => saveSerializer.newStartString + x + saveSerializer.endString,
-			deserialize: (x: string) =>
+			serialize: (x: string): string => saveSerializer.newStartString + x + saveSerializer.endString,
+			deserialize: (x: string): string =>
 				x.slice(saveSerializer.newStartString.length, -saveSerializer.endString.length),
 		},
-	],
+	] as SerializeStep[],
+	
 	legacySteps: [
 		{
-			serialize: (x: object | unknown[] | string) => JSON.stringify(x),
-			deserialize: (x: string) => JSON.parse(x),
+			serialize: (x: object | unknown[] | string): string => JSON.stringify(x),
+			deserialize: (x: string): any => JSON.parse(x),
 		},
 		{
-			serialize: (x: string) => saveSerializer.encoder.encode(x),
-			deserialize: (x: Uint8Array) => saveSerializer.decoder.decode(x),
+			serialize: (x: string): Uint8Array => saveSerializer.encoder.encode(x),
+			deserialize: (x: Uint8Array): string => saveSerializer.decoder.decode(x),
 		},
 		{
-			serialize: (x: Uint8Array) => deflate(x),
-			deserialize: (x: Uint8Array) => inflate(x),
+			serialize: (x: Uint8Array): Uint8Array => deflate(x),
+			deserialize: (x: Uint8Array): Uint8Array => inflate(x),
 		},
 		{
 			serialize: function (x: Uint8Array): string {
@@ -110,33 +116,33 @@ export const saveSerializer = {
 			},
 		},
 		{
-			serialize: (x: string) => btoa(x),
-			deserialize: (x: string) => atob(x),
+			serialize: (x: string): string => btoa(x),
+			deserialize: (x: string): string => atob(x),
 		},
 		{
-			serialize: (x: string) =>
+			serialize: (x: string): string =>
 				x.replace(/=+$/g, '').replace(/0/g, '0a').replace(/\+/g, '0b').replace(/\//g, '0c'),
-			deserialize: (x: string) =>
+			deserialize: (x: string): string =>
 				x.replace(/0b/g, '+').replace(/0c/g, '/').replace(/0a/g, '0'),
 		},
 		{
-			serialize: (x: string) =>
+			serialize: (x: string): string =>
 				saveSerializer.legacyStartString + x + saveSerializer.endString,
-			deserialize: (x: string) =>
+			deserialize: (x: string): string =>
 				x.slice(saveSerializer.legacyStartString.length, -saveSerializer.endString.length),
 		},
-	],
+	] as SerializeStep[],
 
-	serialize(s: any) {
-		return this.newSteps.reduce((x, f) => f.serialize(x), s);
+	serialize(s: any): string {
+		return this.newSteps.reduce((x: any, f: SerializeStep) => f.serialize(x), s) as string;
 	},
 
-	deserialize(s: any) {
+	deserialize(s: any): any {
 		if (typeof s === 'string') {
 			if (s.startsWith(saveSerializer.newStartString)) {
-				return this.newSteps.reduceRight((x, f) => f.deserialize(x), s);
+				return this.newSteps.reduceRight((x: any, f: SerializeStep) => f.deserialize(x), s);
 			} else if (s.startsWith(saveSerializer.legacyStartString)) {
-				return this.legacySteps.reduceRight((x, f) => f.deserialize(x), s);
+				return this.legacySteps.reduceRight((x: any, f: SerializeStep) => f.deserialize(x), s);
 			}
 		}
 		throw new Error('无法识别的存档格式');
@@ -149,7 +155,7 @@ export const saveSerializer = {
 	},
 
 	upgradeLegacySave(legacySave: string): string {
-		const data = this.legacySteps.reduceRight((x, f) => f.deserialize(x), legacySave);
-		return this.newSteps.reduce((x, f) => f.serialize(x), data);
+		const data = this.legacySteps.reduceRight((x: any, f: SerializeStep) => f.deserialize(x), legacySave);
+		return this.newSteps.reduce((x: any, f: SerializeStep) => f.serialize(x), data) as string;
 	},
 } as const;
