@@ -470,7 +470,7 @@ export const studies = [
 	new Study({
 		id: 'NRC7', //28
 		get description() {
-			return '解锁非递归挑战4\t' + '见挑战页面';
+			return '解锁非递归挑战7\t' + '见挑战页面';
 		},
 		cost: new Decimal(5000),
 		canBuy() {
@@ -478,6 +478,28 @@ export const studies = [
 		},
 		isChallenge: true,
 		chal_id: 6,
+	}),
+	new Study({
+		id: '70', //29
+		get description() {
+			if (player.retribution == 0) return '???';
+			return '移除压缩九头蛇能量上限';
+		},
+		cost: new Decimal(8),
+		canBuy() {
+			return or(16) && player.retribution >= 1;
+		},
+	}),
+	new Study({
+		id: '121', //30
+		get description() {
+			if (player.retribution == 0) return '???';
+			return '解锁证明论';
+		},
+		cost: new Decimal('e4e153'),
+		canBuy() {
+			return or(28) && player.retribution >= 1;
+		},
 	}),
 ] as const;
 export function canBuyStudies(id: number) {
@@ -644,6 +666,8 @@ const studyConnections = computed(() => {
 		{ from: 25, to: 26 },
 		{ from: 23, to: 27 },
 		{ from: 26, to: 28 },
+		{ from: 16, to: 29 },
+		{ from: 28, to: 30 },
 	];
 	if (player.nonrecu.studies_bought.includes(19)) {
 		connections.push(

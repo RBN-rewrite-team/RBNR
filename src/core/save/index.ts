@@ -22,6 +22,8 @@ import { wellOrderPlayerData } from '../ordinal/well_ordering.ts';
 import { Hydra } from '../hydra/hydra.ts';
 import { POST_NONREC } from '../post-nonrec/index.ts';
 import { Analysis } from '../pt/index.ts';
+import Modal from '@/components/group-2/Modal.vue';
+import ModalService from '@/utils/Modal.ts';
 
 const version = 12 as const;
 export let current_save = 0;
@@ -520,7 +522,10 @@ export function loadSaves() {
 		}
 	} catch (error) {
 		console.error('Cannot load save');
-		throw error;
+		ModalService.show({
+			title: '无法加载存档',
+			content: '存档加载中出现问题',
+		});
 	}
 	player = reactive(player);
 }

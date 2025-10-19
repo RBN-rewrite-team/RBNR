@@ -802,6 +802,14 @@ export const Hydra = {
 					.toNumber(),
 			);
 		}
+		if (
+			player.retribution >= 1 &&
+			player.hydra.dilute.inDilute &&
+			player.hydra.dilute.solvent.toString().startsWith('10,10,10,10,10,10,true,true')
+		) {
+			base = base.mul('1e3000');
+			base = base.mul(new Decimal('1e1000000').pow(player.hydra.dilute.spentTime));
+		}
 		return base.min('eee8.07230472602822538e153'); //SHO
 	},
 	deduceSpeed(i = 0): Decimal {
@@ -887,6 +895,14 @@ export const Hydra = {
 			base = base.log10().log10().mul(1.1).pow10().pow10();
 		if (player.milestones.nonrec_21 && base.gte(1e10))
 			base = base.log10().log10().mul(1.2).pow10().pow10();
+		if (
+			player.retribution >= 1 &&
+			player.hydra.dilute.inDilute &&
+			player.hydra.dilute.solvent.toString().startsWith('10,10,10,10,10,10,true,true') &&
+			!CHALLENGE.inChallenge(1, 4)
+		) {
+			base = base.mul('1e1000');
+		}
 		return base.min('ee8.07230472602822538e153');
 	},
 	powerGainAfterSoftcap(base: Decimal): Decimal {
