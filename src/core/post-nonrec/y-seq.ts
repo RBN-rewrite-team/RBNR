@@ -107,7 +107,9 @@ export const Y_SEQ = {
 				.add(logScalingRatio.mul(pExcess).mul(pExcess.sub(1)).mul(0.5));
 		}
 
-		player.hydra.compressedPower = player.hydra.compressedPower.sub(logPrice.pow10());
+		player.hydra.compressedPower = player.hydra.compressedPower
+			.sub(logPrice.pow10())
+			.clampMin(0);
 
 		player.postnonrec.yseq.dimensions[0][id] =
 			player.postnonrec.yseq.dimensions[0][id].max(boughtcount);
