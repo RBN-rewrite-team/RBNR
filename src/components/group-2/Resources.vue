@@ -22,7 +22,7 @@ import { getCurrentOrdinal } from '../../utils/y-seq.ts';
 					>
 						<div style="font-weight: bold; color: var(--suptitle-color)">
 							数值&nbsp;
-							<template v-if="player.singularity.t > 666">ω</template>
+							<template v-if="player.singularity.t > 666.6666666">ω</template>
 							<template v-else>{{ formatWhole(player.number) }}</template>
 						</div>
 						<div
