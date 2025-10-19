@@ -4,12 +4,14 @@ import { player } from './save';
 import { Successor } from './successor/successor';
 import { temp } from './temp-data';
 import { DC } from './constants';
+import { getInterval } from './stats';
+import { QolUpgrades } from './exponention/qolupg';
 
-interface IAchievement {
-	title: string;
-	desc: string;
-	satisfied?(): boolean;
-}
+// interface IAchievement {
+// 	title: string;
+// 	desc: string;
+// 	satisfied?(): boolean;
+// }
 
 export function achLoop() {
 	for (const row of achievements) {
@@ -233,8 +235,210 @@ export const achievements = [
 
 			id: 20,
 		},
+		{
+			title: '那很快了',
+			desc: '在1分钟内进行指数重置',
+			satisfied() {
+				return player.stat.chapter >= 4 || getInterval('recent10ExpReset') <= 60000;
+			},
+
+			id: 21,
+		},
+		{
+			title: '前四行集齐了/打call',
+			desc: '购买前四行QOL升级（4-QOL-00不算一行)',
+			satisfied() {
+				return (
+					player.stat.chapter >= 4 ||
+					(QolUpgrades.row3AllUnlocked() &&
+						QolUpgrades.row1AllUnlocked() &&
+						QolUpgrades.row2AllUnlocked() &&
+						player.upgrades['400q'] &&
+						player.upgrades['441q'] &&
+						player.upgrades['442q'] &&
+						player.upgrades['443q'] &&
+						player.upgrades['444q'] &&
+						player.upgrades['445q'])
+				);
+			},
+
+			id: 22,
+		},
+		{
+			title: '那很很很快了',
+			desc: '在1秒内进行指数重置',
+			satisfied() {
+				return player.stat.chapter >= 4 || getInterval('recent10ExpReset') <= 1000;
+			},
+
+			id: 23,
+		},
 	],
-	[],
+	[
+		{
+			title: '终于不用点乘法重置了',
+			desc: '购买U3-22',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.upgrades['46'];
+			},
+
+			id: 24,
+		},
+		{
+			title: '√2 not in Q',
+			desc: '解锁数论研究2',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.upgrades['45'];
+			},
+
+			id: 25,
+		},
+		{
+			title: '棋盘学大变（×）',
+			desc: '解锁棋盘',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.upgrades['47'];
+			},
+
+			id: 26,
+		},
+		{
+			title: '需要用1MiB才能存下这个数字，但是我们用的是10^x',
+			desc: '获得e1,048,575数值',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.number.gte('e1048575');
+			},
+
+			id: 27,
+		},
+		{
+			title: '你不是说好了每格两倍吗，怎么变成三倍了/发怒/发怒',
+			desc: '获得M-CB-1里程碑',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.milestones['cb1'];
+			},
+
+			id: 28,
+		},
+		{
+			title: '急急急',
+			desc: '获得U3-24',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.upgrades['48'];
+			},
+
+			id: 29,
+		},
+		{
+			title: '天文学大变',
+			desc: '雇佣一名天文学家',
+			satisfied() {
+				return player.stat.chapter >= 3.1;
+			},
+
+			id: 30,
+		},
+		{
+			title: '指数指数时代',
+			desc: '获得超过e6.871e10数字',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.number.gte('e68719476736');
+			},
+
+			id: 31,
+		},
+	],
+	[
+		{
+			title: '全力推进...好吧并不是很全',
+			desc: '购买U3-33（温馨提示：成就32-33有时间墙，不少于15分钟）',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.upgrades['411'];
+			},
+
+			id: 32,
+		},
+		{
+			title: 'Dilate',
+			desc: '解锁对数膨胀...应该很普通吧。',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.milestones['log_G'];
+			},
+
+			id: 33,
+		},
+		{
+			title: 'Restart',
+			desc: '进入对数膨胀',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.exponention.logarithm.in_dilate;
+			},
+
+			id: 34,
+		},
+		{
+			title: '膨胀中的乘法',
+			desc: '在对数膨胀中购买U1-6',
+			satisfied() {
+				return (
+					player.stat.chapter >= 4 ||
+					player.exponention.logarithm.upgrades_in_dilated.includes('26')
+				);
+			},
+
+			id: 35,
+		},
+		{
+			title: '膨胀中的挑战',
+			desc: '在对数膨胀中购买U2-9',
+			satisfied() {
+				return (
+					player.stat.chapter >= 4 ||
+					player.exponention.logarithm.upgrades_in_dilated.includes('39')
+				);
+			},
+
+			id: 36,
+		},
+		{
+			title: '1/x',
+			desc: '解锁奇点生成器',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.milestones['dil_7'];
+			},
+
+			id: 37,
+		},
+		{
+			title: '10^^4',
+			desc: '获得ee1.000e10数值',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.number.gte('eee10');
+			},
+
+			id: 38,
+		},
+		{
+			title: '10^^100',
+			desc: '获得1.000F100数值',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.number.gte(Decimal.tetrate(10, 100));
+			},
+
+			id: 39,
+		},
+	],
+	[
+		{
+			title: '超越real.无限',
+			desc: '获得ω数值',
+			satisfied() {
+				return player.stat.chapter >= 4 || player.singularity.t >= 666.6666666666666666;
+			},
+
+			id: 40,
+		},
+	],
 	[
 		{
 			title: '大数理论',

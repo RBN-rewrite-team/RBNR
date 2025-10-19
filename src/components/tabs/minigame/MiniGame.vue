@@ -175,22 +175,6 @@ function exitEditor() {
 </template>
 
 <style lang="scss" scoped>
-table {
-	margin: auto;
-}
-tr {
-	height: 60px;
-
-	&:empty {
-		display: none;
-	}
-}
-td {
-	height: 60px;
-	width: 60px;
-	background-color: var(--background-color);
-	border: 1px solid red;
-}
 .movement_button {
 	position: absolute;
 	width: 80px;
