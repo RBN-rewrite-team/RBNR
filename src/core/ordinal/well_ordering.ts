@@ -343,7 +343,7 @@ const ProcceedingCost = [
 	new Decimal('1e1125'),
 	new Decimal('1e2435'),
 	new Decimal('1e2940'),
-	new Decimal('1e2975'),
+	(() => player.retribution == 1 ? new Decimal('1e2960') : new Decimal('1e2975')),
 	new Decimal('1e8320'),
 	new Decimal('1e42258'),
 	new Decimal('1e75000'),

@@ -718,7 +718,7 @@ function getCurrentSequenceName(): string {
 						@click="stepProceed(17)"
 						v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(17)"
 					>
-						解锁引理2，消耗1.000e2975推演能量
+						解锁引理2，消耗<span v-if="player.retribution == 1">1.000e2960</span><span v-else>1.000e2975</span>推演能量
 					</button>
 				</template>
 			</template>
