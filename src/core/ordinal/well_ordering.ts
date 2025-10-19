@@ -9,6 +9,7 @@ import type { FixedLengthArray } from 'type-fest';
 import { DC } from '../constants';
 import { getTotalTheories } from '../nonrecu/total-theories.ts';
 import { RETRIBUTION } from '@/core/post-nonrec/retribution';
+import { unwrapDecimalValue } from '@/lib/funcs.ts';
 
 function B6R13_B6R14_base() {
 	let base = new Decimal(0.05);
@@ -277,7 +278,14 @@ export const WellOrderingUpgrades = {
 	})(),
 	U6R22: new (class extends UpgradeWithEffect<Decimal> {
 		description = '当前非递归内重置时间加成推演能量获取速度';
-		cost = () => new Decimal(player.retribution == 1 ? '2e42252' : (player.options.hardMode ? '1e42260' : '1e42258'));
+		cost = () =>
+			new Decimal(
+				player.retribution == 1
+					? '2e42252'
+					: player.options.hardMode
+						? '1e42260'
+						: '1e42258',
+			);
 		name = 'U6-R-2-2';
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 		show(): boolean {
@@ -343,20 +351,19 @@ const ProcceedingCost = [
 	new Decimal('1e1125'),
 	new Decimal('1e2435'),
 	new Decimal('1e2940'),
-	(() => player.retribution == 1 ? new Decimal('1e2960') : new Decimal('1e2975')) as unknown as Decimal,
+	() => (player.retribution == 1 ? new Decimal('1e2960') : new Decimal('1e2975')),
 	new Decimal('1e8320'),
 	new Decimal('1e42258'),
-	(() => player.retribution == 1 ? new Decimal('1e58888') : new Decimal('1e75000')) as unknown as Decimal,
-	(() => player.retribution == 1 ? new Decimal('e6e4') : new Decimal('e5e5')) as unknown as Decimal,
-	(() => player.retribution == 1 ? new Decimal('e88000') : new Decimal('ee6')) as unknown as Decimal,
+	() => (player.retribution == 1 ? new Decimal('1e58888') : new Decimal('1e75000')),
+	() => (player.retribution == 1 ? new Decimal('e6e4') : new Decimal('e5e5')),
+	() => (player.retribution == 1 ? new Decimal('e88000') : new Decimal('ee6')),
 	new Decimal('ee8'),
 	new Decimal(1 / 0),
 ];
-
 export function stepProceed(x: number) {
 	if (!nt.p.steps_proceeded.includes(x)) {
-		if (nt.p.energy.gte(ProcceedingCost[x] ?? new Decimal(1 / 0))) {
-			nt.p.energy = nt.p.energy.sub(ProcceedingCost[x]);
+		if (nt.p.energy.gte(unwrapDecimalValue(ProcceedingCost[x] ?? new Decimal(1 / 0)))) {
+			nt.p.energy = nt.p.energy.sub(unwrapDecimalValue(ProcceedingCost[x]));
 			nt.p.steps_proceeded.push(x);
 		}
 	}
