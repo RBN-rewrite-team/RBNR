@@ -214,10 +214,10 @@ export const Successor = {
 		if (CHALLENGE.amountChallenge(0, 2).gt(0) && !CHALLENGE.inChallenge(0, 3)) {
 			base = base.mul(MULTI_CHALS[2].effect?.(player.challenges[0][2]) ?? 1);
 		}
-		
-		if(player.upgrades.ts01 && player.stat.chapter == 0) base = base.mul(1.5);
-		if(player.upgrades.ts02) base = base.mul(1.5);
-		if(player.upgrades.ts03 && player.stat.chapter == 0) base = base.mul(2);
+
+		if (player.upgrades.ts01 && player.stat.chapter == 0) base = base.mul(1.5);
+		if (player.upgrades.ts02) base = base.mul(1.5);
+		if (player.upgrades.ts03 && player.stat.chapter == 0) base = base.mul(2);
 
 		if (player.firstResetBit & 0b100) base = base.pow(feature.EXPONENTION.powerEff());
 		if (player.firstResetBit & 0b100) base = base.pow(1.03);
