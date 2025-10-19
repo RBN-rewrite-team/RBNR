@@ -282,7 +282,7 @@ import { RETRIBUTION } from '@/core/post-nonrec/retribution';
 							UNOCF
 						</div>
 					</template>
-					<template v-if="player.retribution >= 1 && isTester()">
+					<template v-if="player.retribution >= 1 && player.nonrecu.studies_bought.includes(30)">
 						<div class="menu1">证明论</div>
 						<div class="menu_line"></div>
 						<div
