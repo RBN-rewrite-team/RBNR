@@ -343,16 +343,12 @@ const ProcceedingCost = [
 	new Decimal('1e1125'),
 	new Decimal('1e2435'),
 	new Decimal('1e2940'),
-	//@ts-ignore
-	(() => player.retribution == 1 ? new Decimal('1e2960') : new Decimal('1e2975')) as Decimal,
+	(() => player.retribution == 1 ? new Decimal('1e2960') : new Decimal('1e2975')) as unknown as Decimal,
 	new Decimal('1e8320'),
 	new Decimal('1e42258'),
-	//@ts-ignore
-	(() => player.retribution == 1 ? new Decimal('1e58888') : new Decimal('1e75000')) as Decimal,
-	//@ts-ignore
-	(() => player.retribution == 1 ? new Decimal('e6e4') : new Decimal('e5e5')) as Decimal,
-	//@ts-ignore
-	(() => player.retribution == 1 ? new Decimal('e88000') : new Decimal('ee6')) as Decimal,
+	(() => player.retribution == 1 ? new Decimal('1e58888') : new Decimal('1e75000')) as unknown as Decimal,
+	(() => player.retribution == 1 ? new Decimal('e6e4') : new Decimal('e5e5')) as unknown as Decimal,
+	(() => player.retribution == 1 ? new Decimal('e88000') : new Decimal('ee6')) as unknown as Decimal,
 	new Decimal('ee8'),
 	new Decimal(1 / 0),
 ];
