@@ -15,6 +15,7 @@ function unlockedList(): string {
 		解析系统中，每周的不同时段会解锁不同系统。<br>
 		当前是 {{dayOfWeek()[1]}} ，解锁 <span v-html="unlockedList()" />系统。<br>
 		进行证明论重置以随机解析，成功率为 5% ，解析同一系统20次必定成功。<br>
+		单一系统首次解析必定成功。<br>
 	</h3>
 	<div v-for="count in 7" align="center"
 	:style="{opacity: Analysis.analysisUnlocked(count - 1) ? 1 : 0.5}">
