@@ -25,6 +25,9 @@ import { DC } from '@/core/constants';
 
 import { equipmentDestroyLoop } from '@/core/minigame';
 import { achLoop } from './achievements.ts';
+import { format } from '@/utils/format.ts';
+import { Ordinal } from '@/lib/ordinal/index.ts';
+import { OrdinalUtils } from '@/utils/ordinal.ts';
 
 /**
  * 游戏循环经过了多少时间
@@ -133,6 +136,37 @@ export function gameLoop() {
 
 	equipmentDestroyLoop();
 	achLoop();
+	document.title = getCurTitle();
+}
+function getCurTitle() {
+	let base = '';
+	if (player.pt.resetTimes.gte(1)) {
+		base = '大数之路放置版';
+	} else {
+		base = '大数之路重制版';
+	}
+
+	if (player.singularity.t < 666.6666666) {
+		base += ' - ' + format(player.number) + '数值';
+	} else if (!(player.firstResetBit & 0b1000)) {
+		base += ' - ω数值';
+	} else if (!player.upgrades[61]) {
+		base +=
+			' - ' +
+			OrdinalUtils.numberToOrdinal(player.ordinal.number.floor(), feature.Ordinal.base());
+	} else {
+		base +=
+			' - ' +
+			OrdinalUtils.numberToBMS(player.hydra.deduceOrdinal[0], new Decimal(4), 15).replace(
+				'<sup>ω</sup>',
+				'^ω',
+			);
+	}
+	if (base.length > 20) {
+		base = base.replace('大数之路重制版', 'RBNR');
+		base = base.replace('大数之路放置版', 'Idle');
+	}
+	return base;
 }
 function r(s: number): number {
 	return Math.random() * s * 2 - s;
