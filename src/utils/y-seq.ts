@@ -388,7 +388,7 @@ export const getCurrentYMilestone = (target: Decimal): [Decimal, string, ...stri
 	  if (target.eq(base[0])) return base.slice(-1) as [Decimal, string, ...string[]]
 	  else {
 	    let ret = last(target)
-	    return [target, ret, base?.[2] ? ">" + base[2] : ">" + base[1]].filter(item => item !== undefined) as [Decimal, string, ...string[]]
+	    return [target, ret, base?.[2] ? ">" + base[2] : base[1]]
 	  }
 	}
 	return base as [Decimal, string, ...string[]];
