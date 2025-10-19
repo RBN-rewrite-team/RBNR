@@ -18,7 +18,7 @@ export const Analysis = {
 	, 'Z<sub>ω</sub>'
 	, 'ZFC'],
 	
-	analysisUnlocked(id: number) {
+	analysisUnlocked(id: number): boolean {
 		if(dayOfWeek()[0] == id) return true;
 		if(dayOfWeek()[0] == 0) return true;
 		return false;
@@ -27,8 +27,8 @@ export const Analysis = {
 	singleAnalysis() {
 		for(let d = 0;d < 7;d++)
 		{
-			if(d == 0)
-			if(player.pt.analysis[d] >= 11) return;
+			if(!analysisUnlocked(d)) continue;
+			if(player.pt.analysis[d] >= 11) continue;
 			if(Math.random() <= 0.05 || player.pt.analysisFailed[d] >= 19)
 			{
 				player.pt.analysis[d]++;
