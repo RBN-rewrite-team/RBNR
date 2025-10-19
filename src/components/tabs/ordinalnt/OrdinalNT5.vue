@@ -763,7 +763,7 @@ function getCurrentSequenceName(): string {
 				@click="stepProceed(20)"
 				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(20)"
 			>
-				证明引理3，消耗1.000e75,000推演能量
+				证明引理3，消耗<span v-if="player.retribution == 1">1.00e58,888</span><span v-else>1.00e75,000</span>推演能量
 			</button>
 			<template v-else>
 				<convertTextToComponent :text="bmswellorder3prove" />
@@ -773,7 +773,7 @@ function getCurrentSequenceName(): string {
 					@click="stepProceed(21)"
 					v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(21)"
 				>
-					解锁引理4，消耗1.00e500,000推演能量
+					解锁引理4，消耗<span v-if="player.retribution == 1">1.00e60,000</span><span v-else>1.00e500,000</span>推演能量
 				</button>
 			</template>
 		</template>
@@ -789,7 +789,7 @@ function getCurrentSequenceName(): string {
 				@click="stepProceed(22)"
 				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(22)"
 			>
-				证明引理4，消耗1.0e1,000,000推演能量
+				证明引理4，消耗<span v-if="player.retribution == 1">1.00e88,000</span><span v-else>1.0e1,000,000</span>推演能量
 			</button>
 			<template v-else>
 				<convertTextToComponent :text="bmswellorder4prove" />

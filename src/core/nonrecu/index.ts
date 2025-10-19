@@ -66,7 +66,7 @@ export const NON_RECURSIVE = {
 		})(),
 		'77': new (class extends UpgradeWithEffect<Decimal> {
 			description = '非递归能量加成当前非递归中的时间获取速度';
-			cost = new Decimal('e5e73');
+			cost = () => player.retribution == 1 ? new Decimal('ee70') : new Decimal('e5e73');
 			name = 'U6-7';
 			currency: Currencies = Currencies.NONREC;
 			effect(): Decimal {

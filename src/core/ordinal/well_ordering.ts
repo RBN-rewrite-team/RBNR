@@ -268,7 +268,7 @@ export const WellOrderingUpgrades = {
 	})(),
 	U6R21: new (class extends Upgrade {
 		description = '移除非递归能量的二重软上限';
-		cost = new Decimal('4.2257e42257');
+		cost = () => new Decimal(player.retribution == 1 ? '1e42252' : '4.2257e42257');
 		name = 'U6-R-2-1';
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 		show(): boolean {
@@ -277,7 +277,7 @@ export const WellOrderingUpgrades = {
 	})(),
 	U6R22: new (class extends UpgradeWithEffect<Decimal> {
 		description = '当前非递归内重置时间加成推演能量获取速度';
-		cost = () => new Decimal(player.options.hardMode ? '1e42260' : '1e42258');
+		cost = () => new Decimal(player.retribution == 1 ? '2e42252' : (player.options.hardMode ? '1e42260' : '1e42258'));
 		name = 'U6-R-2-2';
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 		show(): boolean {
@@ -346,9 +346,9 @@ const ProcceedingCost = [
 	(() => player.retribution == 1 ? new Decimal('1e2960') : new Decimal('1e2975')),
 	new Decimal('1e8320'),
 	new Decimal('1e42258'),
-	new Decimal('1e75000'),
-	new Decimal('e5e5'),
-	new Decimal('ee6'),
+	(() => player.retribution == 1 ? new Decimal('1e58888') : new Decimal('1e75000')),
+	(() => player.retribution == 1 ? new Decimal('e6e4') : new Decimal('e5e5')),
+	(() => player.retribution == 1 ? new Decimal('e88000') : new Decimal('ee6')),
 	new Decimal('ee8'),
 	new Decimal(1 / 0),
 ];
