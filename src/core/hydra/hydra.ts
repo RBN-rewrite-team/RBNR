@@ -357,7 +357,7 @@ export const Hydra = {
 		})(),
 		'65': new (class U64 extends Upgrade {
 			description = '飞升/超越/轮回不再重置任何东西。解锁<b>数论研究4</b>';
-			cost = new Decimal('1e1000');
+			cost = () => player.retribution == 1 ? new Decimal('1e900') : new Decimal('1e1000');
 			name = 'U5-5';
 			show(): boolean {
 				return (
