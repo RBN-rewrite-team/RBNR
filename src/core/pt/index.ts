@@ -2,8 +2,7 @@ import {player, feature} from '@/core/global';
 import {format, formatWhole} from '@/utils/format';
 import Decimal from 'break_eternity.js';
 
-export function dayOfWeek()
-{
+export function dayOfWeek(): [number, string]{
 	const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
 	let date = new Date();
 	let dayOfWeek = date.getDay();
@@ -18,6 +17,12 @@ export const Analysis = {
 	, 'Z<sub>2</sub>'
 	, 'Z<sub>ω</sub>'
 	, 'ZFC'],
+	
+	analysisUnlocked(id) {
+		if(dayOfWeek()[0] == id) return true;
+		if(dayOfWeek()[0] == 0) return true;
+		return false;
+	},
 	
 	singleAnalysis() {
 		let d = dayOfWeek()[0];
