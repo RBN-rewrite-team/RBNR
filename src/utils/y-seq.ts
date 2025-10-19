@@ -25,7 +25,9 @@ export function getYSequenceWithoutColon(Y: string): {
 /**
  * 无固定底数
  */
-export const Y_Milestones = [
+ 
+type YMilestone = [Decimal, string, ...string[], (x: Decimal) => string] | [Decimal, string, ...string[]]
+export const Y_Milestones: YMilestone[] = [
 	[new Decimal(0), 'Y()', '0'],
 	[new Decimal(1), 'Y(1)', '1'],
 	[new Decimal(2), 'Y(1,1)', '2'],
@@ -352,7 +354,7 @@ export const Y_Milestones = [
 	[new Decimal('ee153.90699754796802'), 'Y(1,ω)', '\\text{SYO}'],
 	[new Decimal('(e^3.402823669209385e+38)153.90699754796802'), 'ω-Y(1,ω)', '\\text{MHO}'],
 	// [new Decimal('(e^1.3407807929942597e+154)153.90699754796802'), 'Ω-Y(1,ω)'],
-] as const;
+];
 
 export function getCurrentYMilestoneIndex(target: Decimal): number {
 	if (target.lt(0) || target.isNan()) throw new Error('Unexpected Y Sequence Number.');
@@ -379,9 +381,17 @@ export function getCurrentYMilestoneIndex(target: Decimal): number {
 	return resultIndex;
 }
 
-export const getCurrentYMilestone = (target: Decimal): [any, string, ...string[]] => {
-	//@ts-ignore
-	return Y_Milestones[getCurrentYMilestoneIndex(target)];
+export const getCurrentYMilestone = (target: Decimal): [Decimal, string, ...string[]] => {
+	let base = Y_Milestones[getCurrentYMilestoneIndex(target)] ?? [new Decimal(NaN), "Not a Ordinal"];
+	let last = base[base.length - 1];
+	if (typeof last === "function") {
+	  if (target.eq(base[0])) return base.slice(-1) as [Decimal, string, ...string[]]
+	  else {
+	    let ret = last(target)
+	    return [target, ret, base?.[2] ? ">" + base[2] : undefined ].filter(item => item !== undefined) as [Decimal, string, ...string[]]
+	  }
+	}
+	return base as [Decimal, string, ...string[]];
 };
 
 export function getCurrentOrdinal(ord: Decimal): string {
