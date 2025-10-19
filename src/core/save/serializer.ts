@@ -242,3 +242,5 @@ export const saveSerializer = {
 		return this.newStepsV2.reduce((x: any, f: SerializeStep) => f.serialize(x), data) as string;
 	},
 } as const;
+
+window.saveSerializer = saveSerializer
