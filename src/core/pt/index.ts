@@ -25,16 +25,19 @@ export const Analysis = {
 	},
 	
 	singleAnalysis() {
-		let d = dayOfWeek()[0];
-		if(player.pt.analysis[d] >= 11) return;
-		if(Math.random() <= 0.05 || player.pt.analysisFailed[d] >= 19)
+		for(let d = 0;d < 7;d++)
 		{
-			player.pt.analysis[d]++;
-			player.pt.analysisFailed[d] = 0;
-		}
-		else
-		{
-			player.pt.analysisFailed[d]++;
+			if(d == 0)
+			if(player.pt.analysis[d] >= 11) return;
+			if(Math.random() <= 0.05 || player.pt.analysisFailed[d] >= 19)
+			{
+				player.pt.analysis[d]++;
+				player.pt.analysisFailed[d] = 0;
+			}
+			else
+			{
+				player.pt.analysisFailed[d]++;
+			}
 		}
 	},
 	
