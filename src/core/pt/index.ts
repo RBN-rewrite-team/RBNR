@@ -103,6 +103,12 @@ export function realPTreset() {
 					content:
 						'证明论重置还没做完，可能会导致：证明论效果失效，ω病毒，卡死病毒，你确实要重置?',
 					onConfirm() {
+						if (player.challenges[1][6].lt(1)) {
+							ModalService.show({
+								title: '重置不了',
+								content: 'NRC7挑战次数至少大于1',
+							});
+						}
 						if (player.nonrecu.studies_bought.includes(30)) {
 							PTreset();
 							player.pt.resetTimes = player.pt.resetTimes.add(1);
