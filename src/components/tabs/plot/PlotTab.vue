@@ -2,106 +2,215 @@
 import { temp } from '@/core/temp-data';
 import PlotNode from './PlotNode.vue';
 import { unlockedPlots } from '@/core/plot';
+import { computed, onMounted, ref } from 'vue';
+import { component as convertTextToComponent } from '../help/text-to-component-convert';
 function enterPlot(i: number) {
 	if (unlockedPlots() >= i) {
 		temp.plotdisplay = i;
 	}
 }
+
+// 数据源 - 字符串列表
+const options = computed(function (): string[] {
+	return ['sources', '如果场景里出现一架钢琴', '说明这里有钢琴', 'RBNR plot new UI'];
+});
+
+// 选择的结果
+const selectedValue = ref('');
+
+// 下拉框状态
+const isOpen = ref(false);
+
+// 搜索查询
+const searchQuery = ref('');
+
+// 过滤后的选项
+const filteredOptions = computed(() => {
+	if (!searchQuery.value) {
+		return options.value;
+	}
+	return options.value.filter((option: any) =>
+		option.toLowerCase().includes(searchQuery.value.toLowerCase()),
+	);
+});
+
+// 切换下拉框显示/隐藏
+const toggleDropdown = () => {
+	isOpen.value = !isOpen.value;
+	if (isOpen.value) {
+		searchQuery.value = '';
+	}
+};
+
+// 选择选项
+const selectOption = (option: any) => {
+	selectedValue.value = option;
+	isOpen.value = false;
+	searchQuery.value = '';
+};
+
+// 确认选择
+const confirmSelection = () => {
+	if (selectedValue.value) {
+		alert(`您已选择: ${selectedValue.value}`);
+	}
+};
+
+// 清除选择
+const clearSelection = () => {
+	selectedValue.value = '';
+};
+
+// 点击外部关闭下拉框
+const handleClickOutside = (event: any) => {
+	const selectContainer = document.querySelector('.select-container');
+	if (selectContainer && !selectContainer.contains(event.target)) {
+		isOpen.value = false;
+	}
+};
+
+onMounted(() => {
+	document.addEventListener('click', handleClickOutside);
+});
 </script>
 
 <template>
 	<div class="main">
 		<h1>剧情设定</h1>
-		<div style="position: fixed">
-			<PlotNode style="top: 10px; left: 30px" @click="temp.plotdisplay = 1"
-				><vue-latex expression="-\epsilon"></vue-latex
-			></PlotNode>
-			<PlotNode style="top: 10px; left: 202.5px" @click="enterPlot(2)">
-				<template v-if="unlockedPlots() >= 2"
-					><vue-latex expression="0"></vue-latex></template
-				><template v-else>未解锁</template>
-			</PlotNode>
-			<PlotNode style="top: 10px; left: 375px" @click="enterPlot(3)">
-				<template v-if="unlockedPlots() >= 3"
-					><vue-latex expression="1"></vue-latex></template
-				><template v-else>未解锁</template>
-			</PlotNode>
-			<PlotNode style="top: 10px; left: 547.5px" @click="enterPlot(4)">
-				<template v-if="unlockedPlots() >= 4"
-					><vue-latex expression="2"></vue-latex></template
-				><template v-else>未解锁</template>
-			</PlotNode>
-			<PlotNode style="top: 100px; left: 30px" @click="enterPlot(5)">
-				<template v-if="unlockedPlots() >= 5"
-					><vue-latex expression="C\cdot4"></vue-latex></template
-				><template v-else>未解锁</template>
-			</PlotNode>
-			<PlotNode style="top: 100px; left: 202.5px" @click="enterPlot(6)">
-				<template v-if="unlockedPlots() >= 6"
-					><vue-latex expression="3"></vue-latex></template
-				><template v-else>未解锁</template>
-			</PlotNode>
-			<PlotNode style="top: 100px; left: 375px" @click="enterPlot(7)">
-				<template v-if="unlockedPlots() >= 7"
-					><vue-latex expression="3\frac{1}{4}"></vue-latex></template
-				><template v-else>未解锁</template>
-			</PlotNode>
-			<PlotNode style="top: 100px; left: 547.5px" @click="enterPlot(8)">
-				<template v-if="unlockedPlots() >= 8"
-					><vue-latex expression="3\frac{1}{2}"></vue-latex></template
-				><template v-else>未解锁</template>
-			</PlotNode>
-			<PlotNode style="top: 200px; left: 30px" @click="enterPlot(9)">
-				<template v-if="unlockedPlots() >= 9"
-					><vue-latex expression="\frac{1}{x}"></vue-latex></template
-				><template v-else>未解锁</template>
-			</PlotNode>
-			<PlotNode style="top: 200px; left: 202.5px" @click="enterPlot(10)">
-				<template v-if="unlockedPlots() >= 10"
-					><vue-latex expression="4"></vue-latex></template
-				><template v-else><vue-latex expression="?"></vue-latex></template>
-			</PlotNode>
-			<PlotNode style="top: 200px; left: 375px" @click="enterPlot(11)">
-				<template v-if="unlockedPlots() >= 11"
-					><vue-latex expression="5"></vue-latex></template
-				><template v-else><vue-latex expression="?"></vue-latex></template>
-			</PlotNode>
-			<PlotNode style="top: 200px; left: 547.5px" @click="enterPlot(12)">
-				<template v-if="unlockedPlots() >= 12"
-					><vue-latex expression="Dil"></vue-latex></template
-				><template v-else><vue-latex expression="?"></vue-latex></template>
-			</PlotNode>
-			<PlotNode style="top: 300px; left: 30px" @click="enterPlot(13)">
-				<template v-if="unlockedPlots() >= 13"
-					><vue-latex expression="Pri"></vue-latex></template
-				><template v-else><vue-latex expression="?"></vue-latex></template>
-			</PlotNode>
-			<PlotNode style="top: 300px; left: 202.5px" @click="enterPlot(14)">
-				<template v-if="unlockedPlots() >= 14"
-					><vue-latex expression="6"></vue-latex></template
-				><template v-else><vue-latex expression="?"></vue-latex></template>
-			</PlotNode>
-			<PlotNode style="top: 300px; left: 375px" @click="enterPlot(15)">
-				<template v-if="unlockedPlots() >= 15"
-					><vue-latex expression="6C"></vue-latex></template
-				><template v-else><vue-latex expression="?"></vue-latex></template>
-			</PlotNode>
-			<PlotNode style="top: 400px; left: 30px" @click="enterPlot(16)">
-				<template v-if="unlockedPlots() >= 16"
-					><span style="font-size: 50%">M-6-24</span></template
-				><template v-else><vue-latex expression="?"></vue-latex></template>
-			</PlotNode>
-			<PlotNode style="top: 400px; left: 202.5px" @click="enterPlot(17)">
-				<template v-if="unlockedPlots() >= 17"
-					><span style="font-size: 50%">NRC7</span></template
-				><template v-else><vue-latex expression="?"></vue-latex></template>
-			</PlotNode>
+		<div>
+			<div class="select-container">
+				<div class="select-header" :class="{ open: isOpen }" @click="toggleDropdown">
+					<span v-if="!selectedValue" class="placeholder">请选择一个选项</span>
+					<span v-else class="selected-value"
+						><convertTextToComponent :text="selectedValue"
+					/></span>
+					<span class="arrow" :class="{ open: isOpen }">▼</span>
+				</div>
+
+				<div class="dropdown" :class="{ open: isOpen }">
+					<input
+						type="text"
+						class="search-input"
+						placeholder="搜索选项..."
+						v-model="searchQuery"
+					/>
+					<ul class="option-list">
+						<li
+							v-for="option in filteredOptions"
+							:key="option"
+							class="option"
+							:class="{ selected: option === selectedValue }"
+							@click="selectOption(option)"
+						>
+							<convertTextToComponent :text="option" />
+						</li>
+						<li v-if="filteredOptions.length === 0" class="no-options">
+							未找到匹配的选项
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
 
 <style lang="css" scoped>
-.node {
+.select-container {
+	position: relative;
+	margin-bottom: 30px;
+	margin: auto;
+	width: 50%;
+}
+
+.select-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 14px 16px;
+	border: 2px solid var(--hover-color);
+	border-radius: 10px;
+	cursor: pointer;
+	background: var(--background-color);
+	transition: all 0.3s ease;
+}
+
+.select-header:hover {
+	border-color: #a777e3;
+}
+
+.select-header.open {
+	border-color: #6e8efb;
+	box-shadow: 0 0 0 3px rgba(110, 142, 251, 0.2);
+}
+
+.placeholder {
+	color: #999;
+}
+
+.selected-value {
+	color: var(--color);
+	font-weight: 500;
+}
+
+.arrow {
+	transition: transform 0.3s ease;
+}
+
+.arrow.open {
+	transform: rotate(180deg);
+}
+
+.dropdown {
 	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	background: var(--background-color);
+	border: 1px solid var(--hover-color);
+	border-radius: 10px;
+	margin-top: 5px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+	z-index: 10;
+	max-height: 250px;
+	overflow-y: auto;
+	display: none;
+}
+
+.dropdown.open {
+	display: block;
+}
+
+.search-input {
+	width: 100%;
+	padding: 12px 16px;
+	border: none;
+	border-bottom: 1px solid var(--hover-color);
+	outline: none;
+	font-size: 16px;
+	border-radius: 10px 10px 0 0;
+	background-color: var(--background-color);
+	color: var(--color);
+}
+
+.option-list {
+	list-style: none;
+}
+
+.option {
+	padding: 12px 16px;
+	cursor: pointer;
+	transition: background 0.2s;
+	border-bottom: 1px solid var(--background-color);
+	text-align: left;
+}
+
+.option:hover {
+	background: var(--app-background-color);
+}
+
+.option.selected {
+	background: var(--hover-color);
+	color: #6e8efb;
+	font-weight: 500;
 }
 </style>
