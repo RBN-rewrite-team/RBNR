@@ -1,29 +1,40 @@
 <script setup lang="ts">
-import {player, feature} from '@/core/global.ts';
-import {Analysis, dayOfWeek} from '@/core/pt/index.ts';
+import { player, feature } from '@/core/global.ts';
+import { Analysis, dayOfWeek } from '@/core/pt/index.ts';
+import type { IntClosedRange } from 'type-fest';
 
 function unlockedList(): string {
 	let s = '';
-	for(let i = 0;i < 7;i++) if(Analysis.analysisUnlocked(i)) s += Analysis.systems[i] + ' ';
+	for (let i = 0; i < 7; i++) if (Analysis.analysisUnlocked(i)) s += Analysis.systems[i] + ' ';
 	return s;
 }
 </script>
 
 <template>
-	<br>
+	<br />
 	<h3 style="color: cyan">
-		解析系统中，每周的不同时段会解锁不同系统。<br>
-		当前是 {{dayOfWeek()[1]}} ，解锁 <span v-html="unlockedList()" />系统。<br>
-		进行证明论重置以随机解析，成功率为 5% ，解析同一系统20次必定成功。<br>
-		单一系统首次解析必定成功。<br>
+		解析系统中，每周的不同时段会解锁不同系统。<br />
+		当前是 {{ dayOfWeek()[1] }} ，解锁 <span v-html="unlockedList()" />系统。<br />
+		进行证明论重置以随机解析，成功率为 5% ，解析同一系统20次必定成功。<br />
+		单一系统首次解析必定成功。<br />
 	</h3>
-	<div v-for="count in 7" align="center"
-	:style="{opacity: Analysis.analysisUnlocked(count - 1) ? 1 : 0.5}">
-		<br>
+	<div
+		v-for="count in 7"
+		align="center"
+		:style="{ opacity: Analysis.analysisUnlocked(count - 1) ? 1 : 0.5 }"
+	>
+		<br />
 		<div class="system">
-			<h3 v-html="count + ': ' + Analysis.systems[count - 1]" /><br>
-			解析进度：{{player.pt.analysis[count - 1]}}/11(本次解析已尝试{{player.pt.analysisFailed[count - 1]}}次)<br>
-			解析效果：{{Analysis.systemEffect[count - 1].desc(player.pt.analysis[count - 1])}}<br>
+			<h3 v-html="count + ': ' + Analysis.systems[count - 1]" />
+			<br />
+			解析进度：{{ player.pt.analysis[count - 1] }}/11(本次解析已尝试{{
+				player.pt.analysisFailed[count - 1]
+			}}次)<br />
+			解析效果：{{
+				Analysis.systemEffect[(count - 1) as IntClosedRange<0, 6>].desc(
+					player.pt.analysis[count - 1],
+				)
+			}}<br />
 		</div>
 	</div>
 </template>
