@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { temp } from '@/core/temp-data';
-import PlotNode from './PlotNode.vue';
-import { unlockedPlots } from '@/core/plot';
+import { plotTitles, unlockedPlots } from '@/core/plot';
 import { computed, onMounted, ref } from 'vue';
 import { component as convertTextToComponent } from '../help/text-to-component-convert';
 function enterPlot(i: number) {
+	console.log(i);
 	if (unlockedPlots() >= i) {
 		temp.plotdisplay = i;
 	}
@@ -12,9 +12,10 @@ function enterPlot(i: number) {
 
 // 数据源 - 字符串列表
 const options = computed(function (): string[] {
-	return ['sources', '如果场景里出现一架钢琴', '说明这里有钢琴', 'RBNR plot new UI'];
+	return plotTitles as unknown as string[];
 });
 
+let actualIndex = 0;
 // 选择的结果
 const selectedValue = ref('');
 
@@ -43,10 +44,11 @@ const toggleDropdown = () => {
 };
 
 // 选择选项
-const selectOption = (option: any) => {
+const selectOption = (option: string) => {
 	selectedValue.value = option;
 	isOpen.value = false;
 	searchQuery.value = '';
+	actualIndex = (plotTitles as unknown as string[]).indexOf(option);
 };
 
 // 确认选择
@@ -110,6 +112,13 @@ onMounted(() => {
 					</ul>
 				</div>
 			</div>
+			<button
+				class="clickable_button"
+				@click="() => enterPlot(actualIndex + 1)"
+				style="margin: auto"
+			>
+				进入剧情
+			</button>
 		</div>
 	</div>
 </template>
