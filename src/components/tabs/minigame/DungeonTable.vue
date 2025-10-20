@@ -131,7 +131,7 @@ function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof
 						<td
 							v-else
 							style="
-								background-image: url('/plot_image/NumerorumColor.png');
+								background-image: url('./plot_image/NumerorumColor.png');
 								background-size: cover;
 								border: 1px solid gold;
 							"
