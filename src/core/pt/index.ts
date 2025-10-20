@@ -5,6 +5,7 @@ import { wellOrderPlayerData } from '../ordinal/well_ordering';
 import { DC } from '../constants';
 import { NON_RECURSIVE } from '../nonrecu';
 import { Hydra } from '../hydra/hydra';
+import { Y_SEQ } from '../post-nonrec/y-seq';
 
 export function dayOfWeek(): [number, string] {
 	const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
@@ -16,7 +17,8 @@ export function dayOfWeek(): [number, string] {
 const resetUpgrades = [
 	/*'61',*/'610S','611','6110','6111','6112','6113','6114','611S','612','612S','613','613S','614','614S','615','615S','616S',
 	'617','618','619','61R','61S','62','62R','62S','63','63R','63S','64','64R','64S','65','65R','65S','66','66R','66S','67R',
-	'67S','68R','68S','69R','69S', '71','71UN','72','73','74','U6R11','U6R12','U6R13','U6R14','U6R15'
+	'67S','68R','68S','69R','69S', '71','71UN','72','73','74','U6R11','U6R12','U6R13','U6R14','U6R15',
+	'621','6210','6211','6212','621R','622','622R','623','624','625','626','627','628','629'
 ] as const satisfies (keyof typeof player.upgrades)[];
 
 // prettier-ignore
@@ -86,6 +88,7 @@ export function PTreset() {
 	}
 	player.numbertheory.well_ordering = wellOrderPlayerData();
 	player.numbertheory.GM.x = DC.D_0;
+	player.postnonrec.yseq = Y_SEQ.playerData();
 }
 export const Analysis = {
 	systems: [
