@@ -388,7 +388,11 @@ export function wellOrderingGain(diff: number) {
 	return a;
 }
 export function wellOrderingLoop(diff: number) {
-	player.numbertheory.well_ordering.energy = player.numbertheory.well_ordering.energy
-		.add(wellOrderingGain(diff))
-		.clampMax('1e750000000');
+	player.numbertheory.well_ordering.energy = player.numbertheory.well_ordering.energy.add(
+		wellOrderingGain(diff),
+	);
+	if (player.retribution < 1) {
+		player.numbertheory.well_ordering.energy =
+			player.numbertheory.well_ordering.energy.clampMax('1e750000000');
+	}
 }
