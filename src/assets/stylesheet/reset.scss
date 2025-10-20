@@ -8,17 +8,21 @@
 	top: 7.5px;
 	overflow: hidden;
 	z-index: 5;
+	border-color: var(--color);
+	border-style: solid;
+	border-width: 1px;
 	/*  font-size: 50px;*/
 	font-weight: bold;
 	line-height: 45px;
 	color: #009dd9;
 	text-shadow: #5acaff 1.5px 1.5px 3px;
 	border-radius: 4px;
+	background-color: var(--background-color);
 	&:hover {
-		background-color: #c1ebff;
+		background-color: var(--hover-color);
 	}
 
-	&:active {
-		background-color: #8fdcff;
-	}
+	// &:active {
+	// 	background-color: #8fdcff;
+	// }
 }
