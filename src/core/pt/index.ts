@@ -6,6 +6,8 @@ import { DC } from '../constants';
 import { NON_RECURSIVE } from '../nonrecu';
 import { Hydra } from '../hydra/hydra';
 import { Y_SEQ } from '../post-nonrec/y-seq';
+import ModalService from '@/utils/Modal';
+import { isTester } from '../save/testing';
 
 export function dayOfWeek(): [number, string] {
 	const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
@@ -91,8 +93,31 @@ export function PTreset() {
 	player.postnonrec.yseq = Y_SEQ.playerData();
 }
 export function realPTreset() {
-	PTreset();
-	player.pt.resetTimes = player.pt.resetTimes.add(1);
+	ModalService.show({
+		title: '证明论重置',
+		content: '确实要证明论重置?',
+		onConfirm() {
+			if (isTester()) {
+				ModalService.show({
+					title: '再次确认证明论重置',
+					content:
+						'证明论重置还没做完，可能会导致：证明论效果失效，ω病毒，卡死病毒，你确实要重置?',
+					onConfirm() {
+						if (player.nonrecu.studies_bought.includes(30)) {
+							PTreset();
+							player.pt.resetTimes = player.pt.resetTimes.add(1);
+							Analysis.singleAnalysis();
+						}
+					},
+				});
+			} else {
+				ModalService.show({
+					title: '重置不了',
+					content: '证明论还在制作中，请等待更新',
+				});
+			}
+		},
+	});
 }
 export const Analysis = {
 	systems: [

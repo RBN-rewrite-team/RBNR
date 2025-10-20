@@ -93,6 +93,9 @@ export function qolLoop() {
 	}
 	if (player.exponention.logarithm.upgrades_in_dilated.includes('37'))
 		player.buyables['11'] = new Decimal(1000);
+	if (player.pt.resetTimes.gte(1)) {
+		player.nonrecu.studies_bought = [...new Set(player.nonrecu.studies_bought), 30];
+	}
 }
 function enterPlot(i: number) {
 	if (unlockedPlots() >= i) {

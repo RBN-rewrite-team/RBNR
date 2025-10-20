@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { player, feature } from '@/core/global.ts';
-import { Analysis, dayOfWeek } from '@/core/pt/index.ts';
+import { Analysis, dayOfWeek, realPTreset } from '@/core/pt/index.ts';
 import type { IntClosedRange } from 'type-fest';
 
 function unlockedList(): string {
@@ -18,6 +18,8 @@ function unlockedList(): string {
 		进行证明论重置以随机解析，成功率为 5% ，解析同一系统20次必定成功。<br />
 		单一系统首次解析必定成功。<br />
 	</h3>
+	<!--重置先放这里，反正也不常重置-->
+	<button class="clickable_button" @click="realPTreset">证明论重置</button>
 	<div
 		v-for="count in 7"
 		align="center"
