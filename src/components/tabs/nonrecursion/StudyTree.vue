@@ -178,6 +178,7 @@ onMounted(() => initConnectors(connectorsRef));
 						:study_id="15"
 						@update:study="updateAllConnectors"
 					/>
+					<BlankStudy />
 				</div>
 				<div class="studies_row">
 					<SingleStudy
@@ -200,6 +201,7 @@ onMounted(() => initConnectors(connectorsRef));
 						:study_id="18"
 						@update:study="updateAllConnectors"
 					/>
+					<BlankStudy />
 				</div>
 				<div class="studies_row">
 					<SingleStudy
