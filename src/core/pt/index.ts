@@ -90,6 +90,10 @@ export function PTreset() {
 	player.numbertheory.GM.x = DC.D_0;
 	player.postnonrec.yseq = Y_SEQ.playerData();
 }
+export function realPTreset() {
+	PTreset();
+	player.pt.resetTimes = player.pt.resetTimes.add(1);
+}
 export const Analysis = {
 	systems: [
 		'PA',
@@ -162,6 +166,10 @@ export const Analysis = {
 		if (dayOfWeek()[0] == id) return true;
 		if (dayOfWeek()[0] == 0) return true;
 		return false;
+	},
+	powerGain() {
+		// if (player.hydra.compressedPower.gte("eee30")) return ne
+		return new Decimal(0);
 	},
 	singleAnalysis() {
 		for (let d = 0; d < 7; d++) {
