@@ -1,54 +1,57 @@
 import { player } from './save';
-export function unlockedPlots() {
-	let a = 1;
-	if (player.stat.chapter >= 0) {
-		a++;
-	}
-	if (player.stat.chapter >= 1) {
-		a++;
-	}
-	if (player.stat.chapter >= 2) {
-		a++;
-	}
-	if (player.upgrades['39'] || player.stat.chapter >= 3) {
-		a++;
-	}
-	if (player.stat.chapter >= 3) {
-		a++;
-	}
-	if (
+export const PlotMilestones = [
+	() => true,
+	() => player.stat.chapter >= 0,
+	() => player.stat.chapter >= 1,
+	() => player.stat.chapter >= 2,
+	() => player.upgrades['39'] || player.stat.chapter >= 3,
+	() => player.stat.chapter >= 3,
+	() =>
 		player.buyables['lgr_emp'].gte(1) ||
 		player.milestones['log_G'] ||
-		player.stat.chapter >= 3.1
-	) {
-		a++;
-		player.stat.chapter = Math.max(player.stat.chapter, 3.1);
-	}
-	if (player.milestones['log_G'] || player.stat.chapter >= 4) {
-		a++;
-	}
-	if (player.singularity.enabled || player.stat.chapter >= 4) {
-		a++;
-	}
-	if (player.stat.chapter >= 4 || player.retribution >= 1) {
-		a++;
-	}
-	if (player.stat.chapter >= 5 || player.retribution >= 1) {
-		a++;
-	}
-	if (player.upgrades['69R'] || player.retribution >= 1) a++;
-	if (player.upgrades['69S'] || player.stat.chapter >= 6 || player.retribution >= 1) a++;
-	if (player.stat.chapter >= 6 || player.retribution >= 1) a++;
-	if (player.challenges[1][0].gt(0) || player.retribution >= 1) a++;
-	if (player.milestones.nonrec_24 || player.retribution >= 1) a++;
-	if (player.challenges[1][6].gt(0) || player.retribution >= 1) a++;
-	if (player.numbertheory.well_ordering.energy.gte('1e750000000') || player.retribution >= 1) a++;
-	if (
+		player.stat.chapter >= 3.1 ||
+		(player.stat.chapter = Math.max(player.stat.chapter, 3.1)),
+	() => player.milestones['log_G'] || player.stat.chapter >= 4,
+	() => player.singularity.enabled || player.stat.chapter >= 4,
+	() => player.stat.chapter >= 4 || player.retribution >= 1,
+	() => player.stat.chapter >= 5 || player.retribution >= 1,
+	() => player.upgrades['69R'] || player.retribution >= 1,
+	() => player.upgrades['69S'] || player.stat.chapter >= 6 || player.retribution >= 1,
+	() => player.stat.chapter >= 6 || player.retribution >= 1,
+	() => player.challenges[1][0].gt(0) || player.retribution >= 1,
+	() => player.milestones.nonrec_24 || player.retribution >= 1,
+	() => player.challenges[1][6].gt(0) || player.retribution >= 1,
+	() => player.numbertheory.well_ordering.energy.gte('1e750000000') || player.retribution >= 1,
+	() =>
 		(player.numbertheory.well_ordering.energy.gte('1e750000000') && player.currentTab == 28) ||
-		player.retribution >= 1
-	)
-		a++;
-	return a;
+		player.retribution >= 1,
+] as const;
+export const plotTitles = [
+	'第\\(-\\epsilon\\)章',
+	'第0章',
+	'第1章',
+	'第2章',
+	'乘法挑战',
+	'第3章',
+	'天文学家',
+	'3.5',
+	'奇点生成器',
+	'第4章',
+	'第5章',
+	'稀释',
+	'朊病毒',
+	'第6章',
+	'非递归挑战',
+	'M-6-24',
+	'NRC7',
+	'SHO',
+	'Retribution',
+] as const;
+export function unlockedPlots() {
+	for (let unlocked = PlotMilestones.length - 1; unlocked >= 0; unlocked--) {
+		if (PlotMilestones[unlocked]()) return unlocked + 1;
+	}
+	return 0;
 }
 export function viewedPlotLength() {
 	return player.checkedPlots.length;
