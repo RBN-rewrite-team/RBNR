@@ -95,21 +95,21 @@ export const Y_SEQ = {
 
 		if (boughtcount.lt(player.postnonrec.yseq.dimensions[0][id])) return;
 
-		let logPrice: Decimal;
-		if (boughtcount.lte(purchasesBeforeScaling.add(1)))
-			logPrice = boughtcount.sub(1).mul(logPriceRatio).add(logStartPrice);
-		else {
-			const pExcess = boughtcount.sub(purchasesBeforeScaling);
-			logPrice = boughtcount
-				.sub(1)
-				.mul(logPriceRatio)
-				.add(logStartPrice)
-				.add(logScalingRatio.mul(pExcess).mul(pExcess.sub(1)).mul(0.5));
-		}
+		// let logPrice: Decimal;
+		// if (boughtcount.lte(purchasesBeforeScaling.add(1)))
+		// 	logPrice = boughtcount.sub(1).mul(logPriceRatio).add(logStartPrice);
+		// else {
+		// 	const pExcess = boughtcount.sub(purchasesBeforeScaling);
+		// 	logPrice = boughtcount
+		// 		.sub(1)
+		// 		.mul(logPriceRatio)
+		// 		.add(logStartPrice)
+		// 		.add(logScalingRatio.mul(pExcess).mul(pExcess.sub(1)).mul(0.5));
+		// }
 
-		player.hydra.compressedPower = player.hydra.compressedPower
-			.sub(logPrice.pow10())
-			.clampMin(0);
+		// player.hydra.compressedPower = player.hydra.compressedPower
+		// 	.sub(logPrice.pow10())
+		// 	.clampMin(0);
 
 		player.postnonrec.yseq.dimensions[0][id] =
 			player.postnonrec.yseq.dimensions[0][id].max(boughtcount);
