@@ -12,7 +12,7 @@ function enterPlot(i: number) {
 
 // 数据源 - 字符串列表
 const options = computed(function (): string[] {
-	return plotTitles as unknown as string[];
+	return plotTitles.slice(0, unlockedPlots()) as unknown as string[];
 });
 
 let actualIndex = 0;
