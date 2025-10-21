@@ -108,8 +108,7 @@ export function realPTreset() {
 								title: '重置不了',
 								content: 'NRC7挑战次数至少大于1',
 							});
-						}
-						if (player.nonrecu.studies_bought.includes(30)) {
+						} else if (player.nonrecu.studies_bought.includes(30)) {
 							PTreset();
 							player.pt.resetTimes = player.pt.resetTimes.add(1);
 							Analysis.singleAnalysis();
@@ -125,6 +124,23 @@ export function realPTreset() {
 		},
 	});
 }
+export const PTEffects = {
+	effectToPreCardinal() {
+		return player.pt.resetTimes.mul(0.1).add(1).clampMax(5);
+	},
+	effectToHydraEnergyLogSoftCap() {
+		return player.pt.resetTimes.clampMax(50);
+	},
+	effectToSolutions() {
+		return player.pt.resetTimes.mul(0.03).add(1).clampMax(4);
+	},
+	effectToNonrecResetTimes() {
+		return player.pt.resetTimes.mul(0.06).add(1).clampMax(25);
+	},
+	effectToNonrecChallengeGoalLevel() {
+		return player.pt.resetTimes.clampMax(50);
+	},
+} as const;
 export const Analysis = {
 	systems: [
 		'PA',
