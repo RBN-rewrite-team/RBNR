@@ -547,8 +547,9 @@ export const NON_RECURSIVE = {
 			factor.push([
 				'解析系统',
 				MUL_EFF,
-				Analysis.systemEffect[0].value(player.pt.analysis[0]),
+				Analysis.systemEffect[1].value(player.pt.analysis[1]),
 			]);
+
 		return factor;
 	},
 	gain(): Decimal {
