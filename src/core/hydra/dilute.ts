@@ -689,7 +689,7 @@ const Dil = {
 		});
 	},
 	diluteReset(fromyseq = false) {
-		if (!fromyseq) {
+		if (!player.upgrades['6213'] && !fromyseq) {
 			for (const id2 of (
 				[
 					['61R', '62R', '63R', '64R', '65R', '66R', '67R', '68R'],
