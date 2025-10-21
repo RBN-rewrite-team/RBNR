@@ -184,6 +184,9 @@ const dim4progress = computed(() => {
 				<TDUpgrade upgid="6211" />
 				<TDUpgrade upgid="6212" />
 			</tr>
+			<tr v-if="player.upgrades[628]">
+				<TDUpgrade upgid="6213" />
+			</tr>
 			<tr>
 				<TDUpgrade upgid="65" />
 				<TDUpgrade upgid="66" />
