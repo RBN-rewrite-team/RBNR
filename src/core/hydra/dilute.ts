@@ -688,17 +688,19 @@ const Dil = {
 			currency: '',
 		});
 	},
-	diluteReset() {
-		for (const id2 of (
-			[
-				['61R', '62R', '63R', '64R', '65R', '66R', '67R', '68R'],
-				Object.keys(Hydra.upgrades),
-			] as const
-		).flat()) {
-			if (player.milestones.nonrec_5) {
-				if (['65', '65R', '615'].includes(id2)) continue;
+	diluteReset(fromyseq = false) {
+		if (!fromyseq) {
+			for (const id2 of (
+				[
+					['61R', '62R', '63R', '64R', '65R', '66R', '67R', '68R'],
+					Object.keys(Hydra.upgrades),
+				] as const
+			).flat()) {
+				if (player.milestones.nonrec_5) {
+					if (['65', '65R', '615'].includes(id2)) continue;
+				}
+				if (id2 !== '61') player.upgrades[id2 as keyof typeof player.upgrades] = false;
 			}
-			if (id2 !== '61') player.upgrades[id2 as keyof typeof player.upgrades] = false;
 		}
 		for (const id2 of Object.keys(Hydra.buyables)) {
 			const id = id2 as keyof typeof Hydra.buyables;
@@ -982,7 +984,7 @@ const Dil = {
 				player.hydra.deduceOrdinal[0].add(1).ln().add(1).slog(10).add(1).pow(2).mul(10),
 			);
 		if (
-			player.retribution >= 1 &&
+			player.upgrades['6213'] &&
 			player.hydra.dilute.inDilute &&
 			player.hydra.dilute.solvent.toString().startsWith('10,10,10,10,10,10,true,true') &&
 			!CHALLENGE.inChallenge(1, 4)

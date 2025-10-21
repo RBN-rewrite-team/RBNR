@@ -432,7 +432,7 @@ export const NON_RECURSIVE = {
 		updateResetStatData('recent10NonRecReset', this.gain());
 		if (!force) this.addPower(this.gain());
 		if (!force) player.nonrecu.resetTimes = player.nonrecu.resetTimes.add(1);
-		Dilute.diluteReset();
+		Dilute.diluteReset(player.upgrades['6213'] ? true : false);
 		player.hydra.trueTotalPower = DC.D_0;
 		player.upgrades['61S'] = false;
 		player.upgrades['62S'] = false;
