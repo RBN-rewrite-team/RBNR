@@ -14,6 +14,7 @@ import { energyToUNOCFSpeed } from '../ordinal/well_ordering';
 import type { FixedLengthArray } from 'type-fest';
 import { updateResetStatData } from '../stats.ts';
 import { format } from '../../utils/format.ts';
+import { Analysis } from '../pt/index.ts';
 type NonRecusionTreePreset = {
 	name: string;
 	preset: number[];
@@ -66,7 +67,7 @@ export const NON_RECURSIVE = {
 		})(),
 		'77': new (class extends UpgradeWithEffect<Decimal> {
 			description = '非递归能量加成当前非递归中的时间获取速度';
-			cost = () => player.retribution == 1 ? new Decimal('ee70') : new Decimal('e5e73');
+			cost = () => (player.retribution == 1 ? new Decimal('ee70') : new Decimal('e5e73'));
 			name = 'U6-7';
 			currency: Currencies = Currencies.NONREC;
 			effect(): Decimal {
@@ -82,7 +83,7 @@ export const NON_RECURSIVE = {
 		})(),
 		'78': new (class extends Upgrade {
 			description: string | (() => string) = 'U6-7效果变为其平方';
-			cost = () => player.retribution == 1 ? new Decimal('ee166') : new Decimal('e4e173');
+			cost = () => (player.retribution == 1 ? new Decimal('ee166') : new Decimal('e4e173'));
 			name = 'U6-8';
 			currency: Currencies = Currencies.NONREC;
 		})(),
@@ -355,7 +356,10 @@ export const NON_RECURSIVE = {
 				return player.challenges[1][4].gte(1);
 			},
 			get canDone() {
-				return player.nonrecu.unocf_j.gte(this.requirement) && player.challenges[1][5].gte(2.25);
+				return (
+					player.nonrecu.unocf_j.gte(this.requirement) &&
+					player.challenges[1][5].gte(2.25)
+				);
 			},
 		});
 		MILESTONES.create('nonrec_23', {
@@ -369,7 +373,10 @@ export const NON_RECURSIVE = {
 				return player.challenges[1][4].gte(1);
 			},
 			get canDone() {
-				return player.nonrecu.unocf_j.gte(this.requirement) && player.challenges[1][5].gte(2.25);
+				return (
+					player.nonrecu.unocf_j.gte(this.requirement) &&
+					player.challenges[1][5].gte(2.25)
+				);
 			},
 		});
 		MILESTONES.create('nonrec_24', {
@@ -383,7 +390,10 @@ export const NON_RECURSIVE = {
 				return player.challenges[1][4].gte(1);
 			},
 			get canDone() {
-				return player.nonrecu.unocf_j.gte(this.requirement) && player.challenges[1][5].gte(2.25);
+				return (
+					player.nonrecu.unocf_j.gte(this.requirement) &&
+					player.challenges[1][5].gte(2.25)
+				);
 			},
 		});
 		MILESTONES.create('nonrec_25', {
@@ -422,7 +432,7 @@ export const NON_RECURSIVE = {
 		updateResetStatData('recent10NonRecReset', this.gain());
 		if (!force) this.addPower(this.gain());
 		if (!force) player.nonrecu.resetTimes = player.nonrecu.resetTimes.add(1);
-		Dilute.diluteReset();
+		Dilute.diluteReset(player.upgrades['6213'] ? true : false);
 		player.hydra.trueTotalPower = DC.D_0;
 		player.upgrades['61S'] = false;
 		player.upgrades['62S'] = false;
@@ -533,11 +543,13 @@ export const NON_RECURSIVE = {
 					.add(1),
 			]);
 		}
-		if (player.pt.analysis[1] >= 1) factor.push([
-			'解析系统',
-			MUL_EFF,
-			Analysis.systemEffect[0].value(player.pt.analysis[0])
-		]);
+		if (player.pt.analysis[1] >= 1)
+			factor.push([
+				'解析系统',
+				MUL_EFF,
+				Analysis.systemEffect[1].value(player.pt.analysis[1]),
+			]);
+
 		return factor;
 	},
 	gain(): Decimal {

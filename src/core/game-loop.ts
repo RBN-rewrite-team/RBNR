@@ -93,6 +93,9 @@ export function qolLoop() {
 	}
 	if (player.exponention.logarithm.upgrades_in_dilated.includes('37'))
 		player.buyables['11'] = new Decimal(1000);
+	if (player.pt.resetTimes.gte(1)) {
+		player.nonrecu.studies_bought = [...new Set(player.nonrecu.studies_bought), 30];
+	}
 }
 function enterPlot(i: number) {
 	if (unlockedPlots() >= i) {
@@ -211,8 +214,8 @@ export function simulate(diff: number) {
 	}
 	let last = player.upgrades[61] ? DC.D_0 : feature.Ordinal.ordinalPerSecond();
 	let last2 = feature.Ordinal.speedDeri();
-	let pre_cardinal_diff = (diff *= 1 + player.minigame.ore_gets * 0.0025);
-
+	if (player.options.openOreEffect) diff *= 1 + player.minigame.ore_gets * 0.0025;
+	let pre_cardinal_diff = diff;
 	if (player.nonrecu.studies_bought.includes(1))
 		pre_cardinal_diff *= 2 ** (!CHALLENGE.inChallenge(1, 3) ? 1 : -1);
 	let nonrecuDiffForSecInThisReset = new Decimal(pre_cardinal_diff / 1000);

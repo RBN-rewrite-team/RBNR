@@ -358,7 +358,7 @@ export const Hydra = {
 		})(),
 		'65': new (class U64 extends Upgrade {
 			description = '飞升/超越/轮回不再重置任何东西。解锁<b>数论研究4</b>';
-			cost = () => player.retribution == 1 ? new Decimal('1e900') : new Decimal('1e1000');
+			cost = () => (player.retribution == 1 ? new Decimal('1e900') : new Decimal('1e1000'));
 			name = 'U5-5';
 			show(): boolean {
 				return (
@@ -518,6 +518,16 @@ export const Hydra = {
 			description = '转生~轮回不重置任何东西，且轮回效果+50%';
 			cost = new Decimal('1e64');
 			name = 'U5-2-12';
+			currency: Currencies = Currencies.COMP_HYDRA;
+			show(): boolean {
+				return player.retribution == 1;
+			}
+		})(),
+		'6213': new (class extends Upgrade {
+			description =
+				'非递归重置时保留所有九头蛇升级，在开启溶液1-8满级时且进入溶液时，九头蛇能量速度每秒乘以1e1000000，溶液上限×10×(在稀释内经过时间+1)';
+			cost = new Decimal('1e309');
+			name = 'U5-2-13';
 			currency: Currencies = Currencies.COMP_HYDRA;
 			show(): boolean {
 				return player.retribution == 1;
@@ -805,11 +815,10 @@ export const Hydra = {
 			);
 		}
 		if (
-			player.retribution >= 1 &&
+			player.upgrades['6213'] &&
 			player.hydra.dilute.inDilute &&
 			player.hydra.dilute.solvent.toString().startsWith('10,10,10,10,10,10,true,true')
 		) {
-			base = base.mul('1e3000');
 			base = base.mul(new Decimal('1e1000000').pow(player.hydra.dilute.spentTime));
 		}
 		return base.min('eee8.07230472602822538e153'); //SHO

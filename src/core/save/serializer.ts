@@ -88,12 +88,13 @@ export const saveSerializer = {
 				x.replace(/0b/g, '+').replace(/0c/g, '/').replace(/0a/g, '0'),
 		},
 		{
-			serialize: (x: string): string => saveSerializer.newStartString + x + saveSerializer.endString,
+			serialize: (x: string): string =>
+				saveSerializer.newStartString + x + saveSerializer.endString,
 			deserialize: (x: string): string =>
 				x.slice(saveSerializer.newStartString.length, -saveSerializer.endString.length),
 		},
 	] as SerializeStep[],
-	
+
 	newStepsV2: [
 		{
 			serialize: (x: object | unknown[] | string): string => JSON.stringify(x),
@@ -121,14 +122,14 @@ export const saveSerializer = {
 			serialize: function (x: Uint8Array): Uint8Array {
 				const result = new Uint8Array(x.length);
 				for (let i = 0; i < x.length; i++) {
-					result[i] = x[i] ^ ((i * 7 + 13) & 0xFF);
+					result[i] = x[i] ^ ((i * 7 + 13) & 0xff);
 				}
 				return result;
 			},
 			deserialize: function (x: Uint8Array): Uint8Array {
 				const result = new Uint8Array(x.length);
 				for (let i = 0; i < x.length; i++) {
-					result[i] = x[i] ^ ((i * 7 + 13) & 0xFF);
+					result[i] = x[i] ^ ((i * 7 + 13) & 0xff);
 				}
 				return result;
 			},
@@ -154,12 +155,13 @@ export const saveSerializer = {
 				x.replace(/0b/g, '+').replace(/0c/g, '/').replace(/0a/g, '0'),
 		},
 		{
-			serialize: (x: string): string => saveSerializer.newStartStringV2 + x + saveSerializer.endString,
+			serialize: (x: string): string =>
+				saveSerializer.newStartStringV2 + x + saveSerializer.endString,
 			deserialize: (x: string): string =>
 				x.slice(saveSerializer.newStartStringV2.length, -saveSerializer.endString.length),
 		},
 	] as SerializeStep[],
-	
+
 	legacySteps: [
 		{
 			serialize: (x: object | unknown[] | string): string => JSON.stringify(x),
@@ -209,11 +211,17 @@ export const saveSerializer = {
 	deserialize(s: any): any {
 		if (typeof s === 'string') {
 			if (s.startsWith(saveSerializer.newStartStringV2)) {
-				return this.newStepsV2.reduceRight((x: any, f: SerializeStep) => f.deserialize(x), s);
+				return this.newStepsV2.reduceRight(
+					(x: any, f: SerializeStep) => f.deserialize(x),
+					s,
+				);
 			} else if (s.startsWith(saveSerializer.newStartString)) {
 				return this.newSteps.reduceRight((x: any, f: SerializeStep) => f.deserialize(x), s);
 			} else if (s.startsWith(saveSerializer.legacyStartString)) {
-				return this.legacySteps.reduceRight((x: any, f: SerializeStep) => f.deserialize(x), s);
+				return this.legacySteps.reduceRight(
+					(x: any, f: SerializeStep) => f.deserialize(x),
+					s,
+				);
 			}
 		}
 		throw new Error('无法识别的存档格式');
@@ -230,15 +238,28 @@ export const saveSerializer = {
 	upgradeLegacySave(legacySave: string): string {
 		const version = this.getSaveVersion(legacySave);
 		let data;
-		
+
 		if (version === 'legacy') {
-			data = this.legacySteps.reduceRight((x: any, f: SerializeStep) => f.deserialize(x), legacySave);
+			data = this.legacySteps.reduceRight(
+				(x: any, f: SerializeStep) => f.deserialize(x),
+				legacySave,
+			);
 		} else if (version === 'new') {
-			data = this.newSteps.reduceRight((x: any, f: SerializeStep) => f.deserialize(x), legacySave);
+			data = this.newSteps.reduceRight(
+				(x: any, f: SerializeStep) => f.deserialize(x),
+				legacySave,
+			);
 		} else {
 			throw new Error('无法升级未知格式的存档');
 		}
-		
+
 		return this.newStepsV2.reduce((x: any, f: SerializeStep) => f.serialize(x), data) as string;
 	},
 } as const;
+
+declare global {
+	interface Window {
+		saveSerializer: typeof saveSerializer;
+	}
+}
+window.saveSerializer = saveSerializer;

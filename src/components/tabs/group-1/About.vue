@@ -1,8 +1,11 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { player } from '@/core/save';
+</script>
 <template>
 	<div class="main">
-		<h1>大数之路重制版</h1>
-		版本: Retribution (介于v0.6~v0.7之间)<br />
+		<h1 v-if="player.pt.resetTimes.lt(1)">大数之路重制版</h1>
+		<h1 v-else>大数之路<span style="color: red">放置版</span></h1>
+		版本: Retribution / PT Alpha (v0.7 Alpha)<br />
 		<br />
 		<div style="position: relative; width: 100%">
 			<div

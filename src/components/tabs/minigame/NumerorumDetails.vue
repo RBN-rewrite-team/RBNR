@@ -96,6 +96,12 @@ function openCore() {
 						矿石收集：{{ player.minigame.ore_gets }}<br />(+{{
 							player.minigame.ore_gets * 0.25
 						}}%全局速度)
+						<button
+							class="clickable-button"
+							@click="player.options.openOreEffect = !player.options.openOreEffect"
+						>
+							开启矿石效果: {{ player.options.openOreEffect ? '开' : '关' }}
+						</button>
 					</td>
 					<td>
 						宝箱收集：<span

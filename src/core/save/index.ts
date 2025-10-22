@@ -128,6 +128,7 @@ export interface Player {
 		music_url: string;
 		isGuoGao: boolean;
 		hardMode: boolean;
+		openOreEffect: boolean;
 	};
 	stat: PlayerStat;
 	challengein: FixedLengthArray<number, 2>;
@@ -267,6 +268,7 @@ function getInitialPlayerData(): Player {
 			allowOffline: true,
 			isGuoGao: false,
 			hardMode: false,
+			openOreEffect: false,
 		},
 		stat: getInitialStat(),
 		challenges: [
