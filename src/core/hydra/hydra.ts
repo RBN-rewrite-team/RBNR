@@ -525,7 +525,7 @@ export const Hydra = {
 		})(),
 		'6213': new (class extends Upgrade {
 			description =
-				'非递归重置时保留所有九头蛇升级，在开启溶液1-8满级时且进入溶液时，九头蛇能量速度每秒乘以1e1000000，溶液上限×10×(在稀释内经过时间+1)';
+				'<span style="font-size: 10px">非递归重置时保留所有九头蛇升级，在开启溶液1-8满级时且进入溶液时，九头蛇能量速度每秒乘以1e1000000，溶液上限×10×(在稀释内经过时间+1)</span>';
 			cost = new Decimal('1e309');
 			name = 'U5-2-13';
 			currency: Currencies = Currencies.COMP_HYDRA;

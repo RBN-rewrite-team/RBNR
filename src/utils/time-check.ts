@@ -1,3 +1,4 @@
+//@ts-nocheck
 const TIME_SERVERS = [
 	{
 		name: 'Time.is',
