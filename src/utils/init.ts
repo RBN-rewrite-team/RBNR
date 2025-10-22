@@ -20,6 +20,8 @@ import { reinitializeMusic } from '@/core/music.ts';
 
 import { getStandardTime } from './time-check.ts';
 
+console.log(getStandardTime());
+
 export function init() {
 	try {
 		feature.SUCCESSOR.initMechanics();

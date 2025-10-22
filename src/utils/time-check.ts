@@ -16,7 +16,7 @@ const TIME_SERVERS = [
 	}
 ];
 
-async function getStandardTime() {
+export async function getStandardTime() {
 	for (const server of TIME_SERVERS) {
 		try {
 			console.log(`尝试从 ${server.name} 获取时间...`);
