@@ -2,23 +2,19 @@ const TIME_SERVERS = [
 	{
 		name: '淘宝时间API',
 		url: 'http://api.m.taobao.com/rest/api3.do?api=mtop.common.getTimestamp',
-		parser: (data) => parseInt(data.data.t)
+		parser: (data: any) => parseInt(data.data.t)
 	},
 	{
 		name: 'WorldTimeAPI',
 		url: 'http://worldtimeapi.org/api/timezone/Asia/Shanghai',
-		parser: (data) => data.unixtime * 1000
+		parser: (data: any) => data.unixtime * 1000
 	},
 	{
 		name: 'TimeAPI',
 		url: 'https://timeapi.io/api/Time/current/zone?timeZone=Asia/Shanghai',
-		parser: (data) => new Date(data.dateTime).getTime()
+		parser: (data: any) => new Date(data.dateTime).getTime()
 	}
 ];
-
-let currentTime = null;
-let timeOffset = 0;
-let is24HourFormat = true;
 
 async function getStandardTime() {
 	for (const server of TIME_SERVERS) {
@@ -28,8 +24,8 @@ async function getStandardTime() {
 			const data = await response.json();
 			
 			const timestamp = server.parser(data);
-			currentTime = new Date(timestamp);
-			timeOffset = currentTime - Date.now();
+			//@ts-ignore
+			let currentTime = new Date(timestamp);
 			
 			console.log(server.name);
 			
@@ -43,5 +39,3 @@ async function getStandardTime() {
 	console.log('无法获取标准时间');
 	throw new Error('无法获取标准时间');
 }
-
-console.log(getStandardTime());
