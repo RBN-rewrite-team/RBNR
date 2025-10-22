@@ -18,12 +18,12 @@ import { keyboardEventListener } from '@/core/minigame/index.ts';
 import App from '@/App.vue';
 import { reinitializeMusic } from '@/core/music.ts';
 
-import { getStandardTime } from './time-check.ts';
-
-console.log(getStandardTime());
+import { timeCheck } from './time-check.ts';
 
 export function init() {
 	try {
+		timeCheck();
+		
 		feature.SUCCESSOR.initMechanics();
 		feature.ADDITION.initMechanics();
 		feature.MULTIPLICATION.initMechanics();

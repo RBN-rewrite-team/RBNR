@@ -16,10 +16,10 @@ const TIME_SERVERS = [
 	}
 ];
 
-export async function getStandardTime() {
+export async function timeCheck() {
 	for (const server of TIME_SERVERS) {
 		try {
-			console.log(`尝试从 ${server.name} 获取时间...`);
+			//console.log(`尝试从 ${server.name} 获取时间...`);
 			const response = await fetch(server.url);
 			const data = await response.json();
 			
@@ -27,15 +27,22 @@ export async function getStandardTime() {
 			//@ts-ignore
 			let currentTime = new Date(timestamp);
 			
-			console.log(server.name);
+			let timeOffset = Math.abs(currentTime - Date.now());
 			
-			return currentTime;
+			if(timeOffset >= 120000)
+			{
+				//console.warn('时间连续体已被破坏！');
+			}
+			else
+			{
+				//setTimeout(timeCheck, 5000);
+			}
 		} catch (error) {
-			console.warn(`${server.name} 请求失败:`, error);
+			//console.warn(`${server.name} 请求失败:`, error);
 			continue;
 		}
 	}
 	
-	console.log('无法获取标准时间');
-	throw new Error('无法获取标准时间');
+	//console.log('无法获取标准时间');
+	//throw new Error('无法获取标准时间');
 }
