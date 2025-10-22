@@ -1,5 +1,10 @@
 const TIME_SERVERS = [
 	{
+		name: 'Time.is',
+		url: 'https://time.is/api/timezone/Asia/Shanghai.json',
+		parser: (data: any) => new Date(data.json()).getTime()
+	},
+	{
 		name: '淘宝时间API',
 		url: 'http://api.m.taobao.com/rest/api3.do?api=mtop.common.getTimestamp',
 		parser: (data: any) => parseInt(data.data.t)
@@ -13,7 +18,11 @@ const TIME_SERVERS = [
 		name: 'TimeAPI',
 		url: 'https://timeapi.io/api/Time/current/zone?timeZone=Asia/Shanghai',
 		parser: (data: any) => new Date(data.dateTime).getTime()
-	}
+	},
+	{
+		name: '腾讯时间API',
+		url: 'https://api.m.sm.cn/s?q=1',
+	},
 ];
 
 export async function timeCheck() {
@@ -26,7 +35,7 @@ export async function timeCheck() {
 			const timestamp = server.parser(data);
 			//@ts-ignore
 			let currentTime = new Date(timestamp);
-			
+			console.log(currentTime);
 			let timeOffset = Math.abs(currentTime - Date.now());
 			
 			if(timeOffset >= 120000)
@@ -38,7 +47,7 @@ export async function timeCheck() {
 				//setTimeout(timeCheck, 5000);
 			}
 		} catch (error) {
-			//console.warn(`${server.name} 请求失败:`, error);
+			console.warn(`${server.name} 请求失败:`, error);
 			continue;
 		}
 	}
