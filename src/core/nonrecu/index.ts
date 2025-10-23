@@ -431,7 +431,12 @@ export const NON_RECURSIVE = {
 		player.firstResetBit |= 0b10000;
 		updateResetStatData('recent10NonRecReset', this.gain());
 		if (!force) this.addPower(this.gain());
-		if (!force) player.nonrecu.resetTimes = player.nonrecu.resetTimes.add(1);
+		if (!force)
+		{
+			let timesGain = new Decimal(1);
+			timesGain = timesGain.mul(Analysis.systemEffect[2].value(player.pt.analysis[2]));
+			player.nonrecu.resetTimes = player.nonrecu.resetTimes.add(timesGain);
+		}
 		Dilute.diluteReset(player.upgrades['6213'] ? true : false);
 		player.hydra.trueTotalPower = DC.D_0;
 		player.upgrades['61S'] = false;

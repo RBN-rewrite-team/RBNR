@@ -1,6 +1,7 @@
 import Decimal from 'break_eternity.js';
 import { upgrades } from '@/core/mechanic.ts';
 import { player } from '../save';
+import { Analysis } from '@/core/pt/index.ts';
 
 export const Y_SEQ = {
 	playerData() {
@@ -139,6 +140,8 @@ export const Y_SEQ = {
 		if (player.upgrades[625]) {
 			boost = boost.mul(3);
 		}
+		boost = boost.mul(Analysis.systemEffect[5].value(player.pt.analysis[5]));
+		boost = boost.pow(Analysis.systemEffect[6].value(player.pt.analysis[6]));
 		return boost;
 	},
 	yseqDeduceSpeed() {

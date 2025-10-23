@@ -11,6 +11,7 @@ import { upgrades, buyables } from '../mechanic';
 import { CHALLENGE } from '../challenge';
 import { DC } from '@/core/constants';
 import { NON_RECURSIVE } from '../nonrecu';
+import { Analysis } from '@/core/pt/index.ts';
 
 export type backupHydraType = {
 	upgrades: (`${IntClosedRange<61, 69>}R` | keyof typeof Hydra.upgrades)[];
@@ -1032,6 +1033,8 @@ const Dil = {
 		if (CHALLENGE.inChallenge(1, 5)) {
 			res = res.clampMax(0);
 		}
+		
+		res = res.pow(Analysis.systemEffect[4].value(player.pt.analysis[4]));
 
 		return res;
 	},

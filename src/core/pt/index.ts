@@ -170,42 +170,42 @@ export const Analysis = {
 		},
 		2: {
 			value(x: DecimalSource): Decimal {
-				return new Decimal(1);
+				return new Decimal(2).pow(x);
 			},
 			desc(x: DecimalSource): string {
-				return '';
+				return '非递归次数获取×' + format(this.value(x));
 			},
 		},
 		3: {
 			value(x: DecimalSource): Decimal {
-				return new Decimal(1);
+				return new Decimal(1).add(x).root(3);
 			},
 			desc(x: DecimalSource): string {
-				return '';
+				return '推演能量获取^' + format(this.value(x));
 			},
 		},
 		4: {
 			value(x: DecimalSource): Decimal {
-				return new Decimal(1);
+				return new Decimal(1).add(x).root(5);
 			},
 			desc(x: DecimalSource): string {
-				return '';
+				return '九头蛇溶液获取^' + format(this.value(x));
 			},
 		},
 		5: {
 			value(x: DecimalSource): Decimal {
-				return new Decimal(1);
+				return new Decimal(10).pow(x);
 			},
 			desc(x: DecimalSource): string {
-				return '';
+				return 'Y序列引擎效率×' + format(this.value(x));
 			},
 		},
 		6: {
 			value(x: DecimalSource): Decimal {
-				return new Decimal(1);
+				return new Decimal(1).add(x).root(2.5);
 			},
 			desc(x: DecimalSource): string {
-				return '';
+				return 'Y序列引擎效率^' + format(this.value(x));
 			},
 		},
 	} as const,
