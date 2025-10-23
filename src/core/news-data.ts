@@ -77,10 +77,10 @@ const news = [{id: "news1", text: "不会做增量游戏怎么办？看风灵作
 {id: "news71", unlocked(){return player.stat.chapter>=6}, text: "23日晚上，Numerorum抱团冲击非递归时遭遇大劫，感染了ω病毒、时间停止病毒或卡死病毒，几乎全军覆没。"},
 {id: "news72", text: "为什么以“意义不明”为由删除了一个用户页😰"},
 {id: "news73", text: "这做的什么...3.162277，660168，3795...东西？"}
-] as const as {
+] as const satisfies {
 	id: string;
 	text: string;
-	unlocked?: boolean;
+	unlocked?(): boolean;
 	dynamic?: boolean;
 	reset?: () => void;
 	onClick?: () => string | undefined;

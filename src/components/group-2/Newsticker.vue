@@ -7,7 +7,7 @@ import { component as convertTextToComponent } from '../tabs/help/text-to-compon
 interface NewsMessage {
 	id: string;
 	text: string;
-	unlocked?: boolean;
+	unlocked?(): boolean;
 	dynamic?: boolean;
 	reset?: () => void;
 	onClick?: () => string | undefined;
@@ -62,7 +62,7 @@ const restart = () => {
 const prepareNextMessage = () => {
 	if (!line.value) return;
 
-	const canShow = (item: NewsMessage) => item.unlocked ?? true; // && !recentTickers.value.includes(item.id);
+	const canShow = (item: NewsMessage) => item.unlocked?.() ?? true; // && !recentTickers.value.includes(item.id);
 
 	if (nextNewsMessageId.value) {
 		const specified = news.find((m) => m.id === nextNewsMessageId.value);
