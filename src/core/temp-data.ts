@@ -14,6 +14,9 @@ export const temp = reactive({
 	get innerWidth(): number {
 		return window.innerWidth;
 	},
+	get useMobileStyle(): boolean {
+		return document.body.clientWidth / document.body.clientHeight < 0.75;
+	},
 	openingCore: false,
 	coreViewEquipment: null as null | CoreEquipment,
 	coreViewColor(eq = temp.coreViewEquipment): string {

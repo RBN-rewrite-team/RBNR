@@ -56,6 +56,7 @@ import RetributionAnimation from './components/tabs/group-1/RetributionAnimation
 import DeveloperMode from './components/tabs/devonly/DeveloperMode.vue';
 
 import Analysis from './components/tabs/pt/Analysis.vue';
+import { temp } from './core/temp-data.ts';
 </script>
 
 <template>
@@ -66,6 +67,7 @@ import Analysis from './components/tabs/pt/Analysis.vue';
 				<NewsTicker />
 			</div>
 		</div>
+		<!-- <p v-if="temp.useMobileStyle">拜谢</p> -->
 		<Resources />
 		<div class="main-content" id="main">
 			<div class="background">

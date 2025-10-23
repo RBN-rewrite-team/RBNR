@@ -32,6 +32,7 @@ export const RETRIBUTION = {
 					'你会失去你所有的非递归进度，以及当前九头蛇进度，以及升级...<br>但是你会获得启示，获得更恐怖的力量...',
 				confirmText: '确定...',
 				onConfirm() {
+					if (!RETRIBUTION.resetable()) return;
 					RETRIBUTION.replayAnimation();
 					setTimeout(function () {
 						RETRIBUTION.reset();
