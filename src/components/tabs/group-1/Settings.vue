@@ -28,7 +28,8 @@ const setFontUI = () => ModalService.show({ title: '设置字体', component: fo
 		</div>
 		<div>
 			<div class="setting_button" @click="UIChangeSave">切换存档槽位</div>
-			<div class="setting_button" @click="UIEnterTesting">输入测试码</div>
+			<div class="setting_button" @click="UIEnterTesting">进入Beta测试</div>
+			<div class="setting_button" @click="player.options.gammaTest = true">进入Gamma测试</div>
 			<button
 				class="setting_button"
 				@click="player.options.allowOffline = !player.options.allowOffline"
@@ -37,7 +38,8 @@ const setFontUI = () => ModalService.show({ title: '设置字体', component: fo
 			</button>
 			<button class="setting_button" @click="player.currentTab = 300">进入存档银行</button>
 		</div>
-		<span v-if="isTester()">您处于测试模式</span>
+		<span v-if="isTester()"><br>您已进入Beta测试</span>
+		<span v-if="player.options.gammaTest"><br>您已进入Gamma测试</span>
 
 		<br />
 		<div v-if="player.singularity.stage < 1">

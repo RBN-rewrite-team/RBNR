@@ -129,6 +129,7 @@ export interface Player {
 		isGuoGao: boolean;
 		hardMode: boolean;
 		openOreEffect: boolean;
+		gammaTest: boolean;
 	};
 	stat: PlayerStat;
 	challengein: FixedLengthArray<number, 2>;
@@ -269,6 +270,7 @@ function getInitialPlayerData(): Player {
 			isGuoGao: false,
 			hardMode: false,
 			openOreEffect: false,
+			gammaTest: false,
 		},
 		stat: getInitialStat(),
 		challenges: [

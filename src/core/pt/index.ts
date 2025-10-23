@@ -95,9 +95,9 @@ export function PTreset() {
 export function realPTreset() {
 	ModalService.show({
 		title: '证明论重置',
-		content: '确实要证明论重置?',
+		content: '确实要证明论重置?(需要进入Gamma测试)',
 		onConfirm() {
-			if (isTester()) {
+			if (player.options.gammaTest) {
 				ModalService.show({
 					title: '再次确认证明论重置',
 					content:
@@ -118,7 +118,7 @@ export function realPTreset() {
 			} else {
 				ModalService.show({
 					title: '重置不了',
-					content: '证明论还在制作中，请等待更新',
+					content: '需要进入Gamma测试。<br>（当前证明论还不稳定，可能有bug）',
 				});
 			}
 		},
