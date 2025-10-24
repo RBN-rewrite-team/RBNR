@@ -8,6 +8,7 @@ import { Hydra } from '../hydra/hydra';
 import { Y_SEQ } from '../post-nonrec/y-seq';
 import ModalService from '@/utils/Modal';
 import { isTester } from '../save/testing';
+import { predictableRandom } from '@/utils/algorithm.ts';
 
 export function dayOfWeek(): [number, string] {
 	const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
@@ -222,10 +223,12 @@ export const Analysis = {
 		for (let d = 0; d < 7; d++) {
 			if (!Analysis.analysisUnlocked(d)) continue;
 			if (player.pt.analysis[d] >= 11) continue;
+			player.pt.seedTimes[d]++;
+			let fakeRandom = predictableRandom(player.pt.seed[d] * player.pt.seedTimes[d]);
 			if (
-				Math.random() <= 0.05 ||
+				fakeRandom <= 0.1 ||
 				player.pt.analysis[d] == 0 ||
-				player.pt.analysisFailed[d] >= 19
+				player.pt.analysisFailed[d] >= 9
 			) {
 				player.pt.analysis[d]++;
 				player.pt.analysisFailed[d] = 0;
@@ -242,6 +245,8 @@ export const Analysis = {
 			resetTimes: new Decimal(0),
 			analysis: [0, 0, 0, 0, 0, 0, 0],
 			analysisFailed: [0, 0, 0, 0, 0, 0, 0],
+			seed: [Math.random(), Math.random(), Math.random(), Math.random(), Math.random(), Math.random(), Math.random()],
+			seedTimes: [0, 0, 0, 0, 0, 0, 0],
 		};
 	},
 } as const;
