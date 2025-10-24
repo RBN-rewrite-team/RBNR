@@ -19,6 +19,7 @@ import {
 	parseAndConvertToAst,
 	ReturnStatementNode,
 	StringLiteralNode,
+	UnaryExpressionNode,
 	VariableDeclarationNode,
 	WhileStatementNode,
 } from './compiler';
@@ -178,6 +179,17 @@ export async function evaluateCallExpressionNode(node: CallExpressionNode, env: 
 	// }
 	throw new TypeError('left Value is not callable');
 }
+export async function evaluateUnaryExpressionNode(node: UnaryExpressionNode, env: Environment) {
+	const rightvalue = await evaluateNode(node.argument, env);
+
+	if (rightvalue instanceof Decimal && node.operator == '-') {
+		return rightvalue.neg();
+	}
+	if (node.operator == '!') {
+		return !rightvalue;
+	}
+	throw new Error('Invalid unary expression');
+}
 export function evaluateIdentifierNode(node: IdentifierNode, env: Environment) {
 	const trytest = env.get(node.name);
 	if (trytest === null || trytest === undefined)
@@ -245,6 +257,8 @@ export async function evaluateNode(node: ASTNode, env: Environment): Promise<any
 		return tryInclude(node.include);
 	} else if (node instanceof GetPropertyNode) {
 		return await evaluateGetPropertyNode(node, env);
+	} else if (node instanceof UnaryExpressionNode) {
+		return await evaluateUnaryExpressionNode(node, env);
 	} else if (node instanceof BooleanLiteralNode) {
 		return node.value;
 	}
