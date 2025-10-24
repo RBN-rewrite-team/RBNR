@@ -26,3 +26,5 @@ include sth;导入包
 math包
 call :math.max(a,b,c,...)取出若干个数值中最大的一个
 call :math.min(a,b,c,...)取出若干个数值中最小的一个
+
+\!000何意味\!
