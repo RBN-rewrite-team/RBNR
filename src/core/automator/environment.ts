@@ -10,6 +10,7 @@ import { importMusic } from './automator-modules/music-play';
 import { importMath } from './automator-modules/math';
 import { importHydra } from './automator-modules/hydra';
 import { importRbnr } from './automator-modules/rbnr';
+import { importNonrec } from './automator-modules/nonrec';
 
 export class Environment {
 	parent: Environment | null = null;
@@ -130,6 +131,10 @@ export function tryInclude(pkg: string) {
 	}
 	if (pkg == 'hydra' && player.upgrades['ts_auto_pkg_hydra']) {
 		importHydra(parentEnvironment);
+		return;
+	}
+	if (pkg == 'nonrec' && player.upgrades['ts_auto_pkg_hydra']) {
+		importNonrec(parentEnvironment);
 		return;
 	}
 	if (pkg == 'music') {
