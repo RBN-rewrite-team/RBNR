@@ -53,19 +53,19 @@ const hydraDiluteSetFunction = new (class hydraReset extends Callable {
 				return;
 			}
 		}
-		throw new TypeError('错误的:hydra.dilute参数');
+		throw new TypeError('错误的:hydra.diluteset参数');
 	}
 })();
 export function importHydra(parentEnvironment: Environment) {
 	const readonlyDictionaryHydra = new (class extends Dictionary {
 		get(key: any) {
-			if (key !== 'deduces') {
-				return Dictionary.prototype.get.call(this, key);
-			}
 			if (key == 'deduces') {
 				return new AutomatorArray([player.hydra.deduceOrdinal[0].add(1).sub(1)]);
 			}
-			return undefined;
+			if (key == 'indilute') {
+				return player.hydra.dilute.inDilute;
+			}
+			return Dictionary.prototype.get.call(this, key);
 		}
 		set(key: any, value: any) {
 			return Dictionary.prototype.set.call(this, key, value);

@@ -23,3 +23,10 @@ call get(e, 0); //获取数组中的内容
 call puts(a); //输出内容
 call puts(b);
 call puts(c);
+
+import math;
+call puts(call :math.max(3,12,1));
+
+
+import music;
+call :music.freq(440, 1/2, 1/10);
