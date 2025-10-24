@@ -368,7 +368,7 @@ const interrupt = () => setInterrupt(true);
 		<p>
 			自动机每运行一个语句就需要耗费0.1时间碎片，你当前有
 			<span style="color: rgb(255, 63, 255)">{{ format(player.timeshard.value) }}</span>
-			时间碎片
+			时间碎片， 可以运行 {{ format(player.timeshard.value.mul(10).floor()) }}个语句
 		</p>
 		<div class="code-editor" align="left">
 			<div ref="gutterRef" class="gutter" v-html="lineNumbers"></div>

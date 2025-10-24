@@ -6,6 +6,7 @@ import { player } from '../global';
 import Decimal from 'break_eternity.js';
 import { Hydra } from '../hydra/hydra';
 import { Dilute } from '../hydra/dilute';
+import { importMusic } from './music-play';
 
 export class Environment {
 	parent: Environment | null = null;
@@ -221,6 +222,10 @@ export function tryInclude(pkg: string) {
 		parentEnvironment.isReadonly = false;
 		parentEnvironment.set('hydra', readonlyDictionaryHydra);
 		parentEnvironment.isReadonly = true;
+		return;
+	}
+	if (pkg == 'music') {
+		importMusic(parentEnvironment);
 		return;
 	}
 	throw new ReferenceError('Cannot find package ' + pkg);
