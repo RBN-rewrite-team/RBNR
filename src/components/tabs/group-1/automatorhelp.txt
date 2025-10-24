@@ -20,7 +20,7 @@ call string(x) 将其他数值转换成字符串
 ===
 include sth;导入包
 可以使用#include sth; import sth;别名。
-目前所内置的包: math, music。
+目前所内置的包: math, music, rbnr。
 
 ===
 math包
@@ -31,3 +31,6 @@ call :math.min(a,b,c,...)取出若干个数值中最小的一个
 music包
 call :music.freq(freq, time, gain)播放正弦波， time秒, gain强度
 
+===
+rbnr包
+:rbnr.upgs; 获取所有显示的升级

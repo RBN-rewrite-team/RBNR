@@ -9,6 +9,7 @@ import { Dilute } from '../hydra/dilute';
 import { importMusic } from './automator-modules/music-play';
 import { importMath } from './automator-modules/math';
 import { importHydra } from './automator-modules/hydra';
+import { importRbnr } from './automator-modules/rbnr';
 
 export class Environment {
 	parent: Environment | null = null;
@@ -133,6 +134,10 @@ export function tryInclude(pkg: string) {
 	}
 	if (pkg == 'music') {
 		importMusic(parentEnvironment);
+		return;
+	}
+	if (pkg == 'rbnr') {
+		importRbnr(parentEnvironment);
 		return;
 	}
 	throw new ReferenceError('Cannot find package ' + pkg);

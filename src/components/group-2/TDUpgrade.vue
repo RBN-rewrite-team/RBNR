@@ -104,16 +104,19 @@ function actualCost(curupg: Upgrade) {
 				<span v-else style="color: green; font-weight: bold"> 保持持有<br /> </span>
 				<span> </span>
 			</div>
-			<span class="tooltip" v-if="curupg.ordinal && useClass() == 'upgrade_buttonbig_unable'">
-				购买升级需要{{
-					countdown(
-						typeof curupg.cost === 'function' ? curupg.cost() : curupg.cost,
-						player.ordinal.number,
-						ORDINAL.ordinalPerSecond(),
-						ORDINAL.isConstantSpeed(),
-						ORDINAL.speedDeri(),
-					)
-				}}
+			<span class="tooltip">
+				ID: {{ props.upgid }}
+				<template v-if="curupg.ordinal && useClass() == 'upgrade_buttonbig_unable'"
+					><br />购买升级需要{{
+						countdown(
+							typeof curupg.cost === 'function' ? curupg.cost() : curupg.cost,
+							player.ordinal.number,
+							ORDINAL.ordinalPerSecond(),
+							ORDINAL.isConstantSpeed(),
+							ORDINAL.speedDeri(),
+						)
+					}}</template
+				>
 			</span>
 		</div>
 	</td>
