@@ -105,7 +105,7 @@ function actualCost(curupg: Upgrade) {
 				<span> </span>
 			</div>
 			<span class="tooltip">
-				ID: {{ props.upgid }}
+				自动机使用ID: {{ props.upgid }}
 				<template v-if="curupg.ordinal && useClass() == 'upgrade_buttonbig_unable'"
 					><br />购买升级需要{{
 						countdown(
