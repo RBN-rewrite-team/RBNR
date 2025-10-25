@@ -228,6 +228,14 @@ export const Analysis = {
 		// if (player.hydra.compressedPower.gte("eee30")) return ne
 		return new Decimal(0);
 	},
+	analysisRate() {
+		if (dayOfWeek()[0] == 0) return 0.02;
+		else return 0.1;
+	},
+	analysisCycle() {
+		if (dayOfWeek()[0] == 0) return 50;
+		else return 10;
+	},
 	singleAnalysis() {
 		for (let d = 0; d < 7; d++) {
 			if (!Analysis.analysisUnlocked(d)) continue;
@@ -235,9 +243,9 @@ export const Analysis = {
 			player.pt.seedTimes[d]++;
 			let fakeRandom = predictableRandom(player.pt.seed[d] * player.pt.seedTimes[d]);
 			if (
-				fakeRandom <= 0.1 ||
+				fakeRandom <= this.analysisRate() ||
 				player.pt.analysis[d] == 0 ||
-				player.pt.analysisFailed[d] >= 9
+				player.pt.analysisFailed[d] >= this.analysisCycle() - 1
 			) {
 				player.pt.analysis[d]++;
 				player.pt.analysisFailed[d] = 0;

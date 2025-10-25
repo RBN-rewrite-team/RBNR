@@ -16,7 +16,7 @@ function unlockedList(): string {
 	<h3 class="pt_base" style="color: cyan; width: 50%; margin: auto">
 		解析系统中，每周的不同时段会解锁不同系统。<br />
 		当前是 {{ dayOfWeek()[1] }} ，解锁 <span v-html="unlockedList()" />系统。<br />
-		进行证明论重置以随机解析，成功率为 10% ，解析同一系统10次必定成功。<br />
+		进行证明论重置以随机解析，成功率为 {{Analysis.analysisRate() * 100}}% ，解析同一系统{{Analysis.analysisCycle()}}次必定成功。<br />
 		单一系统首次解析必定成功。<br />
 	</h3>
 	<div class="pt_base" style="width: 50%; margin: auto">
