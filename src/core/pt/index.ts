@@ -11,8 +11,7 @@ import { isTester } from '../save/testing';
 
 export function dayOfWeek(): [number, string] {
 	const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
-	let date = new Date();
-	let dayOfWeek = date.getDay();
+	let dayOfWeek = ((Math.floor((Date.now() - 1761408000000) / 86400000) % 7) + 7) % 7;
 	return [dayOfWeek, weekdays[dayOfWeek]];
 }
 // prettier-ignore
