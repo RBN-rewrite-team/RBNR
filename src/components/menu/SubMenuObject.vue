@@ -15,7 +15,7 @@ const props = defineProps<{
 			:class="{ focus: player.currentTab == tab }"
 			@click="player.currentTab = tab"
 		>
-			{{ text }}<Baixie />
+			{{ text }}
 		</div>
 	</div>
 </template>
