@@ -402,6 +402,8 @@ const interrupt = () => setInterrupt(true);
 			call :hydra.reset(3); 进行一次超越<br />
 			call :hydra.reset(4); 轮回<br />
 			call :hydra.dilute(); 进入/退出稀释<br />
+			call :hydra.diluteset(a, b); 设置稀释a type为b<br />
+			:hydra.indilute; 是否在稀释中
 		</div>
 		<br />
 		<button class="clickable_button" @click="player.automator.code = examplecode">

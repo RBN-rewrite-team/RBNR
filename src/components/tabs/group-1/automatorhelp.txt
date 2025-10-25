@@ -15,16 +15,22 @@ while (b) {c;} while循环
 内置函数
 puts print cout dialog 弹窗，输出内容
 delay wait 等待xxx毫秒
-get(hashtable, key) 获取hashtable中的key键值
-string(x) 将其他数值转换成字符串
+call get(hashtable, key) 获取hashtable中的key键值
+call string(x) 将其他数值转换成字符串
 ===
 include sth;导入包
 可以使用#include sth; import sth;别名。
-目前所内置的包: math
+目前所内置的包: math, music, rbnr。
 
 ===
 math包
 call :math.max(a,b,c,...)取出若干个数值中最大的一个
 call :math.min(a,b,c,...)取出若干个数值中最小的一个
 
-\!000何意味\!
+===
+music包
+call :music.freq(freq, time, gain)播放正弦波， time秒, gain强度
+
+===
+rbnr包
+:rbnr.upgs; 获取所有显示的升级

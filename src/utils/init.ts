@@ -23,7 +23,7 @@ import { timeCheck } from './time-check.ts';
 export function init() {
 	try {
 		timeCheck();
-		
+
 		feature.SUCCESSOR.initMechanics();
 		feature.ADDITION.initMechanics();
 		feature.MULTIPLICATION.initMechanics();
@@ -82,6 +82,17 @@ export function init() {
 		player.minigame.interact = 0;
 		const app = createApp(App);
 		app.use(VueLatex).directive('hold', vHold).mount('#app');
+
+		document.addEventListener('DOMContentLoaded', function () {
+			setTimeout(
+				() => (document.getElementById('fullScreen1')!.style.cssText += 'opacity: 0'),
+				1500,
+			);
+			setTimeout(
+				() => (document.getElementById('fullScreen1')!.style.cssText += 'display: none;'),
+				2000,
+			);
+		});
 	} catch (e) {
 		stopGameLoop();
 		stopSaveLoop();

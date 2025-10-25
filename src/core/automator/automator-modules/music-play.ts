@@ -1,5 +1,5 @@
-import { Callable, Dictionary } from './a-objects';
-import type { Environment } from './environment';
+import { Callable, Dictionary } from '../a-objects';
+import type { Environment } from '../environment';
 
 const actx = new window.AudioContext();
 export function playFrequency(frequency = 440, gain = 0.1, time = 0.1) {
