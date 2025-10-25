@@ -35,4 +35,4 @@ call :music.freq(freq, time, gain)播放正弦波， time秒, gain强度
 ===
 rbnr包
 :rbnr.upgs; 获取所有显示的升级
-call rbnr.buy(id); 购买指定id的升级
+call :rbnr.buy(id); 购买指定id的升级
