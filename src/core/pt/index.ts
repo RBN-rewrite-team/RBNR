@@ -111,13 +111,13 @@ export function realPTreset() {
 						} else if (player.nonrecu.studies_bought.includes(30)) {
 							PTreset();
 							player.pt.resetTimes = player.pt.resetTimes.add(1);
-							if (player.pt.resetTimes.gte(3)) {
+							if (player.milestones.pt_3) {
 								player.pt.qolPointsCrystal = player.pt.qolPointsCrystal.add(1);
 							}
-							if (player.pt.resetTimes.gte(4)) {
+							if (player.milestones.pt_4) {
 								player.nonrecu.resetTimes = new Decimal(2);
 							}
-							if (player.pt.resetTimes.gte(6)) {
+							if (player.milestones.pt_5) {
 								player.nonrecu.resetTimes = new Decimal(4);
 							}
 							Analysis.singleAnalysis();
