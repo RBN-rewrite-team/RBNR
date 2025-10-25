@@ -111,6 +111,15 @@ export function realPTreset() {
 						} else if (player.nonrecu.studies_bought.includes(30)) {
 							PTreset();
 							player.pt.resetTimes = player.pt.resetTimes.add(1);
+							if (player.pt.resetTimes.gte(3)) {
+								player.pt.qolPointsCrystal = player.pt.qolPointsCrystal.add(1);
+							}
+							if (player.pt.resetTimes.gte(4)) {
+								player.nonrecu.resetTimes = new Decimal(2);
+							}
+							if (player.pt.resetTimes.gte(6)) {
+								player.nonrecu.resetTimes = new Decimal(4);
+							}
 							Analysis.singleAnalysis();
 						}
 					},
@@ -229,6 +238,10 @@ export const Analysis = {
 			) {
 				player.pt.analysis[d]++;
 				player.pt.analysisFailed[d] = 0;
+
+				if (player.milestones.pt_2) {
+					player.timeshard.value = player.timeshard.value.add(50);
+				}
 			} else {
 				player.pt.analysisFailed[d]++;
 			}
@@ -242,6 +255,7 @@ export const Analysis = {
 			resetTimes: new Decimal(0),
 			analysis: [0, 0, 0, 0, 0, 0, 0],
 			analysisFailed: [0, 0, 0, 0, 0, 0, 0],
+			qolPointsCrystal: new Decimal(0),
 		};
 	},
 } as const;

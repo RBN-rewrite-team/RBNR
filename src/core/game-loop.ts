@@ -97,6 +97,13 @@ export function qolLoop() {
 	if (player.pt.resetTimes.gte(1)) {
 		player.nonrecu.studies_bought = [...new Set(player.nonrecu.studies_bought), 30];
 	}
+
+	if (player.pt.resetTimes.gte(4)) {
+		player.nonrecu.resetTimes = player.nonrecu.resetTimes.clampMin(2);
+	}
+	if (player.pt.resetTimes.gte(6)) {
+		player.nonrecu.resetTimes = player.nonrecu.resetTimes.clampMin(4);
+	}
 }
 function enterPlot(i: number) {
 	if (unlockedPlots() >= i) {

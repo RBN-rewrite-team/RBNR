@@ -88,11 +88,11 @@ export function init() {
 		document.addEventListener('DOMContentLoaded', function () {
 			setTimeout(
 				() => (document.getElementById('fullScreen1')!.style.cssText += 'opacity: 0'),
-				1500,
+				import.meta.env.DEV ? 0 : 1500,
 			);
 			setTimeout(
 				() => (document.getElementById('fullScreen1')!.style.cssText += 'display: none;'),
-				2000,
+				import.meta.env.DEV ? 0 : 2000,
 			);
 		});
 	} catch (e) {
