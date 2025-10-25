@@ -9,8 +9,7 @@ export const PlotMilestones = [
 	() =>
 		player.buyables['lgr_emp'].gte(1) ||
 		player.milestones['log_G'] ||
-		player.stat.chapter >= 3.1 ||
-		(player.stat.chapter = Math.max(player.stat.chapter, 3.1)),
+		player.stat.chapter >= 3.1,
 	() => player.milestones['log_G'] || player.stat.chapter >= 4,
 	() => player.singularity.enabled || player.stat.chapter >= 4,
 	() => player.stat.chapter >= 4 || player.retribution >= 1,

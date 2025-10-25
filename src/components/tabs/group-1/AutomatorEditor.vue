@@ -392,6 +392,7 @@ const interrupt = () => setInterrupt(true);
 			>
 		</div> -->
 		<h2>自动机语法</h2>
+		<div class="selectable">
 		<textToComponent :text="automatorhelp" />
 		<div v-if="player.upgrades['ts_auto_pkg_hydra']">
 			<div class="center_line"></div>
@@ -402,6 +403,17 @@ const interrupt = () => setInterrupt(true);
 			call :hydra.reset(3); 进行一次超越<br />
 			call :hydra.reset(4); 轮回<br />
 			call :hydra.dilute(); 进入/退出稀释<br />
+			call :hydra.diluteset(a, b); 设置稀释a type为b<br />
+			:hydra.indilute; 是否在稀释中
+		</div>
+		<div v-if="player.upgrades['ts_auto_pkg_nonrec']">
+			<div class="center_line"></div>
+			nonrec包<br />使用include nonrec;导入<br />
+			call :nonrec.reset(); 如果可能，进行一次非递归重置<br />
+			call :nonrec.buyStudy(0); 购买自动机ID为0的非递归研究树<br />
+			call :nonrec.respec(); 重置研究树<br />
+			:nonrec.power; 获取当前的非递归能量<br />
+		</div>
 		</div>
 		<br />
 		<button class="clickable_button" @click="player.automator.code = examplecode">

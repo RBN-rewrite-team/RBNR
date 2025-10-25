@@ -54,6 +54,15 @@
 	}
 }
 
+.selectable, .selectable * {
+  -moz-user-select: text;
+  -o-user-select: text;
+  -khtml-user-select: text;
+  -webkit-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
@@ -855,4 +864,42 @@ a {
 	height: 100%;
 	pointer-events: none;
 	z-index: 1;
+}
+
+
+
+
+@keyframes corrupted_text {
+	0%, 100% {
+		text-shadow: -2px -2px 0px #5555ff, 2px 2px 0px #ff5555;
+	}
+	25% {
+		text-shadow: -2px 2px 0px #5555ff, 2px -2px 0px #ff5555;
+	}
+	50% {
+		text-shadow: 2px 2px 0px #5555ff, -2px -2px 0px #ff5555;
+	}
+	75% {
+		text-shadow: 2px -2px 0px #5555ff, -2px 2px 0px #ff5555;
+	}
+}
+
+@-webkit-keyframes corrupted_text {
+	0%, 100% {
+		text-shadow: -2px -2px 0px #5555ff, 2px 2px 0px #ff5555;
+	}
+	25% {
+		text-shadow: -2px 2px 0px #5555ff, 2px -2px 0px #ff5555;
+	}
+	50% {
+		text-shadow: 2px 2px 0px #5555ff, -2px -2px 0px #ff5555;
+	}
+	75% {
+		text-shadow: 2px -2px 0px #5555ff, -2px 2px 0px #ff5555;
+	}
+}
+
+.corrupted_text {
+	color: white;
+	animation: corrupted_text 4s cubic-bezier(0.37, 0, 0.63, 1) infinite;
 }

@@ -17,7 +17,7 @@ export default function convertTextToComponent(text2: string): JSX.Element {
 	let keyCounter = 0;
 
 	// 更精确的正则表达式，避免匹配部分公式
-	const regex = /(\\\([^]*?\\\)|\\\[[^]*?\\\]|\n|===|<\$bx>)/;
+	const regex = /(\\\([^]*?\\\)|\\\[[^]*?\\\]|\\\!000[^]*?\\\!|\n|===|<\$bx>)/;
 
 	const processPart = (part: string) => {
 		if (!part) return;
@@ -38,6 +38,13 @@ export default function convertTextToComponent(text2: string): JSX.Element {
 					expression={latexExpression}
 					display-mode
 				/>,
+			);
+		}
+		// 检查特殊样式 \!000 ... \!
+		else if (part.length >= 4 && part.startsWith('\\!000') && part.endsWith('\\!')) {
+			const innerText = part.slice(5, -2);
+			elements.push(
+				<span class={{"corrupted_text": true}}>{convertTextToComponent(innerText)}</span>,
 			);
 		}
 		// 处理换行符

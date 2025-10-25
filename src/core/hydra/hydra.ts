@@ -20,7 +20,7 @@ import { CHALLENGE } from '../challenge';
 import { DC } from '@/core/constants';
 import { temp } from '../../core/temp-data.ts';
 import { Y_SEQ } from '../post-nonrec/y-seq.ts';
-import { Analysis } from '@/core/pt';
+import { Analysis, PTEffects } from '@/core/pt';
 
 const e326649slog = new Decimal('e326649').slog(Math.E);
 const ee154slog = new Decimal('e8.07230472602822538e153').slog(Math.E);
@@ -694,6 +694,13 @@ export const Hydra = {
 			}
 		})(),
 	},
+	slogSoftcapEffect(): number {
+		let b = 2;
+		if (player.pt.resetTimes.gte(1)) {
+			b = b ** PTEffects.effectToHydraEnergyLogSoftCap().div(100).neg().add(1).toNumber();
+		}
+		return b;
+	},
 	deduceSpeedBMS(): Decimal {
 		let base = new Decimal(0);
 		if (player.upgrades[61]) base = new Decimal(0.1);
@@ -760,9 +767,15 @@ export const Hydra = {
 			if (!player.nonrecu.studies_bought.includes(13))
 				base = new Decimal('e8.07230472602822538e153');
 			else
+				/**对e8e153后的推演次数，slog除以2，削弱50%指的是2^0.5。 */
 				base = Decimal.tetrate(
 					Math.E,
-					base.slog(Math.E).sub(ee154slog).div(2).add(ee154slog).toNumber(),
+					base
+						.slog(Math.E)
+						.sub(ee154slog)
+						.div(this.slogSoftcapEffect())
+						.add(ee154slog)
+						.toNumber(),
 				);
 		}
 		if (CHALLENGE.inChallenge(1, 1)) base = base.min(player.nonrecu.power.cbrt().pow_base(10));

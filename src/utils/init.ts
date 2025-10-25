@@ -19,11 +19,12 @@ import App from '@/App.vue';
 import { reinitializeMusic } from '@/core/music.ts';
 
 import { timeCheck } from './time-check.ts';
+import { initPTMilestones } from '@/core/pt/milestones.ts';
 
 export function init() {
 	try {
 		timeCheck();
-		
+
 		feature.SUCCESSOR.initMechanics();
 		feature.ADDITION.initMechanics();
 		feature.MULTIPLICATION.initMechanics();
@@ -35,6 +36,7 @@ export function init() {
 		Logarithm.initMechanics();
 		Dilute.initMechanics();
 		NON_RECURSIVE.initMechanics();
+		initPTMilestones();
 		loadSaves();
 		if (player.foundNaN && player.backup) {
 			restoreBackup(player);
@@ -82,6 +84,17 @@ export function init() {
 		player.minigame.interact = 0;
 		const app = createApp(App);
 		app.use(VueLatex).directive('hold', vHold).mount('#app');
+
+		document.addEventListener('DOMContentLoaded', function () {
+			setTimeout(
+				() => (document.getElementById('fullScreen1')!.style.cssText += 'opacity: 0'),
+				import.meta.env.DEV ? 0 : 1500,
+			);
+			setTimeout(
+				() => (document.getElementById('fullScreen1')!.style.cssText += 'display: none;'),
+				import.meta.env.DEV ? 0 : 2000,
+			);
+		});
 	} catch (e) {
 		stopGameLoop();
 		stopSaveLoop();

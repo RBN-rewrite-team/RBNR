@@ -11,7 +11,7 @@ import { upgrades, buyables } from '../mechanic';
 import { CHALLENGE } from '../challenge';
 import { DC } from '@/core/constants';
 import { NON_RECURSIVE } from '../nonrecu';
-import { Analysis } from '@/core/pt/index.ts';
+import { Analysis, PTEffects } from '@/core/pt/index.ts';
 
 export type backupHydraType = {
 	upgrades: (`${IntClosedRange<61, 69>}R` | keyof typeof Hydra.upgrades)[];
@@ -822,7 +822,10 @@ const Dil = {
 		player.hydra.totalPower = new Decimal(item.totalPower);
 	},
 	diluteButton() {
-		if (CHALLENGE.inChallenge(1, 0)) {
+		if (
+			CHALLENGE.inChallenge(1, 0) ||
+			(!player.hydra.dilute.inDilute && !player.upgrades['69R'])
+		) {
 			ModalService.show({
 				title: '无法进入/退出稀释',
 				content: '稀释按钮好像坏了...',
@@ -993,6 +996,9 @@ const Dil = {
 			ConstantMax = ConstantMax.mul(10);
 			ConstantMax = ConstantMax.mul(player.hydra.dilute.spentTime + 1);
 		}
+		if (player.pt.resetTimes.gte(1)) {
+			ConstantMax = ConstantMax.mul(PTEffects.effectToSolutions());
+		}
 		const deduceMult = getCurrentMax
 			? baseDecimal.min(ConstantMax)
 			: player.hydra.deduceOrdinal[0].add(1).ln().min(baseDecimal).min(ConstantMax);
@@ -1033,7 +1039,7 @@ const Dil = {
 		if (CHALLENGE.inChallenge(1, 5)) {
 			res = res.clampMax(0);
 		}
-		
+
 		res = res.pow(Analysis.systemEffect[4].value(player.pt.analysis[4]));
 
 		return res;

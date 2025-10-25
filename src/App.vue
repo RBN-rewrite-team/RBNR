@@ -4,7 +4,7 @@ import Decimal from 'break_eternity.js';
 
 import Chapter from './components/group-2/Chapter.vue';
 
-import Side from './components/group-2/Side.vue';
+import Side from './components/menu/Side.vue';
 import NewsTicker from './components/group-2/Newsticker.vue';
 import Successor from './components/tabs/group-1/Successor.vue';
 import Settings from './components/tabs/group-1/Settings.vue';
@@ -56,6 +56,7 @@ import RetributionAnimation from './components/tabs/group-1/RetributionAnimation
 import DeveloperMode from './components/tabs/devonly/DeveloperMode.vue';
 
 import Analysis from './components/tabs/pt/Analysis.vue';
+import AnalysisMilestones from './components/tabs/pt/AnalysisMilestones.vue';
 import { temp } from './core/temp-data.ts';
 </script>
 
@@ -79,6 +80,7 @@ import { temp } from './core/temp-data.ts';
 						player.stat.highestMulpower.gte(new Decimal(2).pow(1024))
 					"
 				/>
+				<!-- <span class="corrupted_text">hyw</span> -->
 				<Successor v-if="player.currentTab === 0" />
 				<NonRecursionResetButton v-if="player.upgrades['616S']" />
 				<Settings v-if="player.currentTab === 1" />
@@ -111,6 +113,7 @@ import { temp } from './core/temp-data.ts';
 				<YEngine v-if="player.currentTab === 27"></YEngine>
 				<Retribution v-if="player.currentTab === 28" />
 				<Analysis v-if="player.currentTab === 29" />
+				<AnalysisMilestones v-if="player.currentTab === 30" />
 				<AutomatorEditor v-if="player.currentTab === 167" />
 				<PlotTab v-if="player.currentTab === 200" />
 				<SaveBank v-if="player.currentTab === 300" />
