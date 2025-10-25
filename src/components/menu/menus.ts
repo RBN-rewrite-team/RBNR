@@ -190,6 +190,9 @@ export const menus = [
 				},
 			},
 		],
+		show() {
+			return player.upgrades[517];
+		},
 	},
 	{
 		title: '非递归',
