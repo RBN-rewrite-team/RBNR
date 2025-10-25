@@ -80,15 +80,15 @@ import { temp } from './core/temp-data.ts';
 						player.stat.highestMulpower.gte(new Decimal(2).pow(1024))
 					"
 				/>
-				<Successor v-if="player.currentTab === 0" />
 				<NonRecursionResetButton v-if="player.upgrades['616S']" />
+				<NumberTheory v-if="player.currentTab === 6 && !player.upgrades[58]" />
+				<OrdinalNT v-if="player.currentTab === 6 && player.upgrades[58]" />
+				<Successor v-if="player.currentTab === 0" />
 				<Settings v-if="player.currentTab === 1" />
 				<Addition v-if="player.currentTab === 2" />
 				<About v-if="player.currentTab === 3" />
 				<Multip v-if="player.currentTab === 4" />
 				<PF v-if="player.currentTab === 5" />
-				<NumberTheory v-if="player.currentTab === 6 && !player.upgrades[58]" />
-				<OrdinalNT v-if="player.currentTab === 6 && player.upgrades[58]" />
 				<Stat v-if="player.currentTab === 7" />
 				<MultipChals v-if="player.currentTab === 8" />
 				<ExpUpgrades v-if="player.currentTab === 9" />
@@ -107,9 +107,9 @@ import { temp } from './core/temp-data.ts';
 				<NonRecursionTabChal v-if="player.currentTab === 22" />
 				<NonRecursionFactor v-if="player.currentTab === 23" />
 				<StudyTree v-if="player.currentTab === 24" />
-				<NonRecursionTabUpgrade v-if="player.currentTab === 25"></NonRecursionTabUpgrade>
-				<NonRecursionUNOCF v-if="player.currentTab === 26"></NonRecursionUNOCF>
-				<YEngine v-if="player.currentTab === 27"></YEngine>
+				<NonRecursionTabUpgrade v-if="player.currentTab === 25" />
+				<NonRecursionUNOCF v-if="player.currentTab === 26" />
+				<YEngine v-if="player.currentTab === 27" />
 				<Retribution v-if="player.currentTab === 28" />
 				<Analysis v-if="player.currentTab === 29" />
 				<AnalysisMilestones v-if="player.currentTab === 30" />
