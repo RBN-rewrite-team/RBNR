@@ -28,6 +28,7 @@ import { achLoop } from './achievements.ts';
 import { format } from '@/utils/format.ts';
 import { Ordinal } from '@/lib/ordinal/index.ts';
 import { OrdinalUtils } from '@/utils/ordinal.ts';
+import { PTEffects } from './pt/index.ts';
 
 /**
  * 游戏循环经过了多少时间
@@ -218,6 +219,9 @@ export function simulate(diff: number) {
 	let pre_cardinal_diff = diff;
 	if (player.nonrecu.studies_bought.includes(1))
 		pre_cardinal_diff *= 2 ** (!CHALLENGE.inChallenge(1, 3) ? 1 : -1);
+	if (player.pt.resetTimes.gte(1)) {
+		pre_cardinal_diff *= PTEffects.effectToPreCardinal().clampMin(1).toNumber();
+	}
 	let nonrecuDiffForSecInThisReset = new Decimal(pre_cardinal_diff / 1000);
 	if (player.upgrades[77])
 		nonrecuDiffForSecInThisReset = nonrecuDiffForSecInThisReset.mul(upgrades[77].effect());
