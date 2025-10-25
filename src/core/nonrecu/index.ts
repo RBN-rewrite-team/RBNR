@@ -14,7 +14,7 @@ import { energyToUNOCFSpeed } from '../ordinal/well_ordering';
 import type { FixedLengthArray } from 'type-fest';
 import { updateResetStatData } from '../stats.ts';
 import { format } from '../../utils/format.ts';
-import { Analysis } from '../pt/index.ts';
+import { Analysis, PTEffects } from '../pt/index.ts';
 type NonRecusionTreePreset = {
 	name: string;
 	preset: number[];
@@ -431,10 +431,13 @@ export const NON_RECURSIVE = {
 		player.firstResetBit |= 0b10000;
 		updateResetStatData('recent10NonRecReset', this.gain());
 		if (!force) this.addPower(this.gain());
-		if (!force)
-		{
+		if (!force) {
 			let timesGain = new Decimal(1);
 			timesGain = timesGain.mul(Analysis.systemEffect[2].value(player.pt.analysis[2]));
+
+			if (player.pt.resetTimes.gte(1)) {
+				timesGain = timesGain.mul(PTEffects.effectToNonrecResetTimes());
+			}
 			player.nonrecu.resetTimes = player.nonrecu.resetTimes.add(timesGain);
 		}
 		Dilute.diluteReset(player.upgrades['6213'] ? true : false);
