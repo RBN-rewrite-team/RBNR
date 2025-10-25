@@ -17,8 +17,10 @@ function unlockedList(): string {
 		解析系统中，每周的不同时段会解锁不同系统。<br />
 		当前是 {{ dayOfWeek()[1] }}
 		<span style="font-size: 12px">(中国标准时间 UTC+08:00)</span>，解锁
-		<span v-html="unlockedList()" />系统。<br />
-		进行证明论重置以随机解析，成功率为 5% ，解析同一系统20次必定成功。<br />
+		<span v-html="unlockedList()" />系统。<br />进行证明论重置以随机解析，成功率为
+		{{ Analysis.analysisRate() * 100 }}% ，解析同一系统{{
+			Analysis.analysisCycle()
+		}}次必定成功。<br />
 		单一系统首次解析必定成功。<br />
 	</h3>
 	<div class="pt_base" style="width: 50%; margin: auto">
