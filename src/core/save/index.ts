@@ -25,7 +25,7 @@ import { Analysis } from '../pt/index.ts';
 import Modal from '@/components/group-2/Modal.vue';
 import ModalService from '@/utils/Modal.ts';
 
-const version = 12 as const;
+const version = 13 as const;
 export let current_save = 0;
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
 type KeyStringFromDecimal<T> = {
@@ -510,6 +510,14 @@ export function loadFromString(saveContent: string, non_options = false) {
 	delete player.hydra.dilute.solvent?.[9];
 	// @ts-ignore
 	delete player.hydra.dilute.lastSolvent?.[9];
+
+	if (player.version <= 12 && player.pt) {
+		if (player.pt.resetTimes.gte(3)) {
+			player.pt.qolPointsCrystal = player.pt.qolPointsCrystal.add(
+				player.pt.resetTimes.sub(2),
+			);
+		}
+	}
 	player.version = version;
 }
 
