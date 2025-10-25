@@ -591,7 +591,7 @@ class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 	}
 
 	// 修复：创建属性访问节点
-	getPropertyExpression(ctx: any, expression: ASTNode): getPropertyExpression {
+	getPropertyExpression(ctx: any, expression: ASTNode): GetPropertyNode {
 	  console.log(ctx, expression)
 		return new GetPropertyNode(
 			expression,
