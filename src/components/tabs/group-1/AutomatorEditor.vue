@@ -392,6 +392,7 @@ const interrupt = () => setInterrupt(true);
 			>
 		</div> -->
 		<h2>自动机语法</h2>
+		<div class="selectable">
 		<textToComponent :text="automatorhelp" />
 		<div v-if="player.upgrades['ts_auto_pkg_hydra']">
 			<div class="center_line"></div>
@@ -412,6 +413,7 @@ const interrupt = () => setInterrupt(true);
 			call :nonrec.buyStudy(0); 购买自动机ID为0的非递归研究树<br />
 			call :nonrec.respec(); 重置研究树<br />
 			:nonrec.power; 获取当前的非递归能量<br />
+		</div>
 		</div>
 		<br />
 		<button class="clickable_button" @click="player.automator.code = examplecode">
