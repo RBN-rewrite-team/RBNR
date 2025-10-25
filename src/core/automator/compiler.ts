@@ -192,15 +192,18 @@ class ExpressionStatementNode extends ASTNode {
 }
 
 class CallExpressionNode extends ASTNode {
-	becalled: ASTNode;
+	callee: ASTNode;
 	arguments: ASTNode[];
+	hasCallToken: boolean;
 
-	constructor(becalled: ASTNode, args: ASTNode[]) {
+	constructor(callee: ASTNode, args: ASTNode[], hasCallToken: boolean = false) {
 		super('CallExpression');
-		this.becalled = becalled;
+		this.callee = callee;
 		this.arguments = args;
+		this.hasCallToken = hasCallToken;
 	}
 }
+
 class ArrayExpressionNode extends ASTNode {
 	elements: ASTNode[];
 
@@ -209,6 +212,7 @@ class ArrayExpressionNode extends ASTNode {
 		this.elements = elements;
 	}
 }
+
 class HashTableExpressionNode extends ASTNode {
 	hashtable: {
 		[key: string]: ASTNode;
@@ -226,6 +230,20 @@ class IncludeStatementNode extends ASTNode {
 		this.include = include;
 	}
 }
+
+class MemberExpressionNode extends ASTNode {
+	object: ASTNode;
+	property: ASTNode;
+	computed: boolean;
+
+	constructor(object: ASTNode, property: ASTNode, computed: boolean = false) {
+		super('MemberExpression');
+		this.object = object;
+		this.property = property;
+		this.computed = computed;
+	}
+}
+
 class GetPropertyNode extends ASTNode {
 	expression: ASTNode;
 	property: string;
@@ -235,6 +253,7 @@ class GetPropertyNode extends ASTNode {
 		this.property = property;
 	}
 }
+
 class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 	constructor() {
 		super();
@@ -267,12 +286,22 @@ class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 			return this.visit(ctx.expressionStatement);
 		} else if (ctx.blockStatement) {
 			return this.visit(ctx.blockStatement);
-		} else if (ctx.callExpression) {
-			return this.visit(ctx.callExpression);
 		} else if (ctx.includeStatement) {
 			return this.visit(ctx.includeStatement);
+		} else if (ctx.callExpressionStatement) {
+			return this.visit(ctx.callExpressionStatement);
 		}
 		throw new ACompilieError('Unknown statement type');
+	}
+
+	// 新增：处理 call 表达式语句
+	callExpressionStatement(ctx: any) {
+		const callExpression = this.visit(ctx.expression[0]);
+		// 如果表达式是 CallExpressionNode，设置 hasCallToken 为 true
+		if (callExpression instanceof CallExpressionNode) {
+			callExpression.hasCallToken = true;
+		}
+		return new ExpressionStatementNode(callExpression);
 	}
 
 	variableDeclaration(ctx: any) {
@@ -519,42 +548,110 @@ class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 			return new UnaryExpressionNode(operator, argument);
 		}
 
-		return this.visit(ctx.primaryExpression[0]);
+		return this.visit(ctx.memberExpression[0]);
 	}
 
-	primaryExpression(ctx: any) {
-		if (ctx.Number) {
-			return new NumericLiteralNode(new Decimal(ctx.Number[0].image));
-		} else if (ctx.StringLiteral) {
-			const str = ctx.StringLiteral[0].image;
-			return new StringLiteralNode(str.substring(1, str.length - 1));
-		} else if (ctx.True) {
-			return new BooleanLiteralNode(true);
-		} else if (ctx.False) {
-			return new BooleanLiteralNode(false);
-		} else if (ctx.Identifier) {
-			return new IdentifierNode(ctx.Identifier[0].image);
-		} else if (ctx.expression) {
-			return this.visit(ctx.expression[0]);
-		} else if (ctx.LBracket) {
-			const elements = ctx.arrayElements ? this.visit(ctx.arrayElements[0]) : [];
-			return new ArrayExpressionNode(elements);
-		} else if (ctx.callExpression) {
-			return new CallExpressionNode(
-				this.visit(ctx.callExpression[0].children.expression[0]),
-				ctx.callExpression[0].children.argumentsList
-					? this.visit(ctx.callExpression[0].children.argumentsList[0])
-					: [],
-			);
-		} else if (ctx.hashTableExpression) {
-			return this.hashTableExpression(ctx.hashTableExpression);
-		} else if (ctx.getPropertyExpression) {
-			return this.getPropertyExpression(ctx.getPropertyExpression);
+	// 修复：处理成员表达式（属性访问和函数调用）
+	memberExpression(ctx: any) {
+		let expression = this.visit(ctx.primaryExpression[0]);
+
+		// 处理后续的函数调用和属性访问
+		if (ctx.functionCall || ctx.propertyAccess) {
+			const functionCalls = ctx.functionCall || [];
+			const propertyAccesses = ctx.propertyAccess || [];
+			
+			// 合并所有操作并按顺序处理
+			const allOperations = [];
+			
+			// 这里需要根据实际解析顺序来处理，但由于CST结构限制，
+			// 我们假设先处理所有属性访问，然后处理函数调用
+			// 在实际应用中，你可能需要更复杂的逻辑来处理混合链式调用
+			
+			// 先处理属性访问
+			for (const propAccess of propertyAccesses) {
+				allOperations.push({ type: 'property', ctx: propAccess });
+			}
+			
+			// 然后处理函数调用
+			for (const funcCall of functionCalls) {
+				allOperations.push({ type: 'function', ctx: funcCall });
+			}
+			
+			// 按顺序应用操作
+			for (const operation of allOperations) {
+				if (operation.type === 'property') {
+					expression = this.getPropertyExpression(operation.ctx, expression);
+				} else if (operation.type === 'function') {
+					expression = this.createFunctionCall(operation.ctx, expression);
+				}
+			}
 		}
 
-		console.log(ctx);
-		throw new ACompilieError('Unknown primary expression');
+		return expression;
 	}
+
+	// 修复：创建属性访问节点
+	getPropertyExpression(ctx: any, expression: ASTNode): MemberExpressionNode {
+	  console.log(ctx, expression)
+		return new GetPropertyNode(
+			expression,
+			ctx.children.Identifier[0].image,
+		);
+	}
+	
+	getPropertyExpressionWithColenPrefix(ctx: any): MemberExpressionNode {
+	  console.log(ctx, expression)
+		return new GetPropertyNode(
+			this.visit(ctx[0].children.expression[0]),
+			ctx[0].children.Identifier[0].image,
+		);
+	}
+
+	// 修复：创建函数调用节点
+	createFunctionCall(ctx: any, callee: ASTNode): CallExpressionNode {
+		const hasCallToken = !!ctx.Call;
+		const args = ctx?.children?.argumentsList !== undefined ? this.visit(ctx.children.argumentsList[0]) : [];
+		return new CallExpressionNode(callee, args, hasCallToken);
+	}
+
+	// 修复：处理属性访问规则
+	propertyAccess(ctx: any) {
+		// 这个方法不应该被直接调用，属性访问应该在 memberExpression 中处理
+		throw new ACompilieError('Property access should be handled in memberExpression');
+	}
+
+	// 修复：处理函数调用规则
+	functionCall(ctx: any) {
+		// 这个方法不应该被直接调用，函数调用应该在 memberExpression 中处理
+		throw new ACompilieError('Function call should be handled in memberExpression');
+	}
+
+  public primaryExpression(ctx: any) {
+    if (ctx.Number) {
+        return new NumericLiteralNode(new Decimal(ctx.Number[0].image));
+    } else if (ctx.StringLiteral) {
+        const str = ctx.StringLiteral[0].image;
+        return new StringLiteralNode(str.substring(1, str.length - 1));
+    } else if (ctx.True) {
+        return new BooleanLiteralNode(true);
+    } else if (ctx.False) {
+        return new BooleanLiteralNode(false);
+    } else if (ctx.Identifier) {
+        return new IdentifierNode(ctx.Identifier[0].image);
+    } else if (ctx.LParen && ctx.expression) {
+        return this.visit(ctx.expression[0]);
+    } else if (ctx.LBracket) {
+        const elements = ctx.arrayElements ? this.visit(ctx.arrayElements[0]) : [];
+        return new ArrayExpressionNode(elements);
+    } else if (ctx.hashTableExpression) {
+        return this.visit(ctx.hashTableExpression[0]);
+    } else if (ctx.getPropertyExpression) {
+			return this.getPropertyExpressionWithColenPrefix(ctx.getPropertyExpression);
+		}
+
+    console.log("Unknown primary expression context:", ctx);
+    throw new ACompilieError('Unknown primary expression');
+}
 
 	arrayElements(ctx: any) {
 		const elements: ASTNode[] = [];
@@ -579,13 +676,9 @@ class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 
 		return elements;
 	}
-	callExpression(ctx: any) {
-		const parameters = ctx.argumentsList ? this.visit(ctx.argumentsList[0]) : [];
-		const body = this.visit(ctx.expression[0]);
-		return new CallExpressionNode(body, parameters);
-	}
+
 	hashTableExpression(ctx: any) {
-		const a = ctx[0].children;
+		const a = ctx;
 		const map: {
 			[key: string]: ASTNode;
 		} = {};
@@ -593,20 +686,10 @@ class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 			map[a.Identifier[i].image] = this.visit(a.expression[i]);
 		}
 		return new HashTableExpressionNode(map);
-		console.error(ctx);
-
-		throw new Error("Don't know how to convert a hashtableexpression ctx to ast");
 	}
 
 	includeStatement(ctx: any) {
 		return new IncludeStatementNode(ctx.Identifier[0].image);
-	}
-
-	getPropertyExpression(ctx: any) {
-		return new GetPropertyNode(
-			this.visit(ctx[0].children.expression[0]),
-			ctx[0].children.Identifier[0].image,
-		);
 	}
 }
 
@@ -652,12 +735,15 @@ export {
 	CallExpressionNode,
 	HashTableExpressionNode,
 	IncludeStatementNode,
+	MemberExpressionNode,
 	GetPropertyNode,
 	parseAndConvertToAst,
 };
+
 declare global {
 	interface Window {
 		parseAndConvertToAst: typeof parseAndConvertToAst;
 	}
 }
+
 window.parseAndConvertToAst = parseAndConvertToAst;

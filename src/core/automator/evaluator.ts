@@ -15,6 +15,7 @@ import {
 	IdentifierNode,
 	IfStatementNode,
 	IncludeStatementNode,
+	MemberExpressionNode,
 	NumericLiteralNode,
 	parseAndConvertToAst,
 	ReturnStatementNode,
@@ -26,7 +27,9 @@ import {
 import { Environment, parentEnvironment, tryInclude } from './environment';
 import { AutomatorArray, Callable, CodeCallable, Dictionary, ReturnTag } from './a-objects';
 import { player } from '../save';
+
 let interrupt = false;
+
 const operators = {
 	'+': 'add',
 	'-': 'sub',
@@ -44,6 +47,7 @@ const operators = {
 	'==': 'eq',
 	'!=': 'neq',
 } as const;
+
 export async function evaluateHashTableExpressionNode(
 	node: HashTableExpressionNode,
 	env: Environment,
@@ -54,6 +58,7 @@ export async function evaluateHashTableExpressionNode(
 	}
 	return res;
 }
+
 export async function evaluateFunctionDeclarationNode(
 	node: FunctionDeclarationNode,
 	env: Environment,
@@ -63,6 +68,7 @@ export async function evaluateFunctionDeclarationNode(
 	env.set(node.name, callable);
 	return callable;
 }
+
 export async function evaluateForStatementNode(node: ForStatementNode, env: Environment) {
 	const variabledeclaration = node.init;
 	if (!variabledeclaration)
@@ -82,6 +88,7 @@ export async function evaluateForStatementNode(node: ForStatementNode, env: Envi
 	}
 	return r;
 }
+
 export async function evaluateWhileStatementNode(node: WhileStatementNode, env: Environment) {
 	const condition = node.condition;
 	const body = node.body;
@@ -92,6 +99,7 @@ export async function evaluateWhileStatementNode(node: WhileStatementNode, env: 
 	}
 	return r;
 }
+
 export async function evaluateBinaryExpressionNode(node: BinaryExpressionNode, env: Environment) {
 	const left = await evaluateNode(node.left, env);
 	const right = await evaluateNode(node.right, env);
@@ -160,25 +168,21 @@ export async function evaluateAssignmentNode(
 	env.set(node.identifierName, rightvalue);
 	return rightvalue;
 }
+
 export async function evaluateCallExpressionNode(node: CallExpressionNode, env: Environment) {
-	const leftval = await evaluateNode(node.becalled, env);
+	const callee = await evaluateNode(node.callee, env); // 修改：使用 callee 而不是 becalled
 	const argsevaluated = [];
 	for (let i = 0; i < node.arguments.length; i++) {
 		argsevaluated.push(await evaluateNode(node.arguments[i], env));
 		if (interrupt) return;
 	}
 
-	if (leftval instanceof Callable) {
-		return await leftval.call(env, ...argsevaluated);
+	if (callee instanceof Callable) {
+		return await callee.call(env, ...argsevaluated);
 	}
-	// else if (typeof leftval === 'function') {
-	// 	// @ts-expect-error
-	// 	if (leftval === async function () {}.constructor.__proto__)
-	// 		throw new Error('cannot call Function');
-	// 	return await leftval(...argsevaluated);
-	// }
-	throw new TypeError('left Value is not callable');
+	throw new TypeError('Callee is not callable');
 }
+
 export async function evaluateUnaryExpressionNode(node: UnaryExpressionNode, env: Environment) {
 	const rightvalue = await evaluateNode(node.argument, env);
 
@@ -190,12 +194,14 @@ export async function evaluateUnaryExpressionNode(node: UnaryExpressionNode, env
 	}
 	throw new Error('Invalid unary expression');
 }
+
 export function evaluateIdentifierNode(node: IdentifierNode, env: Environment) {
 	const trytest = env.get(node.name);
 	if (trytest === null || trytest === undefined)
 		throw new ReferenceError('Cannot found ' + node.name);
 	return trytest;
 }
+
 export async function evaluateArrayExpressionNode(node: ArrayExpressionNode, env: Environment) {
 	const result = [];
 	for (let i = 0; i < node.elements.length; i++) {
@@ -204,6 +210,7 @@ export async function evaluateArrayExpressionNode(node: ArrayExpressionNode, env
 	}
 	return new AutomatorArray(result);
 }
+
 export async function evaluateIfStatementNode(node: IfStatementNode, env: Environment) {
 	const trycondition = await evaluateNode(node.condition, env);
 	if (trycondition) return await evaluateNode(node.consequent, env);
@@ -212,15 +219,41 @@ export async function evaluateIfStatementNode(node: IfStatementNode, env: Enviro
 		return await evaluateNode(node.alternate, env);
 	}
 }
+
 export async function evaluateReturnStatementNode(node: ReturnStatementNode, env: Environment) {
 	if (node.argument === null) throw new Error('Cannot find node argument');
 	return new ReturnTag(await evaluateNode(node.argument, env));
 }
+
+// 新增：处理成员表达式（属性访问）
+export async function evaluateMemberExpressionNode(node: MemberExpressionNode, env: Environment) {
+	const object = await evaluateNode(node.object, env);
+	const property = await evaluateNode(node.property, env);
+	
+	// 如果 property 是 IdentifierNode，获取其名称
+	let propertyName: string;
+	if (property instanceof IdentifierNode) {
+		propertyName = property.name;
+	} else if (typeof property === 'string') {
+		propertyName = property;
+	} else {
+		throw new TypeError('Property must be an identifier or string');
+	}
+	
+	// 尝试从对象获取属性
+	if (object && typeof object === 'object' && propertyName in object) {
+		return object[propertyName];
+	}
+	
+	throw new ReferenceError(`Property '${propertyName}' not found on object`);
+}
+
 export async function evaluateGetPropertyNode(node: GetPropertyNode, env: Environment) {
 	const leftval = await evaluateNode(node.expression, env);
 	if (!leftval.get) throw new Error('cannot get leftval prop');
 	return leftval.get(node.property);
 }
+
 export async function evaluateNode(node: ASTNode, env: Environment): Promise<any> {
 	if (interrupt) return;
 	if (node instanceof BlockStatementNode) {
@@ -255,16 +288,19 @@ export async function evaluateNode(node: ASTNode, env: Environment): Promise<any
 		return await evaluateHashTableExpressionNode(node, env);
 	} else if (node instanceof IncludeStatementNode) {
 		return tryInclude(node.include);
-	} else if (node instanceof GetPropertyNode) {
-		return await evaluateGetPropertyNode(node, env);
+	} else if (node instanceof MemberExpressionNode) { // 新增：处理成员表达式
+		return await evaluateMemberExpressionNode(node, env);
 	} else if (node instanceof UnaryExpressionNode) {
 		return await evaluateUnaryExpressionNode(node, env);
 	} else if (node instanceof BooleanLiteralNode) {
 		return node.value;
+	} else if (node instanceof GetPropertyNode) {
+	  return await evaluateGetPropertyNode(node, env)
 	}
 	console.error(node);
-	throw new Error('Not implemented for ');
+	throw new Error('Not implemented for ' + node.constructor.name);
 }
+
 export async function evaluateBlockStatement(
 	program: BlockStatementNode,
 	env: Environment,
@@ -283,6 +319,7 @@ export async function evaluateBlockStatement(
 	}
 	return result;
 }
+
 export async function compileAndEvaluate(code: string, env: Environment = window.env1) {
 	interrupt = false;
 	let res = await evaluateNode(parseAndConvertToAst(code), env);
@@ -296,6 +333,7 @@ declare global {
 		env1: Environment;
 	}
 }
+
 window.compileAndEvaluate = compileAndEvaluate;
 window.env1 = new (class extends Environment {
 	nodeclarecheck: boolean = false;
