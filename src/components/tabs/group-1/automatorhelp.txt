@@ -25,14 +25,14 @@ include sth;导入包
 
 ===
 math包
-call :math.max(a,b,c,...)取出若干个数值中最大的一个
-call :math.min(a,b,c,...)取出若干个数值中最小的一个
+call math.max(a,b,c,...)取出若干个数值中最大的一个
+call math.min(a,b,c,...)取出若干个数值中最小的一个
 
 ===
 music包
-call :music.freq(freq, time, gain)播放正弦波， time秒, gain强度
+call music.freq(freq, time, gain)播放正弦波， time秒, gain强度
 
 ===
 rbnr包
-:rbnr.upgs; 获取所有显示的升级
-call :rbnr.buy(id); 购买指定id的升级
+rbnr.upgs; 获取所有显示的升级
+call rbnr.buy(id); 购买指定id的升级
