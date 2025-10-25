@@ -42,7 +42,7 @@ import {
 	RBracket,
 	Assign,
 	Return,
-	Call,
+	Call, // 保留 Call token
 	Colen,
 	Include,
 	Dot,
@@ -74,6 +74,8 @@ export class AutomatorParser extends CstParser {
 			{ ALT: () => this.SUBRULE(this.expressionStatement) },
 			{ ALT: () => this.SUBRULE(this.blockStatement) },
 			{ ALT: () => this.SUBRULE(this.includeStatement) },
+			// 添加 call 表达式语句
+			{ ALT: () => this.SUBRULE(this.callExpressionStatement) },
 		]);
 	});
 
@@ -204,6 +206,15 @@ export class AutomatorParser extends CstParser {
 		this.CONSUME(SemiColen);
 	});
 
+	/**
+	 * call myFunc();
+	 */
+	public callExpressionStatement = this.RULE('callExpressionStatement', () => {
+		this.CONSUME(Call);
+		this.SUBRULE(this.expression);
+		this.CONSUME(SemiColen);
+	});
+
 	public blockStatement = this.RULE('blockStatement', () => {
 		this.CONSUME(LBrace);
 		this.MANY(() => {
@@ -310,9 +321,36 @@ export class AutomatorParser extends CstParser {
 				},
 			},
 			{
-				ALT: () => this.SUBRULE(this.primaryExpression),
+				ALT: () => this.SUBRULE(this.memberExpression),
 			},
 		]);
+	});
+
+	// 成员表达式，处理属性访问和函数调用
+	public memberExpression = this.RULE('memberExpression', () => {
+		this.SUBRULE(this.primaryExpression);
+		this.MANY(() => {
+			this.OR([
+				{ ALT: () => this.SUBRULE(this.functionCall) },
+				{ ALT: () => this.SUBRULE(this.propertyAccess) },
+			]);
+		});
+	});
+
+	// 修改：函数调用现在有可选的 Call token
+	public functionCall = this.RULE('functionCall', () => {
+		this.OPTION(() => this.CONSUME(Call)); // Call token 现在是可选的
+		this.CONSUME(LParen);
+		this.OPTION1(() => {
+			this.SUBRULE(this.argumentsList);
+		});
+		this.CONSUME(RParen);
+	});
+
+	// 属性访问
+	public propertyAccess = this.RULE('propertyAccess', () => {
+		this.CONSUME(Dot);
+		this.CONSUME(Identifier);
 	});
 
 	public primaryExpression = this.RULE('primaryExpression', () => {
@@ -338,17 +376,9 @@ export class AutomatorParser extends CstParser {
 					this.CONSUME(RBracket);
 				},
 			},
-			// 添加函数调用作为表达式
-			{
-				ALT: () => this.SUBRULE(this.callExpression),
-			},
 			// 添加 hash table 表达式
 			{
 				ALT: () => this.SUBRULE(this.hashTableExpression),
-			},
-			// 添加 x.bbb getProperty 表达式
-			{
-				ALT: () => this.SUBRULE(this.getPropertyExpression),
 			},
 		]);
 	});
@@ -359,25 +389,6 @@ export class AutomatorParser extends CstParser {
 			this.CONSUME(Comma);
 			this.SUBRULE2(this.expression);
 		});
-	});
-
-	// 修改 callExpression，移除分号，使其可以作为表达式
-	public callExpression = this.RULE('callExpression', () => {
-		this.CONSUME(Call);
-		this.SUBRULE(this.expression);
-		this.CONSUME(LParen);
-		this.OPTION(() => {
-			this.SUBRULE(this.argumentsList);
-		});
-		this.CONSUME(RParen);
-		// 移除 this.CONSUME(SemiColen); 使其可以作为表达式
-	});
-
-	public getPropertyExpression = this.RULE('getPropertyExpression', () => {
-		this.CONSUME(Colen);
-		this.SUBRULE(this.expression);
-		this.CONSUME(Dot);
-		this.CONSUME(Identifier);
 	});
 
 	public hashTableExpression = this.RULE('hashTableExpression', () => {
