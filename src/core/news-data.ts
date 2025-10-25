@@ -70,13 +70,19 @@ const news = [{id: "news1", text: "不会做增量游戏怎么办？看风灵作
 {id: "news64", text: "发散是反时间墙，时间墙是反发散，既不发散又不时间墙是正常的，既发散又时间墙是增量游戏作者故意设计的"},
 {id: "news65", text: "IMR isn't back"},
 {id: "news66", text: "LHO未必是LHO，可能是滚木"},
-{id: "news67", text: "有人不知道小...cào，答题似了！"},
+{id: "news67", text: "有...cào，踏马的这做的什么玩意！"},
 {id: "news68", text: "LHO=(ω→ω→LRO)_2"},
 {id: "news69", text: "你怎么敢定义LHO"},
 {id: "news70", unlocked(){return player.stat.chapter>=5}, text: "Hydra对Numerorum的打压已经到了无以复加的地步，致命发散和永恒之墙阻挡着我们的旅程，如此恶行实在令人发指。愿所有为RBNR事业牺牲的Numerorum一路走好。"},
 {id: "news71", unlocked(){return player.stat.chapter>=6}, text: "23日晚上，Numerorum抱团冲击非递归时遭遇大劫，感染了ω病毒、时间停止病毒或卡死病毒，几乎全军覆没。"},
 {id: "news72", text: "为什么以“意义不明”为由删除了一个用户页😰"},
-{id: "news73", text: "这做的什么...3.162277，660168，3795...东西？"}
+{id: "news73", text: "这做的什么...3.162277，660168，3795...东西？"},
+{id: "news74", text: "5^5小时后更新"},
+{id: "news75", text: "很久很久以前，一个玩家按下了后继按钮……"},
+{id: "news76", text: "加法、乘法、乘方……还有更多吗？"},
+{id: "news77", text: "[数据删除]"},
+{id: "news78", text:"这个游戏主要是用javascript编写的，代码全压缩在一个文件里，保证你读不懂代码！"},
+
 ] as const satisfies {
 	id: string;
 	text: string;
