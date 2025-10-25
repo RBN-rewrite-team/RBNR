@@ -25,8 +25,8 @@ call puts(b);
 call puts(c);
 
 import math;
-call puts(call :math.max(3,12,1));
+call puts(call math.max(3,12,1));
 
 
 import music;
-call :music.freq(440, 1/2, 1/10);
+call music.freq(440, 1/2, 1/10);
