@@ -26,7 +26,7 @@ import { formatWhole } from '@/utils/format';
 		</p>
 		<table align="center">
 			<tbody>
-				<TRMilestone v-for="count in 3" :id="'pt_' + count" />
+				<TRMilestone v-for="count in 5" :id="'pt_' + count" />
 			</tbody>
 		</table>
 	</div>

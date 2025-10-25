@@ -35,4 +35,24 @@ export function initPTMilestones() {
 			return totalAnalysisTimes() >= 3;
 		},
 	});
+	MILESTONES.create('pt_4', {
+		requirement: new Decimal(4),
+		currency: '证明论解析次数',
+		displayName: 'M-7-4',
+		show: true,
+		description: '在每次证明论重置之后，拥有2非递归重置次数',
+		get canDone() {
+			return totalAnalysisTimes() >= 4;
+		},
+	});
+	MILESTONES.create('pt_5', {
+		requirement: new Decimal(6),
+		currency: '证明论解析次数',
+		displayName: 'M-7-5',
+		show: true,
+		description: '在每次证明论重置之后，拥有4非递归重置次数',
+		get canDone() {
+			return totalAnalysisTimes() >= 6;
+		},
+	});
 }

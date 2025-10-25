@@ -114,6 +114,12 @@ export function realPTreset() {
 							if (player.pt.resetTimes.gte(3)) {
 								player.pt.qolPointsCrystal = player.pt.qolPointsCrystal.add(1);
 							}
+							if (player.pt.resetTimes.gte(4)) {
+								player.nonrecu.resetTimes = new Decimal(2);
+							}
+							if (player.pt.resetTimes.gte(6)) {
+								player.nonrecu.resetTimes = new Decimal(4);
+							}
 							Analysis.singleAnalysis();
 						}
 					},
