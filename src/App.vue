@@ -80,7 +80,6 @@ import { temp } from './core/temp-data.ts';
 						player.stat.highestMulpower.gte(new Decimal(2).pow(1024))
 					"
 				/>
-				<!-- <span class="corrupted_text">hyw</span> -->
 				<Successor v-if="player.currentTab === 0" />
 				<NonRecursionResetButton v-if="player.upgrades['616S']" />
 				<Settings v-if="player.currentTab === 1" />

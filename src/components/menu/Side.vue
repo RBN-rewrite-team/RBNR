@@ -29,18 +29,19 @@ import SubMenuObject from './SubMenuObject.vue';
 			<div class="background" style="overflow: auto">
 				<div class="main">
 					<SubMenuObject :tab="1225" text="地下城" />
-					<div
+
+					<SubMenuObject
+						:tab="167"
+						text="自动机"
 						v-if="
 							player.timeshard.unlAuto && (player.firstResetBit & 0b10000) == 0b10000
 						"
-					>
-						<SubMenuObject :tab="167" text="自动机" />
-					</div>
-					<div v-if="player.singularity.stage < 11">
+					/>
+					<template v-if="player.singularity.stage < 11">
 						<div class="menu1">后继</div>
 						<div class="menu_line"></div>
 						<SubMenuObject :tab="0" text="后继" />
-					</div>
+					</template>
 					<template v-if="player.upgrades[13] && player.singularity.stage < 10">
 						<div class="menu1">加法</div>
 						<div class="menu_line"></div>
