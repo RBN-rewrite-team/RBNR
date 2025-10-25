@@ -38,7 +38,12 @@ function unlockedList(): string {
 		<p>NRC目标等级减小{{ format(PTEffects.effectToNonrecChallengeGoalLevel()) }}%，上限-50%</p>
 	</div>
 	<!--重置先放这里，反正也不常重置-->
-	<div class="pt_base pt_reset" @click="realPTreset" style="width: 50%; margin: auto">
+	<div
+		class="pt_base pt_reset"
+		@click="realPTreset"
+		style="width: 50%; margin: auto"
+		:class="player.challenges[1][6].lt(1) ? '' : 'pt_resetable'"
+	>
 		<span class="pt_font">证明论重置</span>
 	</div>
 	<div
@@ -85,5 +90,24 @@ function unlockedList(): string {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+}
+
+.pt_resetable {
+	animation: cyanae 10s ease-in-out infinite;
+}
+
+@keyframes cyanae {
+	0% {
+		background-color: rgba(0, 255, 255, 0.375);
+		transform: rotateZ(10deg);
+	}
+	50% {
+		background-color: rgba(0, 255, 255, 0.5);
+		transform: rotateZ(-10deg);
+	}
+	100% {
+		background-color: rgba(0, 255, 255, 0.375);
+		transform: rotateZ(10deg);
+	}
 }
 </style>
