@@ -591,7 +591,7 @@ class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 	}
 
 	// 修复：创建属性访问节点
-	getPropertyExpression(ctx: any, expression: ASTNode): MemberExpressionNode {
+	getPropertyExpression(ctx: any, expression: ASTNode): getPropertyExpression {
 	  console.log(ctx, expression)
 		return new GetPropertyNode(
 			expression,
@@ -599,8 +599,7 @@ class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 		);
 	}
 	
-	getPropertyExpressionWithColenPrefix(ctx: any): MemberExpressionNode {
-	  console.log(ctx, expression)
+	getPropertyExpressionWithColenPrefix(ctx: any): GetPropertyNode {
 		return new GetPropertyNode(
 			this.visit(ctx[0].children.expression[0]),
 			ctx[0].children.Identifier[0].image,
