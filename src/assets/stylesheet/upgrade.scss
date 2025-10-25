@@ -35,7 +35,7 @@
 
 .upgrade_buttonsmall_unable {
 	@extend .upgrade_buttonsmall;
-	border: 2px solid #ffa1a1;
+	border: 2px solid var(--red-border-color);
 	box-shadow: none;
 }
 
@@ -71,7 +71,7 @@
 
 .upgrade_button1_unable {
 	@extend .upgrade_button1;
-	border: 2px solid #ffa1a1;
+	border: 2px solid var(--red-border-color);
 	box-shadow: none;
 }
 
@@ -110,7 +110,7 @@
 
 .upgrade_buttonbig_unable {
 	@extend .upgrade_buttonbig;
-	border: 2px solid #ffa1a1;
+	border: 2px solid var(--red-border-color);
 	box-shadow: none;
 }
 

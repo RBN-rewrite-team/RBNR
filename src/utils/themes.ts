@@ -46,6 +46,7 @@ export const themeDetailsMap = new Map([
 				'--hover-color': '#1d1d1d',
 				'--red-hover-color': '#2f0000',
 				'--font': '思源黑体Regular',
+				'--red-border-color': '#883e3eff',
 			} as const,
 			other: {} as const,
 		},
@@ -100,7 +101,7 @@ export function updateTheme() {
 		if (i !== '--font')
 			root.style.setProperty(
 				i as keyof typeof ordinary,
-				ordinary[i as keyof typeof ordinary],
+				ordinary[i as keyof typeof ordinary] ?? '',
 			);
 	}
 	root.style.setProperty('--font', player.options.ui.user_font ?? '思源黑体Regular');

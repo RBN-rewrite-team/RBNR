@@ -29,6 +29,7 @@
 	--border-color: #d0d0d0;
 	--hover-color: #e2e2e2;
 	--red-hover-color: #ffd1d1;
+	--red-border-color: #ffa1a1;
 
 	--sing-color: rgb(127, 127, 255);
 	--font: '思源黑体Regular';
@@ -281,7 +282,7 @@ body {
 	padding: 0px 4px;
 	margin: 0px 6px;
 	background-color: var(--background-color);
-	border: 2px solid #ffa1a1;
+	border: 2px solid var(--red-border-color);
 	text-align: center;
 	line-height: 24px;
 }
@@ -367,7 +368,7 @@ body {
 	padding: 0px 4px;
 	margin: 0px 6px 12px;
 	background-color: var(--background-color);
-	border: 2px solid #ffa1a1;
+	border: 2px solid var(--red-border-color);
 	text-align: center;
 	line-height: 36px;
 }
@@ -512,7 +513,7 @@ body {
 	height: 50px;
 	margin: 0px 5px;
 	background-color: var(--background-color);
-	border: 2px solid #ffa1a1;
+	border: 2px solid var(--red-border-color);
 	text-align: center;
 	font-size: 16px;
 	line-height: 50px;
@@ -558,7 +559,7 @@ body {
 	font-weight: bold;
 	line-height: 32px;
 	color: #ff6868;
-	box-shadow: #ffa1a1 1px 1px 2px 1px;
+	box-shadow: var(--red-border-color) 1px 1px 2px 1px;
 }
 
 .hard_reset:hover {
@@ -566,7 +567,7 @@ body {
 }
 
 .hard_reset:active {
-	background-color: #ffa1a1;
+	background-color: var(--red-border-color);
 }
 
 .dialog_backgroud {
