@@ -25,8 +25,8 @@ export function getYSequenceWithoutColon(Y: string): {
 /**
  * 无固定底数
  */
- 
-type YMilestone = [Decimal, string, ...string[], (x: Decimal) => string] | [Decimal, string, ...string[]]
+
+type YMilestone = [Decimal, string, ...string[], (x: Decimal) => string] | [Decimal, string, ...string[]];
 export const Y_Milestones: YMilestone[] = [
 	[new Decimal(0), 'Y()', '0'],
 	[new Decimal(1), 'Y(1)', '1'],
@@ -350,6 +350,31 @@ export const Y_Milestones: YMilestone[] = [
 	[new Decimal(2 ** 510), 'Y(1,3,9,27,81,243,729,2187)', '\\text{DBMS}(0)(1)(2,1,,1)(3,2,1,,2,1)...(8,7,6,5,4,3,2,1,,7,6,5,4,3,2,1)'],
 	[new Decimal(2 ** 511), 'Y(1,3,9,27,81,243,729,2187,6561)', '\\text{DBMS}(0)(1)(2,1,,1)(3,2,1,,2,1)...(9,8,7,6,5,4,3,2,1,,8,7,6,5,4,3,2,1)'],
 	[new Decimal(2 ** 512), 'Y(1,4)', '\\text{DBMS}(0)(1)(2,1,,1)(3,2,1,,2,1,,1)'],
+	[Decimal.pow(2, 513), 'Y(1,4,3,10)'],
+	[Decimal.pow(2, 576), 'Y(1,4,3,10,9,28,27,82)'],
+	[Decimal.pow(2, 768), 'Y(1,4,4)'],
+	[Decimal.pow(2, 1024), 'Y(1,4,4,4)'],
+	[Decimal.pow(2, 1536), 'Y(1,4,5)'],
+	[Decimal.pow(2, 2048), 'Y(1,4,5,4)'],
+	[Decimal.pow(2, 4096), 'Y(1,4,5,5)'],
+	[Decimal.pow(2, 8192), 'Y(1,4,5,6)'],
+	[Decimal.pow(2, 10000), 'Y(1,4,5,7)'],
+	[Decimal.pow(2, 16384), 'Y(1,4,6)'],
+	[Decimal.pow(2, Decimal.pow(2, 16)), 'Y(1,4,7)'],
+	[Decimal.pow(2, Decimal.pow(2, 20)), 'Y(1,4,7,9)'],
+	[Decimal.pow(2, Decimal.pow(2, 24)), 'Y(1,4,8)'],
+	[Decimal.pow(2, Decimal.pow(2, 28)), 'Y(1,4,9)'],
+	[Decimal.pow(2, Decimal.pow(2, 32)), 'Y(1,4,10)'],
+	[Decimal.pow(2, Decimal.pow(2, 36)), 'Y(1,4,11)'],
+	[Decimal.pow(2, Decimal.pow(2, 40)), 'Y(1,4,12)'],
+	[Decimal.pow(2, Decimal.pow(2, 48)), 'Y(1,4,13)'],
+	[Decimal.pow(2, Decimal.pow(2, 56)), 'Y(1,4,14)'],
+	[Decimal.pow(2, Decimal.pow(2, 60)), 'Y(1,4,15)'],
+	[Decimal.pow(2, Decimal.pow(2, 64)), 'Y(1,4,16)'],
+	[Decimal.pow(2, Decimal.pow(2, 128)), 'Y(1,4,16,64)'],
+	[Decimal.pow(2, Decimal.pow(2, 256)), 'Y(1,4,16,64,256)'],
+	[Decimal.pow(2, Decimal.pow(2, 384)), 'Y(1,4,16,64,256,1024)'],
+	[Decimal.pow(2, Decimal.pow(2, 448)), 'Y(1,4,16,64,256,1024,4096)'],
 	[new Decimal('ee153.90699754796802'), 'Y(1,5)'],
 	[new Decimal('(e^14)153.90699754796802'), 'Y(1,ω)', '\\text{SYO}'],
 	[new Decimal('(e^3.402823669209385e+38)153.90699754796802'), 'ω-Y(1,ω)', '\\text{MHO}'],
@@ -382,14 +407,14 @@ export function getCurrentYMilestoneIndex(target: Decimal): number {
 }
 
 export const getCurrentYMilestone = (target: Decimal): [Decimal, string, ...string[]] => {
-	let base = Y_Milestones[getCurrentYMilestoneIndex(target)] ?? [new Decimal(NaN), "Not a Ordinal"];
+	let base = Y_Milestones[getCurrentYMilestoneIndex(target)] ?? [new Decimal(NaN), 'Not a Ordinal'];
 	let last = base[base.length - 1];
-	if (typeof last === "function") {
-	  if (target.eq(base[0])) return base.slice(-1) as [Decimal, string, ...string[]]
-	  else {
-	    let ret = last(target)
-	    return [target, ret, base?.[2] ? ">" + base[2] : base[1]]
-	  }
+	if (typeof last === 'function') {
+		if (target.eq(base[0])) return base.slice(-1) as [Decimal, string, ...string[]];
+		else {
+			let ret = last(target);
+			return [target, ret, base?.[2] ? '>' + base[2] : base[1]];
+		}
 	}
 	return base as [Decimal, string, ...string[]];
 };
