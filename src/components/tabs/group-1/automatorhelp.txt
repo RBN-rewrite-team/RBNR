@@ -13,8 +13,9 @@ while (b) {c;} while循环
 } 哈希表
 ===
 内置函数
-puts print cout dialog 弹窗，输出内容
-delay wait 等待xxx毫秒
+以下逗号分割的函数互为对方的别名
+puts, print, cout, dialog 弹窗，输出内容
+delay, wait 等待xxx毫秒
 call get(hashtable, key) 获取hashtable中的key键值
 call string(x) 将其他数值转换成字符串
 ===
