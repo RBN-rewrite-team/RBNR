@@ -42,3 +42,17 @@
 .milestone_button1_bought:hover {
 	background-color: #4bd433;
 }
+
+
+.milestone {
+	width: 600px;
+	height: fit-content;
+	min-height: 70px;
+	border: 2px solid red;
+	text-align: center;
+	line-height: 1.4;
+
+	&.done {
+		border-color: green;
+	}
+}
