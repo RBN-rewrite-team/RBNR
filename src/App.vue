@@ -4,7 +4,7 @@ import Decimal from 'break_eternity.js';
 
 import Chapter from './components/group-2/Chapter.vue';
 
-import Side from './components/group-2/Side.vue';
+import Side from './components/menu/Side.vue';
 import NewsTicker from './components/group-2/Newsticker.vue';
 import Successor from './components/tabs/group-1/Successor.vue';
 import Settings from './components/tabs/group-1/Settings.vue';
