@@ -15,8 +15,12 @@ function unlockedList(): string {
 	<br />
 	<h3 class="pt_base" style="color: cyan; width: 50%; margin: auto">
 		解析系统中，每周的不同时段会解锁不同系统。<br />
-		当前是 {{ dayOfWeek()[1] }} ，解锁 <span v-html="unlockedList()" />系统。<br />
-		进行证明论重置以随机解析，成功率为 {{Analysis.analysisRate() * 100}}% ，解析同一系统{{Analysis.analysisCycle()}}次必定成功。<br />
+		当前是 {{ dayOfWeek()[1] }}
+		<span style="font-size: 12px">(中国标准时间 UTC+08:00)</span>，解锁
+		<span v-html="unlockedList()" />系统。<br />进行证明论重置以随机解析，成功率为
+		{{ Analysis.analysisRate() * 100 }}% ，解析同一系统{{
+			Analysis.analysisCycle()
+		}}次必定成功。<br />
 		单一系统首次解析必定成功。<br />
 	</h3>
 	<div class="pt_base" style="width: 50%; margin: auto">
@@ -34,7 +38,9 @@ function unlockedList(): string {
 		<p>NRC目标等级减小{{ format(PTEffects.effectToNonrecChallengeGoalLevel()) }}%，上限-50%</p>
 	</div>
 	<!--重置先放这里，反正也不常重置-->
-	<div class="pt_base pt_reset" @click="realPTreset" style="width: 50%; margin: auto"><span class="pt_font">证明论重置</span></div>
+	<div class="pt_base pt_reset" @click="realPTreset" style="width: 50%; margin: auto">
+		<span class="pt_font">证明论重置</span>
+	</div>
 	<div
 		v-for="count in 7"
 		align="center"
