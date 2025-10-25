@@ -301,7 +301,8 @@ export const OrdinalNT = {
 		})(),
 		'66R': new (class extends Upgrade {
 			description = 'g(x)的对数底数降低为5';
-			cost = () => player.retribution == 1 ? new Decimal('1e1500') : new Decimal('1.1551e1551');
+			cost = () =>
+				player.retribution == 1 ? new Decimal('1e1500') : new Decimal('1.1551e1551');
 			currency = Currencies.HYDRA_POWER;
 			name = 'U5-R1-6';
 			keep() {
@@ -310,7 +311,7 @@ export const OrdinalNT = {
 		})(),
 		'67R': new (class extends Upgrade {
 			description = 'g(x)的对数底数降低为2';
-			cost = () => player.retribution == 1 ? new Decimal('1e1600') : new Decimal('1e1900');
+			cost = () => (player.retribution == 1 ? new Decimal('1e1600') : new Decimal('1e1900'));
 			currency = Currencies.HYDRA_POWER;
 			name = 'U5-R1-7';
 			keep() {
@@ -318,8 +319,11 @@ export const OrdinalNT = {
 			}
 		})(),
 		'68R': new (class extends UpgradeWithEffect<Decimal> {
-			description = () => 'U5-R1-5加成以减弱的效果对飞升生效' + (player.retribution == 1 ? '<br>由于果报，效果增强' : '');
-			cost = () => player.retribution == 1 ? new Decimal('1e1800') : new Decimal('2.085e2085');
+			description = () =>
+				'U5-R1-5加成以减弱的效果对飞升生效' +
+				(player.retribution == 1 ? '<br>由于果报，效果增强' : '');
+			cost = () =>
+				player.retribution == 1 ? new Decimal('1e1800') : new Decimal('2.085e2085');
 			currency = Currencies.HYDRA_POWER;
 			name = 'U5-R1-8';
 			effectDescription() {
@@ -334,7 +338,9 @@ export const OrdinalNT = {
 		})(),
 		'69R': new (class extends Upgrade {
 			description = '解锁<b>稀释</b>';
-			cost = new Decimal(2).pow(8192);
+			cost = () => {
+				return player.retribution >= 1 ? new Decimal('1e2450') : new Decimal(2).pow(8192);
+			};
 			currency = Currencies.HYDRA_POWER;
 			name = 'U5-R1-9';
 			keep() {
