@@ -438,7 +438,7 @@ export const Hydra = {
 		})(),
 		'624': new (class extends Upgrade {
 			description = '任意一个时刻至少会有一个第一Y序列维度';
-			cost = new Decimal('5e10');
+			cost = new Decimal('5e8');
 			name = 'U5-2-4';
 			currency: Currencies = Currencies.COMP_HYDRA;
 			show(): boolean {
@@ -447,7 +447,7 @@ export const Hydra = {
 		})(),
 		'625': new (class extends Upgrade {
 			description = '所有维度的生产为原来的3倍';
-			cost = new Decimal('2e11');
+			cost = new Decimal('1e10');
 			name = 'U5-2-5';
 			currency: Currencies = Currencies.COMP_HYDRA;
 			show(): boolean {
@@ -456,7 +456,7 @@ export const Hydra = {
 		})(),
 		'626': new (class extends Upgrade {
 			description = '4个维度的价格增长减少50%';
-			cost = new Decimal('1e13');
+			cost = new Decimal('5e11');
 			name = 'U5-2-6';
 			currency: Currencies = Currencies.COMP_HYDRA;
 			show(): boolean {
