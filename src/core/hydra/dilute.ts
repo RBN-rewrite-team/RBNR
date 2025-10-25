@@ -822,7 +822,10 @@ const Dil = {
 		player.hydra.totalPower = new Decimal(item.totalPower);
 	},
 	diluteButton() {
-		if (CHALLENGE.inChallenge(1, 0)) {
+		if (
+			CHALLENGE.inChallenge(1, 0) ||
+			(!player.hydra.dilute.inDilute && !player.upgrades['69R'])
+		) {
 			ModalService.show({
 				title: '无法进入/退出稀释',
 				content: '稀释按钮好像坏了...',
