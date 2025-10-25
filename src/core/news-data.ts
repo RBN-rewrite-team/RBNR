@@ -82,7 +82,16 @@ const news = [{id: "news1", text: "不会做增量游戏怎么办？看风灵作
 {id: "news76", text: "加法、乘法、乘方……还有更多吗？"},
 {id: "news77", text: "[数据删除]"},
 {id: "news78", text:"这个游戏主要是用javascript编写的，代码全压缩在一个文件里，保证你读不懂代码！"},
-
+{id: "news79", text: "Darkest night, I'll confront you here"},
+{id: "news80", text:"别以为100下少，底数是3有ω^ω+1不止呢"},
+{id: "news81", text:"因为受上限限制，加上有上有硬上限封顶，导致信息无法超光速传播"},
+{id: "news82", text:"粒子物理学家Pollux用加速器证明了相对论是错误的，因为光速并不是一个硬上限，而是一个很硬的软上限。"},
+{id: "news83", text:"孩子们，这是真的, 我在制作游戏时留了后门, 玩游戏时只需按下alt+f4, 就可以到达Endgame, 快去试吧！"},
+{id: "news84", text:"中国玩家遇到的第一道墙： <span style=\"color: rgb(28,253,253)\">Anti</span><span style=\"color: rgb(255,255,9)\">matter</span> Dimensions, The <span style=\"color: rgb(11,96,14)\">Reality</span> Update"},
+{id: "news85", text:"我在一个小游戏开挂被误封了"},
+{id: "news86", text:"到底要不要购买最大，这是一个问题"},
+{id: "news87", text:`大型纪录片《质量增量重制版 0.8天价虫洞卖出了1024 archverses(ee1.7177e6 gramm of mass)》给他一个时间速度加成，他敢把价格卖到<del>114514 lodeverses(F114,516 gramm of mass)</del>114514 archs-metaverse(6.2349F4 gramm of mass). 近日有网友表示，在某增量游戏新闻播放器上看到一则重要到有时间旅行者提醒的新闻，由于虫洞质量不断扩大，粒子物理学研究员Pollux和粒子超理学研究员天才俱乐部#83黑塔通过虫洞在反物质宇宙相遇，物理学家建议创造更大的虫洞。某一数学家兼物理学家利用伽罗瓦理论庞加莱猜想的庞加莱回归定理和伽马函数算出了天价虫洞已经来到了1024 archverses(ee1.7177e6 gramm of mass)，不过我们还是不知道他们两个是怎么掉进这么大的虫洞的，可能是被自动幽灵一脚踢进虫洞。据研究员Pollux报告，他先前由于某个由于机密不能披露的异常影响导致视觉能力严重下降，来到反物质宇宙后因为反物质的时间效应迅速恢复，他表示以后天体物理学研究要加紧研究虫洞。为此五星上将麦克阿瑟表示，要是我有这么大的虫洞，我当年的军衔一定不止五星，至少也得有50星，就连SCP-CN-1630都表示，这43年来，我天天被人注射记忆删除药剂，没得睡过一次好觉，要是我有这么大的虫洞一定得进去放个C类通道，然后在里面睡一觉，不仅可以体验相对论时间膨胀，还可以带薪休假。大型纪录片之《质量增量重制版 0.8天价虫洞卖出了1024 archverses(ee1.7177e6 gramm of mass)》持续为您播放`},
+{id: "news88", text:"<span style='background: yellow;color: black'>要警惕新黄色新闻</span>"},
 ] as const satisfies {
 	id: string;
 	text: string;
