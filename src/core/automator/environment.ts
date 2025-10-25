@@ -133,7 +133,7 @@ export function tryInclude(pkg: string) {
 		importHydra(parentEnvironment);
 		return;
 	}
-	if (pkg == 'nonrec' && player.upgrades['ts_auto_pkg_hydra']) {
+	if (pkg == 'nonrec' && player.upgrades['ts_auto_pkg_nonrec']) {
 		importNonrec(parentEnvironment);
 		return;
 	}

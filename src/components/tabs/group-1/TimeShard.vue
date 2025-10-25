@@ -231,6 +231,7 @@ function unlAuto() {
 					</tr>
 					<tr>
 						<TDUpgrade upgid="ts_auto_pkg_hydra" />
+						<TDUpgrade upgid="ts_auto_pkg_nonrec" />
 					</tr>
 				</tbody>
 			</table>
