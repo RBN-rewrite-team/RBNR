@@ -56,6 +56,7 @@ import RetributionAnimation from './components/tabs/group-1/RetributionAnimation
 import DeveloperMode from './components/tabs/devonly/DeveloperMode.vue';
 
 import Analysis from './components/tabs/pt/Analysis.vue';
+import AnalysisMilestones from './components/tabs/pt/AnalysisMilestones.vue';
 import { temp } from './core/temp-data.ts';
 </script>
 
@@ -112,6 +113,7 @@ import { temp } from './core/temp-data.ts';
 				<YEngine v-if="player.currentTab === 27"></YEngine>
 				<Retribution v-if="player.currentTab === 28" />
 				<Analysis v-if="player.currentTab === 29" />
+				<AnalysisMilestones v-if="player.currentTab === 30" />
 				<AutomatorEditor v-if="player.currentTab === 167" />
 				<PlotTab v-if="player.currentTab === 200" />
 				<SaveBank v-if="player.currentTab === 300" />

@@ -19,6 +19,7 @@ import App from '@/App.vue';
 import { reinitializeMusic } from '@/core/music.ts';
 
 import { timeCheck } from './time-check.ts';
+import { initPTMilestones } from '@/core/pt/milestones.ts';
 
 export function init() {
 	try {
@@ -35,6 +36,7 @@ export function init() {
 		Logarithm.initMechanics();
 		Dilute.initMechanics();
 		NON_RECURSIVE.initMechanics();
+		initPTMilestones();
 		loadSaves();
 		if (player.foundNaN && player.backup) {
 			restoreBackup(player);
