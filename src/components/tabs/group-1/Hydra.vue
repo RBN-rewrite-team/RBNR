@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { player, feature } from '@/core/global';
-import { format, formatWhole, formatGain, formatTime, formatReduction } from '@/utils/format';
+import {
+	format,
+	formatWhole,
+	formatGain,
+	formatTime,
+	formatReduction,
+	formatPercent,
+} from '@/utils/format';
 import TDUpgrade from '../../group-2/TDUpgrade.vue';
 import TDBuyable from '../../group-2/TDBuyable.vue';
 import { OrdinalUtils } from '@/utils/ordinal';
@@ -183,7 +190,7 @@ function hydraAxisHTML(): string {
 		<h3 style="color: rgb(200, 190, 245)" v-html="powerFactorHTML()"></h3>
 		<span v-if="PTEffects.effectToHydraEnergyLogSoftCap().gt(0)" class="corrupted_text"
 			>九头蛇对数软上限已被减弱{{
-				formatReduction(PTEffects.effectToHydraEnergyLogSoftCap().div(100))
+				formatPercent(PTEffects.effectToHydraEnergyLogSoftCap().div(100))
 			}}，实际软上限效果为/{{ format(Hydra.slogSoftcapEffect()) }}<Baixie
 		/></span>
 		<table style="width: 100%">

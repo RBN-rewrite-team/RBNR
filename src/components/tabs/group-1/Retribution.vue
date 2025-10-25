@@ -10,7 +10,7 @@ function retributionText() {
 	}
 	return '?';
 }
-player.options.ui.theme = themes.DARK;
+// player.options.ui.theme = themes.DARK;
 </script>
 
 <template>
