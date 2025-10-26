@@ -10,12 +10,13 @@ import { format } from '@/utils/format';
 import { temp } from '../../core/temp-data.ts';
 import { getCurrentOrdinal } from '../../utils/y-seq.ts';
 import { Garden } from '@/core/pt/index.ts';
+import { isDeveloper } from '@/core/save/testing.ts';
 </script>
 <template>
 	<div>
 		<div class="resources" style="font-size: 20px" id="resources">
 			<div class="background">
-				<div v-if="player.currentTab === 31">
+				<div v-if="player.currentTab === 31 && isDeveloper()">
 					<div class="resource" style="margin-left: 15px">
 						<div style="font-weight: bold; color: yellow">
 							想法&nbsp;
@@ -26,7 +27,8 @@ import { Garden } from '@/core/pt/index.ts';
 						<div style="font-weight: bold; color: purple">
 							熵&nbsp;
 							{{ format(player.garden.entropy) }}
-						</div><br>
+						</div>
+						<br />
 						<div style="font-size: 14px; color: purple">
 							子世界发电机和升级价格x{{ format(Garden.entropyEffect()) }}
 						</div>
@@ -183,7 +185,9 @@ import { Garden } from '@/core/pt/index.ts';
 												player.addpower,
 												feature.resourceGain
 													.addpower()
-													.passive.mul(feature.resourceGain.addpower().value),
+													.passive.mul(
+														feature.resourceGain.addpower().value,
+													),
 											)
 										"
 									/>
@@ -220,7 +224,9 @@ import { Garden } from '@/core/pt/index.ts';
 												player.multiplication.mulpower,
 												feature.resourceGain
 													.mulpower()
-													.passive.mul(feature.resourceGain.mulpower().value),
+													.passive.mul(
+														feature.resourceGain.mulpower().value,
+													),
 											)
 										"
 									/>
@@ -242,7 +248,12 @@ import { Garden } from '@/core/pt/index.ts';
 						>
 							<div style="font-weight: bold; color: rgb(127, 127, 255)">
 								指数能量&nbsp;
-								<div style="display: inline; text-shadow: rgb(0, 20, 127) 1px 1px 2px">
+								<div
+									style="
+										display: inline;
+										text-shadow: rgb(0, 20, 127) 1px 1px 2px;
+									"
+								>
 									{{ formatWhole(player.exponention.exppower) }}
 								</div>
 							</div>
@@ -263,10 +274,19 @@ import { Garden } from '@/core/pt/index.ts';
 								(!{{ formatWhole(player.exponention.totalExppower) }})
 							</div>
 						</div>
-						<div style="margin-left: 365px" class="resource" v-if="player.upgrades[517]">
+						<div
+							style="margin-left: 365px"
+							class="resource"
+							v-if="player.upgrades[517]"
+						>
 							<div style="font-weight: bold; color: rgb(200, 190, 245)">
 								九头蛇能量&nbsp;
-								<div style="display: inline; text-shadow: rgb(0, 20, 127) 1px 1px 2px">
+								<div
+									style="
+										display: inline;
+										text-shadow: rgb(0, 20, 127) 1px 1px 2px;
+									"
+								>
 									{{ formatWhole(player.hydra.power) }}
 								</div>
 								<br />
@@ -285,16 +305,29 @@ import { Garden } from '@/core/pt/index.ts';
 								/>
 							</div>
 						</div>
-						<div style="margin-left: 685px" class="resource" v-if="player.upgrades['616S']">
+						<div
+							style="margin-left: 685px"
+							class="resource"
+							v-if="player.upgrades['616S']"
+						>
 							<div style="font-weight: bold; color: rgb(201, 131, 0)">
 								非递归能量&nbsp;
-								<div style="display: inline; text-shadow: rgb(201, 131, 0) 1px 1px 2px">
+								<div
+									style="
+										display: inline;
+										text-shadow: rgb(201, 131, 0) 1px 1px 2px;
+									"
+								>
 									{{ formatWhole(player.nonrecu.power) }}
 								</div>
 								<br />
 								<div
 									v-if="true"
-									style="font-size: 17px; display: inline; color: rgb(245, 193, 73)"
+									style="
+										font-size: 17px;
+										display: inline;
+										color: rgb(245, 193, 73);
+									"
 								>
 									(+{{ formatWhole(feature.NON_RECURSIVE.gain()) }})
 								</div>
@@ -304,7 +337,9 @@ import { Garden } from '@/core/pt/index.ts';
 					<div class="resource" style="margin-left: 15px" v-if="player.retribution == 1">
 						<div style="font-weight: bold; color: #5d8aa8">
 							序数&nbsp;
-							<vue-latex :expression="getCurrentOrdinal(player.hydra.deduceOrdinal[1])" />
+							<vue-latex
+								:expression="getCurrentOrdinal(player.hydra.deduceOrdinal[1])"
+							/>
 						</div>
 					</div>
 					<div class="resource" style="margin-left: 350px" v-if="player.retribution == 1">
