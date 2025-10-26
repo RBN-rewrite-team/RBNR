@@ -1,7 +1,5 @@
 import Decimal from 'break_eternity.js';
-import { UPGRADES, type singleReq } from '../mechanic';
 import { player } from '../save';
-import { format, formatWhole } from '@/utils/format';
 import { Upgrade } from '../upgrade';
 import { Currencies } from '../currencies';
 import { UpgradeRequirement, type Requirement } from '../requirements';
@@ -15,16 +13,16 @@ class QolUpg extends Upgrade {
 	constructor(
 		description: string,
 		id: `${onetwofive}${onetwofive}` | '00',
-		r?: () => Requirement[],
-		s?: () => boolean,
-		c?: Decimal,
+		requirement?: () => Requirement[],
+		show?: () => boolean,
+		cost?: Decimal,
 	) {
 		super();
 		this.description = description;
 		this.name = '4-QOL-' + id;
-		if (r) this.requirements = r;
-		if (s) this.show = s;
-		if (c) this.cost = c;
+		if (requirement) this.requirements = requirement;
+		if (show) this.show = show;
+		if (cost) this.cost = cost;
 	}
 }
 export const QolUpgrades = {
