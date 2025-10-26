@@ -62,7 +62,7 @@ const Axioms = Object.freeze([
     "(∀A)[A ≠ \\varnothing → (∃x ∈ A)(∀y ∈ x)(y ∉ A)]",
     "(∀A)[\\varnothing ∉ A → (∃f: A → ⋃A)(∀X ∈ A)(f(X) ∈ X)]",
   ],
-])
+] as const)
 </script>
 
 <template>
