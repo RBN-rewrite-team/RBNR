@@ -1,8 +1,5 @@
 import './assets/stylesheet/main.scss';
 import './core/anti-cheat.ts';
-import './lib/ordinal/evaluator.ts';
-import './utils/y-seq.ts';
-import './core/automator/compiler.ts';
 import './core/automator/evaluator.ts';
 import { init } from './utils/init.ts';
 
