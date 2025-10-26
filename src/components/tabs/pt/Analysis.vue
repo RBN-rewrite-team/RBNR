@@ -25,7 +25,7 @@ const Axioms = Object.freeze([
     "(∃A)(∀x)(x ∉ A)",
     "(∀x∀y)(∃A)(∀z)[z ∈ A ↔ (z = x ∨ z = y)]",
     "(∀A)(∃U)(∀x)[x ∈ U ↔ (∃Y ∈ A)(x ∈ Y)]",
-    "(∀A)[A ≠ ∅ → (∃x ∈ A)(∀y ∈ x)(y ∉ A)]",
+    "(∀A)[A ≠ \\varnothing → (∃x ∈ A)(∀y ∈ x)(y ∉ A)]",
     "\\text{对任意}Δ_0\\text{公式}φ(x),(∀A)(∃B)(∀x)[x ∈ B ↔ (x ∈ A ∧ φ(x))]",
     "\\text{对任意}Δ_0\\text{公式}φ(x,y),(∀A)[(∀x ∈ A)(∃y)φ(x, y) → (∃B)(∀x ∈ A)(∃y ∈ B)φ(x, y)]",
   ],
@@ -48,7 +48,7 @@ const Axioms = Object.freeze([
   [
     "\\forall X_n \\forall Y_n)[(\\forall z_{n-1})(z_{n-1} \\in X_n \\leftrightarrow z_{n-1} \\in Y_n) \\rightarrow X_n = Y_n]",
     "(∃Y_n)(∀x_{n-1})[x_{n-1} ∈ Y_n ↔ φ(x_{n-1})]",
-    "(∀X_n)[0 ∈ X_n ∧ (∀x₀)(x₀ ∈ X_n → S(x₀) ∈ X_n) → (∀x₀)(x₀ ∈ X_n)]"
+    "(∀X_n)[0 ∈ X_n ∧ (∀x_0)(x_0 ∈ X_n → S(x_0) ∈ X_n) → (∀x_0)(x_0 ∈ X_n)]"
   ],
   [
     "(∀A∀B)[(∀x)(x ∈ A ↔ x ∈ B) → A = B]",
@@ -56,13 +56,13 @@ const Axioms = Object.freeze([
     "(∀x∀y)(∃A)(∀z)[z ∈ A ↔ (z = x ∨ z = y)]",
     "(∀A)(∃U)(∀x)[x ∈ U ↔ (∃Y ∈ A)(x ∈ Y)]",
     "(∀A)(∃B)(∀x)[x ∈ B ↔ x ⊆ A]",
-    "(∃A)[∅ ∈ A ∧ (∀x ∈ A)(x ∪ {x} ∈ A)]",
+    "(∃A)[\\varnothing ∈ A ∧ (∀x ∈ A)(x ∪ {x} ∈ A)]",
     "(∀A)(∃B)(∀x)[x ∈ B ↔ (x ∈ A ∧ φ(x))]",
     "(∀A)[(∀x ∈ A)(∃!y)φ(x,y) → (∃B)(∀y)(y ∈ B ↔ (∃x ∈ A)φ(x,y))]",
-    "(∀A)[A ≠ ∅ → (∃x ∈ A)(∀y ∈ x)(y ∉ A)]",
-    "(∀A)[∅ ∉ A → (∃f: A → ⋃A)(∀X ∈ A)(f(X) ∈ X)]",
+    "(∀A)[A ≠ \\varnothing → (∃x ∈ A)(∀y ∈ x)(y ∉ A)]",
+    "(∀A)[\\varnothing ∉ A → (∃f: A → ⋃A)(∀X ∈ A)(f(X) ∈ X)]",
   ],
-]) as const
+])
 </script>
 
 <template>
