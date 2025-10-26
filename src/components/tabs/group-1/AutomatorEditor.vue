@@ -414,6 +414,11 @@ const interrupt = () => setInterrupt(true);
 				call nonrec.respec(); 重置研究树<br />
 				nonrec.power; 获取当前的非递归能量<br />
 			</div>
+			<div v-if="player.milestones.pt_7">
+				<div class="center_line"></div>
+				proofTheory<br />使用include proofTheory;导入<br />
+				call proofTheory.reset(); 如果可能，进行一次非递归重置<br />
+			</div>
 		</div>
 		<br />
 		<button class="clickable_button" @click="player.automator.code = examplecode">
