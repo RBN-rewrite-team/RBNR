@@ -39,6 +39,7 @@ import DeveloperMode from './tabs/devonly/DeveloperMode.vue';
 import Analysis from './tabs/pt/Analysis.vue';
 import AnalysisMilestones from './tabs/pt/AnalysisMilestones.vue';
 import SingularityGenerator from './tabs/group-1/SingularityGenerator.vue';
+import Garden from './components/tabs/garden/Garden.tsx';
 
 const tabComponents = {
   0: Successor,
@@ -72,6 +73,7 @@ const tabComponents = {
   28: Retribution,
   29: Analysis,
   30: AnalysisMilestones,
+  31: Garden,
   167: AutomatorEditor,
   200: PlotTab,
   300: SaveBank,
