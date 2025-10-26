@@ -66,6 +66,7 @@ function simulateText(canvasRef: any) {
 							player.garden.focusNode = g;
 						}}
 					>
+						//@ts-ignore
 						<h2 style="position: relative; bottom: -80px">{g.name}</h2><h3 style="position: absolute; top: -30px">x{formatWhole(player.garden.generators[g.key])}</h3>
 						<br />
 						<span style="position: relative; bottom: -60px">
