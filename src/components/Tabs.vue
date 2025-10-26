@@ -91,7 +91,7 @@ const currentComponent = computed(() => {
 	}
 
 	return typeof componentGetter === "function" ?
-	  componentGetter() : componentGetter;
+	  (componentGetter as (() => Component))() : componentGetter;
 });
 </script>
 
