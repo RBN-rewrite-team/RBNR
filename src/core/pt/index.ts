@@ -42,7 +42,7 @@ export function PTreset(fromPT = false) {
 	if (!player.upgrades['7c4q']) player.challenges[1][3] = DC.D_0;
 	if (!player.upgrades['7c5q']) player.challenges[1][4] = DC.D_0;
 	if (!player.upgrades['7c6q']) player.challenges[1][5] = DC.D_0;
-	if (!player.upgrades['7c7q']) player.challenges[1][6] = DC.D_0;
+	player.challenges[1][6] = DC.D_0;
 	player.challengein = [-1, -1];
 	for (const key of resetUpgrades) {
 		player.upgrades[key] = false;
