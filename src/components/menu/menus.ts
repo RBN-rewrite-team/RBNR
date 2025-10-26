@@ -227,6 +227,13 @@ export const menus = [
 		contents: [
 			{ id: 29, text: '解析' },
 			{ id: 30, text: '解析里程碑' },
+			{
+				id: 31,
+				text: '花园',
+				show() {
+					return player.milestones.pt_6;
+				},
+			},
 		],
 
 		show() {

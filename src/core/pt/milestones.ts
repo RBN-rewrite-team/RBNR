@@ -55,4 +55,14 @@ export function initPTMilestones() {
 			return totalAnalysisTimes() >= 6;
 		},
 	});
+	MILESTONES.create('pt_6', {
+		requirement: new Decimal(8),
+		currency: '证明论解析次数',
+		displayName: 'M-7-6',
+		show: true,
+		description: '解锁花园',
+		get canDone() {
+			return totalAnalysisTimes() >= 8;
+		},
+	});
 }

@@ -58,6 +58,7 @@ import DeveloperMode from './components/tabs/devonly/DeveloperMode.vue';
 import Analysis from './components/tabs/pt/Analysis.vue';
 import AnalysisMilestones from './components/tabs/pt/AnalysisMilestones.vue';
 import { temp } from './core/temp-data.ts';
+import Garden from './components/tabs/garden/Garden.tsx';
 </script>
 
 <template>
@@ -113,6 +114,7 @@ import { temp } from './core/temp-data.ts';
 				<Retribution v-if="player.currentTab === 28" />
 				<Analysis v-if="player.currentTab === 29" />
 				<AnalysisMilestones v-if="player.currentTab === 30" />
+				<Garden v-if="player.currentTab === 31" />
 				<AutomatorEditor v-if="player.currentTab === 167" />
 				<PlotTab v-if="player.currentTab === 200" />
 				<SaveBank v-if="player.currentTab === 300" />
