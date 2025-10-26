@@ -24,6 +24,7 @@ export default defineComponent({
 		},
 		mini: {
 			type: Boolean as PropType<boolean>,
+			default: false,
 		},
 	},
 	setup(props, ctx) {
