@@ -90,7 +90,8 @@ const currentComponent = computed(() => {
 		return null;
 	}
 
-	return componentGetter;
+	return typeof componentGetter === "function" ?
+	  componentGetter() : componentGetter;
 });
 </script>
 
