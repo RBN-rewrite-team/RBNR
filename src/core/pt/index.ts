@@ -281,12 +281,12 @@ export const Analysis = {
 } as const;
 
 export type GardenGeneratorSave = {
-	key: string;
+	key: number;
 	value: Decimal;
 }
 
 export type GardenUpgradeSave = {
-	key: string;
+	key: number;
 }
 
 export type GardenGenerator = {
@@ -331,7 +331,7 @@ export const Garden = {
 				key: 0,
 				mult: new Decimal(2),
 			},
-			unlocked: () => Garden.boughtGenerator(0, 1),
+			unlocked: () => Garden.boughtGenerator(0, new Decimal(1)),
 		},
 	},
 	boughtGenerator(key: number, least: Decimal) {
