@@ -10,6 +10,12 @@ import { NON_RECURSIVE } from '@/core/nonrecu';
 const nonrecBuyStudyFunction = new (class extends Callable {
 	async call(env: Environment, ...args: any[]) {
 		for (let i = 0; i < args.length; i++) {
+		  if (i >= 1) {
+		    		if (player.timeshard.value.lt(0.05)) {
+			return;
+		}
+		player.timeshard.value = player.timeshard.value.sub(0.05);
+		  }
 			if (Number(args[i]) in studies) {
 				buyStudies(Number(args[i]));
 			}

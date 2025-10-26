@@ -74,7 +74,6 @@ export class AutomatorParser extends CstParser {
 			{ ALT: () => this.SUBRULE(this.expressionStatement) },
 			{ ALT: () => this.SUBRULE(this.blockStatement) },
 			{ ALT: () => this.SUBRULE(this.includeStatement) },
-			// 添加 call 表达式语句
 			{ ALT: () => this.SUBRULE(this.callExpressionStatement) },
 		]);
 	});
