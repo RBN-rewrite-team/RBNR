@@ -1,8 +1,11 @@
 import { player } from '@/core/save';
 import { isDeveloper } from '@/core/save/testing';
 import { temp } from '@/core/temp-data';
-import { computed, defineComponent, ref, type CSSProperties } from 'vue';
-
+import { defineComponent, ref } from 'vue';
+import { getNodeStyle } from './node';
+import GardenNode from './GardenNode';
+import ModalService from '@/utils/Modal';
+import Baixie from '@/components/group-2/Baixie.vue';
 export function onMousedown(m: MouseEvent) {
 	temp.garden.press = true;
 	temp.garden.press_last = [m.clientX, m.clientY];
@@ -39,17 +42,6 @@ export default defineComponent({
 
 		const canvasRef = ref<HTMLDivElement | null>(null);
 
-		function getNodeStyle(relx: number, rely: number): CSSProperties {
-			const obj = canvasRef.value;
-			if (!obj) return {};
-			let width = obj.offsetWidth;
-			let height = obj.offsetHeight;
-			return {
-				top: height * 0.5 + rely - temp.garden.focus_pos[1] + 'px',
-				left: width * 0.5 + relx - temp.garden.focus_pos[0] + 'px',
-			};
-		}
-
 		return () => (
 			<>
 				<div
@@ -65,21 +57,36 @@ export default defineComponent({
 				>
 					何意味。
 					<div class={'canvas_corner'}>
-						<div class="node" style={{ ...getNodeStyle(0, 0), borderColor: 'white' }}>
-							<span class="node_desc">{JSON.stringify(temp.garden)}</span>
-						</div>
-						<div
+						{/* <div
 							class="node"
-							style={{ ...getNodeStyle(100, 100), borderColor: 'white' }}
+							style={{ ...getNodeStyle(0, 0, canvasRef), borderColor: 'white' }}
 						>
-							<span class="node_desc">何意味</span>
-						</div>
-						{/* <div 
-                            class="node" 
-                            style=" top: 596px; left: 627px; border-color: white"
-                            >
-                            <span class="node_desc">{JSON.stringify(temp.garden)}</span>
-                        </div>
+							<span class="node_desc">{JSON.stringify(temp.garden)}</span>
+						</div> */}
+						<GardenNode x={-100} y={-100} canvasRef={canvasRef}>
+							百因必有果，你的报应就是我
+						</GardenNode>
+						<GardenNode x={300} y={0} canvasRef={canvasRef}>
+							还没做完
+						</GardenNode>
+						<GardenNode x={0} y={0} canvasRef={canvasRef}>
+							你有0 ω病毒
+						</GardenNode>
+						<GardenNode
+							x={100}
+							y={100}
+							canvasRef={canvasRef}
+							onClick={function () {
+								ModalService.show({
+									title: '拜谢',
+									content: '拜谢',
+								});
+							}}
+						>
+							那我问你
+							<Baixie />
+						</GardenNode>
+						{/* 
                         <div 
                             class="node_conn" 
                             style="border-color: white; transform: translate(-50%, -50%) rotate(90deg); top: 96px; left: 627px; width: 1000px"
