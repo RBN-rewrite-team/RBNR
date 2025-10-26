@@ -1,9 +1,9 @@
-import { PTresetCore } from "../../pt/index.ts"
+import { PTresetCore } from '../../pt/index.ts';
 import { Callable, Dictionary } from '../a-objects';
 import type { Environment } from '../environment';
 const ptResetFunction = new (class MinFunction extends Callable {
 	async call(env: Environment, ...args: any[]) {
-		PTresetCore()
+		PTresetCore();
 	}
 })();
 export function importPT(parentEnvironment: Environment) {

@@ -9,7 +9,7 @@
 	overflow: visible;
 	text-align: center;
 	user-select: none;
-    transition: none;
+	transition: none;
 }
 
 .node_text_type {
@@ -41,5 +41,8 @@
 	white-space: nowrap;
 }
 .canvas_corner {
-    position: absolute; top: 0px; left: 0px; overflow: visible;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	overflow: visible;
 }

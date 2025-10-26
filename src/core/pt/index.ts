@@ -104,25 +104,26 @@ export function PTreset(fromPT = false) {
 	player.postnonrec.yseq = Y_SEQ.playerData();
 }
 export function PTresetCore(notification = false) {
-						if (player.challenges[1][6].lt(1)) {
-							if (notification) ModalService.show({
-								title: '重置不了',
-								content: 'NRC7挑战次数至少大于1',
-							});
-						} else if (player.nonrecu.studies_bought.includes(30)) {
-							PTreset(true);
-							player.pt.resetTimes = player.pt.resetTimes.add(1);
-							if (player.milestones.pt_3) {
-								player.pt.qolPointsCrystal = player.pt.qolPointsCrystal.add(1);
-							}
-							if (player.milestones.pt_4) {
-								player.nonrecu.resetTimes = new Decimal(2);
-							}
-							if (player.milestones.pt_5) {
-								player.nonrecu.resetTimes = new Decimal(4);
-							}
-							Analysis.singleAnalysis();
-						}
+	if (player.challenges[1][6].lt(1)) {
+		if (notification)
+			ModalService.show({
+				title: '重置不了',
+				content: 'NRC7挑战次数至少大于1',
+			});
+	} else if (player.nonrecu.studies_bought.includes(30)) {
+		PTreset(true);
+		player.pt.resetTimes = player.pt.resetTimes.add(1);
+		if (player.milestones.pt_3) {
+			player.pt.qolPointsCrystal = player.pt.qolPointsCrystal.add(1);
+		}
+		if (player.milestones.pt_4) {
+			player.nonrecu.resetTimes = new Decimal(2);
+		}
+		if (player.milestones.pt_5) {
+			player.nonrecu.resetTimes = new Decimal(4);
+		}
+		Analysis.singleAnalysis();
+	}
 }
 export function realPTreset() {
 	ModalService.show({
@@ -135,7 +136,7 @@ export function realPTreset() {
 					content:
 						'证明论重置还没做完，可能会导致：证明论效果失效，ω病毒，卡死病毒，你确实要重置?',
 					onConfirm() {
-					  PTresetCore(true)
+						PTresetCore(true);
 					},
 				});
 			} else {

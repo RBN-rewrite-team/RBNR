@@ -42,7 +42,7 @@ import SingularityGenerator from './tabs/group-1/SingularityGenerator.vue';
 import Garden from '@/components/tabs/garden/Garden.tsx';
 
 const tabComponents: {
-  [key: string]: Component | (() => Component)
+	[key: string]: Component | (() => Component);
 } = {
 	0: Successor,
 	1: Settings,
@@ -50,7 +50,7 @@ const tabComponents: {
 	3: About,
 	4: Multip,
 	5: PF,
-	6: () => player.upgrades[58] ? OrdinalNT : NumberTheory,
+	6: () => (player.upgrades[58] ? OrdinalNT : NumberTheory),
 	7: Stat,
 	8: MultipChals,
 	9: ExpUpgrades,
@@ -90,8 +90,9 @@ const currentComponent = computed(() => {
 		return null;
 	}
 
-	return typeof componentGetter === "function" ?
-	  (componentGetter as (() => Component))() : componentGetter;
+	return typeof componentGetter === 'function'
+		? (componentGetter as () => Component)()
+		: componentGetter;
 });
 </script>
 
