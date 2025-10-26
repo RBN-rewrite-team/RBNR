@@ -403,6 +403,7 @@ export const Garden = {
 	},
 	gardenLoop(diff: number) {
 		if (player.garden.openSimulate) {
+			if(player.garden.generators[0].lt(1)) player.garden.generators[0] = new Decimal(1);
 			let iY = Garden.ideaYield().mul(diff);
 			let eY = Garden.entropyYield().mul(diff);
 			player.garden.idea = player.garden.idea.add(iY);
