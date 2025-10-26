@@ -229,7 +229,7 @@ export async function evaluateReturnStatementNode(node: ReturnStatementNode, env
 export async function evaluateMemberExpressionNode(node: MemberExpressionNode, env: Environment) {
 	const object = await evaluateNode(node.object, env);
 	const property = await evaluateNode(node.property, env);
-	
+
 	// 如果 property 是 IdentifierNode，获取其名称
 	let propertyName: string;
 	if (property instanceof IdentifierNode) {
@@ -239,12 +239,12 @@ export async function evaluateMemberExpressionNode(node: MemberExpressionNode, e
 	} else {
 		throw new TypeError('Property must be an identifier or string');
 	}
-	
+
 	// 尝试从对象获取属性
 	if (object && typeof object === 'object' && propertyName in object) {
 		return object[propertyName];
 	}
-	
+
 	throw new ReferenceError(`Property '${propertyName}' not found on object`);
 }
 
@@ -288,14 +288,15 @@ export async function evaluateNode(node: ASTNode, env: Environment): Promise<any
 		return await evaluateHashTableExpressionNode(node, env);
 	} else if (node instanceof IncludeStatementNode) {
 		return tryInclude(node.include);
-	} else if (node instanceof MemberExpressionNode) { // 新增：处理成员表达式
+	} else if (node instanceof MemberExpressionNode) {
+		// 新增：处理成员表达式
 		return await evaluateMemberExpressionNode(node, env);
 	} else if (node instanceof UnaryExpressionNode) {
 		return await evaluateUnaryExpressionNode(node, env);
 	} else if (node instanceof BooleanLiteralNode) {
 		return node.value;
 	} else if (node instanceof GetPropertyNode) {
-	  return await evaluateGetPropertyNode(node, env)
+		return await evaluateGetPropertyNode(node, env);
 	}
 	console.error(node);
 	throw new Error('Not implemented for ' + node.constructor.name);
