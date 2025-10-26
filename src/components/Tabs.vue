@@ -42,7 +42,7 @@ import SingularityGenerator from './tabs/group-1/SingularityGenerator.vue';
 import Garden from '@/components/tabs/garden/Garden.tsx';
 
 const tabComponents: {
-  [key: string]: Component | () => Component
+  [key: string]: Component | (() => Component)
 } = {
 	0: Successor,
 	1: Settings,
