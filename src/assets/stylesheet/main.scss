@@ -55,13 +55,14 @@
 	}
 }
 
-.selectable, .selectable * {
-  -moz-user-select: text;
-  -o-user-select: text;
-  -khtml-user-select: text;
-  -webkit-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
+.selectable,
+.selectable * {
+	-moz-user-select: text;
+	-o-user-select: text;
+	-khtml-user-select: text;
+	-webkit-user-select: text;
+	-ms-user-select: text;
+	user-select: text;
 }
 
 table {
@@ -867,36 +868,51 @@ a {
 	z-index: 1;
 }
 
-
-
-
 @keyframes corrupted_text {
-	0%, 100% {
-		text-shadow: -2px -2px 0px #5555ff, 2px 2px 0px #ff5555;
+	0%,
+	100% {
+		text-shadow:
+			-2px -2px 0px #5555ff,
+			2px 2px 0px #ff5555;
 	}
 	25% {
-		text-shadow: -2px 2px 0px #5555ff, 2px -2px 0px #ff5555;
+		text-shadow:
+			-2px 2px 0px #5555ff,
+			2px -2px 0px #ff5555;
 	}
 	50% {
-		text-shadow: 2px 2px 0px #5555ff, -2px -2px 0px #ff5555;
+		text-shadow:
+			2px 2px 0px #5555ff,
+			-2px -2px 0px #ff5555;
 	}
 	75% {
-		text-shadow: 2px -2px 0px #5555ff, -2px 2px 0px #ff5555;
+		text-shadow:
+			2px -2px 0px #5555ff,
+			-2px 2px 0px #ff5555;
 	}
 }
 
 @-webkit-keyframes corrupted_text {
-	0%, 100% {
-		text-shadow: -2px -2px 0px #5555ff, 2px 2px 0px #ff5555;
+	0%,
+	100% {
+		text-shadow:
+			-2px -2px 0px #5555ff,
+			2px 2px 0px #ff5555;
 	}
 	25% {
-		text-shadow: -2px 2px 0px #5555ff, 2px -2px 0px #ff5555;
+		text-shadow:
+			-2px 2px 0px #5555ff,
+			2px -2px 0px #ff5555;
 	}
 	50% {
-		text-shadow: 2px 2px 0px #5555ff, -2px -2px 0px #ff5555;
+		text-shadow:
+			2px 2px 0px #5555ff,
+			-2px -2px 0px #ff5555;
 	}
 	75% {
-		text-shadow: 2px -2px 0px #5555ff, -2px 2px 0px #ff5555;
+		text-shadow:
+			2px -2px 0px #5555ff,
+			-2px 2px 0px #ff5555;
 	}
 }
 

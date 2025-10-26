@@ -44,7 +44,7 @@ export default function convertTextToComponent(text2: string): JSX.Element {
 		else if (part.length >= 4 && part.startsWith('\\!000') && part.endsWith('\\!')) {
 			const innerText = part.slice(5, -2);
 			elements.push(
-				<span class={{"corrupted_text": true}}>{convertTextToComponent(innerText)}</span>,
+				<span class={{ corrupted_text: true }}>{convertTextToComponent(innerText)}</span>,
 			);
 		}
 		// 处理换行符

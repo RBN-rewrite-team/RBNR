@@ -559,24 +559,24 @@ class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 		if (ctx.functionCall || ctx.propertyAccess) {
 			const functionCalls = ctx.functionCall || [];
 			const propertyAccesses = ctx.propertyAccess || [];
-			
+
 			// 合并所有操作并按顺序处理
 			const allOperations = [];
-			
+
 			// 这里需要根据实际解析顺序来处理，但由于CST结构限制，
 			// 我们假设先处理所有属性访问，然后处理函数调用
 			// 在实际应用中，你可能需要更复杂的逻辑来处理混合链式调用
-			
+
 			// 先处理属性访问
 			for (const propAccess of propertyAccesses) {
 				allOperations.push({ type: 'property', ctx: propAccess });
 			}
-			
+
 			// 然后处理函数调用
 			for (const funcCall of functionCalls) {
 				allOperations.push({ type: 'function', ctx: funcCall });
 			}
-			
+
 			// 按顺序应用操作
 			for (const operation of allOperations) {
 				if (operation.type === 'property') {
@@ -592,13 +592,10 @@ class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 
 	// 修复：创建属性访问节点
 	getPropertyExpression(ctx: any, expression: ASTNode): GetPropertyNode {
-	  console.log(ctx, expression)
-		return new GetPropertyNode(
-			expression,
-			ctx.children.Identifier[0].image,
-		);
+		console.log(ctx, expression);
+		return new GetPropertyNode(expression, ctx.children.Identifier[0].image);
 	}
-	
+
 	getPropertyExpressionWithColenPrefix(ctx: any): GetPropertyNode {
 		return new GetPropertyNode(
 			this.visit(ctx[0].children.expression[0]),
@@ -609,7 +606,10 @@ class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 	// 修复：创建函数调用节点
 	createFunctionCall(ctx: any, callee: ASTNode): CallExpressionNode {
 		const hasCallToken = !!ctx.Call;
-		const args = ctx?.children?.argumentsList !== undefined ? this.visit(ctx.children.argumentsList[0]) : [];
+		const args =
+			ctx?.children?.argumentsList !== undefined
+				? this.visit(ctx.children.argumentsList[0])
+				: [];
 		return new CallExpressionNode(callee, args, hasCallToken);
 	}
 
@@ -625,32 +625,32 @@ class CstToAstVisitor extends parserInstance.getBaseCstVisitorConstructor() {
 		throw new ACompilieError('Function call should be handled in memberExpression');
 	}
 
-  public primaryExpression(ctx: any) {
-    if (ctx.Number) {
-        return new NumericLiteralNode(new Decimal(ctx.Number[0].image));
-    } else if (ctx.StringLiteral) {
-        const str = ctx.StringLiteral[0].image;
-        return new StringLiteralNode(str.substring(1, str.length - 1));
-    } else if (ctx.True) {
-        return new BooleanLiteralNode(true);
-    } else if (ctx.False) {
-        return new BooleanLiteralNode(false);
-    } else if (ctx.Identifier) {
-        return new IdentifierNode(ctx.Identifier[0].image);
-    } else if (ctx.LParen && ctx.expression) {
-        return this.visit(ctx.expression[0]);
-    } else if (ctx.LBracket) {
-        const elements = ctx.arrayElements ? this.visit(ctx.arrayElements[0]) : [];
-        return new ArrayExpressionNode(elements);
-    } else if (ctx.hashTableExpression) {
-        return this.visit(ctx.hashTableExpression[0]);
-    } else if (ctx.getPropertyExpression) {
+	public primaryExpression(ctx: any) {
+		if (ctx.Number) {
+			return new NumericLiteralNode(new Decimal(ctx.Number[0].image));
+		} else if (ctx.StringLiteral) {
+			const str = ctx.StringLiteral[0].image;
+			return new StringLiteralNode(str.substring(1, str.length - 1));
+		} else if (ctx.True) {
+			return new BooleanLiteralNode(true);
+		} else if (ctx.False) {
+			return new BooleanLiteralNode(false);
+		} else if (ctx.Identifier) {
+			return new IdentifierNode(ctx.Identifier[0].image);
+		} else if (ctx.LParen && ctx.expression) {
+			return this.visit(ctx.expression[0]);
+		} else if (ctx.LBracket) {
+			const elements = ctx.arrayElements ? this.visit(ctx.arrayElements[0]) : [];
+			return new ArrayExpressionNode(elements);
+		} else if (ctx.hashTableExpression) {
+			return this.visit(ctx.hashTableExpression[0]);
+		} else if (ctx.getPropertyExpression) {
 			return this.getPropertyExpressionWithColenPrefix(ctx.getPropertyExpression);
 		}
 
-    console.log("Unknown primary expression context:", ctx);
-    throw new ACompilieError('Unknown primary expression');
-}
+		console.log('Unknown primary expression context:', ctx);
+		throw new ACompilieError('Unknown primary expression');
+	}
 
 	arrayElements(ctx: any) {
 		const elements: ASTNode[] = [];
