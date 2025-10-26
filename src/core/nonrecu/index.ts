@@ -629,8 +629,19 @@ export const NON_RECURSIVE = {
 			player.challenges[1][5] = player.challenges[1][5].max(
 				player.hydra.dilute.prions.max(10).log10().log10(),
 			);
+		}
+		if (player.numbertheory.well_ordering.steps_proceeded.includes(7)) {
 			addTheories(0);
 			addTheories(1);
+			addTheories(2);
+		}
+		if (player.upgrades['7ta1q']) {
+			addTheories(0);
+		}
+		if (player.upgrades['7ta2q']) {
+			addTheories(1);
+		}
+		if (player.upgrades['7ta3q']) {
 			addTheories(2);
 		}
 	},
