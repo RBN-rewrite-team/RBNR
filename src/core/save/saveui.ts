@@ -75,7 +75,7 @@ export function UIChangeSave() {
 				type: 'input',
 				placeholder: '槽位',
 				validation(val) {
-					return 0 <= Number(val) && Number(val) <= 10;
+					return 0 <= Number(val) && Number(val) <= 20;
 				},
 			},
 		],
