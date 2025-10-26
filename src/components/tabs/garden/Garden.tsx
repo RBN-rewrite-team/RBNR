@@ -3,7 +3,12 @@ import { isDeveloper } from '@/core/save/testing';
 import { temp } from '@/core/temp-data';
 import { defineComponent, ref } from 'vue';
 import { getNodeStyle } from './node';
-import { Garden } from '@/core/pt/index.ts';
+import {
+	Garden,
+	GardenGenUpgs,
+	type GardenGenerator,
+	type GardenUpgrade,
+} from '@/core/pt/index.ts';
 import GardenNode from './GardenNode';
 import ModalService from '@/utils/Modal';
 import Baixie from '@/components/group-2/Baixie.vue';
@@ -38,28 +43,61 @@ export function onTouchmove(m: TouchEvent) {
 }
 
 function simulateText(canvasRef: any) {
-	let mapping = [[], []];
-	for(let i in Garden.generators)
-	{
-		mapping[0].push(Garden.generators[i]);
+	let mapping = [[], []] as [GardenGenerator[], GardenUpgrade[]];
+	for (let i in GardenGenUpgs.generators) {
+		mapping[0].push(
+			GardenGenUpgs.generators[i as unknown as keyof typeof GardenGenUpgs.generators],
+		);
 	}
-	for(let i in Garden.upgrades)
-	{
-		mapping[1].push(Garden.upgrades[i]);
+	for (let i in GardenGenUpgs.upgrades) {
+		mapping[1].push(
+			GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades],
+		);
 	}
-	return <>{mapping[0].map(g => <>
-		<GardenNode x={g.pos[0]} y={g.pos[1]} canvasRef={canvasRef}
-		onclick={function(){player.garden.focusNode = g;}}>
-			<h2 style="position: relative; bottom: -80px">{g.name}</h2>
-			<br/><span style="position: relative; bottom: -60px">{format(Garden.generatorCost(g.key))} Idea</span>
-		</GardenNode>
-	</>)}{mapping[1].map(g => <>
-		<GardenNode x={g.pos[0]} y={g.pos[1]} canvasRef={canvasRef} mini={true}
-		onclick={function(){player.garden.focusNode = g;}}>
-			<h3 style="position: relative; bottom: -60px">{g.name}</h3>
-			<br/><span style="position: relative; bottom: -40px">{format(g.cost)} Idea</span>
-		</GardenNode>
-	</>)}</>;
+	return (
+		<>
+			{mapping[0].map((g) => (
+				<>
+					<GardenNode
+						x={g.pos[0]}
+						y={g.pos[1]}
+						canvasRef={canvasRef}
+						onClick={function () {
+							player.garden.focusNode = g;
+						}}
+					>
+						<h2 style="position: relative; bottom: -80px">{g.name}</h2>
+						<br />
+						<span style="position: relative; bottom: -60px">
+							{format(
+								Garden.generatorCost(
+									g.key as keyof typeof GardenGenUpgs.generators,
+								),
+							)}{' '}
+							Idea
+						</span>
+					</GardenNode>
+				</>
+			))}
+			{mapping[1].map((g) => (
+				<>
+					<GardenNode
+						x={g.pos[0]}
+						y={g.pos[1]}
+						canvasRef={canvasRef}
+						mini={true}
+						onClick={function () {
+							player.garden.focusNode = g;
+						}}
+					>
+						<h3 style="position: relative; bottom: -60px">{g.name}</h3>
+						<br />
+						<span style="position: relative; bottom: -40px">{format(g.cost)} Idea</span>
+					</GardenNode>
+				</>
+			))}
+		</>
+	);
 }
 
 export default defineComponent({
@@ -89,16 +127,22 @@ export default defineComponent({
 						>
 							<span class="node_desc">{JSON.stringify(temp.garden)}</span>
 						</div> */}
-						{
-							player.garden.openSimulate ? simulateText(canvasRef) : <>
-								<GardenNode x={0} y={0} canvasRef={canvasRef}
-								onClick={function(){
-									player.garden.openSimulate = !player.garden.openSimulate
-								}}>
+						{player.garden.openSimulate ? (
+							simulateText(canvasRef)
+						) : (
+							<>
+								<GardenNode
+									x={0}
+									y={0}
+									canvasRef={canvasRef}
+									onClick={function () {
+										player.garden.openSimulate = !player.garden.openSimulate;
+									}}
+								>
 									启动子世界
 								</GardenNode>
 							</>
-						}
+						)}
 						{/*<GardenNode x={-100} y={-100} canvasRef={canvasRef}>
 							百因必有果，你的报应就是我
 						</GardenNode>
