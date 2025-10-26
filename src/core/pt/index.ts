@@ -103,19 +103,9 @@ export function PTreset(fromPT = false) {
 	player.numbertheory.GM.x = DC.D_0;
 	player.postnonrec.yseq = Y_SEQ.playerData();
 }
-export function realPTreset() {
-	ModalService.show({
-		title: '证明论重置',
-		content: '确实要证明论重置?(需要进入Gamma测试)',
-		onConfirm() {
-			if (player.options.gammaTest) {
-				ModalService.show({
-					title: '再次确认证明论重置',
-					content:
-						'证明论重置还没做完，可能会导致：证明论效果失效，ω病毒，卡死病毒，你确实要重置?',
-					onConfirm() {
+export function PTresetCore(notification = false) {
 						if (player.challenges[1][6].lt(1)) {
-							ModalService.show({
+							if (notification) ModalService.show({
 								title: '重置不了',
 								content: 'NRC7挑战次数至少大于1',
 							});
@@ -133,6 +123,19 @@ export function realPTreset() {
 							}
 							Analysis.singleAnalysis();
 						}
+}
+export function realPTreset() {
+	ModalService.show({
+		title: '证明论重置',
+		content: '确实要证明论重置?(需要进入Gamma测试)',
+		onConfirm() {
+			if (player.options.gammaTest) {
+				ModalService.show({
+					title: '再次确认证明论重置',
+					content:
+						'证明论重置还没做完，可能会导致：证明论效果失效，ω病毒，卡死病毒，你确实要重置?',
+					onConfirm() {
+					  PTresetCore(true)
 					},
 				});
 			} else {

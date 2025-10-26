@@ -11,6 +11,7 @@ import { importMath } from './automator-modules/math';
 import { importHydra } from './automator-modules/hydra';
 import { importRbnr } from './automator-modules/rbnr';
 import { importNonrec } from './automator-modules/nonrec';
+import { importPT } from './automator-modules/proofTheory';
 
 export class Environment {
 	parent: Environment | null = null;
@@ -135,6 +136,10 @@ export function tryInclude(pkg: string) {
 	}
 	if (pkg == 'nonrec' && player.upgrades['ts_auto_pkg_nonrec']) {
 		importNonrec(parentEnvironment);
+		return;
+	}
+	if (pkg == 'proofTheory' && player.milestones.pt_7) {
+		importPT(parentEnvironment);
 		return;
 	}
 	if (pkg == 'music') {

@@ -27,7 +27,7 @@ import QolCrystalUpgrade from './QolCrystalUpgrade';
 		</p>
 		<table align="center">
 			<tbody>
-				<TRMilestone v-for="count in 6" :id="'pt_' + count" />
+				<TRMilestone v-for="count in 7" :id="'pt_' + count" />
 			</tbody>
 		</table>
 		<QolCrystalUpgrade />
