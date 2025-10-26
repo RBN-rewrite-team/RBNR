@@ -342,6 +342,10 @@ export const Garden = {
 			key: key,
 		});
 	},
+	entropyEffect() {
+		let base = player.garden.entropy.add(1).ln().add(1);
+		return base;
+	},
 	playerData() {
 		return {
 			idea: new Decimal(0),

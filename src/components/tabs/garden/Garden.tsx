@@ -3,6 +3,7 @@ import { isDeveloper } from '@/core/save/testing';
 import { temp } from '@/core/temp-data';
 import { defineComponent, ref } from 'vue';
 import { getNodeStyle } from './node';
+import { Garden } from '@/core/pt/index.ts';
 import GardenNode from './GardenNode';
 import ModalService from '@/utils/Modal';
 import Baixie from '@/components/group-2/Baixie.vue';
@@ -55,7 +56,6 @@ export default defineComponent({
 					id="canvas"
 					ref={canvasRef}
 				>
-					何意味。
 					<div class={'canvas_corner'}>
 						{/* <div
 							class="node"

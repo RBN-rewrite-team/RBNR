@@ -9,255 +9,308 @@ import { Ordinal } from '@/lib/ordinal/';
 import { format } from '@/utils/format';
 import { temp } from '../../core/temp-data.ts';
 import { getCurrentOrdinal } from '../../utils/y-seq.ts';
+import { Garden } from '@/core/pt/index.ts';
 </script>
 <template>
 	<div>
 		<div class="resources" style="font-size: 20px" id="resources">
 			<div class="background">
-				<div v-if="player.retribution == 0">
-					<div
-						v-if="!(player.firstResetBit & 0b1000)"
-						style="margin-left: 15px"
-						class="resource"
-					>
-						<div style="font-weight: bold; color: var(--suptitle-color)">
-							数值&nbsp;
-							<template v-if="player.singularity.t > 666.6666666">ω</template>
-							<template v-else>{{ formatWhole(player.number) }}</template>
+				<div v-if="player.currentTab === 31">
+					<div class="resource" style="margin-left: 15px">
+						<div style="font-weight: bold; color: yellow">
+							想法&nbsp;
+							{{ format(player.garden.idea) }}
 						</div>
+					</div>
+					<div class="resource" style="margin-left: 350px">
+						<div style="font-weight: bold; color: purple">
+							熵&nbsp;
+							{{ format(player.garden.entropy) }}
+						</div><br>
+						<div style="font-size: 14px; color: purple">
+							子世界发电机和升级价格x{{ format(Garden.entropyEffect()) }}
+						</div>
+					</div>
+					<div class="resource" style="margin-left: 685px">
+						<div style="font-weight: bold; color: orange">
+							灵感&nbsp;
+							{{ formatWhole(player.garden.inspiration) }}
+						</div>
+					</div>
+				</div>
+				<div v-else>
+					<div v-if="player.retribution == 0">
 						<div
-							style="font-size: 17px; color: var(--title-color)"
-							v-if="player.singularity.t < 666"
+							v-if="!(player.firstResetBit & 0b1000)"
+							style="margin-left: 15px"
+							class="resource"
 						>
-							<span
-								v-if="
-									player.singularity.stage < 11 &&
-									feature.SUCCESSOR.autoSuccessPerSecond().eq(0)
-								"
-								>(需要通过后继获得)</span
+							<div style="font-weight: bold; color: var(--suptitle-color)">
+								数值&nbsp;
+								<template v-if="player.singularity.t > 666.6666666">ω</template>
+								<template v-else>{{ formatWhole(player.number) }}</template>
+							</div>
+							<div
+								style="font-size: 17px; color: var(--title-color)"
+								v-if="player.singularity.t < 666"
 							>
-							<span
-								v-else
-								v-html="
-									formatGain(
-										player.number,
-										feature.resourceGain.number().value,
-										'',
-									)
-								"
-							></span
-							>({{ formatWhole(player.totalNumber) }})
-							<br />
-							<span v-if="feature.resourceGain.number().softcaps > 0">
-								(受{{ feature.resourceGain.number().softcaps }}个软上限限制)
-							</span>
+								<span
+									v-if="
+										player.singularity.stage < 11 &&
+										feature.SUCCESSOR.autoSuccessPerSecond().eq(0)
+									"
+									>(需要通过后继获得)</span
+								>
+								<span
+									v-else
+									v-html="
+										formatGain(
+											player.number,
+											feature.resourceGain.number().value,
+											'',
+										)
+									"
+								></span
+								>({{ formatWhole(player.totalNumber) }})
+								<br />
+								<span v-if="feature.resourceGain.number().softcaps > 0">
+									(受{{ feature.resourceGain.number().softcaps }}个软上限限制)
+								</span>
+							</div>
+						</div>
+						<div style="margin-left: 15px" class="resource" v-else>
+							<div style="font-weight: bold; color: rgb(255, 63, 63)">
+								序数&nbsp;
+								<span
+									v-html="
+										Ordinal.displayOrdinalColored(
+											player.ordinal.number.floor(),
+											feature.Ordinal.base(),
+										)
+									"
+									v-if="
+										!(
+											player.upgrades[61] &&
+											player.hydra.deduceOrdinal[0].gte(
+												'e3.773962424821541352e168',
+											)
+										)
+									"
+								/>
+								<vue-latex
+									:expression="
+										Ordinal.displayOrdinalColored(
+											player.ordinal.number.floor(),
+											feature.Ordinal.base(),
+										)
+									"
+									v-else
+								/>
+							</div>
+							<div
+								style="font-size: 17px; color: rgb(255, 127, 127)"
+								v-if="!player.upgrades[61]"
+							>
+								<span
+									v-html="
+										'(+' +
+										OrdinalUtils.numberToOrdinal(
+											feature.resourceGain.ordinalNumber().value,
+											feature.Ordinal.base(),
+										) +
+										'/s)'
+									"
+								></span>
+							</div>
+							<div
+								style="font-size: 17px; color: rgb(255, 127, 127)"
+								v-if="!player.upgrades[61] && feature.Ordinal.speedDeri().gt(0)"
+							>
+								<span
+									v-html="
+										'(+' +
+										OrdinalUtils.numberToOrdinal(
+											feature.Ordinal.speedDeri(),
+											feature.Ordinal.base(),
+										) +
+										'/s<sup>2</sup>)'
+									"
+								></span>
+							</div>
+							<div
+								style="font-size: 17px; color: rgb(155, 125, 195)"
+								v-if="player.upgrades[61]"
+							>
+								<span
+									v-html="
+										formatGain(
+											temp.lastBMSDeduce,
+											feature.Hydra.deduceSpeed(0),
+										).replace('(', '(推演')
+									"
+								></span>
+							</div>
+							<div
+								style="font-size: 17px; color: rgb(155, 125, 195)"
+								v-if="player.upgrades[61]"
+							>
+								(已推演{{ formatWhole(player.hydra.deduceOrdinal[0]) }}次)
+							</div>
+						</div>
+						<div
+							style="margin-left: 265px"
+							class="resource"
+							id="showMP"
+							v-if="
+								(player.upgrades[13] || player.exponention.logarithm.in_dilate) &&
+								player.singularity.stage < 10
+							"
+						>
+							<div style="font-weight: bold; color: #009dd9">
+								加法能量&nbsp;
+								<div style="display: inline; text-shadow: #5acaff 1px 1px 2px">
+									{{ formatWhole(player.addpower) }}
+								</div>
+							</div>
+							<div style="font-size: 17px; color: #5acaff">
+								<span v-if="feature.resourceGain.addpower().passive.eq(0)">
+									(+{{ formatWhole(feature.resourceGain.addpower().value) }})
+								</span>
+								<span v-else>
+									<span
+										v-html="
+											formatGain(
+												player.addpower,
+												feature.resourceGain
+													.addpower()
+													.passive.mul(feature.resourceGain.addpower().value),
+											)
+										"
+									/>
+								</span>
+								(!{{ formatWhole(player.totalAddpower) }})
+								<br />
+								<span v-if="feature.resourceGain.addpower().softcaps > 0">
+									(受{{ feature.resourceGain.addpower().softcaps }}个软上限限制)
+								</span>
+							</div>
+						</div>
+						<div
+							style="margin-left: 515px"
+							class="resource"
+							v-if="
+								(player.upgrades[26] || player.exponention.logarithm.in_dilate) &&
+								player.singularity.stage < 9
+							"
+						>
+							<div style="font-weight: bold; color: #cc33ff">
+								乘法能量&nbsp;
+								<div style="display: inline; text-shadow: #dd77dd 1px 1px 2px">
+									{{ formatWhole(player.multiplication.mulpower) }}
+								</div>
+							</div>
+							<div style="font-size: 17px; color: #cc33ff">
+								<span v-if="feature.resourceGain.mulpower().passive.eq(0)">
+									(+{{ formatWhole(feature.resourceGain.mulpower().value) }})
+								</span>
+								<span v-else>
+									<span
+										v-html="
+											formatGain(
+												player.multiplication.mulpower,
+												feature.resourceGain
+													.mulpower()
+													.passive.mul(feature.resourceGain.mulpower().value),
+											)
+										"
+									/>
+								</span>
+								(!{{ formatWhole(player.multiplication.totalMulpower) }})
+								<br />
+								<span v-if="feature.resourceGain.mulpower().softcaps > 0">
+									(受{{ feature.resourceGain.mulpower().softcaps }}个软上限限制)
+								</span>
+							</div>
+						</div>
+						<div
+							style="margin-left: 755px"
+							class="resource"
+							v-if="
+								player.singularity.stage < 4 &&
+								player.stat.highestMulpower.gte(new Decimal(2).pow(1024))
+							"
+						>
+							<div style="font-weight: bold; color: rgb(127, 127, 255)">
+								指数能量&nbsp;
+								<div style="display: inline; text-shadow: rgb(0, 20, 127) 1px 1px 2px">
+									{{ formatWhole(player.exponention.exppower) }}
+								</div>
+							</div>
+							<div style="font-size: 17px; color: rgb(63, 63, 127)">
+								<span v-if="feature.resourceGain.exppower().passive.eq(0)">
+									(+{{ formatWhole(feature.resourceGain.exppower().value) }})
+								</span>
+								<span v-else>
+									{{
+										formatGain(
+											player.exponention.exppower,
+											feature.resourceGain
+												.exppower()
+												.passive.mul(feature.resourceGain.exppower().value),
+										)
+									}}
+								</span>
+								(!{{ formatWhole(player.exponention.totalExppower) }})
+							</div>
+						</div>
+						<div style="margin-left: 365px" class="resource" v-if="player.upgrades[517]">
+							<div style="font-weight: bold; color: rgb(200, 190, 245)">
+								九头蛇能量&nbsp;
+								<div style="display: inline; text-shadow: rgb(0, 20, 127) 1px 1px 2px">
+									{{ formatWhole(player.hydra.power) }}
+								</div>
+								<br />
+							</div>
+							<div
+								v-if="feature.Hydra.hydraPowerPassiveGeneration().gt(0)"
+								style="font-size: 17px; display: inline; color: rgb(200, 190, 245)"
+							>
+								<span
+									v-html="
+										formatGain(
+											player.hydra.power,
+											feature.Hydra.hydraPowerPassiveGeneration(),
+										)
+									"
+								/>
+							</div>
+						</div>
+						<div style="margin-left: 685px" class="resource" v-if="player.upgrades['616S']">
+							<div style="font-weight: bold; color: rgb(201, 131, 0)">
+								非递归能量&nbsp;
+								<div style="display: inline; text-shadow: rgb(201, 131, 0) 1px 1px 2px">
+									{{ formatWhole(player.nonrecu.power) }}
+								</div>
+								<br />
+								<div
+									v-if="true"
+									style="font-size: 17px; display: inline; color: rgb(245, 193, 73)"
+								>
+									(+{{ formatWhole(feature.NON_RECURSIVE.gain()) }})
+								</div>
+							</div>
 						</div>
 					</div>
-					<div style="margin-left: 15px" class="resource" v-else>
-						<div style="font-weight: bold; color: rgb(255, 63, 63)">
+					<div class="resource" style="margin-left: 15px" v-if="player.retribution == 1">
+						<div style="font-weight: bold; color: #5d8aa8">
 							序数&nbsp;
-							<span
-								v-html="
-									Ordinal.displayOrdinalColored(
-										player.ordinal.number.floor(),
-										feature.Ordinal.base(),
-									)
-								"
-								v-if="
-									!(
-										player.upgrades[61] &&
-										player.hydra.deduceOrdinal[0].gte(
-											'e3.773962424821541352e168',
-										)
-									)
-								"
-							/>
-							<vue-latex
-								:expression="
-									Ordinal.displayOrdinalColored(
-										player.ordinal.number.floor(),
-										feature.Ordinal.base(),
-									)
-								"
-								v-else
-							/>
-						</div>
-						<div
-							style="font-size: 17px; color: rgb(255, 127, 127)"
-							v-if="!player.upgrades[61]"
-						>
-							<span
-								v-html="
-									'(+' +
-									OrdinalUtils.numberToOrdinal(
-										feature.resourceGain.ordinalNumber().value,
-										feature.Ordinal.base(),
-									) +
-									'/s)'
-								"
-							></span>
-						</div>
-						<div
-							style="font-size: 17px; color: rgb(255, 127, 127)"
-							v-if="!player.upgrades[61] && feature.Ordinal.speedDeri().gt(0)"
-						>
-							<span
-								v-html="
-									'(+' +
-									OrdinalUtils.numberToOrdinal(
-										feature.Ordinal.speedDeri(),
-										feature.Ordinal.base(),
-									) +
-									'/s<sup>2</sup>)'
-								"
-							></span>
-						</div>
-						<div
-							style="font-size: 17px; color: rgb(155, 125, 195)"
-							v-if="player.upgrades[61]"
-						>
-							<span
-								v-html="
-									formatGain(
-										temp.lastBMSDeduce,
-										feature.Hydra.deduceSpeed(0),
-									).replace('(', '(推演')
-								"
-							></span>
-						</div>
-						<div
-							style="font-size: 17px; color: rgb(155, 125, 195)"
-							v-if="player.upgrades[61]"
-						>
-							(已推演{{ formatWhole(player.hydra.deduceOrdinal[0]) }}次)
+							<vue-latex :expression="getCurrentOrdinal(player.hydra.deduceOrdinal[1])" />
 						</div>
 					</div>
-					<div
-						style="margin-left: 265px"
-						class="resource"
-						id="showMP"
-						v-if="
-							(player.upgrades[13] || player.exponention.logarithm.in_dilate) &&
-							player.singularity.stage < 10
-						"
-					>
-						<div style="font-weight: bold; color: #009dd9">
-							加法能量&nbsp;
-							<div style="display: inline; text-shadow: #5acaff 1px 1px 2px">
-								{{ formatWhole(player.addpower) }}
-							</div>
-						</div>
-						<div style="font-size: 17px; color: #5acaff">
-							<span v-if="feature.resourceGain.addpower().passive.eq(0)">
-								(+{{ formatWhole(feature.resourceGain.addpower().value) }})
-							</span>
-							<span v-else>
-								<span
-									v-html="
-										formatGain(
-											player.addpower,
-											feature.resourceGain
-												.addpower()
-												.passive.mul(feature.resourceGain.addpower().value),
-										)
-									"
-								/>
-							</span>
-							(!{{ formatWhole(player.totalAddpower) }})
-							<br />
-							<span v-if="feature.resourceGain.addpower().softcaps > 0">
-								(受{{ feature.resourceGain.addpower().softcaps }}个软上限限制)
-							</span>
-						</div>
-					</div>
-					<div
-						style="margin-left: 515px"
-						class="resource"
-						v-if="
-							(player.upgrades[26] || player.exponention.logarithm.in_dilate) &&
-							player.singularity.stage < 9
-						"
-					>
-						<div style="font-weight: bold; color: #cc33ff">
-							乘法能量&nbsp;
-							<div style="display: inline; text-shadow: #dd77dd 1px 1px 2px">
-								{{ formatWhole(player.multiplication.mulpower) }}
-							</div>
-						</div>
-						<div style="font-size: 17px; color: #cc33ff">
-							<span v-if="feature.resourceGain.mulpower().passive.eq(0)">
-								(+{{ formatWhole(feature.resourceGain.mulpower().value) }})
-							</span>
-							<span v-else>
-								<span
-									v-html="
-										formatGain(
-											player.multiplication.mulpower,
-											feature.resourceGain
-												.mulpower()
-												.passive.mul(feature.resourceGain.mulpower().value),
-										)
-									"
-								/>
-							</span>
-							(!{{ formatWhole(player.multiplication.totalMulpower) }})
-							<br />
-							<span v-if="feature.resourceGain.mulpower().softcaps > 0">
-								(受{{ feature.resourceGain.mulpower().softcaps }}个软上限限制)
-							</span>
-						</div>
-					</div>
-					<div
-						style="margin-left: 755px"
-						class="resource"
-						v-if="
-							player.singularity.stage < 4 &&
-							player.stat.highestMulpower.gte(new Decimal(2).pow(1024))
-						"
-					>
-						<div style="font-weight: bold; color: rgb(127, 127, 255)">
-							指数能量&nbsp;
-							<div style="display: inline; text-shadow: rgb(0, 20, 127) 1px 1px 2px">
-								{{ formatWhole(player.exponention.exppower) }}
-							</div>
-						</div>
-						<div style="font-size: 17px; color: rgb(63, 63, 127)">
-							<span v-if="feature.resourceGain.exppower().passive.eq(0)">
-								(+{{ formatWhole(feature.resourceGain.exppower().value) }})
-							</span>
-							<span v-else>
-								{{
-									formatGain(
-										player.exponention.exppower,
-										feature.resourceGain
-											.exppower()
-											.passive.mul(feature.resourceGain.exppower().value),
-									)
-								}}
-							</span>
-							(!{{ formatWhole(player.exponention.totalExppower) }})
-						</div>
-					</div>
-					<div style="margin-left: 365px" class="resource" v-if="player.upgrades[517]">
-						<div style="font-weight: bold; color: rgb(200, 190, 245)">
-							九头蛇能量&nbsp;
-							<div style="display: inline; text-shadow: rgb(0, 20, 127) 1px 1px 2px">
-								{{ formatWhole(player.hydra.power) }}
-							</div>
-							<br />
-						</div>
-						<div
-							v-if="feature.Hydra.hydraPowerPassiveGeneration().gt(0)"
-							style="font-size: 17px; display: inline; color: rgb(200, 190, 245)"
-						>
-							<span
-								v-html="
-									formatGain(
-										player.hydra.power,
-										feature.Hydra.hydraPowerPassiveGeneration(),
-									)
-								"
-							/>
+					<div class="resource" style="margin-left: 350px" v-if="player.retribution == 1">
+						<div style="font-weight: bold; color: #007f00">
+							压缩九头蛇能量&nbsp;
+							{{ formatWhole(player.hydra.compressedPower) }}
 						</div>
 					</div>
 					<div style="margin-left: 685px" class="resource" v-if="player.upgrades['616S']">
@@ -273,33 +326,6 @@ import { getCurrentOrdinal } from '../../utils/y-seq.ts';
 							>
 								(+{{ formatWhole(feature.NON_RECURSIVE.gain()) }})
 							</div>
-						</div>
-					</div>
-				</div>
-				<div class="resource" style="margin-left: 15px" v-if="player.retribution == 1">
-					<div style="font-weight: bold; color: #5d8aa8">
-						序数&nbsp;
-						<vue-latex :expression="getCurrentOrdinal(player.hydra.deduceOrdinal[1])" />
-					</div>
-				</div>
-				<div class="resource" style="margin-left: 350px" v-if="player.retribution == 1">
-					<div style="font-weight: bold; color: #007f00">
-						压缩九头蛇能量&nbsp;
-						{{ formatWhole(player.hydra.compressedPower) }}
-					</div>
-				</div>
-				<div style="margin-left: 685px" class="resource" v-if="player.upgrades['616S']">
-					<div style="font-weight: bold; color: rgb(201, 131, 0)">
-						非递归能量&nbsp;
-						<div style="display: inline; text-shadow: rgb(201, 131, 0) 1px 1px 2px">
-							{{ formatWhole(player.nonrecu.power) }}
-						</div>
-						<br />
-						<div
-							v-if="true"
-							style="font-size: 17px; display: inline; color: rgb(245, 193, 73)"
-						>
-							(+{{ formatWhole(feature.NON_RECURSIVE.gain()) }})
 						</div>
 					</div>
 				</div>
