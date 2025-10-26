@@ -21,7 +21,7 @@ import { getInitialStat, type PlayerStat } from '../stats.ts';
 import { wellOrderPlayerData } from '../ordinal/well_ordering.ts';
 import { Hydra } from '../hydra/hydra.ts';
 import { POST_NONREC } from '../post-nonrec/index.ts';
-import { Analysis } from '../pt/index.ts';
+import { Analysis, Garden } from '../pt/index.ts';
 import Modal from '@/components/group-2/Modal.vue';
 import ModalService from '@/utils/Modal.ts';
 
@@ -174,6 +174,7 @@ export interface Player {
 	retribution: 0 | 1 | 2 | 3 | 4;
 	postnonrec: ReturnType<typeof POST_NONREC.playerData>;
 	pt: ReturnType<typeof Analysis.playerData>;
+	garden: ReturnType<typeof Garden.playerData>;
 }
 
 function getInitialPlayerData(): Player {
@@ -320,6 +321,7 @@ function getInitialPlayerData(): Player {
 		retribution: 0,
 		postnonrec: POST_NONREC.playerData(),
 		pt: Analysis.playerData(),
+		garden: Garden.playerData(),
 	};
 }
 

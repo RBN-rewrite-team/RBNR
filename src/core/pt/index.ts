@@ -271,3 +271,82 @@ export const Analysis = {
 		};
 	},
 } as const;
+
+export type GardenGeneratorSave = {
+	key: string;
+	value: Decimal;
+}
+
+export type GardenUpgradeSave = {
+	key: string;
+}
+
+export type GardenGenerator = {
+	key: number;
+	pos: [number, number];
+	cost: Decimal;
+	idea: Decimal;
+	entropy: Decimal;
+	unlocked: boolean;
+}
+
+export type GardenUpgradeEffect = {
+	key: number;
+	mult: Decimal;
+}
+
+export type GardenUpgrade = {
+	key: number;
+	pos: [number, number];
+	cost: Decimal;
+	effect: GardenUpgradeEffect;
+	unlocked: boolean;
+}
+
+export const Garden = {
+	generators: {
+		'bowstring': {
+			key: 0,
+			pos: [0, 0],
+			cost: new Decimal(2e-6),
+			idea: new Decimal(5e-8),
+			entropy: new Decimal(1e-12),
+			unlocked: () => true,
+		},
+	},
+	upgrades: {
+		'bowstringVibrate': {
+			key: 0,
+			pos: [0, -100],
+			cost: new Decimal(1e-6),
+			effect: {
+				key: 0,
+				mult: new Decimal(2),
+			},
+			unlocked: () => Garden.boughtGenerator(0, 1),
+		},
+	},
+	boughtGenerator(key: number, least: Decimal) {
+		return player.garden.generators.filter((item) => {item.key == key && item.value.gte(least.sub(1e-9))}).length >= 1;
+	},
+	boughtUpgrade(key: number) {
+		return player.garden.upgrades.includes({
+			key: key,
+		});
+	},
+	playerData() {
+		return {
+			idea: new Decimal(0),
+			totalIdea: new Decimal(0),
+			bestIdea: new Decimal(0),
+			entropy: new Decimal(0),
+			totalEntropy: new Decimal(0),
+			bestEntropy: new Decimal(0),
+			inspiration: new Decimal(0),
+			totalInspiration: new Decimal(0),
+			bestInspiration: new Decimal(0),
+			generators: [] as GardenGeneratorSave[],
+			upgrades: [] as GardenUpgradeSave[],
+		};
+	},
+} as const;
