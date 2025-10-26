@@ -39,61 +39,61 @@ import DeveloperMode from './tabs/devonly/DeveloperMode.vue';
 import Analysis from './tabs/pt/Analysis.vue';
 import AnalysisMilestones from './tabs/pt/AnalysisMilestones.vue';
 import SingularityGenerator from './tabs/group-1/SingularityGenerator.vue';
-import Garden from './tabs/garden/Garden.tsx';
+import Garden from '@/components/tabs/garden/Garden.tsx';
 
 const tabComponents = {
-  0: Successor,
-  1: Settings,
-  2: Addition,
-  3: About,
-  4: Multip,
-  5: PF,
-  6: () => player.upgrades[58] ? OrdinalNT : NumberTheory,
-  7: Stat,
-  8: MultipChals,
-  9: ExpUpgrades,
-  10: ChessBoard,
-  11: Achievements,
-  12: Logarithm,
-  13: LogDilate,
-  14: SingularityGenerator,
-  15: Ordinal,
-  16: Help,
-  17: Accelerator,
-  18: TimeShard,
-  19: Hydra,
-  20: HydraDilute,
-  21: NonRecursionMilestones,
-  22: NonRecursionTabChal,
-  23: NonRecursionFactor,
-  24: StudyTree,
-  25: NonRecursionTabUpgrade,
-  26: NonRecursionUNOCF,
-  27: YEngine,
-  28: Retribution,
-  29: Analysis,
-  30: AnalysisMilestones,
-  31: Garden,
-  167: AutomatorEditor,
-  200: PlotTab,
-  300: SaveBank,
-  500: DeveloperMode,
-  1225: MiniGame,
+	0: Successor,
+	1: Settings,
+	2: Addition,
+	3: About,
+	4: Multip,
+	5: PF,
+	get 6() {
+		return player.upgrades[58] ? OrdinalNT : NumberTheory;
+	},
+	7: Stat,
+	8: MultipChals,
+	9: ExpUpgrades,
+	10: ChessBoard,
+	11: Achievements,
+	12: Logarithm,
+	13: LogDilate,
+	14: SingularityGenerator,
+	15: Ordinal,
+	16: Help,
+	17: Accelerator,
+	18: TimeShard,
+	19: Hydra,
+	20: HydraDilute,
+	21: NonRecursionMilestones,
+	22: NonRecursionTabChal,
+	23: NonRecursionFactor,
+	24: StudyTree,
+	25: NonRecursionTabUpgrade,
+	26: NonRecursionUNOCF,
+	27: YEngine,
+	28: Retribution,
+	29: Analysis,
+	30: AnalysisMilestones,
+	31: Garden,
+	167: AutomatorEditor,
+	200: PlotTab,
+	300: SaveBank,
+	500: DeveloperMode,
+	1225: MiniGame,
 } as const;
 
 const currentComponent = computed(() => {
-  const componentGetter = tabComponents[player.currentTab as keyof typeof tabComponents];
-  
-  if (!componentGetter) {
-    return null;
-  }
-  
-  return typeof componentGetter === 'function' 
-    ? componentGetter() 
-    : componentGetter;
+	const componentGetter = tabComponents[player.currentTab as keyof typeof tabComponents];
+
+	if (!componentGetter) {
+		return null;
+	}
+
+	return componentGetter;
 });
 </script>
 
 <template>
-  <component :is="currentComponent" />
+	<component :is="currentComponent" />
 </template>
