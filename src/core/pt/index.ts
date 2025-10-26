@@ -308,13 +308,13 @@ export type GardenGenerator = {
 };
 
 export type GardenUpgradeEffect = {
-	isG?: boolean;
+	isG: boolean;
 	key: number;
 	mult: Decimal;
 };
 
 export type GardenUpgrade = {
-	isU: boolean;
+	isG: boolean;
 	key: number;
 	name: string;
 	pos: [number, number];
@@ -324,10 +324,10 @@ export type GardenUpgrade = {
 	connect: [number[], number[]];
 };
 
-export function isGardenUpgrade(x: GardenUpgrade | GardenGenerator): x is GardenGenerator {
+export function isGardenUpgrade(x: GardenUpgrade | GardenGenerator): boolean {
 	return 'isU' in x && (x.isU ?? true);
 }
-export function isGardenGenerator(x: GardenUpgrade | GardenGenerator) {
+export function isGardenGenerator(x: GardenUpgrade | GardenGenerator): boolean {
 	return 'isG' in x && (x.isG ?? true);
 }
 export const GardenGenUpgs = {
@@ -409,13 +409,13 @@ export const GardenGenUpgs = {
 } as const;
 export const Garden = {
 	boughtGenerator(key: keyof typeof GardenGenUpgs.generators) {
-		return player.garden.generators[key];
+		return player.garden.generators[key] ?? new Decimal(0);
 	},
 	boughtGeneratorReach(key: keyof typeof GardenGenUpgs.generators, least: Decimal): boolean {
 		return Garden.boughtGenerator(key).gte(least.sub(1e-9));
 	},
 	boughtUpgrade(key: keyof typeof GardenGenUpgs.upgrades) {
-		return Boolean(player.garden.upgrades[key]);
+		return Boolean(player.garden.upgrades[key]) ?? false;
 	},
 	entropyEffect() {
 		let base = player.garden.entropy.add(1).ln().add(1);
