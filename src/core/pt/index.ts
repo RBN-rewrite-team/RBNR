@@ -295,15 +295,6 @@ export const Analysis = {
 	},
 } as const;
 
-export type GardenGeneratorSave = {
-	key: number;
-	value: Decimal;
-};
-
-export type GardenUpgradeSave = {
-	key: number;
-};
-
 export type GardenGenerator = {
 	key: number;
 	pos: [number, number];
@@ -328,8 +319,9 @@ export type GardenUpgrade = {
 
 export const Garden = {
 	generators: {
-		bowstring: {
+		0: {
 			key: 0,
+			name: 'Bowstring',
 			pos: [0, 0],
 			cost: new Decimal(2e-6),
 			idea: new Decimal(5e-8),
@@ -338,23 +330,23 @@ export const Garden = {
 		},
 	},
 	upgrades: {
-		bowstringVibrate: {
+		0: {
 			key: 0,
-			pos: [0, -100],
+			name: 'Bowstring Vibrate',
+			pos: [0, -200],
 			cost: new Decimal(1e-6),
 			effect: {
 				key: 0,
 				mult: new Decimal(2),
 			},
-			unlocked: () => Garden.boughtGenerator(0, new Decimal(1)),
+			unlocked: () => Garden.boughtGeneratorReach(0, new Decimal(1)),
 		},
 	},
-	boughtGenerator(key: number, least: Decimal) {
-		return (
-			player.garden.generators.filter((item) => {
-				item.key == key && item.value.gte(least.sub(1e-9));
-			}).length >= 1
-		);
+	boughtGenerator(key: number) {
+		return player.garden.generators[key];
+	},
+	boughtGeneratorReach(key: number, least: Decimal) {
+		return Garden.boughtGenerator(key).gte(least.sub(1e-9));
 	},
 	boughtUpgrade(key: number) {
 		return player.garden.upgrades.includes({
@@ -365,8 +357,56 @@ export const Garden = {
 		let base = player.garden.entropy.add(1).ln().add(1);
 		return base;
 	},
+	generatorCost(key) {
+		let base = Garden.generators[key].cost;
+		let scale = new Decimal(1.1);
+		let bought = Garden.boughtGenerator(key);
+		return base.mul(scale.pow(bought));
+	},
+	generatorIdea(key) {
+		let base = Garden.boughtGenerator(key).mul(Garden.generators[key].idea);
+		for(let i in player.garden.upgrades)
+		{
+			let u = player.garden.upgrades[i].key;
+			if(Garden.upgrades[u].effect.key == key) base = base.mul(Garden.upgrades[u].effect.mult);
+		}
+		return base;
+	},
+	generatorEntropy(key) {
+		let base = Garden.boughtGenerator(key).mul(Garden.generators[key].entropy);
+		return base;
+	},
+	ideaYield() {
+		let base = new Decimal(0);
+		for(let i in player.garden.generators)
+		{
+			base = base.add(Garden.generatorIdea(i));
+		}
+		return base;
+	},
+	entropyYield() {
+		let base = new Decimal(0);
+		for(let i in player.garden.generators)
+		{
+			base = base.add(Garden.generatorEntropy(i));
+		}
+		return base;
+	},
+	gardenLoop(diff) {
+		if(player.garden.openSimulate)
+		{
+			let iY = Garden.ideaYield().mul(diff);
+			let eY = Garden.entropyYield().mul(diff);
+			player.garden.idea = player.garden.idea.add(iY);
+			player.garden.entropy = player.garden.entropy.add(eY);
+			player.garden.totalIdea = player.garden.totalIdea.add(iY);
+			player.garden.totalEntropy = player.garden.totalEntropy.add(eY);
+			player.garden.bestIdea = player.garden.bestIdea.max(player.garden.idea);
+			player.garden.bestEntropy = player.garden.bestEntropy.max(player.garden.entropy);
+		}
+	},
 	playerData() {
-		return {
+		let base = {
 			idea: new Decimal(0),
 			totalIdea: new Decimal(0),
 			bestIdea: new Decimal(0),
@@ -376,8 +416,15 @@ export const Garden = {
 			inspiration: new Decimal(0),
 			totalInspiration: new Decimal(0),
 			bestInspiration: new Decimal(0),
-			generators: [] as GardenGeneratorSave[],
-			upgrades: [] as GardenUpgradeSave[],
+			generators: {},
+			upgrades: [],
+			openSimulate: false,
+			lastIG: Date.now(),
 		};
+		for(let i in Garden.generators)
+		{
+			base.generators[i] = new Decimal(0);
+		}
+		return base;
 	},
 } as const;

@@ -7,6 +7,7 @@ import { Garden } from '@/core/pt/index.ts';
 import GardenNode from './GardenNode';
 import ModalService from '@/utils/Modal';
 import Baixie from '@/components/group-2/Baixie.vue';
+import { format, formatWhole } from '@/utils/format';
 export function onMousedown(m: MouseEvent) {
 	temp.garden.press = true;
 	temp.garden.press_last = [m.clientX, m.clientY];
@@ -36,6 +37,29 @@ export function onTouchmove(m: TouchEvent) {
 	}
 }
 
+function simulateText(canvasRef: any) {
+	let mapping = [[], []];
+	for(let i in Garden.generators)
+	{
+		mapping[0].push(Garden.generators[i]);
+	}
+	for(let i in Garden.upgrades)
+	{
+		mapping[1].push(Garden.upgrades[i]);
+	}
+	return <>{mapping[0].map(g => <>
+		<GardenNode x={g.pos[0]} y={g.pos[1]} canvasRef={canvasRef}>
+			{g.name}
+			<br/>{format(Garden.generatorCost(g.key))} Idea
+		</GardenNode>
+	</>)}{mapping[1].map(g => <>
+		<GardenNode x={g.pos[0]} y={g.pos[1]} canvasRef={canvasRef}>
+			{g.name}
+			<br/>{format(g.cost)} Idea
+		</GardenNode>
+	</>)}</>;
+}
+
 export default defineComponent({
 	name: 'Garden',
 	setup(props, ctx) {
@@ -63,7 +87,17 @@ export default defineComponent({
 						>
 							<span class="node_desc">{JSON.stringify(temp.garden)}</span>
 						</div> */}
-						<GardenNode x={-100} y={-100} canvasRef={canvasRef}>
+						{
+							player.garden.openSimulate ? simulateText(canvasRef) : <>
+								<GardenNode x={0} y={0} canvasRef={canvasRef}
+								onClick={function(){
+									player.garden.openSimulate = !player.garden.openSimulate
+								}}>
+									启动子世界
+								</GardenNode>
+							</>
+						}
+						{/*<GardenNode x={-100} y={-100} canvasRef={canvasRef}>
 							百因必有果，你的报应就是我
 						</GardenNode>
 						<GardenNode x={300} y={0} canvasRef={canvasRef}>
@@ -85,7 +119,7 @@ export default defineComponent({
 						>
 							那我问你
 							<Baixie />
-						</GardenNode>
+						</GardenNode>*/}
 						{/* 
                         <div 
                             class="node_conn" 

@@ -28,7 +28,7 @@ import { achLoop } from './achievements.ts';
 import { format } from '@/utils/format.ts';
 import { Ordinal } from '@/lib/ordinal/index.ts';
 import { OrdinalUtils } from '@/utils/ordinal.ts';
-import { PTEffects } from './pt/index.ts';
+import { PTEffects, Garden } from './pt/index.ts';
 
 /**
  * 游戏循环经过了多少时间
@@ -408,6 +408,8 @@ export function simulate(diff: number) {
 	if (player.milestones.nonrec_26) {
 		wellOrderingLoop(pre_cardinal_diff / 1000);
 	}
+	
+	Garden.gardenLoop(diff / 1000);
 
 	Logarithm.astronomerUpdate();
 	updateHighestStat();
