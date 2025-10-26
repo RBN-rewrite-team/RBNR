@@ -265,7 +265,15 @@ export const Analysis = {
 			resetTimes: new Decimal(0),
 			analysis: [0, 0, 0, 0, 0, 0, 0],
 			analysisFailed: [0, 0, 0, 0, 0, 0, 0],
-			seed: [Math.random(), Math.random(), Math.random(), Math.random(), Math.random(), Math.random(), Math.random()],
+			seed: [
+				Math.random(),
+				Math.random(),
+				Math.random(),
+				Math.random(),
+				Math.random(),
+				Math.random(),
+				Math.random(),
+			],
 			seedTimes: [0, 0, 0, 0, 0, 0, 0],
 			qolPointsCrystal: new Decimal(0),
 		};

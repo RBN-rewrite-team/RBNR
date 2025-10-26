@@ -3,6 +3,7 @@ import TRMilestone from '@/components/group-2/TRMilestone.vue';
 import { totalAnalysisTimes } from '@/core/pt/milestones';
 import { player } from '@/core/save';
 import { formatWhole } from '@/utils/format';
+import QolCrystalUpgrade from './QolCrystalUpgrade';
 </script>
 
 <template>
@@ -29,5 +30,6 @@ import { formatWhole } from '@/utils/format';
 				<TRMilestone v-for="count in 6" :id="'pt_' + count" />
 			</tbody>
 		</table>
+		<QolCrystalUpgrade />
 	</div>
 </template>

@@ -19,6 +19,7 @@ export enum Currencies {
 	NRT = 'nrt',
 	DEDUCE_ENERGY = 'deduce_energy',
 	TIME_SHARD = 'ts',
+	QOL_CRYSTAL_POINTS = 'qol_crystal_points',
 }
 abstract class Currency {
 	static name: string = '未定义货币';
@@ -193,6 +194,16 @@ class TimeShard extends Currency {
 		return player.timeshard.value;
 	}
 }
+class QolCrystalCurrency extends Currency {
+	static name = '生活质量水晶';
+	static set current(x: Decimal) {
+		player.pt.qolPointsCrystal = x;
+	}
+
+	static get current() {
+		return player.pt.qolPointsCrystal;
+	}
+}
 const currencyMap: Map<Currencies, typeof Currency> = new Map([
 	[Currencies.NUMBER, NumberCurrency],
 	[Currencies.ADDITION_POWER, AdditionPowerCurrency],
@@ -209,6 +220,7 @@ const currencyMap: Map<Currencies, typeof Currency> = new Map([
 	[Currencies.DEDUCE_ENERGY, DeduceEnergyCurrency],
 	[Currencies.COMP_HYDRA, CompressedHydraPowerCurrency],
 	[Currencies.TIME_SHARD, TimeShard],
+	[Currencies.QOL_CRYSTAL_POINTS, QolCrystalCurrency],
 ]);
 
 export function setCurrency(currency: Currencies, value: Decimal) {

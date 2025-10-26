@@ -328,7 +328,7 @@ export function wellOrderGainPerClick() {
 	if (a.gte(1e15)) a = a.log10().div(15).pow(0.5).mul(15).pow10();
 	if (player.upgrades.U6R18) a = a.mul(1e100);
 	if (player.upgrades.U6R22) a = a.mul(upgrades.U6R22.effect());
-	
+
 	a = a.pow(Analysis.systemEffect[3].value(player.pt.analysis[3]));
 	return a;
 }
