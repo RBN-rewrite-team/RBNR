@@ -51,3 +51,14 @@
 	left: 0px;
 	overflow: visible;
 }
+
+.focus_box {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	width: 300px;
+	height: 200px;
+	border-radius: 5px;
+	border: 1px solid var(--color);
+	background: var(--background-color);
+}

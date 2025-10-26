@@ -307,11 +307,13 @@ export type GardenGenerator = {
 };
 
 export type GardenUpgradeEffect = {
+	isG: boolean;
 	key: number;
 	mult: Decimal;
 };
 
 export type GardenUpgrade = {
+	isU: boolean;
 	key: number;
 	name: string;
 	pos: [number, number];
@@ -323,6 +325,7 @@ export type GardenUpgrade = {
 export const GardenGenUpgs = {
 	generators: {
 		0: {
+			isG: true,
 			key: 0,
 			name: 'Bowstring',
 			pos: [0, 0],
@@ -333,10 +336,11 @@ export const GardenGenUpgs = {
 			connect: [[], []],
 		},
 		1: {
+			isG: true,
 			key: 1,
 			name: 'Quark',
 			pos: [-50, -350],
-			cost: new Decimal(1e-5),
+			cost: new Decimal(1e-3),
 			idea: new Decimal(6e-7),
 			entropy: new Decimal(1e-10),
 			unlocked: () => Garden.boughtUpgrade(0) && Garden.boughtUpgrade(1),
@@ -347,6 +351,7 @@ export const GardenGenUpgs = {
 	},
 	upgrades: {
 		0: {
+			isU: true,
 			key: 0,
 			name: 'Bowstring Vibrate',
 			pos: [0, -200],
@@ -361,6 +366,7 @@ export const GardenGenUpgs = {
 			connect: [[0], []],
 		},
 		1: {
+			isU: true,
 			key: 1,
 			name: 'Membrane',
 			pos: [200, -250],
@@ -375,6 +381,7 @@ export const GardenGenUpgs = {
 			connect: [[], [0]],
 		},
 		2: {
+			isU: true,
 			key: 2,
 			name: 'M theory',
 			pos: [300, -450],
@@ -400,7 +407,7 @@ export const Garden = {
 		return Garden.boughtGenerator(key).gte(least.sub(1e-9));
 	},
 	boughtUpgrade(key: keyof typeof GardenGenUpgs.upgrades) {
-		return player.garden.upgrades.filter((x) => x.key == key).length >= 1;
+		return player.garden.upgrades[key];
 	},
 	entropyEffect() {
 		let base = player.garden.entropy.add(1).ln().add(1);
@@ -415,9 +422,8 @@ export const Garden = {
 	generatorIdea(key: keyof typeof GardenGenUpgs.generators) {
 		let base = Garden.boughtGenerator(key).mul(GardenGenUpgs.generators[key].idea);
 		for (let i in player.garden.upgrades) {
-			let u = player.garden.upgrades[i].key;
-			if (GardenGenUpgs.upgrades[u].effect.key == key)
-				base = base.mul(GardenGenUpgs.upgrades[u].effect.mult);
+			if (GardenGenUpgs.upgrades[i].effect.key == key)
+				base = base.mul(GardenGenUpgs.upgrades[i].effect.mult);
 		}
 		return base;
 	},
@@ -442,6 +448,20 @@ export const Garden = {
 			);
 		}
 		return base;
+	},
+	buyGenerator(key: keyof typeof GardenGenUpgs.generators) {
+		if(player.garden.idea.gte(Garden.generatorCost(key)))
+		{
+			player.garden.idea = player.garden.idea.sub(Garden.generatorCost(key));
+			player.garden.generators[key] = player.garden.generators[key].add(1);
+		}
+	},
+	buyUpgrade(key: keyof typeof GardenGenUpgs.upgrades) {
+		if(player.garden.idea.gte(GardenGenUpgs.upgrades[key].cost) && !player.garden.upgrades[key])
+		{
+			player.garden.idea = player.garden.idea.sub(GardenGenUpgs.upgrades[key].cost);
+			player.garden.upgrades[key] = true;
+		}
 	},
 	gardenLoop(diff: number) {
 		if (player.garden.openSimulate) {
@@ -475,7 +495,7 @@ export const Garden = {
 			}[],
 			openSimulate: false,
 			lastIG: Date.now(),
-			focusNode: null as any,
+			focusNode: GardenGenUpgs.generators[0] as (GardenGenerator | GardenUpgrade),
 		};
 		for (let i in GardenGenUpgs.generators) {
 			base.generators[i as unknown as keyof typeof GardenGenUpgs.generators] = new Decimal(0);

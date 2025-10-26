@@ -123,6 +123,7 @@ function simulateText(canvasRef: any) {
 						y={g.pos[1]}
 						canvasRef={canvasRef}
 						onClick={function () {
+							if(player.garden.focusNode.isG && player.garden.focusNode.key == g.key) Garden.buyGenerator(g.key);
 							player.garden.focusNode = g;
 						}}
 					>
@@ -162,8 +163,10 @@ function simulateText(canvasRef: any) {
 						canvasRef={canvasRef}
 						mini={true}
 						onClick={function () {
+							if(player.garden.focusNode.isU && player.garden.focusNode.key == g.key) Garden.buyUpgrade(g.key);
 							player.garden.focusNode = g;
 						}}
+						nodestyle={{filter: 'brightness(' + (player.garden.upgrades[g.key] ? 1 : 0.75) + ')'}}
 					>
 						<h3 style="position: relative; bottom: -60px">{g.name}</h3>
 						<br />
@@ -238,6 +241,27 @@ export default defineComponent({
 								</GardenNode>
 							</>
 						)}
+					</div>
+				</div>
+				<div
+					class={'focus_box'}>
+					<div style="position: relative; width: 100%; height: 100%">
+						<h4 style="position: absolute; top: 4px; left: 4px">{player.garden.focusNode.name}</h4>
+						<h5 style="position: absolute; top: 4px; right: 4px">
+							{(player.garden.focusNode.isU ?? false) ? format(player.garden.focusNode.cost) : format(Garden.generatorCost(player.garden.focusNode.key as keyof typeof GardenGenUpgs.generators))} Idea
+						</h5>
+						<br/><br/>
+						{
+							(player.garden.focusNode.isG ?? false) ?
+								<>
+									Produce {format(Garden.generatorIdea(player.garden.focusNode.key as keyof typeof GardenGenUpgs.generators))} Idea<br/>
+									Produce {format(Garden.generatorEntropy(player.garden.focusNode.key as keyof typeof GardenGenUpgs.generators))} Entropy<br/>
+								</>
+							:
+								<>
+									Improve {GardenGenUpgs.generators[player.garden.focusNode.effect.key].name} by x{format(player.garden.focusNode.effect.mult)}<br/>
+								</>
+						}
 					</div>
 				</div>
 			</>
