@@ -107,7 +107,7 @@ const Axioms = Object.freeze([
 	>
 		<br />
 		<div class="pt_base system" :style="{height: count === 7 ? '256px' : '200px'}">
-			<div style="position: absolute; opacity: 0.5;" align="left">
+			<div style="position: absolute; opacity: 0.5;" align="left" :key="count">
 			  <div v-for="(expression, index) in Axioms[count-1]">
 			    <vue-latex :expression />
 			  </div>
