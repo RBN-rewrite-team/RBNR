@@ -303,7 +303,7 @@ export default defineComponent({
 							{player.garden.focusNode.name}
 						</h4>
 						<h5 style="position: absolute; top: 4px; right: 4px">
-							{console.log(player.garden.focusNode)//(isGardenGenerator(player.garden.focusNode) ?? false)
+							{(isGardenGenerator(player.garden.focusNode) ?? false)
 								? format(
 										Garden.generatorCost(
 											player.garden.focusNode

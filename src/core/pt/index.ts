@@ -313,7 +313,7 @@ export type GardenUpgradeEffect = {
 };
 
 export type GardenUpgrade = {
-	isU: boolean;
+	isG: boolean;
 	key: number;
 	name: string;
 	pos: [number, number];
@@ -327,7 +327,7 @@ export function isGardenUpgrade(x: GardenUpgrade | GardenGenerator): x is Garden
 	return !isGardenGenerator(x);
 }
 export function isGardenGenerator(x: GardenUpgrade | GardenGenerator): x is GardenGenerator {
-	return 'isG' in x && (x.isG ?? true);
+	return x.isG;
 }
 export const GardenGenUpgs = {
 	generators: {
@@ -358,7 +358,7 @@ export const GardenGenUpgs = {
 	},
 	upgrades: {
 		0: {
-			isU: true,
+			isG: !true,
 			key: 0,
 			name: 'Bowstring Vibrate',
 			pos: [0, -200],
@@ -373,7 +373,7 @@ export const GardenGenUpgs = {
 			connect: [[0], []],
 		},
 		1: {
-			isU: true,
+			isG: !true,
 			key: 1,
 			name: 'Membrane',
 			pos: [200, -250],
@@ -388,7 +388,7 @@ export const GardenGenUpgs = {
 			connect: [[], [0]],
 		},
 		2: {
-			isU: true,
+			isG: !true,
 			key: 2,
 			name: 'M theory',
 			pos: [300, -450],
