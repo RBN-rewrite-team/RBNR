@@ -10,7 +10,7 @@ function unlockedList(): string {
 	return s;
 }
 
-const Axioms = [
+const Axioms = Object.freeze([
   [
     "(\\forall x)x' \\ne 0",
     "(\\forall x\\forall y)x' = y' \\rightarrow x = y",
@@ -62,7 +62,7 @@ const Axioms = [
     "(∀A)[A ≠ ∅ → (∃x ∈ A)(∀y ∈ x)(y ∉ A)]",
     "(∀A)[∅ ∉ A → (∃f: A → ⋃A)(∀X ∈ A)(f(X) ∈ X)]",
   ],
-] as const
+]) as const
 </script>
 
 <template>
@@ -107,7 +107,7 @@ const Axioms = [
 	>
 		<br />
 		<div class="pt_base system" :style="{height: count === 7 ? '256px' : '200px'}">
-			<div style="position: absolute; opacity: 0.5;" align="left">
+			<div style="position: absolute; opacity: 0.5;" align="left" :key="count">
 			  <div v-for="(expression, index) in Axioms[count-1]">
 			    <vue-latex :expression />
 			  </div>
