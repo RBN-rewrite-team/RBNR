@@ -65,4 +65,14 @@ export function initPTMilestones() {
 			return totalAnalysisTimes() >= 8;
 		},
 	});
+	MILESTONES.create('pt_7', {
+		requirement: new Decimal(10),
+		currency: '证明论解析次数',
+		displayName: 'M-7-7',
+		show: true,
+		description: '在自动机中解锁proofTheory包的重置指令',
+		get canDone() {
+			return totalAnalysisTimes() >= 10;
+		},
+	});
 }
