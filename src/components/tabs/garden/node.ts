@@ -18,3 +18,19 @@ export function getNodeStyle(
 	if (mini) ((base.width = '45px'), (base.height = '45px'), (base['border-radius'] = '2px'));
 	return base;
 }
+
+export function getConnectStyle(
+	relx: number,
+	rely: number,
+	canvasRef: Ref<HTMLDivElement | null>,
+): CSSProperties {
+	const obj = canvasRef.value;
+	if (!obj) return {};
+	let width = obj.offsetWidth;
+	let height = obj.offsetHeight;
+	let base = {
+		top: height * 0.5 - rely + 50 + 'px',
+		left: width * 0.5 - relx + 50 + 'px',
+	} as CSSProperties;
+	return base;
+}

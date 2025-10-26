@@ -10,6 +10,7 @@
 	text-align: center;
 	user-select: none;
 	transition: none;
+	z-index: 1;
 }
 
 .node_text_type {
@@ -28,7 +29,11 @@
 	position: absolute;
 	border: 2px solid var(--color);
 	width: 1px;
-	z-index: -10;
+	height: 1px;
+	z-index: 0;
+    background: var(--color);
+    transition: none;
+	opacity: 0.75;
 }
 
 .node_desc {
@@ -45,4 +50,15 @@
 	top: 0px;
 	left: 0px;
 	overflow: visible;
+}
+
+.focus_box {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	width: 300px;
+	height: 200px;
+	border-radius: 5px;
+	border: 1px solid var(--color);
+	background: var(--background-color);
 }

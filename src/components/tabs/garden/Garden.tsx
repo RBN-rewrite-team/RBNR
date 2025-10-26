@@ -10,6 +10,7 @@ import {
 	type GardenUpgrade,
 } from '@/core/pt/index.ts';
 import GardenNode from './GardenNode';
+import GardenConnect from './GardenConnect';
 import ModalService from '@/utils/Modal';
 import Baixie from '@/components/group-2/Baixie.vue';
 import { format, formatWhole } from '@/utils/format';
@@ -42,8 +43,64 @@ export function onTouchmove(m: TouchEvent) {
 	}
 }
 
+function getConnect() {
+	let connectOrigin = [], connect = [];
+	for(let i in GardenGenUpgs.generators)
+	{
+		let pos = GardenGenUpgs.generators[i].pos;
+		connectOrigin.push([pos, GardenGenUpgs.generators[i].connect]);
+	}
+	for(let i in GardenGenUpgs.upgrades)
+	{
+		let pos = GardenGenUpgs.upgrades[i].pos;
+		connectOrigin.push([pos, GardenGenUpgs.upgrades[i].connect]);
+	}
+	for(let i in connectOrigin)
+	{
+		let c = connectOrigin[i][1];
+		for(let j in c[0])
+		{
+			connect.push([connectOrigin[i][0], GardenGenUpgs.generators[c[0][j]].pos]);
+		}
+		for(let j in c[1])
+		{
+			connect.push([connectOrigin[i][0], GardenGenUpgs.upgrades[c[1][j]].pos]);
+		}
+	}
+	return connect;
+}
+
+const can_cal = {
+	dx(x){
+		return temp.garden.focus_pos[0] - x;
+	},
+	dy(y){
+		return temp.garden.focus_pos[1] - y;
+	},
+};
+
+type Branch = {
+	cx: number;
+	cy: number;
+	deg: number;
+	length: number;
+}
+
+function getBranchPara(mx1, my1, mx2, my2): Branch {
+	let x1 = can_cal.dx(mx1), x2 = can_cal.dx(mx2);
+	let y1 = can_cal.dy(my1), y2 = can_cal.dy(my2);
+	let cx = (x1 + x2) / 2, cy = (y1 + y2) / 2;
+	let deg = (Math.atan(Math.abs(y1 - y2) / (Math.abs(x1 - x2))) * (180 / Math.PI));
+	let length = Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2);
+	if(x1 > x2) deg = 180 - deg;
+	if(y1 > y2) deg = 180 - deg;
+	return {cx: cx, cy: cy, deg: deg, length: length};
+}
+
 function simulateText(canvasRef: any) {
 	let mapping = [[], []] as [GardenGenerator[], GardenUpgrade[]];
+	let connecting = [] as Branch[];
+	let connect = getConnect();
 	for (let i in GardenGenUpgs.generators) {
 		mapping[0].push(
 			GardenGenUpgs.generators[i as unknown as keyof typeof GardenGenUpgs.generators],
@@ -54,15 +111,19 @@ function simulateText(canvasRef: any) {
 			GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades],
 		);
 	}
+	for (let i in connect) {
+		connecting.push(getBranchPara(connect[i][0][0], connect[i][0][1], connect[i][1][0], connect[i][1][1]));
+	}
 	return (
 		<>
-			{mapping[0].map((g) => (
+			{mapping[0].map((g) => (g.unlocked() ?
 				<>
 					<GardenNode
 						x={g.pos[0]}
 						y={g.pos[1]}
 						canvasRef={canvasRef}
 						onClick={function () {
+							if(player.garden.focusNode.isG && player.garden.focusNode.key == g.key) Garden.buyGenerator(g.key);
 							player.garden.focusNode = g;
 						}}
 					>
@@ -78,8 +139,23 @@ function simulateText(canvasRef: any) {
 						</span>
 					</GardenNode>
 				</>
+			:
+				<>
+					<GardenNode
+						x={g.pos[0]}
+						y={g.pos[1]}
+						canvasRef={canvasRef}
+						nodestyle={{filter: 'brightness(0.75)'}}
+					>
+						<h2 style="position: relative; bottom: -80px">???</h2><h3 style="position: absolute; top: -30px">x{formatWhole(player.garden.generators[g.key as unknown as keyof typeof GardenGenUpgs.generators])}</h3>
+						<br />
+						<span style="position: relative; bottom: -60px">
+							Not unlocked yet
+						</span>
+					</GardenNode>
+				</>
 			))}
-			{mapping[1].map((g) => (
+			{mapping[1].map((g) => (g.unlocked() ?
 				<>
 					<GardenNode
 						x={g.pos[0]}
@@ -87,15 +163,43 @@ function simulateText(canvasRef: any) {
 						canvasRef={canvasRef}
 						mini={true}
 						onClick={function () {
+							if(player.garden.focusNode.isU && player.garden.focusNode.key == g.key) Garden.buyUpgrade(g.key);
 							player.garden.focusNode = g;
 						}}
+						nodestyle={{filter: 'brightness(' + (player.garden.upgrades[g.key] ? 1 : 0.75) + ')'}}
 					>
 						<h3 style="position: relative; bottom: -60px">{g.name}</h3>
 						<br />
 						<span style="position: relative; bottom: -40px">{format(g.cost)} Idea</span>
 					</GardenNode>
 				</>
+			:
+				<>
+					<GardenNode
+						x={g.pos[0]}
+						y={g.pos[1]}
+						canvasRef={canvasRef}
+						mini={true}
+						nodestyle={{filter: 'brightness(0.75)'}}
+					>
+						<h3 style="position: relative; bottom: -60px">???</h3>
+						<br />
+						<span style="position: relative; bottom: -40px">Not unlocked yet</span>
+					</GardenNode>
+				</>
 			))}
+			{connecting.map((c) => (true ?
+				<>
+					<GardenConnect
+						x={c.cx}
+						y={c.cy}
+						canvasRef={canvasRef}
+						rotate={c.deg}
+						length={c.length}
+					>
+					</GardenConnect>
+				</>
+			: <></>))}
 		</>
 	);
 }
@@ -137,6 +241,27 @@ export default defineComponent({
 								</GardenNode>
 							</>
 						)}
+					</div>
+				</div>
+				<div
+					class={'focus_box'}>
+					<div style="position: relative; width: 100%; height: 100%">
+						<h4 style="position: absolute; top: 4px; left: 4px">{player.garden.focusNode.name}</h4>
+						<h5 style="position: absolute; top: 4px; right: 4px">
+							{(player.garden.focusNode.isU ?? false) ? format(player.garden.focusNode.cost) : format(Garden.generatorCost(player.garden.focusNode.key as keyof typeof GardenGenUpgs.generators))} Idea
+						</h5>
+						<br/><br/>
+						{
+							(player.garden.focusNode.isG ?? false) ?
+								<>
+									Produce {format(Garden.generatorIdea(player.garden.focusNode.key as keyof typeof GardenGenUpgs.generators))} Idea<br/>
+									Produce {format(Garden.generatorEntropy(player.garden.focusNode.key as keyof typeof GardenGenUpgs.generators))} Entropy<br/>
+								</>
+							:
+								<>
+									Improve {GardenGenUpgs.generators[player.garden.focusNode.effect.key].name} by x{format(player.garden.focusNode.effect.mult)}<br/>
+								</>
+						}
 					</div>
 				</div>
 			</>
