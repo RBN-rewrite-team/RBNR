@@ -193,6 +193,9 @@ export const Y_SEQ = {
 				gain.mul(diff),
 			);
 		}
+		if (player.upgrades['7c7q'] && player.hydra.deduceOrdinal[0].gte('eee9')) {
+			player.challenges[1][6] = new Decimal(1);
+		}
 	},
 	u627effect(): Decimal {
 		let base = player.hydra.deduceOrdinal[1].clampMin(1).log10().div(2);
