@@ -298,10 +298,11 @@ export const Analysis = {
 export type GardenGenerator = {
 	key: number;
 	pos: [number, number];
+	name: string;
 	cost: Decimal;
 	idea: Decimal;
 	entropy: Decimal;
-	unlocked: boolean;
+	unlocked(): boolean;
 };
 
 export type GardenUpgradeEffect = {
@@ -311,13 +312,13 @@ export type GardenUpgradeEffect = {
 
 export type GardenUpgrade = {
 	key: number;
+	name: string;
 	pos: [number, number];
 	cost: Decimal;
 	effect: GardenUpgradeEffect;
-	unlocked: boolean;
+	unlocked(): boolean;
 };
-
-export const Garden = {
+export const GardenGenUpgs = {
 	generators: {
 		0: {
 			key: 0,
@@ -328,6 +329,8 @@ export const Garden = {
 			entropy: new Decimal(1e-12),
 			unlocked: () => true,
 		},
+	} satisfies {
+		[key in any]: GardenGenerator;
 	},
 	upgrades: {
 		0: {
@@ -339,62 +342,67 @@ export const Garden = {
 				key: 0,
 				mult: new Decimal(2),
 			},
-			unlocked: () => Garden.boughtGeneratorReach(0, new Decimal(1)),
+			unlocked(): boolean {
+				return Garden.boughtGeneratorReach(0, new Decimal(1));
+			},
 		},
+	} satisfies {
+		[key in any]: GardenUpgrade;
 	},
-	boughtGenerator(key: number) {
+} as const;
+export const Garden = {
+	boughtGenerator(key: keyof typeof GardenGenUpgs.generators) {
 		return player.garden.generators[key];
 	},
-	boughtGeneratorReach(key: number, least: Decimal) {
+	boughtGeneratorReach(key: keyof typeof GardenGenUpgs.generators, least: Decimal): boolean {
 		return Garden.boughtGenerator(key).gte(least.sub(1e-9));
 	},
-	boughtUpgrade(key: number) {
-		return player.garden.upgrades.includes({
-			key: key,
-		});
+	boughtUpgrade(key: keyof typeof GardenGenUpgs.upgrades) {
+		return player.garden.upgrades.filter((x) => x.key == key).length >= 1;
 	},
 	entropyEffect() {
 		let base = player.garden.entropy.add(1).ln().add(1);
 		return base;
 	},
-	generatorCost(key) {
-		let base = Garden.generators[key].cost;
+	generatorCost(key: keyof typeof GardenGenUpgs.generators) {
+		let base = GardenGenUpgs.generators[key].cost;
 		let scale = new Decimal(1.1);
 		let bought = Garden.boughtGenerator(key);
 		return base.mul(scale.pow(bought));
 	},
-	generatorIdea(key) {
-		let base = Garden.boughtGenerator(key).mul(Garden.generators[key].idea);
-		for(let i in player.garden.upgrades)
-		{
+	generatorIdea(key: keyof typeof GardenGenUpgs.generators) {
+		let base = Garden.boughtGenerator(key).mul(GardenGenUpgs.generators[key].idea);
+		for (let i in player.garden.upgrades) {
 			let u = player.garden.upgrades[i].key;
-			if(Garden.upgrades[u].effect.key == key) base = base.mul(Garden.upgrades[u].effect.mult);
+			if (GardenGenUpgs.upgrades[u].effect.key == key)
+				base = base.mul(GardenGenUpgs.upgrades[u].effect.mult);
 		}
 		return base;
 	},
-	generatorEntropy(key) {
-		let base = Garden.boughtGenerator(key).mul(Garden.generators[key].entropy);
+	generatorEntropy(key: keyof typeof GardenGenUpgs.generators) {
+		let base = Garden.boughtGenerator(key).mul(GardenGenUpgs.generators[key].entropy);
 		return base;
 	},
 	ideaYield() {
 		let base = new Decimal(0);
-		for(let i in player.garden.generators)
-		{
-			base = base.add(Garden.generatorIdea(i));
+		for (let i in player.garden.generators) {
+			base = base.add(
+				Garden.generatorIdea(i as unknown as keyof typeof player.garden.generators),
+			);
 		}
 		return base;
 	},
 	entropyYield() {
 		let base = new Decimal(0);
-		for(let i in player.garden.generators)
-		{
-			base = base.add(Garden.generatorEntropy(i));
+		for (let i in player.garden.generators) {
+			base = base.add(
+				Garden.generatorEntropy(i as unknown as keyof typeof player.garden.generators),
+			);
 		}
 		return base;
 	},
-	gardenLoop(diff) {
-		if(player.garden.openSimulate)
-		{
+	gardenLoop(diff: number) {
+		if (player.garden.openSimulate) {
 			let iY = Garden.ideaYield().mul(diff);
 			let eY = Garden.entropyYield().mul(diff);
 			player.garden.idea = player.garden.idea.add(iY);
@@ -416,15 +424,18 @@ export const Garden = {
 			inspiration: new Decimal(0),
 			totalInspiration: new Decimal(0),
 			bestInspiration: new Decimal(0),
-			generators: {},
-			upgrades: [],
+			generators: {} as {
+				[key in keyof typeof GardenGenUpgs.generators]: Decimal;
+			},
+			upgrades: [] as {
+				key: keyof typeof GardenGenUpgs.upgrades;
+			}[],
 			openSimulate: false,
 			lastIG: Date.now(),
 			focusNode: null as any,
 		};
-		for(let i in Garden.generators)
-		{
-			base.generators[i] = new Decimal(0);
+		for (let i in GardenGenUpgs.generators) {
+			base.generators[i as unknown as keyof typeof GardenGenUpgs.generators] = new Decimal(0);
 		}
 		return base;
 	},
