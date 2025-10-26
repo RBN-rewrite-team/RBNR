@@ -21,11 +21,6 @@ export async function runAutomator() {
 				nodeclarecheck: boolean = false;
 			})(parentEnvironment),
 		);
-
-		ModalService.show({
-			title: '运行成功',
-			content: '运行结果: ' + formatResult(result),
-		});
 	} catch (e) {
 		if (e instanceof RangeError && e.message.includes('call stack size')) {
 			player.achievements.push(-5);
