@@ -303,6 +303,7 @@ export type GardenGenerator = {
 	idea: Decimal;
 	entropy: Decimal;
 	unlocked(): boolean;
+	connect: number[];
 };
 
 export type GardenUpgradeEffect = {
@@ -317,6 +318,7 @@ export type GardenUpgrade = {
 	cost: Decimal;
 	effect: GardenUpgradeEffect;
 	unlocked(): boolean;
+	connect: [number[], number[]];
 };
 export const GardenGenUpgs = {
 	generators: {
@@ -328,6 +330,17 @@ export const GardenGenUpgs = {
 			idea: new Decimal(5e-8),
 			entropy: new Decimal(1e-12),
 			unlocked: () => true,
+			connect: [[], []],
+		},
+		1: {
+			key: 1,
+			name: 'Quark',
+			pos: [-50, -350],
+			cost: new Decimal(1e-5),
+			idea: new Decimal(6e-7),
+			entropy: new Decimal(1e-10),
+			unlocked: () => Garden.boughtUpgrade(0) && Garden.boughtUpgrade(1),
+			connect: [[], [0, 1]],
 		},
 	} satisfies {
 		[key in any]: GardenGenerator;
@@ -345,6 +358,35 @@ export const GardenGenUpgs = {
 			unlocked(): boolean {
 				return Garden.boughtGeneratorReach(0, new Decimal(1));
 			},
+			connect: [[0], []],
+		},
+		1: {
+			key: 1,
+			name: 'Membrane',
+			pos: [200, -250],
+			cost: new Decimal(1e-5),
+			effect: {
+				key: 0,
+				mult: new Decimal(2),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(0);
+			},
+			connect: [[], [0]],
+		},
+		2: {
+			key: 2,
+			name: 'M theory',
+			pos: [300, -450],
+			cost: new Decimal(0.1),
+			effect: {
+				key: 0,
+				mult: new Decimal(100),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(1);
+			},
+			connect: [[], [1]],
 		},
 	} satisfies {
 		[key in any]: GardenUpgrade;
