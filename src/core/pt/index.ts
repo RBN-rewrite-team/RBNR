@@ -304,17 +304,16 @@ export type GardenGenerator = {
 	entropy: Decimal;
 	unlocked(): boolean;
 	connect: [number[], number[]];
-	isG?: boolean;
+	isG: boolean;
 };
 
 export type GardenUpgradeEffect = {
-	isG: boolean;
 	key: number;
 	mult: Decimal;
 };
 
 export type GardenUpgrade = {
-	isG: boolean;
+	isU: boolean;
 	key: number;
 	name: string;
 	pos: [number, number];
@@ -324,10 +323,10 @@ export type GardenUpgrade = {
 	connect: [number[], number[]];
 };
 
-export function isGardenUpgrade(x: GardenUpgrade | GardenGenerator): boolean {
-	return 'isU' in x && (x.isU ?? true);
+export function isGardenUpgrade(x: GardenUpgrade | GardenGenerator): x is GardenUpgrade {
+	return !isGardenGenerator(x);
 }
-export function isGardenGenerator(x: GardenUpgrade | GardenGenerator): boolean {
+export function isGardenGenerator(x: GardenUpgrade | GardenGenerator): x is GardenGenerator {
 	return 'isG' in x && (x.isG ?? true);
 }
 export const GardenGenUpgs = {
