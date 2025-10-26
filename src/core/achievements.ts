@@ -6,6 +6,8 @@ import { temp } from './temp-data';
 import { DC } from './constants';
 import { getInterval } from './stats';
 import { QolUpgrades } from './exponention/qolupg';
+import { Ordinal } from '@/lib/ordinal';
+import { feature } from './global';
 
 // interface IAchievement {
 // 	title: string;
@@ -437,6 +439,17 @@ export const achievements = [
 			},
 
 			id: 40,
+		},
+		{
+			title: 'LAO',
+			desc: '获得ω^ω序数',
+			satisfied() {
+				return (
+					player.stat.chapter >= 5 ||
+					player.ordinal.number.gte(new Ordinal('w^w').toDecimal(feature.Ordinal.base()))
+				);
+			},
+			id: 41,
 		},
 	],
 	[
