@@ -27,9 +27,9 @@
 
 .node_conn {
 	position: absolute;
-	border: 2px solid var(--color);
+	border: 1px solid var(--color);
 	width: 1px;
-	height: 1px;
+	height: 0px;
 	z-index: 0;
     background: var(--color);
     transition: none;

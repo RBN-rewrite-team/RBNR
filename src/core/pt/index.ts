@@ -402,6 +402,51 @@ export const GardenGenUpgs = {
 			},
 			connect: [[], [1]],
 		},
+		3: {
+			isG: !true,
+			key: 3,
+			name: 'Gluon',
+			pos: [100, -550],
+			cost: new Decimal(5e-4),
+			effect: {
+				key: 1,
+				mult: new Decimal(2),
+			},
+			unlocked(): boolean {
+				return Garden.boughtGeneratorReach(1, new Decimal(1));
+			},
+			connect: [[1], []],
+		},
+		4: {
+			isG: !true,
+			key: 4,
+			name: 'Quark Confinement',
+			pos: [-150, -500],
+			cost: new Decimal(0.006),
+			effect: {
+				key: 1,
+				mult: new Decimal(3),
+			},
+			unlocked(): boolean {
+				return Garden.boughtGeneratorReach(1, new Decimal(1));
+			},
+			connect: [[1], []],
+		},
+		5: {
+			isG: !true,
+			key: 5,
+			name: 'Neutrino',
+			pos: [-75, -600],
+			cost: new Decimal(0.009),
+			effect: {
+				key: 1,
+				mult: new Decimal(2.5),
+			},
+			unlocked(): boolean {
+				return Garden.boughtGeneratorReach(1, new Decimal(1)) && Garden.boughtUpgrade(4);
+			},
+			connect: [[1], [4]],
+		},
 	} satisfies {
 		[key in any]: GardenUpgrade;
 	},
