@@ -9,6 +9,7 @@ import { Y_SEQ } from '../post-nonrec/y-seq';
 import ModalService from '@/utils/Modal';
 import { isTester } from '../save/testing';
 import { predictableRandom } from '@/utils/algorithm.ts';
+import { deepCopy } from '../save';
 
 export function dayOfWeek(): [number, string] {
 	const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
@@ -28,10 +29,20 @@ const resetBuyables = [
 	'611','612','613','614','61R','62R',
 	'B6R11','B6R12','B6R13','B6R14','B6R15',
 ] as const satisfies (keyof typeof player.buyables)[];
-export function PTreset() {
+export function PTreset(fromPT = false) {
+	const backup = deepCopy(player.nonrecu.theories);
 	player.nonrecu = NON_RECURSIVE.playerData();
+	if (player.upgrades['7t7q']) {
+		player.nonrecu.theories = backup;
+	}
 	player.hydra = Hydra.playerData();
-	player.challenges[1] = [DC.D_0, DC.D_0, DC.D_0, DC.D_0, DC.D_0, DC.D_0, DC.D_0];
+	if (!player.upgrades['7c1q']) player.challenges[1][0] = DC.D_0;
+	if (!player.upgrades['7c2q']) player.challenges[1][1] = DC.D_0;
+	if (!player.upgrades['7c3q']) player.challenges[1][2] = DC.D_0;
+	if (!player.upgrades['7c4q']) player.challenges[1][3] = DC.D_0;
+	if (!player.upgrades['7c5q']) player.challenges[1][4] = DC.D_0;
+	if (!player.upgrades['7c6q']) player.challenges[1][5] = DC.D_0;
+	if (!player.upgrades['7c7q']) player.challenges[1][6] = DC.D_0;
 	player.challengein = [-1, -1];
 	for (const key of resetUpgrades) {
 		player.upgrades[key] = false;
@@ -109,7 +120,7 @@ export function realPTreset() {
 								content: 'NRC7挑战次数至少大于1',
 							});
 						} else if (player.nonrecu.studies_bought.includes(30)) {
-							PTreset();
+							PTreset(true);
 							player.pt.resetTimes = player.pt.resetTimes.add(1);
 							if (player.milestones.pt_3) {
 								player.pt.qolPointsCrystal = player.pt.qolPointsCrystal.add(1);
@@ -283,11 +294,11 @@ export const Analysis = {
 export type GardenGeneratorSave = {
 	key: number;
 	value: Decimal;
-}
+};
 
 export type GardenUpgradeSave = {
 	key: number;
-}
+};
 
 export type GardenGenerator = {
 	key: number;
@@ -296,12 +307,12 @@ export type GardenGenerator = {
 	idea: Decimal;
 	entropy: Decimal;
 	unlocked: boolean;
-}
+};
 
 export type GardenUpgradeEffect = {
 	key: number;
 	mult: Decimal;
-}
+};
 
 export type GardenUpgrade = {
 	key: number;
@@ -309,11 +320,11 @@ export type GardenUpgrade = {
 	cost: Decimal;
 	effect: GardenUpgradeEffect;
 	unlocked: boolean;
-}
+};
 
 export const Garden = {
 	generators: {
-		'bowstring': {
+		bowstring: {
 			key: 0,
 			pos: [0, 0],
 			cost: new Decimal(2e-6),
@@ -323,7 +334,7 @@ export const Garden = {
 		},
 	},
 	upgrades: {
-		'bowstringVibrate': {
+		bowstringVibrate: {
 			key: 0,
 			pos: [0, -100],
 			cost: new Decimal(1e-6),
@@ -335,7 +346,11 @@ export const Garden = {
 		},
 	},
 	boughtGenerator(key: number, least: Decimal) {
-		return player.garden.generators.filter((item) => {item.key == key && item.value.gte(least.sub(1e-9))}).length >= 1;
+		return (
+			player.garden.generators.filter((item) => {
+				item.key == key && item.value.gte(least.sub(1e-9));
+			}).length >= 1
+		);
 	},
 	boughtUpgrade(key: number) {
 		return player.garden.upgrades.includes({
