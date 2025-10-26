@@ -84,6 +84,7 @@ function unlockedList(): string {
 	font-weight: bold;
 	font-size: 16px;
 	position: relative;
+	background-color: rgba(0, 255, 255, 0.25)
 }
 .pt_font {
 	position: absolute;
@@ -93,21 +94,6 @@ function unlockedList(): string {
 }
 
 .pt_resetable {
-	animation: cyanae 10s ease-in-out infinite;
-}
-
-@keyframes cyanae {
-	0% {
-		background-color: rgba(0, 255, 255, 0.375);
-		transform: rotateZ(10deg);
-	}
-	50% {
-		background-color: rgba(0, 255, 255, 0.5);
-		transform: rotateZ(-10deg);
-	}
-	100% {
-		background-color: rgba(0, 255, 255, 0.375);
-		transform: rotateZ(10deg);
-	}
+	background: rgba(0, 255, 255, 0.5)
 }
 </style>
