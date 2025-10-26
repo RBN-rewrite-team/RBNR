@@ -164,6 +164,7 @@ function simulateText(canvasRef: any) {
 									Garden.generatorCost(
 										g.key as keyof typeof GardenGenUpgs.generators,
 									),
+									6,
 								)}{' '}
 								Idea
 							</span>
@@ -218,7 +219,7 @@ function simulateText(canvasRef: any) {
 							<h3 style="position: relative; bottom: -60px">{g.name}</h3>
 							<br />
 							<span style="position: relative; bottom: -40px">
-								{format(g.cost)} Idea
+								{format(g.cost, 6)} Idea
 							</span>
 						</GardenNode>
 					</>
