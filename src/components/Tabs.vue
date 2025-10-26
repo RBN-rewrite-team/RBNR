@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, type Component } from 'vue';
 import { player } from '../core/global.ts';
 
 import Successor from './tabs/group-1/Successor.vue';
@@ -41,7 +41,9 @@ import AnalysisMilestones from './tabs/pt/AnalysisMilestones.vue';
 import SingularityGenerator from './tabs/group-1/SingularityGenerator.vue';
 import Garden from './tabs/garden/Garden.tsx';
 
-const tabComponents = {
+const tabComponents: {
+  [key: string]: Component | () => Component
+} = {
   0: Successor,
   1: Settings,
   2: Addition,
@@ -79,7 +81,7 @@ const tabComponents = {
   300: SaveBank,
   500: DeveloperMode,
   1225: MiniGame,
-} as const;
+};
 
 const currentComponent = computed(() => {
   const componentGetter = tabComponents[player.currentTab as keyof typeof tabComponents];
