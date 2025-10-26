@@ -420,6 +420,7 @@ export const Garden = {
 			upgrades: [],
 			openSimulate: false,
 			lastIG: Date.now(),
+			focusNode: null as any,
 		};
 		for(let i in Garden.generators)
 		{

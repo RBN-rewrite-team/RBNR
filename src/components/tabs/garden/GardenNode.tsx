@@ -22,6 +22,9 @@ export default defineComponent({
 		onClick: {
 			type: Function as PropType<(e: Event) => any>,
 		},
+		mini: {
+			type: Boolean as PropType<boolean>,
+		},
 	},
 	setup(props, ctx) {
 		return () => (
@@ -29,7 +32,7 @@ export default defineComponent({
 				<div
 					class="node"
 					style={{
-						...getNodeStyle(props.x, props.y, props.canvasRef),
+						...getNodeStyle(props.x, props.y, props.canvasRef, props.mini),
 						...props.nodestyle,
 					}}
 					onClick={props.onClick}

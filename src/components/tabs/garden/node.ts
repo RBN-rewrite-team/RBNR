@@ -5,13 +5,16 @@ export function getNodeStyle(
 	relx: number,
 	rely: number,
 	canvasRef: Ref<HTMLDivElement | null>,
+	mini: boolean,
 ): CSSProperties {
 	const obj = canvasRef.value;
 	if (!obj) return {};
 	let width = obj.offsetWidth;
 	let height = obj.offsetHeight;
-	return {
-		top: height * 0.5 + rely - temp.garden.focus_pos[1] + 'px',
-		left: width * 0.5 + relx - temp.garden.focus_pos[0] + 'px',
+	let base = {
+		top: height * 0.5 + rely + (mini ? 25 : 0) - temp.garden.focus_pos[1] + 'px',
+		left: width * 0.5 + relx + (mini ? 25 : 0) - temp.garden.focus_pos[0] + 'px',
 	};
+	if(mini) base.width = '45px', base.height = '45px', base['border-radius'] = '2px';
+	return base;
 }

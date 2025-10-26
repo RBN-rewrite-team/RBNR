@@ -48,14 +48,16 @@ function simulateText(canvasRef: any) {
 		mapping[1].push(Garden.upgrades[i]);
 	}
 	return <>{mapping[0].map(g => <>
-		<GardenNode x={g.pos[0]} y={g.pos[1]} canvasRef={canvasRef}>
-			{g.name}
-			<br/>{format(Garden.generatorCost(g.key))} Idea
+		<GardenNode x={g.pos[0]} y={g.pos[1]} canvasRef={canvasRef}
+		onclick={function(){player.garden.focusNode = g;}}>
+			<h2 style="position: relative; bottom: -80px">{g.name}</h2>
+			<br/><span style="position: relative; bottom: -60px">{format(Garden.generatorCost(g.key))} Idea</span>
 		</GardenNode>
 	</>)}{mapping[1].map(g => <>
-		<GardenNode x={g.pos[0]} y={g.pos[1]} canvasRef={canvasRef}>
-			{g.name}
-			<br/>{format(g.cost)} Idea
+		<GardenNode x={g.pos[0]} y={g.pos[1]} canvasRef={canvasRef} mini={true}
+		onclick={function(){player.garden.focusNode = g;}}>
+			<h3 style="position: relative; bottom: -60px">{g.name}</h3>
+			<br/><span style="position: relative; bottom: -40px">{format(g.cost)} Idea</span>
 		</GardenNode>
 	</>)}</>;
 }
