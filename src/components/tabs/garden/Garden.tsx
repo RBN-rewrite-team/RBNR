@@ -255,7 +255,7 @@ function simulateText(canvasRef: any) {
 export default defineComponent({
 	name: 'Garden',
 	setup(props, ctx) {
-		if (!isTester()) return () => <></>;
+		if (!player.options.gammaTest) return () => <></>;
 
 		const canvasRef = ref<HTMLDivElement | null>(null);
 
