@@ -16,7 +16,7 @@ import { isDeveloper } from '@/core/save/testing.ts';
 	<div>
 		<div class="resources" style="font-size: 20px" id="resources">
 			<div class="background">
-				<div v-if="player.currentTab === 31 && isDeveloper()">
+				<div v-if="player.currentTab === 31">
 					<div class="resource" style="margin-left: 15px">
 						<div style="font-weight: bold; color: yellow">
 							想法&nbsp;
