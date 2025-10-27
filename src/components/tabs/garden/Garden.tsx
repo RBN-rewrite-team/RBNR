@@ -1,5 +1,5 @@
 import { player } from '@/core/save';
-import { isDeveloper } from '@/core/save/testing';
+import { isDeveloper, isTester } from '@/core/save/testing';
 import { temp } from '@/core/temp-data';
 import { defineComponent, ref } from 'vue';
 import { getNodeStyle } from './node';
@@ -255,7 +255,7 @@ function simulateText(canvasRef: any) {
 export default defineComponent({
 	name: 'Garden',
 	setup(props, ctx) {
-		if (!isDeveloper()) return () => <></>;
+		if (!isTester()) return () => <></>;
 
 		const canvasRef = ref<HTMLDivElement | null>(null);
 

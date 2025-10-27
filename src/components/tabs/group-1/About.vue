@@ -5,7 +5,7 @@ import { player } from '@/core/save';
 	<div class="main">
 		<h1 v-if="player.pt.resetTimes.lt(1)">大数之路重制版</h1>
 		<h1 v-else>大数之路<span style="color: red">放置版</span></h1>
-		版本: Retribution / PT Gamma (v0.7 Gamma)<br />
+		版本: Garden Beta (v0.7.1 Beta)<br />
 		<br />
 		<div style="position: relative; width: 100%">
 			<div

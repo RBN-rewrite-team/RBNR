@@ -23,7 +23,7 @@ import { menus } from './menus';
 					>
 						{{ player.pt.resetTimes.gte(1) ? '大数之路放置版' : '大数之路重制版' }}
 					</div>
-					<div style="font-size: 15px">Retribution / PT Gamma</div>
+					<div style="font-size: 15px">Garden Beta</div>
 				</div>
 			</div>
 		</div>
