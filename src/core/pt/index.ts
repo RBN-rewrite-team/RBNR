@@ -353,6 +353,28 @@ export const GardenGenUpgs = {
 			unlocked: (): boolean => Garden.boughtUpgrade(0) && Garden.boughtUpgrade(1),
 			connect: [[], [0, 1]],
 		},
+		2: {
+			isG: true,
+			key: 2,
+			name: 'Nucleon',
+			pos: [50, -750],
+			cost: new Decimal(0.04),
+			idea: new Decimal(4e-4),
+			entropy: new Decimal(3e-10),
+			unlocked: (): boolean => Garden.boughtUpgrade(3),
+			connect: [[], [3]],
+		},
+		3: {
+			isG: true,
+			key: 3,
+			name: 'Nucleon',
+			pos: [-200, -1050],
+			cost: new Decimal(1),
+			idea: new Decimal(0.025),
+			entropy: new Decimal(2e-9),
+			unlocked: (): boolean => Garden.boughtUpgrade(6) && Garden.boughtUpgrade(9),
+			connect: [[], [6, 9]],
+		},
 	} satisfies {
 		[key in any]: GardenGenerator;
 	},
@@ -446,6 +468,66 @@ export const GardenGenUpgs = {
 				return Garden.boughtGeneratorReach(1, new Decimal(1)) && Garden.boughtUpgrade(4);
 			},
 			connect: [[1], [4]],
+		},
+		6: {
+			isG: !true,
+			key: 6,
+			name: 'Higgs Boson',
+			pos: [-250, -700],
+			cost: new Decimal(1),
+			effect: {
+				key: 1,
+				mult: new Decimal(10),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(5) && Garden.boughtGeneratorReach(1, new Decimal(50));
+			},
+			connect: [[], [5]],
+		},
+		7: {
+			isG: !true,
+			key: 7,
+			name: 'Electron',
+			pos: [-100, -825],
+			cost: new Decimal(0.05),
+			effect: {
+				key: 2,
+				mult: new Decimal(1.25),
+			},
+			unlocked(): boolean {
+				return Garden.boughtGeneratorReach(2, new Decimal(1));
+			},
+			connect: [[2], []],
+		},
+		8: {
+			isG: !true,
+			key: 8,
+			name: 'Strong Interaction Force',
+			pos: [75, -900],
+			cost: new Decimal(0.25),
+			effect: {
+				key: 2,
+				mult: new Decimal(1.5),
+			},
+			unlocked(): boolean {
+				return Garden.boughtGeneratorReach(2, new Decimal(1));
+			},
+			connect: [[2], []],
+		},
+		9: {
+			isG: !true,
+			key: 9,
+			name: 'Weak Interaction Force',
+			pos: [-25, -1000],
+			cost: new Decimal(0.75),
+			effect: {
+				key: 2,
+				mult: new Decimal(1.25),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(7) && Garden.boughtUpgrade(8);
+			},
+			connect: [[], [7, 8]],
 		},
 	} satisfies {
 		[key in any]: GardenUpgrade;

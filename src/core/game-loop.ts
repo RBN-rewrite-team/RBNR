@@ -409,7 +409,7 @@ export function simulate(diff: number) {
 		wellOrderingLoop(pre_cardinal_diff / 1000);
 	}
 	
-	Garden.gardenLoop(diff / 1000);
+	Garden.gardenLoop(realtime_diff / 1000);
 
 	Logarithm.astronomerUpdate();
 	updateHighestStat();
