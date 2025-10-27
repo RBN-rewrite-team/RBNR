@@ -266,7 +266,7 @@ export default defineComponent({
 		const canvasRef = ref<HTMLDivElement | null>(null);
 
 		return () => (
-			<>
+			<><div style="position: absolute; width: 100%; height: 100%; overflow: hidden">
 				<div
 					class={'main'}
 					onMousedown={onMousedown}
@@ -350,7 +350,7 @@ export default defineComponent({
 							</>
 						)}
 					</div>
-				</div>
+				</div></div>
 			</>
 		);
 	},
