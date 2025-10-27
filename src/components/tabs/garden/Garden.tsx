@@ -149,8 +149,8 @@ function simulateText(canvasRef: any) {
 								player.garden.focusNode = g;
 							}}
 						>
-							<h2 style="position: relative; bottom: -80px">{g.name}</h2>
-							<h3 style="position: absolute; top: -30px">
+							<h2 style="position: absolute; left: 50%; bottom: -90px; transform: translate(-50%, -50%)">{g.name}</h2>
+							<h3 style="position: absolute; top: -60px; left: -60px">
 								x
 								{formatWhole(
 									player.garden.generators[
@@ -158,8 +158,7 @@ function simulateText(canvasRef: any) {
 									],
 								)}
 							</h3>
-							<br />
-							<span style="position: relative; bottom: -60px">
+							<span style="position: absolute; left: 50%; bottom: -100px; transform: translate(-50%, -50%)">
 								{format(
 									Garden.generatorCost(
 										g.key as keyof typeof GardenGenUpgs.generators,
@@ -178,17 +177,7 @@ function simulateText(canvasRef: any) {
 							canvasRef={canvasRef}
 							nodestyle={{ filter: 'brightness(0.75)' }}
 						>
-							<h2 style="position: relative; bottom: -80px">???</h2>
-							<h3 style="position: absolute; top: -30px">
-								x
-								{formatWhole(
-									player.garden.generators[
-										g.key as unknown as keyof typeof GardenGenUpgs.generators
-									],
-								)}
-							</h3>
-							<br />
-							<span style="position: relative; bottom: -60px">Not unlocked yet</span>
+							<h2 style="position: absolute; left: 50%; bottom: -90px; transform: translate(-50%, -50%)">???</h2>
 						</GardenNode>
 					</>
 				),
@@ -216,11 +205,18 @@ function simulateText(canvasRef: any) {
 									')',
 							}}
 						>
-							<h3 style="position: relative; bottom: -60px">{g.name}</h3>
-							<br />
-							<span style="position: relative; bottom: -40px">
-								{format(g.cost, 6)} Idea
-							</span>
+							<h3 style="position: absolute; left: 50%; bottom: -60px; transform: translate(-50%, -50%)">{g.name}</h3>
+							{
+								!Garden.boughtUpgrade(g.key as keyof typeof GardenGenUpgs.upgrades) ?
+								<>
+									<span style="position: absolute; left: 50%; bottom: -73px; transform: translate(-50%, -50%)">
+										{format(Garden.upgradeCost(
+											g.key as keyof typeof GardenGenUpgs.upgrades
+										), 6)} Idea
+									</span>
+								</>
+								: <></>
+							}
 						</GardenNode>
 					</>
 				) : (
@@ -232,9 +228,7 @@ function simulateText(canvasRef: any) {
 							mini={true}
 							nodestyle={{ filter: 'brightness(0.75)' }}
 						>
-							<h3 style="position: relative; bottom: -60px">???</h3>
-							<br />
-							<span style="position: relative; bottom: -40px">Not unlocked yet</span>
+							<h3 style="position: absolute; left: 50%; bottom: -60px; transform: translate(-50%, -50%)">???</h3>
 						</GardenNode>
 					</>
 				),
@@ -310,7 +304,12 @@ export default defineComponent({
 												.key as keyof typeof GardenGenUpgs.generators,
 										),
 									)
-								: format(player.garden.focusNode.cost)}{' '}
+								: format(
+										Garden.upgradeCost(
+											player.garden.focusNode
+												.key as keyof typeof GardenGenUpgs.upgrades,
+										),
+									)}{' '}
 							Idea
 						</h5>
 						<br />

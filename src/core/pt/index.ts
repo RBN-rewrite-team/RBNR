@@ -367,13 +367,35 @@ export const GardenGenUpgs = {
 		3: {
 			isG: true,
 			key: 3,
-			name: 'Nucleon',
+			name: 'Atom',
 			pos: [-200, -1050],
 			cost: new Decimal(1),
 			idea: new Decimal(0.025),
 			entropy: new Decimal(2e-9),
 			unlocked: (): boolean => Garden.boughtUpgrade(6) && Garden.boughtUpgrade(9),
 			connect: [[], [6, 9]],
+		},
+		4: {
+			isG: true,
+			key: 4,
+			name: 'Molecule',
+			pos: [25, -1250],
+			cost: new Decimal(500),
+			idea: new Decimal(1),
+			entropy: new Decimal(1e-7),
+			unlocked: (): boolean => Garden.boughtUpgrade(10) && Garden.boughtGeneratorReach(3, new Decimal(50)),
+			connect: [[3], []],
+		},
+		5: {
+			isG: true,
+			key: 5,
+			name: '',
+			pos: [0, -1750],
+			cost: new Decimal(1e6),
+			idea: new Decimal(25000),
+			entropy: new Decimal(1e-4),
+			unlocked: (): boolean => Garden.boughtUpgrade(14) && false, //需要灵感升级
+			connect: [[], [14]],
 		},
 	} satisfies {
 		[key in any]: GardenGenerator;
@@ -420,7 +442,7 @@ export const GardenGenUpgs = {
 				mult: new Decimal(100),
 			},
 			unlocked(): boolean {
-				return Garden.boughtUpgrade(1);
+				return Garden.boughtUpgrade(1) && Garden.boughtGeneratorReach(0, new Decimal(100));
 			},
 			connect: [[], [1]],
 		},
@@ -529,6 +551,201 @@ export const GardenGenUpgs = {
 			},
 			connect: [[], [7, 8]],
 		},
+		10: {
+			isG: !true,
+			key: 10,
+			name: 'Atomic Energy',
+			pos: [0, -1100],
+			cost: new Decimal(5),
+			effect: {
+				key: 3,
+				mult: new Decimal(1.5),
+			},
+			unlocked(): boolean {
+				return Garden.boughtGeneratorReach(3, new Decimal(1));
+			},
+			connect: [[3], []],
+		},
+		11: {
+			isG: !true,
+			key: 11,
+			name: 'Quantum Entanglement',
+			pos: [-300, -1200],
+			cost: new Decimal(100),
+			effect: {
+				key: 3,
+				mult: new Decimal(2),
+			},
+			unlocked(): boolean {
+				return Garden.boughtGeneratorReach(3, new Decimal(1));
+			},
+			connect: [[3], []],
+		},
+		12: {
+			isG: !true,
+			key: 12,
+			name: 'Chemical Bond',
+			pos: [-125, -1300],
+			cost: new Decimal(750),
+			effect: {
+				key: 4,
+				mult: new Decimal(1.5),
+			},
+			unlocked(): boolean {
+				return Garden.boughtGeneratorReach(4, new Decimal(1));
+			},
+			connect: [[4], []],
+		},
+		13: {
+			isG: !true,
+			key: 13,
+			name: 'Quantum Tunneling',
+			pos: [-350, -1350],
+			cost: new Decimal(1500),
+			effect: {
+				key: 3,
+				mult: new Decimal(15),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(11) && Garden.boughtGeneratorReach(3, new Decimal(50));
+			},
+			connect: [[], [11]],
+		},
+		14: {
+			isG: !true,
+			key: 14,
+			name: 'Elements',
+			pos: [-25, -1425],
+			cost: new Decimal(3000),
+			effect: {
+				key: 4,
+				mult: new Decimal(3.75),
+			},
+			unlocked(): boolean {
+				return Garden.boughtGeneratorReach(4, new Decimal(1));
+			},
+			connect: [[4], []],
+		},
+		15: {
+			isG: !true,
+			key: 15,
+			name: 'Elements Period',
+			pos: [125, -1400],
+			cost: new Decimal(4000),
+			effect: {
+				key: 4,
+				mult: new Decimal(2.5),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(14);
+			},
+			connect: [[], [14]],
+		},
+		16: {
+			isG: !true,
+			key: 16,
+			name: 'Ion',
+			pos: [100, -1525],
+			cost: new Decimal(10500),
+			effect: {
+				key: 4,
+				mult: new Decimal(2),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(14);
+			},
+			connect: [[], [14]],
+		},
+		17: {
+			isG: !true,
+			key: 17,
+			name: 'Electron Orbit',
+			pos: [-300, -925],
+			cost: new Decimal(100000),
+			effect: {
+				key: 3,
+				mult: new Decimal(7.5),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(7) && Garden.boughtGeneratorReach(4, new Decimal(1));
+			},
+			connect: [[], [7]],
+		},
+		18: {
+			isG: !true,
+			key: 18,
+			name: 'Atomic Decay',
+			pos: [-350, -1100],
+			cost: new Decimal(250000),
+			effect: {
+				key: 3,
+				mult: new Decimal(2),
+			},
+			unlocked(): boolean {
+				return Garden.boughtGeneratorReach(3, new Decimal(100));
+			},
+			connect: [[3], []],
+		},
+		19: {
+			isG: !true,
+			key: 19,
+			name: 'Radical Atom',
+			pos: [-150, -1500],
+			cost: new Decimal(450000),
+			effect: {
+				key: 4,
+				mult: new Decimal(1.75),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(14) && Garden.boughtGeneratorReach(4, new Decimal(25));
+			},
+			connect: [[], [14]],
+		},
+		20: {
+			isG: !true,
+			key: 20,
+			name: 'Covalent Bond',
+			pos: [-225, -1400],
+			cost: new Decimal(900000),
+			effect: {
+				key: 4,
+				mult: new Decimal(2),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(12) && Garden.boughtGeneratorReach(4, new Decimal(25));
+			},
+			connect: [[], [12]],
+		},
+		21: {
+			isG: !true,
+			key: 21,
+			name: 'Radical Atom',
+			pos: [225, -1600],
+			cost: new Decimal(2e6),
+			effect: {
+				key: 4,
+				mult: new Decimal(4.5),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(16) && Garden.boughtGeneratorReach(4, new Decimal(50));
+			},
+			connect: [[], [16]],
+		},
+		22: {
+			isG: !true,
+			key: 22,
+			name: 'Chemical Energy',
+			pos: [-100, -1625],
+			cost: new Decimal(1e7),
+			effect: {
+				key: 4,
+				mult: new Decimal(3),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(14) && Garden.boughtGeneratorReach(4, new Decimal(50));
+			},
+			connect: [[], [14]],
+		},
 	} satisfies {
 		[key in any]: GardenUpgrade;
 	},
@@ -551,7 +768,11 @@ export const Garden = {
 		let base = GardenGenUpgs.generators[key].cost;
 		let scale = new Decimal(1.1);
 		let bought = Garden.boughtGenerator(key);
-		return base.mul(scale.pow(bought));
+		return base.mul(scale.pow(bought)).mul(Garden.entropyEffect());
+	},
+	upgradeCost(key: keyof typeof GardenGenUpgs.upgrades) {
+		let base = GardenGenUpgs.upgrades[key].cost;
+		return base.mul(Garden.entropyEffect());
 	},
 	generatorIdea(key: keyof typeof GardenGenUpgs.generators) {
 		let base = Garden.boughtGenerator(key).mul(GardenGenUpgs.generators[key].idea);
@@ -597,10 +818,10 @@ export const Garden = {
 	},
 	buyUpgrade(key: keyof typeof GardenGenUpgs.upgrades) {
 		if (
-			player.garden.idea.gte(GardenGenUpgs.upgrades[key].cost) &&
+			player.garden.idea.gte(Garden.upgradeCost(key)) &&
 			!player.garden.upgrades[key]
 		) {
-			player.garden.idea = player.garden.idea.sub(GardenGenUpgs.upgrades[key].cost);
+			player.garden.idea = player.garden.idea.sub(Garden.upgradeCost(key));
 			player.garden.upgrades[key] = true;
 		}
 	},

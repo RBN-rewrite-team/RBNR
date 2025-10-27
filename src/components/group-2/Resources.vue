@@ -30,7 +30,7 @@ import { isDeveloper } from '@/core/save/testing.ts';
 						</div>
 						<br />
 						<div style="font-size: 14px; color: purple">
-							子世界发电机和升级价格x{{ format(Garden.entropyEffect()) }}(没做完)
+							子世界发电机和升级价格x{{ format(Garden.entropyEffect()) }}
 						</div>
 					</div>
 					<div class="resource" style="margin-left: 685px">
