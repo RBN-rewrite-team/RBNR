@@ -52,19 +52,25 @@ function getConnect() {
 	const connectOrigin = [],
 		connect = [];
 	for (const i in GardenGenUpgs.generators) {
-		const pos =
-			GardenGenUpgs.generators[i as unknown as keyof typeof GardenGenUpgs.generators].pos;
-		connectOrigin.push([
-			pos,
-			GardenGenUpgs.generators[i as unknown as keyof typeof GardenGenUpgs.generators].connect,
-		]);
+		if(GardenGenUpgs.generators[i as unknown as keyof typeof GardenGenUpgs.generators].show?.() ?? true)
+		{
+			const pos =
+				GardenGenUpgs.generators[i as unknown as keyof typeof GardenGenUpgs.generators].pos;
+			connectOrigin.push([
+				pos,
+				GardenGenUpgs.generators[i as unknown as keyof typeof GardenGenUpgs.generators].connect,
+			]);
+		}
 	}
 	for (const i in GardenGenUpgs.upgrades) {
-		const pos = GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades].pos;
-		connectOrigin.push([
-			pos,
-			GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades].connect,
-		]);
+		if(GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.generators].show?.() ?? true)
+		{
+			const pos = GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades].pos;
+			connectOrigin.push([
+				pos,
+				GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades].connect,
+			]);
+		}
 	}
 	for (const i in connectOrigin) {
 		const c = connectOrigin[i][1];
@@ -134,7 +140,7 @@ function simulateText(canvasRef: any) {
 	}
 	return (
 		<>
-			{mapping[0].map((g) =>
+			{mapping[0].map((g) => (!(g.show?.() ?? true) ? null : (
 				g.unlocked() ? (
 					<>
 						<GardenNode
@@ -187,9 +193,9 @@ function simulateText(canvasRef: any) {
 							</h2>
 						</GardenNode>
 					</>
-				),
+				))),
 			)}
-			{mapping[1].map((g) =>
+			{mapping[1].map((g) => (!(g.show?.() ?? true) ? null : (
 				g.unlocked() ? (
 					<>
 						<GardenNode
@@ -210,6 +216,8 @@ function simulateText(canvasRef: any) {
 									'brightness(' +
 									(player.garden.upgrades[g.key] ? 1 : 0.75) +
 									')',
+								'border-color':
+									(player.garden.upgrades[g.key] ? 'green' : 'grey'),
 							}}
 						>
 							<h3 style="position: absolute; left: 50%; bottom: -60px; transform: translate(-50%, -50%)">
@@ -246,7 +254,7 @@ function simulateText(canvasRef: any) {
 							</h3>
 						</GardenNode>
 					</>
-				),
+				))),
 			)}
 			{connecting.map((c) =>
 				true ? (

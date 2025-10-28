@@ -296,6 +296,7 @@ export const Analysis = {
 } as const;
 
 export type GardenGenerator = {
+	isG: boolean;
 	key: number;
 	pos: [number, number];
 	name: string;
@@ -304,7 +305,7 @@ export type GardenGenerator = {
 	entropy: Decimal;
 	unlocked(): boolean;
 	connect: [number[], number[]];
-	isG: boolean;
+	show?(): boolean;
 };
 
 export type GardenUpgradeEffect = {
@@ -321,6 +322,7 @@ export type GardenUpgrade = {
 	effect: GardenUpgradeEffect;
 	unlocked(): boolean;
 	connect: [number[], number[]];
+	show?(): boolean;
 };
 
 export function isGardenUpgrade(x: GardenUpgrade | GardenGenerator): x is GardenUpgrade {
