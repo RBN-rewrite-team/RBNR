@@ -721,7 +721,7 @@ export const GardenGenUpgs = {
 		21: {
 			isG: !true,
 			key: 21,
-			name: '自由基原子',
+			name: '自由电荷',
 			pos: [225, -1600],
 			cost: new Decimal(2e6),
 			effect: {
