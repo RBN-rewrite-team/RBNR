@@ -827,6 +827,12 @@ export const Garden = {
 			player.garden.upgrades[key] = true;
 		}
 	},
+	igCD() {
+		return 24 * 3600 * 1000;
+	},
+	nextIgRemain() {
+		return Math.max(Garden.igCD() + player.garden.lastIG - Date.now(), 0);
+	},
 	gardenLoop(diff: number) {
 		if (player.garden.openSimulate) {
 			if (player.garden.generators[0].lt(1)) player.garden.generators[0] = new Decimal(1);

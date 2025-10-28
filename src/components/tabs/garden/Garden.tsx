@@ -271,6 +271,35 @@ function simulateText(canvasRef: any) {
 					<></>
 				),
 			)}
+			{
+			player.garden.bestIdea.gte(1e6)
+				? <>
+					<GardenNode
+						x={-150}
+						y={300}
+						canvasRef={canvasRef}
+						nodestyle={{ 'border-color': 'orange', 'width': '400px', 'border-radius': '0px' }}
+					>
+						<h3>距离下一次可用还有<h2 style="color: orange">{Garden.nextIgRemain()}ms/{Garden.igCD()}ms</h2></h3>
+						没做完
+						<h2 style="position: absolute; left: 50%; bottom: -90px; transform: translate(-50%, -50%); color: orange">
+							灵感迸发
+						</h2>
+					</GardenNode>
+				</>
+				: <>
+					<GardenNode
+						x={-150}
+						y={300}
+						canvasRef={canvasRef}
+						nodestyle={{ 'border-color': 'orange', 'width': '400px', 'border-radius': '0px' }}
+					>
+						<h2 style="position: absolute; left: 50%; bottom: -90px; transform: translate(-50%, -50%); color: orange">
+							???
+						</h2>
+					</GardenNode>
+				</>
+			}
 		</>
 	);
 }
