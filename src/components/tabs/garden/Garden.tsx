@@ -44,7 +44,10 @@ export function onTouchmove(m: TouchEvent) {
 		temp.garden.tpress_last = [m.changedTouches[0].clientX, m.changedTouches[0].clientY];
 	}
 }
-
+export function onWheel(m: WheelEvent) {
+	temp.garden.focus_pos[0] += m.deltaX;
+	temp.garden.focus_pos[1] += m.deltaY;
+}
 function getConnect() {
 	let connectOrigin = [],
 		connect = [];
@@ -149,7 +152,9 @@ function simulateText(canvasRef: any) {
 								player.garden.focusNode = g;
 							}}
 						>
-							<h2 style="position: absolute; left: 50%; bottom: -90px; transform: translate(-50%, -50%)">{g.name}</h2>
+							<h2 style="position: absolute; left: 50%; bottom: -90px; transform: translate(-50%, -50%)">
+								{g.name}
+							</h2>
 							<h3 style="position: absolute; top: -60px; left: -60px">
 								x
 								{formatWhole(
@@ -177,7 +182,9 @@ function simulateText(canvasRef: any) {
 							canvasRef={canvasRef}
 							nodestyle={{ filter: 'brightness(0.75)' }}
 						>
-							<h2 style="position: absolute; left: 50%; bottom: -90px; transform: translate(-50%, -50%)">???</h2>
+							<h2 style="position: absolute; left: 50%; bottom: -90px; transform: translate(-50%, -50%)">
+								???
+							</h2>
 						</GardenNode>
 					</>
 				),
@@ -205,18 +212,24 @@ function simulateText(canvasRef: any) {
 									')',
 							}}
 						>
-							<h3 style="position: absolute; left: 50%; bottom: -60px; transform: translate(-50%, -50%)">{g.name}</h3>
-							{
-								!Garden.boughtUpgrade(g.key as keyof typeof GardenGenUpgs.upgrades) ?
+							<h3 style="position: absolute; left: 50%; bottom: -60px; transform: translate(-50%, -50%)">
+								{g.name}
+							</h3>
+							{!Garden.boughtUpgrade(g.key as keyof typeof GardenGenUpgs.upgrades) ? (
 								<>
 									<span style="position: absolute; left: 50%; bottom: -73px; transform: translate(-50%, -50%)">
-										{format(Garden.upgradeCost(
-											g.key as keyof typeof GardenGenUpgs.upgrades
-										), 6)} Idea
+										{format(
+											Garden.upgradeCost(
+												g.key as keyof typeof GardenGenUpgs.upgrades,
+											),
+											6,
+										)}{' '}
+										Idea
 									</span>
 								</>
-								: <></>
-							}
+							) : (
+								<></>
+							)}
 						</GardenNode>
 					</>
 				) : (
@@ -228,7 +241,9 @@ function simulateText(canvasRef: any) {
 							mini={true}
 							nodestyle={{ filter: 'brightness(0.75)' }}
 						>
-							<h3 style="position: absolute; left: 50%; bottom: -60px; transform: translate(-50%, -50%)">???</h3>
+							<h3 style="position: absolute; left: 50%; bottom: -60px; transform: translate(-50%, -50%)">
+								???
+							</h3>
 						</GardenNode>
 					</>
 				),
@@ -260,96 +275,101 @@ export default defineComponent({
 		const canvasRef = ref<HTMLDivElement | null>(null);
 
 		return () => (
-			<><div style="position: absolute; width: 100%; height: 100%; overflow: hidden">
-				<div
-					class={'main'}
-					onMousedown={onMousedown}
-					onTouchstart={onTouchstart}
-					onMouseup={onMouseup}
-					onTouchend={onTouchend}
-					onTouchmove={onTouchmove}
-					onMousemove={onMousemove}
-					id="canvas"
-					ref={canvasRef}
-				>
-					<div class={'canvas_corner'}>
-						{player.garden.openSimulate ? (
-							simulateText(canvasRef)
-						) : (
-							<>
-								<GardenNode
-									x={0}
-									y={0}
-									canvasRef={canvasRef}
-									onClick={function () {
-										player.garden.openSimulate = !player.garden.openSimulate;
-									}}
-								>
-									启动子世界
-								</GardenNode>
-							</>
-						)}
+			<>
+				<div style="position: absolute; width: 100%; height: 100%; overflow: hidden">
+					<div
+						class={'main'}
+						onMousedown={onMousedown}
+						onTouchstart={onTouchstart}
+						onMouseup={onMouseup}
+						onTouchend={onTouchend}
+						onTouchmove={onTouchmove}
+						onMousemove={onMousemove}
+						onWheel={onWheel}
+						id="canvas"
+						ref={canvasRef}
+					>
+						<div class={'canvas_corner'}>
+							{player.garden.openSimulate ? (
+								simulateText(canvasRef)
+							) : (
+								<>
+									<GardenNode
+										x={0}
+										y={0}
+										canvasRef={canvasRef}
+										onClick={function () {
+											player.garden.openSimulate =
+												!player.garden.openSimulate;
+										}}
+									>
+										启动子世界
+									</GardenNode>
+								</>
+							)}
+						</div>
 					</div>
-				</div>
-				<div class={'focus_box'}>
-					<div style="position: relative; width: 100%; height: 100%">
-						<h4 style="position: absolute; top: 4px; left: 4px">
-							{player.garden.focusNode.name}
-						</h4>
-						<h5 style="position: absolute; top: 4px; right: 4px">
-							{(isGardenGenerator(player.garden.focusNode) ?? false)
-								? format(
-										Garden.generatorCost(
+					<div class={'focus_box'}>
+						<div style="position: relative; width: 100%; height: 100%">
+							<h4 style="position: absolute; top: 4px; left: 4px">
+								{player.garden.focusNode.name}
+							</h4>
+							<h5 style="position: absolute; top: 4px; right: 4px">
+								{(isGardenGenerator(player.garden.focusNode) ?? false)
+									? format(
+											Garden.generatorCost(
+												player.garden.focusNode
+													.key as keyof typeof GardenGenUpgs.generators,
+											),
+										)
+									: format(
+											Garden.upgradeCost(
+												player.garden.focusNode
+													.key as keyof typeof GardenGenUpgs.upgrades,
+											),
+										)}{' '}
+								Idea
+							</h5>
+							<br />
+							<br />
+							{(isGardenGenerator(player.garden.focusNode) ?? false) ? (
+								<>
+									Produce{' '}
+									{format(
+										Garden.generatorIdea(
 											player.garden.focusNode
 												.key as keyof typeof GardenGenUpgs.generators,
 										),
-									)
-								: format(
-										Garden.upgradeCost(
+									)}{' '}
+									Idea
+									<br />
+									Produce{' '}
+									{format(
+										Garden.generatorEntropy(
 											player.garden.focusNode
-												.key as keyof typeof GardenGenUpgs.upgrades,
+												.key as keyof typeof GardenGenUpgs.generators,
 										),
 									)}{' '}
-							Idea
-						</h5>
-						<br />
-						<br />
-						{(isGardenGenerator(player.garden.focusNode) ?? false) ? (
-							<>
-								Produce{' '}
-								{format(
-									Garden.generatorIdea(
-										player.garden.focusNode
-											.key as keyof typeof GardenGenUpgs.generators,
-									),
-								)}{' '}
-								Idea
-								<br />
-								Produce{' '}
-								{format(
-									Garden.generatorEntropy(
-										player.garden.focusNode
-											.key as keyof typeof GardenGenUpgs.generators,
-									),
-								)}{' '}
-								Entropy
-								<br />
-							</>
-						) : (
-							<>
-								Improve{' '}
-								{
-									GardenGenUpgs.generators[
-										(player.garden.focusNode as GardenUpgrade).effect
-											.key as unknown as keyof typeof GardenGenUpgs.generators
-									].name
-								}{' '}
-								by x{format((player.garden.focusNode as GardenUpgrade).effect.mult)}
-								<br />
-							</>
-						)}
+									Entropy
+									<br />
+								</>
+							) : (
+								<>
+									Improve{' '}
+									{
+										GardenGenUpgs.generators[
+											(player.garden.focusNode as GardenUpgrade).effect
+												.key as unknown as keyof typeof GardenGenUpgs.generators
+										].name
+									}{' '}
+									by x
+									{format((player.garden.focusNode as GardenUpgrade).effect.mult)}
+									<br />
+								</>
+							)}
+						</div>
 					</div>
-				</div></div>
+				</div>
 			</>
 		);
 	},
