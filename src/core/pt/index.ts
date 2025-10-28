@@ -336,7 +336,7 @@ export const GardenGenUpgs = {
 		0: {
 			isG: true,
 			key: 0,
-			name: 'Bowstring',
+			name: '弦',
 			pos: [0, 0],
 			cost: new Decimal(2e-6),
 			idea: new Decimal(5e-8),
@@ -347,7 +347,7 @@ export const GardenGenUpgs = {
 		1: {
 			isG: true,
 			key: 1,
-			name: 'Quark',
+			name: '夸克',
 			pos: [-50, -350],
 			cost: new Decimal(1e-3),
 			idea: new Decimal(6e-7),
@@ -358,7 +358,7 @@ export const GardenGenUpgs = {
 		2: {
 			isG: true,
 			key: 2,
-			name: 'Nucleon',
+			name: '核子',
 			pos: [50, -750],
 			cost: new Decimal(0.04),
 			idea: new Decimal(4e-4),
@@ -369,7 +369,7 @@ export const GardenGenUpgs = {
 		3: {
 			isG: true,
 			key: 3,
-			name: 'Atom',
+			name: '原子',
 			pos: [-200, -1050],
 			cost: new Decimal(1),
 			idea: new Decimal(0.025),
@@ -380,7 +380,7 @@ export const GardenGenUpgs = {
 		4: {
 			isG: true,
 			key: 4,
-			name: 'Molecule',
+			name: '分子',
 			pos: [25, -1250],
 			cost: new Decimal(500),
 			idea: new Decimal(1),
@@ -406,7 +406,7 @@ export const GardenGenUpgs = {
 		0: {
 			isG: !true,
 			key: 0,
-			name: 'Bowstring Vibrate',
+			name: '弦振动',
 			pos: [0, -200],
 			cost: new Decimal(1e-6),
 			effect: {
@@ -421,7 +421,7 @@ export const GardenGenUpgs = {
 		1: {
 			isG: !true,
 			key: 1,
-			name: 'Membrane',
+			name: 'D膜',
 			pos: [200, -250],
 			cost: new Decimal(1e-5),
 			effect: {
@@ -436,7 +436,7 @@ export const GardenGenUpgs = {
 		2: {
 			isG: !true,
 			key: 2,
-			name: 'M theory',
+			name: 'M理论',
 			pos: [300, -450],
 			cost: new Decimal(0.1),
 			effect: {
@@ -451,7 +451,7 @@ export const GardenGenUpgs = {
 		3: {
 			isG: !true,
 			key: 3,
-			name: 'Gluon',
+			name: '胶子',
 			pos: [100, -550],
 			cost: new Decimal(5e-4),
 			effect: {
@@ -466,7 +466,7 @@ export const GardenGenUpgs = {
 		4: {
 			isG: !true,
 			key: 4,
-			name: 'Quark Confinement',
+			name: '夸克禁闭',
 			pos: [-150, -500],
 			cost: new Decimal(0.006),
 			effect: {
@@ -481,7 +481,7 @@ export const GardenGenUpgs = {
 		5: {
 			isG: !true,
 			key: 5,
-			name: 'Neutrino',
+			name: '中微子',
 			pos: [-75, -600],
 			cost: new Decimal(0.009),
 			effect: {
@@ -496,7 +496,7 @@ export const GardenGenUpgs = {
 		6: {
 			isG: !true,
 			key: 6,
-			name: 'Higgs Boson',
+			name: '希格斯波色子',
 			pos: [-250, -700],
 			cost: new Decimal(1),
 			effect: {
@@ -511,7 +511,7 @@ export const GardenGenUpgs = {
 		7: {
 			isG: !true,
 			key: 7,
-			name: 'Electron',
+			name: '电子',
 			pos: [-100, -825],
 			cost: new Decimal(0.05),
 			effect: {
@@ -526,7 +526,7 @@ export const GardenGenUpgs = {
 		8: {
 			isG: !true,
 			key: 8,
-			name: 'Strong Interaction Force',
+			name: '强相互作用力',
 			pos: [75, -900],
 			cost: new Decimal(0.25),
 			effect: {
@@ -541,7 +541,7 @@ export const GardenGenUpgs = {
 		9: {
 			isG: !true,
 			key: 9,
-			name: 'Weak Interaction Force',
+			name: '弱相互作用力',
 			pos: [-25, -1000],
 			cost: new Decimal(0.75),
 			effect: {
@@ -556,7 +556,7 @@ export const GardenGenUpgs = {
 		10: {
 			isG: !true,
 			key: 10,
-			name: 'Atomic Energy',
+			name: '原子能',
 			pos: [0, -1100],
 			cost: new Decimal(5),
 			effect: {
@@ -571,7 +571,7 @@ export const GardenGenUpgs = {
 		11: {
 			isG: !true,
 			key: 11,
-			name: 'Quantum Entanglement',
+			name: '量子纠缠',
 			pos: [-300, -1200],
 			cost: new Decimal(100),
 			effect: {
@@ -586,7 +586,7 @@ export const GardenGenUpgs = {
 		12: {
 			isG: !true,
 			key: 12,
-			name: 'Chemical Bond',
+			name: '化学键',
 			pos: [-125, -1300],
 			cost: new Decimal(750),
 			effect: {
@@ -601,7 +601,7 @@ export const GardenGenUpgs = {
 		13: {
 			isG: !true,
 			key: 13,
-			name: 'Quantum Tunneling',
+			name: '量子隧穿',
 			pos: [-350, -1350],
 			cost: new Decimal(1500),
 			effect: {
@@ -616,7 +616,7 @@ export const GardenGenUpgs = {
 		14: {
 			isG: !true,
 			key: 14,
-			name: 'Elements',
+			name: '元素',
 			pos: [-25, -1425],
 			cost: new Decimal(3000),
 			effect: {
@@ -631,7 +631,7 @@ export const GardenGenUpgs = {
 		15: {
 			isG: !true,
 			key: 15,
-			name: 'Elements Period',
+			name: '元素周期表',
 			pos: [125, -1400],
 			cost: new Decimal(4000),
 			effect: {
@@ -646,7 +646,7 @@ export const GardenGenUpgs = {
 		16: {
 			isG: !true,
 			key: 16,
-			name: 'Ion',
+			name: '离子',
 			pos: [100, -1525],
 			cost: new Decimal(10500),
 			effect: {
@@ -661,7 +661,7 @@ export const GardenGenUpgs = {
 		17: {
 			isG: !true,
 			key: 17,
-			name: 'Electron Orbit',
+			name: '电子轨道',
 			pos: [-300, -925],
 			cost: new Decimal(100000),
 			effect: {
@@ -676,7 +676,7 @@ export const GardenGenUpgs = {
 		18: {
 			isG: !true,
 			key: 18,
-			name: 'Atomic Decay',
+			name: '原子衰变',
 			pos: [-350, -1100],
 			cost: new Decimal(250000),
 			effect: {
@@ -691,7 +691,7 @@ export const GardenGenUpgs = {
 		19: {
 			isG: !true,
 			key: 19,
-			name: 'Radical Atom',
+			name: '自由基原子',
 			pos: [-150, -1500],
 			cost: new Decimal(450000),
 			effect: {
@@ -706,7 +706,7 @@ export const GardenGenUpgs = {
 		20: {
 			isG: !true,
 			key: 20,
-			name: 'Covalent Bond',
+			name: '共价键',
 			pos: [-225, -1400],
 			cost: new Decimal(900000),
 			effect: {
@@ -721,7 +721,7 @@ export const GardenGenUpgs = {
 		21: {
 			isG: !true,
 			key: 21,
-			name: 'Radical Atom',
+			name: '自由基原子',
 			pos: [225, -1600],
 			cost: new Decimal(2e6),
 			effect: {
@@ -736,7 +736,7 @@ export const GardenGenUpgs = {
 		22: {
 			isG: !true,
 			key: 22,
-			name: 'Chemical Energy',
+			name: '化学能',
 			pos: [-100, -1625],
 			cost: new Decimal(1e7),
 			effect: {
