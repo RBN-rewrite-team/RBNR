@@ -176,7 +176,7 @@ function simulateText(canvasRef: any) {
 									),
 									6,
 								)}{' '}
-								Idea
+								想法
 							</span>
 						</GardenNode>
 					</>
@@ -232,7 +232,7 @@ function simulateText(canvasRef: any) {
 											),
 											6,
 										)}{' '}
-										Idea
+										想法
 									</span>
 								</>
 							) : (
@@ -336,41 +336,41 @@ export default defineComponent({
 													.key as keyof typeof GardenGenUpgs.upgrades,
 											),
 										)}{' '}
-								Idea
+								想法
 							</h5>
 							<br />
 							<br />
 							{(isGardenGenerator(player.garden.focusNode) ?? false) ? (
 								<>
-									Produce{' '}
+									生产{' '}
 									{format(
 										Garden.generatorIdea(
 											player.garden.focusNode
 												.key as keyof typeof GardenGenUpgs.generators,
 										),
 									)}{' '}
-									Idea
+									想法
 									<br />
-									Produce{' '}
+									生产{' '}
 									{format(
 										Garden.generatorEntropy(
 											player.garden.focusNode
 												.key as keyof typeof GardenGenUpgs.generators,
 										),
 									)}{' '}
-									Entropy
+									熵
 									<br />
 								</>
 							) : (
 								<>
-									Improve{' '}
+									增强
 									{
 										GardenGenUpgs.generators[
 											(player.garden.focusNode as GardenUpgrade).effect
 												.key as unknown as keyof typeof GardenGenUpgs.generators
 										].name
-									}{' '}
-									by x
+									}
+									：x
 									{format((player.garden.focusNode as GardenUpgrade).effect.mult)}
 									<br />
 								</>
