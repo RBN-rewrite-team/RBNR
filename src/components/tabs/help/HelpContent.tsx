@@ -35,7 +35,7 @@ export const HELP_CONTENT = [
 export default defineComponent({
 	setup() {
 		return function () {
-			let a = () => {
+			const a = () => {
 				const currentHelpContentIndex = HELP_CONTENT.findIndex(
 					(x) => x.page == player.help.page,
 				);

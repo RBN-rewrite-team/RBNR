@@ -35,9 +35,9 @@ export async function timeCheck() {
 
 			const timestamp = server.parser(data);
 			//@ts-ignore
-			let currentTime = new Date(timestamp);
+			const currentTime = new Date(timestamp);
 			console.log(currentTime);
-			let timeOffset = Math.abs(currentTime - Date.now());
+			const timeOffset = Math.abs(currentTime - Date.now());
 
 			if (timeOffset >= 120000) {
 				//console.warn('时间连续体已被破坏！');

@@ -74,8 +74,8 @@ export function clearReplaces(room: number) {
 }
 
 export function deleteRecovers() {
-	for (let i in player.minigame.replaces) {
-		for (let j in player.minigame.replaces[i]) {
+	for (const i in player.minigame.replaces) {
+		for (const j in player.minigame.replaces[i]) {
 			if (player.minigame.replaces[i][j].recover) delete player.minigame.replaces[i][j];
 		}
 	}

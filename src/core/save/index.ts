@@ -497,10 +497,10 @@ export function loadFromString(saveContent: string, non_options = false) {
 			}
 		}
 	}
-	let new333: typeof player.minigame.replaces = {};
+	const new333: typeof player.minigame.replaces = {};
 	if (Array.isArray(repl)) {
-		for (let repl2 of repl) {
-			let repl3 = repl2 as { room: number } & ArrayContent<
+		for (const repl2 of repl) {
+			const repl3 = repl2 as { room: number } & ArrayContent<
 				ValueOf<typeof player.minigame.replaces>
 			>;
 			if (!new333[repl3.room]) new333[repl3.room] = [];
@@ -549,7 +549,7 @@ export function save() {
 }
 const savefunc = save;
 export function hardReset(excludeKey?: (keyof Player)[]) {
-	let tempplayer = getInitialPlayerData();
+	const tempplayer = getInitialPlayerData();
 	(Object.keys(tempplayer) as (keyof Player)[]).forEach((key) => {
 		if (!excludeKey?.includes?.(key)) {
 			// @ts-expect-error
@@ -646,7 +646,7 @@ export function readSaveDetail(id: number) {
 		lastSave: '',
 		id: id,
 	};
-	let a = '';
+	const a = '';
 	details.version = savecontent_str.version;
 	details.chapter = savecontent_str.stat.chapter;
 	if (savecontent_str.stat.chapter >= 4) {

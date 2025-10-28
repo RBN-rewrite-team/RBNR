@@ -26,7 +26,7 @@ export type CoreEquipmentAttribute = {
 	def: number;
 };
 export function equipmentDisplay(eq: CoreEquipment): string {
-	let rar =
+	const rar =
 		eq.rarity >= 1.9
 			? '<span style="color: cyan">不朽</span>'
 			: eq.rarity >= 1.8
@@ -48,7 +48,7 @@ export function equipmentDisplay(eq: CoreEquipment): string {
 	);
 }
 export function equipmentAttribute(eq: CoreEquipment): CoreEquipmentAttribute {
-	let realLevel = eq.level * eq.rarity ** 2;
+	const realLevel = eq.level * eq.rarity ** 2;
 	return {
 		realLevel: realLevel,
 		hea: realLevel * 4 * (eq.position == 'hea' ? 1 : 0.2),
@@ -105,7 +105,7 @@ export interface PlayerMinigameData {
 }
 export function initMiniGameData(): PlayerMinigameData;
 export function initMiniGameData(): PlayerMinigameData {
-	let a = {
+	const a = {
 		current_room: 0,
 		visited: [],
 		current_x: 1n,
@@ -154,7 +154,7 @@ export function nextLVxp() {
 }
 
 export function LVpercent() {
-	let k =
+	const k =
 		(currentPlayerLV() * (currentPlayerLV() + 1)) / 2 -
 		(currentPlayerLV() * (currentPlayerLV() - 1)) / 2;
 	return (player.minigame.xp - (currentPlayerLV() * (currentPlayerLV() - 1)) / 2) / k;
@@ -177,7 +177,7 @@ export function predictableBigIntRandom(x: bigint): number {
 
 export function getWorldLevel() {
 	try {
-		let base = [
+		const base = [
 			1, 10, 1, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100, 1e100,
 			1e100,
 		];

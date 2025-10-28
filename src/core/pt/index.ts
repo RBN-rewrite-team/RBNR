@@ -13,7 +13,7 @@ import { deepCopy } from '../save';
 
 export function dayOfWeek(): [number, string] {
 	const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
-	let dayOfWeek = ((Math.floor((Date.now() - 1761408000000) / 86400000) % 7) + 7) % 7;
+	const dayOfWeek = ((Math.floor((Date.now() - 1761408000000) / 86400000) % 7) + 7) % 7;
 	return [dayOfWeek, weekdays[dayOfWeek]];
 }
 // prettier-ignore
@@ -255,7 +255,7 @@ export const Analysis = {
 			if (!Analysis.analysisUnlocked(d)) continue;
 			if (player.pt.analysis[d] >= 11) continue;
 			player.pt.seedTimes[d]++;
-			let fakeRandom = predictableRandom(player.pt.seed[d] * player.pt.seedTimes[d]);
+			const fakeRandom = predictableRandom(player.pt.seed[d] * player.pt.seedTimes[d]);
 			if (
 				fakeRandom <= this.analysisRate() ||
 				player.pt.analysis[d] == 0 ||
@@ -761,22 +761,22 @@ export const Garden = {
 		return Boolean(player.garden.upgrades[key]) ?? false;
 	},
 	entropyEffect() {
-		let base = player.garden.entropy.add(1).ln().add(1);
+		const base = player.garden.entropy.add(1).ln().add(1);
 		return base;
 	},
 	generatorCost(key: keyof typeof GardenGenUpgs.generators) {
-		let base = GardenGenUpgs.generators[key].cost;
-		let scale = new Decimal(1.1);
-		let bought = Garden.boughtGenerator(key);
+		const base = GardenGenUpgs.generators[key].cost;
+		const scale = new Decimal(1.1);
+		const bought = Garden.boughtGenerator(key);
 		return base.mul(scale.pow(bought)).mul(Garden.entropyEffect());
 	},
 	upgradeCost(key: keyof typeof GardenGenUpgs.upgrades) {
-		let base = GardenGenUpgs.upgrades[key].cost;
+		const base = GardenGenUpgs.upgrades[key].cost;
 		return base.mul(Garden.entropyEffect());
 	},
 	generatorIdea(key: keyof typeof GardenGenUpgs.generators) {
 		let base = Garden.boughtGenerator(key).mul(GardenGenUpgs.generators[key].idea);
-		for (let i in player.garden.upgrades) {
+		for (const i in player.garden.upgrades) {
 			if (
 				GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades].effect
 					.key == key
@@ -789,12 +789,12 @@ export const Garden = {
 		return base;
 	},
 	generatorEntropy(key: keyof typeof GardenGenUpgs.generators) {
-		let base = Garden.boughtGenerator(key).mul(GardenGenUpgs.generators[key].entropy);
+		const base = Garden.boughtGenerator(key).mul(GardenGenUpgs.generators[key].entropy);
 		return base;
 	},
 	ideaYield() {
 		let base = new Decimal(0);
-		for (let i in player.garden.generators) {
+		for (const i in player.garden.generators) {
 			base = base.add(
 				Garden.generatorIdea(i as unknown as keyof typeof player.garden.generators),
 			);
@@ -803,7 +803,7 @@ export const Garden = {
 	},
 	entropyYield() {
 		let base = new Decimal(0);
-		for (let i in player.garden.generators) {
+		for (const i in player.garden.generators) {
 			base = base.add(
 				Garden.generatorEntropy(i as unknown as keyof typeof player.garden.generators),
 			);
@@ -828,8 +828,8 @@ export const Garden = {
 	gardenLoop(diff: number) {
 		if (player.garden.openSimulate) {
 			if (player.garden.generators[0].lt(1)) player.garden.generators[0] = new Decimal(1);
-			let iY = Garden.ideaYield().mul(diff);
-			let eY = Garden.entropyYield().mul(diff);
+			const iY = Garden.ideaYield().mul(diff);
+			const eY = Garden.entropyYield().mul(diff);
 			player.garden.idea = player.garden.idea.add(iY);
 			player.garden.entropy = player.garden.entropy.add(eY);
 			player.garden.totalIdea = player.garden.totalIdea.add(iY);
@@ -839,7 +839,7 @@ export const Garden = {
 		}
 	},
 	playerData() {
-		let base = {
+		const base = {
 			idea: new Decimal(0),
 			totalIdea: new Decimal(0),
 			bestIdea: new Decimal(0),
@@ -857,7 +857,7 @@ export const Garden = {
 			lastIG: Date.now(),
 			focusNode: GardenGenUpgs.generators[0] as GardenGenerator | GardenUpgrade,
 		};
-		for (let i in GardenGenUpgs.generators) {
+		for (const i in GardenGenUpgs.generators) {
 			base.generators[<keyof typeof GardenGenUpgs.generators>(<unknown>i)] = new Decimal(0);
 		}
 		return base;

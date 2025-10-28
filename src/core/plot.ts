@@ -288,25 +288,25 @@ export const characterImages = {
 	VeryRDefie: 'url(./plot_image/VeryRDefie.png)',
 } as Record<string, string | undefined>;
 export function stringToPlot(a: string) {
-	let res = {
+	const res = {
 		image: 'url(./plot_image/placeholder.png)',
 		name: '???',
 		text: '拜谢',
 	};
-	let args = a.split('\t');
+	const args = a.split('\t');
 	if (args.length == 1) {
 		res.text = args[0];
 	} else if (args.length == 3) {
 		res.name = args[0];
 		res.text = args[2];
-		let imagea = characterImages[args[1]];
+		const imagea = characterImages[args[1]];
 		if (imagea) {
 			res.image = imagea;
 		}
 	} else {
 		res.name = args[0];
 		res.text = args[1];
-		let imagea = characterImages[res.name];
+		const imagea = characterImages[res.name];
 		if (imagea) {
 			res.image = imagea;
 		}

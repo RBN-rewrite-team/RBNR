@@ -175,7 +175,7 @@ export const DiluteUpgrades = {
 		description: string = '基于可用溶液增益推演速度';
 		cost: Decimal = new Decimal(1e4);
 		effect(): Decimal {
-			let base = getCurrency(Currencies.SOLUTION)
+			const base = getCurrency(Currencies.SOLUTION)
 				.pow(0.375)
 				.mul(getCurrency(Currencies.SOLUTION).add(2).log(2));
 			return base.max(1);
@@ -193,7 +193,7 @@ export const DiluteUpgrades = {
 		description: string = '基于总溶液增益乘数获取量';
 		cost: Decimal = new Decimal(1.5e4);
 		effect(): Decimal {
-			let base = new Decimal(player.hydra.dilute.solution).pow(0.25);
+			const base = new Decimal(player.hydra.dilute.solution).pow(0.25);
 			return base.max(1);
 		}
 		effectDescription(): string {

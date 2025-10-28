@@ -5,7 +5,7 @@ import { player } from '../save';
 import { roomSpawnPoint } from './spawnpoint';
 
 export function runDeath(innerText: string) {
-	let skillgain = currentPlayerLV() ** 0.5 + 1;
+	const skillgain = currentPlayerLV() ** 0.5 + 1;
 	ModalService.show({
 		title: '死亡',
 		content:

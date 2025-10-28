@@ -168,7 +168,7 @@ export function guardBattleInfo(tier: number, type = 1): Omit<Required<BattleInf
 export function meBattleInfo(): BattleInfo & {
 	hpMax: NonNullable<BattleInfo['hpMax']>;
 } {
-	let eqE = totEqAtt();
+	const eqE = totEqAtt();
 	let hpMax = 10;
 	if (player.minigame.skilltree_bought.includes(2)) hpMax += 5;
 	if (player.minigame.skilltree_bought.includes(5)) hpMax += 15;

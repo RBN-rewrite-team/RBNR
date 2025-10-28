@@ -20,7 +20,7 @@ export const temp = reactive({
 	openingCore: false,
 	coreViewEquipment: null as null | CoreEquipment,
 	coreViewColor(eq = temp.coreViewEquipment): string {
-		let r = eq?.rarity ?? 0;
+		const r = eq?.rarity ?? 0;
 		if (r >= 1.9) return 'cyan';
 		if (r >= 1.8) return 'red';
 		if (r >= 1.6) return 'orange';

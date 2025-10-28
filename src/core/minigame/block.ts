@@ -66,7 +66,7 @@ export function getCurrentBlock(room: number, x: bigint, y: bigint, nonreplaced 
 			}
 		}
 		if (!nonreplaced) {
-			let replacements = (player.minigame.replaces[room] ?? []).filter(
+			const replacements = (player.minigame.replaces[room] ?? []).filter(
 				(b) => b.x == x && b.y == y,
 			);
 			for (let i = 0; i < replacements.length; i++) {
@@ -84,7 +84,7 @@ export function isUnreachable(
 	direction: Directions = 'other',
 	playerxy: [bigint, bigint],
 ) {
-	let obj = getCurrentBlock(room, x, y);
+	const obj = getCurrentBlock(room, x, y);
 	if (typeof obj === 'object' && obj instanceof GameObject && obj.solid(direction, playerxy)) {
 		return true;
 	}

@@ -16,7 +16,7 @@ interface Chapter {
 }
 
 const isExpanded = reactive<Record<string, boolean>>({});
-for (let key in SaveBank) {
+for (const key in SaveBank) {
 	isExpanded[key] = false;
 }
 

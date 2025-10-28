@@ -13,7 +13,7 @@ import EquipCore from './EquipCore.vue';
 function formatbigint(b: bigint) {
 	if (b < 1000n) return b.toString();
 	let a = b.toString();
-	let l = a.length - 1;
+	const l = a.length - 1;
 	a = a.slice(0, 7);
 	a = a.slice(0, 1) + '.' + a.slice(1, 7) + 'e' + l.toString();
 	return a;

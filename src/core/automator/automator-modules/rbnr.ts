@@ -11,8 +11,8 @@ export function importRbnr(parentEnvironment: Environment) {
 		get(key: any) {
 			if (key == 'upgs') {
 				let a: (keyof typeof upgrades)[] = [];
-				for (let key in upgrades) {
-					let key2 = key;
+				for (const key in upgrades) {
+					const key2 = key;
 					if (key2 in upgrades) {
 						a.push(key2 as keyof typeof upgrades);
 					}
@@ -30,7 +30,7 @@ export function importRbnr(parentEnvironment: Environment) {
 		'buy',
 		new (class extends Callable {
 			async call(env: Environment, ...args: any[]) {
-				let keyid = args[0];
+				const keyid = args[0];
 				if (keyid in upgrades) {
 					UPGRADES.buy(keyid);
 				}

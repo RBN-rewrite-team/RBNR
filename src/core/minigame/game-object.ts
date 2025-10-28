@@ -103,7 +103,7 @@ export class PasswordGameObject extends GameObject {
 		return true;
 	}
 	interact(x: bigint, y: bigint): void {
-		let pV = this.passwordVerifier;
+		const pV = this.passwordVerifier;
 		ModalService.show({
 			title: '密码门',
 			content: '请输入密码',
@@ -185,8 +185,8 @@ export class EntityGameObject extends GameObject {
 		return true;
 	}
 	battleText() {
-		let guardinfo = this.getBattleInfo();
-		let battlestatus = runBattleFast(meBattleInfo(), guardinfo);
+		const guardinfo = this.getBattleInfo();
+		const battlestatus = runBattleFast(meBattleInfo(), guardinfo);
 		if (battlestatus.status == 'fail') {
 			return `<span style="color: rgb(127, 0, 0)">无法击败</span>`;
 		}
@@ -196,9 +196,9 @@ export class EntityGameObject extends GameObject {
 	}
 	spoilsDecide() {
 		let baseGain = Math.random() * this.rate;
-		let list: CoreEquipment[] = [];
+		const list: CoreEquipment[] = [];
 		while (baseGain >= 1) {
-			let pos = Math.floor(Math.random() * 3);
+			const pos = Math.floor(Math.random() * 3);
 			list.push({
 				position: pos == 0 ? 'hea' : pos == 1 ? 'atk' : 'def',
 				level: getWorldLevel(),
@@ -210,17 +210,17 @@ export class EntityGameObject extends GameObject {
 		return list;
 	}
 	interact(x: bigint, y: bigint): void {
-		let guardinfo = this.getBattleInfo();
+		const guardinfo = this.getBattleInfo();
 		player.minigame.interact = 1;
 		const innerText = this.innerText;
-		let battlestatus = runBattleFast(meBattleInfo(), guardinfo);
+		const battlestatus = runBattleFast(meBattleInfo(), guardinfo);
 		if (battlestatus.status == 'fail') {
 			runDeath(innerText);
 		} else {
 			player.minigame.hp = battlestatus.hp_after_battle;
 			addReplace(player.minigame.current_room, x, y, '0', true);
-			let spoils = this.spoilsDecide();
-			for (let i in spoils) {
+			const spoils = this.spoilsDecide();
+			for (const i in spoils) {
 				player.minigame.storeEquipments.push(spoils[i]);
 				if (player.minigame.storeEquipments.length >= 50) {
 					player.minigame.storeEquipments = player.minigame.storeEquipments
@@ -235,7 +235,7 @@ export class EntityGameObject extends GameObject {
 			player.minigame.xp += guardinfo.xp;
 			temp.minigametip = '战斗胜利<br>';
 			temp.minigametip += '获得了<span style="color: gold">' + guardinfo.xp + '</span>XP<br>';
-			for (let i in spoils) {
+			for (const i in spoils) {
 				temp.minigametip += '获得了' + equipmentDisplay(spoils[i]) + '<br>';
 			}
 		}
@@ -300,7 +300,7 @@ export class RestrictedBoxObject extends BoxGameObject {
 		let restricted = false;
 		for (let x2 = x - 3n; x2 <= x + 3n; x2++) {
 			for (let y2 = y - 3n; y2 <= y + 3n; y2++) {
-				let curblock = getCurrentBlock(player.minigame.current_room, x2, y2);
+				const curblock = getCurrentBlock(player.minigame.current_room, x2, y2);
 				if (curblock instanceof GuardGameObject) {
 					restricted = true;
 					break;
@@ -342,8 +342,8 @@ export class MoveableBoxGameObject extends GameObject {
 		return true;
 	}
 	interact(x: bigint, y: bigint, direction: 'up' | 'down' | 'left' | 'right'): void {
-		let box_pos = positionDirection([x, y], direction);
-		let goalBlock = getCurrentBlock(player.minigame.current_room, box_pos[0], box_pos[1]);
+		const box_pos = positionDirection([x, y], direction);
+		const goalBlock = getCurrentBlock(player.minigame.current_room, box_pos[0], box_pos[1]);
 		if (goalBlock === null || goalBlock instanceof SwitchGameObject) {
 			addReplace(player.minigame.current_room, x, y, '0');
 			if (!goalBlock || !(goalBlock instanceof SwitchGameObject)) {
@@ -352,7 +352,7 @@ export class MoveableBoxGameObject extends GameObject {
 				addReplace(player.minigame.current_room, box_pos[0], box_pos[1], 'ACTIVE_SWITCH');
 				player.minigame.keys_have.push(goalBlock.keyid);
 			}
-			let player_moved = positionDirection(
+			const player_moved = positionDirection(
 				[player.minigame.current_x, player.minigame.current_y],
 				direction,
 			);

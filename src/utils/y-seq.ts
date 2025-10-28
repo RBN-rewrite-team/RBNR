@@ -407,12 +407,12 @@ export function getCurrentYMilestoneIndex(target: Decimal): number {
 }
 
 export const getCurrentYMilestone = (target: Decimal): [Decimal, string, ...string[]] => {
-	let base = Y_Milestones[getCurrentYMilestoneIndex(target)] ?? [new Decimal(NaN), 'Not a Ordinal'];
-	let last = base[base.length - 1];
+	const base = Y_Milestones[getCurrentYMilestoneIndex(target)] ?? [new Decimal(NaN), 'Not a Ordinal'];
+	const last = base[base.length - 1];
 	if (typeof last === 'function') {
 		if (target.eq(base[0])) return base.slice(-1) as [Decimal, string, ...string[]];
 		else {
-			let ret = last(target);
+			const ret = last(target);
 			return [target, ret, base?.[2] ? '>' + base[2] : base[1]];
 		}
 	}
@@ -420,7 +420,7 @@ export const getCurrentYMilestone = (target: Decimal): [Decimal, string, ...stri
 };
 
 export function getCurrentOrdinal(ord: Decimal): string {
-	let milestone = getCurrentYMilestone(ord);
+	const milestone = getCurrentYMilestone(ord);
 	if (milestone?.[2] === undefined) return milestone[1];
 	return milestone.slice(2).join('=');
 }

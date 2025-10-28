@@ -60,7 +60,7 @@ export class Dictionary<K = any, V extends {} = any> {
 	}
 	toString(parent?: any[]) {
 		let res = '(';
-		for (let a of this.mapEntries()) {
+		for (const a of this.mapEntries()) {
 			if (a[1] instanceof Dictionary) {
 				let q = '{recursion object}';
 				let pass = true;

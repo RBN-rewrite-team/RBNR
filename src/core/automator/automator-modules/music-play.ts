@@ -12,7 +12,7 @@ export function playFrequency(frequency = 440, gain = 0.1, time = 0.1) {
 	gainNode.gain.value = gain;
 	oscillator.frequency.value = frequency;
 	oscillator.detune.value = 0;
-	var oscillator_object = {
+	const oscillator_object = {
 		stop: function () {
 			oscillator.stop(actx.currentTime);
 			this.played = true;

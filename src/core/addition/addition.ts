@@ -184,7 +184,7 @@ export const Addition = {
 			adding = adding.add(1).pow(feature.SingularityGenerator.getSingularityEffect()).sub(1);
 		if (player.buyables[31].gt(0) && Logarithm.logarithm.upgrades_in_dilated.includes('31'))
 			adding = adding.mul(buyables[31].effect(player.buyables[31]));
-		let scList = ['addpower^1', 'addpower^2', 'addpower^3', 'addpower^4', 'addpower^5'];
+		const scList = ['addpower^1', 'addpower^2', 'addpower^3', 'addpower^4', 'addpower^5'];
 		if (player.singularity.stage < 2)
 			for (let i = 0; i < scList.length; i++) {
 				if (SOFTCAPS.reach(scList[i], adding)) {

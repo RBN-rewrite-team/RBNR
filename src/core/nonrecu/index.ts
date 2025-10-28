@@ -509,7 +509,7 @@ export const NON_RECURSIVE = {
 			POW_EFF = 2,
 			DIL_EFF = 3,
 			EXP_EFF = 4;
-		let factor: [string, number, Decimal][] = [];
+		const factor: [string, number, Decimal][] = [];
 		factor.push(['基础值', ADD_EFF, DC.D_1]);
 		let solEff = player.hydra.dilute.solution.div(2.55e8);
 		if (solEff.gte(3.5)) solEff = solEff.sub(2.5).log10().add(3.5);
@@ -520,7 +520,7 @@ export const NON_RECURSIVE = {
 			player.hydra.deduceOrdinal[0].max(1).log(4).max(1).log(4).div(256),
 		]);
 		factor.push(['基础值', ADD_EFF, new Decimal(-1)]);
-		let nonrecbase = new Decimal(4);
+		const nonrecbase = new Decimal(4);
 		factor.push(['基础指数', EXP_EFF, nonrecbase]);
 		if (player.nonrecu.studies_bought.includes(6))
 			factor.push(['非递归研究41', MUL_EFF, new Decimal(10)]);
@@ -566,10 +566,10 @@ export const NON_RECURSIVE = {
 			POW_EFF = 2,
 			DIL_EFF = 3,
 			EXP_EFF = 4;
-		let factor = this.gainFactor();
+		const factor = this.gainFactor();
 		let base = DC.D_0;
-		for (let i in factor) {
-			let f = factor[i];
+		for (const i in factor) {
+			const f = factor[i];
 			if (f[1] == ADD_EFF) base = base.add(f[2]);
 			else if (f[1] == MUL_EFF) base = base.mul(f[2]);
 			else if (f[1] == POW_EFF) base = base.pow(f[2]);
@@ -590,11 +590,11 @@ export const NON_RECURSIVE = {
 		/**
 		 * 对hydpow的乘数加成
 		 */
-		let mult1 = player.nonrecu.resetTimes.pow_base(7.5);
+		const mult1 = player.nonrecu.resetTimes.pow_base(7.5);
 		/**
 		 * 对hydpow^(expo1)的加成
 		 */
-		let expo1 = player.nonrecu.resetTimes.mul(0.05).add(1);
+		const expo1 = player.nonrecu.resetTimes.mul(0.05).add(1);
 		return [mult1, expo1];
 	},
 	/**
@@ -705,7 +705,7 @@ export const NON_RECURSIVE = {
 		return [a, b, c, d, e];
 	},
 	std112() {
-		let a = getTotalTheories();
+		const a = getTotalTheories();
 
 		return a.add(1);
 	},

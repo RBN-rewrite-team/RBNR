@@ -167,7 +167,7 @@ export const OrdinalNT = {
 		'61R': new (class B61R extends Buyable<Decimal> {
 			description = 'a = a + 1';
 			cost(x: Decimal): Decimal {
-				let cbase = player.retribution == 1 ? new Decimal('1e900') : new Decimal('ee3');
+				const cbase = player.retribution == 1 ? new Decimal('1e900') : new Decimal('ee3');
 				let base = cbase.mul(x.pow_base(1e50));
 				if (player.hydra.dilute.inDilute) {
 					base = base.pow(4 - 3 * 0.75 ** player.hydra.dilute.solvent[1]);
@@ -189,7 +189,7 @@ export const OrdinalNT = {
 				return player.milestones.nonrec_8;
 			}
 			costInverse(x: Decimal): Decimal {
-				let cbase = player.retribution == 1 ? new Decimal('1e900') : new Decimal('ee3');
+				const cbase = player.retribution == 1 ? new Decimal('1e900') : new Decimal('ee3');
 				let expReduce = new Decimal(1);
 				if (player.hydra.dilute.inDilute)
 					expReduce = expReduce.mul(4 - 3 * 0.75 ** player.hydra.dilute.solvent[1]);
@@ -539,7 +539,7 @@ export const OrdinalNT = {
 			if (id == 'tau') {
 				if (Dilute.diluteAmount(3) > 0) {
 					if (player.milestones.nonrec_3) return new Decimal(1);
-					let base = player.numbertheory.GM.x.add(1).pow(0.5).max(1);
+					const base = player.numbertheory.GM.x.add(1).pow(0.5).max(1);
 					if (isNaN(base.mag)) return new Decimal(1);
 					return base;
 				}

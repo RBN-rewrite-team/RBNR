@@ -24,7 +24,7 @@ export class Environment {
 		this.isReadonly = readonly;
 	}
 	get(key: string): any {
-		let res = this.map.get(key) ?? this.parent?.get?.(key);
+		const res = this.map.get(key) ?? this.parent?.get?.(key);
 		if (res === undefined && !this.nodeclarecheck && !this.declared.has(key)) {
 			throw new ReferenceError('未声明变量');
 		}

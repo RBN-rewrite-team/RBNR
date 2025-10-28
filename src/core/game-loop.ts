@@ -140,7 +140,7 @@ export function gameLoop() {
 	// }
 	if (player.singularity.stage >= 1) singularity_UI();
 
-	let unlp = unlockedPlots();
+	const unlp = unlockedPlots();
 	for (let i = 1; i <= unlp; i++) {
 		if (!player.checkedPlots.includes(i) && temp.plotdisplay == 0) enterPlot(i);
 	}
@@ -190,7 +190,7 @@ function singularity_UI() {
 		Math.max(player.singularity.t - 550, 0) * 2 +
 		Math.max(player.singularity.t - 500, 0) * 5;
 	if (player.singularity.t > 675) s = 0;
-	let str = ['main', 'title_box', 'menu', 'newsbar', 'resources'];
+	const str = ['main', 'title_box', 'menu', 'newsbar', 'resources'];
 	document.getElementById('main')!.style.transform =
 		'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
 	document.getElementById('menu')!.style.transform =
@@ -209,7 +209,7 @@ function singularity_UI() {
  * @param diff 毫秒数，游戏要运行多少毫秒
  */
 export function simulate(diff: number) {
-	let realtime_diff = diff;
+	const realtime_diff = diff;
 	//diff = new Decimal(diff)
 	if (player.timeshard.openTf && player.timeshard.tf.gt(0)) {
 		if (player.timeshard.tf.lt(diff)) {
@@ -220,8 +220,8 @@ export function simulate(diff: number) {
 			diff *= 3;
 		}
 	}
-	let last = player.upgrades[61] ? DC.D_0 : feature.Ordinal.ordinalPerSecond();
-	let last2 = feature.Ordinal.speedDeri();
+	const last = player.upgrades[61] ? DC.D_0 : feature.Ordinal.ordinalPerSecond();
+	const last2 = feature.Ordinal.speedDeri();
 	if (player.options.openOreEffect) diff *= 1 + player.minigame.ore_gets * 0.0025;
 	let pre_cardinal_diff = diff;
 	if (player.nonrecu.studies_bought.includes(1))
@@ -240,17 +240,17 @@ export function simulate(diff: number) {
 			player.automationCD.successor += diff;
 
 			//每几秒点击一次后继按钮
-			let cd = new Decimal(1000).div(feature.SUCCESSOR.autoSuccessPerSecond());
+			const cd = new Decimal(1000).div(feature.SUCCESSOR.autoSuccessPerSecond());
 
 			if (cd.lt(player.automationCD.successor)) {
-				let bulk = Math.floor(player.automationCD.successor / Number(cd));
+				const bulk = Math.floor(player.automationCD.successor / Number(cd));
 				player.automationCD.successor %= Number(cd);
 				feature.SUCCESSOR.success(bulk);
 			}
 		}
 
 		if (feature.resourceGain.addpower().passive.gt(0)) {
-			let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.addpower().passive);
+			const bulk = new Decimal(diff / 1000).mul(feature.resourceGain.addpower().passive);
 			feature.ADDITION.addpower_gain(bulk);
 		}
 
@@ -261,12 +261,12 @@ export function simulate(diff: number) {
 		}
 
 		if (feature.resourceGain.mulpower().passive.gt(0)) {
-			let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.mulpower().passive);
+			const bulk = new Decimal(diff / 1000).mul(feature.resourceGain.mulpower().passive);
 			feature.MULTIPLICATION.mulpower_gain(bulk);
 		}
 
 		if (feature.resourceGain.exppower().passive.gt(0)) {
-			let bulk = new Decimal(diff / 1000).mul(feature.resourceGain.exppower().passive);
+			const bulk = new Decimal(diff / 1000).mul(feature.resourceGain.exppower().passive);
 			feature.EXPONENTION.exppower_gain(bulk);
 		}
 
@@ -293,7 +293,7 @@ export function simulate(diff: number) {
 		}
 
 		if (player.upgrades[45]) {
-			let dPf2TimeDecimal = new Decimal(diff);
+			const dPf2TimeDecimal = new Decimal(diff);
 			player.numbertheory.rational_approx.n = player.numbertheory.rational_approx.n
 				.add(NUMTHEORY.varX2gain().mul(diff).mul(1e-3))
 				.max(1);
@@ -326,7 +326,7 @@ export function simulate(diff: number) {
 		if (player.buyables['55R'].gte(1)) {
 			player.numbertheory.GH.t32 = player.numbertheory.GH.t32.add(diff / 1000);
 		}
-		let base = feature.Ordinal.base();
+		const base = feature.Ordinal.base();
 		if (player.ordinal.number.gte(base.tetrate(base.toNumber()))) player.help.epsilon = true;
 		if ([0, 2, 4, 5, 9, 10, 12, 13].includes(player.currentTab)) {
 			player.currentTab = 14;
@@ -365,7 +365,7 @@ export function simulate(diff: number) {
 		}
 	}
 
-	for (let i in milestones) {
+	for (const i in milestones) {
 		if (!player.milestones[i] && milestones[i].canDone) {
 			player.milestones[i as keyof typeof player.milestones] = true;
 			milestones[i]?.onDone?.();
@@ -413,9 +413,9 @@ export function simulate(diff: number) {
 
 	Logarithm.astronomerUpdate();
 	updateHighestStat();
-	let next = player.upgrades[61] ? DC.D_0 : feature.Ordinal.ordinalPerSecond();
+	const next = player.upgrades[61] ? DC.D_0 : feature.Ordinal.ordinalPerSecond();
 	ordinalSpeedDerivative = next.sub(last).div(diff / 1000);
-	let next2 = feature.Ordinal.speedDeri();
+	const next2 = feature.Ordinal.speedDeri();
 	ordinalSpeedDerivative2 = next2.sub(last2).div(diff / 1000);
 	checkNaN(player, ['player']);
 	player.lastUpdated = Date.now();

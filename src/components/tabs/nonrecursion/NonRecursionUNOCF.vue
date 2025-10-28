@@ -6,7 +6,7 @@ import { UNOCF, UNOCF_milestone } from '@/utils/unocf-mil';
 import { computed } from 'vue';
 import Baixie from '@/components/group-2/Baixie.vue';
 import { NON_RECURSIVE } from '@/core/nonrecu';
-let cur = computed(() =>
+const cur = computed(() =>
 	UNOCF.getUNOCFMilestone(UNOCF.getCurMilestoneIndex(player.nonrecu.unocf_j)),
 );
 </script>

@@ -49,7 +49,7 @@ function draw() {
 
 	for (let cycles = 0; cycles < 2; cycles++) {
 		let currentRow = 0;
-		let renderingIndex = [0];
+		const renderingIndex = [0];
 		let tempMountain: Mountain = calculatedMount;
 		for (let i = 0; i < calculatedMount.dim - 1; i++) {
 			renderingIndex.unshift((tempMountain as NodeMountain).arr.length - 1);
@@ -91,7 +91,7 @@ function draw() {
 					ctx.strokeStyle = '#777';
 					ctx.beginPath();
 					for (let i = 0; i < lines; i++) {
-						let y =
+						const y =
 							currentRow * rowHeight -
 							numberSize -
 							gap +
@@ -218,7 +218,7 @@ onMounted(() => {
 	nextTick(draw);
 });
 
-let interval = setInterval(draw, 40);
+const interval = setInterval(draw, 40);
 onUnmounted(() => clearInterval(interval));
 </script>
 

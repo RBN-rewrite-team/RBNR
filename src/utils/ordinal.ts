@@ -278,8 +278,8 @@ export const OrdinalUtils = {
 			return s + this.numberToBMS(x.log(base), base, --maxLength, otherwise);
 		} else if (x.lt(base.tetrate(base.toNumber()).mul(base.sqr()).pow_base(4).pow_base(4))) {
 			if (x.lt(base.pow(base).add(base.pow(2)).pow_base(4).pow_base(4))) {
-				let len = PostBOOrdinalTable[0].length;
-				let index = x
+				const len = PostBOOrdinalTable[0].length;
+				const index = x
 					.log(base)
 					.log(base)
 					.sub(256)
@@ -290,8 +290,8 @@ export const OrdinalUtils = {
 				return PostBOOrdinalTable[0][index];
 			}
 			if (x.lt(base.pow(base).add(base.pow(2).mul(2)).pow_base(4).pow_base(4))) {
-				let len = PostBOOrdinalTable[1].length;
-				let index = x
+				const len = PostBOOrdinalTable[1].length;
+				const index = x
 					.log(base)
 					.log(base)
 					.sub(256 + 16)
@@ -302,8 +302,8 @@ export const OrdinalUtils = {
 				return PostBOOrdinalTable[1][index];
 			}
 			if (x.lt(base.pow(base).add(base.pow(2).mul(3)).pow_base(4).pow_base(4))) {
-				let len = PostBOOrdinalTable[2].length;
-				let index = x
+				const len = PostBOOrdinalTable[2].length;
+				const index = x
 					.log(base)
 					.log(base)
 					.sub(256 + 32)
@@ -318,7 +318,7 @@ export const OrdinalUtils = {
 				new Decimal(4),
 				maxLength,
 			);
-			let hasEllipsis = temp.endsWith('...');
+			const hasEllipsis = temp.endsWith('...');
 			if (hasEllipsis) temp = temp.slice(0, -3);
 			return (
 				'>(' +

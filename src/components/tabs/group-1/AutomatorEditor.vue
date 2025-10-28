@@ -129,7 +129,7 @@ const toggleComment = () => {
 	const startContainer = range.startContainer;
 
 	// 获取编辑器的内容
-	let code = player.automator.code;
+	const code = player.automator.code;
 	const lines = code.split('\n');
 
 	// 获取选中行的范围
@@ -212,7 +212,7 @@ const duplicateLine = () => {
 	if (!selection?.rangeCount) return;
 
 	const range = selection.getRangeAt(0);
-	let code = player.automator.code;
+	const code = player.automator.code;
 	const lines = code.split('\n');
 	const currentLine = getLineNumberFromPosition(range.startOffset, code);
 
@@ -236,7 +236,7 @@ const selectCurrentLine = () => {
 	if (!selection?.rangeCount || !editorRef.value) return;
 
 	const range = selection.getRangeAt(0);
-	let code = player.automator.code;
+	const code = player.automator.code;
 	const currentLine = getLineNumberFromPosition(range.startOffset, code);
 	const lines = code.split('\n');
 
@@ -297,7 +297,7 @@ const santize = (text: string): string => {
 };
 
 const escapeText = (text: string): string => {
-	let a = document.createElement('textarea');
+	const a = document.createElement('textarea');
 	a.innerHTML = text;
 	return a.innerText;
 };
@@ -305,7 +305,7 @@ const escapeText = (text: string): string => {
 // 格式化代码
 const formatCode = () => {
 	// 简单的代码格式化：去除多余空白，统一缩进
-	let code = player.automator.code;
+	const code = player.automator.code;
 	const lines = code.split('\n').map((line) => line.trimEnd());
 	player.automator.code = lines.join('\n');
 	addToHistory(player.automator.code);

@@ -11,7 +11,7 @@ export function setPosManmade(
 	playerxy: [bigint, bigint],
 ) {
 	//debugger;
-	let a = !isUnreachable(
+	const a = !isUnreachable(
 		player.minigame.current_room,
 		goalpos[0],
 		goalpos[1],
@@ -30,7 +30,7 @@ export function interactBlock(room: number, x: bigint, y: bigint, key: Direction
 export function handleKeyPress(key: KeyPresses) {
 	if (['up', 'down', 'left', 'right'].includes(key)) {
 		if (player.minigame.interact == 0) {
-			let pos = positionDirection(
+			const pos = positionDirection(
 				[player.minigame.current_x, player.minigame.current_y],
 				key as 'up' | 'down' | 'left' | 'right',
 			);

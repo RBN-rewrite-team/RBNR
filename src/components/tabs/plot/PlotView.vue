@@ -52,7 +52,7 @@ function nextStep() {
 		temp.plotcd = Date.now() + (canExitView() ? 0 : 750);
 	}
 }
-let a: number = -115;
+const a: number = -115;
 </script>
 
 <template>

@@ -9,9 +9,9 @@ export function getNodeStyle(
 ): CSSProperties {
 	const obj = canvasRef.value;
 	if (!obj) return {};
-	let width = obj.offsetWidth;
-	let height = obj.offsetHeight;
-	let base = {
+	const width = obj.offsetWidth;
+	const height = obj.offsetHeight;
+	const base = {
 		top: height * 0.5 + rely + (mini ? 25 : 0) - temp.garden.focus_pos[1] + 'px',
 		left: width * 0.5 + relx + (mini ? 25 : 0) - temp.garden.focus_pos[0] + 'px',
 	} as CSSProperties;
@@ -26,9 +26,9 @@ export function getConnectStyle(
 ): CSSProperties {
 	const obj = canvasRef.value;
 	if (!obj) return {};
-	let width = obj.offsetWidth;
-	let height = obj.offsetHeight;
-	let base = {
+	const width = obj.offsetWidth;
+	const height = obj.offsetHeight;
+	const base = {
 		top: height * 0.5 - rely + 50 + 'px',
 		left: width * 0.5 - relx + 50 + 'px',
 	} as CSSProperties;

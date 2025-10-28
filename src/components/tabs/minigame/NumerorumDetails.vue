@@ -10,9 +10,9 @@ function spawn(id: number): void {
 		(player.minigame.current_y = 1n));
 	player.minigame.hp = meBattleInfo().hpMax;
 	if (!player.minigame.visited.includes(id)) player.minigame.visited.push(id);
-	for (let k in player.minigame.replaces) {
-		let repl = player.minigame.replaces[k];
-		for (let i in repl)
+	for (const k in player.minigame.replaces) {
+		const repl = player.minigame.replaces[k];
+		for (const i in repl)
 			if (player.minigame.replaces[k][i].recover) delete player.minigame.replaces[k][i];
 	}
 }

@@ -29,11 +29,11 @@ function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof
 			player.minigame.taking_box = false;
 			putedblock = true;
 		} else if (block instanceof EntityGameObject) {
-			let guardinfo = block.getBattleInfo();
-			let battlestatus = runBattleFast(meBattleInfo(), guardinfo);
+			const guardinfo = block.getBattleInfo();
+			const battlestatus = runBattleFast(meBattleInfo(), guardinfo);
 			if (battlestatus.status == 'fail') {
-				let req = calculateRequiredHpIncrease(meBattleInfo(), guardinfo);
-				let req2 = calculateRequiredAtkIncrease(meBattleInfo(), guardinfo);
+				const req = calculateRequiredHpIncrease(meBattleInfo(), guardinfo);
+				const req2 = calculateRequiredAtkIncrease(meBattleInfo(), guardinfo);
 				ModalService.show({
 					title: '是否继续战斗?',
 					get content() {

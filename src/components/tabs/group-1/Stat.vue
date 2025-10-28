@@ -29,8 +29,8 @@ function getCNLunarPhase() {
 	return LunarMap[phase] ?? phase;
 }
 
-let updateKey = ref(0);
-let interval = setInterval(() => updateKey.value++);
+const updateKey = ref(0);
+const interval = setInterval(() => updateKey.value++);
 onUnmounted(() => clearInterval(interval));
 </script>
 

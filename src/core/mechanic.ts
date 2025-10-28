@@ -118,7 +118,7 @@ export const BUYABLES = {
 			reach[i] = req[i].reachedReq();
 			if (!reach[i]) flag = false;
 		}
-		let a = buyables[id].show();
+		const a = buyables[id].show();
 		return { show: a, unlocked: flag, reach: reach };
 	},
 	singleHTML(id: keyof typeof buyables) {
@@ -297,10 +297,10 @@ function overflow(number: Decimal, start: DecimalSource, power: DecimalSource, m
 		if (meta == 0) {
 			number = number.div(start).pow(power).mul(start);
 		} else if (meta == 1) {
-			let s = start.log10();
+			const s = start.log10();
 			number = number.log10().div(s).pow(power).mul(s).pow10();
 		} else {
-			let s = start.iteratedlog(10, meta);
+			const s = start.iteratedlog(10, meta);
 			number = Decimal.iteratedexp(
 				10,
 				meta,
@@ -319,10 +319,10 @@ function overflowInversed(number: Decimal, start: DecimalSource, power: DecimalS
 		if (meta == 0) {
 			number = number.div(start).root(power).mul(start);
 		} else if (meta == 1) {
-			let s = start.log10();
+			const s = start.log10();
 			number = number.log10().div(s).root(power).mul(s).pow10();
 		} else {
-			let s = start.iteratedlog(10, meta);
+			const s = start.iteratedlog(10, meta);
 			number = Decimal.iteratedexp(
 				10,
 				meta,

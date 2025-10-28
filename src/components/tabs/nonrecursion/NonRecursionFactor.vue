@@ -9,9 +9,9 @@ function gainFactor(): string {
 		DIL_EFF = 3,
 		EXP_EFF = 4;
 	let string = '';
-	let factor = feature.NON_RECURSIVE.gainFactor();
-	for (let i in factor) {
-		let f = factor[i];
+	const factor = feature.NON_RECURSIVE.gainFactor();
+	for (const i in factor) {
+		const f = factor[i];
 		if (f[1] == ADD_EFF) string += f[0] + ': +' + format(f[2]) + '<br>';
 		else if (f[1] == MUL_EFF) string += f[0] + ': x' + format(f[2]) + '<br>';
 		else if (f[1] == POW_EFF) string += f[0] + ': ^' + format(f[2]) + '<br>';

@@ -548,7 +548,7 @@ export function theoriesCost(id: 0 | 1 | 2) {
 			if (base.gte(215)) base = base.div(215).pow(2).mul(215);
 			return base.pow_base(5);
 		default:
-			let a: never = id;
+			const a: never = id;
 	}
 	return new Decimal(1 / 0);
 }
@@ -565,12 +565,12 @@ export function theoriesAmountPossible(id: 0 | 1 | 2) {
 		case 1:
 			return getCurrency(Currencies.SOLUTION).div(1e4).log10().ceil();
 		case 2:
-			let res = player.nonrecu.power.log(5);
+			const res = player.nonrecu.power.log(5);
 			let temp = res.div(215).sqrt().mul(215);
 			if (temp.lt(215)) temp = res;
 			return temp.ceil();
 		default:
-			let a: never = id;
+			const a: never = id;
 	}
 	return new Decimal(0);
 }
@@ -589,7 +589,7 @@ export function addTheories(id: 0 | 1 | 2) {
 		case 0:
 			if (canBuyTheories(0)) {
 				player.nonrecu.theories[0] = theoriesAmountPossible(0).sub(1);
-				let a = theoriesAmountPossible(0);
+				const a = theoriesAmountPossible(0);
 				player.hydra.power = player.hydra.power.sub(theoriesCost(0)).clampMin(0);
 				player.nonrecu.theories[0] = a;
 			}
@@ -597,7 +597,7 @@ export function addTheories(id: 0 | 1 | 2) {
 		case 1:
 			if (canBuyTheories(1)) {
 				player.nonrecu.theories[1] = theoriesAmountPossible(1).sub(1);
-				let b = theoriesAmountPossible(1);
+				const b = theoriesAmountPossible(1);
 				player.hydra.dilute.solutionCost = player.hydra.dilute.solutionCost.add(
 					theoriesCost(1),
 				);
@@ -607,14 +607,14 @@ export function addTheories(id: 0 | 1 | 2) {
 		case 2:
 			if (canBuyTheories(2)) {
 				player.nonrecu.theories[2] = theoriesAmountPossible(2).sub(1);
-				let c = theoriesAmountPossible(2);
+				const c = theoriesAmountPossible(2);
 				if (player.nonrecu.power.lt('1e30000'))
 					player.nonrecu.power = player.nonrecu.power.sub(theoriesCost(2)).clampMin(0);
 				player.nonrecu.theories[2] = c;
 			}
 			break;
 		default:
-			let a: never = id;
+			const a: never = id;
 	}
 }
 
@@ -630,7 +630,7 @@ export const studyRefs = ref<Map<number, InstanceType<typeof SingleStudy>>>(new 
 export let connectorsRef: Ref<HTMLElement>;
 
 const studyConnections = computed(() => {
-	let connections = [
+	const connections = [
 		{ from: 0, to: 2 },
 		{ from: 1, to: 2 },
 		{ from: 1, to: 3 },
@@ -760,7 +760,7 @@ export const initConnectors = (elem: Ref<any>) => {
 };
 
 export function getNRC4Kept(level: number): number[] {
-	let base = [0, 1, 23];
+	const base = [0, 1, 23];
 	let comp = player.challenges[1][3].toNumber();
 	if (CHALLENGE.inChallenge(1, 3)) comp++;
 	if (comp >= 2) base.push(2, 3, 4, 5);

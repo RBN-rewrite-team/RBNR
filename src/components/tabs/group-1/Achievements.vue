@@ -10,7 +10,7 @@ import { temp } from '@/core/temp-data';
 import { VueLatex } from 'vatex';
 import { computed } from 'vue';
 const numberdisplay = () => {
-	let a = player.stat.chapter >= 4 ? "<span style='color: red'>所有推演速度</span>" : '数值';
+	const a = player.stat.chapter >= 4 ? "<span style='color: red'>所有推演速度</span>" : '数值';
 	return a;
 };
 </script>

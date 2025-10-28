@@ -49,33 +49,33 @@ export function onWheel(m: WheelEvent) {
 	temp.garden.focus_pos[1] += m.deltaY;
 }
 function getConnect() {
-	let connectOrigin = [],
+	const connectOrigin = [],
 		connect = [];
-	for (let i in GardenGenUpgs.generators) {
-		let pos =
+	for (const i in GardenGenUpgs.generators) {
+		const pos =
 			GardenGenUpgs.generators[i as unknown as keyof typeof GardenGenUpgs.generators].pos;
 		connectOrigin.push([
 			pos,
 			GardenGenUpgs.generators[i as unknown as keyof typeof GardenGenUpgs.generators].connect,
 		]);
 	}
-	for (let i in GardenGenUpgs.upgrades) {
-		let pos = GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades].pos;
+	for (const i in GardenGenUpgs.upgrades) {
+		const pos = GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades].pos;
 		connectOrigin.push([
 			pos,
 			GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades].connect,
 		]);
 	}
-	for (let i in connectOrigin) {
-		let c = connectOrigin[i][1];
+	for (const i in connectOrigin) {
+		const c = connectOrigin[i][1];
 
 		//@ts-expect-error
-		for (let j in c[0]) {
+		for (const j in c[0]) {
 			//@ts-expect-error
 			connect.push([connectOrigin[i][0], GardenGenUpgs.generators[c[0][j]].pos]);
 		}
 		//@ts-expect-error
-		for (let j in c[1]) {
+		for (const j in c[1]) {
 			//@ts-expect-error
 			connect.push([connectOrigin[i][0], GardenGenUpgs.upgrades[c[1][j]].pos]);
 		}
@@ -100,34 +100,34 @@ type Branch = {
 };
 
 function getBranchPara(mx1: number, my1: number, mx2: number, my2: number): Branch {
-	let x1 = can_cal.dx(mx1),
+	const x1 = can_cal.dx(mx1),
 		x2 = can_cal.dx(mx2);
-	let y1 = can_cal.dy(my1),
+	const y1 = can_cal.dy(my1),
 		y2 = can_cal.dy(my2);
-	let cx = (x1 + x2) / 2,
+	const cx = (x1 + x2) / 2,
 		cy = (y1 + y2) / 2;
 	let deg = Math.atan(Math.abs(y1 - y2) / Math.abs(x1 - x2)) * (180 / Math.PI);
-	let length = Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2);
+	const length = Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2);
 	if (x1 > x2) deg = 180 - deg;
 	if (y1 > y2) deg = 180 - deg;
 	return { cx: cx, cy: cy, deg: deg, length: length };
 }
 
 function simulateText(canvasRef: any) {
-	let mapping = [[], []] as [GardenGenerator[], GardenUpgrade[]];
-	let connecting = [] as Branch[];
-	let connect = getConnect();
-	for (let i in GardenGenUpgs.generators) {
+	const mapping = [[], []] as [GardenGenerator[], GardenUpgrade[]];
+	const connecting = [] as Branch[];
+	const connect = getConnect();
+	for (const i in GardenGenUpgs.generators) {
 		mapping[0].push(
 			GardenGenUpgs.generators[i as unknown as keyof typeof GardenGenUpgs.generators],
 		);
 	}
-	for (let i in GardenGenUpgs.upgrades) {
+	for (const i in GardenGenUpgs.upgrades) {
 		mapping[1].push(
 			GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades],
 		);
 	}
-	for (let i in connect) {
+	for (const i in connect) {
 		connecting.push(
 			getBranchPara(connect[i][0][0], connect[i][0][1], connect[i][1][0], connect[i][1][1]),
 		);

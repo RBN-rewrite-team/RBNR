@@ -137,7 +137,7 @@ export function playerSafe(block: any) {
 function valueUntilTrue(f: () => boolean) {
 	return new Promise(function (resolve) {
 		const a = setInterval(function () {
-			let c = f();
+			const c = f();
 			if (c) {
 				clearInterval(a);
 				resolve(c);

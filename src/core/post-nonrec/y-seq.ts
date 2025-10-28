@@ -44,7 +44,7 @@ export const Y_SEQ = {
 			[id].pow(player.postnonrec.yseq.dimensions[0][id])
 			.mul(this.startPrice()[id]);
 
-		let excess = player.postnonrec.yseq.dimensions[0][id].sub(this.purchasesBeforeScaling(id));
+		const excess = player.postnonrec.yseq.dimensions[0][id].sub(this.purchasesBeforeScaling(id));
 		if (excess.gt(0)) {
 			base = base.mul(this.LogScalingRatio().mul(excess).mul(excess.add(1)).mul(0.5).pow10());
 		}
@@ -54,7 +54,7 @@ export const Y_SEQ = {
 		return new Decimal(2 ** 384);
 	},
 	LogScalingRatio() {
-		let base = new Decimal(1.15).log10();
+		const base = new Decimal(1.15).log10();
 		return base;
 	},
 	buyDimensions(id: 0 | 1 | 2 | 3): void {
@@ -69,12 +69,12 @@ export const Y_SEQ = {
 
 		const purchasesBeforeScaling = this.purchasesBeforeScaling(id);
 
-		let logPriceRatio = this.priceRatio()[id].log10();
-		let logStartPrice = this.startPrice()[id].log10();
-		let logScalingRatio = this.LogScalingRatio();
+		const logPriceRatio = this.priceRatio()[id].log10();
+		const logStartPrice = this.startPrice()[id].log10();
+		const logScalingRatio = this.LogScalingRatio();
 
 		if (boughtcount.gte(purchasesBeforeScaling)) {
-			let discrim = logPriceRatio
+			const discrim = logPriceRatio
 				.mul(2)
 				.add(logScalingRatio)
 				.pow(2)
@@ -124,8 +124,8 @@ export const Y_SEQ = {
 			.add(1);
 	},
 	dimensionEffect(id: 0 | 1 | 2 | 3) {
-		let boost = this.dimensionBoost(id);
-		let res = player.postnonrec.yseq.dimensions[0][id]
+		const boost = this.dimensionBoost(id);
+		const res = player.postnonrec.yseq.dimensions[0][id]
 			.add(player.postnonrec.yseq.dimensions[1][id].floor())
 			.mul(boost);
 		return res;
@@ -145,7 +145,7 @@ export const Y_SEQ = {
 		return boost;
 	},
 	yseqDeduceSpeed() {
-		let base = this.dimensionEffect(0);
+		const base = this.dimensionEffect(0);
 		return base;
 	},
 	resetGain() {
@@ -163,7 +163,7 @@ export const Y_SEQ = {
 	},
 	reset() {
 		if (this.resetGain().lt(1)) return;
-		let gain = this.resetGain();
+		const gain = this.resetGain();
 		player.hydra.compressedPower = player.hydra.compressedPower.add(gain);
 		player.hydra.totalCompressedPower = player.hydra.totalCompressedPower.add(gain);
 		player.hydra.deduceOrdinal[1] = new Decimal(0);
@@ -187,7 +187,7 @@ export const Y_SEQ = {
 			);
 		}
 		if (player.upgrades[629]) {
-			let gain = this.resetGain();
+			const gain = this.resetGain();
 			player.hydra.compressedPower = player.hydra.compressedPower.add(gain.mul(diff));
 			player.hydra.totalCompressedPower = player.hydra.totalCompressedPower.add(
 				gain.mul(diff),

@@ -1,7 +1,7 @@
 import { GameObject, WallGameObject } from './game-object';
 
 export function convertStringToMap(x: string, slots?: (null | GameObject)[]) {
-	let map = [];
+	const map = [];
 	let placeholdercount = 0;
 	for (let i = 0; i < x.length; i++) {
 		if (x[i] == 'W') {

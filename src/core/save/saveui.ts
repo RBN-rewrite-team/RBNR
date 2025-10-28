@@ -51,7 +51,7 @@ export function UIHardReset() {
 		],
 		onConfirm(values) {
 			const v = Number(values[0]);
-			let keylistKeeped: Array<keyof Player> = [];
+			const keylistKeeped: Array<keyof Player> = [];
 			let isValid = true;
 			if (v <= 0 || isNaN(v)) isValid = false;
 			if (isValid) {

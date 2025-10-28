@@ -117,7 +117,7 @@ export const UNOCF_milestone = [
 ] as const;
 export const UNOCF = {
 	getCurMilestoneIndex(p: Decimal) {
-		let a = UNOCF_milestone.findIndex((a, i) => {
+		const a = UNOCF_milestone.findIndex((a, i) => {
 			return (
 				(i == UNOCF_milestone.length - 1 || p.lt(UNOCF_milestone[i + 1][0])) && p.gte(a[0])
 			);
@@ -125,7 +125,7 @@ export const UNOCF = {
 		return a;
 	},
 	getUNOCFMilestone(a: number) {
-		let t = UNOCF_milestone[a];
+		const t = UNOCF_milestone[a];
 		if (!t) return '0';
 		return t;
 	},

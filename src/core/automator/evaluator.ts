@@ -323,7 +323,7 @@ export async function evaluateBlockStatement(
 
 export async function compileAndEvaluate(code: string, env: Environment = window.env1) {
 	interrupt = false;
-	let res = await evaluateNode(parseAndConvertToAst(code), env);
+	const res = await evaluateNode(parseAndConvertToAst(code), env);
 	if (interrupt) interrupt = false;
 	return res;
 }

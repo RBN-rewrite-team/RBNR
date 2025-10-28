@@ -23,7 +23,7 @@ import ModalService from '@/utils/Modal';
  * 3.89%: 矿石
  */
 export function randomBlock(x: bigint, y: bigint) {
-	let randomer = predictableBigIntRandom(1000000n + x * 1000n + y);
+	const randomer = predictableBigIntRandom(1000000n + x * 1000n + y);
 	if (randomer < 0.1) return new WallGameObject();
 	else if (randomer < 0.21) return new GuardGameObject(1);
 	else if (randomer < 0.2105)
@@ -54,7 +54,7 @@ export function positionDirection(
 		case 'down':
 			return [pos[0], pos[1] + 1n];
 		default:
-			let a: never = x;
+			const a: never = x;
 	}
 	return [0n, 0n];
 }
