@@ -340,6 +340,7 @@ export default defineComponent({
 										onClick={function () {
 											player.garden.openSimulate =
 												!player.garden.openSimulate;
+											player.garden.lastIG = Date.now();
 										}}
 									>
 										启动子世界
