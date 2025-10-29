@@ -15,11 +15,11 @@ import { NON_RECURSIVE } from '@/core/nonrecu/index.ts';
 import ModalService from './Modal.ts';
 import { keyboardEventListener } from '@/core/minigame/index.ts';
 
-import App from '@/App.vue';
 import { reinitializeMusic } from '@/core/music.ts';
 
 import { timeCheck } from './time-check.ts';
 import { initPTMilestones } from '@/core/pt/milestones.ts';
+import App from '@/App.tsx';
 
 export function init() {
 	try {
