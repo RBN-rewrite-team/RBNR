@@ -1,5 +1,6 @@
 import { defineComponent, type CSSProperties, type PropType, type Ref } from 'vue';
 import { getNodeStyle } from './node';
+import { extractAttributesFromProps, propsEvents } from '@/utils/htmlEvents';
 
 export default defineComponent({
 	name: 'GardenNode',
@@ -19,13 +20,12 @@ export default defineComponent({
 		nodestyle: {
 			type: Object as PropType<CSSProperties>,
 		},
-		onClick: {
-			type: Function as PropType<(e: Event) => any>,
-		},
+
 		mini: {
 			type: Boolean as PropType<boolean>,
 			default: false,
 		},
+		...propsEvents,
 	},
 	setup(props, ctx) {
 		return () => (
@@ -36,7 +36,7 @@ export default defineComponent({
 						...getNodeStyle(props.x, props.y, props.canvasRef, props.mini),
 						...props.nodestyle,
 					}}
-					onClick={props.onClick}
+					{...extractAttributesFromProps(props)}
 				>
 					<span class="node_desc">{ctx.slots.default ? ctx.slots.default() : ''}</span>
 				</div>
