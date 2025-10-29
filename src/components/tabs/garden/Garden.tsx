@@ -52,6 +52,7 @@ function getConnect() {
 	const connectOrigin = [],
 		connect = [];
 	for (const i in GardenGenUpgs.generators) {
+		//@ts-expect-error
 		if(GardenGenUpgs.generators[i as unknown as keyof typeof GardenGenUpgs.generators].show?.() ?? true)
 		{
 			const pos =
@@ -63,6 +64,7 @@ function getConnect() {
 		}
 	}
 	for (const i in GardenGenUpgs.upgrades) {
+		//@ts-expect-error
 		if(GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.generators].show?.() ?? true)
 		{
 			const pos = GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades].pos;
