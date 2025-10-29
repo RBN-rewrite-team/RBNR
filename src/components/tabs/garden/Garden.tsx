@@ -280,10 +280,14 @@ function simulateText(canvasRef: any) {
 						x={-150}
 						y={300}
 						canvasRef={canvasRef}
-						nodestyle={{ 'border-color': 'orange', 'width': '400px', 'border-radius': '0px' }}
+						nodestyle={{ 'border-color': 'orange', 'width': '400px', 'border-radius': '0px', 'filter': 'brightness(' + (Garden.igGain().gte(1) ? '1' : '0.75') + ')' }}
 					>
-						<h3>距离下一次可用还有<h2 style="color: orange">{Garden.nextIgRemain()}ms/{Garden.igCD()}ms</h2></h3>
-						没做完
+						{
+							Garden.nextIgRemain() > 0 ?
+							<><h3>距离下一次可用还有<h2 style="color: orange">{Garden.nextIgRemain()}ms/{Garden.igCD()}ms</h2></h3></>
+							:
+							<><h3><h2 style="color: orange">{format(Garden.igGain())}</h2>灵感</h3></>
+						}
 						<h2 style="position: absolute; left: 50%; bottom: -90px; transform: translate(-50%, -50%); color: orange">
 							灵感迸发
 						</h2>

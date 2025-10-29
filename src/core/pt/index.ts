@@ -833,6 +833,11 @@ export const Garden = {
 	nextIgRemain() {
 		return Math.max(Garden.igCD() + player.garden.lastIG - Date.now(), 0);
 	},
+	igGain(): Decimal {
+		if(player.garden.totalIdea.lt(1e6)) return new Decimal(0);
+		let base = player.garden.totalIdea.div(1e6).pow(0.25);
+		return base;
+	},
 	gardenLoop(diff: number) {
 		if (player.garden.openSimulate) {
 			if (player.garden.generators[0].lt(1)) player.garden.generators[0] = new Decimal(1);
