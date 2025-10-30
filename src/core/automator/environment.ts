@@ -69,7 +69,7 @@ class DelayFunction extends AObject implements Callable {
 		return new Promise<AObject>(function (resolve) {
 			setTimeout(() => {
 				resolve(new AUndefined());
-			}, args[0].toNumber());
+			}, args[0].dec.toNumber());
 		});
 	}
 }
