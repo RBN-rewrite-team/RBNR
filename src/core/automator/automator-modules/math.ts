@@ -1,23 +1,22 @@
 import Decimal from 'break_eternity.js';
-import { Callable, Dictionary } from '../a-objects';
+import { ADecimal, AObject, type Callable, Dictionary } from '../a-objects';
 import type { Environment } from '../environment';
-const maxFunction = new (class MaxFunction extends Callable {
+const maxFunction = new (class MaxFunction extends AObject implements Callable {
 	async call(env: Environment, ...args: any[]) {
 		let max = new Decimal(-Infinity);
 		for (const number of args) {
-			console.log(max, number);
-			max = max.max(number);
+			max = max.max(number.dec);
 		}
-		return max;
+		return new ADecimal(max);
 	}
 })();
-const minFunction = new (class MinFunction extends Callable {
+const minFunction = new (class MinFunction extends AObject implements Callable {
 	async call(env: Environment, ...args: any[]) {
 		let min = new Decimal(Infinity);
 		for (const number of args) {
-			min = min.min(number);
+			min = min.min(number.dec);
 		}
-		return min;
+		return new ADecimal(min);
 	}
 })();
 export function importMath(parentEnvironment: Environment) {
