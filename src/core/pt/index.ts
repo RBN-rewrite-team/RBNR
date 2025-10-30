@@ -319,10 +319,13 @@ export type GardenUpgrade = {
 	name: string;
 	pos: [number, number];
 	cost: Decimal;
+	useInspiration: boolean;
 	effect: GardenUpgradeEffect;
 	unlocked(): boolean;
 	connect: [number[], number[]];
 	show?(): boolean;
+	igNR?(): boolean;
+	effectDescription?(): string;
 };
 
 export function isGardenUpgrade(x: GardenUpgrade | GardenGenerator): x is GardenUpgrade {
@@ -409,6 +412,7 @@ export const GardenGenUpgs = {
 			name: '弦振动',
 			pos: [0, -200],
 			cost: new Decimal(1e-6),
+			useInspiration: false,
 			effect: {
 				key: 0,
 				mult: new Decimal(2),
@@ -424,6 +428,7 @@ export const GardenGenUpgs = {
 			name: 'D膜',
 			pos: [200, -250],
 			cost: new Decimal(1e-5),
+			useInspiration: false,
 			effect: {
 				key: 0,
 				mult: new Decimal(2),
@@ -439,6 +444,7 @@ export const GardenGenUpgs = {
 			name: 'M理论',
 			pos: [300, -450],
 			cost: new Decimal(0.1),
+			useInspiration: false,
 			effect: {
 				key: 0,
 				mult: new Decimal(100),
@@ -454,6 +460,7 @@ export const GardenGenUpgs = {
 			name: '胶子',
 			pos: [100, -550],
 			cost: new Decimal(5e-4),
+			useInspiration: false,
 			effect: {
 				key: 1,
 				mult: new Decimal(2),
@@ -469,6 +476,7 @@ export const GardenGenUpgs = {
 			name: '夸克禁闭',
 			pos: [-150, -500],
 			cost: new Decimal(0.006),
+			useInspiration: false,
 			effect: {
 				key: 1,
 				mult: new Decimal(3),
@@ -484,6 +492,7 @@ export const GardenGenUpgs = {
 			name: '中微子',
 			pos: [-75, -600],
 			cost: new Decimal(0.009),
+			useInspiration: false,
 			effect: {
 				key: 1,
 				mult: new Decimal(2.5),
@@ -499,6 +508,7 @@ export const GardenGenUpgs = {
 			name: '希格斯波色子',
 			pos: [-250, -700],
 			cost: new Decimal(1),
+			useInspiration: false,
 			effect: {
 				key: 1,
 				mult: new Decimal(10),
@@ -514,6 +524,7 @@ export const GardenGenUpgs = {
 			name: '电子',
 			pos: [-100, -825],
 			cost: new Decimal(0.05),
+			useInspiration: false,
 			effect: {
 				key: 2,
 				mult: new Decimal(1.25),
@@ -529,6 +540,7 @@ export const GardenGenUpgs = {
 			name: '强相互作用力',
 			pos: [75, -900],
 			cost: new Decimal(0.25),
+			useInspiration: false,
 			effect: {
 				key: 2,
 				mult: new Decimal(1.5),
@@ -544,6 +556,7 @@ export const GardenGenUpgs = {
 			name: '弱相互作用力',
 			pos: [-25, -1000],
 			cost: new Decimal(0.75),
+			useInspiration: false,
 			effect: {
 				key: 2,
 				mult: new Decimal(1.25),
@@ -559,6 +572,7 @@ export const GardenGenUpgs = {
 			name: '原子能',
 			pos: [0, -1100],
 			cost: new Decimal(5),
+			useInspiration: false,
 			effect: {
 				key: 3,
 				mult: new Decimal(1.5),
@@ -574,6 +588,7 @@ export const GardenGenUpgs = {
 			name: '量子纠缠',
 			pos: [-300, -1200],
 			cost: new Decimal(100),
+			useInspiration: false,
 			effect: {
 				key: 3,
 				mult: new Decimal(2),
@@ -589,6 +604,7 @@ export const GardenGenUpgs = {
 			name: '化学键',
 			pos: [-125, -1300],
 			cost: new Decimal(750),
+			useInspiration: false,
 			effect: {
 				key: 4,
 				mult: new Decimal(1.5),
@@ -604,6 +620,7 @@ export const GardenGenUpgs = {
 			name: '量子隧穿',
 			pos: [-350, -1350],
 			cost: new Decimal(1500),
+			useInspiration: false,
 			effect: {
 				key: 3,
 				mult: new Decimal(15),
@@ -619,6 +636,7 @@ export const GardenGenUpgs = {
 			name: '元素',
 			pos: [-25, -1425],
 			cost: new Decimal(3000),
+			useInspiration: false,
 			effect: {
 				key: 4,
 				mult: new Decimal(3.75),
@@ -634,6 +652,7 @@ export const GardenGenUpgs = {
 			name: '元素周期表',
 			pos: [125, -1400],
 			cost: new Decimal(4000),
+			useInspiration: false,
 			effect: {
 				key: 4,
 				mult: new Decimal(2.5),
@@ -649,6 +668,7 @@ export const GardenGenUpgs = {
 			name: '离子',
 			pos: [100, -1525],
 			cost: new Decimal(10500),
+			useInspiration: false,
 			effect: {
 				key: 4,
 				mult: new Decimal(2),
@@ -664,6 +684,7 @@ export const GardenGenUpgs = {
 			name: '电子轨道',
 			pos: [-300, -925],
 			cost: new Decimal(100000),
+			useInspiration: false,
 			effect: {
 				key: 3,
 				mult: new Decimal(7.5),
@@ -679,6 +700,7 @@ export const GardenGenUpgs = {
 			name: '原子衰变',
 			pos: [-350, -1100],
 			cost: new Decimal(250000),
+			useInspiration: false,
 			effect: {
 				key: 3,
 				mult: new Decimal(2),
@@ -694,6 +716,7 @@ export const GardenGenUpgs = {
 			name: '自由基原子',
 			pos: [-150, -1500],
 			cost: new Decimal(450000),
+			useInspiration: false,
 			effect: {
 				key: 4,
 				mult: new Decimal(1.75),
@@ -709,6 +732,7 @@ export const GardenGenUpgs = {
 			name: '共价键',
 			pos: [-225, -1400],
 			cost: new Decimal(900000),
+			useInspiration: false,
 			effect: {
 				key: 4,
 				mult: new Decimal(2),
@@ -724,6 +748,7 @@ export const GardenGenUpgs = {
 			name: '自由电荷',
 			pos: [225, -1600],
 			cost: new Decimal(2e6),
+			useInspiration: false,
 			effect: {
 				key: 4,
 				mult: new Decimal(4.5),
@@ -739,6 +764,7 @@ export const GardenGenUpgs = {
 			name: '化学能',
 			pos: [-100, -1625],
 			cost: new Decimal(1e7),
+			useInspiration: false,
 			effect: {
 				key: 4,
 				mult: new Decimal(3),
@@ -747,6 +773,88 @@ export const GardenGenUpgs = {
 				return Garden.boughtUpgrade(14) && Garden.boughtGeneratorReach(4, new Decimal(50));
 			},
 			connect: [[], [14]],
+		},
+		23: {
+			isG: !true,
+			key: 23,
+			name: 'START',
+			pos: [0, 600],
+			cost: new Decimal(0),
+			useInspiration: true,
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return player.garden.igTimes.gt(0);
+			},
+			show(): boolean {
+				return player.garden.igTimes.gt(0);
+			},
+			connect: [[], []],
+			effectDescription(): string {
+				return '解锁花园等级(Coming Soon)';
+			},
+		},
+		24: {
+			isG: !true,
+			key: 24,
+			name: 'ST1',
+			pos: [0, 800],
+			cost: new Decimal(1),
+			useInspiration: true,
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(23);
+			},
+			show(): boolean {
+				return player.garden.igTimes.gt(0);
+			},
+			connect: [[], [23]],
+			effectDescription(): string {
+				return '解锁远古阶段';
+			},
+		},
+		25: {
+			isG: !true,
+			key: 25,
+			name: 'I1',
+			pos: [-200, 800],
+			cost: new Decimal(1),
+			useInspiration: true,
+			effect: {
+				key: -1,
+				mult: new Decimal(2),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(23);
+			},
+			show(): boolean {
+				return player.garden.igTimes.gt(0);
+			},
+			connect: [[], [23]],
+		},
+		26: {
+			isG: !true,
+			key: 26,
+			name: 'E1',
+			pos: [200, 800],
+			cost: new Decimal(5),
+			useInspiration: true,
+			effect: {
+				key: -2,
+				mult: new Decimal(2),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(23);
+			},
+			show(): boolean {
+				return player.garden.igTimes.gt(0);
+			},
+			connect: [[], [23]],
 		},
 	} satisfies {
 		[key in any]: GardenUpgrade;
@@ -773,8 +881,42 @@ export const Garden = {
 		return base.mul(scale.pow(bought)).mul(Garden.entropyEffect());
 	},
 	upgradeCost(key: keyof typeof GardenGenUpgs.upgrades) {
-		const base = GardenGenUpgs.upgrades[key].cost;
-		return base.mul(Garden.entropyEffect());
+		let base = GardenGenUpgs.upgrades[key].cost;
+		if(!GardenGenUpgs.upgrades[key].useInspiration) base = base.mul(Garden.entropyEffect());
+		return base;
+	},
+	upgradeEffectDescription(key: keyof typeof GardenGenUpgs.upgrades): string {
+		return GardenGenUpgs.upgrades[key].effectDescription?.() ?? '';
+	},
+	upgradeImproving(key: number): string {
+		switch(key) {
+			case -1:
+				return '生成器想法倍增';
+			case -2:
+				return '生成器熵倍减';
+			default:
+				return '???';
+		}
+	},
+	buyGenerator(key: keyof typeof GardenGenUpgs.generators) {
+		if (player.garden.idea.gte(Garden.generatorCost(key))) {
+			player.garden.idea = player.garden.idea.sub(Garden.generatorCost(key));
+			player.garden.generators[key] = player.garden.generators[key].add(1);
+		}
+	},
+	canBoughtUpgrade(key: keyof typeof GardenGenUpgs.upgrades): boolean {
+		if(GardenGenUpgs.upgrades[key].useInspiration) return player.garden.inspiration.gte(Garden.upgradeCost(key));
+		return player.garden.idea.gte(Garden.upgradeCost(key));
+	},
+	buyUpgrade(key: keyof typeof GardenGenUpgs.upgrades) {
+		if (
+			Garden.canBoughtUpgrade(key) &&
+			!player.garden.upgrades[key]
+		) {
+			if(GardenGenUpgs.upgrades[key].useInspiration) player.garden.inspiration = player.garden.inspiration.sub(Garden.upgradeCost(key));
+			else player.garden.idea = player.garden.idea.sub(Garden.upgradeCost(key));
+			player.garden.upgrades[key] = true;
+		}
 	},
 	generatorIdea(key: keyof typeof GardenGenUpgs.generators) {
 		let base = Garden.boughtGenerator(key).mul(GardenGenUpgs.generators[key].idea);
@@ -782,6 +924,8 @@ export const Garden = {
 			if (
 				GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades].effect
 					.key == key
+				|| GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades].effect
+					.key == -1
 			)
 				base = base.mul(
 					GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades]
@@ -791,7 +935,17 @@ export const Garden = {
 		return base;
 	},
 	generatorEntropy(key: keyof typeof GardenGenUpgs.generators) {
-		const base = Garden.boughtGenerator(key).mul(GardenGenUpgs.generators[key].entropy);
+		let base = Garden.boughtGenerator(key).mul(GardenGenUpgs.generators[key].entropy);
+		for (const i in player.garden.upgrades) {
+			if (
+				GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades].effect
+					.key == -2
+			)
+				base = base.div(
+					GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades]
+						.effect.mult,
+				);
+		}
 		return base;
 	},
 	ideaYield() {
@@ -812,21 +966,6 @@ export const Garden = {
 		}
 		return base;
 	},
-	buyGenerator(key: keyof typeof GardenGenUpgs.generators) {
-		if (player.garden.idea.gte(Garden.generatorCost(key))) {
-			player.garden.idea = player.garden.idea.sub(Garden.generatorCost(key));
-			player.garden.generators[key] = player.garden.generators[key].add(1);
-		}
-	},
-	buyUpgrade(key: keyof typeof GardenGenUpgs.upgrades) {
-		if (
-			player.garden.idea.gte(Garden.upgradeCost(key)) &&
-			!player.garden.upgrades[key]
-		) {
-			player.garden.idea = player.garden.idea.sub(Garden.upgradeCost(key));
-			player.garden.upgrades[key] = true;
-		}
-	},
 	igCD() {
 		return 24 * 3600 * 1000;
 	},
@@ -837,6 +976,29 @@ export const Garden = {
 		if(player.garden.totalIdea.lt(1e6)) return new Decimal(0);
 		let base = player.garden.totalIdea.div(1e6).pow(0.25);
 		return base;
+	},
+	igReset() {
+		if(Garden.igGain().lt(1)) return;
+		if(Garden.nextIgRemain().gt(0)) return;
+		let gain = Garden.igGain();
+		player.garden.igTimes = player.garden.igTimes.add(1);
+		player.garden.inspiration = player.garden.inspiration.add(gain);
+		player.garden.totalInspiration = player.garden.totalInspiration.add(gain);
+		player.garden.bestInspiration = player.garden.inspiration.max(player.garden.bastInspiration);
+		player.garden.lastIG = Date.now();
+		player.garden.focusNode = GardenGenUpgs.generators[0];
+		
+		player.garden.idea = new Decimal(0);
+		player.garden.totalIdea = new Decimal(0);
+		player.garden.bestIdea = new Decimal(0);
+		player.garden.entropy = new Decimal(0);
+		player.garden.totalEntropy = new Decimal(0);
+		player.garden.bestEntropy = new Decimal(0);
+		for(let i in player.garden.generators) player.garden.generators[i] = new Decimal(0);
+		for(let i in player.garden.upgrades)
+		{
+			if(!(GardenGenUpgs.upgrades.igNR?.() ?? false)) player.garden.upgrades[i] = false;
+		}
 	},
 	gardenLoop(diff: number) {
 		if (player.garden.openSimulate) {
@@ -869,6 +1031,8 @@ export const Garden = {
 			openSimulate: false,
 			lastIG: Date.now(),
 			focusNode: GardenGenUpgs.generators[0] as GardenGenerator | GardenUpgrade,
+			igTimes: new Decimal(0),
+			insPower: new Decimal(0),
 		};
 		for (const i in GardenGenUpgs.generators) {
 			base.generators[<keyof typeof GardenGenUpgs.generators>(<unknown>i)] = new Decimal(0);

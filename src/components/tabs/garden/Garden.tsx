@@ -220,6 +220,10 @@ function simulateText(canvasRef: any) {
 									')',
 								'border-color':
 									(player.garden.upgrades[g.key] ? 'green' : 'grey'),
+								transform:
+									'scale(' + (Garden.canBoughtUpgrade(g.key as keyof typeof GardenGenUpgs.upgrades) && !Garden.boughtUpgrade(g.key as keyof typeof GardenGenUpgs.upgrades) ? '1.15' : '1'),
+								'background-color':
+									(GardenGenUpgs.upgrades[g.key].useInspiration ? 'rgba(255, 153, 18, 1)': 'var(--background-color)'),
 							}}
 						>
 							<h3 style="position: absolute; left: 50%; bottom: -60px; transform: translate(-50%, -50%)">
@@ -234,7 +238,9 @@ function simulateText(canvasRef: any) {
 											),
 											6,
 										)}{' '}
-										想法
+										{
+											g.useInspiration ? '灵感' : '想法'
+										}
 									</span>
 								</>
 							) : (
@@ -249,7 +255,11 @@ function simulateText(canvasRef: any) {
 							y={g.pos[1]}
 							canvasRef={canvasRef}
 							mini={true}
-							nodestyle={{ filter: 'brightness(0.75)' }}
+							nodestyle={{
+								filter: 'brightness(0.75)',
+								'background-color':
+									(GardenGenUpgs.upgrades[g.key].useInspiration ? 'rgba(255, 153, 18, 0.75)': 'var(--background-color)'),
+							}}
 						>
 							<h3 style="position: absolute; left: 50%; bottom: -60px; transform: translate(-50%, -50%)">
 								???
@@ -274,13 +284,16 @@ function simulateText(canvasRef: any) {
 				),
 			)}
 			{
-			player.garden.bestIdea.gte(1e6)
+			(player.garden.bestIdea.gte(1e6) || player.garden.igTimes.gt(0))
 				? <>
 					<GardenNode
 						x={-150}
 						y={300}
 						canvasRef={canvasRef}
 						nodestyle={{ 'border-color': 'orange', 'width': '400px', 'border-radius': '0px', 'filter': 'brightness(' + (Garden.igGain().gte(1) ? '1' : '0.75') + ')' }}
+						onClick={function() {
+							Garden.igReset();
+						}}
 					>
 						{
 							Garden.nextIgRemain() > 0 ?
@@ -372,7 +385,10 @@ export default defineComponent({
 													.key as keyof typeof GardenGenUpgs.upgrades,
 											),
 										)}{' '}
-								想法
+								{(isGardenGenerator(player.garden.focusNode) ?? false)
+									? '想法'
+									: (GardenGenUpgs.upgrades[player.garden.focusNode.key as keyof typeof GardenGenUpgs.upgrades].useInspiration ? '灵感' : '想法'
+									)}
 							</h5>
 							<br />
 							<br />
@@ -401,14 +417,20 @@ export default defineComponent({
 								<>
 									增强
 									{
-										GardenGenUpgs.generators[
-											(player.garden.focusNode as GardenUpgrade).effect
-												.key as unknown as keyof typeof GardenGenUpgs.generators
-										].name
+										(player.garden.focusNode as GardenUpgrade).effect.key >= 0 ?
+											GardenGenUpgs.generators[
+												(player.garden.focusNode as GardenUpgrade).effect
+													.key as unknown as keyof typeof GardenGenUpgs.generators
+											].name
+										:
+											Garden.upgradeImproving((player.garden.focusNode as GardenUpgrade).effect.key)
 									}
 									：x
 									{format((player.garden.focusNode as GardenUpgrade).effect.mult)}
 									<br />
+									{
+										Garden.upgradeEffectDescription(player.garden.focusNode.key as keyof typeof GardenGenUpgs.upgrades)
+									}
 								</>
 							)}
 						</div>
