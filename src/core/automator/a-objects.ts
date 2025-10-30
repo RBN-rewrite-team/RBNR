@@ -3,15 +3,27 @@ import type { ASTNode, BlockStatementNode, FunctionDeclarationNode } from './com
 import { Environment } from './environment';
 import { evaluateNode } from './evaluator';
 import type Decimal from 'break_eternity.js';
-
-export class Callable {
-	async call(env: Environment, ...args: any[]): Promise<any> {}
-
+import { format } from '@/utils/format';
+export class AObject {
+	get(key: any): AObject {
+		throw new Error('Object not gettable');
+	}
+	set(key: any, value: any) {
+		throw new Error('Object not settable');
+	}
+	has(key: any): boolean {
+		throw new Error('Object is not hasable');
+	}
 	toString() {
-		return `[javascript function]`;
+		return '[AObject]';
 	}
 }
-export class CodeCallable extends Callable {
+export interface Callable extends AObject {
+	call(env: Environment, ...args: any[]): Promise<AObject>;
+
+	toString(): string;
+}
+export class CodeCallable extends AObject implements Callable {
 	body: BlockStatementNode;
 	node: FunctionDeclarationNode;
 	async call(env: Environment, ...args: any[]) {
@@ -34,18 +46,19 @@ export class CodeCallable extends Callable {
 	}
 }
 
-export class ReturnTag<T> {
+export class ReturnTag<T> extends AObject {
 	value: T;
 	constructor(value: T) {
+		super();
 		this.value = value;
 	}
 }
 
-export class Dictionary<K = any, V extends {} = any> {
+export class Dictionary<K = any, V extends AObject = AObject> extends AObject {
 	keymap: Map<K, V> = new Map();
 	readonly: boolean = false;
 	get(key: any) {
-		return this.keymap.get(key);
+		return this.keymap.get(key) ?? new AUndefined();
 	}
 	set(key: any, value: any) {
 		if (this.readonly) throw new Error('Cannot set to readonly Dictionary');
@@ -98,4 +111,50 @@ export class AutomatorArray extends Dictionary<string, any> {
 	set(key: Decimal, value: any) {
 		return this.keymap.set(String(key), value);
 	}
+}
+
+export class AUndefined extends AObject {
+	toString() {
+		return 'undefined';
+	}
+}
+export class ADecimal extends AObject {
+	dec: Decimal;
+	constructor(dec: Decimal) {
+		super();
+		this.dec = dec;
+	}
+	toString() {
+		return format(this.dec);
+	}
+}
+export class AString extends AObject {
+	str: string;
+	constructor(str: string) {
+		super();
+		this.str = str;
+	}
+	toString(): string {
+		return this.str;
+	}
+}
+export class ABoolean extends AObject {
+	bool: boolean;
+	constructor(bool: boolean) {
+		super();
+		this.bool = bool;
+	}
+	toString(): string {
+		return this.bool ? 'true' : 'false';
+	}
+}
+
+export function isCallable(x: unknown): x is Callable {
+	if (x === undefined) return false;
+	if (x === null) return false;
+	if (typeof x !== 'object') return false;
+	if ('call' in x) {
+		return true;
+	}
+	return false;
 }

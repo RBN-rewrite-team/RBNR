@@ -1,4 +1,4 @@
-import { Callable, Dictionary } from '../a-objects';
+import { AObject, AUndefined, type Callable, Dictionary } from '../a-objects';
 import type { Environment } from '../environment';
 
 const actx = new window.AudioContext();
@@ -31,9 +31,10 @@ export function playFrequency(frequency = 440, gain = 0.1, time = 0.1) {
 	oscillator.stop(actx.currentTime + time);
 	return oscillator_object;
 }
-class PlayFreq extends Callable {
+class PlayFreq extends AObject implements Callable {
 	async call(env: Environment, ...args: any[]) {
-		playFrequency(args[0], args[2]?.toNumber?.() ?? 0.1, args[1].toNumber?.() ?? 1);
+		playFrequency(args[0], args[2]?.dec?.toNumber?.() ?? 0.1, args[1]?.dec?.toNumber?.() ?? 1);
+		return new AUndefined();
 	}
 }
 export function importMusic(parentEnvironment: Environment) {

@@ -2,41 +2,51 @@ import { Dilute } from '@/core/hydra/dilute';
 import { Hydra } from '@/core/hydra/hydra';
 import { player } from '@/core/save';
 import Decimal from 'break_eternity.js';
-import { Callable, Dictionary, AutomatorArray } from '../a-objects';
+import {
+	type Callable,
+	Dictionary,
+	AutomatorArray,
+	AObject,
+	ADecimal,
+	AUndefined,
+} from '../a-objects';
 import type { Environment } from '../environment';
 import { buyStudies, resetTheories, studies } from '@/core/nonrecu/studies';
 import { NON_RECURSIVE } from '@/core/nonrecu';
 
-const nonrecBuyStudyFunction = new (class extends Callable {
+const nonrecBuyStudyFunction = new (class extends AObject implements Callable {
 	async call(env: Environment, ...args: any[]) {
 		for (let i = 0; i < args.length; i++) {
-		  if (i >= 1) {
-		    		if (player.timeshard.value.lt(0.05)) {
-			return;
-		}
-		player.timeshard.value = player.timeshard.value.sub(0.05);
-		  }
+			if (i >= 1) {
+				if (player.timeshard.value.lt(0.05)) {
+					return new AUndefined();
+				}
+				player.timeshard.value = player.timeshard.value.sub(0.05);
+			}
 			if (Number(args[i]) in studies) {
 				buyStudies(Number(args[i]));
 			}
 		}
+		return new AUndefined();
 	}
 })();
-const nonrecResetFunction = new (class extends Callable {
+const nonrecResetFunction = new (class extends AObject implements Callable {
 	async call(env: Environment, ...args: any[]) {
 		if (NON_RECURSIVE.resetable()) NON_RECURSIVE.reset();
+		return new AUndefined();
 	}
 })();
-const nonrecRespecFunction = new (class extends Callable {
+const nonrecRespecFunction = new (class extends AObject implements Callable {
 	async call(env: Environment, ...args: any[]) {
 		if (NON_RECURSIVE.resetable()) resetTheories();
+		return new AUndefined();
 	}
 })();
 export function importNonrec(parentEnvironment: Environment) {
 	const readonlyDictionaryNonrec = new (class extends Dictionary {
 		get(key: any) {
 			if (key == 'power') {
-				return player.nonrecu.power;
+				return new ADecimal(player.nonrecu.power);
 			}
 			return Dictionary.prototype.get.call(this, key);
 		}

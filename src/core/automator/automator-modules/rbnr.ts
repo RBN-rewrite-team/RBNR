@@ -1,8 +1,4 @@
-import { Dilute } from '@/core/hydra/dilute';
-import { Hydra } from '@/core/hydra/hydra';
-import { player } from '@/core/save';
-import Decimal from 'break_eternity.js';
-import { Callable, Dictionary, AutomatorArray } from '../a-objects';
+import { type Callable, Dictionary, AutomatorArray, AObject, AUndefined } from '../a-objects';
 import type { Environment } from '../environment';
 import { UPGRADES, upgrades } from '@/core/mechanic';
 
@@ -28,12 +24,13 @@ export function importRbnr(parentEnvironment: Environment) {
 	})();
 	readonlyDictionaryRbnr.set(
 		'buy',
-		new (class extends Callable {
+		new (class extends AObject implements Callable {
 			async call(env: Environment, ...args: any[]) {
 				const keyid = args[0];
 				if (keyid in upgrades) {
 					UPGRADES.buy(keyid);
 				}
+				return new AUndefined();
 			}
 		})(),
 	);

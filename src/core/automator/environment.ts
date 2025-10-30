@@ -1,11 +1,7 @@
 import ModalService from '@/utils/Modal';
-import { AutomatorArray, Callable, Dictionary } from './a-objects';
+import { ABoolean, AObject, AUndefined, type Callable } from './a-objects';
 import { formatResult } from '.';
-import { Call } from './lexer';
 import { player } from '../global';
-import Decimal from 'break_eternity.js';
-import { Hydra } from '../hydra/hydra';
-import { Dilute } from '../hydra/dilute';
 import { importMusic } from './automator-modules/music-play';
 import { importMath } from './automator-modules/math';
 import { importHydra } from './automator-modules/hydra';
@@ -15,7 +11,7 @@ import { importPT } from './automator-modules/proofTheory';
 
 export class Environment {
 	parent: Environment | null = null;
-	map: Map<string, any> = new Map();
+	map: Map<string, AObject> = new Map();
 	isReadonly: boolean = false;
 	declared: Set<string> = new Set();
 	nodeclarecheck = true;
@@ -23,14 +19,14 @@ export class Environment {
 		if (parent) this.parent = parent;
 		this.isReadonly = readonly;
 	}
-	get(key: string): any {
+	get(key: string): AObject {
 		const res = this.map.get(key) ?? this.parent?.get?.(key);
 		if (res === undefined && !this.nodeclarecheck && !this.declared.has(key)) {
 			throw new ReferenceError('未声明变量');
 		}
-		return res;
+		return res ?? new AUndefined();
 	}
-	set(key: string, value: any) {
+	set(key: string, value: AObject) {
 		//检测当前或上游环境是否有readonly key
 		if (this.readonlykey(key)) throw new Error('Cannot set to readonly object');
 		if (!this.nodeclarecheck && !this.declared.has(key)) {
@@ -52,32 +48,32 @@ export class Environment {
 	}
 }
 
-class PutFunction extends Callable {
+class PutFunction extends AObject implements Callable {
 	call(env: Environment, ...args: any[]) {
-		return new Promise<void>(function (resolve) {
+		return new Promise<AObject>(function (resolve) {
 			ModalService.show({
 				title: '自动机提示',
 				content: formatResult(args[0]),
 				onConfirm() {
-					resolve();
+					resolve(new ABoolean(true));
 				},
 				onClose() {
-					resolve();
+					resolve(new ABoolean(false));
 				},
 			});
 		});
 	}
 }
-class DelayFunction extends Callable {
+class DelayFunction extends AObject implements Callable {
 	call(env: Environment, ...args: any[]) {
-		return new Promise<void>(function (resolve) {
+		return new Promise<AObject>(function (resolve) {
 			setTimeout(() => {
-				resolve();
+				resolve(new AUndefined());
 			}, args[0].toNumber());
 		});
 	}
 }
-class ToStringFunction extends Callable {
+class ToStringFunction extends AObject implements Callable {
 	call(env: Environment, ...args: any[]) {
 		if (args.length == 0 || args.length >= 2) {
 			throw new TypeError('1 argument required, but no or more arguments');
@@ -89,7 +85,7 @@ const putf = new PutFunction();
 const delayf = new DelayFunction();
 const toStringFunction = new ToStringFunction();
 
-const getFunction = new (class GetFunction extends Callable {
+const getFunction = new (class GetFunction extends AObject implements Callable {
 	async call(env: Environment, ...args: any[]) {
 		if (args[0].get) {
 			return args[0].get(args[1]);
@@ -97,7 +93,7 @@ const getFunction = new (class GetFunction extends Callable {
 		throw new ReferenceError('cannot get index of non-gettable');
 	}
 })();
-const setFunction = new (class SetFunction extends Callable {
+const setFunction = new (class SetFunction extends AObject implements Callable {
 	async call(env: Environment, ...args: any[]) {
 		if (args[0].set) {
 			return args[0].set(args[1], args[2]);
@@ -105,7 +101,7 @@ const setFunction = new (class SetFunction extends Callable {
 		throw new ReferenceError('cannot set index of non-settable');
 	}
 })();
-const getPlayerData = new (class getPlayerData extends Callable {
+const getPlayerData = new (class getPlayerData extends AObject implements Callable {
 	async call(env: Environment, ...args: any[]) {
 		return Object.freeze(JSON.parse(JSON.stringify(player)));
 	}
