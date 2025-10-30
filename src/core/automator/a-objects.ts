@@ -58,14 +58,14 @@ export class Dictionary<K = any, V extends AObject = AObject> extends AObject {
 	keymap: Map<K, V> = new Map();
 	readonly: boolean = false;
 	get(key: any) {
-		return this.keymap.get(key) ?? new AUndefined();
+		return this.keymap.get(key.toString()) ?? new AUndefined();
 	}
 	set(key: any, value: any) {
 		if (this.readonly) throw new Error('Cannot set to readonly Dictionary');
-		return this.keymap.set(key, value);
+		return this.keymap.set(key.toString(), value);
 	}
 	has(key: any) {
-		return this.keymap.has(key);
+		return this.keymap.has(key.toString());
 	}
 	// dont use in automator env
 	mapEntries() {

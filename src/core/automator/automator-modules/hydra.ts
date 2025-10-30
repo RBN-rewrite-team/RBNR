@@ -66,10 +66,10 @@ const hydraDiluteSetFunction = new (class hydraReset extends AObject implements 
 export function importHydra(parentEnvironment: Environment) {
 	const readonlyDictionaryHydra = new (class extends Dictionary {
 		get(key: any) {
-			if (key == 'deduces') {
+			if (key.toString() == 'deduces') {
 				return new AutomatorArray([player.hydra.deduceOrdinal[0].add(1).sub(1)]);
 			}
-			if (key == 'indilute') {
+			if (key.toString() == 'indilute') {
 				return new ABoolean(player.hydra.dilute.inDilute);
 			}
 			return Dictionary.prototype.get.call(this, key);
