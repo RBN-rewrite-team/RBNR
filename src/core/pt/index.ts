@@ -792,6 +792,7 @@ export const GardenGenUpgs = {
 				return player.garden.igTimes.gt(0);
 			},
 			connect: [[], []],
+			igNR: true,
 			effectDescription(): string {
 				return '解锁花园等级(Coming Soon)';
 			},
@@ -814,6 +815,7 @@ export const GardenGenUpgs = {
 				return player.garden.igTimes.gt(0);
 			},
 			connect: [[], [23]],
+			igNR: true,
 			effectDescription(): string {
 				return '解锁远古阶段';
 			},
@@ -835,6 +837,7 @@ export const GardenGenUpgs = {
 			show(): boolean {
 				return player.garden.igTimes.gt(0);
 			},
+			igNR: true,
 			connect: [[], [23]],
 		},
 		26: {
@@ -854,6 +857,7 @@ export const GardenGenUpgs = {
 			show(): boolean {
 				return player.garden.igTimes.gt(0);
 			},
+			igNR: true,
 			connect: [[], [23]],
 		},
 	} satisfies {
