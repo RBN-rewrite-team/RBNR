@@ -324,7 +324,7 @@ export type GardenUpgrade = {
 	unlocked(): boolean;
 	connect: [number[], number[]];
 	show?(): boolean;
-	igNR?: boolean;
+	igNR?(): boolean;
 	effectDescription?(): string;
 };
 
@@ -335,7 +335,7 @@ export function isGardenGenerator(x: GardenUpgrade | GardenGenerator): x is Gard
 	return x.isG;
 }
 export function ignoreNR(x: GardenUpgrade) {
-	return x.igNR ?? false;
+	return x.igNR?.() ?? false;
 }
 export function isShow(x: GardenUpgrade | GardenGenerator) {
 	return x.show?.() ?? true;
