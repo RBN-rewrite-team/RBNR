@@ -306,7 +306,7 @@ function getLastPosition(m) {
 function findHighestWithPosition(m, position) {
 	if (m.dim == 0) {
 		if (m.position == position) return m;
-		else null;
+		else return null;
 	} else {
 		/*for (var i=m.arr.length-1;i>=0;i--){
       var r=findHighestWithPosition(m.arr[i],position);

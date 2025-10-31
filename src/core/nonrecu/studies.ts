@@ -359,7 +359,10 @@ export const studies = [
 		canBuy() {
 			let base = player.nonrecu.studies_bought.includes(15),
 				max = 1;
-			if (player.nonrecu.studies_bought.includes(19)) ((base = or(13, 14, 15)), (max = 2));
+			if (player.nonrecu.studies_bought.includes(19)) {
+				base = or(13, 14, 15);
+				max = 2;
+			}
 			if (player.upgrades.U6R12) max = 3;
 			return base && sum(16, 17, 18) < max;
 		},
