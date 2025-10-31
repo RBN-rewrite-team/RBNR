@@ -982,13 +982,13 @@ export const Garden = {
 	},
 	igGain(): Decimal {
 		if (player.garden.totalIdea.lt(1e6)) return new Decimal(0);
-		let base = player.garden.totalIdea.div(1e6).pow(0.25);
+		const base = player.garden.totalIdea.div(1e6).pow(0.25);
 		return base;
 	},
 	igReset() {
 		if (Garden.igGain().lt(1)) return;
 		if (Garden.nextIgRemain() > 0) return;
-		let gain = Garden.igGain();
+		const gain = Garden.igGain();
 		player.garden.igTimes = player.garden.igTimes.add(1);
 		player.garden.inspiration = player.garden.inspiration.add(gain);
 		player.garden.totalInspiration = player.garden.totalInspiration.add(gain);
@@ -1004,10 +1004,10 @@ export const Garden = {
 		player.garden.entropy = new Decimal(0);
 		player.garden.totalEntropy = new Decimal(0);
 		player.garden.bestEntropy = new Decimal(0);
-		for (let i in player.garden.generators)
+		for (const i in player.garden.generators)
 			player.garden.generators[Number(i) as keyof typeof GardenGenUpgs.generators] =
 				new Decimal(0);
-		for (let i in player.garden.upgrades) {
+		for (const i in player.garden.upgrades) {
 			if (!ignoreNR(GardenGenUpgs.upgrades[Number(i) as keyof typeof GardenGenUpgs.upgrades]))
 				player.garden.upgrades[i] = false;
 		}
