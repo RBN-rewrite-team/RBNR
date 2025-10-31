@@ -80,7 +80,15 @@ export async function evaluateFunctionDeclarationNode(
 	env.set(node.name, callable);
 	return callable;
 }
-
+function isAFalsy(a: AObject) {
+	return !isATruthy(a);
+}
+function isATruthy(a: AObject) {
+	if (a instanceof ABoolean) {
+		return a.bool;
+	}
+	return Boolean(a);
+}
 export async function evaluateForStatementNode(
 	node: ForStatementNode,
 	env: Environment,
@@ -95,7 +103,7 @@ export async function evaluateForStatementNode(
 	let r = new AUndefined();
 	for (
 		await evaluateAssignmentNode(variabledeclaration, env);
-		await evaluateNode(condition, env);
+		isATruthy(await evaluateNode(condition, env));
 		await evaluateNode(increment, env)
 	) {
 		r = await evaluateNode(node.body, env);
@@ -111,7 +119,7 @@ export async function evaluateWhileStatementNode(
 	const condition = node.condition;
 	const body = node.body;
 	let r = new AUndefined();
-	while (await evaluateNode(condition, env)) {
+	while (isATruthy(await evaluateNode(condition, env))) {
 		r = await evaluateNode(body, env);
 		if (interrupt) return new AUndefined();
 	}

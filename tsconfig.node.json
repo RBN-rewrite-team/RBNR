@@ -17,5 +17,6 @@
     "types": ["node"],
     "strictNullChecks": true,
     "noImplicitAny": true,
+"experimentalDecorators": true
   }
 }

@@ -8,6 +8,7 @@ import {
 	GardenGenUpgs,
 	isGardenGenerator,
 	isGardenUpgrade,
+	isShow,
 	type GardenGenerator,
 	type GardenUpgrade,
 } from '@/core/pt/index.ts';
@@ -52,22 +53,22 @@ function getConnect() {
 	const connectOrigin = [],
 		connect = [];
 	for (const i in GardenGenUpgs.generators) {
-		//@ts-expect-error
-		if(GardenGenUpgs.generators[i as unknown as keyof typeof GardenGenUpgs.generators].show?.() ?? true)
-		{
+		if (
+			isShow(GardenGenUpgs.generators[i as unknown as keyof typeof GardenGenUpgs.generators])
+		) {
 			const pos =
 				GardenGenUpgs.generators[i as unknown as keyof typeof GardenGenUpgs.generators].pos;
 			connectOrigin.push([
 				pos,
-				GardenGenUpgs.generators[i as unknown as keyof typeof GardenGenUpgs.generators].connect,
+				GardenGenUpgs.generators[i as unknown as keyof typeof GardenGenUpgs.generators]
+					.connect,
 			]);
 		}
 	}
 	for (const i in GardenGenUpgs.upgrades) {
-		//@ts-expect-error
-		if(GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.generators].show?.() ?? true)
-		{
-			const pos = GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades].pos;
+		if (isShow(GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.generators])) {
+			const pos =
+				GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades].pos;
 			connectOrigin.push([
 				pos,
 				GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades].connect,
@@ -142,8 +143,8 @@ function simulateText(canvasRef: any) {
 	}
 	return (
 		<>
-			{mapping[0].map((g) => (!(g.show?.() ?? true) ? null : (
-				g.unlocked() ? (
+			{mapping[0].map((g) =>
+				!(g.show?.() ?? true) ? null : g.unlocked() ? (
 					<>
 						<GardenNode
 							x={g.pos[0]}
@@ -195,10 +196,10 @@ function simulateText(canvasRef: any) {
 							</h2>
 						</GardenNode>
 					</>
-				))),
+				),
 			)}
-			{mapping[1].map((g) => (!(g.show?.() ?? true) ? null : (
-				g.unlocked() ? (
+			{mapping[1].map((g) =>
+				!(g.show?.() ?? true) ? null : g.unlocked() ? (
 					<>
 						<GardenNode
 							x={g.pos[0]}
@@ -218,12 +219,22 @@ function simulateText(canvasRef: any) {
 									'brightness(' +
 									(player.garden.upgrades[g.key] ? 1 : 0.75) +
 									')',
-								'border-color':
-									(player.garden.upgrades[g.key] ? 'green' : 'grey'),
+								'border-color': player.garden.upgrades[g.key] ? 'green' : 'grey',
 								transform:
-									'scale(' + (Garden.canBoughtUpgrade(g.key as keyof typeof GardenGenUpgs.upgrades) && !Garden.boughtUpgrade(g.key as keyof typeof GardenGenUpgs.upgrades) ? '1.15' : '1'),
-								'background-color':
-									(GardenGenUpgs.upgrades[g.key].useInspiration ? 'rgba(255, 153, 18, 1)': 'var(--background-color)'),
+									'scale(' +
+									(Garden.canBoughtUpgrade(
+										g.key as keyof typeof GardenGenUpgs.upgrades,
+									) &&
+									!Garden.boughtUpgrade(
+										g.key as keyof typeof GardenGenUpgs.upgrades,
+									)
+										? '1.15'
+										: '1'),
+								'background-color': GardenGenUpgs.upgrades[
+									g.key as keyof typeof GardenGenUpgs.upgrades
+								].useInspiration
+									? 'rgba(255, 153, 18, 1)'
+									: 'var(--background-color)',
 							}}
 						>
 							<h3 style="position: absolute; left: 50%; bottom: -60px; transform: translate(-50%, -50%)">
@@ -238,9 +249,7 @@ function simulateText(canvasRef: any) {
 											),
 											6,
 										)}{' '}
-										{
-											g.useInspiration ? '灵感' : '想法'
-										}
+										{g.useInspiration ? '灵感' : '想法'}
 									</span>
 								</>
 							) : (
@@ -257,8 +266,11 @@ function simulateText(canvasRef: any) {
 							mini={true}
 							nodestyle={{
 								filter: 'brightness(0.75)',
-								'background-color':
-									(GardenGenUpgs.upgrades[g.key].useInspiration ? 'rgba(255, 153, 18, 0.75)': 'var(--background-color)'),
+								'background-color': GardenGenUpgs.upgrades[
+									g.key as keyof typeof GardenGenUpgs.upgrades
+								].useInspiration
+									? 'rgba(255, 153, 18, 0.75)'
+									: 'var(--background-color)',
 							}}
 						>
 							<h3 style="position: absolute; left: 50%; bottom: -60px; transform: translate(-50%, -50%)">
@@ -266,7 +278,7 @@ function simulateText(canvasRef: any) {
 							</h3>
 						</GardenNode>
 					</>
-				))),
+				),
 			)}
 			{connecting.map((c) =>
 				true ? (
@@ -283,42 +295,61 @@ function simulateText(canvasRef: any) {
 					<></>
 				),
 			)}
-			{
-			(player.garden.bestIdea.gte(1e6) || player.garden.igTimes.gt(0))
-				? <>
+			{player.garden.bestIdea.gte(1e6) || player.garden.igTimes.gt(0) ? (
+				<>
 					<GardenNode
 						x={-150}
 						y={300}
 						canvasRef={canvasRef}
-						nodestyle={{ 'border-color': 'orange', 'width': '400px', 'border-radius': '0px', 'filter': 'brightness(' + (Garden.igGain().gte(1) ? '1' : '0.75') + ')' }}
-						onClick={function() {
+						nodestyle={{
+							'border-color': 'orange',
+							width: '400px',
+							'border-radius': '0px',
+							filter: 'brightness(' + (Garden.igGain().gte(1) ? '1' : '0.75') + ')',
+						}}
+						onClick={function () {
 							Garden.igReset();
 						}}
 					>
-						{
-							Garden.nextIgRemain() > 0 ?
-							<><h3>距离下一次可用还有<h2 style="color: orange">{Garden.nextIgRemain()}ms/{Garden.igCD()}ms</h2></h3></>
-							:
-							<><h3><h2 style="color: orange">{format(Garden.igGain())}</h2>灵感</h3></>
-						}
+						{Garden.nextIgRemain() > 0 ? (
+							<>
+								<h3>
+									距离下一次可用还有
+									<h2 style="color: orange">
+										{Garden.nextIgRemain()}ms/{Garden.igCD()}ms
+									</h2>
+								</h3>
+							</>
+						) : (
+							<>
+								<h3>
+									<h2 style="color: orange">{format(Garden.igGain())}</h2>灵感
+								</h3>
+							</>
+						)}
 						<h2 style="position: absolute; left: 50%; bottom: -90px; transform: translate(-50%, -50%); color: orange">
 							灵感迸发
 						</h2>
 					</GardenNode>
 				</>
-				: <>
+			) : (
+				<>
 					<GardenNode
 						x={-150}
 						y={300}
 						canvasRef={canvasRef}
-						nodestyle={{ 'border-color': 'orange', 'width': '400px', 'border-radius': '0px' }}
+						nodestyle={{
+							'border-color': 'orange',
+							width: '400px',
+							'border-radius': '0px',
+						}}
 					>
 						<h2 style="position: absolute; left: 50%; bottom: -90px; transform: translate(-50%, -50%); color: orange">
 							???
 						</h2>
 					</GardenNode>
 				</>
-			}
+			)}
 		</>
 	);
 }
@@ -387,8 +418,12 @@ export default defineComponent({
 										)}{' '}
 								{(isGardenGenerator(player.garden.focusNode) ?? false)
 									? '想法'
-									: (GardenGenUpgs.upgrades[player.garden.focusNode.key as keyof typeof GardenGenUpgs.upgrades].useInspiration ? '灵感' : '想法'
-									)}
+									: GardenGenUpgs.upgrades[
+												player.garden.focusNode
+													.key as keyof typeof GardenGenUpgs.upgrades
+										  ].useInspiration
+										? '灵感'
+										: '想法'}
 							</h5>
 							<br />
 							<br />
@@ -416,21 +451,22 @@ export default defineComponent({
 							) : (
 								<>
 									增强
-									{
-										(player.garden.focusNode as GardenUpgrade).effect.key >= 0 ?
-											GardenGenUpgs.generators[
+									{(player.garden.focusNode as GardenUpgrade).effect.key >= 0
+										? GardenGenUpgs.generators[
 												(player.garden.focusNode as GardenUpgrade).effect
 													.key as unknown as keyof typeof GardenGenUpgs.generators
 											].name
-										:
-											Garden.upgradeImproving((player.garden.focusNode as GardenUpgrade).effect.key)
-									}
+										: Garden.upgradeImproving(
+												(player.garden.focusNode as GardenUpgrade).effect
+													.key,
+											)}
 									：x
 									{format((player.garden.focusNode as GardenUpgrade).effect.mult)}
 									<br />
-									{
-										Garden.upgradeEffectDescription(player.garden.focusNode.key as keyof typeof GardenGenUpgs.upgrades)
-									}
+									{Garden.upgradeEffectDescription(
+										player.garden.focusNode
+											.key as keyof typeof GardenGenUpgs.upgrades,
+									)}
 								</>
 							)}
 						</div>

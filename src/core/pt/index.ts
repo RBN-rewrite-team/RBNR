@@ -334,6 +334,12 @@ export function isGardenUpgrade(x: GardenUpgrade | GardenGenerator): x is Garden
 export function isGardenGenerator(x: GardenUpgrade | GardenGenerator): x is GardenGenerator {
 	return x.isG;
 }
+export function ignoreNR(x: GardenUpgrade) {
+	return x.igNR?.() ?? false;
+}
+export function isShow(x: GardenUpgrade | GardenGenerator) {
+	return x.show?.() ?? true;
+}
 export const GardenGenUpgs = {
 	generators: {
 		0: {
@@ -388,7 +394,8 @@ export const GardenGenUpgs = {
 			cost: new Decimal(500),
 			idea: new Decimal(1),
 			entropy: new Decimal(1e-7),
-			unlocked: (): boolean => Garden.boughtUpgrade(10) && Garden.boughtGeneratorReach(3, new Decimal(50)),
+			unlocked: (): boolean =>
+				Garden.boughtUpgrade(10) && Garden.boughtGeneratorReach(3, new Decimal(50)),
 			connect: [[3], []],
 		},
 		5: {
@@ -886,14 +893,16 @@ export const Garden = {
 	},
 	upgradeCost(key: keyof typeof GardenGenUpgs.upgrades) {
 		let base = GardenGenUpgs.upgrades[key].cost;
-		if(!GardenGenUpgs.upgrades[key].useInspiration) base = base.mul(Garden.entropyEffect());
+		if (!GardenGenUpgs.upgrades[key].useInspiration) base = base.mul(Garden.entropyEffect());
 		return base;
 	},
 	upgradeEffectDescription(key: keyof typeof GardenGenUpgs.upgrades): string {
+		if (!('effectDescription' in GardenGenUpgs.upgrades[key])) return '';
+		if (!(typeof GardenGenUpgs.upgrades[key].effectDescription == 'function')) return '';
 		return GardenGenUpgs.upgrades[key].effectDescription?.() ?? '';
 	},
 	upgradeImproving(key: number): string {
-		switch(key) {
+		switch (key) {
 			case -1:
 				return '生成器想法倍增';
 			case -2:
@@ -909,15 +918,14 @@ export const Garden = {
 		}
 	},
 	canBoughtUpgrade(key: keyof typeof GardenGenUpgs.upgrades): boolean {
-		if(GardenGenUpgs.upgrades[key].useInspiration) return player.garden.inspiration.gte(Garden.upgradeCost(key));
+		if (GardenGenUpgs.upgrades[key].useInspiration)
+			return player.garden.inspiration.gte(Garden.upgradeCost(key));
 		return player.garden.idea.gte(Garden.upgradeCost(key));
 	},
 	buyUpgrade(key: keyof typeof GardenGenUpgs.upgrades) {
-		if (
-			Garden.canBoughtUpgrade(key) &&
-			!player.garden.upgrades[key]
-		) {
-			if(GardenGenUpgs.upgrades[key].useInspiration) player.garden.inspiration = player.garden.inspiration.sub(Garden.upgradeCost(key));
+		if (Garden.canBoughtUpgrade(key) && !player.garden.upgrades[key]) {
+			if (GardenGenUpgs.upgrades[key].useInspiration)
+				player.garden.inspiration = player.garden.inspiration.sub(Garden.upgradeCost(key));
 			else player.garden.idea = player.garden.idea.sub(Garden.upgradeCost(key));
 			player.garden.upgrades[key] = true;
 		}
@@ -927,8 +935,8 @@ export const Garden = {
 		for (const i in player.garden.upgrades) {
 			if (
 				GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades].effect
-					.key == key
-				|| GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades].effect
+					.key == key ||
+				GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades].effect
 					.key == -1
 			)
 				base = base.mul(
@@ -977,31 +985,35 @@ export const Garden = {
 		return Math.max(Garden.igCD() + player.garden.lastIG - Date.now(), 0);
 	},
 	igGain(): Decimal {
-		if(player.garden.totalIdea.lt(1e6)) return new Decimal(0);
-		let base = player.garden.totalIdea.div(1e6).pow(0.25);
+		if (player.garden.totalIdea.lt(1e6)) return new Decimal(0);
+		const base = player.garden.totalIdea.div(1e6).pow(0.25);
 		return base;
 	},
 	igReset() {
-		if(Garden.igGain().lt(1)) return;
-		if(Garden.nextIgRemain().gt(0)) return;
-		let gain = Garden.igGain();
+		if (Garden.igGain().lt(1)) return;
+		if (Garden.nextIgRemain() > 0) return;
+		const gain = Garden.igGain();
 		player.garden.igTimes = player.garden.igTimes.add(1);
 		player.garden.inspiration = player.garden.inspiration.add(gain);
 		player.garden.totalInspiration = player.garden.totalInspiration.add(gain);
-		player.garden.bestInspiration = player.garden.inspiration.max(player.garden.bastInspiration);
+		player.garden.bestInspiration = player.garden.inspiration.max(
+			player.garden.bestInspiration,
+		);
 		player.garden.lastIG = Date.now();
 		player.garden.focusNode = GardenGenUpgs.generators[0];
-		
+
 		player.garden.idea = new Decimal(0);
 		player.garden.totalIdea = new Decimal(0);
 		player.garden.bestIdea = new Decimal(0);
 		player.garden.entropy = new Decimal(0);
 		player.garden.totalEntropy = new Decimal(0);
 		player.garden.bestEntropy = new Decimal(0);
-		for(let i in player.garden.generators) player.garden.generators[i] = new Decimal(0);
-		for(let i in player.garden.upgrades)
-		{
-			if(!(GardenGenUpgs.upgrades.igNR?.() ?? false)) player.garden.upgrades[i] = false;
+		for (const i in player.garden.generators)
+			player.garden.generators[Number(i) as keyof typeof GardenGenUpgs.generators] =
+				new Decimal(0);
+		for (const i in player.garden.upgrades) {
+			if (!ignoreNR(GardenGenUpgs.upgrades[Number(i) as keyof typeof GardenGenUpgs.upgrades]))
+				player.garden.upgrades[i] = false;
 		}
 	},
 	gardenLoop(diff: number) {
