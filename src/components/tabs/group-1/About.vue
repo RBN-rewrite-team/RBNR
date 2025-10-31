@@ -64,6 +64,7 @@ import { player } from '@/core/save';
 				<h2>策划</h2>
 				<br />
 				RAXH<br />
+				Seanxlx<br />
 				LSO - The Reflection Arc<br />
 				6左爷6<br />
 				EdenGameMaster<br />
@@ -82,7 +83,8 @@ import { player } from '@/core/save';
 				<h2>平衡</h2>
 				<br />
 				EdenGameMaster<br />
-				Seanxlx
+				Seanxlx<br />
+				VeryrrDefine
 			</div>
 			<div
 				style="
@@ -118,6 +120,7 @@ import { player } from '@/core/save';
 				<br />
 				RAXH<br />
 				6左爷6<br />
+				Seanxlx<br />
 			</div>
 			<div
 				style="
