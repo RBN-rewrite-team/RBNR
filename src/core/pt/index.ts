@@ -324,7 +324,7 @@ export type GardenUpgrade = {
 	unlocked(): boolean;
 	connect: [number[], number[]];
 	show?(): boolean;
-	igNR?: boolean;
+	igNR?(): boolean;
 	effectDescription?(): string;
 };
 
@@ -335,7 +335,7 @@ export function isGardenGenerator(x: GardenUpgrade | GardenGenerator): x is Gard
 	return x.isG;
 }
 export function ignoreNR(x: GardenUpgrade) {
-	return x.igNR ?? false;
+	return x.igNR?.() ?? false;
 }
 export function isShow(x: GardenUpgrade | GardenGenerator) {
 	return x.show?.() ?? true;
@@ -799,7 +799,7 @@ export const GardenGenUpgs = {
 				return player.garden.igTimes.gt(0);
 			},
 			connect: [[], []],
-			igNR: () => true,
+			igNR: true,
 			effectDescription(): string {
 				return '解锁花园等级(Coming Soon)';
 			},
@@ -822,7 +822,7 @@ export const GardenGenUpgs = {
 				return player.garden.igTimes.gt(0);
 			},
 			connect: [[], [23]],
-			igNR: () => true,
+			igNR: true,
 			effectDescription(): string {
 				return '解锁远古阶段';
 			},
@@ -844,7 +844,7 @@ export const GardenGenUpgs = {
 			show(): boolean {
 				return player.garden.igTimes.gt(0);
 			},
-			igNR: () => true,
+			igNR: true,
 			connect: [[], [23]],
 		},
 		26: {
@@ -864,7 +864,7 @@ export const GardenGenUpgs = {
 			show(): boolean {
 				return player.garden.igTimes.gt(0);
 			},
-			igNR: () => true,
+			igNR: true,
 			connect: [[], [23]],
 		},
 	} satisfies {
