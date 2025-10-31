@@ -8,7 +8,7 @@ function retributionText() {
 	if (player.retribution < 1) {
 		return player.hydra.deduceOrdinal[0].lt('eeee10') ? '...' : '获得启示...';
 	}
-	return '?';
+	return '......';
 }
 // player.options.ui.theme = themes.DARK;
 </script>
