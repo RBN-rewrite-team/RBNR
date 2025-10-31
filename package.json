@@ -27,7 +27,7 @@
     "pako": "^2.1.0",
     "powiaina_num.js": "^0.2.11",
     "terser": "^5.44.0",
-    "type-fest": "^5.0.1",
+    "type-fest": "^5.1.0",
     "vatex": "^0.1.0",
     "vue": "^3.5.22"
   },
