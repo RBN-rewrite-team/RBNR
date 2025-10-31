@@ -1,3 +1,4 @@
+// eslint-disable-next-line vue/prefer-import-from-vue
 import type { LooseRequired } from '@vue/shared';
 import { pick } from 'lodash-es';
 import type { Events, ExtractPropTypes, PropType } from 'vue';
@@ -105,6 +106,7 @@ export const propsEvents = {
 } as const;
 const events = Object.keys(propsEvents) as unknown as keyof typeof propsEvents;
 export function extractAttributesFromProps<
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 	T extends LooseRequired<Readonly<ExtractPropTypes<typeof propsEvents>> & Readonly<{}> & {}>,
 >(props: T): Pick<T, keyof Events> {
 	return pick(props, events);

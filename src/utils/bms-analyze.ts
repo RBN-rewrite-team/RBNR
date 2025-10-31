@@ -454,7 +454,8 @@ function toStandardize3(a: Term): [Term, Term] {
 	let first = add(ONE, p);
 	let ptr = q;
 	while (!isZero(ptr)) {
-		((first = add(first, exp(sub(log(ptr), [a[0], [], []])))), (ptr = ptr[2]));
+		first = add(first, exp(sub(log(ptr), [a[0], [], []])));
+		ptr = ptr[2];
 	}
 	return [first, second];
 }
