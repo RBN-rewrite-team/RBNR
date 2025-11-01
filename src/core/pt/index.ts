@@ -1166,7 +1166,7 @@ export const Garden = {
 		}
 	},
 	exp(): Decimal {
-		let base = (player.garden.bestIdea).mul((player.garden.bestInspiration).pow(2)).mul(player.garden.bestEntropy.pow(2));
+		let base = (player.garden.bestIdea).mul((player.garden.bestInspiration).pow(2)).mul(player.garden.trueBestEntropy.pow(2));
 		return base.max(1).max(player.garden.bestExp);
 	},
 	level(): Decimal {
@@ -1190,6 +1190,7 @@ export const Garden = {
 			player.garden.bestIdea = player.garden.bestIdea.max(player.garden.idea);
 			player.garden.bestEntropy = player.garden.bestEntropy.max(player.garden.entropy);
 			player.garden.bestExp = player.garden.bestExp.max(Garden.exp());
+			player.garden.trueBestEntropy = player.garden.trueBestEntropy.max(player.garden.entropy);
 		}
 	},
 	playerData() {
@@ -1213,6 +1214,7 @@ export const Garden = {
 			igTimes: new Decimal(0),
 			insPower: new Decimal(0),
 			bestExp: new Decimal(0),
+			trueBestEntropy: new Decimal(0),
 		};
 		for (const i in GardenGenUpgs.generators) {
 			base.generators[<keyof typeof GardenGenUpgs.generators>(<unknown>i)] = new Decimal(0);
