@@ -12,7 +12,9 @@ import {
 } from '@/core/pt/index.ts';
 import GardenNode from './GardenNode';
 import GardenConnect from './GardenConnect';
-import { format, formatTimestamp, formatWhole } from '@/utils/format';
+import { format, formatLaTeX, formatTimestamp, formatWhole } from '@/utils/format';
+import GardenLevelFormula from './GardenLevelFormula';
+import { VueLatex } from 'vatex';
 export function onMousedown(m: MouseEvent) {
 	temp.garden.press = true;
 	temp.garden.press_last = [m.clientX, m.clientY];
@@ -489,7 +491,7 @@ export default defineComponent({
 					</div>
 					{Garden.boughtUpgrade(23) ? (
 						<>
-							<div style="position: absolute; top: 5px; left: 50%; transform: translateX(-50%); z-index: 3; width: 400px; height: 50px; background-color: rgb(50, 24, 2); border: 2px solid rgb(50, 50, 2)">
+							<div style="position: absolute; top: 5px; left: 50%; transform: translateX(-50%); z-index: 3; width: 400px; height: 75px; background-color: rgb(50, 24, 2); border: 2px solid rgb(50, 50, 2)">
 								<div style="position: relative; width: 100%; height: 100%">
 									<div
 										style={{
@@ -507,6 +509,8 @@ export default defineComponent({
 									</span>
 									<br />
 									升级: {Garden.expPercent()}
+									<br />
+									{GardenLevelFormula()}
 								</div>
 							</div>
 						</>
