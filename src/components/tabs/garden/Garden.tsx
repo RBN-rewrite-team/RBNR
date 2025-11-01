@@ -350,6 +350,19 @@ function simulateText(canvasRef: any) {
 					</GardenNode>
 				</>
 			)}
+			{
+				Garden.boughtUpgrade(24) ?
+				<><GardenNode
+					x={300}
+					y={0}
+					canvasRef={canvasRef}
+					onClick={function(){temp.garden.focus_pos[0] = 0, temp.garden.focus_pos[1] = -1750}}
+				>
+					<h4>传送至</h4>
+					<h3>远古</h3>
+				</GardenNode></>
+				: <></>
+			}
 		</>
 	);
 }

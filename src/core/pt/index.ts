@@ -401,13 +401,25 @@ export const GardenGenUpgs = {
 		5: {
 			isG: true,
 			key: 5,
-			name: '',
+			name: '氨基酸',
 			pos: [0, -1750],
 			cost: new Decimal(1e6),
 			idea: new Decimal(25000),
 			entropy: new Decimal(1e-4),
-			unlocked: (): boolean => Garden.boughtUpgrade(14) && false, //需要灵感升级
+			unlocked: (): boolean => Garden.boughtUpgrade(14) && Garden.boughtUpgrade(24),
 			connect: [[], [14]],
+		},
+		6: {
+			isG: true,
+			key: 6,
+			name: '脱氧核糖核酸',
+			pos: [50, -1925],
+			cost: new Decimal(5e8),
+			idea: new Decimal(1.5e7),
+			entropy: new Decimal(0.05),
+			unlocked: (): boolean => Garden.boughtUpgrade(27) && Garden.boughtGeneratorReach(5, new Decimal(50)),
+			show: (): boolean => Garden.boughtUpgrade(24),
+			connect: [[5], [27]],
 		},
 	} satisfies {
 		[key in any]: GardenGenerator;
@@ -866,6 +878,63 @@ export const GardenGenUpgs = {
 			},
 			igNR: () => true,
 			connect: [[], [23]],
+		},
+		27: {
+			isG: !true,
+			key: 27,
+			name: '蛋白质',
+			pos: [-150, -1800],
+			cost: new Decimal(1.5e7),
+			useInspiration: false,
+			effect: {
+				key: 5,
+				mult: new Decimal(1.75),
+			},
+			unlocked(): boolean {
+				return Garden.boughtGeneratorReach(5, new Decimal(1));
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(24);
+			},
+			connect: [[5], []],
+		},
+		28: {
+			isG: !true,
+			key: 28,
+			name: '编码蛋白质',
+			pos: [-200, -1950],
+			cost: new Decimal(4e7),
+			useInspiration: false,
+			effect: {
+				key: 5,
+				mult: new Decimal(1.5),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(27);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(24);
+			},
+			connect: [[], [27]],
+		},
+		29: {
+			isG: !true,
+			key: 29,
+			name: '核糖核酸',
+			pos: [250, -2000],
+			cost: new Decimal(5e8),
+			useInspiration: false,
+			effect: {
+				key: 6,
+				mult: new Decimal(2),
+			},
+			unlocked(): boolean {
+				return Garden.boughtGeneratorReach(6, new Decimal(1));
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(24);
+			},
+			connect: [[6], []],
 		},
 	} satisfies {
 		[key in any]: GardenUpgrade;
