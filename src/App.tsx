@@ -21,11 +21,15 @@ export default defineComponent({
 			<>
 				<Side />
 				<div class="content">
-					<div class="news" v-if="player.options.ui.newsbar" id="newsbar">
-						<div class="background">
-							<Newsticker />
+					{player.options.ui.newsbar ? (
+						<div class="news" id="newsbar">
+							<div class="background">
+								<Newsticker />
+							</div>
 						</div>
-					</div>
+					) : (
+						''
+					)}
 					<Resources />
 					<div class="main-content" id="main">
 						<div class="background">

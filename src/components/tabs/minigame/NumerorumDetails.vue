@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import PrimaryButton from '@/components/ui/PrimaryButton';
 import { currentPlayerLV, getWorldLevel, LVpercent, nextLVxp } from '@/core/minigame';
 import { meBattleInfo } from '@/core/minigame/battle';
 import { player } from '@/core/save';
@@ -96,12 +97,11 @@ function openCore() {
 						矿石收集：{{ player.minigame.ore_gets }}<br />(+{{
 							player.minigame.ore_gets * 0.25
 						}}%全局速度)
-						<button
-							class="clickable-button"
+						<PrimaryButton
 							@click="player.options.openOreEffect = !player.options.openOreEffect"
 						>
 							开启矿石效果: {{ player.options.openOreEffect ? '开' : '关' }}
-						</button>
+						</PrimaryButton>
 					</td>
 					<td>
 						宝箱收集：<span
@@ -118,18 +118,18 @@ function openCore() {
 				</tr>
 				<tr>
 					<td>
-						<button @click="spawn(0)">Dungeon 1</button><br />
-						<button @click="spawn(1)" v-if="player.minigame.visited.includes(1)">
+						<PrimaryButton @click="spawn(0)">Dungeon 1</PrimaryButton><br />
+						<PrimaryButton @click="spawn(1)" v-if="player.minigame.visited.includes(1)">
 							Dungeon 2
-						</button>
+						</PrimaryButton>
 					</td>
 					<td>
-						<button @click="openCore()">
+						<PrimaryButton @click="openCore()">
 							核心(装备{{
 								player.minigame.coreEquipments.hea.length +
 								player.minigame.coreEquipments.atk.length +
 								player.minigame.coreEquipments.def.length
-							}}/3)</button
+							}}/3)</PrimaryButton
 						><br />
 						仓库装备：{{ player.minigame.storeEquipments.length }}/50<span
 							style="color: cyan"

@@ -8,6 +8,7 @@ import { isTester } from '@/core/save/testing.ts';
 import ModalService from '@/utils/Modal';
 import fontUI from '@/core/save/fontUI';
 import { setMusic as incMusic, MUSIC_TEXT, setMusicUrlAndPlay } from '@/core/music';
+import CenterLine from '@/components/ui/CenterLine.vue';
 
 const validNotations = computed(() =>
 	Object.values(notations).filter((v) => typeof v === 'number'),
@@ -43,7 +44,7 @@ const setFontUI = () => ModalService.show({ title: '设置字体', component: fo
 
 		<br />
 		<div v-if="player.singularity.stage < 1">
-			<div class="center_line" />
+			<CenterLine />
 			<h3>记数法</h3>
 			<button
 				@click="player.options.notation = notation"
@@ -54,7 +55,7 @@ const setFontUI = () => ModalService.show({ title: '设置字体', component: fo
 			</button>
 		</div>
 		<br />
-		<div class="center_line" />
+		<CenterLine />
 		<h3>主题</h3>
 		<button class="setting_button" @click="reverseUiOptions('color_inversion')">
 			颜色反转：{{ player.options.ui.otherwise['color_inversion'] ? '开' : '关' }}
@@ -80,7 +81,7 @@ const setFontUI = () => ModalService.show({ title: '设置字体', component: fo
 		<button class="setting_button" @click="setFontUI">设置字体</button>
 		<br />
 		<br />
-		<div class="center_line" />
+		<CenterLine />
 		<h3>界面</h3>
 		<button
 			class="setting_button"
@@ -97,7 +98,7 @@ const setFontUI = () => ModalService.show({ title: '设置字体', component: fo
 		<button class="setting_button" @click="player.options.isGuoGao = !player.options.isGuoGao">
 			果糕层级：{{ player.options.isGuoGao ? '开' : '关' }}</button
 		><br />
-		<div class="center_line"></div>
+		<CenterLine />
 		<button class="setting_button" @click="incMusic">
 			音乐: {{ MUSIC_TEXT[player.options.music] }}
 		</button>

@@ -5,25 +5,28 @@ import { player } from '@/core/save';
 import { format, formatWhole } from '@/utils/format';
 import TDUpgrade from '../../group-2/TDUpgrade.vue';
 import TDBuyable from '../../group-2/TDBuyable.vue';
+import PrimaryButton from '@/components/ui/PrimaryButton';
+import ModalService from '@/utils/Modal';
+const a = function () {
+	ModalService.show({ title: '群除我佬' });
+};
 </script>
 
 <template>
 	<div class="main">
 		<div class="clickable">
-			<div
-				class="clickable_button"
-				style="width: 240px"
-				@mousedown="feature.SUCCESSOR.success()"
+			<PrimaryButton
+				@click="feature.SUCCESSOR.success()"
 				v-if="!player.upgrades['25']"
-			>
-				后继x{{ format(feature.SUCCESSOR.successorBulk())
+				style="width: 240px"
+				>后继x{{ format(feature.SUCCESSOR.successorBulk())
 				}}<sup v-if="feature.SUCCESSOR.successorPow().gt(1)">{{
 					format(feature.SUCCESSOR.successorPow())
 				}}</sup
 				><span v-if="BUYABLES.lock('11').unlocked"
 					>(自动{{ formatWhole(feature.SUCCESSOR.autoSuccessPerSecond()) }}/s)</span
 				>
-			</div>
+			</PrimaryButton>
 			<div class="clickable_button" @mousedown="feature.SUCCESSOR.success()" v-else>
 				加法+{{ formatWhole(feature.SUCCESSOR.successorBulk())
 				}}<sup v-if="feature.SUCCESSOR.successorPow().gt(1)">{{
