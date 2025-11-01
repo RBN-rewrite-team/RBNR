@@ -1241,9 +1241,11 @@ export const Garden = {
 	},
 	gardenLoop(diff: number) {
 		if (player.garden.openSimulate) {
+			let localDiff = diff;
+
 			if (player.garden.generators[0].lt(1)) player.garden.generators[0] = new Decimal(1);
-			const iY = Garden.ideaYield().mul(diff);
-			const eY = Garden.entropyYield().mul(diff);
+			const iY = Garden.ideaYield().mul(localDiff);
+			const eY = Garden.entropyYield().mul(localDiff);
 			player.garden.idea = player.garden.idea.add(iY);
 			player.garden.entropy = player.garden.entropy.add(eY);
 			player.garden.totalIdea = player.garden.totalIdea.add(iY);
