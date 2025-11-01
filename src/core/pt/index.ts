@@ -976,6 +976,46 @@ export const GardenGenUpgs = {
 			},
 			connect: [[6], []],
 		},
+		32: {
+			isG: !true,
+			key: 32,
+			name: 'I2',
+			pos: [-400, 1000],
+			cost: new Decimal(50),
+			useInspiration: true,
+			effect: {
+				key: -1,
+				mult: new Decimal(3),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(25);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(25);
+			},
+			igNR: () => true,
+			connect: [[], [25]],
+		},
+		33: {
+			isG: !true,
+			key: 33,
+			name: 'E2',
+			pos: [400, 1000],
+			cost: new Decimal(450),
+			useInspiration: true,
+			effect: {
+				key: -2,
+				mult: new Decimal(3),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(26);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(26);
+			},
+			igNR: () => true,
+			connect: [[], [26]],
+		},
 	} satisfies {
 		[key in any]: GardenUpgrade;
 	},
