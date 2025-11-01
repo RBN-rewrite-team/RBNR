@@ -12,7 +12,7 @@ import {
 } from '@/core/pt/index.ts';
 import GardenNode from './GardenNode';
 import GardenConnect from './GardenConnect';
-import { format, formatWhole } from '@/utils/format';
+import { format, formatTimestamp, formatWhole } from '@/utils/format';
 export function onMousedown(m: MouseEvent) {
 	temp.garden.press = true;
 	temp.garden.press_last = [m.clientX, m.clientY];
@@ -315,6 +315,9 @@ function simulateText(canvasRef: any) {
 										{Garden.nextIgRemain()}ms/{Garden.igCD()}ms
 									</h2>
 								</h3>
+								<p style="color: orange">
+									下一次灵感迸发可于{formatTimestamp(Garden.nextIg())}后启用
+								</p>
 							</>
 						) : (
 							<>

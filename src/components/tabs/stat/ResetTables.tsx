@@ -1,18 +1,7 @@
 import type { ResetRecord } from '@/core/stats';
-import { format } from '@/utils/format';
+import { format, formatTimestamp } from '@/utils/format';
 import { defineComponent, type PropType } from 'vue';
 import './resetTable.scss';
-// 格式化时间戳为可读时间
-const formatTimestamp = (timestamp: number): string => {
-	return new Date(timestamp).toLocaleString('zh-CN', {
-		year: 'numeric',
-		month: '2-digit',
-		day: '2-digit',
-		hour: '2-digit',
-		minute: '2-digit',
-		second: '2-digit',
-	});
-};
 
 export default defineComponent({
 	name: 'ResetTables',

@@ -1181,6 +1181,9 @@ export const Garden = {
 	nextIgRemain() {
 		return Math.max(Garden.igCD() + player.garden.lastIG - Date.now(), 0);
 	},
+	nextIg() {
+		return Garden.igCD() + player.garden.lastIG;
+	},
 	igGain(): Decimal {
 		if (player.garden.totalIdea.lt(1e6)) return new Decimal(0);
 		const base = player.garden.totalIdea.div(1e6).pow(0.25);
