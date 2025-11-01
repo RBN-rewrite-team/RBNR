@@ -13,11 +13,7 @@ const cur = computed(() =>
 
 <template>
 	<div class="main">
-		<p style="color: grey; table-align: center">
-			<vue-latex
-				expression="\Pi_2 \operatorname{onto}\mathrm{Ord}\subset \{a|\operatorname{cf}(a)=a\}"
-			/>。
-		</p>
+		<p style="color: grey; table-align: center"><Baixie />。</p>
 
 		<p>
 			你的UNOCF序数为<vue-latex
