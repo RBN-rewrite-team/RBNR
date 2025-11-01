@@ -2,12 +2,6 @@ import ModalService from '@/utils/Modal';
 import { ABoolean, AObject, AUndefined, type Callable } from './a-objects';
 import { formatResult } from '.';
 import { player } from '../global';
-import { importMusic } from './automator-modules/music-play';
-import { importMath } from './automator-modules/math';
-import { importHydra } from './automator-modules/hydra';
-import { importRbnr } from './automator-modules/rbnr';
-import { importNonrec } from './automator-modules/nonrec';
-import { importPT } from './automator-modules/proofTheory';
 
 export class Environment {
 	parent: Environment | null = null;

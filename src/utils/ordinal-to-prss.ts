@@ -1,4 +1,3 @@
-import { displayOrd } from '@/lib/ordinal';
 import type Decimal from 'break_eternity.js';
 
 export function ordinalToLPrSS(ord: Decimal, base: Decimal, ascend = 0, depth = 0): string {

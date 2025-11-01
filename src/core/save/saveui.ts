@@ -1,14 +1,5 @@
 import ModalService from '@/utils/Modal';
-import {
-	changeSave,
-	current_save,
-	hardReset,
-	loadFromString,
-	player,
-	readSaveDetail,
-	save as s,
-	type Player,
-} from '.';
+import { changeSave, hardReset, loadFromString, player, save as s, type Player } from '.';
 import { saveInterval } from '@/core/game-loop';
 import saveslot_display from './saveslot_display';
 

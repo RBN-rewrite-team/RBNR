@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { CHALLENGE } from '@/core/challenge';
 import { buyStudies, canBuyStudies, studies } from '@/core/minigame/skilltree';
 import { player } from '@/core/save';
 import { formatWhole } from '@/utils/format';

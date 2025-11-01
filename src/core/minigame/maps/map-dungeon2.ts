@@ -11,12 +11,9 @@ import {
 	OreGameObject,
 	RestrictedBoxObject,
 	SwitchGameObject,
-	TeleporterGameObject,
 	WallGameObject,
 	WallInvisibleGameObject,
 } from '../game-object';
-import type { SingleMap } from '../map';
-import { convertStringToMap } from '../map-functions';
 export const between = (x: number, y: number, z: number) => x <= y && y <= z;
 export function map2_block(x: number, y: number) {
 	if (x < 0) return undefined;

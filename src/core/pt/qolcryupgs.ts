@@ -1,5 +1,4 @@
 import Decimal from 'break_eternity.js';
-import { player } from '../save';
 import { Upgrade } from '../upgrade';
 import { Currencies } from '../currencies';
 import { UpgradeRequirement, type Requirement } from '../requirements';

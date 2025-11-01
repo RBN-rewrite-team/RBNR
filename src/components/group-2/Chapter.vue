@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { player, feature } from '@/core/global';
+import { player } from '@/core/global';
 
 function showChapter(id = 0): boolean {
 	if (player.stat.chapter >= id) return false;

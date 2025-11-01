@@ -1,7 +1,6 @@
 import Decimal from 'break_eternity.js';
 import { Currencies, getCurrency } from './currencies';
 import type { Requirement } from './requirements';
-import { player } from './save';
 
 export abstract class Buyable<T> {
 	currency: Currencies = Currencies.NUMBER;

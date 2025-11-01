@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { equipmentDisplay, equipmentAttribute, type CoreEquipment } from '@/core/minigame';
 import { player } from '@/core/save';
 import { initializeEditorMap } from '@/core/minigame/room';
 import { handleKeyPress } from '@/core/minigame/minigame-loop';

@@ -1,11 +1,11 @@
 import Decimal from 'break_eternity.js';
-import { buyables, BUYABLES, upgrades, UPGRADES, type singleReq, SOFTCAPS } from '../mechanic';
+import { buyables, upgrades, SOFTCAPS } from '../mechanic';
 import { player } from '../save';
 import ModalService from '@/utils/Modal';
 import { format, formatWhole } from '@/utils/format';
 import { Addition } from '../addition/addition.ts';
 import { PrimeFactor } from './pf.ts';
-import { getMCB19Effect, wgEffect } from '../exponention/chessboard.ts';
+import { getMCB19Effect } from '../exponention/chessboard.ts';
 import { CHALLENGE } from '../challenge.ts';
 import { MULTI_CHALS } from './challenges.ts';
 import { feature } from '../global.ts';

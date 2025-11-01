@@ -1,5 +1,4 @@
-import type { Entries } from 'type-fest';
-import type { ASTNode, BlockStatementNode, FunctionDeclarationNode } from './compiler';
+import type { BlockStatementNode, FunctionDeclarationNode } from './compiler';
 import { Environment } from './environment';
 import { evaluateNode } from './evaluator';
 import type Decimal from 'break_eternity.js';

@@ -1,11 +1,7 @@
 import Decimal from 'break_eternity.js';
-import { player, feature } from '@/core/global';
-import { format, formatMult, formatWhole } from '@/utils/format';
-import { Currencies, getCurrency } from '../currencies';
-import { Upgrade, UpgradeWithEffect } from '../upgrade';
-import { CurrencyRequirement, type Requirement } from '../requirements';
-import { Buyable } from '../buyable';
-import { upgrades, buyables } from '../mechanic';
+import { player } from '@/core/global';
+import { Currencies } from '../currencies';
+import { Upgrade } from '../upgrade';
 
 export const TimeShard = {
 	generatorReceive(id = 0): void {

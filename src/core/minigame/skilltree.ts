@@ -1,9 +1,7 @@
 import Decimal from 'break_eternity.js';
 import { player } from '../save';
-import { Currencies, getCurrency } from '../currencies';
 import { CHALLENGE } from '../challenge';
-import { ref, nextTick, type ComponentPublicInstance, computed, type Ref } from 'vue';
-import { format } from '@/utils/format';
+import { ref } from 'vue';
 import type { StudyConfig as 何意味 } from '../nonrecu/studies';
 
 const StudyTreeRef = ref(null);

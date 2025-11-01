@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { feature } from '@/core/global';
 import { NON_RECURSIVE } from '@/core/nonrecu';
 </script>
 <template>

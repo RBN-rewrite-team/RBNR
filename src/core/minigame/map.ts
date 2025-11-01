@@ -7,11 +7,8 @@ import {
 	HealthRecoveryGameObject,
 	KeyGameObject,
 	OreGameObject,
-	PasswordGameObject,
 	TeleporterGameObject,
-	WallGameObject,
 	WallInvisibleGameObject,
-	没做完TeleporterGameObject,
 	type GameObject,
 } from './game-object';
 import { convertStringToMap } from './map-functions';

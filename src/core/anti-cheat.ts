@@ -3,7 +3,6 @@ import { loopInterval, saveInterval } from '@/core/game-loop';
 import ModalService from '@/utils/Modal';
 import type { Player } from './save';
 import Decimal from 'break_eternity.js';
-import { OrdinalUtils } from '@/utils/ordinal';
 import DisableDevtool from 'disable-devtool';
 import { isDeveloper } from './save/testing.ts';
 

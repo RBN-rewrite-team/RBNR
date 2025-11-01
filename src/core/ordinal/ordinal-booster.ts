@@ -1,8 +1,7 @@
 import Decimal from 'break_eternity.js';
 import { player } from '../save';
 import { diff } from '../game-loop';
-import { Upgrade, UpgradeWithEffect } from '../upgrade';
-import type { buyables } from '../mechanic';
+import { UpgradeWithEffect } from '../upgrade';
 import { Buyable } from '../buyable';
 import { Currencies } from '../currencies';
 import { Ordinal } from '@/lib/ordinal';

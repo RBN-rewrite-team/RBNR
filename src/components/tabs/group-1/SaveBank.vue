@@ -2,7 +2,6 @@
 import SaveBank from '../../../core/save/SaveBank.json';
 import { reactive } from 'vue';
 import { loadFromString, save } from '@/core/save/index.ts';
-import { player } from '@/core/save/index.ts';
 
 interface SaveItem {
 	title: string;
@@ -10,10 +9,10 @@ interface SaveItem {
 	'save-text': string;
 }
 
-interface Chapter {
-	title: string;
-	[key: string]: SaveItem | string;
-}
+// interface Chapter {
+// 	title: string;
+// 	[key: string]: SaveItem | string;
+// }
 
 const isExpanded = reactive<Record<string, boolean>>({});
 for (const key in SaveBank) {

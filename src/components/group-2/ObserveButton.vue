@@ -1,6 +1,4 @@
-<script setup lang="ts">
-import { Logarithm } from '@/core/exponention/logarithm';
-</script>
+<script setup lang="ts"></script>
 
 <template>
 	<button class="circle-button"><slot></slot></button>

@@ -3,12 +3,10 @@ import { Parser } from './parser.ts';
 import { MainNode } from './ast.ts';
 import Decimal from 'break_eternity.js';
 import { formatWhole } from '@/utils/format';
-import { toRaw } from 'vue';
 import { calculate } from '../../utils/bms-analyze.ts';
 import { player } from '@/core/global';
 import { OrdinalUtils } from '../../utils/ordinal.ts';
 import { getBMSOrdinalLevel, getBMSOLReq } from '../../core/ordinal/ordinal-level.ts';
-import { ordinalToLPrSS } from '@/utils/ordinal-to-prss.ts';
 
 export class Ordinal {
 	node: MainNode;

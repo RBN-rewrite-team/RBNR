@@ -1,7 +1,6 @@
 import Decimal from 'break_eternity.js';
 import { Ordinal } from '@/lib/ordinal/';
 import { formatWhole } from './format';
-import { player } from '@/core/save';
 
 function bracket(dimension = 0, ascend = 0, ...args: number[]): string {
 	for (const i in args) args[i] += ascend;

@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import TRMilestone from '@/components/group-2/TRMilestone.vue';
-import { format, formatWhole } from '@/utils/format';
-import { Currencies, getCurrency } from '@/core/currencies';
-import { player, feature } from '@/core/global';
+import { formatWhole } from '@/utils/format';
+import { player } from '@/core/global';
 </script>
 
 <template>

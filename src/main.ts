@@ -14,7 +14,6 @@ BigInt.prototype.toJSON = function () {
 };
 init();
 
-import { RETRIBUTION } from './core/post-nonrec/retribution.ts';
 import PowiainaNum from 'powiaina_num.js';
 
 console.log('我错了', new PowiainaNum(3));

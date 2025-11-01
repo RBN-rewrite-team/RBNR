@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { format, formatWhole } from '@/utils/format';
-import MultipResetButton from '../../group-2/MultipResetButton.vue';
 import { feature, player } from '@/core/global';
 import { buyables } from '@/core/mechanic';
 const pflist = ['2', '3', '5', '7', '11', '13', '17', '19'] as const;

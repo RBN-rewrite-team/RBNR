@@ -6,10 +6,6 @@ import { format, formatWhole } from '@/utils/format';
 import TDUpgrade from '../../group-2/TDUpgrade.vue';
 import TDBuyable from '../../group-2/TDBuyable.vue';
 import PrimaryButton from '@/components/ui/PrimaryButton';
-import ModalService from '@/utils/Modal';
-const a = function () {
-	ModalService.show({ title: '群除我佬' });
-};
 </script>
 
 <template>

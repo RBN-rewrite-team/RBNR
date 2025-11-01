@@ -1,23 +1,15 @@
 import Decimal from 'break_eternity.js';
-import {
-	buyables,
-	BUYABLES,
-	upgrades,
-	UPGRADES,
-	softcaps,
-	SOFTCAPS,
-	type singleReq,
-} from '../mechanic';
+import { buyables, upgrades, SOFTCAPS } from '../mechanic';
 import { player } from '../save';
 import ModalService from '@/utils/Modal';
 import { formatWhole } from '@/utils/format';
 import { feature } from '../global.ts';
 import { CHALLENGE } from '../challenge.ts';
-import { C11cap, MULTI_CHALS } from '../multiplication/challenges.ts';
+import { MULTI_CHALS } from '../multiplication/challenges.ts';
 import { predictableRandom } from '@/utils/algorithm.ts';
 import { Upgrade, UpgradeWithEffect } from '../upgrade.ts';
 import { Currencies } from '../currencies.ts';
-import { CurrencyRequirement, Requirement, UpgradeRequirement } from '../requirements.ts';
+import { Requirement, UpgradeRequirement } from '../requirements.ts';
 import { Buyable } from '../buyable.ts';
 import { Logarithm } from '../exponention/logarithm.ts';
 import { DC } from '@/core/constants';

@@ -9,7 +9,7 @@ import {
 	getYSequenceWithoutColon,
 	getCurrentYMilestone,
 } from '../../../utils/y-seq';
-import { ref, reactive, computed, onMounted, onUnmounted, watch, nextTick } from 'vue';
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
 import { player } from '@/core/global';
 
 const Y = computed(() =>

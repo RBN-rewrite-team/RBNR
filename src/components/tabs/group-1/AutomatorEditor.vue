@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, onMounted, watch, nextTick, computed } from 'vue';
+import { ref, onMounted, watch, computed } from 'vue';
 import { player } from '@/core/global';
 import { highlightAutomator } from '@/core/automator/lexer';
 import DOMPurify from 'dompurify';

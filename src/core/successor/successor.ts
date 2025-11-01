@@ -1,13 +1,5 @@
 import { player } from '../save';
-import {
-	UPGRADES,
-	BUYABLES,
-	SOFTCAPS,
-	upgrades,
-	buyables,
-	softcaps,
-	type singleReq,
-} from '../mechanic.ts';
+import { SOFTCAPS, upgrades, buyables } from '../mechanic.ts';
 import Decimal from 'break_eternity.js';
 import { format, formatWhole } from '@/utils/format';
 import { feature } from '../global.ts';

@@ -1,7 +1,6 @@
 import { CstParser } from 'chevrotain';
 import {
 	allTokens,
-	AutomatorLexer,
 	Identifier,
 	Var,
 	For,

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { SOFTCAPS } from '@/core/mechanic';
 import { formatWhole, formatGain } from '@/utils/format';
 import { player } from '@/core/save';
 import { feature } from '@/core/global';
@@ -10,7 +9,6 @@ import { format } from '@/utils/format';
 import { temp } from '../../core/temp-data.ts';
 import { getCurrentOrdinal } from '../../utils/y-seq.ts';
 import { Garden } from '@/core/pt/index.ts';
-import { isDeveloper } from '@/core/save/testing.ts';
 </script>
 <template>
 	<div>

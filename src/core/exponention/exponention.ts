@@ -1,10 +1,8 @@
 import Decimal from 'break_eternity.js';
-import { buyables, BUYABLES, upgrades, UPGRADES, type singleReq } from '../mechanic';
 import { player } from '../save';
 import ModalService from '@/utils/Modal';
 import { format, formatWhole } from '@/utils/format';
 import { Multiplication } from '../multiplication/multiplication';
-import { CHALLENGE } from '../challenge';
 import { Logarithm } from './logarithm';
 import { feature } from '../global';
 import { Currencies } from '../currencies';

@@ -1,8 +1,7 @@
 import Decimal from 'break_eternity.js';
-import { feature, player } from '@/core/global';
-import { buyables, BUYABLES, upgrades, UPGRADES, MILESTONES, type singleReq } from '../mechanic';
+import { player } from '@/core/global';
+import { buyables, upgrades, MILESTONES } from '../mechanic';
 import { format, formatWhole } from '@/utils/format';
-import { UpgradeWithEffect } from '../upgrade';
 import { Currencies } from '../currencies';
 import { Buyable } from '../buyable';
 

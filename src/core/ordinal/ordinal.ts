@@ -1,12 +1,10 @@
 import Decimal from 'break_eternity.js';
-import { buyables, BUYABLES, upgrades, UPGRADES, type singleReq } from '../mechanic';
+import { upgrades } from '../mechanic';
 import { feature, player } from '../global.ts';
 import { OrdinalUtils } from '@/utils/ordinal';
 import { Ordinal } from '@/lib/ordinal/';
 import { Currencies } from '../currencies';
 import { Upgrade, UpgradeWithEffect } from '../upgrade';
-import { CurrencyRequirement, type Requirement } from '../requirements';
-import { Buyable } from '../buyable';
 import { formatWhole } from '@/utils/format';
 import { ORDINAL_BOOSTER } from './ordinal-booster.ts';
 import { ordinalSpeedDerivative } from '../game-loop.ts';

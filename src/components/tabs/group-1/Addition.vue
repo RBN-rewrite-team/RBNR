@@ -3,7 +3,6 @@ import { feature } from '@/core/global';
 import { player } from '@/core/save';
 import TDUpgrade from '../../group-2/TDUpgrade.vue';
 import TDBuyable from '../../group-2/TDBuyable.vue';
-import AdditionResetButton from '../../group-2/AdditionResetButton.vue';
 import PrimaryButton from '@/components/ui/PrimaryButton';
 
 // code...

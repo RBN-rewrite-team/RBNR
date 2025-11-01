@@ -1,12 +1,9 @@
 import Decimal from 'break_eternity.js';
-import { BUYABLES, upgrades, UPGRADES, buyables, type singleReq } from '../mechanic';
+import { buyables } from '../mechanic';
 import { player, type PrimeFactorTypes } from '../save';
-import ModalService from '@/utils/Modal';
-import { format, formatWhole } from '@/utils/format';
-import { Addition } from '../addition/addition.ts';
+import { formatWhole } from '@/utils/format';
 import { CHALLENGE } from '../challenge.ts';
 import { NUMTHEORY } from '@/core/multiplication/numbertheory';
-import { Upgrade, UpgradeWithEffect } from '../upgrade.ts';
 import { Currencies } from '../currencies.ts';
 import { Buyable } from '../buyable.ts';
 import { Requirement } from '../requirements.ts';

@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { POST_NONREC } from '@/core/post-nonrec';
 import { player } from '@/core/save';
-import { formatTime, format, formatWhole } from '@/utils/format';
-import { getCurrentOrdinal, getCurrentYMilestone, getCurrentYMilestoneIndex } from '@/utils/y-seq';
+import { format, formatWhole } from '@/utils/format';
+import { getCurrentYMilestone } from '@/utils/y-seq';
 import { computed } from 'vue';
 import TDUpgrade from '@/components/group-2/TDUpgrade.vue';
 import { Y_SEQ } from '@/core/post-nonrec/y-seq';

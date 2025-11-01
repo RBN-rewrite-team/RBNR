@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { formatWhole, format } from '@/utils/format';
+import { formatWhole } from '@/utils/format';
 import {
 	initConnectors,
 	studyRefs,
@@ -14,7 +14,7 @@ import SingleStudy from './SingleStudy.vue';
 import { onMounted, watch, ref } from 'vue';
 import { getTotalTheories } from '@/core/nonrecu/total-theories';
 import { Currencies, getCurrency } from '@/core/currencies';
-import { player, feature } from '@/core/global';
+import { player } from '@/core/global';
 import BlankStudy from './BlankStudy.vue';
 onMounted(() => {
 	updateAllConnectors();

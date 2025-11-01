@@ -1,5 +1,5 @@
-import { player, feature } from '@/core/global';
-import { format, formatWhole } from '@/utils/format';
+import { player } from '@/core/global';
+import { format } from '@/utils/format';
 import Decimal, { type DecimalSource } from 'break_eternity.js';
 import { wellOrderPlayerData } from '../ordinal/well_ordering';
 import { DC } from '../constants';
@@ -7,7 +7,6 @@ import { NON_RECURSIVE } from '../nonrecu';
 import { Hydra } from '../hydra/hydra';
 import { Y_SEQ } from '../post-nonrec/y-seq';
 import ModalService from '@/utils/Modal';
-import { isTester } from '../save/testing';
 import { predictableRandom } from '@/utils/algorithm.ts';
 import { deepCopy } from '../save';
 import { updateResetStatData } from '../stats';
@@ -419,7 +418,8 @@ export const GardenGenUpgs = {
 			cost: new Decimal(5e8),
 			idea: new Decimal(1.5e7),
 			entropy: new Decimal(0.05),
-			unlocked: (): boolean => Garden.boughtUpgrade(27) && Garden.boughtGeneratorReach(5, new Decimal(50)),
+			unlocked: (): boolean =>
+				Garden.boughtUpgrade(27) && Garden.boughtGeneratorReach(5, new Decimal(50)),
 			show: (): boolean => Garden.boughtUpgrade(24),
 			connect: [[5], [27]],
 		},
@@ -1174,8 +1174,8 @@ export const Garden = {
 		return base;
 	},
 	igCD() {
-		if(Garden.boughtUpgrade(35)) return 8 * 3600 * 1000;
-		if(Garden.boughtUpgrade(34)) return 16 * 3600 * 1000;
+		if (Garden.boughtUpgrade(35)) return 8 * 3600 * 1000;
+		if (Garden.boughtUpgrade(34)) return 16 * 3600 * 1000;
 		return 24 * 3600 * 1000;
 	},
 	nextIgRemain() {
@@ -1214,7 +1214,9 @@ export const Garden = {
 		}
 	},
 	exp(): Decimal {
-		let base = (player.garden.bestIdea).mul((player.garden.bestInspiration).pow(2)).mul(player.garden.trueBestEntropy.pow(2));
+		let base = player.garden.bestIdea
+			.mul(player.garden.bestInspiration.pow(2))
+			.mul(player.garden.trueBestEntropy.pow(2));
 		return base.max(1).max(player.garden.bestExp);
 	},
 	level(): Decimal {
@@ -1224,7 +1226,15 @@ export const Garden = {
 	expPercent(): string {
 		let nextLevelLog = Garden.level().add(1).pow(2);
 		let thisLevelLog = Garden.level().pow(2);
-		return ((Garden.exp().log10().sub(thisLevelLog).div(nextLevelLog.sub(thisLevelLog))).toNumber() * 100).toFixed(4) + '%';
+		return (
+			(
+				Garden.exp()
+					.log10()
+					.sub(thisLevelLog)
+					.div(nextLevelLog.sub(thisLevelLog))
+					.toNumber() * 100
+			).toFixed(4) + '%'
+		);
 	},
 	gardenLoop(diff: number) {
 		if (player.garden.openSimulate) {
@@ -1238,7 +1248,9 @@ export const Garden = {
 			player.garden.bestIdea = player.garden.bestIdea.max(player.garden.idea);
 			player.garden.bestEntropy = player.garden.bestEntropy.max(player.garden.entropy);
 			player.garden.bestExp = player.garden.bestExp.max(Garden.exp());
-			player.garden.trueBestEntropy = player.garden.trueBestEntropy.max(player.garden.entropy);
+			player.garden.trueBestEntropy = player.garden.trueBestEntropy.max(
+				player.garden.entropy,
+			);
 		}
 	},
 	playerData() {

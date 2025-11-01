@@ -1,9 +1,5 @@
 <script lang="ts" setup>
 import { player } from '@/core/global.ts';
-import { formatWhole } from '@/utils/format';
-import { isDeveloper } from '@/core/save/testing';
-
-import { nextPage } from './page-controller';
 import helpNavigator from './help-navigator';
 import HelpContent from './HelpContent';
 

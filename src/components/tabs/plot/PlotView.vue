@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { temp } from '@/core/temp-data';
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import PlotSentence from './PlotSentence.vue';
 import { player } from '@/core/save';
 import { plots, stringToPlot, plotLength } from '@/core/plot';

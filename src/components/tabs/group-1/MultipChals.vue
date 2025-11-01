@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { player } from '@/core/save';
 import TDChallenge from '../../group-2/TDChallenge.vue';
-import MultipResetButton from '../../group-2/MultipResetButton.vue';
 </script>
 
 <template>

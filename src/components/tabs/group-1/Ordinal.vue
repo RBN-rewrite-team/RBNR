@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { feature, player } from '@/core/global';
-import { OrdinalUtils } from '@/utils/ordinal';
 import { formatWhole } from '@/utils/format';
 import TDUpgrade from '../../group-2/TDUpgrade.vue';
-import TDBuyable from '../../group-2/TDBuyable.vue';
 </script>
 
 <template>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { CHALLENGE } from '@/core/challenge';
-import { BUYABLES } from '@/core/mechanic';
 import { player } from '@/core/save';
 import { format } from '@/utils/format';
 const props = defineProps<{

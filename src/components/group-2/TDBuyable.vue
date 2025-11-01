@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { BUYABLES } from '@/core/mechanic';
 import { player } from '@/core/save';
-const props = defineProps<{
+defineProps<{
 	bylid: keyof typeof player.buyables;
 }>();
 // code...

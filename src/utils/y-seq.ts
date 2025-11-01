@@ -1,6 +1,6 @@
 import Decimal from 'break_eternity.js';
-import { wYexpand, calcMountain, findByCoord, findByIndex } from './y-expand.js';
-import { expand } from './1y-expand.js';
+import { calcMountain, findByCoord, findByIndex } from './y-expand.js';
+
 import type { Mountain, NodeMountain, LeafMountain } from './y-expand.js';
 
 export { calcMountain, findByCoord, findByIndex };

@@ -4,7 +4,6 @@ import DilateButton from '../../group-2/DilateButton.vue';
 import { Logarithm } from '@/core/exponention/logarithm';
 import { feature } from '@/core/global';
 import { format } from '@/utils/format';
-import Decimal from 'break_eternity.js';
 import TRMilestone from '../../group-2/TRMilestone.vue';
 </script>
 

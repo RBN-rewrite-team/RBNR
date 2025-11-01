@@ -1,6 +1,6 @@
-import { BUYABLES, buyables, upgrades, UPGRADES } from '../mechanic';
+import { buyables, upgrades } from '../mechanic';
 import { player, feature } from '../global';
-import { format, formatMult, formatWhole } from '@/utils/format';
+import { format } from '@/utils/format';
 import { OrdinalUtils } from '@/utils/ordinal';
 import { Ordinal } from '@/lib/ordinal/';
 import Decimal from 'break_eternity.js';

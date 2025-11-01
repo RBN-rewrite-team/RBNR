@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { player, feature } from '../../../core/global.ts';
+import { player } from '../../../core/global.ts';
 import { format, formatWhole, formatTime } from '@/utils/format';
 import Slider from '../../group-2/Slider.vue';
 import { Dilute, DiluteTS, tsbhBase } from '@/core/hydra/dilute.ts';

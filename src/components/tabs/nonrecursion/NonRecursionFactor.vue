@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { format, formatWhole } from '@/utils/format';
-import { player, feature } from '@/core/global';
-import { temp } from '@/core/temp-data';
+import { feature } from '@/core/global';
 function gainFactor(): string {
 	const ADD_EFF = 0,
 		MUL_EFF = 1,

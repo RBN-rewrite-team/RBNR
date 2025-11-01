@@ -1,10 +1,5 @@
 <script setup lang="ts">
 import { player } from '@/core/save';
-import { Logarithm } from '../../core/exponention/logarithm';
-import { unlockedPlots, viewedPlotLength } from '@/core/plot';
-import { isTester } from '@/core/save/testing';
-import { RETRIBUTION } from '@/core/post-nonrec/retribution';
-import SubMenuObject from './SubMenuObject.vue';
 import MenuObject from './MenuObject';
 import { menus } from './menus';
 </script>

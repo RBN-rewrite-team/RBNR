@@ -1,8 +1,6 @@
 import { player } from '@/core/save';
-import { isDeveloper, isTester } from '@/core/save/testing';
 import { temp } from '@/core/temp-data';
 import { defineComponent, ref } from 'vue';
-import { getNodeStyle } from './node';
 import {
 	Garden,
 	GardenGenUpgs,
@@ -14,8 +12,6 @@ import {
 } from '@/core/pt/index.ts';
 import GardenNode from './GardenNode';
 import GardenConnect from './GardenConnect';
-import ModalService from '@/utils/Modal';
-import Baixie from '@/components/group-2/Baixie.vue';
 import { format, formatWhole } from '@/utils/format';
 export function onMousedown(m: MouseEvent) {
 	temp.garden.press = true;
@@ -350,19 +346,23 @@ function simulateText(canvasRef: any) {
 					</GardenNode>
 				</>
 			)}
-			{
-				Garden.boughtUpgrade(24) ?
-				<><GardenNode
-					x={300}
-					y={0}
-					canvasRef={canvasRef}
-					onClick={function(){temp.garden.focus_pos[0] = 0, temp.garden.focus_pos[1] = -1750}}
-				>
-					<h4>传送至</h4>
-					<h3>远古</h3>
-				</GardenNode></>
-				: <></>
-			}
+			{Garden.boughtUpgrade(24) ? (
+				<>
+					<GardenNode
+						x={300}
+						y={0}
+						canvasRef={canvasRef}
+						onClick={function () {
+							((temp.garden.focus_pos[0] = 0), (temp.garden.focus_pos[1] = -1750));
+						}}
+					>
+						<h4>传送至</h4>
+						<h3>远古</h3>
+					</GardenNode>
+				</>
+			) : (
+				<></>
+			)}
 		</>
 	);
 }
@@ -484,19 +484,32 @@ export default defineComponent({
 							)}
 						</div>
 					</div>
-					{
-						Garden.boughtUpgrade(23) ?
+					{Garden.boughtUpgrade(23) ? (
 						<>
 							<div style="position: absolute; top: 5px; left: 50%; transform: translateX(-50%); z-index: 3; width: 400px; height: 50px; background-color: rgb(50, 24, 2); border: 2px solid rgb(50, 50, 2)">
 								<div style="position: relative; width: 100%; height: 100%">
-									<div style={{position: 'absolute', bottom: '0', left: '0', height: '5px', width: Garden.expPercent(), 'background-color': 'cyan'}}></div>
-									等级 <span style="font-weight: bold; color: cyan">{Garden.level()}</span><br />
+									<div
+										style={{
+											position: 'absolute',
+											bottom: '0',
+											left: '0',
+											height: '5px',
+											width: Garden.expPercent(),
+											'background-color': 'cyan',
+										}}
+									></div>
+									等级{' '}
+									<span style="font-weight: bold; color: cyan">
+										{Garden.level()}
+									</span>
+									<br />
 									升级: {Garden.expPercent()}
 								</div>
 							</div>
 						</>
-						: <></>
-					}
+					) : (
+						<></>
+					)}
 				</div>
 			</>
 		);

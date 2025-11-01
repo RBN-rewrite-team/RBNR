@@ -1,4 +1,3 @@
-import Decimal from 'break_eternity.js';
 import {
 	ArrayExpressionNode,
 	AssignmentNode,

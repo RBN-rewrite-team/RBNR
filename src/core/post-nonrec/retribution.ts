@@ -1,11 +1,7 @@
 // Retribution: 果报(Guotribution(实际上就是Retribution)), 代码始终使用retribution及其英语变体
 
-import Decimal from 'break_eternity.js';
-import { Hydra } from '../hydra/hydra';
-import { NON_RECURSIVE } from '../nonrecu';
 import { player } from '../save';
 import { DC } from '../constants';
-import { wellOrderPlayerData } from '../ordinal/well_ordering';
 import { temp } from '../temp-data';
 import ModalService from '@/utils/Modal';
 import { PTreset } from '../pt';

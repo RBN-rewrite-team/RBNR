@@ -2,7 +2,7 @@ import Decimal from 'break_eternity.js';
 import type { SingleChallenge } from '../challenge';
 import { Dilute } from '../hydra/dilute';
 import { player } from '../save';
-import { formatWhole, format } from '@/utils/format';
+import { format } from '@/utils/format';
 import { getNRC4Kept } from './studies';
 import { Hydra } from '../hydra/hydra';
 

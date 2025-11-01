@@ -1,33 +1,7 @@
-<script lang="ts" setup>
-import TDBuyable from '@/components/group-2/TDBuyable.vue';
-import TDUpgrade from '@/components/group-2/TDUpgrade.vue';
-import { upgrades, buyables } from '@/core/mechanic';
-import { isDeveloper } from '@/core/save/testing';
-import { ref } from 'vue';
-const testtiers = ref([0, 0, 0]);
-const input1 = ref('11');
-const input2 = ref('11');
-</script>
+<script lang="ts" setup></script>
 
 <template>
-	<div class="main" v-if="isDeveloper()">
-		<h2>这才是真正的开发者模式</h2>
-		<div>
-			<p>测试: 升级</p>
-			<input v-model="input1" />
-			<input v-model="input2" />
-			<table align="center">
-				<tbody>
-					<tr>
-						<template v-if="input1 in upgrades">
-							<TDUpgrade :upgid="input1 as keyof typeof upgrades" />
-						</template>
-						<template v-if="input2 in buyables">
-							<TDBuyable :bylid="input2 as keyof typeof buyables" />
-						</template>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+	<div class="main">
+		PGRpdj5OdW1lcm9ydW0gd2F0Y2hlZCB0aGUgYnJva2VuIHBoeSBzb2MsIGFuZCBpdCBmZWxsIGRvd24uLi48L2Rpdj4KCQk8ZGl2PgoJCQlJbiB0aGF0CgkJCTxiPigzMDAwMHRoIDg2LDQwMCBzZWNvbmRzIGdyb3VwIHdoaWNoIHRoZSAxc3Qgc2Vjb25kIGlzIHRoYXQgTnVtZXJvcnVtIHdva2UgdXApPC9iCgkJCT4sPGJyIC8+CgkJCTxiPkFic29sdXRlIEluZmluaXR5IEdlbmVyYXRvcjwvYj4gaGFkIGJlZW4gc3RhcnRlZCwgZGVzdHJveWVkIHRoZSB3aG9sZSBHb29nb2xvZ3kKCQkJd29ybGQuLi4KCQk8L2Rpdj4KCQk8ZGl2PlRoZSBjZWxlc3RpYWxzIHdoaWNoIGJvcm4gYWZ0ZXIgZGVzdHJ1Y3Rpb24sIHdpbGwgc2VlIOKAlOKAlOKAlOKAlCBBYnNvbHV0ZSBJbmZpbml0eS48L2Rpdj4KCQk8ZGl2PgoJCQlOZXcgY29tcGxldGUsIGNvbnNpc3RlbnQgYW5kIGRlY2lkYWJsZSBheGlvbSBzeXN0ZW0sIGNyb3NzZWQgZnJvbSA8Yj5aZXJvPC9iPiB0bwoJCQk8Yj5BYnNvbHV0ZSBJbmZpbml0eTwvYj4uCgkJPC9kaXY+CgkJPGRpdj5BbmQgbm93Li4uPC9kaXY+
 	</div>
 </template>

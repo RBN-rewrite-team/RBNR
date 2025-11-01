@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { player } from '@/core/save';
-import Baixie from '../group-2/Baixie.vue';
 
-const props = defineProps<{
+defineProps<{
 	tab: number;
 	text: string;
 }>();

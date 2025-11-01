@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { milestones } from '@/core/mechanic';
-import { format, formatWhole } from '@/utils/format';
+import { format } from '@/utils/format';
 import { player } from '@/core/global';
 
 const props = defineProps<{

@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { currencyName } from '@/core/currencies';
 import { Logarithm } from '@/core/exponention/logarithm';
-import { buyables, upgrades, UPGRADES } from '@/core/mechanic';
+import { upgrades, UPGRADES } from '@/core/mechanic';
 import { player } from '@/core/save';
 import { feature } from '@/core/global';
 import { Upgrade } from '@/core/upgrade';
 import { OrdinalUtils } from '@/utils/ordinal';
 import { UpgradeWithEffect } from '@/core/upgrade';
 import { format } from '@/utils/format';
-import type Decimal from 'break_eternity.js';
 import { countdown } from '@/core/countdown-display';
 import { ORDINAL } from '@/core/ordinal/ordinal';
 import { Dilute } from '@/core/hydra/dilute';

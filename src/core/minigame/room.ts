@@ -1,5 +1,5 @@
 //import { predictableRandom } from '@/utils/algorithm';
-import { deepCopy, player } from '../save';
+import { player } from '../save';
 import {
 	BoxGameObject,
 	GuardGameObject,

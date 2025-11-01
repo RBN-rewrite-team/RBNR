@@ -1,9 +1,8 @@
 import Decimal from 'break_eternity.js';
 import { player, feature } from '@/core/global';
-import { format, formatMult, formatWhole } from '@/utils/format';
+import { format, formatMult } from '@/utils/format';
 import { Currencies, getCurrency } from '../currencies';
 import { Upgrade, UpgradeWithEffect } from '../upgrade';
-import { CurrencyRequirement, type Requirement } from '../requirements';
 import { Buyable } from '../buyable';
 import { upgrades, buyables } from '../mechanic';
 import {
@@ -14,7 +13,7 @@ import {
 	tsbhBase,
 	type backupHydraType,
 } from './dilute';
-import type { FixedLengthArray, IntClosedRange } from 'type-fest';
+import type { FixedLengthArray } from 'type-fest';
 import { NON_RECURSIVE } from '../nonrecu';
 import { CHALLENGE } from '../challenge';
 import { DC } from '@/core/constants';

@@ -1,21 +1,11 @@
 <script setup lang="ts">
 import { player, feature } from '@/core/global';
-import {
-	format,
-	formatWhole,
-	formatGain,
-	formatTime,
-	formatReduction,
-	formatPercent,
-} from '@/utils/format';
+import { format, formatWhole, formatGain, formatTime, formatPercent } from '@/utils/format';
 import TDUpgrade from '../../group-2/TDUpgrade.vue';
 import TDBuyable from '../../group-2/TDBuyable.vue';
 import { OrdinalUtils } from '@/utils/ordinal';
 import Decimal from 'break_eternity.js';
 import { Dilute } from '@/core/hydra/dilute';
-import { onBeforeUnmount } from 'vue';
-import { calculate } from '@/utils/bms-analyze';
-import convertBMStoMatrixComponent from '@/components/convertBMStoMatrixComponent';
 import { Ordinal } from '@/lib/ordinal/';
 import { temp } from '@/core/temp-data.ts';
 import { PTEffects } from '@/core/pt';

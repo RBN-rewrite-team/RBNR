@@ -1,4 +1,3 @@
-//@ts-nocheck
 import Decimal from 'break_eternity.js';
 import { type DecimalSource } from 'break_eternity.js';
 import { saveSerializer } from './serializer';

@@ -1,7 +1,6 @@
 import { player, feature } from './global';
-import { nextTick } from 'vue';
 import { simulateTime } from './offline';
-import { UPGRADES, BUYABLES, upgrades, buyables, milestones } from './mechanic';
+import { upgrades, buyables, milestones } from './mechanic';
 import Decimal from 'break_eternity.js';
 import { NUMTHEORY } from './multiplication/numbertheory';
 import { predictableRandom } from '@/utils/algorithm';
@@ -26,7 +25,6 @@ import { DC } from '@/core/constants';
 import { equipmentDestroyLoop } from '@/core/minigame';
 import { achLoop } from './achievements.ts';
 import { format } from '@/utils/format.ts';
-import { Ordinal } from '@/lib/ordinal/index.ts';
 import { OrdinalUtils } from '@/utils/ordinal.ts';
 import { PTEffects, Garden } from './pt/index.ts';
 
@@ -408,7 +406,7 @@ export function simulate(diff: number) {
 	if (player.milestones.nonrec_26) {
 		wellOrderingLoop(pre_cardinal_diff / 1000);
 	}
-	
+
 	Garden.gardenLoop(realtime_diff / 1000);
 
 	Logarithm.astronomerUpdate();

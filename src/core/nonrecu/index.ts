@@ -2,7 +2,6 @@ import ModalService from '@/utils/Modal';
 import { player } from '../save';
 import { Dilute } from '../hydra/dilute';
 import Decimal from 'break_eternity.js';
-import { isTester } from '@/core/save/testing.ts';
 import { MILESTONES } from '../mechanic';
 import { Currencies } from '../currencies';
 import { CHALLENGE } from '../challenge';

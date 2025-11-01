@@ -1,7 +1,7 @@
 import type Decimal from 'break_eternity.js';
 import { DC } from './constants';
 import type { ChooseTypes } from '@/utils/types';
-import { player, type Player } from './save';
+import { player } from './save';
 
 export type ResetRecord = {
 	last: number; // timestamp

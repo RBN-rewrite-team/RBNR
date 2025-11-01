@@ -1,5 +1,4 @@
 import { player } from '@/core/save';
-import { isDeveloper } from '@/core/save/testing';
 import { formatWhole } from '@/utils/format';
 import { defineComponent } from 'vue';
 import { lastPage, nextPage } from './page-controller';

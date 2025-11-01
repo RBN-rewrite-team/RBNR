@@ -1,7 +1,7 @@
 import Decimal from 'break_eternity.js';
-import { buyables, BUYABLES, MILESTONES, upgrades } from '../mechanic';
+import { buyables, MILESTONES, upgrades } from '../mechanic';
 import { player } from '../save';
-import { format, formatWhole } from '@/utils/format';
+import { format } from '@/utils/format';
 import { diff } from '../game-loop';
 import { Buyable } from '../buyable';
 import { Currencies } from '../currencies';

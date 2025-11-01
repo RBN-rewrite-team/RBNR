@@ -9,7 +9,6 @@ import {
 } from '@/core/ordinal/well_ordering.ts';
 import TDUpgrade from '../../group-2/TDUpgrade.vue';
 import TDBuyable from '../../group-2/TDBuyable.vue';
-import Baixie from '@/components/group-2/Baixie.vue';
 import { component as convertTextToComponent } from '../help/text-to-component-convert.tsx';
 import prssdefinition from './ordinalnt5-content/prss-definition.txt?raw';
 import bmsdefinition from './ordinalnt5-content/bms-definition.txt?raw';

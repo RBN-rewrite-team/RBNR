@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { component as convertTextToComponent } from '../help/text-to-component-convert';
 
-const props = defineProps<{
+defineProps<{
 	name: string;
 	image: string;
 	text: string;

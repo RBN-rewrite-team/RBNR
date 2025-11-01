@@ -1,15 +1,5 @@
-import { Dilute } from '@/core/hydra/dilute';
-import { Hydra } from '@/core/hydra/hydra';
 import { player } from '@/core/save';
-import Decimal from 'break_eternity.js';
-import {
-	type Callable,
-	Dictionary,
-	AutomatorArray,
-	AObject,
-	ADecimal,
-	AUndefined,
-} from '../a-objects';
+import { type Callable, Dictionary, AObject, ADecimal, AUndefined } from '../a-objects';
 import type { Environment } from '../environment';
 import { buyStudies, resetTheories, studies } from '@/core/nonrecu/studies';
 import { NON_RECURSIVE } from '@/core/nonrecu';
