@@ -10,7 +10,7 @@ import {
 	getBMSOLReq,
 } from '../../../core/ordinal/ordinal-level.ts';
 import { Moon } from 'lunarphase-js';
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onUnmounted } from 'vue';
 import Mountain from '../y/Mountain.vue';
 
 const LunarMap = {
@@ -22,7 +22,7 @@ const LunarMap = {
 	'Waning Gibbous': '亏凸月',
 	'Last Quarter': '下弦月',
 	'Waning Crescent': '残月',
-};
+} as const;
 
 function getCNLunarPhase() {
 	const phase = Moon.lunarPhase();

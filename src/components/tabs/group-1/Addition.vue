@@ -4,6 +4,7 @@ import { player } from '@/core/save';
 import TDUpgrade from '../../group-2/TDUpgrade.vue';
 import TDBuyable from '../../group-2/TDBuyable.vue';
 import AdditionResetButton from '../../group-2/AdditionResetButton.vue';
+import PrimaryButton from '@/components/ui/PrimaryButton';
 
 // code...
 </script>
@@ -32,22 +33,22 @@ import AdditionResetButton from '../../group-2/AdditionResetButton.vue';
 					player.upgrades['400q'] ? '2' : '1'
 				}}个升级，将其的价格降为1，但会进行一次乘法重置。<br />
 				<template v-for="c in [2, 3, 4, 5]">
-					<button
+					<PrimaryButton
 						@click="feature.ADDITION.setUPGc1(c as 2 | 3 | 4 | 5)"
-						class="clickable_button"
 						style="display: inline-block"
 					>
 						{{ c }}
-					</button> </template
+					</PrimaryButton> </template
 				><br />
-				<template v-for="c in [2, 3, 4, 5]" v-if="player.upgrades['400q']">
-					<button
-						@click="feature.ADDITION.setUPGc2(c as 2 | 3 | 4 | 5)"
-						class="clickable_button"
-						style="display: inline-block"
-					>
-						{{ c }}
-					</button>
+				<template v-if="player.upgrades['400q']">
+					<template v-for="c in [2, 3, 4, 5]">
+						<PrimaryButton
+							@click="feature.ADDITION.setUPGc2(c as 2 | 3 | 4 | 5)"
+							style="display: inline-block"
+						>
+							{{ c }}
+						</PrimaryButton>
+					</template>
 				</template>
 			</div>
 		</div>

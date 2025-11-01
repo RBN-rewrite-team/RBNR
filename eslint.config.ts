@@ -26,6 +26,7 @@ export default defineConfigWithVueTs(
 			'@typescript-eslint/no-unused-vars': 'warn',
 			'@typescript-eslint/ban-ts-comment': 'warn',
 			'vue/require-v-for-key': 'off',
+			'vue/valid-v-for': 'off',
 		},
 	},
 );

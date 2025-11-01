@@ -6,6 +6,7 @@ import { player } from '@/core/save';
 import TDUpgrade from '../../group-2/TDUpgrade.vue';
 import TDBuyable from '../../group-2/TDBuyable.vue';
 import Decimal from 'break_eternity.js';
+import PrimaryButton from '@/components/ui/PrimaryButton';
 
 function xGainLatex() {
 	let exp = new Decimal(1);
@@ -53,24 +54,22 @@ function m2GainLatex() {
 <template>
 	<div class="main">
 		<div style="transform: translateY(60px)">
-			<div
-				class="clickable_button"
+			<PrimaryButton
 				style="position: absolute"
 				@mousedown="
 					player.numbertheory.visiting = Math.max(player.numbertheory.visiting - 1, 1)
 				"
 			>
 				-
-			</div>
-			<div
-				class="clickable_button"
+			</PrimaryButton>
+			<PrimaryButton
 				style="position: absolute; left: 60px"
 				@mousedown="
 					player.numbertheory.visiting = Math.min(player.numbertheory.visiting + 1, 9)
 				"
 			>
 				+
-			</div>
+			</PrimaryButton>
 			<h1>数论研究{{ player.numbertheory.visiting }}</h1>
 			<div class="center_line" />
 			<div v-if="player.numbertheory.visiting == 1 && player.singularity.stage < 11">
@@ -191,8 +190,7 @@ function m2GainLatex() {
 					/></b>
 				</p>
 				<br />
-				<button
-					class="clickable_button"
+				<PrimaryButton
 					@click="
 						player.numbertheory.rational_approx.n =
 							player.numbertheory.rational_approx.n.add(1)
@@ -200,9 +198,8 @@ function m2GainLatex() {
 					style="display: inline-block; margin: 5px"
 				>
 					增加n的数值
-				</button>
-				<button
-					class="clickable_button"
+				</PrimaryButton>
+				<PrimaryButton
 					@click="
 						player.numbertheory.rational_approx.m =
 							player.numbertheory.rational_approx.m.add(1)
@@ -211,7 +208,7 @@ function m2GainLatex() {
 					style="display: inline-block; margin: 5px"
 				>
 					增加m的数值
-				</button>
+				</PrimaryButton>
 				<table>
 					<tbody>
 						<tr>
