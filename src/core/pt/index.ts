@@ -1016,6 +1016,52 @@ export const GardenGenUpgs = {
 			igNR: () => true,
 			connect: [[], [26]],
 		},
+		34: {
+			isG: !true,
+			key: 34,
+			name: 'IGCD1',
+			pos: [200, 600],
+			cost: new Decimal(4),
+			useInspiration: true,
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(26);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(26);
+			},
+			igNR: () => true,
+			connect: [[], [23]],
+			effectDescription(): string {
+				return '灵感迸发最短时间降低到16小时';
+			},
+		},
+		35: {
+			isG: !true,
+			key: 35,
+			name: 'IGCD2',
+			pos: [400, 600],
+			cost: new Decimal(16),
+			useInspiration: true,
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(34);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(34);
+			},
+			igNR: () => true,
+			connect: [[], [34]],
+			effectDescription(): string {
+				return '灵感迸发最短时间降低到8小时';
+			},
+		},
 	} satisfies {
 		[key in any]: GardenUpgrade;
 	},
@@ -1128,6 +1174,8 @@ export const Garden = {
 		return base;
 	},
 	igCD() {
+		if(Garden.boughtUpgrade(35)) return 8 * 3600 * 1000;
+		if(Garden.boughtUpgrade(34)) return 16 * 3600 * 1000;
 		return 24 * 3600 * 1000;
 	},
 	nextIgRemain() {
