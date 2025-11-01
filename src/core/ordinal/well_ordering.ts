@@ -39,10 +39,10 @@ export const WellOrderingBuyables = {
 			return x.div(100).log(1.3).add(1).floor();
 		}
 		canBuyMax(): boolean {
-			return player.upgrades.U6R15;
+			return player.upgrades.U6R15 || player.upgrades['7nt5ubq'];
 		}
 		autoBuyMax(): boolean {
-			return player.upgrades.U6R17;
+			return player.upgrades.U6R17 || player.upgrades['7nt5ubq'];
 		}
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 	})(),
@@ -65,10 +65,10 @@ export const WellOrderingBuyables = {
 			return x.div(500).log(1.5).add(1).floor();
 		}
 		canBuyMax(): boolean {
-			return player.upgrades.U6R15;
+			return player.upgrades.U6R15 || player.upgrades['7nt5ubq'];
 		}
 		autoBuyMax(): boolean {
-			return player.upgrades.U6R17;
+			return player.upgrades.U6R17 || player.upgrades['7nt5ubq'];
 		}
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 	})(),
@@ -100,10 +100,10 @@ export const WellOrderingBuyables = {
 				.floor();
 		}
 		canBuyMax(): boolean {
-			return player.upgrades.U6R15;
+			return player.upgrades.U6R15 || player.upgrades['7nt5ubq'];
 		}
 		autoBuyMax(): boolean {
-			return player.upgrades.U6R17;
+			return player.upgrades.U6R17 || player.upgrades['7nt5ubq'];
 		}
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 	})(),
@@ -125,10 +125,10 @@ export const WellOrderingBuyables = {
 			return x.div(1e16).log(4).root(1.2).add(1).floor();
 		}
 		canBuyMax(): boolean {
-			return player.upgrades.U6R15;
+			return player.upgrades.U6R15 || player.upgrades['7nt5ubq'];
 		}
 		autoBuyMax(): boolean {
-			return player.upgrades.U6R17;
+			return player.upgrades.U6R17 || player.upgrades['7nt5ubq'];
 		}
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 	})(),
@@ -153,10 +153,10 @@ export const WellOrderingBuyables = {
 			return x.div('1e325').log(1e50).add(1).log(1.2).add(1).floor();
 		}
 		canBuyMax(): boolean {
-			return false;
+			return player.upgrades['7nt5ubq'];
 		}
 		autoBuyMax(): boolean {
-			return false;
+			return player.upgrades['7nt5ubq'];
 		}
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 	})(),
@@ -182,10 +182,10 @@ export const WellOrderingBuyables = {
 			return x.div('1e2975').log('1e1800').add(1).log(this.base()).add(1).floor();
 		}
 		canBuyMax(): boolean {
-			return false;
+			return player.upgrades['7nt5ubq'];
 		}
 		autoBuyMax(): boolean {
-			return false;
+			return player.upgrades['7nt5ubq'];
 		}
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 		show(): boolean {

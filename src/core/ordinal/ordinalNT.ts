@@ -183,10 +183,10 @@ export const OrdinalNT = {
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 			canBuyMax(): boolean {
-				return player.milestones.nonrec_8;
+				return player.milestones.nonrec_8 || player.upgrades['7nt4bq'];
 			}
 			autoBuyMax(): boolean {
-				return player.milestones.nonrec_8;
+				return player.milestones.nonrec_8 || player.upgrades['7nt4bq'];
 			}
 			costInverse(x: Decimal): Decimal {
 				const cbase = player.retribution == 1 ? new Decimal('1e900') : new Decimal('ee3');
@@ -214,10 +214,10 @@ export const OrdinalNT = {
 			}
 			currency: Currencies = Currencies.X4;
 			canBuyMax(): boolean {
-				return player.milestones.nonrec_8;
+				return player.milestones.nonrec_8 || player.upgrades['7nt4bq'];
 			}
 			autoBuyMax(): boolean {
-				return player.milestones.nonrec_8;
+				return player.milestones.nonrec_8 || player.upgrades['7nt4bq'];
 			}
 			costInverse(x: Decimal): Decimal {
 				let expReduce = new Decimal(1);

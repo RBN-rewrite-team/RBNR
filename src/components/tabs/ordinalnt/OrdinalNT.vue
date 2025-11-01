@@ -166,7 +166,7 @@ function _g() {
 			</div>
 			<div
 				v-if="
-					(player.upgrades['69R'] || player.upgrades[65]) &&
+					(player.upgrades['69R'] || player.upgrades[65] || player.upgrades['7nt4uq']) &&
 					player.numbertheory.visiting == 4
 				"
 			>

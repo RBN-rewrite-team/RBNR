@@ -1040,14 +1040,23 @@ export const Hydra = {
 			if (Hydra.pUnlock(id)) return true;
 		}
 
-		if (id == 0 && player.milestones['dut3']) return true;
-		if (id == 1 && player.milestones['dut4']) return true;
+		if (id == 0 && (player.milestones['dut3'] || player.upgrades['7hpa1q'])) return true;
+		if (id == 1 && (player.milestones['dut4'] || player.upgrades['7hpa2q'])) return true;
+		if (id == 2 && player.upgrades['7hpa3q']) return true;
+		if (id == 3 && player.upgrades['7hpa4q']) return true;
 		if (id == 0) return Hydra.pUnlock(2);
 		else if (id == 1) return Hydra.pUnlock(3);
 		else return false;
 	},
 	pAutoThreshold(id = 0): any {
-		if (player.milestones.nonrec_2) return { add: DC.D_0, mul: DC.D_1 };
+		if (
+			player.milestones.nonrec_2 ||
+			(id == 0 && player.upgrades['7hpm1q']) ||
+			(id == 1 && player.upgrades['7hpm2q']) ||
+			(id == 2 && player.upgrades['7hpm3q']) ||
+			(id == 3 && player.upgrades['7hpm4q'])
+		)
+			return { add: DC.D_0, mul: DC.D_1 };
 		//推演阈值
 		if (id == 0)
 			return {
