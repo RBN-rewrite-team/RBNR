@@ -815,7 +815,7 @@ export const GardenGenUpgs = {
 			connect: [[], []],
 			igNR: () => true,
 			effectDescription(): string {
-				return '解锁花园等级(Coming Soon)';
+				return '解锁花园等级';
 			},
 		},
 		24: {
@@ -932,6 +932,44 @@ export const GardenGenUpgs = {
 			},
 			unlocked(): boolean {
 				return Garden.boughtGeneratorReach(6, new Decimal(1));
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(24);
+			},
+			connect: [[6], []],
+		},
+		30: {
+			isG: !true,
+			key: 30,
+			name: '病毒',
+			pos: [300, -2150],
+			cost: new Decimal(1.5e10),
+			useInspiration: false,
+			effect: {
+				key: 6,
+				mult: new Decimal(4),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(29);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(24);
+			},
+			connect: [[], [29]],
+		},
+		31: {
+			isG: !true,
+			key: 31,
+			name: '遗传',
+			pos: [50, -2175],
+			cost: new Decimal(1e11),
+			useInspiration: false,
+			effect: {
+				key: 6,
+				mult: new Decimal(3),
+			},
+			unlocked(): boolean {
+				return Garden.boughtGeneratorReach(6, new Decimal(25));
 			},
 			show(): boolean {
 				return Garden.boughtUpgrade(24);
@@ -1087,6 +1125,19 @@ export const Garden = {
 				player.garden.upgrades[i] = false;
 		}
 	},
+	exp(): Decimal {
+		let base = (player.garden.bestIdea).mul((player.garden.bestInspiration).pow(2)).mul(player.garden.bestEntropy.pow(2));
+		return base.max(1).max(player.garden.bestExp);
+	},
+	level(): Decimal {
+		let base = Garden.exp().log10().root(2);
+		return base.floor();
+	},
+	expPercent(): string {
+		let nextLevelLog = Garden.level().add(1).pow(2);
+		let thisLevelLog = Garden.level().pow(2);
+		return ((Garden.exp().log10().sub(thisLevelLog).div(nextLevelLog.sub(thisLevelLog))).toNumber() * 100).toFixed(4) + '%';
+	},
 	gardenLoop(diff: number) {
 		if (player.garden.openSimulate) {
 			if (player.garden.generators[0].lt(1)) player.garden.generators[0] = new Decimal(1);
@@ -1098,6 +1149,7 @@ export const Garden = {
 			player.garden.totalEntropy = player.garden.totalEntropy.add(eY);
 			player.garden.bestIdea = player.garden.bestIdea.max(player.garden.idea);
 			player.garden.bestEntropy = player.garden.bestEntropy.max(player.garden.entropy);
+			player.garden.bestExp = player.garden.bestExp.max(Garden.exp());
 		}
 	},
 	playerData() {
@@ -1120,6 +1172,7 @@ export const Garden = {
 			focusNode: GardenGenUpgs.generators[0] as GardenGenerator | GardenUpgrade,
 			igTimes: new Decimal(0),
 			insPower: new Decimal(0),
+			bestExp: new Decimal(0),
 		};
 		for (const i in GardenGenUpgs.generators) {
 			base.generators[<keyof typeof GardenGenUpgs.generators>(<unknown>i)] = new Decimal(0);

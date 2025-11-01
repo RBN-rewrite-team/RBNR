@@ -484,6 +484,19 @@ export default defineComponent({
 							)}
 						</div>
 					</div>
+					{
+						Garden.boughtUpgrade(23) ?
+						<>
+							<div style="position: absolute; top: 5px; left: 50%; transform: translateX(-50%); z-index: 3; width: 400px; height: 50px; background-color: rgb(50, 24, 2); border: 2px solid rgb(50, 50, 2)">
+								<div style="position: relative; width: 100%; height: 100%">
+									<div style={{position: 'absolute', bottom: '0', left: '0', height: '5px', width: Garden.expPercent(), 'background-color': 'cyan'}}></div>
+									等级 <span style="font-weight: bold; color: cyan">{Garden.level()}</span><br />
+									升级: {Garden.expPercent()}
+								</div>
+							</div>
+						</>
+						: <></>
+					}
 				</div>
 			</>
 		);
