@@ -296,6 +296,7 @@ export function stringToPlot(a: string) {
 	const args = a.split('\t');
 	if (args.length == 1) {
 		res.text = args[0];
+		res.name = '旁白';
 	} else if (args.length == 3) {
 		res.name = args[0];
 		res.text = args[2];
