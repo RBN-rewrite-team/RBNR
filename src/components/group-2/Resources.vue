@@ -28,13 +28,13 @@ import { Garden } from '@/core/pt/index.ts';
 						</div>
 						<br />
 						<div style="font-size: 14px; color: purple">
-							子世界发电机和升级价格x{{ format(Garden.entropyEffect()) }}
+							子世界发电机和升级价格x{{ format(Garden.entropyEffect(), 7) }}
 						</div>
 					</div>
 					<div class="resource" style="margin-left: 685px">
 						<div style="font-weight: bold; color: orange">
 							灵感&nbsp;
-							{{ formatWhole(player.garden.inspiration) }}
+							{{ format(player.garden.inspiration) }}
 						</div>
 					</div>
 				</div>
