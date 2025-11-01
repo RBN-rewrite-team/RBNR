@@ -120,32 +120,5 @@ parentEnvironment.set('get', getFunction);
 parentEnvironment.set('set', setFunction);
 parentEnvironment.set('player', getPlayerData);
 parentEnvironment.isReadonly = true;
-
-export function tryInclude(pkg: string) {
-	if (pkg == 'math') {
-		importMath(parentEnvironment);
-		return;
-	}
-	if (pkg == 'hydra' && player.upgrades['ts_auto_pkg_hydra']) {
-		importHydra(parentEnvironment);
-		return;
-	}
-	if (pkg == 'nonrec' && player.upgrades['ts_auto_pkg_nonrec']) {
-		importNonrec(parentEnvironment);
-		return;
-	}
-	if (pkg == 'proofTheory' && player.milestones.pt_7) {
-		importPT(parentEnvironment);
-		return;
-	}
-	if (pkg == 'music') {
-		importMusic(parentEnvironment);
-		return;
-	}
-	if (pkg == 'rbnr') {
-		importRbnr(parentEnvironment);
-		return;
-	}
-	throw new ReferenceError('Cannot find package ' + pkg);
-}
+export { tryInclude } from './module-include';
 export { parentEnvironment };
