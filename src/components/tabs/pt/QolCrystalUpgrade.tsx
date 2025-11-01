@@ -13,7 +13,6 @@ export default defineComponent({
 	setup() {
 		return () => (
 			<>
-				<p style={{ color: 'red' }}>特别提醒： 这些qol升级还没做完，买了没有效果!!!!!</p>
 				<table
 					style={{
 						marginInlineStart: 'auto',

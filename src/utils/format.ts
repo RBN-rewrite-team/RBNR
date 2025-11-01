@@ -173,7 +173,7 @@ export function format(decimal: DecimalSource, precision = 4): string {
 		if (slog.gte(1e6)) return 'F' + format(slog.floor());
 		else
 			return (
-				Decimal.pow(10, slog.sub(slog.floor())).toStringWithDecimalPlaces(3) +
+				Decimal.pow(10, slog.sub(slog.floor())).toStringWithDecimalPlaces(5) +
 				'F' +
 				commaFormat(slog.floor(), 0)
 			);
