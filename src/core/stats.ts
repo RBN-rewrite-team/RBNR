@@ -3,7 +3,7 @@ import { DC } from './constants';
 import type { ChooseTypes } from '@/utils/types';
 import { player, type Player } from './save';
 
-type ResetRecord = {
+export type ResetRecord = {
 	last: number; // timestamp
 	gain: Decimal;
 };
@@ -24,6 +24,7 @@ export type PlayerStat = {
 	recent10ExpReset: ResetRecord[];
 	recent10HydraReset: ResetRecord[];
 	recent10NonRecReset: ResetRecord[];
+	recent10PTOReset: ResetRecord[];
 };
 
 export function getInitialStat(): PlayerStat {
@@ -33,6 +34,7 @@ export function getInitialStat(): PlayerStat {
 		recent10ExpReset: [],
 		recent10HydraReset: [],
 		recent10NonRecReset: [],
+		recent10PTOReset: [],
 		chapter: -1,
 		totalNumber: DC.D_0,
 		highestNumber: DC.D_0,

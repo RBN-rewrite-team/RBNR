@@ -10,6 +10,7 @@ import ModalService from '@/utils/Modal';
 import { isTester } from '../save/testing';
 import { predictableRandom } from '@/utils/algorithm.ts';
 import { deepCopy } from '../save';
+import { updateResetStatData } from '../stats';
 
 export function dayOfWeek(): [number, string] {
 	const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
@@ -112,6 +113,7 @@ export function PTresetCore(notification = false) {
 			});
 	} else if (player.nonrecu.studies_bought.includes(30)) {
 		PTreset(true);
+		updateResetStatData('recent10PTOReset', new Decimal(0));
 		player.pt.resetTimes = player.pt.resetTimes.add(1);
 		if (player.milestones.pt_3) {
 			player.pt.qolPointsCrystal = player.pt.qolPointsCrystal.add(1);
