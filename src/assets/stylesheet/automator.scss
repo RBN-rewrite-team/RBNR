@@ -56,3 +56,14 @@
 .automator-call {
 	color: #f536a0;
 }
+
+
+.l-automator-editor__codemirror-container{
+	display: flex;
+	flex: 1 1 auto;
+	flex-direction: column;
+	z-index:1 ;
+	margin: auto;
+	text-align: left;
+	width: 75%
+}

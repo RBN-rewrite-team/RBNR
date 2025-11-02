@@ -30,7 +30,7 @@ import NonRecursionFactor from './tabs/nonrecursion/NonRecursionFactor.vue';
 import NonRecursionTabChal from './tabs/nonrecursion/NonRecursionTabChal.vue';
 import StudyTree from './tabs/nonrecursion/StudyTree.vue';
 import MiniGame from './tabs/minigame/MiniGame.vue';
-import AutomatorEditor from './tabs/group-1/AutomatorEditor.vue';
+import AutomatorEditor from './tabs/group-1/AutomatorEditor.tsx';
 import NonRecursionTabUpgrade from './tabs/nonrecursion/NonRecursionTabUpgrade.vue';
 import YEngine from './tabs/y/YEngine.vue';
 import NonRecursionUNOCF from './tabs/nonrecursion/NonRecursionUNOCF.vue';
@@ -76,7 +76,6 @@ const tabComponents: {
 	29: Analysis,
 	30: AnalysisMilestones,
 	31: Garden,
-	167: AutomatorEditor,
 	200: PlotTab,
 	300: SaveBank,
 	500: DeveloperMode,
@@ -98,4 +97,5 @@ const currentComponent = computed(() => {
 
 <template>
 	<component :is="currentComponent" />
+	<AutomatorEditor />
 </template>

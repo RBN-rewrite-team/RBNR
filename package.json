@@ -13,10 +13,12 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
+    "@codemirror/legacy-modes": "^6.5.2",
     "@types/pako": "^2.0.4",
     "@vitejs/plugin-legacy": "^7.2.1",
     "break_eternity.js": "^2.1.2",
     "chevrotain": "^11.0.3",
+    "codemirror": "^6.0.2",
     "disable-devtool": "^0.3.9",
     "dompurify": "^3.3.0",
     "hotkeys-js": "^3.13.15",
