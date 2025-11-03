@@ -386,7 +386,7 @@ export const GardenCurrencies = {
 		entropyEffective: false,
 	},
 } satisfies {
-	[key in any]: GardenCurrency,
+	[key in any]: GardenCurrency;
 } as const;
 export const GardenGenUpgs = {
 	generators: {
@@ -490,6 +490,20 @@ export const GardenGenUpgs = {
 			show: (): boolean => Garden.boughtUpgrade(23),
 			connect: [[], []],
 			effectDescription: (x: Decimal): string => '想法产量×' + format(x.mul(0.01).add(1)),
+		},
+		8: {
+			isG: true,
+			key: 8,
+			name: '想法倍增器 II',
+			pos: [900, 100],
+			currency: GardenCurrencies.inspirationPower,
+			cost: new Decimal(100),
+			idea: new Decimal(0),
+			entropy: new Decimal(0),
+			unlocked: (): boolean => Garden.boughtGeneratorReach(7, new Decimal(1)),
+			show: (): boolean => Garden.boughtUpgrade(23),
+			connect: [[7], []],
+			effectDescription: (x: Decimal): string => '想法产量×' + format(x.mul(0.02).add(1)),
 		},
 	} satisfies {
 		[key in any]: GardenGenerator;
@@ -1235,6 +1249,7 @@ export const Garden = {
 				);
 		}
 		base = base.mul(player.garden.generators[7].mul(0.01).add(1));
+		base = base.mul(player.garden.generators[8].mul(0.02).add(1));
 		return base;
 	},
 	generatorEntropy(key: keyof typeof GardenGenUpgs.generators) {
