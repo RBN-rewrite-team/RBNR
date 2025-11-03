@@ -350,13 +350,14 @@ function simulateText(canvasRef: any) {
 				Garden.boughtUpgrade(23) ?
 				<>
 					<GardenNode
-						x={800}
+						x={400}
 						y={300}
 						canvasRef={canvasRef}
 						nodestyle={{'border-color': 'rgb(127, 255, 2)'}}
 					>
 						灵感能量<br />
-						{player.garden.insPower}
+						<span style='color: rgb(127, 255, 2); font-weight: bold;'>{format(player.garden.insPower, 1)}</span><br />
+						<span style='font-size: 11px'>本地速度×<br /><span style='color: rgb(127, 255, 2); font-weight: bold'>{format(Garden.insPowerEffect())}</span></span>
 					</GardenNode>
 				</>
 				: <></>
@@ -468,6 +469,10 @@ export default defineComponent({
 									)}{' '}
 									熵
 									<br />
+									{Garden.generatorEffectDescription(
+										player.garden.focusNode
+											.key as keyof typeof GardenGenUpgs.generators,
+									)}
 								</>
 							) : (
 								<>
@@ -513,7 +518,7 @@ export default defineComponent({
 									<br />
 									升级: {Garden.expPercent()}
 									<br />
-									基于花园等级，每秒+<span style="color: rgb(127, 255, 2); font-weight: bold">{Garden.insPowerGain()}</span>灵感能量
+									基于花园等级，每秒+<span style="color: rgb(127, 255, 2); font-weight: bold">{format(Garden.insPowerGain(), 1)}</span>灵感能量
 								</div>
 							</div>
 						</>

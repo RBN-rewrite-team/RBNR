@@ -316,6 +316,7 @@ export type GardenGenerator = {
 	unlocked(): boolean;
 	connect: [number[], number[]];
 	show?(): boolean;
+	effectDescription?(): string;
 };
 
 export type GardenUpgradeEffect = {
@@ -475,6 +476,20 @@ export const GardenGenUpgs = {
 				Garden.boughtUpgrade(27) && Garden.boughtGeneratorReach(5, new Decimal(50)),
 			show: (): boolean => Garden.boughtUpgrade(24),
 			connect: [[5], [27]],
+		},
+		7: {
+			isG: true,
+			key: 7,
+			name: '想法倍增器',
+			pos: [600, 100],
+			currency: GardenCurrencies.inspirationPower,
+			cost: new Decimal(10),
+			idea: new Decimal(0),
+			entropy: new Decimal(0),
+			unlocked: (): boolean => Garden.boughtUpgrade(23),
+			show: (): boolean => Garden.boughtUpgrade(23),
+			connect: [[], []],
+			effectDescription: (x: Decimal): string => '想法产量×' + format(x.mul(0.01).add(1)),
 		},
 	} satisfies {
 		[key in any]: GardenGenerator;
@@ -1169,6 +1184,11 @@ export const Garden = {
 		if (GardenGenUpgs.upgrades[key].currency.entropyEffective) base = base.mul(Garden.entropyEffect());
 		return base;
 	},
+	generatorEffectDescription(key: keyof typeof GardenGenUpgs.generators): string {
+		if (!('effectDescription' in GardenGenUpgs.generators[key])) return '';
+		if (!(typeof GardenGenUpgs.generators[key].effectDescription == 'function')) return '';
+		return GardenGenUpgs.generators[key].effectDescription?.(player.garden.generators[key]) ?? '';
+	},
 	upgradeEffectDescription(key: keyof typeof GardenGenUpgs.upgrades): string {
 		if (!('effectDescription' in GardenGenUpgs.upgrades[key])) return '';
 		if (!(typeof GardenGenUpgs.upgrades[key].effectDescription == 'function')) return '';
@@ -1214,6 +1234,7 @@ export const Garden = {
 						.effect.mult,
 				);
 		}
+		base = base.mul(player.garden.generators[7].mul(0.01).add(1));
 		return base;
 	},
 	generatorEntropy(key: keyof typeof GardenGenUpgs.generators) {
@@ -1266,6 +1287,11 @@ export const Garden = {
 	},
 	insPowerGain(): Decimal {
 		let base = new Decimal(2).pow(Garden.level());
+		if(!Garden.boughtUpgrade(23)) return new Decimal(0);
+		return base;
+	},
+	insPowerEffect(): Decimal {
+		let base = player.garden.insPower.add(1).ln().div(100).add(1);
 		return base;
 	},
 	igReset() {
@@ -1318,10 +1344,14 @@ export const Garden = {
 			).toFixed(4) + '%'
 		);
 	},
+	localSpeed(): Decimal {
+		let base = new Decimal(1);
+		base = base.mul(Garden.insPowerEffect());
+		return base;
+	},
 	gardenLoop(diff: number) {
 		if (player.garden.openSimulate) {
-			let localDiff = diff;
-
+			let localDiff = Garden.localSpeed().mul(diff);
 			if (player.garden.generators[0].lt(1)) player.garden.generators[0] = new Decimal(1);
 			const iY = Garden.ideaYield().mul(localDiff);
 			const eY = Garden.entropyYield().mul(localDiff);
@@ -1336,6 +1366,7 @@ export const Garden = {
 				player.garden.entropy,
 			);
 			player.garden.trueBestIdea = player.garden.trueBestIdea.max(player.garden.idea);
+			player.garden.insPower = player.garden.insPower.add(Garden.insPowerGain().mul(localDiff));
 		}
 	},
 	playerData() {
