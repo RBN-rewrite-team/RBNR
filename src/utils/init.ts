@@ -23,7 +23,7 @@ import App from '@/App.tsx';
 import { createI18n } from 'vue-i18n';
 
 import zhCN from '@/locales/zh_CN.json';
-
+import enUS from '@/locales/en_US.json';
 export function init() {
 	try {
 		timeCheck();
@@ -87,9 +87,10 @@ export function init() {
 		player.minigame.interact = 0;
 
 		const i18n = createI18n({
-			locale: 'zh-CN',
+			locale: 'en-US',
 			messages: {
 				'zh-CN': zhCN,
+				'en-US': enUS,
 			},
 		});
 
