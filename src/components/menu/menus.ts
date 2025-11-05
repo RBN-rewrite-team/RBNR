@@ -19,11 +19,11 @@ export const menus = [
 	{
 		contents: [
 			{
-				text: '地下城',
+				text: 'tab.dungeon',
 				id: 1225,
 			},
 			{
-				text: '自动机',
+				text: 'tab.automator',
 				id: 167,
 				show() {
 					return player.timeshard.unlAuto && (player.firstResetBit & 0b10000) == 0b10000;
@@ -32,10 +32,10 @@ export const menus = [
 		],
 	},
 	{
-		title: '后继',
+		title: 'tab.successor',
 		contents: [
 			{
-				text: '后继',
+				text: 'tab.successor',
 				id: 0,
 			},
 		],
@@ -44,10 +44,10 @@ export const menus = [
 		},
 	},
 	{
-		title: '加法',
+		title: 'tab.addition',
 		contents: [
 			{
-				text: '加法',
+				text: 'tab.addition',
 				id: 2,
 			},
 		],
@@ -241,21 +241,21 @@ export const menus = [
 		},
 	},
 	{
-		title: '杂项',
+		title: 'tab.options',
 		contents: [
-			{ id: 1, text: '设置' },
-			{ id: 3, text: '关于游戏' },
-			{ id: 200, text: '剧情' },
-			{ id: 7, text: '统计' },
-			{ id: 11, text: '成就' },
+			{ id: 1, text: 'tab.settings' },
+			{ id: 3, text: 'tab.aboutgame' },
+			{ id: 200, text: 'tab.plot' },
+			{ id: 7, text: 'tab.stat' },
+			{ id: 11, text: 'tab.achievements' },
 			{
 				id: 16,
-				text: '帮助',
+				text: 'tab.help',
 				show() {
 					return player.firstResetBit & 0b1000;
 				},
 			},
-			{ id: 18, text: '时间碎片' },
+			{ id: 18, text: 'tab.timeshard' },
 		],
 	},
 ] as const satisfies (NoTitleTab | TitleTab)[];

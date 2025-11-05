@@ -3,7 +3,8 @@ import type { NoTitleTab, SubTabBase, TitleTab } from './menus';
 
 import type { LooseRequired } from '@vue/shared';
 import SubMenuObject from './SubMenuObject.vue';
-
+import { useI18n } from 'vue-i18n';
+import type { $t } from '@/utils/types';
 function menuTitle(
 	props: LooseRequired<
 		Readonly<
@@ -16,11 +17,12 @@ function menuTitle(
 		> &
 			Readonly<{}> & {}
 	>,
+	$t: $t,
 ) {
 	if ('title' in props.menu) {
 		return (
 			<>
-				<div class="menu1">{props.menu.title}</div>
+				<div class="menu1">{$t(props.menu.title)}</div>
 				<div class="menu_line"></div>
 			</>
 		);
@@ -28,11 +30,11 @@ function menuTitle(
 		return <></>;
 	}
 }
-function toSubMenuObject(ct: SubTabBase) {
+function toSubMenuObject(ct: SubTabBase, $t: $t) {
 	if (ct.show) {
 		if (!ct.show()) return <></>;
 	}
-	return <SubMenuObject tab={ct.id} text={ct.text} />;
+	return <SubMenuObject tab={ct.id} text={$t(ct.text)} />;
 }
 export default defineComponent({
 	name: 'MenuObject',
@@ -43,6 +45,7 @@ export default defineComponent({
 		},
 	},
 	setup(props) {
+		const $t = useI18n().t;
 		if (props.menu.show) {
 			if (!props.menu.show()) {
 				return () => <></>;
@@ -50,8 +53,8 @@ export default defineComponent({
 		}
 		return () => (
 			<>
-				{menuTitle(props)}
-				{props.menu.contents.map(toSubMenuObject)}
+				{menuTitle(props, $t)}
+				{props.menu.contents.map((x) => toSubMenuObject(x, $t))}
 			</>
 		);
 	},

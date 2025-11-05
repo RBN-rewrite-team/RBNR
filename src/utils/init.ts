@@ -20,6 +20,9 @@ import { reinitializeMusic } from '@/core/music.ts';
 import { timeCheck } from './time-check.ts';
 import { initPTMilestones } from '@/core/pt/milestones.ts';
 import App from '@/App.tsx';
+import { createI18n } from 'vue-i18n';
+
+import zhCN from '@/locales/zh_CN.json';
 
 export function init() {
 	try {
@@ -82,8 +85,17 @@ export function init() {
 		hotkeys('ArrowRight', keyboardEventListener);
 		//hardResetMiniGame();
 		player.minigame.interact = 0;
+
+		const i18n = createI18n({
+			locale: 'zh-CN',
+			messages: {
+				'zh-CN': zhCN,
+			},
+		});
+
 		const app = createApp(App);
-		app.use(VueLatex).directive('hold', vHold).mount('#app');
+
+		app.use(i18n).use(VueLatex).directive('hold', vHold).mount('#app');
 
 		document.addEventListener('DOMContentLoaded', function () {
 			setTimeout(

@@ -16,9 +16,11 @@ import { menus } from './menus';
 							text-shadow: var(--title-color) 1px 1px 2px;
 						"
 					>
-						{{ player.pt.resetTimes.gte(1) ? '大数之路放置版' : '大数之路重制版' }}
+						{{
+							player.pt.resetTimes.gte(1) ? $t('title.idlen') : $t('title.rewritten')
+						}}
 					</div>
-					<div style="font-size: 15px">Garden Gamma</div>
+					<div style="font-size: 15px">{{ $t('title.version') }}</div>
 				</div>
 			</div>
 		</div>

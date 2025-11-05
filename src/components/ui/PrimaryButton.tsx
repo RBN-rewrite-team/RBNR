@@ -8,6 +8,9 @@ export default defineComponent({
 		style: {
 			type: Object as PropType<CSSProperties>,
 		},
+		innerHTML: {
+			type: String,
+		},
 	},
 	setup(props, { slots }) {
 		return () => (
@@ -16,6 +19,9 @@ export default defineComponent({
 					class={['clickable_button', 'margin_center']}
 					{...extractAttributesFromProps(props)}
 					style={{ ...props.style }}
+					{...{
+						innerHTML: props.innerHTML,
+					}}
 				>
 					{slots.default ? slots.default() : ''}
 				</button>
