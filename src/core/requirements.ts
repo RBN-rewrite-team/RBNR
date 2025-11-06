@@ -32,7 +32,7 @@ export class CurrencyRequirement extends Requirement {
 	reqDescription($t: $t): string {
 		return $t('req.res', {
 			cost: format(this.cost),
-			currency: currencyName(this.currency),
+			currency: currencyName(this.currency, $t),
 		});
 	}
 	progress(): [string, string] {

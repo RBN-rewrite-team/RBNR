@@ -75,13 +75,13 @@ if (buyables[id].canBuyMax != null && buyables[id].canBuyMax()) {
 						OrdinalUtils.numberToOrdinal(
 							buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0))),
 							feature.Ordinal.base(),
-						) + currencyName(curbyl.currency)
+						) + currencyName(curbyl.currency, $t)
 					"
 				/><span
 					v-else
 					v-html="
 						format(buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0)))) +
-						currencyName(curbyl.currency)
+						currencyName(curbyl.currency, $t)
 					"
 				/>
 				<br />

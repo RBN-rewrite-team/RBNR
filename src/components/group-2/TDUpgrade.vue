@@ -70,9 +70,10 @@ function costHTML() {
 		cost: curupg.ordinal
 			? OrdinalUtils.numberToOrdinal(actualCost(curupg), feature.Ordinal.base())
 			: format(actualCost(curupg)),
-		currency: currencyName(curupg.currency),
+		currency: currencyName(curupg.currency, $t),
 	});
 }
+const description = $t(`upgs.${props.upgid}`);
 </script>
 
 <template>
@@ -99,11 +100,7 @@ function costHTML() {
 				<template v-else>
 					<!-- (Logarithm.logarithm.upgrades_in_dilated.includes(id)&&curupg.dilated) ? curupg.dilated :  -->
 					<span
-						v-html="
-							typeof curupg.description === 'function'
-								? curupg.description()
-								: curupg.description
-						"
+						v-html="typeof description === 'function' ? description() : description"
 					></span
 					><br />
 					<template v-if="UpgradeWithEffect.isWithEffect<any>(curupg)">
