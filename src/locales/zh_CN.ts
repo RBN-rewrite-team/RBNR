@@ -1,3 +1,5 @@
+import { dilated } from '@/core/exponention/dilated-function';
+
 export default {
 	'title.rewritten': '大数之路重制版',
 	'title.version': 'Garden Gamma',
@@ -23,6 +25,5 @@ export default {
 	'upg.cost': '价格: {cost}{currency}',
 	'set.setlang': '设置语言',
 	'currency.number': '数值',
-	'upgs.11': '解锁B0-1',
-	'upgs.11.dil': '拜谢帝',
+	'upgs.11': dilated('解锁B0-1', 'B0-1购买次数上限改为1000', '11'),
 };

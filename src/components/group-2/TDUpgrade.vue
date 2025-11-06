@@ -73,7 +73,7 @@ function costHTML() {
 		currency: currencyName(curupg.currency, $t),
 	});
 }
-const description = $t(`upgs.${props.upgid}`);
+const description = $t(`upgs.${props.upgid}`) as string | (() => string);
 </script>
 
 <template>

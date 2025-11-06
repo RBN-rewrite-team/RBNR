@@ -83,9 +83,11 @@ export function init() {
 		//hardResetMiniGame();
 		player.minigame.interact = 0;
 
-		const app = createApp(App);
+		setTimeout(function () {
+			const app = createApp(App);
 
-		app.use(i18n).use(VueLatex).directive('hold', vHold).mount('#app');
+			app.use(i18n).use(VueLatex).directive('hold', vHold).mount('#app');
+		}, 500);
 
 		document.addEventListener('DOMContentLoaded', function () {
 			setTimeout(
