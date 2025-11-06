@@ -20,5 +20,6 @@
     "req.res": "Get {cost} {currency}",
     "req.upg": "Get {upg}",
     "upg.cost": "Cost: {cost}{currency}",
-    "res.softcapped": "({amount} softcaps)"
+    "res.softcapped": "({amount} softcaps)",
+    "set.setlang": "Set language"
 }
