@@ -300,9 +300,10 @@ export type GardenCurrency = {
 	name: string;
 	color: string;
 	value(): Decimal;
-	write(Decimal): Decimal;
+	write(x: Decimal): Decimal;
 	entropyEffective: boolean;
-}
+	elementColor: string;
+};
 
 export type GardenGenerator = {
 	isG: boolean;
@@ -317,7 +318,7 @@ export type GardenGenerator = {
 	connect: [number[], number[]];
 	show?(): boolean;
 	igNR?(): boolean;
-	effectDescription?(): string;
+	effectDescription?(x: Decimal): string;
 };
 
 export type GardenUpgradeEffect = {
@@ -360,7 +361,7 @@ export const GardenCurrencies = {
 		name: '想法',
 		color: 'yellow',
 		elementColor: 'var(--color)',
-		value: () => player.garden.idea,
+		value: (): Decimal => player.garden.idea,
 		write(x: Decimal): Decimal {
 			player.garden.idea = x;
 			return x;
@@ -371,7 +372,7 @@ export const GardenCurrencies = {
 		name: '灵感',
 		color: 'orange',
 		elementColor: 'rgb(150, 75, 18)',
-		value: () => player.garden.inspiration,
+		value: (): Decimal => player.garden.inspiration,
 		write(x: Decimal): Decimal {
 			player.garden.inspiration = x;
 			return x;
@@ -382,15 +383,13 @@ export const GardenCurrencies = {
 		name: '灵感能量',
 		color: 'rgb(127, 255, 2)',
 		elementColor: 'rgb(75, 150, 18)',
-		value: () => player.garden.insPower,
+		value: (): Decimal => player.garden.insPower,
 		write(x: Decimal): Decimal {
 			player.garden.insPower = x;
 			return x;
 		},
 		entropyEffective: false,
 	},
-} satisfies {
-	[key in any]: GardenCurrency;
 } as const;
 export const GardenGenUpgs = {
 	generators: {
@@ -522,7 +521,7 @@ export const GardenGenUpgs = {
 			pos: [0, -200],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(1e-6),
-			
+
 			effect: {
 				key: 0,
 				mult: new Decimal(2),
@@ -539,7 +538,7 @@ export const GardenGenUpgs = {
 			pos: [200, -250],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(1e-5),
-			
+
 			effect: {
 				key: 0,
 				mult: new Decimal(2),
@@ -556,7 +555,7 @@ export const GardenGenUpgs = {
 			pos: [300, -450],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(0.1),
-			
+
 			effect: {
 				key: 0,
 				mult: new Decimal(100),
@@ -573,7 +572,7 @@ export const GardenGenUpgs = {
 			pos: [100, -550],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(5e-4),
-			
+
 			effect: {
 				key: 1,
 				mult: new Decimal(2),
@@ -590,7 +589,7 @@ export const GardenGenUpgs = {
 			pos: [-150, -500],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(0.006),
-			
+
 			effect: {
 				key: 1,
 				mult: new Decimal(3),
@@ -607,7 +606,7 @@ export const GardenGenUpgs = {
 			pos: [-75, -600],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(0.009),
-			
+
 			effect: {
 				key: 1,
 				mult: new Decimal(2.5),
@@ -624,7 +623,7 @@ export const GardenGenUpgs = {
 			pos: [-250, -700],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(1),
-			
+
 			effect: {
 				key: 1,
 				mult: new Decimal(10),
@@ -641,7 +640,7 @@ export const GardenGenUpgs = {
 			pos: [-100, -825],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(0.05),
-			
+
 			effect: {
 				key: 2,
 				mult: new Decimal(1.25),
@@ -658,7 +657,7 @@ export const GardenGenUpgs = {
 			pos: [75, -900],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(0.25),
-			
+
 			effect: {
 				key: 2,
 				mult: new Decimal(1.5),
@@ -675,7 +674,7 @@ export const GardenGenUpgs = {
 			pos: [-25, -1000],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(0.75),
-			
+
 			effect: {
 				key: 2,
 				mult: new Decimal(1.25),
@@ -692,7 +691,7 @@ export const GardenGenUpgs = {
 			pos: [0, -1100],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(5),
-			
+
 			effect: {
 				key: 3,
 				mult: new Decimal(1.5),
@@ -709,7 +708,7 @@ export const GardenGenUpgs = {
 			pos: [-300, -1200],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(100),
-			
+
 			effect: {
 				key: 3,
 				mult: new Decimal(2),
@@ -726,7 +725,7 @@ export const GardenGenUpgs = {
 			pos: [-125, -1300],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(750),
-			
+
 			effect: {
 				key: 4,
 				mult: new Decimal(1.5),
@@ -743,7 +742,7 @@ export const GardenGenUpgs = {
 			pos: [-350, -1350],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(1500),
-			
+
 			effect: {
 				key: 3,
 				mult: new Decimal(15),
@@ -760,7 +759,7 @@ export const GardenGenUpgs = {
 			pos: [-25, -1425],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(3000),
-			
+
 			effect: {
 				key: 4,
 				mult: new Decimal(3.75),
@@ -777,7 +776,7 @@ export const GardenGenUpgs = {
 			pos: [125, -1400],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(4000),
-			
+
 			effect: {
 				key: 4,
 				mult: new Decimal(2.5),
@@ -794,7 +793,7 @@ export const GardenGenUpgs = {
 			pos: [100, -1525],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(10500),
-			
+
 			effect: {
 				key: 4,
 				mult: new Decimal(2),
@@ -811,7 +810,7 @@ export const GardenGenUpgs = {
 			pos: [-300, -925],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(100000),
-			
+
 			effect: {
 				key: 3,
 				mult: new Decimal(7.5),
@@ -828,7 +827,7 @@ export const GardenGenUpgs = {
 			pos: [-350, -1100],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(250000),
-			
+
 			effect: {
 				key: 3,
 				mult: new Decimal(2),
@@ -845,7 +844,7 @@ export const GardenGenUpgs = {
 			pos: [-150, -1500],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(450000),
-			
+
 			effect: {
 				key: 4,
 				mult: new Decimal(1.75),
@@ -862,7 +861,7 @@ export const GardenGenUpgs = {
 			pos: [-225, -1400],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(900000),
-			
+
 			effect: {
 				key: 4,
 				mult: new Decimal(2),
@@ -879,7 +878,7 @@ export const GardenGenUpgs = {
 			pos: [225, -1600],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(2e6),
-			
+
 			effect: {
 				key: 4,
 				mult: new Decimal(4.5),
@@ -896,7 +895,7 @@ export const GardenGenUpgs = {
 			pos: [-100, -1625],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(1e7),
-			
+
 			effect: {
 				key: 4,
 				mult: new Decimal(3),
@@ -1196,18 +1195,22 @@ export const Garden = {
 		let scale = new Decimal(1.1);
 		const bought = Garden.boughtGenerator(key);
 		base = base.mul(scale.pow(bought));
-		if (GardenGenUpgs.generators[key].currency.entropyEffective) base = base.mul(Garden.entropyEffect());
+		if (GardenGenUpgs.generators[key].currency.entropyEffective)
+			base = base.mul(Garden.entropyEffect());
 		return base;
 	},
 	upgradeCost(key: keyof typeof GardenGenUpgs.upgrades) {
 		let base = GardenGenUpgs.upgrades[key].cost;
-		if (GardenGenUpgs.upgrades[key].currency.entropyEffective) base = base.mul(Garden.entropyEffect());
+		if (GardenGenUpgs.upgrades[key].currency.entropyEffective)
+			base = base.mul(Garden.entropyEffect());
 		return base;
 	},
 	generatorEffectDescription(key: keyof typeof GardenGenUpgs.generators): string {
 		if (!('effectDescription' in GardenGenUpgs.generators[key])) return '';
 		if (!(typeof GardenGenUpgs.generators[key].effectDescription == 'function')) return '';
-		return GardenGenUpgs.generators[key].effectDescription?.(player.garden.generators[key]) ?? '';
+		return (
+			GardenGenUpgs.generators[key].effectDescription?.(player.garden.generators[key]) ?? ''
+		);
 	},
 	upgradeEffectDescription(key: keyof typeof GardenGenUpgs.upgrades): string {
 		if (!('effectDescription' in GardenGenUpgs.upgrades[key])) return '';
@@ -1225,9 +1228,10 @@ export const Garden = {
 		}
 	},
 	buyGenerator(key: keyof typeof GardenGenUpgs.generators) {
-		if (GardenGenUpgs.generators[key].currency.value().gte(Garden.generatorCost(key)))
-		{
-			GardenGenUpgs.generators[key].currency.write(GardenGenUpgs.generators[key].currency.value().sub(Garden.generatorCost(key)));
+		if (GardenGenUpgs.generators[key].currency.value().gte(Garden.generatorCost(key))) {
+			GardenGenUpgs.generators[key].currency.write(
+				GardenGenUpgs.generators[key].currency.value().sub(Garden.generatorCost(key)),
+			);
 			player.garden.generators[key] = player.garden.generators[key].add(1);
 		}
 	},
@@ -1236,7 +1240,9 @@ export const Garden = {
 	},
 	buyUpgrade(key: keyof typeof GardenGenUpgs.upgrades) {
 		if (Garden.canBoughtUpgrade(key) && !player.garden.upgrades[key]) {
-			GardenGenUpgs.upgrades[key].currency.write(GardenGenUpgs.upgrades[key].currency.value().sub(Garden.upgradeCost(key)));
+			GardenGenUpgs.upgrades[key].currency.write(
+				GardenGenUpgs.upgrades[key].currency.value().sub(Garden.upgradeCost(key)),
+			);
 			player.garden.upgrades[key] = true;
 		}
 	},
@@ -1308,7 +1314,7 @@ export const Garden = {
 	},
 	insPowerGain(): Decimal {
 		let base = new Decimal(2).pow(Garden.level());
-		if(!Garden.boughtUpgrade(23)) return new Decimal(0);
+		if (!Garden.boughtUpgrade(23)) return new Decimal(0);
 		return base;
 	},
 	insPowerEffect(): Decimal {
@@ -1389,7 +1395,9 @@ export const Garden = {
 				player.garden.entropy,
 			);
 			player.garden.trueBestIdea = player.garden.trueBestIdea.max(player.garden.idea);
-			player.garden.insPower = player.garden.insPower.add(Garden.insPowerGain().mul(localDiff));
+			player.garden.insPower = player.garden.insPower.add(
+				Garden.insPowerGain().mul(localDiff),
+			);
 		}
 	},
 	playerData() {
