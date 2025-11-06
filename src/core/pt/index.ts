@@ -318,6 +318,7 @@ export type GardenGenerator = {
 	connect: [number[], number[]];
 	show?(): boolean;
 	effectDescription?(x: Decimal): string;
+	igNR?(): boolean;
 };
 
 export type GardenUpgradeEffect = {
@@ -337,7 +338,7 @@ export type GardenUpgrade = {
 	connect: [number[], number[]];
 	show?(): boolean;
 	igNR?(): boolean;
-	effectDescription?(): string;
+	effectDescription?(x: Decimal): string;
 };
 
 export function isGardenUpgrade(x: GardenUpgrade | GardenGenerator): x is GardenUpgrade {
@@ -345,6 +346,9 @@ export function isGardenUpgrade(x: GardenUpgrade | GardenGenerator): x is Garden
 }
 export function isGardenGenerator(x: GardenUpgrade | GardenGenerator): x is GardenGenerator {
 	return x.isG;
+}
+export function igGNR(x: GardenGenerator) {
+	return x.igNR?.() ?? false;
 }
 export function ignoreNR(x: GardenUpgrade) {
 	return x.igNR?.() ?? false;
@@ -489,6 +493,7 @@ export const GardenGenUpgs = {
 			show: (): boolean => Garden.boughtUpgrade(23),
 			connect: [[], []],
 			effectDescription: (x: Decimal): string => '想法产量×' + format(x.mul(0.01).add(1)),
+			igNR: (): boolean => true,
 		},
 		8: {
 			isG: true,
@@ -503,6 +508,7 @@ export const GardenGenUpgs = {
 			show: (): boolean => Garden.boughtUpgrade(23),
 			connect: [[7], []],
 			effectDescription: (x: Decimal): string => '想法产量×' + format(x.mul(0.02).add(1)),
+			igNR: (): boolean => true,
 		},
 	} satisfies {
 		[key in any]: GardenGenerator;
@@ -1334,9 +1340,11 @@ export const Garden = {
 		player.garden.entropy = new Decimal(0);
 		player.garden.totalEntropy = new Decimal(0);
 		player.garden.bestEntropy = new Decimal(0);
-		for (const i in player.garden.generators)
-			player.garden.generators[Number(i) as keyof typeof GardenGenUpgs.generators] =
-				new Decimal(0);
+		for (const i in player.garden.generators) {
+			if(!igGNR(GardenGenUpgs.generators[Number(i) as keyof typeof GardenGenUpgs.generators]))
+				player.garden.generators[Number(i) as keyof typeof GardenGenUpgs.generators] =
+					new Decimal(0);
+		}
 		for (const i in player.garden.upgrades) {
 			if (!ignoreNR(GardenGenUpgs.upgrades[Number(i) as keyof typeof GardenGenUpgs.upgrades]))
 				player.garden.upgrades[i] = false;
