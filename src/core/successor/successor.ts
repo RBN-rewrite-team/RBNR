@@ -20,11 +20,6 @@ export const Successor = {
 			currency = Currencies.NUMBER;
 			name = 'U0-1';
 			cost = new Decimal(10);
-			description: () => string = Logarithm.dilated(
-				'解锁B0-1',
-				'B0-1购买次数上限改为1000',
-				'11',
-			);
 			requirements(): Requirement[] {
 				return [new CurrencyRequirement(Currencies.NUMBER, new Decimal(10))];
 			}
@@ -36,11 +31,6 @@ export const Successor = {
 			currency = Currencies.NUMBER;
 			name = 'U0-2';
 			cost = new Decimal(100);
-			description: () => string = Logarithm.dilated(
-				'每次购买U0系列升级都使后继按钮批量+1',
-				'每次购买U0系列升级使后继按钮指数+*1.1',
-				'12',
-			);
 			requirements(): Requirement[] {
 				return [new CurrencyRequirement(Currencies.NUMBER, new Decimal(100))];
 			}

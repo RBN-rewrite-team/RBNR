@@ -1,3 +1,5 @@
+import { dilated } from '@/core/exponention/dilated-function';
+
 export default {
 	'title.rewritten': 'RBNR',
 	'title.version': 'Garden Gamma',
@@ -17,10 +19,17 @@ export default {
 	'succ.successor': 'Do successor',
 	'succ.addition': 'Addition',
 	'upg.locked': 'Locked',
+	'upg.effect': 'Currently: {effect}', // 符合IMR显示效果currently习惯
 	'req.res': 'Get {cost} {currency}',
 	'req.upg': 'Get {upg}',
 	'upg.cost': 'Cost: {cost}{currency}',
 	'res.softcapped': '({amount} softcaps)',
 	'set.setlang': 'Set language',
 	'currency.number': 'number',
+	'upgs.11': dilated('Unlock B0-1', 'Change the limit of buy counts of B0-1 to 1000', '11'),
+	'upgs.12': dilated(
+		'The successor button will +1 when a U0 upgrade is bought',
+		'The successor button power will +*1.1 when a U0 upgrade is bought',
+		'12',
+	),
 };

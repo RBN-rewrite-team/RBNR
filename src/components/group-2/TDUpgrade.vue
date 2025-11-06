@@ -104,7 +104,13 @@ const description = $t(`upgs.${props.upgid}`) as string | (() => string);
 					></span
 					><br />
 					<template v-if="UpgradeWithEffect.isWithEffect<any>(curupg)">
-						效果：<span v-html="curupg.effectDescription(curupg.effect())"></span><br />
+						<div
+							v-html="
+								$t('upg.effect', {
+									effect: curupg.effectDescription(curupg.effect()),
+								})
+							"
+						></div>
 					</template>
 				</template>
 				<div v-if="!permanent" v-html="costHTML()"></div>

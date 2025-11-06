@@ -20,10 +20,16 @@ export default {
 	'succ.successor': '后继',
 	'succ.addition': '加法',
 	'upg.locked': '暂未解锁',
+	'upg.effect': '效果: {effect}',
 	'req.res': '获得{cost}{currency}',
 	'req.upg': '获得{upg}',
 	'upg.cost': '价格: {cost}{currency}',
 	'set.setlang': '设置语言',
 	'currency.number': '数值',
 	'upgs.11': dilated('解锁B0-1', 'B0-1购买次数上限改为1000', '11'),
+	'upgs.12': dilated(
+		'每次购买U0系列升级都使后继按钮批量+1',
+		'每次购买U0系列升级使后继按钮指数+*1.1',
+		'12',
+	),
 };
