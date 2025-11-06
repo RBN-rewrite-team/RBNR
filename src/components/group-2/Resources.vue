@@ -9,6 +9,7 @@ import { format } from '@/utils/format';
 import { temp } from '../../core/temp-data.ts';
 import { getCurrentOrdinal } from '../../utils/y-seq.ts';
 import { Garden } from '@/core/pt/index.ts';
+import { stringformat } from '@/lib/string-format.ts';
 </script>
 <template>
 	<div>
@@ -46,7 +47,7 @@ import { Garden } from '@/core/pt/index.ts';
 							class="resource"
 						>
 							<div style="font-weight: bold; color: var(--suptitle-color)">
-								数值&nbsp;
+								{{ $t('res.number') }}&nbsp;
 								<template v-if="player.singularity.t > 666.6666666">ω</template>
 								<template v-else>{{ formatWhole(player.number) }}</template>
 							</div>
@@ -59,7 +60,7 @@ import { Garden } from '@/core/pt/index.ts';
 										player.singularity.stage < 11 &&
 										feature.SUCCESSOR.autoSuccessPerSecond().eq(0)
 									"
-									>(需要通过后继获得)</span
+									>{{ $t('res.number.required') }}</span
 								>
 								<span
 									v-else
@@ -74,13 +75,17 @@ import { Garden } from '@/core/pt/index.ts';
 								>({{ formatWhole(player.totalNumber) }})
 								<br />
 								<span v-if="feature.resourceGain.number().softcaps > 0">
-									(受{{ feature.resourceGain.number().softcaps }}个软上限限制)
+									{{
+										stringformat($t('res.softcapped'), [
+											feature.resourceGain.number().softcaps.toString(),
+										])
+									}}
 								</span>
 							</div>
 						</div>
 						<div style="margin-left: 15px" class="resource" v-else>
 							<div style="font-weight: bold; color: rgb(255, 63, 63)">
-								序数&nbsp;
+								{{ $t('res.ordinal') }}&nbsp;
 								<span
 									v-html="
 										Ordinal.displayOrdinalColored(
@@ -167,7 +172,7 @@ import { Garden } from '@/core/pt/index.ts';
 							"
 						>
 							<div style="font-weight: bold; color: #009dd9">
-								加法能量&nbsp;
+								{{ $t('res.addpower') }}&nbsp;
 								<div style="display: inline; text-shadow: #5acaff 1px 1px 2px">
 									{{ formatWhole(player.addpower) }}
 								</div>

@@ -11,6 +11,9 @@ import { format } from '@/utils/format';
 import { countdown } from '@/core/countdown-display';
 import { ORDINAL } from '@/core/ordinal/ordinal';
 import { Dilute } from '@/core/hydra/dilute';
+import { stringformat } from '@/lib/string-format';
+import { useI18n } from 'vue-i18n';
+const $t = useI18n().t;
 
 const props = defineProps<{
 	upgid: keyof typeof upgrades;
@@ -48,6 +51,29 @@ function actualCost(curupg: Upgrade) {
 	}
 	return cost;
 }
+function costHTML() {
+	/**
+	 * 价格：<span
+						v-if="curupg.ordinal"
+						v-html="
+							OrdinalUtils.numberToOrdinal(
+								actualCost(curupg),
+								feature.Ordinal.base(),
+							) + currencyName(curupg.currency)
+						"
+					/><span
+						v-else
+						v-html="format(actualCost(curupg)) + currencyName(curupg.currency)"
+					/>
+					<br />
+	 */
+	return stringformat($t('upg.cost'), [
+		curupg.ordinal
+			? OrdinalUtils.numberToOrdinal(actualCost(curupg), feature.Ordinal.base())
+			: format(actualCost(curupg)),
+		currencyName(curupg.currency),
+	]);
+}
 </script>
 
 <template>
@@ -56,14 +82,14 @@ function actualCost(curupg: Upgrade) {
 			<div :class="useClass()">
 				<span style="font-weight: bold"> {{ curupg.name ?? 'U' + id }} </span><br />
 				<template v-if="!UPGRADES.lock(id).unlocked && !permanent && !player.upgrades[id]">
-					暂未解锁<br />
+					{{ $t('upg.locked') }}<br />
 					<template v-for="sreq in Object.entries(req)">
 						<template v-if="sreq[0] != '0'"> ,<br /> </template>
 						<span
 							style="font-weight: bold"
 							:style="{ color: sreq[1].reachedReq() ? 'green' : 'red' }"
 						>
-							{{ sreq[1].reqDescription() }}
+							{{ sreq[1].reqDescription($t) }}
 							<span v-if="!sreq[1].reachedReq() && sreq[1].progress">
 								({{ sreq[1].progress().join('/') }})
 							</span>
@@ -85,21 +111,7 @@ function actualCost(curupg: Upgrade) {
 						效果：<span v-html="curupg.effectDescription(curupg.effect())"></span><br />
 					</template>
 				</template>
-				<template v-if="!permanent">
-					价格：<span
-						v-if="curupg.ordinal"
-						v-html="
-							OrdinalUtils.numberToOrdinal(
-								actualCost(curupg),
-								feature.Ordinal.base(),
-							) + currencyName(curupg.currency)
-						"
-					/><span
-						v-else
-						v-html="format(actualCost(curupg)) + currencyName(curupg.currency)"
-					/>
-					<br />
-				</template>
+				<div v-if="!permanent" v-html="costHTML()"></div>
 				<span v-else style="color: green; font-weight: bold"> 保持持有<br /> </span>
 				<span> </span>
 			</div>

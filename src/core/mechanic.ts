@@ -26,6 +26,7 @@ import { NON_RECURSIVE } from './nonrecu/index.ts';
 import { WellOrderingBuyables, WellOrderingUpgrades } from './ordinal/well_ordering.ts';
 import { TimeShard } from './timeshard/timeshard.ts';
 import { Qol7Upgrades } from './pt/qolcryupgs.ts';
+import type { $t } from '@/utils/types.ts';
 
 const upgrades = {
 	...Successor.upgrades,
@@ -119,94 +120,6 @@ export const BUYABLES = {
 		}
 		const a = buyables[id].show();
 		return { show: a, unlocked: flag, reach: reach };
-	},
-	singleHTML(id: keyof typeof buyables) {
-		let useclass = 'upgrade_buttonbig';
-		if (buyables[id].capped(player.buyables[id])) useclass = 'upgrade_buttonbig_complete';
-		else if (
-			!this.lock(id).unlocked ||
-			!buyables[id].canAfford() ||
-			!buyables[id].cost(player.buyables[id]).lte(getCurrency(buyables[id].currency))
-		)
-			useclass = 'upgrade_buttonbig_unable';
-		let str = '<div class="' + useclass + '">';
-		str +=
-			'<b>' +
-			buyables[id].name +
-			'(' +
-			formatWhole(player.buyables[id]) +
-			(function () {
-				const a = buyables[id].more();
-				if (a.gte(1)) return '+' + formatWhole(a);
-				return '';
-			})() +
-			')</b><br>';
-		if (!this.lock(id).unlocked && player.buyables[id].eq(0)) {
-			str += '暂未解锁<br>';
-			const req = buyables[id].requirements();
-			const first = true;
-			for (const j in req) {
-				if (j != '0') str += ',<br>';
-				if (req[j].reachedReq()) str += '<span style="color: green; font-weight: bold">';
-				else str += '<span style="color: red; font-weight: bold">';
-				str += req[j].reqDescription();
-				if (!req[j].reachedReq() && req[j].progress)
-					str += '(' + req[j].progress().join('/') + ')';
-				str += '</span>';
-			}
-		} else {
-			let canBuy = new Decimal(0);
-			if (buyables[id].canBuyMax != null && buyables[id].canBuyMax()) {
-				if (buyables[id].canBuy != null) canBuy = buyables[id].canBuy(player.buyables[id]);
-			}
-			str += buyables[id].description + '<br>';
-			if (
-				buyables[id].descriptionDilated &&
-				Logarithm.logarithm.buyables_in_dilated.includes(id)
-			)
-				str += buyables[id].descriptionDilated + '<br>';
-			if (buyables[id].effect != null)
-				str +=
-					'效果：' +
-					buyables[id].effectDescription(player.buyables[id]) +
-					'&nbsp;→' +
-					buyables[id].effectDescription(player.buyables[id].add(canBuy.max(1))) +
-					'<br>';
-			if (
-				player.singularity.stage < 1 &&
-				player.exponention.logarithm.buyables_in_dilated.includes(id) &&
-				buyables[id].effectDilated !== Buyable.prototype.effectDilated
-			)
-				str +=
-					'膨胀效果：' +
-					buyables[id].effectDilated(player.buyables[id])[1] +
-					'&nbsp;→' +
-					buyables[id].effectDilated(player.buyables[id].add(canBuy.max(1)))[1] +
-					'<br>';
-			str +=
-				'价格：' +
-				(buyables[id].ordinal
-					? OrdinalUtils.numberToOrdinal(
-							buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0))),
-							ORDINAL.base(),
-						)
-					: format(buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0))))) +
-				currencyName(buyables[id].currency) +
-				(canBuy.gte(1) ? '(买' + formatWhole(canBuy) + '个)' : '') +
-				'<br>';
-		}
-
-		if (buyables[id].ordinal && useclass == 'upgrade_buttonbig_unable') {
-			str += `<span class='tooltip'>购买一个购买项需要${countdown(
-				buyables[id].cost(player.buyables[id]),
-				player.ordinal.number,
-				ORDINAL.ordinalPerSecond(),
-				ORDINAL.isConstantSpeed(),
-				ORDINAL.speedDeri(),
-			)}</span>`;
-		}
-		str += '</div>';
-		return str;
 	},
 	buy(id: keyof typeof buyables) {
 		if (

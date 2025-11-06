@@ -1,1 +1,24 @@
-{}
+{
+    "title.rewritten": "RBNR",
+    "title.version": "Garden Gamma",
+    "tab.dungeon": "Dungeon",
+    "tab.successor": "Successor",
+    "tab.options": "Options",
+    "tab.settings": "Settings",
+    "tab.aboutgame": "About",
+    "tab.plot": "Plot",
+    "tab.stat": "Statistics",
+    "tab.achievements": "Achievements",
+    "tab.timeshard": "Time shard",
+    "res.number": "Number",
+    "res.ordinal": "Ordinal",
+    "res.addpower": "Addition power",
+    "res.number.required": "(Doing successor)",
+    "res.softcapped": "({} softcaps)",
+    "succ.successor": "Do successor",
+    "succ.addition": "Addition",
+    "upg.locked": "locked",
+    "req.res": "Get {} {}",
+    "req.upg": "Get {}",
+    "upg.cost": "Cost: {}{}"
+}

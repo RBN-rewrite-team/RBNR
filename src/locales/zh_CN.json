@@ -10,6 +10,15 @@
     "tab.stat": "统计",
     "tab.achievements": "成就",
     "tab.timeshard": "时间碎片",
+    "res.number": "数值",
+    "res.ordinal": "序数",
+    "res.addpower": "加法能量",
+    "res.number.required": "(需要通过后继获得)",
+    "res.softcapped": "(受{}个软上限限制)",
     "succ.successor": "后继",
-    "succ.addition": "加法"
+    "succ.addition": "加法",
+    "upg.locked": "暂未解锁",
+    "req.res": "获得{}{}",
+    "req.upg": "获得{}",
+    "upg.cost": "价格: {}{}"
 }
