@@ -14,11 +14,11 @@
     "res.ordinal": "Ordinal",
     "res.addpower": "Addition power",
     "res.number.required": "(Doing successor)",
-    "res.softcapped": "({} softcaps)",
     "succ.successor": "Do successor",
     "succ.addition": "Addition",
-    "upg.locked": "locked",
-    "req.res": "Get {} {}",
-    "req.upg": "Get {}",
-    "upg.cost": "Cost: {}{}"
+    "upg.locked": "Locked",
+    "req.res": "Get {cost} {currency}",
+    "req.upg": "Get {upg}",
+    "upg.cost": "Cost: {cost}{currency}",
+    "res.softcapped": "({amount} softcaps)"
 }

@@ -9,6 +9,7 @@ import ModalService from '@/utils/Modal';
 import fontUI from '@/core/save/fontUI';
 import { setMusic as incMusic, MUSIC_TEXT, setMusicUrlAndPlay } from '@/core/music';
 import CenterLine from '@/components/ui/CenterLine.vue';
+import { openSetLangModel } from '@/components/i18nUI';
 
 const validNotations = computed(() =>
 	Object.values(notations).filter((v) => typeof v === 'number'),
@@ -38,6 +39,9 @@ const setFontUI = () => ModalService.show({ title: '设置字体', component: fo
 				离线进度：{{ player.options.allowOffline ? '开' : '关' }}
 			</button>
 			<button class="setting_button" @click="player.currentTab = 300">进入存档银行</button>
+			<button class="setting_button" @click="() => openSetLangModel($t)">
+				{{ $t('set.setlang') }}
+			</button>
 		</div>
 		<span v-if="isTester()"><br />您已进入Beta测试</span>
 		<span v-if="player.options.gammaTest"><br />您已进入Gamma测试</span>

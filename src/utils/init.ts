@@ -20,10 +20,7 @@ import { reinitializeMusic } from '@/core/music.ts';
 import { timeCheck } from './time-check.ts';
 import { initPTMilestones } from '@/core/pt/milestones.ts';
 import App from '@/App.tsx';
-import { createI18n } from 'vue-i18n';
-
-import zhCN from '@/locales/zh_CN.json';
-import enUS from '@/locales/en_US.json';
+import { i18n } from './i18n.ts';
 export function init() {
 	try {
 		timeCheck();
@@ -85,14 +82,6 @@ export function init() {
 		hotkeys('ArrowRight', keyboardEventListener);
 		//hardResetMiniGame();
 		player.minigame.interact = 0;
-
-		const i18n = createI18n({
-			locale: 'en-US',
-			messages: {
-				'zh-CN': zhCN,
-				'en-US': enUS,
-			},
-		});
 
 		const app = createApp(App);
 

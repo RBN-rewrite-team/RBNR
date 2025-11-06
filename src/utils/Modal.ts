@@ -1,6 +1,7 @@
 // utils/modal.ts
 import { createApp, h, ref, type Component, type App, type VNode } from 'vue';
 import Modal from '../components/group-2/Modal.vue';
+import { i18n } from './i18n';
 
 export interface FieldConfig {
 	type?: string;
@@ -163,7 +164,7 @@ const ModalService = {
 					});
 			},
 		});
-
+		app.use(i18n);
 		app.mount(container);
 		return { controller };
 	},

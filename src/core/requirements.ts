@@ -3,7 +3,6 @@ import { currencyName, getCurrency, type Currencies } from './currencies';
 import { format } from '@/utils/format';
 import { upgrades } from './mechanic';
 import { player } from './save';
-import { stringformat } from '@/lib/string-format';
 import type { $t } from '@/utils/types';
 
 export enum RequirementTypes {
@@ -31,7 +30,10 @@ export class CurrencyRequirement extends Requirement {
 		return getCurrency(this.currency).gte(this.cost);
 	}
 	reqDescription($t: $t): string {
-		return stringformat($t('req.res'), [format(this.cost), currencyName(this.currency)]);
+		return $t('req.res', {
+			cost: format(this.cost),
+			currency: currencyName(this.currency),
+		});
 	}
 	progress(): [string, string] {
 		return [`${format(getCurrency(this.currency))}`, `${format(this.cost)}`];
@@ -49,7 +51,9 @@ export class UpgradeRequirement extends Requirement {
 		return player.upgrades[this.upgid];
 	}
 	reqDescription($t: $t): string {
-		return stringformat($t('req.upg'), [upgrades[this.upgid].name]);
+		return $t('req.upg', {
+			upg: upgrades[this.upgid].name,
+		});
 	}
 	progress = undefined;
 	constructor(upgid: keyof typeof upgrades) {

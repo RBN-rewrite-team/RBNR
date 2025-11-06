@@ -11,7 +11,6 @@ import { format } from '@/utils/format';
 import { countdown } from '@/core/countdown-display';
 import { ORDINAL } from '@/core/ordinal/ordinal';
 import { Dilute } from '@/core/hydra/dilute';
-import { stringformat } from '@/lib/string-format';
 import { useI18n } from 'vue-i18n';
 const $t = useI18n().t;
 
@@ -67,12 +66,12 @@ function costHTML() {
 					/>
 					<br />
 	 */
-	return stringformat($t('upg.cost'), [
-		curupg.ordinal
+	return $t('upg.cost', {
+		cost: curupg.ordinal
 			? OrdinalUtils.numberToOrdinal(actualCost(curupg), feature.Ordinal.base())
 			: format(actualCost(curupg)),
-		currencyName(curupg.currency),
-	]);
+		currency: currencyName(curupg.currency),
+	});
 }
 </script>
 

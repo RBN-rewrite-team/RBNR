@@ -9,7 +9,6 @@ import { format } from '@/utils/format';
 import { temp } from '../../core/temp-data.ts';
 import { getCurrentOrdinal } from '../../utils/y-seq.ts';
 import { Garden } from '@/core/pt/index.ts';
-import { stringformat } from '@/lib/string-format.ts';
 </script>
 <template>
 	<div>
@@ -76,9 +75,11 @@ import { stringformat } from '@/lib/string-format.ts';
 								<br />
 								<span v-if="feature.resourceGain.number().softcaps > 0">
 									{{
-										stringformat($t('res.softcapped'), [
-											feature.resourceGain.number().softcaps.toString(),
-										])
+										$t('res.softcapped', {
+											amount: feature.resourceGain
+												.number()
+												.softcaps.toString(),
+										})
 									}}
 								</span>
 							</div>
