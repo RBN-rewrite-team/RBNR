@@ -1,7 +1,7 @@
 import { createI18n } from 'vue-i18n';
 
-import zhCN from '@/locales/zh_CN';
-import enUS from '@/locales/en_US';
+import zhCN from '@/locales/zh_CN.tsx';
+import enUS from '@/locales/en_US.tsx';
 export const messages = {
 	'zh-CN': zhCN,
 	'en-US': enUS,
