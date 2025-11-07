@@ -122,10 +122,10 @@ const setFontUI = () => ModalService.show({ title: '设置字体', component: fo
 			class="setting_button"
 			@click="player.options.ui.theme = theme"
 		>
-			{{ themeDetailsMap.get(theme)?.name ?? 'unknown' }} {{ theme }}
+			{{ $t(`set.theme.${theme}`) }} {{ theme }}
 		</button>
 		<br />
-		<button class="setting_button" @click="setFontUI">设置字体</button>
+		<button class="setting_button" @click="setFontUI">{{ $t('set.setfont') }}</button>
 		<br />
 		<br />
 		<CenterLine />
@@ -134,22 +134,43 @@ const setFontUI = () => ModalService.show({ title: '设置字体', component: fo
 			class="setting_button"
 			@click="player.options.ui.newsbar = !player.options.ui.newsbar"
 		>
-			新闻栏：{{ player.options.ui.newsbar ? '开' : '关' }}
+			{{
+				$t('set.status', {
+					label: $t('set.news'),
+					status: $t(player.options.ui.newsbar ? 'set.status.on' : 'set.status.off'),
+				})
+			}}
 		</button>
 		<button
 			class="setting_button"
 			@click="player.options.ui.titlebar = !player.options.ui.titlebar"
 		>
-			标题栏：{{ player.options.ui.titlebar ? '开' : '关' }}
+			{{
+				$t('set.status', {
+					label: $t('set.title'),
+					status: $t(player.options.ui.titlebar ? 'set.status.on' : 'set.status.off'),
+				})
+			}}
 		</button>
 		<button class="setting_button" @click="player.options.isGuoGao = !player.options.isGuoGao">
-			果糕层级：{{ player.options.isGuoGao ? '开' : '关' }}</button
-		><br />
+			{{
+				$t('set.status', {
+					label: $t('set.guogao'),
+					status: $t(player.options.isGuoGao ? 'set.status.on' : 'set.status.off'),
+				})
+			}}
+		</button>
+		<br />
 		<CenterLine />
 		<button class="setting_button" @click="incMusic">
-			音乐: {{ MUSIC_TEXT[player.options.music] }}
+			{{
+				$t('set.status', {
+					label: $t('set.music'),
+					status: MUSIC_TEXT[player.options.music],
+				})
+			}}
 		</button>
-		<button class="setting_button" @click="setMusicUrlAndPlay">自定义音乐</button>
+		<button class="setting_button" @click="setMusicUrlAndPlay">{{ $t('set.musicurl') }}</button>
 	</div>
 	<!-- code... -->
 </template>
