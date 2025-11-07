@@ -54,8 +54,8 @@ const setFontUI = () => ModalService.show({ title: '设置字体', component: fo
 				{{ $t('set.setlang') }}
 			</button>
 		</div>
-		<span v-if="isTester()"><br />您已进入Beta测试</span>
-		<span v-if="player.options.gammaTest"><br />您已进入Gamma测试</span>
+		<span v-if="isTester()"><br />{{ $t('set.enteredbeta') }}</span>
+		<span v-if="player.options.gammaTest"><br />{{ $t('set.enteredgamma') }}</span>
 
 		<br />
 		<div v-if="player.singularity.stage < 1">
@@ -73,16 +73,48 @@ const setFontUI = () => ModalService.show({ title: '设置字体', component: fo
 		<CenterLine />
 		<h3>{{ $t('set.title.theme') }}</h3>
 		<button class="setting_button" @click="reverseUiOptions('color_inversion')">
-			颜色反转：{{ player.options.ui.otherwise['color_inversion'] ? '开' : '关' }}
+			{{
+				$t('set.status', {
+					label: $t('set.colorinverse'),
+					status: $t(
+						player.options.ui.otherwise['color_inversion']
+							? 'set.status.on'
+							: 'set.status.off',
+					),
+				})
+			}}
 		</button>
 		<button class="setting_button" @click="reverseUiOptions('full_gray')">
-			全灰度：{{ player.options.ui.otherwise['full_gray'] ? '开' : '关' }}
+			{{
+				$t('set.status', {
+					label: $t('set.grey'),
+					status: $t(
+						player.options.ui.otherwise['full_gray']
+							? 'set.status.on'
+							: 'set.status.off',
+					),
+				})
+			}}
 		</button>
 		<button class="setting_button" @click="reverseUiOptions('blur')">
-			模糊：{{ player.options.ui.otherwise['blur'] ? '开' : '关' }}
+			{{
+				$t('set.status', {
+					label: $t('set.blur'),
+					status: $t(
+						player.options.ui.otherwise['blur'] ? 'set.status.on' : 'set.status.off',
+					),
+				})
+			}}
 		</button>
 		<button class="setting_button" @click="reverseUiOptions('sepia')">
-			旧相片：{{ player.options.ui.otherwise['sepia'] ? '开' : '关' }}
+			{{
+				$t('set.status', {
+					label: $t('set.oldalbum'),
+					status: $t(
+						player.options.ui.otherwise['sepia'] ? 'set.status.on' : 'set.status.off',
+					),
+				})
+			}}
 		</button>
 		<br />
 		<button

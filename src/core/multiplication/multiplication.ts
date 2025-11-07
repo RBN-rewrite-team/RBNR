@@ -16,6 +16,7 @@ import { Buyable } from '../buyable.ts';
 import { Logarithm } from '../exponention/logarithm.ts';
 import { DC } from '@/core/constants';
 import { updateResetStatData } from '../stats.ts';
+import type { $t } from '@/utils/types.ts';
 const D179E308 = Decimal.pow(2, 1024);
 export const Multiplication = {
 	upgrades: {
@@ -245,8 +246,8 @@ export const Multiplication = {
 						reachedReq(): boolean {
 							return PrimeFactor.power().gte(10000);
 						}
-						reqDescription(): string {
-							return '获得10000因数能量';
+						reqDescription($t: $t): string {
+							return $t('mul.byl33req');
 						}
 						progress(): [string, string] {
 							return [format(PrimeFactor.power()), format(10000)];

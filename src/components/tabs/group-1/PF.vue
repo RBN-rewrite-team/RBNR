@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { format, formatWhole } from '@/utils/format';
+import { format, formatMult, formatWhole } from '@/utils/format';
 import { feature, player } from '@/core/global';
 import { buyables } from '@/core/mechanic';
 const pflist = ['2', '3', '5', '7', '11', '13', '17', '19'] as const;
@@ -10,7 +10,14 @@ const $t = useI18n().t;
 function factorpower() {
 	return $t('mul.youhavefp', {
 		fp: `<span style="color: #cc33ff; font-weight: bold"
-					>x${formatWhole(feature.PrimeFactor.power())}</span
+					>${formatMult(feature.PrimeFactor.power())}</span
+				>`,
+	});
+}
+function fpeffect() {
+	return $t('mul.fpeffect', {
+		effect: `<span style="color: #cc33ff; font-weight: bold"
+					>${formatMult(feature.PrimeFactor.powerEff())}</span
 				>`,
 	});
 }
@@ -37,9 +44,7 @@ function factorpower() {
 					v-if="feature.PrimeFactor.powerpow().gt(1)"
 					><sup>{{ format(feature.PrimeFactor.powerpow()) }}</sup></span
 				><br />
-				基于本次乘法重置耗时提供<span style="color: #cc33ff; font-weight: bold"
-					>x{{ format(feature.PrimeFactor.powerEff()) }}</span
-				>数值和加法能量增益
+				<span v-html="fpeffect()"></span>
 			</div>
 			<table align="center">
 				<tbody>

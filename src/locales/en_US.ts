@@ -50,6 +50,12 @@ export default {
 	'set.status': '{label}: {status}',
 	'set.status.on': 'ON',
 	'set.status.off': 'OFF',
+	'set.enteredbeta': 'You have entered Beta test',
+	'set.enteredgamma': 'You have entered Gamma test',
+	'set.colorinverse': 'Color inversion',
+	'set.grey': 'All grey',
+	'set.blur': 'Blur',
+	'set.oldalbum': 'Old album',
 	'set.notation.0': 'Scientific notation',
 	'set.notation.1': 'Engineering notation',
 	'set.notation.2': 'Logarithmic notation',
@@ -85,6 +91,7 @@ export default {
 	'upg.effect.byl': 'Currently: {effect}; Next: {next}',
 	'upg.effectdbl.byl': 'Currently: {effect},{effect2}; Next: {next},{next2}',
 	'upg.keep': 'Hold',
+	'upg.automatoruseid': 'Automator using id: {id}',
 	'req.res': 'Need {cost} {currency}',
 	'req.upg': 'Need {upg}',
 	'upg.cost': 'Cost: {cost} {currency}',
@@ -145,22 +152,36 @@ export default {
 	),
 	'upgs.37': dilated('乘法重置保留加法升级', '膨胀中保持B0-1', '37'),
 	'upgs.38': dilated(
-		'每秒自动获取重置获取加法能量的1%',
+		'Get 1% of addition power in reset passively.',
 		'每秒自动获取重置获取指数能量的1%',
 		'38',
 	),
 	'upgs.39': dilated(
-		'解锁乘法挑战，自动最大购买后继、加法购买项，最大购买乘法购买项',
+		'Unlock Multiplication Challenge, Buy max successor and addition buyables automatically, You can buy max multiplication buyables.',
 		'膨胀中获得最高数值的效果变得更好',
 		'39',
 	),
-	'upgs.310': '乘法能量获取^1.1',
-	'upgs.byl.31': '增加加法能量获取',
-	'upgs.byl.32': '每级将乘法能量获取*2',
-	'upgs.byl.33': 'Prime Factor 效果增速',
+	'upgs.310': 'Multiplication power gain ^1.1',
+	'upgs.byl.31': 'Increase addition power gain',
+	'upgs.byl.32': 'Mulplication power gain *2 per buy',
+	'upgs.byl.33': 'Prime Factor effect will grow faster',
 	'mul.effect': 'Total multiplication power gives {effect} to Number gain.',
 	'mul.buypf': 'Need Prime Factor {pf}',
+	'mul.byl33req': 'Need 10000 Factor power',
 	'mul.youhavefp': 'You have {fp} Factor power',
+	'mul.keep': function () {
+		const counts = player.upgrades['400q'] ? '2 upgrades' : '1 upgrade';
+		const pronoun = player.upgrades['400q'] ? 'their' : 'its';
+		return (
+			'You can choose ' +
+			counts +
+			' in U1-2, U1-3, U1-4, U1-5, make ' +
+			pronoun +
+			' cost decrease to 1. Do multiplication reset when selections are changed.'
+		);
+	},
+	'mul.fpeffect':
+		'Based on the duration of this multiplication, it provides {effect} Number and Addition power gains.',
 	'upgs.byl.pf2': 'Factor power ×2',
 	'upgs.byl.pf3': 'Factor power ×3',
 	'upgs.byl.pf5': 'Factor power ×5',

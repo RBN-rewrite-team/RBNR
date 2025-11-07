@@ -104,7 +104,11 @@ const description = $t(`upgs.${props.upgid}`);
 				<span> </span>
 			</div>
 			<span class="tooltip">
-				自动机使用ID: {{ props.upgid }}
+				{{
+					$t('upg.automatoruseid', {
+						id: props.upgid,
+					})
+				}}
 				<template v-if="curupg.ordinal && useClass() == 'upgrade_buttonbig_unable'"
 					><br />购买升级需要{{
 						countdown(

@@ -58,6 +58,12 @@ export default {
 	'set.status': '{label}: {status}',
 	'set.status.on': '开',
 	'set.status.off': '关',
+	'set.enteredbeta': '你已进入Beta测试',
+	'set.enteredgamma': '你已进入Gamma测试',
+	'set.colorinverse': '颜色反转',
+	'set.grey': '全灰度',
+	'set.blur': '模糊',
+	'set.oldalbum': '旧相片',
 	'set.notation.0': '科学记数法',
 	'set.notation.1': '工程记数法',
 	'set.notation.2': '对数记数法',
@@ -91,6 +97,7 @@ export default {
 	'upg.effect.byl': '效果: {effect}→{next}',
 	'upg.effectdbl.byl': '效果: {effect},{effect2}→{next},{next2}',
 	'upg.keep': '保持持有',
+	'upg.automatoruseid': '自动机使用ID: {id}',
 	'upgs.11': dilated('解锁B0-1', 'B0-1购买次数上限改为1000', '11'),
 	'upgs.12': dilated(
 		'每次购买U0系列升级都使后继按钮批量+1',
@@ -148,6 +155,15 @@ export default {
 	'mul.effect': '累计乘法能量提供了{effect}数值增益',
 	'mul.buypf': '购买质因数{pf}',
 	'mul.youhavefp': '你有{fp}因数能量',
+	'mul.keep': function () {
+		return (
+			'你可以选择将U1-2, U1-3, U1-4, U1-5中的' +
+			(player.upgrades['400q'] ? 2 : 1) +
+			'个U1系列升， 将其的价格降为1，但会进行一次乘法重置'
+		);
+	},
+	'mul.fpeffect': '基于本次乘法重置耗时提供{effect}数值和加法能量增益',
+	'mul.byl33req': '获得10000因数能量',
 	'upgs.byl.pf2': '因数能量×2',
 	'upgs.byl.pf3': '因数能量×3',
 	'upgs.byl.pf5': '因数能量×5',
