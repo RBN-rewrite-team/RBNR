@@ -183,11 +183,6 @@ export default {
 	'upgs.byl.pf17.name': '质因数17',
 	'upgs.byl.pf19.name': '质因数19',
 
-	'nt.order': '数论研究{i}',
-	'nt.euler': '欧拉函数',
-
-	'nt.euler.effect': '研究1加成：加法效果×',
-
 	'upgs.byl.35R': 's<sub>1</sub>→s<sub>1</sub>+1',
 	'upgs.byl.36R': 'x<sub>1</sub>指数+0.085',
 	'upgs.byl.37R': 'y<sub>1</sub>指数+0.085',
@@ -231,4 +226,8 @@ export default {
 			? 'x3乘法能量'
 			: '<span style="color: red; font-weight: bold">(需要在第2章)</span>',
 	'currency.ts': '时间碎片',
+
+	'nt.order': '数论研究{i}',
+	'nt.euler': '欧拉函数',
+	'nt.euler.effect': '研究1加成：加法效果×',
 };
