@@ -21,7 +21,8 @@ export default {
 	'succ.addition': 'Addition',
 	'upg.locked': 'Locked',
 	'upg.effect': 'Currently: {effect}', // 符合IMR显示效果currently习惯
-	'upg.effect.byl': 'Currently: {effect}, Next: {next}',
+	'upg.effect.byl': 'Currently: {effect}; Next: {next}',
+	'upg.effectdbl.byl': 'Currently: {effect},{effect2}; Next: {next},{next2}',
 	'req.res': 'Get {cost} {currency}',
 	'req.upg': 'Get {upg}',
 	'upg.cost': 'Cost: {cost} {currency}',
@@ -37,4 +38,20 @@ export default {
 	),
 	'upgs.13': dilated('Unlock Addition Layer', 'Gain exponent +0.1 to addition power', '13'),
 	'upgs.byl.11': 'Do successor per one second',
+	'upgs.21': dilated(
+		'U1 upgrades apply to the effect of U0-2',
+		'U0-2 effect is raised by 1.5',
+		'21',
+	),
+
+	'upgs.22': dilated('Successor gain multiplies by 4', 'Successor exponent +0.2', '22'),
+	'upgs.23': 'the starting cost ofB0-1 is 0, cap of bought amounts of B0-1 +50',
+	'upgs.24': dilated('Unlock B1-1', '使B1-1加成b0-1 效果^(1+log（b1-1）/3）', '24'),
+	'upgs.25': dilated(
+		'Upgrade successor to addition, Keep U0 upgrades after addition reset',
+		'挑战1效果不再有上限，但在1以上有软上限',
+		'25',
+	),
+	'upgs.26': 'Unlock Multiplication Layer',
+	'upgs.byl.21': 'Get free B0-1 after addition reset(In cap)',
 };

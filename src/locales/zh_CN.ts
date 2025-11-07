@@ -28,7 +28,9 @@ export default {
 	'set.setlang': '设置语言',
 	'currency.number': '数值',
 	'currency.addition': '加法能量',
+	'currency.multipl': '乘法能量',
 	'upg.effect.byl': '效果: {effect}→{next}',
+	'upg.effectdbl.byl': '效果: {effect},{effect2}→{next},{next2}',
 	'upgs.11': dilated('解锁B0-1', 'B0-1购买次数上限改为1000', '11'),
 	'upgs.12': dilated(
 		'每次购买U0系列升级都使后继按钮批量+1',
@@ -37,4 +39,16 @@ export default {
 	),
 	'upgs.13': dilated('解锁加法层', '加法能量获取指数+0.1', '13'),
 	'upgs.byl.11': '每秒进行一次后继运算',
+	'upgs.21': dilated('U1系列升级购买数量同样作用于U0-2的效果', '使U0-2效果^1.5', '21'),
+
+	'upgs.22': dilated('后继批量提高到4倍', '后继指数+0.2', '22'),
+	'upgs.23': '移除B0-1价格的常数项，B0-1最多购买次数+50',
+	'upgs.24': dilated('解锁B1-1', '使B1-1加成b0-1  效果^(1+log（b1-1）/3）', '24'),
+	'upgs.25': dilated(
+		'后继运算升级为加法运算， 在每次加法重置后保留U0系列升级',
+		'挑战1效果不再有上限，但在1以上有软上限',
+		'25',
+	),
+	'upgs.26': '解锁乘法层',
+	'upgs.byl.21': '每次加法重置后获得免费的购买项B0-1（算在上限之内）',
 };
