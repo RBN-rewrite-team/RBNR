@@ -68,7 +68,7 @@ export const menus = [
 			},
 			{
 				id: 6,
-				text: '数论研究',
+				text: 'tab.numbertheory',
 				show() {
 					return player.upgrades[35] && player.singularity.stage < 8;
 				},

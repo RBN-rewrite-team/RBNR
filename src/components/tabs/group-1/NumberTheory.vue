@@ -69,10 +69,16 @@ function m2GainLatex() {
 			>
 				+
 			</PrimaryButton>
-			<h1>数论研究{{ player.numbertheory.visiting }}</h1>
+			<h1>
+				{{
+					$t('nt.order', {
+						i: player.numbertheory.visiting.toString(),
+					})
+				}}
+			</h1>
 			<div class="center_line" />
 			<div v-if="player.numbertheory.visiting == 1 && player.singularity.stage < 11">
-				<h2>欧拉函数</h2>
+				<h2>{{ $t('nt.euler') }}</h2>
 				<vue-latex
 					expression="\varphi(n) = n \prod_{p | n} \left(1 - \frac{1}{p}\right)"
 					display-mode

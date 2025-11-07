@@ -16,6 +16,7 @@ export default {
 	'tab.addition': 'Addition',
 	'tab.multipl': 'Multiplication',
 	'tab.primefactor': 'Prime factor',
+	'tab.numbertheory': 'Number theory',
 	'res.number': 'Number',
 	'res.ordinal': 'Ordinal',
 	'res.addpower': 'Addition power',
@@ -198,4 +199,7 @@ export default {
 	'upgs.byl.pf13.name': 'Prime Factor 13',
 	'upgs.byl.pf17.name': 'Prime Factor 17',
 	'upgs.byl.pf19.name': 'Prime Factor 19',
+
+	'nt.order': 'Number theory #{i}',
+	'nt.euler': 'Euler function',
 };

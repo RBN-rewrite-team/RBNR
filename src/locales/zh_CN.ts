@@ -16,6 +16,7 @@ export default {
 	'tab.addition': '加法',
 	'tab.multipl': '乘法',
 	'tab.primefactor': '质因数',
+	'tab.numbertheory': '数论研究',
 	'res.number': '数值',
 	'res.ordinal': '序数',
 	'res.addpower': '加法能量',
@@ -180,4 +181,7 @@ export default {
 	'upgs.byl.pf13.name': '质因数13',
 	'upgs.byl.pf17.name': '质因数17',
 	'upgs.byl.pf19.name': '质因数19',
+
+	'nt.order': '数论研究{i}',
+	'nt.euler': '欧拉函数',
 };
