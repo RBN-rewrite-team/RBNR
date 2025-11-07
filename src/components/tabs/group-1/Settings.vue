@@ -55,7 +55,7 @@ const setFontUI = () => ModalService.show({ title: '设置字体', component: fo
 				v-for="notation in validNotations"
 				class="setting_button"
 			>
-				{{ notationNamesMap.get(notation) }}
+				{{ $t(`set.notation.${notation}`) }}
 			</button>
 		</div>
 		<br />
