@@ -5,12 +5,17 @@ import { useI18n } from 'vue-i18n';
 import PrimaryButton from './ui/PrimaryButton';
 import { messages, messagesLength, setI18NLocal } from '@/utils/i18n';
 
+const langName = {
+	'zh-CN': '简体中文',
+	'en-US': 'English (United states)',
+};
 const component = defineComponent({
 	name: 'i18nUI',
 	setup(props, ctx) {
 		const u = useI18n();
 		// const $t = u.t;
 		console.log(u.availableLocales.value);
+		const max = Math.max(...Object.values(messagesLength));
 		return () => (
 			<>
 				BXD
@@ -23,7 +28,9 @@ const component = defineComponent({
 							}}
 						>
 							<p>
-								Useable locales: {y}({messagesLength[y]} messages avaliable)
+								Useable locales: {langName[y]}(
+								{((messagesLength[y] / max) * 100).toFixed(3)}
+								%)
 								<PrimaryButton onClick={() => setI18NLocal(y)}>Set</PrimaryButton>
 							</p>
 						</div>
