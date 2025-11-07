@@ -13,12 +13,19 @@ const component = defineComponent({
 	name: 'i18nUI',
 	setup(props, ctx) {
 		const u = useI18n();
+		const browserLang = navigator.language;
 		// const $t = u.t;
 		console.log(u.availableLocales.value);
 		const max = Math.max(...Object.values(messagesLength));
 		return () => (
 			<>
-				Your current language is {langName[u.locale.value as keyof typeof messages]}
+				<p>Your current language is {langName[u.locale.value as keyof typeof messages]}</p>
+				<p>
+					Your browser language is {browserLang} (detected).
+					{!u.availableLocales.value.includes(browserLang)
+						? 'The game is not provided this language localization.'
+						: ''}
+				</p>
 				{u.availableLocales.value.map((x) => {
 					const y = x as keyof typeof messages;
 					return (
@@ -28,7 +35,7 @@ const component = defineComponent({
 							}}
 						>
 							<p>
-								Useable locales: {langName[y]}(
+								Language: {langName[y]}(
 								{((messagesLength[y] / max) * 100).toFixed(3)}
 								%)
 								<PrimaryButton onClick={() => setI18NLocal(y)}>Set</PrimaryButton>
