@@ -201,10 +201,6 @@ export default {
 	'upgs.byl.pf17.name': 'Prime Factor 17',
 	'upgs.byl.pf19.name': 'Prime Factor 19',
 
-	'nt.order': 'Number theory #{i}',
-	'nt.euler': 'Euler function',
-	'nt.euler.effect': '#1 Effect：Addition effect×',
-
 	'upgs.byl.35R': 's<sub>1</sub>→s<sub>1</sub>+1',
 	'upgs.byl.36R': 'x<sub>1</sub> Exponent+0.085',
 	'upgs.byl.37R': 'y<sub>1</sub> Exponent+0.085',
@@ -248,4 +244,8 @@ export default {
 			? 'x3 multiplication power'
 			: '<span style="color: red; font-weight: bold">(In Chapter 2)</span>',
 	'currency.ts': '时间碎片',
+
+	'nt.order': 'Number theory #{i}',
+	'nt.euler': "Euler's totient function",
+	'nt.euler.effect': '#1 Effect：Addition effect×',
 };
