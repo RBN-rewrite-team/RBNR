@@ -264,4 +264,21 @@ export default {
 	'nt.order': 'Number theory #{i}',
 	'nt.euler': "Euler's totient function",
 	'nt.euler.effect': '#1 Effect：Addition effect×',
+
+	'chal.0.0': 'Challenge',
+	'chal.0.0.description': 'No effect',
+	'chal.0.0.effect': 'Addition operation exponent+{effect}',
+	'chal.0.1': 'Division',
+	'chal.0.1.description':
+		'Number, Addition power gain is divided，Factor power effect downs as time as flow',
+	'chal.0.1.effect':
+		'Number gain multiplies based on addition power and best number in challenge： ×{effect}',
+	'chal.0.2': 'Burning',
+	'chal.0.2.description': 'Number growing speed is divided by current amount',
+	'chal.0.2.effect': 'Number gain×{effect}',
+	'chal.0.3': 'Reversal',
+	'chal.0.3.description':
+		'The resources gain pre-multiplication will multiplied by -1 with 50% chance. The multiplication reset is harder(1.79e308 AP). Disable B2-2 and challenge 3',
+	'chal.0.3.effect':
+		'First multiplication reset unlockes Exponentation Layer<br>Multiplication Power×{effect}',
 };

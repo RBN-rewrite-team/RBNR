@@ -247,4 +247,17 @@ export default {
 	'nt.order': '数论研究{i}',
 	'nt.euler': '欧拉函数',
 	'nt.euler.effect': '研究1加成：加法效果×',
+	'chal.0.0': '挑战',
+	'chal.0.0.description': '无效果',
+	'chal.0.0.effect': '加法运算指数+{effect}',
+	'chal.0.1': '除法',
+	'chal.0.1.description': '数值、加法能量获取被做除法，因数能量效果随时间而降低',
+	'chal.0.1.effect': '基于加法能量和挑战中最高数值增幅数值获取：×{effect}',
+	'chal.0.2': '燃烧',
+	'chal.0.2.description': '数值增长速度除以已有数值',
+	'chal.0.2.effect': '数值获取速度×{effect}',
+	'chal.0.3': '逆转',
+	'chal.0.3.description':
+		'每次生产前乘法层资源时有一半的概率被反转(下限为0)，提升乘法重置难度，禁用B2-2、挑战3',
+	'chal.0.3.effect': '首次乘法重置解锁指数层<br>乘法能量获取速度×{effect}',
 };
