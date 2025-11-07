@@ -18,6 +18,7 @@ export default {
 	'tab.multipl': 'Multiplication',
 	'tab.primefactor': 'Prime factor',
 	'tab.numbertheory': 'Number theory',
+	'tab.multipchal': 'Mult. Challenge',
 	'res.number': 'Number',
 	'res.ordinal': 'Ordinal',
 	'res.addpower': 'Addition power',

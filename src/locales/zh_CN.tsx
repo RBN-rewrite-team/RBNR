@@ -18,6 +18,7 @@ export default {
 	'tab.multipl': '乘法',
 	'tab.primefactor': '质因数',
 	'tab.numbertheory': '数论研究',
+	'tab.multipchal': '乘法挑战',
 	'res.number': '数值',
 	'res.ordinal': '序数',
 	'res.addpower': '加法能量',

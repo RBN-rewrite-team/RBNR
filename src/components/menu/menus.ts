@@ -75,7 +75,7 @@ export const menus = [
 			},
 			{
 				id: 8,
-				text: '乘法挑战',
+				text: 'tab.multipchal',
 				show() {
 					return player.upgrades[39] && player.singularity.stage < 6;
 				},
