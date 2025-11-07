@@ -3,9 +3,9 @@ import { player } from '@/core/save';
 </script>
 <template>
 	<div class="main">
-		<h1 v-if="player.pt.resetTimes.lt(1)">大数之路重制版</h1>
+		<h1 v-if="player.pt.resetTimes.lt(1)">{{ $t('title.rewritten') }}</h1>
 		<h1 v-else>大数之路<span style="color: red">放置版</span></h1>
-		版本: Garden Gamma (v0.7.1 Gamma)<br />
+		{{ $t('about.version') }}<br />
 		<br />
 		<div style="position: relative; width: 100%">
 			<div
@@ -22,7 +22,7 @@ import { player } from '@/core/save';
 			>
 				<h2>{{ $t('about.originalauthor') }}</h2>
 				<br />
-				静火Ω
+				{{ $t('about.jinghuoomega') }}
 			</div>
 			<div
 				style="position: absolute; top: 0px; left: 75%; height: 100px; width: 25%"
@@ -48,7 +48,7 @@ import { player } from '@/core/save';
 				0100000000a7<br />
 				VeryrrDefine<br />
 				Seanxlx<br />
-				五年高考💯
+				{{ $t('about.fiveyeargaokao') }}
 			</div>
 			<div
 				style="
@@ -66,7 +66,7 @@ import { player } from '@/core/save';
 				RAXH<br />
 				Seanxlx<br />
 				LSO - The Reflection Arc<br />
-				6左爷6<br />
+				{{ $t('about.dlsdl') }}<br />
 				EdenGameMaster<br />
 			</div>
 			<div
@@ -100,7 +100,7 @@ import { player } from '@/core/save';
 				<h2>{{ $t('about.plot') }}</h2>
 				<br />
 				LSO - The Reflection Arc<br />
-				独特雪花<br />
+				{{ $t('about.dutexuehua') }}<br />
 				Seanxlx<br />
 				VeryrrDefine<br />
 				0100000000a7<br />
@@ -119,7 +119,7 @@ import { player } from '@/core/save';
 				<h2>{{ $t('about.mechanismdesign') }}</h2>
 				<br />
 				RAXH<br />
-				6左爷6<br />
+				{{ $t('about.dlsdl') }}<br />
 				Seanxlx<br />
 			</div>
 			<div

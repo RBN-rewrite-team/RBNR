@@ -35,6 +35,13 @@ export default {
 	'about.mathemodeling': '数学建模',
 	'about.savebank': '存档银行',
 	'about.heyiwei': '吉祥物',
+	'about.fiveyeargaokao': '五年高考💯',
+	'about.dlsdl': '6左爷6',
+	'about.dutexuehua': '独特雪花',
+	'about.jinghuoomega': '静火Ω',
+
+	'about.version': '版本: Garden Gamma (v0.7.1 Gamma)',
+
 	'succ.successor': '后继',
 	'succ.addition': '加法',
 	'succ.automation': '(自动+{speed}/s)',

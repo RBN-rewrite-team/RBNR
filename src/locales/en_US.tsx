@@ -34,6 +34,12 @@ export default {
 	'about.mathemodeling': 'Mathematicial modeling',
 	'about.savebank': 'Save bank',
 	'about.heyiwei': 'Mascot',
+	'about.fiveyeargaokao': 'FiveYearGaokao💯',
+	'about.dlsdl': 'dlsdl',
+	'about.dutexuehua': 'Dutexuehua',
+	'about.jinghuoomega': 'JinghuoΩ',
+
+	'about.version': 'Version:  Garden Gamma (v0.7.1 Gamma)',
 
 	'set.title.saveset': 'Save settings',
 	'set.title.notations': 'Notations',
