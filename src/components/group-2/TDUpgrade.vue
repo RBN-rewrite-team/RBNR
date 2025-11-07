@@ -51,21 +51,6 @@ function actualCost(curupg: Upgrade) {
 	return cost;
 }
 function costHTML() {
-	/**
-	 * 价格：<span
-						v-if="curupg.ordinal"
-						v-html="
-							OrdinalUtils.numberToOrdinal(
-								actualCost(curupg),
-								feature.Ordinal.base(),
-							) + currencyName(curupg.currency)
-						"
-					/><span
-						v-else
-						v-html="format(actualCost(curupg)) + currencyName(curupg.currency)"
-					/>
-					<br />
-	 */
 	return $t('upg.cost', {
 		cost: curupg.ordinal
 			? OrdinalUtils.numberToOrdinal(actualCost(curupg), feature.Ordinal.base())
@@ -73,7 +58,7 @@ function costHTML() {
 		currency: currencyName(curupg.currency, $t),
 	});
 }
-const description = $t(`upgs.${props.upgid}`) as string | (() => string);
+const description = $t(`upgs.${props.upgid}`);
 </script>
 
 <template>
@@ -99,10 +84,7 @@ const description = $t(`upgs.${props.upgid}`) as string | (() => string);
 				</template>
 				<template v-else>
 					<!-- (Logarithm.logarithm.upgrades_in_dilated.includes(id)&&curupg.dilated) ? curupg.dilated :  -->
-					<span
-						v-html="typeof description === 'function' ? description() : description"
-					></span
-					><br />
+					<span v-html="description"></span><br />
 					<template v-if="UpgradeWithEffect.isWithEffect<any>(curupg)">
 						<div
 							v-html="

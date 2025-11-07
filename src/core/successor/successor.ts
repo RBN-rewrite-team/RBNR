@@ -52,11 +52,6 @@ export const Successor = {
 			currency = Currencies.NUMBER;
 			name = 'U0-3';
 			cost = new Decimal(1000);
-			description: () => string = Logarithm.dilated(
-				'解锁加法层',
-				'加法能量获取指数+0.1',
-				'13',
-			);
 			requirements(): Requirement[] {
 				return [new CurrencyRequirement(Currencies.NUMBER, new Decimal(1000))];
 			}

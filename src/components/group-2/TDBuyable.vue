@@ -36,6 +36,35 @@ let canBuy = new Decimal(0);
 if (buyables[id].canBuyMax != null && buyables[id].canBuyMax()) {
 	if (buyables[id].canBuy != null) canBuy = buyables[id].canBuy(player.buyables[id]);
 }
+function costHTML() {
+	/**
+	 * <span
+					v-if="curbyl.ordinal"
+					v-html="
+						OrdinalUtils.numberToOrdinal(
+							buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0))),
+							feature.Ordinal.base(),
+						) + currencyName(curbyl.currency, $t)
+					"
+				/><span
+					v-else
+					v-html="
+						format(buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0)))) +
+						currencyName(curbyl.currency, $t)
+					"
+				/>
+	 */
+
+	return $t('upg.cost', {
+		cost: curbyl.ordinal
+			? OrdinalUtils.numberToOrdinal(
+					curbyl.cost(player.buyables[id].add(canBuy.sub(1).max(0))),
+					feature.Ordinal.base(),
+				)
+			: format(curbyl.cost(player.buyables[id].add(canBuy.sub(1).max(0)))),
+		currency: currencyName(curbyl.currency, $t),
+	});
+}
 </script>
 
 <template>
@@ -63,27 +92,35 @@ if (buyables[id].canBuyMax != null && buyables[id].canBuyMax()) {
 				</template>
 				<template v-else>
 					<!-- (Logarithm.logarithm.upgrades_in_dilated.includes(id)&&curupg.dilated) ? curupg.dilated :  -->
-					<span v-html="curbyl.description"></span><br />
-					效果：<span
-						v-html="curbyl.effectDescription(curbyl.effect(player.buyables[id]))"
-					></span
-					><br />
+					<span v-html="$t('upgs.byl.' + id)"></span><br />
+					<span
+						v-html="
+							$t('upg.effect.byl', {
+								effect: curbyl.effectDescription(
+									curbyl.effect(player.buyables[id]),
+								),
+								next: curbyl.effectDescription(
+									curbyl.effect(player.buyables[id]).add(1),
+								),
+							})
+						"
+					></span>
+					<!--
+					if (
+				player.singularity.stage < 1 &&
+				player.exponention.logarithm.buyables_in_dilated.includes(id) &&
+				buyables[id].effectDilated !== Buyable.prototype.effectDilated
+			)
+				str +=
+					'膨胀效果：' +
+					buyables[id].effectDilated(player.buyables[id])[1] +
+					'&nbsp;→' +
+					buyables[id].effectDilated(player.buyables[id].add(canBuy.max(1)))[1] +
+					'<br>';
+					-->
+					<br />
 				</template>
-				价格：<span
-					v-if="curbyl.ordinal"
-					v-html="
-						OrdinalUtils.numberToOrdinal(
-							buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0))),
-							feature.Ordinal.base(),
-						) + currencyName(curbyl.currency, $t)
-					"
-				/><span
-					v-else
-					v-html="
-						format(buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0)))) +
-						currencyName(curbyl.currency, $t)
-					"
-				/>
+				<span v-html="costHTML()"></span>
 				<br />
 			</div>
 		</div>

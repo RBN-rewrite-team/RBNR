@@ -12,6 +12,7 @@ export default {
 	'tab.stat': '统计',
 	'tab.achievements': '成就',
 	'tab.timeshard': '时间碎片',
+	'tab.addition': '加法',
 	'res.number': '数值',
 	'res.ordinal': '序数',
 	'res.addpower': '加法能量',
@@ -26,10 +27,14 @@ export default {
 	'upg.cost': '价格: {cost}{currency}',
 	'set.setlang': '设置语言',
 	'currency.number': '数值',
+	'currency.addition': '加法能量',
+	'upg.effect.byl': '效果: {effect}→{next}',
 	'upgs.11': dilated('解锁B0-1', 'B0-1购买次数上限改为1000', '11'),
 	'upgs.12': dilated(
 		'每次购买U0系列升级都使后继按钮批量+1',
 		'每次购买U0系列升级使后继按钮指数+*1.1',
 		'12',
 	),
+	'upgs.13': dilated('解锁加法层', '加法能量获取指数+0.1', '13'),
+	'upgs.byl.11': '每秒进行一次后继运算',
 };
