@@ -21,24 +21,35 @@ const setFontUI = () => ModalService.show({ title: '设置字体', component: fo
 
 <template>
 	<div class="main" v-if="player.currentTab === 1" align="center">
-		<h3>存档设置</h3>
+		<h3>{{ $t('set.title.saveset') }}</h3>
 		<div>
-			<div class="setting_button" @click="save()">手动保存</div>
-			<div class="setting_button" @click="import_file()">导入存档</div>
-			<div class="setting_button" @click="export_file()">导出存档</div>
-			<div class="hard_reset" @click="() => UIHardReset()">硬重置</div>
+			<div class="setting_button" @click="save()">{{ $t('set.save') }}</div>
+			<div class="setting_button" @click="import_file()">{{ $t('set.import') }}</div>
+			<div class="setting_button" @click="export_file()">{{ $t('set.export') }}</div>
+			<div class="hard_reset" @click="() => UIHardReset()">{{ $t('set.hardreset') }}</div>
 		</div>
 		<div>
-			<div class="setting_button" @click="UIChangeSave">切换存档槽位</div>
-			<div class="setting_button" @click="UIEnterTesting">进入Beta测试</div>
-			<div class="setting_button" @click="player.options.gammaTest = true">进入Gamma测试</div>
+			<div class="setting_button" @click="UIChangeSave">{{ $t('set.saveslot') }}</div>
+			<div class="setting_button" @click="UIEnterTesting">{{ $t('set.beta') }}</div>
+			<div class="setting_button" @click="player.options.gammaTest = true">
+				{{ $t('set.gamma') }}
+			</div>
 			<button
 				class="setting_button"
 				@click="player.options.allowOffline = !player.options.allowOffline"
 			>
-				离线进度：{{ player.options.allowOffline ? '开' : '关' }}
+				{{
+					$t('set.status', {
+						label: $t('set.offline'),
+						status: $t(
+							player.options.allowOffline ? 'set.status.on' : 'set.status.off',
+						),
+					})
+				}}
 			</button>
-			<button class="setting_button" @click="player.currentTab = 300">进入存档银行</button>
+			<button class="setting_button" @click="player.currentTab = 300">
+				{{ $t('set.savebank') }}
+			</button>
 			<button class="setting_button" @click="() => openSetLangModel($t)">
 				{{ $t('set.setlang') }}
 			</button>
@@ -49,7 +60,7 @@ const setFontUI = () => ModalService.show({ title: '设置字体', component: fo
 		<br />
 		<div v-if="player.singularity.stage < 1">
 			<CenterLine />
-			<h3>记数法</h3>
+			<h3>{{ $t('set.title.notations') }}</h3>
 			<button
 				@click="player.options.notation = notation"
 				v-for="notation in validNotations"
@@ -60,7 +71,7 @@ const setFontUI = () => ModalService.show({ title: '设置字体', component: fo
 		</div>
 		<br />
 		<CenterLine />
-		<h3>主题</h3>
+		<h3>{{ $t('set.title.theme') }}</h3>
 		<button class="setting_button" @click="reverseUiOptions('color_inversion')">
 			颜色反转：{{ player.options.ui.otherwise['color_inversion'] ? '开' : '关' }}
 		</button>
@@ -86,7 +97,7 @@ const setFontUI = () => ModalService.show({ title: '设置字体', component: fo
 		<br />
 		<br />
 		<CenterLine />
-		<h3>界面</h3>
+		<h3>{{ $t('set.title.ui') }}</h3>
 		<button
 			class="setting_button"
 			@click="player.options.ui.newsbar = !player.options.ui.newsbar"
