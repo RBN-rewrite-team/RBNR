@@ -148,11 +148,11 @@ export default {
 	'upgs.34': 'Keep B1-1 after multiplication reset',
 	'upgs.35': dilated('Unlock Number Theory', 'τ<sub>1</sub>减弱膨胀强度', '35'),
 	'upgs.36': dilated(
-		'每2个Prime Factor p<sub>n</sub>免费赠送一个p<sub>n-1</sub>',
+		'Get a free p<sub>n-1</sub> per 2 Prime Factor p<sub>n</sub>boughts',
 		'每4个p<sub>n</sub>免费赠送1个p<sub>n+1</sub>',
 		'36',
 	),
-	'upgs.37': dilated('乘法重置保留加法升级', '膨胀中保持B0-1', '37'),
+	'upgs.37': dilated('Keep addition upgrades in multiplication reset', '膨胀中保持B0-1', '37'),
 	'upgs.38': dilated(
 		'Get 1% of addition power in reset passively.',
 		'每秒自动获取重置获取指数能量的1%',
