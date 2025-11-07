@@ -7,7 +7,7 @@ import { messages, messagesLength, setI18NLocal } from '@/utils/i18n';
 
 const langName = {
 	'zh-CN': '简体中文',
-	'en-US': 'English (United states)',
+	'en-US': 'English (United States)',
 };
 const component = defineComponent({
 	name: 'i18nUI',
@@ -18,7 +18,7 @@ const component = defineComponent({
 		const max = Math.max(...Object.values(messagesLength));
 		return () => (
 			<>
-				BXD
+				Your current language is {langName[u.locale.value as keyof typeof messages]}
 				{u.availableLocales.value.map((x) => {
 					const y = x as keyof typeof messages;
 					return (
