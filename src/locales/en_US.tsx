@@ -3,7 +3,7 @@ import { player } from '@/core/save';
 import { VueLatex } from 'vatex';
 
 export default {
-	'title.rewritten': 'RBNR',
+	'title.rewritten': 'Road of Big Number Rewritten',
 	'title.version': 'Garden Gamma',
 	'tab.dungeon': 'Dungeon',
 	'tab.successor': 'Successor',

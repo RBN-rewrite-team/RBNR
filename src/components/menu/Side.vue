@@ -2,6 +2,20 @@
 import { player } from '@/core/save';
 import MenuObject from './MenuObject';
 import { menus } from './menus';
+import { useI18n } from 'vue-i18n';
+const use = useI18n();
+const $t = use.t;
+function title() {
+	return player.pt.resetTimes.gte(1) ? $t('title.idlen') : $t('title.rewritten');
+}
+function titleStyle() {
+	const size = use.locale.value == 'zh-CN' ? 24 : 16;
+	return {
+		'font-size': size + 'px',
+		color: 'var(--color)',
+		'text-shadow': 'var(--title-color) 1px 1px 2px',
+	};
+}
 </script>
 
 <template>
@@ -9,16 +23,8 @@ import { menus } from './menus';
 		<div class="title_box" v-if="player.options.ui.titlebar" id="title_box">
 			<div class="background">
 				<div class="title">
-					<div
-						style="
-							font-size: 24px;
-							color: var(--color);
-							text-shadow: var(--title-color) 1px 1px 2px;
-						"
-					>
-						{{
-							player.pt.resetTimes.gte(1) ? $t('title.idlen') : $t('title.rewritten')
-						}}
+					<div :style="titleStyle()">
+						{{ title() }}
 					</div>
 					<div style="font-size: 15px">{{ $t('title.version') }}</div>
 				</div>
