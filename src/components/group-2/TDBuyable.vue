@@ -72,8 +72,11 @@ function costHTML() {
 		<div class="upgrade tooltipBox" @mousedown="BUYABLES.buy(bylid)">
 			<div :class="useClass()">
 				<span style="font-weight: bold">
-					{{ curbyl.name }}({{ formatWhole(player.buyables[id])
-					}}{{ moreAmountString() }})<br
+					{{
+						curbyl.name == 'B0-114514'
+							? $t('upgs.byl.' + bylid + '.name')
+							: curbyl.name
+					}}({{ formatWhole(player.buyables[id]) }}{{ moreAmountString() }})<br
 				/></span>
 				<template v-if="!BUYABLES.lock(id).unlocked && player.buyables[id].eq(0)">
 					{{ $t('upg.locked') }}<br />

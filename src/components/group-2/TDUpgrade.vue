@@ -65,7 +65,9 @@ const description = $t(`upgs.${props.upgid}`);
 	<td v-if="UPGRADES.lock(upgid).show">
 		<div class="upgrade tooltipBox" @mousedown="UPGRADES.buy(upgid)">
 			<div :class="useClass()">
-				<span style="font-weight: bold"> {{ curupg.name ?? 'U' + id }} </span><br />
+				<span style="font-weight: bold">
+					{{ curupg.name ?? $t('upgs.' + id + '.name') }} </span
+				><br />
 				<template v-if="!UPGRADES.lock(id).unlocked && !permanent && !player.upgrades[id]">
 					{{ $t('upg.locked') }}<br />
 					<template v-for="sreq in Object.entries(req)">
@@ -96,7 +98,9 @@ const description = $t(`upgs.${props.upgid}`);
 					</template>
 				</template>
 				<div v-if="!permanent" v-html="costHTML()"></div>
-				<span v-else style="color: green; font-weight: bold"> 保持持有<br /> </span>
+				<span v-else style="color: green; font-weight: bold">
+					{{ $t('upg.keep') }}<br />
+				</span>
 				<span> </span>
 			</div>
 			<span class="tooltip">

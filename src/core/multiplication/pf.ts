@@ -7,6 +7,7 @@ import { NUMTHEORY } from '@/core/multiplication/numbertheory';
 import { Currencies } from '../currencies.ts';
 import { Buyable } from '../buyable.ts';
 import { Requirement } from '../requirements.ts';
+import type { $t } from '@/utils/types.ts';
 
 type PrimeList = '2' | '3' | '5' | '7' | '11' | '13' | '17' | '19';
 
@@ -23,8 +24,6 @@ export const PrimeFactor = {
 				pprev = Number(pf) <= 3 ? 0 : Number(pflist[Number(i) - 2]);
 				n = Number(i);
 				currency: Currencies = Currencies.MULTIPLICATION_POWER;
-				description = '因数能量×' + pf;
-				name = '质因数' + pf;
 				more() {
 					if (player.upgrades[36] && Number(i) !== pflist.length - 1) {
 						return player.buyables[('pf' + pflist[Number(i) + 1]) as PrimeFactorTypes]
@@ -67,11 +66,13 @@ export const PrimeFactor = {
 												))) as keyof typeof player.buyables
 								].gte(1);
 							}
-							reqDescription(): string {
-								return (
-									'购买质因数' +
-									(Number(pf) == 2 ? 0 : Number(pflist[Number(i) - 1]))
-								);
+							reqDescription($t: $t): string {
+								return $t('mul.buypf', {
+									pf: (Number(pf) == 2
+										? 0
+										: Number(pflist[Number(i) - 1])
+									).toString(),
+								});
 							}
 							progress = undefined;
 						})(),

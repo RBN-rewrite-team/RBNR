@@ -1,4 +1,5 @@
 import { dilated } from '@/core/exponention/dilated-function';
+import { player } from '@/core/save';
 
 export default {
 	'title.rewritten': 'RBNR',
@@ -14,6 +15,7 @@ export default {
 	'tab.timeshard': 'Time shard',
 	'tab.addition': 'Addition',
 	'tab.multipl': 'Multiplication',
+	'tab.primefactor': 'Prime factor',
 	'res.number': 'Number',
 	'res.ordinal': 'Ordinal',
 	'res.addpower': 'Addition power',
@@ -82,8 +84,9 @@ export default {
 	'upg.effect': 'Currently: {effect}', // 符合IMR显示效果currently习惯
 	'upg.effect.byl': 'Currently: {effect}; Next: {next}',
 	'upg.effectdbl.byl': 'Currently: {effect},{effect2}; Next: {next},{next2}',
-	'req.res': 'Get {cost} {currency}',
-	'req.upg': 'Get {upg}',
+	'upg.keep': 'Hold',
+	'req.res': 'Need {cost} {currency}',
+	'req.upg': 'Need {upg}',
 	'upg.cost': 'Cost: {cost} {currency}',
 	'res.softcapped': '({amount} softcaps)',
 	'currency.number': 'Number',
@@ -104,7 +107,7 @@ export default {
 	),
 
 	'upgs.22': dilated('Successor gain multiplies by 4', 'Successor exponent +0.2', '22'),
-	'upgs.23': 'the starting cost ofB0-1 is 0, cap of bought amounts of B0-1 +50',
+	'upgs.23': 'The starting cost of B0-1 is 0, cap of bought amounts of B0-1 +50',
 	'upgs.24': dilated('Unlock B1-1', '使B1-1加成b0-1 效果^(1+log（b1-1）/3）', '24'),
 	'upgs.25': dilated(
 		'Upgrade successor to addition, Keep U0 upgrades after addition reset',
@@ -113,4 +116,65 @@ export default {
 	),
 	'upgs.26': 'Unlock Multiplication Layer',
 	'upgs.byl.21': 'Get free B0-1 after addition reset(In cap)',
+	'upgs.31': function () {
+		let counts = '1';
+		let pronoun = 'its';
+		if (player.upgrades['400q']) {
+			counts = "<span style='font-size: 19px;'><b>2</b></span>";
+			pronoun = 'their';
+		}
+		const text = dilated(
+			'You can choose ' +
+				counts +
+				' U1 upgrades, make ' +
+				pronoun +
+				' cost decrease to 1. Do multiplication reset when selections are changed.',
+			'后继运算指数+3',
+			'31',
+		)();
+		return text;
+	},
+	'upgs.32': 'Hold successor upgrades',
+	'upgs.33': 'U1 upgrades count^2 apply to the effect of U0-2',
+	'upgs.34': 'Keep B1-1 after multiplication reset',
+	'upgs.35': dilated('Unlock Number Theory', 'τ<sub>1</sub>减弱膨胀强度', '35'),
+	'upgs.36': dilated(
+		'每2个Prime Factor p<sub>n</sub>免费赠送一个p<sub>n-1</sub>',
+		'每4个p<sub>n</sub>免费赠送1个p<sub>n+1</sub>',
+		'36',
+	),
+	'upgs.37': dilated('乘法重置保留加法升级', '膨胀中保持B0-1', '37'),
+	'upgs.38': dilated(
+		'每秒自动获取重置获取加法能量的1%',
+		'每秒自动获取重置获取指数能量的1%',
+		'38',
+	),
+	'upgs.39': dilated(
+		'解锁乘法挑战，自动最大购买后继、加法购买项，最大购买乘法购买项',
+		'膨胀中获得最高数值的效果变得更好',
+		'39',
+	),
+	'upgs.310': '乘法能量获取^1.1',
+	'upgs.byl.31': '增加加法能量获取',
+	'upgs.byl.32': '每级将乘法能量获取*2',
+	'upgs.byl.33': 'Prime Factor 效果增速',
+	'mul.effect': 'Total multiplication power gives {effect} to Number gain.',
+	'mul.buypf': 'Need Prime Factor {pf}',
+	'mul.youhavefp': 'You have {fp} Factor power',
+	'upgs.byl.pf2': 'Factor power ×2',
+	'upgs.byl.pf3': 'Factor power ×3',
+	'upgs.byl.pf5': 'Factor power ×5',
+	'upgs.byl.pf7': 'Factor power ×7',
+	'upgs.byl.pf11': 'Factor power ×11',
+	'upgs.byl.pf13': 'Factor power ×13',
+	'upgs.byl.pf17': 'Factor power ×17',
+	'upgs.byl.pf19': 'Factor power ×19',
+	'upgs.byl.pf2.name': 'Prime Factor 2',
+	'upgs.byl.pf3.name': 'Prime Factor 3',
+	'upgs.byl.pf5.name': 'Prime Factor 5',
+	'upgs.byl.pf7.name': 'Prime Factor 7',
+	'upgs.byl.pf11.name': 'Prime Factor 11',
+	'upgs.byl.pf13.name': 'Prime Factor 13',
+	'upgs.byl.pf17.name': 'Prime Factor 17',
+	'upgs.byl.pf19.name': 'Prime Factor 19',
 };
