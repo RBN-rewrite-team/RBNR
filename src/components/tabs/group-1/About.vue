@@ -173,7 +173,7 @@ import { player } from '@/core/save';
 				Endless_e308<br />
 			</div>
 		</div>
-		<div style="transform: translateY(400px)">
+		<div style="transform: translateY(400px)" class="selectable">
 			本项目使用了<a href="https://cn.vuejs.org/"> Vue </a>、<a href="https://cn.vitejs.dev/">
 				Vite </a
 			>、<a href="https://nodeca.github.io/pako/"> pako.js </a>、<a
