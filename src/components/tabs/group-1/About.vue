@@ -12,7 +12,7 @@ import { player } from '@/core/save';
 				style="position: absolute; top: 0px; left: 0%; height: 100px; width: 25%"
 				align="center"
 			>
-				<h2>开发群群主</h2>
+				<h2>{{ $t('about.themasterofthedevelopgroup') }}</h2>
 				<br />
 				LSO - The Reflection Arc
 			</div>
@@ -20,7 +20,7 @@ import { player } from '@/core/save';
 				style="position: absolute; top: 0px; left: 25%; height: 100px; width: 50%"
 				align="center"
 			>
-				<h2>原作者</h2>
+				<h2>{{ $t('about.originalauthor') }}</h2>
 				<br />
 				静火Ω
 			</div>
@@ -28,7 +28,7 @@ import { player } from '@/core/save';
 				style="position: absolute; top: 0px; left: 75%; height: 100px; width: 25%"
 				align="center"
 			>
-				<h2>代码仓库管理员</h2>
+				<h2>{{ $t('about.coderepositorymanager') }}</h2>
 				<br />
 				Seanxlx
 			</div>
@@ -43,7 +43,7 @@ import { player } from '@/core/save';
 				"
 				align="center"
 			>
-				<h2>程序</h2>
+				<h2>{{ $t('about.programming') }}</h2>
 				<br />
 				0100000000a7<br />
 				VeryrrDefine<br />
@@ -61,7 +61,7 @@ import { player } from '@/core/save';
 				"
 				align="center"
 			>
-				<h2>策划</h2>
+				<h2>{{ $t('about.planning') }}</h2>
 				<br />
 				RAXH<br />
 				Seanxlx<br />
@@ -80,7 +80,7 @@ import { player } from '@/core/save';
 				"
 				align="center"
 			>
-				<h2>平衡</h2>
+				<h2>{{ $t('about.balancing') }}</h2>
 				<br />
 				EdenGameMaster<br />
 				Seanxlx<br />
@@ -97,7 +97,7 @@ import { player } from '@/core/save';
 				"
 				align="center"
 			>
-				<h2>剧情设定</h2>
+				<h2>{{ $t('about.plot') }}</h2>
 				<br />
 				LSO - The Reflection Arc<br />
 				独特雪花<br />
@@ -116,7 +116,7 @@ import { player } from '@/core/save';
 				"
 				align="center"
 			>
-				<h2>机制设计</h2>
+				<h2>{{ $t('about.mechanismdesign') }}</h2>
 				<br />
 				RAXH<br />
 				6左爷6<br />
@@ -133,7 +133,7 @@ import { player } from '@/core/save';
 				"
 				align="center"
 			>
-				<h2>数学建模</h2>
+				<h2>{{ $t('about.mathemodeling') }}</h2>
 				<br />
 				LSO - Reflection Arc<br />
 				VeryrrDefine<br />
@@ -150,7 +150,7 @@ import { player } from '@/core/save';
 				"
 				align="center"
 			>
-				<h2>存档银行</h2>
+				<h2>{{ $t('about.savebank') }}</h2>
 				<br />
 				VeryrrDefine<br />
 				RAXH<br />
@@ -167,7 +167,7 @@ import { player } from '@/core/save';
 				"
 				align="center"
 			>
-				<h2>吉祥物</h2>
+				<h2>{{ $t('about.heyiwei') }}</h2>
 				<br />
 				hard_shuati<br />
 				Endless_e308<br />

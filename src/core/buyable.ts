@@ -1,6 +1,7 @@
 import Decimal from 'break_eternity.js';
 import { Currencies, getCurrency } from './currencies';
 import type { Requirement } from './requirements';
+import type { $t } from '@/utils/types';
 
 export abstract class Buyable<T> {
 	currency: Currencies = Currencies.NUMBER;
@@ -37,7 +38,7 @@ export abstract class Buyable<T> {
 	effect(x: Decimal): T {
 		throw new ReferenceError('Undefined effect');
 	}
-	effectDescription(values: T): string {
+	effectDescription(values: T, $t: $t): string {
 		throw new ReferenceError('Undefined effect');
 	}
 	effectDilated(value: Decimal): [Decimal, string] {

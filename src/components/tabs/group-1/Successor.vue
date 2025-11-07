@@ -17,7 +17,9 @@ function successorButton() {
 		base += `<sup>${format(feature.SUCCESSOR.successorPow())}</sup>`;
 	}
 	if (BUYABLES.lock('11').unlocked) {
-		base += `(自动${formatWhole(feature.SUCCESSOR.autoSuccessPerSecond())}/s)`;
+		base += $t('succ.automation', {
+			speed: formatWhole(feature.SUCCESSOR.autoSuccessPerSecond()),
+		});
 	}
 
 	return base;

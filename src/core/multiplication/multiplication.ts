@@ -20,19 +20,6 @@ const D179E308 = Decimal.pow(2, 1024);
 export const Multiplication = {
 	upgrades: {
 		'31': new (class U21 extends Upgrade {
-			description: () => string = function () {
-				let counts = '1';
-				if (player.upgrades['400q'])
-					counts = "<span style='font-size: 19px;'><b>2</b></span>";
-				const text = Logarithm.dilated(
-					'你可以选择' +
-						counts +
-						'个U1系列升级将其价格降低到1加法能量，改变选择将进行乘法重置',
-					'后继运算指数+3',
-					'31',
-				)();
-				return text;
-			};
 			cost = DC.D_0;
 			name = 'U2-1';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
@@ -44,7 +31,6 @@ export const Multiplication = {
 			}
 		})(),
 		'32': new (class U22 extends Upgrade {
-			description: string = '所有后继升级保持为可购买状态';
 			cost = DC.D_1;
 			name = 'U2-2';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
@@ -56,7 +42,6 @@ export const Multiplication = {
 			}
 		})(),
 		'33': new (class U23 extends Upgrade {
-			description: string = 'U2系列升级购买数量的平方同样作用于U0-2的效果';
 			cost = new Decimal(2);
 			name = 'U2-3';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
@@ -68,7 +53,6 @@ export const Multiplication = {
 			}
 		})(),
 		'34': new (class U24 extends Upgrade {
-			description: string = '在每次乘法重置后保留B1-1';
 			cost = new Decimal(3);
 			name = 'U2-4';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
@@ -80,11 +64,6 @@ export const Multiplication = {
 			}
 		})(),
 		'35': new (class U25 extends Upgrade {
-			description: () => string = Logarithm.dilated(
-				'解锁数论研究',
-				'τ<sub>1</sub>减弱膨胀强度',
-				'35',
-			);
 			cost = new Decimal(47);
 			name = 'U2-5';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
@@ -103,11 +82,6 @@ export const Multiplication = {
 			}
 		})(),
 		'36': new (class U26 extends Upgrade {
-			description: () => string = Logarithm.dilated(
-				'每2个质因数p<sub>n</sub>免费赠送一个p<sub>n-1</sub>',
-				'每4个p<sub>n</sub>免费赠送1个p<sub>n+1</sub>',
-				'36',
-			);
 			cost = new Decimal(101);
 			name = 'U2-6';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
@@ -126,11 +100,6 @@ export const Multiplication = {
 			}
 		})(),
 		'37': new (class U27 extends Upgrade {
-			description: () => string = Logarithm.dilated(
-				'乘法重置保留加法升级',
-				'膨胀中保持B0-1',
-				'37',
-			);
 			cost = new Decimal(1000);
 			name = 'U2-7';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
@@ -144,11 +113,6 @@ export const Multiplication = {
 			}
 		})(),
 		'38': new (class U28 extends Upgrade {
-			description: () => string = Logarithm.dilated(
-				'每秒自动获取重置获取加法能量的1%',
-				'每秒自动获取重置获取指数能量的1%',
-				'38',
-			);
 			cost = new Decimal(10000);
 			name = 'U2-8';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
@@ -162,11 +126,6 @@ export const Multiplication = {
 			}
 		})(),
 		'39': new (class U28 extends Upgrade {
-			description: () => string = Logarithm.dilated(
-				'解锁乘法挑战，自动最大购买后继、加法购买项，最大购买乘法购买项',
-				'膨胀中获得最高数值的效果变得更好',
-				'39',
-			);
 			cost = new Decimal(1e21);
 			name = 'U2-9';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
@@ -183,7 +142,6 @@ export const Multiplication = {
 			}
 		})(),
 		'310': new (class U210 extends Upgrade {
-			description = '乘法能量获取^1.1';
 			cost = new Decimal(1e50);
 			name = 'U2-10';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
@@ -202,7 +160,6 @@ export const Multiplication = {
 	} as const,
 	buyables: {
 		'31': new (class B21 extends Buyable<Decimal> {
-			description: string = '增加加法能量获取';
 			name = 'B2-1';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			effect(x: Decimal) {
@@ -233,7 +190,6 @@ export const Multiplication = {
 			}
 		})(),
 		'32': new (class B22 extends Buyable<Decimal> {
-			description: string = '每级将乘法能量获取*2';
 			name = 'B2-2';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			effect(x: Decimal) {
@@ -257,7 +213,6 @@ export const Multiplication = {
 			}
 		})(),
 		'33': new (class B23 extends Buyable<Decimal> {
-			description: string = '质因数效果增速';
 			name = 'B2-3';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
 			effect(x: Decimal) {

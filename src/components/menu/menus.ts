@@ -56,12 +56,12 @@ export const menus = [
 		},
 	},
 	{
-		title: '乘法',
+		title: 'tab.multipl',
 		contents: [
-			{ id: 4, text: '乘法' },
+			{ id: 4, text: 'tab.multipl' },
 			{
 				id: 5,
-				text: '质因数',
+				text: 'tab.primefactor',
 				show() {
 					return player.firstResetBit & 0b10 && player.singularity.stage < 7;
 				},

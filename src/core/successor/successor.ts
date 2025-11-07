@@ -13,6 +13,7 @@ import { CurrencyRequirement, Requirement, UpgradeRequirement } from '../require
 import { Buyable } from '../buyable.ts';
 import { Logarithm } from '../exponention/logarithm.ts';
 import { DC } from '@/core/constants';
+import type { $t } from '@/utils/types.ts';
 
 export const Successor = {
 	upgrades: {

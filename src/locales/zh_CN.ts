@@ -1,4 +1,5 @@
 import { dilated } from '@/core/exponention/dilated-function';
+import { player, type Player } from '@/core/save';
 
 export default {
 	'title.rewritten': '大数之路重制版',
@@ -13,13 +14,27 @@ export default {
 	'tab.achievements': '成就',
 	'tab.timeshard': '时间碎片',
 	'tab.addition': '加法',
+	'tab.multipl': '乘法',
 	'res.number': '数值',
 	'res.ordinal': '序数',
 	'res.addpower': '加法能量',
+	'res.mulpower': '乘法能量',
 	'res.number.required': '(需要通过后继获得)',
 	'res.softcapped': '(受{amount}个软上限限制)',
+	'about.themasterofthedevelopgroup': '开发群群主',
+	'about.originalauthor': '原作者',
+	'about.coderepositorymanager': '代码仓库管理员',
+	'about.programming': '程序',
+	'about.planning': '策划',
+	'about.balancing': '平衡',
+	'about.plot': '剧情设定',
+	'about.mechanismdesign': '机制设计',
+	'about.mathemodeling': '数学建模',
+	'about.savebank': '存档银行',
+	'about.heyiwei': '吉祥物',
 	'succ.successor': '后继',
 	'succ.addition': '加法',
+	'succ.automation': '(自动+{speed}/s)',
 	'upg.locked': '暂未解锁',
 	'upg.effect': '效果: {effect}',
 	'req.res': '获得{cost}{currency}',
@@ -51,4 +66,38 @@ export default {
 	),
 	'upgs.26': '解锁乘法层',
 	'upgs.byl.21': '每次加法重置后获得免费的购买项B0-1（算在上限之内）',
+	'upgs.31': function () {
+		let counts = '1';
+		if (player.upgrades['400q']) counts = "<span style='font-size: 19px;'><b>2</b></span>";
+		const text = dilated(
+			'你可以选择' + counts + '个U1系列升级将其价格降低到1加法能量，改变选择将进行乘法重置',
+			'后继运算指数+3',
+			'31',
+		)();
+		return text;
+	},
+	'upgs.32': '所有后继升级保持为可购买状态',
+	'upgs.33': 'U2系列升级购买数量的平方同样作用于U0-2的效果',
+	'upgs.34': '在每次乘法重置后保留B1-1',
+	'upgs.35': dilated('解锁数论研究', 'τ<sub>1</sub>减弱膨胀强度', '35'),
+	'upgs.36': dilated(
+		'每2个质因数p<sub>n</sub>免费赠送一个p<sub>n-1</sub>',
+		'每4个p<sub>n</sub>免费赠送1个p<sub>n+1</sub>',
+		'36',
+	),
+	'upgs.37': dilated('乘法重置保留加法升级', '膨胀中保持B0-1', '37'),
+	'upgs:38': dilated(
+		'每秒自动获取重置获取加法能量的1%',
+		'每秒自动获取重置获取指数能量的1%',
+		'38',
+	),
+	'upgs.39': dilated(
+		'解锁乘法挑战，自动最大购买后继、加法购买项，最大购买乘法购买项',
+		'膨胀中获得最高数值的效果变得更好',
+		'39',
+	),
+	'upgs.310': '乘法能量获取^1.1',
+	'upgs.byl.31': '增加加法能量获取',
+	'upgs.byl.32': '每级将乘法能量获取*2',
+	'upgs.byl.33': '质因数效果增速',
 };

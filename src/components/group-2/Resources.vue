@@ -199,7 +199,13 @@ import { Garden } from '@/core/pt/index.ts';
 								(!{{ formatWhole(player.totalAddpower) }})
 								<br />
 								<span v-if="feature.resourceGain.addpower().softcaps > 0">
-									(受{{ feature.resourceGain.addpower().softcaps }}个软上限限制)
+									{{
+										$t('res.softcapped', {
+											amount: feature.resourceGain
+												.addpower()
+												.softcaps.toString(),
+										})
+									}}
 								</span>
 							</div>
 						</div>
@@ -212,7 +218,7 @@ import { Garden } from '@/core/pt/index.ts';
 							"
 						>
 							<div style="font-weight: bold; color: #cc33ff">
-								乘法能量&nbsp;
+								{{ $t('res.mulpower') }}&nbsp;
 								<div style="display: inline; text-shadow: #dd77dd 1px 1px 2px">
 									{{ formatWhole(player.multiplication.mulpower) }}
 								</div>
