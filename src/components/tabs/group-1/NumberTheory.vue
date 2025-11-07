@@ -110,7 +110,8 @@ function m2GainLatex() {
 				<vue-latex :expression="sGainLatex()" display-mode />
 				<p style="font-size: 120%">
 					<b
-						>研究1加成：加法效果×<vue-latex expression="\tau_1" /><span
+						>{{ $t('nt.euler.effect') }}<vue-latex expression="\tau_1"></vue-latex
+						><span
 							v-if="player.exponention.logarithm.upgrades_in_dilated.includes('35')"
 							style="color: rgb(127, 127, 255)"
 							>，膨胀层数-{{ format(NUMTHEORY.tau1DilateEff()) }}</span

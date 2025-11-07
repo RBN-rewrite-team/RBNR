@@ -1,5 +1,6 @@
 import { dilated } from '@/core/exponention/dilated-function';
 import { player } from '@/core/save';
+import { VueLatex } from 'vatex';
 
 export default {
 	'title.rewritten': 'RBNR',
@@ -202,4 +203,5 @@ export default {
 
 	'nt.order': 'Number theory #{i}',
 	'nt.euler': 'Euler function',
+	'nt.euler.effect': '#1 Effect：Addition effect×',
 };

@@ -1,5 +1,6 @@
 import { dilated } from '@/core/exponention/dilated-function';
 import { player, type Player } from '@/core/save';
+import { VueLatex } from 'vatex';
 
 export default {
 	'title.rewritten': '大数之路重制版',
@@ -184,4 +185,6 @@ export default {
 
 	'nt.order': '数论研究{i}',
 	'nt.euler': '欧拉函数',
+
+	'nt.euler.effect': '研究1加成：加法效果×',
 };
