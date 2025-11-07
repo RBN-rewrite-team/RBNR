@@ -201,4 +201,34 @@ export default {
 	'upgs.32R': 'x<sub>1</sub>的指数+0.3',
 	'upgs.33R': 'y<sub>1</sub>的指数+0.3',
 	'upgs.34R': 'z<sub>1</sub>的指数+0.3',
+
+	'upgs.ts01': () =>
+		player.stat.chapter == 0
+			? 'x1.5后继批量'
+			: '<span style="color: red; font-weight: bold">(需要在第0章)</span>',
+
+	'upgs.ts02': 'x1.5后继批量',
+	'upgs.ts03': () =>
+		player.stat.chapter == 0
+			? 'x2后继批量'
+			: '<span style="color: red; font-weight: bold">(需要在第0章)</span>',
+	'upgs.ts11': () =>
+		player.stat.chapter == 1
+			? 'x1.5加法能量'
+			: '<span style="color: red; font-weight: bold">(需要在第1章)</span>',
+	'upgs.ts12': 'x1.5加法能量',
+	'upgs.ts13': () =>
+		player.stat.chapter == 1
+			? 'x2加法能量'
+			: '<span style="color: red; font-weight: bold">(需要在第1章)</span>',
+	'upgs.ts21': () =>
+		player.stat.chapter == 2
+			? 'x2乘法能量'
+			: '<span style="color: red; font-weight: bold">(需要在第2章)</span>',
+	'upgs.ts22': 'x2乘法能量',
+	'upgs.ts23': () =>
+		player.stat.chapter == 2
+			? 'x3乘法能量'
+			: '<span style="color: red; font-weight: bold">(需要在第2章)</span>',
+	'currency.ts': '时间碎片',
 };

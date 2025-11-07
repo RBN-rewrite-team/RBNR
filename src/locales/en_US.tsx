@@ -218,4 +218,34 @@ export default {
 	'upgs.32R': 'x<sub>1</sub> Exponent +0.3',
 	'upgs.33R': 'y<sub>1</sub> Exponent +0.3',
 	'upgs.34R': 'z<sub>1</sub> Exponent +0.3',
+
+	'upgs.ts01': () =>
+		player.stat.chapter == 0
+			? 'x1.5 successor gain'
+			: '<span style="color: red; font-weight: bold">(In Chapter 0)</span>',
+
+	'upgs.ts02': 'x1.5 successor gain',
+	'upgs.ts03': () =>
+		player.stat.chapter == 0
+			? 'x2 successor gain'
+			: '<span style="color: red; font-weight: bold">(In Chapter 0)</span>',
+	'upgs.ts11': () =>
+		player.stat.chapter == 1
+			? 'x1.5 addition power'
+			: '<span style="color: red; font-weight: bold">(In Chapter 1)</span>',
+	'upgs.ts12': 'x1.5 addition power',
+	'upgs.ts13': () =>
+		player.stat.chapter == 1
+			? 'x2 addition power'
+			: '<span style="color: red; font-weight: bold">(In Chapter 1)</span>',
+	'upgs.ts21': () =>
+		player.stat.chapter == 2
+			? 'x2 multiplication power'
+			: '<span style="color: red; font-weight: bold">(In Chapter 2)</span>',
+	'upgs.ts22': 'x2 multiplication power',
+	'upgs.ts23': () =>
+		player.stat.chapter == 2
+			? 'x3 multiplication power'
+			: '<span style="color: red; font-weight: bold">(In Chapter 2)</span>',
+	'currency.ts': '时间碎片',
 };

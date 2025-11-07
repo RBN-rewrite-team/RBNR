@@ -106,7 +106,7 @@ export const NUMTHEORY = {
 			capped(): boolean {
 				return false;
 			}
-			show() {
+			show(): boolean {
 				return player.upgrades['400q'];
 			}
 		})(),
