@@ -9,7 +9,6 @@ import { Upgrade, UpgradeWithEffect } from '../upgrade';
 export const NUMTHEORY = {
 	buyables: {
 		'35R': new (class B35R extends Buyable<Decimal> {
-			description = 's<sub>1</sub>→s<sub>1</sub>+1';
 			cost(x: Decimal) {
 				return x.pow_base(1e8).mul(1e32);
 			}
@@ -32,7 +31,6 @@ export const NUMTHEORY = {
 			}
 		})(),
 		'36R': new (class B36R extends Buyable<Decimal> {
-			description = 'x<sub>1</sub>指数+0.085';
 			cost(x: Decimal) {
 				return x.pow_base(1e16).mul(1e32);
 			}
@@ -59,7 +57,6 @@ export const NUMTHEORY = {
 			}
 		})(),
 		'37R': new (class B37R extends Buyable<Decimal> {
-			description = 'y<sub>1</sub>指数+0.085';
 			cost(x: Decimal) {
 				return x.pow_base(1e20).mul(1e40);
 			}
@@ -86,7 +83,6 @@ export const NUMTHEORY = {
 			}
 		})(),
 		'38R': new (class B38R extends Buyable<Decimal> {
-			description = 'B2-R1-1~4的效果+2.5%(叠乘)';
 			cost(x: Decimal) {
 				return x.pow_base(1e25).mul(1e50);
 			}
@@ -115,7 +111,6 @@ export const NUMTHEORY = {
 			}
 		})(),
 		'31R': new (class B31R extends Buyable<Decimal> {
-			description = 'x<sub>1</sub>→x<sub>1</sub>+1';
 			cost(x: Decimal) {
 				return x.pow_base(2).mul(10);
 			}
@@ -138,7 +133,6 @@ export const NUMTHEORY = {
 			}
 		})(),
 		'32R': new (class B32R extends Buyable<Decimal> {
-			description = 'x<sub>2</sub>→x<sub>2</sub>+1';
 			cost(x: Decimal) {
 				return x.pow_base(10).mul(100);
 			}
@@ -161,7 +155,6 @@ export const NUMTHEORY = {
 			}
 		})(),
 		'33R': new (class B33R extends Buyable<Decimal> {
-			description = 'y<sub>1</sub>→y<sub>1</sub>+1';
 			cost(x: Decimal) {
 				return x.pow_base(100).mul(1e28);
 			}
@@ -184,7 +177,6 @@ export const NUMTHEORY = {
 			}
 		})(),
 		'34R': new (class B34R extends Buyable<Decimal> {
-			description = 'z<sub>1</sub>→z<sub>1</sub>+1';
 			cost(x: Decimal) {
 				return x.pow_base(1000).mul(1e30);
 			}
@@ -301,7 +293,6 @@ export const NUMTHEORY = {
 	} as const,
 	upgrades: {
 		'31R': new (class U31R extends UpgradeWithEffect<Decimal> {
-			description: string = '将u<sub>1</sub>加入x获取速度公式';
 			cost = new Decimal(1e4);
 			name = 'U2-R1-1';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
@@ -316,7 +307,6 @@ export const NUMTHEORY = {
 			}
 		})(),
 		'32R': new (class U32R extends Upgrade {
-			description: string = 'x<sub>1</sub>的指数+0.3';
 			cost = new Decimal(1e30);
 			name = 'U2-R1-2';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
@@ -325,7 +315,6 @@ export const NUMTHEORY = {
 			}
 		})(),
 		'33R': new (class U33R extends Upgrade {
-			description: string = 'y<sub>1</sub>的指数+0.3';
 			cost = new Decimal(1e35);
 			name = 'U2-R1-3';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;
@@ -334,7 +323,6 @@ export const NUMTHEORY = {
 			}
 		})(),
 		'34R': new (class U34R extends Upgrade {
-			description: string = 'z<sub>1</sub>的指数+0.3';
 			cost = new Decimal(1e40);
 			name = 'U2-R1-4';
 			currency: Currencies = Currencies.MULTIPLICATION_POWER;

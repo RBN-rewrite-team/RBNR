@@ -204,4 +204,18 @@ export default {
 	'nt.order': 'Number theory #{i}',
 	'nt.euler': 'Euler function',
 	'nt.euler.effect': '#1 Effect：Addition effect×',
+
+	'upgs.byl.35R': 's<sub>1</sub>→s<sub>1</sub>+1',
+	'upgs.byl.36R': 'x<sub>1</sub> Exponent+0.085',
+	'upgs.byl.37R': 'y<sub>1</sub> Exponent+0.085',
+	'upgs.byl.38R': 'B2-R1-1~4 Effect+2.5%(stack multiplication)',
+	'upgs.byl.31R': 'x<sub>1</sub>→x<sub>1</sub>+1',
+	'upgs.byl.32R': 'x<sub>2</sub>→x<sub>2</sub>+1',
+	'upgs.byl.33R': 'y<sub>1</sub>→y<sub>1</sub>+1',
+	'upgs.byl.34R': 'z<sub>1</sub>→z<sub>1</sub>+1',
+
+	'upgs.31R': 'Join u<sub>1</sub> to x gain formula',
+	'upgs.32R': 'x<sub>1</sub> Exponent +0.3',
+	'upgs.33R': 'y<sub>1</sub> Exponent +0.3',
+	'upgs.34R': 'z<sub>1</sub> Exponent +0.3',
 };

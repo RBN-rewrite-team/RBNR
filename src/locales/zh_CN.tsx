@@ -187,4 +187,18 @@ export default {
 	'nt.euler': '欧拉函数',
 
 	'nt.euler.effect': '研究1加成：加法效果×',
+
+	'upgs.byl.35R': 's<sub>1</sub>→s<sub>1</sub>+1',
+	'upgs.byl.36R': 'x<sub>1</sub>指数+0.085',
+	'upgs.byl.37R': 'y<sub>1</sub>指数+0.085',
+	'upgs.byl.38R': 'B2-R1-1~4的效果+2.5%(叠乘)',
+	'upgs.byl.31R': 'x<sub>1</sub>→x<sub>1</sub>+1',
+	'upgs.byl.32R': 'x<sub>2</sub>→x<sub>2</sub>+1',
+	'upgs.byl.33R': 'y<sub>1</sub>→y<sub>1</sub>+1',
+	'upgs.byl.34R': 'z<sub>1</sub>→z<sub>1</sub>+1',
+
+	'upgs.31R': '将u<sub>1</sub>加入x获取速度公式',
+	'upgs.32R': 'x<sub>1</sub>的指数+0.3',
+	'upgs.33R': 'y<sub>1</sub>的指数+0.3',
+	'upgs.34R': 'z<sub>1</sub>的指数+0.3',
 };

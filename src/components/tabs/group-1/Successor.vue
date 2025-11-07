@@ -31,7 +31,7 @@ function successorButton() {
 		<div class="clickable">
 			<PrimaryButton
 				@click="feature.SUCCESSOR.success()"
-				style="width: 240px"
+				style="width: fit-content"
 				v-html="successorButton()"
 			>
 			</PrimaryButton>
