@@ -99,14 +99,8 @@ function costHTML() {
 					<span
 						v-html="
 							$t('upg.effect.byl', {
-								effect: curbyl.effectDescription(
-									curbyl.effect(player.buyables[id]),
-									$t,
-								),
-								next: curbyl.effectDescription(
-									curbyl.effect(player.buyables[id]).add(1),
-									$t,
-								),
+								effect: curbyl.effectDescription(player.buyables[id], $t),
+								next: curbyl.effectDescription(player.buyables[id].add(1), $t),
 							})
 						"
 					></span>
