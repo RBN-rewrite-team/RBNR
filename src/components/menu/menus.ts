@@ -101,21 +101,21 @@ export const menus = [
 			},
 			{
 				id: 12,
-				text: '对数运算',
+				text: 'tab.log_c',
 				show() {
 					return player.milestones.cb5;
 				},
 			},
 			{
 				id: 13,
-				text: '对数膨胀',
+				text: 'tab.log_d',
 				show() {
 					return player.singularity.stage < 1 && player.milestones.log_G;
 				},
 			},
 			{
 				id: 14,
-				text: '奇点生成器',
+				text: 'tab.singularity',
 				show() {
 					return player.singularity.enabled || player.milestones.dil_7;
 				},
@@ -125,31 +125,31 @@ export const menus = [
 	{
 		get title() {
 			if (player.singularity.stage == 4) return '???';
-			if (player.singularity.stage <= 9) return '奇点';
-			return '序数';
+			if (player.singularity.stage <= 9) return 'tab.singularitytab';
+			return 'tab.ordinal';
 		},
 		contents: [
 			{
 				id: 14,
-				text: '奇点生成器',
+				text: 'tab.singularity',
 			},
 			{
 				id: 15,
-				text: '序数',
+				text: 'tab.ordinal',
 				show() {
 					return player.firstResetBit & 0b1000 && player.retribution == 0;
 				},
 			},
 			{
 				id: 6,
-				text: '数论研究',
+				text: 'tab.numbertheory',
 				show() {
 					return player.upgrades[58];
 				},
 			},
 			{
 				id: 17,
-				text: '加速器',
+				text: 'tab.booster',
 				show() {
 					return player.upgrades[59] && player.retribution == 0;
 				},
@@ -160,22 +160,22 @@ export const menus = [
 		},
 	},
 	{
-		title: '九头蛇',
+		title: 'tab.hydra',
 		contents: [
 			{
 				id: 19,
-				text: '九头蛇引擎',
+				text: 'tab.hydra_engine',
 			},
 			{
 				id: 27,
-				text: 'Y序列',
+				text: 'tab.y',
 				show() {
 					return player.retribution >= 1;
 				},
 			},
 			{
 				id: 20,
-				text: '稀释',
+				text: 'tab.dilute',
 				show() {
 					return player.upgrades['69R'];
 				},

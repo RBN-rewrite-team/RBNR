@@ -4,6 +4,7 @@ import { VueLatex } from 'vatex';
 
 export default {
 	'title.rewritten': '大数之路重制版',
+	'title.idlen': '大数之路放置版',
 	'title.version': 'Garden Gamma',
 	'tab.dungeon': '地下城',
 	'tab.successor': '后继',
@@ -19,6 +20,7 @@ export default {
 	'tab.primefactor': '质因数',
 	'tab.numbertheory': '数论研究',
 	'tab.multipchal': '乘法挑战',
+	'tab.help': '帮助',
 	'res.number': '数值',
 	'res.ordinal': '序数',
 	'res.addpower': '加法能量',
