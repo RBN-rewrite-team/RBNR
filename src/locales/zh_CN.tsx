@@ -966,4 +966,7 @@ export default {
 	'upgs.byl.51A': '加速器倍率增加速度+0.01',
 	'upgs.byl.52A': '加速器最大倍率×2',
 	'upgs.byl.53A': '加速器效果^+0.05',
+
+	'nt.growhier.title': '增长层级',
+	'nt.growhier.desc': 'τ<sub>3</sub>倍增序数获取速度',
 };
