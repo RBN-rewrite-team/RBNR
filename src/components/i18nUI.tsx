@@ -7,7 +7,8 @@ import { messages, messagesLength, setI18NLocal } from '@/utils/i18n';
 
 const langName = {
 	'zh-CN': '简体中文',
-	'en-US': 'English (United States)',
+	'en-US': 'English',
+	'en-GB': 'English',
 };
 const component = defineComponent({
 	name: 'i18nUI',
@@ -15,18 +16,19 @@ const component = defineComponent({
 		const u = useI18n();
 		const browserLang = navigator.language;
 		// const $t = u.t;
-		console.log(u.availableLocales.value);
+		const locales = ['zh-CN', 'en-US', 'en-GB'];
+
 		const max = Math.max(...Object.values(messagesLength));
 		return () => (
 			<>
 				<p>Your current language is {langName[u.locale.value as keyof typeof messages]}</p>
 				<p>
 					Your browser language is {browserLang} (detected).
-					{!u.availableLocales.value.includes(browserLang)
-						? 'The game is not provided this language localization.'
+					{!locales.includes(browserLang)
+						? 'The game is no t provided this language localization.'
 						: ''}
 				</p>
-				{u.availableLocales.value.map((x) => {
+				{locales.map((x) => {
 					const y = x as keyof typeof messages;
 					return (
 						<div
@@ -35,9 +37,17 @@ const component = defineComponent({
 							}}
 						>
 							<p>
-								Language: {langName[y]}(
-								{((messagesLength[y] / max) * 100).toFixed(3)}
-								%)
+								Language: {langName[y]}
+								<p>
+									{y == 'zh-CN' ? (
+										<b>(Main)</b>
+									) : (
+										<b>
+											({((messagesLength[y] / max) * 100).toFixed(3)}
+											%)
+										</b>
+									)}
+								</p>
 								<PrimaryButton onClick={() => setI18NLocal(y)}>Set</PrimaryButton>
 							</p>
 						</div>
