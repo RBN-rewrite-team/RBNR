@@ -1,8 +1,9 @@
 //English Localization
 /**
-此文档对应RBN-rewritten-team/RBNR develop分支中的src/core/locales/en_US.tsx文件
+此文档对应RBN-rewritten-team/RBNR i18n分支中的src/core/locales/en_US.tsx文件
 不要删除标题的// 方便直接复制
 有问题写//单行注释或双行注释
+单引号双引号用\', \"代替
 */
 import { dilated } from '@/core/exponention/dilated-function';
 import { player } from '@/core/save';
@@ -20,13 +21,13 @@ export default {
 	'tab.plot': 'Plot',
 	'tab.stat': 'Statistics',
 	'tab.achievements': 'Achievements',
-	'tab.timeshard': 'Time shard',
+	'tab.timeshard': 'Time Shards',
 	'tab.addition': 'Addition',
 	'tab.multipl': 'Multiplication',
-	'tab.primefactor': 'Prime factor',
-	'tab.numbertheory': 'Number theory',
-	'tab.multipchal': 'Mult. Challenge',
-	'tab.log_c': 'Log. Calculate',
+	'tab.primefactor': 'Prime Factors',
+	'tab.numbertheory': 'Number Theories',
+	'tab.multipchal': 'Mult. Challenges',
+	'tab.log_c': 'Log. Calculation',
 	'tab.log_d': 'Log. Dilation',
 	'tab.singularity': 'Sing. Generator',
 	'tab.singularitytab': 'Singularity',
@@ -39,8 +40,8 @@ export default {
 	'tab.nonrec': 'Non Recu.',
 	'res.number': 'Number',
 	'res.ordinal': 'Ordinal',
-	'res.addpower': 'Addition power',
-	'res.mulpower': 'Multiplication power',
+	'res.addpower': 'Addition Power',
+	'res.mulpower': 'Multiplication Power',
 	'res.number.required': 'Successor operation required',
 	'res.ooms': ' OoMs',
 	'res.oomsp': ' OoMs<sup>{level}</sup>',
@@ -59,7 +60,7 @@ export default {
 	'about.fiveyeargaokao': 'FiveYearGaokao💯',
 	'about.dlsdl': 'dlsdl',
 	'about.dutexuehua': 'Dutexuehua',
-	'about.jinghuoomega': 'JinghuoΩ',
+	'about.jinghuoomega': 'GoldenApple125',
 
 	'about.version': 'Version:  Garden Gamma (v0.7.1 Gamma)',
 
@@ -109,10 +110,10 @@ export default {
 	'set.notation.20': 'Base-e notation',
 	'set.notation.21': 'Base-π notation',
 	'set.notation.22': 'Fast growing hierarchy',
-	'set.notation.23': 'Hardy growing hierarchy',
+	'set.notation.23': 'Hardy hierarchy',
 	'set.notation.24': 'Omega notation',
 	'set.notation.25': 'Powers of 1',
-	'set.notation.26': 'Slow growing hierarchy / Xiao Ye Lu',
+	'set.notation.26': 'Slow growing hierarchy',
 	'set.theme.0': 'Classic',
 	'set.theme.1': 'Dark',
 	'set.theme.2': 'Sun',
@@ -138,41 +139,49 @@ export default {
 	'upg.effect.byl': 'Currently: {effect}; Next: {next}',
 	'upg.effectdbl.byl': 'Currently: {effect},{effect2}; Next: {next},{next2}',
 	'upg.keep': 'Keep ',
-	'upg.automatoruseid': 'Automator using id: {id}',
-	'req.res': 'Need {cost} {currency}',
-	'req.upg': 'Need {upg}',
+	'upg.automatoruseid': 'id for automator usage: {id}',
+	'req.res': 'Require {cost} {currency}',
+	'req.upg': 'Require {upg}',
 	'upg.cost': 'Cost: {cost} {currency}',
 	'res.softcapped': '({amount} softcaps)',
 	'currency.number': 'Number',
 	'currency.addition': 'Addition power',
 	'currency.multipl': 'Mult. power',
-	'currency.exponent': 'exponentiation Power',
+	'currency.exponent': 'Exponentiation Power',
 	'currency.qol': 'QoL Points',
-	'currency.deduce_energy': 'Deduce Energy',
-	'upgs.11': dilated('Unlock B0-1', 'Change the limit of buy counts of B0-1 to 1000', '11'),
+	'currency.deduce_energy': 'Deduction Energy',
+	'upgs.11': dilated(
+		'Unlock B0-1',
+		'Change the limit of available purchases of B0-1 to 1000',
+		'11',
+	),
 	'upgs.12': dilated(
-		'Increase successor effect by +1 per U0 upgrades bought',
-		'The successor button power will +*1.1 when a U0 upgrade is bought',
+		'Increase successor effect by +1 per U0 upgrade bought',
+		'The successor button power +*1.1 per U0 upgrade bought',
 		'12',
 	),
-	'upgs.13': dilated('Unlock Addition Layer', 'Gain exponent +0.1 to addition power', '13'),
-	'upgs.byl.11': 'Do successor per one second',
+	'upgs.13': dilated('Unlock Addition Layer', "Additon power's gain exponent +0.1", '13'),
+	'upgs.byl.11': 'Do succession every second.',
 	'upgs.21': dilated(
 		'U1 upgrades apply to the effect of U0-2',
 		'U0-2 effect is raised by 1.5',
 		'21',
 	),
 
-	'upgs.22': dilated('Successor gain multiplies by 4', 'Successor exponent +0.2', '22'),
-	'upgs.23': 'The starting cost of B0-1 is 0, the max buyable amounts of B0-1 +50',
-	'upgs.24': dilated('Unlock B1-1', 'Make B1-1 increase b0-1 effect^(1+log(b1-1)/3)', '24'),
+	'upgs.22': dilated('Successor gain is multiplied by 4', 'Successor effect exponent +0.2', '22'),
+	'upgs.23': 'The starting cost of B0-1 is 0, the max buyable purchases of B0-1 +50',
+	'upgs.24': dilated(
+		'Unlock B1-1',
+		'Make B1-1 enhance B0-1 effect by a factor of ^(1+log(b1-1)/3)',
+		'24',
+	),
 	'upgs.25': dilated(
-		'Upgrade successor to addition, Keep U0 upgrades after addition reset',
-		'C1 effect has not hard cap, but softcap.',
+		'Upgrade Succession to Addition, Keep U0 upgrades after Addition reset',
+		"C1 effect's hardcap is changed to a softcap.",
 		'25',
 	),
 	'upgs.26': 'Unlock Multiplication Layer',
-	'upgs.byl.21': 'Get free B0-1 after addition reset(In cap)',
+	'upgs.byl.21': 'Get free B0-1 purchases after addition reset (Within the limit)',
 	'upgs.31': function () {
 		let counts = '1';
 		let pronoun = 'its';
@@ -186,7 +195,7 @@ export default {
 				' U1 upgrades, make ' +
 				pronoun +
 				' cost decrease to 1. Do multiplication reset when selections are changed.',
-			'后继运算指数+3',
+			'Successor 后继运算指数+3',
 			'31',
 		)();
 		return text;
@@ -194,7 +203,7 @@ export default {
 	'upgs.32': 'Keep all successor upgrades ',
 	'upgs.33': 'U1 upgrades count^2 apply to the effect of U0-2',
 	'upgs.34': 'Keep B1-1 after multiplication reset',
-	'upgs.35': dilated('Unlock Number Theory', 'τ<sub>1</sub> reduces dilate strength', '35'),
+	'upgs.35': dilated('Unlock Number Theories', 'τ<sub>1</sub> reduces dilate strength', '35'),
 	'upgs.36': dilated(
 		'Get a free p<sub>n-1</sub> per 2 Prime Factor p<sub>n</sub>boughts',
 		'Get a free p<sub>n+1</sub> per 4 Prime Factor p<sub>n</sub>boughts',
