@@ -62,15 +62,21 @@ function _g() {
 			>
 				+
 			</div>
-			<h1>数论研究{{ player.numbertheory.visiting }}</h1>
+			<h1>
+				{{
+					$t('nt.order', {
+						i: player.numbertheory.visiting.toString(),
+					})
+				}}
+			</h1>
 			<div class="center_line" />
-			<span v-if="player.numbertheory.visiting <= 2" style="color: rgb(255, 63, 63)"
-				>嗯？这是什么研究，我怎么不知道？之前有人来过这里吗？</span
-			>
+			<span v-if="player.numbertheory.visiting <= 2" style="color: rgb(255, 63, 63)">{{
+				$t('nt.wait')
+			}}</span>
 			<div v-if="player.numbertheory.visiting == 3">
 				<div v-if="!player.upgrades[61]">
-					<h2>增长层级</h2>
-					<h3>τ<sub>3</sub>倍增序数获取速度</h3>
+					<h2>{{$t("nt.growhier.title")}}</h2>
+					<h3 v-html="$t('nt.growhier.desc')"></h3>
 					<vue-latex
 						:expression="
 							`\\alpha = \\sup\\{\\beta|H_{\\beta}(${formatLaTeXWhole(OrdinalNT.varComputed('hhBase', 3))})<x_3\\} = ` +

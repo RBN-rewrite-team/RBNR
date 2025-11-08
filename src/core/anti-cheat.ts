@@ -5,6 +5,7 @@ import type { Player } from './save';
 import Decimal from 'break_eternity.js';
 import DisableDevtool from 'disable-devtool';
 import { isDeveloper } from './save/testing.ts';
+import { buyables, upgrades } from './mechanic.ts';
 
 DisableDevtool({
 	onDevtoolOpen(type, next) {
@@ -27,6 +28,8 @@ declare global {
 		player: Player;
 		Modal: typeof ModalService;
 		Decimal: typeof Decimal;
+		upgrades: typeof upgrades;
+		buyables: typeof buyables;
 	}
 }
 
@@ -49,6 +52,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		window.player = player;
 		window.Modal = ModalService;
 		window.Decimal = Decimal;
+		window.buyables = buyables;
+		window.upgrades = upgrades;
 	}
 });
 let cheat = false;
