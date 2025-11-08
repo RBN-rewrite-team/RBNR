@@ -911,21 +911,6 @@ export default {
 
 	sing: '解锁奇点生成器',
 
-	'sing.p': '奇点能量',
-	'sing.p.1': '， 这使数值',
-	'sing.p.2': '，加法能量',
-	'sing.p.3': '，乘法能量',
-	'sing.p.4': '获取',
-	youhave: '你有',
-
-	'sing.pr': '你每秒获取 (奇点能量+1)',
-
-	'sing.cycles': `There are too many ['Number''Addition Power',
-								'Multiplication Power',
-								'Exponentation Power',
-								'Singularity Power']...... I need to sacrifice my Logarithm Dilate and the Notation to be able
-					to go further......`,
-
 	'sing.1': '末日......终将降临......',
 	'sing.2': '毁灭......就要到来......',
 	'sing.3': '你已经不能回头......',
