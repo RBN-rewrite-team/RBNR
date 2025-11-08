@@ -236,7 +236,7 @@ export function initMechanics() {
 			return '每个行星运动定律使麦粒^1.05';
 		},
 		get description2() {
-			return 'Each 行星运动定律 make wheat grain ^1.05';
+			return 'Each laws make wheat grain ^1.05';
 		},
 		requirement: new Decimal(1e155),
 		get canDone() {

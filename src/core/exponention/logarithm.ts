@@ -141,6 +141,7 @@ export const Logarithm = {
 		MILESTONES.create('dil_1', {
 			displayName: 'M-Dil-1',
 			description: '最大化和自动化指数购买项',
+			description2: 'Max and automate Exponentation Buyables',
 			requirement: new Decimal(1000),
 			get canDone() {
 				return player.exponention.logarithm.highest_dilate.gte(this.requirement);
@@ -151,6 +152,7 @@ export const Logarithm = {
 		MILESTONES.create('dil_2', {
 			displayName: 'M-Dil-2',
 			description: '最大化和自动化棋盘格子购买项',
+			description2: 'Max and automate Chess Board buyables',
 			requirement: new Decimal(1e8),
 			get canDone() {
 				return player.exponention.logarithm.highest_dilate.gte(this.requirement);
@@ -161,6 +163,7 @@ export const Logarithm = {
 		MILESTONES.create('dil_3', {
 			displayName: 'M-Dil-3',
 			description: '最大化和自动化数论研究2购买项',
+			description2: 'Max and automate NT2 buyables',
 			requirement: new Decimal(1e10),
 			get canDone() {
 				return player.exponention.logarithm.highest_dilate.gte(this.requirement);
@@ -171,6 +174,7 @@ export const Logarithm = {
 		MILESTONES.create('dil_4', {
 			displayName: 'M-Dil-4',
 			description: '每秒额外获取1000%重置时将获得的指数能量',
+			description2: 'Get 1000% of EP in reset passively.',
 			requirement: new Decimal(5e21),
 			get canDone() {
 				return player.exponention.logarithm.highest_dilate.gte(this.requirement);
@@ -183,6 +187,13 @@ export const Logarithm = {
 			get description() {
 				return (
 					'基于计算数据生产观测数据<br>效果：+' +
+					format(player.exponention.logarithm.calculate_datas.add(1).log10().pow(2)) +
+					'/s'
+				);
+			},
+			get description2() {
+				return (
+					'Produce OD based on CD<br>Effect: +' +
 					format(player.exponention.logarithm.calculate_datas.add(1).log10().pow(2)) +
 					'/s'
 				);
@@ -202,6 +213,12 @@ export const Logarithm = {
 					format(wheatGrain().log10().add(1).log10().add(1).pow(0.15))
 				);
 			},
+			get description2() {
+				return (
+					'Increase EP gain based on Wheat Grain<br>Effect: ^' +
+					format(wheatGrain().log10().add(1).log10().add(1).pow(0.15))
+				);
+			},
 			requirement: new Decimal(1e26),
 			get canDone() {
 				return player.exponention.logarithm.highest_dilate.gte(this.requirement);
@@ -213,6 +230,9 @@ export const Logarithm = {
 			displayName: 'M-Dil-7',
 			get description() {
 				return '解锁<b>奇点生成器</b>';
+			},
+			get description2() {
+				return 'UNLOCK <b>SINGULARITY GENERATOR</b>';
 			},
 			requirement: new Decimal(2).pow(8192),
 			get canDone() {

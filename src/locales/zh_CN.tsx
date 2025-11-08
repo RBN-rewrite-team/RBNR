@@ -905,4 +905,21 @@ export default {
 	'exp.log.law.g': '万有引力定律',
 	'exp.log.law.yg': '是的，万有引力定律',
 	'exp.log.law.g.eff': '解锁对数膨胀',
+
+	'currency.膨胀中数值': '膨胀中数值',
+	'set.status.enter': '进入',
+	'set.status.exit': '退出',
+
+	'exp.log.law.dil': '膨胀',
+	'exp.log.law.dil.1': '进入对数膨胀后：',
+	'exp.log.law.dil.2': '数值指数塔减',
+	'exp.log.law.dil.3': '层。 乘法能量指数塔减',
+	'exp.log.law.dil.4': '层。 ',
+	'exp.log.law.dil.5': '同时，大部分生活质量升级失效，部分加成减弱。',
+	'exp.log.law.dil.6': '在膨胀中购买升级和购买项会永久提升它们的效果。 ',
+	'exp.log.law.dil.7': '对数膨胀内获得的最高数值',
+	'exp.log.law.dil.8': '会增加对数值（^ ',
+	'exp.log.law.dil.9': '），指数能量(*',
+	'exp.log.law.dil.10': ')的获取。',
+	'currency.膨胀中乘法能量': '膨胀中乘法能量',
 };
