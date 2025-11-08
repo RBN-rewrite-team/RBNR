@@ -283,6 +283,7 @@ export default {
 	'chal.0.3.effect':
 		'First multiplication reset unlockes Exponentation Layer<br>Multiplication Power×{effect}',
 
+	'chal.tip': "Click to start challenge{'|'}exit challenge",
 	'modal.font': 'Enter and set font: ',
 	'modal.font2': 'Set font',
 	'modal.testcode': 'Enter test code',

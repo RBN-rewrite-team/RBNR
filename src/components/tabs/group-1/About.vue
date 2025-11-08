@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { player } from '@/core/save';
+import { i18n } from '@/utils/i18n';
 </script>
 <template>
 	<div class="main">
@@ -174,19 +175,37 @@ import { player } from '@/core/save';
 			</div>
 		</div>
 		<div style="transform: translateY(400px)" class="selectable">
-			本项目使用了<a href="https://cn.vuejs.org/"> Vue </a>、<a href="https://cn.vitejs.dev/">
-				Vite </a
-			>、<a href="https://nodeca.github.io/pako/"> pako.js </a>、<a
-				href="https://github.com/Patashu/break_eternity.js"
+			<template v-if="i18n.global.locale.value == 'zh-CN'"
+				>本项目使用了<a href="https://cn.vuejs.org/"> Vue </a>、<a
+					href="https://cn.vitejs.dev/"
+				>
+					Vite </a
+				>、<a href="https://nodeca.github.io/pako/"> pako.js </a>、<a
+					href="https://github.com/Patashu/break_eternity.js"
+				>
+					break_eternity.js </a
+				>，部分显示相关代码取自<a href="https://solarzone1010.github.io/bms-analyzer.html">
+					Solarzone1010的BMS Analyzer </a
+				>。 <br /><br /><a
+					href="https://github.com/RBN-rewrite-team/RBNR/blob/develop/public/changelog.md"
+				>
+					查看更新记录
+				</a></template
 			>
-				break_eternity.js </a
-			>，部分显示相关代码取自<a href="https://solarzone1010.github.io/bms-analyzer.html">
-				BMS Analyzer </a
-			>。 <br /><br /><a
-				href="https://github.com/RBN-rewrite-team/RBNR/blob/develop/public/changelog.md"
-			>
-				查看更新记录
-			</a>
+			<template v-else>
+				This project uses <a href="https://vuejs.org/"> Vue</a>,
+				<a href="https://vitejs.dev/">Vite</a>,
+				<a href="https://nodeca.github.io/pako/">pako.js</a>,
+				<a href="https://github.com/Patashu/break_eternity.js">break_eternity.js</a>,
+				<br />partly displaying code chooses from
+				<a href="https://solarzone1010.github.io/bms-analyzer.html">
+					Solarzone1010's BMS Analyzer </a
+				>. <br /><br /><a
+					href="https://github.com/RBN-rewrite-team/RBNR/blob/develop/public/changelog.md"
+				>
+					Check changelog
+				</a>
+			</template>
 		</div>
 	</div>
 </template>

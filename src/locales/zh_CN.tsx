@@ -262,6 +262,7 @@ export default {
 		'每次生产前乘法层资源时有一半的概率被反转(下限为0)，提升乘法重置难度，禁用B2-2、挑战3',
 	'chal.0.3.effect': '首次乘法重置解锁指数层<br>乘法能量获取速度×{effect}',
 
+	'chal.tip': "点击以开始挑战{'|'}退出挑战",
 	'modal.font': '输入设置字体：',
 	'modal.font2': '设置字体',
 	'modal.testcode': '输入测试码',

@@ -43,7 +43,9 @@ function chalClass() {
 					"
 				></p>
 			</div>
-			<p><b>点击以开始挑战|退出挑战</b></p>
+			<p>
+				<b>{{ $t(`chal.tip`) }}</b>
+			</p>
 		</div>
 	</td>
 </template>
