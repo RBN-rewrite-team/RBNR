@@ -855,5 +855,10 @@ export default {
 	'timeshard.gen': '碎片生成器 {tier}',
 	'timeshard.conv': '碎片转换器 {tier}',
 	'timeshard.conv.desc': '转换{amount}个时间碎片',
-	'timeshard.conv.desc2': '可以额外获得{percent}%时间',
+	'timeshard.conv.desc2': '可以额外获得{amount}%时间',
+	'timeshard.gen.1': '冷却时间: 1小时<br>产量: 10~50',
+	'timeshard.gen.2': '冷却时间: 24小时<br>产量: 80~400',
+	'timeshard.gen.3': '冷却时间: 168小时<br>产量: 1000~5000',
+	'timeshard.gen.avaliable': '冷却完毕',
+	'timeshard.gen.waituntil': '请等待至',
 };

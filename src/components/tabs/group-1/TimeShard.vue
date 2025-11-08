@@ -79,15 +79,16 @@ function t2() {
 										{{ $t('timeshard.gen', { tier: 'I' }) }}
 									</h3>
 									<br />
-									冷却时间：1小时<br />
-									产量：10~50<br />
+									<span v-html="$t('timeshard.gen.1')"></span><br />
 									<span
 										v-if="Date.now() >= player.timeshard.cd[0]"
 										style="color: green; font-weight: bold"
-										>冷却完毕</span
+										>{{ $t('timeshard.gen.avaliable') }}</span
 									>
 									<span v-else style="color: orange; font-weight: bold"
-										>请等待至<br />{{ timeF(player.timeshard.cd[0]) }}</span
+										>{{ $t('timeshard.gen.waituntil') }}<br />{{
+											timeF(player.timeshard.cd[0])
+										}}</span
 									>
 								</button>
 							</div>
@@ -103,8 +104,7 @@ function t2() {
 										{{ $t('timeshard.gen', { tier: 'II' }) }}
 									</h3>
 									<br />
-									冷却时间：24小时<br />
-									产量：80~400<br />
+									<span v-html="$t('timeshard.gen.2')"></span><br />
 									<span
 										v-if="Date.now() >= player.timeshard.cd[1]"
 										style="color: green; font-weight: bold"
@@ -127,8 +127,7 @@ function t2() {
 										{{ $t('timeshard.gen', { tier: 'III' }) }}
 									</h3>
 									<br />
-									冷却时间：7天<br />
-									产量：1000~5000<br />
+									<span v-html="$t('timeshard.gen.3')"></span><br />
 									<span
 										v-if="Date.now() >= player.timeshard.cd[2]"
 										style="color: green; font-weight: bold"
