@@ -158,10 +158,10 @@ export default {
 
 	'upgs.22': dilated('Successor gain multiplies by 4', 'Successor exponent +0.2', '22'),
 	'upgs.23': 'The starting cost of B0-1 is 0, cap of bought amounts of B0-1 +50',
-	'upgs.24': dilated('Unlock B1-1', '使B1-1加成b0-1 效果^(1+log（b1-1）/3）', '24'),
+	'upgs.24': dilated('Unlock B1-1', 'Make B1-1 increase b0-1 effect^(1+log(b1-1)/3)', '24'),
 	'upgs.25': dilated(
 		'Upgrade successor to addition, Keep U0 upgrades after addition reset',
-		'挑战1效果不再有上限，但在1以上有软上限',
+		'C1 effect has not hard cap, but softcap.',
 		'25',
 	),
 	'upgs.26': 'Unlock Multiplication Layer',
@@ -190,7 +190,7 @@ export default {
 	'upgs.35': dilated('Unlock Number Theory', 'τ<sub>1</sub> reduces dilate strength', '35'),
 	'upgs.36': dilated(
 		'Get a free p<sub>n-1</sub> per 2 Prime Factor p<sub>n</sub>boughts',
-		'每4个p<sub>n</sub>免费赠送1个p<sub>n+1</sub>',
+		'Get a free p<sub>n+1</sub> per 4 Prime Factor p<sub>n</sub>boughts',
 		'36',
 	),
 	'upgs.37': dilated(
@@ -416,7 +416,7 @@ export default {
 		],
 		[
 			"Numerorum\tI've pretty much studied all these things. It's time to set off.",
-			'Numerorum\tBut... the closer we get to Ordinal Tower, the stronger the suppression feels here.',
+			'Numerorum\tBut... the closer I get to Ordinal Tower, the stronger the suppression feels here.',
 			"Numerorum\tI've gained new insights...",
 		],
 		[
@@ -826,4 +826,5 @@ export default {
 	'exp.log.law.dil.9': '), EP(*',
 	'exp.log.law.dil.10': ') gain.',
 	'currency.膨胀中乘法能量': 'AP in Dilated',
+	'nt.euler.effect.dil': ', dilate layer -',
 };

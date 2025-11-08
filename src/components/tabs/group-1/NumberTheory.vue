@@ -114,7 +114,8 @@ function m2GainLatex() {
 						><span
 							v-if="player.exponention.logarithm.upgrades_in_dilated.includes('35')"
 							style="color: rgb(127, 127, 255)"
-							>，膨胀层数-{{ format(NUMTHEORY.tau1DilateEff()) }}</span
+							>{{ $t('nt.euler.effect.dil')
+							}}{{ format(NUMTHEORY.tau1DilateEff()) }}</span
 						></b
 					>
 				</p>

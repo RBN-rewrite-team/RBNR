@@ -922,4 +922,5 @@ export default {
 	'exp.log.law.dil.9': '），指数能量(*',
 	'exp.log.law.dil.10': ')的获取。',
 	'currency.膨胀中乘法能量': '膨胀中乘法能量',
+	'nt.euler.effect.dil': '，膨胀层数-',
 };
