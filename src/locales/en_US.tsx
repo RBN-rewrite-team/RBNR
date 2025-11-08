@@ -37,7 +37,7 @@ export default {
 	'res.ordinal': 'Ordinal',
 	'res.addpower': 'Addition power',
 	'res.mulpower': 'Multiplication power',
-	'res.number.required': '(Doing successor)',
+	'res.number.required': 'Successor operation required',
 	'res.ooms': ' OoMs',
 	'res.oomsp': ' OoMs<sup>{level}</sup>',
 	'res.oomspooms': ' OoMs<sup>OoMs</sup>',
@@ -107,7 +107,7 @@ export default {
 	'set.notation.22': 'Fast growing hierarchy',
 	'set.notation.23': 'Hardy growing hierarchy',
 	'set.notation.24': 'Omega notation',
-	'set.notation.25': '1 to the power of',
+	'set.notation.25': 'Power of 1',
 	'set.notation.26': 'Slow growing hierarchy',
 	'set.theme.0': 'Classic',
 	'set.theme.1': 'Dark',
@@ -133,7 +133,7 @@ export default {
 	'upg.effect': 'Currently: {effect}',
 	'upg.effect.byl': 'Currently: {effect}; Next: {next}',
 	'upg.effectdbl.byl': 'Currently: {effect},{effect2}; Next: {next},{next2}',
-	'upg.keep': 'Keep bought',
+	'upg.keep': 'Keep ',
 	'upg.automatoruseid': 'Automator using id: {id}',
 	'req.res': 'Need {cost} {currency}',
 	'req.upg': 'Need {upg}',
@@ -147,7 +147,7 @@ export default {
 	'currency.deduce_energy': 'Deduce Energy',
 	'upgs.11': dilated('Unlock B0-1', 'Change the limit of buy counts of B0-1 to 1000', '11'),
 	'upgs.12': dilated(
-		'The successor button will +1 when a U0 upgrade is bought',
+		'Increase successor effect by +1 per U0 upgrades bought',
 		'The successor button power will +*1.1 when a U0 upgrade is bought',
 		'12',
 	),
@@ -160,7 +160,7 @@ export default {
 	),
 
 	'upgs.22': dilated('Successor gain multiplies by 4', 'Successor exponent +0.2', '22'),
-	'upgs.23': 'The starting cost of B0-1 is 0, cap of bought amounts of B0-1 +50',
+	'upgs.23': 'The starting cost of B0-1 is 0, the max buyable amounts of B0-1 +50',
 	'upgs.24': dilated('Unlock B1-1', 'Make B1-1 increase b0-1 effect^(1+log(b1-1)/3)', '24'),
 	'upgs.25': dilated(
 		'Upgrade successor to addition, Keep U0 upgrades after addition reset',
@@ -187,7 +187,7 @@ export default {
 		)();
 		return text;
 	},
-	'upgs.32': 'Keep successor upgrades bought',
+	'upgs.32': 'Keep all successor upgrades ',
 	'upgs.33': 'U1 upgrades count^2 apply to the effect of U0-2',
 	'upgs.34': 'Keep B1-1 after multiplication reset',
 	'upgs.35': dilated('Unlock Number Theory', 'τ<sub>1</sub> reduces dilate strength', '35'),
@@ -198,7 +198,7 @@ export default {
 	),
 	'upgs.37': dilated(
 		'Keep addition upgrades in multiplication reset',
-		'Keep B0-1 bought in dilate',
+		'Keep B0-1  in dilate',
 		'37',
 	),
 	'upgs.38': dilated(
@@ -606,16 +606,16 @@ export default {
 	'upgs.byl.44': 'Mult. power^1.01',
 
 	'upgs.400q': 'the effect of U2-1 *2, unlock a new upgrade in Number theory #1',
-	'upgs.411q': 'Keep successor upgrades and U2-2 bought.',
+	'upgs.411q': 'Keep all successor upgrades and U2-2 .',
 	'upgs.412q': 'The number of B0-1 will always >1',
 	'upgs.413q': "Exp. Reset doesn't reset the reward of Challenge 1",
 	'upgs.414q': "Exp. Reset doesn't reset U2-R1-1.",
 	'upgs.415q': 'Automate prime factor 2, 3, 5 and 7.',
-	'upgs.421q': 'Keep addition upgrades  bought',
+	'upgs.421q': 'Keep all addition upgrades',
 	'upgs.422q': 'The number of B0-1 will always >10',
 	'upgs.423q': "Exp. Reset doesn't reset the reward of Challenge 2",
 	'upgs.424q': "Exp. Reset doesn't reset B2-R1-1.",
-	'upgs.425q': 'Automate  prime factor 11, 13, 17 and 19',
+	'upgs.425q': 'Automate prime factor 11, 13, 17 and 19',
 	'upgs.431q': "Exp. Reset doesn't reset U2-3 and U2-4.",
 	'upgs.432q': 'B1-1 effect will enable instantly',
 	'upgs.433q': "Exp. Reset doesn't reset Challenge 3",
@@ -626,7 +626,7 @@ export default {
 	'upgs.443q': 'Challenge 4 amount will not less than total MP^0.001。',
 	'upgs.444q': 'Automate Buyables of Number theory #1',
 	'upgs.445q': "Exp. Reset doesn't reset Prime Factor Time",
-	'upgs.451q': 'Keep Mult. upgrades bought',
+	'upgs.451q': 'Keep Mult. upgrades ',
 	'upgs.452q': 'Automate B2-1 and B2-2.',
 	'upgs.453q': 'C1, C2, C3 amount hold to the biggest number in this Expo. Reset.',
 	'upgs.454q': 'Keep NT1 upgrades.',
@@ -804,10 +804,11 @@ export default {
 		'Boost computational speed by 10x and observation speed by 5x, reduce astronomers, LT cost base and exponent ( >=1 )',
 	'exp.log.law.2.desc':
 		'The line connecting a planet and the Sun sweeps out equal areas in equal intervals of time.',
-	'exp.log.law.2.eff': 'Improve EP based on Calc. Datas',
+	'exp.log.law.2.eff': 'EP acquisition enhanced by Computational Data',
 	'exp.log.law.3.desc':
 		"The cube of a planet's semi-major axis is proportional to the square of its orbital period.",
-	'exp.log.law.3.eff': 'LT, astronomers cost base, exponent reduce based on Calc. Datas',
+	'exp.log.law.3.eff':
+		"Logarithmic tables, astronomers' base prices, exponents based on computational data reduction",
 
 	'exp.log.law.g': 'Law of Universal Gravitation',
 	'exp.log.law.yg': 'Yes, Law of Universal Gravitation',
@@ -817,13 +818,10 @@ export default {
 	'set.status.enter': 'Enter',
 	'set.status.exit': 'Exit',
 	'exp.log.law.dil': 'Dilate',
-
-	'exp.log.law.dil.1': 'After enter the dilate',
-	'exp.log.law.dil.2': 'Number tetration reduce',
-	'exp.log.law.dil.3': 'layer. MP tetration reduce',
-	'exp.log.law.dil.4': 'layer.',
-	'exp.log.law.dil.5': 'most QoL Upgrades disabled, part of effects are reduced. ',
-	'exp.log.law.dil.6': 'The upgrades will be improved if bought in dilate.',
+	'exp.log.law.dil.xx':
+		'Number Exponential Tower reduced by {a} tiers. MP Exponential Tower reduced by {b} tiers. <br>Simultaneously, most QoL upgrades have been disabled, and certain buffs have been weakened.',
+	'exp.log.law.dil.6':
+		'Purchasing upgrades and buyables in Dilate will permanently enhance their effects.',
 	'exp.log.law.dil.7': 'The hightest number in Dilated',
 	'exp.log.law.dil.8': 'will increase number(^',
 	'exp.log.law.dil.9': '), EP(*',
@@ -832,6 +830,9 @@ export default {
 	'nt.euler.effect.dil': ', dilate layer -',
 
 	sing: 'Unlock Singularity Generator',
+
+	'exp.log.law.dil.xx2':
+		'The highest value of number({a}) obtained within the logarithm dilate will increase the acquisition of number(^{b}) and EP(*{c}).',
 
 	'sing.1': 'THE END......HAS FINALLY DESCEND......',
 	'sing.2': 'THE DESTRUCTION......IS IMMINENT......',

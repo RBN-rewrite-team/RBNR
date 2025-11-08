@@ -899,6 +899,8 @@ export default {
 	'exp.log.law.dil': '膨胀',
 	'exp.log.law.dil.xx':
 		'数值指数塔减{a}层。 乘法能量指数塔减{b}层。<br>同时，大部分生活质量升级失效，部分加成减弱。',
+	'exp.log.law.dil.xx2':
+		'对数膨胀内获得的最高数值{a}会增加对数值（^{b}），指数能量(*{c})的获取。',
 	'exp.log.law.dil.6': '在膨胀中购买升级和购买项会永久提升它们的效果。 ',
 
 	'nt.euler.effect.dil': '，膨胀层数-',

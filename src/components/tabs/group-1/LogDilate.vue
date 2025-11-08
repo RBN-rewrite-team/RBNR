@@ -18,6 +18,13 @@ function dilateDebuff() {
 	// 			}}{{ $t('exp.log.law.dil.3') }}{{ format(Logarithm.dilateNerf().div(2))
 	// 			}}{{ $t('exp.log.law.dil.4') }}<br />{{ $t('exp.log.law.dil.5') }}
 }
+function dilateBuff2() {
+	return $t('exp.log.law.dil.xx2', {
+		a: format(Logarithm.logarithm.highest_dilate),
+		b: format(Logarithm.dilateEffect()[0]),
+		c: format(Logarithm.dilateEffect()[1]),
+	});
+}
 </script>
 
 <template>
@@ -39,12 +46,7 @@ function dilateDebuff() {
 			>
 			<p v-html="dilateDebuff()"></p>
 			<p>{{ $t('exp.log.law.dil.6') }}</p>
-			<p>
-				{{ $t('exp.log.law.dil.7') }}{{ format(Logarithm.logarithm.highest_dilate)
-				}}{{ $t('exp.log.law.dil.8') }} {{ format(Logarithm.dilateEffect()[0])
-				}}{{ $t('exp.log.law.dil.9') }}{{ format(Logarithm.dilateEffect()[1])
-				}}{{ $t('exp.log.law.dil.10') }}
-			</p>
+			<p v-html="dilateBuff2()"></p>
 			<table>
 				<tbody class="milestones">
 					<TRMilestone id="dil_1" />
