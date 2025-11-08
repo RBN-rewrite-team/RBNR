@@ -333,7 +333,7 @@ export default {
 		3: 'Chapter 2',
 		4: 'Multiplication Challenge',
 		5: 'Chapter 3',
-		6: 'Astronaut',
+		6: 'Astronomer',
 		7: 'Logarithm dilate',
 		8: 'Singularity Generator',
 		9: 'Chapter 4',
@@ -689,8 +689,8 @@ export default {
 	'ach.3.4.desc': 'Get M-CB-1 milestone',
 	'ach.3.5': 'Bashicu Sudden Sudden Sudden Sudden Sudden Matrix System',
 	'ach.3.5.desc': 'Buy U3-24',
-	'ach.3.6': 'Fire an astronaut(delete)',
-	'ach.3.6.desc': 'Hire an astronaut',
+	'ach.3.6': 'Fire an astronomer(delete)',
+	'ach.3.6.desc': 'Hire an astronomer',
 	'ach.3.7': 'EExxppoonneennttaattiioonn Era',
 	'ach.3.7.desc': 'Get e6.871e10 Number',
 	'ach.4.0': "Powerful Pushing...Also it's not very powerful",
@@ -765,7 +765,7 @@ export default {
 	'exp.log.cald': 'You have {amount} calculation datas',
 	'exp.log.conv': '1 Observe data -> {res} Calc. datas',
 
-	'upgs.byl.lgr_emp': 'Employ an astronony',
+	'upgs.byl.lgr_emp': 'Employ an astronomer',
 
 	'upgs.byl.lgr_impr':
 		'Improve logarithmic tables to enhance computational speed and extend the lifespan of astronomers.',
@@ -786,7 +786,7 @@ export default {
 	'timeshard.gen.3': 'Colddown: 168 hrs<br>Prod: 1000~5000',
 	'timeshard.gen.avaliable': 'Avaliable',
 	'timeshard.gen.waituntil': 'Please wait until',
-	'plot.astronaut': 'Astronaut',
+	'plot.astronomer': 'Astronomer',
 	'exp.log.observe': 'Obs.',
 	'exp.log.calc': 'Use LT to calculate',
 
@@ -798,13 +798,13 @@ export default {
 	'exp.log.law.1.desc':
 		'The orbits of planets around the Sun are elliptical, with the Sun located at one of the foci of the ellipse.',
 	'exp.log.law.1.eff':
-		'Boost computational speed by 10x and observation speed by 5x,reduce astronauts, LT cost base and exponent ( >=1 )',
+		'Boost computational speed by 10x and observation speed by 5x,reduce astronomers, LT cost base and exponent ( >=1 )',
 	'exp.log.law.2.desc':
 		'The line connecting a planet and the Sun sweeps out equal areas in equal intervals of time.',
 	'exp.log.law.2.eff': 'Improve EP based on Calc. Datas',
 	'exp.log.law.3.desc':
 		"The cube of a planet's semi-major axis is proportional to the square of its orbital period.",
-	'exp.log.law.3.eff': 'LT, Astronauts cost base, exponent reduce based on Calc. Datas',
+	'exp.log.law.3.eff': 'LT, astronomers cost base, exponent reduce based on Calc. Datas',
 
 	'exp.log.law.g': 'Law of Universal Gravitation',
 	'exp.log.law.yg': 'Yes, Law of Universal Gravitation',
@@ -827,4 +827,22 @@ export default {
 	'exp.log.law.dil.10': ') gain.',
 	'currency.膨胀中乘法能量': 'AP in Dilated',
 	'nt.euler.effect.dil': ', dilate layer -',
+
+	sing: 'Unlock Singularity Generator',
+
+	'sing.p': 'Singularity Energy',
+	'sing.p.1': ', this makes number',
+	'sing.p.2': ', AP',
+	'sing.p.3': ', MP',
+	'sing.p.4': 'gain',
+	youhave: 'You have',
+
+	'sing.pr': 'You get (per second) (SE+1)',
+
+	'sing.1': 'THE END......FINALLY DESCEND......',
+	'sing.2': 'THE DESTRUCTION......IS COMING......',
+	'sing.3': 'YOU CANNOT TURN BACK......',
+	'sing.4': 'THE SINGULARITY BREAK THE WORLD......',
+	'sing.5': 'READY TO ......WELCOME......',
+	'sing.6': 'WELCOME to the ORDINAL WORLD',
 };

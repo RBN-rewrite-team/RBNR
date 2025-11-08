@@ -33,7 +33,7 @@ function datas() {
 		<div v-html="datas()"></div>
 		<div>
 			<p v-for="astr in Object.entries(player.exponention.logarithm.astronomers)">
-				{{ $t('plot.astronaut') }} {{ astr[0] }}: {{ formatTime(astr[1].life) }}
+				{{ $t('plot.astronomer') }} {{ astr[0] }}: {{ formatTime(astr[1].life) }}
 				{{
 					formatGain(
 						Logarithm.logarithm.calculate_datas,

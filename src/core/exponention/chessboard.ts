@@ -26,8 +26,8 @@ function mcb20eff() {
 	let base = player.exponention.exppower.add(10).log10().pow(0.1);
 	if (player.milestones.cb21) base = base.pow(2);
 	if (player.milestones.cb22) base = base.pow(2);
-	if (player.milestones.cb23) base = base.pow(1.1);
-	if (player.milestones.cb24) base = base.pow(3.141592653589793238);
+	if (player.milestones.cb23) base = base.pow(2);
+	if (player.milestones.cb24) base = base.pow(200);
 	return base;
 }
 
@@ -420,7 +420,7 @@ export function initMechanics() {
 		get description2() {
 			return 'M-CB-20 effect ^2';
 		},
-		requirement: new Decimal('e7500'),
+		requirement: new Decimal('e7000'),
 		get canDone() {
 			return wheatGrain().gte(this.requirement) && !player.singularity.enabled;
 		},
@@ -435,7 +435,7 @@ export function initMechanics() {
 		get description2() {
 			return 'M-CB-20 effect ^2 again';
 		},
-		requirement: new Decimal('e21000'),
+		requirement: new Decimal('e15000'),
 		get canDone() {
 			return wheatGrain().gte(this.requirement) && !player.singularity.enabled;
 		},
@@ -448,9 +448,9 @@ export function initMechanics() {
 			return 'M-CB-20的效果再次变为其1.1次方';
 		},
 		get description2() {
-			return 'M-CB-20 effect ^1.1';
+			return 'M-CB-20 effect ^2';
 		},
-		requirement: new Decimal('e6.5e5'),
+		requirement: new Decimal('e5.5e5'),
 		get canDone() {
 			return wheatGrain().gte(this.requirement) && !player.singularity.enabled;
 		},
@@ -460,10 +460,10 @@ export function initMechanics() {
 	MILESTONES.create('cb24', {
 		displayName: 'M-CB-24',
 		get description() {
-			return 'M-CB-20的效果再次变为其π次方';
+			return 'M-CB-20的效果再次变为其200次方';
 		},
 		get description2() {
-			return 'M-CB-20 effect ^π';
+			return 'M-CB-20 effect ^200';
 		},
 		requirement: new Decimal('7.7e7777777'),
 		get canDone() {

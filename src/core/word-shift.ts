@@ -24,7 +24,7 @@ function randomSymbol(cn = true): string {
 }
 
 export const wordShift = {
-	wordCycle(list: string[], noBuffer: boolean = false, nothing?: number): string {
+	wordCycle(list: string[], noBuffer: boolean = false, nothing?: number, cn = true): string {
 		const len = list.length;
 		const tick = Math.floor(Date.now() / 250) % (len * 5);
 		const mod5 = ((Date.now() / 250) % (len * 5)) % 5;
@@ -45,7 +45,7 @@ export const wordShift = {
 			);
 		}
 
-		v = this.randomCrossWords(v, 0.1 * Math.pow(mod5 - 2.5, 4) - 0.6);
+		v = this.randomCrossWords(v, 0.1 * Math.pow(mod5 - 2.5, 4) - 0.6, cn);
 		return v;
 	},
 

@@ -281,7 +281,7 @@ export function stringToPlot(a: string, $t: $t) {
 		}
 	}
 	if (res.name == '天文学家' && i18n.global.locale.value !== 'zh-CN') {
-		res.name = getMessage('plot.astronaut');
+		res.name = getMessage('plot.astronomer');
 	}
 	return res;
 }
