@@ -4,6 +4,7 @@ import { defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 import PrimaryButton from './ui/PrimaryButton';
 import { messages, messagesLength, setI18NLocal } from '@/utils/i18n';
+import Baixie from './group-2/Baixie.vue';
 
 const langName = {
 	'zh-CN': '简体中文',
@@ -27,6 +28,10 @@ const component = defineComponent({
 					{!locales.includes(browserLang)
 						? 'The game is no t provided this language localization.'
 						: ''}
+				</p>
+				<p>
+					If you are proficient in other languages, you can apply to translate this game.
+					<Baixie />
 				</p>
 				{locales.map((x) => {
 					const y = x as keyof typeof messages;
