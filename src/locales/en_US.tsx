@@ -283,7 +283,7 @@ export default {
 		player.stat.chapter == 2
 			? 'x3 multiplication power'
 			: '<span style="color: red; font-weight: bold">(In Chapter 2)</span>',
-	'currency.ts': '时间碎片',
+	'currency.ts': 'Time shard',
 
 	'nt.order': 'Number theory #{i}',
 	'nt.euler': "Euler's totient function",
@@ -749,4 +749,21 @@ export default {
 	'upgs.byl.cb1': 'Add a square',
 	'exp.cb.pre':
 		' In ancient times, there was a king who wished to reward a wise minister for inventing chess... ',
+
+	'timeshard.t':
+		'You have {amount} time shard. Convert it to achieve a 3x time acceleration effect for the equivalent minutes.',
+	'timeshard.t2': 'You have {amount} time accelerations.',
+
+	'timeshard.u1': 'Get 1000 TS, But enter to HARD MODE',
+	'set.status.locked': '(Locked)',
+	'set.status.unlocked': '(Disabled)',
+	'timeshard.gen': 'Time shard generator {tier}',
+	'timeshard.conv': 'Time shard converter {tier}',
+	'timeshard.conv.desc': 'Convert {amount} TS',
+	'timeshard.conv.desc2': 'More {amount}% Times',
+	'timeshard.gen.1': 'Colddown: 1 hr<br>Prod: 10~50',
+	'timeshard.gen.2': 'Colddown: 24 hrs<br>Prod: 80~400',
+	'timeshard.gen.3': 'Colddown: 168 hrs<br>Prod: 1000~5000',
+	'timeshard.gen.avaliable': 'Avaliable',
+	'timeshard.gen.waituntil': 'Please wait until',
 };

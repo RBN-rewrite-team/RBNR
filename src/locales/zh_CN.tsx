@@ -847,4 +847,20 @@ export default {
 	'currency.wheatgrain': '麦粒',
 	'upgs.byl.cb1': '增加一个棋盘格',
 	'exp.cb.pre': ' 古时候，有一位国王想要犒赏一位聪明的大臣，奖赏他发明了国际象棋…… ',
+
+	'timeshard.t': '你有{amount}时间碎片，转换它以获得同等分钟的3x时间加速效果',
+	'timeshard.t2': '你有{amount}的时间加速',
+
+	'timeshard.u1': '获得1000时间碎片，但进入困难模式。',
+	'set.status.locked': '（已锁定）',
+	'set.status.unlocked': '（未开启）',
+	'timeshard.gen': '碎片生成器 {tier}',
+	'timeshard.conv': '碎片转换器 {tier}',
+	'timeshard.conv.desc': '转换{amount}个时间碎片',
+	'timeshard.conv.desc2': '可以额外获得{amount}%时间',
+	'timeshard.gen.1': '冷却时间: 1小时<br>产量: 10~50',
+	'timeshard.gen.2': '冷却时间: 24小时<br>产量: 80~400',
+	'timeshard.gen.3': '冷却时间: 168小时<br>产量: 1000~5000',
+	'timeshard.gen.avaliable': '冷却完毕',
+	'timeshard.gen.waituntil': '请等待至',
 };
