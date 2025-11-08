@@ -195,7 +195,7 @@ export const menus = [
 		},
 	},
 	{
-		title: '非递归',
+		title: 'tab.nonrec',
 		show() {
 			return (player.firstResetBit & 0b10000) == 0b10000 && player.stat.chapter >= 6;
 		},
