@@ -223,11 +223,7 @@ setInterval(function () {
 				>/{{ format(feature.SingularityGenerator.singularityDivision()) }} {{ $t('sing.p')
 				}}<br
 			/></span>
-			<span v-if="player.singularity.t >= 667">
-				在跨越有限与无限的界限之后，奇点生成器停止了。下一次启动会是什么时候？<br />
-				在一切的毁灭尽头，将迎来更灿烂的新生。<br />
-				序数的世界欢迎你的到来。<br />
-			</span>
+			<span v-if="player.singularity.t >= 667" v-html="$t('sing.fin')"> </span>
 			<template v-if="i18n.global.locale.value == 'zh-CN'"
 				><button
 					class="sacrifice"

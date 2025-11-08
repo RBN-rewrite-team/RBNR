@@ -1,5 +1,6 @@
 import { dilated } from '@/core/exponention/dilated-function';
 import { player } from '@/core/save';
+import { wordShift } from '@/core/word-shift';
 import { VueLatex } from 'vatex';
 
 export default {
@@ -845,4 +846,27 @@ export default {
 	'sing.4': 'THE SINGULARITY BREAK THE WORLD......',
 	'sing.5': 'READY TO ......WELCOME......',
 	'sing.6': 'WELCOME to the ORDINAL WORLD',
+	'currency.ordinal': 'Ordinal',
+	'sing.fin': `The Singularity Generator stops after cross the edge of the finite and the transfinite.<br />
+	When, will the Singularity Generator begin again?<br />
+				At the end of all destruction, a more BRILLIANT REBIRTH shall dawn.<br />
+				The world of Ordinal, Welcomes you.<br />`,
+	'upgs.51': 'Increase Ordinal by 1 per second.',
+	'upgs.52': 'Decrease base by 1',
+	'upgs.53': 'Decrease base by 1',
+	'upgs.54': 'Decrease base by 1',
+	'upgs.55': '序数指数倍增序数提升速度',
+	'upgs.56': '序数指数以减弱的效果倍增序数提升速度',
+	'upgs.57': '序数以减弱的效果倍增序数提升速度',
+	'upgs.58': '解锁数论研究3',
+	'upgs.59': '解锁加速器',
+	'upgs.510': '序数指数加成序数提升速度',
+	'upgs.511': 'U4-10效果平方',
+	'upgs.512': '数论研究3sgh底数每秒+1',
+	'upgs.513': 'Decrease base by 1',
+	'upgs.514': '序数增长^1.53',
+	'upgs.515': '数论研究3公式改进',
+	'upgs.516': 'Decrease base by 1',
+	'ord.1':
+		'The ordinal base is {amount}. It determines at which term of the fundamental sequence a carry occurs.',
 };

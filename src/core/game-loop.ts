@@ -184,6 +184,7 @@ function r(s: number): number {
 	return Math.random() * s * 2 - s;
 }
 function singularity_UI() {
+	if (player.singularity.t > 700) return;
 	let s =
 		player.singularity.stage +
 		Math.max(player.singularity.t - 400, 0) / 3 +

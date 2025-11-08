@@ -12,6 +12,9 @@ import { countdown } from '@/core/countdown-display';
 import { ORDINAL } from '@/core/ordinal/ordinal';
 import { Dilute } from '@/core/hydra/dilute';
 import { useI18n } from 'vue-i18n';
+import { computed } from 'vue';
+import { wordShift } from '@/core/word-shift';
+import { i18n } from '@/utils/i18n';
 const $t = useI18n().t;
 
 const props = defineProps<{
@@ -58,7 +61,22 @@ function costHTML() {
 		currency: currencyName(curupg.currency, $t),
 	});
 }
-const description = $t(`upgs.${props.upgid}`);
+const description = computed(function () {
+	if (props.upgid == '517') {
+		if (i18n.global.locale.value == 'zh-CN') {
+			return player.upgrades['516']
+				? '访问九头蛇Hydra'
+				: //                            Access 9 head snake Hydra
+					wordShift.randomCrossWords('A   s  9 h  d s   e H   a', 0.9, false) +
+						player.lastUpdated.toString().repeat(0);
+		}
+		return player.upgrades['516']
+			? 'Access Hydra'
+			: wordShift.randomCrossWords('访问九头蛇', 0.9, true) +
+					player.lastUpdated.toString().repeat(0);
+	}
+	return $t(`upgs.${props.upgid}`);
+});
 </script>
 
 <template>
