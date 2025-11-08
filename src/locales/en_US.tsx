@@ -429,13 +429,13 @@ export default {
 		[
 			"Numerorum\tThere're... Wait!",
 			'A voice suddenly filled this level of the tower.',
-			'???\tHydra\tIm truly impressed that you managed to get here.',
+			"???\tHydra\tI'm truly impressed that you managed to get here.",
 			'Numerorum\tWhere are you? Come out!',
-			'???\tHydra\tHahaha, youre not worthy of seeing me.',
+			"???\tHydra\tHahaha, you're NOT worthy of seeing me.",
 			'Numerorum\t...',
-			'???\tHydra\tDont be surprised—although you may never see me again.',
-			'Numerorum\tDamn it, dont look down on me! ',
-			'Numerorum\tEven if youre at the top of the tower, Ill find you sooner or later!',
+			"???\tHydra\tDon't be surprised—although you may never see me AGAIN.",
+			"Numerorum\tDamn it, don't look down on me! ",
+			"Numerorum\tEven if you're at the top of the tower, I will find you sooner or later!",
 			'No matter what Numerorum said, the mysterious voice no longer responded.',
 		],
 		[
