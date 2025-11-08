@@ -19,6 +19,13 @@ function effect() {
 			>`,
 	})}`;
 }
+function qolpdis() {
+	return $t('exp.youhaveqol', {
+		amount: `<span style="color: rgb(255, 127, 255)">${formatWhole(
+			player.exponention.qolpoints,
+		)}</span>`,
+	});
+}
 </script>
 
 <template>
@@ -26,7 +33,7 @@ function effect() {
 		<span v-if="player.firstResetBit & 0b100" v-html="effect()"> </span>
 		<br />
 		<br />
-		<h2 style="color: rgb(127, 127, 255)">普通升级</h2>
+		<h2 style="color: rgb(127, 127, 255)">{{ $t('exp.normalupgs') }}</h2>
 		<table align="center">
 			<tbody>
 				<tr>
@@ -58,14 +65,9 @@ function effect() {
 		<br />
 		<br />
 		<br />
-		<h2 style="color: rgb(255, 127, 255)">QoL点数升级</h2>
-		<span
-			>你有
-			<span style="color: rgb(255, 127, 255)">{{
-				formatWhole(player.exponention.qolpoints)
-			}}</span>
-			Qol点数</span
-		>
+		<h2 style="color: rgb(255, 127, 255)">{{ $t('exp.qolupgs') }}</h2>
+		<span v-html="qolpdis()"></span>
+
 		<table align="center">
 			<tbody class="smaller">
 				<tr>

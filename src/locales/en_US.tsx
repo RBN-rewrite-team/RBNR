@@ -267,16 +267,16 @@ export default {
 
 	'nt.order': 'Number theory #{i}',
 	'nt.euler': "Euler's totient function",
-	'nt.euler.effect': '#1 Effect：Addition effect×',
+	'nt.euler.effect': '#1 Effect:Addition effect×',
 
 	'chal.0.0': 'Challenge',
 	'chal.0.0.description': 'No effect',
-	'chal.0.0.effect': 'Addition operation exponent+{effect}',
+	'chal.0.0.effect': 'Addition calculation exponent+{effect}',
 	'chal.0.1': 'Division',
 	'chal.0.1.description':
-		'Number, Addition power gain is divided，Factor power effect downs as time as flow',
+		'Number, Addition power gain is divided,Factor power effect downs as time as flow',
 	'chal.0.1.effect':
-		'Number gain multiplies based on addition power and best number in challenge： ×{effect}',
+		'Number gain multiplies based on addition power and best number in challenge: ×{effect}',
 	'chal.0.2': 'Burning',
 	'chal.0.2.description': 'Number growing speed is divided by current amount',
 	'chal.0.2.effect': 'Number gain×{effect}',
@@ -544,4 +544,27 @@ export default {
 
 	'exp.effect.0': 'Cumulative Exponentation power provide {effect} Number gain.',
 	'exp.effect.1': 'Loots provides {effect} Number gain.',
+
+	'exp.normalupgs': 'Normal upgrades',
+	'exp.qolupgs': 'QoL Points upgrades',
+	'exp.youhaveqol': 'You have {amount} QoL Point(s)',
+
+	'upgs.41': 'Add. Power and Mul. Power gain *10',
+	'upgs.42': 'Succ./Add. calculation exponent+0.1',
+	'upgs.43': 'Number second softcap starting point^2',
+	'upgs.44': 'Add. Power second softcap starting point^2',
+	'upgs.45': 'Unlock Number Theory #2',
+	'upgs.46':
+		'Get 1% of mult. power in reset passively. Produce Challenge 4 completions based on mul. power',
+	'upgs.47': 'Unlock chessboard',
+	'upgs.48': 'Improve exponentation power gain formula',
+	'upgs.49': 'Remove Challenge 4 Effect cap',
+
+	'upgs.410': 'Factor power improves Add. Power and Mul. Power gain.',
+	'upgs.411': 'Improve exponentation power gain formula again',
+
+	'upgs.byl.41': 'Factor power ^1.05',
+	'upgs.byl.42': 'Number ^1.05',
+	'upgs.byl.43': 'Addition power^1.03',
+	'upgs.byl.44': 'Mult. power^1.01',
 };
