@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { player } from '@/core/save';
 import { feature } from '@/core/global';
-import { format, physicalScale } from '@/utils/format';
+import { format, formatTime, physicalScale } from '@/utils/format';
 import { OrdinalUtils } from '@/utils/ordinal';
 import { Ordinal } from '@/lib/ordinal/';
 import {
@@ -9,12 +9,15 @@ import {
 	ordinalNormal,
 	getBMSOLReq,
 } from '../../../core/ordinal/ordinal-level.ts';
-import { Moon } from 'lunarphase-js';
+import { LunarPhase, Moon } from 'lunarphase-js';
 import { ref, onUnmounted } from 'vue';
 import Mountain from '../y/Mountain.vue';
 import ResetTables from '../stat/ResetTables.tsx';
 import CenterLine from '@/components/ui/CenterLine.vue';
-
+import { currencyName, Currencies } from '@/core/currencies.ts';
+import { useI18n } from 'vue-i18n';
+import { i18n } from '@/utils/i18n.ts';
+const $t = useI18n().t;
 const LunarMap = {
 	New: '新月',
 	'Waxing Crescent': '峨眉月',
@@ -34,20 +37,51 @@ function getCNLunarPhase() {
 const updateKey = ref(0);
 const interval = setInterval(() => updateKey.value++);
 onUnmounted(() => clearInterval(interval));
+function highestIs(cur: Currencies, p: string) {
+	return $t('stat.highest', { currency: currencyName(cur, $t), amount: p });
+}
+function produced(cur: Currencies, p: string) {
+	return $t('stat.produced', { currency: currencyName(cur, $t), amount: p });
+}
+function phase() {
+	return $t('stat.moon', {
+		phase:
+			i18n.global.locale.value == 'zh-CN'
+				? getCNLunarPhase()
+				: Moon.lunarPhase() + Moon.lunarPhaseEmoji(),
+		age: format(Moon.lunarAgePercent() * 100, 7),
+		distance: format(Moon.lunarDistance() * 6371000),
+	});
+	// (北半球)月相：{{
+	// 			i18n.global.locale.value == 'zh-CN' ? getCNLunarPhase() : Moon.lunarPhase()
+	// 		}}，月龄占比：{{ format(Moon.lunarAgePercent() * 100, 7) }}%，地月距离：{{
+	// 			format(Moon.lunarDistance() * 6371000)
+	// 		}}米
+}
 </script>
 
 <template>
 	<div class="main">
 		<template v-if="player.singularity.t < 666 + 2 / 3">
-			<p>你最高的数值是: {{ format(player.stat.highestNumber) }}</p>
-			<p>你最高的加法能量是: {{ format(player.stat.hightestAddpower) }}</p>
-			<p>你最高的乘法能量是: {{ format(player.stat.highestMulpower) }}</p>
-			<p>你最高的指数能量是: {{ format(player.stat.highestExppower) }}</p>
-			<p>你产生了 {{ format(player.stat.totalNumber) }} 数值</p>
-			<p>你产生了 {{ format(player.stat.totalAddpower) }} 加法能量</p>
-			<p>你产生了 {{ format(player.stat.totalMulpower) }} 乘法能量</p>
-			<p>你产生了 {{ format(player.stat.totalExppower) }} 指数能量</p>
-			<p v-html="physicalScale(player.number)"></p>
+			<p>{{ highestIs(Currencies.NUMBER, format(player.stat.highestNumber)) }}</p>
+			<p>{{ highestIs(Currencies.ADDITION_POWER, format(player.stat.hightestAddpower)) }}</p>
+			<p>
+				{{
+					highestIs(Currencies.MULTIPLICATION_POWER, format(player.stat.highestMulpower))
+				}}
+			</p>
+			<p>
+				{{ highestIs(Currencies.EXPONENTION_POWER, format(player.stat.highestExppower)) }}
+			</p>
+			<p>{{ produced(Currencies.NUMBER, format(player.stat.totalNumber)) }}</p>
+			<p>{{ produced(Currencies.ADDITION_POWER, format(player.stat.totalAddpower)) }}</p>
+			<p>
+				{{ produced(Currencies.MULTIPLICATION_POWER, format(player.stat.totalMulpower)) }}
+			</p>
+			<p>
+				{{ produced(Currencies.EXPONENTION_POWER, format(player.stat.totalExppower)) }}
+			</p>
+			<p v-if="i18n.global.locale.value == 'zh-CN'" v-html="physicalScale(player.number)"></p>
 		</template>
 		<div v-if="player.singularity.t > 666 + 2 / 3" style="position: relative">
 			<span
@@ -83,14 +117,13 @@ onUnmounted(() => clearInterval(interval));
 			</div>
 		</div>
 		<p>
-			你已经玩了
-			{{ format((Date.now() - player.saveCreateTime) / 1000 / 31536000) }}年。
+			{{
+				$t('stat.youhaveplayed', {
+					time: formatTime((Date.now() - player.saveCreateTime) / 1000),
+				})
+			}}
 		</p>
-		<p :key="updateKey">
-			(北半球)月相：{{ getCNLunarPhase() }}，月龄占比：{{
-				format(Moon.lunarAgePercent() * 100, 7)
-			}}%，地月距离：{{ format(Moon.lunarDistance() * 6371000) }}米
-		</p>
+		<p :key="updateKey" v-html="phase()"></p>
 		<Mountain v-if="player.retribution === 1" />
 		<CenterLine />
 		<template v-if="player.stat.recent10PTOReset.length >= 1">

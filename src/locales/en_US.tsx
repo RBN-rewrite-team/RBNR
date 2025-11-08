@@ -102,6 +102,13 @@ export default {
 	'set.guogao': 'Guogao Layer',
 	'set.music': 'Music',
 	'set.musicurl': 'Set Music URL',
+
+	'stat.highest': 'Your highest {currency} is {amount}.',
+	'stat.produced': 'You produced {amount} {currency}.',
+	'stat.youhaveplayed': 'You have played {time}.',
+	'stat.moon':
+		'(Northern Hemisphere) Moon phase: {phase}, <br>Age percentage: {age}%, <br>Earth-Moon distance: {distance} meters',
+
 	'succ.successor': 'Do successor',
 	'succ.addition': 'Add. ',
 	'succ.automation': '(Auto. +{speed}/s)',

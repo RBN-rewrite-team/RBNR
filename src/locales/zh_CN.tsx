@@ -111,6 +111,12 @@ export default {
 	'set.notation.24': '欧米伽记数法',
 	'set.notation.25': '1的指数',
 	'set.notation.26': '慢速增长层级',
+
+	'stat.highest': '你最高的{currency}是: {amount}',
+	'stat.produced': '你产生了{amount}{currency}',
+	'stat.youhaveplayed': '你已经玩了{time}。',
+	'stat.moon': '(北半球)月相：{phase}，月龄占比：{age}%，地月距离：{distance}米',
+
 	'currency.number': '数值',
 	'currency.addition': '加法能量',
 	'currency.multipl': '乘法能量',
