@@ -1,9 +1,13 @@
+//English Localization
+/**
+此文档对应RBN-rewritten-team/RBNR develop分支中的src/core/locales/en_US.tsx文件
+不要删除标题的// 方便直接复制
+有问题写//单行注释或双行注释
+*/
 import { dilated } from '@/core/exponention/dilated-function';
 import { player } from '@/core/save';
 import { wordShift } from '@/core/word-shift';
 import { VueLatex } from 'vatex';
-
-// 这en-US localization工作爱鸡 巴谁爱做谁不爱做
 
 export default {
 	'title.rewritten': 'Road of Big Number Rewritten',
@@ -78,8 +82,8 @@ export default {
 	'set.status.off': 'OFF',
 	'set.enteredbeta': 'You have entered Beta test',
 	'set.enteredgamma': 'You have entered Gamma test',
-	'set.colorinverse': 'Color inversion',
-	'set.grey': 'All grey',
+	'set.colorinverse': 'Invert Color',
+	'set.grey': 'Monotonic',
 	'set.blur': 'Blur',
 	'set.oldalbum': 'Old album',
 	'set.notation.0': 'Scientific notation',
@@ -107,8 +111,8 @@ export default {
 	'set.notation.22': 'Fast growing hierarchy',
 	'set.notation.23': 'Hardy growing hierarchy',
 	'set.notation.24': 'Omega notation',
-	'set.notation.25': 'Power of 1',
-	'set.notation.26': 'Slow growing hierarchy',
+	'set.notation.25': 'Powers of 1',
+	'set.notation.26': 'Slow growing hierarchy / Xiao Ye Lu',
 	'set.theme.0': 'Classic',
 	'set.theme.1': 'Dark',
 	'set.theme.2': 'Sun',
@@ -122,13 +126,13 @@ export default {
 
 	'stat.highest': 'Your highest {currency} is {amount}.',
 	'stat.produced': 'You produced {amount} {currency}.',
-	'stat.youhaveplayed': 'You have played {time}.',
+	'stat.youhaveplayed': 'You have played for {time}.',
 	'stat.moon':
 		'(Northern Hemisphere) Moon phase: {phase}, <br>Age percentage: {age}%, <br>Earth-Moon distance: {distance} meters',
 
 	'succ.successor': 'Do successor',
 	'succ.addition': 'Add. ',
-	'succ.automation': '(Auto. +{speed}/s)',
+	'succ.automation': '(Auto: +{speed}/s)',
 	'upg.locked': 'Locked',
 	'upg.effect': 'Currently: {effect}',
 	'upg.effect.byl': 'Currently: {effect}; Next: {next}',
@@ -232,7 +236,7 @@ export default {
 	},
 	'mul.fpeffect':
 		'Based on the duration of this multiplication reset, provide {effect} number and addition power gain.',
-	'mul.33': 'Reach cap right now',
+	'mul.33': 'Instantly reach the limit',
 	'upgs.byl.pf2': 'Factor power ×2',
 	'upgs.byl.pf3': 'Factor power ×3',
 	'upgs.byl.pf5': 'Factor power ×5',
@@ -842,9 +846,9 @@ export default {
 	'sing.6': 'WELCOME TO THE WORLD OF ORDINALS. HAVE FUN.',
 	'currency.ordinal': 'Ordinal',
 	'sing.fin': `The Singularity Generator stops after cross the edge of the finite and the transfinite.<br />
-	When, will the Singularity Generator begin again?<br />
-				At the end of all destruction, a more BRILLIANT REBIRTH shall dawn.<br />
-				The world of Ordinal, Welcomes you.<br />`,
+    When, will the Singularity Generator begin again?<br />
+                At the end of all destruction, a more BRILLIANT REBIRTH shall dawn.<br />
+                The world of Ordinal, Welcomes you.<br />`,
 	'upgs.51': 'Increase Ordinal by 1 per second.',
 	'upgs.52': 'Decrease base by 1',
 	'upgs.53': 'Decrease base by 1',

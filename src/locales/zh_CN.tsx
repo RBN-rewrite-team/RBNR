@@ -905,11 +905,6 @@ export default {
 
 	'nt.euler.effect.dil': '，膨胀层数-',
 
-	// 7 效果 8 效果 9 效果 10
-	'exp.log.law.dil.7': '对数膨胀内获得的最高数值',
-	'exp.log.law.dil.8': '会增加对数值（^',
-	'exp.log.law.dil.9': '），指数能量(*',
-	'exp.log.law.dil.10': ')的获取。',
 	'currency.膨胀中乘法能量': '膨胀中乘法能量',
 
 	sing: '解锁奇点生成器',
