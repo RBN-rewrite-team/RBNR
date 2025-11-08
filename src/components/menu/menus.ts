@@ -63,7 +63,7 @@ export const menus = [
 				id: 5,
 				text: 'tab.primefactor',
 				show() {
-					return player.firstResetBit & 0b10 && player.singularity.stage < 7;
+					return player.stat.totalMulpower.gte(1) && player.singularity.stage < 7;
 				},
 			},
 			{
@@ -197,7 +197,7 @@ export const menus = [
 	{
 		title: '非递归',
 		show() {
-			return (player.firstResetBit & 0b10000) == 0b10000;
+			return (player.firstResetBit & 0b10000) == 0b10000 && player.stat.chapter >= 6;
 		},
 		contents: [
 			{ id: 21, text: '非递归里程碑' },
@@ -215,9 +215,7 @@ export const menus = [
 				id: 26,
 				text: 'UNOCF',
 				show() {
-					return (
-						(player.firstResetBit & 0b10000) == 0b10000 && player.milestones.nonrec_19
-					);
+					return player.stat.chapter >= 6 && player.milestones.nonrec_19;
 				},
 			},
 		],

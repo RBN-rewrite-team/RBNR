@@ -19,5 +19,14 @@ BigInt.prototype.toJSON = function () {
 init();
 
 import PowiainaNum from 'powiaina_num.js';
+import { achievements } from './core/achievements.ts';
 
 console.log('我错了', new PowiainaNum(3));
+// const res = {};
+// for (let i = 0; i < achievements.length; i++) {
+// 	for (let j = 0; j < achievements[i].length; j++) {
+// 		res[`ach.${i}.${j}`] = achievements[i][j].title;
+// 		res[`ach.${i}.${j}.desc`] = achievements[i][j].desc;
+// 	}
+// }
+// console.log(JSON.stringify(res));

@@ -11,6 +11,10 @@ export const i18n = createI18n({
 	locale: 'en-US',
 	fallbackLocale: 'zh-CN',
 	messages,
+	warnHtmlMessage: false,
+
+	fallbackWarn: false,
+	missingWarn: false,
 } as const);
 export const messagesLength = (function () {
 	const a = {
