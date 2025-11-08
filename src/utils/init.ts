@@ -22,6 +22,7 @@ import { initPTMilestones } from '@/core/pt/milestones.ts';
 import App from '@/App.tsx';
 import { i18n } from './i18n.ts';
 import { temp } from '@/core/temp-data.ts';
+import { upgrades } from '@/core/mechanic.ts';
 export function init() {
 	try {
 		timeCheck();
@@ -83,7 +84,7 @@ export function init() {
 		hotkeys('ArrowRight', keyboardEventListener);
 		//hardResetMiniGame();
 		player.minigame.interact = 0;
-		window.temp = temp;
+		// window.temp = temp;
 		setTimeout(function () {
 			const app = createApp(App);
 
@@ -100,6 +101,8 @@ export function init() {
 				import.meta.env.DEV ? 0 : 2000,
 			);
 		});
+
+		// console.log(JSON.stringify(localization));
 	} catch (e) {
 		stopGameLoop();
 		stopSaveLoop();

@@ -86,12 +86,12 @@ export const menus = [
 		},
 	},
 	{
-		title: '指数',
+		title: 'tab.exponentation',
 		show() {
-			return player.firstResetBit & 0b100 && player.singularity.stage < 9;
+			return player.stat.highestExppower.gte(1) && player.singularity.stage < 9;
 		},
 		contents: [
-			{ id: 9, text: '指数升级' },
+			{ id: 9, text: 'tab.expupg' },
 			{
 				id: 10,
 				text: '棋盘',

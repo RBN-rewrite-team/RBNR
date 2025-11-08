@@ -118,6 +118,8 @@ export default {
 	'currency.number': 'Number',
 	'currency.addition': 'Addition power',
 	'currency.multipl': 'Mult. power',
+	'currency.exponent': 'Exponentation Power',
+	'currency.qol': 'QoL Points',
 	'upgs.11': dilated('Unlock B0-1', 'Change the limit of buy counts of B0-1 to 1000', '11'),
 	'upgs.12': dilated(
 		'The successor button will +1 when a U0 upgrade is bought',
@@ -536,4 +538,7 @@ export default {
 			'Colossus\t等待你的将是新的时代。',
 		],
 	],
+
+	'tab.exponentation': 'Exponentation',
+	'tab.expupg': 'Exp. Upgrades',
 };
