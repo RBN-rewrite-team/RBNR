@@ -375,7 +375,7 @@ export default {
 			'???\tHydra\t……',
 			'Numerorum\tWhat?',
 			'A mysterious voice flickers by.',
-			"Numerorum\tC'est not good. I think I've been spotted.",
+			"Numerorum\tThis is not good. I think I've been spotted.",
 		],
 		[
 			'Numerorum来到了天文学家的店铺，它坐落在高塔旁的悬崖边。',
