@@ -5,20 +5,25 @@ import TDUpgrade from '../../group-2/TDUpgrade.vue';
 import TDBuyable from '../../group-2/TDBuyable.vue';
 import { format, formatWhole } from '@/utils/format.ts';
 import Decimal from 'break_eternity.js';
+import { useI18n } from 'vue-i18n';
+
+const $t = useI18n().t;
+function effect() {
+	return `${$t('exp.effect.0', {
+		effect: `<span style="color: rgb(127, 127, 255)"
+				>^${format(feature.EXPONENTION.powerEff())}</span
+			>`,
+	})}<br />${$t('exp.effect.1', {
+		effect: `<span style="color: rgb(127, 127, 255)"
+				>^${format(new Decimal(1.03))}</span
+			>`,
+	})}`;
+}
 </script>
 
 <template>
 	<div class="main">
-		<span v-if="player.firstResetBit & 0b100">
-			累计指数能量提供了<span style="color: rgb(127, 127, 255)"
-				>^{{ format(feature.EXPONENTION.powerEff()) }}</span
-			>
-			数值增益<br />
-			战利品提供了<span style="color: rgb(127, 127, 255)"
-				>^{{ format(new Decimal(1.03)) }}</span
-			>
-			数值增益
-		</span>
+		<span v-if="player.firstResetBit & 0b100" v-html="effect()"> </span>
 		<br />
 		<br />
 		<h2 style="color: rgb(127, 127, 255)">普通升级</h2>

@@ -541,4 +541,7 @@ export default {
 
 	'tab.exponentation': 'Exponentation',
 	'tab.expupg': 'Exp. Upgrades',
+
+	'exp.effect.0': 'Cumulative Exponentation power provide {effect} Number gain.',
+	'exp.effect.1': 'Loots provides {effect} Number gain.',
 };
