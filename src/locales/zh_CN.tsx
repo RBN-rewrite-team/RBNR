@@ -952,4 +952,6 @@ export default {
 
 	'nt.growhier.title': '增长层级',
 	'nt.growhier.desc': 'τ<sub>3</sub>倍增序数获取速度',
+
+	'res.exppower': '指数能量',
 };

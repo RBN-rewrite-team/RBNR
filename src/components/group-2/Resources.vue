@@ -257,7 +257,7 @@ import { Garden } from '@/core/pt/index.ts';
 							"
 						>
 							<div style="font-weight: bold; color: rgb(127, 127, 255)">
-								指数能量&nbsp;
+								{{ $t('res.exppower') }}&nbsp;
 								<div
 									style="
 										display: inline;

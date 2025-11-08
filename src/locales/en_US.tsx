@@ -131,7 +131,7 @@ export default {
 	'stat.moon':
 		'(Northern Hemisphere) Moon phase: {phase}, <br>Age percentage: {age}%, <br>Earth-Moon distance: {distance} meters',
 
-	'succ.successor': 'Do successor',
+	'succ.successor': 'Do a successor operation',
 	'succ.addition': 'Add. ',
 	'succ.automation': '(Auto: +{speed}/s)',
 	'upg.locked': 'Locked',
@@ -139,9 +139,9 @@ export default {
 	'upg.effect.byl': 'Currently: {effect}; Next: {next}',
 	'upg.effectdbl.byl': 'Currently: {effect},{effect2}; Next: {next},{next2}',
 	'upg.keep': 'Keep ',
-	'upg.automatoruseid': 'id for automator usage: {id}',
-	'req.res': 'Require {cost} {currency}',
-	'req.upg': 'Require {upg}',
+	'upg.automatoruseid': 'ID for automator usage: {id}',
+	'req.res': 'Requires {cost} {currency}',
+	'req.upg': 'Requires {upg}',
 	'upg.cost': 'Cost: {cost} {currency}',
 	'res.softcapped': '({amount} softcaps)',
 	'currency.number': 'Number',
@@ -161,7 +161,7 @@ export default {
 		'12',
 	),
 	'upgs.13': dilated('Unlock Addition Layer', "Additon power's gain exponent +0.1", '13'),
-	'upgs.byl.11': 'Do succession every second.',
+	'upgs.byl.11': 'Do a successor operation per second.',
 	'upgs.21': dilated(
 		'U1 upgrades apply to the effect of U0-2',
 		'U0-2 effect is raised by 1.5',
@@ -195,15 +195,15 @@ export default {
 				' U1 upgrades, make ' +
 				pronoun +
 				' cost decrease to 1. Do multiplication reset when selections are changed.',
-			'Successor 后继运算指数+3',
+			"Successor's effect exponent +3",
 			'31',
 		)();
 		return text;
 	},
-	'upgs.32': 'Keep all successor upgrades ',
-	'upgs.33': 'U1 upgrades count^2 apply to the effect of U0-2',
+	'upgs.32': 'Keep all  successor upgrades ',
+	'upgs.33': 'U1 purchases^2 apply to the effect of U0-2',
 	'upgs.34': 'Keep B1-1 after multiplication reset',
-	'upgs.35': dilated('Unlock Number Theories', 'τ<sub>1</sub> reduces dilate strength', '35'),
+	'upgs.35': dilated('Unlock Number Theories', 'τ<sub>1</sub> Reduce dilate strength', '35'),
 	'upgs.36': dilated(
 		'Get a free p<sub>n-1</sub> per 2 Prime Factor p<sub>n</sub>boughts',
 		'Get a free p<sub>n+1</sub> per 4 Prime Factor p<sub>n</sub>boughts',
@@ -215,19 +215,19 @@ export default {
 		'37',
 	),
 	'upgs.38': dilated(
-		'Get 1% of addition power in reset passively.',
-		'Get 1% of EP in reset passively.',
+		'Get 1% of pending addition power/s passively.',
+		'Get 1% of pending exponentiation power/s passively.',
 		'38',
 	),
 	'upgs.39': dilated(
-		'Unlock Multiplication Challenge, Buy max successor and automate addition buyables, You can buy max multiplication buyables.',
-		'The effect of the highest number in dilate has improved.',
+		'Unlock Multiplication Challenges, Buy max successor and automate addition buyables, You can buy max multiplication buyables.',
+		'The effect of the highest number reached in dilation has improved.',
 		'39',
 	),
-	'upgs.310': 'Multiplication power gain ^1.1',
+	'upgs.310': 'Multiplication powers gain ^1.1',
 	'upgs.byl.31': 'Increase addition power gain',
-	'upgs.byl.32': 'Mulplication power gain *2 per buy',
-	'upgs.byl.33': 'Prime Factor effect will grow faster',
+	'upgs.byl.32': 'Mulplication power gain *2 per purchase',
+	'upgs.byl.33': "Prime Factor's effect will grow faster",
 	'mul.effect': 'Total multiplication power gives {effect} to Number gain.',
 	'mul.buypf': 'Need Prime Factor {pf}',
 	'mul.byl33req': 'Need 10000 Factor power',
@@ -240,11 +240,11 @@ export default {
 			counts +
 			' in U1-2, U1-3, U1-4, U1-5, make ' +
 			pronoun +
-			' cost decrease to 1. Do multiplication reset when selections are changed.'
+			' cost decrease to 1. Will do a multiplication reset when any options are changed.'
 		);
 	},
 	'mul.fpeffect':
-		'Based on the duration of this multiplication reset, provide {effect} number and addition power gain.',
+		'Based on time passed inside this multiplication reset, {effect} number and addition power gain.',
 	'mul.33': 'Instantly reach the limit',
 	'upgs.byl.pf2': 'Factor power ×2',
 	'upgs.byl.pf3': 'Factor power ×3',
@@ -318,9 +318,9 @@ export default {
 	'chal.0.1.description':
 		'Number values and addition power acquisition undergo division; Factor effects diminish over time.',
 	'chal.0.1.effect':
-		'Based on the highest Number increase value from Addition Power and the challenge: ×{effect}',
+		'Based on Addition Power and the highest Number reached inside this challenge, increase Number gain. Currently: ×{effect}',
 	'chal.0.2': 'Burning',
-	'chal.0.2.description': 'The growth rate of number divided by the existing value',
+	'chal.0.2.description': 'The growth rate of number will be  divided by the existing value',
 	'chal.0.2.effect': 'Number gain×{effect}',
 	'chal.0.3': 'Reversal',
 	'chal.0.3.description':
@@ -588,7 +588,7 @@ export default {
 		],
 	],
 
-	'tab.exponentation': 'exponentiation',
+	'tab.exponentation': 'Exponentiation',
 	'tab.expupg': 'Exp. Upgrades',
 	'tab.cb': 'Chess Board',
 
@@ -896,4 +896,5 @@ export default {
 
 	'nt.growhier.title': 'Growing Hierarchy',
 	'nt.growhier.desc': 'Increases ordinal speed by τ<sub>1</sub>',
+	'res.exppower': 'Exponentiation Power',
 };
