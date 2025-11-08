@@ -108,10 +108,12 @@ function t2() {
 									<span
 										v-if="Date.now() >= player.timeshard.cd[1]"
 										style="color: green; font-weight: bold"
-										>冷却完毕</span
+										>{{ $t('timeshard.gen.avaliable') }}</span
 									>
 									<span v-else style="color: orange; font-weight: bold"
-										>请等待至<br />{{ timeF(player.timeshard.cd[1]) }}</span
+										>{{ $t('timeshard.gen.waituntil') }}<br />{{
+											timeF(player.timeshard.cd[1])
+										}}</span
 									>
 								</button>
 							</div>
@@ -131,10 +133,12 @@ function t2() {
 									<span
 										v-if="Date.now() >= player.timeshard.cd[2]"
 										style="color: green; font-weight: bold"
-										>冷却完毕</span
+										>{{ $t('timeshard.gen.avaliable') }}</span
 									>
 									<span v-else style="color: orange; font-weight: bold"
-										>请等待至<br />{{ timeF(player.timeshard.cd[2]) }}</span
+										>{{ $t('timeshard.gen.waituntil') }}<br />{{
+											timeF(player.timeshard.cd[2])
+										}}</span
 									>
 								</button>
 							</div>
