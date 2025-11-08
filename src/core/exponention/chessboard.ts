@@ -89,7 +89,7 @@ function getMCB6Effect() {
 }
 
 function getMCB18Effect() {
-	return player.exponention.logarithm.calculate_datas.div(1e10).max(1).root(2.5);
+	return player.exponention.logarithm.calculate_datas.div(1e8).max(1).root(2.5);
 }
 
 export function getMCB19Effect() {
@@ -238,7 +238,7 @@ export function initMechanics() {
 		get description2() {
 			return 'Each laws make wheat grain ^1.05';
 		},
-		requirement: new Decimal(1e155),
+		requirement: new Decimal(1e130),
 		get canDone() {
 			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
@@ -254,7 +254,7 @@ export function initMechanics() {
 		get description2() {
 			return 'base WG formulat 3→4';
 		},
-		requirement: new Decimal(1e192),
+		requirement: new Decimal(1e165),
 		get canDone() {
 			return wheatGrain().gte(this.requirement);
 		},
@@ -269,7 +269,7 @@ export function initMechanics() {
 		get description2() {
 			return 'Calculation data reduces cost of B-CB-1(÷x<sup>2</sup>)';
 		},
-		requirement: new Decimal(1.5e224),
+		requirement: new Decimal(1e180),
 		get canDone() {
 			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
@@ -285,7 +285,7 @@ export function initMechanics() {
 		get description2() {
 			return "Calculation speed double, Astronomers' effect base 1.5→2";
 		},
-		requirement: new Decimal('1e353'),
+		requirement: new Decimal('1e290'),
 		get canDone() {
 			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
@@ -301,7 +301,7 @@ export function initMechanics() {
 		get description2() {
 			return 'Number exponent^1.125, reduce fifth softcap of number';
 		},
-		requirement: new Decimal('5e361'),
+		requirement: new Decimal('5e320'),
 		get canDone() {
 			return wheatGrain().gte(this.requirement);
 		},
@@ -316,7 +316,7 @@ export function initMechanics() {
 		get description2() {
 			return 'Calculation speed and astronomers life×10';
 		},
-		requirement: new Decimal('1e366'),
+		requirement: new Decimal('1e335'),
 		get canDone() {
 			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
@@ -332,7 +332,7 @@ export function initMechanics() {
 		get description2() {
 			return 'Remove wheat grain effect softcap';
 		},
-		requirement: new Decimal('3e374'),
+		requirement: new Decimal('3e335'),
 		get canDone() {
 			return wheatGrain().gte(this.requirement);
 		},
@@ -345,9 +345,9 @@ export function initMechanics() {
 			return '天文学家寿命×2，但天文学家时间速度×200';
 		},
 		get description2() {
-			return 'Astronomer life ×2, speed ×200';
+			return 'Astronomer life ×2, but time speed ×200';
 		},
-		requirement: new Decimal('1e387'),
+		requirement: new Decimal('1e353'),
 		get canDone() {
 			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
@@ -363,7 +363,7 @@ export function initMechanics() {
 		get description2() {
 			return 'based on observe data, square base×' + format(getMCB18Effect());
 		},
-		requirement: new Decimal('5e428'),
+		requirement: new Decimal('5e377'),
 		get canDone() {
 			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
@@ -384,7 +384,7 @@ export function initMechanics() {
 				format(getMCB19Effect())
 			);
 		},
-		requirement: new Decimal('5.5555e555'),
+		requirement: new Decimal('4.76e476'),
 		get canDone() {
 			return wheatGrain().gte(this.requirement);
 		},

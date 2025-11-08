@@ -175,7 +175,7 @@ export const Logarithm = {
 			displayName: 'M-Dil-4',
 			description: '每秒额外获取1000%重置时将获得的指数能量',
 			description2: 'Get 1000% of EP in reset passively.',
-			requirement: new Decimal(5e21),
+			requirement: new Decimal(1e11),
 			get canDone() {
 				return player.exponention.logarithm.highest_dilate.gte(this.requirement);
 			},
@@ -198,7 +198,7 @@ export const Logarithm = {
 					'/s'
 				);
 			},
-			requirement: new Decimal(1e26),
+			requirement: new Decimal(1e11),
 			get canDone() {
 				return player.exponention.logarithm.highest_dilate.gte(this.requirement);
 			},
@@ -219,7 +219,7 @@ export const Logarithm = {
 					format(wheatGrain().log10().add(1).log10().add(1).pow(0.15))
 				);
 			},
-			requirement: new Decimal(1e26),
+			requirement: new Decimal(1e11),
 			get canDone() {
 				return player.exponention.logarithm.highest_dilate.gte(this.requirement);
 			},
