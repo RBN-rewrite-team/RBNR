@@ -142,7 +142,7 @@ function m2GainLatex() {
 				</table>
 			</div>
 			<div v-if="player.upgrades[45] && player.numbertheory.visiting == 2" align="center">
-				<h2>有理逼近</h2>
+				<h2>{{ $t('nt.rationalapprox') }}</h2>
 				<vue-latex expression="a_1 = 1, a_n = \frac{a_{n-1}+2}{a_{n-1}+1}" display-mode />
 				<vue-latex
 					expression="F_0 = 0, F_1 = 1, F_n = F_{n-1}+F_{n-2}"
@@ -191,8 +191,9 @@ function m2GainLatex() {
 				<vue-latex :expression="y2GainLatex()" display-mode />
 				<p style="font-size: 120%">
 					<b
-						>研究2加成：质因数效果^<vue-latex
-							expression="\tau_2" />，质因数速度×<vue-latex expression="\tau_2^4"
+						>{{ $t('nt.ration.effect.1') }}<vue-latex expression="\tau_2" />{{
+							$t('nt.ration.effect.2')
+						}}<<vue-latex expression="\tau_2^4"
 					/></b>
 				</p>
 				<br />
@@ -203,7 +204,7 @@ function m2GainLatex() {
 					"
 					style="display: inline-block; margin: 5px"
 				>
-					增加n的数值
+					{{ $t('nt.ration.n') }}
 				</PrimaryButton>
 				<PrimaryButton
 					@click="

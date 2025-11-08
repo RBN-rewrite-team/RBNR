@@ -34,3 +34,9 @@ export const messagesLength = (function () {
 export function setI18NLocal(loc: keyof typeof messages) {
 	i18n.global.locale.value = loc;
 }
+
+type M = typeof messages;
+type N = M[keyof M];
+export function getMessage<T extends keyof N>(inner: T extends keyof N ? T : never) {
+	return messages[i18n.global.locale.value][inner];
+}

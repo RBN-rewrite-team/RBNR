@@ -25,6 +25,10 @@ export default {
 	'res.mulpower': '乘法能量',
 	'res.number.required': '(需要通过后继获得)',
 	'res.softcapped': '(受{amount}个软上限限制)',
+
+	'res.ooms': '数量级',
+	'res.oomsp': '数量级^{level}',
+	'res.oomspooms': '数量级<sup>数量级</sup>',
 	'about.themasterofthedevelopgroup': '开发群群主',
 	'about.originalauthor': '原作者',
 	'about.coderepositorymanager': '代码仓库管理员',
@@ -525,6 +529,7 @@ export default {
 
 	'tab.exponentation': '指数',
 	'tab.expupg': '指数升级',
+	'tab.cb': '棋盘',
 
 	'upgs.41': '加法能量乘法能量获取速度*10',
 	'upgs.42': '后继/加法运算指数+0.1',
@@ -551,10 +556,6 @@ export default {
 	'upgs.byl.43': '加法能量获取^1.03',
 	'upgs.byl.44': '乘法能量获取^1.01',
 
-	'upgs.41R': '将y加入m的增长率公式中，但指数降低到1/2',
-	'upgs.42R': '将y在m增长率公式中的指数增加到3/4',
-	'upgs.43R': 'm增加麦粒底数',
-	'upgs.44R': 'm降低膨胀层数',
 	'upgs.400q': 'U2-1的效果*2，解锁一个新的数论研究1升级',
 	'upgs.411q': '保持后继升级和U2-2。',
 	'upgs.412q': 'B0-1的数量不会少于1个。',
@@ -821,4 +822,27 @@ export default {
 	'ach.7.1.desc': '在首次乘法重置前拥有1e6加法能量',
 	'ach.7.2': '限定成就3',
 	'ach.7.2.desc': '进入困难模式',
+
+	'upgs.byl.41R': 'x<sub>2,1</sub> += 等级',
+	'upgs.byl.42R': 'x<sub>2,2</sub>→x<sub>2,2</sub>+0.2',
+	'upgs.byl.43R': 'y<sub>2,1</sub> += 等级',
+	'upgs.byl.44R': 'y<sub>2,2</sub>→y<sub>2,2</sub>+0.2',
+
+	'upgs.41R': '将y加入m的增长率公式中，但指数降低到1/2',
+	'upgs.42R': '将y在m增长率公式中的指数增加到3/4',
+	'upgs.43R': 'm增加麦粒底数',
+	'upgs.44R': 'm降低膨胀层数',
+
+	'nt.rationalapprox': '有理逼近',
+	'nt.ration.effect.1': '研究2加成：质因数效果^',
+	'nt.ration.effect.2': '，质因数速度×',
+	'nt.ration.n': '增加n的数值',
+
+	'exp.cb.eff':
+		'你有{a}麦粒， 使数值^{b}, 加法能量×{c}, ^{d}, 乘法能量^{e}，乘法能量溢出的效果×{f}',
+	'exp.cb.base': '当前格子底数: {base}',
+
+	'currency.wheatgrain': '麦粒',
+	'upgs.byl.cb1': '增加一个棋盘格',
+	'exp.cb.pre': ' 古时候，有一位国王想要犒赏一位聪明的大臣，奖赏他发明了国际象棋…… ',
 };

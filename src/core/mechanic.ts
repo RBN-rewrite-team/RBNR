@@ -408,6 +408,7 @@ type IMilestone = {
 	displayName: string;
 	show: boolean;
 	description: string;
+	description2?: string;
 	canDone: boolean;
 	req?: boolean;
 	reqDescription?: string;

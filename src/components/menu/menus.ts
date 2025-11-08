@@ -94,7 +94,7 @@ export const menus = [
 			{ id: 9, text: 'tab.expupg' },
 			{
 				id: 10,
-				text: '棋盘',
+				text: 'tab.cb',
 				show() {
 					return player.upgrades[47];
 				},

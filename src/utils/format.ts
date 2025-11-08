@@ -3,6 +3,7 @@ import Decimal from 'break_eternity.js';
 import type { DecimalSource } from 'break_eternity.js';
 import { diff } from '@/core/game-loop';
 import { player } from '@/core/global';
+import { getMessage } from './i18n';
 
 export enum notations {
 	SCIENTIFIC,
@@ -213,7 +214,7 @@ export function formatGain(a: DecimalSource, e: DecimalSource, resourceName: str
 	if (g.neq(a)) {
 		if (a.gte(Decimal.tetrate(10, 6))) {
 			var oom = new Decimal(g).slog(10).sub(new Decimal(a).slog(10)).mul(FPS);
-			if (oom.gte(1e-3)) return '(+' + format(oom) + '数量级<sup>数量级</sup>' + '/s)';
+			if (oom.gte(1e-3)) return '(+' + format(oom) + getMessage('res.oomspooms') + '/s)';
 		}
 
 		if (a.gte('ee10')) {
@@ -235,12 +236,18 @@ export function formatGain(a: DecimalSource, e: DecimalSource, resourceName: str
 				if (oom.gte(1)) rated = true;
 			}
 
-			if (rated) return '(+' + format(oom) + '数量级<sup>' + tower + '</sup>' + '/s)';
+			if (rated)
+				return (
+					'(+' +
+					format(oom) +
+					getMessage('res.oomsp').replace('{level}', tower.toString()) +
+					'/s)'
+				);
 		}
 
 		if (a.gte(1e10)) {
 			const oom = g.div(a).log10().mul(FPS);
-			if (oom.gte(1)) return '(+' + format(oom) + '数量级' + '/s)';
+			if (oom.gte(1)) return '(+' + format(oom) + getMessage('res.ooms') + '/s)';
 		}
 	}
 
