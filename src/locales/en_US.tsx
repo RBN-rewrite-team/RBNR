@@ -321,8 +321,8 @@ export default {
 	'modal.testcode': 'Enter test code',
 	'modal.psdcode': 'test code',
 	'modal.changesave1': 'Change save',
-	'modal.changesave2': 'Slot',
-	'modal.yourcurrentslotis': 'Your current slot is ',
+	'modal.changesave2': 'Slot #',
+	'modal.yourcurrentslotis': 'Your current slot number is ',
 	'detailstoHTML.version': 'Version:',
 	'detailstoHTML.chapter': 'Chap. ',
 	'detailstoHTML.res': 'Res:',
@@ -358,7 +358,7 @@ export default {
 	'plot.couldntfound': "Couldn't find options",
 	plotcontent: [
 		[
-			'Big cardinals floats in Ordinal Tower that supports Set theory Universe.',
+			'Big cardinals float in Ordinal Tower that supports Set theory Universe.',
 			'And then, Numerorum woke up in the edge of "Big Number World".',
 			'Numerorum\t...',
 			'Numerorum\tFinally...I wake up.',
