@@ -133,7 +133,7 @@ export default {
 	'upg.effect': 'Currently: {effect}',
 	'upg.effect.byl': 'Currently: {effect}; Next: {next}',
 	'upg.effectdbl.byl': 'Currently: {effect},{effect2}; Next: {next},{next2}',
-	'upg.keep': 'Hold',
+	'upg.keep': 'Keep bought',
 	'upg.automatoruseid': 'Automator using id: {id}',
 	'req.res': 'Need {cost} {currency}',
 	'req.upg': 'Need {upg}',
@@ -187,7 +187,7 @@ export default {
 		)();
 		return text;
 	},
-	'upgs.32': 'Hold successor upgrades',
+	'upgs.32': 'Keep successor upgrades bought',
 	'upgs.33': 'U1 upgrades count^2 apply to the effect of U0-2',
 	'upgs.34': 'Keep B1-1 after multiplication reset',
 	'upgs.35': dilated('Unlock Number Theory', 'τ<sub>1</sub> reduces dilate strength', '35'),
@@ -198,7 +198,7 @@ export default {
 	),
 	'upgs.37': dilated(
 		'Keep addition upgrades in multiplication reset',
-		'Hold B0-1 in dilate',
+		'Keep B0-1 bought in dilate',
 		'37',
 	),
 	'upgs.38': dilated(
@@ -208,7 +208,7 @@ export default {
 	),
 	'upgs.39': dilated(
 		'Unlock Multiplication Challenge, Buy max successor and automate addition buyables, You can buy max multiplication buyables.',
-		'Effect of the highest number in dilate will be better',
+		'The effect of the highest number in dilate has improved.',
 		'39',
 	),
 	'upgs.310': 'Multiplication power gain ^1.1',
@@ -231,7 +231,7 @@ export default {
 		);
 	},
 	'mul.fpeffect':
-		'Based on the duration of this multiplication, it provides {effect} Number and Addition power gains.',
+		'Based on the duration of this multiplication reset, provide {effect} number and addition power gain.',
 	'mul.33': 'Reach cap right now',
 	'upgs.byl.pf2': 'Factor power ×2',
 	'upgs.byl.pf3': 'Factor power ×3',
@@ -251,15 +251,15 @@ export default {
 	'upgs.byl.pf19.name': 'Prime Factor 19',
 
 	'upgs.byl.35R': 's<sub>1</sub>→s<sub>1</sub>+1',
-	'upgs.byl.36R': 'x<sub>1</sub> Exponent+0.085',
-	'upgs.byl.37R': 'y<sub>1</sub> Exponent+0.085',
+	'upgs.byl.36R': 'x<sub>1</sub> exponent+0.085',
+	'upgs.byl.37R': 'y<sub>1</sub> exponent+0.085',
 	'upgs.byl.38R': 'B2-R1-1~4 Effect+2.5%(stack multiplication)',
 	'upgs.byl.31R': 'x<sub>1</sub>→x<sub>1</sub>+1',
 	'upgs.byl.32R': 'x<sub>2</sub>→x<sub>2</sub>+1',
 	'upgs.byl.33R': 'y<sub>1</sub>→y<sub>1</sub>+1',
 	'upgs.byl.34R': 'z<sub>1</sub>→z<sub>1</sub>+1',
 
-	'upgs.31R': 'Join u<sub>1</sub> to x gain formula',
+	'upgs.31R': 'Add u<sub>1</sub> to x to obtain the velocity formula.',
 	'upgs.32R': 'x<sub>1</sub> Exponent +0.3',
 	'upgs.33R': 'y<sub>1</sub> Exponent +0.3',
 	'upgs.34R': 'z<sub>1</sub> Exponent +0.3',
@@ -296,14 +296,14 @@ export default {
 
 	'nt.order': 'Number theory #{i}',
 	'nt.euler': "Euler's totient function",
-	'nt.euler.effect': '#1 Effect:Addition effect×',
+	'nt.euler.effect': 'Effect: Addition effect×',
 
 	'chal.0.0': 'Challenge',
 	'chal.0.0.description': 'No effect',
 	'chal.0.0.effect': 'Addition operation exponent +{effect}',
 	'chal.0.1': 'Division',
 	'chal.0.1.description':
-		'Number values and addition power acquisition undergo division; Factor  effects diminish over time.',
+		'Number values and addition power acquisition undergo division; Factor effects diminish over time.',
 	'chal.0.1.effect':
 		'Based on the highest Number increase value from Addition Power and the challenge: ×{effect}',
 	'chal.0.2': 'Burning',
@@ -606,12 +606,12 @@ export default {
 	'upgs.byl.44': 'Mult. power^1.01',
 
 	'upgs.400q': 'the effect of U2-1 *2, unlock a new upgrade in Number theory #1',
-	'upgs.411q': 'Hold successor upgrades and U2-2.',
+	'upgs.411q': 'Keep successor upgrades and U2-2 bought.',
 	'upgs.412q': 'The number of B0-1 will always >1',
 	'upgs.413q': "Exp. Reset doesn't reset the reward of Challenge 1",
 	'upgs.414q': "Exp. Reset doesn't reset U2-R1-1.",
 	'upgs.415q': 'Automate prime factor 2, 3, 5 and 7.',
-	'upgs.421q': 'Hold addition upgrades',
+	'upgs.421q': 'Keep addition upgrades  bought',
 	'upgs.422q': 'The number of B0-1 will always >10',
 	'upgs.423q': "Exp. Reset doesn't reset the reward of Challenge 2",
 	'upgs.424q': "Exp. Reset doesn't reset B2-R1-1.",
@@ -626,7 +626,7 @@ export default {
 	'upgs.443q': 'Challenge 4 amount will not less than total MP^0.001。',
 	'upgs.444q': 'Automate Buyables of Number theory #1',
 	'upgs.445q': "Exp. Reset doesn't reset Prime Factor Time",
-	'upgs.451q': 'Hold Mult. upgrades',
+	'upgs.451q': 'Keep Mult. upgrades bought',
 	'upgs.452q': 'Automate B2-1 and B2-2.',
 	'upgs.453q': 'C1, C2, C3 amount hold to the biggest number in this Expo. Reset.',
 	'upgs.454q': 'Keep NT1 upgrades.',
@@ -634,7 +634,7 @@ export default {
 
 	'ach.0.0': 'Dao↓Li↑Sheng Yi',
 	'ach.0.0.desc': 'Number reach 1',
-	'ach.0.1': 'Now it just take NaN seconds to complete this game',
+	'ach.0.1': 'It takes NaN seconds to complete this game',
 	'ach.0.1.desc': 'Started get numbers passively',
 	'ach.0.2': 'SuccSuccSucc... = Addition',
 	'ach.0.2.desc': 'Do an addition reset',
@@ -644,7 +644,7 @@ export default {
 	'ach.0.4.desc': 'Buy U1-5',
 	'ach.0.5': 'AddAddAdd... = Multiplication',
 	'ach.0.5.desc': 'Do a multiplication reset',
-	'ach.0.6': "It's free and payment needed.",
+	'ach.0.6': "It's free and not free.",
 	'ach.0.6.desc': 'Buy U2-1',
 	'ach.0.7': 'half',
 	'ach.0.7.desc': 'Buy 50 U1-1',
