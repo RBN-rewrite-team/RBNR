@@ -23,7 +23,7 @@ function canExitView(): boolean {
 }
 onMounted(() => {
 	if (plotview.value) {
-		plotview.value.style.opacity = '0';
+		// plotview.value.style.opacity = '0';
 	}
 });
 /*function stepNext() {

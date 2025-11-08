@@ -2,6 +2,7 @@
 import { createApp, h, ref, type Component, type App, type VNode } from 'vue';
 import Modal from '../components/group-2/Modal.vue';
 import { i18n } from './i18n';
+import type { $t } from './types';
 
 export interface FieldConfig {
 	type?: string;
@@ -63,10 +64,22 @@ export interface ProgressController {
 }
 
 const ModalService = {
-	show(options: ModalOptions): { controller: ProgressController } {
+	show(
+		options2: ModalOptions | (($t: $t) => ModalOptions),
+		$t?: $t,
+	): { controller: ProgressController } {
 		const container = document.createElement('div');
 		document.body.appendChild(container);
 
+		const options =
+			typeof options2 === 'function'
+				? (function () {
+						if (!$t) {
+							throw new Error('The configuration needs $t method!!!');
+						}
+						return options2($t);
+					})()
+				: options2;
 		const visible = ref(true);
 		const progress = ref(options.progress || 0);
 		const customButtons = ref(options.buttons || []);

@@ -10,13 +10,17 @@ import fontUI from '@/core/save/fontUI';
 import { setMusic as incMusic, MUSIC_TEXT, setMusicUrlAndPlay } from '@/core/music';
 import CenterLine from '@/components/ui/CenterLine.vue';
 import { openSetLangModel } from '@/components/i18nUI';
+import { useI18n } from 'vue-i18n';
+import type { $t } from '@/utils/types';
 
+const $t = useI18n().t;
 const validNotations = computed(() =>
 	Object.values(notations).filter((v) => typeof v === 'number'),
 );
 
 const validThemes = computed(() => Object.values(themes).filter((v) => typeof v == 'number'));
-const setFontUI = () => ModalService.show({ title: '设置字体', component: fontUI });
+const setFontUI = () =>
+	ModalService.show(($t: $t) => ({ title: $t('modal.font2'), component: fontUI }), $t);
 </script>
 
 <template>
@@ -29,8 +33,10 @@ const setFontUI = () => ModalService.show({ title: '设置字体', component: fo
 			<div class="hard_reset" @click="() => UIHardReset()">{{ $t('set.hardreset') }}</div>
 		</div>
 		<div>
-			<div class="setting_button" @click="UIChangeSave">{{ $t('set.saveslot') }}</div>
-			<div class="setting_button" @click="UIEnterTesting">{{ $t('set.beta') }}</div>
+			<div class="setting_button" @click="() => UIChangeSave($t)">
+				{{ $t('set.saveslot') }}
+			</div>
+			<div class="setting_button" @click="() => UIEnterTesting($t)">{{ $t('set.beta') }}</div>
 			<div class="setting_button" @click="player.options.gammaTest = true">
 				{{ $t('set.gamma') }}
 			</div>

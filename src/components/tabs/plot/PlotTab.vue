@@ -3,6 +3,13 @@ import { temp } from '@/core/temp-data';
 import { plotTitles, unlockedPlots } from '@/core/plot';
 import { computed, onMounted, ref } from 'vue';
 import { component as convertTextToComponent } from '../help/text-to-component-convert';
+import { zeroToHundred } from '@/utils/zeroToHundred';
+
+import type { $t } from '@/utils/types';
+import { useI18n } from 'vue-i18n';
+
+const $t = useI18n().t;
+
 function enterPlot(i: number) {
 	console.log(i);
 	if (unlockedPlots() >= i) {
@@ -11,13 +18,13 @@ function enterPlot(i: number) {
 }
 
 // 数据源 - 字符串列表
-const options = computed(function (): string[] {
-	return plotTitles.slice(0, unlockedPlots()) as unknown as string[];
+const options = computed(function (): number[] {
+	return zeroToHundred.slice(0, unlockedPlots()) as unknown as number[];
 });
 
 let actualIndex = 0;
 // 选择的结果
-const selectedValue = ref('');
+const selectedValue = ref(-1);
 
 // 下拉框状态
 const isOpen = ref(false);
@@ -30,8 +37,8 @@ const filteredOptions = computed(() => {
 	if (!searchQuery.value) {
 		return options.value;
 	}
-	return options.value.filter((option: any) =>
-		option.toLowerCase().includes(searchQuery.value.toLowerCase()),
+	return options.value.filter((option: number) =>
+		$t(`plot.${option}`).toLowerCase().includes(searchQuery.value.toLowerCase()),
 	);
 });
 
@@ -44,11 +51,11 @@ const toggleDropdown = () => {
 };
 
 // 选择选项
-const selectOption = (option: string) => {
+const selectOption = (option: number) => {
 	selectedValue.value = option;
 	isOpen.value = false;
 	searchQuery.value = '';
-	actualIndex = (plotTitles as unknown as string[]).indexOf(option);
+	actualIndex = option;
 };
 
 // 确认选择
@@ -60,7 +67,7 @@ const confirmSelection = () => {
 
 // 清除选择
 const clearSelection = () => {
-	selectedValue.value = '';
+	selectedValue.value = -1;
 };
 
 // 点击外部关闭下拉框
@@ -82,9 +89,9 @@ onMounted(() => {
 		<div>
 			<div class="select-container">
 				<div class="select-header" :class="{ open: isOpen }" @click="toggleDropdown">
-					<span v-if="!selectedValue" class="placeholder">请选择一个选项</span>
+					<span v-if="selectedValue == -1" class="placeholder">请选择一个选项</span>
 					<span v-else class="selected-value"
-						><convertTextToComponent :text="selectedValue"
+						><convertTextToComponent :text="$t('plot.' + selectedValue)"
 					/></span>
 					<span class="arrow" :class="{ open: isOpen }">▼</span>
 				</div>
@@ -101,10 +108,12 @@ onMounted(() => {
 							v-for="option in filteredOptions"
 							:key="option"
 							class="option"
-							:class="{ selected: option === selectedValue }"
+							:class="{
+								selected: $t('plot.' + option) === $t('plot.' + selectedValue),
+							}"
 							@click="selectOption(option)"
 						>
-							<convertTextToComponent :text="option" />
+							<convertTextToComponent :text="$t('plot.' + option)" />
 						</li>
 						<li v-if="filteredOptions.length === 0" class="no-options">
 							未找到匹配的选项
