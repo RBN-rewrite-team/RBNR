@@ -1,7 +1,8 @@
 import Decimal from 'break_eternity.js';
-import { player } from '@/core/global';
-import { buyables, upgrades, MILESTONES, milestones } from '../mechanic';
+import { feature, player } from '@/core/global';
+import { buyables, BUYABLES, upgrades, UPGRADES, MILESTONES, type singleReq } from '../mechanic';
 import { format, formatWhole } from '@/utils/format';
+import { UpgradeWithEffect } from '../upgrade';
 import { Currencies } from '../currencies';
 import { Buyable } from '../buyable';
 
@@ -26,13 +27,14 @@ function mcb20eff() {
 	let base = player.exponention.exppower.add(10).log10().pow(0.1);
 	if (player.milestones.cb21) base = base.pow(2);
 	if (player.milestones.cb22) base = base.pow(2);
-	if (player.milestones.cb23) base = base.pow(2);
-	if (player.milestones.cb24) base = base.pow(200);
+	if (player.milestones.cb23) base = base.pow(1.1);
+	if (player.milestones.cb24) base = base.pow(3.141592653589793238);
 	return base;
 }
 
 export const cb1 = new (class extends Buyable<Decimal> {
 	name = 'B-CB-1';
+	description: string = '增加一个棋盘格';
 	currency: Currencies = Currencies.EXPONENTION_POWER;
 	effect(x: Decimal) {
 		return x.add(1);
@@ -89,7 +91,7 @@ function getMCB6Effect() {
 }
 
 function getMCB18Effect() {
-	return player.exponention.logarithm.calculate_datas.div(1e8).max(1).root(2.5);
+	return player.exponention.logarithm.calculate_datas.div(1e10).max(1).root(2.5);
 }
 
 export function getMCB19Effect() {
@@ -100,66 +102,61 @@ export function initMechanics() {
 	MILESTONES.create('cb1', {
 		displayName: 'M-CB-1',
 		description: '麦粒底数 2 → 3',
-		description2: 'Squares Base 2 → 3',
 		requirement: new Decimal(125),
 		get canDone() {
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
-		currency: 'wheatgrain',
+		currency: '麦粒',
 	});
 	MILESTONES.create('cb2', {
 		displayName: 'M-CB-2',
 		get description() {
 			return '更好的棋盘格价格公式';
 		},
-		description2: 'Better Chessboard Square cost formula',
 		requirement: new Decimal(3000),
 		get canDone() {
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
-		currency: 'wheatgrain',
+		currency: '麦粒',
 	});
 	MILESTONES.create('cb3', {
 		displayName: 'M-CB-3',
 		get description() {
 			return '基于格子数加成麦粒数量底数';
 		},
-		description2: 'Improve Squares base based on squares',
 		requirement: new Decimal(4e5),
 		get canDone() {
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
-		currency: 'wheatgrain',
+		currency: '麦粒',
 	});
 	MILESTONES.create('cb4', {
 		displayName: 'M-CB-4',
 		get description() {
 			return '倍增指数能量x10';
 		},
-		description2: 'EP×10',
 		requirement: new Decimal(8e8),
 		get canDone() {
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
-		currency: 'wheatgrain',
+		currency: '麦粒',
 	});
 	MILESTONES.create('cb5', {
 		displayName: 'M-CB-5',
 		get description() {
 			return '解锁对数运算';
 		},
-		description2: 'Unlock logarithm calculation',
 		requirement: new Decimal(1e10),
 		get canDone() {
 			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
-		currency: 'wheatgrain',
+		currency: '麦粒',
 	});
 	MILESTONES.create('cb6', {
 		displayName: 'M-CB-6',
@@ -170,57 +167,41 @@ export function initMechanics() {
 				'，并使数值和加法能量溢出效果减半'
 			);
 		},
-		get description2() {
-			return (
-				'Based on EP, Squares base×' +
-				format(getMCB6Effect()) +
-				', half overflow effect of Number and AP '
-			);
-		},
 		requirement: new Decimal(1e18),
 		get canDone() {
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
-		currency: 'wheatgrain',
+		currency: '麦粒',
 	});
 	MILESTONES.create('cb7', {
 		displayName: 'M-CB-7',
 		get description() {
 			return '里程碑6的效果加倍(×2)';
 		},
-		get description2() {
-			return 'double M-CB-6 effect';
-		},
 		requirement: new Decimal(1e25),
 		get canDone() {
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
-		currency: 'wheatgrain',
+		currency: '麦粒',
 	});
 	MILESTONES.create('cb8', {
 		displayName: 'M-CB-8',
 		get description() {
 			return '解锁τ<sub>2B</sub>';
 		},
-		get description2() {
-			return 'Unlock τ<sub>2B</sub>';
-		},
 		requirement: new Decimal(1e40),
 		get canDone() {
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
-		currency: 'wheatgrain',
+		currency: '麦粒',
 	});
 	MILESTONES.create('cb9', {
 		displayName: 'M-CB-9',
 		get description() {
-			return '棋盘每个格子提升observe data基础获取量×+0.01，同时削弱麦粒三个指数效果的软上限';
-		},
-		get description2() {
-			return 'Each square improve observe data base gain×+0.01, Reduce What grain (3 exponent effect) softcap';
+			return '棋盘每个格子提升观测数据基础获取量×+0.01，同时削弱麦粒三个指数效果的软上限';
 		},
 		requirement: new Decimal(1e50),
 		get canDone() {
@@ -228,124 +209,50 @@ export function initMechanics() {
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
-		currency: 'wheatgrain',
+		currency: '麦粒',
 	});
 	MILESTONES.create('cb10', {
 		displayName: 'M-CB-10',
 		get description() {
 			return '每个行星运动定律使麦粒^1.05';
 		},
-		get description2() {
-			return 'Each laws make wheat grain ^1.05';
-		},
-		requirement: new Decimal(1e130),
+		requirement: new Decimal(1e155),
 		get canDone() {
 			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
-		currency: 'wheatgrain',
+		currency: '麦粒',
 	});
 	MILESTONES.create('cb11', {
 		displayName: 'M-CB-11',
 		get description() {
 			return '基础麦粒公式中的3改为4';
 		},
-		get description2() {
-			return 'base WG formulat 3→4';
-		},
-		requirement: new Decimal(1e165),
+		requirement: new Decimal(1e192),
 		get canDone() {
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
-		currency: 'wheatgrain',
+		currency: '麦粒',
 	});
 	MILESTONES.create('cb12', {
 		displayName: 'M-CB-12',
 		get description() {
 			return '计算数据以÷x<sup>2</sup>降低棋盘格子购买项的价格';
 		},
-		get description2() {
-			return 'Calculation data reduces cost of B-CB-1(÷x<sup>2</sup>)';
-		},
-		requirement: new Decimal(1e180),
+		requirement: new Decimal(1.5e224),
 		get canDone() {
 			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
-		currency: 'wheatgrain',
+		currency: '麦粒',
 	});
 	MILESTONES.create('cb13', {
 		displayName: 'M-CB-13',
 		get description() {
 			return '计算速度翻倍，天文学家的效果底数从1.5提升到2';
-		},
-		get description2() {
-			return "Calculation speed double, Astronomers' effect base 1.5→2";
-		},
-		requirement: new Decimal('1e290'),
-		get canDone() {
-			if (player.singularity.stage >= 2) return false;
-			return wheatGrain().gte(this.requirement);
-		},
-		show: true,
-		currency: 'wheatgrain',
-	});
-	MILESTONES.create('cb14', {
-		displayName: 'M-CB-14',
-		get description() {
-			return '数值指数^1.125，削弱数值第五个软上限';
-		},
-		get description2() {
-			return 'Number exponent^1.125, reduce fifth softcap of number';
-		},
-		requirement: new Decimal('5e320'),
-		get canDone() {
-			return wheatGrain().gte(this.requirement);
-		},
-		show: true,
-		currency: 'wheatgrain',
-	});
-	MILESTONES.create('cb15', {
-		displayName: 'M-CB-15',
-		get description() {
-			return '计算速度和天文学家寿命×10';
-		},
-		get description2() {
-			return 'Calculation speed and astronomers life×10';
-		},
-		requirement: new Decimal('1e335'),
-		get canDone() {
-			if (player.singularity.stage >= 2) return false;
-			return wheatGrain().gte(this.requirement);
-		},
-		show: true,
-		currency: 'wheatgrain',
-	});
-	MILESTONES.create('cb16', {
-		displayName: 'M-CB-16',
-		get description() {
-			return '清除麦粒效果软上限';
-		},
-		get description2() {
-			return 'Remove wheat grain effect softcap';
-		},
-		requirement: new Decimal('3e335'),
-		get canDone() {
-			return wheatGrain().gte(this.requirement);
-		},
-		show: true,
-		currency: 'wheatgrain',
-	});
-	MILESTONES.create('cb17', {
-		displayName: 'M-CB-17',
-		get description() {
-			return '天文学家寿命×2，但天文学家时间速度×200';
-		},
-		get description2() {
-			return 'Astronomer life ×2, but time speed ×200';
 		},
 		requirement: new Decimal('1e353'),
 		get canDone() {
@@ -353,23 +260,70 @@ export function initMechanics() {
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
-		currency: 'wheatgrain',
+		currency: '麦粒',
 	});
-	MILESTONES.create('cb18', {
-		displayName: 'M-CB-18',
+	MILESTONES.create('cb14', {
+		displayName: 'M-CB-14',
 		get description() {
-			return '基于observe data，棋盘底数×' + format(getMCB18Effect());
+			return '数值指数^1.125，削弱数值第五个软上限';
 		},
-		get description2() {
-			return 'based on observe data, square base×' + format(getMCB18Effect());
+		requirement: new Decimal('5e361'),
+		get canDone() {
+			return wheatGrain().gte(this.requirement);
 		},
-		requirement: new Decimal('5e377'),
+		show: true,
+		currency: '麦粒',
+	});
+	MILESTONES.create('cb15', {
+		displayName: 'M-CB-15',
+		get description() {
+			return '计算速度和天文学家寿命×10';
+		},
+		requirement: new Decimal('1e366'),
 		get canDone() {
 			if (player.singularity.stage >= 2) return false;
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
-		currency: 'wheatgrain',
+		currency: '麦粒',
+	});
+	MILESTONES.create('cb16', {
+		displayName: 'M-CB-16',
+		get description() {
+			return '清除麦粒效果软上限';
+		},
+		requirement: new Decimal('3e374'),
+		get canDone() {
+			return wheatGrain().gte(this.requirement);
+		},
+		show: true,
+		currency: '麦粒',
+	});
+	MILESTONES.create('cb17', {
+		displayName: 'M-CB-17',
+		get description() {
+			return '天文学家寿命×2，但天文学家时间速度×200';
+		},
+		requirement: new Decimal('1e387'),
+		get canDone() {
+			if (player.singularity.stage >= 2) return false;
+			return wheatGrain().gte(this.requirement);
+		},
+		show: true,
+		currency: '麦粒',
+	});
+	MILESTONES.create('cb18', {
+		displayName: 'M-CB-18',
+		get description() {
+			return '基于观测数据，棋盘底数×' + format(getMCB18Effect());
+		},
+		requirement: new Decimal('5e428'),
+		get canDone() {
+			if (player.singularity.stage >= 2) return false;
+			return wheatGrain().gte(this.requirement);
+		},
+		show: true,
+		currency: '麦粒',
 	});
 	MILESTONES.create('cb19', {
 		displayName: 'M-CB-19',
@@ -378,18 +332,12 @@ export function initMechanics() {
 				'增强麦粒第五个效果并删除其软上限，麦粒让乘法能量指数^' + format(getMCB19Effect())
 			);
 		},
-		get description2() {
-			return (
-				'Improve wheat grain fifth effect and delete softcap, MP exponent^' +
-				format(getMCB19Effect())
-			);
-		},
-		requirement: new Decimal('4.76e476'),
+		requirement: new Decimal('5.5555e555'),
 		get canDone() {
 			return wheatGrain().gte(this.requirement);
 		},
 		show: true,
-		currency: 'wheatgrain',
+		currency: '麦粒',
 	});
 	MILESTONES.create('cb20', {
 		displayName: 'M-CB-20',
@@ -399,78 +347,60 @@ export function initMechanics() {
 				format(mcb20eff())
 			);
 		},
-		get description2() {
-			return (
-				'You can buy fractal squares. Based on EP, squares buyable count gain ×' +
-				format(mcb20eff())
-			);
-		},
 		requirement: new Decimal(2).pow(9 * 1024),
 		get canDone() {
 			return wheatGrain().gte(this.requirement) && !player.singularity.enabled;
 		},
 		show: true,
-		currency: 'wheatgrain',
+		currency: '麦粒',
 	});
 	MILESTONES.create('cb21', {
 		displayName: 'M-CB-21',
 		get description() {
 			return 'M-CB-20的效果变为其平方';
 		},
-		get description2() {
-			return 'M-CB-20 effect ^2';
-		},
-		requirement: new Decimal('e7000'),
+		requirement: new Decimal('e7500'),
 		get canDone() {
 			return wheatGrain().gte(this.requirement) && !player.singularity.enabled;
 		},
 		show: true,
-		currency: 'wheatgrain',
+		currency: '麦粒',
 	});
 	MILESTONES.create('cb22', {
 		displayName: 'M-CB-22',
 		get description() {
 			return 'M-CB-20的效果再次变为其平方';
 		},
-		get description2() {
-			return 'M-CB-20 effect ^2 again';
-		},
-		requirement: new Decimal('e15000'),
+		requirement: new Decimal('e21000'),
 		get canDone() {
 			return wheatGrain().gte(this.requirement) && !player.singularity.enabled;
 		},
 		show: true,
-		currency: 'wheatgrain',
+		currency: '麦粒',
 	});
 	MILESTONES.create('cb23', {
 		displayName: 'M-CB-23',
 		get description() {
 			return 'M-CB-20的效果再次变为其1.1次方';
 		},
-		get description2() {
-			return 'M-CB-20 effect ^2';
-		},
-		requirement: new Decimal('e5.5e5'),
+		requirement: new Decimal('e6.5e5'),
 		get canDone() {
 			return wheatGrain().gte(this.requirement) && !player.singularity.enabled;
 		},
 		show: true,
-		currency: 'wheatgrain',
+		currency: '麦粒',
 	});
 	MILESTONES.create('cb24', {
 		displayName: 'M-CB-24',
 		get description() {
-			return 'M-CB-20的效果再次变为其200次方';
-		},
-		get description2() {
-			return 'M-CB-20 effect ^200';
+			return 'M-CB-20的效果再次变为其π次方';
 		},
 		requirement: new Decimal('7.7e7777777'),
 		get canDone() {
 			return wheatGrain().gte(this.requirement) && !player.singularity.enabled;
 		},
 		show: true,
-		currency: 'wheatgrain',
+		currency: '麦粒',
 	});
 }
 
