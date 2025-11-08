@@ -739,4 +739,16 @@ export default {
 	'upgs.byl.cb1': 'Add a square',
 	'exp.cb.pre':
 		' In ancient times, there was a king who wished to reward a wise minister for inventing chess... ',
+
+	'timeshard.t':
+		'You have {amount} time shard. Convert it to achieve a 3x time acceleration effect for the equivalent minutes.',
+	'timeshard.t2': 'You have {amount} time accelerations.',
+
+	'timeshard.u1': 'Get 1000 TS, But enter to HARD MODE',
+	'set.status.locked': '(Locked)',
+	'set.status.unlocked': '(Disabled)',
+	'timeshard.gen': 'Time shard generator {tier}',
+	'timeshard.conv': 'Time shard converter {tier}',
+	'timeshard.conv.desc': 'Convert {amount} TS',
+	'timeshard.conv.desc2': 'More {percent}% Times',
 };
