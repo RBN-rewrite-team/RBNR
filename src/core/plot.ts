@@ -1,3 +1,4 @@
+import type { $t } from '@/utils/types';
 import { player } from './save';
 export const PlotMilestones = [
 	() => true,
@@ -57,44 +58,10 @@ export function viewedPlotLength() {
 }
 
 export const plots = [
-	[
-		'大基数在支撑集合论宇宙的序数高塔中飘荡。',
-		'随后，Numerorum在“大数世界”的边疆醒来。',
-		'Numerorum\t……',
-		'Numerorum\t终于……醒来了。',
-		'Numerorum看看这熟悉又陌生的世界。',
-		'Numerorum\t世界改变了许多。',
-		'Numerorum\t但我的使命还没有完成……',
-		'远处的序数高塔若隐若现。',
-		'Numerorum\t该从哪里开始我的目标呢？',
-		'Numerorum\t负数显然离我的目标有点远。',
-		'Numerorum\t就先从0开始吧。',
-	],
-	[
-		'随着第一次后继运算的进行，Numerorum感受到了曾经的气息。',
-		'Numerorum\t这熟悉的感觉。',
-		'Numerorum\t这一个个连成串的数字，可能是我这一段旅程中唯一的伙伴了。',
-		'Numerorum\t虽然长路漫长，但是好的开始是成功的一半。',
-		'Numerorum\t加油。',
-		'敢问路在何方？路在脚下。',
-	],
-	[
-		'Numerorum\t这个能量，有一种让人舒服的感觉。',
-		'Numerorum\t花费这么多数字是值得的。',
-		'Numerorum\t我怎么感觉到谁在看着我？',
-		'Numerorum望向半空中的序数高塔。',
-		'高塔高耸入云，无法看穿。',
-		'Numerorum\t注视感来自高塔的顶端。',
-		'能登上高塔之巅的人，Numerorum暂时还无法窥探。',
-		'Numerorum\t究竟是谁建造了这么高的建筑？',
-		'Numerorum\t可惜我现在还很弱小，无法攀登这座高塔。',
-		'Numerorum\t那就立下小目标，先进入序数的层次。',
-	],
-	[
-		'Numerorum\t这是一种更精密的能量。',
-		'Numerorum\t我选择的路没有错误。',
-		'Numerorum\t但是那种来自序数之塔的注视感更加强烈了。',
-	],
+	[],
+	[],
+	[],
+	[],
 	['Numerorum\t呼……该做一些有挑战性的事情了。', 'Numerorum\t我希望能从中吸取一些经验。'],
 	[
 		'Numerorum\t我感觉到了……我已经接近了。',
@@ -277,9 +244,9 @@ export const plots = [
 		'Colossus\t等待你的将是新的时代。',
 	],
 ];
-export function plotLength(id: number): number {
+export function plotLength(id: number, $tm: (x: string) => string[]): number {
 	if (id <= 0) return 0;
-	return plots[id - 1].length;
+	return $tm('plotcontent')[id - 1].length;
 }
 export const characterImages = {
 	Numerorum: 'url(./plot_image/NumerorumColor.png)',
@@ -287,7 +254,7 @@ export const characterImages = {
 	Hydra: 'url(./plot_image/Hydra.png)',
 	VeryRDefie: 'url(./plot_image/VeryRDefie.png)',
 } as Record<string, string | undefined>;
-export function stringToPlot(a: string) {
+export function stringToPlot(a: string, $t: $t) {
 	const res = {
 		image: 'url(./plot_image/placeholder.png)',
 		name: '???',
@@ -296,7 +263,7 @@ export function stringToPlot(a: string) {
 	const args = a.split('\t');
 	if (args.length == 1) {
 		res.text = args[0];
-		res.name = '旁白';
+		res.name = $t('plot.narrator');
 	} else if (args.length == 3) {
 		res.name = args[0];
 		res.text = args[2];

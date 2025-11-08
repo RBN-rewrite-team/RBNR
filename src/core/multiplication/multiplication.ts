@@ -219,8 +219,8 @@ export const Multiplication = {
 			effect(x: Decimal) {
 				return new Decimal(0.01).mul(x);
 			}
-			effectDescription(x: Decimal) {
-				if (this.effect(x).gte(0.99)) return '瞬间达到上限';
+			effectDescription(x: Decimal, $t: $t) {
+				if (this.effect(x).gte(0.99)) return $t('mul.33');
 				return 'x' + format(Decimal.sub(0.99, this.effect(x)).log(0.99));
 			}
 			cost(x: Decimal) {
