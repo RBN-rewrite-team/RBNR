@@ -411,30 +411,32 @@ export default {
 			'Numerorum\tYes, I need this data now.',
 		],
 		[
-			'Numerorum\t这些东西我也研究得差不多了，是时候出发了。',
-			'Numerorum\t越接近序数之塔，感觉这里的压制就越强。',
-			'Numerorum\t我又有了新的感悟……',
+			"Numerorum\tI've pretty much studied all these things. It's time to set off.",
+			'Numerorum\tBut... the closer we get to Ordinal Tower, the stronger the suppression feels here.',
+			"Numerorum\tI've gained new insights...",
 		],
 		[
-			'Numerorum\t果然，就是这样。',
-			'Numerorum\t这个东西散发的能量足以打破高塔周围的屏障了。',
-			'Numerorum\t不过，我可能需要付出一些代价来激活它。',
+			"Numerorum\tNice, sure enough, that's exactly how it is.",
+			'Numerorum\tThe energy emitted by this object is POWERFUL ENOUGH to SHATTER the BARRIER surrounding the TOWER.',
+			'Numerorum\tHowever, I may have to pay ANYTHING to activate it.',
 		],
 		[
-			'Numerorum\t到达ω了吗。',
-			'Numerorum\t这里，就是序数之塔的内部？',
-			'Numerorum\t之前的后继，加法，乘法，指数都被献祭掉了，不过我可以在这个领域继续。',
+			'Numerorum\tSo I reached ω.',
+			'Numerorum\tIs this the interior of Ordinal Tower?',
+			'Numerorum\tSuccessor, Addition, Multiplication, and Exponentation,',
+			'Numerorum\thave all been sacrificed, but I can continue in this field.',
 		],
 		[
-			'Numerorum\t这里就是……等等!',
-			'旁白\t一个声音突然充斥了高塔的这一层。',
-			'???\tHydra\t你竟然能到达这里，真是让我刮目相看。',
-			'Numerorum\t你在哪？出来！',
-			'???\tHydra\t呵呵呵，你还没有资格见到我。',
-			'Numerorum\t……',
-			'???\tHydra\t不必惊讶，虽然你可能永远也见不到我罢了。',
-			'Numerorum\t可恶，不要瞧不起人！就算你在高塔的顶端，我也迟早见到你！',
-			'不管Numerorum怎么说，神秘的声音都不再回应。',
+			"Numerorum\tThere're... Wait!",
+			'A voice suddenly filled this level of the tower.',
+			'???\tHydra\tIm truly impressed that you managed to get here.',
+			'Numerorum\tWhere are you? Come out!',
+			'???\tHydra\tHahaha, youre not worthy of seeing me.',
+			'Numerorum\t...',
+			'???\tHydra\tDont be surprised—although you may never see me again.',
+			'Numerorum\tDamn it, dont look down on me! ',
+			'Numerorum\tEven if youre at the top of the tower, Ill find you sooner or later!',
+			'No matter what Numerorum said, the mysterious voice no longer responded.',
 		],
 		[
 			'Numerorum\t不好，前面被堵住了。',
@@ -742,6 +744,7 @@ export default {
 	'nt.ration.effect.1': 'Effect: Prime factor effect^',
 	'nt.ration.effect.2': ', Prime factor speed×',
 	'nt.ration.n': 'Increase n',
+	'nt.ration.m': 'Increase m',
 
 	'exp.cb.eff':
 		'You have {a} wheat grain, Number^{b}, AP×{c} and ^{d},<br /> MP^{e}, MP overflow effect×{f}',
@@ -780,4 +783,26 @@ export default {
 	'timeshard.gen.avaliable': 'Avaliable',
 	'timeshard.gen.waituntil': 'Please wait until',
 	'plot.astronaut': 'Astronaut',
+	'exp.log.observe': 'Obs.',
+	'exp.log.calc': 'Use LT to calculate',
+
+	'exp.log.tip': '3 laws meed to reach calculation data to active effect',
+	'exp.log.law.req': 'Need {amount} Calc. Datas',
+	'exp.log.law.1': 'Law 1',
+	'exp.log.law.2': 'Law 2',
+	'exp.log.law.3': 'Law 3',
+	'exp.log.law.1.desc':
+		'The orbits of planets around the Sun are elliptical, with the Sun located at one of the foci of the ellipse.',
+	'exp.log.law.1.eff':
+		'Boost computational speed by 10x and observation speed by 5x,reduce astronauts, LT cost base and exponent ( >=1 )',
+	'exp.log.law.2.desc':
+		'The line connecting a planet and the Sun sweeps out equal areas in equal intervals of time.',
+	'exp.log.law.2.eff': 'Improve EP based on Calc. Datas',
+	'exp.log.law.3.desc':
+		"The cube of a planet's semi-major axis is proportional to the square of its orbital period.",
+	'exp.log.law.3.eff': 'LT, Astronauts cost base, exponent reduce based on Calc. Datas',
+
+	'exp.log.law.g': 'Law of Universal Gravitation',
+	'exp.log.law.yg': 'Yes, Law of Universal Gravitation',
+	'exp.log.law.g.eff': 'Unlock Logarithm Dilate',
 };

@@ -214,7 +214,7 @@ function m2GainLatex() {
 					v-if="player.milestones.cb8"
 					style="display: inline-block; margin: 5px"
 				>
-					增加m的数值
+					{{ $t('nt.ration.m') }}
 				</PrimaryButton>
 				<table>
 					<tbody>

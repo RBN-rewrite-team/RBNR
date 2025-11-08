@@ -851,6 +851,8 @@ export default {
 	'nt.ration.effect.2': '，质因数速度×',
 	'nt.ration.n': '增加n的数值',
 
+	'nt.ration.m': '增加m的数值',
+
 	'exp.cb.eff':
 		'你有{a}麦粒， 使数值^{b}, 加法能量×{c}, ^{d}, 乘法能量^{e}，乘法能量溢出的效果×{f}',
 	'exp.cb.base': '当前格子底数: {base}',
@@ -884,4 +886,23 @@ export default {
 	'timeshard.gen.avaliable': '冷却完毕',
 	'timeshard.gen.waituntil': '请等待至',
 	'plot.astronaut': '天文学家',
+	'exp.log.observe': '观测',
+	'exp.log.calc': '使用对数表进行计算',
+
+	'exp.log.tip': '3个定律需要达到指定的计算数据才能激活效果',
+	'exp.log.law.req': '需求: {amount} 计算数据',
+	'exp.log.law.1': '定律 1',
+	'exp.log.law.2': '定律 2',
+	'exp.log.law.3': '定律 3',
+	'exp.log.law.1.desc': '行星绕太阳运行的轨道是椭圆，太阳位于椭圆的一个焦点上。',
+	'exp.log.law.1.eff':
+		'提升10x运算速度及5x观测速度，并减少天文学家、对数表价格底数、指数4（最多减少到1）',
+	'exp.log.law.2.desc': '行星与太阳的连线在相等时间内扫过相等的面积。',
+	'exp.log.law.2.eff': '指数能量获取基于计算数据提升',
+	'exp.log.law.3.desc': '行星轨道半长轴的三次方与公转周期的平方成正比。',
+	'exp.log.law.3.eff': '对数表、天文学家价格底数、指数基于计算数据降低',
+
+	'exp.log.law.g': '万有引力定律',
+	'exp.log.law.yg': '是的，万有引力定律',
+	'exp.log.law.g.eff': '解锁对数膨胀',
 };
