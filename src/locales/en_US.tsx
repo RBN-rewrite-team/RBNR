@@ -303,7 +303,7 @@ export default {
 	'chal.0.0.effect': 'Addition operation exponent +{effect}',
 	'chal.0.1': 'Division',
 	'chal.0.1.description':
-		'Number values and addition power acquisition undergo division; factor energy effects diminish over time.',
+		'Number values and addition power acquisition undergo division; Factor  effects diminish over time.',
 	'chal.0.1.effect':
 		'Based on the highest Number increase value from Addition Power and the challenge: ×{effect}',
 	'chal.0.2': 'Burning',
