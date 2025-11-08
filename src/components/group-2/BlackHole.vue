@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { player, feature } from '@/core/global';
 import { format } from '@/utils/format';
+import { getMessage } from '@/utils/i18n';
 import { useI18n } from 'vue-i18n';
 const $t = useI18n().t;
 function getBHsize(t: number) {
@@ -13,14 +14,14 @@ function getBHsize(t: number) {
 }
 function getBHtext(t: number) {
 	let tx = format(feature.SingularityGenerator.getSingularityEnergy());
-	if (t < 550) tx += '<br>' + $t('sing.1');
-	else if (t < 600) tx += '<br>' + $t('sing.2');
-	else if (t < 625) tx += '<br>' + $t('sing.3');
-	else if (t < 650) tx += '<br>' + $t('sing.4');
-	else if (t < 666.67) tx += '<br>' + $t('sing.6');
+	if (t < 550) tx += '<br>' + getMessage('sing.1');
+	else if (t < 600) tx += '<br>' + getMessage('sing.2');
+	else if (t < 625) tx += '<br>' + getMessage('sing.3');
+	else if (t < 650) tx += '<br>' + getMessage('sing.4');
+	else if (t < 666.67) tx += '<br>' + getMessage('sing.5');
 	else if (t < 670)
 		tx = '<span style="font-size: ' + (670 - t + 1) * 30 + 'px">' + tx + '</span>';
-	else if (t < 675) return '<span style="color: gold">' + $t('sing.6') + '</span>';
+	else if (t < 675) return '<span style="color: gold">' + getMessage('sing.6') + '</span>';
 	else if (t <= 710) return '';
 	return tx;
 }
