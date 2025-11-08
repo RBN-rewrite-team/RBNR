@@ -896,18 +896,18 @@ export default {
 	'set.status.exit': '退出',
 
 	'exp.log.law.dil': '膨胀',
-	'exp.log.law.dil.1': '进入对数膨胀后：',
-	'exp.log.law.dil.2': '数值指数塔减',
-	'exp.log.law.dil.3': '层。 乘法能量指数塔减',
-	'exp.log.law.dil.4': '层。 ',
-	'exp.log.law.dil.5': '同时，大部分生活质量升级失效，部分加成减弱。',
+	'exp.log.law.dil.xx':
+		'数值指数塔减{a}层。 乘法能量指数塔减{b}层。<br>同时，大部分生活质量升级失效，部分加成减弱。',
 	'exp.log.law.dil.6': '在膨胀中购买升级和购买项会永久提升它们的效果。 ',
+
+	'nt.euler.effect.dil': '，膨胀层数-',
+
+	// 7 效果 8 效果 9 效果 10
 	'exp.log.law.dil.7': '对数膨胀内获得的最高数值',
-	'exp.log.law.dil.8': '会增加对数值（^ ',
+	'exp.log.law.dil.8': '会增加对数值（^',
 	'exp.log.law.dil.9': '），指数能量(*',
 	'exp.log.law.dil.10': ')的获取。',
 	'currency.膨胀中乘法能量': '膨胀中乘法能量',
-	'nt.euler.effect.dil': '，膨胀层数-',
 
 	sing: '解锁奇点生成器',
 
@@ -919,6 +919,12 @@ export default {
 	youhave: '你有',
 
 	'sing.pr': '你每秒获取 (奇点能量+1)',
+
+	'sing.cycles': `There are too many ['Number''Addition Power',
+								'Multiplication Power',
+								'Exponentation Power',
+								'Singularity Power']...... I need to sacrifice my Logarithm Dilate and the Notation to be able
+					to go further......`,
 
 	'sing.1': '末日......终将降临......',
 	'sing.2': '毁灭......就要到来......',

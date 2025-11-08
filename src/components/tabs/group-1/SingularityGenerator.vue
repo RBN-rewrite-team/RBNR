@@ -5,7 +5,6 @@ import Decimal from 'break_eternity.js';
 import { ref } from 'vue';
 import { CHALLENGE } from '../../../core/challenge.ts';
 import { wordShift } from '@/core/word-shift.ts';
-import { i18n } from '@/utils/i18n.ts';
 
 function destroy(a: number) {
 	switch (a) {
@@ -194,412 +193,177 @@ setInterval(function () {
 <template>
 	<div class="main" align="center">
 		<div v-if="player.singularity.enabled" style="transform: translateY(60px)">
-			{{ $t('youhave') }}
+			你有
 			<b style="color: var(--sing-color); font-size: 25px">{{
 				format(feature.SingularityGenerator.getSingularityEnergy())
 			}}</b>
-			{{ $t('sing.p')
-			}}<span v-if="player.singularity.stage < 11"
-				>{{ $t('sing.p.1')
-				}}<span v-if="player.singularity.stage < 10">{{ $t('sing.p.2') }}</span
-				><span v-if="player.singularity.stage < 9">{{ $t('sing.p.3') }}</span
-				>{{ $t('sing.p.4') }}
+			奇点能量<span v-if="player.singularity.stage < 11"
+				>， 这使数值<span v-if="player.singularity.stage < 10">，加法能量</span
+				><span v-if="player.singularity.stage < 9">，乘法能量</span>获取
 				<b style="color: var(--sing-color)"
 					>^{{ format(feature.SingularityGenerator.getSingularityEffect()) }}</b
 				></span
 			>
 			<span v-else-if="player.singularity.t < 667"
-				>, +<b style="color: var(--sing-color)">{{
+				>，每秒生产<b style="color: var(--sing-color)">{{
 					format(feature.SingularityGenerator.getSingularityEffect())
 				}}</b
-				>{{ $t('currency.number') }}/s...
+				>数值
 			</span>
 			<br />
 			<span v-if="player.singularity.t < 667"
-				>{{ $t('sing.pr')
-				}}<sup style="color: var(--sing-color)">{{
+				>你每秒获取 (奇点能量+1)<sup style="color: var(--sing-color)">{{
 					format(feature.SingularityGenerator.singularityExponent())
 				}}</sup
-				>/{{ format(feature.SingularityGenerator.singularityDivision()) }} {{ $t('sing.p')
-				}}<br
+				>/{{ format(feature.SingularityGenerator.singularityDivision()) }} 奇点能量<br
 			/></span>
-			<span v-if="player.singularity.t >= 667" v-html="$t('sing.fin')"> </span>
-			<template v-if="i18n.global.locale.value == 'zh-CN'"
-				><button
-					class="sacrifice"
-					v-if="player.singularity.stage < 1 && player.singularity.t >= 205"
-					@click="
-						player.singularity.stage = 1;
-						destroy(1);
-					"
-				>
-					现在的{{
-						wordShift.wordCycle(
-							['数值', '加法能量', '乘法能量', '指数能量', '奇点能量'],
-							false,
-							t,
-						)
-					}}太多了......我需要献祭我的对数膨胀和记数法才能走得更远......
-				</button>
-				<button
-					class="sacrifice"
-					v-else-if="player.singularity.stage < 2 && player.singularity.t >= 250"
-					@click="
-						player.singularity.stage = 2;
-						destroy(2);
-					"
-				>
-					现在的{{
-						wordShift.wordCycle(
-							['数值', '加法能量', '乘法能量', '指数能量', '奇点能量'],
-							false,
-							t,
-						)
-					}}太多了......我需要献祭我的对数运算和软上限才能走得更远......
-				</button>
-				<button
-					class="sacrifice"
-					v-else-if="player.singularity.stage < 3 && player.singularity.t >= 300"
-					@click="
-						player.singularity.stage = 3;
-						destroy(3);
-					"
-				>
-					现在的{{
-						wordShift.wordCycle(
-							['数值', '加法能量', '乘法能量', '指数能量', '奇点能量'],
-							false,
-							t,
-						)
-					}}太多了......我需要献祭我的棋盘才能走得更远......
-				</button>
-				<button
-					class="sacrifice"
-					v-else-if="player.singularity.stage < 4 && player.singularity.t >= 350"
-					@click="
-						player.singularity.stage = 4;
-						destroy(4);
-					"
-				>
-					现在的{{
-						wordShift.wordCycle(
-							['数值', '加法能量', '乘法能量', '指数能量', '奇点能量'],
-							false,
-							t,
-						)
-					}}太多了......我需要献祭我的指数层级才能走得更远......
-				</button>
-				<button
-					class="sacrifice"
-					v-else-if="player.singularity.stage < 6 && player.singularity.t >= 400"
-					@click="
-						player.singularity.stage = 6;
-						destroy(5);
-					"
-				>
-					现在的{{
-						wordShift.wordCycle(['数值', '加法能量', '乘法能量', '奇点能量'], false, t)
-					}}太多了......我需要献祭我的乘法挑战才能走得更远......
-				</button>
-				<button
-					class="sacrifice"
-					v-else-if="player.singularity.stage < 7 && player.singularity.t >= 430"
-					@click="
-						player.singularity.stage = 7;
-						destroy(6);
-					"
-				>
-					现在的{{
-						wordShift.wordCycle(['数[]', '[]法能量', '乘[]能量', '奇点能[]'], false, t)
-					}}太[]了...我需[]献祭我的[]因数才能[]得更远...
-				</button>
-				<button
-					class="sacrifice"
-					v-else-if="player.singularity.stage < 8 && player.singularity.t >= 450"
-					@click="
-						player.singularity.stage = 8;
-						destroy(7);
-					"
-				>
-					现在的{{
-						wordShift.wordCycle(['数[]', '[]法能量', '乘[]能量', '奇点能[]'], false, t)
-					}}太[]了...我需[]献祭我的数论[][]才能{{
-						wordShift.wordCycle(['走得更远', '飞得更高', '[]得更[]'], false, t)
-					}}...
-				</button>
-				<button
-					class="sacrifice"
-					v-else-if="player.singularity.stage < 9 && player.singularity.t >= 470"
-					@click="
-						player.singularity.stage = 9;
-						destroy(8);
-					"
-				>
-					在{{
-						wordShift.wordCycle(['一切皆毁', '万物消亡', '终焉寂灭'], false, t)
-					}}之前，还要献祭乘法层级......
-				</button>
-				<button
-					class="sacrifice"
-					v-else-if="player.singularity.stage < 10 && player.singularity.t >= 490"
-					@click="
-						player.singularity.stage = 10;
-						destroy(9);
-					"
-				>
-					在{{
-						wordShift.wordCycle(['一切皆毁', '万物消亡', '终焉寂灭'], false, t)
-					}}之前，还要献祭加法层级......<br />
-				</button>
-				<button
-					class="sacrifice"
-					v-else-if="player.singularity.stage < 11 && player.singularity.t >= 500"
-					@click="
-						player.singularity.stage = 11;
-						destroy(10);
-					"
-				>
-					在{{
-						wordShift.wordCycle(['一切皆毁', '万物消亡', '终焉寂灭'], false, t)
-					}}之前，还要献祭后继层级......<br />
-					这是最后的警告......
-				</button></template
+			<span v-if="player.singularity.t >= 667">
+				在跨越有限与无限的界限之后，奇点生成器停止了。下一次启动会是什么时候？<br />
+				在一切的毁灭尽头，将迎来更灿烂的新生。<br />
+				序数的世界欢迎你的到来。<br />
+			</span>
+			<button
+				class="sacrifice"
+				v-if="player.singularity.stage < 1 && player.singularity.t >= 205"
+				@click="
+					player.singularity.stage = 1;
+					destroy(1);
+				"
 			>
-			<template v-else
-				><button
-					class="sacrifice"
-					v-if="player.singularity.stage < 1 && player.singularity.t >= 205"
-					@click="
-						player.singularity.stage = 1;
-						destroy(1);
-					"
-				>
-					Now the
-					{{
-						wordShift.wordCycle(
-							[
-								'Number',
-								'Addition Power',
-								'Multiplication Power',
-								'Exponentation Power',
-								'Singularity Power',
-							],
-							true,
-							t,
-							false,
-						)
-					}}
-					is too much......I need to sacrifice my Logarithm Dilate and Notation to be able
-					to go further......
-				</button>
-				<button
-					class="sacrifice"
-					v-else-if="player.singularity.stage < 2 && player.singularity.t >= 250"
-					@click="
-						player.singularity.stage = 2;
-						destroy(2);
-					"
-				>
-					Now the
-					{{
-						wordShift.wordCycle(
-							[
-								'Number',
-								'Addition Power',
-								'Multiplication Power',
-								'Exponentation Power',
-								'Singularity Power',
-							],
-							true,
-							t,
-							false,
-						)
-					}}is 2 much......I need to sacrifice my Logarithm Calculate and Softcap to be
-					able to go farther......
-				</button>
-				<button
-					class="sacrifice"
-					v-else-if="player.singularity.stage < 3 && player.singularity.t >= 300"
-					@click="
-						player.singularity.stage = 3;
-						destroy(3);
-					"
-				>
-					Now the
-					{{
-						wordShift.wordCycle(
-							[
-								'Number',
-								'Addition Power',
-								'Multiplication Power',
-								'Exponentation Power',
-								'Singularity Power',
-							],
-							true,
-							t,
-							false,
-						)
-					}}
-					is two much......I need to sacrifice my Chess bord to be able to go
-					further......
-				</button>
-				<button
-					class="sacrifice"
-					v-else-if="player.singularity.stage < 4 && player.singularity.t >= 350"
-					@click="
-						player.singularity.stage = 4;
-						destroy(4);
-					"
-				>
-					Now the
-					{{
-						wordShift.wordCycle(
-							[
-								'Number',
-								'Addition Power',
-								'Multiplication Power',
-								'Exponentation Power',
-								'Singularity Power',
-							],
-							true,
-							t,
-							false,
-						)
-					}}
-					is too much......I need to sacrifice my Exponentation Layer to go further......
-				</button>
-				<button
-					class="sacrifice"
-					v-else-if="player.singularity.stage < 6 && player.singularity.t >= 400"
-					@click="
-						player.singularity.stage = 6;
-						destroy(5);
-					"
-				>
-					{{
-						wordShift.wordCycle(
-							[
-								'Number',
-								'Addition Power',
-								'Multiplication Power',
-								'Singularity Power',
-							],
-							true,
-							t,
-							false,
-						)
-					}}
-					are too much......I need to sacrifice my Multiplication Challenge......
-				</button>
-				<button
-					class="sacrifice"
-					v-else-if="player.singularity.stage < 7 && player.singularity.t >= 430"
-					@click="
-						player.singularity.stage = 7;
-						destroy(6);
-					"
-				>
-					Now the
-					{{
-						wordShift.wordCycle(
-							['Numb[]', 'M[]tip[] Power', 'Add[] Power', 'Singu[] Power'],
-							false,
-							t,
-							false,
-						)
-					}}too []...I [] to sacr[] my prime factors [] go []ther...
-				</button>
-				<button
-					class="sacrifice"
-					v-else-if="player.singularity.stage < 8 && player.singularity.t >= 450"
-					@click="
-						player.singularity.stage = 8;
-						destroy(7);
-					"
-				>
-					Now the
-					{{
-						wordShift.wordCycle(
-							['Numb[]', 'M[]tip[] Power', 'Add[] Power', 'Singu[] Power'],
-							false,
-							t,
-							false,
-						)
-					}}[]... I [] sacrifice Theory[]{{
-						wordShift.wordCycle(['Go []er', 'Fly high', 'High fly'], false, t)
-					}}...
-				</button>
-				<button
-					class="sacrifice"
-					v-else-if="player.singularity.stage < 9 && player.singularity.t >= 470"
-					@click="
-						player.singularity.stage = 9;
-						destroy(8);
-					"
-				>
-					Before
-					{{
-						wordShift.wordCycle(
-							[
-								'Everything is destroy',
-								'Everything perish',
-								'Everything fall into silence',
-							],
-							false,
-							t,
-							false,
-						)
-					}}, sacrifice my Multiplication Layer
-				</button>
-				<button
-					class="sacrifice"
-					v-else-if="player.singularity.stage < 10 && player.singularity.t >= 490"
-					@click="
-						player.singularity.stage = 10;
-						destroy(9);
-					"
-				>
-					Before
-					{{
-						wordShift.wordCycle(
-							[
-								'Everything is destroy',
-								'Everything perish',
-								'Everything fall into silence',
-							],
-							false,
-							t,
-							false,
-						)
-					}}, sacrifice my Addition Layer<br />
-				</button>
-				<button
-					class="sacrifice"
-					v-else-if="player.singularity.stage < 11 && player.singularity.t >= 500"
-					@click="
-						player.singularity.stage = 11;
-						destroy(10);
-					"
-				>
-					Before
-					{{
-						wordShift.wordCycle(
-							[
-								'Everything is destroy',
-								'Everything perish',
-								'Everything fall into silence',
-							],
-							false,
-							t,
-							false,
-						)
-					}}, sacrifice my SUCCESSOR Layer<br />
-					THIS IS THE LAST WARNING......
-				</button></template
+				现在的{{
+					wordShift.wordCycle(
+						['数值', '加法能量', '乘法能量', '指数能量', '奇点能量'],
+						false,
+						t,
+					)
+				}}太多了......我需要献祭我的对数膨胀和记数法才能走得更远......
+			</button>
+			<button
+				class="sacrifice"
+				v-else-if="player.singularity.stage < 2 && player.singularity.t >= 250"
+				@click="
+					player.singularity.stage = 2;
+					destroy(2);
+				"
 			>
+				现在的{{
+					wordShift.wordCycle(
+						['数值', '加法能量', '乘法能量', '指数能量', '奇点能量'],
+						false,
+						t,
+					)
+				}}太多了......我需要献祭我的对数运算和软上限才能走得更远......
+			</button>
+			<button
+				class="sacrifice"
+				v-else-if="player.singularity.stage < 3 && player.singularity.t >= 300"
+				@click="
+					player.singularity.stage = 3;
+					destroy(3);
+				"
+			>
+				现在的{{
+					wordShift.wordCycle(
+						['数值', '加法能量', '乘法能量', '指数能量', '奇点能量'],
+						false,
+						t,
+					)
+				}}太多了......我需要献祭我的棋盘才能走得更远......
+			</button>
+			<button
+				class="sacrifice"
+				v-else-if="player.singularity.stage < 4 && player.singularity.t >= 350"
+				@click="
+					player.singularity.stage = 4;
+					destroy(4);
+				"
+			>
+				现在的{{
+					wordShift.wordCycle(
+						['数值', '加法能量', '乘法能量', '指数能量', '奇点能量'],
+						false,
+						t,
+					)
+				}}太多了......我需要献祭我的指数层级才能走得更远......
+			</button>
+			<button
+				class="sacrifice"
+				v-else-if="player.singularity.stage < 6 && player.singularity.t >= 400"
+				@click="
+					player.singularity.stage = 6;
+					destroy(5);
+				"
+			>
+				现在的{{
+					wordShift.wordCycle(['数值', '加法能量', '乘法能量', '奇点能量'], false, t)
+				}}太多了......我需要献祭我的乘法挑战才能走得更远......
+			</button>
+			<button
+				class="sacrifice"
+				v-else-if="player.singularity.stage < 7 && player.singularity.t >= 430"
+				@click="
+					player.singularity.stage = 7;
+					destroy(6);
+				"
+			>
+				现在的{{
+					wordShift.wordCycle(['数[]', '[]法能量', '乘[]能量', '奇点能[]'], false, t)
+				}}太[]了...我需[]献祭我的[]因数才能[]得更远...
+			</button>
+			<button
+				class="sacrifice"
+				v-else-if="player.singularity.stage < 8 && player.singularity.t >= 450"
+				@click="
+					player.singularity.stage = 8;
+					destroy(7);
+				"
+			>
+				现在的{{
+					wordShift.wordCycle(['数[]', '[]法能量', '乘[]能量', '奇点能[]'], false, t)
+				}}太[]了...我需[]献祭我的数论[][]才能{{
+					wordShift.wordCycle(['走得更远', '飞得更高', '[]得更[]'], false, t)
+				}}...
+			</button>
+			<button
+				class="sacrifice"
+				v-else-if="player.singularity.stage < 9 && player.singularity.t >= 470"
+				@click="
+					player.singularity.stage = 9;
+					destroy(8);
+				"
+			>
+				在{{
+					wordShift.wordCycle(['一切皆毁', '万物消亡', '终焉寂灭'], false, t)
+				}}之前，还要献祭乘法层级......
+			</button>
+			<button
+				class="sacrifice"
+				v-else-if="player.singularity.stage < 10 && player.singularity.t >= 490"
+				@click="
+					player.singularity.stage = 10;
+					destroy(9);
+				"
+			>
+				在{{
+					wordShift.wordCycle(['一切皆毁', '万物消亡', '终焉寂灭'], false, t)
+				}}之前，还要献祭加法层级......<br />
+			</button>
+			<button
+				class="sacrifice"
+				v-else-if="player.singularity.stage < 11 && player.singularity.t >= 500"
+				@click="
+					player.singularity.stage = 11;
+					destroy(10);
+				"
+			>
+				在{{
+					wordShift.wordCycle(['一切皆毁', '万物消亡', '终焉寂灭'], false, t)
+				}}之前，还要献祭后继层级......<br />
+				这是最后的警告......
+			</button>
 		</div>
 		<button v-else class="circle-button" @click="player.singularity.enabled = true">
-			{{ $t('sing') }}
+			解锁奇点生成器
 		</button>
 	</div>
 </template>

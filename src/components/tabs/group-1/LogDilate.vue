@@ -5,6 +5,19 @@ import { Logarithm } from '@/core/exponention/logarithm';
 import { feature } from '@/core/global';
 import { format } from '@/utils/format';
 import TRMilestone from '../../group-2/TRMilestone.vue';
+import { useI18n } from 'vue-i18n';
+const $t = useI18n().t;
+function dilateDebuff() {
+	return $t('exp.log.law.dil.xx', {
+		a: format(Logarithm.dilateNerf()),
+		b: format(Logarithm.dilateNerf().div(2)),
+	});
+	// {{ $t('exp.log.law.dil.1') }}
+	// 			<br />
+	// 			{{ $t('exp.log.law.dil.2') }}{{ format(Logarithm.dilateNerf())
+	// 			}}{{ $t('exp.log.law.dil.3') }}{{ format(Logarithm.dilateNerf().div(2))
+	// 			}}{{ $t('exp.log.law.dil.4') }}<br />{{ $t('exp.log.law.dil.5') }}
+}
 </script>
 
 <template>
@@ -24,13 +37,7 @@ import TRMilestone from '../../group-2/TRMilestone.vue';
 					)
 				}}{{ $t('exp.log.law.dil') }}</DilateButton
 			>
-			<p>
-				{{ $t('exp.log.law.dil.1') }}
-				<br />
-				{{ $t('exp.log.law.dil.2') }}{{ format(Logarithm.dilateNerf())
-				}}{{ $t('exp.log.law.dil.3') }}{{ format(Logarithm.dilateNerf().div(2))
-				}}{{ $t('exp.log.law.dil.4') }}<br />{{ $t('exp.log.law.dil.5') }}
-			</p>
+			<p v-html="dilateDebuff()"></p>
 			<p>{{ $t('exp.log.law.dil.6') }}</p>
 			<p>
 				{{ $t('exp.log.law.dil.7') }}{{ format(Logarithm.logarithm.highest_dilate)
