@@ -405,10 +405,10 @@ export default {
 			"Numerorum\tThis is not good. I think I've been spotted.",
 		],
 		[
-			'Numerorum来到了天文学家的店铺，它坐落在高塔旁的悬崖边。',
-			'Numerorum\t你就是天文学家？我现在需要一些你们的帮助。',
-			'天文学家\t你好，我是天文学家的头领，你需要我们来帮你计算吗？',
-			'Numerorum\t是的，我现在需要这些数据。',
+			"Numerorum arrived at the astronomer's shop, perched on the cliff beside the tower.",
+			'Numerorum\tYou are the astronomer? I need some help from you right now.',
+			"天文学家\tHello, I'm the leader of the astronomers. Do you need us to help you with your calculations?",
+			'Numerorum\tYes, I need this data now.',
 		],
 		[
 			'Numerorum\t这些东西我也研究得差不多了，是时候出发了。',
@@ -752,6 +752,17 @@ export default {
 	'exp.cb.pre':
 		' In ancient times, there was a king who wished to reward a wise minister for inventing chess... ',
 
+	'exp.log.pre':
+		'The discovery of logarithms, by saving labor, has prolonged the life of the astronomer. — Laplace',
+	'exp.log.obsd': 'You have {amount} observe datas,',
+	'exp.log.cald': 'You have {amount} calculation datas',
+	'exp.log.conv': '1 Observe data -> {res} Calc. datas',
+
+	'upgs.byl.lgr_emp': 'Employ an astronony',
+
+	'upgs.byl.lgr_impr':
+		'Improve logarithmic tables to enhance computational speed and extend the lifespan of astronomers.',
+
 	'timeshard.t':
 		'You have {amount} time shard. Convert it to achieve a 3x time acceleration effect for the equivalent minutes.',
 	'timeshard.t2': 'You have {amount} time accelerations.',
@@ -768,4 +779,5 @@ export default {
 	'timeshard.gen.3': 'Colddown: 168 hrs<br>Prod: 1000~5000',
 	'timeshard.gen.avaliable': 'Avaliable',
 	'timeshard.gen.waituntil': 'Please wait until',
+	'plot.astronaut': 'Astronaut',
 };

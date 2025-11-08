@@ -4,40 +4,51 @@ import TDBuyable from '../../group-2/TDBuyable.vue';
 import { format, formatGain, formatTime } from '@/utils/format';
 import { player } from '@/core/save';
 import ObserveButton from '../../group-2/ObserveButton.vue';
+import { useI18n } from 'vue-i18n';
+
+const $t = useI18n().t;
+function datas() {
+	return `<p>
+			${$t('exp.log.obsd', {
+				amount: `<b style="color: rgb(127, 127, 255); font-size: 25px">
+				${format(Logarithm.logarithm.observe_datas)}
+			</b>`,
+			})}
+		</p>
+		<p>
+			${$t('exp.log.cald', {
+				amount: `<b style="color: rgb(127, 127, 255); font-size: 25px">
+				${format(Logarithm.logarithm.calculate_datas)}
+			</b>`,
+			})}
+		</p>`;
+}
 </script>
 
 <template>
 	<div class="main">
 		<p style="color: grey; table-align: center">
-			对数的发现，因其节省劳力而延长了天文学家的寿命。——拉普拉斯
+			{{ $t('exp.log.pre') }}
 		</p>
-		<p>
-			你有
-			<b style="color: rgb(127, 127, 255); font-size: 25px">
-				{{ format(Logarithm.logarithm.observe_datas) }}
-			</b>
-			观测数据，
-		</p>
-		<p>
-			你有
-			<b style="color: rgb(127, 127, 255); font-size: 25px">
-				{{ format(Logarithm.logarithm.calculate_datas) }}
-			</b>
-			计算数据，
-		</p>
+		<div v-html="datas()"></div>
 		<div>
 			<p v-for="astr in Object.entries(player.exponention.logarithm.astronomers)">
-				天文学家 {{ astr[0] }}: 工作时长 {{ formatTime(astr[1].life) }}
+				{{ $t('plot.astronaut') }} {{ astr[0] }}: {{ formatTime(astr[1].life) }}
 				{{
 					formatGain(
 						Logarithm.logarithm.calculate_datas,
 						Logarithm.astronomerProduce(Number(astr[0])),
-						'计算数据',
 					)
 				}}
 			</p>
 		</div>
-		<p>1 观测数据 -> {{ format(Logarithm.observeDataConvert()) }} 计算数据</p>
+		<p>
+			{{
+				$t('exp.log.conv', {
+					res: format(Logarithm.observeDataConvert()),
+				})
+			}}
+		</p>
 		<table align="center">
 			<tbody>
 				<tr>

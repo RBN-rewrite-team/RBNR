@@ -859,6 +859,15 @@ export default {
 	'upgs.byl.cb1': '增加一个棋盘格',
 	'exp.cb.pre': ' 古时候，有一位国王想要犒赏一位聪明的大臣，奖赏他发明了国际象棋…… ',
 
+	'exp.log.pre': '对数的发现，因其节省劳力而延长了天文学家的寿命。——拉普拉斯',
+	'exp.log.obsd': '你有{amount}观测数据，',
+	'exp.log.cald': '你有{amount}计算数据，',
+	'exp.log.conv': '1 观测数据 -> {res} 计算数据',
+
+	'upgs.byl.lgr_emp': '雇佣一名天文学家',
+
+	'upgs.byl.lgr_impr': '改进对数表，提高运算速度和天文学家寿命',
+
 	'timeshard.t': '你有{amount}时间碎片，转换它以获得同等分钟的3x时间加速效果',
 	'timeshard.t2': '你有{amount}的时间加速',
 
@@ -874,4 +883,5 @@ export default {
 	'timeshard.gen.3': '冷却时间: 168小时<br>产量: 1000~5000',
 	'timeshard.gen.avaliable': '冷却完毕',
 	'timeshard.gen.waituntil': '请等待至',
+	'plot.astronaut': '天文学家',
 };

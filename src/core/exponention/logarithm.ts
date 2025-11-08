@@ -31,7 +31,6 @@ export const Logarithm = {
 	buyables: {
 		lgr_emp: new (class extends Buyable<Decimal> {
 			name = 'B-LG-EMP';
-			description: string = '雇佣一名天文学家';
 			currency: Currencies = Currencies.EXPONENTION_POWER;
 			cost(x: Decimal): Decimal {
 				let base = new Decimal(10);

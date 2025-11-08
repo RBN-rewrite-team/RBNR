@@ -1,5 +1,6 @@
 import type { $t } from '@/utils/types';
 import { player } from './save';
+import { getMessage, i18n } from '@/utils/i18n';
 export const PlotMilestones = [
 	() => true,
 	() => player.stat.chapter >= 0,
@@ -278,6 +279,9 @@ export function stringToPlot(a: string, $t: $t) {
 		if (imagea) {
 			res.image = imagea;
 		}
+	}
+	if (res.name == '天文学家' && i18n.global.locale.value !== 'zh-CN') {
+		res.name = getMessage('plot.astronaut');
 	}
 	return res;
 }
