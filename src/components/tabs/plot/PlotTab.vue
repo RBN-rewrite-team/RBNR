@@ -58,18 +58,6 @@ const selectOption = (option: number) => {
 	actualIndex = option;
 };
 
-// 确认选择
-const confirmSelection = () => {
-	if (selectedValue.value) {
-		alert(`您已选择: ${selectedValue.value}`);
-	}
-};
-
-// 清除选择
-const clearSelection = () => {
-	selectedValue.value = -1;
-};
-
 // 点击外部关闭下拉框
 const handleClickOutside = (event: any) => {
 	const selectContainer = document.querySelector('.select-container');
@@ -85,11 +73,13 @@ onMounted(() => {
 
 <template>
 	<div class="main">
-		<h1>剧情设定</h1>
+		<h1>{{ $t('plot.title') }}</h1>
 		<div>
 			<div class="select-container">
 				<div class="select-header" :class="{ open: isOpen }" @click="toggleDropdown">
-					<span v-if="selectedValue == -1" class="placeholder">请选择一个选项</span>
+					<span v-if="selectedValue == -1" class="placeholder">{{
+						$t('plot.select')
+					}}</span>
 					<span v-else class="selected-value"
 						><convertTextToComponent :text="$t('plot.' + selectedValue)"
 					/></span>
@@ -100,7 +90,7 @@ onMounted(() => {
 					<input
 						type="text"
 						class="search-input"
-						placeholder="搜索选项..."
+						:placeholder="$t('plot.search')"
 						v-model="searchQuery"
 					/>
 					<ul class="option-list">
@@ -116,7 +106,7 @@ onMounted(() => {
 							<convertTextToComponent :text="$t('plot.' + option)" />
 						</li>
 						<li v-if="filteredOptions.length === 0" class="no-options">
-							未找到匹配的选项
+							{{ $t('plot.couldntfound') }}
 						</li>
 					</ul>
 				</div>
@@ -126,7 +116,7 @@ onMounted(() => {
 				@click="() => enterPlot(actualIndex + 1)"
 				style="margin: auto"
 			>
-				进入剧情
+				{{ $t('plot.enter') }}
 			</button>
 		</div>
 	</div>

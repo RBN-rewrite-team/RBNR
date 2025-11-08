@@ -329,6 +329,11 @@ export default {
 		18: 'Retribution',
 	},
 	'plot.narrator': 'Narrator',
+	'plot.title': 'Plot',
+	'plot.select': 'Select a plot option',
+	'plot.enter': 'Enter plot',
+	'plot.search': 'Search options...',
+	'plot.couldntfound': "Couldn't find options",
 	plotcontent: [
 		[
 			'Big cardinals floats in Ordinal Tower that supports Set theory Universe.',

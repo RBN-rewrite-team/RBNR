@@ -21,8 +21,6 @@ import { timeCheck } from './time-check.ts';
 import { initPTMilestones } from '@/core/pt/milestones.ts';
 import App from '@/App.tsx';
 import { i18n } from './i18n.ts';
-import { temp } from '@/core/temp-data.ts';
-import { upgrades } from '@/core/mechanic.ts';
 export function init() {
 	try {
 		timeCheck();

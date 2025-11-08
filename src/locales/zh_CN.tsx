@@ -307,6 +307,11 @@ export default {
 		18: 'Retribution',
 	},
 	'plot.narrator': '旁白',
+	'plot.title': '剧情设定',
+	'plot.select': '请选择一个剧情',
+	'plot.enter': '进入剧情',
+	'plot.search': '搜索选项...',
+	'plot.couldntfound': '未找到匹配的选项',
 	plotcontent: [
 		[
 			'大基数在支撑集合论宇宙的序数高塔中飘荡。',
