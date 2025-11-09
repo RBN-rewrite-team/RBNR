@@ -887,7 +887,8 @@ export default {
 	'upgs.byl.54R': 'Increase the growth rate of x_3 by +0.05 per second',
 	'upgs.byl.55R': 'Increase x_3 by an exponential rate of +0.05 per second',
 	'upgs.byl.61R': 'a = a + 1',
-	'upgs.byl.62R': 'BMS推演速度×2',
+	'upgs.byl.62R': 'BMS progression speed ×2',
+
 	'upgs.byl.51A': 'Booster multiplier increases speed by +0.01',
 	'upgs.byl.52A': 'Accelerator Maximum Multiplier ×2',
 	'upgs.byl.53A': 'Accelerator effect exponent +0.05',
@@ -934,4 +935,15 @@ export default {
 	'sing.h.9': 'Before {words}, I need to sacrifice my Addition Layer...<br />',
 	'sing.h.10':
 		'Before {words}, I need to sacrifice my Successor Layer...<br />THIS IS THE LAST WARNING......',
+
+	'dung.hp': 'HP: ',
+	'dung.atk': 'ATK: ',
+	'dung.def': 'DEF: ',
+	'dung.lv': 'LV: ',
+	'dung.wlv': '(World LV:{lv})',
+	'dung.xp': 'XP:',
+	'dung.ore': 'Ore: ',
+	'dung.ore.1': '(+{effect}% Global speed)',
+
+	'upgs.51A': 'Accelerator Maximum Multiplier and speed increase based on Ordinal',
 };

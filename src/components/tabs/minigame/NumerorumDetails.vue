@@ -54,9 +54,9 @@ function openCore() {
 		Numerorum<br />
 		<div style="position: relative; height: 50px; width: 400px; background-color: black">
 			<div align="center" style="font-size: 17px; color: white">
-				生命值：{{ meBattleInfo().hp.toFixed(1) }}/{{ meBattleInfo().hpMax.toFixed(1) }}({{
-					Math.ceil((meBattleInfo().hp / meBattleInfo().hpMax) * 100)
-				}}%)
+				{{ $t('dung.hp') }}{{ meBattleInfo().hp.toFixed(1) }}/{{
+					meBattleInfo().hpMax.toFixed(1)
+				}}({{ Math.ceil((meBattleInfo().hp / meBattleInfo().hpMax) * 100) }}%)
 			</div>
 			<div
 				:style="{
@@ -70,13 +70,17 @@ function openCore() {
 		<table style="width: 100%">
 			<tbody>
 				<tr>
-					<td>当前攻击力: {{ meBattleInfo().atk.toFixed(1) }}</td>
-					<td>当前防御: {{ meBattleInfo().def.toFixed(1) }}</td>
+					<td>{{ $t('dung.atk') }}{{ meBattleInfo().atk.toFixed(1) }}</td>
+					<td>{{ $t('dung.def') }}{{ meBattleInfo().def.toFixed(1) }}</td>
 				</tr>
 				<tr>
 					<td>
-						当前LV: {{ currentPlayerLV().toFixed(0) }}<br />
-						(世界等级: {{ getWorldLevel().toFixed(1) }})
+						{{ $t('dung.lv') }}{{ currentPlayerLV().toFixed(0) }}<br />
+						{{
+							$t('dung.wlv', {
+								lv: getWorldLevel().toFixed(1),
+							})
+						}}
 					</td>
 					<td
 						:style="{
@@ -89,14 +93,18 @@ function openCore() {
 							color: 'white',
 						}"
 					>
-						当前XP: {{ player.minigame.xp.toFixed(0) }}/{{ nextLVxp().toFixed(0) }}
+						{{ $t('dung.xp') }}{{ player.minigame.xp.toFixed(0) }}/{{
+							nextLVxp().toFixed(0)
+						}}
 					</td>
 				</tr>
 				<tr>
 					<td>
-						矿石收集：{{ player.minigame.ore_gets }}<br />(+{{
-							player.minigame.ore_gets * 0.25
-						}}%全局速度)
+						{{ $t('dung.ore') }}{{ player.minigame.ore_gets }}<br />{{
+							$t('dung.ore.1', {
+								effect: player.minigame.ore_gets * 0.25,
+							})
+						}}
 						<PrimaryButton
 							@click="player.options.openOreEffect = !player.options.openOreEffect"
 						>

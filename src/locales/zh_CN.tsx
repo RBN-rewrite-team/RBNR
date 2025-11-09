@@ -978,4 +978,13 @@ export default {
 	'sing.h.8': '在{words}之前，还要献祭乘法层级......',
 	'sing.h.9': '在{words}之前，还要献祭加法层级......<br />',
 	'sing.h.10': '在{words}之前，还要献祭后继层级......<br />这是最后的警告......',
+
+	'dung.hp': '生命值：',
+	'dung.atk': '当前攻击力: ',
+	'dung.def': '当前防御力: ',
+	'dung.lv': '当前LV: ',
+	'dung.wlv': '(世界等级: {lv})',
+	'dung.xp': '当前XP: ',
+	'dung.ore': '矿石收集：',
+	'dung.ore.1': '(+{effect}%全局速度)',
 };
