@@ -989,4 +989,11 @@ export default {
 	'dung.ore.1': '(+{effect}%全局速度)',
 
 	'ord.acc': `加速器倍率为×{eff}({q},上限{c})`,
+
+	'currency.hydra': '九头蛇能量',
+	'hydra.milestonenotget': '暂未达成',
+	'hydra.youhavededuced': '你已经推演了{deduce}次',
+	'res.hydra': '九头蛇能量',
+	'hydra.reset': '重置',
+	'hydra.currentresetmakesmu': '当前重置使乘数+{effect}',
 };

@@ -13,6 +13,10 @@ import Baixie from '@/components/group-2/Baixie.vue';
 import { Hydra } from '@/core/hydra/hydra';
 import HydraDeduceOrdinal from '../hydra/HydraDeduceOrdinal.vue';
 
+import { useI18n } from 'vue-i18n';
+
+const $t = useI18n().t;
+
 function powerFactorHTML(): string {
 	let s = '';
 	s += format(player.hydra.powerMult[0]);
@@ -58,7 +62,7 @@ function powerFactorHTML(): string {
 		<div v-if="player.retribution >= 1">
 			<span style="color: red; display: block; height: 50px"
 				><h3>
-					序数
+					{{ $t('res.ordinal') }}
 					<span
 						v-html="
 							Ordinal.displayOrdinalColored(
@@ -84,11 +88,14 @@ function powerFactorHTML(): string {
 					/></h3
 			></span>
 			<span
-				>你已经推演了{{ formatWhole(player.hydra.deduceOrdinal[0]) }}次<span
-					v-html="formatGain(temp.lastBMSDeduce, feature.Hydra.deduceSpeed(0))"
+				>{{
+					$t('hydra.youhavededuced', {
+						deduced: formatWhole(player.hydra.deduceOrdinal[0]),
+					})
+				}}<span v-html="formatGain(temp.lastBMSDeduce, feature.Hydra.deduceSpeed(0))"
 			/></span>
 			<div style="font-weight: bold; color: rgb(200, 190, 245)">
-				九头蛇能量&nbsp;
+				{{ $t('res.hydra') }}&nbsp;
 				<div style="display: inline; text-shadow: rgb(0, 20, 127) 1px 1px 2px">
 					{{ formatWhole(player.hydra.power) }}
 				</div>
@@ -131,17 +138,20 @@ function powerFactorHTML(): string {
 							}"
 						>
 							<span class="hydra-text">
-								<h2 style="color: rgb(200, 190, 245)">重置</h2>
+								<h2 style="color: rgb(200, 190, 245)">{{ $t('hydra.reset') }}</h2>
 								<h3 style="color: rgb(155, 125, 195)">
-									+{{ format(feature.Hydra.powerGain()) }}九头蛇能量
+									+{{ format(feature.Hydra.powerGain())
+									}}{{ $t('currency.hydra') }}
 								</h3>
 								<br />
-								当前重置使乘数+{{
-									format(
-										feature.Hydra.deduceEff(player.hydra.visiting).mul(
-											player.hydra.deduceOrdinal[player.hydra.visiting],
+								{{
+									$t('hydra.currentresetmakesmu', {
+										effect: format(
+											feature.Hydra.deduceEff(player.hydra.visiting).mul(
+												player.hydra.deduceOrdinal[player.hydra.visiting],
+											),
 										),
-									)
+									})
 								}}
 							</span>
 						</button>
