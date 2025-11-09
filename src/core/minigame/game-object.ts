@@ -24,6 +24,7 @@ import { runDeath } from './death-function';
 
 import { type CoreEquipment } from '.';
 import type { Directions } from './minigame-loop';
+import { getMessage } from '@/utils/i18n';
 
 /**
  * 游戏物体 Nothingness（这里什么都没有）
@@ -236,7 +237,7 @@ export class EntityGameObject extends GameObject {
 			temp.minigametip = '战斗胜利<br>';
 			temp.minigametip += '获得了<span style="color: gold">' + guardinfo.xp + '</span>XP<br>';
 			for (const i in spoils) {
-				temp.minigametip += '获得了' + equipmentDisplay(spoils[i]) + '<br>';
+				temp.minigametip += '获得了' + equipmentDisplay(spoils[i], getMessage) + '<br>';
 			}
 		}
 		player.minigame.interact = 0;

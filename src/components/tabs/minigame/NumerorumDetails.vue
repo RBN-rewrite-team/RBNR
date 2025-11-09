@@ -108,11 +108,21 @@ function openCore() {
 						<PrimaryButton
 							@click="player.options.openOreEffect = !player.options.openOreEffect"
 						>
-							开启矿石效果: {{ player.options.openOreEffect ? '开' : '关' }}
+							{{
+								$t('set.status', {
+									label: $t('dung.ore.2'),
+									status: $t(
+										player.options.openOreEffect
+											? 'set.status.on'
+											: 'set.status.off',
+									),
+								})
+							}}
 						</PrimaryButton>
 					</td>
 					<td>
-						宝箱收集：<span
+						{{ $t('dung.boxes.collect')
+						}}<span
 							style="color: rgb(186, 110, 64)"
 							v-html="player.minigame.box_gets[0]"
 						/>/<span
@@ -133,14 +143,15 @@ function openCore() {
 					</td>
 					<td>
 						<PrimaryButton @click="openCore()">
-							核心(装备{{
+							{{ $t('dung.core') }}({{ $t('dung.core.equip')
+							}}{{
 								player.minigame.coreEquipments.hea.length +
 								player.minigame.coreEquipments.atk.length +
 								player.minigame.coreEquipments.def.length
 							}}/3)</PrimaryButton
 						><br />
-						仓库装备：{{ player.minigame.storeEquipments.length }}/50<span
-							style="color: cyan"
+						{{ $t('dung.core.storeequipments')
+						}}{{ player.minigame.storeEquipments.length }}/50<span style="color: cyan"
 							>(不朽x{{
 								player.minigame.storeEquipments.filter((item) => {
 									return item.rarity >= 1.9;

@@ -41,7 +41,7 @@ function changeCoreView(eq: CoreEquipment) {
 			:style="{ 'border-color': temp.coreViewColor() }"
 		>
 			<div v-if="temp.coreViewEquipment !== null">
-				<span v-html="equipmentDisplay(temp.coreViewEquipment)" />
+				<span v-html="equipmentDisplay(temp.coreViewEquipment, $t)" />
 				<span v-if="isEquipped(temp.coreViewEquipment)">(已装备)</span>
 				<br />
 				真实等级{{
@@ -83,7 +83,7 @@ function changeCoreView(eq: CoreEquipment) {
 							@click="changeCoreView(player.minigame.coreEquipments.hea[0])"
 						>
 							装备的支持部<br /><span
-								v-html="equipmentDisplay(player.minigame.coreEquipments.hea[0])"
+								v-html="equipmentDisplay(player.minigame.coreEquipments.hea[0], $t)"
 							/>
 						</div>
 						<div
@@ -105,7 +105,7 @@ function changeCoreView(eq: CoreEquipment) {
 							@click="changeCoreView(player.minigame.coreEquipments.atk[0])"
 						>
 							装备的打击部<br /><span
-								v-html="equipmentDisplay(player.minigame.coreEquipments.atk[0])"
+								v-html="equipmentDisplay(player.minigame.coreEquipments.atk[0], $t)"
 							/>
 						</div>
 						<div
@@ -127,7 +127,7 @@ function changeCoreView(eq: CoreEquipment) {
 							@click="changeCoreView(player.minigame.coreEquipments.def[0])"
 						>
 							装备的防御部<br /><span
-								v-html="equipmentDisplay(player.minigame.coreEquipments.def[0])"
+								v-html="equipmentDisplay(player.minigame.coreEquipments.def[0], $t)"
 							/>
 						</div>
 						<div
@@ -154,7 +154,7 @@ function changeCoreView(eq: CoreEquipment) {
 				:style="{ 'border-color': temp.coreViewColor(item) }"
 				@click="changeCoreView(item)"
 			>
-				<span v-html="equipmentDisplay(item)" />
+				<span v-html="equipmentDisplay(item, $t)" />
 			</div>
 		</div>
 	</div>

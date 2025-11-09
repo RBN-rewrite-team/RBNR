@@ -948,4 +948,32 @@ export default {
 	'upgs.51A': 'Accelerator Maximum Multiplier and speed increase based on Ordinal',
 
 	'ord.acc': `Booster(Accelerator) multiplier to ordinal is ×{eff}({q}, Maximum value{c})`,
+	'tab.help': '帮助',
+
+	'currency.hydra': '九头蛇能量',
+	'hydra.milestonenotget': '暂未达成',
+	'hydra.youhavededuced': '你已经推演了{deduce}次',
+	'res.hydra': '九头蛇能量',
+	'hydra.reset': '重置',
+	'hydra.currentresetmakesmu': '当前重置使乘数+{effect}',
+
+	'hydra.prestiges.1.lock': '基础乘数≥2解锁',
+	'hydra.prestiges.2.lock': '转生效果≥20解锁',
+	'hydra.prestiges.3.lock': '飞升效果≥1解锁',
+	'hydra.prestiges.4.lock': '超越效果≥1e10解锁',
+	'hydra.prestiges.1.auto': '首次超越解锁自动化',
+	'hydra.prestiges.2.auto': '首次轮回解锁自动化',
+	'hydra.prestiges.auto': '暂时无法自动化',
+
+	'dung.ore.2': '开启矿石效果',
+	'dung.boxes.collect': '宝箱收集：',
+	'dung.core': '核心',
+	'dung.core.equip': '装备',
+	'dung.core.storeequipments': '仓库装备：',
+	'dung.core.levels.0': 'Normal',
+	'dung.core.levels.1': 'Rare',
+	'dung.core.levels.2': '史诗',
+	'dung.core.levels.3': 'Legend',
+	'dung.core.levels.4': 'Myth',
+	'dung.core.levels.5': 'Undying',
 };

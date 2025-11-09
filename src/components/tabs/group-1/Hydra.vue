@@ -189,7 +189,7 @@ function powerFactorHTML(): string {
 										format(feature.Hydra.prestigeEff(0, false, true).max(1))
 									}})
 								</span>
-								<span v-else>基础乘数≥2解锁</span>
+								<span v-else>{{ $t('hydra.prestiges.1.lock') }}</span>
 							</span>
 						</button>
 					</td>
@@ -208,7 +208,7 @@ function powerFactorHTML(): string {
 										)
 									}}
 								</span>
-								<span v-else>转生效果≥20解锁</span>
+								<span v-else>{{ $t('hydra.prestiges.2.lock') }}</span>
 							</span>
 						</button>
 					</td>
@@ -227,7 +227,7 @@ function powerFactorHTML(): string {
 										)
 									}}
 								</span>
-								<span v-else>飞升效果≥1解锁</span>
+								<span v-else>{{ $t('hydra.prestiges.3.lock') }}</span>
 							</span>
 						</button>
 					</td>
@@ -246,7 +246,7 @@ function powerFactorHTML(): string {
 										)
 									}}
 								</span>
-								<span v-else>超越效果≥1e10解锁</span>
+								<span v-else>{{ $t('hydra.prestiges.4.lock') }}</span>
 							</span>
 						</button>
 					</td>
@@ -269,7 +269,7 @@ function powerFactorHTML(): string {
 									}}
 									& x{{ format(feature.Hydra.pAutoThreshold(0).mul) }}
 								</span>
-								<span v-else>首次超越解锁自动化</span>
+								<span v-else>{{ $t('hydra.prestiges.1.auto') }}</span>
 							</span>
 						</button>
 					</td>
@@ -290,7 +290,7 @@ function powerFactorHTML(): string {
 									}}
 									& x{{ format(feature.Hydra.pAutoThreshold(1).mul) }}
 								</span>
-								<span v-else>首次轮回解锁自动化</span>
+								<span v-else>{{ $t('hydra.prestiges.2.auto') }}</span>
 							</span>
 						</button>
 					</td>
@@ -311,7 +311,7 @@ function powerFactorHTML(): string {
 									}}
 									& x{{ format(feature.Hydra.pAutoThreshold(2).mul) }}
 								</span>
-								<span v-else>暂时无法自动化</span>
+								<span v-else>{{ $t('hydra.prestiges.auto') }}</span>
 							</span>
 						</button>
 					</td>
@@ -332,7 +332,7 @@ function powerFactorHTML(): string {
 									}}
 									& x{{ format(feature.Hydra.pAutoThreshold(3).mul) }}
 								</span>
-								<span v-else>暂时无法自动化</span>
+								<span v-else>{{ $t('hydra.prestiges.auto') }}</span>
 							</span>
 						</button>
 					</td>
