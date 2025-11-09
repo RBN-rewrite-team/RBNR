@@ -24,7 +24,15 @@ function randomSymbol(cn = true): string {
 }
 
 export const wordShift = {
-	wordCycle(list: string[], noBuffer: boolean = false, nothing?: number, cn = true): string {
+	wordCycle(
+		list: {
+			length: number;
+			[ind: number]: string;
+		},
+		noBuffer: boolean = false,
+		nothing?: number,
+		cn = true,
+	): string {
 		const len = list.length;
 		const tick = Math.floor(Date.now() / 250) % (len * 5);
 		const mod5 = ((Date.now() / 250) % (len * 5)) % 5;

@@ -954,4 +954,28 @@ export default {
 	'nt.growhier.desc': 'τ<sub>3</sub>倍增序数获取速度',
 
 	'res.exppower': '指数能量',
+
+	'sing.gain': `你每秒获取 (奇点能量+1){exponent}</sup>/{division} 奇点能量<br />`,
+
+	'sing.g.1': `你有<b style="color: var(--sing-color); font-size: 25px">{se}</b>，这使数值，加法能量，乘法能量获取<b style="color: var(--sing-color)">^{exp}</b>`,
+	'sing.g.2': `你有<b style="color: var(--sing-color); font-size: 25px">{se}</b>，这使数值，加法能量获取<b style="color: var(--sing-color)">^{exp}</b>`,
+	'sing.g.3': `你有<b style="color: var(--sing-color); font-size: 25px">{se}</b>，这使数值获取<b style="color: var(--sing-color)">^{exp}</b>`,
+	'sing.g.4': `你有<b style="color: var(--sing-color); font-size: 25px">{se}</b>，每秒生产<b style="color: var(--sing-color)">{exp}</b>数值`,
+	'sing.g.5': `你有<b style="color: var(--sing-color); font-size: 25px">ω</b>奇点能量`,
+
+	'sing.t.1': ['数值', '加法能量', '乘法能量', '指数能量', '奇点能量'],
+	'sing.t.2': ['数值', '加法能量', '乘法能量', '奇点能量'],
+	'sing.t.3': ['数[]', '[]法能量', '乘[]能量', '奇点能[]'],
+	'sing.t.4': ['一切皆毁', '万物消亡', '终焉寂灭'],
+
+	'sing.h.1': '现在的{words}太多了......我需要献祭我的对数膨胀和记数法才能走得更远......',
+	'sing.h.2': '现在的{words}太多了......我需要献祭我的对数运算和软上限才能走得更远......',
+	'sing.h.3': '现在的{words}太多了......我需要献祭我的棋盘才能走得更远......',
+	'sing.h.4': '现在的{words}太多了......我需要献祭我的指数层级才能走得更远......',
+	'sing.h.5': '现在的{words}太多了......我需要献祭我的乘法挑战才能走得更远......',
+	'sing.h.6': '现在的{words}太[]了...我需[]献祭我的[]因数才能[]得更远...',
+	'sing.h.7': '现在的{words}太[]了...我需[]献祭我的数论[][]才能{words2}...',
+	'sing.h.8': '在{words}之前，还要献祭乘法层级......',
+	'sing.h.9': '在{words}之前，还要献祭加法层级......<br />',
+	'sing.h.10': '在{words}之前，还要献祭后继层级......<br />这是最后的警告......',
 };

@@ -853,6 +853,7 @@ export default {
 	'sing.4': 'THE SINGULARITY IS BREAKING THE WORLD......',
 	'sing.5': 'PREPARE FOR... A NEW WELCOME...',
 	'sing.6': 'WELCOME TO THE WORLD OF ORDINALS. HAVE FUN.',
+
 	'currency.ordinal': 'Ordinal',
 	'sing.fin': `The Singularity Generator stops after crossing the edge of the finite and the transfinite.<br />
     When will The Singularity Generator be activated again?<br />
@@ -897,4 +898,40 @@ export default {
 	'nt.growhier.title': 'Growing Hierarchy',
 	'nt.growhier.desc': 'Increases ordinal speed by τ<sub>1</sub>',
 	'res.exppower': 'Exponentiation Power',
+
+	'sing.gain': `You gain (SE+1){exponent}/{division} Singularity Energy per second.`,
+
+	'sing.g.1': `You have <b style="color: var(--sing-color); font-size: 25px">{se}</b> Singularity Energy. This makes Number, Addition Power and Multiplication Power gain <b style="color: var(--sing-color)">^{exp}</b>`,
+	'sing.g.2': `You have <b style="color: var(--sing-color); font-size: 25px">{se}</b> Singularity Energy. This makes Number and Addition Power, gain <b style="color: var(--sing-color)">^{exp}</b>`,
+	'sing.g.3': `You have <b style="color: var(--sing-color); font-size: 25px">{se}</b> Singularity Energy. This makes Number gain<b style="color: var(--sing-color)">^{exp}</b>`,
+	'sing.g.4': `You have <b style="color: var(--sing-color); font-size: 25px">{se}</b> Singularity Energy. Singularity Energy generates <b style="color: var(--sing-color)">{exp}</b> Number per second`,
+	'sing.g.5': `You have <b style="color: var(--sing-color); font-size: 25px">ω</b> Singularity Energy`,
+
+	'sing.t.1': [
+		'Number',
+		'Addition Power',
+		'Multiplication Power',
+		'Exponentiation Power',
+		'Singularity Energy',
+	],
+	'sing.t.2': ['Number', 'Addition Power', 'Multiplication Power', 'Singularity Energy'],
+	'sing.t.3': ['Nu[]er', 'Add[]ion Power', 'Mul[]plicatio[]Power', 'Sing[]arity Energy'],
+	'sing.t.4': ['一切皆毁', '万物消亡', '终焉寂灭'],
+
+	'sing.h.1':
+		'There are too many {words}...I need to sacrifice my logarithm dilation and notation settings to go further...',
+	'sing.h.2':
+		'There are too many {words}...I need to sacrifice my logarithm calculation and softcaps to go further...',
+	'sing.h.3': 'There are too many {words}...I need to sacrifice my chess board to go further...',
+	'sing.h.4':
+		'There are too many {words}...I need to sacrifice my Exponentiation Layer to go further...',
+	'sing.h.5':
+		'There are too many {words}...I need to sacrifice my Multiplication Challenge to go further...',
+	'sing.h.6': 'There are too [][] {words}...I need to sacrifice my Prim[]Factor to go further...',
+	'sing.h.7':
+		'There are too [][] {words}...I need to sacrifice my Nu[]er Theo[]y to go further...',
+	'sing.h.8': 'Before {words}, I need to sacrifice my Multiplication Layer...',
+	'sing.h.9': 'Before {words}, I need to sacrifice my Addition Layer...<br />',
+	'sing.h.10':
+		'Before {words}, I need to sacrifice my Successor Layer...<br />THIS IS THE LAST WARNING......',
 };

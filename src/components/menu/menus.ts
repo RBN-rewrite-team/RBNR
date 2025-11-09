@@ -88,7 +88,7 @@ export const menus = [
 	{
 		title: 'tab.exponentation',
 		show() {
-			return player.stat.highestExppower.gte(1) && player.singularity.stage < 9;
+			return player.stat.highestExppower.gte(1) && player.singularity.stage < 4;
 		},
 		contents: [
 			{ id: 9, text: 'tab.expupg' },
