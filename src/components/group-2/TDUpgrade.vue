@@ -121,7 +121,7 @@ const description = computed(function () {
 				</span>
 				<span> </span>
 			</div>
-			<span class="tooltip">
+			<!-- <span class="tooltip">
 				{{
 					$t('upg.automatoruseid', {
 						id: props.upgid,
@@ -138,7 +138,7 @@ const description = computed(function () {
 						)
 					}}</template
 				>
-			</span>
+			</span> -->
 		</div>
 	</td>
 </template>
