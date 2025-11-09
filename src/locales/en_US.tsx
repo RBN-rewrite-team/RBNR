@@ -883,7 +883,7 @@ export default {
 
 	'upgs.byl.51R': 'x<sub>3,1</sub>=x<sub>3,1</sub>+1',
 	'upgs.byl.52R': 'Increase the SGH base number by 1',
-	'upgs.byl.53R': 'Decrease the SGH base number by 1',
+	'upgs.byl.53R': 'Decrease the HH base number by 1',
 	'upgs.byl.54R': 'Increase the growth rate of x_3 by +0.05 per second',
 	'upgs.byl.55R': 'Increase x_3 by an exponential rate of +0.05 per second',
 	'upgs.byl.61R': 'a = a + 1',
@@ -946,4 +946,6 @@ export default {
 	'dung.ore.1': '(+{effect}% Global speed)',
 
 	'upgs.51A': 'Accelerator Maximum Multiplier and speed increase based on Ordinal',
+
+	'ord.acc': `Booster(Accelerator) multiplier to ordinal is ×{eff}({q}, Maximum value{c})`,
 };

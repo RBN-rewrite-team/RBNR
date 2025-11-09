@@ -987,4 +987,6 @@ export default {
 	'dung.xp': '当前XP: ',
 	'dung.ore': '矿石收集：',
 	'dung.ore.1': '(+{effect}%全局速度)',
+
+	'ord.acc': `加速器倍率为×{eff}({q},上限{c})`,
 };
