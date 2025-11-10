@@ -952,7 +952,7 @@ export default {
 
 	'currency.hydra': 'Hydra Energy',
 	'hydra.milestonenotget': 'NOT ACHIEVED',
-	'hydra.youhavededuced': 'You have progressed through BMS {deduce} times',
+	'hydra.youhavededuced': 'Progressed through BMS {deduce} times',
 	'res.hydra': 'Hydra Energy',
 	'hydra.reset': 'RESET.',
 	'hydra.currentresetmakesmu': "Current reset',\s effect +{effect}",
@@ -1007,4 +1007,13 @@ export default {
 	'res.hour': 'hour',
 	'res.minute': 'min',
 	'res.second': 'sec',
+	'upgs.ts01.name': 'Accelerating Pack for Chap. 0',
+	'upgs.ts02.name': '第0章永久包',
+	'upgs.ts03.name': '第0章超级加速包',
+	'upgs.ts11.name': '第1章加速包',
+	'upgs.ts12.name': '第1章永久包',
+	'upgs.ts13.name': '第1章超级加速包',
+	'upgs.ts21.name': '第2章加速包',
+	'upgs.ts22.name': '第2章永久包',
+	'upgs.ts23.name': '第2章超级加速包',
 };

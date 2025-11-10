@@ -75,7 +75,7 @@ function _g() {
 			}}</span>
 			<div v-if="player.numbertheory.visiting == 3">
 				<div v-if="!player.upgrades[61]">
-					<h2>{{$t("nt.growhier.title")}}</h2>
+					<h2>{{ $t('nt.growhier.title') }}</h2>
 					<h3 v-html="$t('nt.growhier.desc')"></h3>
 					<vue-latex
 						:expression="
@@ -166,9 +166,7 @@ function _g() {
 						</tbody>
 					</table>
 				</div>
-				<span v-else style="color: rgb(255, 63, 63)"
-					>嗯？这是什么研究，我怎么不知道？之前有人来过这里吗？</span
-				>
+				<span v-else style="color: rgb(255, 63, 63)">{{ $t('nt.wait') }}</span>
 			</div>
 			<div
 				v-if="

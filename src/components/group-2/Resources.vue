@@ -149,10 +149,7 @@ import { Garden } from '@/core/pt/index.ts';
 							>
 								<span
 									v-html="
-										formatGain(
-											temp.lastBMSDeduce,
-											feature.Hydra.deduceSpeed(0),
-										).replace('(', '(推演')
+										formatGain(temp.lastBMSDeduce, feature.Hydra.deduceSpeed(0))
 									"
 								></span>
 							</div>
@@ -160,7 +157,11 @@ import { Garden } from '@/core/pt/index.ts';
 								style="font-size: 17px; color: rgb(155, 125, 195)"
 								v-if="player.upgrades[61]"
 							>
-								(已推演{{ formatWhole(player.hydra.deduceOrdinal[0]) }}次)
+								({{
+									$t('hydra.youhavededuced', {
+										deduce: formatWhole(player.hydra.deduceOrdinal[0]),
+									})
+								}})
 							</div>
 						</div>
 						<div
@@ -290,7 +291,7 @@ import { Garden } from '@/core/pt/index.ts';
 							v-if="player.upgrades[517]"
 						>
 							<div style="font-weight: bold; color: rgb(200, 190, 245)">
-								九头蛇能量&nbsp;
+								{{ $t('res.hydra') }}&nbsp;
 								<div
 									style="
 										display: inline;

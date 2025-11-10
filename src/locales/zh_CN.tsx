@@ -973,7 +973,7 @@ export default {
 
 	'currency.hydra': '九头蛇能量',
 	'hydra.milestonenotget': '暂未达成',
-	'hydra.youhavededuced': '你已经推演了{deduce}次',
+	'hydra.youhavededuced': '推演了{deduce}次',
 	'res.hydra': '九头蛇能量',
 	'hydra.reset': '重置',
 	'hydra.currentresetmakesmu': '当前重置使乘数+{effect}',
@@ -1028,4 +1028,13 @@ export default {
 	'res.hour': '时',
 	'res.minute': '分',
 	'res.second': '秒',
+	'upgs.ts01.name': '第0章加速包',
+	'upgs.ts02.name': '第0章永久包',
+	'upgs.ts03.name': '第0章超级加速包',
+	'upgs.ts11.name': '第1章加速包',
+	'upgs.ts12.name': '第1章永久包',
+	'upgs.ts13.name': '第1章超级加速包',
+	'upgs.ts21.name': '第2章加速包',
+	'upgs.ts22.name': '第2章永久包',
+	'upgs.ts23.name': '第2章超级加速包',
 };

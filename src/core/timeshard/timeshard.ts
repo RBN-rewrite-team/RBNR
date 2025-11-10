@@ -41,7 +41,6 @@ export const TimeShard = {
 	upgrades: {
 		ts01: new (class extends Upgrade {
 			cost = new Decimal(20);
-			name = '第0章加速包';
 			currency: Currencies = Currencies.TIME_SHARD;
 			show(): boolean {
 				return player.stat.chapter >= 0;
@@ -49,7 +48,6 @@ export const TimeShard = {
 		})(),
 		ts02: new (class extends Upgrade {
 			cost = new Decimal(30);
-			name = '第0章永久包';
 			currency: Currencies = Currencies.TIME_SHARD;
 			show(): boolean {
 				return player.stat.chapter >= 0;
@@ -57,7 +55,6 @@ export const TimeShard = {
 		})(),
 		ts03: new (class extends Upgrade {
 			cost = new Decimal(60);
-			name = '第0章超级加速包';
 			currency: Currencies = Currencies.TIME_SHARD;
 			show(): boolean {
 				return player.stat.chapter >= 0;
@@ -65,7 +62,6 @@ export const TimeShard = {
 		})(),
 		ts11: new (class extends Upgrade {
 			cost = new Decimal(30);
-			name = '第1章加速包';
 			currency: Currencies = Currencies.TIME_SHARD;
 			show(): boolean {
 				return player.stat.chapter >= 1;
@@ -73,7 +69,6 @@ export const TimeShard = {
 		})(),
 		ts12: new (class extends Upgrade {
 			cost = new Decimal(45);
-			name = '第1章永久包';
 			currency: Currencies = Currencies.TIME_SHARD;
 			show(): boolean {
 				return player.stat.chapter >= 1;
@@ -81,7 +76,6 @@ export const TimeShard = {
 		})(),
 		ts13: new (class extends Upgrade {
 			cost = new Decimal(90);
-			name = '第1章超级加速包';
 			currency: Currencies = Currencies.TIME_SHARD;
 			show(): boolean {
 				return player.stat.chapter >= 1;
@@ -89,7 +83,6 @@ export const TimeShard = {
 		})(),
 		ts21: new (class extends Upgrade {
 			cost = new Decimal(50);
-			name = '第2章加速包';
 			currency: Currencies = Currencies.TIME_SHARD;
 			show(): boolean {
 				return player.stat.chapter >= 2;
@@ -97,7 +90,6 @@ export const TimeShard = {
 		})(),
 		ts22: new (class extends Upgrade {
 			cost = new Decimal(75);
-			name = '第2章永久包';
 			currency: Currencies = Currencies.TIME_SHARD;
 			show(): boolean {
 				return player.stat.chapter >= 2;
@@ -105,7 +97,6 @@ export const TimeShard = {
 		})(),
 		ts23: new (class extends Upgrade {
 			cost = new Decimal(150);
-			name = '第2章超级加速包';
 			currency: Currencies = Currencies.TIME_SHARD;
 			show(): boolean {
 				return player.stat.chapter >= 2;

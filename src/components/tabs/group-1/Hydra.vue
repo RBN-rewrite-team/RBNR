@@ -339,9 +339,6 @@ function powerFactorHTML(): string {
 				</tr>
 			</tbody>
 		</table>
-		<p style="color: grey; table-align: center; transform: translateY(-220px)">
-			我们必须想象赫拉克勒斯是幸福的。————用户1986Ω
-		</p>
 		<table style="transform: translateY(-220px)">
 			<tbody>
 				<tr>

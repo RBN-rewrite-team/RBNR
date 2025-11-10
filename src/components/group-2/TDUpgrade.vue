@@ -84,7 +84,9 @@ const description = computed(function () {
 		<div class="upgrade tooltipBox" @mousedown="UPGRADES.buy(upgid)">
 			<div :class="useClass()">
 				<span style="font-weight: bold">
-					{{ curupg.name ?? $t('upgs.' + id + '.name') }} </span
+					{{
+						curupg.name == 'U0-114514' ? $t('upgs.' + id + '.name') : curupg.name
+					}} </span
 				><br />
 				<template v-if="!UPGRADES.lock(id).unlocked && !permanent && !player.upgrades[id]">
 					{{ $t('upg.locked') }}<br />
