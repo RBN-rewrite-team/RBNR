@@ -1019,4 +1019,13 @@ export default {
 	'upgs.6112': '移除B5-1-2的软上限',
 	'upgs.6113': '移除转生、飞升的一重软上限，B5-1-4提高转生效果',
 	'upgs.6114': '飞升效果与B5-1-2效果相互叠乘',
+
+	'res.infinite': '5更新时',
+	'res.uni': '宇宙年龄',
+	'res.century': '世纪',
+	'res.year': '年',
+	'res.day': '天',
+	'res.hour': '时',
+	'res.minute': '分',
+	'res.second': '秒',
 };
