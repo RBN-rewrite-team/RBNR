@@ -178,15 +178,17 @@ function prionRes() {
 						<td>
 							<div class="solvent" style="border-color: rgb(255, 0, 0)">
 								<div>
-									<div>溶剂I: 时空黑洞</div>
+									<div>{{ $t('dil.1') }}</div>
 									<div class="solvent-desc-small">
-										“虽然这很不幸，但至少你能用自己比别人活得久的事实来安慰自己。”
+										{{ $t('dil.1.desc') }}
 									</div>
-									<div>
-										推演速度和乘数积累速度变为<sup>1</sup>/<sub>{{
-											tsbhBase() ** Dilute.diluteAmountOutside(0)
-										}}</sub>
-									</div>
+									<div
+										v-html="
+											$t('dil.1.eff', {
+												effect: tsbhBase() ** Dilute.diluteAmountOutside(0),
+											})
+										"
+									></div>
 									<Slider
 										v-bind="getSliderProps(1)"
 										:value="player.hydra.dilute.solvent[0]"
@@ -206,13 +208,17 @@ function prionRes() {
 						<td>
 							<div class="solvent" style="border-color: rgb(255, 0, 0)">
 								<div>
-									<div>溶剂II: 阿尔兹海默症</div>
-									<div class="solvent-desc-small">“你变得越来越健忘......”</div>
-									<div>
-										所有升级、购买项成本^{{
-											format(4 - 3 * 0.75 ** Dilute.diluteAmountOutside(1))
-										}}
-									</div>
+									<div>{{ $t('dil.2.eff') }}</div>
+									<div class="solvent-desc-small">{{ $t('dil.2.desc') }}</div>
+									<div
+										v-html="
+											$t('dil.3.eff', {
+												eff: format(
+													4 - 3 * 0.75 ** Dilute.diluteAmountOutside(1),
+												),
+											})
+										"
+									></div>
 									<Slider
 										v-bind="getSliderProps()"
 										:value="player.hydra.dilute.solvent[1]"
@@ -229,17 +235,21 @@ function prionRes() {
 						<td>
 							<div class="solvent" style="border-color: rgb(255, 0, 0)">
 								<div>
-									<div>溶剂III: 地球爆炸</div>
+									<div>{{ $t('dil.3') }}</div>
 									<div class="solvent-desc-small">
-										“地球很快就要爆炸了，更糟的是你没有宇宙飞船......”
+										{{ $t('dil.3.desc') }}
 									</div>
 									<div>
-										选择本溶剂的稀释会在{{
-											(() => {
-												let a = Dilute.sol3EffOutside();
-												return !a.isFinite() ? '无穷时间' : formatTime(a);
-											})()
-										}}内自我毁灭(即强行退出稀释)
+										{{
+											$t('dil.3.eff', {
+												eff: (() => {
+													let a = Dilute.sol3EffOutside();
+													return !a.isFinite()
+														? '无穷时间'
+														: formatTime(a);
+												})(),
+											})
+										}}
 									</div>
 									<Slider
 										v-bind="getSliderProps()"
@@ -259,11 +269,11 @@ function prionRes() {
 						<td>
 							<div class="solvent" style="border-color: rgb(127, 0, 0)">
 								<div>
-									<div>溶剂IV: 数论地狱</div>
+									<div>{{ $t('dil.4') }}</div>
 									<div class="solvent-desc-small">
-										“数学家的最新研究打开了地狱的大门.....”
+										{{ $t('dil.4.desc') }}
 									</div>
-									<div>数论研究选项卡下的数论研究4效果反转</div>
+									<div>{{ $t('dil.4') }}</div>
 									<Slider
 										v-bind="getSliderProps()"
 										:value="player.hydra.dilute.solvent[3]"
@@ -280,15 +290,19 @@ function prionRes() {
 						<td>
 							<div class="solvent" style="border-color: rgb(127, 0, 0)">
 								<div>
-									<div>溶剂V: 朊病毒噩梦</div>
-									<div class="solvent-desc-small">“脲¤1-2~~~.2-_/T~/5个 --”</div>
-									<div style="font-size: 60%">
-										此溶剂中会不断产生朊病毒，生成量为({{
-											(1 + Dilute.diluteAmountOutside(4) / 100).toFixed(4)
-										}}^稀释中时间)-1，<br />
-										朊病毒在获取的总推演数量超过1时开始生成，<br />
-										当朊病毒数量超过稀释中获取的总推演数量时此稀释将会自我毁灭
-									</div>
+									<div>{{ $t('dil.5') }}</div>
+									<div class="solvent-desc-small">{{ $t('dil.5.desc') }}</div>
+									<div
+										style="font-size: 60%"
+										v-html="
+											$t('dil.5.eff', {
+												gen: (
+													1 +
+													Dilute.diluteAmountOutside(4) / 100
+												).toFixed(4),
+											})
+										"
+									></div>
 									<Slider
 										v-bind="getSliderProps()"
 										:value="player.hydra.dilute.solvent[4]"
@@ -305,15 +319,17 @@ function prionRes() {
 						<td>
 							<div class="solvent" style="border-color: rgb(127, 0, 0)">
 								<div>
-									<div>溶剂VI：核食惊魂</div>
+									<div>{{ $t('dil.6') }}</div>
 									<div class="solvent-desc-small">
-										“他摸着女儿的第二个头说:海鲜当然能吃！”
+										{{ $t('dil.6.desc') }}
 									</div>
-									<div>
-										推演速度^{{
-											DiluteTS.dilute6().toFixed(2)
-										}}(在其它乘数削弱效果之前)
-									</div>
+									<div
+										v-html="
+											$t('dil.6.eff', {
+												eff: DiluteTS.dilute6().toFixed(2),
+											})
+										"
+									></div>
 									<Slider
 										v-bind="getSliderProps(6)"
 										:value="player.hydra.dilute.solvent[5]"
@@ -332,11 +348,11 @@ function prionRes() {
 						<td>
 							<div class="solvent" style="border-color: rgb(63, 0, 63)">
 								<div>
-									<div>溶剂VII:天堂已满</div>
+									<div>{{ $t('dil.7') }}</div>
 									<div class="solvent-desc-small">
-										“你发现天上那些黑点不是雨，而是坠落的人类。”
+										{{ $t('dil.7.desc') }}
 									</div>
-									<div>转生，飞升，超越，轮回全部无效，禁用B5-1-2</div>
+									<div>{{ $t('dil.7.eff') }}</div>
 									<Slider
 										v-bind="sliderProps2"
 										:value="Number(player.hydra.dilute.solvent[6])"
@@ -353,11 +369,11 @@ function prionRes() {
 						<td>
 							<div class="solvent" style="border-color: rgb(63, 0, 63)">
 								<div>
-									<div>溶剂VIII:坠毁</div>
+									<div>{{ $t('dil.8') }}</div>
 									<div class="solvent-desc-small">
-										“试图升天的人类迎来了自己的末日。”
+										{{ $t('dil.8.desc') }}
 									</div>
-									<div>进入稀释后5秒后便无法获得任何九头蛇能量。</div>
+									<div>{{ $t('dil.8.eff') }}</div>
 									<Slider
 										v-bind="sliderProps2"
 										:value="Number(player.hydra.dilute.solvent[7])"
@@ -374,11 +390,11 @@ function prionRes() {
 						<td>
 							<div class="solvent" style="border-color: rgb(63, 0, 63)">
 								<div>
-									<div>溶剂IX:天启</div>
-									<div class="solvent-desc-small">“晚安，世界。”</div>
-									<div>
-										所有溶剂等级提升到最大，无法清除。全局速度×<sup>1</sup>/<sub>1000</sub>。
+									<div>{{ $t('dil.9') }}</div>
+									<div class="solvent-desc-small">
+										{{ $t('dil.9.desc') }}
 									</div>
+									<div v-html="$t('dil.9.eff')"></div>
 									<Slider
 										v-bind="sliderProps2"
 										:value="Number(player.hydra.dilute.solvent[8])"
