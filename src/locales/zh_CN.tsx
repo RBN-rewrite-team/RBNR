@@ -1077,12 +1077,11 @@ export default {
 	'upgs.mil.dut2': '解锁B5系列购买项的最大化',
 	'upgs.mil.dut3': '转生永久不重置任何东西，永久解锁自动转生，(仅在稀释VII)初始显示所有升级',
 	'upgs.mil.dut4': '飞升永久不重置任何东西，永久解锁自动飞升，保持U5-2',
+
 	'upgs.mil.dut5':
-		'在药剂7等级为1的稀释中最高九头蛇能量和药剂6等级加成推演速度<br>效果：^" + format(player.hydra.milestoneDut5Eff) + `(${format(milestoneDut5Eff())})`;',
-	'upgs.mil.dut6':
-		'在2,050,000以上的累计九头蛇溶液数量增益推演速度<br>效果：^" + format(milestoneDut6Eff());',
-	'upgs.mil.dut7':
-		'(稀释不重置)累计九头蛇能量增益推演速度<br>效果：^" + format(milestoneDut7Eff());',
+		'在药剂7等级为1的稀释中最高九头蛇能量和药剂6等级加成推演速度<br>效果：^{effect}({cur})`;',
+	'upgs.mil.dut6': '在2,050,000以上的累计九头蛇溶液数量增益推演速度<br>效果：^{effect}',
+	'upgs.mil.dut7': '(稀释不重置)累计九头蛇能量增益推演速度<br>效果：^{effect}',
 	'upgs.mil.dut8': '削弱九头蛇能量获取的二重软上限',
 	'upgs.mil.dut9': '自动购买B5-1系列购买项，你可以购买非整数次B5-1购买项',
 	'upgs.mil.dut10': '永久保留U5-1-2~4，购买稀释升级不再消耗九头蛇溶液',
@@ -1092,8 +1091,8 @@ export default {
 	'upgs.mil.dut14': 'U5-2的效果+1000%',
 	'upgs.mil.dut15': 'M-Dilute-5效果不再依赖于药剂6等级(相当于原来的10级)',
 	'upgs.mil.dut16':
-		'朊病毒加成推演速度(在稀释6后)，稀释不再重置朊病毒<br>效果：" + (player.hydra.dilute.inDilute ? "×" : "^") + format(milestoneDut16Eff());',
-	'upgs.mil.dut17': '总计九头蛇能量加成朊病毒获取速度底数<br>效果：×" + format(MEff17());',
+		'朊病毒加成推演速度(在稀释6后)，稀释不再重置朊病毒<br>效果：{operation}{effect}',
+	'upgs.mil.dut17': '总计九头蛇能量加成朊病毒获取速度底数<br>效果：×{effect}',
 	'upgs.mil.dut18': 'M-Dilute-5加成M-Dilute-17和M-Dilute-16效果',
 	'upgs.mil.nonrec_1':
 		'1.每次非递归重置使得九头蛇能量额外乘数×7.5、获取指数+0.01<br>2.转生/飞升/超越/轮回的自动化在解锁了相应重置就立刻解锁<br>3. BMS推演速度×3',
