@@ -122,7 +122,7 @@ function prionRes() {
 	</span>
 	<div v-if="!player.upgrades['614S'] || CHALLENGE.inChallenge(1, 2)">
 		{{
-			() => {
+			(() => {
 				let a = Dilute.sol3EffOutside().sub(player.hydra.dilute.spentTime);
 
 				return $t('dil.selfdes', {
@@ -137,7 +137,7 @@ function prionRes() {
 						},
 					),
 				});
-			}
+			})()
 		}}<br />
 	</div>
 	{{ $t('dil.limitsol1') }}<br />
