@@ -26,7 +26,7 @@ const clickStudy = (studyid: number) => {
 	<div class="study" v-if="study.show()">
 		<div class="study-name">{{ study.id }}</div>
 		<div class="study-desc" @click="clickStudy(props.study_id)" :class="useClass()">
-			<div v-html="study.description"></div>
+			<div v-html="$t('studies.dung.' + props.study_id)"></div>
 			<div>花费: {{ formatWhole(study.cost) }} 技能点</div>
 		</div>
 	</div>

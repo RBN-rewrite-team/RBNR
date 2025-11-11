@@ -1137,4 +1137,14 @@ export default {
 	'upgs.mil.pt_5': '在每次证明论重置之后，拥有4非递归重置次数',
 	'upgs.mil.pt_6': '解锁花园',
 	'upgs.mil.pt_7': '在自动机中解锁proofTheory包的重置指令',
+
+	'studies.dung.0': '每级额外多2生命值',
+	'studies.dung.1': '基础攻击+1',
+	'studies.dung.2': '基础HP+5',
+	'studies.dung.3': 'HP*1.5',
+	'studies.dung.4': '攻击*1.2',
+	'studies.dung.5': '基础HP+15',
+	'studies.dung.6': 'HP*1.5',
+	'studies.dung.7': '每级额外多2攻击',
+	'studies.dung.8': '每级额外多3生命值',
 };
