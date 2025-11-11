@@ -27,6 +27,7 @@ import { WellOrderingBuyables, WellOrderingUpgrades } from './ordinal/well_order
 import { TimeShard } from './timeshard/timeshard.ts';
 import { Qol7Upgrades } from './pt/qolcryupgs.ts';
 import type { $t } from '@/utils/types.ts';
+import { Requirement } from './requirements.ts';
 
 const upgrades = {
 	...Successor.upgrades,
@@ -407,12 +408,13 @@ type IMilestone = {
 	currency: string;
 	displayName: string;
 	show: boolean;
-	description: string;
-	description2?: string;
+	// description?: string | ((x: T) => string);
 	canDone: boolean;
 	req?: boolean;
 	reqDescription?: string;
 	onDone?: () => void;
+
+	effect?(): any;
 };
 
 export const milestones: {
@@ -424,5 +426,12 @@ export const MILESTONES = {
 		milestones[id] = info;
 	},
 };
+// MILESTONES.create('bx', {
+// 	requirement: new Decimal(0),
+// 	currency: '拜谢',
+// 	displayName: '何意味',
+// 	show: true,
 
+// 	canDone: false,
+// });
 export { upgrades, buyables, softcaps };

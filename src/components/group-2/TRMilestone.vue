@@ -29,8 +29,9 @@ const id = props.id as keyof typeof player.milestones;
 				<br />
 				<span
 					v-html="
+						$t(`upgs.mil.${id}`, milestones[id].effect?.() ?? undefined)
 						// i18n.global.locale.value == 'zh-CN'
-						milestones[id].description
+						// milestones[id].description
 						// : milestones[id].description2
 					"
 				/>

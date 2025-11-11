@@ -20,6 +20,7 @@ init();
 
 import PowiainaNum from 'powiaina_num.js';
 import { achievements } from './core/achievements.ts';
+import { milestones } from './core/mechanic.ts';
 
 console.log('我错了', new PowiainaNum(3));
 // const res = {};
@@ -30,3 +31,17 @@ console.log('我错了', new PowiainaNum(3));
 // 	}
 // }
 // console.log(JSON.stringify(res));
+
+window.exp = function () {
+	const res = {};
+	const a = milestones;
+	for (const i in a) {
+		const t = Object.getOwnPropertyDescriptor(a[i], 'description');
+		if (typeof t?.value !== 'undefined' && t.value !== null) {
+			res[i] = t.value;
+		} else {
+			res[i] = t.get;
+		}
+	}
+	return res;
+};
