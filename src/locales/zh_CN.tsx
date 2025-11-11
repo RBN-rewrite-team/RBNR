@@ -1126,6 +1126,9 @@ export default {
 	'hydra.prestiges.4': '轮回',
 	'hydra.autoreset': '自<br />动<br />重<br />置<br />:<br />{status}',
 
+	'upgs.byl.61R': 'a = a + 1',
+	'upgs.byl.62R': 'BMS推演速度×2',
+
 	'hydra.prestiges.1.desc': '额外乘数与推演速度<br />x{from}→{to}(重置后效果×{aft})',
 	'hydra.prestiges.2.desc': '额外指数<br />+{from}→{to}',
 	'hydra.prestiges.3.desc': '乘数获取<br />×{from}→{to}',
@@ -1153,8 +1156,6 @@ export default {
 	'upgs.69R': '解锁<b>稀释</b>',
 	'upgs.621R': 'x<sub>4</sub>加成压缩九头蛇能量',
 	'upgs.622R': 'τ<sub>4</sub>加成U5-2-2效果',
-	'upgs.byl.61R': 'a = a + 1',
-	'upgs.byl.62R': 'BMS推演速度×2',
 	'upgs.61S': '溶液大幅加强U5-1-1的效果',
 	'upgs.62S': '溶液中幅加快推演速度',
 	'upgs.63S': '基于总九头蛇能量增益推演速度(稀释不重置该效果，但在稀释中变得更弱)',
