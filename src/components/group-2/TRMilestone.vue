@@ -20,7 +20,7 @@ const id = props.id as keyof typeof player.milestones;
 			>
 				<h3 style="display: inline-block" v-if="milestones[id].req ?? 0">
 					{{ milestones[id].displayName }}:
-					<span v-html="milestones[id].reqDescription" />
+					<span v-html="$t(`upgs.mil.${id}.reqdesc`)" />
 				</h3>
 				<h3 style="display: inline-block" v-else>
 					{{ milestones[id].displayName }}: {{ format(milestones[id].requirement) }}
