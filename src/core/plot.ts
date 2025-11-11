@@ -252,6 +252,7 @@ export function plotLength(id: number, $tm: (x: string) => string[]): number {
 export const characterImages = {
 	Numerorum: 'url(./plot_image/NumerorumColor.png)',
 	天文学家: 'url(./plot_image/EdenGameMaster.png)',
+	Astronomer: 'url(./plot_image/EdenGameMaster.png)',
 	Hydra: 'url(./plot_image/Hydra.png)',
 	VeryRDefie: 'url(./plot_image/VeryRDefie.png)',
 } as Record<string, string | undefined>;

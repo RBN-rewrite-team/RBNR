@@ -245,7 +245,13 @@ import { Garden } from '@/core/pt/index.ts';
 								(!{{ formatWhole(player.multiplication.totalMulpower) }})
 								<br />
 								<span v-if="feature.resourceGain.mulpower().softcaps > 0">
-									(受{{ feature.resourceGain.mulpower().softcaps }}个软上限限制)
+									{{
+										$t('res.softcapped', {
+											amount: feature.resourceGain
+												.mulpower()
+												.softcaps.toString(),
+										})
+									}}
 								</span>
 							</div>
 						</div>
