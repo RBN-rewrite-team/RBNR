@@ -956,7 +956,7 @@ export default {
 
 	'res.hydra': 'Hydra Energy',
 	'hydra.reset': 'RESET.',
-	'hydra.currentresetmakesmu': "Current reset',\s effect +{effect}",
+	'hydra.currentresetmakesmu': "Current reset's effect +{effect}",
 
 	'hydra.prestiges.1.lock': 'Unlocked at ≥2 basic multiplier',
 	'hydra.prestiges.2.lock': 'Unlocked at Prestige Effect≥20x',
@@ -996,15 +996,15 @@ export default {
 	'upgs.615': 'Gain an extra B5-1-2 every 5 purchases of B5-1-3 beyond 40 purchases of B5-1-2.',
 	'upgs.616': 'Increase the effect of U5-1-1 by ^+0.01 per B5-1-3 bought.',
 	'upgs.617': 'Increase the base of B5-1-2 based on Hydra Energy.',
-	'upgs.618': "Recursion',\s effect nerfs the 1st softcap of Prestiging and Ascending.",
-	'upgs.619': "Recursion',\s effect nerfs the 1st softcap of Hydra Energy.",
-	'upgs.6110': "Recursion',\s effect lower the cost of B5-1-2~4.",
+	'upgs.618': "Recursion's effect nerfs the 1st softcap of Prestiging and Ascending.",
+	'upgs.619': "Recursion's effect nerfs the 1st softcap of Hydra Energy.",
+	'upgs.6110': "Recursion's effect lower the cost of B5-1-2~4.",
 	'upgs.6111':
 		'Remove the 1st softcap of Hydra Energy gain. U5-1-8 boosts the gain of Hydra Energy.',
 	'upgs.6112': 'Remove the softcap of B5-1-2.',
 	'upgs.6113':
-		"Remove the 1st softcap of Prestiging and Ascending. B5-1-4',\s effect boosts the effect of Recursion.",
-	'upgs.6114': "Synergize ascension',\s effect and the effect of B5-1-2.",
+		"Remove the 1st softcap of Prestiging and Ascending. B5-1-4's effect boosts the effect of Recursion.",
+	'upgs.6114': "Synergize ascension's effect and the effect of B5-1-2.",
 
 	'res.infinite': '5 update hours',
 	'res.uni': 'universe age',

@@ -1172,4 +1172,23 @@ export default {
 	'upgs.614S': '移除飞升、轮回效果的二重软上限，地球爆炸不再退出稀释',
 	'upgs.615S': '天启中获得的最高推演次数加成推演速度',
 	'upgs.616S': '解锁<b>非递归</b>(需要ψ(Ω<sub>ω</sub>)序数)',
+
+	'dil.res1': '你有{res}{res2}九头蛇溶液<br />推演速度×{effect}',
+	'dil.res1.a': '(本次{res})',
+	'dil.prion': '你有{res}{res2}朊病毒',
+	'dil.selfdes': '启动稀释后，溶剂{result}',
+	'dil.selfdes.possible': '可能会自毁',
+	'dil.selfdes.aftertime': '将会在{time}后自毁',
+	'dil.selfdes.impossible': '不会自毁',
+
+	'dil.limitsol1': '部分溶剂将限制溶剂I的最低等级!',
+	'dil.solutioncap': '当前溶剂配置对应获取的溶液数量上限：{cap}',
+	'dil.least1': '至少选择任何一项溶剂并提升它的等级以进入稀释',
+	'dil.left': `进入稀释，你将重新开始第五层的进度并遭受你所选择的削弱，作为奖励，你可以获得九头蛇溶液。<br />
+选用的削弱等级对九头蛇溶液的获取量影响较大，稀释中的进度对九头蛇溶液的获取量影响较小。<br />
+你在{a}中最高达到了{b}次推演，这给你带来了{c}({d})九头蛇溶液`,
+	'dil.solvdebuff': '溶剂等级之和使你的推演速度变为<sup>1</sup>/<sub>{a}</sub>',
+
+	'dil.1': '溶剂I: 时间黑洞',
+	'dil.1.desc': '“虽然这很不幸，但至少你能用自己比别人活得久的事实来安慰自己。”',
 };

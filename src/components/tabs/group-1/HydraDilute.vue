@@ -8,6 +8,7 @@ import TDUpgrade from '../../group-2/TDUpgrade.vue';
 import TRMilestone from '../../group-2/TRMilestone.vue';
 import { Currencies, getCurrency } from '@/core/currencies.ts';
 import { CHALLENGE } from '@/core/challenge.ts';
+import { useI18n } from 'vue-i18n';
 
 function getCurrentSolution() {
 	return player.hydra.dilute.solution;
@@ -94,38 +95,60 @@ function setPreset(preset: typeof player.hydra.dilute.solvent) {
 function delPreset(preset: string) {
 	player.hydra.dilute.solventPresets.splice(Number(preset), 1);
 }
+const $t = useI18n().t;
+function res1() {
+	return $t('dil.res1', {
+		res: `<b style="color: red; font-size: 30px">${format(getCurrentSolution())}</b>`,
+		res2: player.hydra.dilute.inDilute ? $t('dil.res1.a', { res: Dilute.solutionGain() }) : '',
+		effect: format(Dilute.solutionEff().eff1),
+	});
+}
+function prionRes() {
+	return $t('dil.prion', {
+		res: `<b style="color: red; font-size: 30px">${format(Dilute.prions())}</b>`,
+		res2: player.upgrades['69S'] ? '' : `/${format(player.hydra.totalDeduceOrdinal[0])}`,
+	});
+}
 </script>
 
 <template :key="refreshKey">
-	你有<b style="color: red; font-size: 30px">{{ format(getCurrentSolution()) }}</b
-	><span v-if="player.hydra.dilute.inDilute">(本次{{ format(Dilute.solutionGain()) }})</span
-	>九头蛇溶液<br />
-	推演速度×{{ format(Dilute.solutionEff().eff1)
-	}}<template v-if="player.upgrades[74]">, ^{{ format(Dilute.solutionEff().eff2) }}</template
+	<span v-html="res1()"></span>
+	<template v-if="player.upgrades[74]">, ^{{ format(Dilute.solutionEff().eff2) }}</template
 	><br />
-	<span v-if="player.upgrades['69S'] || player.hydra.dilute.prions.gt(1)"
-		>你有<b style="color: red; font-size: 30px">{{ format(Dilute.prions()) }}</b
-		><span v-if="!player.upgrades['69S']"
-			>/{{ format(player.hydra.totalDeduceOrdinal[0]) }}</span
-		>朊病毒<br /><br
-	/></span>
+	<span v-if="player.upgrades['69S'] || player.hydra.dilute.prions.gt(1)">
+		<span v-html="prionRes()"></span>
+		<br />
+		<br />
+	</span>
 	<div v-if="!player.upgrades['614S'] || CHALLENGE.inChallenge(1, 2)">
-		启动稀释后，溶剂{{
-			(() => {
+		{{
+			() => {
 				let a = Dilute.sol3EffOutside().sub(player.hydra.dilute.spentTime);
-				return !a.isFinite()
-					? Dilute.diluteAmountOutside(4)
-						? '可能会自毁'
-						: '不会自毁'
-					: '将会在' + formatTime(a) + '后自毁';
-			})()
+
+				return $t('dil.selfdes', {
+					result: $t(
+						!a.isFinite()
+							? Dilute.diluteAmountOutside(4)
+								? 'dil.selfdes.possible'
+								: 'dil.selfdes.impossible'
+							: 'dil.selfdes.aftertime',
+						{
+							time: formatTime(a),
+						},
+					),
+				});
+			}
 		}}<br />
 	</div>
-	部分溶剂将限制溶剂I的最低等级!<br />
-	当前溶剂配置对应获取的溶液数量上限：{{ format(Dilute.solutionGain(true)) }}<br />
+	{{ $t('dil.limitsol1') }}<br />
+	{{
+		$t('dil.solutioncap', {
+			cap: format(Dilute.solutionGain(true)),
+		})
+	}}<br />
 	<div class="container" style="transform: translateY(-10px)">
 		<div class="dilute">
-			<div>至少选择任何一项溶剂并提升它的等级以进入稀释</div>
+			<div>{{ $t('dil.least1') }}</div>
 			<div>
 				<button class="dilute-button" @click="Dilute.diluteButton">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
@@ -136,18 +159,19 @@ function delPreset(preset: string) {
 					</svg>
 				</button>
 			</div>
-			<div>
-				进入稀释，你将重新开始第五层的进度并遭受你所选择的削弱，作为奖励，你可以获得九头蛇溶液。<br />
-				选用的削弱等级对九头蛇溶液的获取量影响较大，稀释中的进度对九头蛇溶液的获取量影响较小。<br />
-				你在{{ JSON.stringify(player.hydra.dilute.lastSolvent.map(Number)) }}中最高达到了{{
-					formatWhole(player.hydra.dilute.lastDeduce)
-				}}次推演，这给你带来了{{ format(player.hydra.dilute.solution) }}({{
-					format(getCurrency(Currencies.SOLUTION))
-				}})九头蛇溶液
-			</div>
+			<div
+				v-html="
+					$t('dil.left', {
+						a: JSON.stringify(player.hydra.dilute.lastSolvent.map(Number)),
+						b: formatWhole(player.hydra.dilute.lastDeduce),
+						c: format(player.hydra.dilute.solution),
+						d: format(getCurrency(Currencies.SOLUTION)),
+					})
+				"
+			></div>
 		</div>
 		<div class="solvents">
-			溶剂等级之和使你的推演速度变为<sup>1</sup>/<sub>{{ format(Dilute.totSolNerf()) }}</sub>
+			<span v-html="$t('dil.solvdebuff', { a: format(Dilute.totSolNerf()) })"></span>
 			<table>
 				<tbody>
 					<tr>
