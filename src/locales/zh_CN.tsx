@@ -1147,4 +1147,26 @@ export default {
 	'studies.dung.6': 'HP*1.5',
 	'studies.dung.7': '每级额外多2攻击',
 	'studies.dung.8': '每级额外多3生命值',
+	'hydra.prestiges.1': '转生',
+	'hydra.prestiges.2': '飞升',
+	'hydra.prestiges.3': '超越',
+	'hydra.prestiges.4': '轮回',
+	'hydra.autoreset': '自<br />动<br />重<br />置<br />:<br />{status}',
+
+	'hydra.prestiges.1.desc': '额外乘数与推演速度<br />x{from}→{to}(重置后效果×{aft})',
+	'hydra.prestiges.2.desc': '额外指数<br />+{from}→{to}',
+	'hydra.prestiges.3.desc': '乘数获取<br />×{from}→{to}',
+	'hydra.prestiges.4.desc': '转生、超越效果指数<br />×{from}→{to}',
+	'hydra.prestiges.auto.interval': '自动重置阈值：+{add} & x{mul}',
+
+	'upgs.byl.611': 'BMS推演速度×+1',
+	'upgs.byl.612': '基础指数+0.01',
+	'upgs.byl.613': '乘数获取速度×1.1',
+	'upgs.byl.614': '九头蛇能量软上限^0.9',
+
+	'nt.growingmode': '增长模式',
+	'nt.growingmode.eff': 'τ<sub>4</sub>增益BMS推演和U5-2的速度',
+	'nt.growingmode.eff2': 'τ<sub>4</sub>减益BMS推演和U5-2的速度',
+	'nt.growingmode.en': '第\\textit{n}个九头蛇重置项目的效果',
+	'nt.growingmode.c': '价格对应资源为x<sub>4</sub>, τ<sub>4</sub>的购买项/升级不消耗任何东西。',
 };

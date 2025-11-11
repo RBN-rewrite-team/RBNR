@@ -174,9 +174,15 @@ function _g() {
 					player.numbertheory.visiting == 4
 				"
 			>
-				<h2>增长模式</h2>
-				τ<sub>4</sub
-				>{{ Dilute.diluteAmount(3) <= 0 ? '增' : '减' }}益BMS推演和U5-2的速度<br />
+				<h2>{{ $t('nt.growingmode') }}</h2>
+				<span
+					v-html="
+						Dilute.diluteAmount(3) <= 0
+							? $t('nt.growingmode.eff')
+							: $t('nt.growingmode.eff2')
+					"
+				></span
+				><br />
 				<vue-latex
 					:expression="`\\dot{x_4} = a\\cdot f\\left(\\prod_{n = 1}^${feature.Hydra.pMaxUnlock()}e_n+1\\right) = ${formatLaTeX(OrdinalNT.varGain('x', 4))}`"
 					display-mode
@@ -199,15 +205,12 @@ function _g() {
 				/>
 				<vue-latex :expression="`f(x) = ${f()}`" display-mode />
 				<vue-latex :expression="`g(x) = ${g()}`" display-mode />
-				<vue-latex
-					:expression="`e_n = \\text{第\\textit{n}个九头蛇重置项目的效果}`"
-					display-mode
-				/>
+				<vue-latex :expression="`e_n = \\text{${$t('nt.growingmode.en')}}`" display-mode />
 				<vue-latex
 					:expression="`x_4 = ${formatLaTeX(player.numbertheory.GM.x)}`"
 					display-mode
 				/>
-				价格对应资源为x<sub>4</sub>, τ<sub>4</sub>的购买项/升级不消耗任何东西。
+				<span v-html="$t('nt.growingmode.c')"></span>。
 				<table align="center">
 					<tbody>
 						<tr v-if="Dilute.diluteAmount(3) <= 0">

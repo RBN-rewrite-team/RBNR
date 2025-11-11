@@ -55,6 +55,12 @@ function powerFactorHTML(): string {
 	}
 	return s;
 }
+
+function autoResetButton() {
+	return $t('hydra.autoreset', {
+		status: $t(player.hydra.autoHydraReset ? 'set.status.on' : 'set.status.off'),
+	});
+}
 </script>
 
 <template>
@@ -160,11 +166,8 @@ function powerFactorHTML(): string {
 						<button
 							class="hydra-button"
 							@click="player.hydra.autoHydraReset = !player.hydra.autoHydraReset"
-						>
-							自<br />动<br />重<br />置<br />:<br />{{
-								player.hydra.autoHydraReset ? '开' : '关'
-							}}
-						</button>
+							v-html="autoResetButton()"
+						></button>
 					</td>
 				</tr>
 			</tbody>
@@ -176,18 +179,28 @@ function powerFactorHTML(): string {
 						<button class="hydra-button-short" @click="feature.Hydra.prestige(0)">
 							<span class="hydra-text-short">
 								<span v-if="feature.Hydra.pUnlock(0)">
-									<h3>转生({{ formatWhole(player.hydra.prestige[0]) }})</h3>
-									额外乘数与推演速度<br />x{{
-										format(feature.Hydra.prestigeEff(0, false))
-									}}→{{
-										format(
-											feature.Hydra.prestigeEff(0, true).max(
-												feature.Hydra.prestigeEff(0, false),
-											),
-										)
-									}}(效果×{{
-										format(feature.Hydra.prestigeEff(0, false, true).max(1))
-									}})
+									<h3>
+										{{ $t('hydra.prestiges.1') }}({{
+											formatWhole(player.hydra.prestige[0])
+										}})
+									</h3>
+									<span
+										v-html="
+											$t('hydra.prestiges.1.desc', {
+												from: format(feature.Hydra.prestigeEff(0, false)),
+												to: format(
+													feature.Hydra.prestigeEff(0, true).max(
+														feature.Hydra.prestigeEff(0, false),
+													),
+												),
+												aft: format(
+													feature.Hydra.prestigeEff(0, false, true).max(
+														1,
+													),
+												),
+											})
+										"
+									></span>
 								</span>
 								<span v-else>{{ $t('hydra.prestiges.1.lock') }}</span>
 							</span>
@@ -197,16 +210,23 @@ function powerFactorHTML(): string {
 						<button class="hydra-button-short" @click="feature.Hydra.prestige(1)">
 							<span class="hydra-text-short">
 								<span v-if="feature.Hydra.pUnlock(1)">
-									<h3>飞升({{ formatWhole(player.hydra.prestige[1]) }})</h3>
-									额外指数<br />+{{
-										format(feature.Hydra.prestigeEff(1, false))
-									}}→{{
-										format(
-											feature.Hydra.prestigeEff(1, true).max(
-												feature.Hydra.prestigeEff(1, false),
-											),
-										)
-									}}
+									<h3>
+										{{ $t('hydra.prestiges.2') }}({{
+											formatWhole(player.hydra.prestige[1])
+										}})
+									</h3>
+									<span
+										v-html="
+											$t('hydra.prestiges.2.desc', {
+												from: format(feature.Hydra.prestigeEff(1, false)),
+												to: format(
+													feature.Hydra.prestigeEff(1, true).max(
+														feature.Hydra.prestigeEff(1, false),
+													),
+												),
+											})
+										"
+									></span>
 								</span>
 								<span v-else>{{ $t('hydra.prestiges.2.lock') }}</span>
 							</span>
@@ -216,16 +236,23 @@ function powerFactorHTML(): string {
 						<button class="hydra-button-short" @click="feature.Hydra.prestige(2)">
 							<span class="hydra-text-short">
 								<span v-if="feature.Hydra.pUnlock(2)">
-									<h3>超越({{ format(player.hydra.prestige[2]) }})</h3>
-									乘数获取<br />x{{
-										format(feature.Hydra.prestigeEff(2, false))
-									}}→{{
-										format(
-											feature.Hydra.prestigeEff(2, true).max(
-												feature.Hydra.prestigeEff(2, false),
-											),
-										)
-									}}
+									<h3>
+										{{ $t('hydra.prestiges.3') }}({{
+											format(player.hydra.prestige[2])
+										}})
+									</h3>
+									<span
+										v-html="
+											$t('hydra.prestiges.3.desc', {
+												from: format(feature.Hydra.prestigeEff(2, false)),
+												to: format(
+													feature.Hydra.prestigeEff(2, true).max(
+														feature.Hydra.prestigeEff(2, false),
+													),
+												),
+											})
+										"
+									></span>
 								</span>
 								<span v-else>{{ $t('hydra.prestiges.3.lock') }}</span>
 							</span>
@@ -235,16 +262,23 @@ function powerFactorHTML(): string {
 						<button class="hydra-button-short" @click="feature.Hydra.prestige(3)">
 							<span class="hydra-text-short">
 								<span v-if="feature.Hydra.pUnlock(3)">
-									<h3>轮回({{ formatWhole(player.hydra.prestige[3]) }})</h3>
-									转生、超越效果指数<br />x+{{
-										format(feature.Hydra.prestigeEff(3, false))
-									}}→{{
-										format(
-											feature.Hydra.prestigeEff(3, true).max(
-												feature.Hydra.prestigeEff(3, false),
-											),
-										)
-									}}
+									<h3>
+										{{ $t('hydra.prestiges.4') }}({{
+											formatWhole(player.hydra.prestige[3])
+										}})
+									</h3>
+									<span
+										v-html="
+											$t('hydra.prestiges.4.desc', {
+												from: format(feature.Hydra.prestigeEff(3, false)),
+												to: format(
+													feature.Hydra.prestigeEff(3, true).max(
+														feature.Hydra.prestigeEff(3, false),
+													),
+												),
+											})
+										"
+									></span>
 								</span>
 								<span v-else>{{ $t('hydra.prestiges.4.lock') }}</span>
 							</span>
@@ -264,10 +298,12 @@ function powerFactorHTML(): string {
 						>
 							<span class="hydra-text-short">
 								<span v-if="feature.Hydra.pAutoUnlock(0)">
-									自动重置阈值：+{{
-										format(feature.Hydra.pAutoThreshold(0).add)
+									{{
+										$t('hydra.prestiges.auto.interval', {
+											add: format(feature.Hydra.pAutoThreshold(0).add),
+											mul: format(feature.Hydra.pAutoThreshold(0).mul),
+										})
 									}}
-									& x{{ format(feature.Hydra.pAutoThreshold(0).mul) }}
 								</span>
 								<span v-else>{{ $t('hydra.prestiges.1.auto') }}</span>
 							</span>
@@ -285,10 +321,12 @@ function powerFactorHTML(): string {
 						>
 							<span class="hydra-text-short">
 								<span v-if="feature.Hydra.pAutoUnlock(1)">
-									自动重置阈值：+{{
-										format(feature.Hydra.pAutoThreshold(1).add)
+									{{
+										$t('hydra.prestiges.auto.interval', {
+											add: format(feature.Hydra.pAutoThreshold(1).add),
+											mul: format(feature.Hydra.pAutoThreshold(1).mul),
+										})
 									}}
-									& x{{ format(feature.Hydra.pAutoThreshold(1).mul) }}
 								</span>
 								<span v-else>{{ $t('hydra.prestiges.2.auto') }}</span>
 							</span>
@@ -306,10 +344,12 @@ function powerFactorHTML(): string {
 						>
 							<span class="hydra-text-short">
 								<span v-if="feature.Hydra.pAutoUnlock(2)">
-									自动重置阈值：+{{
-										format(feature.Hydra.pAutoThreshold(2).add)
+									{{
+										$t('hydra.prestiges.auto.interval', {
+											add: format(feature.Hydra.pAutoThreshold(2).add),
+											mul: format(feature.Hydra.pAutoThreshold(2).mul),
+										})
 									}}
-									& x{{ format(feature.Hydra.pAutoThreshold(2).mul) }}
 								</span>
 								<span v-else>{{ $t('hydra.prestiges.auto') }}</span>
 							</span>
@@ -327,10 +367,12 @@ function powerFactorHTML(): string {
 						>
 							<span class="hydra-text-short">
 								<span v-if="feature.Hydra.pAutoUnlock(3)">
-									自动重置阈值：+{{
-										format(feature.Hydra.pAutoThreshold(3).add)
+									{{
+										$t('hydra.prestiges.auto.interval', {
+											add: format(feature.Hydra.pAutoThreshold(3).add),
+											mul: format(feature.Hydra.pAutoThreshold(3).mul),
+										})
 									}}
-									& x{{ format(feature.Hydra.pAutoThreshold(3).mul) }}
 								</span>
 								<span v-else>{{ $t('hydra.prestiges.auto') }}</span>
 							</span>

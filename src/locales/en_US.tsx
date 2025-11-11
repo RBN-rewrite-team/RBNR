@@ -917,7 +917,7 @@ export default {
 	],
 	'sing.t.2': ['Number', 'Addition Power', 'Multiplication Power', 'Singularity Energy'],
 	'sing.t.3': ['Nu[]er', 'Add[]ion Power', 'Mul[]plicatio[]Power', 'Sing[]arity Energy'],
-	'sing.t.4': ['一切皆毁', '万物消亡', '终焉寂灭'],
+	'sing.t.4': ['EVERYTHING DESTRUCTS', 'EVERYTHING DECAYS', 'EVERYTHING FREEZES'],
 
 	'sing.h.1':
 		'There are too many {words}...I need to sacrifice my logarithm dilation and notation settings to go further...',
@@ -1024,4 +1024,9 @@ export default {
 	'upgs.ts21.name': 'CHAPTER 2 ACCELRATION PACK',
 	'upgs.ts22.name': 'CHAPTER 2 PERMANANT PACK',
 	'upgs.ts23.name': 'CHAPTER 2 HYPER PACK',
+	'hydra.prestiges.1': 'Prestige',
+	'hydra.prestiges.2': 'Ascension',
+	'hydra.prestiges.3': 'Transcension',
+	'hydra.prestiges.4': 'Recursion',
+	'hydra.autoreset': '<span style="writing-mode: vertical-lr">Auto Reset: {status}</span>',
 };
