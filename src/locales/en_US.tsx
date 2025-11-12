@@ -847,6 +847,7 @@ export default {
 	'exp.log.law.dil.xx2':
 		'The highest value of number({a}) obtained within the logarithm dilation will increase the gain of number (^{b}) and EP (*{c}).',
 
+	'sing.curnum': 'Current Number:',
 	'sing.1': 'THE END......HAS FINALLY DESCENDED......',
 	'sing.2': 'DESTRUCTION......IS IMMINENT......',
 	'sing.3': 'YOU CANNOT TURN BACK......',
@@ -1043,8 +1044,7 @@ export default {
 		'Every tile in the chessboard increases observation data gain by x+0.01, and nerf the softcaps of all effects of Wheat Grains.',
 	'upgs.mil.cb10': '每个行星运动定律使麦粒^1.05 Each _____ increases rice gain by ^1.05.',
 	'upgs.mil.cb11': 'Increase the base Wheat Grains multi. from 3 to 4',
-	'upgs.mil.cb12':
-		"计算数据以÷x<sup>2</sup>降低棋盘格子购买项的价格 Divide chessboard tiles'\ buyables'\ costs by (Calculation data)<sup>2</sup>",
+	'upgs.mil.cb12': "Divide chessboard tiles'\ buyables'\ costs by (Calculation data)<sup>2</sup>",
 	'upgs.mil.cb13': "Double calculation speed, and increase astronomer's base from 1.5 to 2",
 	'upgs.mil.cb14': 'Number gain exponent ^1.125，and nerf the 5th softcap of number gain.',
 	'upgs.mil.cb15': 'x10 the lifespan and the calculation speed of the astronomers.',
@@ -1071,4 +1071,69 @@ export default {
 	'upgs.mil.dil_6': 'Increase EP gain based on Wheat Grains.<br>Effect: ^{effect}',
 	'upgs.mil.dil_7': 'UNLOCK<b><i>SINGULARITY GENERATOR</i></b>',
 	'upgs.mil.dut1': 'Keep U5-1-1，and improve its formula.',
+
+	'upgs.mil.dut2': 'Automatically buy max all U5-x upgrades.',
+	'upgs.mil.dut3':
+		'Prestiging no longer resets anything, and permenantly unlock its automation. Only in Solvent VII, Show all upgrades at the beginning.',
+	'upgs.mil.dut4':
+		'Ascension no longer resets anything and permenantly unlock its automation. Keep U5-2',
+
+	//这里溶剂翻译成Solvent, 溶液翻译成Solution,稀释翻译成Dilute
+
+	'upgs.mil.dut5':
+		'Based on the highest hydra energy reached within Solvent 7 level 1 and Solvent 6 level, massively boost BMS progression speed. Effect: ^{effect}({cur})`',
+	'upgs.mil.dut6':
+		'Boost BMS progression speed based on Solution beyond 2,050,000. <br>Effect: ^{effect}',
+	'upgs.mil.dut7':
+		"(DOESN'T RESET ON DILUTION) Total hydra energy boosts BMS progression speed. <br>Effect: ^{effect}",
+	'upgs.mil.dut8': 'Nerf the 2nd softcap of Hydra energy gain.',
+	'upgs.mil.dut9':
+		'Automatically buy max B5-1-x buyables, and you can buy an non-integer amount of them.',
+	'upgs.mil.dut10':
+		"Keep U5-1-2~4 forever, and buying dilution upgrades doesn't cost solution anymore.",
+	'upgs.mil.dut11': "Solvent VI's scale interval is now 0.25.",
+	'upgs.mil.dut12': 'Nerf the 2nd softcap of Hydra Energy. Yay!',
+	'upgs.mil.dut13': "You can gain the boost of U5-S-7 even if Solvent III's level isn't 10.",
+	'upgs.mil.dut14': "+1000% U5-2's effect.",
+	'upgs.mil.dut15':
+		"M-Dilute-5's effect doesn't base on Solvent 6's level anymore, and instead the effect calculation acts like Solvent 6's level being 10.",
+	'upgs.mil.dut16':
+		"The number of prions boost BMS progression speed. Dilution doesn't reset Prions anymore. <br><i>You're so close to uncovering something...</i><br>Effect: {operation}{effect}",
+	'upgs.mil.dut17':
+		'Total Hydra Energy accelrates the replication speed of Prions. <br>Current: *{effect}<br><i>almost there.</i>',
+	'upgs.mil.dut18':
+		"M-Dilute-5's effect boosts M-Dilute-17 and M-Dilute-16's effects. <br><i>This is the end of the 2-Row BMS. Now we shall embark on something greater then ever.</i>",
+	'upgs.mil.nonrec_1':
+		"1. Every non-recursive reset, *7.5 and +^0.01 Multiplier. Wowzers! <br> 2. Prestige/Ascension/Transcension/Recursion's Automation will be unlocked when the corresponding reset is done within a reset. <br> 3. BMS Progression speed *3. <br><i><b>WELCOME TO THE NEW ERA.</b></i>",
+	'upgs.mil.nonrec_2':
+		'All resets within the Hydra Energy tab no longer resets anything, and their thresholds are set to +0 and *1. <br>Kepp U5-2, and its effect will never go below 100%.',
+	'upgs.mil.nonrec_3':
+		"1. Based on non-recursive resets, increase the base effects for prestige and transcension.<br>2. Remove the 1st softcap of Hydra Energy, and nerf the 2nd softcap of Hydra energy by /+0.01 every reset.<br>3. Global speed doesn't alter the speed of the timer of Solvent III. Prions don't doing anything before purchasing U-S-9, and Solvent IV only bans Number Theories.<br><i>THIS WILL BE USEFUL LATER</i>",
+	'upgs.mil.nonrec_4':
+		"1. Every non-recursive reset increases the time limit of Solvent III by 1 second.<br>2. Total Solvents' nerf onto BMS progression speed is weakened. <br>3. The base of BMS progression speed is set to 1/s.<br>4. U5-2's effect is at least 200%.",
+	'upgs.mil.nonrec_5': 'Keep U5-5, U5-1-5, U5-R1-5, U5-S-5 unlocked. Yay!',
+	'upgs.mil.nonrec_6':
+		"Increase U5-1-2 (100%→1000%)，U5-1-5，U5-R1-2(^1.125→^1.25)，U5-2，U5-S-9(×2/s→×10/s)'s effects.",
+	'upgs.mil.nonrec_7':
+		"You start with yourselves being immune to prions, and you can increase M-Dilute-5's effect anywhere, and the first 5 dilution milestones are always unlocked.",
+	'upgs.mil.nonrec_8':
+		"Start by keeping U5-1-1~4, keep Number Theory 4's upgrades and automate Number Theory 4's buyables.",
+	'upgs.mil.nonrec_9':
+		'Start with all Hydra Engine upgrades&buyables and dilution upgrades unlocked, and keep M-Dilute-15.',
+	'upgs.mil.nonrec_10':
+		'Automate all Hydra Engine upgrades and buyables, keep M-Dilute-10, and automatically buy all dilution upgrades.',
+	'upgs.mil.nonrec_11': "Add a prion factor to the non-recursive energy gain's calculation.",
+	'upgs.mil.nonrec_12': 'Keep 1% of solution after a non-recursive reset.',
+	'upgs.mil.nonrec_13': 'Start with 1e150,000,000 Prions in <i>normal</i> non-recursive resets.',
+	'upgs.mil.nonrec_14': 'Non-recursive resets no longer resets solution.',
+	'upgs.mil.nonrec_15': 'Non-recursive resets no longer reset the effect of U5-S-15.',
+
+	'dil.1': 'SOLVENT I: TEMPORAL BLACKHOLE',
+	'dil.2': 'SOLVENT II: u said i have dementia? u said i have dementia? u said i have dementia?',
+	'dil.3': 'SOLVENT III: IMPLOSION',
+	'dil.4': 'SOLVENT IV: NUMBER THEORY HELL',
+	'dil.5.desc': '“P¤1-t2~u~ér.2-_/io~/5é &-cnh-”',
+	'dil.7': 'SOLVENT VII: OCCUPIED HEAVENS',
+	'dil.9': 'SOLVENT IX: APOCAPLYSE CALL ENC18.1',
+	'dil.9.desc': 'FAREWELL.',
 };

@@ -185,7 +185,7 @@ function prionRes() {
 									<div
 										v-html="
 											$t('dil.1.eff', {
-												effect: tsbhBase() ** Dilute.diluteAmountOutside(0),
+												eff: tsbhBase() ** Dilute.diluteAmountOutside(0),
 											})
 										"
 									></div>
@@ -208,7 +208,7 @@ function prionRes() {
 						<td>
 							<div class="solvent" style="border-color: rgb(255, 0, 0)">
 								<div>
-									<div>{{ $t('dil.2.eff') }}</div>
+									<div>{{ $t('dil.2') }}</div>
 									<div class="solvent-desc-small">{{ $t('dil.2.desc') }}</div>
 									<div
 										v-html="
@@ -244,9 +244,7 @@ function prionRes() {
 											$t('dil.3.eff', {
 												eff: (() => {
 													let a = Dilute.sol3EffOutside();
-													return !a.isFinite()
-														? '无穷时间'
-														: formatTime(a);
+													return formatTime(a);
 												})(),
 											})
 										}}
@@ -273,7 +271,7 @@ function prionRes() {
 									<div class="solvent-desc-small">
 										{{ $t('dil.4.desc') }}
 									</div>
-									<div>{{ $t('dil.4') }}</div>
+									<div>{{ $t('dil.4.eff') }}</div>
 									<Slider
 										v-bind="getSliderProps()"
 										:value="player.hydra.dilute.solvent[3]"

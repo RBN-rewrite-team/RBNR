@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { player, feature } from '@/core/global';
+import { numberGrow } from '@/core/psd-number-grow';
 import { format } from '@/utils/format';
 import { getMessage } from '@/utils/i18n';
 import { useI18n } from 'vue-i18n';
@@ -25,6 +26,9 @@ function getBHtext(t: number) {
 	else if (t <= 710) return '';
 	return tx;
 }
+function currentNumberTip() {
+	return $t('sing.curnum');
+}
 </script>
 
 <template>
@@ -38,6 +42,9 @@ function getBHtext(t: number) {
 			'font-size': '25px',
 		}"
 	>
+		<span class="bhtnumber" v-if="player.singularity.t < 666.66666666666"
+			>{{ currentNumberTip() }} >{{ numberGrow(player.singularity.t) }}</span
+		>
 		<span class="bht" v-html="getBHtext(player.singularity.t)" />
 	</div>
 </template>
@@ -61,7 +68,14 @@ function getBHtext(t: number) {
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
-	font-align: center;
+	transition: color 2s;
+}
+.bhtnumber {
+	z-index: 7;
+	position: absolute;
+	left: 50%;
+	top: calc(50% - 340px);
+	transform: translate(-50%, -50%);
 	transition: color 2s;
 }
 </style>

@@ -865,6 +865,7 @@ export default {
 
 	sing: '解锁奇点生成器',
 
+	'sing.curnum': '当前数值：',
 	'sing.1': '末日......终将降临......',
 	'sing.2': '毁灭......就要到来......',
 	'sing.3': '你已经不能回头......',
@@ -1232,7 +1233,7 @@ export default {
 	'upgs.mil.dut13.reqdesc': '1e6100 九头蛇能量 ',
 	'upgs.mil.dut14.reqdesc': '2,261,250 九头蛇溶液 ',
 	'upgs.mil.dut15.reqdesc': '2.45 M-Dilute-5效果',
-	'upgs.mil.dut16.reqedesc': '1e18,915九头蛇能量',
-	'upgs.mil.dut17.reqedesc': 'e5.0000e103/s推演速度',
-	'upgs.mil.dut18.reqedesc': 'e1.0000e121/s推演速度',
+	'upgs.mil.dut16.reqdesc': '1e18,915九头蛇能量',
+	'upgs.mil.dut17.reqdesc': 'e5.0000e103/s推演速度',
+	'upgs.mil.dut18.reqdesc': 'e1.0000e121/s推演速度',
 };
