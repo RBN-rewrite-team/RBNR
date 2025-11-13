@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { CHALLENGE } from '@/core/challenge';
+import { Currencies, currencyName, getCurrency } from '@/core/currencies';
 import { buyStudies, canBuyStudies, studies } from '@/core/nonrecu/studies';
 import { player } from '@/core/save';
 import { formatWhole } from '@/utils/format';
@@ -43,8 +44,21 @@ const clickStudy = (studyid: number) => {
 		<div class="study-name">{{ study.id }}</div>
 		<div class="study-desc" @click="clickStudy(props.study_id)" :class="useClass()">
 			<div v-html="study.description"></div>
-			<div>花费: {{ formatWhole(study.cost) }} 非递归理论</div>
+			<div>
+				{{
+					$t('upg.cost', {
+						cost: formatWhole(study.cost),
+						currency: currencyName(Currencies.NRT, $t),
+					})
+				}}
+			</div>
 		</div>
-		<span class="tooltip"> 自动机使用ID: {{ props.study_id }} </span>
+		<span class="tooltip">
+			{{
+				$t('upg.automatoruseid', {
+					id: props.study_id,
+				})
+			}}</span
+		>
 	</div>
 </template>

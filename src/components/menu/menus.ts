@@ -200,20 +200,20 @@ export const menus = [
 			return (player.firstResetBit & 0b10000) == 0b10000 && player.stat.chapter >= 6;
 		},
 		contents: [
-			{ id: 21, text: '非递归里程碑' },
-			{ id: 23, text: '能量因素' },
-			{ id: 24, text: '非递归研究树' },
-			{ id: 22, text: '非递归挑战' },
+			{ id: 21, text: 'tab.nonrecmils' },
+			{ id: 23, text: 'tab.energyfactor' },
+			{ id: 24, text: 'tab.nrs' },
+			{ id: 22, text: 'tab.nrc' },
 			{
 				id: 25,
-				text: '非递归升级',
+				text: 'tab.nrupg',
 				show() {
 					return player.milestones.nonrec_18;
 				},
 			},
 			{
 				id: 26,
-				text: 'UNOCF',
+				text: 'tab.unocf',
 				show() {
 					return player.stat.chapter >= 6 && player.milestones.nonrec_19;
 				},

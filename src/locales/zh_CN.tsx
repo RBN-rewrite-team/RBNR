@@ -1242,4 +1242,10 @@ export default {
 	'upgs.mil.dut16.reqdesc': '1e18,915九头蛇能量',
 	'upgs.mil.dut17.reqdesc': 'e5.0000e103/s推演速度',
 	'upgs.mil.dut18.reqdesc': 'e1.0000e121/s推演速度',
+	'tab.nonrecmils': '非递归里程碑',
+	'tab.energyfactor': '能量因素',
+	'tab.nrs': '非递归研究树',
+	'tab.nrc': '非递归挑战',
+	'tab.nrupg': '非递归升级',
+	'tab.unocf': 'UNOCF',
 };

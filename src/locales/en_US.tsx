@@ -1128,7 +1128,26 @@ export default {
 	'upgs.mil.nonrec_14': 'Non-recursive resets no longer resets solution.',
 	'upgs.mil.nonrec_15': 'Non-recursive resets no longer reset the effect of U5-S-15.',
 
-	// TODO upgs.mil.nonrec_16 to upgs.mil.pt_7
+	// 'upgs.mil.nonrec_16':
+	//     '移除B5-1-2的硬上限和飞升效果的三、四重软上限，飞升效果倍增朊病毒获取速度(在非递归挑战中无效)',
+	// 'upgs.mil.nonrec_17': '每秒自动产生(NRC5次数)非递归次数',
+	// 'upgs.mil.nonrec_18': '解锁非递归升级',
+	// 'upgs.mil.nonrec_19': '解锁UNOCF',
+	// 'upgs.mil.nonrec_20': 'UNOCF推演速度*1,000',
+	// 'upgs.mil.nonrec_21': '九头蛇能量双指数*1.2',
+	// 'upgs.mil.nonrec_22':
+	//     '朊病毒增速双指数*1.3,只在NRC6和挑战外生效(后续的里程碑都需要2.25NRC6挑战次数)',
+	// 'upgs.mil.nonrec_23': '加强UNOCF第四效果，UNOCF推演速度^1.75',
+	// 'upgs.mil.nonrec_24': '推演速度双指数^2',
+	// 'upgs.mil.nonrec_25': 'Dilute Solution获取^20',
+	// 'upgs.mil.nonrec_26': '解锁<b>数论研究5 - 良序性</b>和新的一行升级',
+	// 'upgs.mil.pt_1': '在时间碎片页面解锁nonrec包升级',
+	// 'upgs.mil.pt_2': '在每次证明论重置，每成功解析一次，获得50个时间碎片',
+	// 'upgs.mil.pt_3': '在每次证明论重置之后，获得1生活质量水晶',
+	// 'upgs.mil.pt_4': '在每次证明论重置之后，拥有2非递归重置次数',
+	// 'upgs.mil.pt_5': '在每次证明论重置之后，拥有4非递归重置次数',
+	// 'upgs.mil.pt_6': '解锁花园',
+	// 'upgs.mil.pt_7': '在自动机中解锁proofTheory包的重置指令',
 
 	'hydra.prestiges.1.desc':
 		'Additional Multipliers and Progression Speed<br />x{from}→{to}(Effect×{aft} after reset)',
@@ -1248,4 +1267,29 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'dil.9.desc': 'FAREWELL.',
 	'dil.9.eff':
 		'The level of all solvents is maxed(cannot be erased). The global speed is divided by 1000.',
+
+	// 	'upgs.mil.dut1.reqdesc': '在稀释中达到ψ(Ω<sub>2</sub>Ω)',
+	// 'upgs.mil.dut2.reqdesc':
+	//     '在稀释中达到ψ(Ω<sub>2</sub><sup>ψ<sub>1</sub>(Ω<sub>2</sub><sup>2</sup>)</sup>)',
+	// 'upgs.mil.dut3.reqdesc': '在满级稀释2的稀释中达到0.135轮回效果且总计拥有过19000Dilute Solution',
+	// 'upgs.mil.dut5.reqdesc': '在药剂7等级为1的药剂中达到1e55九头蛇能量',
+	// 'upgs.mil.dut6.reqdesc': '2,070,000Dilute Solution',
+	// 'upgs.mil.dut7.reqdesc': '2,095,000Dilute Solution & 1e3500九头蛇能量',
+	// 'upgs.mil.dut8.reqdesc': '^1.25 M-Dilute-5效果',
+	// 'upgs.mil.dut9.reqdesc': '2,151,250 Dilute Solution',
+	// 'upgs.mil.dut10.reqdesc': '2,175,000 Dilute Solution',
+	// 'upgs.mil.dut11.reqdesc': '2,201,250 Dilute Solution',
+	// 'upgs.mil.dut12.reqdesc': '^1.46 M-Dilute-5效果',
+	// 'upgs.mil.dut13.reqdesc': '1e6100 九头蛇能量 ',
+	// 'upgs.mil.dut14.reqdesc': '2,261,250 Dilute Solution ',
+	// 'upgs.mil.dut15.reqdesc': '2.45 M-Dilute-5效果',
+	// 'upgs.mil.dut16.reqdesc': '1e18,915九头蛇能量',
+	// 'upgs.mil.dut17.reqdesc': 'e5.0000e103/s推演速度',
+	// 'upgs.mil.dut18.reqdesc': 'e1.0000e121/s推演速度',
+	// 'tab.nonrecmils': '非递归里程碑',
+	// 'tab.energyfactor': '能量因素',
+	// 'tab.nrs': '非递归研究树',
+	// 'tab.nrc': '非递归挑战',
+	// 'tab.nrupg': '非递归升级',
+	'tab.unocf': 'UNOCF',
 };
