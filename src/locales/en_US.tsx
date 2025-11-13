@@ -524,7 +524,7 @@ export default {
 			'Numerorum\tWoo! Those UNOCF milestones fell really great!',
 			`???\tHydra\tDon't be so cocky. You haven't even passed Small Hydra Ordinal。`,
 			'Numerorum\t...Time will prove your unworthiness one day.',
-			'???\tHydra\tWho is "Tyce"?',
+			"???\tHydra\tYou don't know the 'time' length. It may very long....",
 		],
 		[
 			`Numerorum\tUNOCF is so powerful! But I somehow still couldn't reach (0)(1³)(2³)(3³)...`,
