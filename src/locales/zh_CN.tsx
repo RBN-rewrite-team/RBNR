@@ -1248,4 +1248,8 @@ export default {
 	'tab.nrc': '非递归挑战',
 	'tab.nrupg': '非递归升级',
 	'tab.unocf': 'UNOCF',
+
+	'currency.nonrec': '非递归能量',
+	'currency.nrt': '非递归理论',
+	'currency.solution': '九头蛇溶液',
 };
