@@ -212,7 +212,7 @@ function prionRes() {
 									<div class="solvent-desc-small">{{ $t('dil.2.desc') }}</div>
 									<div
 										v-html="
-											$t('dil.3.eff', {
+											$t('dil.2.eff', {
 												eff: format(
 													4 - 3 * 0.75 ** Dilute.diluteAmountOutside(1),
 												),

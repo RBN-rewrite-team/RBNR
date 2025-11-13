@@ -1128,12 +1128,68 @@ export default {
 	'upgs.mil.nonrec_14': 'Non-recursive resets no longer resets solution.',
 	'upgs.mil.nonrec_15': 'Non-recursive resets no longer reset the effect of U5-S-15.',
 
+	'dil.res1': 'You have {res}{res2}Dilute Solution<br />Makes BMS Progressing speed×{effect}',
+	'dil.res1.a': '({res} in this dilution)',
+	'dil.prion': 'You have {res}{res2} Prion Virus',
+	'dil.selfdes': 'The Solvent will {result}(after enable dilution)',
+	'dil.selfdes.possible': 'may self-destruct',
+	'dil.selfdes.aftertime': 'self-destruct after {time}',
+	'dil.selfdes.impossible': 'not self-destruct',
+
+	'dil.limitsol1': 'Certain solvent types will restrict the minimum grade of Solvent I!',
+	'dil.solutioncap':
+		'The maximum number of solutions obtainable for the current solvent configuration: {cap}',
+	'dil.least1': 'Select at least one solvent and upgrade its level to enable dilution.',
+	'dil.left': `When enable dilution, you will restart the progress of the 5th layer and suffer the consequences of your own choices.<br />
+
+As a reward, you can obtain Dilution solution.<br />
+The selected dilution level significantly impacts the amount of Dilute Solution obtained, while the dilution progress has a minor effect on the amount of Dilute Solution obtained.<br />
+You progressed through BMS {b} times in {a}. You obtain {c}({d}) dilute solution because of this.
+`,
+	'dil.solvdebuff':
+		'The progressing speed is divided by {a} because of the sum of the level of solvents.',
+
 	'dil.1': 'SOLVENT I: TEMPORAL BLACKHOLE',
+	'dil.1.desc':
+		'"Though it\'s unfortunate, at least you can take comfort in the fact that you\'ve lived longer than others."',
+	'dil.1.eff': 'The progressing speed and multiplier-collecting speed are divided by {eff}.',
 	'dil.2': 'SOLVENT II: u said i have dementia? u said i have dementia? u said i have dementia?',
+	'dil.2.desc': '"You\'re becoming more and more forgetful..."',
+	'dil.2.eff': 'The cost of the upgrades and buyables are raised by {eff} (^{eff})',
+
 	'dil.3': 'SOLVENT III: IMPLOSION',
+	'dil.3.desc':
+		'"Earth is about to explode, and to make matters worse, you don\'t have a spaceship..."',
+
+	'dil.3.eff':
+		'The dilution which selected this solvent, will self-destruct(exit this dilution forcely) in {time}.',
+
 	'dil.4': 'SOLVENT IV: NUMBER THEORY HELL',
-	'dil.5.desc': '“P¤1-t2~u~ér.2-_/io~/5é &-cnh-”',
+	'dil.4.desc':
+		'"The Googologist\'s parented predeccessor sequence opened the gates of hell....."',
+
+	'dil.4.eff': 'The effect of number theory #4 is inversed.',
+
+	'dil.5': 'SOLVENT V: Your best nightmare about prion virus',
+	'dil.5.desc': '\"P¤1-t2~u~ér.2-_/io~/5é &-cnh-\"',
+	'dil.5.eff': `This solvent will produce prion virus continuously if you progressed BMS at least once. <br />The prion virus gain is {gen}^(Time in the dilution)-1. <br />
+The dilution will self-destruct if the number of the prion virus is greater than total progress count.`,
+
+	'dil.6': 'SOLVENT VI: 核食惊魂',
+	'dil.6.desc': '"He stroked his daughter\'s 2ND HEADS and said, Seafood is certainly edible."',
+	'dil.6.eff': 'The progressing speed is ^{eff}(Before other multipliers reduce the effect)',
+
 	'dil.7': 'SOLVENT VII: OCCUPIED HEAVENS',
+	'dil.7.desc':
+		'"You realize those dark spots in the sky aren\'t rain. They\'re the HUMANS that are FALLING."',
+
+	'dil.7.eff': 'B5-1-2, The prestiging, Ascention, Transcension and recursion are disabled.',
+	'dil.8': 'SOLVENT VIII: FALL',
+	'dil.8.desc': '"The humans who sought to ascend to heaven. But they met their doom."',
+	'dil.8.eff': 'You will not able to get any Hydra energy in 5 seconds after enable dilution.',
+
 	'dil.9': 'SOLVENT IX: APOCAPLYSE CALL ENC18.1',
 	'dil.9.desc': 'FAREWELL.',
+	'dil.9.eff':
+		'The level of all solvents is maxed(cannot be erased). The global speed is divided by 1000.',
 };
