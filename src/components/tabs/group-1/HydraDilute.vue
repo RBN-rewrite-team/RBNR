@@ -99,7 +99,9 @@ const $t = useI18n().t;
 function res1() {
 	return $t('dil.res1', {
 		res: `<b style="color: red; font-size: 30px">${format(getCurrentSolution())}</b>`,
-		res2: player.hydra.dilute.inDilute ? $t('dil.res1.a', { res: Dilute.solutionGain() }) : '',
+		res2: player.hydra.dilute.inDilute
+			? $t('dil.res1.a', { res: format(Dilute.solutionGain()) })
+			: '',
 		effect: format(Dilute.solutionEff().eff1),
 	});
 }
