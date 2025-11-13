@@ -1252,4 +1252,11 @@ export default {
 	'currency.nonrec': '非递归能量',
 	'currency.nrt': '非递归理论',
 	'currency.solution': '九头蛇溶液',
+	'currency.非递归重置次数': '非递归重置次数',
+	'currency.非递归能量': '非递归能量',
+	'currency.NRC5次数': 'NRC5次数',
+	'currency.UNOCF推演次数': 'UNOCF推演次数',
+	'currency.UNOCF推演次数和2.25NRC6挑战次数': 'UNOCF推演次数和2.25NRC6挑战次数',
+	'currency.NRC6挑战次数 & M6-24': 'NRC6挑战次数 & M6-24',
+	'currency.NRC7挑战次数': 'NRC7挑战次数',
 };

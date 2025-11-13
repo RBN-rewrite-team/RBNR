@@ -1296,4 +1296,11 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'currency.nonrec': 'Non Rec. Energy',
 	'currency.nrt': 'Non Rec. Theory',
 	'currency.solution': 'Dilutional Solution',
+	'currency.非递归重置次数': 'Non Rec. Reset times',
+	'currency.非递归能量': 'Non Rec. Energy',
+	'currency.NRC5次数': 'NRC5 times',
+	'currency.UNOCF推演次数': 'UNOCF progressed count',
+	'currency.UNOCF推演次数和2.25NRC6挑战次数': 'UNOCF progressed count & 2.25 NRC6 times',
+	'currency.NRC6挑战次数 & M6-24': 'NRC6 times & M6-24',
+	'currency.NRC7挑战次数': 'NRC7 times',
 };
