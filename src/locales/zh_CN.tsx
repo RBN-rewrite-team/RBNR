@@ -1144,7 +1144,7 @@ export default {
 	'nt.growingmode': '增长模式',
 	'nt.growingmode.eff': 'τ<sub>4</sub>增益BMS推演和U5-2的速度',
 	'nt.growingmode.eff2': 'τ<sub>4</sub>减益BMS推演和U5-2的速度',
-	'nt.growingmode.en': '第\\textit{n}个九头蛇重置项目的效果',
+	'nt.growingmode.en': "第\\textit{'{'}n{'}'}个九头蛇重置项目的效果",
 	'nt.growingmode.c': '价格对应资源为x<sub>4</sub>, τ<sub>4</sub>的购买项/升级不消耗任何东西。',
 
 	'upgs.61R': '将f(x)的公式加强为log<sub>2</sub> x',
@@ -1154,6 +1154,12 @@ export default {
 	'upgs.65R': '九头蛇能量加成轮回效果',
 	'upgs.66R': 'g(x)的对数底数降低为5',
 	'upgs.67R': 'g(x)的对数底数降低为2',
+	'upgs.68R': function () {
+		return (
+			'U5-R1-5加成以减弱的效果对飞升生效' +
+			(player.retribution == 1 ? '<br>由于果报，效果增强' : '')
+		);
+	},
 	'upgs.69R': '解锁<b>稀释</b>',
 	'upgs.621R': 'x<sub>4</sub>加成压缩九头蛇能量',
 	'upgs.622R': 'τ<sub>4</sub>加成U5-2-2效果',

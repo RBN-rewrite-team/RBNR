@@ -1042,7 +1042,7 @@ export default {
 	'upgs.mil.cb8': 'Unlock τ<sub>2B</sub>',
 	'upgs.mil.cb9':
 		'Every tile in the chessboard increases observation data gain by x+0.01, and nerf the softcaps of all effects of Wheat Grains.',
-	'upgs.mil.cb10': '每个行星运动定律使麦粒^1.05 Each _____ increases rice gain by ^1.05.',
+	'upgs.mil.cb10': 'Each law increases rice gain by ^1.05.',
 	'upgs.mil.cb11': 'Increase the base Wheat Grains multi. from 3 to 4',
 	'upgs.mil.cb12': "Divide chessboard tiles'\ buyables'\ costs by (Calculation data)<sup>2</sup>",
 	'upgs.mil.cb13': "Double calculation speed, and increase astronomer's base from 1.5 to 2",
@@ -1127,6 +1127,62 @@ export default {
 	'upgs.mil.nonrec_13': 'Start with 1e150,000,000 Prions in <i>normal</i> non-recursive resets.',
 	'upgs.mil.nonrec_14': 'Non-recursive resets no longer resets solution.',
 	'upgs.mil.nonrec_15': 'Non-recursive resets no longer reset the effect of U5-S-15.',
+
+	// TODO upgs.mil.nonrec_16 to upgs.mil.pt_7
+
+	'hydra.prestiges.1.desc':
+		'Additional Multipliers and Progression Speed<br />x{from}→{to}(Effect×{aft} after reset)',
+	'hydra.prestiges.2.desc': 'Additional exponentiation<br />+{from}→{to}',
+	'hydra.prestiges.3.desc': 'Multiplier gain<br />×{from}→{to}',
+	'hydra.prestiges.4.desc': 'The exponent of the Prestiging and transcension<br />×{from}→{to}',
+	'hydra.prestiges.auto.interval': 'Automatic Reset Threshold: +{add} & x{mul}',
+
+	'upgs.byl.611': 'BMS progressing speed ×+1',
+	'upgs.byl.612': 'Basic exponent+0.01',
+	'upgs.byl.613': 'Multiplier obtain speed×1.1',
+	'upgs.byl.614': 'Hydra energy softcap effect ^0.9',
+
+	'nt.growingmode': 'Growing mode ',
+	'nt.growingmode.eff': 'τ<sub>4</sub> effects the speed of BMS progressing and U5-2',
+	'nt.growingmode.eff2': 'τ<sub>4</sub> reduces the speed of BMS progressing and U5-2',
+	'nt.growingmode.en': "The effect of the \\textit{'{'}nth{'}'} hydra reset.",
+	'nt.growingmode.c':
+		'The upgrades and buyables will not cost anything if the resource of the UPGS & BYLS is x<sub>4</sub>, τ<sub>4</sub>',
+
+	'upgs.61R': 'Improve the formula of f(x) to log<sub>2</sub> x',
+	'upgs.62R': 'U5-1-1 effect ^1.125',
+	'upgs.63R': "f(x) get an exponent effect based on the prestiging's effect",
+	'upgs.64R': "τ<sub>4</sub>'s effect is raised to 10",
+	'upgs.65R': "Hydra energy bonus the recursion's effect",
+	'upgs.66R': 'Set the logarithmic base of g(x) to 5',
+	'upgs.67R': 'Set the logarithmic base of g(x) to 2',
+	'upgs.68R': function () {
+		return (
+			'The U5-R1-5 buff applies a reduced effect to Ascension.' +
+			(player.retribution == 1
+				? '<br>This upgrade is bonused because of THE RETRIBUTION'
+				: '')
+		);
+	},
+	'upgs.69R': 'UNLOCK <b>DILUTION</b>',
+	'upgs.621R': 'x<sub>4</sub> bonus compressed hydra energy',
+	'upgs.622R': 'τ<sub>4</sub> bonus U5-2-2 effect',
+	// 'upgs.61S': '溶液大幅加强U5-1-1的效果',
+	// 'upgs.62S': '溶液中幅加快推演速度',
+	// 'upgs.63S': '基于总九头蛇能量增益推演速度(稀释不重置该效果，但在稀释中变得更弱)',
+	// 'upgs.64S': '基于可用溶液增益推演速度',
+	// 'upgs.65S': '基于总溶液增益乘数获取量',
+	// 'upgs.66S': '解锁4个九头蛇引擎升级',
+	// 'upgs.67S': '若溶剂III的等级为10，在其中获得的M-Dilute-5效果^1.35',
+	// 'upgs.68S': '削弱九头蛇能量获取的二重软上限',
+	// 'upgs.69S': '朊病毒加成推演速度且被免疫，你可以在任何时候获得朊病毒(×2/s)',
+	// 'upgs.610S': '基于总溶液增益朊病毒获取速度底数',
+	// 'upgs.611S': 'B5-1-2在稀释中也生效',
+	// 'upgs.612S': '大幅削弱九头蛇能量的二重软上限，M-Dilute-7的效果变得更好',
+	// 'upgs.613S': '基于九头蛇能量削弱二重九头蛇能量软上限',
+	// 'upgs.614S': '移除飞升、轮回效果的二重软上限，地球爆炸不再退出稀释',
+	// 'upgs.615S': '天启中获得的最高推演次数加成推演速度',
+	// 'upgs.616S': '解锁<b>非递归</b>(需要ψ(Ω<sub>ω</sub>)序数)',
 
 	'dil.res1': 'You have {res}{res2}Dilute Solution<br />Makes BMS Progressing speed×{effect}',
 	'dil.res1.a': '({res} in this dilution)',
