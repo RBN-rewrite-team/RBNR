@@ -18,7 +18,7 @@ import { VueLatex } from 'vatex';
 export default {
 	'title.rewritten': 'Road of Big Number Rewritten',
 	'title.idlen': 'Road of Big Number (Special Idle Version)',
-	'title.version': 'Garden Gamma/i18n Alpha',
+	'title.version': 'Garden Gamma/i18n Gamma',
 	'tab.dungeon': 'Dungeon',
 	'tab.successor': 'Successor',
 	'tab.options': 'Options',
@@ -68,7 +68,7 @@ export default {
 	'about.dutexuehua': 'Dutexuehua',
 	'about.jinghuoomega': 'GoldenApple125',
 
-	'about.version': 'Version:  Garden Gamma (v0.7.1 Gamma)',
+	'about.version': 'Version:  Garden Gamma/i18n Gamma (v0.7.2 Gamma)',
 
 	'set.title.saveset': 'Save settings',
 	'set.title.notations': 'Notations',

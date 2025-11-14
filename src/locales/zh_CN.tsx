@@ -11,7 +11,7 @@ import { VueLatex } from 'vatex';
 export default {
 	'title.rewritten': '大数之路重制版',
 	'title.idlen': '大数之路放置版',
-	'title.version': 'Garden Gamma',
+	'title.version': 'Garden Gamma/i18n Gamma',
 	'tab.dungeon': '地下城',
 	'tab.successor': '后继',
 	'tab.options': '杂项',
@@ -64,7 +64,7 @@ export default {
 	'about.dutexuehua': '独特雪花',
 	'about.jinghuoomega': '静火Ω',
 
-	'about.version': '版本: Garden Gamma (v0.7.1 Gamma)',
+	'about.version': '版本: Garden Gamma/i18n Gamma (v0.7.2 Gamma)',
 
 	'succ.successor': '后继',
 	'succ.addition': '加法',
