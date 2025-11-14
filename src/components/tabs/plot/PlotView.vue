@@ -1,16 +1,11 @@
 <script lang="ts" setup>
 import { temp } from '@/core/temp-data';
-import { computed, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import PlotSentence from './PlotSentence.vue';
 import { player } from '@/core/save';
-import { stringToPlot, plotLength } from '@/core/plot';
-import { useI18n } from 'vue-i18n';
+import { plots, stringToPlot, plotLength } from '@/core/plot';
 const plotview = ref<HTMLDivElement | null>(null);
 const plotcont = ref<HTMLSpanElement | null>(null);
-const $tm = useI18n().tm;
-const plots = computed(() => {
-	return $tm('plotcontent');
-});
 function exitView() {
 	if (!canExitView()) return;
 	if (!plotview.value) return;
@@ -24,11 +19,11 @@ function exitView() {
 function canExitView(): boolean {
 	if (import.meta.env.DEV) return true;
 	if (player.checkedPlots.includes(temp.plotdisplay)) return true;
-	return temp.plotstep >= plotLength(temp.plotdisplay, $tm);
+	return temp.plotstep >= plotLength(temp.plotdisplay);
 }
 onMounted(() => {
 	if (plotview.value) {
-		// plotview.value.style.opacity = '0';
+		plotview.value.style.opacity = '0';
 	}
 });
 /*function stepNext() {
@@ -81,9 +76,9 @@ const a: number = -115;
 						<template v-for="(plotobj, key) in plots[temp.plotdisplay - 1]">
 							<PlotSentence
 								v-if="temp.plotstep > key - 1"
-								:name="stringToPlot(plotobj, $t).name"
-								:image="stringToPlot(plotobj, $t).image"
-								:text="stringToPlot(plotobj, $t).text"
+								:name="stringToPlot(plotobj).name"
+								:image="stringToPlot(plotobj).image"
+								:text="stringToPlot(plotobj).text"
 							></PlotSentence>
 						</template>
 					</template>

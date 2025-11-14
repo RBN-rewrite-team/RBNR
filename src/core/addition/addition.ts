@@ -25,6 +25,11 @@ export class AdditionUpgradeWithEffect extends UpgradeWithEffect {
 export const Addition = {
 	upgrades: {
 		'21': new (class U11 extends AdditionUpgrade {
+			description: () => string = Logarithm.dilated(
+				'U1系列升级购买数量同样作用于U0-2的效果',
+				'使U0-2效果^1.5',
+				'21',
+			);
 			cost = DC.D_1;
 			name = 'U1-1';
 			currency = Currencies.ADDITION_POWER;
@@ -33,6 +38,12 @@ export const Addition = {
 			}
 		})(),
 		'22': new (class U12 extends AdditionUpgrade {
+			description: () => string = Logarithm.dilated(
+				'后继批量提高到4倍',
+				'后继指数＋0.2',
+				'22',
+			);
+
 			cost: Decimal | (() => Decimal) = function () {
 				if (
 					player.multiplication.B1seriesC1 == 2 ||
@@ -47,6 +58,8 @@ export const Addition = {
 			}
 		})(),
 		'23': new (class U13 extends AdditionUpgrade {
+			description = '移除B0-1价格的常数项，B0-1最多购买次数+50';
+
 			cost: Decimal | (() => Decimal) = function () {
 				if (
 					player.multiplication.B1seriesC1 == 3 ||
@@ -61,6 +74,11 @@ export const Addition = {
 			}
 		})(),
 		'24': new (class U14 extends AdditionUpgrade {
+			description: () => string = Logarithm.dilated(
+				'解锁B1-1',
+				'使B1-1加成b0-1  效果^(1+log（b1-1）/3）',
+				'24',
+			);
 			cost: Decimal | (() => Decimal) = function () {
 				return player.multiplication.B1seriesC1 == 4 ||
 					player.multiplication.B1seriesC1400q == 4
@@ -73,6 +91,12 @@ export const Addition = {
 			}
 		})(),
 		'25': new (class U15 extends AdditionUpgradeWithEffect {
+			description: () => string = Logarithm.dilated(
+				'后继运算升级为加法运算， 在每次加法重置后保留U0系列升级',
+				'挑战1效果不再有上限，但在1以上有软上限',
+				'25',
+			);
+
 			cost: Decimal | (() => Decimal) = function () {
 				return player.multiplication.B1seriesC1 == 5 ||
 					player.multiplication.B1seriesC1400q == 5
@@ -96,6 +120,7 @@ export const Addition = {
 			}
 		})(),
 		'26': new (class U16 extends AdditionUpgrade {
+			description = '解锁乘法层';
 			cost: Decimal | (() => Decimal) = function () {
 				return new Decimal(3125);
 			};
@@ -110,6 +135,7 @@ export const Addition = {
 	} as const,
 	buyables: {
 		'21': new (class B11 extends Buyable<Decimal> {
+			description: string = '每次加法重置后获得免费的购买项11（算在上限之内）';
 			name: string = 'B1-1';
 			currency: Currencies = Currencies.NUMBER;
 			cost(x: Decimal) {

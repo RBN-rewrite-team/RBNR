@@ -1,10 +1,8 @@
 // import { deepCopy } from '../save';
 // import type { GameObject } from './game-object';
 
-import { getMessage } from '@/utils/i18n';
 import { player } from '../save';
 import type { initializeInfo } from './room';
-import type { $t } from '@/utils/types';
 
 // import { maps, type SingleMap } from './map';
 type Replacements = {
@@ -27,19 +25,19 @@ export type CoreEquipmentAttribute = {
 	atk: number;
 	def: number;
 };
-export function equipmentDisplay(eq: CoreEquipment, $t: $t): string {
+export function equipmentDisplay(eq: CoreEquipment): string {
 	const rar =
 		eq.rarity >= 1.9
-			? '<span style="color: cyan">' + $t('dung.core.levels.5') + '</span>'
+			? '<span style="color: cyan">不朽</span>'
 			: eq.rarity >= 1.8
-				? '<span style="color: red">' + $t('dung.core.levels.4') + '</span>'
+				? '<span style="color: red">神话</span>'
 				: eq.rarity >= 1.6
-					? '<span style="color: orange">' + $t('dung.core.levels.3') + '</span>'
+					? '<span style="color: orange">传奇</span>'
 					: eq.rarity >= 1.4
-						? '<span style="color: purple">' + $t('dung.core.levels.2') + '</span>'
+						? '<span style="color: purple">史诗</span>'
 						: eq.rarity >= 1.0
-							? '<span style="color: blue">' + $t('dung.core.levels.1') + '</span>'
-							: '<span>' + $t('dung.core.levels.0') + '</span>';
+							? '<span style="color: blue">稀有</span>'
+							: '<span>普通</span>';
 	return (
 		rar +
 		'#' +

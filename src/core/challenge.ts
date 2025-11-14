@@ -4,9 +4,9 @@ import { MULTI_CHALS } from './multiplication/challenges';
 import { NON_RECURSIVE } from './nonrecu';
 import { NONREC_CHALS } from './nonrecu/non-recursion-challenges';
 export type SingleChallenge<T extends {} = {}> = {
-	// name: string;
-	// descEasy: string;
-	// descHard: string;
+	name: string;
+	descEasy: string;
+	descHard: string;
 	loop?(): void; //Run every tick in challenge, use for update challenge amount;
 	canEnter?(): boolean;
 	onExit?(): void;

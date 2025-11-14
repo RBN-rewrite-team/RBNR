@@ -6,7 +6,6 @@ import { CHALLENGE } from '../challenge';
 import { ref, nextTick, type ComponentPublicInstance, computed, type Ref } from 'vue';
 import SingleStudy from '@/components/tabs/nonrecursion/SingleStudy.vue';
 import { format, formatWhole } from '@/utils/format';
-import { secInThisReset52717273 } from './total-theories';
 
 const StudyTreeRef = ref(null);
 
@@ -35,6 +34,11 @@ function sum(...ids: (number | boolean)[]): number {
 		else result += Number(id);
 	}
 	return result;
+}
+function secInThisReset52717273() {
+	let a = player.nonrecu.secInThisReset;
+	if (player.upgrades['73']) a = a.mul('1e10');
+	return a;
 }
 export type StudyConfig = {
 	id: string;

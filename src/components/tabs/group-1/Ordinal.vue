@@ -2,23 +2,20 @@
 import { feature, player } from '@/core/global';
 import { formatWhole } from '@/utils/format';
 import TDUpgrade from '../../group-2/TDUpgrade.vue';
-import { useI18n } from 'vue-i18n';
-const $t = useI18n().t;
-function t() {
-	return $t('ord.1', {
-		amount: `<span
-					style="color: rgb(255, 63, 63)"
-					
-	>${formatWhole(feature.Ordinal.base())}</span>`,
-	});
-}
 </script>
 
 <template>
 	<div class="main">
+		<p style="color: grey; table-align: center">
+			没有人可以把我们从这片康托尔创造的乐园中驱逐出去。————大卫·希尔伯特
+		</p>
+
 		<div style="transform: translateY(60px)">
 			<div align="center">
-				<span v-html="t()"></span><br />
+				当前你的序数底数为<span
+					style="color: rgb(255, 63, 63)"
+					v-html="formatWhole(feature.Ordinal.base())"
+				/>，它决定了达到基本列第几项时进位。<br />
 				<table>
 					<tbody>
 						<tr>

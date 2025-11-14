@@ -13,10 +13,9 @@ import {
 import SingleStudy from './SingleStudy.vue';
 import { onMounted, watch, ref } from 'vue';
 import { getTotalTheories } from '@/core/nonrecu/total-theories';
-import { Currencies, currencyName, getCurrency } from '@/core/currencies';
+import { Currencies, getCurrency } from '@/core/currencies';
 import { player } from '@/core/global';
 import BlankStudy from './BlankStudy.vue';
-import { useI18n } from 'vue-i18n';
 onMounted(() => {
 	updateAllConnectors();
 	window.addEventListener('resize', updateAllConnectors);
@@ -33,19 +32,16 @@ watch(
 const connectorsRef = ref<HTMLElement | null>(null);
 
 onMounted(() => initConnectors(connectorsRef));
-
-const $t = useI18n().t;
-function nrtamount() {
-	return $t('nonrec.youhavenrt', {
-		t: `<b style="color: #c98300; font-size: 30px">${formatWhole(getTotalTheories())}</b>`,
-		b: formatWhole(getCurrency(Currencies.NRT)),
-	});
-}
 </script>
 
 <template>
 	<div style="position: sticky; top: 0; background-color: var(--background-color); z-index: 3">
-		<p v-html="nrtamount()"></p>
+		<p>
+			你一共有<b style="color: #c98300; font-size: 30px">{{
+				formatWhole(getTotalTheories())
+			}}</b
+			>非递归理论，还剩下{{ formatWhole(getCurrency(Currencies.NRT)) }}。
+		</p>
 		<div class="studies_row">
 			<div class="study">
 				<div class="study-name">NRT1</div>
@@ -54,15 +50,8 @@ function nrtamount() {
 					:class="canBuyTheories(0) ? 'study-buyable' : ''"
 					@click="addTheories(0)"
 				>
-					<div>{{ $t('nonrec.nrtbuy') }}</div>
-					<div>
-						{{
-							$t('upg.cost', {
-								cost: formatWhole(theoriesCost(0)),
-								currency: currencyName(Currencies.NRT, $t),
-							})
-						}}
-					</div>
+					<div>获得一个非递归理论</div>
+					<div>花费: {{ formatWhole(theoriesCost(0)) }} 九头蛇能量</div>
 				</div>
 			</div>
 			<div class="study">
@@ -72,15 +61,8 @@ function nrtamount() {
 					:class="canBuyTheories(1) ? 'study-buyable' : ''"
 					@click="addTheories(1)"
 				>
-					<div>{{ $t('nonrec.nrtbuy') }}</div>
-					<div>
-						{{
-							$t('upg.cost', {
-								cost: formatWhole(theoriesCost(1)),
-								currency: currencyName(Currencies.NRT, $t),
-							})
-						}}
-					</div>
+					<div>获得一个非递归理论</div>
+					<div>花费: {{ formatWhole(theoriesCost(1)) }} 九头蛇溶液</div>
 				</div>
 			</div>
 			<div class="study">
@@ -90,22 +72,13 @@ function nrtamount() {
 					:class="canBuyTheories(2) ? 'study-buyable' : ''"
 					@click="addTheories(2)"
 				>
-					<div>{{ $t('nonrec.nrtbuy') }}</div>
-					<div>
-						{{
-							$t('upg.cost', {
-								cost: formatWhole(theoriesCost(2)),
-								currency: currencyName(Currencies.NRT, $t),
-							})
-						}}
-					</div>
+					<div>获得一个非递归理论</div>
+					<div>花费: {{ formatWhole(theoriesCost(2)) }} 非递归能量</div>
 				</div>
 			</div>
 		</div>
 		<div align="center">
-			<button class="clickable_button" @click="resetTheories">
-				{{ $t('nonrec.respec') }}
-			</button>
+			<button class="clickable_button" @click="resetTheories">重置研究树</button>
 		</div>
 	</div>
 	<div style="overflow-x: auto">

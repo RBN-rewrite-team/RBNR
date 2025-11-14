@@ -7,8 +7,7 @@
 }
 
 .menu2 {
-	// width: fit-content;
-	min-width: 130px;
+	width: 130px;
 	height: 38px;
 	margin-top: 5px;
 	margin-left: 35px;
@@ -18,7 +17,6 @@
 	border-radius: 4px;
 	color: var(--color);
 	background-color: var(--background-color);
-	overflow: auto;
 	position: relative;
 	&:hover {
 		background-color: var(--hover-color);

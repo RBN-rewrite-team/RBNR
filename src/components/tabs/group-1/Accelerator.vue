@@ -3,21 +3,15 @@ import { ORDINAL_BOOSTER } from '@/core/ordinal/ordinal-booster';
 import TDBuyable from '../../group-2/TDBuyable.vue';
 import TDUpgrade from '../../group-2/TDUpgrade.vue';
 import { format, formatGain } from '@/utils/format';
-import { useI18n } from 'vue-i18n';
-
-const $t = useI18n().t;
-function q() {
-	return $t('ord.acc', {
-		eff: format(ORDINAL_BOOSTER.boosterEffect()),
-		q: formatGain(ORDINAL_BOOSTER.boosterEffect(), ORDINAL_BOOSTER.boosterGrow()),
-		c: format(ORDINAL_BOOSTER.boosterCap()),
-	});
-}
 </script>
 
 <template>
 	<div class="main">
-		<p v-html="q()"></p>
+		<p>
+			加速器倍率为×{{ format(ORDINAL_BOOSTER.boosterEffect()) }}(<span
+				v-html="formatGain(ORDINAL_BOOSTER.boosterEffect(), ORDINAL_BOOSTER.boosterGrow())"
+			/>,上限{{ format(ORDINAL_BOOSTER.boosterCap()) }})
+		</p>
 		<table align="center">
 			<tbody>
 				<tr>

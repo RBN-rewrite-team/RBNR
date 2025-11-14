@@ -9,7 +9,6 @@ import {
 } from './game-object';
 import { predictableBigIntRandom } from '.';
 import ModalService from '@/utils/Modal';
-import { getMessage } from '@/utils/i18n';
 
 /**
  * 目前生成规则
@@ -26,7 +25,7 @@ import { getMessage } from '@/utils/i18n';
 export function randomBlock(x: bigint, y: bigint) {
 	const randomer = predictableBigIntRandom(1000000n + x * 1000n + y);
 	if (randomer < 0.1) return new WallGameObject();
-	else if (randomer < 0.21) return new GuardGameObject(1, getMessage);
+	else if (randomer < 0.21) return new GuardGameObject(1);
 	else if (randomer < 0.2105)
 		return new TeleporterGameObject(
 			[x + BigInt(Math.floor(randomer * 514)), y - BigInt(Math.floor(randomer * 114))],

@@ -15,8 +15,6 @@ import { MoveableBoxGameObject, EntityGameObject } from '@/core/minigame/game-ob
 import { playerSafe, playerToDestination } from '@/core/minigame/path-searcher';
 import ModalService from '@/utils/Modal';
 import MiniGameTD from './MiniGameTD.vue';
-import { useI18n } from 'vue-i18n';
-const $t = useI18n().t;
 function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof getCurrentBlock>) {
 	console.log(room, x, y);
 	let putedblock = false;
@@ -24,28 +22,28 @@ function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof
 		if (block instanceof MoveableBoxGameObject) {
 			addReplace(room, x, y, '0', false);
 			player.minigame.taking_box = true;
-			temp.minigametip = $t('dung.moveablebox.pick');
+			temp.minigametip = '已拿起箱子（只能在玩家上下左右1格放下箱子）';
 		} else if (block === null && player.minigame.taking_box) {
 			addReplace(room, x, y, 'BOX', false);
-			temp.minigametip = $t('dung.moveablebox.put');
+			temp.minigametip = '已放下箱子';
 			player.minigame.taking_box = false;
 			putedblock = true;
 		} else if (block instanceof EntityGameObject) {
-			// const guardinfo = block.getBattleInfo();
-			// const battlestatus = runBattleFast(meBattleInfo(), guardinfo);
-			// if (battlestatus.status == 'fail') {
-			// 	const req = calculateRequiredHpIncrease(meBattleInfo(), guardinfo);
-			// 	const req2 = calculateRequiredAtkIncrease(meBattleInfo(), guardinfo);
-			// 	ModalService.show({
-			// 		title: '是否继续战斗?',
-			// 		get content() {
-			// 			return `当前敌人你无法击败，按确定以继续战斗<br>附加信息: ${req.reason}；${req2.reason}`;
-			// 		},
-			// 		onConfirm() {
-			// 			block.interact(x, y, 'other', $t);
-			// 		},
-			// 	});
-			// }
+			const guardinfo = block.getBattleInfo();
+			const battlestatus = runBattleFast(meBattleInfo(), guardinfo);
+			if (battlestatus.status == 'fail') {
+				const req = calculateRequiredHpIncrease(meBattleInfo(), guardinfo);
+				const req2 = calculateRequiredAtkIncrease(meBattleInfo(), guardinfo);
+				ModalService.show({
+					title: '是否继续战斗?',
+					get content() {
+						return `当前敌人你无法击败，按确定以继续战斗<br>附加信息: ${req.reason}；${req2.reason}`;
+					},
+					onConfirm() {
+						block.interact(x, y);
+					},
+				});
+			}
 			return;
 		}
 	}
@@ -63,12 +61,12 @@ function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof
 	} else if (!putedblock) {
 		console.log(room, x, y);
 		if (playerSafe(block)) {
-			playerToDestination(x, y, $t)
+			playerToDestination(x, y)
 				.then(function () {
-					temp.minigametip = $t('dung.movement.complete');
+					temp.minigametip = '移动完成';
 				})
 				.catch(function () {
-					temp.minigametip = $t('dung.movement.unable');
+					temp.minigametip = '无法移动';
 				});
 		}
 	}
@@ -161,6 +159,5 @@ td {
 	width: 60px;
 	background-color: var(--background-color);
 	border: 1px solid red;
-	transition-duration: 0s;
 }
 </style>
