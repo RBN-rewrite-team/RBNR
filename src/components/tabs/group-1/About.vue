@@ -175,7 +175,7 @@ import { i18n } from '@/utils/i18n';
 			</div>
 		</div>
 		<div style="transform: translateY(400px)" class="selectable">
-			<template v-if="i18n.global.locale.value == 'zh-CN'"
+			<template v-if="i18n.global.locale == 'zh-CN'"
 				>本项目使用了<a href="https://cn.vuejs.org/"> Vue </a>、<a
 					href="https://cn.vitejs.dev/"
 				>

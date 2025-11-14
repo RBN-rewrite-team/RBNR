@@ -281,7 +281,7 @@ export function stringToPlot(a: string, $t: $t) {
 			res.image = imagea;
 		}
 	}
-	if (res.name == '天文学家' && i18n.global.locale.value !== 'zh-CN') {
+	if (res.name == '天文学家' && i18n.global.locale !== 'zh-CN') {
 		res.name = getMessage('plot.astronomer');
 	}
 	return res;

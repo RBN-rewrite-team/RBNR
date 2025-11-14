@@ -63,7 +63,7 @@ function costHTML() {
 }
 const description = computed(function () {
 	if (props.upgid == '517') {
-		if (i18n.global.locale.value == 'zh-CN') {
+		if (i18n.global.locale == 'zh-CN') {
 			return player.upgrades['516']
 				? '访问九头蛇Hydra'
 				: //                            Access 9 head snake Hydra

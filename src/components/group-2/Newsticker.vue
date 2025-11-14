@@ -65,7 +65,7 @@ const prepareNextMessage = () => {
 	if (!line.value) return;
 
 	const canShow = (item: NewsMessage) => item.unlocked?.() ?? true; // && !recentTickers.value.includes(item.id);
-	const goalnews = i18n.global.locale.value == 'zh-CN' ? news : newsen;
+	const goalnews = i18n.global.locale == 'zh-CN' ? news : newsen;
 	if (nextNewsMessageId.value) {
 		const specified = goalnews.find((m) => m.id === nextNewsMessageId.value);
 		if (specified) {
