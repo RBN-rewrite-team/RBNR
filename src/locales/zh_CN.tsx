@@ -1494,4 +1494,14 @@ export default {
 	'currency.compressed_hydra': '压缩九头蛇能量',
 	'currency.qol_crystal_points': '生活质量水晶',
 	'tab.automator': '自动机',
+
+	'upgs.byl.B6R11': '点击获得推演能量按钮获取量+1',
+	'upgs.byl.B6R12': '每秒点击(该购买项等级)<sup>2</sup>次推演能量按钮',
+	'upgs.byl.B6R13': '前两个购买项的效果指数+0.05',
+	'upgs.byl.B6R14': 'U6-R-1-1的效果指数+0.05',
+	'upgs.byl.B6R15': 'U6-R-1-3~4的效果底数+0.015',
+	'upgs.byl.B6R21': '基于推演能量降低B6-R-1-3~4价格',
+	'upgs.U6R18': function () {
+		return `推演能量×1e100<br>解锁<b class="baseRetribution">${player.options.isGuoGao ? '果糕' : '果报'}</b>`;
+	},
 };

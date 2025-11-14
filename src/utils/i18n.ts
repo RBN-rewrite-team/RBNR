@@ -7,8 +7,15 @@ export const messages = {
 	'zh-CN': zhCN,
 	'en-US': enUS,
 } as const;
+function checkAndFallbackLocale() {
+	let a = navigator.language;
+	if (!(a in messages)) {
+		return 'zh-CN';
+	}
+	return a;
+}
 export const i18n = createI18n({
-	locale: 'en-US',
+	locale: checkAndFallbackLocale(),
 	fallbackLocale: 'zh-CN',
 	messages,
 	warnHtmlMessage: false,
