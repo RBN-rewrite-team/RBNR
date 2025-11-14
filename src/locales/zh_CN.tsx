@@ -1278,7 +1278,7 @@ export default {
 	'dung.guard2': '高级守卫',
 	'dung.guard3': '重型守卫',
 	'dung.guard4': '魔法师',
-	'dung.a': '技能点：',
+	'dung.a': '技能点(SP)：',
 
 	'dung.movement.complete': '移动完成',
 	'dung.movement.unable': '无法移动',

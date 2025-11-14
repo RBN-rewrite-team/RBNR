@@ -1147,6 +1147,16 @@ export default {
 	'upgs.mil.pt_7':
 		'Unlock the reset command in the Proof Theory pack in the automator, in the time shards tab.',
 
+	'studies.dung.0': '+2 additional health per level',
+	'studies.dung.1': 'Base Attack +1',
+	'studies.dung.2': 'Base HP + 5',
+	'studies.dung.3': 'HP*1.5',
+	'studies.dung.4': 'ATK*1.2',
+	'studies.dung.5': 'Base HP+15',
+	'studies.dung.6': 'HP*1.5',
+	'studies.dung.7': '+2 additional atk per level',
+	'studies.dung.8': '+3 additional health per level',
+
 	'hydra.prestiges.1.desc':
 		'Additional Multipliers and Progression Speed<br />x{from}→{to}(Effect×{aft} after reset)',
 	'hydra.prestiges.2.desc': 'Additional exponentiation<br />+{from}→{to}',
