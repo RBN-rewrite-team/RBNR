@@ -9,7 +9,6 @@ import Baixie from './group-2/Baixie.vue';
 const langName = {
 	'zh-CN': '简体中文',
 	'en-US': 'English',
-	'en-GB': 'English',
 };
 const component = defineComponent({
 	name: 'i18nUI',
@@ -17,7 +16,7 @@ const component = defineComponent({
 		const u = useI18n();
 		const browserLang = navigator.language;
 		// const $t = u.t;
-		const locales = ['zh-CN', 'en-US', 'en-GB'];
+		const locales = ['zh-CN', 'en-US'];
 
 		const max = Math.max(...Object.values(messagesLength));
 		return () => (

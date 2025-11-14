@@ -5,7 +5,6 @@ import enUS from '@/locales/en_US.tsx';
 export const messages = {
 	'zh-CN': zhCN,
 	'en-US': enUS,
-	'en-GB': enUS,
 } as const;
 export const i18n = createI18n({
 	locale: 'en-US',
