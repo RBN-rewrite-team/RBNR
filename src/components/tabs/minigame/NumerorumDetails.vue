@@ -54,9 +54,9 @@ function openCore() {
 		Numerorum<br />
 		<div style="position: relative; height: 50px; width: 400px; background-color: black">
 			<div align="center" style="font-size: 17px; color: white">
-				{{ $t('dung.hp') }}{{ meBattleInfo().hp.toFixed(1) }}/{{
-					meBattleInfo().hpMax.toFixed(1)
-				}}({{ Math.ceil((meBattleInfo().hp / meBattleInfo().hpMax) * 100) }}%)
+				生命值：{{ meBattleInfo().hp.toFixed(1) }}/{{ meBattleInfo().hpMax.toFixed(1) }}({{
+					Math.ceil((meBattleInfo().hp / meBattleInfo().hpMax) * 100)
+				}}%)
 			</div>
 			<div
 				:style="{
@@ -70,17 +70,13 @@ function openCore() {
 		<table style="width: 100%">
 			<tbody>
 				<tr>
-					<td>{{ $t('dung.atk') }}{{ meBattleInfo().atk.toFixed(1) }}</td>
-					<td>{{ $t('dung.def') }}{{ meBattleInfo().def.toFixed(1) }}</td>
+					<td>当前攻击力: {{ meBattleInfo().atk.toFixed(1) }}</td>
+					<td>当前防御: {{ meBattleInfo().def.toFixed(1) }}</td>
 				</tr>
 				<tr>
 					<td>
-						{{ $t('dung.lv') }}{{ currentPlayerLV().toFixed(0) }}<br />
-						{{
-							$t('dung.wlv', {
-								lv: getWorldLevel().toFixed(1),
-							})
-						}}
+						当前LV: {{ currentPlayerLV().toFixed(0) }}<br />
+						(世界等级: {{ getWorldLevel().toFixed(1) }})
 					</td>
 					<td
 						:style="{
@@ -93,36 +89,22 @@ function openCore() {
 							color: 'white',
 						}"
 					>
-						{{ $t('dung.xp') }}{{ player.minigame.xp.toFixed(0) }}/{{
-							nextLVxp().toFixed(0)
-						}}
+						当前XP: {{ player.minigame.xp.toFixed(0) }}/{{ nextLVxp().toFixed(0) }}
 					</td>
 				</tr>
 				<tr>
 					<td>
-						{{ $t('dung.ore') }}{{ player.minigame.ore_gets }}<br />{{
-							$t('dung.ore.1', {
-								effect: player.minigame.ore_gets * 0.25,
-							})
-						}}
+						矿石收集：{{ player.minigame.ore_gets }}<br />(+{{
+							player.minigame.ore_gets * 0.25
+						}}%全局速度)
 						<PrimaryButton
 							@click="player.options.openOreEffect = !player.options.openOreEffect"
 						>
-							{{
-								$t('set.status', {
-									label: $t('dung.ore.2'),
-									status: $t(
-										player.options.openOreEffect
-											? 'set.status.on'
-											: 'set.status.off',
-									),
-								})
-							}}
+							开启矿石效果: {{ player.options.openOreEffect ? '开' : '关' }}
 						</PrimaryButton>
 					</td>
 					<td>
-						{{ $t('dung.boxes.collect')
-						}}<span
+						宝箱收集：<span
 							style="color: rgb(186, 110, 64)"
 							v-html="player.minigame.box_gets[0]"
 						/>/<span
@@ -143,15 +125,14 @@ function openCore() {
 					</td>
 					<td>
 						<PrimaryButton @click="openCore()">
-							{{ $t('dung.core') }}({{ $t('dung.core.equip')
-							}}{{
+							核心(装备{{
 								player.minigame.coreEquipments.hea.length +
 								player.minigame.coreEquipments.atk.length +
 								player.minigame.coreEquipments.def.length
 							}}/3)</PrimaryButton
 						><br />
-						{{ $t('dung.core.storeequipments')
-						}}{{ player.minigame.storeEquipments.length }}/50<span style="color: cyan"
+						仓库装备：{{ player.minigame.storeEquipments.length }}/50<span
+							style="color: cyan"
 							>(不朽x{{
 								player.minigame.storeEquipments.filter((item) => {
 									return item.rarity >= 1.9;

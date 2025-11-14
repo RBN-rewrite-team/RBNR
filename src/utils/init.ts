@@ -20,7 +20,7 @@ import { reinitializeMusic } from '@/core/music.ts';
 import { timeCheck } from './time-check.ts';
 import { initPTMilestones } from '@/core/pt/milestones.ts';
 import App from '@/App.tsx';
-import { i18n } from './i18n.ts';
+
 export function init() {
 	try {
 		timeCheck();
@@ -82,12 +82,8 @@ export function init() {
 		hotkeys('ArrowRight', keyboardEventListener);
 		//hardResetMiniGame();
 		player.minigame.interact = 0;
-		// window.temp = temp;
-		setTimeout(function () {
-			const app = createApp(App);
-
-			app.use(i18n).use(VueLatex).directive('hold', vHold).mount('#app');
-		}, 500);
+		const app = createApp(App);
+		app.use(VueLatex).directive('hold', vHold).mount('#app');
 
 		document.addEventListener('DOMContentLoaded', function () {
 			setTimeout(
@@ -99,8 +95,6 @@ export function init() {
 				import.meta.env.DEV ? 0 : 2000,
 			);
 		});
-
-		// console.log(JSON.stringify(localization));
 	} catch (e) {
 		stopGameLoop();
 		stopSaveLoop();

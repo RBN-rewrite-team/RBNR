@@ -3,43 +3,31 @@ import { format, formatWhole } from '@/utils/format';
 import { feature, player } from '@/core/global';
 import TDBuyable from '../../group-2/TDBuyable.vue';
 import TRMilestone from '../../group-2/TRMilestone.vue';
-
-import type { $t } from '@/utils/types';
-import { useI18n } from 'vue-i18n';
-
-const $t = useI18n().t;
-
-function t() {
-	return $t('exp.cb.eff', {
-		a: `<b style="color: rgb(127, 127, 255); font-size: 25px">${formatWhole(
-			feature.ChessBoard.wheatGrain().round(),
-		)}</b>`,
-		b: `<b style="color: rgb(127, 127, 255)">${format(feature.ChessBoard.wgEffect()[0])}</b
-		>`,
-		c: `<b style="color: rgb(127, 127, 255)">${format(feature.ChessBoard.wgEffect()[3])}</b
-		>`,
-		d: `<b style="color: rgb(127, 127, 255)">${format(feature.ChessBoard.wgEffect()[1])}</b
-		>`,
-		e: `<b style="color: rgb(127, 127, 255)">${format(feature.ChessBoard.wgEffect()[2])}</b
-		>`,
-		f: `<b style="color: rgb(127, 127, 255)">${format(feature.ChessBoard.wgEffect()[4])}`,
-	});
-}
 </script>
 
 <template>
 	<div class="main">
 		<p style="color: grey; table-align: center">
-			{{ $t('exp.cb.pre') }}
+			古时候，有一位国王想要犒赏一位聪明的大臣，奖赏他发明了国际象棋……
 		</p>
-		<p v-html="t()"></p>
-		<p align="center">
-			{{
-				$t('exp.cb.base', {
-					base: format(feature.ChessBoard.base()),
-				})
-			}}
-		</p>
+		你有
+		<b style="color: rgb(127, 127, 255); font-size: 25px">{{
+			formatWhole(feature.ChessBoard.wheatGrain().round())
+		}}</b>
+		麦粒， 使数值^<b style="color: rgb(127, 127, 255)">{{
+			format(feature.ChessBoard.wgEffect()[0])
+		}}</b
+		>, 加法能量×<b style="color: rgb(127, 127, 255)">{{
+			format(feature.ChessBoard.wgEffect()[3])
+		}}</b
+		>,^<b style="color: rgb(127, 127, 255)">{{ format(feature.ChessBoard.wgEffect()[1]) }}</b
+		>, 乘法能量^<b style="color: rgb(127, 127, 255)">{{
+			format(feature.ChessBoard.wgEffect()[2])
+		}}</b
+		>，乘法能量溢出的效果×<b style="color: rgb(127, 127, 255)">{{
+			format(feature.ChessBoard.wgEffect()[4])
+		}}</b>
+		<p align="center">当前格子底数：{{ format(feature.ChessBoard.base()) }}</p>
 		<div align="center">
 			<table>
 				<tbody>

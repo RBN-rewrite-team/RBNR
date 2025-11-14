@@ -17,6 +17,7 @@ export const themeDetailsMap = new Map([
 	[
 		themes.CLASSIC,
 		{
+			name: '浅色',
 			ordinary: {
 				'--app-background-color': '#f3f3f3',
 				'--background-color': '#fdfdfd',
@@ -34,6 +35,7 @@ export const themeDetailsMap = new Map([
 	[
 		themes.DARK,
 		{
+			name: '深色',
 			ordinary: {
 				'--app-background-color': '#0c0c0c',
 				'--background-color': '#020202',
@@ -52,6 +54,7 @@ export const themeDetailsMap = new Map([
 	[
 		themes.SUN,
 		{
+			name: '太阳',
 			ordinary: {
 				'--app-background-color': '#ffcc00',
 				'--background-color': '#ff9900',
@@ -69,6 +72,7 @@ export const themeDetailsMap = new Map([
 	[
 		themes.OCEAN,
 		{
+			name: '海洋',
 			ordinary: {
 				'--app-background-color': '#00ccff',
 				'--background-color': '#0066cc',

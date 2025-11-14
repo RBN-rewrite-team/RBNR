@@ -11,11 +11,6 @@ import { format } from '@/utils/format';
 import { countdown } from '@/core/countdown-display';
 import { ORDINAL } from '@/core/ordinal/ordinal';
 import { Dilute } from '@/core/hydra/dilute';
-import { useI18n } from 'vue-i18n';
-import { computed } from 'vue';
-import { wordShift } from '@/core/word-shift';
-import { i18n } from '@/utils/i18n';
-const $t = useI18n().t;
 
 const props = defineProps<{
 	upgid: keyof typeof upgrades;
@@ -53,50 +48,22 @@ function actualCost(curupg: Upgrade) {
 	}
 	return cost;
 }
-function costHTML() {
-	return $t('upg.cost', {
-		cost: curupg.ordinal
-			? OrdinalUtils.numberToOrdinal(actualCost(curupg), feature.Ordinal.base())
-			: format(actualCost(curupg)),
-		currency: currencyName(curupg.currency, $t),
-	});
-}
-const description = computed(function () {
-	if (props.upgid == '517') {
-		if (i18n.global.locale.value == 'zh-CN') {
-			return player.upgrades['516']
-				? '访问九头蛇Hydra'
-				: //                            Access 9 head snake Hydra
-					wordShift.randomCrossWords('A   s  9 h  d s   e H   a', 0.9, false) +
-						player.lastUpdated.toString().repeat(0);
-		}
-		return player.upgrades['516']
-			? 'Access Hydra'
-			: wordShift.randomCrossWords('访问九头蛇', 0.9, true) +
-					player.lastUpdated.toString().repeat(0);
-	}
-	return $t(`upgs.${props.upgid}`);
-});
 </script>
 
 <template>
 	<td v-if="UPGRADES.lock(upgid).show">
 		<div class="upgrade tooltipBox" @mousedown="UPGRADES.buy(upgid)">
 			<div :class="useClass()">
-				<span style="font-weight: bold">
-					{{
-						curupg.name == 'U0-114514' ? $t('upgs.' + id + '.name') : curupg.name
-					}} </span
-				><br />
+				<span style="font-weight: bold"> {{ curupg.name ?? 'U' + id }} </span><br />
 				<template v-if="!UPGRADES.lock(id).unlocked && !permanent && !player.upgrades[id]">
-					{{ $t('upg.locked') }}<br />
+					暂未解锁<br />
 					<template v-for="sreq in Object.entries(req)">
 						<template v-if="sreq[0] != '0'"> ,<br /> </template>
 						<span
 							style="font-weight: bold"
 							:style="{ color: sreq[1].reachedReq() ? 'green' : 'red' }"
 						>
-							{{ sreq[1].reqDescription($t) }}
+							{{ sreq[1].reqDescription() }}
 							<span v-if="!sreq[1].reachedReq() && sreq[1].progress">
 								({{ sreq[1].progress().join('/') }})
 							</span>
@@ -106,29 +73,38 @@ const description = computed(function () {
 				</template>
 				<template v-else>
 					<!-- (Logarithm.logarithm.upgrades_in_dilated.includes(id)&&curupg.dilated) ? curupg.dilated :  -->
-					<span v-html="description"></span><br />
+					<span
+						v-html="
+							typeof curupg.description === 'function'
+								? curupg.description()
+								: curupg.description
+						"
+					></span
+					><br />
 					<template v-if="UpgradeWithEffect.isWithEffect<any>(curupg)">
-						<div
-							v-html="
-								$t('upg.effect', {
-									effect: curupg.effectDescription(curupg.effect()),
-								})
-							"
-						></div>
+						效果：<span v-html="curupg.effectDescription(curupg.effect())"></span><br />
 					</template>
 				</template>
-				<div v-if="!permanent" v-html="costHTML()"></div>
-				<span v-else style="color: green; font-weight: bold">
-					{{ $t('upg.keep') }}<br />
-				</span>
+				<template v-if="!permanent">
+					价格：<span
+						v-if="curupg.ordinal"
+						v-html="
+							OrdinalUtils.numberToOrdinal(
+								actualCost(curupg),
+								feature.Ordinal.base(),
+							) + currencyName(curupg.currency)
+						"
+					/><span
+						v-else
+						v-html="format(actualCost(curupg)) + currencyName(curupg.currency)"
+					/>
+					<br />
+				</template>
+				<span v-else style="color: green; font-weight: bold"> 保持持有<br /> </span>
 				<span> </span>
 			</div>
-			<!-- <span class="tooltip">
-				{{
-					$t('upg.automatoruseid', {
-						id: props.upgid,
-					})
-				}}
+			<span class="tooltip">
+				自动机使用ID: {{ props.upgid }}
 				<template v-if="curupg.ordinal && useClass() == 'upgrade_buttonbig_unable'"
 					><br />购买升级需要{{
 						countdown(
@@ -140,7 +116,7 @@ const description = computed(function () {
 						)
 					}}</template
 				>
-			</span> -->
+			</span>
 		</div>
 	</td>
 </template>

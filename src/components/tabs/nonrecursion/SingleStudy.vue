@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { CHALLENGE } from '@/core/challenge';
-import { Currencies, currencyName, getCurrency } from '@/core/currencies';
 import { buyStudies, canBuyStudies, studies } from '@/core/nonrecu/studies';
 import { player } from '@/core/save';
 import { formatWhole } from '@/utils/format';
-import { useI18n } from 'vue-i18n';
 
 const props = defineProps<{
 	study_id: number; // keyof typeof studies
@@ -38,39 +36,15 @@ const clickStudy = (studyid: number) => {
 		buyStudies(studyid);
 	}
 };
-
-const $t = useI18n().t;
-function description() {
-	let a = $t(`studies.nonrec.${props.study_id}`);
-	if (study.isChallenge) {
-		const b = a.split('\t');
-		return b[0] + '<br />' + $t('chal.goal', { goal: b[1] });
-	}
-	return a;
-}
 </script>
 
 <template>
 	<div class="study tooltipBox" v-if="study.show()">
 		<div class="study-name">{{ study.id }}</div>
 		<div class="study-desc" @click="clickStudy(props.study_id)" :class="useClass()">
-			<div v-html="description()"></div>
-			<div style="display: none">{{ player.lastUpdated }}</div>
-			<div>
-				{{
-					$t('upg.cost', {
-						cost: formatWhole(study.cost),
-						currency: currencyName(Currencies.NRT, $t),
-					})
-				}}
-			</div>
+			<div v-html="study.description"></div>
+			<div>花费: {{ formatWhole(study.cost) }} 非递归理论</div>
 		</div>
-		<span class="tooltip">
-			{{
-				$t('upg.automatoruseid', {
-					id: props.study_id,
-				})
-			}}</span
-		>
+		<span class="tooltip"> 自动机使用ID: {{ props.study_id }} </span>
 	</div>
 </template>

@@ -92,6 +92,9 @@ export const Logarithm = {
 	initMechanics() {
 		MILESTONES.create('log_law1', {
 			displayName: 'M-LAW-1',
+			get description() {
+				return "Actually, this milestone is hidden, you shouldn't see it";
+			},
 			requirement: new Decimal(2000),
 			get canDone() {
 				return Logarithm.logarithm.calculate_datas.gte(this.requirement);
@@ -101,6 +104,9 @@ export const Logarithm = {
 		});
 		MILESTONES.create('log_law2', {
 			displayName: 'M-LAW-2',
+			get description() {
+				return "Actually, this milestone is hidden, you shouldn't see it";
+			},
 			requirement: new Decimal(40000),
 			get canDone() {
 				return Logarithm.logarithm.calculate_datas.gte(this.requirement);
@@ -110,6 +116,9 @@ export const Logarithm = {
 		});
 		MILESTONES.create('log_law3', {
 			displayName: 'M-LAW-3',
+			get description() {
+				return "Actually, this milestone is hidden, you shouldn't see it";
+			},
 			requirement: new Decimal(3e6),
 			get canDone() {
 				return Logarithm.logarithm.calculate_datas.gte(this.requirement);
@@ -119,6 +128,9 @@ export const Logarithm = {
 		});
 		MILESTONES.create('log_G', {
 			displayName: 'M-LAW-G',
+			get description() {
+				return "Actually, this milestone is hidden, you shouldn't see it";
+			},
 			requirement: new Decimal(5e6),
 			get canDone() {
 				return Logarithm.logarithm.calculate_datas.gte(this.requirement);
@@ -129,6 +141,7 @@ export const Logarithm = {
 
 		MILESTONES.create('dil_1', {
 			displayName: 'M-Dil-1',
+			description: '最大化和自动化指数购买项',
 			requirement: new Decimal(1000),
 			get canDone() {
 				return player.exponention.logarithm.highest_dilate.gte(this.requirement);
@@ -138,6 +151,7 @@ export const Logarithm = {
 		});
 		MILESTONES.create('dil_2', {
 			displayName: 'M-Dil-2',
+			description: '最大化和自动化棋盘格子购买项',
 			requirement: new Decimal(1e8),
 			get canDone() {
 				return player.exponention.logarithm.highest_dilate.gte(this.requirement);
@@ -147,6 +161,7 @@ export const Logarithm = {
 		});
 		MILESTONES.create('dil_3', {
 			displayName: 'M-Dil-3',
+			description: '最大化和自动化数论研究2购买项',
 			requirement: new Decimal(1e10),
 			get canDone() {
 				return player.exponention.logarithm.highest_dilate.gte(this.requirement);
@@ -156,6 +171,7 @@ export const Logarithm = {
 		});
 		MILESTONES.create('dil_4', {
 			displayName: 'M-Dil-4',
+			description: '每秒额外获取1000%重置时将获得的指数能量',
 			requirement: new Decimal(5e21),
 			get canDone() {
 				return player.exponention.logarithm.highest_dilate.gte(this.requirement);
@@ -165,12 +181,12 @@ export const Logarithm = {
 		});
 		MILESTONES.create('dil_5', {
 			displayName: 'M-Dil-5',
-			effect() {
-				return {
-					effect: format(
-						player.exponention.logarithm.calculate_datas.add(1).log10().pow(2),
-					),
-				};
+			get description() {
+				return (
+					'基于计算数据生产观测数据<br>效果：+' +
+					format(player.exponention.logarithm.calculate_datas.add(1).log10().pow(2)) +
+					'/s'
+				);
 			},
 			requirement: new Decimal(1e26),
 			get canDone() {
@@ -181,8 +197,11 @@ export const Logarithm = {
 		});
 		MILESTONES.create('dil_6', {
 			displayName: 'M-Dil-6',
-			effect() {
-				return format(wheatGrain().log10().add(1).log10().add(1).pow(0.15));
+			get description() {
+				return (
+					'基于麦粒数量增加指数能量获取<br>效果：^' +
+					format(wheatGrain().log10().add(1).log10().add(1).pow(0.15))
+				);
 			},
 			requirement: new Decimal(1e26),
 			get canDone() {
@@ -193,6 +212,9 @@ export const Logarithm = {
 		});
 		MILESTONES.create('dil_7', {
 			displayName: 'M-Dil-7',
+			get description() {
+				return '解锁<b>奇点生成器</b>';
+			},
 			requirement: new Decimal(2).pow(8192),
 			get canDone() {
 				return (

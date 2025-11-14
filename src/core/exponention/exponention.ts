@@ -107,6 +107,7 @@ export const Exponention = {
 	buyables: {
 		'41': new (class B31 extends Buyable<Decimal> {
 			name = 'B3-1';
+			description: string = '因数能量^1.05';
 			effect(x: Decimal) {
 				return new Decimal(1.05).pow(x);
 			}
@@ -129,6 +130,7 @@ export const Exponention = {
 		})(),
 		'42': new (class B32 extends Buyable<Decimal> {
 			name = 'B3-2';
+			description: string = '数值能量^1.05';
 			effect(x: Decimal) {
 				return new Decimal(1.05).pow(x);
 			}
@@ -151,6 +153,7 @@ export const Exponention = {
 		})(),
 		'43': new (class B33 extends Buyable<Decimal> {
 			name = 'B3-3';
+			description: string = '加法能量获取^1.03';
 			effect(x: Decimal) {
 				return new Decimal(1.03).pow(x);
 			}
@@ -173,6 +176,7 @@ export const Exponention = {
 		})(),
 		'44': new (class B34 extends Buyable<Decimal> {
 			name = 'B3-4';
+			description: string = '乘法能量获取^1.01';
 			effect(x: Decimal) {
 				return new Decimal(1.01).pow(x);
 			}

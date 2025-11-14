@@ -1,6 +1,5 @@
 import { defineComponent, type PropType } from 'vue';
 import { changeSave, current_save, type readSaveDetail } from '.';
-import { useI18n } from 'vue-i18n';
 
 export default defineComponent({
 	name: 'DetailsToHTML',
@@ -12,7 +11,6 @@ export default defineComponent({
 	},
 	setup(props) {
 		// {props.det?.isOrdinal}
-		const $t = useI18n().t;
 		return () => (
 			<>
 				<div
@@ -30,17 +28,11 @@ export default defineComponent({
 							justifyContent: 'space-around',
 						}}
 					>
-						<div>
-							{$t('detailstoHTML.version')}
-							{props.det.version}
-						</div>
-						<div>
-							{$t('detailstoHTML.chapter')}
-							{props.det.chapter}
-						</div>
+						<div>版本:{props.det.version}</div>
+						<div>章节{props.det.chapter}</div>
 					</div>
 					<div>
-						{$t('detailstoHTML.res')}
+						资源：
 						<div
 							innerHTML={props.det.number}
 							style={{
@@ -57,12 +49,9 @@ export default defineComponent({
 							changeSave(props.det.id);
 						}}
 					>
-						{$t('detailstoHTML.change')}
+						切换到此槽位
 					</button>
-					<div>
-						{$t('detailstoHTML.last')}
-						{props.det.lastSave}
-					</div>
+					<div>上次保存：{props.det.lastSave}</div>
 				</div>
 			</>
 		);

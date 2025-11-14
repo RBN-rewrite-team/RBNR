@@ -94,6 +94,7 @@ export const NON_RECURSIVE = {
 			},
 			currency: '非递归重置次数',
 			displayName: 'M6-1',
+			description: `1.每次非递归重置使得九头蛇能量额外乘数×7.5、获取指数+0.01<br>2.转生/飞升/超越/轮回的自动化在解锁了相应重置就立刻解锁<br>3. BMS推演速度×3`,
 			show: true,
 			get canDone() {
 				return player.nonrecu.resetTimes.gte(1);
@@ -105,6 +106,7 @@ export const NON_RECURSIVE = {
 			},
 			currency: '非递归重置次数',
 			displayName: 'M6-2',
+			description: `转生/飞升/超越/轮回的重置阈值为+0、×1，且不重置任何东西，保持U5-2，U5-2的效果硬下限为100%`,
 			show: true,
 			get canDone() {
 				return player.nonrecu.resetTimes.gte(2);
@@ -116,6 +118,7 @@ export const NON_RECURSIVE = {
 			},
 			currency: '非递归重置次数',
 			displayName: 'M6-3',
+			description: `1. 基于非递归重置次数加成转生基本效果和超越效果底数<br>2. 移除九头蛇能量的一重软上限，每次非递归重置使九头蛇能量的二重软上限效果÷+0.01<br>3.全局速度倍率对溶剂III的倒计时、购买U-S-9之前的朊病毒不生效，溶剂4仅禁用数论研究`,
 			show: true,
 			get canDone() {
 				return player.nonrecu.resetTimes.gte(this.requirement);
@@ -127,6 +130,7 @@ export const NON_RECURSIVE = {
 			},
 			currency: '非递归重置次数',
 			displayName: 'M6-4',
+			description: `1.每次非递归重置让溶剂3的容许秒数额外+1<br>2. 溶剂总等级的削弱效果变得更弱<br>3. BMS基础推演速度为1/s<br>4. U5-2的效果硬下限为200%`,
 			show: true,
 			get canDone() {
 				return player.nonrecu.resetTimes.gte(this.requirement);
@@ -138,6 +142,7 @@ export const NON_RECURSIVE = {
 			},
 			currency: '非递归重置次数',
 			displayName: 'M6-5',
+			description: `保持解锁U5-5, U5-1-5, U5-R1-5, U5-S-5`,
 			show: true,
 			get canDone() {
 				return player.nonrecu.resetTimes.gte(this.requirement);
@@ -155,6 +160,7 @@ export const NON_RECURSIVE = {
 			},
 			currency: '非递归重置次数',
 			displayName: 'M6-6',
+			description: `提高U5-1-2(100%→1000%)，U5-1-5，U5-R1-2(^1.125→^1.25)，U5-2，U5-S-9(×2/s→×10/s)的效果`,
 			show: true,
 			get canDone() {
 				return player.nonrecu.resetTimes.gte(this.requirement);
@@ -166,6 +172,7 @@ export const NON_RECURSIVE = {
 			},
 			currency: '非递归重置次数',
 			displayName: 'M6-7',
+			description: `你初始便免疫朊病毒，任何时候都可以增强M-Dilute-5的效果，且前5个稀释里程碑永久解锁`,
 			show: true,
 			get canDone() {
 				return player.nonrecu.resetTimes.gte(this.requirement);
@@ -177,6 +184,7 @@ export const NON_RECURSIVE = {
 			},
 			currency: '非递归重置次数',
 			displayName: 'M6-8',
+			description: `一开始就保持U5-1-1~4，保持数论研究4的升级，自动化数论研究4的购买项`,
 			show: true,
 			get canDone() {
 				return player.nonrecu.resetTimes.gte(this.requirement);
@@ -188,6 +196,7 @@ export const NON_RECURSIVE = {
 			},
 			currency: '非递归重置次数',
 			displayName: 'M6-9',
+			description: `一开始就解锁所有的九头蛇引擎升级、九头蛇引擎购买项和稀释升级，保持M-Dilute-15`,
 			show: true,
 			get canDone() {
 				return player.nonrecu.resetTimes.gte(this.requirement);
@@ -199,6 +208,7 @@ export const NON_RECURSIVE = {
 			},
 			currency: '非递归重置次数',
 			displayName: 'M6-10',
+			description: `自动购买所有的九头蛇引擎升级、九头蛇引擎购买项，保持M-Dilute-10，自动购买所有的稀释升级`,
 			show: true,
 			get canDone() {
 				return player.nonrecu.resetTimes.gte(this.requirement);
@@ -210,6 +220,7 @@ export const NON_RECURSIVE = {
 			},
 			currency: '非递归重置次数',
 			displayName: 'M6-11',
+			description: `添加朊病毒因素`,
 			show: true,
 			get canDone() {
 				return player.nonrecu.resetTimes.gte(this.requirement);
@@ -221,6 +232,7 @@ export const NON_RECURSIVE = {
 			},
 			currency: '非递归重置次数',
 			displayName: 'M6-12',
+			description: `非递归重置后保留1%的溶液`,
 			show: true,
 			get canDone() {
 				return player.nonrecu.resetTimes.gte(this.requirement);
@@ -232,6 +244,7 @@ export const NON_RECURSIVE = {
 			},
 			currency: '非递归重置次数',
 			displayName: 'M6-13',
+			description: `普通的非递归重置初始有1e150,000,000朊病毒`,
 			show: true,
 			get canDone() {
 				return player.nonrecu.resetTimes.gte(this.requirement);
@@ -243,6 +256,7 @@ export const NON_RECURSIVE = {
 			},
 			currency: '非递归重置次数',
 			displayName: 'M6-14',
+			description: `非递归重置不再重置九头蛇溶液数量`,
 			show: true,
 			get canDone() {
 				return player.nonrecu.resetTimes.gte(this.requirement);
@@ -252,6 +266,7 @@ export const NON_RECURSIVE = {
 			requirement: new Decimal(200),
 			currency: '非递归重置次数',
 			displayName: 'M6-15',
+			description: `非递归重置不再重置U5-S-15效果`,
 			show: true,
 			get canDone() {
 				return player.nonrecu.resetTimes.gte(this.requirement);
@@ -261,6 +276,7 @@ export const NON_RECURSIVE = {
 			requirement: new Decimal(1e50),
 			currency: '非递归能量',
 			displayName: 'M6-16',
+			description: `移除B5-1-2的硬上限和飞升效果的三、四重软上限，飞升效果倍增朊病毒获取速度(在非递归挑战中无效)`,
 			show: true,
 			get canDone() {
 				return player.nonrecu.power.gte(this.requirement);
@@ -270,6 +286,7 @@ export const NON_RECURSIVE = {
 			requirement: new Decimal(29.2),
 			currency: 'NRC5次数',
 			displayName: 'M6-17',
+			description: `每秒自动产生(NRC5次数)非递归次数`,
 			get show() {
 				return player.challenges[1][4].gte(1);
 			},
@@ -281,6 +298,7 @@ export const NON_RECURSIVE = {
 			requirement: new Decimal(29.7),
 			currency: 'NRC5次数',
 			displayName: 'M6-18',
+			description: `解锁非递归升级`,
 			get show() {
 				return player.challenges[1][4].gte(1);
 			},
@@ -292,6 +310,7 @@ export const NON_RECURSIVE = {
 			requirement: new Decimal(37),
 			currency: 'NRC5次数',
 			displayName: 'M6-19',
+			description: `解锁UNOCF`,
 			get show() {
 				return player.challenges[1][4].gte(1);
 			},
@@ -303,6 +322,7 @@ export const NON_RECURSIVE = {
 			requirement: new Decimal(70),
 			currency: 'NRC5次数',
 			displayName: 'M6-20',
+			description: `UNOCF推演速度*1,000`,
 			get show() {
 				return player.challenges[1][4].gte(1);
 			},
@@ -316,6 +336,7 @@ export const NON_RECURSIVE = {
 			},
 			currency: 'UNOCF推演次数',
 			displayName: 'M6-21',
+			description: `九头蛇能量双指数*1.2`,
 			get show() {
 				return player.challenges[1][4].gte(1);
 			},
@@ -329,6 +350,7 @@ export const NON_RECURSIVE = {
 			},
 			currency: 'UNOCF推演次数和2.25NRC6挑战次数',
 			displayName: 'M6-22',
+			description: `朊病毒增速双指数*1.3,只在NRC6和挑战外生效(后续的里程碑都需要2.25NRC6挑战次数)`,
 			get show() {
 				return player.challenges[1][4].gte(1);
 			},
@@ -345,6 +367,7 @@ export const NON_RECURSIVE = {
 			},
 			currency: 'UNOCF推演次数',
 			displayName: 'M6-23',
+			description: `加强UNOCF第四效果，UNOCF推演速度^1.75`,
 			get show() {
 				return player.challenges[1][4].gte(1);
 			},
@@ -361,6 +384,7 @@ export const NON_RECURSIVE = {
 			},
 			currency: 'UNOCF推演次数',
 			displayName: 'M6-24',
+			description: `推演速度双指数^2`,
 			get show() {
 				return player.challenges[1][4].gte(1);
 			},
@@ -375,6 +399,7 @@ export const NON_RECURSIVE = {
 			requirement: new Decimal(29),
 			currency: 'NRC6挑战次数 & M6-24',
 			displayName: 'M6-25',
+			description: `九头蛇溶液获取^20`,
 			get show() {
 				return player.challenges[1][4].gte(1);
 			},
@@ -386,6 +411,7 @@ export const NON_RECURSIVE = {
 			requirement: new Decimal(1),
 			currency: 'NRC7挑战次数',
 			displayName: 'M6-26',
+			description: `解锁<b>数论研究5 - 良序性</b>和新的一行升级`,
 			get show() {
 				return player.milestones.nonrec_25;
 			},

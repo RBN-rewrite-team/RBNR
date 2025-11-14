@@ -6,6 +6,9 @@ import { DC } from '@/core/constants';
 
 export const MULTI_CHALS: SingleChallenge[] = [
 	{
+		name: '退化',
+		descEasy: '你不能进行加法运算。',
+		descHard: '你永远无法升级成加法运算。',
 		effect(x) {
 			let base = x.sub(1000).max(0).add(1).log10().mul(0.0001);
 			const cap = 0.25;
@@ -24,6 +27,14 @@ export const MULTI_CHALS: SingleChallenge[] = [
 		},
 	},
 	{
+		name: '除法',
+		descEasy: '数值、加法能量获取被做除法，因数能量效果随时间而降低',
+		get descHard() {
+			return (
+				'数值和加法能量产量除以' +
+				`${format(2 ** 128)},因数能量效果公式变为*cap^(1-0.99999^sec)`
+			);
+		},
 		effect(x) {
 			return player.addpower.max(10).log10().pow(x.add(1).log10().pow(0.5));
 		},
@@ -35,6 +46,11 @@ export const MULTI_CHALS: SingleChallenge[] = [
 		},
 	},
 	{
+		name: '燃烧',
+		descEasy: '数值增长速度除以已有数值',
+		get descHard() {
+			return '数值增长速度除以当前已经拥有的数值数量';
+		},
 		effect(x) {
 			return x.pow(0.1).max(1);
 		},
@@ -46,6 +62,12 @@ export const MULTI_CHALS: SingleChallenge[] = [
 		},
 	},
 	{
+		name: '逆转',
+		descEasy:
+			'每次生产前乘法层资源时有一半的概率被反转(下限为0)，提升乘法重置难度，禁用B2-2、挑战3',
+		get descHard() {
+			return this.descEasy;
+		},
 		effect(x) {
 			if (CHALLENGE.inChallenge(0, 3)) return DC.D_1;
 			let base = x.add(1).pow(64).max(1);

@@ -18,7 +18,7 @@ function diluteAmount(id: IntClosedRange<0, 8>): number | boolean {
 export class Upgrade {
 	currency: Currencies = Currencies.NUMBER;
 
-	// description: string | (() => string) = '数值获取×114514';
+	description: string | (() => string) = '数值获取×114514';
 	name: string = 'U0-114514';
 	cost: Decimal | (() => Decimal) = new Decimal(114514);
 	ordinal = false;

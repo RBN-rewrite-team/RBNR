@@ -64,9 +64,6 @@ export function updateHighestStat() {
 	player.stat.highestOrdLevel = Math.max(player.stat.highestOrdLevel, getOrdinalLevel());
 }
 export function qolLoop() {
-	if (player.buyables['lgr_emp'].gte(1)) {
-		player.stat.chapter = Math.max(player.stat.chapter, 3.1);
-	}
 	if (!player.exponention.logarithm.in_dilate) {
 		if (player.upgrades['412q']) {
 			player.buyables[11] = player.buyables[11].max(1);
@@ -184,7 +181,6 @@ function r(s: number): number {
 	return Math.random() * s * 2 - s;
 }
 function singularity_UI() {
-	if (player.singularity.t > 700) return;
 	let s =
 		player.singularity.stage +
 		Math.max(player.singularity.t - 400, 0) / 3 +

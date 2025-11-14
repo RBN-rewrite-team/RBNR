@@ -13,10 +13,6 @@ import Baixie from '@/components/group-2/Baixie.vue';
 import { Hydra } from '@/core/hydra/hydra';
 import HydraDeduceOrdinal from '../hydra/HydraDeduceOrdinal.vue';
 
-import { useI18n } from 'vue-i18n';
-
-const $t = useI18n().t;
-
 function powerFactorHTML(): string {
 	let s = '';
 	s += format(player.hydra.powerMult[0]);
@@ -55,12 +51,6 @@ function powerFactorHTML(): string {
 	}
 	return s;
 }
-
-function autoResetButton() {
-	return $t('hydra.autoreset', {
-		status: $t(player.hydra.autoHydraReset ? 'set.status.on' : 'set.status.off'),
-	});
-}
 </script>
 
 <template>
@@ -68,7 +58,7 @@ function autoResetButton() {
 		<div v-if="player.retribution >= 1">
 			<span style="color: red; display: block; height: 50px"
 				><h3>
-					{{ $t('res.ordinal') }}
+					序数
 					<span
 						v-html="
 							Ordinal.displayOrdinalColored(
@@ -94,14 +84,11 @@ function autoResetButton() {
 					/></h3
 			></span>
 			<span
-				>{{
-					$t('hydra.youhavededuced', {
-						deduced: formatWhole(player.hydra.deduceOrdinal[0]),
-					})
-				}}<span v-html="formatGain(temp.lastBMSDeduce, feature.Hydra.deduceSpeed(0))"
+				>你已经推演了{{ formatWhole(player.hydra.deduceOrdinal[0]) }}次<span
+					v-html="formatGain(temp.lastBMSDeduce, feature.Hydra.deduceSpeed(0))"
 			/></span>
 			<div style="font-weight: bold; color: rgb(200, 190, 245)">
-				{{ $t('res.hydra') }}&nbsp;
+				九头蛇能量&nbsp;
 				<div style="display: inline; text-shadow: rgb(0, 20, 127) 1px 1px 2px">
 					{{ formatWhole(player.hydra.power) }}
 				</div>
@@ -144,20 +131,17 @@ function autoResetButton() {
 							}"
 						>
 							<span class="hydra-text">
-								<h2 style="color: rgb(200, 190, 245)">{{ $t('hydra.reset') }}</h2>
+								<h2 style="color: rgb(200, 190, 245)">重置</h2>
 								<h3 style="color: rgb(155, 125, 195)">
-									+{{ format(feature.Hydra.powerGain())
-									}}{{ $t('currency.hydra') }}
+									+{{ format(feature.Hydra.powerGain()) }}九头蛇能量
 								</h3>
 								<br />
-								{{
-									$t('hydra.currentresetmakesmu', {
-										effect: format(
-											feature.Hydra.deduceEff(player.hydra.visiting).mul(
-												player.hydra.deduceOrdinal[player.hydra.visiting],
-											),
+								当前重置使乘数+{{
+									format(
+										feature.Hydra.deduceEff(player.hydra.visiting).mul(
+											player.hydra.deduceOrdinal[player.hydra.visiting],
 										),
-									})
+									)
 								}}
 							</span>
 						</button>
@@ -166,8 +150,11 @@ function autoResetButton() {
 						<button
 							class="hydra-button"
 							@click="player.hydra.autoHydraReset = !player.hydra.autoHydraReset"
-							v-html="autoResetButton()"
-						></button>
+						>
+							自<br />动<br />重<br />置<br />:<br />{{
+								player.hydra.autoHydraReset ? '开' : '关'
+							}}
+						</button>
 					</td>
 				</tr>
 			</tbody>
@@ -179,30 +166,20 @@ function autoResetButton() {
 						<button class="hydra-button-short" @click="feature.Hydra.prestige(0)">
 							<span class="hydra-text-short">
 								<span v-if="feature.Hydra.pUnlock(0)">
-									<h3>
-										{{ $t('hydra.prestiges.1') }}({{
-											formatWhole(player.hydra.prestige[0])
-										}})
-									</h3>
-									<span
-										v-html="
-											$t('hydra.prestiges.1.desc', {
-												from: format(feature.Hydra.prestigeEff(0, false)),
-												to: format(
-													feature.Hydra.prestigeEff(0, true).max(
-														feature.Hydra.prestigeEff(0, false),
-													),
-												),
-												aft: format(
-													feature.Hydra.prestigeEff(0, false, true).max(
-														1,
-													),
-												),
-											})
-										"
-									></span>
+									<h3>转生({{ formatWhole(player.hydra.prestige[0]) }})</h3>
+									额外乘数与推演速度<br />x{{
+										format(feature.Hydra.prestigeEff(0, false))
+									}}→{{
+										format(
+											feature.Hydra.prestigeEff(0, true).max(
+												feature.Hydra.prestigeEff(0, false),
+											),
+										)
+									}}(效果×{{
+										format(feature.Hydra.prestigeEff(0, false, true).max(1))
+									}})
 								</span>
-								<span v-else>{{ $t('hydra.prestiges.1.lock') }}</span>
+								<span v-else>基础乘数≥2解锁</span>
 							</span>
 						</button>
 					</td>
@@ -210,25 +187,18 @@ function autoResetButton() {
 						<button class="hydra-button-short" @click="feature.Hydra.prestige(1)">
 							<span class="hydra-text-short">
 								<span v-if="feature.Hydra.pUnlock(1)">
-									<h3>
-										{{ $t('hydra.prestiges.2') }}({{
-											formatWhole(player.hydra.prestige[1])
-										}})
-									</h3>
-									<span
-										v-html="
-											$t('hydra.prestiges.2.desc', {
-												from: format(feature.Hydra.prestigeEff(1, false)),
-												to: format(
-													feature.Hydra.prestigeEff(1, true).max(
-														feature.Hydra.prestigeEff(1, false),
-													),
-												),
-											})
-										"
-									></span>
+									<h3>飞升({{ formatWhole(player.hydra.prestige[1]) }})</h3>
+									额外指数<br />+{{
+										format(feature.Hydra.prestigeEff(1, false))
+									}}→{{
+										format(
+											feature.Hydra.prestigeEff(1, true).max(
+												feature.Hydra.prestigeEff(1, false),
+											),
+										)
+									}}
 								</span>
-								<span v-else>{{ $t('hydra.prestiges.2.lock') }}</span>
+								<span v-else>转生效果≥20解锁</span>
 							</span>
 						</button>
 					</td>
@@ -236,25 +206,18 @@ function autoResetButton() {
 						<button class="hydra-button-short" @click="feature.Hydra.prestige(2)">
 							<span class="hydra-text-short">
 								<span v-if="feature.Hydra.pUnlock(2)">
-									<h3>
-										{{ $t('hydra.prestiges.3') }}({{
-											format(player.hydra.prestige[2])
-										}})
-									</h3>
-									<span
-										v-html="
-											$t('hydra.prestiges.3.desc', {
-												from: format(feature.Hydra.prestigeEff(2, false)),
-												to: format(
-													feature.Hydra.prestigeEff(2, true).max(
-														feature.Hydra.prestigeEff(2, false),
-													),
-												),
-											})
-										"
-									></span>
+									<h3>超越({{ format(player.hydra.prestige[2]) }})</h3>
+									乘数获取<br />x{{
+										format(feature.Hydra.prestigeEff(2, false))
+									}}→{{
+										format(
+											feature.Hydra.prestigeEff(2, true).max(
+												feature.Hydra.prestigeEff(2, false),
+											),
+										)
+									}}
 								</span>
-								<span v-else>{{ $t('hydra.prestiges.3.lock') }}</span>
+								<span v-else>飞升效果≥1解锁</span>
 							</span>
 						</button>
 					</td>
@@ -262,25 +225,18 @@ function autoResetButton() {
 						<button class="hydra-button-short" @click="feature.Hydra.prestige(3)">
 							<span class="hydra-text-short">
 								<span v-if="feature.Hydra.pUnlock(3)">
-									<h3>
-										{{ $t('hydra.prestiges.4') }}({{
-											formatWhole(player.hydra.prestige[3])
-										}})
-									</h3>
-									<span
-										v-html="
-											$t('hydra.prestiges.4.desc', {
-												from: format(feature.Hydra.prestigeEff(3, false)),
-												to: format(
-													feature.Hydra.prestigeEff(3, true).max(
-														feature.Hydra.prestigeEff(3, false),
-													),
-												),
-											})
-										"
-									></span>
+									<h3>轮回({{ formatWhole(player.hydra.prestige[3]) }})</h3>
+									转生、超越效果指数<br />x+{{
+										format(feature.Hydra.prestigeEff(3, false))
+									}}→{{
+										format(
+											feature.Hydra.prestigeEff(3, true).max(
+												feature.Hydra.prestigeEff(3, false),
+											),
+										)
+									}}
 								</span>
-								<span v-else>{{ $t('hydra.prestiges.4.lock') }}</span>
+								<span v-else>超越效果≥1e10解锁</span>
 							</span>
 						</button>
 					</td>
@@ -298,14 +254,12 @@ function autoResetButton() {
 						>
 							<span class="hydra-text-short">
 								<span v-if="feature.Hydra.pAutoUnlock(0)">
-									{{
-										$t('hydra.prestiges.auto.interval', {
-											add: format(feature.Hydra.pAutoThreshold(0).add),
-											mul: format(feature.Hydra.pAutoThreshold(0).mul),
-										})
+									自动重置阈值：+{{
+										format(feature.Hydra.pAutoThreshold(0).add)
 									}}
+									& x{{ format(feature.Hydra.pAutoThreshold(0).mul) }}
 								</span>
-								<span v-else>{{ $t('hydra.prestiges.1.auto') }}</span>
+								<span v-else>首次超越解锁自动化</span>
 							</span>
 						</button>
 					</td>
@@ -321,14 +275,12 @@ function autoResetButton() {
 						>
 							<span class="hydra-text-short">
 								<span v-if="feature.Hydra.pAutoUnlock(1)">
-									{{
-										$t('hydra.prestiges.auto.interval', {
-											add: format(feature.Hydra.pAutoThreshold(1).add),
-											mul: format(feature.Hydra.pAutoThreshold(1).mul),
-										})
+									自动重置阈值：+{{
+										format(feature.Hydra.pAutoThreshold(1).add)
 									}}
+									& x{{ format(feature.Hydra.pAutoThreshold(1).mul) }}
 								</span>
-								<span v-else>{{ $t('hydra.prestiges.2.auto') }}</span>
+								<span v-else>首次轮回解锁自动化</span>
 							</span>
 						</button>
 					</td>
@@ -344,14 +296,12 @@ function autoResetButton() {
 						>
 							<span class="hydra-text-short">
 								<span v-if="feature.Hydra.pAutoUnlock(2)">
-									{{
-										$t('hydra.prestiges.auto.interval', {
-											add: format(feature.Hydra.pAutoThreshold(2).add),
-											mul: format(feature.Hydra.pAutoThreshold(2).mul),
-										})
+									自动重置阈值：+{{
+										format(feature.Hydra.pAutoThreshold(2).add)
 									}}
+									& x{{ format(feature.Hydra.pAutoThreshold(2).mul) }}
 								</span>
-								<span v-else>{{ $t('hydra.prestiges.auto') }}</span>
+								<span v-else>暂时无法自动化</span>
 							</span>
 						</button>
 					</td>
@@ -367,20 +317,21 @@ function autoResetButton() {
 						>
 							<span class="hydra-text-short">
 								<span v-if="feature.Hydra.pAutoUnlock(3)">
-									{{
-										$t('hydra.prestiges.auto.interval', {
-											add: format(feature.Hydra.pAutoThreshold(3).add),
-											mul: format(feature.Hydra.pAutoThreshold(3).mul),
-										})
+									自动重置阈值：+{{
+										format(feature.Hydra.pAutoThreshold(3).add)
 									}}
+									& x{{ format(feature.Hydra.pAutoThreshold(3).mul) }}
 								</span>
-								<span v-else>{{ $t('hydra.prestiges.auto') }}</span>
+								<span v-else>暂时无法自动化</span>
 							</span>
 						</button>
 					</td>
 				</tr>
 			</tbody>
 		</table>
+		<p style="color: grey; table-align: center; transform: translateY(-220px)">
+			我们必须想象赫拉克勒斯是幸福的。————用户1986Ω
+		</p>
 		<table style="transform: translateY(-220px)">
 			<tbody>
 				<tr>

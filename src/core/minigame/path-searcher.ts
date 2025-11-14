@@ -8,7 +8,6 @@ import {
 } from './game-object';
 import { interactBlock, type Directions } from './minigame-loop';
 import { temp } from '../temp-data';
-import type { $t } from '@/utils/types';
 
 export type Path = {
 	steps: bigint;
@@ -146,7 +145,7 @@ function valueUntilTrue(f: () => boolean) {
 	});
 }
 
-export async function playerToDestination(destination_x: bigint, destination_y: bigint, $t: $t) {
+export async function playerToDestination(destination_x: bigint, destination_y: bigint) {
 	await valueUntilTrue(() => temp.pathsearch_locker === false);
 	temp.pathsearch_locker = true;
 	const paths = getFastPath(
@@ -160,10 +159,7 @@ export async function playerToDestination(destination_x: bigint, destination_y: 
 		temp.pathsearch_locker = false;
 		throw new Error('Cannot find paths to ' + destination_x + ' ' + destination_y);
 	}
-	temp.minigametip = $t('dung.movement.moving', {
-		a: 0,
-		b: paths.length,
-	});
+	temp.minigametip = '移动中 0/' + paths.length;
 	console.log(paths);
 	temp.pathdata = paths;
 	player.minigame.interact = 5;
@@ -173,16 +169,12 @@ export async function playerToDestination(destination_x: bigint, destination_y: 
 		const [rx, ry] = [player.minigame.current_x, player.minigame.current_y];
 		player.minigame.current_x = path.x;
 		player.minigame.current_y = path.y;
-		temp.minigametip = $t('dung.movement.moving', {
-			a: a,
-			b: paths.length,
-		});
+		temp.minigametip = '移动中 ' + a + '/' + paths.length;
 		interactBlock(
 			player.minigame.current_room,
 			path.x,
 			path.y,
 			directionof(rx, ry, path.x, path.y),
-			$t,
 		);
 		await valueUntilTrue(() => player.minigame.interact == 0 || player.minigame.interact == 5);
 		player.minigame.interact = 5;
