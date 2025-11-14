@@ -1128,26 +1128,28 @@ export default {
 	'upgs.mil.nonrec_14': 'Non-recursive resets no longer resets solution.',
 	'upgs.mil.nonrec_15': 'Non-recursive resets no longer reset the effect of U5-S-15.',
 
-	// 'upgs.mil.nonrec_16':
-	//     '移除B5-1-2的硬上限和飞升效果的三、四重软上限，飞升效果倍增朊病毒获取速度(在非递归挑战中无效)',
-	// 'upgs.mil.nonrec_17': '每秒自动产生(NRC5次数)非递归次数',
-	// 'upgs.mil.nonrec_18': '解锁非递归升级',
-	// 'upgs.mil.nonrec_19': '解锁UNOCF',
-	// 'upgs.mil.nonrec_20': 'UNOCF推演速度*1,000',
-	// 'upgs.mil.nonrec_21': '九头蛇能量双指数*1.2',
-	// 'upgs.mil.nonrec_22':
-	//     '朊病毒增速双指数*1.3,只在NRC6和挑战外生效(后续的里程碑都需要2.25NRC6挑战次数)',
-	// 'upgs.mil.nonrec_23': '加强UNOCF第四效果，UNOCF推演速度^1.75',
-	// 'upgs.mil.nonrec_24': '推演速度双指数^2',
-	// 'upgs.mil.nonrec_25': 'Dilutional Solution获取^20',
-	// 'upgs.mil.nonrec_26': '解锁<b>数论研究5 - 良序性</b>和新的一行升级',
-	// 'upgs.mil.pt_1': '在时间碎片页面解锁nonrec包升级',
-	// 'upgs.mil.pt_2': '在每次证明论重置，每成功解析一次，获得50个时间碎片',
-	// 'upgs.mil.pt_3': '在每次证明论重置之后，获得1生活质量水晶',
-	// 'upgs.mil.pt_4': '在每次证明论重置之后，拥有2非递归重置次数',
-	// 'upgs.mil.pt_5': '在每次证明论重置之后，拥有4非递归重置次数',
-	// 'upgs.mil.pt_6': '解锁花园',
-	// 'upgs.mil.pt_7': '在自动机中解锁proofTheory包的重置指令',
+	'upgs.mil.nonrec_16':
+		"Remove B5-1-2's hardcap and Ascension's 3rd and 4th softcap. Ascension's effect accelrates the replication speed of prions, if you're not in a non-recursive challenge.",
+	'upgs.mil.nonrec_17': 'Gain (NRC5 completions) non-recursive resets per second, passively.',
+	'upgs.mil.nonrec_18': "Unlock <i>non-recursive upgrades. The first one's at e230. </i>.",
+	'upgs.mil.nonrec_19': 'Unlocks <b>UNOCF</b>',
+	'upgs.mil.nonrec_20': 'UNOCF progression speed *1,000.',
+	'upgs.mil.nonrec_21': 'Dilate Hydra Energy gain by 1.2...',
+	'upgs.mil.nonrec_22':
+		'朊病毒增速双指数*1.3, Only applies in NRC6 or not being in any challenge. (后续的里程碑都需要2.25NRC6挑战次数)',
+	'upgs.mil.nonrec_23': 'Buff the 4th effect of UNOCF, and UNOCF progression speed ^1.75.',
+	'upgs.mil.nonrec_24': '推演速度双指数^2',
+	'upgs.mil.nonrec_25': 'Solution Gain^20',
+	'upgs.mil.nonrec_26':
+		'UNLOCKS <b>NUMBER THEORY 5 - WELL-ORDEREDNESS</b> and a new row of upgrades.',
+	'upgs.mil.pt_1': 'Unlock the non-recursive pack in the time shards tab.',
+	'upgs.mil.pt_2': '在每次证明论重置，每成功解析一次，获得50个时间碎片',
+	'upgs.mil.pt_3': 'Gain 1 QoL Crystal after every Proof Theory reset.',
+	'upgs.mil.pt_4': 'Keep 2 non-recursive resets after each Proof Theory reset.',
+	'upgs.mil.pt_5': 'Keep 4 non-recursive resets after each Proof Theory reset.',
+	'upgs.mil.pt_6': 'Unlocks <i>Garden</i><br>(actually just a replica of C2S)',
+	'upgs.mil.pt_7':
+		'Unlock the reset command in the Proof Theory pack in the automator, in the time shards tab.',
 
 	'hydra.prestiges.1.desc':
 		'Additional Multipliers and Progression Speed<br />x{from}→{to}(Effect×{aft} after reset)',
@@ -1186,29 +1188,32 @@ export default {
 	'upgs.69R': 'UNLOCK <b>DILUTION</b>',
 	'upgs.621R': 'x<sub>4</sub> bonus compressed hydra energy',
 	'upgs.622R': 'τ<sub>4</sub> bonus U5-2-2 effect',
-	'upgs.61S': 'Dilutional Solution significantly boost the effect of U5-1-1.',
-	'upgs.62S': 'Dilutional Solution boosts Progressing speed',
+	'upgs.61S': 'Solution significantly boost the effect of U5-1-1.',
+	'upgs.62S': 'Solution boosts Progressing speed',
 	'upgs.63S':
 		'Total Hydra Energy boosts Progressing speed(This upgrade will be reduced in dilution).',
-	'upgs.64S': 'Dilutional Solution (unspend) boosts Progressing speed',
-	'upgs.65S': 'Total Dilutional Solution boosts multiplier gain.',
+	'upgs.64S': 'Solution (unspend) boosts Progressing speed',
+	'upgs.65S': 'Total Solution boosts multiplier gain.',
 	'upgs.66S': 'Unlock 4 upgrade in Hydra Engine',
 	'upgs.67S': 'M-Dilute-5 effect ^1,35 if The level of Solvent III is 10。',
 	'upgs.68S': 'Reduce softcap^2 of Hydra Energy gain',
 	'upgs.69S':
 		'The prion virus will not destruct the dilution. The prion virus boosts Progressing speed. You can obtain the prion virus at anytime(×2/s)',
-	'upgs.610S': "Total Dilutional Solution boosts the base of the Prion Virus' speed",
+	'upgs.610S': "Total Solution boosts the base of the Prion Virus' speed",
 	'upgs.611S': 'Enable B5-1-2 in Dilution',
 	'upgs.612S':
 		'Significantly reduce softcap^2 of Hydra Energy gain, Improve the effect of M-Dilute-7',
 	'upgs.613S': 'Hydra energy will reduce softcap^2 of Hydra Energy gain.',
-	// 'upgs.614S': '移除飞升、轮回效果的二重软上限，地球爆炸不再退出稀释',
-	// 'upgs.615S': '天启中获得的最高推演次数加成推演速度',
-	'upgs.616S': 'UNLOCK <b>NON RECURSION</b>(need ψ(Ω<sub>ω</sub>) Ordinal)',
+	'upgs.614S':
+		"Remove the 2nd softcap of Ascension and Recursion. Solvent III's debuff is nullified.",
+	'upgs.615S':
+		'Highest BMS progression reached within APOCAPLYSE will massively boost BMS progression speed. <br><i>the end is near...</i>',
 
-	'dil.res1': 'You have {res}{res2}Dilutional Solution<br />Makes BMS Progressing speed×{effect}',
+	'upgs.616S': 'UNLOCK <b>NON RECURSION-RECURSION</b>(need ψ(Ω<sub>ω</sub>) Ordinal)',
+
+	'dil.res1': 'You have {res}{res2}Solution<br />Makes BMS Progressing speed×{effect}',
 	'dil.res1.a': '({res} in this dilution)',
-	'dil.prion': 'You have {res}{res2} Prion Virus',
+	'dil.prion': 'You have {res}{res2} Prion',
 	'dil.selfdes': 'The Solvent will {result}(after enable dilution)',
 	'dil.selfdes.possible': 'may self-destruct',
 	'dil.selfdes.aftertime': 'self-destruct after {time}',
@@ -1220,9 +1225,9 @@ export default {
 	'dil.least1': 'Select at least one solvent and upgrade its level to enable dilution.',
 	'dil.left': `When enable dilution, you will restart the progress of the 5th layer and suffer the consequences of your own choices.<br />
 
-As a reward, you can obtain Dilution solution.<br />
-The selected dilution level significantly impacts the amount of Dilutional Solution obtained, while the dilution progress has a minor effect on the amount of Dilutional Solution obtained.<br />
-You progressed through BMS {b} times in {a}. You obtain {c}({d}) Dilutional Solution because of this.
+As a reward, you can obtain solution.<br />
+The selected dilution level significantly impacts the amount of Solution obtained, while the dilution progress has a minor effect on the amount of Solution obtained.<br />
+You progressed through BMS {b} times in {a}. You obtain {c}({d}) Solution because of this.
 `,
 	'dil.solvdebuff':
 		'The progressing speed is divided by {a} because of the sum of the level of solvents.',
@@ -1268,24 +1273,23 @@ The dilution will self-destruct if the number of the prion virus is greater than
 
 	'dil.9': 'SOLVENT IX: APOCAPLYSE CALL ENC18.1',
 	'dil.9.desc': 'FAREWELL.',
-	'dil.9.eff':
-		'The level of all solvents is maxed(cannot be erased). The global speed is divided by 1000.',
+	'dil.9.eff': 'ALL SOLVENTS ARE MAXIMIZED. GLOBAL SPEED /1000.',
 
 	'upgs.mil.dut1.reqdesc': 'Reach ψ(Ω<sub>2</sub>Ω) in dilution',
 	'upgs.mil.dut2.reqdesc':
 		'Reach ψ(Ω<sub>2</sub><sup>ψ<sub>1</sub>(Ω<sub>2</sub><sup>2</sup>)</sup>) in Dilution',
 	'upgs.mil.dut3.reqdesc':
-		'Reach 0.135 Recursion effect and in Level 10 Solvent II, and 19000 total Dilutional Solution.',
+		'Reach 0.135 Recursion effect and in Level 10 Solvent II, and 19000 total Solution.',
 	'upgs.mil.dut5.reqdesc': 'Reach 1e55 Hydra energy in Level 1 Solvent VII',
-	'upgs.mil.dut6.reqdesc': '2,070,000 Dilutional Solution',
-	'upgs.mil.dut7.reqdesc': '2,095,000 Dilutional Solution & 1e3500 Hydra Energy',
+	'upgs.mil.dut6.reqdesc': '2,070,000 Solution',
+	'upgs.mil.dut7.reqdesc': '2,095,000 Solution & 1e3500 Hydra Energy',
 	'upgs.mil.dut8.reqdesc': '^1.25 M-Dilute-5 Effect',
-	'upgs.mil.dut9.reqdesc': '2,151,250 Dilutional Solution',
-	'upgs.mil.dut10.reqdesc': '2,175,000 Dilutional Solution',
-	'upgs.mil.dut11.reqdesc': '2,201,250 Dilutional Solution',
+	'upgs.mil.dut9.reqdesc': '2,151,250 Solution',
+	'upgs.mil.dut10.reqdesc': '2,175,000 Solution',
+	'upgs.mil.dut11.reqdesc': '2,201,250 Solution',
 	'upgs.mil.dut12.reqdesc': '^1.46 M-Dilute-5 Effect',
 	'upgs.mil.dut13.reqdesc': '1e6100 Hydra Energy',
-	'upgs.mil.dut14.reqdesc': '2,261,250 Dilutional Solution',
+	'upgs.mil.dut14.reqdesc': '2,261,250 Solution',
 	'upgs.mil.dut15.reqdesc': '2.45 M-Dilute-5 Effect',
 	'upgs.mil.dut16.reqdesc': '1e18,915 Hydra Energy',
 	'upgs.mil.dut17.reqdesc': 'e5.0000e103/s Progressing Speed',
@@ -1299,12 +1303,12 @@ The dilution will self-destruct if the number of the prion virus is greater than
 
 	'currency.nonrec': 'Non Rec. Energy',
 	'currency.nrt': 'Non Rec. Theory',
-	'currency.solution': 'Dilutional Solution',
+	'currency.solution': 'Solution',
 	'currency.非递归重置次数': 'Non Rec. Reset times',
 	'currency.非递归能量': 'Non Rec. Energy',
 	'currency.NRC5次数': 'NRC5 times',
-	'currency.UNOCF推演次数': 'UNOCF progressed count',
-	'currency.UNOCF推演次数和2.25NRC6挑战次数': 'UNOCF progressed count & 2.25 NRC6 times',
+	'currency.UNOCF推演次数': 'UNOCF progression count',
+	'currency.UNOCF推演次数和2.25NRC6挑战次数': 'UNOCF progression count & 2.25 NRC6 times',
 	'currency.NRC6挑战次数 & M6-24': 'NRC6 times & M6-24',
 	'currency.NRC7挑战次数': 'NRC7 times',
 };
