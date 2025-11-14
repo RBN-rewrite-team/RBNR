@@ -10,7 +10,6 @@ export function initPTMilestones() {
 		currency: '证明论解析次数',
 		displayName: 'M-7-1',
 		show: true,
-		description: '在时间碎片页面解锁nonrec包升级',
 		get canDone() {
 			return totalAnalysisTimes() >= 1;
 		},
@@ -20,7 +19,6 @@ export function initPTMilestones() {
 		currency: '证明论解析次数',
 		displayName: 'M-7-2',
 		show: true,
-		description: '在每次证明论重置，每成功解析一次，获得50个时间碎片',
 		get canDone() {
 			return totalAnalysisTimes() >= 2;
 		},
@@ -30,7 +28,6 @@ export function initPTMilestones() {
 		currency: '证明论解析次数',
 		displayName: 'M-7-3',
 		show: true,
-		description: '在每次证明论重置之后，获得1生活质量水晶',
 		get canDone() {
 			return totalAnalysisTimes() >= 3;
 		},
@@ -40,7 +37,6 @@ export function initPTMilestones() {
 		currency: '证明论解析次数',
 		displayName: 'M-7-4',
 		show: true,
-		description: '在每次证明论重置之后，拥有2非递归重置次数',
 		get canDone() {
 			return totalAnalysisTimes() >= 4;
 		},
@@ -50,7 +46,6 @@ export function initPTMilestones() {
 		currency: '证明论解析次数',
 		displayName: 'M-7-5',
 		show: true,
-		description: '在每次证明论重置之后，拥有4非递归重置次数',
 		get canDone() {
 			return totalAnalysisTimes() >= 6;
 		},
@@ -60,7 +55,6 @@ export function initPTMilestones() {
 		currency: '证明论解析次数',
 		displayName: 'M-7-6',
 		show: true,
-		description: '解锁花园',
 		get canDone() {
 			return totalAnalysisTimes() >= 8;
 		},
@@ -70,7 +64,6 @@ export function initPTMilestones() {
 		currency: '证明论解析次数',
 		displayName: 'M-7-7',
 		show: true,
-		description: '在自动机中解锁proofTheory包的重置指令',
 		get canDone() {
 			return totalAnalysisTimes() >= 10;
 		},
