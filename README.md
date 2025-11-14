@@ -36,5 +36,3 @@ to make your suggestion,
 or you can
 [fork this project](https://github.com/RBN-rewrite-team/RBNR/fork)
 to add new features yourself.
-
-## Localization
