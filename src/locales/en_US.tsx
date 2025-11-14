@@ -1307,4 +1307,23 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'currency.UNOCF推演次数和2.25NRC6挑战次数': 'UNOCF progression count & 2.25 NRC6 times',
 	'currency.NRC6挑战次数 & M6-24': 'NRC6 times & M6-24',
 	'currency.NRC7挑战次数': 'NRC7 times',
+
+	'dung.boxes.0': 'Copper Box',
+	'dung.boxes.1': 'Silver Box',
+	'dung.boxes.2': 'Golden Box',
+
+	'dung.guard': 'Guard',
+	'dung.ore.3': 'Gemstone',
+	'dung.teleport': 'Teleporter',
+	'dung.healthrec': 'HP+{percent}%',
+	'dung.door': 'Door',
+	'dung.switch': 'Switch: {status}',
+	'dung.moveablebox': 'Box',
+	'dung.pwddoor': 'Password Door',
+	'dung.key': 'Key',
+	'dung.unableto': 'Unable to kill',
+	'dung.guard2': 'Senior Guard',
+	'dung.guard3': 'Heavy Guard',
+	'dung.guard4': 'Wizard',
+	'dung.a': 'Skill Point',
 };
