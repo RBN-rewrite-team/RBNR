@@ -1428,4 +1428,11 @@ export default {
 		return '解锁证明论';
 	},
 	'chal.goal': '目标: {goal}',
+
+	'set.musicurl.title': '输入URL地址',
+	'set.musicurl.cont': '请输入音乐的URL地址',
+	'set.musicurl.place': 'URL地址',
+	'set.musicurl.test': '音乐的URL地址',
+	'set.musicurl.unable': '不能播放音乐',
+	'set.musicurl.content': '浏览器拒绝了播放音乐的请求，你可以点击确认按钮重新播放音乐',
 };

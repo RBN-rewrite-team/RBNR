@@ -1495,4 +1495,12 @@ The dilution will self-destruct if the number of the prion virus is greater than
 		return 'Unlock <b>Proof Theory</b>';
 	},
 	'chal.goal': 'Goal: {goal}',
+
+	'set.musicurl.title': 'Input Music URL',
+	'set.musicurl.cont': 'Please Enter the URL of the music',
+	'set.musicurl.place': 'URL',
+	'set.musicurl.test': 'the URL of the music',
+	'set.musicurl.unable': 'Cannot play music',
+	'set.musicurl.content':
+		'The browser has denied the request to play music. You can click the confirmation button to play the music again.',
 };
