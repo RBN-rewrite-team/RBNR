@@ -1435,4 +1435,63 @@ export default {
 	'set.musicurl.test': '音乐的URL地址',
 	'set.musicurl.unable': '不能播放音乐',
 	'set.musicurl.content': '浏览器拒绝了播放音乐的请求，你可以点击确认按钮重新播放音乐',
+
+	'currency.证明论解析次数': '证明论解析次数',
+
+	'chal.1.0': '突变',
+	'chal.1.0.description': function () {
+		return (
+			'锁定在[10,0.4667+完成次数,10,10,10,9,true,false,false]中。溶剂2影响稀释升级。保留U5-S-9，但是你不免疫朊病毒，朊病毒增益反转且在你第一次推演后以100*10^完成次数倍每秒的速度增长，如果朊病毒超越你的推演次数，朊病毒重置为1并进行一次稀释级别的重置。<br>奖励：在非递归挑战1外使朊病毒增长速度×' +
+			format(player.challenges[1][0].pow_base(4)) +
+			'，首次完成使朊病毒以ln(x)^0.5幂次增益九头蛇能量获取'
+		);
+	},
+	'chal.1.1': '能量折叠',
+	'chal.1.1.description': function () {
+		return '九头蛇能量的指数上限为log10(非递归能量+1)，额外乘数上限为10^(非递归能量^1/3)，推演乘数上限为10^(非递归能量^1/3)，九头蛇能量上限为(非递归能量+1)<br><span style="color: red">进入挑战将重置九头蛇溶液</span><br>奖励：首次完成时，九头蛇能量的二重软上限效果×80%，每次挑战完成使九头蛇能量指数^1.1(在二重软上限后)';
+	},
+	'chal.1.2': '强化稀释',
+	'chal.1.2.description': function () {
+		return '溶剂I的底数为20，溶剂III的时间/5，U5-S-14的最后一条效果无效，MD15无效，溶剂等级无法细化，溶剂VI的效果由 ^1-0.1x 变为 ^1-(完成次数*0.2-0.2)x ，天启中全局速度变为1/1e(10*完成次数)。所有的九头蛇溶液额外倍率无效，公式升级亦无效。<br>奖励：如下。';
+	},
+	'chal.1.3': '反转研究',
+	'chal.1.3.description': function () {
+		return '挑战中你始终拥有前 2x-1 行研究，其效果完全反转(最多完成两次)<br>奖励：将非递归研究101的效果变为10%，基于完成次数增加非递归理论总量，前 2x-1 行非递归研究和购买本研究不再消耗任何东西';
+	},
+	'chal.1.4': '对数运算',
+	'chal.1.4.description': function () {
+		return '挑战中推演速度挑战中推演速度>10时=log10(log10(推演速度 max 10))+10,九头蛇溶液取以10为底对数，重置九头蛇溶液';
+	},
+	'chal.1.5': '对数运算',
+	'chal.1.5.description': function () {
+		return '挑战中推演硬上限为1，九头蛇溶液硬上限为0';
+	},
+	'chal.1.6': '大清算',
+	'chal.1.6.description': function () {
+		return 'UNOCF效果无效，进入挑战时重置九头蛇溶液，当前推演进度被硬上限到推演速度，朊病毒对推演速度造成负面影响（推演速度=10^10(log10 log10 推演/ log10 log10 朊病毒) 当原推演速度和朊病毒同时大于1e10，其余0）<br>目标：任意一个时刻高达e1e4500000推演次数';
+	},
+	'chal.1.2.effect': function (params: any) {
+		return (
+			'非递归能量以(1+ln(ln(x^10+1)^' +
+			format(params.values.effq) +
+			'+1)/5)幂增推演速度指数，当前：^' +
+			format(
+				player.nonrecu.power
+					.pow(10)
+					.add(1)
+					.ln()
+					.pow(params.values.effq)
+					.add(1)
+					.ln()
+					.div(5)
+					.add(1),
+			)
+		);
+	},
+	'chal.1.3.effect': function (params: any) {
+		return '×' + params.values.effect;
+	},
+	'currency.compressed_hydra': '压缩九头蛇能量',
+	'currency.qol_crystal_points': '生活质量水晶',
+	'tab.automator': '自动机',
 };

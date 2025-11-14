@@ -38,6 +38,7 @@ function chalClass() {
 						$t('upg.effect', {
 							effect: $t(`chal.${props.layer}.${props.chid}.effect`, {
 								effect: format(chal.effect(player.challenges[layer][chid])),
+								effq: chal.effect(player.challenges[layer][chid]),
 							}),
 						})
 					"
