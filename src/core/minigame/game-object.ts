@@ -25,13 +25,14 @@ import { runDeath } from './death-function';
 import { type CoreEquipment } from '.';
 import type { Directions } from './minigame-loop';
 import { getMessage } from '@/utils/i18n';
+import type { $t } from '@/utils/types';
 
 /**
  * 游戏物体 Nothingness（这里什么都没有）
  */
 export class GameObject {
 	constructor() {}
-	interact(x: bigint, y: bigint, direction: Directions) {}
+	interact(x: bigint, y: bigint, direction: Directions, $t: $t) {}
 	solid(direction: Directions = 'other', playerxy: [bigint, bigint]) {
 		return false;
 	}
@@ -146,7 +147,7 @@ export class OreGameObject extends GameObject {
 	constructor() {
 		super();
 	}
-	interact(x: bigint, y: bigint): void {
+	interact(x: bigint, y: bigint, direction: Directions, $t: $t): void {
 		temp.minigametip = '你获得了矿石，全局速度+0.25%。';
 		player.minigame.ore_gets++;
 		addReplace(player.minigame.current_room, x, y, '0');
@@ -161,7 +162,7 @@ export class DoorGameObject extends GameObject {
 		super();
 		this.keyid = keyid;
 	}
-	interact(x: bigint, y: bigint): void {
+	interact(x: bigint, y: bigint, direction: Directions, $t: $t): void {
 		if (player.minigame.keys_have.includes(this.keyid)) {
 			addReplace(player.minigame.current_room, x, y, '0');
 			player.minigame.keys_have.filter((x) => x !== this.keyid);
@@ -176,7 +177,7 @@ export class DoorGameObject extends GameObject {
 export class EntityGameObject extends GameObject {
 	tier: number;
 	type: number = 1;
-	innerText = '实体';
+	innerText = 'Entity';
 	rate = 2;
 	constructor(tier: number) {
 		super();
@@ -185,11 +186,11 @@ export class EntityGameObject extends GameObject {
 	solid() {
 		return true;
 	}
-	battleText() {
+	battleText($t: $t) {
 		const guardinfo = this.getBattleInfo();
 		const battlestatus = runBattleFast(meBattleInfo(), guardinfo);
 		if (battlestatus.status == 'fail') {
-			return `<span style="color: rgb(127, 0, 0)">无法击败</span>`;
+			return `<span style="color: rgb(127, 0, 0)">${$t('dung.unableto')}</span>`;
 		}
 		if (battlestatus.extendinfo.hp_cost >= meBattleInfo().hp / 2)
 			return `<span style="color: red">HP-${battlestatus.extendinfo.hp_cost.toFixed(1)}</span>`;
@@ -210,7 +211,7 @@ export class EntityGameObject extends GameObject {
 		}
 		return list;
 	}
-	interact(x: bigint, y: bigint): void {
+	interact(x: bigint, y: bigint, direction: Directions, $t: $t): void {
 		const guardinfo = this.getBattleInfo();
 		player.minigame.interact = 1;
 		const innerText = this.innerText;
@@ -250,14 +251,15 @@ export class GuardGameObject extends EntityGameObject {
 	tier = 1;
 	type = 1;
 	rate = 2;
-	innerText: string = '守卫';
-	constructor(type: number) {
+	innerText: string = '';
+	constructor(type: number, $t: $t = getMessage) {
 		super(1);
+		this.innerText = $t('dung.guard');
 		this.tier = getWorldLevel();
 		this.type = type;
-		if (type == 3) ((this.innerText = '高级守卫'), (this.rate = 2.2));
-		if (type == 4) ((this.innerText = '重型守卫'), (this.rate = 2.5));
-		if (type == 5) ((this.innerText = '魔法师'), (this.rate = 2.5));
+		if (type == 3) ((this.innerText = $t('dung.guard2')), (this.rate = 2.2));
+		if (type == 4) ((this.innerText = $t('dung.guard3')), (this.rate = 2.5));
+		if (type == 5) ((this.innerText = $t('dung.guard4')), (this.rate = 2.5));
 	}
 }
 export class BossGameObject extends EntityGameObject {
@@ -280,7 +282,7 @@ export class BoxGameObject extends GameObject {
 		this.tier = tier;
 		return this;
 	}
-	interact(x: bigint, y: bigint): void {
+	interact(x: bigint, y: bigint, direction: Directions, $t: $t): void {
 		let price = 0;
 		if (this.tier == 1) price = Math.random() * 5 + 5;
 		if (this.tier == 2) price = Math.random() * 25 + 25;
@@ -297,7 +299,7 @@ export class RestrictedBoxObject extends BoxGameObject {
 		super(tier);
 		this.tier = tier;
 	}
-	interact(x: bigint, y: bigint): void {
+	interact(x: bigint, y: bigint, direction: Directions, $t: $t): void {
 		let restricted = false;
 		for (let x2 = x - 3n; x2 <= x + 3n; x2++) {
 			for (let y2 = y - 3n; y2 <= y + 3n; y2++) {
@@ -311,7 +313,7 @@ export class RestrictedBoxObject extends BoxGameObject {
 		if (restricted) {
 			temp.minigametip = '宝箱周围7x7内怪物清完才能打开';
 		} else {
-			BoxGameObject.prototype.interact.apply(this, [x, y]);
+			BoxGameObject.prototype.interact.apply(this, [x, y, direction, $t]);
 		}
 	}
 }
@@ -321,7 +323,7 @@ export class KeyGameObject extends GameObject {
 		super();
 		this.keyid = tier;
 	}
-	interact(x: bigint, y: bigint): void {
+	interact(x: bigint, y: bigint, direction: Directions, $t: $t): void {
 		((temp.minigametip = '你获得了钥匙'), player.minigame.keys_have.push(this.keyid));
 		addReplace(player.minigame.current_room, x, y, '0');
 	}
@@ -332,7 +334,7 @@ export class HealthRecoveryGameObject extends GameObject {
 		super();
 		this.percent = percent;
 	}
-	interact(x: bigint, y: bigint): void {
+	interact(x: bigint, y: bigint, direction: Directions, $t: $t): void {
 		((temp.minigametip = '你回复了HP'),
 			(player.minigame.hp += ((currentPlayerLV() * this.percent) / 100) * 10));
 		addReplace(player.minigame.current_room, x, y, '0');
@@ -342,7 +344,7 @@ export class MoveableBoxGameObject extends GameObject {
 	solid(): boolean {
 		return true;
 	}
-	interact(x: bigint, y: bigint, direction: 'up' | 'down' | 'left' | 'right'): void {
+	interact(x: bigint, y: bigint, direction: 'up' | 'down' | 'left' | 'right', $t: $t): void {
 		const box_pos = positionDirection([x, y], direction);
 		const goalBlock = getCurrentBlock(player.minigame.current_room, box_pos[0], box_pos[1]);
 		if (goalBlock === null || goalBlock instanceof SwitchGameObject) {

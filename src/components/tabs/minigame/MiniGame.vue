@@ -57,49 +57,49 @@ function exitEditor() {
 			v-if="(temp.dungeonsSP == 2 || temp.innerWidth >= 800) && !temp.openingCore"
 		>
 			<button
-				@click="handleKeyPress('up')"
+				@click="handleKeyPress('up', $t)"
 				class="movement_button"
 				style="top: 50px; left: 150px"
 			>
 				↑
 			</button>
 			<button
-				@click="handleKeyPress('down')"
+				@click="handleKeyPress('down', $t)"
 				class="movement_button"
 				style="top: 250px; left: 150px"
 			>
 				↓
 			</button>
 			<button
-				@click="handleKeyPress('left')"
+				@click="handleKeyPress('left', $t)"
 				class="movement_button"
 				style="top: 150px; left: 50px"
 			>
 				←
 			</button>
 			<button
-				@click="handleKeyPress('right')"
+				@click="handleKeyPress('right', $t)"
 				class="movement_button"
 				style="top: 150px; left: 250px"
 			>
 				→
 			</button>
-			<button
+			<!-- <button
 				class="clickable_button"
 				v-if="atDEV()"
 				@click="enterEditor"
 				style="position: absolute; top: 90%"
 			>
 				编辑模式
-			</button>
-			<button
+			</button> -->
+			<!-- <button
 				class="clickable_button"
 				v-if="atDEV()"
 				@click="exitEditor"
 				style="position: absolute; top: 100%"
 			>
 				退出编辑模式
-			</button>
+			</button> -->
 		</div>
 		<div
 			v-if="player.minigame.ateditor && !temp.openingCore"
@@ -136,7 +136,7 @@ function exitEditor() {
 					<tr>
 						<td style="width: 200px">
 							X: {{ formatbigint(player.minigame.current_x) }}<br />
-							Y: {{ formatbigint(player.minigame.current_y) }} 技能点:
+							Y: {{ formatbigint(player.minigame.current_y) }} {{ $t('dung.a') }}
 							{{ player.minigame.skillpoint.toFixed(3) }}
 						</td>
 						<td style="width: 200px">

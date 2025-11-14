@@ -1,3 +1,4 @@
+import { getMessage } from '@/utils/i18n';
 import {
 	BossGameObject,
 	BoxGameObject,
@@ -214,14 +215,14 @@ export function map2_block(x: number, y: number) {
 	if (x == 17 && y == 43) return new BoxGameObject(1);
 	if (x == 16 && y == 43) return new KeyGameObject(5.002);
 	if (x == 16 && y == 42) return new KeyGameObject(10.002);
-	if (x == 23 && y == 34) return new GuardGameObject(3);
-	if (x == 23 && y == 35) return new GuardGameObject(4);
-	if (x == 23 && y == 36) return new GuardGameObject(5);
-	if (x == 23 && y == 37) return new GuardGameObject(4);
-	if (x == 24 && y == 37) return new GuardGameObject(4);
-	if (x == 22 && y == 37) return new GuardGameObject(4);
-	if (x == 22 && y == 36) return new GuardGameObject(3);
-	if (x == 24 && y == 36) return new GuardGameObject(3);
+	if (x == 23 && y == 34) return new GuardGameObject(3, getMessage);
+	if (x == 23 && y == 35) return new GuardGameObject(4, getMessage);
+	if (x == 23 && y == 36) return new GuardGameObject(5, getMessage);
+	if (x == 23 && y == 37) return new GuardGameObject(4, getMessage);
+	if (x == 24 && y == 37) return new GuardGameObject(4, getMessage);
+	if (x == 22 && y == 37) return new GuardGameObject(4, getMessage);
+	if (x == 22 && y == 36) return new GuardGameObject(3, getMessage);
+	if (x == 24 && y == 36) return new GuardGameObject(3, getMessage);
 	if (x == 22 && y == 34) return new WallGameObject();
 	if (x == 24 && y == 34) return new WallGameObject();
 	if (x == 21 && y == 34) return new OreGameObject();

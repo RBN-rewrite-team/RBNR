@@ -37,5 +37,5 @@ export function setI18NLocal(loc: keyof typeof messages) {
 type M = typeof messages;
 type N = M[keyof M];
 export function getMessage<T extends keyof N>(inner: T extends keyof N ? T : never) {
-	return messages[i18n.global.locale.value][inner];
+	return messages[i18n.global.locale.value][inner] ?? messages['zh-CN'][inner] + inner;
 }

@@ -71,47 +71,67 @@ function class3() {
 					v-if="game_object.tier == 1"
 					style="color: rgb(186, 110, 64)"
 				>
-					铜宝箱
+					{{ $t('dung.boxes.0') }}
 				</td>
 				<td
 					class="box-object"
 					v-if="game_object.tier == 2"
 					style="color: rgb(233, 233, 216)"
 				>
-					银宝箱
+					{{ $t('dung.boxes.1') }}
 				</td>
 				<td
 					class="box-object"
 					v-if="game_object.tier == 3"
 					style="color: rgb(218, 178, 115)"
 				>
-					金宝箱
+					{{ $t('dung.boxes.2') }}
 				</td>
 			</template>
 			<template v-else-if="game_object instanceof EntityGameObject">
-				{{ game_object.innerText == '' ? '守卫' : game_object.innerText }} <br />
-				<span style="font-size: 10px" v-html="game_object.battleText()" />
+				{{ game_object.innerText == '' ? $t('dung.guard') : game_object.innerText }} <br />
+				<span style="font-size: 10px" v-html="game_object.battleText($t)" />
 			</template>
 			<template v-else-if="game_object instanceof HighPlaceClimbGameObject" class="highplace"
 				>↑</template
 			>
 			<template v-else-if="game_object instanceof HighPlaceGameObject"></template>
-			<template v-else-if="game_object instanceof OreGameObject"> 矿石 </template>
+			<template v-else-if="game_object instanceof OreGameObject">
+				{{ $t('dung.ore.3') }}
+			</template>
 			<template v-else-if="game_object instanceof TeleporterGameObject"> 传送门 </template>
 			<template v-else-if="game_object instanceof HealthRecoveryGameObject">
-				恢复血量+{{ game_object.percent }}%
+				{{
+					$t('dung.healthrec', {
+						percent: game_object.percent,
+					})
+				}}
 			</template>
-			<template v-else-if="game_object instanceof DoorGameObject"> 门 </template>
+			<template v-else-if="game_object instanceof DoorGameObject">
+				{{ $t('dung.door') }}
+			</template>
 			<template v-else-if="game_object instanceof SwitchGameObject">
-				{{ game_object.actived ? '开关：开' : '开关：关' }}
+				{{
+					$t('dung.switch', {
+						status: $t(game_object.actived ? 'set.status.on' : 'set.status.off'),
+					})
+				}}
 			</template>
-			<template v-else-if="game_object instanceof MoveableBoxGameObject"> 箱子 </template>
-			<template v-else-if="game_object instanceof PasswordGameObject"> 密码门 </template>
-			<template v-else-if="game_object instanceof KeyGameObject"> 钥匙 </template>
+			<template v-else-if="game_object instanceof MoveableBoxGameObject">
+				{{ $t('dung.moveablebox') }}
+			</template>
+			<template v-else-if="game_object instanceof PasswordGameObject">
+				{{ $t('dung.pwddoor') }}
+			</template>
+			<template v-else-if="game_object instanceof KeyGameObject">
+				{{ $t('dung.key') }}
+			</template>
 			<template v-else-if="game_object instanceof WallInvisibleGameObject"> </template>
 			<template v-else>
 				{{
-					game_object.innerText == '' ? '不知道，反正是个游戏物体' : game_object.innerText
+					game_object.innerText == ''
+						? "This object's display is lost"
+						: game_object.innerText
 				}}
 			</template>
 		</template>

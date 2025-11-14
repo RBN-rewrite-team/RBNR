@@ -1260,4 +1260,23 @@ export default {
 	'currency.UNOCF推演次数和2.25NRC6挑战次数': 'UNOCF推演次数和2.25NRC6挑战次数',
 	'currency.NRC6挑战次数 & M6-24': 'NRC6挑战次数 & M6-24',
 	'currency.NRC7挑战次数': 'NRC7挑战次数',
+
+	'dung.boxes.0': '铜宝箱',
+	'dung.boxes.1': '银宝箱',
+	'dung.boxes.2': '金宝箱',
+
+	'dung.guard': '守卫',
+	'dung.ore.3': '矿石',
+	'dung.teleport': '传送门',
+	'dung.healthrec': '恢复血量+{percent}%',
+	'dung.door': '门',
+	'dung.switch': '开关：{status}',
+	'dung.moveablebox': '箱子',
+	'dung.pwddoor': '密码门',
+	'dung.key': '钥匙',
+	'dung.unableto': '无法击败',
+	'dung.guard2': '高级守卫',
+	'dung.guard3': '重型守卫',
+	'dung.guard4': '魔法师',
+	'dung.a': '技能点：',
 };
