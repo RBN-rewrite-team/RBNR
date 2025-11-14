@@ -319,6 +319,7 @@ export type GardenGenerator = {
 	show?(): boolean;
 	igNR?(): boolean;
 	effectDescription?(x: Decimal): string;
+	igNR?(): boolean;
 };
 
 export type GardenUpgradeEffect = {
@@ -338,7 +339,7 @@ export type GardenUpgrade = {
 	connect: [number[], number[]];
 	show?(): boolean;
 	igNR?(): boolean;
-	effectDescription?(): string;
+	effectDescription?(x: Decimal): string;
 };
 
 export function isGardenUpgrade(x: GardenUpgrade | GardenGenerator): x is GardenUpgrade {

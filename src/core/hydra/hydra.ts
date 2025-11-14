@@ -535,7 +535,6 @@ export const Hydra = {
 	},
 	buyables: {
 		'611': new (class B611 extends Buyable<Decimal> {
-			description = 'BMS推演速度×+1';
 			cost(x: Decimal): Decimal {
 				let cost = new Decimal(10).mul(x.pow_base(1.15));
 				if (player.hydra.dilute.inDilute) {
@@ -570,7 +569,6 @@ export const Hydra = {
 			}
 		})(),
 		'612': new (class B612 extends Buyable<Decimal> {
-			description = '基础指数+0.01';
 			cost(x: Decimal): Decimal {
 				let base = new Decimal(10000).mul(x.pow(2).pow_base(1.05));
 				if (player.upgrades[6110]) base = base.pow(upgrades[6110].effect());
@@ -619,7 +617,6 @@ export const Hydra = {
 			}
 		})(),
 		'613': new (class B613 extends Buyable<Decimal> {
-			description = '乘数获取速度×1.1';
 			cost(x: Decimal): Decimal {
 				let base = new Decimal(1e8).mul(x.pow(2.5).pow_base(1.02));
 				if (player.upgrades[6110]) base = base.pow(upgrades[6110].effect());
@@ -656,7 +653,6 @@ export const Hydra = {
 			}
 		})(),
 		'614': new (class B614 extends Buyable<Decimal> {
-			description = '九头蛇能量软上限^0.9';
 			cost(x: Decimal): Decimal {
 				let base = new Decimal('1e875').mul(x.pow(2.35).pow_base(1e20));
 				if (player.upgrades[6110]) base = base.pow(upgrades[6110].effect());

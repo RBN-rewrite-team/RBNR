@@ -409,7 +409,6 @@ const Dil = {
 	initMechanics() {
 		MILESTONES.create('dut1', {
 			displayName: 'M-Dilute-1',
-			description: '保持U5-1-1，并且提升其公式',
 			req: true,
 			reqDescription: '在稀释中达到ψ(Ω<sub>2</sub>Ω)',
 			requirement: new Decimal(4 ** 5),
@@ -425,7 +424,6 @@ const Dil = {
 		});
 		MILESTONES.create('dut2', {
 			displayName: 'M-Dilute-2',
-			description: '解锁B5系列购买项的最大化',
 			req: true,
 			reqDescription:
 				'在稀释中达到ψ(Ω<sub>2</sub><sup>ψ<sub>1</sub>(Ω<sub>2</sub><sup>2</sup>)</sup>)',
@@ -442,7 +440,6 @@ const Dil = {
 		});
 		MILESTONES.create('dut3', {
 			displayName: 'M-Dilute-3',
-			description: '转生永久不重置任何东西，永久解锁自动转生，(仅在稀释VII)初始显示所有升级',
 			req: true,
 			reqDescription: '在满级稀释2的稀释中达到0.135轮回效果且总计拥有过19000九头蛇溶液',
 			requirement: new Decimal(0.135),
@@ -460,7 +457,6 @@ const Dil = {
 		});
 		MILESTONES.create('dut4', {
 			displayName: 'M-Dilute-4',
-			description: '飞升永久不重置任何东西，永久解锁自动飞升，保持U5-2',
 			requirement: new Decimal(25000),
 			get canDone() {
 				return player.hydra.dilute.solution.gte(25000) || player.milestones.nonrec_7;
@@ -481,12 +477,11 @@ const Dil = {
 			 * 不清楚，应该有朊病毒加成
 			 *
 			 */
-			get description() {
-				return (
-					'在药剂7等级为1的稀释中最高九头蛇能量和药剂6等级加成推演速度<br>效果：^' +
-					format(player.hydra.milestoneDut5Eff) +
-					`(${format(milestoneDut5Eff())})`
-				);
+			effect() {
+				return {
+					effect: format(player.hydra.milestoneDut5Eff),
+					cur: format(milestoneDut5Eff()),
+				};
 			},
 			req: true,
 			reqDescription: '在药剂7等级为1的药剂中达到1e55九头蛇能量',
@@ -505,11 +500,10 @@ const Dil = {
 		});
 		MILESTONES.create('dut6', {
 			displayName: 'M-Dilute-6',
-			get description() {
-				return (
-					'在2,050,000以上的累计九头蛇溶液数量增益推演速度<br>效果：^' +
-					format(milestoneDut6Eff())
-				);
+			effect() {
+				return {
+					effect: format(milestoneDut6Eff()),
+				};
 			},
 			req: true,
 			reqDescription: '2,070,000九头蛇溶液',
@@ -522,10 +516,10 @@ const Dil = {
 		});
 		MILESTONES.create('dut7', {
 			displayName: 'M-Dilute-7',
-			get description() {
-				return (
-					'(稀释不重置)累计九头蛇能量增益推演速度<br>效果：^' + format(milestoneDut7Eff())
-				);
+			effect() {
+				return {
+					effect: format(milestoneDut7Eff()),
+				};
 			},
 			req: true,
 			reqDescription: '2,095,000九头蛇溶液 & 1e3500九头蛇能量',
@@ -541,7 +535,6 @@ const Dil = {
 		});
 		MILESTONES.create('dut8', {
 			displayName: 'M-Dilute-8',
-			description: '削弱九头蛇能量获取的二重软上限',
 			req: true,
 			reqDescription: '^1.25 M-Dilute-5效果',
 			requirement: new Decimal(1.25),
@@ -553,7 +546,6 @@ const Dil = {
 		});
 		MILESTONES.create('dut9', {
 			displayName: 'M-Dilute-9',
-			description: '自动购买B5-1系列购买项，你可以购买非整数次B5-1购买项',
 			req: true,
 			reqDescription: '2,151,250 九头蛇溶液',
 			requirement: new Decimal(2151250),
@@ -565,7 +557,6 @@ const Dil = {
 		});
 		MILESTONES.create('dut10', {
 			displayName: 'M-Dilute-10',
-			description: '永久保留U5-1-2~4，购买稀释升级不再消耗九头蛇溶液',
 			req: true,
 			reqDescription: '2,175,000 九头蛇溶液',
 			requirement: new Decimal(2175000),
@@ -580,7 +571,6 @@ const Dil = {
 		});
 		MILESTONES.create('dut11', {
 			displayName: 'M-Dilute-11',
-			description: '稀释VI的调整刻度细化至0.25',
 			req: true,
 			reqDescription: '2,201,250 九头蛇溶液',
 			requirement: new Decimal(2201250),
@@ -592,7 +582,6 @@ const Dil = {
 		});
 		MILESTONES.create('dut12', {
 			displayName: 'M-Dilute-12',
-			description: '削弱九头蛇能量获取的二重软上限',
 			req: true,
 			reqDescription: '^1.46 M-Dilute-5效果',
 			requirement: new Decimal(1.46),
@@ -604,7 +593,6 @@ const Dil = {
 		});
 		MILESTONES.create('dut13', {
 			displayName: 'M-Dilute-13',
-			description: '你可以在药剂III等级不为10的时候获得U5-S-7的加成',
 			req: true,
 			reqDescription: '1e6100 九头蛇能量 ',
 			requirement: new Decimal('e6100'),
@@ -616,7 +604,6 @@ const Dil = {
 		});
 		MILESTONES.create('dut14', {
 			displayName: 'M-Dilute-14',
-			description: 'U5-2的效果+1000%',
 			req: true,
 			reqDescription: '2,261,250 九头蛇溶液 ',
 			requirement: new Decimal(2261250),
@@ -628,7 +615,6 @@ const Dil = {
 		});
 		MILESTONES.create('dut15', {
 			displayName: 'M-Dilute-15',
-			description: 'M-Dilute-5效果不再依赖于药剂6等级(相当于原来的10级)',
 			req: true,
 			reqDescription: '2.45 M-Dilute-5效果',
 			requirement: new Decimal(2.45),
@@ -640,12 +626,11 @@ const Dil = {
 		});
 		MILESTONES.create('dut16', {
 			displayName: 'M-Dilute-16',
-			get description() {
-				return (
-					'朊病毒加成推演速度(在稀释6后)，稀释不再重置朊病毒<br>效果：' +
-					(player.hydra.dilute.inDilute ? '×' : '^') +
-					format(milestoneDut16Eff())
-				);
+			effect() {
+				return {
+					operation: player.hydra.dilute.inDilute ? '×' : '^',
+					effect: format(milestoneDut16Eff()),
+				};
 			},
 			req: true,
 			reqDescription: '1e18,915九头蛇能量',
@@ -661,8 +646,10 @@ const Dil = {
 		});
 		MILESTONES.create('dut17', {
 			displayName: 'M-Dilute-17',
-			get description() {
-				return '总计九头蛇能量加成朊病毒获取速度底数<br>效果：×' + format(MEff17());
+			effect() {
+				return {
+					effect: format(MEff17()),
+				};
 			},
 			req: true,
 			reqDescription: 'e5.0000e103/s推演速度',
@@ -678,7 +665,6 @@ const Dil = {
 		});
 		MILESTONES.create('dut18', {
 			displayName: 'M-Dilute-18',
-			description: 'M-Dilute-5加成M-Dilute-17和M-Dilute-16效果',
 			req: true,
 			reqDescription: 'e1.0000e121/s推演速度',
 			requirement: new Decimal('ee121'),

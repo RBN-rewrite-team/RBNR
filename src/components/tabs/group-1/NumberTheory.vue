@@ -69,10 +69,16 @@ function m2GainLatex() {
 			>
 				+
 			</PrimaryButton>
-			<h1>数论研究{{ player.numbertheory.visiting }}</h1>
+			<h1>
+				{{
+					$t('nt.order', {
+						i: player.numbertheory.visiting.toString(),
+					})
+				}}
+			</h1>
 			<div class="center_line" />
 			<div v-if="player.numbertheory.visiting == 1 && player.singularity.stage < 11">
-				<h2>欧拉函数</h2>
+				<h2>{{ $t('nt.euler') }}</h2>
 				<vue-latex
 					expression="\varphi(n) = n \prod_{p | n} \left(1 - \frac{1}{p}\right)"
 					display-mode
@@ -104,10 +110,12 @@ function m2GainLatex() {
 				<vue-latex :expression="sGainLatex()" display-mode />
 				<p style="font-size: 120%">
 					<b
-						>研究1加成：加法效果×<vue-latex expression="\tau_1" /><span
+						>{{ $t('nt.euler.effect') }}<vue-latex expression="\tau_1"></vue-latex
+						><span
 							v-if="player.exponention.logarithm.upgrades_in_dilated.includes('35')"
 							style="color: rgb(127, 127, 255)"
-							>，膨胀层数-{{ format(NUMTHEORY.tau1DilateEff()) }}</span
+							>{{ $t('nt.euler.effect.dil')
+							}}{{ format(NUMTHEORY.tau1DilateEff()) }}</span
 						></b
 					>
 				</p>
@@ -135,7 +143,7 @@ function m2GainLatex() {
 				</table>
 			</div>
 			<div v-if="player.upgrades[45] && player.numbertheory.visiting == 2" align="center">
-				<h2>有理逼近</h2>
+				<h2>{{ $t('nt.rationalapprox') }}</h2>
 				<vue-latex expression="a_1 = 1, a_n = \frac{a_{n-1}+2}{a_{n-1}+1}" display-mode />
 				<vue-latex
 					expression="F_0 = 0, F_1 = 1, F_n = F_{n-1}+F_{n-2}"
@@ -184,8 +192,9 @@ function m2GainLatex() {
 				<vue-latex :expression="y2GainLatex()" display-mode />
 				<p style="font-size: 120%">
 					<b
-						>研究2加成：质因数效果^<vue-latex
-							expression="\tau_2" />，质因数速度×<vue-latex expression="\tau_2^4"
+						>{{ $t('nt.ration.effect.1') }}<vue-latex expression="\tau_2" />{{
+							$t('nt.ration.effect.2')
+						}}<<vue-latex expression="\tau_2^4"
 					/></b>
 				</p>
 				<br />
@@ -196,7 +205,7 @@ function m2GainLatex() {
 					"
 					style="display: inline-block; margin: 5px"
 				>
-					增加n的数值
+					{{ $t('nt.ration.n') }}
 				</PrimaryButton>
 				<PrimaryButton
 					@click="
@@ -206,7 +215,7 @@ function m2GainLatex() {
 					v-if="player.milestones.cb8"
 					style="display: inline-block; margin: 5px"
 				>
-					增加m的数值
+					{{ $t('nt.ration.m') }}
 				</PrimaryButton>
 				<table>
 					<tbody>

@@ -1,19 +1,26 @@
 <script setup lang="ts">
 import { feature } from '@/core/global';
-import { format } from '@/utils/format';
+import { formatMult } from '@/utils/format';
 import { player } from '@/core/global';
 import TDUpgrade from '../../group-2/TDUpgrade.vue';
 import TDBuyable from '../../group-2/TDBuyable.vue';
+import { useI18n } from 'vue-i18n';
+
+const $t = useI18n().t;
+
+function effect() {
+	return $t('mul.effect', {
+		effect: `<span style="color: #cc33ff; font-weight: bold"
+					>${formatMult(feature.MULTIPLICATION.powerEff())}</span
+				>`,
+	});
+}
 </script>
 
 <template>
 	<div class="main">
 		<div style="transform: translateY(60px)">
-			<div align="center" v-if="player.firstResetBit & 0b10">
-				累计乘法能量提供了<span style="color: #cc33ff; font-weight: bold"
-					>x{{ format(feature.MULTIPLICATION.powerEff()) }}</span
-				>数值增益
-			</div>
+			<div align="center" v-if="player.firstResetBit & 0b10" v-html="effect()"></div>
 			<table align="center">
 				<tbody>
 					<tr>

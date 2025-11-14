@@ -2,6 +2,9 @@
 import { player, feature } from '@/core/global';
 import { format, formatTime } from '../../../utils/format.ts';
 import TDUpgrade from '@/components/group-2/TDUpgrade.vue';
+import { useI18n } from 'vue-i18n';
+
+const $t = useI18n().t;
 function timeF(ms = 0) {
 	const s = new Date(ms);
 	return s.toLocaleString();
@@ -18,33 +21,37 @@ function unlAuto() {
 		player.timeshard.value = player.timeshard.value.sub(1000);
 	}
 }
+function t() {
+	return $t('timeshard.t', {
+		amount: `<span style="color: rgb(255, 63, 255)">${format(player.timeshard.value)}</span>`,
+	});
+}
+function t2() {
+	return $t('timeshard.t2', {
+		amount: `<span style="color: rgb(127, 31, 128)">${formatTime(player.timeshard.tf.div(1000))}</span>`,
+	});
+}
 </script>
 
 <template>
 	<div class="main">
 		<div align="center">
-			你有
-			<span style="color: rgb(255, 63, 255)">{{ format(player.timeshard.value) }}</span>
-			时间碎片，转换它以获得同等分钟的3x时间加速效果<br />
+			<span v-html="t()"></span><br />
 			<span v-if="player.timeshard.tf.gt(0)">
-				你有
-				<span style="color: rgb(127, 31, 127)">{{
-					formatTime(player.timeshard.tf.div(1000))
-				}}</span>
-				的时间加速<br />
+				<span v-html="t2()"></span><br />
 				<button
 					class="setting_button"
 					@click="player.timeshard.openTf = !player.timeshard.openTf"
 				>
-					启用：{{ player.timeshard.openTf ? '开' : '关' }}
+					{{ $t(player.timeshard.openTf ? 'set.status.on' : 'set.status.off') }}
 				</button>
 			</span>
 			<br />
 			<button class="setting_button" @click="openHard">
-				获得1000时间碎片，但进入困难模式。{{
-					player.options.hardMode ? '(已锁定)' : '(未开启)'
+				{{ $t('timeshard.u1')
+				}}{{ $t(player.options.hardMode ? 'set.status.locked' : 'set.status.unlocked')
 				}}<br />
-				困难模式没做完。
+				WIP
 			</button>
 			<br />
 			<button
@@ -68,17 +75,20 @@ function unlAuto() {
 									style="color: var(--color)"
 									@click="feature.TimeShard.generatorReceive(0)"
 								>
-									<h3 style="color: rgb(255, 63, 255)">碎片生成器 I</h3>
+									<h3 style="color: rgb(255, 63, 255)">
+										{{ $t('timeshard.gen', { tier: 'I' }) }}
+									</h3>
 									<br />
-									冷却时间：1小时<br />
-									产量：10~50<br />
+									<span v-html="$t('timeshard.gen.1')"></span><br />
 									<span
 										v-if="Date.now() >= player.timeshard.cd[0]"
 										style="color: green; font-weight: bold"
-										>冷却完毕</span
+										>{{ $t('timeshard.gen.avaliable') }}</span
 									>
 									<span v-else style="color: orange; font-weight: bold"
-										>请等待至<br />{{ timeF(player.timeshard.cd[0]) }}</span
+										>{{ $t('timeshard.gen.waituntil') }}<br />{{
+											timeF(player.timeshard.cd[0])
+										}}</span
 									>
 								</button>
 							</div>
@@ -90,17 +100,20 @@ function unlAuto() {
 									style="color: var(--color)"
 									@click="feature.TimeShard.generatorReceive(1)"
 								>
-									<h3 style="color: rgb(255, 63, 255)">碎片生成器 II</h3>
+									<h3 style="color: rgb(255, 63, 255)">
+										{{ $t('timeshard.gen', { tier: 'II' }) }}
+									</h3>
 									<br />
-									冷却时间：24小时<br />
-									产量：80~400<br />
+									<span v-html="$t('timeshard.gen.2')"></span><br />
 									<span
 										v-if="Date.now() >= player.timeshard.cd[1]"
 										style="color: green; font-weight: bold"
-										>冷却完毕</span
+										>{{ $t('timeshard.gen.avaliable') }}</span
 									>
 									<span v-else style="color: orange; font-weight: bold"
-										>请等待至<br />{{ timeF(player.timeshard.cd[1]) }}</span
+										>{{ $t('timeshard.gen.waituntil') }}<br />{{
+											timeF(player.timeshard.cd[1])
+										}}</span
 									>
 								</button>
 							</div>
@@ -112,17 +125,20 @@ function unlAuto() {
 									style="color: var(--color)"
 									@click="feature.TimeShard.generatorReceive(2)"
 								>
-									<h3 style="color: rgb(255, 63, 255)">碎片生成器 III</h3>
+									<h3 style="color: rgb(255, 63, 255)">
+										{{ $t('timeshard.gen', { tier: 'III' }) }}
+									</h3>
 									<br />
-									冷却时间：7天<br />
-									产量：1000~5000<br />
+									<span v-html="$t('timeshard.gen.3')"></span><br />
 									<span
 										v-if="Date.now() >= player.timeshard.cd[2]"
 										style="color: green; font-weight: bold"
-										>冷却完毕</span
+										>{{ $t('timeshard.gen.avaliable') }}</span
 									>
 									<span v-else style="color: orange; font-weight: bold"
-										>请等待至<br />{{ timeF(player.timeshard.cd[2]) }}</span
+										>{{ $t('timeshard.gen.waituntil') }}<br />{{
+											timeF(player.timeshard.cd[2])
+										}}</span
 									>
 								</button>
 							</div>
@@ -136,9 +152,15 @@ function unlAuto() {
 									style="color: var(--color)"
 									@click="feature.TimeShard.convert(1)"
 								>
-									<h3 style="color: rgb(255, 63, 255)">碎片转换器 I</h3>
+									<h3 style="color: rgb(255, 63, 255)">
+										{{ $t('timeshard.conv', { tier: 'I' }) }}
+									</h3>
 									<br />
-									转换1个时间碎片
+									{{
+										$t('timeshard.conv.desc', {
+											amount: '1',
+										})
+									}}
 								</button>
 							</div>
 						</td>
@@ -149,9 +171,15 @@ function unlAuto() {
 									style="color: var(--color)"
 									@click="feature.TimeShard.convert(10)"
 								>
-									<h3 style="color: rgb(255, 63, 255)">碎片转换器 II</h3>
+									<h3 style="color: rgb(255, 63, 255)">
+										{{ $t('timeshard.conv', { tier: 'II' }) }}
+									</h3>
 									<br />
-									转换10个时间碎片
+									{{
+										$t('timeshard.conv.desc', {
+											amount: '10',
+										})
+									}}
 								</button>
 							</div>
 						</td>
@@ -162,10 +190,20 @@ function unlAuto() {
 									style="color: var(--color)"
 									@click="feature.TimeShard.convert(100, 1.25)"
 								>
-									<h3 style="color: rgb(255, 63, 255)">碎片转换器 III</h3>
+									<h3 style="color: rgb(255, 63, 255)">
+										{{ $t('timeshard.conv', { tier: 'III' }) }}
+									</h3>
 									<br />
-									转换100个时间碎片<br />
-									可以额外获得25%时间
+									{{
+										$t('timeshard.conv.desc', {
+											amount: '100',
+										})
+									}}<br />
+									{{
+										$t('timeshard.conv.desc2', {
+											amount: '25',
+										})
+									}}
 								</button>
 							</div>
 						</td>
@@ -178,10 +216,20 @@ function unlAuto() {
 									style="color: var(--color)"
 									@click="feature.TimeShard.convert(1000, 1.5)"
 								>
-									<h3 style="color: rgb(255, 63, 255)">碎片转换器 IV</h3>
+									<h3 style="color: rgb(255, 63, 255)">
+										{{ $t('timeshard.conv', { tier: 'IV' }) }}
+									</h3>
 									<br />
-									转换1000个时间碎片<br />
-									可以额外获得50%时间
+									{{
+										$t('timeshard.conv.desc', {
+											amount: '1000',
+										})
+									}}<br />
+									{{
+										$t('timeshard.conv.desc2', {
+											amount: '50',
+										})
+									}}
 								</button>
 							</div>
 						</td>
@@ -192,10 +240,20 @@ function unlAuto() {
 									style="color: var(--color)"
 									@click="feature.TimeShard.convert(10_000, 1.75)"
 								>
-									<h3 style="color: rgb(255, 63, 255)">碎片转换器 V</h3>
+									<h3 style="color: rgb(255, 63, 255)">
+										{{ $t('timeshard.conv', { tier: 'V' }) }}
+									</h3>
 									<br />
-									转换10,000个时间碎片<br />
-									可以额外获得75%时间
+									{{
+										$t('timeshard.conv.desc', {
+											amount: '10,000',
+										})
+									}}<br />
+									{{
+										$t('timeshard.conv.desc2', {
+											amount: '50',
+										})
+									}}
 								</button>
 							</div>
 						</td>
@@ -206,10 +264,20 @@ function unlAuto() {
 									style="color: var(--color)"
 									@click="feature.TimeShard.convert(100_000, 2)"
 								>
-									<h3 style="color: rgb(255, 63, 255)">碎片转换器 VI</h3>
+									<h3 style="color: rgb(255, 63, 255)">
+										{{ $t('timeshard.conv', { tier: 'VI' }) }}
+									</h3>
 									<br />
-									转换100,000个时间碎片<br />
-									可以额外获得100%时间
+									{{
+										$t('timeshard.conv.desc', {
+											amount: '100,000',
+										})
+									}}<br />
+									{{
+										$t('timeshard.conv.desc2', {
+											amount: '100',
+										})
+									}}
 								</button>
 							</div>
 						</td>

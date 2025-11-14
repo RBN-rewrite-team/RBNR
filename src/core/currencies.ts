@@ -2,6 +2,7 @@ import Decimal from 'break_eternity.js';
 import { player } from './save';
 import { feature } from './global';
 import { getTotalTheories } from './nonrecu/total-theories';
+import type { $t } from '@/utils/types';
 
 export enum Currencies {
 	NUMBER = 'number',
@@ -241,9 +242,11 @@ export function decreaseCurrency(currency: Currencies, decreases: Decimal) {
 
 	currencyClass.current = currencyClass.current.sub(decreases);
 }
-export function currencyName(currency: Currencies) {
-	const currencyClass = currencyMap.get(currency);
-	if (!currencyClass) throw ReferenceError('Undefined currency: ' + currency);
+export function currencyName(currency: Currencies, $t: $t) {
+	return $t(`currency.${currency}`);
 
-	return currencyClass.name;
+	// const currencyClass = currencyMap.get(currency);
+	// if (!currencyClass) throw ReferenceError('Undefined currency: ' + currency);
+
+	// return currencyClass.name;
 }

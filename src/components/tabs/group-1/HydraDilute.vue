@@ -8,6 +8,7 @@ import TDUpgrade from '../../group-2/TDUpgrade.vue';
 import TRMilestone from '../../group-2/TRMilestone.vue';
 import { Currencies, getCurrency } from '@/core/currencies.ts';
 import { CHALLENGE } from '@/core/challenge.ts';
+import { useI18n } from 'vue-i18n';
 
 function getCurrentSolution() {
 	return player.hydra.dilute.solution;
@@ -94,38 +95,62 @@ function setPreset(preset: typeof player.hydra.dilute.solvent) {
 function delPreset(preset: string) {
 	player.hydra.dilute.solventPresets.splice(Number(preset), 1);
 }
+const $t = useI18n().t;
+function res1() {
+	return $t('dil.res1', {
+		res: `<b style="color: red; font-size: 30px">${format(getCurrentSolution())}</b>`,
+		res2: player.hydra.dilute.inDilute
+			? $t('dil.res1.a', { res: format(Dilute.solutionGain()) })
+			: '',
+		effect: format(Dilute.solutionEff().eff1),
+	});
+}
+function prionRes() {
+	return $t('dil.prion', {
+		res: `<b style="color: red; font-size: 30px">${format(Dilute.prions())}</b>`,
+		res2: player.upgrades['69S'] ? '' : `/${format(player.hydra.totalDeduceOrdinal[0])}`,
+	});
+}
 </script>
 
 <template :key="refreshKey">
-	你有<b style="color: red; font-size: 30px">{{ format(getCurrentSolution()) }}</b
-	><span v-if="player.hydra.dilute.inDilute">(本次{{ format(Dilute.solutionGain()) }})</span
-	>九头蛇溶液<br />
-	推演速度×{{ format(Dilute.solutionEff().eff1)
-	}}<template v-if="player.upgrades[74]">, ^{{ format(Dilute.solutionEff().eff2) }}</template
+	<span v-html="res1()"></span>
+	<template v-if="player.upgrades[74]">, ^{{ format(Dilute.solutionEff().eff2) }}</template
 	><br />
-	<span v-if="player.upgrades['69S'] || player.hydra.dilute.prions.gt(1)"
-		>你有<b style="color: red; font-size: 30px">{{ format(Dilute.prions()) }}</b
-		><span v-if="!player.upgrades['69S']"
-			>/{{ format(player.hydra.totalDeduceOrdinal[0]) }}</span
-		>朊病毒<br /><br
-	/></span>
+	<span v-if="player.upgrades['69S'] || player.hydra.dilute.prions.gt(1)">
+		<span v-html="prionRes()"></span>
+		<br />
+		<br />
+	</span>
 	<div v-if="!player.upgrades['614S'] || CHALLENGE.inChallenge(1, 2)">
-		启动稀释后，溶剂{{
+		{{
 			(() => {
 				let a = Dilute.sol3EffOutside().sub(player.hydra.dilute.spentTime);
-				return !a.isFinite()
-					? Dilute.diluteAmountOutside(4)
-						? '可能会自毁'
-						: '不会自毁'
-					: '将会在' + formatTime(a) + '后自毁';
+
+				return $t('dil.selfdes', {
+					result: $t(
+						!a.isFinite()
+							? Dilute.diluteAmountOutside(4)
+								? 'dil.selfdes.possible'
+								: 'dil.selfdes.impossible'
+							: 'dil.selfdes.aftertime',
+						{
+							time: formatTime(a),
+						},
+					),
+				});
 			})()
 		}}<br />
 	</div>
-	部分溶剂将限制溶剂I的最低等级!<br />
-	当前溶剂配置对应获取的溶液数量上限：{{ format(Dilute.solutionGain(true)) }}<br />
+	{{ $t('dil.limitsol1') }}<br />
+	{{
+		$t('dil.solutioncap', {
+			cap: format(Dilute.solutionGain(true)),
+		})
+	}}<br />
 	<div class="container" style="transform: translateY(-10px)">
 		<div class="dilute">
-			<div>至少选择任何一项溶剂并提升它的等级以进入稀释</div>
+			<div>{{ $t('dil.least1') }}</div>
 			<div>
 				<button class="dilute-button" @click="Dilute.diluteButton">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
@@ -136,33 +161,36 @@ function delPreset(preset: string) {
 					</svg>
 				</button>
 			</div>
-			<div>
-				进入稀释，你将重新开始第五层的进度并遭受你所选择的削弱，作为奖励，你可以获得九头蛇溶液。<br />
-				选用的削弱等级对九头蛇溶液的获取量影响较大，稀释中的进度对九头蛇溶液的获取量影响较小。<br />
-				你在{{ JSON.stringify(player.hydra.dilute.lastSolvent.map(Number)) }}中最高达到了{{
-					formatWhole(player.hydra.dilute.lastDeduce)
-				}}次推演，这给你带来了{{ format(player.hydra.dilute.solution) }}({{
-					format(getCurrency(Currencies.SOLUTION))
-				}})九头蛇溶液
-			</div>
+			<div
+				v-html="
+					$t('dil.left', {
+						a: JSON.stringify(player.hydra.dilute.lastSolvent.map(Number)),
+						b: formatWhole(player.hydra.dilute.lastDeduce),
+						c: format(player.hydra.dilute.solution),
+						d: format(getCurrency(Currencies.SOLUTION)),
+					})
+				"
+			></div>
 		</div>
 		<div class="solvents">
-			溶剂等级之和使你的推演速度变为<sup>1</sup>/<sub>{{ format(Dilute.totSolNerf()) }}</sub>
+			<span v-html="$t('dil.solvdebuff', { a: format(Dilute.totSolNerf()) })"></span>
 			<table>
 				<tbody>
 					<tr>
 						<td>
 							<div class="solvent" style="border-color: rgb(255, 0, 0)">
 								<div>
-									<div>溶剂I: 时空黑洞</div>
+									<div>{{ $t('dil.1') }}</div>
 									<div class="solvent-desc-small">
-										“虽然这很不幸，但至少你能用自己比别人活得久的事实来安慰自己。”
+										{{ $t('dil.1.desc') }}
 									</div>
-									<div>
-										推演速度和乘数积累速度变为<sup>1</sup>/<sub>{{
-											tsbhBase() ** Dilute.diluteAmountOutside(0)
-										}}</sub>
-									</div>
+									<div
+										v-html="
+											$t('dil.1.eff', {
+												eff: tsbhBase() ** Dilute.diluteAmountOutside(0),
+											})
+										"
+									></div>
 									<Slider
 										v-bind="getSliderProps(1)"
 										:value="player.hydra.dilute.solvent[0]"
@@ -182,13 +210,17 @@ function delPreset(preset: string) {
 						<td>
 							<div class="solvent" style="border-color: rgb(255, 0, 0)">
 								<div>
-									<div>溶剂II: 阿尔兹海默症</div>
-									<div class="solvent-desc-small">“你变得越来越健忘......”</div>
-									<div>
-										所有升级、购买项成本^{{
-											format(4 - 3 * 0.75 ** Dilute.diluteAmountOutside(1))
-										}}
-									</div>
+									<div>{{ $t('dil.2') }}</div>
+									<div class="solvent-desc-small">{{ $t('dil.2.desc') }}</div>
+									<div
+										v-html="
+											$t('dil.2.eff', {
+												eff: format(
+													4 - 3 * 0.75 ** Dilute.diluteAmountOutside(1),
+												),
+											})
+										"
+									></div>
 									<Slider
 										v-bind="getSliderProps()"
 										:value="player.hydra.dilute.solvent[1]"
@@ -205,17 +237,19 @@ function delPreset(preset: string) {
 						<td>
 							<div class="solvent" style="border-color: rgb(255, 0, 0)">
 								<div>
-									<div>溶剂III: 地球爆炸</div>
+									<div>{{ $t('dil.3') }}</div>
 									<div class="solvent-desc-small">
-										“地球很快就要爆炸了，更糟的是你没有宇宙飞船......”
+										{{ $t('dil.3.desc') }}
 									</div>
 									<div>
-										选择本溶剂的稀释会在{{
-											(() => {
-												let a = Dilute.sol3EffOutside();
-												return !a.isFinite() ? '无穷时间' : formatTime(a);
-											})()
-										}}内自我毁灭(即强行退出稀释)
+										{{
+											$t('dil.3.eff', {
+												eff: (() => {
+													let a = Dilute.sol3EffOutside();
+													return formatTime(a);
+												})(),
+											})
+										}}
 									</div>
 									<Slider
 										v-bind="getSliderProps()"
@@ -235,11 +269,11 @@ function delPreset(preset: string) {
 						<td>
 							<div class="solvent" style="border-color: rgb(127, 0, 0)">
 								<div>
-									<div>溶剂IV: 数论地狱</div>
+									<div>{{ $t('dil.4') }}</div>
 									<div class="solvent-desc-small">
-										“数学家的最新研究打开了地狱的大门.....”
+										{{ $t('dil.4.desc') }}
 									</div>
-									<div>数论研究选项卡下的数论研究4效果反转</div>
+									<div>{{ $t('dil.4.eff') }}</div>
 									<Slider
 										v-bind="getSliderProps()"
 										:value="player.hydra.dilute.solvent[3]"
@@ -256,15 +290,19 @@ function delPreset(preset: string) {
 						<td>
 							<div class="solvent" style="border-color: rgb(127, 0, 0)">
 								<div>
-									<div>溶剂V: 朊病毒噩梦</div>
-									<div class="solvent-desc-small">“脲¤1-2~~~.2-_/T~/5个 --”</div>
-									<div style="font-size: 60%">
-										此溶剂中会不断产生朊病毒，生成量为({{
-											(1 + Dilute.diluteAmountOutside(4) / 100).toFixed(4)
-										}}^稀释中时间)-1，<br />
-										朊病毒在获取的总推演数量超过1时开始生成，<br />
-										当朊病毒数量超过稀释中获取的总推演数量时此稀释将会自我毁灭
-									</div>
+									<div>{{ $t('dil.5') }}</div>
+									<div class="solvent-desc-small">{{ $t('dil.5.desc') }}</div>
+									<div
+										style="font-size: 60%"
+										v-html="
+											$t('dil.5.eff', {
+												gen: (
+													1 +
+													Dilute.diluteAmountOutside(4) / 100
+												).toFixed(4),
+											})
+										"
+									></div>
 									<Slider
 										v-bind="getSliderProps()"
 										:value="player.hydra.dilute.solvent[4]"
@@ -281,15 +319,17 @@ function delPreset(preset: string) {
 						<td>
 							<div class="solvent" style="border-color: rgb(127, 0, 0)">
 								<div>
-									<div>溶剂VI：核食惊魂</div>
+									<div>{{ $t('dil.6') }}</div>
 									<div class="solvent-desc-small">
-										“他摸着女儿的第二个头说:海鲜当然能吃！”
+										{{ $t('dil.6.desc') }}
 									</div>
-									<div>
-										推演速度^{{
-											DiluteTS.dilute6().toFixed(2)
-										}}(在其它乘数削弱效果之前)
-									</div>
+									<div
+										v-html="
+											$t('dil.6.eff', {
+												eff: DiluteTS.dilute6().toFixed(2),
+											})
+										"
+									></div>
 									<Slider
 										v-bind="getSliderProps(6)"
 										:value="player.hydra.dilute.solvent[5]"
@@ -308,11 +348,11 @@ function delPreset(preset: string) {
 						<td>
 							<div class="solvent" style="border-color: rgb(63, 0, 63)">
 								<div>
-									<div>溶剂VII:天堂已满</div>
+									<div>{{ $t('dil.7') }}</div>
 									<div class="solvent-desc-small">
-										“你发现天上那些黑点不是雨，而是坠落的人类。”
+										{{ $t('dil.7.desc') }}
 									</div>
-									<div>转生，飞升，超越，轮回全部无效，禁用B5-1-2</div>
+									<div>{{ $t('dil.7.eff') }}</div>
 									<Slider
 										v-bind="sliderProps2"
 										:value="Number(player.hydra.dilute.solvent[6])"
@@ -329,11 +369,11 @@ function delPreset(preset: string) {
 						<td>
 							<div class="solvent" style="border-color: rgb(63, 0, 63)">
 								<div>
-									<div>溶剂VIII:坠毁</div>
+									<div>{{ $t('dil.8') }}</div>
 									<div class="solvent-desc-small">
-										“试图升天的人类迎来了自己的末日。”
+										{{ $t('dil.8.desc') }}
 									</div>
-									<div>进入稀释后5秒后便无法获得任何九头蛇能量。</div>
+									<div>{{ $t('dil.8.eff') }}</div>
 									<Slider
 										v-bind="sliderProps2"
 										:value="Number(player.hydra.dilute.solvent[7])"
@@ -350,11 +390,11 @@ function delPreset(preset: string) {
 						<td>
 							<div class="solvent" style="border-color: rgb(63, 0, 63)">
 								<div>
-									<div>溶剂IX:天启</div>
-									<div class="solvent-desc-small">“晚安，世界。”</div>
-									<div>
-										所有溶剂等级提升到最大，无法清除。全局速度×<sup>1</sup>/<sub>1000</sub>。
+									<div>{{ $t('dil.9') }}</div>
+									<div class="solvent-desc-small">
+										{{ $t('dil.9.desc') }}
 									</div>
+									<div v-html="$t('dil.9.eff')"></div>
 									<Slider
 										v-bind="sliderProps2"
 										:value="Number(player.hydra.dilute.solvent[8])"

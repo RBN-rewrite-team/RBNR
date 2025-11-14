@@ -5,7 +5,9 @@ import { Hydra } from '@/core/hydra/hydra';
 import { format, formatTime } from '@/utils/format';
 import { OrdinalUtils } from '@/utils/ordinal';
 import Decimal from 'break_eternity.js';
+import { useI18n } from 'vue-i18n';
 
+const $t = useI18n().t;
 function deduceButtonStyle(): string {
 	const pc = player.hydra.deduceProgress[player.hydra.visiting].mul(100).toNumber();
 	return (
@@ -23,7 +25,7 @@ function hydraMilestone(): any {
 	for (const i in ms) {
 		if (player.hydra.deduceOrdinal[player.hydra.visiting].gte(ms[i][1])) flag++;
 	}
-	const reached = flag == -1 ? '\\text{暂未达成}' : ms[flag][0];
+	const reached = flag == -1 ? '\\text{' + $t('hydra.milestonenotget') + '}' : ms[flag][0];
 	const next = ms[flag + 1][0];
 	const progress =
 		'\\text{' +

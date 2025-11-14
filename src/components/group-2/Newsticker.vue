@@ -2,7 +2,9 @@
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
 // import { player } from '@/saves/index'
 import news from '@/core/news-data';
+import newsen from '@/core/news-data-en-US';
 import { component as convertTextToComponent } from '../tabs/help/text-to-component-convert';
+import { i18n } from '@/utils/i18n';
 
 interface NewsMessage {
 	id: string;
@@ -63,9 +65,9 @@ const prepareNextMessage = () => {
 	if (!line.value) return;
 
 	const canShow = (item: NewsMessage) => item.unlocked?.() ?? true; // && !recentTickers.value.includes(item.id);
-
+	const goalnews = i18n.global.locale.value == 'zh-CN' ? news : newsen;
 	if (nextNewsMessageId.value) {
-		const specified = news.find((m) => m.id === nextNewsMessageId.value);
+		const specified = goalnews.find((m) => m.id === nextNewsMessageId.value);
 		if (specified) {
 			currentNews.value = specified;
 			nextNewsMessageId.value = '';
@@ -74,7 +76,7 @@ const prepareNextMessage = () => {
 
 	// console.log(news.filter(canShow))
 
-	currentNews.value = randomElement(news!.filter(canShow)) ?? null;
+	currentNews.value = randomElement(goalnews!.filter(canShow)) ?? null;
 	//currentNews.value = news[40]
 
 	if (!currentNews.value) return;

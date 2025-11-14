@@ -4,40 +4,51 @@ import TDBuyable from '../../group-2/TDBuyable.vue';
 import { format, formatGain, formatTime } from '@/utils/format';
 import { player } from '@/core/save';
 import ObserveButton from '../../group-2/ObserveButton.vue';
+import { useI18n } from 'vue-i18n';
+
+const $t = useI18n().t;
+function datas() {
+	return `<p>
+			${$t('exp.log.obsd', {
+				amount: `<b style="color: rgb(127, 127, 255); font-size: 25px">
+				${format(Logarithm.logarithm.observe_datas)}
+			</b>`,
+			})}
+		</p>
+		<p>
+			${$t('exp.log.cald', {
+				amount: `<b style="color: rgb(127, 127, 255); font-size: 25px">
+				${format(Logarithm.logarithm.calculate_datas)}
+			</b>`,
+			})}
+		</p>`;
+}
 </script>
 
 <template>
 	<div class="main">
 		<p style="color: grey; table-align: center">
-			对数的发现，因其节省劳力而延长了天文学家的寿命。——拉普拉斯
+			{{ $t('exp.log.pre') }}
 		</p>
-		<p>
-			你有
-			<b style="color: rgb(127, 127, 255); font-size: 25px">
-				{{ format(Logarithm.logarithm.observe_datas) }}
-			</b>
-			观测数据，
-		</p>
-		<p>
-			你有
-			<b style="color: rgb(127, 127, 255); font-size: 25px">
-				{{ format(Logarithm.logarithm.calculate_datas) }}
-			</b>
-			计算数据，
-		</p>
+		<div v-html="datas()"></div>
 		<div>
 			<p v-for="astr in Object.entries(player.exponention.logarithm.astronomers)">
-				天文学家 {{ astr[0] }}: 工作时长 {{ formatTime(astr[1].life) }}
+				{{ $t('plot.astronomer') }} {{ astr[0] }}: {{ formatTime(astr[1].life) }}
 				{{
 					formatGain(
 						Logarithm.logarithm.calculate_datas,
 						Logarithm.astronomerProduce(Number(astr[0])),
-						'计算数据',
 					)
 				}}
 			</p>
 		</div>
-		<p>1 观测数据 -> {{ format(Logarithm.observeDataConvert()) }} 计算数据</p>
+		<p>
+			{{
+				$t('exp.log.conv', {
+					res: format(Logarithm.observeDataConvert()),
+				})
+			}}
+		</p>
 		<table align="center">
 			<tbody>
 				<tr>
@@ -47,39 +58,60 @@ import ObserveButton from '../../group-2/ObserveButton.vue';
 			</tbody>
 		</table>
 		<div align="center" style="margin-top: 100px">
-			<div @click="Logarithm.observe"><ObserveButton>观测</ObserveButton></div>
+			<div @click="Logarithm.observe">
+				<ObserveButton>{{ $t('exp.log.observe') }}</ObserveButton>
+			</div>
 			<div @click="Logarithm.observeConvert">
-				<ObserveButton style="font-size: 15px">使用对数表进行计算</ObserveButton>
+				<ObserveButton style="font-size: 15px">{{ $t('exp.log.calc') }}</ObserveButton>
 			</div>
 		</div>
 		<div class="phys_law">
-			<h1>定律 1</h1>
-			行星绕太阳运行的轨道是椭圆，太阳位于椭圆的一个焦点上。
-			<div class="requirement">需求： 2000 计算数据</div>
-			<div class="effect">
-				提升10x运算速度及5x观测速度，并减少天文学家、对数表价格底数、指数4（最多减少到1）
+			<p>{{ $t('exp.log.tip') }}</p>
+			<h1>{{ $t('exp.log.law.1') }}</h1>
+			{{ $t('exp.log.law.1.desc') }}
+			<div class="requirement">
+				{{
+					$t('exp.log.law.req', {
+						amount: 5000,
+					})
+				}}
 			</div>
-			<h1>定律 2</h1>
-			{{
-				player.milestones.log_law2
-					? '行星与太阳的连线在相等时间内扫过相等的面积。'
-					: '行星与太阳的连线在？？？？内？？？？？？？。'
-			}}
-			<div class="requirement">需求： 40000 计算数据</div>
-			<div class="effect">指数能量获取基于计算数据提升</div>
-			<h1>定律 3</h1>
-			{{
-				player.milestones.log_law3
-					? '行星轨道半长轴的三次方与公转周期的平方成正比。'
-					: '行星轨道？？？？？？？与公转周期的？？？？？。'
-			}}
-			<div class="requirement">需求： 3000000 计算数据</div>
-			<div class="effect">对数表、天文学家价格底数、指数基于计算数据降低</div>
+			<div class="effect">
+				{{ $t('exp.log.law.1.eff') }}
+			</div>
+			<h1>{{ $t('exp.log.law.2') }}</h1>
+			{{ $t('exp.log.law.2.desc') }}
+			<div class="requirement">
+				{{
+					$t('exp.log.law.req', {
+						amount: 40000,
+					})
+				}}
+			</div>
+			<div class="effect">{{ $t('exp.log.law.2.eff') }}</div>
+
+			<h1>{{ $t('exp.log.law.3') }}</h1>
+			{{ $t('exp.log.law.3.desc') }}
+			<div class="requirement">
+				{{
+					$t('exp.log.law.req', {
+						amount: 3000000,
+					})
+				}}
+			</div>
+			<div class="effect">{{ $t('exp.log.law.3.eff') }}</div>
+
 			<div v-if="player.singularity.stage < 1">
-				<h1>{{ player.milestones.log_G ? '万有引力' : '？？？？' }}定律</h1>
-				{{ player.milestones.log_G ? '是的，万有引力' : '？？？' }}
-				<div class="requirement">需求： 5000000 计算数据</div>
-				<div class="effect">解锁对数膨胀</div>
+				<h1>{{ player.milestones.log_G ? $t('exp.log.law.g') : '??????' }}</h1>
+				{{ player.milestones.log_G ? $t('exp.log.law.yg') : '?????' }}
+				<div class="requirement">
+					{{
+						$t('exp.log.law.req', {
+							amount: 5000000,
+						})
+					}}
+				</div>
+				<div class="effect">{{ $t('exp.log.law.g.eff') }}</div>
 			</div>
 		</div>
 	</div>
@@ -90,9 +122,10 @@ import ObserveButton from '../../group-2/ObserveButton.vue';
 	border: 2px solid blue;
 	border-radius: 36px;
 	width: 500px;
-	height: 650px;
+	height: fit-content;
 	padding-left: 70px;
 	padding-top: 30px;
+	padding-bottom: 30px;
 	padding-right: 70px;
 	margin: auto;
 	margin-bottom: 100px;
