@@ -6,9 +6,13 @@
 单引号双引号用\', \"代替
 😰小野绿是神😰
 */
+import { Currencies, getCurrency } from '@/core/currencies';
 import { dilated } from '@/core/exponention/dilated-function';
+import { getTotalTheories, secInThisReset52717273 } from '@/core/nonrecu/total-theories';
 import { player } from '@/core/save';
 import { wordShift } from '@/core/word-shift';
+import { format, formatWhole } from '@/utils/format';
+import Decimal from 'break_eternity.js';
 import { VueLatex } from 'vatex';
 
 export default {
@@ -1357,4 +1361,138 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'dung.moveablebox.put': 'Put Box',
 
 	'dung.gemstone.t': 'You gained gem stone, Global speed+0.25%',
+
+	'nonrec.youhavereset': 'You have non-recursion reseted for {times} times。',
+	'nonrec.youhavenrt': 'You have a total of {t} Non Rec. Theories, with {b} remaining.',
+	'nonrec.nrtbuy': 'Get one Non Rec. Theory',
+	'nonrec.respec': 'Reset Study tree, but do a Non Rec. Reset',
+
+	'studies.nonrec.0': '购买该升级或非递归重置时自动获取20九头蛇能量、溶液',
+	'studies.nonrec.1': '基数之前全局速度x2',
+	'studies.nonrec.2': '九头蛇溶液的常数硬上限改为软上限',
+	'studies.nonrec.3': function () {
+		return `基于九头蛇溶液大幅延迟九头蛇能量双重软上限<br>效果: ^${format(Decimal.log10(player.hydra.dilute.solution.add(10)))}`;
+	},
+	'studies.nonrec.4': '九头蛇能量×100000再^1.05',
+
+	'studies.nonrec.5': function () {
+		return (
+			'非递归挑战1\t' +
+			format(new Decimal(326649).pow(player.challenges[1][0].add(1)).pow10()) +
+			' 九头蛇能量 '
+		);
+	},
+	'studies.nonrec.6': '非递归能量获取×10',
+	'studies.nonrec.7': '达成112的购买要求(需要两次挑战1才能购买)',
+	'studies.nonrec.8': '九头蛇能量获取×35, 九头蛇能量获取指数^1.25',
+	'studies.nonrec.9': function () {
+		return `基于当前的非递归能量获得额外的非递归理论(购买后可用理论+floor(${format(
+			player.nonrecu.power
+				.add(1)
+				.ln()
+				.add(1)
+				.ln()
+				.mul(
+					player.nonrecu.studies_bought.includes(17)
+						? secInThisReset52717273().add(1).log10()
+						: 1,
+				)
+				.sub(5),
+		)}))`;
+	},
+	'studies.nonrec.10': '稀释I的底数从5降低到3',
+	'studies.nonrec.11': function () {
+		return (
+			'解锁非递归挑战2\t' +
+			format(player.challenges[1][1].pow_base(10).mul(4e6)) +
+			'九头蛇溶液'
+		);
+	},
+	'studies.nonrec.12': function () {
+		return (
+			'解锁非递归挑战3\t' +
+			formatWhole(255000000 * 5 ** player.challenges[1][2].toNumber()) +
+			' 溶液'
+		);
+	},
+	'studies.nonrec.13': '移除九头蛇能量和BMS推演的硬上限',
+	'studies.nonrec.14': function () {
+		return `每个剩余的非递归理论令推演速度膨胀+0.01<br>效果: +${format(getCurrency(Currencies.NRT).mul(0.01).add(1))}`;
+	},
+	'studies.nonrec.15': '九头蛇溶液获取x1.2, ^1.01',
+	'studies.nonrec.16': function () {
+		return `基于本次非递归重置时间提升非递归能量获取<br>效果：×${format(
+			secInThisReset52717273().add(1).mul(10).pow(2).sub(99).root(2).pow(0.75).div(2).add(1),
+		)}`;
+	},
+	'studies.nonrec.17': function () {
+		return `基于本次非递归重置时间提升非递归研究52的效果<br>效果：((x+5)×${format(secInThisReset52717273().add(1).log10())})-5`;
+	},
+	'studies.nonrec.18': function () {
+		return `基于本次非递归重置时间提升九头蛇溶液获取<br>效果：×${format(secInThisReset52717273().add(1).ln().mul(0.2).add(1))}`;
+	},
+	'studies.nonrec.19': '你可以任意购买5~7行的任意两个非递归研究，解锁一列5~7行的升级树',
+	'studies.nonrec.20': '九头蛇溶液获取^1.025',
+	'studies.nonrec.21': '九头蛇能量获取膨胀1.1',
+	'studies.nonrec.22': '每秒获取1%重置时获取的非递归能量',
+	'studies.nonrec.23': function () {
+		return (
+			'解锁非递归挑战4\t' +
+			format(
+				new Decimal(6 + player.challenges[1][3].toNumber()).pow_base(2).pow_base(2).pow10(),
+			) +
+			'九头蛇能量'
+		);
+	},
+	'studies.nonrec.24': 'Unlock Non Rec. Challenge 5\t挑战次数为最高推演次数',
+	'studies.nonrec.25': 'Unlock Non Rec. Challenge 6\t挑战次数为log10 log10 朊病毒',
+	'studies.nonrec.26': function () {
+		return `基于总共的非递归理论增加UNOCF推演速度;此推演需要前置M6-25, 42和101<br>效果：×${format(getTotalTheories().add(1))}`;
+	},
+	'studies.nonrec.27': function () {
+		return `轮回效果&九头蛇溶液^x,x基于推演进度计算<br>效果: ^${format(
+			player.hydra.deduceOrdinal[0]
+				.clampMin(1e10)
+				.log10()
+				.log10()
+				.log10()
+				.pow(0.1)
+				.mul(0.2)
+				.add(1),
+		)}`;
+	},
+	'studies.nonrec.28': function () {
+		return 'Unlock Non Rec. Challenge 7\t' + 'See Challenge Page';
+	},
+	'studies.nonrec.29': function () {
+		if (player.retribution == 0)
+			return wordShift.wordCycle(
+				[
+					'You need Retribution',
+					'You need Compressed Hydra Energy',
+					'You need Retribution',
+					'You need Y Sequence',
+				],
+				false,
+				undefined,
+				false,
+			);
+		return '移除压缩九头蛇能量上限';
+	},
+	'studies.nonrec.30': function () {
+		if (player.retribution == 0)
+			return wordShift.wordCycle(
+				[
+					'You need Retribution',
+					'You need Compressed Hydra Energy',
+					'You need Retribution',
+					'You need Y Sequence',
+				],
+				false,
+				undefined,
+				false,
+			);
+		return 'Unlock <b>Proof Theory</b>';
+	},
+	'chal.goal': 'Goal: {goal}',
 };
