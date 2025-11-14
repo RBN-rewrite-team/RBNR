@@ -201,7 +201,7 @@ export const menus = [
 		},
 		contents: [
 			{ id: 21, text: 'tab.nonrecmils' },
-			{ id: 23, text: 'tab.energyfactor' },
+			// { id: 23, text: 'tab.energyfactor' },
 			{ id: 24, text: 'tab.nrs' },
 			{ id: 22, text: 'tab.nrc' },
 			{

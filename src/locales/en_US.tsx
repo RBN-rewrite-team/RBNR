@@ -835,10 +835,6 @@ export default {
 		'Number Exponential Tower reduced by {a} tiers. MP Exponential Tower reduced by {b} tiers. <br>Simultaneously, most QoL upgrades have been disabled, and certain buffs have been weakened.',
 	'exp.log.law.dil.6':
 		'Purchasing upgrades and buyables in Dilate will permanently enhance their effects.',
-	'exp.log.law.dil.7': 'The hightest number in Dilated',
-	'exp.log.law.dil.8': 'will increase number(^',
-	'exp.log.law.dil.9': '), EP(*',
-	'exp.log.law.dil.10': ') gain.',
 	'currency.膨胀中乘法能量': 'Mul. power  in Dilated',
 	'nt.euler.effect.dil': ', dilate layer -',
 

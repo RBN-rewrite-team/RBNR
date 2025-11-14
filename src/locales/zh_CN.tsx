@@ -140,6 +140,7 @@ export default {
 	'currency.multipl': '乘法能量',
 	'currency.exponent': '指数能量',
 	'currency.qol': 'QoL点数',
+	'currency.deduce_energy': '推演能量',
 	'upg.effect.byl': '效果: {effect}→{next}',
 	'upg.effectdbl.byl': '效果: {effect},{effect2}→{next},{next2}',
 	'upg.keep': '保持持有',

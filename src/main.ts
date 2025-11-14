@@ -32,16 +32,29 @@ console.log('我错了', new PowiainaNum(3));
 // }
 // console.log(JSON.stringify(res));
 
-window.exp = function () {
-	const res = {};
-	const a = milestones;
-	for (const i in a) {
-		const t = Object.getOwnPropertyDescriptor(a[i], 'description');
-		if (typeof t?.value !== 'undefined' && t.value !== null) {
-			res[i] = t.value;
-		} else {
-			res[i] = t.get;
-		}
-	}
-	return res;
-};
+// window.exp = function () {
+// 	const res = {};
+// 	const a = milestones;
+// 	for (const i in a) {
+// 		const t = Object.getOwnPropertyDescriptor(a[i], 'description');
+// 		if (typeof t?.value !== 'undefined' && t.value !== null) {
+// 			res[i] = t.value;
+// 		} else {
+// 			res[i] = t.get;
+// 		}
+// 	}
+// 	return res;
+// };
+
+import { difference, xor } from 'lodash-es';
+import en_US from './locales/en_US.tsx';
+import zh_CN from './locales/zh_CN.tsx';
+
+const array1 = Object.keys(en_US);
+const array2 = Object.keys(zh_CN);
+// 找出 arr1 中有但 arr2 中没有的元素
+const onlyInFirst = difference(array1, array2);
+
+// 对称差集
+const symmetricDifference = xor(array1, array2);
+console.log(onlyInFirst, symmetricDifference);
