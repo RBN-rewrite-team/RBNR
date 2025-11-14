@@ -19,11 +19,11 @@ export const menus = [
 	{
 		contents: [
 			{
-				text: '地下城',
+				text: 'tab.dungeon',
 				id: 1225,
 			},
 			{
-				text: '自动机',
+				text: 'tab.automator',
 				id: 167,
 				show() {
 					return player.timeshard.unlAuto && (player.firstResetBit & 0b10000) == 0b10000;
@@ -32,10 +32,10 @@ export const menus = [
 		],
 	},
 	{
-		title: '后继',
+		title: 'tab.successor',
 		contents: [
 			{
-				text: '后继',
+				text: 'tab.successor',
 				id: 0,
 			},
 		],
@@ -44,10 +44,10 @@ export const menus = [
 		},
 	},
 	{
-		title: '加法',
+		title: 'tab.addition',
 		contents: [
 			{
-				text: '加法',
+				text: 'tab.addition',
 				id: 2,
 			},
 		],
@@ -56,26 +56,26 @@ export const menus = [
 		},
 	},
 	{
-		title: '乘法',
+		title: 'tab.multipl',
 		contents: [
-			{ id: 4, text: '乘法' },
+			{ id: 4, text: 'tab.multipl' },
 			{
 				id: 5,
-				text: '质因数',
+				text: 'tab.primefactor',
 				show() {
-					return player.firstResetBit & 0b10 && player.singularity.stage < 7;
+					return player.stat.totalMulpower.gte(1) && player.singularity.stage < 7;
 				},
 			},
 			{
 				id: 6,
-				text: '数论研究',
+				text: 'tab.numbertheory',
 				show() {
 					return player.upgrades[35] && player.singularity.stage < 8;
 				},
 			},
 			{
 				id: 8,
-				text: '乘法挑战',
+				text: 'tab.multipchal',
 				show() {
 					return player.upgrades[39] && player.singularity.stage < 6;
 				},
@@ -86,36 +86,36 @@ export const menus = [
 		},
 	},
 	{
-		title: '指数',
+		title: 'tab.exponentation',
 		show() {
-			return player.firstResetBit & 0b100 && player.singularity.stage < 9;
+			return player.stat.highestExppower.gte(1) && player.singularity.stage < 4;
 		},
 		contents: [
-			{ id: 9, text: '指数升级' },
+			{ id: 9, text: 'tab.expupg' },
 			{
 				id: 10,
-				text: '棋盘',
+				text: 'tab.cb',
 				show() {
 					return player.upgrades[47];
 				},
 			},
 			{
 				id: 12,
-				text: '对数运算',
+				text: 'tab.log_c',
 				show() {
 					return player.milestones.cb5;
 				},
 			},
 			{
 				id: 13,
-				text: '对数膨胀',
+				text: 'tab.log_d',
 				show() {
 					return player.singularity.stage < 1 && player.milestones.log_G;
 				},
 			},
 			{
 				id: 14,
-				text: '奇点生成器',
+				text: 'tab.singularity',
 				show() {
 					return player.singularity.enabled || player.milestones.dil_7;
 				},
@@ -125,31 +125,31 @@ export const menus = [
 	{
 		get title() {
 			if (player.singularity.stage == 4) return '???';
-			if (player.singularity.stage <= 9) return '奇点';
-			return '序数';
+			if (player.singularity.stage <= 9) return 'tab.singularitytab';
+			return 'tab.ordinal';
 		},
 		contents: [
 			{
 				id: 14,
-				text: '奇点生成器',
+				text: 'tab.singularity',
 			},
 			{
 				id: 15,
-				text: '序数',
+				text: 'tab.ordinal',
 				show() {
 					return player.firstResetBit & 0b1000 && player.retribution == 0;
 				},
 			},
 			{
 				id: 6,
-				text: '数论研究',
+				text: 'tab.numbertheory',
 				show() {
 					return player.upgrades[58];
 				},
 			},
 			{
 				id: 17,
-				text: '加速器',
+				text: 'tab.booster',
 				show() {
 					return player.upgrades[59] && player.retribution == 0;
 				},
@@ -160,22 +160,22 @@ export const menus = [
 		},
 	},
 	{
-		title: '九头蛇',
+		title: 'tab.hydra',
 		contents: [
 			{
 				id: 19,
-				text: '九头蛇引擎',
+				text: 'tab.hydra_engine',
 			},
 			{
 				id: 27,
-				text: 'Y序列',
+				text: 'tab.y',
 				show() {
 					return player.retribution >= 1;
 				},
 			},
 			{
 				id: 20,
-				text: '稀释',
+				text: 'tab.dilute',
 				show() {
 					return player.upgrades['69R'];
 				},
@@ -195,29 +195,27 @@ export const menus = [
 		},
 	},
 	{
-		title: '非递归',
+		title: 'tab.nonrec',
 		show() {
-			return (player.firstResetBit & 0b10000) == 0b10000;
+			return (player.firstResetBit & 0b10000) == 0b10000 && player.stat.chapter >= 6;
 		},
 		contents: [
-			{ id: 21, text: '非递归里程碑' },
-			{ id: 23, text: '能量因素' },
-			{ id: 24, text: '非递归研究树' },
-			{ id: 22, text: '非递归挑战' },
+			{ id: 21, text: 'tab.nonrecmils' },
+			// { id: 23, text: 'tab.energyfactor' },
+			{ id: 24, text: 'tab.nrs' },
+			{ id: 22, text: 'tab.nrc' },
 			{
 				id: 25,
-				text: '非递归升级',
+				text: 'tab.nrupg',
 				show() {
 					return player.milestones.nonrec_18;
 				},
 			},
 			{
 				id: 26,
-				text: 'UNOCF',
+				text: 'tab.unocf',
 				show() {
-					return (
-						(player.firstResetBit & 0b10000) == 0b10000 && player.milestones.nonrec_19
-					);
+					return player.stat.chapter >= 6 && player.milestones.nonrec_19;
 				},
 			},
 		],
@@ -241,21 +239,21 @@ export const menus = [
 		},
 	},
 	{
-		title: '杂项',
+		title: 'tab.options',
 		contents: [
-			{ id: 1, text: '设置' },
-			{ id: 3, text: '关于游戏' },
-			{ id: 200, text: '剧情' },
-			{ id: 7, text: '统计' },
-			{ id: 11, text: '成就' },
+			{ id: 1, text: 'tab.settings' },
+			{ id: 3, text: 'tab.aboutgame' },
+			{ id: 200, text: 'tab.plot' },
+			{ id: 7, text: 'tab.stat' },
+			{ id: 11, text: 'tab.achievements' },
 			{
 				id: 16,
-				text: '帮助',
+				text: 'tab.help',
 				show() {
 					return player.firstResetBit & 0b1000;
 				},
 			},
-			{ id: 18, text: '时间碎片' },
+			{ id: 18, text: 'tab.timeshard' },
 		],
 	},
 ] as const satisfies (NoTitleTab | TitleTab)[];

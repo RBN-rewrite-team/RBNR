@@ -1,5 +1,6 @@
 import ModalService from '@/utils/Modal';
 import { player } from './save';
+import { getMessage } from '@/utils/i18n';
 
 let audioelement = document.getElementById('audio');
 
@@ -46,8 +47,8 @@ export function reinitializeMusic() {
 			el.src = MUSICS[player.options.music - 1];
 			el.play().catch((x) => {
 				ModalService.show({
-					title: '不能播放音乐',
-					content: '不知道，你可以点击确认按钮重新播放音乐',
+					title: getMessage('set.musicurl.unable'),
+					content: getMessage('set.musicurl.content'),
 					onConfirm() {
 						reinitializeMusic();
 					},
@@ -58,16 +59,19 @@ export function reinitializeMusic() {
 }
 export function setMusicUrlAndPlay() {
 	ModalService.show({
-		title: '输入URL地址',
-		content: '请输入音乐的URL地址',
+		title: getMessage('set.musicurl.title'),
+		content: getMessage('set.musicurl.cont'),
 		fields: [
 			{
 				type: 'input',
-				placeholder: 'URL地址',
+				placeholder: getMessage('set.musicurl.place'),
 			},
 		],
 		onConfirm(values: string[]) {
-			if (values[0] == '音乐的URL地址' || values[0] == 'URL地址') {
+			if (
+				values[0] == getMessage('set.musicurl.placetest') ||
+				values[0] == getMessage('set.musicurl.place')
+			) {
 				player.achievements.push(-2);
 				return;
 			}

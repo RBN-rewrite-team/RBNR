@@ -16,6 +16,7 @@
 	border: 2px solid #c9c9c9;
 	text-align: center;
 	box-shadow: var(--border-color) 1px 1px 2px 1px;
+	overflow: auto;
 }
 .upgrade_buttonsmall {
 	@extend .upgrade_button_parent;

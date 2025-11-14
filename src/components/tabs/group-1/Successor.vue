@@ -6,6 +6,24 @@ import { format, formatWhole } from '@/utils/format';
 import TDUpgrade from '../../group-2/TDUpgrade.vue';
 import TDBuyable from '../../group-2/TDBuyable.vue';
 import PrimaryButton from '@/components/ui/PrimaryButton';
+import type { $t } from '@/utils/types';
+import { useI18n } from 'vue-i18n';
+const $t = useI18n().t;
+function successorButton() {
+	let base = `${$t('succ.successor')}x`;
+	if (player.upgrades['25']) base = `${$t('succ.addition')}+`;
+	base += format(feature.SUCCESSOR.successorBulk());
+	if (feature.SUCCESSOR.successorPow().gt(1)) {
+		base += `<sup>${format(feature.SUCCESSOR.successorPow())}</sup>`;
+	}
+	if (BUYABLES.lock('11').unlocked) {
+		base += $t('succ.automation', {
+			speed: formatWhole(feature.SUCCESSOR.autoSuccessPerSecond()),
+		});
+	}
+
+	return base;
+}
 </script>
 
 <template>
@@ -13,25 +31,10 @@ import PrimaryButton from '@/components/ui/PrimaryButton';
 		<div class="clickable">
 			<PrimaryButton
 				@click="feature.SUCCESSOR.success()"
-				v-if="!player.upgrades['25']"
-				style="width: 240px"
-				>后继x{{ format(feature.SUCCESSOR.successorBulk())
-				}}<sup v-if="feature.SUCCESSOR.successorPow().gt(1)">{{
-					format(feature.SUCCESSOR.successorPow())
-				}}</sup
-				><span v-if="BUYABLES.lock('11').unlocked"
-					>(自动{{ formatWhole(feature.SUCCESSOR.autoSuccessPerSecond()) }}/s)</span
-				>
+				style="width: fit-content"
+				v-html="successorButton()"
+			>
 			</PrimaryButton>
-			<div class="clickable_button" @mousedown="feature.SUCCESSOR.success()" v-else>
-				加法+{{ formatWhole(feature.SUCCESSOR.successorBulk())
-				}}<sup v-if="feature.SUCCESSOR.successorPow().gt(1)">{{
-					format(feature.SUCCESSOR.successorPow())
-				}}</sup
-				><span v-if="BUYABLES.lock('11').unlocked"
-					>(自动{{ formatWhole(feature.SUCCESSOR.autoSuccessPerSecond()) }}/s)</span
-				>
-			</div>
 		</div>
 		<table align="center">
 			<TDUpgrade upgid="11" />

@@ -3,6 +3,7 @@ import { currencyName, getCurrency, type Currencies } from './currencies';
 import { format } from '@/utils/format';
 import { upgrades } from './mechanic';
 import { player } from './save';
+import type { $t } from '@/utils/types';
 
 export enum RequirementTypes {
 	REQUIRE_CURRENCY,
@@ -14,7 +15,7 @@ export abstract class Requirement {
 	reachedReq(): boolean {
 		return false;
 	}
-	reqDescription(): string {
+	reqDescription($t: $t): string {
 		return '获得一个拜谢';
 	}
 	progress?(): [string, string] {
@@ -28,8 +29,11 @@ export class CurrencyRequirement extends Requirement {
 	reachedReq() {
 		return getCurrency(this.currency).gte(this.cost);
 	}
-	reqDescription(): string {
-		return `获得${format(this.cost)}${currencyName(this.currency)}`;
+	reqDescription($t: $t): string {
+		return $t('req.res', {
+			cost: format(this.cost),
+			currency: currencyName(this.currency, $t),
+		});
 	}
 	progress(): [string, string] {
 		return [`${format(getCurrency(this.currency))}`, `${format(this.cost)}`];
@@ -46,8 +50,10 @@ export class UpgradeRequirement extends Requirement {
 	reachedReq(): boolean {
 		return player.upgrades[this.upgid];
 	}
-	reqDescription(): string {
-		return `获得${upgrades[this.upgid].name}`;
+	reqDescription($t: $t): string {
+		return $t('req.upg', {
+			upg: upgrades[this.upgid].name,
+		});
 	}
 	progress = undefined;
 	constructor(upgid: keyof typeof upgrades) {

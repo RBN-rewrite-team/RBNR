@@ -1,9 +1,11 @@
-import { defineComponent, type ExtractPropTypes, type PropType } from 'vue';
+import { computed, defineComponent, type ExtractPropTypes, type PropType } from 'vue';
 import type { NoTitleTab, SubTabBase, TitleTab } from './menus';
 
 import type { LooseRequired } from '@vue/shared';
 import SubMenuObject from './SubMenuObject.vue';
-
+import { useI18n } from 'vue-i18n';
+import type { $t } from '@/utils/types';
+import { player } from '@/core/global';
 function menuTitle(
 	props: LooseRequired<
 		Readonly<
@@ -16,11 +18,15 @@ function menuTitle(
 		> &
 			Readonly<{}> & {}
 	>,
+	$t: $t,
 ) {
 	if ('title' in props.menu) {
 		return (
 			<>
-				<div class="menu1">{props.menu.title}</div>
+				<div class="menu1">
+					{$t(props.menu.title)}
+					<span style={{ display: 'none' }}>{player.lastUpdated}</span>
+				</div>
 				<div class="menu_line"></div>
 			</>
 		);
@@ -28,11 +34,11 @@ function menuTitle(
 		return <></>;
 	}
 }
-function toSubMenuObject(ct: SubTabBase) {
+function toSubMenuObject(ct: SubTabBase, $t: $t) {
 	if (ct.show) {
 		if (!ct.show()) return <></>;
 	}
-	return <SubMenuObject tab={ct.id} text={ct.text} />;
+	return <SubMenuObject tab={ct.id} text={$t(ct.text)} />;
 }
 export default defineComponent({
 	name: 'MenuObject',
@@ -43,15 +49,23 @@ export default defineComponent({
 		},
 	},
 	setup(props) {
-		if (props.menu.show) {
-			if (!props.menu.show()) {
-				return () => <></>;
-			}
-		}
+		const $t = useI18n().t;
+
+		const show = computed(() => {
+			return props.menu.show?.() ?? true;
+		});
+
 		return () => (
 			<>
-				{menuTitle(props)}
-				{props.menu.contents.map(toSubMenuObject)}
+				<span style={{ display: 'none' }}>{$t('upgs.byl.61R')}</span>
+				{!show.value ? (
+					''
+				) : (
+					<>
+						{menuTitle(props, $t)}
+						{props.menu.contents.map((x) => toSubMenuObject(x, $t))}
+					</>
+				)}
 			</>
 		);
 	},

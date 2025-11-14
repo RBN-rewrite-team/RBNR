@@ -2,6 +2,7 @@ import ModalService from '@/utils/Modal';
 import { changeSave, hardReset, loadFromString, player, save as s, type Player } from '.';
 import { saveInterval } from '@/core/game-loop';
 import saveslot_display from './saveslot_display';
+import type { $t } from '@/utils/types';
 
 export function UILoadSaveFromFile() {
 	const a = document.createElement('input');
@@ -57,14 +58,14 @@ export function UIHardReset() {
 	});
 }
 
-export function UIChangeSave() {
+export function UIChangeSave($t: $t) {
 	ModalService.show({
-		title: '切换存档',
+		title: $t('modal.changesave1'),
 		component: saveslot_display,
 		fields: [
 			{
 				type: 'input',
-				placeholder: '槽位',
+				placeholder: $t('modal.changesave2'),
 				validation(val) {
 					return 0 <= Number(val) && Number(val) <= 20;
 				},
@@ -79,24 +80,27 @@ export function UIChangeSave() {
 	});
 }
 
-export function UIEnterTesting() {
-	ModalService.show({
-		title: '输入测试码',
-		fields: [
-			{
-				type: 'input',
-				placeholder: '输入测试码',
-				validation(val) {
-					return true;
+export function UIEnterTesting($t: $t) {
+	ModalService.show(
+		($t: $t) => ({
+			title: $t('modal.testcode'),
+			fields: [
+				{
+					type: 'input',
+					placeholder: $t('modal.testcode'),
+					validation(val) {
+						return true;
+					},
 				},
+			],
+			onConfirm(values) {
+				if (values[0] == $t('modal.psdcode')) {
+					player.achievements.push(-2);
+					return;
+				}
+				localStorage.testcode = values[0].slice(0, 25);
 			},
-		],
-		onConfirm(values) {
-			if (values[0] == '测试码') {
-				player.achievements.push(-2);
-				return;
-			}
-			localStorage.testcode = values[0].slice(0, 25);
-		},
-	});
+		}),
+		$t,
+	);
 }

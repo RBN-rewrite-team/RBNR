@@ -62,15 +62,21 @@ function _g() {
 			>
 				+
 			</div>
-			<h1>数论研究{{ player.numbertheory.visiting }}</h1>
+			<h1>
+				{{
+					$t('nt.order', {
+						i: player.numbertheory.visiting.toString(),
+					})
+				}}
+			</h1>
 			<div class="center_line" />
-			<span v-if="player.numbertheory.visiting <= 2" style="color: rgb(255, 63, 63)"
-				>嗯？这是什么研究，我怎么不知道？之前有人来过这里吗？</span
-			>
+			<span v-if="player.numbertheory.visiting <= 2" style="color: rgb(255, 63, 63)">{{
+				$t('nt.wait')
+			}}</span>
 			<div v-if="player.numbertheory.visiting == 3">
 				<div v-if="!player.upgrades[61]">
-					<h2>增长层级</h2>
-					<h3>τ<sub>3</sub>倍增序数获取速度</h3>
+					<h2>{{ $t('nt.growhier.title') }}</h2>
+					<h3 v-html="$t('nt.growhier.desc')"></h3>
 					<vue-latex
 						:expression="
 							`\\alpha = \\sup\\{\\beta|H_{\\beta}(${formatLaTeXWhole(OrdinalNT.varComputed('hhBase', 3))})<x_3\\} = ` +
@@ -160,9 +166,7 @@ function _g() {
 						</tbody>
 					</table>
 				</div>
-				<span v-else style="color: rgb(255, 63, 63)"
-					>嗯？这是什么研究，我怎么不知道？之前有人来过这里吗？</span
-				>
+				<span v-else style="color: rgb(255, 63, 63)">{{ $t('nt.wait') }}</span>
 			</div>
 			<div
 				v-if="
@@ -170,9 +174,15 @@ function _g() {
 					player.numbertheory.visiting == 4
 				"
 			>
-				<h2>增长模式</h2>
-				τ<sub>4</sub
-				>{{ Dilute.diluteAmount(3) <= 0 ? '增' : '减' }}益BMS推演和U5-2的速度<br />
+				<h2>{{ $t('nt.growingmode') }}</h2>
+				<span
+					v-html="
+						Dilute.diluteAmount(3) <= 0
+							? $t('nt.growingmode.eff')
+							: $t('nt.growingmode.eff2')
+					"
+				></span
+				><br />
 				<vue-latex
 					:expression="`\\dot{x_4} = a\\cdot f\\left(\\prod_{n = 1}^${feature.Hydra.pMaxUnlock()}e_n+1\\right) = ${formatLaTeX(OrdinalNT.varGain('x', 4))}`"
 					display-mode
@@ -195,15 +205,12 @@ function _g() {
 				/>
 				<vue-latex :expression="`f(x) = ${f()}`" display-mode />
 				<vue-latex :expression="`g(x) = ${g()}`" display-mode />
-				<vue-latex
-					:expression="`e_n = \\text{第\\textit{n}个九头蛇重置项目的效果}`"
-					display-mode
-				/>
+				<vue-latex :expression="`e_n = \\text{${$t('nt.growingmode.en')}}`" display-mode />
 				<vue-latex
 					:expression="`x_4 = ${formatLaTeX(player.numbertheory.GM.x)}`"
 					display-mode
 				/>
-				价格对应资源为x<sub>4</sub>, τ<sub>4</sub>的购买项/升级不消耗任何东西。
+				<span v-html="$t('nt.growingmode.c')"></span>。
 				<table align="center">
 					<tbody>
 						<tr v-if="Dilute.diluteAmount(3) <= 0">

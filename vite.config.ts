@@ -5,9 +5,14 @@ import vue from '@vitejs/plugin-vue';
 import legacy from '@vitejs/plugin-legacy';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import htmlMinifier from 'vite-plugin-html-minifier';
-
+import vueI18n from '@intlify/unplugin-vue-i18n/vite';
 // https://vite.dev/config/
 export default defineConfig({
+	define: {
+		__VUE_I18N_FULL_INSTALL__: true,
+		__VUE_I18N_LEGACY_API__: false,
+		__INTLIFY_PROD_DEVTOOLS__: false,
+	},
 	plugins: [
 		vue(),
 		legacy({
@@ -20,6 +25,9 @@ export default defineConfig({
 		htmlMinifier({
 			minify: true,
 		}),
+		vueI18n({
+			runtimeOnly: false,
+		}),
 	],
 	resolve: {
 		alias: {
@@ -29,5 +37,8 @@ export default defineConfig({
 	base: './',
 	server: {
 		host: '0.0.0.0',
+	},
+	build: {
+		sourcemap: true,
 	},
 });

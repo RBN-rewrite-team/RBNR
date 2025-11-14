@@ -9,65 +9,118 @@ import ModalService from '@/utils/Modal';
 import fontUI from '@/core/save/fontUI';
 import { setMusic as incMusic, MUSIC_TEXT, setMusicUrlAndPlay } from '@/core/music';
 import CenterLine from '@/components/ui/CenterLine.vue';
+import { openSetLangModel } from '@/components/i18nUI';
+import { useI18n } from 'vue-i18n';
+import type { $t } from '@/utils/types';
 
+const $t = useI18n().t;
 const validNotations = computed(() =>
 	Object.values(notations).filter((v) => typeof v === 'number'),
 );
 
 const validThemes = computed(() => Object.values(themes).filter((v) => typeof v == 'number'));
-const setFontUI = () => ModalService.show({ title: '设置字体', component: fontUI });
+const setFontUI = () =>
+	ModalService.show(($t: $t) => ({ title: $t('modal.font2'), component: fontUI }), $t);
 </script>
 
 <template>
 	<div class="main" v-if="player.currentTab === 1" align="center">
-		<h3>存档设置</h3>
+		<h3>{{ $t('set.title.saveset') }}</h3>
 		<div>
-			<div class="setting_button" @click="save()">手动保存</div>
-			<div class="setting_button" @click="import_file()">导入存档</div>
-			<div class="setting_button" @click="export_file()">导出存档</div>
-			<div class="hard_reset" @click="() => UIHardReset()">硬重置</div>
+			<div class="setting_button" @click="save()">{{ $t('set.save') }}</div>
+			<div class="setting_button" @click="import_file()">{{ $t('set.import') }}</div>
+			<div class="setting_button" @click="export_file()">{{ $t('set.export') }}</div>
+			<div class="hard_reset" @click="() => UIHardReset()">{{ $t('set.hardreset') }}</div>
 		</div>
 		<div>
-			<div class="setting_button" @click="UIChangeSave">切换存档槽位</div>
-			<div class="setting_button" @click="UIEnterTesting">进入Beta测试</div>
-			<div class="setting_button" @click="player.options.gammaTest = true">进入Gamma测试</div>
+			<div class="setting_button" @click="() => UIChangeSave($t)">
+				{{ $t('set.saveslot') }}
+			</div>
+			<div class="setting_button" @click="() => UIEnterTesting($t)">{{ $t('set.beta') }}</div>
+			<div class="setting_button" @click="player.options.gammaTest = true">
+				{{ $t('set.gamma') }}
+			</div>
 			<button
 				class="setting_button"
 				@click="player.options.allowOffline = !player.options.allowOffline"
 			>
-				离线进度：{{ player.options.allowOffline ? '开' : '关' }}
+				{{
+					$t('set.status', {
+						label: $t('set.offline'),
+						status: $t(
+							player.options.allowOffline ? 'set.status.on' : 'set.status.off',
+						),
+					})
+				}}
 			</button>
-			<button class="setting_button" @click="player.currentTab = 300">进入存档银行</button>
+			<button class="setting_button" @click="player.currentTab = 300">
+				{{ $t('set.savebank') }}
+			</button>
+			<button class="setting_button" @click="() => openSetLangModel($t)">
+				{{ $t('set.setlang') }}
+			</button>
 		</div>
-		<span v-if="isTester()"><br />您已进入Beta测试</span>
-		<span v-if="player.options.gammaTest"><br />您已进入Gamma测试</span>
+		<span v-if="isTester()"><br />{{ $t('set.enteredbeta') }}</span>
+		<span v-if="player.options.gammaTest"><br />{{ $t('set.enteredgamma') }}</span>
 
 		<br />
 		<div v-if="player.singularity.stage < 1">
 			<CenterLine />
-			<h3>记数法</h3>
+			<h3>{{ $t('set.title.notations') }}</h3>
 			<button
 				@click="player.options.notation = notation"
 				v-for="notation in validNotations"
 				class="setting_button"
 			>
-				{{ notationNamesMap.get(notation) }}
+				{{ $t(`set.notation.${notation}`) }}
 			</button>
 		</div>
 		<br />
 		<CenterLine />
-		<h3>主题</h3>
+		<h3>{{ $t('set.title.theme') }}</h3>
 		<button class="setting_button" @click="reverseUiOptions('color_inversion')">
-			颜色反转：{{ player.options.ui.otherwise['color_inversion'] ? '开' : '关' }}
+			{{
+				$t('set.status', {
+					label: $t('set.colorinverse'),
+					status: $t(
+						player.options.ui.otherwise['color_inversion']
+							? 'set.status.on'
+							: 'set.status.off',
+					),
+				})
+			}}
 		</button>
 		<button class="setting_button" @click="reverseUiOptions('full_gray')">
-			全灰度：{{ player.options.ui.otherwise['full_gray'] ? '开' : '关' }}
+			{{
+				$t('set.status', {
+					label: $t('set.grey'),
+					status: $t(
+						player.options.ui.otherwise['full_gray']
+							? 'set.status.on'
+							: 'set.status.off',
+					),
+				})
+			}}
 		</button>
 		<button class="setting_button" @click="reverseUiOptions('blur')">
-			模糊：{{ player.options.ui.otherwise['blur'] ? '开' : '关' }}
+			{{
+				$t('set.status', {
+					label: $t('set.blur'),
+					status: $t(
+						player.options.ui.otherwise['blur'] ? 'set.status.on' : 'set.status.off',
+					),
+				})
+			}}
 		</button>
 		<button class="setting_button" @click="reverseUiOptions('sepia')">
-			旧相片：{{ player.options.ui.otherwise['sepia'] ? '开' : '关' }}
+			{{
+				$t('set.status', {
+					label: $t('set.oldalbum'),
+					status: $t(
+						player.options.ui.otherwise['sepia'] ? 'set.status.on' : 'set.status.off',
+					),
+				})
+			}}
 		</button>
 		<br />
 		<button
@@ -75,34 +128,55 @@ const setFontUI = () => ModalService.show({ title: '设置字体', component: fo
 			class="setting_button"
 			@click="player.options.ui.theme = theme"
 		>
-			{{ themeDetailsMap.get(theme)?.name ?? 'unknown' }} {{ theme }}
+			{{ $t(`set.theme.${theme}`) }} {{ theme }}
 		</button>
 		<br />
-		<button class="setting_button" @click="setFontUI">设置字体</button>
+		<button class="setting_button" @click="setFontUI">{{ $t('set.setfont') }}</button>
 		<br />
 		<br />
 		<CenterLine />
-		<h3>界面</h3>
+		<h3>{{ $t('set.title.ui') }}</h3>
 		<button
 			class="setting_button"
 			@click="player.options.ui.newsbar = !player.options.ui.newsbar"
 		>
-			新闻栏：{{ player.options.ui.newsbar ? '开' : '关' }}
+			{{
+				$t('set.status', {
+					label: $t('set.news'),
+					status: $t(player.options.ui.newsbar ? 'set.status.on' : 'set.status.off'),
+				})
+			}}
 		</button>
 		<button
 			class="setting_button"
 			@click="player.options.ui.titlebar = !player.options.ui.titlebar"
 		>
-			标题栏：{{ player.options.ui.titlebar ? '开' : '关' }}
+			{{
+				$t('set.status', {
+					label: $t('set.title'),
+					status: $t(player.options.ui.titlebar ? 'set.status.on' : 'set.status.off'),
+				})
+			}}
 		</button>
 		<button class="setting_button" @click="player.options.isGuoGao = !player.options.isGuoGao">
-			果糕层级：{{ player.options.isGuoGao ? '开' : '关' }}</button
-		><br />
+			{{
+				$t('set.status', {
+					label: $t('set.guogao'),
+					status: $t(player.options.isGuoGao ? 'set.status.on' : 'set.status.off'),
+				})
+			}}
+		</button>
+		<br />
 		<CenterLine />
 		<button class="setting_button" @click="incMusic">
-			音乐: {{ MUSIC_TEXT[player.options.music] }}
+			{{
+				$t('set.status', {
+					label: $t('set.music'),
+					status: MUSIC_TEXT[player.options.music],
+				})
+			}}
 		</button>
-		<button class="setting_button" @click="setMusicUrlAndPlay">自定义音乐</button>
+		<button class="setting_button" @click="setMusicUrlAndPlay">{{ $t('set.musicurl') }}</button>
 	</div>
 	<!-- code... -->
 </template>

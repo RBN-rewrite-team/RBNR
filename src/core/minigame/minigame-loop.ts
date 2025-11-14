@@ -1,6 +1,8 @@
+import type { $t } from '@/utils/types';
 import { player } from '../save';
 import { isUnreachable, getCurrentBlock } from './block';
 import { positionDirection } from './room';
+import { getMessage } from '@/utils/i18n';
 
 export function miniGameLoop(diff: number) {}
 export type KeyPresses = 'up' | 'down' | 'left' | 'right';
@@ -24,10 +26,10 @@ export function setPosManmade(
 		player.minigame.current_y = goalpos[1];
 	}
 }
-export function interactBlock(room: number, x: bigint, y: bigint, key: Directions) {
-	return getCurrentBlock(room, x, y)?.interact?.(x, y, key);
+export function interactBlock(room: number, x: bigint, y: bigint, key: Directions, $t: $t) {
+	return getCurrentBlock(room, x, y)?.interact?.(x, y, key, $t);
 }
-export function handleKeyPress(key: KeyPresses) {
+export function handleKeyPress(key: KeyPresses, $t: $t) {
 	if (['up', 'down', 'left', 'right'].includes(key)) {
 		if (player.minigame.interact == 0) {
 			const pos = positionDirection(
@@ -38,7 +40,7 @@ export function handleKeyPress(key: KeyPresses) {
 				player.minigame.current_x + 0n,
 				player.minigame.current_y + 0n,
 			]);
-			interactBlock(player.minigame.current_room, pos[0], pos[1], key);
+			interactBlock(player.minigame.current_room, pos[0], pos[1], key, $t);
 		}
 	}
 }
@@ -48,16 +50,16 @@ export function keyboardEventListener(e: Event) {
 	if (e instanceof KeyboardEvent) {
 		switch (e.key) {
 			case 'ArrowUp':
-				handleKeyPress('up');
+				handleKeyPress('up', getMessage);
 				break;
 			case 'ArrowDown':
-				handleKeyPress('down');
+				handleKeyPress('down', getMessage);
 				break;
 			case 'ArrowLeft':
-				handleKeyPress('left');
+				handleKeyPress('left', getMessage);
 				break;
 			case 'ArrowRight':
-				handleKeyPress('right');
+				handleKeyPress('right', getMessage);
 				break;
 		}
 	}

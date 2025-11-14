@@ -3,6 +3,7 @@ import Decimal from 'break_eternity.js';
 import type { DecimalSource } from 'break_eternity.js';
 import { diff } from '@/core/game-loop';
 import { player } from '@/core/global';
+import { getMessage } from './i18n';
 
 export enum notations {
 	SCIENTIFIC,
@@ -213,7 +214,7 @@ export function formatGain(a: DecimalSource, e: DecimalSource, resourceName: str
 	if (g.neq(a)) {
 		if (a.gte(Decimal.tetrate(10, 6))) {
 			var oom = new Decimal(g).slog(10).sub(new Decimal(a).slog(10)).mul(FPS);
-			if (oom.gte(1e-3)) return '(+' + format(oom) + '数量级<sup>数量级</sup>' + '/s)';
+			if (oom.gte(1e-3)) return '(+' + format(oom) + getMessage('res.oomspooms') + '/s)';
 		}
 
 		if (a.gte('ee10')) {
@@ -235,12 +236,18 @@ export function formatGain(a: DecimalSource, e: DecimalSource, resourceName: str
 				if (oom.gte(1)) rated = true;
 			}
 
-			if (rated) return '(+' + format(oom) + '数量级<sup>' + tower + '</sup>' + '/s)';
+			if (rated)
+				return (
+					'(+' +
+					format(oom) +
+					getMessage('res.oomsp').replace('{level}', tower.toString()) +
+					'/s)'
+				);
 		}
 
 		if (a.gte(1e10)) {
 			const oom = g.div(a).log10().mul(FPS);
-			if (oom.gte(1)) return '(+' + format(oom) + '数量级' + '/s)';
+			if (oom.gte(1)) return '(+' + format(oom) + getMessage('res.ooms') + '/s)';
 		}
 	}
 
@@ -255,41 +262,46 @@ export function formatGain(a: DecimalSource, e: DecimalSource, resourceName: str
  */
 export function formatTime(ex: DecimalSource, acc = 3, type = 's'): string {
 	ex = new Decimal(ex);
-	if (!ex.isFinite()) return '5更新时';
+	if (!ex.isFinite()) return getMessage('res.infinite');
 	if (ex.gte(138e8 * 31536e3)) {
-		return format(ex.div(138e8 * 31536e3), 3) + '当前宇宙年龄';
+		return format(ex.div(138e8 * 31536e3), 3) + getMessage('res.uni');
 	}
 	if (ex.gte(3153600000)) {
-		return format(ex.div(3153600000), 3) + '个世纪';
+		return format(ex.div(3153600000), 3) + getMessage('res.century');
 	}
 	if (ex.gte(31536000)) {
 		return (
 			format(ex.div(31536000).floor(), 0) +
-			'年' +
-			(ex.div(31536000).gte(1e9) ? '' : ' ' + formatTime(ex.mod(31536000), acc, '年'))
+			getMessage('res.year') +
+			(ex.div(31536000).gte(1e9)
+				? ''
+				: ' ' + formatTime(ex.mod(31536000), acc, getMessage('res.year')))
 		);
 	}
 	if (ex.gte(86400)) {
 		var n = ex.div(86400).floor();
 		return (
-			(n.gt(0) || type == 'd' ? format(ex.div(86400).floor(), 0) + '天' : '') +
-			formatTime(ex.mod(86400), acc, '天')
+			(n.gt(0) || type == 'd'
+				? format(ex.div(86400).floor(), 0) + getMessage('res.day')
+				: '') + formatTime(ex.mod(86400), acc, getMessage('res.day'))
 		);
 	}
 	if (ex.gte(3600)) {
 		var n = ex.div(3600).floor();
 		return (
-			(n.gt(0) || type == 'h' ? format(ex.div(3600).floor(), 0) + '时' : '') +
-			formatTime(ex.mod(3600), acc, '时')
+			(n.gt(0) || type == 'h'
+				? format(ex.div(3600).floor(), 0) + getMessage('res.hour')
+				: '') + formatTime(ex.mod(3600), acc, getMessage('res.hour'))
 		);
 	}
 	if (ex.gte(60)) {
 		var n = ex.div(60).floor();
 		return (
-			(n.gt(0) || type == 'm' ? format(n, 0) + '分' : '') + formatTime(ex.mod(60), acc, '分')
+			(n.gt(0) || type == 'm' ? format(n, 0) + getMessage('res.minute') : '') +
+			formatTime(ex.mod(60), acc, getMessage('res.minute'))
 		);
 	}
-	return ex.gt(0) || type == 's' ? format(ex, acc) + '秒' : '';
+	return ex.gt(0) || type == 's' ? format(ex, acc) + getMessage('res.second') : '';
 }
 
 export function formatReduction(ex: DecimalSource, acc?: number) {

@@ -33,3 +33,9 @@ export function getTotalTheories() {
 	if (player.upgrades['7t6q']) base = base.add(10000);
 	return base;
 }
+
+export function secInThisReset52717273() {
+	let a = player.nonrecu.secInThisReset;
+	if (player.upgrades['73']) a = a.mul('1e10');
+	return a;
+}

@@ -67,7 +67,7 @@ const tabComponents: {
 	20: HydraDilute,
 	21: NonRecursionMilestones,
 	22: NonRecursionTabChal,
-	23: NonRecursionFactor,
+	// 23: NonRecursionFactor,
 	24: StudyTree,
 	25: NonRecursionTabUpgrade,
 	26: NonRecursionUNOCF,

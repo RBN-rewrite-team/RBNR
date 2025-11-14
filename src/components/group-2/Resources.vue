@@ -46,7 +46,7 @@ import { Garden } from '@/core/pt/index.ts';
 							class="resource"
 						>
 							<div style="font-weight: bold; color: var(--suptitle-color)">
-								数值&nbsp;
+								{{ $t('res.number') }}&nbsp;
 								<template v-if="player.singularity.t > 666.6666666">ω</template>
 								<template v-else>{{ formatWhole(player.number) }}</template>
 							</div>
@@ -59,7 +59,7 @@ import { Garden } from '@/core/pt/index.ts';
 										player.singularity.stage < 11 &&
 										feature.SUCCESSOR.autoSuccessPerSecond().eq(0)
 									"
-									>(需要通过后继获得)</span
+									>{{ $t('res.number.required') }}</span
 								>
 								<span
 									v-else
@@ -74,13 +74,19 @@ import { Garden } from '@/core/pt/index.ts';
 								>({{ formatWhole(player.totalNumber) }})
 								<br />
 								<span v-if="feature.resourceGain.number().softcaps > 0">
-									(受{{ feature.resourceGain.number().softcaps }}个软上限限制)
+									{{
+										$t('res.softcapped', {
+											amount: feature.resourceGain
+												.number()
+												.softcaps.toString(),
+										})
+									}}
 								</span>
 							</div>
 						</div>
 						<div style="margin-left: 15px" class="resource" v-else>
 							<div style="font-weight: bold; color: rgb(255, 63, 63)">
-								序数&nbsp;
+								{{ $t('res.ordinal') }}&nbsp;
 								<span
 									v-html="
 										Ordinal.displayOrdinalColored(
@@ -143,10 +149,7 @@ import { Garden } from '@/core/pt/index.ts';
 							>
 								<span
 									v-html="
-										formatGain(
-											temp.lastBMSDeduce,
-											feature.Hydra.deduceSpeed(0),
-										).replace('(', '(推演')
+										formatGain(temp.lastBMSDeduce, feature.Hydra.deduceSpeed(0))
 									"
 								></span>
 							</div>
@@ -154,7 +157,11 @@ import { Garden } from '@/core/pt/index.ts';
 								style="font-size: 17px; color: rgb(155, 125, 195)"
 								v-if="player.upgrades[61]"
 							>
-								(已推演{{ formatWhole(player.hydra.deduceOrdinal[0]) }}次)
+								({{
+									$t('hydra.youhavededuced', {
+										deduce: formatWhole(player.hydra.deduceOrdinal[0]),
+									})
+								}})
 							</div>
 						</div>
 						<div
@@ -167,7 +174,7 @@ import { Garden } from '@/core/pt/index.ts';
 							"
 						>
 							<div style="font-weight: bold; color: #009dd9">
-								加法能量&nbsp;
+								{{ $t('res.addpower') }}&nbsp;
 								<div style="display: inline; text-shadow: #5acaff 1px 1px 2px">
 									{{ formatWhole(player.addpower) }}
 								</div>
@@ -193,7 +200,13 @@ import { Garden } from '@/core/pt/index.ts';
 								(!{{ formatWhole(player.totalAddpower) }})
 								<br />
 								<span v-if="feature.resourceGain.addpower().softcaps > 0">
-									(受{{ feature.resourceGain.addpower().softcaps }}个软上限限制)
+									{{
+										$t('res.softcapped', {
+											amount: feature.resourceGain
+												.addpower()
+												.softcaps.toString(),
+										})
+									}}
 								</span>
 							</div>
 						</div>
@@ -206,7 +219,7 @@ import { Garden } from '@/core/pt/index.ts';
 							"
 						>
 							<div style="font-weight: bold; color: #cc33ff">
-								乘法能量&nbsp;
+								{{ $t('res.mulpower') }}&nbsp;
 								<div style="display: inline; text-shadow: #dd77dd 1px 1px 2px">
 									{{ formatWhole(player.multiplication.mulpower) }}
 								</div>
@@ -232,7 +245,13 @@ import { Garden } from '@/core/pt/index.ts';
 								(!{{ formatWhole(player.multiplication.totalMulpower) }})
 								<br />
 								<span v-if="feature.resourceGain.mulpower().softcaps > 0">
-									(受{{ feature.resourceGain.mulpower().softcaps }}个软上限限制)
+									{{
+										$t('res.softcapped', {
+											amount: feature.resourceGain
+												.mulpower()
+												.softcaps.toString(),
+										})
+									}}
 								</span>
 							</div>
 						</div>
@@ -245,7 +264,7 @@ import { Garden } from '@/core/pt/index.ts';
 							"
 						>
 							<div style="font-weight: bold; color: rgb(127, 127, 255)">
-								指数能量&nbsp;
+								{{ $t('res.exppower') }}&nbsp;
 								<div
 									style="
 										display: inline;
@@ -278,7 +297,7 @@ import { Garden } from '@/core/pt/index.ts';
 							v-if="player.upgrades[517]"
 						>
 							<div style="font-weight: bold; color: rgb(200, 190, 245)">
-								九头蛇能量&nbsp;
+								{{ $t('res.hydra') }}&nbsp;
 								<div
 									style="
 										display: inline;
