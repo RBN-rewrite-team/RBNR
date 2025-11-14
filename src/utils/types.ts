@@ -12,3 +12,5 @@ export type $t = ComposerTranslation<
 	never,
 	never
 >;
+
+export type FunctionArguments<T> = T extends (...args: infer B) => unknown ? B : never;

@@ -99,7 +99,9 @@ function class3() {
 			<template v-else-if="game_object instanceof OreGameObject">
 				{{ $t('dung.ore.3') }}
 			</template>
-			<template v-else-if="game_object instanceof TeleporterGameObject"> 传送门 </template>
+			<template v-else-if="game_object instanceof TeleporterGameObject">
+				{{ $t('dung.teleport') }}
+			</template>
 			<template v-else-if="game_object instanceof HealthRecoveryGameObject">
 				{{
 					$t('dung.healthrec', {

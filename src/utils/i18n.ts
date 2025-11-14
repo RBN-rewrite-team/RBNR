@@ -2,6 +2,7 @@ import { createI18n, useI18n } from 'vue-i18n';
 
 import zhCN from '@/locales/zh_CN.tsx';
 import enUS from '@/locales/en_US.tsx';
+import type { $t, FunctionArguments } from './types';
 export const messages = {
 	'zh-CN': zhCN,
 	'en-US': enUS,
@@ -34,8 +35,10 @@ export function setI18NLocal(loc: keyof typeof messages) {
 	i18n.global.locale.value = loc;
 }
 
-type M = typeof messages;
-type N = M[keyof M];
-export function getMessage<T extends keyof N>(inner: T extends keyof N ? T : never) {
-	return messages[i18n.global.locale.value][inner] ?? messages['zh-CN'][inner] + inner;
-}
+// type M = typeof messages;
+// type N = M[keyof M];
+// export function getMessage<T extends keyof N>(inner: T extends keyof N ? T : never) {
+// 	return messages[i18n.global.locale.value][inner] ?? messages['zh-CN'][inner] + inner;
+// }
+
+export const getMessage = i18n.global.t as $t;

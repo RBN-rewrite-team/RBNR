@@ -1279,4 +1279,24 @@ export default {
 	'dung.guard3': '重型守卫',
 	'dung.guard4': '魔法师',
 	'dung.a': '技能点：',
+
+	'dung.movement.complete': '移动完成',
+	'dung.movement.unable': '无法移动',
+	'dung.movement.moving': '移动中 {a}/{b}',
+	'dung.battle.win': '战斗胜利',
+	'dung.battle.get': '获得了',
+	'dung.boxes.res': '你打开了宝箱，获得了{res}时间碎片。',
+	'dung.guard.boss': '守卫队长',
+	'dung.guard.apostle': 'Apostle',
+	'dung.boxes.restrict': '宝箱周围7x7内怪物清完才能打开',
+	'dung.key.get': '你获得了钥匙',
+	'dung.healthrec.e': '你回复了HP',
+	'dung.moveablebox.t': '推不动可以点击箱子拿起',
+	'dung.death': '死亡',
+	'dung.death.det': '你被{a}击杀，返回出生点并清空等级。获得了 {b} 技能点',
+
+	'dung.moveablebox.pick': '已拿起箱子（只能在玩家上下左右1格放下箱子）',
+	'dung.moveablebox.put': '已放下箱子',
+
+	'dung.gemstone.t': '你获得了矿石，全局速度+0.25%',
 };

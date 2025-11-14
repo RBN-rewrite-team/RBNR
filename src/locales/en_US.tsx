@@ -1326,4 +1326,25 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'dung.guard3': 'Heavy Guard',
 	'dung.guard4': 'Wizard',
 	'dung.a': 'Skill Point',
+
+	'dung.movement.complete': 'Move completed',
+	'dung.movement.unable': 'Unable to move',
+	'dung.movement.moving': 'Moving... {a}/{b}',
+	'dung.battle.win': 'Battle complete',
+	'dung.battle.get': 'Get',
+	'dung.boxes.res': 'You opened the box, You get {res} Time shrad.',
+	'dung.guard.boss': 'Guard Leader',
+	'dung.guard.apostle': 'Apostle',
+	'dung.boxes.restrict': 'You have to kill the monsters around(7x7) box to open this box.',
+	'dung.key.get': 'You get the key',
+	'dung.healthrec.e': 'You recover HP',
+	'dung.moveablebox.t': 'You can click this box to pick the box up.',
+	'dung.death': 'Death',
+	'dung.death.det':
+		'You were killed by {a} and returned to the spawn point, resetting your level. You gained {b} skill points.',
+
+	'dung.moveablebox.pick': 'Picked Box (You can only put box around player)',
+	'dung.moveablebox.put': 'Put Box',
+
+	'dung.gemstone.t': 'You gained gem stone, Global speed+0.25%',
 };

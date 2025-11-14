@@ -148,7 +148,7 @@ export class OreGameObject extends GameObject {
 		super();
 	}
 	interact(x: bigint, y: bigint, direction: Directions, $t: $t): void {
-		temp.minigametip = '你获得了矿石，全局速度+0.25%。';
+		temp.minigametip = $t('dung.gemstone.t');
 		player.minigame.ore_gets++;
 		addReplace(player.minigame.current_room, x, y, '0');
 	}
@@ -235,10 +235,15 @@ export class EntityGameObject extends GameObject {
 				}
 			}
 			player.minigame.xp += guardinfo.xp;
-			temp.minigametip = '战斗胜利<br>';
-			temp.minigametip += '获得了<span style="color: gold">' + guardinfo.xp + '</span>XP<br>';
+			temp.minigametip = $t('dung.battle.win') + '<br>';
+			temp.minigametip +=
+				$t('dung.battle.get') +
+				'<span style="color: gold">' +
+				guardinfo.xp +
+				'</span>XP<br>';
 			for (const i in spoils) {
-				temp.minigametip += '获得了' + equipmentDisplay(spoils[i], getMessage) + '<br>';
+				temp.minigametip +=
+					$t('dung.battle.get') + equipmentDisplay(spoils[i], getMessage) + '<br>';
 			}
 		}
 		player.minigame.interact = 0;
@@ -269,10 +274,11 @@ export class BossGameObject extends EntityGameObject {
 	innerText: string = '守卫队长';
 	constructor(type: number = 2) {
 		super(1);
+		this.innerText = getMessage('dung.guard.boss');
 		this.tier = getWorldLevel();
 		this.type = 2;
 		this.rate = 2;
-		if (type == 6) ((this.innerText = '使徒'), (this.rate = 5));
+		if (type == 6) ((this.innerText = getMessage('dung.guard.apostle')), (this.rate = 5));
 	}
 }
 export class BoxGameObject extends GameObject {
@@ -288,7 +294,9 @@ export class BoxGameObject extends GameObject {
 		if (this.tier == 2) price = Math.random() * 25 + 25;
 		if (this.tier == 3) price = Math.random() * 125 + 125;
 		player.minigame.box_gets[this.tier - 1]++;
-		((temp.minigametip = '你打开了宝箱，获得了' + price.toFixed(3) + '时间碎片。'),
+		((temp.minigametip = $t('dung.boxes.res', {
+			res: price.toFixed(3),
+		})),
 			(player.timeshard.value = player.timeshard.value.add(price)));
 		addReplace(player.minigame.current_room, x, y, '0', false);
 	}
@@ -311,7 +319,7 @@ export class RestrictedBoxObject extends BoxGameObject {
 			}
 		}
 		if (restricted) {
-			temp.minigametip = '宝箱周围7x7内怪物清完才能打开';
+			temp.minigametip = $t('dung.boxes.restrict');
 		} else {
 			BoxGameObject.prototype.interact.apply(this, [x, y, direction, $t]);
 		}
@@ -324,7 +332,7 @@ export class KeyGameObject extends GameObject {
 		this.keyid = tier;
 	}
 	interact(x: bigint, y: bigint, direction: Directions, $t: $t): void {
-		((temp.minigametip = '你获得了钥匙'), player.minigame.keys_have.push(this.keyid));
+		((temp.minigametip = $t('dung.key.get')), player.minigame.keys_have.push(this.keyid));
 		addReplace(player.minigame.current_room, x, y, '0');
 	}
 }
@@ -335,7 +343,7 @@ export class HealthRecoveryGameObject extends GameObject {
 		this.percent = percent;
 	}
 	interact(x: bigint, y: bigint, direction: Directions, $t: $t): void {
-		((temp.minigametip = '你回复了HP'),
+		((temp.minigametip = $t('dung.healthrec.e')),
 			(player.minigame.hp += ((currentPlayerLV() * this.percent) / 100) * 10));
 		addReplace(player.minigame.current_room, x, y, '0');
 	}
@@ -362,7 +370,7 @@ export class MoveableBoxGameObject extends GameObject {
 			player.minigame.current_x = player_moved[0];
 			player.minigame.current_y = player_moved[1];
 		} else {
-			temp.minigametip = '推不动可以点击箱子拿起';
+			temp.minigametip = $t('dung.moveablebox.t');
 		}
 	}
 }
