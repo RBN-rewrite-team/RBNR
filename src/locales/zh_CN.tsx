@@ -1611,4 +1611,5 @@ export default {
 	'savebank.66次非递归': '66次非递归',
 
 	'currency.x4': 'x<sub>4</sub>',
+	'crreuncy.τ4': 'τ<sub>4</sub>',
 };
