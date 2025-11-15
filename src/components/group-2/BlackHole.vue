@@ -15,14 +15,14 @@ function getBHsize(t: number) {
 }
 function getBHtext(t: number) {
 	let tx = format(feature.SingularityGenerator.getSingularityEnergy());
-	if (t < 550) tx += '<br>' + getMessage('sing.1');
-	else if (t < 600) tx += '<br>' + getMessage('sing.2');
-	else if (t < 625) tx += '<br>' + getMessage('sing.3');
-	else if (t < 650) tx += '<br>' + getMessage('sing.4');
-	else if (t < 666.67) tx += '<br>' + getMessage('sing.5');
+	if (t < 550) tx += '<br>' + getMessage('sing1');
+	else if (t < 600) tx += '<br>' + getMessage('sing2');
+	else if (t < 625) tx += '<br>' + getMessage('sing3');
+	else if (t < 650) tx += '<br>' + getMessage('sing4');
+	else if (t < 666.67) tx += '<br>' + getMessage('sing5');
 	else if (t < 670)
 		tx = '<span style="font-size: ' + (670 - t + 1) * 30 + 'px">' + tx + '</span>';
-	else if (t < 675) return '<span style="color: gold">' + getMessage('sing.6') + '</span>';
+	else if (t < 675) return '<span style="color: gold">' + getMessage('sing6') + '</span>';
 	else if (t <= 710) return '';
 	return tx;
 }

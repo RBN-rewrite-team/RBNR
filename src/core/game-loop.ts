@@ -27,6 +27,8 @@ import { achLoop } from './achievements.ts';
 import { format } from '@/utils/format.ts';
 import { OrdinalUtils } from '@/utils/ordinal.ts';
 import { PTEffects, Garden } from './pt/index.ts';
+import { getMessage } from '@/utils/i18n.ts';
+import { numberGrow } from './psd-number-grow.ts';
 
 /**
  * 游戏循环经过了多少时间
@@ -153,15 +155,16 @@ export function gameLoop() {
 function getCurTitle() {
 	let base = '';
 	if (player.pt.resetTimes.gte(1)) {
-		base = '大数之路放置版';
+		base = getMessage('title.idlen');
 	} else {
-		base = '大数之路重制版';
+		base = getMessage('title.rewritten');
 	}
-
-	if (player.singularity.t < 666.6666666) {
-		base += ' - ' + format(player.number) + '数值';
+	if (player.singularity.t < 630) {
+		base += ' - ' + format(player.number) + getMessage('res.number');
+	} else if (player.singularity.t < 666.6666666) {
+		base += ' - >' + numberGrow(player.singularity.t) + getMessage('res.number');
 	} else if (!(player.firstResetBit & 0b1000)) {
-		base += ' - ω数值';
+		base += ' - ω' + getMessage('res.number');
 	} else if (!player.upgrades[61]) {
 		base +=
 			' - ' +
@@ -175,8 +178,8 @@ function getCurTitle() {
 			);
 	}
 	if (base.length > 20) {
-		base = base.replace('大数之路重制版', 'RBNR');
-		base = base.replace('大数之路放置版', 'Idle');
+		base = base.replace(getMessage('title.rewritten'), 'RBNR');
+		base = base.replace(getMessage('title.idlen'), 'Idle');
 	}
 	return base;
 }

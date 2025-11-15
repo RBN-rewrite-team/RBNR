@@ -849,12 +849,12 @@ export default {
 		'The highest value of number({a}) obtained within the logarithm dilation will increase the gain of number (^{b}) and EP (*{c}).',
 
 	'sing.curnum': 'Current Number:',
-	'sing.1': 'THE END......HAS FINALLY DESCENDED......',
-	'sing.2': 'DESTRUCTION......IS IMMINENT......',
-	'sing.3': 'YOU CANNOT TURN BACK......',
-	'sing.4': 'THE SINGULARITY IS BREAKING THE WORLD......',
-	'sing.5': 'PREPARE FOR... A NEW WELCOME...',
-	'sing.6': 'WELCOME TO THE WORLD OF ORDINALS. HAVE FUN.',
+	sing1: 'THE END......HAS FINALLY DESCENDED......',
+	sing2: 'DESTRUCTION......IS IMMINENT......',
+	sing3: 'YOU CANNOT TURN BACK......',
+	sing4: 'THE SINGULARITY IS BREAKING THE WORLD......',
+	sing5: 'PREPARE FOR... A NEW WELCOME...',
+	sing6: 'WELCOME TO THE WORLD OF ORDINALS. HAVE FUN.',
 
 	'currency.ordinal': 'Ordinal',
 	'sing.fin': `The Singularity Generator stops after crossing the edge of the finite and the transfinite.<br />
