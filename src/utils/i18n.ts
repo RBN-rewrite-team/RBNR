@@ -27,7 +27,6 @@ export const messagesLength = (function () {
 	const a = {
 		'zh-CN': 0,
 		'en-US': 0,
-		'en-GB': 0,
 	};
 	for (const key in messages) {
 		a[key as keyof typeof messages] = Object.keys(
