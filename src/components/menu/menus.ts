@@ -249,9 +249,9 @@ export const menus = [
 			{
 				id: 16,
 				text: 'tab.help',
-				show() {
-					return player.firstResetBit & 0b1000;
-				},
+				// show() {
+				// 	return player.firstResetBit & 0b1000;
+				// },
 			},
 			{ id: 18, text: 'tab.timeshard' },
 		],

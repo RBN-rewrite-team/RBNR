@@ -8,7 +8,6 @@ import HelpContent from './HelpContent';
 
 <template>
 	<div class="main">
-		<p>This help is about Ordinal Googology Tutorial, it's useless for entire game.</p>
 		<helpNavigator />
 		<div>
 			<HelpContent />

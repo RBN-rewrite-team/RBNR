@@ -9,20 +9,19 @@ export default defineComponent({
 		return () => (
 			<>
 				<div style="position:sticky;top: 5px; ">
+					<p>{formatWhole(player.help.page)}</p>
 					<div style="display: flex; justify-content: center; align-items: center; margin-top: 5px;background: var(--background-color) ">
 						<button class="clickable_button" onClick={lastPage}>
 							-
 						</button>
-						第 {formatWhole(player.help.page)} 页
-						<button class="clickable_button" onClick={nextPage}>
-							+
-						</button>
-						<br />
 						{Object.entries(SHORTCUTS).map((x) => (
 							<button class="clickable_button" onClick={() => gotoShortCut(x[0])}>
 								{x[1].text}
 							</button>
 						))}
+						<button class="clickable_button" onClick={nextPage}>
+							+
+						</button>
 					</div>
 					<div style="margin: auto;">
 						<div class="center_line" />

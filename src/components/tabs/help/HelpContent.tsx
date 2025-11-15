@@ -17,109 +17,116 @@ import ordinal102 from './contents/ocf-102.txt?raw';
 import ordinal103 from './contents/ocf-103.txt?raw';
 import ordinal104 from './contents/ocf-104.txt?raw';
 import ordinal105 from './contents/ocf-105.txt?raw';
+
+import gamecontent1 from './contents2/gamecontent-1.txt?raw';
+import gamecontent1e from './contents2/gamecontent-1-en.txt?raw';
+import { i18n } from '@/utils/i18n';
 // prettier-ignore
 export const HELP_CONTENT = [
     {
         page: 1,
-        content: ordinal1,
+        get content() {
+            // @ts-expect-error
+            return i18n.global.locale.value == 'zh-CN' ? gamecontent1 : gamecontent1e
+        },
         unlocked() {return true},
     },
-    {
-        page: 2,
-        content: ordinal2,
-        unlocked() {return true},
-    },
-    {
-        page: 3,
-        content: ordinal3,
-        unlocked() {
-            return player.upgrades[58];
-        },
-    },
-    {
-        page: 4,
-        content: ordinal4,
-        unlocked() {
-            return player.upgrades[58];
-        },
-    },
-    {
-        page: 5,
-        content: ordinal5,
-        unlocked() {
-            return player.upgrades[58];
-        },
-    },
-    {
-        page: 6,
-        content: ordinal6,
-        unlocked() {
-            return player.upgrades[58];
-        },
-    },
-    {
-        page: 7,
-        content: ordinal7,
-        unlocked() {
-            return player.upgrades[58];
-        },
-    },
-    {
-        page: 8,
-        content: ordinal8,
-        unlocked() {
-            return player.upgrades[58];
-        },
-    },
-    {
-        page: 9,
-        content: ordinal9,
-        unlocked() {
-            return player.upgrades[58];
-        },
-    },
-    {
-        page: 10,
-        content: ordinal10,
-        unlocked() {
-            return player.upgrades[58];
-        },
-    },
-    {
-        page: 101,
-        content: ordinal101,
-        unlocked() {
-            return true;
-        },
-    },
-    {
-        page: 102,
-        content: ordinal102,
-        unlocked() {
-            return true;
-        },
-    },
-    {
-        page: 103,
-        content: ordinal103,
-        unlocked() {
-            return true;
-        },
-    },
-    {
-        page: 104,
-        content: ordinal104,
-        unlocked() {
-            return true;
-        },
-    },
-    {
-        page: 105,
-        content: ordinal105,
-        unlocked() {
-            return true;
-        },
-    },
+    // {
+    //     page: 2,
+    //     content: ordinal2,
+    //     unlocked() {return true},
+    // },
+    // {
+    //     page: 3,
+    //     content: ordinal3,
+    //     unlocked() {
+    //         return player.upgrades[58];
+    //     },
+    // },
+    // {
+    //     page: 4,
+    //     content: ordinal4,
+    //     unlocked() {
+    //         return player.upgrades[58];
+    //     },
+    // },
+    // {
+    //     page: 5,
+    //     content: ordinal5,
+    //     unlocked() {
+    //         return player.upgrades[58];
+    //     },
+    // },
+    // {
+    //     page: 6,
+    //     content: ordinal6,
+    //     unlocked() {
+    //         return player.upgrades[58];
+    //     },
+    // },
+    // {
+    //     page: 7,
+    //     content: ordinal7,
+    //     unlocked() {
+    //         return player.upgrades[58];
+    //     },
+    // },
+    // {
+    //     page: 8,
+    //     content: ordinal8,
+    //     unlocked() {
+    //         return player.upgrades[58];
+    //     },
+    // },
+    // {
+    //     page: 9,
+    //     content: ordinal9,
+    //     unlocked() {
+    //         return player.upgrades[58];
+    //     },
+    // },
+    // {
+    //     page: 10,
+    //     content: ordinal10,
+    //     unlocked() {
+    //         return player.upgrades[58];
+    //     },
+    // },
+    // {
+    //     page: 101,
+    //     content: ordinal101,
+    //     unlocked() {
+    //         return true;
+    //     },
+    // },
+    // {
+    //     page: 102,
+    //     content: ordinal102,
+    //     unlocked() {
+    //         return true;
+    //     },
+    // },
+    // {
+    //     page: 103,
+    //     content: ordinal103,
+    //     unlocked() {
+    //         return true;
+    //     },
+    // },
+    // {
+    //     page: 104,
+    //     content: ordinal104,
+    //     unlocked() {
+    //         return true;
+    //     },
+    // },
+    // {
+    //     page: 105,
+    //     content: ordinal105,
+    //     unlocked() {
+    //         return true;
+    //     },
+    // },
 ] as const satisfies {page: number; content: string; unlocked: ()=>boolean}[]
 export default defineComponent({
 	setup() {

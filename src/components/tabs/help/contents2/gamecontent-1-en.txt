@@ -1,0 +1,13 @@
+Welcome to RBNR!
+This game was coded by three individuals: VeyrrDefine, 0100000000a7, and Seanxlx.
+Some game content design was completed by these three and others (details available on the “About the Game” page).
+Internal disagreements within the development team are common, so certain mechanics may change.
+Due to certain individuals' actions, the game will force you to watch cutscenes.
+
+You start the game with 0 Number. You can increase your Number by clicking the Successor button.
+You can purchase upgrades by clicking U0-1, U0-2, or U0-3 below. These upgrades consume Number.
+B0-1 is a special upgrade. You can repeatedly click to purchase it, with its price increasing each time.
+
+B0-1 automates the Successor button, which proves useful later.
+
+Upon reaching 1000 Number, you can purchase U0-3 to unlock the Addition Layer.
