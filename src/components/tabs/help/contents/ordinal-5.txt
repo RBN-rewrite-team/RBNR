@@ -1,0 +1,13 @@
+下面我们考虑\(\alpha\)到\(\omega^\alpha\)的映射，这实际上就是从下方增加一层指数塔的映射
+\[\alpha\mapsto \omega^\alpha\]
+从0开始重复作用上述映射，所得到的极限就是\(\varepsilon_0\)，它以这个映射过程得到的各项作为其基本列
+\[\varepsilon_0 = \sup\left\{0, 1, \omega, \omega^\omega, \omega^{\omega^\omega}, \omega^{\omega^{\omega^\omega}}, \cdots\right\}\]
+对\(\varepsilon_0\)继续映射\(\alpha\mapsto \omega^\alpha\)，我们得到
+\[\omega^{\varepsilon_0} = \sup\left\{1, \omega, \omega^\omega, \omega^{\omega^\omega}, \omega^{\omega^{\omega^\omega}}, \omega^{\omega^{\omega^{\omega^\omega}}}, \cdots\right\} = \varepsilon_0\]
+因此\(\varepsilon_0\)是映射\(\alpha\mapsto \omega^\alpha\)的第一个不动点
+\[\varepsilon_0 = \mathrm{1st}\ \alpha\mapsto \omega^\alpha\ \mathrm{fp.}\]
+其中，fp.是不动点(Fixed Point)的缩写
+我们称\(\varepsilon_0\)为SCO(Small Cantor Ordinal)，由于\(\varepsilon_0\)已经是\(\alpha\mapsto \omega^\alpha\)的不动点，继续进行该操作不会有任何作用。
+不过，我们并非无法继续，只需要将\(\varepsilon_0\)取后继，得到\(\varepsilon_0+1\)，就跳出了映射\(\alpha\mapsto \omega^\alpha\)的不动点。
+继续对\(\varepsilon_0+1\)进行映射\(\alpha\mapsto \omega^\alpha\)，我们可以得到一个序数序列，它的极限是\(\varepsilon_1\)
+\[\varepsilon_1 = \sup\left\{0, 1, \varepsilon_0, \omega^{\varepsilon_0+1}, \omega^{\omega^{\varepsilon_0+1}}, \omega^{\omega^{\omega^{\varepsilon_0+1}}}, \cdots\right\}\]`

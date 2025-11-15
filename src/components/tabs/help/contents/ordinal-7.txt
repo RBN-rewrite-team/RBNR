@@ -1,0 +1,20 @@
+下面我们递归地给出\(\varepsilon\)序数的基本列
+1. \(\omega[n] = n\)
+2. \((\alpha+\beta)[n] = \alpha+\beta[n]\)，其中\(\beta\)是极限序数
+3. \(\omega^{\alpha+1}[n] = \omega^\alpha\cdot n\)
+4. \(\omega^\alpha[n] = \omega^{\alpha[n]}\)，其中\(\alpha\)是极限序数
+5. \(\varepsilon_0[0] = 0, \varepsilon_0[n+1] = \omega^{\varepsilon_0[n]}\)
+6. \(\varepsilon_{\alpha+1}[0] = \varepsilon_\alpha+1, \varepsilon_{\alpha+1}[n+1] = \omega^{\varepsilon_{\alpha+1}[n]}\)
+7. \(\varepsilon_{\alpha}[n] = \varepsilon_{\alpha[n]}\)，其中\(\alpha\)是极限序数
+我们将对\(\varepsilon_{\varepsilon_0}\)进行基本列展开，每一次展开四列。 1. \(\varepsilon_{\varepsilon_0}[4]\)
+2. \(\varepsilon_{\varepsilon_0[4]}\)
+3. \(\varepsilon_{\omega^{\varepsilon_0[3]}}\)
+4. \(\varepsilon_{\omega^{\omega^{\varepsilon_0[2]}}}\)
+5. \(\varepsilon_{\omega^{\omega^{\omega^{\varepsilon_0[1]}}}}\)
+6. \(\varepsilon_{\omega^{\omega^{\omega^{\omega^{\varepsilon_0[0]}}}}}\)
+7. \(\varepsilon_{\omega^{\omega^{\omega^{\omega^{0}}}}}\)
+8. \(\varepsilon_{\omega^{\omega^{\omega^{1}}}}\)
+9. \(\varepsilon_{\omega^{\omega^{\omega}}}\)
+10. \(\varepsilon_{\omega^{\omega^{4}}}\)
+11. \(\varepsilon_{\omega^{\omega^{3}4}}\)
+12. \(\varepsilon_{\omega^{\omega^{3}3+\omega^{2}3+\omega3+4}}\)

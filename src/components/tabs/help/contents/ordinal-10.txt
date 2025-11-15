@@ -1,0 +1,10 @@
+接下来定义一个序数,\(\Gamma_0 = \alpha\mapsto\varphi(\alpha,0)\textrm{ fp.} = \varphi(1,0,0)\)
+这里的\(\varphi\)函数是一个多元函数。
+有以下规则:
+1. n为非0有限序数\(\varphi(\#,n+1,\alpha+1)=\beta\mapsto\varphi(\#,n,\beta) \mathrm{ fp. aft }\varphi(\#,n+1,\alpha)\)
+2. \(\varphi(\#,\alpha+1,0,\mathrm{O}, 0)=\beta\mapsto\varphi(\#,\alpha, \beta,\mathrm{O},0)\mathrm { fp. }\)
+3. \(\varphi(\#,\alpha+1,0,\mathrm{O}, \gamma+1)=\beta\mapsto\varphi(\#,\alpha, \beta,\mathrm{O},0)\mathrm { fp. aft}\varphi(\#, \alpha+1, 0, \mathrm{O}, \gamma)\)
+4. \(\varphi(\#,\beta, \#,\alpha+1) = \sup{\varphi(\#,\gamma,\#,\varphi(\#,\beta,\#,\alpha)+1)|\gamma<\beta}\)
+(此处规则不全， 待补充)
+在\(\Gamma_0\)后，还有Ackermann 序数\(\varphi(1,0,0,0)\)。
+我们可以把\(\varphi\)函数扩展到任意有限元。
