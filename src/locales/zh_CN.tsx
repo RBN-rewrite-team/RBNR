@@ -1609,4 +1609,6 @@ export default {
 	'savebank.11次非递归': '11次非递归',
 	'savebank.35次非递归': '35次非递归',
 	'savebank.66次非递归': '66次非递归',
+
+	'currency.x4': 'x<sub>4</sub>',
 };
