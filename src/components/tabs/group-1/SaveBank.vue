@@ -2,6 +2,7 @@
 import SaveBank from '../../../core/save/SaveBank.json';
 import { reactive } from 'vue';
 import { loadFromString, save } from '@/core/save/index.ts';
+import { getMessage } from '@/utils/i18n';
 
 interface SaveItem {
 	title: string;
@@ -36,7 +37,7 @@ const downloadSave = (saveText: string, title: string) => {
 };
 
 const importSave = (saveText: string) => {
-	if (confirm('确定要导入这个存档吗？当前进度将会被覆盖。')) {
+	if (confirm(getMessage('useless.confirm.a'))) {
 		loadFromString(saveText, true);
 		save();
 		location.reload();
@@ -52,15 +53,15 @@ const importSave = (saveText: string) => {
 				@click="isExpanded[chapterKey] = !isExpanded[chapterKey]"
 				:class="{ expanded: isExpanded[chapterKey] }"
 			>
-				<span class="chapter-title">{{ chapter.title }}</span>
+				<span class="chapter-title">{{ $t('savebank.' + chapter.title) }}</span>
 				<span class="expand-icon">{{ isExpanded[chapterKey] ? '−' : '+' }}</span>
 			</div>
 
 			<div v-show="isExpanded[chapterKey]" class="saves-container">
 				<div v-for="(item, itemKey) in chapter" :key="itemKey" class="save-item">
 					<div v-if="isSaveItem(item)" class="save-content">
-						<h3 class="save-title" v-html="item.title"></h3>
-						<p class="save-uploader">上传者: {{ item.uploader }}</p>
+						<h3 class="save-title" v-html="$t('savebank.' + item.title)"></h3>
+						<p class="save-uploader">{{ item.uploader }}</p>
 						<div class="save-container">
 							<button
 								class="btn download-btn-btn"
@@ -71,10 +72,10 @@ const importSave = (saveText: string) => {
 									)
 								"
 							>
-								下载存档
+								{{ $t('savebank.download') }}
 							</button>
 							<button class="btn import-btn" @click="importSave(item['save-text'])">
-								导入存档
+								{{ $t('savebank.import') }}
 							</button>
 						</div>
 					</div>
