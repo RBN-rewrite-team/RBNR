@@ -168,7 +168,10 @@ function getCurTitle() {
 	} else if (!player.upgrades[61]) {
 		base +=
 			' - ' +
-			OrdinalUtils.numberToOrdinal(player.ordinal.number.floor(), feature.Ordinal.base());
+			OrdinalUtils.numberToOrdinal(player.ordinal.number.floor(), feature.Ordinal.base())
+				.replace(/<sup>/g, '^{')
+				.replace(/<sub>/g, '_{')
+				.replace(/<\/sup>|<\/sub>/g, '}');
 	} else {
 		base +=
 			' - ' +
