@@ -71,13 +71,13 @@ const chapters = [
 				:style="{ color: chapters[i - 1].color, backgroundColor: chapters[i - 1].color2 }"
 				@click="player.stat.chapter = Math.max(player.stat.chapter, chapters[i - 1].id)"
 			>
-				{{ $t('chap.a' + (i - 1).toString() + '.text') }}
+				{{ $t('chapa' + (i - 1).toString() + '.text') }}
 			</div>
 			<div class="chapter_text" :style="{ backgroundColor: chapters[i - 1].color2 }">
-				{{ $t('chap.a' + (i - 1).toString() + '.title') }}
+				{{ $t('chapa' + (i - 1).toString() + '.title') }}
 			</div>
 			<div class="chapter_text_b" :style="{ backgroundColor: chapters[i - 1].color2 }">
-				{{ $t('chap.a' + (i - 1).toString() + '.text1') }}
+				{{ $t('chapa' + (i - 1).toString() + '.text1') }}
 			</div>
 		</div>
 	</template>

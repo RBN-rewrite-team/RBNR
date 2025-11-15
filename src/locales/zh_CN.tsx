@@ -1533,37 +1533,37 @@ export default {
 	'dil.respec': '重新分配',
 	'currency.九头蛇溶液': '九头蛇溶液',
 
-	'chap.a0': {
+	chapa0: {
 		title: '序章',
 		text1: '后继',
 		text: '众里寻数',
 	},
-	'chap.a1': {
+	chapa1: {
 		title: '第一章',
 		text1: '加法',
 		text: '嗜数成癖',
 	},
-	'chap.a2': {
+	chapa2: {
 		title: '第二章',
 		text1: '乘法',
 		text: '知难而上',
 	},
-	'chap.a3': {
+	chapa3: {
 		title: '第三章',
 		text1: '指数',
 		text: '步履维艰',
 	},
-	'chap.a4': {
+	chapa4: {
 		title: '第四章',
 		text1: '序数',
 		text: '超越无限',
 	},
-	'chap.a5': {
+	chapa5: {
 		title: '第五章',
 		text1: '九头蛇',
 		text: '力破万法',
 	},
-	'chap.a6': {
+	chapa6: {
 		title: '第六章',
 		text1: '非递归',
 		text: '长路无间',

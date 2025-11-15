@@ -1598,37 +1598,37 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'dil.respec': 'Respec',
 	'currency.九头蛇溶液': 'Solution',
 
-	'chap.a0': {
+	chapa0: {
 		title: 'Prologue',
 		text1: 'Successor',
-		text: 'Found',
+		text: 'Successor',
 	},
-	'chap.a1': {
+	chapa1: {
 		title: 'Chapter 1',
 		text1: 'Addition',
 		text: 'Addiction',
 	},
-	'chap.a2': {
+	chapa2: {
 		title: 'Chapter 2',
 		text1: 'Multiplication',
 		text: 'Difficult',
 	},
-	'chap.a3': {
+	chapa3: {
 		title: 'Chapter 3',
 		text1: 'Exponentiation',
 		text: 'Difficulter',
 	},
-	'chap.a4': {
+	chapa4: {
 		title: 'Chapter 4',
 		text1: 'Ordinal',
 		text: 'Transfinite',
 	},
-	'chap.a5': {
+	chapa5: {
 		title: 'Chapter 5',
 		text1: 'Hydra',
 		text: 'Hydra',
 	},
-	'chap.a6': {
+	chapa6: {
 		title: 'Chapter 6',
 		text1: 'Non Recursion',
 		text: 'Long & Uninterrupt',
