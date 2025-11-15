@@ -59,7 +59,7 @@ function nrtamount() {
 						{{
 							$t('upg.cost', {
 								cost: formatWhole(theoriesCost(0)),
-								currency: $t('currency.solution'),
+								currency: $t('currency.hydra'),
 							})
 						}}
 					</div>
@@ -77,7 +77,7 @@ function nrtamount() {
 						{{
 							$t('upg.cost', {
 								cost: formatWhole(theoriesCost(1)),
-								currency: $t('currency.hydra'),
+								currency: $t('currency.solution'),
 							})
 						}}
 					</div>

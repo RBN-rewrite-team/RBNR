@@ -1680,4 +1680,6 @@ The dilution will self-destruct if the number of the prion virus is greater than
 
 	'currency.x4': 'x<sub>4</sub>',
 	'crreuncy.τ4': 'τ<sub>4</sub>',
+
+	'upgs.ts_auto_pkg_hydra': 'Get automator hydra package. Use include hydra; to import',
 };
