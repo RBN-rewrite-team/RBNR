@@ -1,0 +1,21 @@
+下面我们考虑\(\alpha\mapsto\varepsilon_\alpha\)的映射。
+从0开始重复作用上述映射，所得到的极限就是\(\zeta_0\)，它的基本列是
+\[\zeta_0 = \sup\left\{0, \varepsilon_0, \varepsilon_{\varepsilon_0}, \varepsilon_{\varepsilon_{\varepsilon_0}}, \cdots\right\}\]
+不难发现，\(\zeta_0 = \varepsilon_{\zeta_0}\)，所以我们也可以像ε序数操做它：
+\[\varepsilon_{\zeta_0+1} = \sup\left\{0, 1, \zeta_0, \omega^{\zeta_0+1}, \omega^{\omega^{\zeta_0+1}}, \omega^{\omega^{\omega^{\zeta_0+1}}},\cdots\right\}\]
+那么问题来了，\(\zeta_1\)是什么？
+\[\begin{aligned}
+        \zeta_1 &= \alpha\mapsto \varepsilon_\alpha\textrm{ fp. aft } \zeta_0\\
+        &=\sup\left\{\zeta_0+1,\varepsilon_{\zeta_0+1},\varepsilon_{\varepsilon_{\zeta_0+1}},\cdots\right\}
+        \end{aligned}
+        \]
+\[\begin{aligned}
+        \zeta_2 &= \alpha\mapsto \varepsilon_\alpha\textrm{ fp. aft } \zeta_1\\
+        &=\sup\left\{\zeta_1+1,\varepsilon_{\zeta_1+1},\varepsilon_{\varepsilon_{\zeta_1+1}},\cdots\right\}
+        \end{aligned}
+        \]
+可以整理出以下基本列展开方法：
+1.\(\zeta_0[0] = 0\)
+2.\(\zeta_0[n+1] = \varepsilon_{\zeta_0[n]}\)
+3.\(\alpha\)为极限序数，\(\zeta_\alpha[n] = \zeta_{\alpha[n]}\)
+4.\(\zeta_{\alpha+1} = \beta\mapsto\varepsilon_\beta\textrm{ fp. aft } \zeta_{\alpha}\)

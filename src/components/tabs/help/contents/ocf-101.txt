@@ -1,0 +1,18 @@
+序数折叠函数(OCF)，用另一种方式来枚举不动点。
+其定义涉及集合论，但行为逻辑可以用非常简单的形式归纳。
+它的基本形式是\(\psi(0)=\omega\)，其中的参数每增加1都会让序数乘以\(\omega\)
+根据上一条定义，能表达的最大序数是\(\varepsilon_0\)。
+随后OCF引入了\(\Omega\)，它是第一个非递归序数(或者第一个容许序数)。它在OCF的作用是在OCF的参数末尾的\(\Omega\)带来一个\(\Omega\)前运算的不动点。
+\(\psi(0)=\omega\)
+\(\psi(X+1)=\psi(X)\cdot\omega\)
+\(\psi(X*\Omega)=\alpha\mapsto\psi(X*\alpha)FP\)(其中*为加法、乘法、乘方之一)
+\(\psi(\sup\ \alpha[n \in N^+])[n]=\psi(\alpha[n])\)
+以上四条规则构成了一个基本的OCF，它的极限\(\psi(\varepsilon_{\Omega+1})\)相当于Veblen函数的极限——BHO。
+稍微修改一下规则，可以炮制出一批这样的OCF。
+例如，对于第二个非递归序数\(\Omega_2\)，只需要将\(\psi(0)\)改成\(\Omega\)，然后将第三条的\(\Omega\)改成\(\Omega_2\)。
+为了区分，这种OCF表示为\(\psi_{\Omega_2}(X)\)，它输出\(\Omega\)的各种不动点。
+随后，将这个新的OCF的输出结果套入原来的OCF中，极限就被扩展了。
+为了简化，如果存在\(\Omega_{X}\)，则\(\psi(X*\Omega_{X})=\psi(\psi_{\Omega_X}(X*\Omega_X))\)
+除了\(\psi_{\Omega_2}(X)\)，还有\(\psi_{\Omega_3}(X)\)，\(\psi_{\Omega_4}(X)\)......
+\(\Omega_\omega=\sup \Omega_{\omega[n]}\)
+将其放入OCF中得到的序数是很多记号的极限，也是FGH和SGH的第一个追平点，称为BO。自BO以后，序数分析步入了反射序数时代。

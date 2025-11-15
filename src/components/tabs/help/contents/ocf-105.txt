@@ -1,0 +1,25 @@
+
+反射序数有深刻的集合论背景，包括但不限于\(\Delta_0, \Pi_\alpha, \Sigma_\alpha\)公式，可构造宇宙等。
+反射序数有一些符号:
+\(n\mathrm{th}, \operatorname{onto}, \cap, \Pi_\alpha, \mathrm{Ord}, \operatorname{aft}\)
+\(n\mathrm{th} X\)是X的第几个序数
+\(\Pi_\alpha\mathrm{onto} X\)是取出所有X中的序数，满足反射公式\(\Pi_alpha\)。
+\(\cap\)是集合的交集运算,也就是取出两个集合中都有的元素，合成为一个集合。
+\(\mathrm{xth} Y \operatorname{aft} X\)是X在Y集合中后的第x个序数
+\(\Pi_\alpha\)是公式，具体是什么公式暂时难以所清楚
+\(\mathrm{Ord}=\{0,1,2,\cdots,\omega,\omega+1,\cdots,\Omega,\cdots,\omega_1,\cdots\}\)是所有序数组成的类。
+之前前人证明过，\(\Pi_0\operatorname{onto}X\)和\(\Pi_1\operatorname{onto}X\)是取出X中的所有极限点。
+例如\(\Pi_1\operatorname{onto}\mathrm{Ord}\)就是取出序数的所有极限点，等于\(\lbrace\omega,\omega\cdot2,\omega\cdot3,\cdots,\omega^2,\cdots\rbrace\)
+\(2\mathrm{nd}\Pi_1\operatorname{onto}\mathrm{Ord}\)就是取出这个集合的第二个序数，等于\(\omega\cdot2\)
+我们可以继续计算\(\Pi_1\operatorname{onto}\Pi_1\operatorname{onto}\mathrm{Ord}\)就是取出\(\Pi_1\operatorname{onto}\mathrm{Ord}\)的所有极限点，等于\(\lbrace\omega^2,\omega^2\cdot2,\omega^2\cdot3,\cdots,\omega^3,\cdots\rbrace\)
+\(\Pi_1\operatorname{onto}\Pi_1\operatorname{onto}\mathrm{Ord}\)这个形式太麻烦，我们可以写成\(1-1-\mathrm{Ord}\)或\(1-1\)
+把1-重复写，可以得到\(1-1-\cdots-1\)，等于\(\omega^\omega\)，把1-简写成\((1-)^\alpha\),比如说\(1-1-\cdots-1=(1-)^\omega1=\omega^\omega\)
+进一步，可以有
+\[(1-)^{\omega^2}1=\omega^{\omega^2}\]
+\[(1-)^{(1-)^{\omega}}1=\omega^{\omega^\omega}\]
+这个三角形的指数塔可以不断延续下去，直到无穷层。利用 Veblen
+函数的不动点模式，我们将其记为
+\[\mathrm{1st}(1-)^{(1,0)}1=\mathrm{1st}\{\varepsilon_0, \varepsilon_1, \varepsilon_2,\cdots\}=\varphi(1,0)\]
+\[(1-)^{(1,1)}1=\varepsilon_\omega\]
+\[(1-)^{(2,0)}1=\varepsilon_{\varepsilon_0}\]
+我们发现我们还在走Velben函数的旅程，所以我们使用\(\Pi_2\)反射序数。

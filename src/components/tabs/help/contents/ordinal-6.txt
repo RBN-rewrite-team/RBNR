@@ -1,0 +1,23 @@
+类似于\(\varepsilon_0\)，\(\varepsilon_1 = \omega^{\varepsilon_1}\)
+因此\(\varepsilon_1\)是映射\(\alpha\mapsto \omega^\alpha\)的第二个不动点，记作
+\[\varepsilon_1 = \mathrm{2nd}\ \alpha\mapsto \omega^\alpha\ \mathrm{fp.}\]
+或者我们也可以说，\(\varepsilon_1\)是紧随于\(\varepsilon_0\)之后，映射\(\alpha\mapsto \omega^\alpha\)的第二个不动点，我们将其记为
+\[\varepsilon_1 = \alpha\mapsto \omega^\alpha\textrm{ fp. aft } \varepsilon_0\]
+这里，aft是在......之后(after)的意思
+类似的，通过重复上述过程，我们得到
+\[\begin{aligned}
+            \varepsilon_2 &= \sup\left\{0, 1, \varepsilon_1, \omega^{\varepsilon_1+1}, \omega^{\omega^{\varepsilon_1+1}}, \omega^{\omega^{\omega^{\varepsilon_1+1}}}, \cdots\right\}\\
+                &= \mathrm{3rd}\ \alpha\mapsto \omega^\alpha\ \mathrm{fp.}\\
+                &= \alpha\mapsto \omega^\alpha\textrm{ fp. aft } \varepsilon_1
+            \end{aligned}\]
+\[\begin{aligned}
+            \varepsilon_3 &= \sup\left\{0, 1, \varepsilon_2, \omega^{\varepsilon_2+1}, \omega^{\omega^{\varepsilon_2+1}}, \omega^{\omega^{\omega^{\varepsilon_2+1}}}, \cdots\right\}\\
+                &= \mathrm{4th}\ \alpha\mapsto \omega^\alpha\ \mathrm{fp.}\\
+                &= \alpha\mapsto \omega^\alpha\textrm{ fp. aft } \varepsilon_2
+            \end{aligned}\]
+在所有的\(\varepsilon_n\)，对所有的这些序数取上确界，得到
+\[\begin{aligned}
+            \varepsilon_\omega &= \sup\left\{\varepsilon_0, \varepsilon_1, \varepsilon_2, \varepsilon_3, \cdots\right\}\\
+                &= \omega\mathrm{th}\ \alpha\mapsto \omega^\alpha\ \mathrm{fp.}\\
+            \end{aligned}\]
+重复上述取不动点和取下标极限的操作，我们可以得到所有的\(\varepsilon\)序数。
