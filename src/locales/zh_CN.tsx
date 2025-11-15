@@ -1390,7 +1390,7 @@ export default {
 	'studies.nonrec.24': '解锁非递归挑战5\t挑战次数为最高推演次数',
 	'studies.nonrec.25': '解锁非递归挑战6\t挑战次数为log10 log10 朊病毒',
 	'studies.nonrec.26': function () {
-		return `基于总共的非递归理论增加UNOCF推演速度;此推演需要前置M6-25, 42和101<br>效果：×${format(getTotalTheories().add(1))}`;
+		return `基于总共的非递归理论增加UNOCF推演速度;此研究需要前置M6-25, 42和101<br>效果：×${format(getTotalTheories().add(1))}`;
 	},
 	'studies.nonrec.27': function () {
 		return `轮回效果&九头蛇溶液^x,x基于推演进度计算<br>效果: ^${format(
@@ -1462,7 +1462,7 @@ export default {
 	'chal.1.4.description': function () {
 		return '挑战中推演速度挑战中推演速度>10时=log10(log10(推演速度 max 10))+10,九头蛇溶液取以10为底对数，重置九头蛇溶液';
 	},
-	'chal.1.5': '对数运算',
+	'chal.1.5': '极端束缚',
 	'chal.1.5.description': function () {
 		return '挑战中推演硬上限为1，九头蛇溶液硬上限为0';
 	},
@@ -1612,4 +1612,7 @@ export default {
 
 	'currency.x4': 'x<sub>4</sub>',
 	'crreuncy.τ4': 'τ<sub>4</sub>',
+
+	'nonrec.chaltip':
+		'在非递归挑战中，溶剂II将增加U5-S系列的价格<br />注意：所有非递归挑战至多完成5次。',
 };

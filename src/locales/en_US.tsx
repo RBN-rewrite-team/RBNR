@@ -1368,26 +1368,27 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'nonrec.nrtbuy': 'Get one Non Rec. Theory',
 	'nonrec.respec': 'Reset Study tree, but do a Non Rec. Reset',
 
-	'studies.nonrec.0': '购买该升级或非递归重置时自动获取20九头蛇能量、溶液',
-	'studies.nonrec.1': '基数之前全局速度x2',
-	'studies.nonrec.2': '九头蛇溶液的常数硬上限改为软上限',
+	'studies.nonrec.0':
+		'Get 20 Hydra Energy and 20 Solution after non recursion reset or buy this upgrade.',
+	'studies.nonrec.1': 'Global speed before cardinal x2',
+	'studies.nonrec.2': "Change the solution's cap to the softcap",
 	'studies.nonrec.3': function () {
-		return `基于九头蛇溶液大幅延迟九头蛇能量双重软上限<br>效果: ^${format(Decimal.log10(player.hydra.dilute.solution.add(10)))}`;
+		return `Solution significantly delays Hydra Energy softcap^2<br>Effect : ^${format(Decimal.log10(player.hydra.dilute.solution.add(10)))}`;
 	},
-	'studies.nonrec.4': '九头蛇能量×100000再^1.05',
+	'studies.nonrec.4': 'Hydra Energy gain ×100000 & ^1.05',
 
 	'studies.nonrec.5': function () {
 		return (
-			'非递归挑战1\t' +
+			'Non Recursion Challenge 1\t' +
 			format(new Decimal(326649).pow(player.challenges[1][0].add(1)).pow10()) +
-			' 九头蛇能量 '
+			' Hydra Energy '
 		);
 	},
-	'studies.nonrec.6': '非递归能量获取×10',
-	'studies.nonrec.7': '达成112的购买要求(需要两次挑战1才能购买)',
-	'studies.nonrec.8': '九头蛇能量获取×35, 九头蛇能量获取指数^1.25',
+	'studies.nonrec.6': 'Non Rec. Power ×10',
+	'studies.nonrec.7': 'Get one of the requirements of 112(need complete NRC1 2 times)',
+	'studies.nonrec.8': 'Hydra Energy Gain×35, Hydra Energy Gain exponent^1.25',
 	'studies.nonrec.9': function () {
-		return `基于当前的非递归能量获得额外的非递归理论(购买后可用理论+floor(${format(
+		return `Get additional Non Rec. Theories based on current Non Rec. Power(+floor(${format(
 			player.nonrecu.power
 				.add(1)
 				.ln()
@@ -1399,59 +1400,59 @@ The dilution will self-destruct if the number of the prion virus is greater than
 						: 1,
 				)
 				.sub(5),
-		)}))`;
+		)}) after Buy)`;
 	},
-	'studies.nonrec.10': '稀释I的底数从5降低到3',
+	'studies.nonrec.10': 'Change the base of Solvent I from 5 to 3',
 	'studies.nonrec.11': function () {
 		return (
-			'解锁非递归挑战2\t' +
+			'Non Recursion Challenge 2\t' +
 			format(player.challenges[1][1].pow_base(10).mul(4e6)) +
-			'九头蛇溶液'
+			'Solution'
 		);
 	},
 	'studies.nonrec.12': function () {
 		return (
-			'解锁非递归挑战3\t' +
+			'Non Recursion Challenge 3\t' +
 			formatWhole(255000000 * 5 ** player.challenges[1][2].toNumber()) +
-			' 溶液'
+			' Solution'
 		);
 	},
-	'studies.nonrec.13': '移除九头蛇能量和BMS推演的硬上限',
+	'studies.nonrec.13': 'Remove the cap of Hydra Energy & BMS progressing',
 	'studies.nonrec.14': function () {
-		return `每个剩余的非递归理论令推演速度膨胀+0.01<br>效果: +${format(getCurrency(Currencies.NRT).mul(0.01).add(1))}`;
+		return `Each unspent NRT makes progressing speed dilate +0.01<br>Effect: +${format(getCurrency(Currencies.NRT).mul(0.01).add(1))}`;
 	},
-	'studies.nonrec.15': '九头蛇溶液获取x1.2, ^1.01',
+	'studies.nonrec.15': 'Solution gain x1.2, ^1.01',
 	'studies.nonrec.16': function () {
-		return `基于本次非递归重置时间提升非递归能量获取<br>效果：×${format(
+		return `Time spent in this Non Rec. reset increases Non Rec. Power gain<br>Effect：×${format(
 			secInThisReset52717273().add(1).mul(10).pow(2).sub(99).root(2).pow(0.75).div(2).add(1),
 		)}`;
 	},
 	'studies.nonrec.17': function () {
-		return `基于本次非递归重置时间提升非递归研究52的效果<br>效果：((x+5)×${format(secInThisReset52717273().add(1).log10())})-5`;
+		return `Time spent in this Non Rec. reset increases NRS 52 effect<br>Effect:((x+5)×${format(secInThisReset52717273().add(1).log10())})-5`;
 	},
 	'studies.nonrec.18': function () {
-		return `基于本次非递归重置时间提升九头蛇溶液获取<br>效果：×${format(secInThisReset52717273().add(1).ln().mul(0.2).add(1))}`;
+		return `Time spent in this Non Rec. reset increases Solution gain<br>Effect:×${format(secInThisReset52717273().add(1).ln().mul(0.2).add(1))}`;
 	},
-	'studies.nonrec.19': '你可以任意购买5~7行的任意两个非递归研究，解锁一列5~7行的升级树',
-	'studies.nonrec.20': '九头蛇溶液获取^1.025',
-	'studies.nonrec.21': '九头蛇能量获取膨胀1.1',
-	'studies.nonrec.22': '每秒获取1%重置时获取的非递归能量',
+	'studies.nonrec.19': 'You can buy any two NRS in 5~7 row. Unlock a new column in 5~7 row.',
+	'studies.nonrec.20': 'Solution^1.025',
+	'studies.nonrec.21': 'Hydra energy gain dilate 1.1',
+	'studies.nonrec.22': 'Get 1% of pending non Rec. Power/s passively.',
 	'studies.nonrec.23': function () {
 		return (
-			'解锁非递归挑战4\t' +
+			'Non Rec. Challenge 4\t' +
 			format(
 				new Decimal(6 + player.challenges[1][3].toNumber()).pow_base(2).pow_base(2).pow10(),
 			) +
-			'九头蛇能量'
+			'Hydra Energy'
 		);
 	},
-	'studies.nonrec.24': 'Unlock Non Rec. Challenge 5\t挑战次数为最高推演次数',
-	'studies.nonrec.25': 'Unlock Non Rec. Challenge 6\t挑战次数为log10 log10 朊病毒',
+	'studies.nonrec.24': 'Non Rec. Challenge 5\tChallenge amount is the highest progression times',
+	'studies.nonrec.25': 'Non Rec. Challenge 6\tChallenge amount is log10 log10 prion',
 	'studies.nonrec.26': function () {
-		return `基于总共的非递归理论增加UNOCF推演速度;此推演需要前置M6-25, 42和101<br>效果：×${format(getTotalTheories().add(1))}`;
+		return `Total NRT increases UNOCF progressing speed. This study need M6-25, 42 & 101<br>Effect：×${format(getTotalTheories().add(1))}`;
 	},
 	'studies.nonrec.27': function () {
-		return `轮回效果&九头蛇溶液^x,x基于推演进度计算<br>效果: ^${format(
+		return `Recursion Effect&Solution^x,x based on progressing times<br>效果: ^${format(
 			player.hydra.deduceOrdinal[0]
 				.clampMin(1e10)
 				.log10()
@@ -1463,7 +1464,7 @@ The dilution will self-destruct if the number of the prion virus is greater than
 		)}`;
 	},
 	'studies.nonrec.28': function () {
-		return 'Unlock Non Rec. Challenge 7\t' + 'See Challenge Page';
+		return 'Non Rec. Challenge 7\t' + 'See Challenge Page';
 	},
 	'studies.nonrec.29': function () {
 		if (player.retribution == 0)
@@ -1478,7 +1479,7 @@ The dilution will self-destruct if the number of the prion virus is greater than
 				undefined,
 				false,
 			);
-		return '移除压缩九头蛇能量上限';
+		return 'Remove Compressed Hydra Energy cap';
 	},
 	'studies.nonrec.30': function () {
 		if (player.retribution == 0)
@@ -1511,64 +1512,64 @@ The dilution will self-destruct if the number of the prion virus is greater than
 		return (
 			"You are trapped in Solvent [10,0.4667+Completions,10,10,10,9,true,false,false], Solvent II now affects Solution Upgrades.<br> Keep U5-S-9, but you're no longer immune to Prions, Prion's boost is inverted and will multiply by 100*10^(completions)/s after your first BMS progression. If your Prions exceed your BMS progression count, Prions will be reverted back to 1 and you will do a dilution reset.<br>Reward: Prion growth speed outside challenge 1 x" +
 			format(player.challenges[1][0].pow_base(4)) +
-			'，首次完成使朊病毒以ln(x)^0.5幂次增益九头蛇能量获取'
+			', , First complete makes Hydra Energy gain &ln(prion)^0.5'
 		);
 	},
-	// 'chal.1.1': '能量折叠',
-	// 'chal.1.1.description': function () {
-	//     return '九头蛇能量的指数上限为log10(非递归能量+1)，额外乘数上限为10^(非递归能量^1/3)，推演乘数上限为10^(非递归能量^1/3)，九头蛇能量上限为(非递归能量+1)<br><span style="color: red">进入挑战将重置九头蛇溶液</span><br>奖励：首次完成时，九头蛇能量的二重软上限效果×80%，每次挑战完成使九头蛇能量指数^1.1(在二重软上限后)';
-	// },
-	// 'chal.1.2': '强化稀释',
-	// 'chal.1.2.description': function () {
-	//     return '溶剂I的底数为20，溶剂III的时间/5，U5-S-14的最后一条效果无效，MD15无效，溶剂等级无法细化，溶剂VI的效果由 ^1-0.1x 变为 ^1-(完成次数*0.2-0.2)x ，天启中全局速度变为1/1e(10*完成次数)。所有的九头蛇溶液额外倍率无效，公式升级亦无效。<br>奖励：如下。';
-	// },
+	'chal.1.1': 'Energy Reduction',
+	'chal.1.1.description': function () {
+		return 'Hydra Energy exponent maximum value is log10(NRE+1), addition multiplier maximum value is 10^(NRE^1/3)，progressing multiplier maximum value is10^(NRE^1/3)，Hydra Energy maximum value is (NRE+1)<br><span style="color: red">Enter this challenge will reset Solution</span><br>Reward: First complete, Hydra Energy softcap^2 effect ×80%. Each challenge complete make Hydra Energy exponent ^1.1(after softcap^2)';
+	},
+	'chal.1.2': 'DILUTE PRO MAX',
+	'chal.1.2.description': function () {
+		return 'Solvent I base is 20, Divide Solvent III threshold time by 5. DIsable U5-S-14 the last effect. Disable MD15. The level of the solvents must be an integer. Change Solvent VI effect to ^1-(challenge amount*0.2-0.2)x. Change Global speed to 1/1e(10*challenge amount) in Solvent IX. All Solution addition multiplier(and formula) is disabled.<br>Reward:';
+	},
 	'chal.1.3': 'REVERSE RESEARCH',
-	// 'chal.1.3.description': function () {
-	//     return '挑战中你始终拥有前 2x-1 行研究，其效果完全反转(最多完成两次)<br>奖励：将非递归研究101的效果变为10%，基于完成次数增加非递归理论总量，前 2x-1 行非递归研究和购买本研究不再消耗任何东西';
-	// },
-	// 'chal.1.4': '对数运算',
-	// 'chal.1.4.description': function () {
-	//     return '挑战中推演速度挑战中推演速度>10时=log10(log10(推演速度 max 10))+10,九头蛇溶液取以10为底对数，重置九头蛇溶液';
-	// },
-	'chal.1.5': '对数运算',
-	// 'chal.1.5.description': function () {
-	//     return '挑战中推演硬上限为1，九头蛇溶液硬上限为0';
-	// },
+	'chal.1.3.description': function () {
+		return "You have first 2x-1 row NRS, but it's effect is reversed(Complete at most 2 times)<br>Reward: Change the effect of 101 to 10%. Increase Total NRT based on challenge amount, First 2x-1 NRS and this NRS will not cost anything";
+	},
+	'chal.1.4': 'LOGARITHM',
+	'chal.1.4.description': function () {
+		return 'In any challenge, when the progression speed exceeds 10, it is calculated as log10(log10(progression speed, max 10)) + 10. Solution reduced to log10(solution).';
+	},
+	'chal.1.5': 'LIMITED',
+	'chal.1.5.description': function () {
+		return 'The maximum value of progression times is 1, Cap solution to 0';
+	},
 	'chal.1.6': 'THE GREAT REVERT',
-	// 'chal.1.6.description': function () {
-	//     return 'UNOCF效果无效，进入挑战时重置九头蛇溶液，当前推演进度被硬上限到推演速度，朊病毒对推演速度造成负面影响（推演速度=10^10(log10 log10 推演/ log10 log10 朊病毒) 当原推演速度和朊病毒同时大于1e10，其余0）<br>目标：任意一个时刻高达e1e4500000推演次数';
-	// },
-	// 'chal.1.2.effect': function (params: any) {
-	//     return (
-	//         '非递归能量以(1+ln(ln(x^10+1)^' +
-	//         format(params.values.effq) +
-	//         '+1)/5)幂增推演速度指数，当前：^' +
-	//         format(
-	//             player.nonrecu.power
-	//                 .pow(10)
-	//                 .add(1)
-	//                 .ln()
-	//                 .pow(params.values.effq)
-	//                 .add(1)
-	//                 .ln()
-	//                 .div(5)
-	//                 .add(1),
-	//         )
-	//     );
-	// },
+	'chal.1.6.description': function () {
+		return 'Disable UNOCF effect, Reset Solution. Cap current progressing times to current progressing speed, Prion reduce progressing speed(progressing speed=10^10(log10 log10 (progressing times)/ log10 log10 prion) if progressing speed and prion both greater than 1e10, otherwise 0）<br>Goal: Reach e1e4500000 Progressing times';
+	},
+	'chal.1.2.effect': function (params: any) {
+		return (
+			'Progressing speed ^(1+ln(ln(x^10+1)^' +
+			format(params.values.effq) +
+			'+1)/5) based on Non Rec. Power. Currently: ^' +
+			format(
+				player.nonrecu.power
+					.pow(10)
+					.add(1)
+					.ln()
+					.pow(params.values.effq)
+					.add(1)
+					.ln()
+					.div(5)
+					.add(1),
+			)
+		);
+	},
 	'chal.1.3.effect': function (params: any) {
 		return '×' + params.values.effect;
 	},
-	// 'currency.compressed_hydra': '压缩九头蛇能量',
-	// 'currency.qol_crystal_points': '生活质量水晶',
-	// 'tab.automator': '自动机',
+	'currency.compressed_hydra': 'Compressed Hydra Energy',
+	'currency.qol_crystal_points': 'QoL Crystal Points',
+	'tab.automator': 'Automator',
 
-	// 'upgs.byl.B6R11': '点击获得推演能量按钮获取量+1',
-	// 'upgs.byl.B6R12': '每秒点击(该购买项等级)<sup>2</sup>次推演能量按钮',
-	// 'upgs.byl.B6R13': '前两个购买项的效果指数+0.05',
-	// 'upgs.byl.B6R14': 'U6-R-1-1的效果指数+0.05',
-	// 'upgs.byl.B6R15': 'U6-R-1-3~4的效果底数+0.015',
-	// 'upgs.byl.B6R21': '基于推演能量降低B6-R-1-3~4价格',
+	'upgs.byl.B6R11': 'Deduction Energy Button gain button +1',
+	'upgs.byl.B6R12': 'Click Button (This buyable level)<sup>2</sup> times per second',
+	'upgs.byl.B6R13': 'B6-R-1-1,B6-R-1-2 effect exponent+0.05',
+	'upgs.byl.B6R14': 'U6-R-1-1 effect exponent+0.05',
+	'upgs.byl.B6R15': 'U6-R-1-3~4 effect base+0.015',
+	'upgs.byl.B6R21': 'Reduce B6-R-1-3~4 cost based on Deduction Energy',
 
 	'studies.dung.title': 'Skill Tree',
 
@@ -1674,4 +1675,9 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'savebank.11次非递归': '11 times NR reset',
 	'savebank.35次非递归': '35 times NR reset',
 	'savebank.66次非递归': '66 times NR reset',
+	'nonrec.chaltip':
+		'In Non Recursion Challenge, Solvent II will increase the cost of U5-S upgrades<br />Caution: NRC1,2,3,7 can only complete 5 times',
+
+	'currency.x4': 'x<sub>4</sub>',
+	'crreuncy.τ4': 'τ<sub>4</sub>',
 };

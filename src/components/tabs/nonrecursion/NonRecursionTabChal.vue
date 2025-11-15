@@ -5,8 +5,7 @@ import { player } from '@/core/save';
 
 <template>
 	<div class="main nonrec-chals" align="center">
-		在非递归挑战中，溶剂II将增加U5-S系列的价格<br />
-		注意：所有非递归挑战至多完成5次。
+		<span v-html="$t('nonrec.chaltip')"></span>
 		<table>
 			<tbody>
 				<tr style="height: 600px">
