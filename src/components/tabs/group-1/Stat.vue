@@ -98,9 +98,18 @@ function phase() {
 			><br />
 
 			<div v-if="player.retribution === 0">
-				当前序数等级：{{ getOrdinalLevel() }}<br />
-				累计最高序数等级：{{ player.stat.highestOrdLevel }}<br />
-				下一序数等级要求：<vue-latex
+				{{
+					$t('stat.ordlvl', {
+						level: getOrdinalLevel(),
+					})
+				}}<br />
+				{{
+					$t('stat.ordlvl2', {
+						level: player.stat.highestOrdLevel,
+					})
+				}}<br />
+				{{ $t('stat.ordlvlnext')
+				}}<vue-latex
 					:expression="
 						getOrdinalLevel() < ordinalNormal.length
 							? OrdinalUtils.numberToLaTeXOrdinal(
@@ -113,7 +122,7 @@ function phase() {
 					"
 					v-if="!player.upgrades[61]"
 				/>
-				<vue-latex :expression="getBMSOLReq(getOrdinalLevel())" />
+				<vue-latex :expression="getBMSOLReq(getOrdinalLevel())" v-else />
 			</div>
 		</div>
 		<p>

@@ -9,6 +9,10 @@ export const messages = {
 } as const;
 function checkAndFallbackLocale() {
 	let a = navigator.language;
+	let b = localStorage.getItem('rbnr-lang');
+	if (b) {
+		a = b;
+	}
 	if (!(a in messages)) {
 		return 'zh-CN';
 	}
@@ -40,6 +44,7 @@ export const messagesLength = (function () {
 export function setI18NLocal(loc: keyof typeof messages) {
 	// @ts-expect-error I must change this value with type error
 	i18n.global.locale.value = loc;
+	localStorage.setItem('rbnr-lang', loc);
 }
 
 // type M = typeof messages;

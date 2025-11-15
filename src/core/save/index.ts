@@ -18,6 +18,7 @@ import { Hydra } from '../hydra/hydra.ts';
 import { POST_NONREC } from '../post-nonrec/index.ts';
 import { Analysis, Garden } from '../pt/index.ts';
 import ModalService from '@/utils/Modal.ts';
+import type { messages } from '@/utils/i18n.ts';
 
 const version = 13 as const;
 export let current_save = 0;

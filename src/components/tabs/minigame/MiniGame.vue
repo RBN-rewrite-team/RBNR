@@ -154,7 +154,7 @@ function exitEditor() {
 				(temp.innerWidth >= 800 && !temp.openingCore)
 			"
 		>
-			技能树<br />
+			{{ $t('studies.dung.title') }}<br />
 			<div
 				style="
 					overflow: auto;

@@ -40,14 +40,7 @@ export function equipmentDisplay(eq: CoreEquipment, $t: $t): string {
 						: eq.rarity >= 1.0
 							? '<span style="color: blue">' + $t('dung.core.levels.1') + '</span>'
 							: '<span>' + $t('dung.core.levels.0') + '</span>';
-	return (
-		rar +
-		'#' +
-		(eq.position == 'hea' ? '支持部' : eq.position == 'atk' ? '打击部' : '防御部') +
-		'(Lv. ' +
-		eq.level +
-		')'
-	);
+	return rar + '#' + $t(`dung.core.position.${eq.position}`) + '(Lv. ' + eq.level + ')';
 }
 export function equipmentAttribute(eq: CoreEquipment): CoreEquipmentAttribute {
 	const realLevel = eq.level * eq.rarity ** 2;

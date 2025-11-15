@@ -1504,4 +1504,24 @@ export default {
 	'upgs.U6R18': function () {
 		return `推演能量×1e100<br>解锁<b class="baseRetribution">${player.options.isGuoGao ? '果糕' : '果报'}</b>`;
 	},
+
+	'studies.dung.title': '技能树',
+
+	'offline.title': '离线进度计算中',
+	'offline.tick': '已完成{a}/{b}帧的计算',
+	'offline.tick2': '已完成{a}/{b}帧的计算<br>剩余时间：{c}',
+	'stat.ordlvl': '当前序数等级：{level}',
+	'stat.ordlvl2': '累计最高序数等级：{level}',
+	'stat.ordlvlnext': '下一序数等级要求：',
+	'dung.core.checkfor': '核心(点击查看信息)',
+	'dung.core.info': `真实等级{a}(稀有度加成{b}%)<br />
+	生命值+{c}<br />
+	攻击力+{d}<br />
+	防御力+{e}<br />`,
+	'dung.core.position.hea': '支持部',
+	'dung.core.position.atk': '打击部',
+	'dung.core.position.def': '防御部',
+	'dung.core.notequiped': '未装备{a}',
+	'dung.core.equiped': '装备的{a}',
+	'dung.core.unequip': '取消装备',
 };
