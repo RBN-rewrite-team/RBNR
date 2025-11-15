@@ -39,7 +39,8 @@ export const messagesLength = (function () {
 })();
 
 export function setI18NLocal(loc: keyof typeof messages) {
-	i18n.global.locale = loc;
+	// @ts-expect-error I must change this value with type error
+	i18n.global.locale.value = loc;
 }
 
 // type M = typeof messages;
