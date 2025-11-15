@@ -1524,4 +1524,48 @@ export default {
 	'dung.core.notequiped': '未装备{a}',
 	'dung.core.equiped': '装备的{a}',
 	'dung.core.unequip': '取消装备',
+
+	'dil.preset.set': '添加当前溶剂作为预设',
+	'dil.preset.a': '预设：',
+	'dil.preset.use': '使用',
+	'dil.preset.del': '删除',
+	'dil.useable': '当前可用溶液：{a}',
+	'dil.respec': '重新分配',
+	'currency.九头蛇溶液': '九头蛇溶液',
+
+	'chap.0': {
+		title: '序章',
+		text1: '后继',
+		text: '众里寻数',
+	},
+	'chap.1': {
+		title: '第一章',
+		text1: '加法',
+		text: '嗜数成癖',
+	},
+	'chap.2': {
+		title: '第二章',
+		text1: '乘法',
+		text: '知难而上',
+	},
+	'chap.3': {
+		title: '第三章',
+		text1: '指数',
+		text: '步履维艰',
+	},
+	'chap.4': {
+		title: '第四章',
+		text1: '序数',
+		text: '超越无限',
+	},
+	'chap.5': {
+		title: '第五章',
+		text1: '九头蛇',
+		text: '力破万法',
+	},
+	'chap.6': {
+		title: '第六章',
+		text1: '九头蛇',
+		text: '长路无间',
+	},
 };

@@ -24,10 +24,14 @@ function showChapter(id = 0): boolean {
 			style="color: var(--suptitle-color); background-color: var(--title-color)"
 			@click="player.stat.chapter = Math.max(player.stat.chapter, 0)"
 		>
-			众里寻数
+			{{ $t('chap.0.text') }}
 		</div>
-		<div class="chapter_text" style="color: var(--title-color)">序章</div>
-		<div class="chapter_text_b" style="color: var(--title-color)">后继</div>
+		<div class="chapter_text" style="color: var(--title-color)">
+			{{ $t('chap.0.title') }}
+		</div>
+		<div class="chapter_text_b" style="color: var(--title-color)">
+			{{ $t('chap.0.text1') }}
+		</div>
 	</div>
 
 	<div v-if="showChapter(1)">
@@ -37,10 +41,14 @@ function showChapter(id = 0): boolean {
 			style="color: #009dd9; background-color: #5acaff"
 			@click="player.stat.chapter = Math.max(player.stat.chapter, 1)"
 		>
-			嗜数成癖
+			{{ $t('chap.1.text') }}
 		</div>
-		<div class="chapter_text" style="color: #5acaff">第一章</div>
-		<div class="chapter_text_b" style="color: #5acaff">加法</div>
+		<div class="chapter_text" style="color: #5acaff">
+			{{ $t('chap.1.title') }}
+		</div>
+		<div class="chapter_text_b" style="color: #5acaff">
+			{{ $t('chap.1.text1') }}
+		</div>
 	</div>
 
 	<div v-if="showChapter(2)">
@@ -50,10 +58,10 @@ function showChapter(id = 0): boolean {
 			style="color: #cc33ff; background-color: #dd77dd"
 			@click="player.stat.chapter = Math.max(player.stat.chapter, 2)"
 		>
-			知难而上
+			{{ $t('chap.2.text') }}
 		</div>
-		<div class="chapter_text" style="color: #dd77dd">第二章</div>
-		<div class="chapter_text_b" style="color: #dd77dd">乘法</div>
+		<div class="chapter_text" style="color: #dd77dd">{{ $t('chap.1.title') }}</div>
+		<div class="chapter_text_b" style="color: #dd77dd">{{ $t('chap.1.text2') }}</div>
 	</div>
 
 	<div v-if="showChapter(3)">
@@ -63,10 +71,10 @@ function showChapter(id = 0): boolean {
 			style="color: rgb(127, 127, 255); background-color: rgb(63, 63, 127)"
 			@click="player.stat.chapter = Math.max(player.stat.chapter, 3)"
 		>
-			步履维艰
+			{{ $t('chap.3.text') }}
 		</div>
-		<div class="chapter_text" style="color: rgb(63, 63, 127)">第三章</div>
-		<div class="chapter_text_b" style="color: rgb(63, 63, 127)">指数</div>
+		<div class="chapter_text" style="color: rgb(63, 63, 127)">{{ $t('chap.3.title') }}</div>
+		<div class="chapter_text_b" style="color: rgb(63, 63, 127)">{{ $t('chap.3.text1') }}</div>
 	</div>
 
 	<div v-if="showChapter(4)">
@@ -76,10 +84,10 @@ function showChapter(id = 0): boolean {
 			style="color: rgb(255, 63, 63); background-color: rgb(255, 127, 127)"
 			@click="player.stat.chapter = Math.max(player.stat.chapter, 4)"
 		>
-			超越无限
+			{{ $t('chap.4.text') }}
 		</div>
-		<div class="chapter_text" style="color: rgb(255, 127, 127)">第四章</div>
-		<div class="chapter_text_b" style="color: rgb(255, 127, 127)">序数</div>
+		<div class="chapter_text" style="color: rgb(255, 127, 127)">{{ $t('chap.4.title') }}</div>
+		<div class="chapter_text_b" style="color: rgb(255, 127, 127)">{{ $t('chap.4.title') }}</div>
 	</div>
 
 	<div v-if="showChapter(5)">
@@ -89,10 +97,14 @@ function showChapter(id = 0): boolean {
 			style="color: rgb(155, 125, 195); background-color: rgb(200, 190, 245)"
 			@click="player.stat.chapter = Math.max(player.stat.chapter, 5)"
 		>
-			力破万法
+			{{ $t('chap.5.text') }}
 		</div>
-		<div class="chapter_text" style="color: rgb(200, 190, 245)">第五章</div>
-		<div class="chapter_text_b" style="color: rgb(200, 190, 245)">九头蛇</div>
+		<div class="chapter_text" style="color: rgb(200, 190, 245)">
+			{{ $t('chap.5.title') }}
+		</div>
+		<div class="chapter_text_b" style="color: rgb(200, 190, 245)">
+			{{ $t('chap.5.text1') }}
+		</div>
 	</div>
 
 	<div v-if="showChapter(6)">
@@ -102,9 +114,13 @@ function showChapter(id = 0): boolean {
 			style="color: #c98300; background-color: rgb(245, 193, 73)"
 			@click="player.stat.chapter = Math.max(player.stat.chapter, 6)"
 		>
-			长路无间
+			{{ $t('chap.6.text') }}
 		</div>
-		<div class="chapter_text" style="color: rgb(245, 193, 73)">第六章</div>
-		<div class="chapter_text_b" style="color: rgb(245, 193, 73)">非递归</div>
+		<div class="chapter_text" style="color: rgb(245, 193, 73)">
+			{{ $t('chap.6.title') }}
+		</div>
+		<div class="chapter_text_b" style="color: rgb(245, 193, 73)">
+			{{ $t('chap.6.text2') }}
+		</div>
 	</div>
 </template>

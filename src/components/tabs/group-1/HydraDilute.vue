@@ -411,28 +411,32 @@ function prionRes() {
 		</div>
 	</div>
 	<div align="center">
-		<button class="clickable_button" @click="addPreset">添加当前溶剂作为预设</button>
+		<button class="clickable_button" @click="addPreset">{{ $t('dil.preset.set') }}</button>
 		<div v-for="preset in Object.entries(player.hydra.dilute.solventPresets)">
-			预设: {{ preset[1].join(',') }}
+			{{ $t('dil.preset.a') }}{{ preset[1].join(',') }}
 			<button
 				class="clickable_button"
 				style="display: inline"
 				@click="() => setPreset(preset[1])"
 			>
-				使用
+				{{ $t('dil.preset.use') }}
 			</button>
 			<button
 				class="clickable_button"
 				style="display: inline"
 				@click="() => delPreset(preset[0])"
 			>
-				删除
+				{{ $t('dil.preset.del') }}
 			</button>
 		</div>
 	</div>
 	<div align="center">
-		当前可用溶液：{{ format(getCurrency(Currencies.SOLUTION)) }}<br />
-		<button class="clickable_button" @click="Dilute.respec">重新分配</button>
+		{{
+			$t('dil.useable', {
+				a: format(getCurrency(Currencies.SOLUTION)),
+			})
+		}}<br />
+		<button class="clickable_button" @click="Dilute.respec">{{ $t('dil.respec') }}</button>
 	</div>
 	<table align="center">
 		<tbody>

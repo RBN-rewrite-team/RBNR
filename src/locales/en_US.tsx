@@ -347,8 +347,8 @@ export default {
 	'detailstoHTML.last': 'Last saved: ',
 	plot: {
 		[-1]: 'Please select an option',
-		0: 'Chapter \\(-\\epsilon\\)',
-		1: 'Chapter 0',
+		0: 'Prologue',
+		1: 'Prologue 2',
 		2: 'Chapter 1',
 		3: 'Chapter 2',
 		4: 'Multiplication Challenge',
@@ -1589,4 +1589,12 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'dung.core.notequiped': 'Not Equiped {a}',
 	'dung.core.equiped': 'Equiped {a}',
 	'dung.core.unequip': 'Unequip!',
+
+	'dil.preset.set': 'Add current solvent as a preset',
+	'dil.preset.a': 'Preset: ',
+	'dil.preset.use': 'Use',
+	'dil.preset.del': 'Delete',
+	'dil.useable': 'You can use {a} Solutions for buying upgrades.',
+	'dil.respec': 'Respec',
+	'currency.九头蛇溶液': 'Solution',
 };

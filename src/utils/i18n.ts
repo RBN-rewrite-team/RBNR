@@ -13,6 +13,9 @@ function checkAndFallbackLocale() {
 	if (b) {
 		a = b;
 	}
+	if (a.startsWith('en')) {
+		a = 'en-US';
+	}
 	if (!(a in messages)) {
 		return 'zh-CN';
 	}

@@ -32,6 +32,11 @@ const component = defineComponent({
 					If you are proficient in other languages, you can apply to translate this game.
 					<Baixie />
 				</p>
+				<p>
+					Some of game content is not fully Internationalized and Localizated, So you
+					sometimes see Chinese characters in the game. Plurals or English grammars may
+					not correctly used.
+				</p>
 				{locales.map((x) => {
 					const y = x as keyof typeof messages;
 					return (
