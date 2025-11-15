@@ -96,7 +96,7 @@ function autoResetButton() {
 			<span
 				>{{
 					$t('hydra.youhavededuced', {
-						deduced: formatWhole(player.hydra.deduceOrdinal[0]),
+						deduce: formatWhole(player.hydra.deduceOrdinal[0]),
 					})
 				}}<span v-html="formatGain(temp.lastBMSDeduce, feature.Hydra.deduceSpeed(0))"
 			/></span>
