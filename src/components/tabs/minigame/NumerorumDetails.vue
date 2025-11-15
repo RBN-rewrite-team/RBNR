@@ -152,7 +152,7 @@ function openCore() {
 						><br />
 						{{ $t('dung.core.storeequipments')
 						}}{{ player.minigame.storeEquipments.length }}/50<span style="color: cyan"
-							>(不朽x{{
+							>({{ $t('dung.core.levels.5') }}x{{
 								player.minigame.storeEquipments.filter((item) => {
 									return item.rarity >= 1.9;
 								}).length

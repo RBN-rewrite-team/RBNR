@@ -328,7 +328,7 @@ import { Garden } from '@/core/pt/index.ts';
 							v-if="player.upgrades['616S']"
 						>
 							<div style="font-weight: bold; color: rgb(201, 131, 0)">
-								非递归能量&nbsp;
+								{{ $t('currency.非递归能量') }}&nbsp;
 								<div
 									style="
 										display: inline;
@@ -367,7 +367,7 @@ import { Garden } from '@/core/pt/index.ts';
 					</div>
 					<div style="margin-left: 685px" class="resource" v-if="player.upgrades['616S']">
 						<div style="font-weight: bold; color: rgb(201, 131, 0)">
-							非递归能量&nbsp;
+							{{ $t('currency.非递归能量') }}&nbsp;
 							<div style="display: inline; text-shadow: rgb(201, 131, 0) 1px 1px 2px">
 								{{ formatWhole(player.nonrecu.power) }}
 							</div>

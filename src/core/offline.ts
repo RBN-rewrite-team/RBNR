@@ -3,6 +3,7 @@ import { simulate, startGameLoop, stopGameLoop } from './game-loop';
 import { save } from '@/core/save/';
 import Modal from '@/utils/Modal';
 import { formatTime } from '@/utils/format';
+import { getMessage } from '@/utils/i18n';
 export function simulateTime(milliseconds: number): void {
 	if (milliseconds < 0) throw new Error('?');
 
@@ -28,15 +29,24 @@ export function simulateTime(milliseconds: number): void {
 			stopGameLoop();
 			modal = Modal.show({
 				showProgress: true,
-				title: '离线进度计算中',
-				content: `已完成0/${ticks}帧的计算`,
+				title: getMessage('offline.title'),
+				content: getMessage('offline.tick', {
+					a: 0,
+					b: ticks,
+				}),
 				closeOnClickMask: false,
 				onClose() {},
 			});
 		},
 		asyncProgress: (doneSoFar: number) => {
 			modal.controller.updateContent(
-				`已完成${doneSoFar}/${ticks}帧的计算<br>剩余时间：${formatTime(((Date.now() - startTime) / 1000 / doneSoFar) * (ticks - doneSoFar))}`,
+				getMessage('offline.tick2', {
+					a: doneSoFar,
+					b: ticks,
+					c: formatTime(
+						((Date.now() - startTime) / 1000 / doneSoFar) * (ticks - doneSoFar),
+					),
+				}),
 			);
 			modal.controller.updateProgress((doneSoFar / ticks) * 100);
 		},

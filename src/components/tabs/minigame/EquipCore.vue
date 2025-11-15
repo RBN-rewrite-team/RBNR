@@ -3,6 +3,7 @@ import { temp } from '@/core/temp-data';
 import { equipmentDisplay, type CoreEquipment } from '@/core/minigame';
 import { player } from '@/core/save';
 import { equipmentAttribute } from '@/core/minigame';
+import { useI18n } from 'vue-i18n';
 function equip(eq: CoreEquipment) {
 	eq.equipped = true;
 	player.minigame.coreEquipments[eq.position][0] = eq;
@@ -18,6 +19,24 @@ function isEquipped(eq: CoreEquipment) {
 }
 function changeCoreView(eq: CoreEquipment) {
 	temp.coreViewEquipment = eq;
+}
+const $t = useI18n().t;
+function equipInformation() {
+	if (!temp.coreViewEquipment) return '';
+	const attr = equipmentAttribute(temp.coreViewEquipment);
+	return $t('dung.core.info', {
+		a: attr.realLevel.toFixed(1),
+		b: (temp.coreViewEquipment.rarity ** 2 * 100).toFixed(1),
+		c: attr.hea.toFixed(1),
+		d: attr.atk.toFixed(1),
+		e: attr.def.toFixed(1),
+	});
+	// return `真实等级{{
+	// 	equipmentAttribute(temp.coreViewEquipment).realLevel.toFixed(1)
+	// }}(稀有度加成{{ (temp.coreViewEquipment.rarity ** 2 * 100).toFixed(1) }}%)<br />
+	// 生命值+{{ equipmentAttribute(temp.coreViewEquipment).hea.toFixed(1) }}<br />
+	// 攻击力+{{ equipmentAttribute(temp.coreViewEquipment).atk.toFixed(1) }}<br />
+	// 防御力+{{ equipmentAttribute(temp.coreViewEquipment).def.toFixed(1) }}<br />`;
 }
 </script>
 
@@ -35,35 +54,34 @@ function changeCoreView(eq: CoreEquipment) {
 		align="center"
 		v-if="(temp.dungeonsSP == 2 || temp.innerWidth >= 800) && temp.openingCore"
 	>
-		核心(点击查看信息)
+		{{ $t('dung.core.checkfor') }}
 		<div
 			style="height: 40%; width: 95%; border: 2px solid red; position: relative"
 			:style="{ 'border-color': temp.coreViewColor() }"
 		>
 			<div v-if="temp.coreViewEquipment !== null">
 				<span v-html="equipmentDisplay(temp.coreViewEquipment, $t)" />
-				<span v-if="isEquipped(temp.coreViewEquipment)">(已装备)</span>
+				<span v-if="isEquipped(temp.coreViewEquipment)">{{
+					$t('dung.core.equiped', {
+						a: '',
+					})
+				}}</span>
 				<br />
-				真实等级{{
-					equipmentAttribute(temp.coreViewEquipment).realLevel.toFixed(1)
-				}}(稀有度加成{{ (temp.coreViewEquipment.rarity ** 2 * 100).toFixed(1) }}%)<br />
-				生命值+{{ equipmentAttribute(temp.coreViewEquipment).hea.toFixed(1) }}<br />
-				攻击力+{{ equipmentAttribute(temp.coreViewEquipment).atk.toFixed(1) }}<br />
-				防御力+{{ equipmentAttribute(temp.coreViewEquipment).def.toFixed(1) }}<br />
+				<span v-html="equipInformation()"></span>
 				<div style="position: absolute; bottom: 0; width: 100%; height: 50px">
 					<div
 						style="height: 40px; width: 25%; border: 2px solid red"
 						v-if="!(temp.coreViewEquipment.equipped ?? false)"
 						@click="equip(temp.coreViewEquipment)"
 					>
-						装备
+						{{ $t('dung.core.equip') }}
 					</div>
 					<div
 						style="height: 40px; width: 25%; border: 2px solid orange"
 						v-else
 						@click="unload(temp.coreViewEquipment)"
 					>
-						取消装备
+						{{ $t('dung.core.unequip') }}
 					</div>
 				</div>
 			</div>
@@ -82,7 +100,11 @@ function changeCoreView(eq: CoreEquipment) {
 							}"
 							@click="changeCoreView(player.minigame.coreEquipments.hea[0])"
 						>
-							装备的支持部<br /><span
+							{{
+								$t('dung.core.equiped', {
+									a: $t('dung.core.position.hea'),
+								})
+							}}<br /><span
 								v-html="equipmentDisplay(player.minigame.coreEquipments.hea[0], $t)"
 							/>
 						</div>
@@ -90,7 +112,11 @@ function changeCoreView(eq: CoreEquipment) {
 							style="height: 50px; width: 100%; border: 2px solid var(--color)"
 							v-else
 						>
-							未装备支持部
+							{{
+								$t('dung.core.notequiped', {
+									a: $t('dung.core.position.hea'),
+								})
+							}}
 						</div>
 					</td>
 					<td style="width: 30%; border: 0px solid red">
@@ -104,7 +130,11 @@ function changeCoreView(eq: CoreEquipment) {
 							}"
 							@click="changeCoreView(player.minigame.coreEquipments.atk[0])"
 						>
-							装备的打击部<br /><span
+							{{
+								$t('dung.core.equiped', {
+									a: $t('dung.core.position.atk'),
+								})
+							}}<br /><span
 								v-html="equipmentDisplay(player.minigame.coreEquipments.atk[0], $t)"
 							/>
 						</div>
@@ -112,7 +142,11 @@ function changeCoreView(eq: CoreEquipment) {
 							style="height: 50px; width: 100%; border: 2px solid var(--color)"
 							v-else
 						>
-							未装备打击部
+							{{
+								$t('dung.core.notequiped', {
+									a: $t('dung.core.position.atk'),
+								})
+							}}
 						</div>
 					</td>
 					<td style="width: 30%; border: 0px solid red">
@@ -126,7 +160,11 @@ function changeCoreView(eq: CoreEquipment) {
 							}"
 							@click="changeCoreView(player.minigame.coreEquipments.def[0])"
 						>
-							装备的防御部<br /><span
+							{{
+								$t('dung.core.equiped', {
+									a: $t('dung.core.position.def'),
+								})
+							}}<br /><span
 								v-html="equipmentDisplay(player.minigame.coreEquipments.def[0], $t)"
 							/>
 						</div>
@@ -134,7 +172,11 @@ function changeCoreView(eq: CoreEquipment) {
 							style="height: 50px; width: 100%; border: 2px solid var(--color)"
 							v-else
 						>
-							未装备防御部
+							{{
+								$t('dung.core.notequiped', {
+									a: $t('dung.core.position.def'),
+								})
+							}}
 						</div>
 					</td>
 				</tbody>

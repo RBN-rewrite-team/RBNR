@@ -1504,4 +1504,77 @@ export default {
 	'upgs.U6R18': function () {
 		return `推演能量×1e100<br>解锁<b class="baseRetribution">${player.options.isGuoGao ? '果糕' : '果报'}</b>`;
 	},
+
+	'studies.dung.title': '技能树',
+
+	'offline.title': '离线进度计算中',
+	'offline.tick': '已完成{a}/{b}帧的计算',
+	'offline.tick2': '已完成{a}/{b}帧的计算<br>剩余时间：{c}',
+	'stat.ordlvl': '当前序数等级：{level}',
+	'stat.ordlvl2': '累计最高序数等级：{level}',
+	'stat.ordlvlnext': '下一序数等级要求：',
+	'dung.core.checkfor': '核心(点击查看信息)',
+	'dung.core.info': `真实等级{a}(稀有度加成{b}%)<br />
+	生命值+{c}<br />
+	攻击力+{d}<br />
+	防御力+{e}<br />`,
+	'dung.core.position.hea': '支持部',
+	'dung.core.position.atk': '打击部',
+	'dung.core.position.def': '防御部',
+	'dung.core.notequiped': '未装备{a}',
+	'dung.core.equiped': '装备的{a}',
+	'dung.core.unequip': '取消装备',
+
+	'dil.preset.set': '添加当前溶剂作为预设',
+	'dil.preset.a': '预设：',
+	'dil.preset.use': '使用',
+	'dil.preset.del': '删除',
+	'dil.useable': '当前可用溶液：{a}',
+	'dil.respec': '重新分配',
+	'currency.九头蛇溶液': '九头蛇溶液',
+
+	chapa0: {
+		title: '序章',
+		text1: '后继',
+		text: '众里寻数',
+	},
+	chapa1: {
+		title: '第一章',
+		text1: '加法',
+		text: '嗜数成癖',
+	},
+	chapa2: {
+		title: '第二章',
+		text1: '乘法',
+		text: '知难而上',
+	},
+	chapa3: {
+		title: '第三章',
+		text1: '指数',
+		text: '步履维艰',
+	},
+	chapa4: {
+		title: '第四章',
+		text1: '序数',
+		text: '超越无限',
+	},
+	chapa5: {
+		title: '第五章',
+		text1: '九头蛇',
+		text: '力破万法',
+	},
+	chapa6: {
+		title: '第六章',
+		text1: '非递归',
+		text: '长路无间',
+	},
+	'uselessconfirm.0.t': '加法重置',
+	'uselessconfirm.0':
+		'你真的要重置吗？这将重置你之前的数值、大部分升级和购买项。<br>你将获得 {gain} 加法能量。',
+	'uselessconfirm.1.t': '乘法重置',
+	'uselessconfirm.1':
+		'你真的要重置吗？这将重置你之前的数值、加法能量、大部分升级和购买项。<br>你将获得 {gain} 乘法能量。',
+	'uselessconfirm.2.t': '指数重置',
+	'uselessconfirm.2':
+		'你真的要重置吗？这将重置你之前的大部分内容。<br>你将获得 {gain} 指数能量和 {gain2} 生活质量点。',
 };

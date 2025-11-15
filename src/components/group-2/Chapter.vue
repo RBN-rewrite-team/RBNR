@@ -14,97 +14,71 @@ function showChapter(id = 0): boolean {
 	if (id === 6) return player.nonrecu.power.gt(0);
 	return false;
 }
+const chapters = [
+	{
+		id: 0,
+		symbol: '0',
+		color: `var(--suptitle-color)`,
+		color2: `var(--title-color)`,
+	},
+	{
+		id: 1,
+		symbol: '+',
+		color: `#009dd9`,
+		color2: `#5acaff`,
+	},
+	{
+		id: 2,
+		symbol: '×',
+		color: `#cc33ff`,
+		color2: `#dd77dd`,
+	},
+	{
+		id: 3,
+		symbol: '↑',
+		color: `rgb(127, 127, 255)`,
+		color2: `rgb(63, 63, 127)`,
+	},
+	{
+		id: 4,
+		symbol: 'ω',
+		color: `rgb(255, 63, 63)`,
+		color2: `rgb(255, 127, 127)`,
+	},
+	{
+		id: 5,
+		symbol: 'Ψ',
+		color: `rgb(155, 125, 195)`,
+		color2: `rgb(200, 190, 245)`,
+	},
+	{
+		id: 6,
+		symbol: 'Ω',
+		color: `#c98300`,
+		color2: `rgb(245, 193, 73)`,
+	},
+] as const;
 </script>
 
 <template>
-	<div v-if="showChapter(0)">
-		<div class="chapter_background" style="color: var(--suptitle-color)">0</div>
-		<div
-			class="chapter_clickable"
-			style="color: var(--suptitle-color); background-color: var(--title-color)"
-			@click="player.stat.chapter = Math.max(player.stat.chapter, 0)"
-		>
-			众里寻数
+	<template v-for="i in 7">
+		<div v-if="showChapter(i - 1)">
+			<div class="chapter_background" :style="{ color: chapters[i - 1].color }">
+				{{ chapters[i - 1].symbol }}
+			</div>
+			<div
+				class="chapter_clickable"
+				:style="{ color: chapters[i - 1].color, backgroundColor: chapters[i - 1].color2 }"
+				@click="player.stat.chapter = Math.max(player.stat.chapter, chapters[i - 1].id)"
+			>
+				{{ $t('chapa' + (i - 1).toString() + '.text') }}
+			</div>
+			<div class="chapter_text" :style="{ backgroundColor: chapters[i - 1].color2 }">
+				{{ $t('chapa' + (i - 1).toString() + '.title') }}
+			</div>
+			<div class="chapter_text_b" :style="{ backgroundColor: chapters[i - 1].color2 }">
+				{{ $t('chapa' + (i - 1).toString() + '.text1') }}
+			</div>
 		</div>
-		<div class="chapter_text" style="color: var(--title-color)">序章</div>
-		<div class="chapter_text_b" style="color: var(--title-color)">后继</div>
-	</div>
-
-	<div v-if="showChapter(1)">
-		<div class="chapter_background" style="color: #009dd9">+</div>
-		<div
-			class="chapter_clickable"
-			style="color: #009dd9; background-color: #5acaff"
-			@click="player.stat.chapter = Math.max(player.stat.chapter, 1)"
-		>
-			嗜数成癖
-		</div>
-		<div class="chapter_text" style="color: #5acaff">第一章</div>
-		<div class="chapter_text_b" style="color: #5acaff">加法</div>
-	</div>
-
-	<div v-if="showChapter(2)">
-		<div class="chapter_background" style="color: #cc33ff">×</div>
-		<div
-			class="chapter_clickable"
-			style="color: #cc33ff; background-color: #dd77dd"
-			@click="player.stat.chapter = Math.max(player.stat.chapter, 2)"
-		>
-			知难而上
-		</div>
-		<div class="chapter_text" style="color: #dd77dd">第二章</div>
-		<div class="chapter_text_b" style="color: #dd77dd">乘法</div>
-	</div>
-
-	<div v-if="showChapter(3)">
-		<div class="chapter_background" style="color: rgb(127, 127, 255)">↑</div>
-		<div
-			class="chapter_clickable"
-			style="color: rgb(127, 127, 255); background-color: rgb(63, 63, 127)"
-			@click="player.stat.chapter = Math.max(player.stat.chapter, 3)"
-		>
-			步履维艰
-		</div>
-		<div class="chapter_text" style="color: rgb(63, 63, 127)">第三章</div>
-		<div class="chapter_text_b" style="color: rgb(63, 63, 127)">指数</div>
-	</div>
-
-	<div v-if="showChapter(4)">
-		<div class="chapter_background" style="color: rgb(255, 63, 63)">ω</div>
-		<div
-			class="chapter_clickable"
-			style="color: rgb(255, 63, 63); background-color: rgb(255, 127, 127)"
-			@click="player.stat.chapter = Math.max(player.stat.chapter, 4)"
-		>
-			超越无限
-		</div>
-		<div class="chapter_text" style="color: rgb(255, 127, 127)">第四章</div>
-		<div class="chapter_text_b" style="color: rgb(255, 127, 127)">序数</div>
-	</div>
-
-	<div v-if="showChapter(5)">
-		<div class="chapter_background" style="color: rgb(155, 125, 195)">Ψ</div>
-		<div
-			class="chapter_clickable"
-			style="color: rgb(155, 125, 195); background-color: rgb(200, 190, 245)"
-			@click="player.stat.chapter = Math.max(player.stat.chapter, 5)"
-		>
-			力破万法
-		</div>
-		<div class="chapter_text" style="color: rgb(200, 190, 245)">第五章</div>
-		<div class="chapter_text_b" style="color: rgb(200, 190, 245)">九头蛇</div>
-	</div>
-
-	<div v-if="showChapter(6)">
-		<div class="chapter_background" style="color: #c98300">Ω</div>
-		<div
-			class="chapter_clickable"
-			style="color: #c98300; background-color: rgb(245, 193, 73)"
-			@click="player.stat.chapter = Math.max(player.stat.chapter, 6)"
-		>
-			长路无间
-		</div>
-		<div class="chapter_text" style="color: rgb(245, 193, 73)">第六章</div>
-		<div class="chapter_text_b" style="color: rgb(245, 193, 73)">非递归</div>
-	</div>
+	</template>
 </template>
