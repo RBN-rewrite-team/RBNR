@@ -1597,4 +1597,49 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'dil.useable': 'You can use {a} Solutions for buying upgrades.',
 	'dil.respec': 'Respec',
 	'currency.九头蛇溶液': 'Solution',
+
+	'chap.a0': {
+		title: 'Prologue',
+		text1: 'Successor',
+		text: 'Found',
+	},
+	'chap.a1': {
+		title: 'Chapter 1',
+		text1: 'Addition',
+		text: 'Addiction',
+	},
+	'chap.a2': {
+		title: 'Chapter 2',
+		text1: 'Multiplication',
+		text: 'Difficult',
+	},
+	'chap.a3': {
+		title: 'Chapter 3',
+		text1: 'Exponentiation',
+		text: 'Difficulter',
+	},
+	'chap.a4': {
+		title: 'Chapter 4',
+		text1: 'Ordinal',
+		text: 'Transfinite',
+	},
+	'chap.a5': {
+		title: 'Chapter 5',
+		text1: 'Hydra',
+		text: 'Hydra',
+	},
+	'chap.a6': {
+		title: 'Chapter 6',
+		text1: 'Non Recursion',
+		text: 'Long & Uninterrupt',
+	},
+	'uselessconfirm.0.t': 'Addition Reset',
+	'uselessconfirm.0':
+		"Do you want to reset? It'll reset your number, most upgrades and buyables.<br>You will gain {gain} Addition Power(AP).",
+	'uselessconfirm.1.t': 'Multiplication Reset',
+	'uselessconfirm.1':
+		"Do you want to reset? It'll reset your number, Addition Power most upgrades and buyables.<br>You will gain {gain} Multiplication Power(MP).",
+	'uselessconfirm.2.t': 'Exponentiation Reset',
+	'uselessconfirm.2':
+		"Do you want to reset? It'll reset your progress before Exponentiation.<br>You will gain {gain} Exponentiation Power(MP) and. {gain2} QoL Points.",
 };

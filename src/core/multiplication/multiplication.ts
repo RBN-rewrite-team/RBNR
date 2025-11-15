@@ -17,6 +17,7 @@ import { Logarithm } from '../exponention/logarithm.ts';
 import { DC } from '@/core/constants';
 import { updateResetStatData } from '../stats.ts';
 import type { $t } from '@/utils/types.ts';
+import { getMessage } from '@/utils/i18n.ts';
 const D179E308 = Decimal.pow(2, 1024);
 export const Multiplication = {
 	upgrades: {
@@ -305,11 +306,15 @@ export const Multiplication = {
 		const gain = this.gain;
 		if (player.firstResetBit & 0b10) return void Multiplication.reset();
 		ModalService.show({
-			title: '乘法重置',
-			content:
-				'你真的要重置吗？这将重置你之前的数字、加法能量、大部分升级和购买项。<br>你将获得 ' +
-				formatWhole(gain()) +
-				' 乘法能量。',
+			title: getMessage('uselessconfirm.1.t'),
+			content: getMessage('uselessconfirm.1', {
+				gain: formatWhole(gain()),
+			}),
+			// title: '乘法重置',
+			// content:
+			// 	'你真的要重置吗？这将重置你之前的数字、加法能量、大部分升级和购买项。<br>你将获得 ' +
+			// 	formatWhole(gain()) +
+			// 	' 乘法能量。',
 			onConfirm() {
 				Multiplication.reset();
 				player.firstResetBit |= 0b10;

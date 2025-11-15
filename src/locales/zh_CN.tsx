@@ -1533,39 +1533,48 @@ export default {
 	'dil.respec': '重新分配',
 	'currency.九头蛇溶液': '九头蛇溶液',
 
-	'chap.0': {
+	'chap.a0': {
 		title: '序章',
 		text1: '后继',
 		text: '众里寻数',
 	},
-	'chap.1': {
+	'chap.a1': {
 		title: '第一章',
 		text1: '加法',
 		text: '嗜数成癖',
 	},
-	'chap.2': {
+	'chap.a2': {
 		title: '第二章',
 		text1: '乘法',
 		text: '知难而上',
 	},
-	'chap.3': {
+	'chap.a3': {
 		title: '第三章',
 		text1: '指数',
 		text: '步履维艰',
 	},
-	'chap.4': {
+	'chap.a4': {
 		title: '第四章',
 		text1: '序数',
 		text: '超越无限',
 	},
-	'chap.5': {
+	'chap.a5': {
 		title: '第五章',
 		text1: '九头蛇',
 		text: '力破万法',
 	},
-	'chap.6': {
+	'chap.a6': {
 		title: '第六章',
-		text1: '九头蛇',
+		text1: '非递归',
 		text: '长路无间',
 	},
+	'uselessconfirm.0.t': '加法重置',
+	'uselessconfirm.0':
+		'你真的要重置吗？这将重置你之前的数值、大部分升级和购买项。<br>你将获得 {gain} 加法能量。',
+	'uselessconfirm.1.t': '乘法重置',
+	'uselessconfirm.1':
+		'你真的要重置吗？这将重置你之前的数值、加法能量、大部分升级和购买项。<br>你将获得 {gain} 乘法能量。',
+	'uselessconfirm.2.t': '指数重置',
+	'uselessconfirm.2':
+		'你真的要重置吗？这将重置你之前的大部分内容。<br>你将获得 {gain} 指数能量和 {gain2} 生活质量点。',
 };

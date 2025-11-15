@@ -14,6 +14,7 @@ import { Buyable } from '../buyable.ts';
 import { Logarithm } from '../exponention/logarithm.ts';
 import { DC } from '@/core/constants';
 import { updateResetStatData } from '../stats.ts';
+import { getMessage } from '@/utils/i18n.ts';
 
 export class AdditionUpgrade extends Upgrade {
 	currency = Currencies.ADDITION_POWER;
@@ -185,11 +186,10 @@ export const Addition = {
 		const gain = this.gain;
 		if (player.firstResetBit & 0b1) return void Addition.reset();
 		ModalService.show({
-			title: '加法重置',
-			content:
-				'你真的要重置吗？这将重置你之前的数字、大部分升级和购买项。<br>你将获得 ' +
-				formatWhole(gain()) +
-				' 加法能量。',
+			title: getMessage('uselessconfirm.0.t'),
+			content: getMessage('uselessconfirm.0', {
+				gain: formatWhole(gain()),
+			}),
 			onConfirm() {
 				Addition.reset();
 				player.firstResetBit |= 0b1;

@@ -13,6 +13,7 @@ const D179E308 = Decimal.pow(2, 1024);
 import { wheatGrain } from './chessboard.ts';
 import { DC } from '../constants.ts';
 import { updateResetStatData } from '../stats.ts';
+import { getMessage } from '@/utils/i18n.ts';
 
 export const Exponention = {
 	upgrades: {
@@ -266,13 +267,11 @@ export const Exponention = {
 		const gain = this.gain;
 		if (player.firstResetBit & 0b100) return void Exponention.reset();
 		ModalService.show({
-			title: '指数重置',
-			content:
-				'你真的要重置吗？这将重置你之前大部分内容。<br>你将获得 ' +
-				formatWhole(gain()) +
-				' 指数能量和 ' +
-				formatWhole(new Decimal(3)) +
-				' 生活质量点。',
+			title: getMessage('uselessconfirm.2.t'),
+			content: getMessage('uselessconfirm.2', {
+				gain: formatWhole(gain()),
+				gain2: formatWhole(new Decimal(3)),
+			}),
 			onConfirm() {
 				Exponention.reset();
 				player.firstResetBit |= 0b100;
