@@ -12,6 +12,7 @@ import CenterLine from '@/components/ui/CenterLine.vue';
 import { openSetLangModel } from '@/components/i18nUI';
 import { useI18n } from 'vue-i18n';
 import type { $t } from '@/utils/types';
+import { i18n } from '@/utils/i18n';
 
 const $t = useI18n().t;
 const validNotations = computed(() =>
@@ -21,6 +22,11 @@ const validNotations = computed(() =>
 const validThemes = computed(() => Object.values(themes).filter((v) => typeof v == 'number'));
 const setFontUI = () =>
 	ModalService.show(($t: $t) => ({ title: $t('modal.font2'), component: fontUI }), $t);
+
+function b() {
+	//@ts-expect-error
+	return i18n.global.locale.value == 'zh-CN';
+}
 </script>
 
 <template>
@@ -158,7 +164,11 @@ const setFontUI = () =>
 				})
 			}}
 		</button>
-		<button class="setting_button" @click="player.options.isGuoGao = !player.options.isGuoGao">
+		<button
+			class="setting_button"
+			@click="player.options.isGuoGao = !player.options.isGuoGao"
+			v-if="b()"
+		>
 			{{
 				$t('set.status', {
 					label: $t('set.guogao'),

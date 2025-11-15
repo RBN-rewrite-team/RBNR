@@ -81,7 +81,7 @@ function phase() {
 			<p>
 				{{ produced(Currencies.EXPONENTION_POWER, format(player.stat.totalExppower)) }}
 			</p>
-			<p v-if="i18n.global.locale == 'zh-CN'" v-html="physicalScale(player.number)"></p>
+			<!-- <p v-if="i18n.global.locale == 'zh-CN'" v-html="physicalScale(player.number)"></p> -->
 		</template>
 		<div v-if="player.singularity.t > 666 + 2 / 3" style="position: relative">
 			<span
