@@ -1,0 +1,21 @@
+RAW::Proof.
+Using the variable names from the definition of \(BMS\), we have \(A = G + B_0 + (C)\)
+ and \(A[n] = G + B_0 + B_1 + ... + B_n\). Then \(A[n] <_{lex} A\)
+ if\(B_1 + B_2 + ... + B_n <_{lex} (C)\), 
+ which is trivial if \(m_0\) is undefined (the empty sequence is
+ lexicographically smaller than all other sequences, including \((C)\)), and otherwise
+ equivalent to the first column in \(B_1\) being lexicographically smaller than \(C\).
+ Let \(R_i\) be the first column in \(B_i\). Since \(R_0\) is the \(m_0\)-parent of \(C\), it is an
+ \(m\)-ancestor of \(C\) for each \(m \le m_0\), thus the \(m\)-th element of \(R_0\) is less than the
+ \(m\)-th element of \(C\). By definition, \(R_1\) is a copy of \(R_0\), but for each \(m < m_0\), the
+ \(m\)-th element is increased either by 0 or by the difference between itself and the
+ \(m\)-th element of \(C\). Then it is less than or equal to the \(m\)-th element of  \(C\), so
+ the sequence of the first \(m_0\) elements of \(R_1\) is pointwise smaller than or equal
+ to the sequence of the first \(m_0\) elements of C\(C\) (in fact, it is equal, but that is not
+ necessary for this proof). However, the \(m_0\)-th element of \(R_1\) is necessarily equal
+ to the \(m_0\)-th element of\(R_0\) since \(m_0 < m_0\) is false, thus it is strictly smaller
+ than the \(m_0\)-th element of \(C\).
+Therefore \(R_1 <_{lex} C\) ,which implies \(B_1 + B_2 + ... + B_n <_{lex} (C)\),and \(A[n] <_{lex} A\).
+
+Corollary 2 For all \(A, A' \in BMS\)，\(A' < A\) implies \(A' <_{lex} A\)。
+

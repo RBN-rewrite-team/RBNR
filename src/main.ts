@@ -47,16 +47,5 @@ console.log('我错了', new PowiainaNum(3));
 // };
 
 import { difference, xor } from 'lodash-es';
-import en_US from './locales/en_US.tsx';
-import zh_CN from './locales/zh_CN.tsx';
-
-const array1 = Object.keys(en_US);
-const array2 = Object.keys(zh_CN);
-// 找出 arr1 中有但 arr2 中没有的元素
-const onlyInFirst = difference(array1, array2);
-
-// 对称差集
-const symmetricDifference = xor(array1, array2);
-console.log(onlyInFirst, symmetricDifference);
 
 import './test.tsx';

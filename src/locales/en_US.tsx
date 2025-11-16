@@ -15,6 +15,17 @@ import { format, formatWhole } from '@/utils/format';
 import Decimal from 'break_eternity.js';
 import { VueLatex } from 'vatex';
 
+import bmsdefinition from '@/components/tabs/ordinalnt/ordinalnt5-content-en/bms-definition.txt?raw';
+import bmswellorder1 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/bms-wellorder-1.txt?raw';
+import bmswellorder2 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/bms-wellorder-2.txt?raw';
+import bmswellorder3 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/bms-wellorder-3.txt?raw';
+import bmswellorder4 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/bms-wellorder-4.txt?raw';
+import bmswellorder from '@/components/tabs/ordinalnt/ordinalnt5-content-en/bms-wellorder.txt?raw';
+import bmswellorder1prove from '@/components/tabs/ordinalnt/ordinalnt5-content-en/bms-wellorder-1-prove.txt?raw';
+import bmswellorder2prove from '@/components/tabs/ordinalnt/ordinalnt5-content-en/bms-wellorder-2-prove.txt?raw';
+import bmswellorder3prove from '@/components/tabs/ordinalnt/ordinalnt5-content-en/bms-wellorder-3-prove.txt?raw';
+import bmswellorder4prove from '@/components/tabs/ordinalnt/ordinalnt5-content-en/bms-wellorder-4-prove.txt?raw';
+
 export default {
 	'title.rewritten': 'Road of Big Number Rewritten',
 	'title.idlen': 'Road of Big Number (Special Idle Version)',
@@ -1681,5 +1692,14 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'currency.x4': 'x<sub>4</sub>',
 	'crreuncy.τ4': 'τ<sub>4</sub>',
 
-	'upgs.ts_auto_pkg_hydra': 'Get automator hydra package. Use include hydra; to import',
+	bmsdefinition,
+	bmswellorder1,
+	bmswellorder2,
+	bmswellorder3,
+	bmswellorder4,
+	bmswellorder,
+	bmswellorder1prove,
+	bmswellorder2prove,
+	bmswellorder3prove,
+	bmswellorder4prove,
 };
