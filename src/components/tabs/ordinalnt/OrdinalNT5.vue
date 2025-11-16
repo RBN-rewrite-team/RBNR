@@ -10,33 +10,7 @@ import {
 import TDUpgrade from '../../group-2/TDUpgrade.vue';
 import TDBuyable from '../../group-2/TDBuyable.vue';
 import { component as cttc } from '../help/text-to-component-convert.tsx';
-import prssdefinition from './ordinalnt5-content/prss-definition.txt?raw';
-import prss1 from './ordinalnt5-content/prss-page-1-Pdef.txt?raw';
-import prss2 from './ordinalnt5-content/prss-page-1.txt?raw';
-import prss3 from './ordinalnt5-content/prss-page-2-1.txt?raw';
-import prss4 from './ordinalnt5-content/prss-page-2-2.txt?raw';
-import prss5 from './ordinalnt5-content/prss-page-2.txt?raw';
-import prss6 from './ordinalnt5-content/prss-page-3-1.txt?raw';
-import prss7 from './ordinalnt5-content/prss-page-4-1.txt?raw';
-import prss8 from './ordinalnt5-content/prss-page-4-2.txt?raw';
-import prss9 from './ordinalnt5-content/prss-page-4-3.txt?raw';
-import prss10 from './ordinalnt5-content/prss-page-4-4.txt?raw';
-import prss11 from './ordinalnt5-content/prss-page-5-1.txt?raw';
-import prss12 from './ordinalnt5-content/prss-page-5-2.txt?raw';
-import prss13 from './ordinalnt5-content/prss-page-6-1.txt?raw';
-import prss14 from './ordinalnt5-content/prss-page-6-2.txt?raw';
-import prss15 from './ordinalnt5-content/prss-page-7-1.txt?raw';
-import prss16 from './ordinalnt5-content/prss-page-7-2.txt?raw';
-import bmsdefinition from './ordinalnt5-content/bms-definition.txt?raw';
-import bmswellorder1 from './ordinalnt5-content/bms-wellorder-1.txt?raw';
-import bmswellorder2 from './ordinalnt5-content/bms-wellorder-2.txt?raw';
-import bmswellorder3 from './ordinalnt5-content/bms-wellorder-3.txt?raw';
-import bmswellorder4 from './ordinalnt5-content/bms-wellorder-4.txt?raw';
-import bmswellorder from './ordinalnt5-content/bms-wellorder.txt?raw';
-import bmswellorder1prove from './ordinalnt5-content/bms-wellorder-1-prove.txt?raw';
-import bmswellorder2prove from './ordinalnt5-content/bms-wellorder-2-prove.txt?raw';
-import bmswellorder3prove from './ordinalnt5-content/bms-wellorder-3-prove.txt?raw';
-import bmswellorder4prove from './ordinalnt5-content/bms-wellorder-4-prove.txt?raw';
+
 import PageSelect from './PageSelect.vue';
 function getCurrentSequenceName(): string {
 	const selecting = player.numbertheory.well_ordering.selecting;
@@ -117,12 +91,12 @@ function getCurrentSequenceName(): string {
 		</table>
 	</div>
 	<div v-if="player.numbertheory.well_ordering.selecting === 1" align="center">
-		<cttc :text="prssdefinition" />
+		<cttc :text="$t('prssdefinition')" />
 		<div class="center_line" />
 		<PageSelect />
 		<template v-if="player.numbertheory.well_ordering.pages[0] == 0">
 			<div class="center_line" />
-			<cttc :text="prss2" />
+			<cttc :text="$t('prss2')" />
 
 			<div class="center_line" />
 			<p>下一步：定义由自然数构成的有限长数列的集合 P， P的递归定义是...</p>
@@ -133,7 +107,7 @@ function getCurrentSequenceName(): string {
 					v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(1)"
 				>
 					获得P的递归定义，消耗10推演能量</button
-				><template v-else> <cttc :text="prss1" /> </template>
+				><template v-else> <cttc :text="$t('prss1')" /> </template>
 			</div>
 		</template>
 		<div class="center_line" />
@@ -149,7 +123,7 @@ function getCurrentSequenceName(): string {
 						>(未证明)</span
 					>
 				</h3>
-				<cttc :text="prss5" />
+				<cttc :text="$t('prss5')" />
 				<div class="center_line" />
 				<h2>证明</h2>
 				1.
@@ -160,7 +134,7 @@ function getCurrentSequenceName(): string {
 					style="display: inline-block"
 				>
 					证明引理1.1，消耗100,000推演能量</button
-				><template v-else> <cttc :text="prss3" /> </template>
+				><template v-else> <cttc :text="$t('prss3')" /> </template>
 				<div class="center_line" />
 				2.
 				<button
@@ -171,7 +145,7 @@ function getCurrentSequenceName(): string {
 				>
 					证明引理1.2，消耗500,000,000推演能量</button
 				><template v-else>
-					<cttc :text="prss4" />
+					<cttc :text="$t('prss4')" />
 
 					<div class="center_line" />
 					<span style="color: green"
@@ -196,7 +170,7 @@ function getCurrentSequenceName(): string {
 				player.numbertheory.well_ordering.steps_proceeded.includes(4)
 			"
 		>
-			<cttc :text="prss6" />
+			<cttc :text="$t('prss6')" />
 			<button
 				class="clickable_button"
 				@click="stepProceed(5)"
@@ -213,7 +187,7 @@ function getCurrentSequenceName(): string {
 			"
 		>
 			<h3>引理2</h3>
-			<cttc :text="prss7" />
+			<cttc :text="$t('prss7')" />
 			<div class="center_line" />
 			<h2>证明</h2>
 			1.
@@ -225,7 +199,7 @@ function getCurrentSequenceName(): string {
 			>
 				证明引理2.1，消耗1.0000e34推演能量</button
 			><template v-else>
-				<cttc :text="prss8" />
+				<cttc :text="$t('prss8')" />
 				<span style="color: green"
 					>引理2.1奖励：九头蛇能量第二软上限再次变得更弱。九头蛇溶液加成推演能量获取</span
 				>
@@ -240,7 +214,7 @@ function getCurrentSequenceName(): string {
 			>
 				证明引理2.2，消耗1.0000e52推演能量</button
 			><template v-else>
-				<cttc :text="prss9" />
+				<cttc :text="$t('prss9')" />
 
 				<span style="color: green"
 					>引理2.2奖励：自动购买非递归定理，自动获得NRC6次数，B6-R-1-3、B6-R-1-4的效果底数翻倍，削弱九头蛇能量的二重软上限</span
@@ -256,7 +230,7 @@ function getCurrentSequenceName(): string {
 			>
 				证明引理2.3，消耗1.7977e308推演能量</button
 			><template v-else>
-				<cttc :text="prss10" />
+				<cttc :text="$t('prss10')" />
 				<span style="color: green">引理2.3奖励：推演能量巨幅加成朊病毒获取速度</span>
 			</template>
 		</template>
@@ -275,7 +249,7 @@ function getCurrentSequenceName(): string {
 			>
 				解锁引理3，消耗3.000e320推演能量
 			</button>
-			<template v-else> <cttc :text="prss11" /> </template>
+			<template v-else> <cttc :text="$t('prss11')" /> </template>
 			<div class="center-line"></div>
 			<button
 				class="clickable_button"
@@ -286,7 +260,7 @@ function getCurrentSequenceName(): string {
 				证明引理3，消耗3.000e325推演能量
 			</button>
 			<template v-else>
-				<cttc :text="prss12" />
+				<cttc :text="$t('prss12')" />
 				<p style="color: green">引理3效果:B6-R-1-3, B6-R-1-4的底数再一次翻倍</p>
 			</template>
 		</template>
@@ -305,7 +279,7 @@ function getCurrentSequenceName(): string {
 			>
 				解锁引理4，消耗1.000e690推演能量
 			</button>
-			<template v-else> <cttc :text="prss13" /> </template>
+			<template v-else> <cttc :text="$t('prss13')" /> </template>
 			<div class="center-line"></div>
 			<button
 				class="clickable_button"
@@ -316,7 +290,7 @@ function getCurrentSequenceName(): string {
 				证明引理4，消耗1.000e695推演能量
 			</button>
 			<template v-else>
-				<cttc :text="prss14" />
+				<cttc :text="$t('prss14')" />
 				<p style="color: green">引理4效果:BMS推演速度双指数^1.2</p>
 			</template>
 		</template>
@@ -335,7 +309,7 @@ function getCurrentSequenceName(): string {
 			>
 				解锁引理5，消耗1.000e700推演能量
 			</button>
-			<template v-else> <cttc :text="prss15" /> </template>
+			<template v-else> <cttc :text="$t('prss15')" /> </template>
 			<div class="center-line"></div>
 			<button
 				class="clickable_button"
@@ -346,13 +320,13 @@ function getCurrentSequenceName(): string {
 				证明引理5，消耗1.000e1125推演能量
 			</button>
 			<template v-else>
-				<b> <cttc :text="prss16" /> </b><br />
+				<b> <cttc :text="$t('prss16')" /> </b><br />
 				<p style="color: green">引理5效果:推演能量获取速度^1.5。</p>
 			</template>
 		</template>
 	</div>
 	<div v-if="player.numbertheory.well_ordering.selecting === 2" align="center">
-		<cttc :text="bmsdefinition" />
+		<cttc :text="$t('bmsdefinition')" />
 		<div class="center_line"></div>
 		<PageSelect />
 		<div class="center_line"></div>
@@ -366,7 +340,7 @@ function getCurrentSequenceName(): string {
 				定义引理1，消耗1.000e2435推演能量
 			</button>
 			<template v-else>
-				<cttc :text="bmswellorder1" />
+				<cttc :text="$t('bmswellorder1')" />
 				<button
 					class="clickable_button"
 					@click="stepProceed(16)"
@@ -376,7 +350,7 @@ function getCurrentSequenceName(): string {
 					证明引理1，消耗1.000e2940推演能量
 				</button>
 				<template v-else>
-					<cttc :text="bmswellorder1prove" />
+					<cttc :text="$t('bmswellorder1prove')" />
 					<p style="color: green">效果: UNOCF第五效果×30,000</p>
 					<button
 						class="clickable_button"
@@ -395,7 +369,7 @@ function getCurrentSequenceName(): string {
 				player.numbertheory.well_ordering.steps_proceeded.includes(17)
 			"
 		>
-			<cttc :text="bmswellorder2" />
+			<cttc :text="$t('bmswellorder2')" />
 			<button
 				class="clickable_button"
 				@click="stepProceed(18)"
@@ -404,7 +378,7 @@ function getCurrentSequenceName(): string {
 				证明引理2，消耗1.000e8320推演能量
 			</button>
 			<template v-else>
-				<cttc :text="bmswellorder2prove" />
+				<cttc :text="$t('bmswellorder2prove')" />
 				<p style="color: green">
 					奖励：移除九头蛇能量的二重软上限，略微降低B6-R-2-1价格的增长速度。
 				</p>
@@ -423,7 +397,7 @@ function getCurrentSequenceName(): string {
 				player.numbertheory.well_ordering.steps_proceeded.includes(19)
 			"
 		>
-			<cttc :text="bmswellorder3" />
+			<cttc :text="$t('bmswellorder3')" />
 			<button
 				class="clickable_button"
 				@click="stepProceed(20)"
@@ -433,7 +407,7 @@ function getCurrentSequenceName(): string {
 				><span v-else>1.00e75,000</span>推演能量
 			</button>
 			<template v-else>
-				<cttc :text="bmswellorder3prove" />
+				<cttc :text="$t('bmswellorder3prove')" />
 				<p style="color: green">奖励：大幅度加成BMS推演速度。</p>
 				<button
 					class="clickable_button"
@@ -451,7 +425,7 @@ function getCurrentSequenceName(): string {
 				player.numbertheory.well_ordering.steps_proceeded.includes(21)
 			"
 		>
-			<cttc :text="bmswellorder4" />
+			<cttc :text="$t('bmswellorder4')" />
 			<button
 				class="clickable_button"
 				@click="stepProceed(22)"
@@ -461,7 +435,7 @@ function getCurrentSequenceName(): string {
 				><span v-else>1.0e1,000,000</span>推演能量
 			</button>
 			<template v-else>
-				<cttc :text="bmswellorder4prove" />
+				<cttc :text="$t('bmswellorder4prove')" />
 				<p style="color: green">奖励：大幅度加成BMS推演速度。</p>
 				<button
 					class="clickable_button"
@@ -478,7 +452,7 @@ function getCurrentSequenceName(): string {
 				player.numbertheory.well_ordering.steps_proceeded.includes(23)
 			"
 		>
-			<cttc :text="bmswellorder" />
+			<cttc :text="$t('bmswellorder')" />
 			<p style="color: green">
 				奖励：你可以进行第一次果报重置......在e150000000推演能量之后，BMS推演速度的slog+{{
 					format(

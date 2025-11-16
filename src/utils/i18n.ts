@@ -3,6 +3,7 @@ import { createI18n, useI18n } from 'vue-i18n';
 import zhCN from '@/locales/zh_CN.tsx';
 import enUS from '@/locales/en_US.tsx';
 import type { $t, FunctionArguments } from './types';
+import { handleError } from 'vue';
 export const messages = {
 	'zh-CN': zhCN,
 	'en-US': enUS,
@@ -21,15 +22,40 @@ function checkAndFallbackLocale() {
 	}
 	return a;
 }
+
+function handle(message: any): any {
+	const a: any = {};
+	for (const key in message) {
+		let israw = false;
+		if (typeof message[key] == 'string') {
+			israw = message[key].startsWith('RAW::');
+		}
+		a[key] = israw
+			? function () {
+					return message[key];
+				}
+			: message[key];
+	}
+	return a;
+}
+function handle2(message: any): any {
+	const b: any = {};
+	for (const k in message) {
+		b[k] = handle(message[k]);
+	}
+	return b;
+}
+const message_handled = handle2(messages);
 export const i18n = createI18n({
 	locale: checkAndFallbackLocale(),
 	fallbackLocale: 'zh-CN',
-	messages,
+	messages: message_handled,
 	warnHtmlMessage: false,
 
 	fallbackWarn: false,
 	missingWarn: false,
 } as const);
+
 export const messagesLength = (function () {
 	const a = {
 		'zh-CN': 0,

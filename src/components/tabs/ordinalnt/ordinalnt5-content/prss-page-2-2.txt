@@ -1,4 +1,4 @@
-证明其逆否命题。
+RAW::证明其逆否命题。
 即，由 \(A \neq C\) 或\(B \neq D\) 推导出\(A \frown (0) \frown B^+ \neq C \frown (0) \frown D^+\)。
 若\(A \neq C\)，则要么\(\textrm{length}(A) \neq \textrm{length}(C)\)，要么存在\(n < \textrm{length}(A)\) 满足\(A_n \neq C_n\)。
 若\(\textrm{length}(A) \neq \textrm{length}(C)\)（不失一般性，设\(\textrm{length}(A) < \textrm{length}(C)\)），

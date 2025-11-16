@@ -8,6 +8,34 @@ import { format, formatWhole } from '@/utils/format';
 import Decimal from 'break_eternity.js';
 import { VueLatex } from 'vatex';
 
+import prssdefinition from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-definition.txt?raw';
+import prss1 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-1-Pdef.txt?raw';
+import prss2 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-1.txt?raw';
+import prss3 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-2-1.txt?raw';
+import prss4 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-2-2.txt?raw';
+import prss5 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-2.txt?raw';
+import prss6 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-3-1.txt?raw';
+import prss7 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-4-1.txt?raw';
+import prss8 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-4-2.txt?raw';
+import prss9 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-4-3.txt?raw';
+import prss10 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-4-4.txt?raw';
+import prss11 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-5-1.txt?raw';
+import prss12 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-5-2.txt?raw';
+import prss13 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-6-1.txt?raw';
+import prss14 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-6-2.txt?raw';
+import prss15 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-7-1.txt?raw';
+import prss16 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-7-2.txt?raw';
+import bmsdefinition from '@/components/tabs/ordinalnt/ordinalnt5-content/bms-definition.txt?raw';
+import bmswellorder1 from '@/components/tabs/ordinalnt/ordinalnt5-content/bms-wellorder-1.txt?raw';
+import bmswellorder2 from '@/components/tabs/ordinalnt/ordinalnt5-content/bms-wellorder-2.txt?raw';
+import bmswellorder3 from '@/components/tabs/ordinalnt/ordinalnt5-content/bms-wellorder-3.txt?raw';
+import bmswellorder4 from '@/components/tabs/ordinalnt/ordinalnt5-content/bms-wellorder-4.txt?raw';
+import bmswellorder from '@/components/tabs/ordinalnt/ordinalnt5-content/bms-wellorder.txt?raw';
+import bmswellorder1prove from '@/components/tabs/ordinalnt/ordinalnt5-content/bms-wellorder-1-prove.txt?raw';
+import bmswellorder2prove from '@/components/tabs/ordinalnt/ordinalnt5-content/bms-wellorder-2-prove.txt?raw';
+import bmswellorder3prove from '@/components/tabs/ordinalnt/ordinalnt5-content/bms-wellorder-3-prove.txt?raw';
+import bmswellorder4prove from '@/components/tabs/ordinalnt/ordinalnt5-content/bms-wellorder-4-prove.txt?raw';
+
 export default {
 	'title.rewritten': '大数之路重制版',
 	'title.idlen': '大数之路放置版',
@@ -1615,4 +1643,32 @@ export default {
 
 	'nonrec.chaltip':
 		'在非递归挑战中，溶剂II将增加U5-S系列的价格<br />注意：所有非递归挑战至多完成5次。',
+
+	prss1,
+	prss2,
+	prss3,
+	prss4,
+	prss5,
+	prss6,
+	prss7,
+	prss8,
+	prss9,
+	prss10,
+	prss11,
+	prss12,
+	prss13,
+	prss14,
+	prss15,
+	prss16,
+	prssdefinition,
+	bmsdefinition,
+	bmswellorder1,
+	bmswellorder2,
+	bmswellorder3,
+	bmswellorder4,
+	bmswellorder,
+	bmswellorder1prove,
+	bmswellorder2prove,
+	bmswellorder3prove,
+	bmswellorder4prove,
 };

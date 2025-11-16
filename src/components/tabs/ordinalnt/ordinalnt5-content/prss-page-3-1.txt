@@ -1,4 +1,4 @@
-定义函数\(\textrm{expand} : (P \setminus \{E\}) \times \mathbb N \to \mathbb N^{<\omega}\)如下。
+RAW::定义函数\(\textrm{expand} : (P \setminus \{E\}) \times \mathbb N \to \mathbb N^{<\omega}\)如下。
 注意定义域的元素 \(S\) 非空，因此\(S_\Box\) 是确定的。
 若 \(S_\Box = 0\)，则\(\textrm{expand}(S) := \textrm{sub}(S,0,\textrm{length}(S)-1)\)。
 若 \(S_\Box > 0\)，则（由引理1.1）\(0 \in \{i \in \mathbb N | i < \textrm{length}(S) \land S_i < S_\Box\}\)，因此\(\{i \in \mathbb N | i < \textrm{length}(S) \land S_i < S_\Box\}\)非空。

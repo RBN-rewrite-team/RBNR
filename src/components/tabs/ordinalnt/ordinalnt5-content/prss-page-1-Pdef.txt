@@ -1,4 +1,4 @@
-定义由自然数构成的有限长数列的集合 P，递归定义如下：
+RAW::定义由自然数构成的有限长数列的集合 P，递归定义如下：
 \[P_0 := \{E\}\]
 \[P_{n+1} := P_n \cup \{S \frown (0) \frown T^+ | S \in P_n \land T \in P_n\}\]
 \[P := \bigcup_{n \in \mathbb N} P_n\]
