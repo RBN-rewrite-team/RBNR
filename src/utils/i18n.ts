@@ -32,7 +32,7 @@ function handle(message: any): any {
 		}
 		a[key] = israw
 			? function () {
-					return message[key];
+					return message[key].slice(5);
 				}
 			: message[key];
 	}
