@@ -29,6 +29,7 @@
     "lunarphase-js": "^2.0.3",
     "pako": "^2.1.0",
     "powiaina_num.js": "^0.2.11",
+    "rolldown-vite": "^7.2.5",
     "terser": "^5.44.0",
     "type-fest": "^5.0.1",
     "vatex": "^0.1.0",
@@ -55,5 +56,8 @@
     "vite-plugin-html-minifier": "^1.0.5",
     "vite-plugin-vue-devtools": "^8.0.3",
     "vue-tsc": "^3.1.1"
+  },
+  "overrides": {
+    "vite": "npm:rolldown-vite@latest"
   }
 }
