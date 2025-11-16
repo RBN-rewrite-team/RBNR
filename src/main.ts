@@ -58,3 +58,5 @@ const onlyInFirst = difference(array1, array2);
 // 对称差集
 const symmetricDifference = xor(array1, array2);
 console.log(onlyInFirst, symmetricDifference);
+
+import './test.tsx';

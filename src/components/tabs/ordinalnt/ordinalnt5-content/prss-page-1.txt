@@ -1,0 +1,5 @@
+以下，用 \(E\) 表示空序列，用\(\frown\) 表示数列之间的连接。
+对于数列 \(S\)，用\(\textrm{length}(S)\) 表示数列\(S\) 的长度，用\(S_n(n < \textrm{length}(S))\) 表示\(S\) 的第 \(n\) 项，
+用 \(S_\Box\) 表示 \(S\) 的末项，用\(S^+\) 表示 \(S\) 各项加\(1\) 后的数列。
+对于数列 \(S\) 和满足 \(m\)\(\le n \le \textrm{length}(S)\) 的自然数\(m,n\)，
+将满足\(T_x = S_{m+x}(\textrm{if}\ x < n-m)\) 且\(\textrm{length}(T) = n-m\) 的唯一数列\(T\) 表示为 \(\textrm{sub}(S,m,n)\)。

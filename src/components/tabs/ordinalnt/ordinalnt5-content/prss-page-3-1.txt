@@ -1,0 +1,8 @@
+定义函数\(\textrm{expand} : (P \setminus \{E\}) \times \mathbb N \to \mathbb N^{<\omega}\)如下。
+注意定义域的元素 \(S\) 非空，因此\(S_\Box\) 是确定的。
+若 \(S_\Box = 0\)，则\(\textrm{expand}(S) := \textrm{sub}(S,0,\textrm{length}(S)-1)\)。
+若 \(S_\Box > 0\)，则（由引理1.1）\(0 \in \{i \in \mathbb N | i < \textrm{length}(S) \land S_i < S_\Box\}\)，因此\(\{i \in \mathbb N | i < \textrm{length}(S) \land S_i < S_\Box\}\)非空。
+定义\(\textrm{br}(S) := \max \{i \in \mathbb N | i < \textrm{length}(S) \land S_i < S_\Box\}\)。
+定义\(\textrm{gp}(S) := \textrm{sub}(S,0,\textrm{br}(S))\)。
+定义\(\textrm{bp}(S) := \textrm{sub}(S,\textrm{br}(S),\textrm{length}(S)-1)\)。
+定义\(\textrm{expand}(S) := \textrm{gp}(S) \frown \underbrace{\textrm{bp}(S) \frown \cdots \frown \textrm{bp}(S)}_{n}\)。

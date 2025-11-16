@@ -1,0 +1,5 @@
+1. 对于任意 \(A \in P\)，有\(\textrm{expand}(\textrm{gen}(A,E),n) = A\)。
+2. 对于任意 \((A,B) \in P^2\)，
+有\(\textrm{expand}(\textrm{gen}(A,\textrm{gen}(B,E)),n) = A \frown \underbrace{(0) \frown B^+ \frown \cdots \frown (0) \frown B^+}_n\)。
+3. 对于任意\((A,B,C) \in P^2 \times (P \setminus \{E\})\)，
+有\(\textrm{expand}(\textrm{gen}(A,\textrm{gen}(B,C)),n) = \textrm{gen}(A,\textrm{expand}(\textrm{gen}(B,C),n))\)。
