@@ -1670,4 +1670,14 @@ export default {
 	bmswellorder2prove,
 	bmswellorder3prove,
 	bmswellorder4prove,
+
+	'nt.wellorderness': '良序性',
+	'nt.wellorderness.ded': '你有{a}推演能量, 增加UNOCF推演速度×{b}',
+
+	'nt.wellorderness.proving': '当前证明中：{prove}',
+	'nt.wellorderness.select.0': '无',
+	'nt.wellorderness.select.1': '初等序列 (Primitive Sequence System)的停机性',
+	'nt.wellorderness.select.2': 'BMS (Bashicu Matrix System)的良序性',
+
+	'nt.wellorderness.butt': '获得{a}推演能量',
 };

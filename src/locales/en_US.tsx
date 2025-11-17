@@ -15,6 +15,23 @@ import { format, formatWhole } from '@/utils/format';
 import Decimal from 'break_eternity.js';
 import { VueLatex } from 'vatex';
 
+import prssdefinition from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-definition.txt?raw';
+import prss1 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-1-Pdef.txt?raw';
+import prss2 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-1.txt?raw';
+import prss3 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-2-1.txt?raw';
+import prss4 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-2-2.txt?raw';
+import prss5 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-2.txt?raw';
+import prss6 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-3-1.txt?raw';
+import prss7 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-4-1.txt?raw';
+import prss8 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-4-2.txt?raw';
+import prss9 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-4-3.txt?raw';
+import prss10 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-4-4.txt?raw';
+import prss11 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-5-1.txt?raw';
+import prss12 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-5-2.txt?raw';
+import prss13 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-6-1.txt?raw';
+import prss14 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-6-2.txt?raw';
+import prss15 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-7-1.txt?raw';
+import prss16 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-7-2.txt?raw';
 import bmsdefinition from '@/components/tabs/ordinalnt/ordinalnt5-content-en/bms-definition.txt?raw';
 import bmswellorder1 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/bms-wellorder-1.txt?raw';
 import bmswellorder2 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/bms-wellorder-2.txt?raw';
@@ -1702,4 +1719,57 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	bmswellorder2prove,
 	bmswellorder3prove,
 	bmswellorder4prove,
+
+	prss1,
+	prss2,
+	prss3,
+	prss4,
+	prss5,
+	prss6,
+	prss7,
+	prss8,
+	prss9,
+	prss10,
+	prss11,
+	prss12,
+	prss13,
+	prss14,
+	prss15,
+	prss16,
+	prssdefinition,
+
+	'upgs.71': 'NRC1 challenge debuff reduced from 0.4667+X to 0.4667+0.3X',
+	'upgs.72':
+		'Keep Highest Solution amount if not in NRC。 Significantly reduce the softcap^2 of hydra energy',
+	'upgs.73': "NRS 52{'|'}71{'|'}72{'|'}73 time speed is 1000 faster.",
+	'upgs.74': 'Significantly enhance the effect of solution',
+	'upgs.75': 'Deduction power gain^1.25',
+	'upgs.76': 'Unlock more NT5 upgrades',
+	'upgs.77': 'Non Rec. Energy enhances <b>only timing</b> speed in current Non Recursion Reset',
+	'upgs.78': 'U6-7 effect ^2',
+
+	'upgs.71UN': 'Start UNOCF progression, +1/s',
+	'upgs.U6R11': 'Non Rec. Energy multiplies Deduction Energy gain',
+	'upgs.U6R12': 'You can buy at most 3 columns in row 5-7',
+	'upgs.U6R13': 'B6-R-1-1 effect^2',
+	'upgs.U6R14': 'Total NRT multiplies Non Rec. Energy gain',
+	'upgs.U6R15': 'You gan buy maxB6-R-1~4',
+	'upgs.U6R16': 'Enhance B6-R-1-5 by 5%',
+	'upgs.U6R17': 'Auto buy max B6-R-1~4',
+	'upgs.U6R21': 'Remove the softcap^2 of Non Rec.<sup>?</sup> Energy',
+	'upgs.U6R22': 'Current time in Non Rec. Reset multiplies Deduction Energy gain',
+	'upgs.U6R18': function () {
+		return `Deduction Energy×1e100<br>UNLOCK<b class="baseRetribution"> ${player.options.isGuoGao ? 'GUOTRIBUTION' : 'RETRIBUTION'}</b>`;
+	},
+
+	'nt.wellorderness': 'Well-Orderness',
+	'nt.wellorderness.ded':
+		'You have {a} Deduction Energy. <br />They multiply UNOCF progressing speed by ×{b}',
+
+	'nt.wellorderness.proving': 'Proving: {prove}.',
+	'nt.wellorderness.select.0': 'None',
+	'nt.wellorderness.select.1': 'The Well-orderness of PrSS (Primitive Sequence System)',
+	'nt.wellorderness.select.2': 'The Well-orderness of BMS (Bashicu Matrix System)',
+
+	'nt.wellorderness.butt': 'Get {a} Deduction Energy',
 };

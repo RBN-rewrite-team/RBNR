@@ -1,0 +1,4 @@
+RAW::Define P with finite-length natural number sequence , it's recursional definition：
+\[P_0 := \{E\}\]
+\[P_{n+1} := P_n \cup \{S \frown (0) \frown T^+ | S \in P_n \land T \in P_n\}\]
+\[P := \bigcup_{n \in \mathbb N} P_n\]

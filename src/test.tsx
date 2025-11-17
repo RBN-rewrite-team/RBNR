@@ -1,6 +1,9 @@
+import { difference, xor } from 'lodash-es';
 import { VueLatex } from 'vatex';
 import { Comment, Static, Text, type VNodeTypes } from 'vue';
 import { Fragment, type JSX } from 'vue/jsx-runtime';
+import zh_CN from './locales/zh_CN';
+import en_US from './locales/en_US';
 const a = (
 	<>
 		假设这样的 <vue-latex expression="k \in \mathbb N" /> 不存在。则对于每个
@@ -65,4 +68,11 @@ export function convertJSXtoPlain(x: JSX.Element) {
 	}
 	return x.type;
 }
-console.log(convertJSXtoPlain(a));
+const array1 = Object.keys(zh_CN);
+const array2 = Object.keys(en_US);
+// console.log(convertJSXtoPlain(a));
+const onlyInFirst = difference(array1, array2);
+
+// 对称差集
+const symmetricDifference = xor(array1, array2);
+console.log(onlyInFirst, symmetricDifference);

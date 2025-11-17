@@ -1,0 +1,14 @@
+RAW::证明其逆否命题。
+即，由 \(A \neq C\) 或\(B \neq D\) 推导出\(A \frown (0) \frown B^+ \neq C \frown (0) \frown D^+\)。
+若\(A \neq C\)，则要么\(\textrm{length}(A) \neq \textrm{length}(C)\)，要么存在\(n < \textrm{length}(A)\) 满足\(A_n \neq C_n\)。
+若\(\textrm{length}(A) \neq \textrm{length}(C)\)（不失一般性，设\(\textrm{length}(A) < \textrm{length}(C)\)），
+则\((C \frown (0) \frown D^+)_{\textrm{length}(C)} = ((0) \frown D^+)_{0} = 0\)。
+另一方面，\((A \frown (0) \frown B^+)_{\textrm{length}(C)} = ((0) \frown B^+)_{\textrm{length}(C) - \textrm{length}(A)} = B^+_{\textrm{length}(C) - \textrm{length}(A) -1} > 0\)，
+因此第 \(\textrm{length}(C)\) 项不相等，故\(A \frown (0) \frown B^+ \neq C \frown (0) \frown D^+\)。
+若存在 \(n < \textrm{length}(A)\) 满足\(A_n \neq C_n\)，则对于该\(n\)，有\((A \frown (0) \frown B^+)_n \neq (C \frown (0) \frown D^+)_n\)，
+所以\(A \frown (0) \frown B^+ \neq C \frown (0) \frown D^+\)。
+若\(A = C\) 且\(B \neq D\)，则\(A \frown (0) \frown B^+ = C \frown (0) \frown B^+ \neq C \frown (0) \frown D^+\)。
+综上，若 \(A \neq C\) 或\(B \neq D\)，则\(A \frown (0) \frown B^+ \neq C \frown (0) \frown D^+\)。
+
+\(P\) 是由 \(E\) 和函数\((A,B) \mapsto A \frown (0) \frown B^+\)生成的函数，引理 1.2 断言了自由生成（即\(P\)的元素不会以两种不同的方式表示）。
+由于该函数在后续证明中非常重要，将其简记为\(\textrm{gen}(A,B) := A \frown (0) \frown B^+\)。

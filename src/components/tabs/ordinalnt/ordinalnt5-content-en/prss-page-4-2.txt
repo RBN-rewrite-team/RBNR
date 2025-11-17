@@ -1,0 +1,2 @@
+RAW::令 \(S := \textrm{gen}(A,E)\)，则\(S = A \frown (0) \frown E^+ = A \frown (0)\)，
+所以\(S_\Box = 0\)。因此，\(\textrm{expand}(S,n) = \textrm{sub}(S,0,\textrm{length}(S)-1) = A\)。

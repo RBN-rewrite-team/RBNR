@@ -12,20 +12,26 @@ import TDBuyable from '../../group-2/TDBuyable.vue';
 import { component as cttc } from '../help/text-to-component-convert.tsx';
 
 import PageSelect from './PageSelect.vue';
+import { useI18n } from 'vue-i18n';
 function getCurrentSequenceName(): string {
 	const selecting = player.numbertheory.well_ordering.selecting;
-	if (selecting === 0) return '无';
-	if (selecting === 1) return '初等序列 (Primitive Sequence System)的停机性';
-	if (selecting === 2) return 'BMS (Bashicu Matrix System)的良序性';
+	if (selecting === 0) return $t('nt.wellorderness.select.0');
+	if (selecting === 1) return $t('nt.wellorderness.select.1');
+	if (selecting === 2) return $t('nt.wellorderness.select.2');
 	return '???';
+}
+const $t = useI18n().t;
+function c() {
+	return $t('nt.wellorderness.ded', {
+		a: `<b style="color: #c98300; font-size: 30px">${formatWhole(player.numbertheory.well_ordering.energy)}</b>`,
+		b: format(energyToUNOCFSpeed()),
+	});
 }
 </script>
 
 <template>
-	<h2>良序性</h2>
-	你有<b style="color: #c98300; font-size: 30px">
-		{{ formatWhole(player.numbertheory.well_ordering.energy) }} </b
-	>推演能量, 增加UNOCF推演速度×{{ format(energyToUNOCFSpeed()) }}
+	<h2>{{ $t('nt.wellorderness') }}</h2>
+	<span v-html="c()"></span>
 	<div>
 		<button
 			class="clickable_button"
@@ -38,7 +44,10 @@ function getCurrentSequenceName(): string {
 			"
 		>
 			←</button
-		>当前证明中：{{ getCurrentSequenceName()
+		>{{
+			$t('nt.wellorderness.proving', {
+				prove: getCurrentSequenceName(),
+			})
 		}}<button
 			class="clickable_button"
 			style="display: inline-block"
@@ -56,7 +65,11 @@ function getCurrentSequenceName(): string {
 		<div class="center_line" />
 		<div>
 			<button class="clickable_button" @click="clickWellOrder()">
-				获得{{ formatWhole(wellOrderGainPerClick()) }}推演能量
+				{{
+					$t('nt.wellorderness.butt', {
+						a: formatWhole(wellOrderGainPerClick()),
+					})
+				}}
 			</button>
 		</div>
 	</div>
