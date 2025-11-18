@@ -15,6 +15,8 @@ import GardenConnect from './GardenConnect';
 import { format, formatLaTeX, formatTimestamp, formatWhole } from '@/utils/format';
 import GardenLevelFormula from './GardenLevelFormula';
 import { VueLatex } from 'vatex';
+import type { $t } from '@/utils/types';
+import { useI18n } from 'vue-i18n';
 export function onMousedown(m: MouseEvent) {
 	temp.garden.press = true;
 	temp.garden.press_last = [m.clientX, m.clientY];
@@ -120,7 +122,7 @@ function getBranchPara(mx1: number, my1: number, mx2: number, my2: number): Bran
 	return { cx: cx, cy: cy, deg: deg, length: length };
 }
 
-function simulateText(canvasRef: any) {
+function simulateText(canvasRef: any, $t: $t) {
 	const mapping = [[], []] as [GardenGenerator[], GardenUpgrade[]];
 	const connecting = [] as Branch[];
 	const connect = getConnect();
@@ -160,7 +162,9 @@ function simulateText(canvasRef: any) {
 							}}
 						>
 							<h2 style="position: absolute; left: 50%; bottom: -90px; transform: translate(-50%, -50%)">
-								<span style={{ color: g.currency.elementColor }}>{g.name}</span>
+								<span style={{ color: g.currency.elementColor }}>
+									{$t(`garden.gen.${g.key}`)}
+								</span>
 							</h2>
 							<h3 style="position: absolute; top: -60px; left: -60px">
 								x
@@ -177,7 +181,9 @@ function simulateText(canvasRef: any) {
 									),
 									6,
 								)}{' '}
-								<span style={{ color: g.currency.color }}>{g.currency.name}</span>
+								<span style={{ color: g.currency.color }}>
+									{$t(`currency.${g.currency.name}`)}
+								</span>
 							</span>
 						</GardenNode>
 					</>
@@ -231,7 +237,9 @@ function simulateText(canvasRef: any) {
 							}}
 						>
 							<h3 style="position: absolute; left: 50%; bottom: -60px; transform: translate(-50%, -50%)">
-								<span style={{ color: g.currency.elementColor }}>{g.name}</span>
+								<span style={{ color: g.currency.elementColor }}>
+									{$t(`garden.upg.${g.key}`)}
+								</span>
 							</h3>
 							{!Garden.boughtUpgrade(g.key as keyof typeof GardenGenUpgs.upgrades) ? (
 								<>
@@ -243,7 +251,7 @@ function simulateText(canvasRef: any) {
 											6,
 										)}{' '}
 										<span style={{ color: g.currency.color }}>
-											{g.currency.name}
+											{$t(`currency.${g.currency.name}`)}
 										</span>
 									</span>
 								</>
@@ -310,24 +318,27 @@ function simulateText(canvasRef: any) {
 						{Garden.nextIgRemain() > 0 ? (
 							<>
 								<h3>
-									距离下一次可用还有
+									{$t('garden.nextig2')}
 									<h2 style="color: orange">
 										{Garden.nextIgRemain()}ms/{Garden.igCD()}ms
 									</h2>
 								</h3>
 								<p style="color: orange">
-									下一次灵感迸发可于{formatTimestamp(Garden.nextIg())}后启用
+									{$t('garden.nextig', {
+										time: formatTimestamp(Garden.nextIg()),
+									})}
 								</p>
 							</>
 						) : (
 							<>
 								<h3>
-									<h2 style="color: orange">{format(Garden.igGain())}</h2>灵感
+									<h2 style="color: orange">{format(Garden.igGain())}</h2>
+									{$t('currency.灵感')}
 								</h3>
 							</>
 						)}
 						<h2 style="position: absolute; left: 50%; bottom: -90px; transform: translate(-50%, -50%); color: orange">
-							灵感迸发
+							{$t('garden.inspirationgenerate')}
 						</h2>
 					</GardenNode>
 				</>
@@ -357,14 +368,14 @@ function simulateText(canvasRef: any) {
 						canvasRef={canvasRef}
 						nodestyle={{ 'border-color': 'rgb(127, 255, 2)' }}
 					>
-						灵感能量
+						{$t('currency.灵感能量')}
 						<br />
 						<span style="color: rgb(127, 255, 2); font-weight: bold;">
 							{format(player.garden.insPower, 1)}
 						</span>
 						<br />
 						<span style="font-size: 11px">
-							本地速度×
+							{$t('garden.localspeedmult')}
 							<br />
 							<span style="color: rgb(127, 255, 2); font-weight: bold">
 								{format(Garden.insPowerEffect())}
@@ -385,8 +396,8 @@ function simulateText(canvasRef: any) {
 							((temp.garden.focus_pos[0] = 0), (temp.garden.focus_pos[1] = -1750));
 						}}
 					>
-						<h4>传送至</h4>
-						<h3>远古</h3>
+						<h4>{$t('garden.shortcut.0.0')}</h4>
+						<h3>{$t('garden.shortcut.0.1')}</h3>
 					</GardenNode>
 				</>
 			) : (
@@ -402,7 +413,7 @@ export default defineComponent({
 		if (!player.options.gammaTest) return () => <></>;
 
 		const canvasRef = ref<HTMLDivElement | null>(null);
-
+		const $t = useI18n().t;
 		return () => (
 			<>
 				<div style="position: absolute; width: 100%; height: 100%; overflow: hidden">
@@ -420,7 +431,7 @@ export default defineComponent({
 					>
 						<div class={'canvas_corner'}>
 							{player.garden.openSimulate ? (
-								simulateText(canvasRef)
+								simulateText(canvasRef, $t)
 							) : (
 								<>
 									<GardenNode
@@ -433,7 +444,7 @@ export default defineComponent({
 											player.garden.lastIG = Date.now();
 										}}
 									>
-										启动子世界
+										{$t('garden.startsimulate')}
 									</GardenNode>
 								</>
 							)}
@@ -445,7 +456,9 @@ export default defineComponent({
 					>
 						<div style="position: relative; width: 100%; height: 100%">
 							<h4 style="position: absolute; top: 4px; left: 4px">
-								{player.garden.focusNode.name}
+								{isGardenGenerator(player.garden.focusNode)
+									? $t(`garden.gen.${player.garden.focusNode.key}`)
+									: $t(`garden.upg.${player.garden.focusNode.key}`)}
 							</h4>
 							<h5 style="position: absolute; top: 4px; right: 4px">
 								{(isGardenGenerator(player.garden.focusNode) ?? false)
@@ -462,30 +475,30 @@ export default defineComponent({
 											),
 										)}{' '}
 								<span style={{ color: player.garden.focusNode.currency.color }}>
-									{player.garden.focusNode.currency.name}
+									{$t(`currency.${player.garden.focusNode.currency.name}`)}
 								</span>
 							</h5>
 							<br />
 							<br />
 							{(isGardenGenerator(player.garden.focusNode) ?? false) ? (
 								<>
-									生产{' '}
-									{format(
-										Garden.generatorIdea(
-											player.garden.focusNode
-												.key as keyof typeof GardenGenUpgs.generators,
+									{$t('garden.produce', {
+										prod: format(
+											Garden.generatorIdea(
+												player.garden.focusNode
+													.key as keyof typeof GardenGenUpgs.generators,
+											),
 										),
-									)}{' '}
-									想法
+									})}
 									<br />
-									生产{' '}
-									{format(
-										Garden.generatorEntropy(
-											player.garden.focusNode
-												.key as keyof typeof GardenGenUpgs.generators,
+									{$t('garden.produce2', {
+										prod2: format(
+											Garden.generatorEntropy(
+												player.garden.focusNode
+													.key as keyof typeof GardenGenUpgs.generators,
+											),
 										),
-									)}{' '}
-									熵
+									})}
 									<br />
 									{Garden.generatorEffectDescription(
 										player.garden.focusNode
@@ -494,17 +507,23 @@ export default defineComponent({
 								</>
 							) : (
 								<>
-									增强
+									{$t('garden.enhance')}
 									{(player.garden.focusNode as GardenUpgrade).effect.key >= 0
-										? GardenGenUpgs.generators[
-												(player.garden.focusNode as GardenUpgrade).effect
-													.key as unknown as keyof typeof GardenGenUpgs.generators
-											].name
+										? $t(
+												`garden.gen.${
+													GardenGenUpgs.generators[
+														(player.garden.focusNode as GardenUpgrade)
+															.effect
+															.key as unknown as keyof typeof GardenGenUpgs.generators
+													].key
+												}`,
+											)
 										: Garden.upgradeImproving(
 												(player.garden.focusNode as GardenUpgrade).effect
 													.key,
+												$t,
 											)}
-									：x
+									: x
 									{format((player.garden.focusNode as GardenUpgrade).effect.mult)}
 									<br />
 									{Garden.upgradeEffectDescription(
@@ -529,18 +548,21 @@ export default defineComponent({
 											'background-color': 'cyan',
 										}}
 									></div>
-									等级{' '}
+									{$t('garden.level.tag')}{' '}
 									<span style="font-weight: bold; color: cyan">
 										{Garden.level()}
 									</span>
 									<br />
-									升级: {Garden.expPercent()}
+									{$t('garden.level.upgrade')}
+									{Garden.expPercent()}
 									<br />
-									基于花园等级，每秒+
-									<span style="color: rgb(127, 255, 2); font-weight: bold">
-										{format(Garden.insPowerGain(), 1)}
-									</span>
-									灵感能量
+									<span
+										innerHTML={$t('garden.level.base', {
+											effect: `<span style="color: rgb(127, 255, 2); font-weight: bold">
+										${format(Garden.insPowerGain(), 1)}
+									</span>`,
+										})}
+									></span>
 								</div>
 							</div>
 						</>

@@ -17,23 +17,27 @@ import { Garden } from '@/core/pt/index.ts';
 				<div v-if="player.currentTab === 31">
 					<div class="resource" style="margin-left: 15px">
 						<div style="font-weight: bold; color: yellow">
-							想法&nbsp;
+							{{ $t('currency.想法') }}&nbsp;
 							{{ format(player.garden.idea, 6) }}
 						</div>
 					</div>
 					<div class="resource" style="margin-left: 350px">
 						<div style="font-weight: bold; color: purple">
-							熵&nbsp;
+							{{ $t('currency.熵') }}&nbsp;
 							{{ format(player.garden.entropy, 6) }}
 						</div>
 						<br />
 						<div style="font-size: 14px; color: purple">
-							子世界发电机和升级价格x{{ format(Garden.entropyEffect(), 7) }}
+							{{
+								$t('garden.entropydebuff', {
+									effect: format(Garden.entropyEffect(), 7),
+								})
+							}}
 						</div>
 					</div>
 					<div class="resource" style="margin-left: 685px">
 						<div style="font-weight: bold; color: orange">
-							灵感&nbsp;
+							{{ $t('currency.灵感') }}&nbsp;
 							{{ format(player.garden.inspiration) }}
 						</div>
 					</div>

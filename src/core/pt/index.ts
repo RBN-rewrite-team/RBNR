@@ -10,7 +10,7 @@ import ModalService from '@/utils/Modal';
 import { predictableRandom } from '@/utils/algorithm.ts';
 import { deepCopy } from '../save';
 import { updateResetStatData } from '../stats';
-import { i18n } from '@/utils/i18n';
+import { getMessage, i18n } from '@/utils/i18n';
 import type { $t } from '@/utils/types';
 
 export function dayOfWeek(): [number, string] {
@@ -498,7 +498,10 @@ export const GardenGenUpgs = {
 			unlocked: (): boolean => Garden.boughtUpgrade(23),
 			show: (): boolean => Garden.boughtUpgrade(23),
 			connect: [[], []],
-			effectDescription: (x: Decimal): string => '想法产量×' + format(x.mul(0.01).add(1)),
+			effectDescription: (x: Decimal): string =>
+				getMessage('garden.gen.7.effDesc', {
+					effect: format(x.mul(0.01).add(1)),
+				}),
 			igNR: (): boolean => true,
 		},
 		8: {
@@ -513,7 +516,10 @@ export const GardenGenUpgs = {
 			unlocked: (): boolean => Garden.boughtGeneratorReach(7, new Decimal(1)),
 			show: (): boolean => Garden.boughtUpgrade(23),
 			connect: [[7], []],
-			effectDescription: (x: Decimal): string => '想法产量×' + format(x.mul(0.02).add(1)),
+			effectDescription: (x: Decimal): string =>
+				getMessage('garden.gen.7.effDesc', {
+					effect: format(x.mul(0.02).add(1)),
+				}),
 			igNR: (): boolean => true,
 		},
 	} satisfies {
@@ -931,7 +937,7 @@ export const GardenGenUpgs = {
 			connect: [[], []],
 			igNR: () => true,
 			effectDescription(): string {
-				return '解锁花园等级';
+				return getMessage('garden.upg.23.desc');
 			},
 		},
 		24: {
@@ -954,7 +960,7 @@ export const GardenGenUpgs = {
 			connect: [[], [23]],
 			igNR: () => true,
 			effectDescription(): string {
-				return '解锁远古阶段';
+				return getMessage('garden.upg.24.desc');
 			},
 		},
 		25: {
@@ -1152,7 +1158,7 @@ export const GardenGenUpgs = {
 			igNR: () => true,
 			connect: [[], [23]],
 			effectDescription(): string {
-				return '灵感迸发最短时间降低到16小时';
+				return getMessage('garden.upg.34.desc');
 			},
 		},
 		35: {
@@ -1175,7 +1181,7 @@ export const GardenGenUpgs = {
 			igNR: () => true,
 			connect: [[], [34]],
 			effectDescription(): string {
-				return '灵感迸发最短时间降低到8小时';
+				return getMessage('garden.upg.35.desc');
 			},
 		},
 	} satisfies {
@@ -1223,12 +1229,12 @@ export const Garden = {
 		if (!(typeof GardenGenUpgs.upgrades[key].effectDescription == 'function')) return '';
 		return GardenGenUpgs.upgrades[key].effectDescription?.() ?? '';
 	},
-	upgradeImproving(key: number): string {
+	upgradeImproving(key: number, $t: $t): string {
 		switch (key) {
 			case -1:
-				return '生成器想法倍增';
+				return $t('garden.improving.0');
 			case -2:
-				return '生成器熵倍减';
+				return $t('garden.improving.1');
 			default:
 				return '???';
 		}
