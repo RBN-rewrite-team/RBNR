@@ -12,7 +12,6 @@ declare global {
 		toJSON(): string;
 	}
 }
-
 BigInt.prototype.toJSON = function () {
 	return this.toString();
 };
@@ -49,3 +48,4 @@ console.log('我错了', new PowiainaNum(3));
 import { difference, xor } from 'lodash-es';
 
 import './test.tsx';
+import Decimal from 'break_eternity.js';
