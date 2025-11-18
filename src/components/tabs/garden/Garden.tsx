@@ -17,6 +17,7 @@ import GardenLevelFormula from './GardenLevelFormula';
 import { VueLatex } from 'vatex';
 import type { $t } from '@/utils/types';
 import { useI18n } from 'vue-i18n';
+import { vHold } from '@/utils/vHold';
 export function onMousedown(m: MouseEvent) {
 	temp.garden.press = true;
 	temp.garden.press_last = [m.clientX, m.clientY];
@@ -159,6 +160,20 @@ function simulateText(canvasRef: any, $t: $t) {
 										g.key as keyof typeof GardenGenUpgs.generators,
 									);
 								player.garden.focusNode = g;
+							}}
+							hold={{
+								handler: {
+									onProgress() {
+										if (
+											isGardenGenerator(player.garden.focusNode) &&
+											player.garden.focusNode.key == g.key
+										)
+											Garden.buyGenerator(
+												g.key as keyof typeof GardenGenUpgs.generators,
+											);
+										player.garden.focusNode = g;
+									},
+								},
 							}}
 						>
 							<h2 style="position: absolute; left: 50%; bottom: -90px; transform: translate(-50%, -50%)">

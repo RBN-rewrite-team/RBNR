@@ -1,6 +1,7 @@
 import { defineComponent, type CSSProperties, type PropType, type Ref } from 'vue';
 import { getNodeStyle } from './node';
 import { extractAttributesFromProps, propsEvents } from '@/utils/htmlEvents';
+import { vHold, type HoldDirectiveValue, type HoldHandlers } from '@/utils/vHold';
 
 export default defineComponent({
 	name: 'GardenNode',
@@ -25,6 +26,10 @@ export default defineComponent({
 			type: Boolean as PropType<boolean>,
 			default: false,
 		},
+		hold: {
+			type: Object as PropType<HoldDirectiveValue>,
+			default: {},
+		},
 		...propsEvents,
 	},
 	setup(props, ctx) {
@@ -37,6 +42,7 @@ export default defineComponent({
 						...props.nodestyle,
 					}}
 					{...extractAttributesFromProps(props)}
+					v-hold={props['hold']}
 				>
 					<span class="node_desc">{ctx.slots.default ? ctx.slots.default() : ''}</span>
 				</div>
