@@ -4,6 +4,7 @@
  * \n会被转换成<br />
  */
 import Baixie from '@/components/group-2/Baixie.vue';
+import Spolier from '@/components/ui/Spolier.vue';
 import { VueLatex } from 'vatex';
 import { defineComponent, type PropType } from 'vue';
 import type { JSX } from 'vue/jsx-runtime';
@@ -17,7 +18,7 @@ export default function convertTextToComponent(text2: string): JSX.Element {
 	let keyCounter = 0;
 
 	// 更精确的正则表达式，避免匹配部分公式
-	const regex = /(\\\([^]*?\\\)|\\\[[^]*?\\\]|\\\!000[^]*?\\\!|\n|===|<\$bx>)/;
+	const regex = /(\\\([^]*?\\\)|\\\[[^]*?\\\]|\\\!000[^]*?\\\!|\\\!001[^]*?\\\!|\n|===|<\$bx>)/;
 
 	const processPart = (part: string) => {
 		if (!part) return;
@@ -46,6 +47,11 @@ export default function convertTextToComponent(text2: string): JSX.Element {
 			elements.push(
 				<span class={{ corrupted_text: true }}>{convertTextToComponent(innerText)}</span>,
 			);
+		}
+		// 检查特殊样式 \!001 ... \!
+		else if (part.length >= 4 && part.startsWith('\\!001') && part.endsWith('\\!')) {
+			const innerText = part.slice(5, -2);
+			elements.push(<Spolier>{convertTextToComponent(innerText)}</Spolier>);
 		}
 		// 处理换行符
 		else if (part === '\n') {
