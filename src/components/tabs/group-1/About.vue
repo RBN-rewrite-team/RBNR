@@ -5,7 +5,7 @@ import { i18n } from '@/utils/i18n';
 <template>
 	<div class="main">
 		<h1 v-if="player.pt.resetTimes.lt(1)">{{ $t('title.rewritten') }}</h1>
-		<h1 v-else>大数之路<span style="color: red">放置版</span></h1>
+		<h1 v-else>{{ $t('title.idlen') }}</h1>
 		{{ $t('about.version') }}<br />
 		<br />
 		<div style="position: relative; width: 100%">

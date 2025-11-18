@@ -5,6 +5,7 @@ import { player } from '@/core/save';
 import PrimaryButton from '@/components/ui/PrimaryButton';
 import { runAutomator } from '@/core/automator';
 import { Compartment } from '@codemirror/state';
+import { useI18n } from 'vue-i18n';
 // 为主题创建一个配置隔间
 const themeCompartment = new Compartment();
 
@@ -120,6 +121,7 @@ export default defineComponent({
 			AutomatorTextUI.div = a.value;
 			AutomatorTextUI.initialize();
 		});
+		const $t = useI18n().t;
 		return () => (
 			<>
 				<div
@@ -130,6 +132,46 @@ export default defineComponent({
 						display: player.currentTab !== 167 ? 'none' : 'block',
 					}}
 				>
+					{$t('examplecode')}
+					<pre
+						style={{
+							textAlign: 'left',
+							marginLeft: '30px',
+						}}
+					>
+						{`var a = 3; 
+a=3+2**114514***1919810; 
+a=a**a; 
+
+var b = "114514"; 
+b = b + "11"; 
+
+function c() {
+    return 5;
+} 
+call c();
+
+var d = {
+    alphabeta: "gammadelta",
+    epsilonzeta: "etatheta",
+};
+
+call get(d, 0); 
+
+var e = ["1145","1419"]; 
+call get(e, 0);
+
+call puts(a);
+call puts(b);
+call puts(c);
+
+import math;
+call puts(call math.max(3,12,1));
+
+
+import music;
+call music.freq(440, 1/2, 1/10);`}
+					</pre>
 					<PrimaryButton onClick={runAutomator}>Run automator</PrimaryButton>
 				</div>
 			</>

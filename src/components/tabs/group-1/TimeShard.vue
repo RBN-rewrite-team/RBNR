@@ -59,7 +59,7 @@ function t2() {
 				@click="unlAuto"
 				v-if="(player.firstResetBit & 0b10000) == 0b10000"
 			>
-				花费1000时间碎片，解锁自动机
+				{{ $t('ts.unlauto') }}
 			</button>
 			<!-- <div v-if="player.timeshard.unlAuto">
 				<h2>自动机商店</h2>

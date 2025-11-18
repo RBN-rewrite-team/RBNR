@@ -8,23 +8,33 @@ import QolCrystalUpgrade from './QolCrystalUpgrade';
 
 <template>
 	<div class="main">
-		<p>
-			你有
-			<b style="color: cyan; font-size: 30px">{{ formatWhole(totalAnalysisTimes()) }}</b>
-			证明论解析次数
-		</p>
-		<p>
-			你有
-			<b style="color: cyan; font-size: 20px">{{ formatWhole(player.pt.resetTimes) }}</b>
-			证明论重置次数
-		</p>
-		<p>
-			你有
-			<b style="color: cyan; font-size: 20px">{{
-				formatWhole(player.pt.qolPointsCrystal)
-			}}</b>
-			生活质量水晶
-		</p>
+		<p
+			v-html="
+				$t('pt.youhave1', {
+					a: `<b style='color: cyan; font-size: 30px'>${formatWhole(
+						totalAnalysisTimes(),
+					)}</b>`,
+				})
+			"
+		></p>
+		<p
+			v-html="
+				$t('pt.youhave2', {
+					a: `<b style='color: cyan; font-size: 30px'>${formatWhole(
+						player.pt.resetTimes,
+					)}</b>`,
+				})
+			"
+		></p>
+		<p
+			v-html="
+				$t('pt.youhave3', {
+					a: `<b style='color: cyan; font-size: 30px'>${formatWhole(
+						player.pt.qolPointsCrystal,
+					)}</b>`,
+				})
+			"
+		></p>
 		<table align="center">
 			<tbody>
 				<TRMilestone v-for="count in 7" :id="'pt_' + count" />

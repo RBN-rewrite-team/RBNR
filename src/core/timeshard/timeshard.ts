@@ -105,7 +105,6 @@ export const TimeShard = {
 		ts_auto_pkg_hydra: new (class extends Upgrade {
 			description = '获得自动机hydra包，可以使用include hydra;导入';
 			cost = new Decimal(1000);
-			name = '自动机hydra包';
 			currency: Currencies = Currencies.TIME_SHARD;
 			show(): boolean {
 				return (player.firstResetBit & 0b10000) == 0b10000;
@@ -114,7 +113,6 @@ export const TimeShard = {
 		ts_auto_pkg_nonrec: new (class extends Upgrade {
 			description = '获得自动机nonrec包，可以使用include nonrec;导入';
 			cost = new Decimal(1000);
-			name = '自动机nonrec包';
 			currency: Currencies = Currencies.TIME_SHARD;
 			show(): boolean {
 				return player.pt.resetTimes.gte(1);

@@ -10,9 +10,15 @@ import ModalService from '@/utils/Modal';
 import { predictableRandom } from '@/utils/algorithm.ts';
 import { deepCopy } from '../save';
 import { updateResetStatData } from '../stats';
+import { getMessage, i18n } from '@/utils/i18n';
+import type { $t } from '@/utils/types';
 
 export function dayOfWeek(): [number, string] {
-	const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+	let weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+	// @ts-expect-error
+	if (i18n.global.locale.value == 'en-US') {
+		weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+	}
 	const dayOfWeek = ((Math.floor((Date.now() - 1761408000000) / 86400000) % 7) + 7) % 7;
 	return [dayOfWeek, weekdays[dayOfWeek]];
 }
@@ -181,56 +187,56 @@ export const Analysis = {
 			value(x: DecimalSource): Decimal {
 				return new Decimal(1e10).pow(x);
 			},
-			desc(x: DecimalSource): string {
-				return '九头蛇能量获取×' + format(this.value(x));
+			desc(x: DecimalSource, $t: $t): string {
+				return $t('pt.analysisprogresseff.0') + '×' + format(this.value(x));
 			},
 		},
 		1: {
 			value(x: DecimalSource): Decimal {
 				return new Decimal(1e8).pow(x);
 			},
-			desc(x: DecimalSource): string {
-				return '非递归能量获取×' + format(this.value(x));
+			desc(x: DecimalSource, $t: $t): string {
+				return $t('pt.analysisprogresseff.1') + '×' + format(this.value(x));
 			},
 		},
 		2: {
 			value(x: DecimalSource): Decimal {
 				return new Decimal(2).pow(x);
 			},
-			desc(x: DecimalSource): string {
-				return '非递归次数获取×' + format(this.value(x));
+			desc(x: DecimalSource, $t: $t): string {
+				return $t('pt.analysisprogresseff.2') + '×' + format(this.value(x));
 			},
 		},
 		3: {
 			value(x: DecimalSource): Decimal {
 				return new Decimal(1).add(x).root(3);
 			},
-			desc(x: DecimalSource): string {
-				return '推演能量获取^' + format(this.value(x));
+			desc(x: DecimalSource, $t: $t): string {
+				return $t('pt.analysisprogresseff.3') + '^' + format(this.value(x));
 			},
 		},
 		4: {
 			value(x: DecimalSource): Decimal {
 				return new Decimal(1).add(x).root(5);
 			},
-			desc(x: DecimalSource): string {
-				return '九头蛇溶液获取^' + format(this.value(x));
+			desc(x: DecimalSource, $t: $t): string {
+				return $t('pt.analysisprogresseff.4') + '^' + format(this.value(x));
 			},
 		},
 		5: {
 			value(x: DecimalSource): Decimal {
 				return new Decimal(10).pow(x);
 			},
-			desc(x: DecimalSource): string {
-				return 'Y序列引擎效率×' + format(this.value(x));
+			desc(x: DecimalSource, $t: $t): string {
+				return $t('pt.analysisprogresseff.5') + '×' + format(this.value(x));
 			},
 		},
 		6: {
 			value(x: DecimalSource): Decimal {
 				return new Decimal(1).add(x).root(2.5);
 			},
-			desc(x: DecimalSource): string {
-				return 'Y序列引擎效率^' + format(this.value(x));
+			desc(x: DecimalSource, $t: $t): string {
+				return $t('pt.analysisprogresseff.5') + '^' + format(this.value(x));
 			},
 		},
 	} as const,
@@ -492,7 +498,10 @@ export const GardenGenUpgs = {
 			unlocked: (): boolean => Garden.boughtUpgrade(23),
 			show: (): boolean => Garden.boughtUpgrade(23),
 			connect: [[], []],
-			effectDescription: (x: Decimal): string => '想法产量×' + format(x.mul(0.01).add(1)),
+			effectDescription: (x: Decimal): string =>
+				getMessage('garden.gen.7.effDesc', {
+					effect: format(x.mul(0.01).add(1)),
+				}),
 			igNR: (): boolean => true,
 		},
 		8: {
@@ -507,7 +516,10 @@ export const GardenGenUpgs = {
 			unlocked: (): boolean => Garden.boughtGeneratorReach(7, new Decimal(1)),
 			show: (): boolean => Garden.boughtUpgrade(23),
 			connect: [[7], []],
-			effectDescription: (x: Decimal): string => '想法产量×' + format(x.mul(0.02).add(1)),
+			effectDescription: (x: Decimal): string =>
+				getMessage('garden.gen.7.effDesc', {
+					effect: format(x.mul(0.02).add(1)),
+				}),
 			igNR: (): boolean => true,
 		},
 	} satisfies {
@@ -925,7 +937,7 @@ export const GardenGenUpgs = {
 			connect: [[], []],
 			igNR: () => true,
 			effectDescription(): string {
-				return '解锁花园等级';
+				return getMessage('garden.upg.23.desc');
 			},
 		},
 		24: {
@@ -948,7 +960,7 @@ export const GardenGenUpgs = {
 			connect: [[], [23]],
 			igNR: () => true,
 			effectDescription(): string {
-				return '解锁远古阶段';
+				return getMessage('garden.upg.24.desc');
 			},
 		},
 		25: {
@@ -1146,7 +1158,7 @@ export const GardenGenUpgs = {
 			igNR: () => true,
 			connect: [[], [23]],
 			effectDescription(): string {
-				return '灵感迸发最短时间降低到16小时';
+				return getMessage('garden.upg.34.desc');
 			},
 		},
 		35: {
@@ -1169,7 +1181,7 @@ export const GardenGenUpgs = {
 			igNR: () => true,
 			connect: [[], [34]],
 			effectDescription(): string {
-				return '灵感迸发最短时间降低到8小时';
+				return getMessage('garden.upg.35.desc');
 			},
 		},
 	} satisfies {
@@ -1217,12 +1229,12 @@ export const Garden = {
 		if (!(typeof GardenGenUpgs.upgrades[key].effectDescription == 'function')) return '';
 		return GardenGenUpgs.upgrades[key].effectDescription?.() ?? '';
 	},
-	upgradeImproving(key: number): string {
+	upgradeImproving(key: number, $t: $t): string {
 		switch (key) {
 			case -1:
-				return '生成器想法倍增';
+				return $t('garden.improving.0');
 			case -2:
-				return '生成器熵倍减';
+				return $t('garden.improving.1');
 			default:
 				return '???';
 		}
@@ -1341,7 +1353,9 @@ export const Garden = {
 		player.garden.totalEntropy = new Decimal(0);
 		player.garden.bestEntropy = new Decimal(0);
 		for (const i in player.garden.generators) {
-			if(!igGNR(GardenGenUpgs.generators[Number(i) as keyof typeof GardenGenUpgs.generators]))
+			if (
+				!igGNR(GardenGenUpgs.generators[Number(i) as keyof typeof GardenGenUpgs.generators])
+			)
 				player.garden.generators[Number(i) as keyof typeof GardenGenUpgs.generators] =
 					new Decimal(0);
 		}
