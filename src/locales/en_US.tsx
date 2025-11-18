@@ -1759,7 +1759,7 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'upgs.U6R21': 'Remove the softcap^2 of Non Rec.<sup>?</sup> Energy',
 	'upgs.U6R22': 'Current time in Non Rec. Reset multiplies Deduction Energy gain',
 	'upgs.U6R18': function () {
-		return `Deduction Energy×1e100<br>UNLOCK<b class="baseRetribution"> ${player.options.isGuoGao ? 'GUOTRIBUTION' : 'RETRIBUTION'}</b>`;
+		return `Deduction Energy×1e100<br>UNLOCK<b class="baseRetribution"> ${'RETRIBUTION'}</b>`;
 	},
 
 	'nt.wellorderness': 'Well-Orderness',
@@ -1853,7 +1853,7 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'nonrec.unocf.nextord': 'Next ordinal is ',
 
 	'tab.retribution': function () {
-		return player.retribution ? 'GUOTRIBUTION' : 'RETRIBUTION';
+		return 'RETRIBUTION';
 	},
 	'retri.text': `¶THIS IS THE END OF ROAD¶<br />
 REACH THE LIMIT OF NOTATION, AND PROVE THE WELLORDERNESS OF NOTATION,<br />
