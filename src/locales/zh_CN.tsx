@@ -1889,4 +1889,8 @@ export default {
 	'garden.level.tag': '等级',
 	'garden.level.upgrade': '升级',
 	'garden.level.base': '基于花园等级，每秒{effect}灵感能量',
+
+	'upgs.ts_auto_pkg_hydra.name': '自动机hydra包',
+	'upgs.ts_auto_pkg_nonrec.name': '自动机nonrec包',
+	examplecode: '示例代码',
 };

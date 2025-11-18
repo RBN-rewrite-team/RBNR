@@ -2047,4 +2047,8 @@ THEN YOU CAN GET REVELATION.<br />
 	'garden.level.tag': 'Level',
 	'garden.level.upgrade': 'Upgrade',
 	'garden.level.base': 'Based on Garden Level, +{effect} I. Energy per second',
+
+	'upgs.ts_auto_pkg_hydra.name': 'Automator hydra module',
+	'upgs.ts_auto_pkg_nonrec.name': 'Automator nonrec module',
+	examplecode: 'Example Code:',
 };

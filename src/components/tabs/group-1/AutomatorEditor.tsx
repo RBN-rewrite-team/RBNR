@@ -5,6 +5,7 @@ import { player } from '@/core/save';
 import PrimaryButton from '@/components/ui/PrimaryButton';
 import { runAutomator } from '@/core/automator';
 import { Compartment } from '@codemirror/state';
+import { useI18n } from 'vue-i18n';
 // 为主题创建一个配置隔间
 const themeCompartment = new Compartment();
 
@@ -120,6 +121,7 @@ export default defineComponent({
 			AutomatorTextUI.div = a.value;
 			AutomatorTextUI.initialize();
 		});
+		const $t = useI18n().t;
 		return () => (
 			<>
 				<div
@@ -130,7 +132,7 @@ export default defineComponent({
 						display: player.currentTab !== 167 ? 'none' : 'block',
 					}}
 				>
-					Example Code:
+					{$t('examplecode')}
 					<pre
 						style={{
 							textAlign: 'left',
