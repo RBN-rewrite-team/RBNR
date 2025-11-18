@@ -26,7 +26,8 @@ import { equipmentDestroyLoop } from '@/core/minigame';
 import { achLoop } from './achievements.ts';
 import { format } from '@/utils/format.ts';
 import { OrdinalUtils } from '@/utils/ordinal.ts';
-import { PTEffects, Garden } from './pt/index.ts';
+import { PTEffects } from './pt/index.ts';
+import { Garden } from './pt/garden.ts';
 import { getMessage } from '@/utils/i18n.ts';
 import { numberGrow } from './psd-number-grow.ts';
 

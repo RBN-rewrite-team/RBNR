@@ -8,7 +8,7 @@ import { Ordinal } from '@/lib/ordinal/';
 import { format } from '@/utils/format';
 import { temp } from '../../core/temp-data.ts';
 import { getCurrentOrdinal } from '../../utils/y-seq.ts';
-import { Garden } from '@/core/pt/index.ts';
+import { Garden } from '@/core/pt/garden.ts';
 </script>
 <template>
 	<div>

@@ -16,7 +16,8 @@ import { getInitialStat, type PlayerStat } from '../stats.ts';
 import { wellOrderPlayerData } from '../ordinal/well_ordering.ts';
 import { Hydra } from '../hydra/hydra.ts';
 import { POST_NONREC } from '../post-nonrec/index.ts';
-import { Analysis, Garden } from '../pt/index.ts';
+import { Analysis } from '../pt/index.ts';
+import { Garden } from '../pt/garden.ts';
 import ModalService from '@/utils/Modal.ts';
 import type { messages } from '@/utils/i18n.ts';
 

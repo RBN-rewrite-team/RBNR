@@ -9,7 +9,7 @@ import {
 	isShow,
 	type GardenGenerator,
 	type GardenUpgrade,
-} from '@/core/pt/index.ts';
+} from '@/core/pt/garden';
 import GardenNode from './GardenNode';
 import GardenConnect from './GardenConnect';
 import { format, formatLaTeX, formatTimestamp, formatWhole } from '@/utils/format';
