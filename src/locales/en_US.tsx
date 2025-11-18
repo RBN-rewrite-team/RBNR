@@ -1772,4 +1772,19 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'nt.wellorderness.select.2': 'The Well-orderness of BMS (Bashicu Matrix System)',
 
 	'nt.wellorderness.butt': 'Get {a} Deduction Energy',
+
+	page: 'Page {page}',
+
+	'nt.wellorderness.process.0':
+		'Next: Define P with finite-length natural number sequence set, The recursional definition of P is...',
+	'nt.wellorderness.process.1': 'Define P, cost 10 Deduction Energy',
+
+	'nt.wellorderness.notproved': '(Not proved)',
+	'nt.wellorderness.lemma': 'Lemma {a}',
+	'nt.wellorderness.prove': 'Prove',
+
+	'nt.wellorderness.process.2': 'Prove lemma 1.1, cost 100,000 Deduction Energy',
+	'nt.wellorderness.process.3': 'Prove lemma 1.2, cost 500,000,000 Deduction Energy',
+	'nt.wellorderness.effect.0':
+		'Lemma 1.2 reward: Reduce softcap^2 of hydra energy, Automatically gain NRC5 challenge amount, prion gain speed×(Deduction Energy+1)^2，NRC6 challenge amount enhance Deduction Energy gain',
 };

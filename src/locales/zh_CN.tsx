@@ -1680,4 +1680,17 @@ export default {
 	'nt.wellorderness.select.2': 'BMS (Bashicu Matrix System)的良序性',
 
 	'nt.wellorderness.butt': '获得{a}推演能量',
+
+	page: '第 {page} 页',
+
+	'nt.wellorderness.process.0': '下一步：定义由自然数构成的有限长数列的集合 P， P的递归定义是...',
+	'nt.wellorderness.process.1': '获得P的递归定义，消耗10推演能量',
+
+	'nt.wellorderness.notproved': '(未证明)',
+	'nt.wellorderness.lemma': '引理{a}',
+	'nt.wellorderness.prove': '证明',
+	'nt.wellorderness.process.2': '证明引理1.1，消耗100,000推演能量',
+	'nt.wellorderness.process.3': '证明引理1.2，消耗500,000,000推演能量',
+	'nt.wellorderness.effect.0':
+		'引理1.2奖励：进一步削弱九头蛇能量的二重软上限，自动获得NRC5完成次数，朊病毒获取速度×(推演能量+1)^2，NRC6完成次数加成推演能量获取',
 };

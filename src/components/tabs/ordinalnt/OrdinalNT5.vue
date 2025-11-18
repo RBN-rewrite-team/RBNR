@@ -112,14 +112,14 @@ function c() {
 			<cttc :text="$t('prss2')" />
 
 			<div class="center_line" />
-			<p>下一步：定义由自然数构成的有限长数列的集合 P， P的递归定义是...</p>
+			<p>{{ $t('nt.wellorderness.process.0') }}</p>
 			<div>
 				<button
 					class="clickable_button"
 					@click="stepProceed(1)"
 					v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(1)"
 				>
-					获得P的递归定义，消耗10推演能量</button
+					{{ $t('nt.wellorderness.process.1') }}</button
 				><template v-else> <cttc :text="$t('prss1')" /> </template>
 			</div>
 		</template>
@@ -132,13 +132,14 @@ function c() {
 		>
 			<div>
 				<h3>
-					引理1<span v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(3)"
-						>(未证明)</span
-					>
+					{{ $t('nt.wellorderness.lemma', { a: 1 })
+					}}<span v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(3)">{{
+						$t('nt.wellorderness.notproved')
+					}}</span>
 				</h3>
 				<cttc :text="$t('prss5')" />
 				<div class="center_line" />
-				<h2>证明</h2>
+				<h2>{{ $t('nt.wellorderness.prove') }}</h2>
 				1.
 				<button
 					class="clickable_button"
@@ -146,7 +147,7 @@ function c() {
 					v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(2)"
 					style="display: inline-block"
 				>
-					证明引理1.1，消耗100,000推演能量</button
+					{{ $t('nt.wellorderness.process.2') }}</button
 				><template v-else> <cttc :text="$t('prss3')" /> </template>
 				<div class="center_line" />
 				2.
@@ -156,14 +157,12 @@ function c() {
 					v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(3)"
 					style="display: inline-block"
 				>
-					证明引理1.2，消耗500,000,000推演能量</button
+					{{ $t('nt.wellorderness.process.3') }}</button
 				><template v-else>
 					<cttc :text="$t('prss4')" />
 
 					<div class="center_line" />
-					<span style="color: green"
-						>引理1.2奖励：进一步削弱九头蛇能量的二重软上限，自动获得NRC5完成次数，朊病毒获取速度×(推演能量+1)^2，NRC6完成次数加成推演能量获取</span
-					>
+					<span style="color: green">{{ $t('nt.wellorderness.effect.0') }}</span>
 					<div class="center_line" />
 
 					<button
