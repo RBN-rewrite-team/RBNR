@@ -1018,13 +1018,13 @@ export const GardenGenUpgs = {
 				mult: new Decimal(1),
 			},
 			unlocked(): boolean {
-				return Garden.boughtUpgrade(39);
+				return Garden.boughtUpgrade(50);
 			},
 			show(): boolean {
-				return Garden.boughtUpgrade(39);
+				return Garden.boughtUpgrade(50);
 			},
 			igNR: () => true,
-			connect: [[], [39]],
+			connect: [[], [50]],
 			effectDescription(): string {
 				return getMessage('garden.upg.40.desc');
 			},
