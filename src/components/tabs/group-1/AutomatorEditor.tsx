@@ -133,7 +133,12 @@ export default defineComponent({
 					<PrimaryButton onClick={runAutomator}>Run automator</PrimaryButton>
 				</div>
 				Example Code:
-				<pre>
+				<pre
+					style={{
+						textAlign: 'left',
+						marginLeft: '30px',
+					}}
+				>
 					{`var a = 3; 
 a=3+2**114514***1919810; 
 a=a**a; 
