@@ -549,6 +549,7 @@ export default defineComponent({
 							)}
 						</div>
 					</div>
+
 					{Garden.boughtUpgrade(23) ? (
 						<>
 							<div style="position: absolute; top: 5px; left: 50%; transform: translateX(-50%); z-index: 3; width: 400px; height: 75px; background-color: rgb(50, 24, 2); border: 2px solid rgb(50, 50, 2)">
@@ -580,6 +581,14 @@ export default defineComponent({
 									></span>
 								</div>
 							</div>
+							<>
+								<GardenNode x={500} y={500} canvasRef={canvasRef}>
+									{$t('garden.tiplevel1')}
+								</GardenNode>
+								<GardenNode x={800} y={500} canvasRef={canvasRef}>
+									{$t('garden.tiplevel2')}
+								</GardenNode>
+							</>
 						</>
 					) : (
 						<></>

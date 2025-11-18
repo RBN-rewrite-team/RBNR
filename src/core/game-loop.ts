@@ -214,6 +214,28 @@ function singularity_UI() {
 		document.getElementById('title_box')!.style.transform =
 			'translate(' + r(s ** 0.5 * 4) + 'px, ' + r(s ** 0.5 * 4) + 'px)';
 }
+export function preCardinalSpeed() {
+	let pre_cardinal_speed = 1;
+	if (player.nonrecu.studies_bought.includes(1))
+		pre_cardinal_speed *= 2 ** (!CHALLENGE.inChallenge(1, 3) ? 1 : -1);
+	if (player.pt.resetTimes.gte(1)) {
+		pre_cardinal_speed *= PTEffects.effectToPreCardinal().clampMin(1).toNumber();
+	}
+	if (Garden.level().gte(1)) {
+		pre_cardinal_speed *= Garden.level()
+			.mul(0.02)
+			.add(1)
+			.clampMax(1e308)
+			.clampMin(1)
+			.toNumber();
+	}
+	return pre_cardinal_speed;
+}
+export function getPreCardinalDiff() {
+	let pre_cardinal_diff = diff;
+	pre_cardinal_diff *= preCardinalSpeed();
+	return pre_cardinal_diff;
+}
 /**
  * 游戏的主要循环函数，
  * @param diff 毫秒数，游戏要运行多少毫秒
@@ -233,12 +255,8 @@ export function simulate(diff: number) {
 	const last = player.upgrades[61] ? DC.D_0 : feature.Ordinal.ordinalPerSecond();
 	const last2 = feature.Ordinal.speedDeri();
 	if (player.options.openOreEffect) diff *= 1 + player.minigame.ore_gets * 0.0025;
-	let pre_cardinal_diff = diff;
-	if (player.nonrecu.studies_bought.includes(1))
-		pre_cardinal_diff *= 2 ** (!CHALLENGE.inChallenge(1, 3) ? 1 : -1);
-	if (player.pt.resetTimes.gte(1)) {
-		pre_cardinal_diff *= PTEffects.effectToPreCardinal().clampMin(1).toNumber();
-	}
+	let pre_cardinal_diff = getPreCardinalDiff();
+
 	let nonrecuDiffForSecInThisReset = new Decimal(pre_cardinal_diff / 1000);
 	if (player.upgrades[77])
 		nonrecuDiffForSecInThisReset = nonrecuDiffForSecInThisReset.mul(upgrades[77].effect());
