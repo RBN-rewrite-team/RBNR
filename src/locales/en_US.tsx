@@ -1480,7 +1480,7 @@ The dilution will self-destruct if the number of the prion virus is greater than
 		return `Total NRT increases UNOCF progressing speed. This study need M6-25, 42 & 101<br>Effect：×${format(getTotalTheories().add(1))}`;
 	},
 	'studies.nonrec.27': function () {
-		return `Recursion Effect&Solution^x,x based on progressing times<br>效果: ^${format(
+		return `Recursion Effect&Solution^x,x based on progressing times<br>Effect:  ^${format(
 			player.hydra.deduceOrdinal[0]
 				.clampMin(1e10)
 				.log10()
@@ -1818,4 +1818,22 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'nt.wellorderness.process.13': 'Unlock lemma 5, cost 1.000e700 Deduction Energy',
 	'nt.wellorderness.process.14': 'Prove lemma 4, cost 1.000e695 Deduction Energy',
 	'nt.wellorderness.effect.7': 'Lemma 5 reward: Deduction Energy gain^1.5.',
+
+	'nt.wellorderness.process.15': 'Define lemma 1, cost 1.000e2435 Deduction Energy',
+	'nt.wellorderness.process.16': 'Prove lemma 1, cost 1.000e2940 Deduction Energy',
+	'nt.wellorderness.effect.8': 'Effect:  UNOCF 5th effect×30,000',
+	'nt.wellorderness.process.17': 'Unlock lemma 2, cost {cost} Deduction Energy',
+	'nt.wellorderness.process.18': 'Prove lemma 2, cost 1.000e8320 Deduction Energy',
+	'nt.wellorderness.effect.9':
+		'Reward:Remove the softcap^2 of Hydra Energy, Reduce (tidiely) the growing speed of B6-R-2-1 cost.',
+	'nt.wellorderness.process.19': 'Unlock lemma 3, cost 1.00e42,258 Deduction Energy',
+	'nt.wellorderness.process.20': 'Prove lemma 3, cost {cost} Deduction Energy',
+	'nt.wellorderness.effect.10': 'Reward:Singnificantly enhance BMS progressing speed.',
+	'nt.wellorderness.process.21': 'Unlock lemma 4, cost {cost} Deduction Energy',
+	'nt.wellorderness.process.22': 'Prove lemma 4, cost {cost} Deduction Energy',
+	'nt.wellorderness.effect.11': 'Reward:Singnificantly enhance BMS progressing speed.',
+	'nt.wellorderness.process.23':
+		'Prove the well-orderness of BMS, cost e100,000,000 Deduction Energy。',
+	'nt.wellorderness.effect.12':
+		'Reward: You can do the first RETRIBTION reset......after e150000000 Deduction Energy, BMS progressing speed slog+{effect}',
 };

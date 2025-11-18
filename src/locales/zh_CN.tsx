@@ -1721,4 +1721,21 @@ export default {
 	'nt.wellorderness.process.13': '解锁引理5，消耗1.000e700推演能量',
 	'nt.wellorderness.process.14': '证明引理4，消耗1.000e695推演能量',
 	'nt.wellorderness.effect.7': '引理5效果:推演能量获取速度^1.5。',
+
+	'nt.wellorderness.process.15': '定义引理1，消耗1.000e2435推演能量',
+	'nt.wellorderness.process.16': '证明引理1，消耗1.000e2940推演能量',
+	'nt.wellorderness.effect.8': '效果: UNOCF第五效果×30,000',
+	'nt.wellorderness.process.17': '解锁引理2，消耗{cost}推演能量',
+	'nt.wellorderness.process.18': '证明引理2，消耗1.000e8320推演能量',
+	'nt.wellorderness.effect.9':
+		'奖励：移除九头蛇能量的二重软上限，略微降低B6-R-2-1价格的增长速度。',
+	'nt.wellorderness.process.19': '解锁引理3，消耗1.00e42,258推演能量',
+	'nt.wellorderness.process.20': '证明引理3，消耗{cost}推演能量',
+	'nt.wellorderness.effect.10': '奖励：大幅度加成BMS推演速度。',
+	'nt.wellorderness.process.21': '解锁引理4，消耗{cost}推演能量',
+	'nt.wellorderness.process.22': '证明引理4，消耗{cost}推演能量',
+	'nt.wellorderness.effect.11': '奖励：大幅度加成BMS推演速度。',
+	'nt.wellorderness.process.23': '证明BMS的良序性，消耗e100,000,000推演能量。',
+	'nt.wellorderness.effect.12':
+		'奖励：你可以进行第一次果报重置......在e150000000推演能量之后，BMS推演速度的slog+{effect}',
 };

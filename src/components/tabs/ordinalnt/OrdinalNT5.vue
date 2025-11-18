@@ -361,7 +361,7 @@ function c() {
 				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(15)"
 				style="display: inline-block"
 			>
-				定义引理1，消耗1.000e2435推演能量
+				{{ $t('nt.wellorderness.process.15') }}
 			</button>
 			<template v-else>
 				<cttc :text="$t('bmswellorder1')" />
@@ -371,18 +371,21 @@ function c() {
 					v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(16)"
 					style="display: inline-block"
 				>
-					证明引理1，消耗1.000e2940推演能量
+					{{ $t('nt.wellorderness.process.16') }}
 				</button>
 				<template v-else>
 					<cttc :text="$t('bmswellorder1prove')" />
-					<p style="color: green">效果: UNOCF第五效果×30,000</p>
+					<p style="color: green">{{ $t('nt.wellorderness.effect.8') }}</p>
 					<button
 						class="clickable_button"
 						@click="stepProceed(17)"
 						v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(17)"
 					>
-						解锁引理2，消耗<span v-if="player.retribution == 1">1.000e2960</span
-						><span v-else>1.000e2975</span>推演能量
+						{{
+							$t('nt.wellorderness.process.17', {
+								cost: player.retribution == 1 ? '1.000e2960' : '1.000e2975',
+							})
+						}}
 					</button>
 				</template>
 			</template>
@@ -399,19 +402,19 @@ function c() {
 				@click="stepProceed(18)"
 				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(18)"
 			>
-				证明引理2，消耗1.000e8320推演能量
+				{{ $t('nt.wellorderness.process.18') }}
 			</button>
 			<template v-else>
 				<cttc :text="$t('bmswellorder2prove')" />
 				<p style="color: green">
-					奖励：移除九头蛇能量的二重软上限，略微降低B6-R-2-1价格的增长速度。
+					{{ $t('nt.wellorderness.effect.9') }}
 				</p>
 				<button
 					class="clickable_button"
 					@click="stepProceed(19)"
 					v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(19)"
 				>
-					解锁引理3，消耗1.00e42,258推演能量
+					{{ $t('nt.wellorderness.process.19') }}
 				</button>
 			</template>
 		</template>
@@ -427,19 +430,25 @@ function c() {
 				@click="stepProceed(20)"
 				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(20)"
 			>
-				证明引理3，消耗<span v-if="player.retribution == 1">1.00e58,888</span
-				><span v-else>1.00e75,000</span>推演能量
+				{{
+					$t('nt.wellorderness.process.20', {
+						cost: player.retribution == 1 ? '1.00e58,888' : '1.00e75,000',
+					})
+				}}
 			</button>
 			<template v-else>
 				<cttc :text="$t('bmswellorder3prove')" />
-				<p style="color: green">奖励：大幅度加成BMS推演速度。</p>
+				<p style="color: green"></p>
 				<button
 					class="clickable_button"
 					@click="stepProceed(21)"
 					v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(21)"
 				>
-					解锁引理4，消耗<span v-if="player.retribution == 1">1.00e60,000</span
-					><span v-else>1.00e500,000</span>推演能量
+					{{
+						$t('nt.wellorderness.process.21', {
+							cost: player.retribution == 1 ? '1.00e60,000' : '1.00e500,000',
+						})
+					}}
 				</button>
 			</template>
 		</template>
@@ -455,18 +464,21 @@ function c() {
 				@click="stepProceed(22)"
 				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(22)"
 			>
-				证明引理4，消耗<span v-if="player.retribution == 1">1.00e88,000</span
-				><span v-else>1.0e1,000,000</span>推演能量
+				{{
+					$t('nt.wellorderness.process.22', {
+						cost: player.retribution == 1 ? '1.00e88,000' : '1.0e1,000,000',
+					})
+				}}
 			</button>
 			<template v-else>
 				<cttc :text="$t('bmswellorder4prove')" />
-				<p style="color: green">奖励：大幅度加成BMS推演速度。</p>
+				<p style="color: green">{{ $t('nt.wellorderness.effect.11') }}</p>
 				<button
 					class="clickable_button"
 					@click="stepProceed(23)"
 					v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(23)"
 				>
-					证明BMS的良序性，消耗e100,000,000推演能量。
+					{{ $t('nt.wellorderness.process.23') }}
 				</button>
 			</template>
 		</template>
@@ -478,16 +490,18 @@ function c() {
 		>
 			<cttc :text="$t('bmswellorder')" />
 			<p style="color: green">
-				奖励：你可以进行第一次果报重置......在e150000000推演能量之后，BMS推演速度的slog+{{
-					format(
-						player.numbertheory.well_ordering.energy
-							.log10()
-							.sub(150000000)
-							.div(500000000)
-							.clampMin(0)
-							.clampMax(1),
-					)
-				}},
+				{{
+					$t('nt.wellorderness.effect.12', {
+						effect: format(
+							player.numbertheory.well_ordering.energy
+								.log10()
+								.sub(150000000)
+								.div(500000000)
+								.clampMin(0)
+								.clampMax(1),
+						),
+					})
+				}}
 			</p>
 		</template>
 	</div>
