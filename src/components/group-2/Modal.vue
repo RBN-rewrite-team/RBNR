@@ -86,6 +86,8 @@
 import { ref, computed, watch, type Component, type VNode, onMounted } from 'vue';
 import type { FieldConfig, ButtonConfig } from '../../utils/Modal';
 import ProgressBar from './ProgressBar';
+import { useI18n } from 'vue-i18n';
+import { getMessage } from '@/utils/i18n';
 
 interface Props {
 	title?: string;
@@ -110,14 +112,15 @@ interface Props {
 	componentProps?: Record<string, any>;
 	customSlots?: Record<string, () => VNode | VNode[]>;
 }
+const $t = useI18n().t;
 const props = withDefaults(defineProps<Props>(), {
-	title: '提示',
+	title: getMessage('tip'),
 	content: '',
 	fields: () => [],
 	showCancelButton: true,
 	showConfirmButton: true,
-	cancelText: '取消',
-	confirmText: '确定',
+	cancelText: getMessage('cancel'),
+	confirmText: getMessage('confirm'),
 	modalWidth: '500px',
 	closeOnClickMask: true,
 	validateOnChange: true,
@@ -178,7 +181,6 @@ const getInputType = (type?: string) => {
 	const types = ['text', 'password', 'email', 'number', 'tel'];
 	return type && types.includes(type) ? type : 'text';
 };
-
 const validateFields = (): boolean => {
 	let isValid = true;
 	errors.value = props.fields.map((field, index) => {
@@ -186,12 +188,12 @@ const validateFields = (): boolean => {
 		let error = '';
 
 		if (field.required && !value.trim()) {
-			error = field.errorMessage || '此字段为必填项';
+			error = field.errorMessage || $t('modalreq');
 		} else if (field.validation) {
 			if (typeof field.validation === 'function' && !field.validation(value)) {
-				error = field.errorMessage || '输入内容无效';
+				error = field.errorMessage || $t('modalvalid1');
 			} else if (field.validation instanceof RegExp && !field.validation.test(value)) {
-				error = field.errorMessage || '格式不正确';
+				error = field.errorMessage || $t('modalvalid2');
 			}
 		}
 

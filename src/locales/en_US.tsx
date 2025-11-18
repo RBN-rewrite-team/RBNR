@@ -1862,4 +1862,9 @@ THEN YOU CAN GET REVELATION.<br />
 	'retri.2': 'Revelation...',
 	next: 'NEXT',
 	limited: 'Locked',
+	cancel: 'Cancel',
+	confirm: 'Confirm',
+	'retri.reset':
+		'You will lost all your Non Rec. Progress, Hydra Progress, and upgrades<br>BUT YOU WILL GET REVELATION, TO GET THE STRONGER STRENGTH...',
+	'retri.ok': '确定...',
 };

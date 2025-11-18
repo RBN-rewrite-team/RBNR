@@ -1762,4 +1762,14 @@ export default {
 	'retri.2': '获得启示...',
 	next: '继续',
 	limited: '看完再退出',
+	cancel: '取消',
+	confirm: '确定',
+	modalreq: '此字段为必填项',
+	modalvalid1: '输入内容无效',
+	modalvalid2: '格式不正确',
+	tip: '提示',
+
+	'retri.reset':
+		'你会失去你所有的非递归进度，以及当前九头蛇进度，以及升级...<br>但是你会获得启示，获得更恐怖的力量...',
+	'retri.ok': '确定...',
 };
