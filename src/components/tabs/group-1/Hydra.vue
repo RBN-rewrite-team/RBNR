@@ -120,11 +120,11 @@ function autoResetButton() {
 		</div>
 		<br />
 		<h3 style="color: rgb(200, 190, 245)" v-html="powerFactorHTML()"></h3>
-		<span v-if="PTEffects.effectToHydraEnergyLogSoftCap().gt(0)" class="corrupted_text"
+		<!-- <span v-if="PTEffects.effectToHydraEnergyLogSoftCap().gt(0)" class="corrupted_text"
 			>九头蛇对数软上限已被减弱{{
 				formatPercent(PTEffects.effectToHydraEnergyLogSoftCap().div(100))
 			}}，实际软上限效果为/{{ format(Hydra.slogSoftcapEffect()) }}<Baixie
-		/></span>
+		/></span> -->
 		<table style="width: 100%">
 			<tbody>
 				<tr>
