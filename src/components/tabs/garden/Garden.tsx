@@ -284,12 +284,6 @@ function simulateText(canvasRef: any, $t: $t) {
 							mini={true}
 							nodestyle={{
 								filter: 'brightness(0.75)',
-								'background-color':
-									GardenGenUpgs.upgrades[
-										g.key as keyof typeof GardenGenUpgs.upgrades
-									].currency.name == '想法'
-										? 'rgba(255, 153, 18, 0.75)'
-										: 'var(--background-color)',
 							}}
 						>
 							<h3 style="position: absolute; left: 50%; bottom: -60px; transform: translate(-50%, -50%)">
