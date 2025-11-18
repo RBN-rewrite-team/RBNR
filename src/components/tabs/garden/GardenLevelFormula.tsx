@@ -1,4 +1,4 @@
-import { Garden } from '@/core/pt';
+import { Garden } from '@/core/pt/garden';
 import { player } from '@/core/save';
 import { formatLaTeX } from '@/utils/format';
 import { VueLatex } from 'vatex';
