@@ -1,13 +1,13 @@
 import type { Directive, DirectiveBinding } from 'vue';
 
-interface HoldHandlers {
+export interface HoldHandlers {
 	onStart?: (event: Event) => void;
 	onHold?: (event: Event) => void;
 	onProgress?: (event: Event) => void;
 	onRelease?: (event: Event) => void;
 }
 
-interface HoldDirectiveValue {
+export interface HoldDirectiveValue {
 	handler: HoldHandlers;
 	delay?: number;
 	interval?: number;
@@ -24,8 +24,10 @@ interface HoldElement extends HTMLElement {
 
 export const vHold: Directive<HoldElement, HoldDirectiveValue> = {
 	mounted(el: HoldElement, binding: DirectiveBinding<HoldDirectiveValue>) {
-		const { handler, delay = 500, interval = 40 } = binding.value;
-
+		let { handler, delay = 500, interval = 40 } = binding.value;
+		if (handler === undefined) {
+			handler = {};
+		}
 		const holdData = {
 			pressTimer: null as ReturnType<typeof setTimeout> | null,
 			progressTimer: null as ReturnType<typeof setInterval> | null,

@@ -1184,6 +1184,29 @@ export const GardenGenUpgs = {
 				return getMessage('garden.upg.35.desc');
 			},
 		},
+		36: {
+			isG: !true,
+			key: 36,
+			name: 'IGCD2',
+			pos: [600, 600],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(128),
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(35);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(35);
+			},
+			igNR: () => true,
+			connect: [[], [34]],
+			effectDescription(): string {
+				return getMessage('garden.upg.36.desc');
+			},
+		},
 	} satisfies {
 		[key in any]: GardenUpgrade;
 	},
@@ -1309,6 +1332,7 @@ export const Garden = {
 		return base;
 	},
 	igCD() {
+		if (Garden.boughtUpgrade(36)) return 4 * 3600 * 1000;
 		if (Garden.boughtUpgrade(35)) return 8 * 3600 * 1000;
 		if (Garden.boughtUpgrade(34)) return 16 * 3600 * 1000;
 		return 24 * 3600 * 1000;
