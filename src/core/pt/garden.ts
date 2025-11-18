@@ -17,7 +17,7 @@ export type GardenGenerator = {
 	isG: boolean;
 	key: number;
 	pos: [number, number];
-	name: string;
+	name?: string;
 	currency: GardenCurrency;
 	cost: Decimal;
 	idea: Decimal;
@@ -37,7 +37,7 @@ export type GardenUpgradeEffect = {
 export type GardenUpgrade = {
 	isG: boolean;
 	key: number;
-	name: string;
+	name?: string;
 	pos: [number, number];
 	currency: GardenCurrency;
 	cost: Decimal;
@@ -889,7 +889,7 @@ export const GardenGenUpgs = {
 		36: {
 			isG: !true,
 			key: 36,
-			name: 'IGCD2',
+			name: 'IGCD3',
 			pos: [600, 600],
 			currency: GardenCurrencies.inspiration,
 			cost: new Decimal(128),
@@ -904,9 +904,252 @@ export const GardenGenUpgs = {
 				return Garden.boughtUpgrade(35);
 			},
 			igNR: () => true,
-			connect: [[], [34]],
+			connect: [[], [35]],
 			effectDescription(): string {
 				return getMessage('garden.upg.36.desc');
+			},
+		},
+		37: {
+			isG: !true,
+			key: 37,
+			name: 'IGCD4',
+			pos: [800, 600],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(2048),
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(36);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(36);
+			},
+			igNR: () => true,
+			connect: [[], [36]],
+			effectDescription(): string {
+				return getMessage('garden.upg.37.desc');
+			},
+		},
+		38: {
+			isG: !true,
+			key: 38,
+			pos: [1000, 600],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(1e7),
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(37);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(37);
+			},
+			igNR: () => true,
+			connect: [[], [37]],
+			effectDescription(): string {
+				return getMessage('garden.upg.38.desc');
+			},
+		},
+		39: {
+			isG: !true,
+			key: 39,
+			pos: [1200, 600],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(1e9),
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(38);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(38);
+			},
+			igNR: () => true,
+			connect: [[], [38]],
+			effectDescription(): string {
+				return getMessage('garden.upg.39.desc');
+			},
+		},
+		40: {
+			isG: !true,
+			key: 40,
+			pos: [1400, 600],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(1e10),
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(39);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(39);
+			},
+			igNR: () => true,
+			connect: [[], [39]],
+			effectDescription(): string {
+				return getMessage('garden.upg.40.desc');
+			},
+		},
+		41: {
+			isG: !true,
+			key: 41,
+			pos: [1600, 600],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(5e10),
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(40);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(40);
+			},
+			igNR: () => true,
+			connect: [[], [40]],
+			effectDescription(): string {
+				return getMessage('garden.upg.41.desc');
+			},
+		},
+		42: {
+			isG: !true,
+			key: 42,
+			pos: [1800, 600],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(2e11),
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(41);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(41);
+			},
+			igNR: () => true,
+			connect: [[], [41]],
+			effectDescription(): string {
+				return getMessage('garden.upg.42.desc');
+			},
+		},
+		43: {
+			isG: !true,
+			key: 43,
+			pos: [2000, 600],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(1e12),
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(42);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(42);
+			},
+			igNR: () => true,
+			connect: [[], [42]],
+			effectDescription(): string {
+				return getMessage('garden.upg.43.desc');
+			},
+		},
+		44: {
+			isG: !true,
+			key: 44,
+			pos: [2200, 600],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(5e12),
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(43);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(43);
+			},
+			igNR: () => true,
+			connect: [[], [43]],
+			effectDescription(): string {
+				return getMessage('garden.upg.44.desc');
+			},
+		},
+		45: {
+			isG: !true,
+			key: 45,
+			pos: [2200, 600],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(5e13),
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(44);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(44);
+			},
+			igNR: () => true,
+			connect: [[], [44]],
+			effectDescription(): string {
+				return getMessage('garden.upg.45.desc');
+			},
+		},
+		46: {
+			isG: !true,
+			key: 46,
+			pos: [2400, 600],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(3e14),
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(45);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(45);
+			},
+			igNR: () => true,
+			connect: [[], [45]],
+			effectDescription(): string {
+				return getMessage('garden.upg.46.desc');
+			},
+		},
+		47: {
+			isG: !true,
+			key: 47,
+			pos: [2400, 600],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(5e15),
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(46);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(46);
+			},
+			igNR: () => true,
+			connect: [[], [46]],
+			effectDescription(): string {
+				return getMessage('garden.upg.47.desc');
 			},
 		},
 	} satisfies {
