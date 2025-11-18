@@ -91,9 +91,9 @@ const a: number = -115;
 			</span>
 		</div>
 		<button class="exit" @click="exitView()" :style="{ opacity: canExitView() ? 1 : 0.75 }">
-			×<span style="font-size: 8px" v-if="!canExitView()"><br />看完再退出</span>
+			×<span style="font-size: 8px" v-if="!canExitView()"><br />{{ $t('limited') }}</span>
 		</button>
-		<button class="next" @click="nextStep()">继续</button>
+		<button class="next" @click="nextStep()">{{ $t('next') }}</button>
 	</div>
 </template>
 

@@ -2,10 +2,12 @@
 import { RETRIBUTION } from '@/core/post-nonrec/retribution';
 import { player } from '@/core/save';
 import TDUpgrade from '@/components/group-2/TDUpgrade.vue';
+import { useI18n } from 'vue-i18n';
 
+const $t = useI18n().t;
 function retributionText() {
 	if (player.retribution < 1) {
-		return player.hydra.deduceOrdinal[0].lt('eeee10') ? '...' : '获得启示...';
+		return player.hydra.deduceOrdinal[0].lt('eeee10') ? '...' : $t('retri.2');
 	}
 	return '......';
 }
@@ -14,13 +16,9 @@ function retributionText() {
 
 <template>
 	<div class="baseRetribution">
-		<h1>{{ RETRIBUTION.name() }}</h1>
+		<h1>{{ $t('tab.retribution') }}</h1>
 		<br />
-		<h3>
-			¶此间便是尽头之路¶<br />
-			达到记号的极限之后，证明记号的良序性，即可来此获得启示<br />
-			……以期获得更恐怖的力量……
-		</h3>
+		<h3 v-html="$t('retri.text')"></h3>
 		<br />
 		<button class="retribution" @click="RETRIBUTION.resetUI">
 			{{ retributionText() }}

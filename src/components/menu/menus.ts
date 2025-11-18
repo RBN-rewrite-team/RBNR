@@ -182,9 +182,7 @@ export const menus = [
 			},
 			{
 				id: 28,
-				get text() {
-					return RETRIBUTION.name();
-				},
+				text: 'tab.retribution',
 				show() {
 					return player.upgrades['U6R18'];
 				},

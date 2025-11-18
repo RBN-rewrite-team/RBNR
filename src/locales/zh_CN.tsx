@@ -1738,4 +1738,28 @@ export default {
 	'nt.wellorderness.process.23': '证明BMS的良序性，消耗e100,000,000推演能量。',
 	'nt.wellorderness.effect.12':
 		'奖励：你可以进行第一次果报重置......在e150000000推演能量之后，BMS推演速度的slog+{effect}',
+
+	'nonrec.unocf.is': '你的UNOCF序数为',
+	'nonrec.unocf.tip': '由于UNOCF机制太复杂，并不是每一次推演都会得到对应的序数',
+	'nonrec.unocf.eff.1': 'UNOCF推演使得BMS推演速度^{effect}(BMS推演速度>1时生效)',
+	'nonrec.unocf.eff.2.unl': '超过512推演次数解锁UNOCF推演第二效果',
+	'nonrec.unocf.eff.2': 'UNOCF推演使得UNOCF推演速度*{effect}',
+	'nonrec.unocf.eff.3.unl': '超过4096推演次数解锁UNOCF推演第三效果',
+	'nonrec.unocf.eff.3': 'UNOCF推演使得九头蛇溶液获取*{effect}',
+	'nonrec.unocf.eff.4.unl': '超过16384推演次数解锁UNOCF推演第四效果',
+	'nonrec.unocf.eff.4': 'UNOCF推演使得非递归能量获取^{effect}',
+	'nonrec.unocf.eff.5.unl': '超过1.000e1900推演次数解锁UNOCF推演第五效果',
+	'nonrec.unocf.eff.5': 'UNOCF推演使得朊病毒增长速度双指数×{effect}',
+	'nonrec.unocf.nextord': '下一个序数为',
+
+	'tab.retribution': function () {
+		return player.retribution ? '果糕' : '果报';
+	},
+	'retri.text': `
+¶此间便是尽头之路¶<br />
+达到记号的极限之后，证明记号的良序性，即可来此获得启示<br />
+……以期获得更恐怖的力量……`,
+	'retri.2': '获得启示...',
+	next: '继续',
+	limited: '看完再退出',
 };

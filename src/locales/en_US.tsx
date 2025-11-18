@@ -1836,4 +1836,30 @@ The dilution will self-destruct if the number of the prion virus is greater than
 		'Prove the well-orderness of BMS, cost e100,000,000 Deduction Energy。',
 	'nt.wellorderness.effect.12':
 		'Reward: You can do the first RETRIBTION reset......after e150000000 Deduction Energy, BMS progressing speed slog+{effect}',
+
+	'nonrec.unocf.is': 'Your UNOCF Ordinal is',
+	'nonrec.unocf.tip':
+		'Because of the complexness of UNOCF, Not all progression will maped to ordinal',
+	'nonrec.unocf.eff.1':
+		'UNOCF make BMS progressing speed^{effect}(Enable on BMS progressing speed>1)',
+	'nonrec.unocf.eff.2.unl': 'Reach 512 progresses to unlock 2nd UNOCF effect',
+	'nonrec.unocf.eff.2': 'UNOCF makes UNOCF progresing speed*{effect}',
+	'nonrec.unocf.eff.3.unl': 'Reach 4096 progresses to unlock 3rd UNOCF effect',
+	'nonrec.unocf.eff.3': 'UNOCF makes Solution gain*{effect}',
+	'nonrec.unocf.eff.4.unl': 'Reach 16384 progresses to unlock 4th UNOCF effect',
+	'nonrec.unocf.eff.4': 'UNOCF make Non Rec. Energy^{effect}',
+	'nonrec.unocf.eff.5.unl': 'Reach 1.000e1900 progresses to unlock 5th UNOCF effect',
+	'nonrec.unocf.eff.5': 'UNOC make prion growing speed (double exponent)×{effect}',
+	'nonrec.unocf.nextord': 'Next ordinal is ',
+
+	'tab.retribution': function () {
+		return player.retribution ? 'GUOTRIBUTION' : 'RETRIBUTION';
+	},
+	'retri.text': `¶THIS IS THE END OF ROAD¶<br />
+REACH THE LIMIT OF NOTATION, AND PROVE THE WELLORDERNESS OF NOTATION,<br />
+THEN YOU CAN GET REVELATION.<br />
+……TO GET THE STRONGER STRENGTH……<br />`,
+	'retri.2': 'Revelation...',
+	next: 'NEXT',
+	limited: 'Locked',
 };
