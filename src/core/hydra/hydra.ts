@@ -736,7 +736,7 @@ export const Hydra = {
 			else base = base.pow(upgrades['615S'].effect());
 		}
 		if (Dilute.diluteAmount(3) > 0) base = base.mul(Hydra.NT4TauEffect());
-		if (player.challenges[1][2].gt(0))
+		if (player.challenges[1][2].gt(0) && player.nonrecu.power.gte(30))
 			base = base
 				.add(1)
 				.log10()
@@ -869,7 +869,8 @@ export const Hydra = {
 			if (player.challenges[1][0].gte(1))
 				base = base.pow(Dilute.prions().add(1).ln().max(0).add(1).pow(0.5));
 		}
-		if (CHALLENGE.inChallenge(1, 1)) base = base.min(player.nonrecu.power.add(1).log10());
+		if (CHALLENGE.inChallenge(1, 1))
+			base = base.min(player.nonrecu.power.add(1).clampMin(1).log10());
 		return base;
 	},
 	powerExpNerf(): Decimal {

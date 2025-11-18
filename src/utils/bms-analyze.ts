@@ -554,8 +554,8 @@ const EBO = [
 export function zidianxu(a: number[][], b: number[][]) {
 	for (let i = 0; i < Math.max(a.length, b.length); i++) {
 		for (let j = 0; j < Math.max(a.length, b.length); j++) {
-			if (a[i][j] > b[i][j]) return 1;
-			if (a[i][j] < b[i][j]) {
+			if ((a[i]?.[j] ?? 0) > (b[i]?.[j] ?? 0)) return 1;
+			if ((a[i]?.[j] ?? 0) < (b[i]?.[j] ?? 0)) {
 				return -1;
 			}
 		}

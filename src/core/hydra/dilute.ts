@@ -74,7 +74,12 @@ export function milestoneDut5Eff(): Decimal {
 
 export function milestoneDut6Eff(): Decimal {
 	if (player.hydra.dilute.solution.lt(2050000)) return DC.D_1;
-	return Decimal.log10(player.hydra.dilute.solution.max(2050000).sub(2050000 - 1))
+	return Decimal.log10(
+		player.hydra.dilute.solution
+			.max(2050000)
+			.sub(2050000 - 1)
+			.clampMin(1),
+	)
 		.add(1)
 		.clampMin(1)
 		.log10()
@@ -154,7 +159,11 @@ export const DiluteUpgrades = {
 		description: string = '基于总九头蛇能量增益推演速度(稀释不重置该效果，但在稀释中变得更弱)';
 		cost: Decimal = new Decimal(1e4);
 		effect(): Decimal {
-			let base = player.hydra.trueTotalPower.max(1).log10().sub(2466.037724479333951).max(0);
+			let base = player.hydra.trueTotalPower
+				.clampMin(1)
+				.log10()
+				.sub(2466.037724479333951)
+				.max(0);
 			if (!player.hydra.dilute.inDilute) base = base.pow10();
 			else {
 				base = base.add(1);
