@@ -1,10 +1,15 @@
-RAW::我们将 \(\langle L_\alpha,\in\rangle\preceq_{\Sigma_{n+1}}\langle L_\beta,\in\rangle\) 缩写为 \(\alpha\le_n\beta\)，严格版本类似。这里，\(L_\alpha\) 是可构造层次的第 \(\alpha\) 层，\(M\preceq_{\Sigma_n}N\) 表示 \(M\) 是 \(N\) 的 \(\Sigma_n\)-初等子结构。
+RAW::We will abbreviate \(\langle L_{\alpha},\in\rangle\preceq_{\Sigma_{n+1}}\langle L_{\beta},\in\rangle\) as \(\alpha\leq_{n}\beta\), and similarly for the strict versions of these relations. Here, \(L_{\alpha}\) is the \(\alpha\)-th level of the constructible hierarchy, and \(M\preceq_{\Sigma_{n}}N\) means that \(M\) is a \(\Sigma_{n}\)-elementary substructure of \(N\).
 
-令 \(\sigma\) 为满足存在序数 \(\beta\) 使得 \(\forall n\in\mathbb{N}(\alpha<_n\beta)\) 的最小序数 \(\alpha\)。
+Let \(\sigma\) be the smallest ordinal \(\alpha\) such that there exists an ordinal \(\beta\) with \(\forall n\in\mathbb{N}(\alpha<_{n}\beta)\).
 
-理 4. 对于所有 \(\alpha,\beta\in\sigma\) 和 \(n\in\mathbb{N}\)，如果 \(\omega<\alpha<_n\beta\)，那么对于所有满足对于所有 \(\gamma\in X\) 和 \(\delta\in Y\) 有 \(\gamma<\alpha\le\delta<\beta\) 的有限集合 \(X,Y\subseteq Ord\)，存在有限集合 \(Y'\subseteq Ord\) 和双射 \(f: Y\to Y'\)，使得对于所有 \(\gamma\in X\)，所有 \(\delta_0,\delta_1\in Y\)，所有 \(k\in\mathbb{N}\) 和所有 \(m<n\)：
-- \(\gamma<f(\delta_0)<\alpha\)
-- \(\gamma<_k\delta_0\Rightarrow \gamma<_kf(\delta_0)\)
-- \(\delta_0<\delta_1\Rightarrow f(\delta_0)<f(\delta_1)\)
-- \(\delta_0<_k\delta_1\Rightarrow f(\delta_0)<_kf(\delta_1)\)
-- \(\delta_0<_m\beta\Rightarrow f(\delta_0)<_m\alpha\)
+**Lemma 2.6**.: _For all \(\alpha,\beta\in\sigma\) and \(n\in\mathbb{N}\), if \(\omega<\alpha<_{n}\beta\), then for all finite \(X,Y\subseteq Ord\) such that \(\gamma<\alpha\leq\delta<\beta\) for all \(\gamma\in X\) and \(\delta\in Y\), there exists a finite \(Y^{\prime}\subseteq Ord\) and a bijection \(f:Y\to Y^{\prime}\) such that for all \(\gamma\in X\), all \(\delta_{0},\delta_{1}\in Y\), all \(k\in\mathbb{N}\) and all \(m<n\):_
+
+* *\(\gamma<f(\delta_{0})<\alpha\)__
+
+* *\(\gamma<_{k}\delta_{0}\Rightarrow\gamma<_{k}f(\delta_{0})\)__
+
+* *\(\delta_{0}<\delta_{1}\Rightarrow f(\delta_{0})<f(\delta_{1})\)__
+
+* *\(\delta_{0}<_{k}\delta_{1}\Rightarrow f(\delta_{0})<_{k}f(\delta_{1})\)__
+
+* *\(\delta_{0}<_{m}\beta\Rightarrow f(\delta_{0})<_{m}\alpha\)__
