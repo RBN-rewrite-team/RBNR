@@ -1893,4 +1893,5 @@ export default {
 	'upgs.ts_auto_pkg_hydra.name': '自动机hydra包',
 	'upgs.ts_auto_pkg_nonrec.name': '自动机nonrec包',
 	examplecode: '示例代码',
+	'currency.熵': '熵',
 };
