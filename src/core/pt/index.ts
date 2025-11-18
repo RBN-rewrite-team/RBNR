@@ -522,6 +522,42 @@ export const GardenGenUpgs = {
 				}),
 			igNR: (): boolean => true,
 		},
+		9: {
+			isG: true,
+			key: 9,
+			name: '想法倍增器 III',
+			pos: [600, 300],
+			currency: GardenCurrencies.inspirationPower,
+			cost: new Decimal(10000),
+			idea: new Decimal(0),
+			entropy: new Decimal(0),
+			unlocked: (): boolean => Garden.boughtGeneratorReach(8, new Decimal(1)),
+			show: (): boolean => Garden.boughtUpgrade(23),
+			connect: [[8], []],
+			effectDescription: (x: Decimal): string =>
+				getMessage('garden.gen.7.effDesc', {
+					effect: format(x.mul(0.03).add(1)),
+				}),
+			igNR: (): boolean => true,
+		},
+		10: {
+			isG: true,
+			key: 10,
+			name: '想法倍增器 IV',
+			pos: [900, 300],
+			currency: GardenCurrencies.inspirationPower,
+			cost: new Decimal(1e8),
+			idea: new Decimal(0),
+			entropy: new Decimal(0),
+			unlocked: (): boolean => Garden.boughtGeneratorReach(9, new Decimal(1)),
+			show: (): boolean => Garden.boughtUpgrade(23),
+			connect: [[9], []],
+			effectDescription: (x: Decimal): string =>
+				getMessage('garden.gen.7.effDesc', {
+					effect: format(x.mul(0.04).add(1)),
+				}),
+			igNR: (): boolean => true,
+		},
 	} satisfies {
 		[key in any]: GardenGenerator;
 	},
@@ -1187,7 +1223,7 @@ export const GardenGenUpgs = {
 		36: {
 			isG: !true,
 			key: 36,
-			name: 'IGCD2',
+			name: 'IGCD3',
 			pos: [600, 600],
 			currency: GardenCurrencies.inspiration,
 			cost: new Decimal(128),
@@ -1206,6 +1242,66 @@ export const GardenGenUpgs = {
 			effectDescription(): string {
 				return getMessage('garden.upg.36.desc');
 			},
+		},
+		37: {
+			isG: !true,
+			key: 37,
+			name: 'LS1',
+			pos: [-200, 600],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(250),
+			effect: {
+				key: -3,
+				mult: new Decimal(2),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(25);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(25);
+			},
+			igNR: () => true,
+			connect: [[], [23]],
+		},
+		38: {
+			isG: !true,
+			key: 38,
+			name: 'LS2',
+			pos: [-400, 600],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(7500),
+			effect: {
+				key: -3,
+				mult: new Decimal(2),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(37);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(37);
+			},
+			igNR: () => true,
+			connect: [[], [37]],
+		},
+		39: {
+			isG: !true,
+			key: 39,
+			name: 'LS3',
+			pos: [-600, 600],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(6e5),
+			effect: {
+				key: -3,
+				mult: new Decimal(2),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(38);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(38);
+			},
+			igNR: () => true,
+			connect: [[], [38]],
 		},
 	} satisfies {
 		[key in any]: GardenUpgrade;
@@ -1258,6 +1354,8 @@ export const Garden = {
 				return $t('garden.improving.0');
 			case -2:
 				return $t('garden.improving.1');
+			case -3:
+				return $t('garden.improving.2');
 			default:
 				return '???';
 		}
@@ -1414,6 +1512,16 @@ export const Garden = {
 	localSpeed(): Decimal {
 		let base = new Decimal(1);
 		base = base.mul(Garden.insPowerEffect());
+		for (const i in player.garden.upgrades) {
+			if (
+				GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades].effect
+					.key == -3
+			)
+				base = base.mul(
+					GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades]
+						.effect.mult,
+				);
+		}
 		return base;
 	},
 	gardenLoop(diff: number) {
