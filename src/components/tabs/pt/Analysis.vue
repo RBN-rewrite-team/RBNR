@@ -18,7 +18,7 @@ const Axioms = Object.freeze([
 		"(\\forall x\\forall y)x+y' = (x+y)'",
 		'(\\forall x)x \\cdot 0 = 0',
 		"(\\forall x\\forall y)x \\cdot y' = x\\cdot y+x",
-		"p(0)\\rightarrow(\\forall x(p(x)\\rightarrow p(x'))\\rightarrow\\forall x(p(x)))\\text{对所有一阶公式}p\\text{成立}",
+		"p(0)\\rightarrow(\\forall x(p(x)\\rightarrow p(x'))\\rightarrow\\forall x(p(x)))\\text{ for any  formula }p\\text{ truthly}",
 	],
 	[
 		'(∀A∀B)[(∀x)(x ∈ A ↔ x ∈ B) → A = B]',
@@ -26,8 +26,8 @@ const Axioms = Object.freeze([
 		'(∀x∀y)(∃A)(∀z)[z ∈ A ↔ (z = x ∨ z = y)]',
 		'(∀A)(∃U)(∀x)[x ∈ U ↔ (∃Y ∈ A)(x ∈ Y)]',
 		'(∀A)[A ≠ \\varnothing → (∃x ∈ A)(∀y ∈ x)(y ∉ A)]',
-		'\\text{对任意}Δ_0\\text{公式}φ(x),(∀A)(∃B)(∀x)[x ∈ B ↔ (x ∈ A ∧ φ(x))]',
-		'\\text{对任意}Δ_0\\text{公式}φ(x,y),(∀A)[(∀x ∈ A)(∃y)φ(x, y) → (∃B)(∀x ∈ A)(∃y ∈ B)φ(x, y)]',
+		'\\text{for any }Δ_0\\text{ formula }φ(x),(∀A)(∃B)(∀x)[x ∈ B ↔ (x ∈ A ∧ φ(x))]',
+		'\\text{for any }Δ_0\\text{ formula }φ(x,y),(∀A)[(∀x ∈ A)(∃y)φ(x, y) → (∃B)(∀x ∈ A)(∃y ∈ B)φ(x, y)]',
 	],
 	[
 		'(\\forall x)\\neg(x<x)',
@@ -35,10 +35,10 @@ const Axioms = Object.freeze([
 		'(∀x∀y) x < y ∨ x = y ∨ y < x',
 		'(∀x) 0 ≤ x',
 		'(∀X∀Y) (∀z)(z ∈ X ↔ z ∈ Y) → X = Y',
-		'\\text{对任意}Σ_0^1\\text{公式}φ(0),[φ(0) ∧ (∀x)(φ(x) → φ(S(x)))] → (∀x)φ(x)',
-		'\\text{对任意}Π_1\\text{公式}ψ(n),(∃Y)(∀n)(n ∈ Y ↔ ψ(n))',
+		'\\text{for any }Σ_0^1\\text{ formula }φ(0),[φ(0) ∧ (∀x)(φ(x) → φ(S(x)))] → (∀x)φ(x)',
+		'\\text{for any }Π_1\\text{ formula }ψ(n),(∃Y)(∀n)(n ∈ Y ↔ ψ(n))',
 	],
-	['\\text{对任意}Π_2\\text{公式}ψ(n),(∃Z)(∀n)(n ∈ Z ↔ ψ(n))'],
+	['\\text{for any }Π_2\\text{ Formula} ψ(n),(∃Z)(∀n)(n ∈ Z ↔ ψ(n))'],
 	[
 		'(∀X) [0 ∈ X ∧ (∀x)(x ∈ X → S(x) ∈ X)] → (∀x)(x ∈ X)',
 		'(\\exists Z)(\\forall x)[x \\in Z \\leftrightarrow \\varphi(x)]',
@@ -89,7 +89,6 @@ const Axioms = Object.freeze([
 		</p>
 		<p>NRC目标等级减小{{ format(PTEffects.effectToNonrecChallengeGoalLevel()) }}%，上限-50%</p>
 	</div>
-	<!--重置先放这里，反正也不常重置-->
 	<div
 		class="pt_base pt_reset"
 		@click="realPTreset"

@@ -1,0 +1,26 @@
+RAW::Proof.
+ 
+For every non-empty \(A \in BMS\),\(A[0]\) is simply \(A\) without the last column,
+ as it is equal to \(G + B_0\), and thus \(A = A[0] + (C)\). Then it is trivial
+ to prove by induction that for all \(A, A' \in BMS\) , if \(A'\) is a subsequence of
+ \(A\), then \(A' = A\underbrace{[0][0]...[0][0]}_n\)
+ for some \(n \in \mathbb{N}\), and thus \(A' \le A\). Together
+ with \(A[n]\) being a subsequence of \(A[n+1]\) forall \(A \in BMS\) and \(n \in \mathbb{N}\), this
+ also means that for all \(A, A' \in BMS\) and \(n \in \mathbb{N}\) , \(A[n] \le A[n+1]\), and if
+\(A[n] < A' \le A[n+1]\), then \(A[n] \le A'[0]\). This implies that if some subset \(X\) of\(BMS\) is totally ordered, 
+then \(X \cup \{A[n] : A \in X \land n \in \mathbb{N}\}\) is
+ also totally ordered. By induction, it is clear that if \(X \subseteq BMS\) is totally
+ ordered, then\(X \cup \{A[n_0] : A \in X \land n_0 \in \mathbb{N}\} \cup \{A[n_0][n_1] : A \in X \land n_0, n_1 \in \mathbb{N}\} \cup ... \cup \{A[n_0][n_1]...[n_m] : A \in X \land n_0, n_1, ..., n_m \in \mathbb{N}\}\)
+ is totally ordered for each
+ \(m \in \mathbb{N}\).Let \(X_0 = \{((\underbrace{0,0,...,0,0}_n), (\underbrace{1,1,...,1,1}_n)) : n \in \mathbb{N}\}\)
+ Since each \(A \in BMS\)
+ is in\(\{A''[n_0][n_1]...[n_m] : A'' \in X_0 \land n_0, n_1, ..., n_m \in \mathbb{N}\}\) for some \(m \in \mathbb{N}\), it is
+ obvious that if \(X_0\) is totally ordered, then for all \(A, A' \in BMS\), there’s some
+\(m \in \mathbb{N}\) such that \(A, A' \in X_0 \cup \{A''[n_0] : A'' \in X_0 \land n_0 \in \mathbb{N}\} \cup \{A''[n_0][n_1] : A'' \in X_0 \land n_0, n_1 \in \mathbb{N}\} \cup ... \cup \{A''[n_0][n_1]...[n_m] : A'' \in X_0 \land n_0, n_1, ..., n_m \in \mathbb{N}\}\),
+ which is totally ordered, and therefore \(A, A'\) are comparable.So if \(X_0\) istotally
+ ordered,then \(BMS\) istotally ordered.
+ It is now sufficient to prove that  istotallyordered. This is easy, since \(((\underbrace{0,0,...,0,0}_{n+1}), (\underbrace{1,1,...,1,1}_{n+1}))[1]\) is trivially\(((\underbrace{0,0,...,0,0}_n), (\underbrace{1,1,...,1,1}_n))\),
+ and thus byinduction, for each \(n < m \in \mathbb{N}\), \(((\underbrace{0,0,...,0,0}_n), (\underbrace{1,1,...,1,1}_n)) = ((\underbrace{0,0,...,0,0}_m), (\underbrace{1,1,...,1,1}_m))\underbrace{[1][1]...[1][1]}_{m-n} < ((\underbrace{0,0,...,0,0}_m), (\underbrace{1,1,...,1,1}_m))\),
+ and all elements of \(X_0\)
+ are of this form, so all elements of \(X_0\) are pairwise comparable.
+ Corollary 2. The ordering of \(BMS\) coincides with the lexicographical ordering with columns compared lexicographically.

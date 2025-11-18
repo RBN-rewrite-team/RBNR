@@ -8,6 +8,34 @@ import { format, formatWhole } from '@/utils/format';
 import Decimal from 'break_eternity.js';
 import { VueLatex } from 'vatex';
 
+import prssdefinition from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-definition.txt?raw';
+import prss1 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-1-Pdef.txt?raw';
+import prss2 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-1.txt?raw';
+import prss3 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-2-1.txt?raw';
+import prss4 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-2-2.txt?raw';
+import prss5 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-2.txt?raw';
+import prss6 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-3-1.txt?raw';
+import prss7 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-4-1.txt?raw';
+import prss8 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-4-2.txt?raw';
+import prss9 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-4-3.txt?raw';
+import prss10 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-4-4.txt?raw';
+import prss11 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-5-1.txt?raw';
+import prss12 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-5-2.txt?raw';
+import prss13 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-6-1.txt?raw';
+import prss14 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-6-2.txt?raw';
+import prss15 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-7-1.txt?raw';
+import prss16 from '@/components/tabs/ordinalnt/ordinalnt5-content/prss-page-7-2.txt?raw';
+import bmsdefinition from '@/components/tabs/ordinalnt/ordinalnt5-content/bms-definition.txt?raw';
+import bmswellorder1 from '@/components/tabs/ordinalnt/ordinalnt5-content/bms-wellorder-1.txt?raw';
+import bmswellorder2 from '@/components/tabs/ordinalnt/ordinalnt5-content/bms-wellorder-2.txt?raw';
+import bmswellorder3 from '@/components/tabs/ordinalnt/ordinalnt5-content/bms-wellorder-3.txt?raw';
+import bmswellorder4 from '@/components/tabs/ordinalnt/ordinalnt5-content/bms-wellorder-4.txt?raw';
+import bmswellorder from '@/components/tabs/ordinalnt/ordinalnt5-content/bms-wellorder.txt?raw';
+import bmswellorder1prove from '@/components/tabs/ordinalnt/ordinalnt5-content/bms-wellorder-1-prove.txt?raw';
+import bmswellorder2prove from '@/components/tabs/ordinalnt/ordinalnt5-content/bms-wellorder-2-prove.txt?raw';
+import bmswellorder3prove from '@/components/tabs/ordinalnt/ordinalnt5-content/bms-wellorder-3-prove.txt?raw';
+import bmswellorder4prove from '@/components/tabs/ordinalnt/ordinalnt5-content/bms-wellorder-4-prove.txt?raw';
+
 export default {
 	'title.rewritten': '大数之路重制版',
 	'title.idlen': '大数之路放置版',
@@ -293,8 +321,7 @@ export default {
 	'chal.0.3': '逆转',
 	'chal.0.3.description':
 		'每次生产前乘法层资源时有一半的概率被反转(下限为0)，提升乘法重置难度，禁用B2-2、挑战3',
-	'chal.0.3.effect':
-		'First multiplication reset unlocks the Exponentiation Layer<br />Multiplication power  acquisition speed × {effect}',
+	'chal.0.3.effect': '首次乘法重置解锁指数层<br>乘法能量获取速度*{effect}',
 
 	'chal.tip': "点击以开始挑战{'|'}退出挑战",
 	'modal.font': '输入设置字体：',
@@ -1615,4 +1642,151 @@ export default {
 
 	'nonrec.chaltip':
 		'在非递归挑战中，溶剂II将增加U5-S系列的价格<br />注意：所有非递归挑战至多完成5次。',
+
+	prss1,
+	prss2,
+	prss3,
+	prss4,
+	prss5,
+	prss6,
+	prss7,
+	prss8,
+	prss9,
+	prss10,
+	prss11,
+	prss12,
+	prss13,
+	prss14,
+	prss15,
+	prss16,
+	prssdefinition,
+	bmsdefinition,
+	bmswellorder1,
+	bmswellorder2,
+	bmswellorder3,
+	bmswellorder4,
+	bmswellorder,
+	bmswellorder1prove,
+	bmswellorder2prove,
+	bmswellorder3prove,
+	bmswellorder4prove,
+
+	'nt.wellorderness': '良序性',
+	'nt.wellorderness.ded': '你有{a}推演能量, 增加UNOCF推演速度×{b}',
+
+	'nt.wellorderness.proving': '当前证明中：{prove}',
+	'nt.wellorderness.select.0': '无',
+	'nt.wellorderness.select.1': '初等序列 (Primitive Sequence System)的停机性',
+	'nt.wellorderness.select.2': 'BMS (Bashicu Matrix System)的良序性',
+
+	'nt.wellorderness.butt': '获得{a}推演能量',
+
+	page: '第 {page} 页',
+
+	'nt.wellorderness.process.0': '下一步：定义由自然数构成的有限长数列的集合 P， P的递归定义是...',
+	'nt.wellorderness.process.1': '获得P的递归定义，消耗10推演能量',
+
+	'nt.wellorderness.notproved': '(未证明)',
+	'nt.wellorderness.lemma': '引理{a}',
+	'nt.wellorderness.prove': '证明',
+	'nt.wellorderness.process.2': '证明引理1.1，消耗100,000推演能量',
+	'nt.wellorderness.process.3': '证明引理1.2，消耗500,000,000推演能量',
+	'nt.wellorderness.effect.0':
+		'引理1.2奖励：进一步削弱九头蛇能量的二重软上限，自动获得NRC5完成次数，朊病毒获取速度×(推演能量+1)^2，NRC6完成次数加成推演能量获取',
+
+	'nt.wellorderness.effect.1':
+		'引理1.1奖励：你可以自动更新溶液数量，九头蛇能量第二软上限变得更弱，推演能量获取速度×10。',
+	'tab.prooftheory': '证明论',
+	'tab.analyze': '解析',
+	'tab.analyzemilestone': '解析里程碑',
+	'tab.garden': '花园',
+
+	'nt.wellorderness.unlockedalemma': '已解锁一个引理',
+	'nt.wellorderness.process.4': '定义初等序列展开函数，消耗1.000e15推演能量',
+	'nt.wellorderness.process.5': '解锁引理2，消耗1.0000e17推演能量',
+	'nt.wellorderness.process.6': '证明引理2.1，消耗1.0000e34推演能量',
+	'nt.wellorderness.effect.2':
+		'引理2.1奖励：九头蛇能量第二软上限再次变得更弱。九头蛇溶液加成推演能量获取',
+	'nt.wellorderness.process.7': '证明引理2.2，消耗1.0000e52推演能量',
+	'nt.wellorderness.effect.3':
+		'引理2.2奖励：自动购买非递归定理，自动获得NRC6次数，B6-R-1-3、B6-R-1-4的效果底数翻倍，削弱九头蛇能量的二重软上限',
+	'nt.wellorderness.process.8': '证明引理2.3，消耗1.7977e308推演能量',
+	'nt.wellorderness.effect.4': '引理2.3奖励：推演能量巨幅加成朊病毒获取速度',
+	'nt.wellorderness.process.9': '解锁引理3，消耗3.000e320推演能量',
+	'nt.wellorderness.process.10': '证明引理3，消耗3.000e325推演能量',
+	'nt.wellorderness.effect.5': '引理3效果:B6-R-1-3, B6-R-1-4的底数再一次翻倍',
+	'nt.wellorderness.process.11': '解锁引理4，消耗1.000e690推演能量',
+	'nt.wellorderness.process.12': '证明引理4，消耗1.000e695推演能量',
+	'nt.wellorderness.effect.6': '引理4效果:BMS推演速度双指数^1.2',
+	'nt.wellorderness.process.13': '解锁引理5，消耗1.000e700推演能量',
+	'nt.wellorderness.process.14': '证明引理4，消耗1.000e695推演能量',
+	'nt.wellorderness.effect.7': '引理5效果:推演能量获取速度^1.5。',
+
+	'nt.wellorderness.process.15': '定义引理1，消耗1.000e2435推演能量',
+	'nt.wellorderness.process.16': '证明引理1，消耗1.000e2940推演能量',
+	'nt.wellorderness.effect.8': '效果: UNOCF第五效果×30,000',
+	'nt.wellorderness.process.17': '解锁引理2，消耗{cost}推演能量',
+	'nt.wellorderness.process.18': '证明引理2，消耗1.000e8320推演能量',
+	'nt.wellorderness.effect.9':
+		'奖励：移除九头蛇能量的二重软上限，略微降低B6-R-2-1价格的增长速度。',
+	'nt.wellorderness.process.19': '解锁引理3，消耗1.00e42,258推演能量',
+	'nt.wellorderness.process.20': '证明引理3，消耗{cost}推演能量',
+	'nt.wellorderness.effect.10': '奖励：大幅度加成BMS推演速度。',
+	'nt.wellorderness.process.21': '解锁引理4，消耗{cost}推演能量',
+	'nt.wellorderness.process.22': '证明引理4，消耗{cost}推演能量',
+	'nt.wellorderness.effect.11': '奖励：大幅度加成BMS推演速度。',
+	'nt.wellorderness.process.23': '证明BMS的良序性，消耗e100,000,000推演能量。',
+	'nt.wellorderness.effect.12':
+		'奖励：你可以进行第一次果报重置......在e150000000推演能量之后，BMS推演速度的slog+{effect}',
+
+	'nonrec.unocf.is': '你的UNOCF序数为',
+	'nonrec.unocf.tip': '由于UNOCF机制太复杂，并不是每一次推演都会得到对应的序数',
+	'nonrec.unocf.eff.1': 'UNOCF推演使得BMS推演速度^{effect}(BMS推演速度>1时生效)',
+	'nonrec.unocf.eff.2.unl': '超过512推演次数解锁UNOCF推演第二效果',
+	'nonrec.unocf.eff.2': 'UNOCF推演使得UNOCF推演速度*{effect}',
+	'nonrec.unocf.eff.3.unl': '超过4096推演次数解锁UNOCF推演第三效果',
+	'nonrec.unocf.eff.3': 'UNOCF推演使得九头蛇溶液获取*{effect}',
+	'nonrec.unocf.eff.4.unl': '超过16384推演次数解锁UNOCF推演第四效果',
+	'nonrec.unocf.eff.4': 'UNOCF推演使得非递归能量获取^{effect}',
+	'nonrec.unocf.eff.5.unl': '超过1.000e1900推演次数解锁UNOCF推演第五效果',
+	'nonrec.unocf.eff.5': 'UNOCF推演使得朊病毒增长速度双指数×{effect}',
+	'nonrec.unocf.nextord': '下一个序数为',
+
+	'tab.retribution': function () {
+		return player.retribution ? '果糕' : '果报';
+	},
+	'retri.text': `
+¶此间便是尽头之路¶<br />
+达到记号的极限之后，证明记号的良序性，即可来此获得启示<br />
+……以期获得更恐怖的力量……`,
+	'retri.2': '获得启示...',
+	next: '继续',
+	limited: '看完再退出',
+	cancel: '取消',
+	confirm: '确定',
+	modalreq: '此字段为必填项',
+	modalvalid1: '输入内容无效',
+	modalvalid2: '格式不正确',
+	tip: '提示',
+
+	'retri.reset':
+		'你会失去你所有的非递归进度，以及当前九头蛇进度，以及升级...<br>但是你会获得启示，获得更恐怖的力量...',
+	'retri.ok': '确定...',
+
+	'res.compress': '压缩九头蛇能量',
+
+	'yeng.totaleffect': '累计压缩九头蛇能量使BMS推演速度×',
+	'yeng.progressed': '已推演{x}次',
+	'yeng.dim.0.title': '第一Y序列维度',
+	'yeng.dim.buymax': '购买最大',
+	'yeng.dim.require': '需求: ',
+	'yeng.dim.0.effect': '每秒推演{effect}次',
+	'yeng.dim.1.title': '第二Y序列维度',
+	'yeng.dim.2.title': '第三Y序列维度',
+	'yeng.dim.3.title': '第四Y序列维度',
+	'yeng.dim.1.effect': '每秒生产{effect}第一Y序列维度',
+	'yeng.dim.2.effect': '每秒生产{effect}第二Y序列维度',
+	'yeng.dim.3.effect': '每秒生产{effect}第三Y序列维度',
+
+	'yeng.reset': '重置Y序列维度，获得{gain}压缩九头蛇能量',
 };

@@ -133,6 +133,15 @@ function phase() {
 			}}
 		</p>
 		<p :key="updateKey" v-html="phase()"></p>
+
+		<p>
+			{{
+				new Date().toLocaleString('zh-CN', {
+					timeZone: 'Asia/Shanghai',
+					timeZoneName: 'short',
+				})
+			}}
+		</p>
 		<Mountain v-if="player.retribution === 1" />
 		<CenterLine />
 		<template v-if="player.stat.recent10PTOReset.length >= 1">

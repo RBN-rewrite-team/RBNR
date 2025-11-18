@@ -1,0 +1,39 @@
+RAW::An array is a sequence of equal-length sequences of natural
+ numbers, i.e. an element of \({(\mathbb{N}^n)}^m\) for some  \(n,m\in\mathbb{N}\). For every array \(A\in{(\mathbb{N}^n)}^m\), 
+ the columns of \(A\) are its elements, and for each \(n'<n\), the \(n'\)-th row
+ of \(A\) is the sequence of length m such that for each \(m'<m\), the \(m'\)-th element
+ of the \(n'\)-th row is the \(n'\)-th element of the \(m'\)-th column. We will denote
+ concatenation of sequences by +.
+
+Let \(A\) be any array and \(n\) be any natural number. For every \(m\) smaller
+ than the length of \(A\)’s columns and every \(i\) smaller than the length of \(A\), the
+ \(m\)-parent of the \(i\)-th column is the last column before it whose \(m\)-th element
+ is smaller than the \(m\)-th element of the \(i\)-th column, and which is an \((m-1)\)
+ancestor of the \(i\)-th column if \(m>0\), if such a column exists. If no such column
+ exists, then the \(i\)-th column does not have an \(m\)-parent. The \(m\)-ancestors (also
+ called strict \(m\)-ancestors) of a column are its \(m\)-parent and the \(m\)-ancestors of
+ its parent. The non-strict \(m\)-ancestors of a column are the column itself and its
+ \(m\)-ancestors.
+
+If \(A\) is empty, then the expansion of \(A\) at \(n\) is \(A[n]=A\). Otherwise let \(C\)
+ be the last element of \(A\) and let \(m_0\) be maximal such that \(C\) has an \(m_0\)-parent,
+ if such an \(m_0\) exists, otherwise \(m_0\) is undefined. Let arrays \(G,B_0,B_1,...,B_n\) be
+ such that:
+1. \(A=G+B_0+(C)\).
+2. Thefirst element of  \(B_0\) is the \(m_0\)-parent of \(C\) if \(m_0\) is defined and otherwise
+ \(B_0\) is empty.
+3. For each \(D\) in \(B_0\)  and \(m<m_0\) if the first column in  \(B_0\)is \(D\) or an
+ \(m\)-ancestor of \(D\), then it the \(m\)-th element of \(D\) is said to ascend.
+4. \(B_i\) is a copy of \(B_0\), but for each ascending element of each column in \(B_0\),
+ its copy in \(B_i\) is increased by  \(i · ((m\)-th element of \(C\)) − (\(m\)-th element of
+ the first column in \(B_0\))), where \(m\) is the index of the row in which that
+ element is.
+
+Then the expansion \(A[n]\) of \(A\) at \(n\) is \(G+B_0+B_1+...+B_n\), with all rows of
+ zeroes at the bottom removed.
+
+\(BMS\) is the closure of \(\{((\underbrace{0,0,...,0,0}_n),(\underbrace{1,1,...,1,1}_n)) : n\in\mathbb{N}\}\) under expan
+sion at each natural number, ordered by the \(\subseteq\)-minimal partial order such that
+ \(A[n]\le A\) for each \(n\in\mathbb{N}\) and \(A\in BMS\). Here, a partial order \(\le\) is the set of
+ pairs \((x,y)\) such that \(x\le y\).
+

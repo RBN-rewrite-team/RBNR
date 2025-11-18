@@ -1,0 +1,16 @@
+RAW::Lemma 3.
+Let \(A\) be a non-empty array and \(n\) be a natural number, let
+\(G, B_0, B_1, ..., B_n, m_0\) be as in Definition 1.1, and let \(l_0, l_1\) be the lengths of \(G, B_0\).
+(i) For all \(i < l_0\), \(j < l_1\) and \(k \in \mathbb{N}\), in \(A[n]\), the \(i\)-th column in \(G\) is a \(k\)-ancestor
+of the \(j\)-th column in \(B_0\) if it is a \(k\)-ancestor of the \(j\)-th column in \(B_n\).
+(ii) For all \(i, j < l_1\) and \(k \in \mathbb{N}\), the \(i\)-th column in \(B_0\) is a \(k\)-ancestor of the
+\(j\)-th column in \(B_0\) if the \(i\)-th column in \(B_n\) is a \(k\)-ancestor of the \(j\)-th column in \(B_n\).
+(iii) If \(n > 0\), then for all \(i < l_1\) and \(k < m_0\), in \(A\), the \(i\)-th column in \(B_0\) is
+a \(k\)-ancestor of the last column of \(A\) if in \(A[n]\), the \(i\)-th column in \(B_{n-1}\) is a
+\(k\)-ancestor of the first column in \(B_n\).
+(iv) For all \(0 < i < l_1\) and \(k \in \mathbb{N}\), in \(A[n]\), the \(k\)-parent of the \(i\)-th column in
+\(B_n\) is either in \(B_n\) or in \(G\).
+(v) For all \(i, j < l_1\) and \(k \in \mathbb{N}\) and \(n_0 < n_1 < n\), in \(A[n]\), the \(i\)-th column in \(B_{n_0}\) 
+is a  \(k\)-ancestor of the \(j\)-th column in \(B_{n_1}\)
+iff it’s a \(k\)-ancestor of the \(j\)-th
+column in \(B_{n_1+1}\).

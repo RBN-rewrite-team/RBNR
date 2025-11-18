@@ -1,0 +1,6 @@
+RAW::Define PrSS \((a_0,a_1,\ldots,a_{m-1},a_m)\)：
+\[1.\ () = 0\]
+\[2.\ (\#,0) = (\#)+1\]
+\(3.\ (\#_1,{\color{Red} a_i,\#_2},a_k) = (\#_1,{\color{Red} a_i,\#_2},{\color{Blue} a_i,\#_2},\ldots)\), \(\#_1,\#_2\) is any standard sequence,\(a_k>0\)，
+\(a_i = a_k-1\)is the first element less than \(a_k\) before \(a_k\),
+

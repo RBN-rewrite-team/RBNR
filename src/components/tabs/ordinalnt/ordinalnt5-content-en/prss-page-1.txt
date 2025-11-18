@@ -1,0 +1,5 @@
+RAW::Use \(E\) to explain a blank sequence，Use \(\frown\) to explain the connection between sequence.
+For a sequence \(S\)，Use \(\textrm{length}(S)\)  to explain the length of \(S\). Use\(S_n(n < \textrm{length}(S))\) to explain the \(n\)-th of \(S\)，
+Use \(S_\Box\) to explain the last term of  \(S\)，Use \(S^+\) to explain \(S\) with all numbers +1。
+For two natural numbers \(m,n\) which a sequence \(S\) and \(m\) \(\le n \le \textrm{length}(S)\).
+\(\textrm{sub}(S,m,n)\) explains \(T\)   which satisfies \(T_x = S_{m+x}(\textrm{if}\ x < n-m)\) and \(\textrm{length}(T) = n-m\).

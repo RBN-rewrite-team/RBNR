@@ -1,0 +1,15 @@
+RAW::We will abbreviate \(\langle L_{\alpha},\in\rangle\preceq_{\Sigma_{n+1}}\langle L_{\beta},\in\rangle\) as \(\alpha\leq_{n}\beta\), and similarly for the strict versions of these relations. Here, \(L_{\alpha}\) is the \(\alpha\)-th level of the constructible hierarchy, and \(M\preceq_{\Sigma_{n}}N\) means that \(M\) is a \(\Sigma_{n}\)-elementary substructure of \(N\).
+
+Let \(\sigma\) be the smallest ordinal \(\alpha\) such that there exists an ordinal \(\beta\) with \(\forall n\in\mathbb{N}(\alpha<_{n}\beta)\).
+
+**Lemma 2.6**.: _For all \(\alpha,\beta\in\sigma\) and \(n\in\mathbb{N}\), if \(\omega<\alpha<_{n}\beta\), then for all finite \(X,Y\subseteq Ord\) such that \(\gamma<\alpha\leq\delta<\beta\) for all \(\gamma\in X\) and \(\delta\in Y\), there exists a finite \(Y^{\prime}\subseteq Ord\) and a bijection \(f:Y\to Y^{\prime}\) such that for all \(\gamma\in X\), all \(\delta_{0},\delta_{1}\in Y\), all \(k\in\mathbb{N}\) and all \(m<n\):_
+
+* *\(\gamma<f(\delta_{0})<\alpha\)__
+
+* *\(\gamma<_{k}\delta_{0}\Rightarrow\gamma<_{k}f(\delta_{0})\)__
+
+* *\(\delta_{0}<\delta_{1}\Rightarrow f(\delta_{0})<f(\delta_{1})\)__
+
+* *\(\delta_{0}<_{k}\delta_{1}\Rightarrow f(\delta_{0})<_{k}f(\delta_{1})\)__
+
+* *\(\delta_{0}<_{m}\beta\Rightarrow f(\delta_{0})<_{m}\alpha\)__

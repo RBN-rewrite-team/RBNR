@@ -11,3 +11,7 @@ B0-1 is a special upgrade. You can repeatedly click to purchase it, with its pri
 B0-1 automates the Successor button, which proves useful later.
 
 Upon reaching 1000 Number, you can purchase U0-3 to unlock the Addition Layer.
+
+Game has 8 layers: Successor, Addition, \!001  Multiplication, Exponentiation, Ordinal, Hydra, Non Recursion, Proof Theory \!
+
+Current Endgame: \!001 Reach \(1-Y(1,6,6)\) after Proof Theory\!

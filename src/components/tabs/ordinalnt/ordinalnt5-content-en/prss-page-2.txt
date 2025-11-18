@@ -1,0 +1,2 @@
+RAW::1. For any \(P\) element \(S\). \(S\) = \(E\)or\(S_0 = 0\)。
+2. For any  \(P\)elements \(A,B,C,D\)，if\(A \frown (0) \frown B^+ = C \frown (0) \frown D^+\)，thus \(A = C\) and \(B = D\)。

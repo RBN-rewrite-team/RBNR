@@ -5,6 +5,7 @@ import { DC } from '../constants';
 import { temp } from '../temp-data';
 import ModalService from '@/utils/Modal';
 import { PTreset } from '../pt';
+import { getMessage } from '@/utils/i18n';
 
 export const RETRIBUTION = {
 	reset() {
@@ -23,10 +24,9 @@ export const RETRIBUTION = {
 	resetUI() {
 		if (this.resetable()) {
 			ModalService.show({
-				title: this.name(),
-				content:
-					'你会失去你所有的非递归进度，以及当前九头蛇进度，以及升级...<br>但是你会获得启示，获得更恐怖的力量...',
-				confirmText: '确定...',
+				title: getMessage('tab.retribution'),
+				content: getMessage('retri.reset'),
+				confirmText: getMessage('retri.ok'),
 				onConfirm() {
 					if (!RETRIBUTION.resetable()) return;
 					RETRIBUTION.replayAnimation();

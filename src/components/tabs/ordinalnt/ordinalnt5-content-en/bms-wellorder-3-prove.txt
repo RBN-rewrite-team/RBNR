@@ -1,0 +1,126 @@
+RAW::
+
+Proof. We can prove this by induction on \(k\). 
+Assume all 5 statements hold for all \(k' < k\).
+For (ii), fix \(i\) and \(j\). If \(j = 0\) then it is trivial, so we will only consider the
+case \(j > 0\). From the assumption, it follows that for all \(k' < k\) and \(i' < l_0\), the
+\(i'\)-th column in \(B_0\) is a \(k'\)-ancestor of the \(j\)-th column in \(B_0\) if the \(i'\)-th column
+in \(B_n\) is a \(k'\)-ancestor of the \(j\)-th column in \(B_n\). Let \(I\) be the set of \(i'\) such that
+for all \(k' < k\), the \(i'\)-th column in \(B_0\) is a \(k'\)-ancestor of the \(j\)-th column in \(B_0\).
+Since for all \(k' < k\), \(k'\)-ancestry is a total order on the columns with indices
+in \(I\), the \(k\)-parent of each such column is simply the last such column before it
+with a smaller \(k\)-th element. The \(k\)-th element of the \(j\)-th column in \(B_0\) ascends
+if the first column in \(B_0\) is in \(I\) and is a \(k\)-ancestor of the \(j\)-th column in \(B_0\),
+which is equivalent to the \(k\)-th element of the first column in \(B_0\) being smaller
+than the \(k\)-th element of all columns between it and the \(j\)-th column in \(B_0\), so
+it is also a \(k\)-ancestor of all other columns with indices in \(I\). This means that
+either the \(k\)-th elements of all columns in \(B_0\) with indices in \(I\) ascend or the
+\(k\)-th element of the \(j\)-th column in \(B_0\) doesn’t ascend.
+In the first case, the differences between the columns in \(B_n\) with indices
+in \(I\) are the same as in \(B_0\), and since \(k'\)
+-ancestry relations between them are
+also the same as in \(B_0\) for \(k' < k\),\(k \)-ancestry must be the same too, because
+everything it depends on is the same. In the second case, since the \(j\)-th column
+doesn’t ascend, in \(B_n\), there trivially cannot be any \(k\)-ancestors of the \(j\)-th
+column that aren’t copies of \(k\)-ancestors of the \(j\)-th column in \(B_0\). Since this
+possibility requires that the first column in \(B_0\) is not a \(k\)-ancestor of the \(j\)-th column, it is also not a \(k\)-ancestor of any \(k\)-ancestor of the \(j\)-th column,
+thus the \(k\)-th elements of the \(k\)-ancestors of the \(j\)-th column also don’t ascend,
+and therefore the differences between them are the same, implying that the
+k-ancestry relations are preserved. Either way, (ii) holds for \(k\).
+The above can trivially be extended to include the next copy of the first
+column in \(B_0\), and then since the \(k\)-th element of the first column in \(B_1\) is easily
+seen to be the same as \(C\) as long as \(k < m_0\), (iii) holds for \(k\).
+Then to prove (iv), we first observe that if for some \(k' < k\), the \(k'\)-parent
+of the \(i\)-th column in \(B_n\) is in \(G\), then all of its \(k'\)-ancestors are in G, and its
+\(k\)-parent must be one of its \(k'\)-ancestors so it is also in G. So we’re left with the
+case that for all \(k' < k\), the \(k'\)
+-parent of the i-th column in \(B_n\) is in \(B_n\).
+If the first column of \(B_n\) is a \(k'\)-ancestor of the i-th column in \(B_n\) for all
+\(k' < k\), and yet its \(k\)-parent is not in \(B_n\) or G, then the first column in \(B_n\) is
+not a \(k\)-ancestor of the i-th column in \(B_n\). Therefore from (ii) for k, which we
+have already proven, we get that the \(k\)-parent of the i-th column in \(B_0\) is not
+in \(B_0\) (therefore it is in G), which also implies that the \(k\)-th element of the i-th
+column in \(B_0\) does not ascend in the expansion of A, so it is equal to the \(k\)-th
+element of the i-th column in \(B_n\). But from (ii) for all \(k' < k\) and the fact that
+the first column in \(B_n\) is a \(k'\)-ancestor of the i-th column in \(B_n\) for all \(k' < k\),
+we get that the first column in \(B_0\) is a \(k'\)-ancestor of the i-th column in \(B_0\) for
+all \(k' < k\).
+This, together with its \(k\)-parent being in G, means that for all columns in \(B_0\)
+that are \(k'\)-ancestors of the i-th column in \(B_0\) for all \(k' < k\), their \(k\)-th element
+is at least as large as the \(k\)-th element of the i-th column in \(B_0\), and therefore
+at least as large as the \(k\)-th element of the i-th column in \(B_n\). This includes the
+first column in \(B_0\), and since the \(k\)-th element of the first column in \(B_n\) is by
+definition at least as large as the \(k\)-th element of the first column in \(B_0\), which
+is at least as large as the \(k\)-th element of the i-th column in \(B_n\), which is by
+definition strictly larger than the \(k\)-th element of the \(k\)-parent of the i-th column
+in \(B_n\), we get that the \(k\)-th element of the first column in \(B_n\) is strictly larger
+than the \(k\)-th element of the \(k\)-parent of the i-th column in \(B_n\). With that, and
+due to the facts that \(k'\)-ancestry is a total order on the set of \(k'\)-ancestors of
+each column for each \(k'\)
+, and that both the first column in \(B_n\) and the \(k\)-parent
+of the i-th column in \(B_n\) are \(k'\)-ancestors of the i-th column in \(B_n\) for every
+\(k' < k\), and the latter is before the former, we get that the \(k\)-parent of the i-th
+column in \(B_n\) is also a \(k\)-ancestor of the first column in \(B_n\).
+If k ≥ m0 (using variable names from Definition 1.1), then this is already a
+contradiction, because the m0-parent of the first column in \(B_n\) is easily seen to
+be in G. Otherwise, let \(n′ < n\) be the natural number such that the \(k\)-parent of
+the i-th column in \(B_n\) is in \(B_n\)′ . From repeated applications of (iii) for k, which
+we have already proven, we get that the first column in \(B_n\)′ is a \(k\)-ancestor of the
+first column in \(B_n\), and therefore by k-ancestry being a total order on the set
+of \(k\)-ancestors of the first column in \(B_n\), we get that the first column in \(B_n\)′ is a
+\(k\)-ancestor of the \(k\)-parent of the i-th column in \(B_n\), and thus is also a \(k\)-ancestor
+of the i-th column in \(B_n\). This, however, by more repeated applications of (iii),
+implies that the first column in \(B_0\) is a \(k\)-ancestor of the i-th column in \(B_n\),
+which is in contradiction with the fact that the \(k\)-th element of the first column
+in \(B_0\) is at least as large as the \(k\)-th element of the i-th column in \(B_n\).
+Now, for (iv), we’re left with the case that for some \(k' < k\), the first column
+in \(B_n\) is not a \(k'\)-ancestor of the i-th column in \(B_n\). However, if we choose
+a specific such \(k' < k\), then by (iv) for \(k'\) we get that the \(k'\)
+-parent of every
+\(k'\)-ancestor in \(B_n\) of the i-th column in \(B_n\) is either in \(B_n\) or in G, from which
+it follows that all \(k'\)-ancestors of the i-th column in \(B_n\) are either in \(B_n\) or in
+G, and that includes the \(k\)-parent of the i-th column in \(B_n\), proving (iv) for k.
+With (iv) proven for k, the proof of (ii) and (iii) for k can also be eas￾ily modified for relations between G and \(B_0\) and between G and \(B_n\), with all
+nontrivialities accounted for by (iv) for k: either the \(k\)-th element of the \(j\)-th
+6
+column in \(B_0\) ascends and the \(j\)-th column in \(B_n\) trivially has the first column
+in \(B_0\) as a \(k\)-ancestor, thus the \(k\)-ancestors in G are simply the \(k\)-ancestors of
+that (by totality of k-ancestry on the set of \(k\)-ancestors of the \(j\)-th column in
+\(B_n\)), or the \(k\)-th element of the \(j\)-th column in \(B_0\) doesn’t ascend and \(B_n\)’s copy
+Cn of the (\(j\)-th column in \(B_0\))’s first non-strict \(k\)-ancestor C0 in \(B_0\) is easily seen
+to have the same \(k\)-parent as C0, because the \(k\)-parents of C0 and Cn are both
+in G, the \(k\)-th elements of C0 and Cn are equal, and the sets of \(k'\)-ancestors of
+C0 and of Cn are the same for every \(k' < k\) by (i) for \(k'\)
+, thus the \(k\)-ancestors in
+G of both C0 and Cn are that \(k\)-parent and its \(k\)-ancestors. Therefore (i) also
+holds for k.
+Finally, (v) can be proven for k by simply letting {n2, n3} = {n1, n1 + 1}
+(the two options together give the proofs of both directions of (v)), and noticing
+that if the \(j\)-th column in \(B_n\)2 has a \(k\)-ancestor in \(B_n\)0
+, then the first column in
+\(B_n\)2 must also be its \(k\)-ancestor (similarly to the reasoning near the end of the
+previous paragraph - using (iv) for the last \(k\)-ancestor in \(B_n\)2 of the \(j\)-th column
+in \(B_n\)2
+), and therefore by totality of k-ancestry on the set of \(k\)-ancestors of the
+\(j\)-th column in \(B_n\)2
+, the i-th column in \(B_n\)0
+is a \(k\)-ancestor of the first column in
+\(B_n\)2
+. Then if k ≥ m0, we get a contradiction, because the \(k\)-ancestors of the \(j\)-th
+column in \(B_n\)2 are all in \(B_n\)2 or G, as we’ve already proven, so it must be that
+k < m0. In that case, by application of (iii) and either (depending on n2 − n1)
+another application of the totality of k-ancestry on the set of \(k\)-ancestors of
+the \(j\)-th column in \(B_n\)2 or an application of transitivity of k-ancestry, we get
+that the i-th column in \(B_n\)0
+is also a \(k\)-ancestor of the first column in \(B_n\)3
+, and
+finally by an application of (ii) for k, we get that the first column in \(B_n\)3
+is a
+\(k\)-ancestor of the \(j\)-th column in \(B_n\)3
+, so by transitivity of k-ancestry, the i-th
+column in \(B_n\)0
+is a \(k\)-ancestor of the \(j\)-th column in \(B_n\)3
+, which concludes the
+proof of (v) for k.
+By induction, all 5 statements in the lemma always hold.
+

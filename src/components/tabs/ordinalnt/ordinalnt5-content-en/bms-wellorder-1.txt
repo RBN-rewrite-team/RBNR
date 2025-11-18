@@ -1,0 +1,1 @@
+RAW::Lemma 1.  For all \(A \in BMS\) and \(n \in \mathbb{N}\), \(A[n]\) is lexicographically smaller than \(A\) (with the columns also compared lexicographically).

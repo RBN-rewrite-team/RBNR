@@ -13,7 +13,8 @@ const cur = computed(() =>
 <template>
 	<div class="main">
 		<p>
-			你的UNOCF序数为<vue-latex
+			{{ $t('nonrec.unocf.is')
+			}}<vue-latex
 				:expression="
 					cur[1] +
 					'=\\operatorname{deduce}(\\operatorname{floor}(' +
@@ -22,39 +23,46 @@ const cur = computed(() =>
 				"
 			/>(+{{ format(NON_RECURSIVE.UNOCFdeduceSpeed()) }}/s)
 		</p>
-		<p>由于UNOCF机制太复杂，并不是每一次推演都会得到对应的序数</p>
+		<p>{{ $t('nonrec.unocf.tip') }}</p>
 		<p v-if="cur[2]"><vue-latex :expression="'\\psi(' + cur[1] + ')=' + cur[2]" /></p>
 		<div style="border: 1px solid #c98300; margin: auto; width: 50%">
 			<p>
-				UNOCF推演使得BMS推演速度^{{
-					format(NON_RECURSIVE.UNOCFeff()[0])
-				}}(BMS推演速度>1时生效)
+				{{
+					$t('nonrec.unocf.eff.1', {
+						effect: format(NON_RECURSIVE.UNOCFeff()[0]),
+					})
+				}}
 			</p>
-			<p v-if="player.nonrecu.unocf_j.lt(512)">超过512推演次数解锁UNOCF推演第二效果</p>
+			<p v-if="player.nonrecu.unocf_j.lt(512)">{{ $t('nonrec.unocf.eff.2.unl') }}</p>
 			<p v-else-if="player.nonrecu.unocf_j.gte(512)">
-				UNOCF推演使得UNOCF推演速度*{{ format(NON_RECURSIVE.UNOCFeff()[1]) }}
+				{{
+					$t('nonrec.unocf.eff.2', {
+						effect: format(NON_RECURSIVE.UNOCFeff()[1]),
+					})
+				}}
 			</p>
 			<p v-if="player.nonrecu.unocf_j.gte(512) && player.nonrecu.unocf_j.lt(4096)">
-				超过4096推演次数解锁UNOCF推演第三效果
+				{{ $t('nonrec.unocf.eff.3.unl') }}
 			</p>
 			<p v-else-if="player.nonrecu.unocf_j.gte(4096)">
-				UNOCF推演使得九头蛇溶液获取*{{ format(NON_RECURSIVE.UNOCFeff()[2]) }}
+				{{ $t('nonrec.unocf.eff.3', { effect: format(NON_RECURSIVE.UNOCFeff()[2]) }) }}
 			</p>
 			<p v-if="player.nonrecu.unocf_j.gte(4096) && player.nonrecu.unocf_j.lt(16384)">
-				超过16384推演次数解锁UNOCF推演第四效果
+				{{ $t('nonrec.unocf.eff.4.unl') }}
 			</p>
 			<p v-else-if="player.nonrecu.unocf_j.gte(16384)">
-				UNOCF推演使得非递归能量获取^{{ format(NON_RECURSIVE.UNOCFeff()[3]) }}
+				{{ $t('nonrec.unocf.eff.4', { effect: format(NON_RECURSIVE.UNOCFeff()[3]) }) }}
 			</p>
 			<p v-if="player.nonrecu.unocf_j.gte(16384) && player.nonrecu.unocf_j.lt('1e1900')">
-				超过1.000e1900推演次数解锁UNOCF推演第五效果
+				{{ $t('nonrec.unocf.eff.5.unl') }}
 			</p>
 			<p v-else-if="player.nonrecu.unocf_j.gte(16384)">
-				UNOCF推演使得朊病毒增长速度双指数×{{ format(NON_RECURSIVE.UNOCFeff()[4]) }}
+				{{ $t('nonrec.unocf.eff.5', { effect: format(NON_RECURSIVE.UNOCFeff()[4]) }) }}
 			</p>
 		</div>
 		<p>
-			下一个序数为<vue-latex
+			{{ $t('nonrec.unocf.nextord')
+			}}<vue-latex
 				:expression="
 					UNOCF.getUNOCFMilestone(
 						UNOCF.getCurMilestoneIndex(player.nonrecu.unocf_j) + 1,

@@ -15,6 +15,34 @@ import { format, formatWhole } from '@/utils/format';
 import Decimal from 'break_eternity.js';
 import { VueLatex } from 'vatex';
 
+import prssdefinition from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-definition.txt?raw';
+import prss1 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-1-Pdef.txt?raw';
+import prss2 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-1.txt?raw';
+import prss3 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-2-1.txt?raw';
+import prss4 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-2-2.txt?raw';
+import prss5 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-2.txt?raw';
+import prss6 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-3-1.txt?raw';
+import prss7 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-4-1.txt?raw';
+import prss8 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-4-2.txt?raw';
+import prss9 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-4-3.txt?raw';
+import prss10 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-4-4.txt?raw';
+import prss11 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-5-1.txt?raw';
+import prss12 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-5-2.txt?raw';
+import prss13 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-6-1.txt?raw';
+import prss14 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-6-2.txt?raw';
+import prss15 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-7-1.txt?raw';
+import prss16 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-7-2.txt?raw';
+import bmsdefinition from '@/components/tabs/ordinalnt/ordinalnt5-content-en/bms-definition.txt?raw';
+import bmswellorder1 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/bms-wellorder-1.txt?raw';
+import bmswellorder2 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/bms-wellorder-2.txt?raw';
+import bmswellorder3 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/bms-wellorder-3.txt?raw';
+import bmswellorder4 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/bms-wellorder-4.txt?raw';
+import bmswellorder from '@/components/tabs/ordinalnt/ordinalnt5-content-en/bms-wellorder.txt?raw';
+import bmswellorder1prove from '@/components/tabs/ordinalnt/ordinalnt5-content-en/bms-wellorder-1-prove.txt?raw';
+import bmswellorder2prove from '@/components/tabs/ordinalnt/ordinalnt5-content-en/bms-wellorder-2-prove.txt?raw';
+import bmswellorder3prove from '@/components/tabs/ordinalnt/ordinalnt5-content-en/bms-wellorder-3-prove.txt?raw';
+import bmswellorder4prove from '@/components/tabs/ordinalnt/ordinalnt5-content-en/bms-wellorder-4-prove.txt?raw';
+
 export default {
 	'title.rewritten': 'Road of Big Number Rewritten',
 	'title.idlen': 'Road of Big Number (Special Idle Version)',
@@ -1452,7 +1480,7 @@ The dilution will self-destruct if the number of the prion virus is greater than
 		return `Total NRT increases UNOCF progressing speed. This study need M6-25, 42 & 101<br>Effect：×${format(getTotalTheories().add(1))}`;
 	},
 	'studies.nonrec.27': function () {
-		return `Recursion Effect&Solution^x,x based on progressing times<br>效果: ^${format(
+		return `Recursion Effect&Solution^x,x based on progressing times<br>Effect:  ^${format(
 			player.hydra.deduceOrdinal[0]
 				.clampMin(1e10)
 				.log10()
@@ -1681,5 +1709,201 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'currency.x4': 'x<sub>4</sub>',
 	'crreuncy.τ4': 'τ<sub>4</sub>',
 
-	'upgs.ts_auto_pkg_hydra': 'Get automator hydra package. Use include hydra; to import',
+	bmsdefinition,
+	bmswellorder1,
+	bmswellorder2,
+	bmswellorder3,
+	bmswellorder4,
+	bmswellorder,
+	bmswellorder1prove,
+	bmswellorder2prove,
+	bmswellorder3prove,
+	bmswellorder4prove,
+
+	prss1,
+	prss2,
+	prss3,
+	prss4,
+	prss5,
+	prss6,
+	prss7,
+	prss8,
+	prss9,
+	prss10,
+	prss11,
+	prss12,
+	prss13,
+	prss14,
+	prss15,
+	prss16,
+	prssdefinition,
+
+	'upgs.71': 'NRC1 challenge debuff reduced from 0.4667+X to 0.4667+0.3X',
+	'upgs.72':
+		'Keep Highest Solution amount if not in NRC。 Significantly reduce the softcap^2 of hydra energy',
+	'upgs.73': "NRS 52{'|'}71{'|'}72{'|'}73 time speed is 1000 faster.",
+	'upgs.74': 'Significantly enhance the effect of solution',
+	'upgs.75': 'Deduction power gain^1.25',
+	'upgs.76': 'Unlock more NT5 upgrades',
+	'upgs.77': 'Non Rec. Energy enhances <b>only timing</b> speed in current Non Recursion Reset',
+	'upgs.78': 'U6-7 effect ^2',
+
+	'upgs.71UN': 'Start UNOCF progression, +1/s',
+	'upgs.U6R11': 'Non Rec. Energy multiplies Deduction Energy gain',
+	'upgs.U6R12': 'You can buy at most 3 columns in row 5-7',
+	'upgs.U6R13': 'B6-R-1-1 effect^2',
+	'upgs.U6R14': 'Total NRT multiplies Non Rec. Energy gain',
+	'upgs.U6R15': 'You gan buy maxB6-R-1~4',
+	'upgs.U6R16': 'Enhance B6-R-1-5 by 5%',
+	'upgs.U6R17': 'Auto buy max B6-R-1~4',
+	'upgs.U6R21': 'Remove the softcap^2 of Non Rec.<sup>?</sup> Energy',
+	'upgs.U6R22': 'Current time in Non Rec. Reset multiplies Deduction Energy gain',
+	'upgs.U6R18': function () {
+		return `Deduction Energy×1e100<br>UNLOCK<b class="baseRetribution"> ${player.options.isGuoGao ? 'GUOTRIBUTION' : 'RETRIBUTION'}</b>`;
+	},
+
+	'nt.wellorderness': 'Well-Orderness',
+	'nt.wellorderness.ded':
+		'You have {a} Deduction Energy. <br />They multiply UNOCF progressing speed by ×{b}',
+
+	'nt.wellorderness.proving': 'Proving: {prove}.',
+	'nt.wellorderness.select.0': 'None',
+	'nt.wellorderness.select.1': 'The Well-orderness of PrSS (Primitive Sequence System)',
+	'nt.wellorderness.select.2': 'The Well-orderness of BMS (Bashicu Matrix System)',
+
+	'nt.wellorderness.butt': 'Get {a} Deduction Energy',
+
+	page: 'Page {page}',
+
+	'nt.wellorderness.process.0':
+		'Next: Define P with finite-length natural number sequence set, The recursional definition of P is...',
+	'nt.wellorderness.process.1': 'Define P, cost 10 Deduction Energy',
+
+	'nt.wellorderness.notproved': '(Not proved)',
+	'nt.wellorderness.lemma': 'Lemma {a}',
+	'nt.wellorderness.prove': 'Prove',
+
+	'nt.wellorderness.process.2': 'Prove lemma 1.1, cost 100,000 Deduction Energy',
+	'nt.wellorderness.process.3': 'Prove lemma 1.2, cost 500,000,000 Deduction Energy',
+	'nt.wellorderness.effect.0':
+		'Lemma 1.2 reward: Reduce softcap^2 of hydra energy, Automatically gain NRC5 challenge amount, prion gain speed×(Deduction Energy+1)^2，NRC6 challenge amount enhance Deduction Energy gain',
+
+	'nt.wellorderness.effect.1':
+		'Lemma 1.1 reward: You can auto update the amount of solution, Reduce the softcap^2 of Hydra energy. Deduction Energy gain*10.',
+
+	'tab.prooftheory': 'Proof theory',
+	'tab.analyze': 'Analyze',
+	'tab.analyzemilestone': 'Analyzing milestone',
+	'tab.garden': 'Garden',
+
+	'nt.wellorderness.unlockedalemma': 'Unlocked a lemman',
+	'nt.wellorderness.process.4':
+		'Define the expand function of PrSS, cost 1.000e15 Deduction Energy',
+	'nt.wellorderness.process.5': 'Unlock lemma 2, cost 1.0000e17 Deduction Energy',
+	'nt.wellorderness.process.6': 'Prove lemma 2.1, cost 1.0000e34 Deduction Energy',
+	'nt.wellorderness.effect.2':
+		'Lemma 2.1 reward: Reduce the softcap^2 of Hydra Energy. Solution enhances Deduction Energy gain',
+	'nt.wellorderness.process.7': 'Prove lemma 2.2, cost 1.0000e52 Deduction Energy',
+	'nt.wellorderness.effect.3':
+		'Lemma 2.2 reward: Auto buy NRT, Automatically gain NRC6 challenge amount. Multiply the base of B6-R-1-3、B6-R-1-4. Reduce the softcap^2 of Hydra Energy',
+	'nt.wellorderness.process.8': 'Prove lemma2.3, cost 1.7977e308 Deduction Energy',
+	'nt.wellorderness.effect.4':
+		'Lemma 2.3 reward:Deduction Energy significantly enhance prion gain speed',
+	'nt.wellorderness.process.9': 'Unlock lemma 3, cost 3.000e320 Deduction Energy',
+	'nt.wellorderness.process.10': 'Prove lemma 3, cost 3.000e325 Deduction Energy',
+	'nt.wellorderness.effect.5': 'Lemma 3 reward:B6-R-1-3, Multiply the base of B6-R-1-4 again',
+	'nt.wellorderness.process.11': 'Unlock lemma 4, cost 1.000e690 Deduction Energy',
+	'nt.wellorderness.process.12': 'Prove lemma 4, cost 1.000e695 Deduction Energy',
+	'nt.wellorderness.effect.6': 'Lemma 4 reward: BMSprogresion speed (double exponent) ^1.2',
+	'nt.wellorderness.process.13': 'Unlock lemma 5, cost 1.000e700 Deduction Energy',
+	'nt.wellorderness.process.14': 'Prove lemma 4, cost 1.000e695 Deduction Energy',
+	'nt.wellorderness.effect.7': 'Lemma 5 reward: Deduction Energy gain^1.5.',
+
+	'nt.wellorderness.process.15': 'Define lemma 1, cost 1.000e2435 Deduction Energy',
+	'nt.wellorderness.process.16': 'Prove lemma 1, cost 1.000e2940 Deduction Energy',
+	'nt.wellorderness.effect.8': 'Effect:  UNOCF 5th effect×30,000',
+	'nt.wellorderness.process.17': 'Unlock lemma 2, cost {cost} Deduction Energy',
+	'nt.wellorderness.process.18': 'Prove lemma 2, cost 1.000e8320 Deduction Energy',
+	'nt.wellorderness.effect.9':
+		'Reward:Remove the softcap^2 of Hydra Energy, Reduce (tidiely) the growing speed of B6-R-2-1 cost.',
+	'nt.wellorderness.process.19': 'Unlock lemma 3, cost 1.00e42,258 Deduction Energy',
+	'nt.wellorderness.process.20': 'Prove lemma 3, cost {cost} Deduction Energy',
+	'nt.wellorderness.effect.10': 'Reward:Singnificantly enhance BMS progressing speed.',
+	'nt.wellorderness.process.21': 'Unlock lemma 4, cost {cost} Deduction Energy',
+	'nt.wellorderness.process.22': 'Prove lemma 4, cost {cost} Deduction Energy',
+	'nt.wellorderness.effect.11': 'Reward:Singnificantly enhance BMS progressing speed.',
+	'nt.wellorderness.process.23':
+		'Prove the well-orderness of BMS, cost e100,000,000 Deduction Energy。',
+	'nt.wellorderness.effect.12':
+		'Reward: You can do the first RETRIBTION reset......after e150000000 Deduction Energy, BMS progressing speed slog+{effect}',
+
+	'nonrec.unocf.is': 'Your UNOCF Ordinal is',
+	'nonrec.unocf.tip':
+		'Because of the complexness of UNOCF, Not all progression will maped to ordinal',
+	'nonrec.unocf.eff.1':
+		'UNOCF make BMS progressing speed^{effect}(Enable on BMS progressing speed>1)',
+	'nonrec.unocf.eff.2.unl': 'Reach 512 progresses to unlock 2nd UNOCF effect',
+	'nonrec.unocf.eff.2': 'UNOCF makes UNOCF progresing speed*{effect}',
+	'nonrec.unocf.eff.3.unl': 'Reach 4096 progresses to unlock 3rd UNOCF effect',
+	'nonrec.unocf.eff.3': 'UNOCF makes Solution gain*{effect}',
+	'nonrec.unocf.eff.4.unl': 'Reach 16384 progresses to unlock 4th UNOCF effect',
+	'nonrec.unocf.eff.4': 'UNOCF make Non Rec. Energy^{effect}',
+	'nonrec.unocf.eff.5.unl': 'Reach 1.000e1900 progresses to unlock 5th UNOCF effect',
+	'nonrec.unocf.eff.5': 'UNOC make prion growing speed (double exponent)×{effect}',
+	'nonrec.unocf.nextord': 'Next ordinal is ',
+
+	'tab.retribution': function () {
+		return player.retribution ? 'GUOTRIBUTION' : 'RETRIBUTION';
+	},
+	'retri.text': `¶THIS IS THE END OF ROAD¶<br />
+REACH THE LIMIT OF NOTATION, AND PROVE THE WELLORDERNESS OF NOTATION,<br />
+THEN YOU CAN GET REVELATION.<br />
+……TO GET THE STRONGER STRENGTH……<br />`,
+	'retri.2': 'Revelation...',
+	next: 'NEXT',
+	limited: 'Locked',
+	cancel: 'Cancel',
+	confirm: 'Confirm',
+	modalreq: 'Required',
+	modalvalid1: 'Not valid',
+	modalvalid2: 'Not valid',
+	tip: 'Tip',
+	'retri.reset':
+		'You will lost all your Non Rec. Progress, Hydra Progress, and upgrades<br>BUT YOU WILL GET REVELATION, TO GET THE STRONGER STRENGTH...',
+	'retri.ok': 'Yes...',
+
+	'res.compress': 'Compressed Hydra Energy',
+
+	'yeng.totaleffect': 'Total Compressed Hydra Energy makes BMS progressing speed×',
+	'yeng.progressed': 'Progressed {x} times',
+	'yeng.dim.0.title': 'First Y Seq. Dimension',
+	'yeng.dim.buymax': 'Buy max',
+	'yeng.dim.require': 'Requires ',
+	'yeng.dim.0.effect': 'Progress {effect} times per second',
+	'yeng.dim.1.title': 'Second Y Seq. Dimension',
+	'yeng.dim.2.title': 'Third Y Seq. Dimension',
+	'yeng.dim.3.title': 'Fourth Y Seq. Dimension',
+	'yeng.dim.1.effect': 'Produce {effect} First Y Seq. Dimension per second',
+	'yeng.dim.2.effect': 'Produce {effect} Second Y Seq. Dimension per second',
+	'yeng.dim.3.effect': 'Produce {effect} Third Y Seq. Dimension per second',
+
+	'yeng.reset': 'Reset Y Seq. Dimensions, Get {gain} Compressed Hydra Energy',
+
+	'upgs.621': 'Hydra Energy enhanced Comp. Hydra Energy',
+	'upgs.622':
+		'For each dimension purchased, its effect becomes a certain multiple of the original value.',
+	'upgs.623': 'Square the effect of U5-2-1~2',
+	'upgs.624': 'In any time, You have at least 1 First Y Seq. Dimension',
+	'upgs.625': 'All Dimensions production *3',
+	'upgs.626': 'Reduce 4 Dimensions cost growth rase to 50%',
+	'upgs.627': 'Y Seq. Progressed times produces Fourth Y Seq. Dimension',
+	'upgs.628': 'Improve the formula of Ascension effect, Square the effect of U5-2-1',
+	'upgs.629': 'Get 100% of pending Comp. Hydra Energy /s passively》',
+
+	'upgs.6210':
+		'For each additional 2nd to 4th Y Sequential Dimension purchased, its effect is multiplied by (0.95 + Dimension Number × 0.05).',
+	'upgs.6211': 'U5-2-7 effect ^3',
+	'upgs.6212': 'Prestige~Recursion do not reset anything, Recursion effect +50%',
+	'upgs.6213':
+		'<span style="font-size: 10px">When Solvent 1-8 are fully upgraded and entering dilute mode, Hydra Energy gains a multiplier of 1e1000000 per second, with the cap being Solution ×10×(time spent in dilute mode + 1).</span>',
 };

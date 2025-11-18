@@ -1,0 +1,1 @@
+RAW::对于任意\(S\in P, a:\mathbb N \rightarrow \mathbb N\)，都存在\(k \in \mathbb N\) 使得\(S[a_0][a_1]\cdots[a_{k-1}]=E\).

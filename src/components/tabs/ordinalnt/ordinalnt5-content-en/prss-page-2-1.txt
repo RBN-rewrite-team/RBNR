@@ -1,0 +1,6 @@
+RAW:: Using structural induction based on the construction from \(P\).
+If \(S = E\), then clearly \(S = E\) or \(S_0 = 0\).
+If there exists \((s,t) \in P^2\) such that \(S = s \frown (0) \frown t^+\), and both satisfy the condition.
+If \(s = E\), then \(S = s \frown (0) \frown t^+ = E \frown (0) \frown t^+ = (0) \frown t^+\), so \(S_0 = 0\).
+If \(s_0 = 0\), then since \(S = s \frown (0) \frown t^+\), we have \(S_0 = 0\).
+By structural induction, it shows that for any element \(S\) of \(P\), we have \(S = E\)

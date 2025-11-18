@@ -1,4 +1,4 @@
-
+RAW::
 证明.
 我们构造一个 \(\Sigma_{n+1}\) 公式，当在 \(L_\beta\) 中解释时，断言蕴涵左侧语句的所有真实例，当在 \(L_\alpha\) 中解释时，断言蕴涵右侧语句的相应实例。一个小问题是第一个断言是无条件的。然而，\(f(\delta_0)<\alpha\) 部分只是断言 \(f(\delta_0)\) 存在于 \(L_\alpha\) 中，这将通过存在量化变量来完成，并且由于 \(\gamma<\alpha\le\delta_0\) 必然为真，\(\gamma<f(\delta_0)\) 等价于 \(\gamma<\delta_0\Rightarrow\gamma<f(\delta_0)\)，这是一个条件语句。
 

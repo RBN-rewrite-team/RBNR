@@ -143,7 +143,7 @@ function draw() {
 		if (cycles === 1) {
 			ctx.fillStyle = '#777';
 			ctx.font = `400 ${numberSize}px serif`;
-			ctx.fillText('行标', numberSize + gap, rowHeight);
+			ctx.fillText('Row', numberSize + gap, rowHeight);
 			ctx.fillStyle = getRootCssVariable('--color');
 		}
 	}

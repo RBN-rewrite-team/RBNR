@@ -1,0 +1,8 @@
+RAW:: Define function \(\textrm{expand} : (P \setminus \{E\}) \times \mathbb N \to \mathbb N^{<\omega}\):
+Note that elements \(S\) in the domain are non-empty, so \(S_\Box\) is defined.
+If \(S_\Box = 0\), then \(\textrm{expand}(S) := \textrm{sub}(S,0,\textrm{length}(S)-1)\).
+If \(S_\Box > 0\), then (by Lemma 1.1) \(0 \in \{i \in \mathbb N | i < \textrm{length}(S) \land S_i < S_\Box\}\), therefore \(\{i \in \mathbb N | i < \textrm{length}(S) \land S_i < S_\Box\}\) is non-empty.
+Define \(\textrm{br}(S) := \max \{i \in \mathbb N | i < \textrm{length}(S) \land S_i < S_\Box\}\).
+Define \(\textrm{gp}(S) := \textrm{sub}(S,0,\textrm{br}(S))\).
+Define \(\textrm{bp}(S) := \textrm{sub}(S,\textrm{br}(S),\textrm{length}(S)-1)\).
+Define \(\textrm{expand}(S) := \textrm{gp}(S) \frown \underbrace{\textrm{bp}(S) \frown \cdots \frown \textrm{bp}(S)}_{n}\).
