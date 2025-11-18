@@ -10,9 +10,15 @@ import ModalService from '@/utils/Modal';
 import { predictableRandom } from '@/utils/algorithm.ts';
 import { deepCopy } from '../save';
 import { updateResetStatData } from '../stats';
+import { i18n } from '@/utils/i18n';
+import type { $t } from '@/utils/types';
 
 export function dayOfWeek(): [number, string] {
-	const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+	let weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+	// @ts-expect-error
+	if (i18n.global.locale.value == 'en-US') {
+		weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+	}
 	const dayOfWeek = ((Math.floor((Date.now() - 1761408000000) / 86400000) % 7) + 7) % 7;
 	return [dayOfWeek, weekdays[dayOfWeek]];
 }
@@ -181,56 +187,56 @@ export const Analysis = {
 			value(x: DecimalSource): Decimal {
 				return new Decimal(1e10).pow(x);
 			},
-			desc(x: DecimalSource): string {
-				return '九头蛇能量获取×' + format(this.value(x));
+			desc(x: DecimalSource, $t: $t): string {
+				return $t('pt.analysisprogresseff.0') + '×' + format(this.value(x));
 			},
 		},
 		1: {
 			value(x: DecimalSource): Decimal {
 				return new Decimal(1e8).pow(x);
 			},
-			desc(x: DecimalSource): string {
-				return '非递归能量获取×' + format(this.value(x));
+			desc(x: DecimalSource, $t: $t): string {
+				return $t('pt.analysisprogresseff.1') + '×' + format(this.value(x));
 			},
 		},
 		2: {
 			value(x: DecimalSource): Decimal {
 				return new Decimal(2).pow(x);
 			},
-			desc(x: DecimalSource): string {
-				return '非递归次数获取×' + format(this.value(x));
+			desc(x: DecimalSource, $t: $t): string {
+				return $t('pt.analysisprogresseff.2') + '×' + format(this.value(x));
 			},
 		},
 		3: {
 			value(x: DecimalSource): Decimal {
 				return new Decimal(1).add(x).root(3);
 			},
-			desc(x: DecimalSource): string {
-				return '推演能量获取^' + format(this.value(x));
+			desc(x: DecimalSource, $t: $t): string {
+				return $t('pt.analysisprogresseff.3') + '^' + format(this.value(x));
 			},
 		},
 		4: {
 			value(x: DecimalSource): Decimal {
 				return new Decimal(1).add(x).root(5);
 			},
-			desc(x: DecimalSource): string {
-				return '九头蛇溶液获取^' + format(this.value(x));
+			desc(x: DecimalSource, $t: $t): string {
+				return $t('pt.analysisprogresseff.4') + '^' + format(this.value(x));
 			},
 		},
 		5: {
 			value(x: DecimalSource): Decimal {
 				return new Decimal(10).pow(x);
 			},
-			desc(x: DecimalSource): string {
-				return 'Y序列引擎效率×' + format(this.value(x));
+			desc(x: DecimalSource, $t: $t): string {
+				return $t('pt.analysisprogresseff.5') + '×' + format(this.value(x));
 			},
 		},
 		6: {
 			value(x: DecimalSource): Decimal {
 				return new Decimal(1).add(x).root(2.5);
 			},
-			desc(x: DecimalSource): string {
-				return 'Y序列引擎效率^' + format(this.value(x));
+			desc(x: DecimalSource, $t: $t): string {
+				return $t('pt.analysisprogresseff.5') + '^' + format(this.value(x));
 			},
 		},
 	} as const,
@@ -1341,7 +1347,9 @@ export const Garden = {
 		player.garden.totalEntropy = new Decimal(0);
 		player.garden.bestEntropy = new Decimal(0);
 		for (const i in player.garden.generators) {
-			if(!igGNR(GardenGenUpgs.generators[Number(i) as keyof typeof GardenGenUpgs.generators]))
+			if (
+				!igGNR(GardenGenUpgs.generators[Number(i) as keyof typeof GardenGenUpgs.generators])
+			)
 				player.garden.generators[Number(i) as keyof typeof GardenGenUpgs.generators] =
 					new Decimal(0);
 		}

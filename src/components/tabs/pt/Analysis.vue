@@ -3,6 +3,7 @@ import { player } from '@/core/global.ts';
 import { Analysis, dayOfWeek, PTEffects, realPTreset } from '@/core/pt/index.ts';
 import { format } from '@/utils/format';
 import type { IntClosedRange } from 'type-fest';
+import { useI18n } from 'vue-i18n';
 
 function unlockedList(): string {
 	let s = '';
@@ -61,41 +62,36 @@ const Axioms = Object.freeze([
 		'(∀A)[\\varnothing ∉ A → (∃f: A → ⋃A)(∀X ∈ A)(f(X) ∈ X)]',
 	],
 ] as const);
+const $t = useI18n().t;
+function ptDesc() {
+	return $t('pt.desc', {
+		week: dayOfWeek()[1],
+		sys: unlockedList(),
+		rate: Analysis.analysisRate() * 100,
+		cycle: Analysis.analysisCycle(),
+	});
+}
+function resetEffect() {
+	return $t('pt.effresettimes', {
+		eff1: format(PTEffects.effectToPreCardinal()),
+		eff2: format(PTEffects.effectToHydraEnergyLogSoftCap()),
+		eff3: format(PTEffects.effectToSolutions()),
+		eff4: format(PTEffects.effectToNonrecResetTimes()),
+	});
+}
 </script>
 
 <template>
 	<br />
-	<h3 class="pt_base" style="color: cyan; width: 50%; margin: auto">
-		解析系统中，每周的不同时段会解锁不同系统。<br />
-		当前是 {{ dayOfWeek()[1] }}
-		<span style="font-size: 12px">(中国标准时间 UTC+08:00)</span>，解锁
-		<span v-html="unlockedList()" />系统。<br />进行证明论重置以随机解析，成功率为
-		{{ Analysis.analysisRate() * 100 }}% ，解析同一系统{{
-			Analysis.analysisCycle()
-		}}次必定成功。<br />
-		单一系统首次解析必定成功。<br />
-	</h3>
-	<div class="pt_base" style="width: 50%; margin: auto">
-		<p>证明论重置次数带来以下奖励:</p>
-		<p>基数以前全局速度*{{ format(PTEffects.effectToPreCardinal()) }}，上限*5</p>
-		<p>
-			九头蛇对数软上限减弱{{ format(PTEffects.effectToHydraEnergyLogSoftCap()) }}%，上限-50%
-		</p>
-		<p>溶液获取速度*{{ format(PTEffects.effectToSolutions()) }}，上限*4</p>
-		<p>
-			每次非递归重置，非递归获取次数*{{
-				format(PTEffects.effectToNonrecResetTimes())
-			}}，上限*25
-		</p>
-		<p>NRC目标等级减小{{ format(PTEffects.effectToNonrecChallengeGoalLevel()) }}%，上限-50%</p>
-	</div>
+	<h3 class="pt_base" style="color: cyan; width: 50%; margin: auto" v-html="ptDesc()"></h3>
+	<div class="pt_base" style="width: 50%; margin: auto" v-html="resetEffect()"></div>
 	<div
 		class="pt_base pt_reset"
 		@click="realPTreset"
 		style="width: 50%; margin: auto"
 		:class="player.challenges[1][6].lt(1) ? '' : 'pt_resetable'"
 	>
-		<span class="pt_font">证明论重置</span>
+		<span class="pt_font">{{ $t('pt.reset') }}</span>
 	</div>
 	<div
 		v-for="count in 7"
@@ -111,13 +107,20 @@ const Axioms = Object.freeze([
 			</div>
 			<h3 v-html="count + ': ' + Analysis.systems[count - 1]" />
 			<br />
-			解析进度：{{ player.pt.analysis[count - 1] }}/11(本次解析已尝试{{
-				player.pt.analysisFailed[count - 1]
-			}}次)<br />
-			解析效果：{{
-				Analysis.systemEffect[(count - 1) as IntClosedRange<0, 6>].desc(
-					player.pt.analysis[count - 1],
-				)
+
+			{{
+				$t('pt.analysisprogress', {
+					x: player.pt.analysis[count - 1],
+					attempt: player.pt.analysisFailed[count - 1],
+				})
+			}}<br />
+			{{
+				$t('pt.analysisprogresseff', {
+					effect: Analysis.systemEffect[(count - 1) as IntClosedRange<0, 6>].desc(
+						player.pt.analysis[count - 1],
+						$t,
+					),
+				})
 			}}<br />
 		</div>
 	</div>

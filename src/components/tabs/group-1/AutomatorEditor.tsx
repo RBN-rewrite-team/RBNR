@@ -130,16 +130,14 @@ export default defineComponent({
 						display: player.currentTab !== 167 ? 'none' : 'block',
 					}}
 				>
-					<PrimaryButton onClick={runAutomator}>Run automator</PrimaryButton>
-				</div>
-				Example Code:
-				<pre
-					style={{
-						textAlign: 'left',
-						marginLeft: '30px',
-					}}
-				>
-					{`var a = 3; 
+					Example Code:
+					<pre
+						style={{
+							textAlign: 'left',
+							marginLeft: '30px',
+						}}
+					>
+						{`var a = 3; 
 a=3+2**114514***1919810; 
 a=a**a; 
 
@@ -171,7 +169,9 @@ call puts(call math.max(3,12,1));
 
 import music;
 call music.freq(440, 1/2, 1/10);`}
-				</pre>
+					</pre>
+					<PrimaryButton onClick={runAutomator}>Run automator</PrimaryButton>
+				</div>
 			</>
 		);
 	},

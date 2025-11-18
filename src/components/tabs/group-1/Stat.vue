@@ -144,13 +144,13 @@ function phase() {
 		</p>
 		<Mountain v-if="player.retribution === 1" />
 		<CenterLine />
-		<template v-if="player.stat.recent10PTOReset.length >= 1">
+		<!-- <template v-if="player.stat.recent10PTOReset.length >= 1">
 			<h1>证明论重置记录</h1>
 			<ResetTables :data="player.stat.recent10PTOReset" currency="拜谢" />
 		</template>
 		<template v-if="player.stat.recent10NonRecReset.length >= 1">
 			<h1>非递归重置记录</h1>
 			<ResetTables :data="player.stat.recent10NonRecReset" currency="非递归能量" />
-		</template>
+		</template> -->
 	</div>
 </template>

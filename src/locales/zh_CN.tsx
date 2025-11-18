@@ -680,17 +680,17 @@ export default {
 	'upgs.7c5q': '保留NRC5进展',
 	'upgs.7c6q': '保留NRC6进展',
 	'upgs.7c7q': '在达到eee9推演次数时自动完成NRC7',
-	'upgs.7t1q': '+2免费NCT（非递归理论）',
-	'upgs.7t2q': '+2免费NCT',
-	'upgs.7t3q': '+4免费NCT',
-	'upgs.7t4q': '+10免费NCT',
-	'upgs.7t5q': '+100免费NCT',
-	'upgs.7t6q': '+10000免费NCT',
-	'upgs.7t7q': '证明论重置保留NCT',
-	'upgs.7ta1q': '自动化第一个NCT购买项',
-	'upgs.7ta2q': '自动化第二个NCT购买项',
-	'upgs.7ta3q': '自动化第三个NCT购买项',
-	'upgs.7tamq': '最大化自动化前三个NCT购买项',
+	'upgs.7t1q': '+2免费NRT（非递归理论）',
+	'upgs.7t2q': '+2免费NRT',
+	'upgs.7t3q': '+4免费NRT',
+	'upgs.7t4q': '+10免费NRT',
+	'upgs.7t5q': '+100免费NRT',
+	'upgs.7t6q': '+10000免费NRT',
+	'upgs.7t7q': '证明论重置保留NRT',
+	'upgs.7ta1q': '自动化第一个NRT购买项',
+	'upgs.7ta2q': '自动化第二个NRT购买项',
+	'upgs.7ta3q': '自动化第三个NRT购买项',
+	'upgs.7tamq': '最大化自动化前三个NRT购买项',
 	'upgs.7hpa1q': '自动化转生',
 	'upgs.7hpm1q': '最小化自动转生阈值',
 	'upgs.7hpa2q': '自动化飞升',
@@ -1791,4 +1791,27 @@ export default {
 	'yeng.reset': '重置Y序列维度，获得{gain}压缩九头蛇能量',
 
 	'ts.unlauto': '花费1000时间碎片，解锁自动机',
+
+	'pt.desc': `解析系统中，每周的不同时段会解锁不同系统<br />当前是 {week}<span style=\"font-size: 12px\">(中国标准时间 UTC+08:00)</span>，解锁{sys}系统。<br />进行证明论重置以随机解析，成功率为
+		{rate}% ，解析同一系统{cycle}次必定成功。<br />
+		单一系统首次解析必定成功。<br />`,
+
+	'pt.effresettimes': `<p>证明论重置带来以下奖励:</p>
+<p>基数以前全局速度*{eff1}，上限*5</p>
+<p>九头蛇对数软上限减弱*{eff2}%，上限-50%</p>
+<p>溶液获取速度*{eff3}，上限*4</p>
+<p>每次非递归重置，非递归获取次数*{eff4}，上限*25</p>`,
+	'pt.reset': '证明论重置',
+	'pt.analysisprogress': '解析进度: {x}/11(本次解析已尝试{attempt})',
+	'pt.analysisprogresseff': '解析效果: {effect}',
+	'pt.analysisprogresseff.0': '九头蛇能量获取',
+	'pt.analysisprogresseff.1': '非递归能量获取',
+	'pt.analysisprogresseff.2': '非递归次数获取',
+	'pt.analysisprogresseff.3': '推演能量获取',
+	'pt.analysisprogresseff.4': '九头蛇溶液获取',
+	'pt.analysisprogresseff.5': 'Y序列引擎效率',
+
+	'pt.youhave1': '你有{a}证明论解析次数',
+	'pt.youhave2': '你有{a}证明论重置次数',
+	'pt.youhave3': '你有{a}生活质量水晶',
 };
