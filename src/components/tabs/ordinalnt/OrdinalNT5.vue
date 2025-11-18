@@ -105,6 +105,10 @@ function c() {
 	</div>
 	<div v-if="player.numbertheory.well_ordering.selecting === 1" align="center">
 		<cttc :text="$t('prssdefinition')" />
+		<a
+			href="https://googology.fandom.com/ja/wiki/%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E3%83%96%E3%83%AD%E3%82%B0:%E3%81%BF%E3%81%9A%E3%81%A9%E3%82%89/%E5%8E%9F%E5%A7%8B%E6%95%B0%E5%88%97%E3%81%AE%E5%81%9C%E6%AD%A2%E6%80%A7%E8%A8%BC%E6%98%8E"
+			>https://googology.fandom.com/ja/wiki/%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E3%83%96%E3%83%AD%E3%82%B0:%E3%81%BF%E3%81%9A%E3%81%A9%E3%82%89<br />/%E5%8E%9F%E5%A7%8B%E6%95%B0%E5%88%97%E3%81%AE%E5%81%9C%E6%AD%A2%E6%80%A7%E8%A8%BC%E6%98%8E</a
+		>
 		<div class="center_line" />
 		<PageSelect />
 		<template v-if="player.numbertheory.well_ordering.pages[0] == 0">
@@ -339,6 +343,7 @@ function c() {
 	</div>
 	<div v-if="player.numbertheory.well_ordering.selecting === 2" align="center">
 		<cttc :text="$t('bmsdefinition')" />
+		<a href="https://arxiv.org/abs/2307.04606">https://arxiv.org/abs/2307.04606</a>
 		<div class="center_line"></div>
 		<PageSelect />
 		<div class="center_line"></div>
