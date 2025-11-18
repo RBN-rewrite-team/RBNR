@@ -1864,7 +1864,13 @@ THEN YOU CAN GET REVELATION.<br />
 	limited: 'Locked',
 	cancel: 'Cancel',
 	confirm: 'Confirm',
+	modalreq: 'Required',
+	modalvalid1: 'Not valid',
+	modalvalid2: 'Not valid',
+	tip: 'Tip',
 	'retri.reset':
 		'You will lost all your Non Rec. Progress, Hydra Progress, and upgrades<br>BUT YOU WILL GET REVELATION, TO GET THE STRONGER STRENGTH...',
-	'retri.ok': '确定...',
+	'retri.ok': 'Yes...',
+
+	'res.compress': 'Compressed Hydra Energy',
 };
