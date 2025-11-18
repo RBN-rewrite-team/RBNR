@@ -1694,8 +1694,31 @@ export default {
 	'nt.wellorderness.effect.0':
 		'引理1.2奖励：进一步削弱九头蛇能量的二重软上限，自动获得NRC5完成次数，朊病毒获取速度×(推演能量+1)^2，NRC6完成次数加成推演能量获取',
 
+	'nt.wellorderness.effect.1':
+		'引理1.1奖励：你可以自动更新溶液数量，九头蛇能量第二软上限变得更弱，推演能量获取速度×10。',
 	'tab.prooftheory': '证明论',
 	'tab.analyze': '解析',
 	'tab.analyzemilestone': '解析里程碑',
 	'tab.garden': '花园',
+
+	'nt.wellorderness.unlockedalemma': '已解锁一个引理',
+	'nt.wellorderness.process.4': '定义初等序列展开函数，消耗1.000e15推演能量',
+	'nt.wellorderness.process.5': '解锁引理2，消耗1.0000e17推演能量',
+	'nt.wellorderness.process.6': '证明引理2.1，消耗1.0000e34推演能量',
+	'nt.wellorderness.effect.2':
+		'引理2.1奖励：九头蛇能量第二软上限再次变得更弱。九头蛇溶液加成推演能量获取',
+	'nt.wellorderness.process.7': '证明引理2.2，消耗1.0000e52推演能量',
+	'nt.wellorderness.effect.3':
+		'引理2.2奖励：自动购买非递归定理，自动获得NRC6次数，B6-R-1-3、B6-R-1-4的效果底数翻倍，削弱九头蛇能量的二重软上限',
+	'nt.wellorderness.process.8': '证明引理2.3，消耗1.7977e308推演能量',
+	'nt.wellorderness.effect.4': '引理2.3奖励：推演能量巨幅加成朊病毒获取速度',
+	'nt.wellorderness.process.9': '解锁引理3，消耗3.000e320推演能量',
+	'nt.wellorderness.process.10': '证明引理3，消耗3.000e325推演能量',
+	'nt.wellorderness.effect.5': '引理3效果:B6-R-1-3, B6-R-1-4的底数再一次翻倍',
+	'nt.wellorderness.process.11': '解锁引理4，消耗1.000e690推演能量',
+	'nt.wellorderness.process.12': '证明引理4，消耗1.000e695推演能量',
+	'nt.wellorderness.effect.6': '引理4效果:BMS推演速度双指数^1.2',
+	'nt.wellorderness.process.13': '解锁引理5，消耗1.000e700推演能量',
+	'nt.wellorderness.process.14': '证明引理4，消耗1.000e695推演能量',
+	'nt.wellorderness.effect.7': '引理5效果:推演能量获取速度^1.5。',
 };

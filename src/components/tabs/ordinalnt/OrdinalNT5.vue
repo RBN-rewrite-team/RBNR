@@ -124,7 +124,10 @@ function c() {
 					v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(1)"
 				>
 					{{ $t('nt.wellorderness.process.1') }}</button
-				><template v-else> <cttc :text="$t('prss1')" /> </template>
+				><template v-else>
+					<cttc :text="$t('prss1')" />
+					<p>{{ $t('nt.wellorderness.unlockedalemma') }}</p>
+				</template>
 			</div>
 		</template>
 		<div class="center_line" />
@@ -152,9 +155,12 @@ function c() {
 					style="display: inline-block"
 				>
 					{{ $t('nt.wellorderness.process.2') }}</button
-				><template v-else> <cttc :text="$t('prss3')" /> </template>
-
-				引理1.1奖励：你可以自动更新溶液数量，九头蛇能量第二软上限变得更弱，推演能量获取速度×10。
+				><template v-else>
+					<cttc :text="$t('prss3')" /><br />
+					<span style="color: green">{{
+						$t('nt.wellorderness.effect.1')
+					}}</span></template
+				>
 
 				<div class="center_line" />
 				2.
@@ -178,7 +184,7 @@ function c() {
 						v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(4)"
 						style="display: inline-block"
 					>
-						定义初等序列展开函数，消耗1.000e15推演能量
+						{{ $t('nt.wellorderness.process.4') }}
 					</button>
 				</template>
 			</div>
@@ -196,7 +202,7 @@ function c() {
 				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(5)"
 				style="display: inline-block"
 			>
-				解锁引理2，消耗1.0000e17推演能量
+				{{ $t('nt.wellorderness.process.5') }}
 			</button>
 		</template>
 		<template
@@ -205,10 +211,10 @@ function c() {
 				player.numbertheory.well_ordering.steps_proceeded.includes(5)
 			"
 		>
-			<h3>引理2</h3>
+			<h3>{{ $t('nt.wellorderness.lemma', { a: 2 }) }}</h3>
 			<cttc :text="$t('prss7')" />
 			<div class="center_line" />
-			<h2>证明</h2>
+			<h2>{{ $t('nt.wellorderness.prove') }}</h2>
 			1.
 			<button
 				class="clickable_button"
@@ -216,12 +222,10 @@ function c() {
 				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(6)"
 				style="display: inline-block"
 			>
-				证明引理2.1，消耗1.0000e34推演能量</button
+				{{ $t('nt.wellorderness.process.6') }}</button
 			><template v-else>
 				<cttc :text="$t('prss8')" />
-				<span style="color: green"
-					>引理2.1奖励：九头蛇能量第二软上限再次变得更弱。九头蛇溶液加成推演能量获取</span
-				>
+				<p style="color: green">{{ $t('nt.wellorderness.effect.2') }}</p>
 			</template>
 			<div class="center_line" />
 			2.
@@ -231,13 +235,11 @@ function c() {
 				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(7)"
 				style="display: inline-block"
 			>
-				证明引理2.2，消耗1.0000e52推演能量</button
+				{{ $t('nt.wellorderness.process.7') }}</button
 			><template v-else>
 				<cttc :text="$t('prss9')" />
 
-				<span style="color: green"
-					>引理2.2奖励：自动购买非递归定理，自动获得NRC6次数，B6-R-1-3、B6-R-1-4的效果底数翻倍，削弱九头蛇能量的二重软上限</span
-				>
+				<p style="color: green">{{ $t('nt.wellorderness.effect.3') }}</p>
 			</template>
 			<div class="center_line" />
 			3.
@@ -247,10 +249,10 @@ function c() {
 				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(8)"
 				style="display: inline-block"
 			>
-				证明引理2.3，消耗1.7977e308推演能量</button
+				{{ $t('nt.wellorderness.process.8') }}</button
 			><template v-else>
 				<cttc :text="$t('prss10')" />
-				<span style="color: green">引理2.3奖励：推演能量巨幅加成朊病毒获取速度</span>
+				<span style="color: green"> {{ $t('nt.wellorderness.effect.4') }}</span>
 			</template>
 		</template>
 		<template
@@ -259,14 +261,14 @@ function c() {
 				player.numbertheory.well_ordering.steps_proceeded.includes(8)
 			"
 		>
-			<h3>引理3</h3>
+			<h3>{{ $t('nt.wellorderness.lemma', { a: 3 }) }}</h3>
 			<button
 				class="clickable_button"
 				@click="stepProceed(9)"
 				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(9)"
 				style="display: inline-block"
 			>
-				解锁引理3，消耗3.000e320推演能量
+				{{ $t('nt.wellorderness.process.9') }}
 			</button>
 			<template v-else> <cttc :text="$t('prss11')" /> </template>
 			<div class="center-line"></div>
@@ -276,11 +278,11 @@ function c() {
 				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(10)"
 				style="display: inline-block"
 			>
-				证明引理3，消耗3.000e325推演能量
+				{{ $t('nt.wellorderness.process.10') }}
 			</button>
 			<template v-else>
 				<cttc :text="$t('prss12')" />
-				<p style="color: green">引理3效果:B6-R-1-3, B6-R-1-4的底数再一次翻倍</p>
+				<p style="color: green">{{ $t('nt.wellorderness.effect.5') }}</p>
 			</template>
 		</template>
 		<template
@@ -289,14 +291,14 @@ function c() {
 				player.numbertheory.well_ordering.steps_proceeded.includes(10)
 			"
 		>
-			<h3>引理4</h3>
+			<h3>{{ $t('nt.wellorderness.lemma', { a: 4 }) }}</h3>
 			<button
 				class="clickable_button"
 				@click="stepProceed(11)"
 				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(11)"
 				style="display: inline-block"
 			>
-				解锁引理4，消耗1.000e690推演能量
+				{{ $t('nt.wellorderness.process.11') }}
 			</button>
 			<template v-else> <cttc :text="$t('prss13')" /> </template>
 			<div class="center-line"></div>
@@ -306,11 +308,11 @@ function c() {
 				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(12)"
 				style="display: inline-block"
 			>
-				证明引理4，消耗1.000e695推演能量
+				{{ $t('nt.wellorderness.process.12') }}
 			</button>
 			<template v-else>
 				<cttc :text="$t('prss14')" />
-				<p style="color: green">引理4效果:BMS推演速度双指数^1.2</p>
+				<p style="color: green">{{ $t('nt.wellorderness.effect.6') }}</p>
 			</template>
 		</template>
 		<template
@@ -319,14 +321,14 @@ function c() {
 				player.numbertheory.well_ordering.steps_proceeded.includes(12)
 			"
 		>
-			<h3>引理5</h3>
+			<h3>{{ $t('nt.wellorderness.lemma', { a: 5 }) }}</h3>
 			<button
 				class="clickable_button"
 				@click="stepProceed(13)"
 				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(13)"
 				style="display: inline-block"
 			>
-				解锁引理5，消耗1.000e700推演能量
+				{{ $t('nt.wellorderness.process.13') }}
 			</button>
 			<template v-else> <cttc :text="$t('prss15')" /> </template>
 			<div class="center-line"></div>
@@ -336,11 +338,13 @@ function c() {
 				v-if="!player.numbertheory.well_ordering.steps_proceeded.includes(14)"
 				style="display: inline-block"
 			>
-				证明引理5，消耗1.000e1125推演能量
+				{{ $t('nt.wellorderness.process.14') }}
 			</button>
 			<template v-else>
 				<b> <cttc :text="$t('prss16')" /> </b><br />
-				<p style="color: green">引理5效果:推演能量获取速度^1.5。</p>
+				<p style="color: green">
+					{{ $t('nt.wellorderness.effect.7') }}
+				</p>
 			</template>
 		</template>
 	</div>

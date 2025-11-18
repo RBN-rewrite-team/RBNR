@@ -1788,8 +1788,34 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'nt.wellorderness.effect.0':
 		'Lemma 1.2 reward: Reduce softcap^2 of hydra energy, Automatically gain NRC5 challenge amount, prion gain speed×(Deduction Energy+1)^2，NRC6 challenge amount enhance Deduction Energy gain',
 
+	'nt.wellorderness.effect.1':
+		'Lemma 1.1 reward: You can auto update the amount of solution, Reduce the softcap^2 of Hydra energy. Deduction Energy gain*10.',
+
 	'tab.prooftheory': 'Proof theory',
 	'tab.analyze': 'Analyze',
 	'tab.analyzemilestone': 'Analyzing milestone',
 	'tab.garden': 'Garden',
+
+	'nt.wellorderness.unlockedalemma': 'Unlocked a lemman',
+	'nt.wellorderness.process.4':
+		'Define the expand function of PrSS, cost 1.000e15 Deduction Energy',
+	'nt.wellorderness.process.5': 'Unlock lemma 2, cost 1.0000e17 Deduction Energy',
+	'nt.wellorderness.process.6': 'Prove lemma 2.1, cost 1.0000e34 Deduction Energy',
+	'nt.wellorderness.effect.2':
+		'Lemma 2.1 reward: Reduce the softcap^2 of Hydra Energy. Solution enhances Deduction Energy gain',
+	'nt.wellorderness.process.7': 'Prove lemma 2.2, cost 1.0000e52 Deduction Energy',
+	'nt.wellorderness.effect.3':
+		'Lemma 2.2 reward: Auto buy NRT, Automatically gain NRC6 challenge amount. Multiply the base of B6-R-1-3、B6-R-1-4. Reduce the softcap^2 of Hydra Energy',
+	'nt.wellorderness.process.8': 'Prove lemma2.3, cost 1.7977e308 Deduction Energy',
+	'nt.wellorderness.effect.4':
+		'Lemma 2.3 reward:Deduction Energy significantly enhance prion gain speed',
+	'nt.wellorderness.process.9': 'Unlock lemma 3, cost 3.000e320 Deduction Energy',
+	'nt.wellorderness.process.10': 'Prove lemma 3, cost 3.000e325 Deduction Energy',
+	'nt.wellorderness.effect.5': 'Lemma 3 reward:B6-R-1-3, Multiply the base of B6-R-1-4 again',
+	'nt.wellorderness.process.11': 'Unlock lemma 4, cost 1.000e690 Deduction Energy',
+	'nt.wellorderness.process.12': 'Prove lemma 4, cost 1.000e695 Deduction Energy',
+	'nt.wellorderness.effect.6': 'Lemma 4 reward: BMSprogresion speed (double exponent) ^1.2',
+	'nt.wellorderness.process.13': 'Unlock lemma 5, cost 1.000e700 Deduction Energy',
+	'nt.wellorderness.process.14': 'Prove lemma 4, cost 1.000e695 Deduction Energy',
+	'nt.wellorderness.effect.7': 'Lemma 5 reward: Deduction Energy gain^1.5.',
 };
