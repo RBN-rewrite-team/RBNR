@@ -928,3 +928,99 @@ a {
 .margin_center{
 	margin: auto;
 }
+
+
+.dims {
+	width: 95%;
+	margin: auto;
+}
+@mixin dim_progress_bar($width-var, $color) {
+	position: relative;
+	border: 2px solid $color;
+	--current-dim-color: #{$color};
+
+	&::before {
+		pointer-events: none;
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: #{$width-var};
+		height: 100%;
+		background: color.adjust($color, $alpha: -0.5);
+		transition: 0ms;
+		z-index: 0;
+	}
+
+	&.fast::before {
+		background: linear-gradient(
+			-45deg,
+			color.adjust($color, $alpha: -0.7) 0,
+			color.adjust($color, $alpha: -0.7) 25%,
+			color.adjust($color, $alpha: -0.5) 25%,
+			color.adjust($color, $alpha: -0.5) 50%,
+			color.adjust($color, $alpha: -0.7) 50%,
+			color.adjust($color, $alpha: -0.7) 75%,
+			color.adjust($color, $alpha: -0.5) 75%,
+			color.adjust($color, $alpha: -0.5)
+		);
+		background-size: 200px 200px;
+		background-repeat: repeat;
+		animation: scroll_left 3s linear infinite;
+		width: 200%;
+	}
+}
+.dim-single {
+	min-height: 70px;
+	display: flex;
+	justify-content: space-between;
+	padding: 0 20px;
+	align-items: center;
+	border: 5px;
+	overflow: hidden;
+
+	&.dim1_progress_bar {
+		@include dim_progress_bar(v-bind(dim1progress), #7f0000);
+	}
+
+	&.dim2_progress_bar {
+		@include dim_progress_bar(v-bind(dim2progress), #7f007f);
+	}
+
+	&.dim3_progress_bar {
+		@include dim_progress_bar(v-bind(dim3progress), #7f7f00);
+	}
+
+	&.dim4_progress_bar {
+		@include dim_progress_bar(v-bind(dim4progress), #c17f00);
+	}
+}
+.dim-single-centered {
+	min-height: 70px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	border: 5px;
+	overflow: hidden;
+
+	&.hydra_reset {
+		background: linear-gradient(135deg, #1a6c5e, #1fb286, #ef2dfd);
+		position: relative;
+
+		&::before {
+			content: '';
+			background: var(--background-color);
+			position: absolute;
+			width: calc(100% - 4px);
+			height: calc(100% - 4px);
+			top: 2px;
+			left: 2px;
+		}
+	}
+}
+
+.buy {
+	border: 2px solid var(--current-dim-color);
+	height: 50px;
+	width: 300px;
+}

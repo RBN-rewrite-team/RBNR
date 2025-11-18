@@ -1873,4 +1873,37 @@ THEN YOU CAN GET REVELATION.<br />
 	'retri.ok': 'Yes...',
 
 	'res.compress': 'Compressed Hydra Energy',
+
+	'yeng.totaleffect': 'Total Compressed Hydra Energy makes BMS progressing speed×',
+	'yeng.progressed': 'Progressed {x} times',
+	'yeng.dim.0.title': 'First Y Seq. Dimension',
+	'yeng.dim.buymax': 'Buy max',
+	'yeng.dim.require': 'Requires ',
+	'yeng.dim.0.effect': 'Progress {effect} times per second',
+	'yeng.dim.1.title': 'Second Y Seq. Dimension',
+	'yeng.dim.2.title': 'Third Y Seq. Dimension',
+	'yeng.dim.3.title': 'Fourth Y Seq. Dimension',
+	'yeng.dim.1.effect': 'Produce {effect} First Y Seq. Dimension per second',
+	'yeng.dim.2.effect': 'Produce {effect} Second Y Seq. Dimension per second',
+	'yeng.dim.3.effect': 'Produce {effect} Third Y Seq. Dimension per second',
+
+	'yeng.reset': 'Reset Y Seq. Dimensions, Get {gain} Compressed Hydra Energy',
+
+	'upgs.621': 'Hydra Energy enhanced Comp. Hydra Energy',
+	'upgs.622':
+		'For each dimension purchased, its effect becomes a certain multiple of the original value.',
+	'upgs.623': 'Square the effect of U5-2-1~2',
+	'upgs.624': 'In any time, You have at least 1 First Y Seq. Dimension',
+	'upgs.625': 'All Dimensions production *3',
+	'upgs.626': 'Reduce 4 Dimensions cost growth rase to 50%',
+	'upgs.627': 'Y Seq. Progressed times produces Fourth Y Seq. Dimension',
+	'upgs.628': 'Improve the formula of Ascension effect, Square the effect of U5-2-1',
+	'upgs.629': 'Get 100% of pending Comp. Hydra Energy /s passively》',
+
+	'upgs.6210':
+		'For each additional 2nd to 4th Y Sequential Dimension purchased, its effect is multiplied by (0.95 + Dimension Number × 0.05).',
+	'upgs.6211': 'U5-2-7 effect ^3',
+	'upgs.6212': 'Prestige~Recursion do not reset anything, Recursion effect +50%',
+	'upgs.6213':
+		'<span style="font-size: 10px">When Solvent 1-8 are fully upgraded and entering dilute mode, Hydra Energy gains a multiplier of 1e1000000 per second, with the cap being Solution ×10×(time spent in dilute mode + 1).</span>',
 };

@@ -1774,4 +1774,19 @@ export default {
 	'retri.ok': '确定...',
 
 	'res.compress': '压缩九头蛇能量',
+
+	'yeng.totaleffect': '累计压缩九头蛇能量使BMS推演速度×',
+	'yeng.progressed': '已推演{x}次',
+	'yeng.dim.0.title': '第一Y序列维度',
+	'yeng.dim.buymax': '购买最大',
+	'yeng.dim.require': '需求: ',
+	'yeng.dim.0.effect': '每秒推演{effect}次',
+	'yeng.dim.1.title': '第二Y序列维度',
+	'yeng.dim.2.title': '第三Y序列维度',
+	'yeng.dim.3.title': '第四Y序列维度',
+	'yeng.dim.1.effect': '每秒生产{effect}第一Y序列维度',
+	'yeng.dim.2.effect': '每秒生产{effect}第二Y序列维度',
+	'yeng.dim.3.effect': '每秒生产{effect}第三Y序列维度',
+
+	'yeng.reset': '重置Y序列维度，获得{gain}压缩九头蛇能量',
 };
