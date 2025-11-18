@@ -221,13 +221,13 @@ export const menus = [
 		],
 	},
 	{
-		title: '证明论',
+		title: 'tab.prooftheory',
 		contents: [
-			{ id: 29, text: '解析' },
-			{ id: 30, text: '解析里程碑' },
+			{ id: 29, text: 'tab.analyze' },
+			{ id: 30, text: 'tab.analyzemilestone' },
 			{
 				id: 31,
-				text: '花园',
+				text: 'tab.garden',
 				show() {
 					return player.milestones.pt_6;
 				},

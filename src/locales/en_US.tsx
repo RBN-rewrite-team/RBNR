@@ -1787,4 +1787,9 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'nt.wellorderness.process.3': 'Prove lemma 1.2, cost 500,000,000 Deduction Energy',
 	'nt.wellorderness.effect.0':
 		'Lemma 1.2 reward: Reduce softcap^2 of hydra energy, Automatically gain NRC5 challenge amount, prion gain speed×(Deduction Energy+1)^2，NRC6 challenge amount enhance Deduction Energy gain',
+
+	'tab.prooftheory': 'Proof theory',
+	'tab.analyze': 'Analyze',
+	'tab.analyzemilestone': 'Analyzing milestone',
+	'tab.garden': 'Garden',
 };

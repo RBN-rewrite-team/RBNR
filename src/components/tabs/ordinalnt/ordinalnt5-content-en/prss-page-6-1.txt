@@ -1,2 +1,2 @@
-RAW::\(\textrm{expand}\) 的递减性
-对于任意 \(S \in P\) 和\(n \in \mathbb N\)，有\(S = E\) 或\(\textrm{trans}(\textrm{expand}(S,n)) < \textrm{trans}(S)\)。
+RAW:: The decreasing property of \(\textrm{expand}\)
+For any \(S \in P\) and \(n \in \mathbb N\), either \(S = E\) or \(\textrm{trans}(\textrm{expand}(S,n)) < \textrm{trans}(S)\).

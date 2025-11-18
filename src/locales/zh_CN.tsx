@@ -1693,4 +1693,9 @@ export default {
 	'nt.wellorderness.process.3': '证明引理1.2，消耗500,000,000推演能量',
 	'nt.wellorderness.effect.0':
 		'引理1.2奖励：进一步削弱九头蛇能量的二重软上限，自动获得NRC5完成次数，朊病毒获取速度×(推演能量+1)^2，NRC6完成次数加成推演能量获取',
+
+	'tab.prooftheory': '证明论',
+	'tab.analyze': '解析',
+	'tab.analyzemilestone': '解析里程碑',
+	'tab.garden': '花园',
 };

@@ -153,6 +153,9 @@ function c() {
 				>
 					{{ $t('nt.wellorderness.process.2') }}</button
 				><template v-else> <cttc :text="$t('prss3')" /> </template>
+
+				引理1.1奖励：你可以自动更新溶液数量，九头蛇能量第二软上限变得更弱，推演能量获取速度×10。
+
 				<div class="center_line" />
 				2.
 				<button

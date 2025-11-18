@@ -1,2 +1,2 @@
-RAW::\(\textrm{expand}\) 的值域
-对于任意 \(S \in P\) 和\(n \in \mathbb N\)，有\(S = E\) 或\(\textrm{expand}(S,n) \in P\)。
+RAW:: The range of \(\textrm{expand}\)
+For any \(S \in P\) and \(n \in \mathbb N\), either \(S = E\) or \(\textrm{expand}(S,n) \in P\).
