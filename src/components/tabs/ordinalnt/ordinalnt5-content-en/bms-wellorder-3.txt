@@ -1,6 +1,16 @@
-RAW::引理 3. 设 \(A\) 是一个非空数组，\(n\) 是一个自然数，令 \(G, B_0, B_1, ..., B_n, m_0\) 如定义 1 中所述，并令 \(l_0, l_1\) 分别是 \(G, B_0\) 的长度。
-(i) 对于所有 \(i < l_0\), \(j < l_1\) 和 \(k \in \mathbb{N}\)，在 \(A[n]\) 中，\(G\) 的第 \(i\) 列是 \(B_0\) 的第 \(j\) 列的 \(k\)-祖先当且仅当它是 \(B_n\) 的第 \(j\) 列的 \(k\)-祖先。
-(ii) 对于所有 \(i, j < l_1\) 和 \(k \in \mathbb{N}\)，\(B_0\) 的第 \(i\) 列是 \(B_0\) 的第 \(j\) 列的 \(k\)-祖先当且仅当 \(B_n\) 的第 \(i\) 列是 \(B_n\) 的第 \(j\) 列的 \(k\)-祖先。
-(iii) 如果 \(n > 0\)，那么对于所有 \(i < l_1\) 和 \(k < m_0\)，在 \(A\) 中，\(B_0\) 的第 \(i\) 列是 \(A\) 的最后一列的 \(k\)-祖先当且仅当在 \(A[n]\) 中，\(B_{n-1}\) 的第 \(i\) 列是 \(B_n\) 的第一列的 \(k\)-祖先。
-(iv) 对于所有 \(0 < i < l_1\) 和 \(k \in \mathbb{N}\)，在 \(A[n]\) 中，\(B_n\) 的第 \(i\) 列的 \(k\)-父级要么在 \(B_n\) 中，要么在 \(G\) 中。
-(v) 对于所有 \(i, j < l_1\), \(k \in \mathbb{N}\) 和 \(n_0 < n_1 < n\)，在 \(A[n]\) 中，\(B_{n_0}\) 的第 \(i\) 列是 \(B_{n_1}\) 的第 \(j\) 列的 \(k\)-祖先当且仅当它是 \(B_{n_1+1}\) 的第 \(j\) 列的 \(k\)-祖先。
+RAW::Lemma 3.
+Let \(A\) be a non-empty array and \(n\) be a natural number, let
+\(G, B_0, B_1, ..., B_n, m_0\) be as in Definition 1.1, and let \(l_0, l_1\) be the lengths of \(G, B_0\).
+(i) For all \(i < l_0\), \(j < l_1\) and \(k \in \mathbb{N}\), in \(A[n]\), the \(i\)-th column in \(G\) is a \(k\)-ancestor
+of the \(j\)-th column in \(B_0\) if it is a \(k\)-ancestor of the \(j\)-th column in \(B_n\).
+(ii) For all \(i, j < l_1\) and \(k \in \mathbb{N}\), the \(i\)-th column in \(B_0\) is a \(k\)-ancestor of the
+\(j\)-th column in \(B_0\) if the \(i\)-th column in \(B_n\) is a \(k\)-ancestor of the \(j\)-th column in \(B_n\).
+(iii) If \(n > 0\), then for all \(i < l_1\) and \(k < m_0\), in \(A\), the \(i\)-th column in \(B_0\) is
+a \(k\)-ancestor of the last column of \(A\) if in \(A[n]\), the \(i\)-th column in \(B_{n-1}\) is a
+\(k\)-ancestor of the first column in \(B_n\).
+(iv) For all \(0 < i < l_1\) and \(k \in \mathbb{N}\), in \(A[n]\), the \(k\)-parent of the \(i\)-th column in
+\(B_n\) is either in \(B_n\) or in \(G\).
+(v) For all \(i, j < l_1\) and \(k \in \mathbb{N}\) and \(n_0 < n_1 < n\), in \(A[n]\), the \(i\)-th column in \(B_{n_0}\) 
+is a  \(k\)-ancestor of the \(j\)-th column in \(B_{n_1}\)
+iff it’s a \(k\)-ancestor of the \(j\)-th
+column in \(B_{n_1+1}\).
