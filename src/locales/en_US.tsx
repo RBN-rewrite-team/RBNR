@@ -1906,4 +1906,9 @@ THEN YOU CAN GET REVELATION.<br />
 	'upgs.6212': 'Prestige~Recursion do not reset anything, Recursion effect +50%',
 	'upgs.6213':
 		'<span style="font-size: 10px">When Solvent 1-8 are fully upgraded and entering dilute mode, Hydra Energy gains a multiplier of 1e1000000 per second, with the cap being Solution ×10×(time spent in dilute mode + 1).</span>',
+
+	'upgs.ts_auto_pkg_hydra': 'Get automator hydra package, Use include hydra; to import',
+	'upgs.ts_auto_pkg_nonrec': 'Get automator nonrec package，Use include nonrec; to import',
+
+	'ts.unlauto': 'Spend 1000 TS to unlock automator',
 };

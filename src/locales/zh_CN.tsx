@@ -1789,4 +1789,6 @@ export default {
 	'yeng.dim.3.effect': '每秒生产{effect}第三Y序列维度',
 
 	'yeng.reset': '重置Y序列维度，获得{gain}压缩九头蛇能量',
+
+	'ts.unlauto': '花费1000时间碎片，解锁自动机',
 };

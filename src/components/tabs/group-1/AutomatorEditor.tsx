@@ -132,6 +132,41 @@ export default defineComponent({
 				>
 					<PrimaryButton onClick={runAutomator}>Run automator</PrimaryButton>
 				</div>
+				Example Code:
+				<pre>
+					{`var a = 3; 
+a=3+2**114514***1919810; 
+a=a**a; 
+
+var b = "114514"; 
+b = b + "11"; 
+
+function c() {
+    return 5;
+} 
+call c();
+
+var d = {
+    alphabeta: "gammadelta",
+    epsilonzeta: "etatheta",
+};
+
+call get(d, 0); 
+
+var e = ["1145","1419"]; 
+call get(e, 0);
+
+call puts(a);
+call puts(b);
+call puts(c);
+
+import math;
+call puts(call math.max(3,12,1));
+
+
+import music;
+call music.freq(440, 1/2, 1/10);`}
+				</pre>
 			</>
 		);
 	},
