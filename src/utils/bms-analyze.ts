@@ -275,7 +275,7 @@ function findMatrixParentTerm(matrix: Matrix, findRow: number, relativeColumn: n
 /**
  * 有哪些项的坏根是column
  */
-function countChildColumnsForColumn(matrix: Matrix, column: number): number[] {
+function whichChildColumnOfColumnsisThisColumn(matrix: Matrix, column: number): number[] {
 	const X: number[] = [];
 	for (let i = 0; i < matrix.length; i++) {
 		if (findMatrixParentTerm(matrix, 0, i) === column) {
@@ -285,6 +285,10 @@ function countChildColumnsForColumn(matrix: Matrix, column: number): number[] {
 	return X;
 }
 
+/**
+ * 查找提升效应项
+ * @returns -1为没有找到符合的index
+ */
 function maybeCheckOmega_omegaLikeFunction(matrix: Matrix, column: number): number {
 	/**第2项是0的matrix， 第3项是1的matrix， 和后面没了的matrix为-1（找后面的？ */
 	if (matrix[column][1] === 0 || matrix[column][2] === 1 || column + 1 === matrix.length) {
@@ -324,7 +328,7 @@ function maybeCheckOmega_omegaLikeFunction(matrix: Matrix, column: number): numb
 	return -1;
 }
 
-function matrix_xthAdm(matrix: Matrix, index: number): Term {
+function getAdmIndexOfMatrix(matrix: Matrix, index: number): Term {
 	// 对于[1,0]，为ω系序数，返回0
 	if (matrix[index][1] === 0) {
 		return [];
@@ -333,14 +337,22 @@ function matrix_xthAdm(matrix: Matrix, index: number): Term {
 	if (matrix[index][2] === 0) {
 		// 可能是前有Ω_ω列，需要检查,比如说[0,0,0][1,1,1][2,1][3,2]
 		// 通常检查BO以下BMS u默认为1
+
+		// 对于(0,0,0)(1,1,1)(2,1)(1,1,1), 此处的1会被覆盖为查找omegalike后的index，进行matrixxth后 取最后一项
 		const u =
 			maybeCheckOmega_omegaLikeFunction(matrix, index) >= 0
-				? lastTerm3(matrix_xthAdm(matrix, maybeCheckOmega_omegaLikeFunction(matrix, index)))
+				? lastTerm3(
+						getAdmIndexOfMatrix(
+							matrix,
+							maybeCheckOmega_omegaLikeFunction(matrix, index),
+						),
+					)
 				: ONE;
-		return add(matrix_xthAdm(matrix, findMatrixParentTerm(matrix, 1, index)), u);
+		return add(getAdmIndexOfMatrix(matrix, findMatrixParentTerm(matrix, 1, index)), u);
 	}
 	let omega_power_x_counter: Term = ONE;
-	for (const i of countChildColumnsForColumn(matrix, index)) {
+	//数(0,0,0)(1,1,1)(2,1,1)的
+	for (const i of whichChildColumnOfColumnsisThisColumn(matrix, index)) {
 		if (
 			!(
 				matrix[i][0] === matrix[index][0] + 1 &&
@@ -351,25 +363,25 @@ function matrix_xthAdm(matrix: Matrix, index: number): Term {
 			continue;
 		}
 		let q: Term = [];
-		for (const j of countChildColumnsForColumn(matrix, i)) {
+		for (const j of whichChildColumnOfColumnsisThisColumn(matrix, i)) {
 			q = add(q, convertMatrixToTerm(matrix, j));
 		}
 		omega_power_x_counter = add(omega_power_x_counter, exp(q));
 	}
 	return add(
-		matrix_xthAdm(matrix, findMatrixParentTerm(matrix, 1, index)),
+		getAdmIndexOfMatrix(matrix, findMatrixParentTerm(matrix, 1, index)),
 		exp(omega_power_x_counter),
 	);
 }
 
 /**主要的矩阵转换成序数的函数 */
 function convertMatrixToTerm(matrix: Matrix, index: number): Term {
-	let psiInner: Term = [];
+	let omegaMultiplication: Term = [];
 	const maybeOmega_omega_columns: number[] = [...Array(matrix.length).keys()].map((x) =>
 		maybeCheckOmega_omegaLikeFunction(matrix, x),
 	);
-	/**如果没有找到此列的坏根，就说明遇到(0)(1) index=1或者(0)(1)(2)(1), index=2这个情况 */
-	for (const i of countChildColumnsForColumn(matrix, index)) {
+	/**如果没有找到此列是坏根的列，就说明遇到(0)(1) index=1或者(0)(1)(2)(1), index=2这个情况 */
+	for (const i of whichChildColumnOfColumnsisThisColumn(matrix, index)) {
 		if (
 			matrix[i][0] === matrix[index][0] + 1 &&
 			matrix[i][1] === matrix[index][1] &&
@@ -378,7 +390,7 @@ function convertMatrixToTerm(matrix: Matrix, index: number): Term {
 			continue;
 		}
 		if (maybeOmega_omega_columns.includes(i)) {
-			const c = countChildColumnsForColumn(matrix, i);
+			const c = whichChildColumnOfColumnsisThisColumn(matrix, i);
 			if (c.length > 0) {
 				const last = c[c.length - 1];
 				if (
@@ -393,9 +405,10 @@ function convertMatrixToTerm(matrix: Matrix, index: number): Term {
 			}
 		}
 		//对psiInner内的序数进行递归处理，
-		psiInner = add(psiInner, convertMatrixToTerm(matrix, i));
+		omegaMultiplication = add(omegaMultiplication, convertMatrixToTerm(matrix, i));
 	}
-	return [matrix_xthAdm(matrix, index), psiInner, []];
+
+	return [getAdmIndexOfMatrix(matrix, index), omegaMultiplication, []];
 }
 
 /**
@@ -538,7 +551,17 @@ const EBO = [
   [3, 1, 0],
   [2, 0, 0],
 ]
-
+export function zidianxu(a: number[][], b: number[][]) {
+	for (let i = 0; i < Math.max(a.length, b.length); i++) {
+		for (let j = 0; j < Math.max(a.length, b.length); j++) {
+			if (a[i][j] > b[i][j]) return 1;
+			if (a[i][j] < b[i][j]) {
+				return -1;
+			}
+		}
+	}
+	return 0;
+}
 export function calculate(BMS: string): string {
 	if (BMS === '(0)(1<sup>ω</sup>)') return 'ψ(a(1;@(1;@(...))))';
 	const cleanBMS = BMS.replace(/\s+/g, '');
@@ -563,25 +586,8 @@ export function calculate(BMS: string): string {
 		if (row.length >= 4) return '>ψ(a(ω;0))';
 	}
 
-	// 是否大于EBO
-	for (const i in EBO) {
-		if ((matrix[1]?.[2] ?? 0) < 1) break;
-		const currentColumn = matrix[i] ?? [];
-
-		if (isZero(currentColumn)) break;
-
-		const maxCol = EBO[i];
-
-		if (i == '4') {
-			if (currentColumn[0] >= 2) return '>ψ(I)';
-			break;
-		}
-
-		for (const j in maxCol) {
-			if (currentColumn[j] < maxCol[j]) break;
-			if (currentColumn[j] == maxCol[j]) continue;
-			if (currentColumn[j] > maxCol[j]) return '>ψ(I)';
-		}
+	if (zidianxu(matrix, EBO) >= 0) {
+		return '>ψ(I)';
 	}
 
 	try {
