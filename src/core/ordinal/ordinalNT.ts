@@ -193,7 +193,7 @@ export const OrdinalNT = {
 				let expReduce = new Decimal(1);
 				if (player.hydra.dilute.inDilute)
 					expReduce = expReduce.mul(4 - 3 * 0.75 ** player.hydra.dilute.solvent[1]);
-				return x.root(expReduce).div(cbase).max(1).log(1e50).floor().add(1);
+				return x.root(expReduce.clampMin(1)).div(cbase).max(1).log(1e50).floor().add(1);
 			}
 		})(),
 		'62R': new (class B62R extends Buyable<Decimal> {
@@ -223,7 +223,7 @@ export const OrdinalNT = {
 				let expReduce = new Decimal(1);
 				if (player.hydra.dilute.inDilute)
 					expReduce = expReduce.mul(4 - 3 * 0.75 ** player.hydra.dilute.solvent[1]);
-				return x.root(expReduce).div(100).max(1).log(10).floor().add(1);
+				return x.root(expReduce.clampMin(1)).div(100).max(1).log(10).floor().add(1);
 			}
 		})(),
 	} as const,
@@ -266,7 +266,7 @@ export const OrdinalNT = {
 			currency = Currencies.X4;
 			name = 'U5-R1-3';
 			effect(): Decimal {
-				return feature.Hydra.prestigeEff(0).log10().div(100).add(1);
+				return feature.Hydra.prestigeEff(0).clampMin(1).log10().div(100).add(1);
 			}
 			effectDescription() {
 				return '^' + format(this.effect());
