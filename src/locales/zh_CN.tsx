@@ -1903,7 +1903,6 @@ export default {
 	'currency.熵': '熵',
 
 	'garden.upg.36.desc': '灵感迸发最短时间降低到4小时',
-	'garden.upg.36': 'IGCD3',
 	'stat.precard': '基数前游戏速度: ',
 	'garden.tiplevel1': '花园等级1，基数前速度增加',
 	'garden.tiplevel2': '花园等级10，开始获得证明论能量',
