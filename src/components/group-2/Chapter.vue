@@ -62,7 +62,7 @@ const chapters = [
 
 <template>
 	<template v-for="i in 7">
-		<div v-if="showChapter(i - 1)">
+		<div v-if="false">
 			<div class="chapter_background" :style="{ color: chapters[i - 1].color }">
 				{{ chapters[i - 1].symbol }}
 			</div>
