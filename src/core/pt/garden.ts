@@ -268,7 +268,7 @@ export const GardenGenUpgs = {
 			pos: [50, -2375],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(5e10),
-			idea: new Decimal(1e6),
+			idea: new Decimal(7.5e8),
 			entropy: new Decimal(2.5),
 			unlocked: (): boolean => Garden.boughtUpgrade(31),
 			connect: [[], [31]],
