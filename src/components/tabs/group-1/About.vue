@@ -112,7 +112,7 @@ import { i18n } from '@/utils/i18n';
 					top: 250px;
 					left: 0%;
 					height: 100px;
-					width: 25%;
+					width: 20%;
 					transform: scale(0.75);
 				"
 				align="center"
@@ -127,9 +127,9 @@ import { i18n } from '@/utils/i18n';
 				style="
 					position: absolute;
 					top: 250px;
-					left: 25%;
+					left: 20%;
 					height: 100px;
-					width: 25%;
+					width: 20%;
 					transform: scale(0.75);
 				"
 				align="center"
@@ -144,9 +144,9 @@ import { i18n } from '@/utils/i18n';
 				style="
 					position: absolute;
 					top: 250px;
-					left: 50%;
+					left: 40%;
 					height: 100px;
-					width: 25%;
+					width: 20%;
 					transform: scale(0.75);
 				"
 				align="center"
@@ -161,9 +161,25 @@ import { i18n } from '@/utils/i18n';
 				style="
 					position: absolute;
 					top: 250px;
-					left: 75%;
+					left: 60%;
 					height: 100px;
-					width: 25%;
+					width: 20%;
+					transform: scale(0.75);
+				"
+				align="center"
+			>
+				<h2>{{ $t('about.englishlocalization') }}</h2>
+				<br />
+				{{ $t('about.termiunsfinitine') }}<br />
+				VeryrrDefine
+			</div>
+			<div
+				style="
+					position: absolute;
+					top: 250px;
+					left: 80%;
+					height: 100px;
+					width: 20%;
 					transform: scale(0.75);
 				"
 				align="center"
@@ -175,7 +191,7 @@ import { i18n } from '@/utils/i18n';
 			</div>
 		</div>
 		<div style="transform: translateY(400px)" class="selectable">
-			<template v-if="i18n.global.locale == 'zh-CN'"
+			<template v-if="(i18n.global.locale as unknown as { value: string }).value == 'zh-CN'"
 				>本项目使用了<a href="https://cn.vuejs.org/"> Vue </a>、<a
 					href="https://cn.vitejs.dev/"
 				>
@@ -193,18 +209,22 @@ import { i18n } from '@/utils/i18n';
 				</a></template
 			>
 			<template v-else>
-				This project uses <a href="https://vuejs.org/"> Vue</a>,
-				<a href="https://vitejs.dev/">Vite</a>,
-				<a href="https://nodeca.github.io/pako/">pako.js</a>,
-				<a href="https://github.com/Patashu/break_eternity.js">break_eternity.js</a>,
-				<br />partly displaying code chooses from
-				<a href="https://solarzone1010.github.io/bms-analyzer.html">
+				This project uses <a href="https://vuejs.org/" target="_blank"> Vue</a>,
+				<a href="https://vitejs.dev/" target="_blank">Vite</a>,
+				<a href="https://nodeca.github.io/pako/" target="_blank">pako.js</a>,
+				<a href="https://github.com/Patashu/break_eternity.js" target="_blank"
+					>break_eternity.js</a
+				>, <br />partly displaying code chooses from
+				<a href="https://solarzone1010.github.io/bms-analyzer.html" target="_blank">
 					Solarzone1010's BMS Analyzer </a
 				>. <br /><br /><a
 					href="https://github.com/RBN-rewrite-team/RBNR/blob/develop/public/changelog.md"
+					target="_blank"
 				>
 					Check changelog
 				</a>
+				<br />
+				<a href="https://galaxy.click/play/620" target="_blank">Play at Galaxy.click</a>
 			</template>
 		</div>
 	</div>
