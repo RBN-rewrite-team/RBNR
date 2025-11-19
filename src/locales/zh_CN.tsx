@@ -1941,4 +1941,5 @@ export default {
 	'about.termiunsfinitine': '一名無知的小鬼',
 	'about.englishlocalization': '英语本地化',
 	'garden.gen.11': '原核生物',
+	'garden.upg.51': '细胞质',
 };

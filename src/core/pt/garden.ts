@@ -1263,6 +1263,22 @@ export const GardenGenUpgs = {
 				return getMessage('garden.upg.50.desc');
 			},
 		},
+		51: {
+			isG: !true,
+			key: 51,
+			name: '细胞质',
+			pos: [250, -2575],
+			currency: GardenCurrencies.idea,
+			cost: new Decimal(1e13),
+			effect: {
+				key: 11,
+				mult: new Decimal(3),
+			},
+			unlocked(): boolean {
+				return Garden.boughtGeneratorReach(11, new Decimal(1));
+			},
+			connect: [[11], []],
+		},
 	} satisfies {
 		[key in any]: GardenUpgrade;
 	},
