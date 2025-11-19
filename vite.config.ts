@@ -39,6 +39,18 @@ export default defineConfig({
 		host: '0.0.0.0',
 	},
 	build: {
-		sourcemap: true,
+		rollupOptions: {
+			output: {
+				manualChunks(id) {
+					// 如果模块在 node_modules 中，将其分割到 vendor chunk
+					if (id.includes('node_modules')) {
+						return 'vendor';
+					}
+					if (id.includes('component')) {
+						return 'component';
+					}
+				},
+			},
+		},
 	},
 });
