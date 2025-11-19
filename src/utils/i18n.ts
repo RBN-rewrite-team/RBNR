@@ -76,7 +76,17 @@ export function setI18NLocal(loc: keyof typeof messages) {
 	i18n.global.locale.value = loc;
 	localStorage.setItem('rbnr-lang', loc);
 }
-
+window.addEventListener(
+	'message',
+	function (event) {
+		if (event.origin === 'https://galaxy.click') {
+			// Load from English only website, use en-US
+			setI18NLocal('en-US');
+		}
+		console.log('Received message:', event.data);
+	},
+	false,
+);
 // type M = typeof messages;
 // type N = M[keyof M];
 // export function getMessage<T extends keyof N>(inner: T extends keyof N ? T : never) {
