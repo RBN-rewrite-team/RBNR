@@ -2064,6 +2064,6 @@ THEN YOU CAN GET REVELATION.<br />
 	'pt.reset.title3': 'Cannot reset',
 	'pt.reset.desc3': 'Need Gamma test.<br>(The PT Layer is not stable.)',
 	'pt.reset.desc4': 'Need NRC7x1.',
-	'about.termiunsfinitine': 'Termiunsfinitine',
+	'about.termiunsfinitine': '一名無知的小鬼',
 	'about.englishlocalization': 'English Localization',
 };
