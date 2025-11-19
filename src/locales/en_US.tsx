@@ -2055,4 +2055,13 @@ THEN YOU CAN GET REVELATION.<br />
 	'garden.upg.36.desc': 'Reduce minimum IG time to 4 hours',
 	'garden.upg.36': 'IGCD3',
 	'stat.precard': 'Pre cardinal speed: ',
+
+	'pt.reset.title': 'Proof Theory Reset',
+	'pt.reset.desc': 'Are you sure you want to reset? (Need Gamma test)',
+	'pt.reset.title2': 'Proof Theory Reset(again)',
+	'pt.reset.desc2':
+		'证明论重置还没做完，可能会导致：证明论效果失效，ω病毒，卡死病毒，你确实要重置?',
+	'pt.reset.title3': 'Cannot reset',
+	'pt.reset.desc3': 'Need Gamma test.<br>(The PT Layer is not stable.)',
+	'pt.reset.desc4': 'Need NRC7x1.',
 };
