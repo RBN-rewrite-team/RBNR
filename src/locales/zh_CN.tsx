@@ -1938,4 +1938,6 @@ export default {
 	'garden.upg.46': 'IGCD13',
 	'garden.upg.47.desc': '灵感迸发可以立即执行',
 	'garden.upg.47': 'IGCD14',
+	'about.termiunsfinitine': '一名無知的小鬼',
+	'about.englishlocalization': '英语本地化',
 };
