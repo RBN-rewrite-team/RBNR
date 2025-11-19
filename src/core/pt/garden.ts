@@ -261,6 +261,18 @@ export const GardenGenUpgs = {
 				}),
 			igNR: (): boolean => true,
 		},
+		11: {
+			isG: true,
+			key: 11,
+			name: '原核生物',
+			pos: [50, -2375],
+			currency: GardenCurrencies.idea,
+			cost: new Decimal(5e10),
+			idea: new Decimal(1e6),
+			entropy: new Decimal(2.5),
+			unlocked: (): boolean => Garden.boughtUpgrade(31),
+			connect: [[], [31]],
+		},
 	} satisfies {
 		[key in any]: GardenGenerator;
 	},
