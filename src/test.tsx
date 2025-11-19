@@ -4,26 +4,26 @@ import { Comment, Static, Text, type VNodeTypes } from 'vue';
 import { Fragment, type JSX } from 'vue/jsx-runtime';
 import zh_CN from './locales/zh_CN';
 import en_US from './locales/en_US';
-const a = (
-	<>
-		假设这样的 <vue-latex expression="k \in \mathbb N" /> 不存在。则对于每个
-		<vue-latex expression="k \in \mathbb N" />
-		，有
-		<vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}] \neq E" />
-		，所以
-		<vue-latex expression="\textrm{trans}(S[a_0][a_1]\cdots[a_{k-1}]) \neq 0" />
-		。因此，如果 <vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}]" /> 有定义，则
-		<vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}][a_k]" />
-		也有定义。通过数学归纳法，对于任意
-		<vue-latex expression="k \in \mathbb N" />，
-		<vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}]" />
-		都有定义。然而，由引理 4，有
-		<vue-latex expression="\textrm{trans}(S) > \textrm{trans}(S[a_0]) > \textrm{trans}(S[a_0][a_1]) > \cdots " />
-		，这是一个序数的无穷降链。这与序数的良基性矛盾。由反证法，存在
-		<vue-latex expression="k \in \mathbb N" /> 使得
-		<vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}] = E" />。
-	</>
-);
+// const a = (
+// 	<>
+// 		假设这样的 <vue-latex expression="k \in \mathbb N" /> 不存在。则对于每个
+// 		<vue-latex expression="k \in \mathbb N" />
+// 		，有
+// 		<vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}] \neq E" />
+// 		，所以
+// 		<vue-latex expression="\textrm{trans}(S[a_0][a_1]\cdots[a_{k-1}]) \neq 0" />
+// 		。因此，如果 <vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}]" /> 有定义，则
+// 		<vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}][a_k]" />
+// 		也有定义。通过数学归纳法，对于任意
+// 		<vue-latex expression="k \in \mathbb N" />，
+// 		<vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}]" />
+// 		都有定义。然而，由引理 4，有
+// 		<vue-latex expression="\textrm{trans}(S) > \textrm{trans}(S[a_0]) > \textrm{trans}(S[a_0][a_1]) > \cdots " />
+// 		，这是一个序数的无穷降链。这与序数的良基性矛盾。由反证法，存在
+// 		<vue-latex expression="k \in \mathbb N" /> 使得
+// 		<vue-latex expression="S[a_0][a_1]\cdots[a_{k-1}] = E" />。
+// 	</>
+// );
 export function convertJSXtoPlain(x: JSX.Element) {
 	if (
 		(typeof x.type == 'object' && x.type == VueLatex) ||
