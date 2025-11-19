@@ -1940,4 +1940,5 @@ export default {
 	'garden.upg.47': 'IGCD14',
 	'about.termiunsfinitine': '一名無知的小鬼',
 	'about.englishlocalization': '英语本地化',
+	'garden.gen.11': '原核生物',
 };
