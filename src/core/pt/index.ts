@@ -113,8 +113,8 @@ export function PTresetCore(notification = false) {
 	if (player.challenges[1][6].lt(1)) {
 		if (notification)
 			ModalService.show({
-				title: '重置不了',
-				content: 'NRC7挑战次数至少大于1',
+				title: getMessage('pt.reset.title3'),
+				content: getMessage('pt.reset.desc4'),
 			});
 	} else if (player.nonrecu.studies_bought.includes(30)) {
 		PTreset(true);
@@ -134,22 +134,22 @@ export function PTresetCore(notification = false) {
 }
 export function realPTreset() {
 	ModalService.show({
-		title: '证明论重置',
-		content: '确实要证明论重置?(需要进入Gamma测试)',
+		title: getMessage('pt.reset.title'),
+		content: getMessage('pt.reset.desc'),
 		onConfirm() {
 			if (player.options.gammaTest) {
-				ModalService.show({
-					title: '再次确认证明论重置',
-					content:
-						'证明论重置还没做完，可能会导致：证明论效果失效，ω病毒，卡死病毒，你确实要重置?',
-					onConfirm() {
-						PTresetCore(true);
-					},
-				});
+				PTresetCore(true);
+				// ModalService.show({
+				// 	title: getMessage('pt.reset.title2'),
+				// 	content: getMessage('pt.reset.desc2'),
+				// 	onConfirm() {
+				// 		PTresetCore(true);
+				// 	},
+				// });
 			} else {
 				ModalService.show({
-					title: '重置不了',
-					content: '需要进入Gamma测试。<br>（当前证明论还不稳定，可能有bug）',
+					title: getMessage('pt.reset.title3'),
+					content: getMessage('pt.reset.desc3'),
 				});
 			}
 		},

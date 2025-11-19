@@ -1904,6 +1904,16 @@ export default {
 
 	'garden.upg.36.desc': '灵感迸发最短时间降低到4小时',
 	'stat.precard': '基数前游戏速度: ',
+
+	'pt.reset.title': '证明论重置',
+	'pt.reset.desc': '确实要证明论重置?(需要进入Gamma测试)',
+	'pt.reset.title2': '再次确认证明论重置',
+	'pt.reset.desc2':
+		'证明论重置还没做完，可能会导致：证明论效果失效，ω病毒，卡死病毒，你确实要重置?',
+	'pt.reset.title3': '重置不了',
+	'pt.reset.desc3': '需要进入Gamma测试。<br>（当前证明论还不稳定，可能有bug）',
+	'pt.reset.desc4': '需要1次NRC7挑战次数',
+
 	'garden.tiplevel1': '花园等级1，基数前速度增加',
 	'garden.tiplevel2': '花园等级10，开始获得证明论能量',
 	'garden.upg.48.desc': '灵感迸发最短时间降低到2小时',

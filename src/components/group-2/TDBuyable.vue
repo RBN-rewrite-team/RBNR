@@ -69,7 +69,18 @@ function costHTML() {
 
 <template>
 	<td v-if="BUYABLES.lock(bylid).show">
-		<div class="upgrade tooltipBox" @mousedown="BUYABLES.buy(bylid)">
+		<div
+			class="upgrade tooltipBox"
+			@mousedown="BUYABLES.buy(bylid)"
+			v-hold="{
+				handler: {
+					onProgress() {
+						BUYABLES.buy(bylid);
+					},
+				},
+				interval: 5,
+			}"
+		>
 			<div :class="useClass()">
 				<span style="font-weight: bold">
 					{{

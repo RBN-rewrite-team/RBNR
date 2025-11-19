@@ -145,25 +145,31 @@ function simulateText(canvasRef: any, $t: $t) {
 	return (
 		<>
 			{mapping[0].map((g) =>
-				!(g.show?.() ?? true) ? null : g.unlocked() ? (
-					<>
-						<GardenNode
-							x={g.pos[0]}
-							y={g.pos[1]}
-							canvasRef={canvasRef}
-							onClick={function () {
-								if (
-									isGardenGenerator(player.garden.focusNode) &&
-									player.garden.focusNode.key == g.key
-								)
-									Garden.buyGenerator(
-										g.key as keyof typeof GardenGenUpgs.generators,
-									);
-								player.garden.focusNode = g;
-							}}
-							hold={{
-								handler: {
-									onProgress() {
+				!(g.show?.() ?? true) ? null : (
+					<div
+						v-hold={{
+							handler: {
+								onProgress() {
+									if (
+										isGardenGenerator(player.garden.focusNode) &&
+										player.garden.focusNode.key == g.key &&
+										g.unlocked()
+									)
+										Garden.buyGenerator(
+											g.key as keyof typeof GardenGenUpgs.generators,
+										);
+									player.garden.focusNode = g;
+								},
+							},
+						}}
+					>
+						{g.unlocked() ? (
+							<>
+								<GardenNode
+									x={g.pos[0]}
+									y={g.pos[1]}
+									canvasRef={canvasRef}
+									onClick={function () {
 										if (
 											isGardenGenerator(player.garden.focusNode) &&
 											player.garden.focusNode.key == g.key
@@ -172,49 +178,49 @@ function simulateText(canvasRef: any, $t: $t) {
 												g.key as keyof typeof GardenGenUpgs.generators,
 											);
 										player.garden.focusNode = g;
-									},
-								},
-							}}
-						>
-							<h2 style="position: absolute; left: 50%; bottom: -90px; transform: translate(-50%, -50%)">
-								<span style={{ color: g.currency.elementColor }}>
-									{$t(`garden.gen.${g.key}`)}
-								</span>
-							</h2>
-							<h3 style="position: absolute; top: -60px; left: -60px">
-								x
-								{formatWhole(
-									player.garden.generators[
-										g.key as unknown as keyof typeof GardenGenUpgs.generators
-									],
-								)}
-							</h3>
-							<span style="position: absolute; left: 50%; bottom: -100px; transform: translate(-50%, -50%)">
-								{format(
-									Garden.generatorCost(
-										g.key as keyof typeof GardenGenUpgs.generators,
-									),
-									6,
-								)}{' '}
-								<span style={{ color: g.currency.color }}>
-									{$t(`currency.${g.currency.name}`)}
-								</span>
-							</span>
-						</GardenNode>
-					</>
-				) : (
-					<>
-						<GardenNode
-							x={g.pos[0]}
-							y={g.pos[1]}
-							canvasRef={canvasRef}
-							nodestyle={{ filter: 'brightness(0.75)' }}
-						>
-							<h2 style="position: absolute; left: 50%; bottom: -90px; transform: translate(-50%, -50%)">
-								???
-							</h2>
-						</GardenNode>
-					</>
+									}}
+								>
+									<h2 style="position: absolute; left: 50%; bottom: -90px; transform: translate(-50%, -50%)">
+										<span style={{ color: g.currency.elementColor }}>
+											{$t(`garden.gen.${g.key}`)}
+										</span>
+									</h2>
+									<h3 style="position: absolute; top: -60px; left: -60px">
+										x
+										{formatWhole(
+											player.garden.generators[
+												g.key as unknown as keyof typeof GardenGenUpgs.generators
+											],
+										)}
+									</h3>
+									<span style="position: absolute; left: 50%; bottom: -100px; transform: translate(-50%, -50%)">
+										{format(
+											Garden.generatorCost(
+												g.key as keyof typeof GardenGenUpgs.generators,
+											),
+											6,
+										)}{' '}
+										<span style={{ color: g.currency.color }}>
+											{$t(`currency.${g.currency.name}`)}
+										</span>
+									</span>
+								</GardenNode>
+							</>
+						) : (
+							<>
+								<GardenNode
+									x={g.pos[0]}
+									y={g.pos[1]}
+									canvasRef={canvasRef}
+									nodestyle={{ filter: 'brightness(0.75)' }}
+								>
+									<h2 style="position: absolute; left: 50%; bottom: -90px; transform: translate(-50%, -50%)">
+										???
+									</h2>
+								</GardenNode>
+							</>
+						)}
+					</div>
 				),
 			)}
 			{mapping[1].map((g) =>
