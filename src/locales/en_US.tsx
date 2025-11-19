@@ -1635,7 +1635,7 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	chapa1: {
 		title: 'Chapter 1',
 		text1: 'Addition',
-		text: 'Addiction',
+		text: 'Addition',
 	},
 	chapa2: {
 		title: 'Chapter 2',
