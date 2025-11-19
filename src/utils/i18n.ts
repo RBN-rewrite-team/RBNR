@@ -19,7 +19,7 @@ function checkAndFallbackLocale() {
 		a = 'en-US';
 	}
 	if (!(a in messages)) {
-		return 'zh-CN';
+		return 'en-US';
 	}
 	return a;
 }
