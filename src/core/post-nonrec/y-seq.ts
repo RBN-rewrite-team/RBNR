@@ -44,7 +44,9 @@ export const Y_SEQ = {
 			[id].pow(player.postnonrec.yseq.dimensions[0][id])
 			.mul(this.startPrice()[id]);
 
-		const excess = player.postnonrec.yseq.dimensions[0][id].sub(this.purchasesBeforeScaling(id));
+		const excess = player.postnonrec.yseq.dimensions[0][id].sub(
+			this.purchasesBeforeScaling(id),
+		);
 		if (excess.gt(0)) {
 			base = base.mul(this.LogScalingRatio().mul(excess).mul(excess.add(1)).mul(0.5).pow10());
 		}

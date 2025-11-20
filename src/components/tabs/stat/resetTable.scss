@@ -1,38 +1,36 @@
 .gain-table {
-    
-  border-collapse: collapse;
-  font-family: Arial, sans-serif;
+	border-collapse: collapse;
+	font-family: Arial, sans-serif;
 }
 
 .gain-table th {
-  background-color: var(--background-color);
-  padding: 12px;
-  border: 1px solid var(--border-color);
-  font-weight: bold;
-  text-align: center;
-  height: 50px;
+	background-color: var(--background-color);
+	padding: 12px;
+	border: 1px solid var(--border-color);
+	font-weight: bold;
+	text-align: center;
+	height: 50px;
 }
 
 .gain-table td {
-  padding: 12px;
-  border: 1px solid var(--border-color);
-  text-align: center;
-  height: 50px;
+	padding: 12px;
+	border: 1px solid var(--border-color);
+	text-align: center;
+	height: 50px;
 }
 
-.gain-table tr
- {
-  height: 50px;
+.gain-table tr {
+	height: 50px;
 }
 
 .gain-table tr:hover {
-  background-color: var(--hover-color);
+	background-color: var(--hover-color);
 }
 
 .table-container {
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  overflow: hidden;
-  margin: auto;
-  width: fit-content;
+	border: 1px solid var(--border-color);
+	border-radius: 4px;
+	overflow: hidden;
+	margin: auto;
+	width: fit-content;
 }
