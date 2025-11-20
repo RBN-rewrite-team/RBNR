@@ -144,10 +144,10 @@ export function gameLoop() {
 	// }
 	if (player.singularity.stage >= 1) singularity_UI();
 
-	// const unlp = unlockedPlots();
-	// for (let i = 1; i <= unlp; i++) {
-	// 	if (!player.checkedPlots.includes(i) && temp.plotdisplay == 0) enterPlot(i);
-	// }
+	const unlp = unlockedPlots();
+	for (let i = 1; i <= unlp; i++) {
+		if (!player.checkedPlots.includes(i) && temp.plotdisplay == 0) enterPlot(i);
+	}
 	if (player.milestones.dut_10) {
 		player.hydra.dilute.solutionCost = new Decimal(0);
 	}
