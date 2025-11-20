@@ -2066,4 +2066,5 @@ THEN YOU CAN GET REVELATION.<br />
 	'pt.reset.desc4': 'Need NRC7x1.',
 	'about.termiunsfinitine': '一名無知的小鬼',
 	'about.englishlocalization': 'English Localization',
+	'dung.keyreq': 'You need a key to open this door',
 };

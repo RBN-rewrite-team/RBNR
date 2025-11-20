@@ -1943,4 +1943,9 @@ export default {
 	'about.englishlocalization': '英语本地化',
 	'garden.gen.11': '原核生物',
 	'garden.upg.51': '细胞质',
+	'dung.sp.0': '人物属性',
+	'dung.sp.1': '技能树',
+	'dung.sp.2.0': '核心',
+	'dung.sp.2.1': '地下城',
+	'dung.keyreq': '你需要一个钥匙才能开门',
 };

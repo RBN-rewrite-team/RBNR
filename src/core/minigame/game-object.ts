@@ -167,7 +167,7 @@ export class DoorGameObject extends GameObject {
 			addReplace(player.minigame.current_room, x, y, '0');
 			player.minigame.keys_have.filter((x) => x !== this.keyid);
 		} else {
-			temp.minigametip = '你需要一个钥匙才能开门';
+			temp.minigametip = $t('dung.keyreq');
 		}
 	}
 	solid() {
