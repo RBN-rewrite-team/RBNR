@@ -9,12 +9,12 @@ import { temp } from '@/core/temp-data';
 	>
 		<tbody>
 			<tr>
-				<td style="width: 25%" @click="temp.dungeonsSP = 0">人物属性</td>
-				<td style="width: 25%" @click="temp.dungeonsSP = 1">技能树</td>
+				<td style="width: 25%" @click="temp.dungeonsSP = 0">{{ $t('dung.sp.0') }}</td>
+				<td style="width: 25%" @click="temp.dungeonsSP = 1">{{ $t('dung.sp.1') }}</td>
 				<td style="width: 25%" @click="temp.dungeonsSP = 2">
-					{{ temp.openingCore ? '核心' : '地下城' }}
+					{{ temp.openingCore ? $t('dung.sp.2.0') : $t('dung.sp.2.1') }}
 				</td>
-				<td style="width: 25%" @click="temp.dungeonsSP = 3">？？？</td>
+				<td style="width: 25%" @click="temp.dungeonsSP = 3">??</td>
 			</tr>
 		</tbody>
 	</table>
