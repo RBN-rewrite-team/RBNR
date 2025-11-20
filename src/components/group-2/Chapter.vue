@@ -62,7 +62,10 @@ const chapters = [
 
 <template>
 	<template v-for="i in 7">
-		<div v-if="showChapter(i - 1)">
+		<div
+			v-if="showChapter(i - 1)"
+			@click="player.stat.chapter = Math.max(player.stat.chapter, chapters[i - 1].id)"
+		>
 			<div class="chapter_background" :style="{ color: chapters[i - 1].color }">
 				{{ chapters[i - 1].symbol }}
 			</div>
@@ -73,7 +76,11 @@ const chapters = [
 			>
 				{{ $t('chapa' + (i - 1).toString() + '.text') }}
 			</div>
-			<div class="chapter_text" :style="{ backgroundColor: chapters[i - 1].color2 }">
+			<div
+				class="chapter_text"
+				:style="{ backgroundColor: chapters[i - 1].color2 }"
+				@click="player.stat.chapter = Math.max(player.stat.chapter, chapters[i - 1].id)"
+			>
 				{{ $t('chapa' + (i - 1).toString() + '.title') }}
 			</div>
 			<div class="chapter_text_b" :style="{ backgroundColor: chapters[i - 1].color2 }">
