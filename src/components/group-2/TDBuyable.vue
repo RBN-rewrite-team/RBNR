@@ -130,8 +130,11 @@ function costHTML() {
 					-->
 					<br />
 				</template>
-				<span v-html="costHTML()"></span>
-				<br />
+				<div class="cost-bottom-1">
+					<div class="cost-bottom">
+						<span v-html="costHTML()"></span>
+					</div>
+				</div>
 			</div>
 		</div>
 	</td>

@@ -358,7 +358,7 @@ export default {
 	'chal.0.2.effect': 'Number gain×{effect}',
 	'chal.0.3': 'Reversal',
 	'chal.0.3.description': `All pre-multiplication resources might be multiplied by -1 with a 50% chance/tick.q The multiplication reset's requirement is much higher (1.79e308 AP). B2-2 is disabled and you're trapped in challenge 3 too.`,
-	'chal.0.3.effect': `First multiplication reset inside this challenge unlocks exponentiation Layer<br>Multiplication Power×{effect}`,
+	'chal.0.3.effect': `First multiplication reset inside this challenge unlocks exponentiation Layer(1.79e308 Mult. Power outside challenge)<br>Multiplication Power×{effect}`,
 
 	'chal.tip': "Click to start challenge{'|'}exit challenge",
 	'modal.font': 'Enter and set font: ',
@@ -2066,4 +2066,5 @@ THEN YOU CAN GET REVELATION.<br />
 	'pt.reset.desc4': 'Need NRC7x1.',
 	'about.termiunsfinitine': '一名無知的小鬼',
 	'about.englishlocalization': 'English Localization',
+	'dung.keyreq': 'You need a key to open this door',
 };

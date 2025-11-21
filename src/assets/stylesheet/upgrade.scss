@@ -118,3 +118,11 @@
 .upgrade_buttonbig_unable:hover {
 	background-color: var(--red-hover-color);
 }
+.cost-bottom-1 {
+	position: sticky;
+	bottom: 0px;
+	background-color: inherit;
+}
+.cost-bottom{
+	font-size: smaller;
+}

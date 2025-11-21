@@ -321,7 +321,8 @@ export default {
 	'chal.0.3': '逆转',
 	'chal.0.3.description':
 		'每次生产前乘法层资源时有一半的概率被反转(下限为0)，提升乘法重置难度，禁用B2-2、挑战3',
-	'chal.0.3.effect': '首次乘法重置解锁指数层<br>乘法能量获取速度*{effect}',
+	'chal.0.3.effect':
+		'首次乘法重置解锁指数层(挑战外1.79e308乘法能量)<br>乘法能量获取速度*{effect}',
 
 	'chal.tip': "点击以开始挑战{'|'}退出挑战",
 	'modal.font': '输入设置字体：',
@@ -1942,4 +1943,9 @@ export default {
 	'about.englishlocalization': '英语本地化',
 	'garden.gen.11': '原核生物',
 	'garden.upg.51': '细胞质',
+	'dung.sp.0': '人物属性',
+	'dung.sp.1': '技能树',
+	'dung.sp.2.0': '核心',
+	'dung.sp.2.1': '地下城',
+	'dung.keyreq': '你需要一个钥匙才能开门',
 };
