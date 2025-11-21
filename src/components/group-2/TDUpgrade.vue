@@ -117,11 +117,14 @@ const description = computed(function () {
 						></div>
 					</template>
 				</template>
-				<div v-if="!permanent" v-html="costHTML()"></div>
-				<span v-else style="color: green; font-weight: bold">
-					{{ $t('upg.keep') }}<br />
-				</span>
-				<span> </span>
+				<div class="cost-bottom-1">
+					<div class="cost-bottom">
+						<div v-if="!permanent" v-html="costHTML()"></div>
+						<span v-else style="color: green; font-weight: bold">
+							{{ $t('upg.keep') }}<br />
+						</span>
+					</div>
+				</div>
 			</div>
 			<!-- <span class="tooltip">
 				{{
