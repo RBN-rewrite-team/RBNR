@@ -37,7 +37,9 @@ export default defineComponent({
 					))()}
 					posleft="15"
 					rescolor="rgb(255, 63, 63)"
-					rescolor2={player.upgrades[61] ? 'rgb(155,125,95)' : 'rgb(255, 127, 127)'}
+					rescolor2={
+						player.upgrades[61] ? 'rgba(170, 152, 247, 1)' : 'rgb(255, 127, 127)'
+					}
 					growingdisplay={() => {
 						if (player.upgrades[61]) {
 							return (
@@ -48,7 +50,7 @@ export default defineComponent({
 											feature.Hydra.deduceSpeed(0),
 										)}
 									></span>
-									(
+									<br />(
 									{$t('hydra.youhavededuced', {
 										deduce: formatWhole(player.hydra.deduceOrdinal[0]),
 									})}
