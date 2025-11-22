@@ -1359,6 +1359,113 @@ export const GardenGenUpgs = {
 			},
 			connect: [[], [52, 53, 54]],
 		},
+		56: {
+			isG: !true,
+			key: 56,
+			name: 'LSER1',
+			pos: [-300, 500],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(50000),
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(37);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(37);
+			},
+			igNR: () => true,
+			connect: [[], [37]],
+			effectDescription(): string {
+				return getMessage('garden.upg.56.desc');
+			},
+		},
+
+		57: {
+			isG: !true,
+			key: 57,
+			name: 'I3',
+			pos: [-600, 1200],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(450),
+			effect: {
+				key: -1,
+				mult: new Decimal(4),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(32);
+			},
+			show(): boolean {
+				return player.garden.igTimes.gt(0);
+			},
+			igNR: () => true,
+			connect: [[], [32]],
+		},
+		58: {
+			isG: !true,
+			key: 58,
+			name: 'I4',
+			pos: [-800, 1400],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(1350),
+			effect: {
+				key: -1,
+				mult: new Decimal(5),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(57);
+			},
+			show(): boolean {
+				return player.garden.igTimes.gt(0);
+			},
+			igNR: () => true,
+			connect: [[], [57]],
+		},
+		59: {
+			isG: !true,
+			key: 59,
+			name: 'E3',
+			pos: [600, 1200],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(3000),
+			effect: {
+				key: -2,
+				mult: new Decimal(4),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(33);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(33);
+			},
+			igNR: () => true,
+			connect: [[], [33]],
+		},
+		60: {
+			isG: !true,
+			key: 60,
+			name: 'INS1',
+			pos: [-800, 1200],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(250),
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(57);
+			},
+			show(): boolean {
+				return player.garden.igTimes.gt(0);
+			},
+			igNR: () => true,
+			connect: [[], [57]],
+			effectDescription(): string {
+				return getMessage('garden.upg.60.desc');
+			},
+		},
 	} satisfies {
 		[key in any]: GardenUpgrade;
 	},
@@ -1509,6 +1616,17 @@ export const Garden = {
 		return base;
 	},
 	igCD() {
+		if (Garden.boughtUpgrade(47)) return 0;
+		if (Garden.boughtUpgrade(46)) return 1 * 1000;
+		if (Garden.boughtUpgrade(45)) return 3 * 1000;
+		if (Garden.boughtUpgrade(44)) return 10 * 1000;
+		if (Garden.boughtUpgrade(43)) return 30 * 1000;
+		if (Garden.boughtUpgrade(42)) return 1 * 60 * 1000;
+		if (Garden.boughtUpgrade(41)) return 3 * 60 * 1000;
+		if (Garden.boughtUpgrade(40)) return 10 * 60 * 1000;
+		if (Garden.boughtUpgrade(50)) return 30 * 60 * 1000;
+		if (Garden.boughtUpgrade(49)) return 1 * 3600 * 1000;
+		if (Garden.boughtUpgrade(48)) return 2 * 3600 * 1000;
 		if (Garden.boughtUpgrade(36)) return 4 * 3600 * 1000;
 		if (Garden.boughtUpgrade(35)) return 8 * 3600 * 1000;
 		if (Garden.boughtUpgrade(34)) return 16 * 3600 * 1000;
@@ -1522,7 +1640,11 @@ export const Garden = {
 	},
 	igGain(): Decimal {
 		if (player.garden.totalIdea.lt(1e6)) return new Decimal(0);
-		const base = player.garden.totalIdea.div(1e6).pow(0.25);
+		let exp = new Decimal(0.25);
+		if (Garden.boughtUpgrade(60)) {
+			exp = new Decimal(0.275);
+		}
+		const base = player.garden.totalIdea.div(1e6).pow(exp);
 		return base;
 	},
 	insPowerGain(): Decimal {
@@ -1597,12 +1719,17 @@ export const Garden = {
 		}
 		return base;
 	},
+	entropyGainLDebuff(): Decimal {
+		let base = new Decimal(1);
+		if (Garden.boughtUpgrade(56)) base = base.mul(0.8);
+		return base;
+	},
 	gardenLoop(diff: number) {
 		if (player.garden.openSimulate) {
 			let localDiff = Garden.localSpeed().mul(diff);
 			if (player.garden.generators[0].lt(1)) player.garden.generators[0] = new Decimal(1);
 			const iY = Garden.ideaYield().mul(localDiff);
-			const eY = Garden.entropyYield().mul(localDiff);
+			const eY = Garden.entropyYield().mul(localDiff.pow(this.entropyGainLDebuff()));
 			player.garden.idea = player.garden.idea.add(iY);
 			player.garden.entropy = player.garden.entropy.add(eY);
 			player.garden.totalIdea = player.garden.totalIdea.add(iY);
