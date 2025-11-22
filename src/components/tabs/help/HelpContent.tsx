@@ -1,25 +1,11 @@
 import { defineComponent } from 'vue';
 import convertTextToComponent from './text-to-component-convert';
 import { player } from '@/core/save';
-import ordinal1 from './contents/ordinal-1.txt?raw';
-import ordinal2 from './contents/ordinal-2.txt?raw';
-import ordinal3 from './contents/fgh-1.txt?raw';
-import ordinal4 from './contents/ordinal-4.txt?raw';
-import ordinal5 from './contents/ordinal-5.txt?raw';
-import ordinal6 from './contents/ordinal-6.txt?raw';
-import ordinal7 from './contents/ordinal-7.txt?raw';
-import ordinal8 from './contents/ordinal-8.txt?raw';
-import ordinal9 from './contents/ordinal-9.txt?raw';
-import ordinal10 from './contents/ordinal-10.txt?raw';
-
-import ordinal101 from './contents/ocf-101.txt?raw';
-import ordinal102 from './contents/ocf-102.txt?raw';
-import ordinal103 from './contents/ocf-103.txt?raw';
-import ordinal104 from './contents/ocf-104.txt?raw';
-import ordinal105 from './contents/ocf-105.txt?raw';
 
 import gamecontent1 from './contents2/gamecontent-1.txt?raw';
 import gamecontent1e from './contents2/gamecontent-1-en.txt?raw';
+import gamecontent2 from './contents2/gamecontent-2.txt?raw';
+import gamecontent2e from './contents2/gamecontent-2-en.txt?raw';
 import { i18n } from '@/utils/i18n';
 // prettier-ignore
 export const HELP_CONTENT = [
@@ -28,6 +14,14 @@ export const HELP_CONTENT = [
         get content() {
             // @ts-expect-error
             return i18n.global.locale.value == 'zh-CN' ? gamecontent1 : gamecontent1e
+        },
+        unlocked() {return true},
+    },
+    {
+        page: 2,
+        get content() {
+            // @ts-expect-error
+            return i18n.global.locale.value == 'zh-CN' ? gamecontent2 : gamecontent2e
         },
         unlocked() {return true},
     },

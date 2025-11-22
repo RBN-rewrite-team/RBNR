@@ -1,0 +1,6 @@
+The formula of Addition Power gain is
+\(\frac{x}{1000}\), there \(x\) is total number amount.
+
+
+\!001 The formula of Multiplication Power gain is
+\((x-3124)^{0.01}\), there \(x\) is total addition power amount. \!
