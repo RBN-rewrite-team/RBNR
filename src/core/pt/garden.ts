@@ -1410,6 +1410,8 @@ export const Garden = {
 				return $t('garden.improving.0');
 			case -2:
 				return $t('garden.improving.1');
+			case -3:
+				return $t('garden.improving.2');
 			default:
 				return '???';
 		}
@@ -1465,6 +1467,20 @@ export const Garden = {
 		}
 		return base;
 	},
+	generatorLocalspeed(key: keyof typeof GardenGenUpgs.generators) {
+		let base = new Decimal(1);
+		for (const i in player.garden.upgrades) {
+			if (
+				GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades].effect
+					.key == -3
+			)
+				base = base.mul(
+					GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades]
+						.effect.mult,
+				);
+		}
+		return base;
+	},
 	ideaYield() {
 		let base = new Decimal(0);
 		for (const i in player.garden.generators) {
@@ -1479,6 +1495,15 @@ export const Garden = {
 		for (const i in player.garden.generators) {
 			base = base.add(
 				Garden.generatorEntropy(i as unknown as keyof typeof player.garden.generators),
+			);
+		}
+		return base;
+	},
+	localspeedYield() {
+		let base = new Decimal(1);
+		for (const i in player.garden.generators) {
+			base = base.mul(
+				Garden.generatorLocalspeed(i as unknown as keyof typeof player.garden.generators),
 			);
 		}
 		return base;
@@ -1566,6 +1591,7 @@ export const Garden = {
 	localSpeed(): Decimal {
 		let base = new Decimal(1);
 		base = base.mul(Garden.insPowerEffect());
+		base = base.mul(Garden.localspeedYield());
 		return base;
 	},
 	gardenLoop(diff: number) {
