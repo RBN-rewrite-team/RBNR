@@ -823,7 +823,7 @@ export default {
 	'timeshard.t': 'You have {amount} time shards. Convert it for 3x global time speed.',
 	'timeshard.t2': 'You have {amount} of potent time accelerants.',
 
-	'timeshard.u1': "Get 1000 TS, But enter HARD MODE (You can't leave it yet Mwhahaha😈😈😈)",
+	'timeshard.u1': 'Get 1000 TS, But enter HARD MODE、',
 	'set.status.locked': '(Locked)',
 	'set.status.unlocked': '(Disabled)',
 	'timeshard.gen': 'Time shard generator {tier}',
@@ -978,7 +978,7 @@ export default {
 	'upgs.51A': 'Accelerator Maximum Multiplier and speed increase based on Ordinal',
 
 	'ord.acc': `Booster(Accelerator) multiplier to ordinal is ×{eff}({q}, Maximum: {c})`,
-	'tab.help': 'Help!!!!!!!!',
+	'tab.help': 'Help',
 
 	'currency.hydra': 'Hydra Energy',
 	'hydra.milestonenotget': 'NOT ACHIEVED',
@@ -1121,26 +1121,25 @@ export default {
 	'upgs.mil.dut10':
 		"Keep U5-1-2~4 forever, and buying dilution upgrades doesn't cost solution anymore.",
 	'upgs.mil.dut11': "Solvent VI's scale interval is now 0.25.",
-	'upgs.mil.dut12': 'Nerf the 2nd softcap of Hydra Energy. Yay!',
+	'upgs.mil.dut12': 'Nerf the 2nd softcap of Hydra Energy.',
 	'upgs.mil.dut13': "You can gain the boost of U5-S-7 even if Solvent III's level isn't 10.",
 	'upgs.mil.dut14': "+1000% U5-2's effect.",
 	'upgs.mil.dut15':
 		"M-Dilute-5's effect doesn't base on Solvent 6's level anymore, and instead the effect calculation acts like Solvent 6's level being 10.",
 	'upgs.mil.dut16':
-		"The number of prions boost BMS progression speed. Dilution doesn't reset Prions anymore. <br><i>You're so close to uncovering something...</i><br>Effect: {operation}{effect}",
+		"The number of prions boost BMS progression speed. Dilution doesn't reset Prions anymore. <br>Effect: {operation}{effect}",
 	'upgs.mil.dut17':
-		'Total Hydra Energy accelrates the replication speed of Prions. <br>Current: *{effect}<br><i>almost there.</i>',
-	'upgs.mil.dut18':
-		"M-Dilute-5's effect boosts M-Dilute-17 and M-Dilute-16's effects. <br><i>This is the end of the 2-Row BMS. Now we shall embark on something greater then ever.</i>",
+		'Total Hydra Energy accelrates the replication speed of Prions. <br>Current: *{effect}<br>',
+	'upgs.mil.dut18': "M-Dilute-5's effect boosts M-Dilute-17 and M-Dilute-16's effects.",
 	'upgs.mil.nonrec_1':
-		"1. Every non-recursive reset, *7.5 and +^0.01 Multiplier. Wowzers! <br> 2. Prestige/Ascension/Transcension/Recursion's Automation will be unlocked when the corresponding reset is done within a reset. <br> 3. BMS Progression speed *3. <br><i><b>WELCOME TO THE NEW ERA.</b></i>",
+		"1. Every non-recursive reset, *7.5 and +^0.01 Multiplier. <br> 2. Prestige/Ascension/Transcension/Recursion's Automation will be unlocked when the corresponding reset is done within a reset. <br> 3. BMS Progression speed *3.",
 	'upgs.mil.nonrec_2':
 		'All resets within the Hydra Energy tab no longer resets anything, and their thresholds are set to +0 and *1. <br>Kepp U5-2, and its effect will never go below 100%.',
 	'upgs.mil.nonrec_3':
-		"1. Based on non-recursive resets, increase the base effects for prestige and transcension.<br>2. Remove the 1st softcap of Hydra Energy, and nerf the 2nd softcap of Hydra energy by /+0.01 every reset.<br>3. Global speed doesn't alter the speed of the timer of Solvent III. Prions don't doing anything before purchasing U-S-9, and Solvent IV only bans Number Theories.<br><i>THIS WILL BE USEFUL LATER</i>",
+		"1. Based on non-recursive resets, increase the base effects for prestige and transcension.<br>2. Remove the 1st softcap of Hydra Energy, and nerf the 2nd softcap of Hydra energy by /+0.01 every reset.<br>3. Global speed doesn't alter the speed of the timer of Solvent III. Prions don't doing anything before purchasing U-S-9, and Solvent IV only bans Number Theories.",
 	'upgs.mil.nonrec_4':
 		"1. Every non-recursive reset increases the time limit of Solvent III by 1 second.<br>2. Total Solvents' nerf onto BMS progression speed is weakened. <br>3. The base of BMS progression speed is set to 1/s.<br>4. U5-2's effect is at least 200%.",
-	'upgs.mil.nonrec_5': 'Keep U5-5, U5-1-5, U5-R1-5, U5-S-5 unlocked. Yay!',
+	'upgs.mil.nonrec_5': 'Keep U5-5, U5-1-5, U5-R1-5, U5-S-5 unlocked. ',
 	'upgs.mil.nonrec_6':
 		"Increase U5-1-2 (100%→1000%)，U5-1-5，U5-R1-2(^1.125→^1.25)，U5-2，U5-S-9(×2/s→×10/s)'s effects.",
 	'upgs.mil.nonrec_7':
@@ -1898,7 +1897,7 @@ THEN YOU CAN GET REVELATION.<br />
 	'upgs.626': 'Reduce 4 Dimensions cost growth rase to 50%',
 	'upgs.627': 'Y Seq. Progressed times produces Fourth Y Seq. Dimension',
 	'upgs.628': 'Improve the formula of Ascension effect, Square the effect of U5-2-1',
-	'upgs.629': 'Get 100% of pending Comp. Hydra Energy /s passively》',
+	'upgs.629': 'Get 100% of pending Comp. Hydra Energy /s passively',
 
 	'upgs.6210':
 		'For each additional 2nd to 4th Y Sequential Dimension purchased, its effect is multiplied by (0.95 + Dimension Number × 0.05).',
@@ -1914,7 +1913,7 @@ THEN YOU CAN GET REVELATION.<br />
 
 	'pt.desc': `In analysis system, Different systems will unlock at different times each week.<br />Current day is {week}<span style=\"font-size: 12px\">(UTC+08:00)</span>, Unlock {sys} System.<br />Do PT Reset to analyse randomly, 
 	    Success rate is {rate}% , Analyzing the same system {cycle} times will inevitably succeed.<br />
-		The initial analysis of a single system must succeed.<br /><b>The game becomes Idle after this.<del>RUN FAST YOU CAN</del></b><br />`,
+		The initial analysis of a single system must succeed.<br /><br />`,
 
 	'pt.effresettimes': `<p>The PT reset brought you rewards:</p>
 <p>Global speed *{eff1} before Cardinal, Maximum value *5</p>
