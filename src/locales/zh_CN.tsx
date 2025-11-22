@@ -4,7 +4,7 @@ import { studies } from '@/core/nonrecu/studies';
 import { getTotalTheories, secInThisReset52717273 } from '@/core/nonrecu/total-theories';
 import { player, type Player } from '@/core/save';
 import { wordShift } from '@/core/word-shift';
-import { format, formatWhole } from '@/utils/format';
+import { format, formatTime, formatWhole } from '@/utils/format';
 import Decimal from 'break_eternity.js';
 import { VueLatex } from 'vatex';
 
@@ -1966,4 +1966,9 @@ export default {
 	'garden.upg.63.desc': '想法获取x(log10(想法总量+1)+1)。',
 	'garden.upg.64': 'I5',
 	'garden.upg.65': 'I6',
+	'garden.upg.66': 'E4',
+	'garden.upg.67': 'ATU1',
+	'garden.upg.67.desc': function () {
+		return `以30秒的间隔，自动购买原始升级。CD:${(Math.abs(player.garden.ATU1LastBought + 30000 - Date.now()) / 1000).toFixed(3)} s`;
+	},
 };

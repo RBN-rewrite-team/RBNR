@@ -3,6 +3,7 @@ import Decimal from 'break_eternity.js';
 import { format } from '@/utils/format';
 import { player } from '../global';
 import type { $t } from '@/utils/types';
+import type { IntClosedRange } from 'type-fest';
 
 export type GardenCurrency = {
 	name: string;
@@ -1569,6 +1570,49 @@ export const GardenGenUpgs = {
 			igNR: () => true,
 			connect: [[], [64]],
 		},
+		66: {
+			isG: !true,
+			key: 66,
+			name: 'E4',
+			pos: [800, 1400],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(1e5),
+			effect: {
+				key: -2,
+				mult: new Decimal(5),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(59);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(59);
+			},
+			igNR: () => true,
+			connect: [[], [59]],
+		},
+		67: {
+			isG: !true,
+			key: 67,
+			name: 'ATU1',
+			pos: [-100, 800],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(2000),
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(23);
+			},
+			show(): boolean {
+				return player.garden.igTimes.gt(0);
+			},
+			connect: [[], [23]],
+			igNR: () => true,
+			effectDescription(): string {
+				return getMessage('garden.upg.67.desc');
+			},
+		},
 	} satisfies {
 		[key in any]: GardenUpgrade;
 	},
@@ -1635,6 +1679,7 @@ export const Garden = {
 		}
 	},
 	canBoughtUpgrade(key: keyof typeof GardenGenUpgs.upgrades): boolean {
+		if (!GardenGenUpgs.upgrades[key].unlocked()) return false;
 		return GardenGenUpgs.upgrades[key].currency.value().gte(Garden.upgradeCost(key));
 	},
 	buyUpgrade(key: keyof typeof GardenGenUpgs.upgrades) {
@@ -1797,7 +1842,11 @@ export const Garden = {
 		let base = player.garden.trueBestIdea
 			.mul(player.garden.bestInspiration.pow(2))
 			.mul(player.garden.trueBestEntropy.pow(2));
-		return base.max(1).max(player.garden.bestExp).clampMax('9.9e99');
+		let q = base.max(1).max(player.garden.bestExp);
+		if (q.gte('1e81')) {
+			q = q.div('1e81').pow(0.5).mul('1e81');
+		}
+		return q;
 	},
 	level(): Decimal {
 		let base = Garden.exp().log10().root(2);
@@ -1851,6 +1900,15 @@ export const Garden = {
 			player.garden.insPower = player.garden.insPower.add(
 				Garden.insPowerGain().mul(localDiff),
 			);
+
+			if (Garden.boughtUpgrade(67) && Date.now() - player.garden.ATU1LastBought >= 30000) {
+				for (let i = 0; i <= 22; i++) {
+					if (Garden.canBoughtUpgrade(i as IntClosedRange<0, 22>)) {
+						Garden.buyUpgrade(i as IntClosedRange<0, 22>);
+					}
+				}
+				player.garden.ATU1LastBought = Date.now();
+			}
 		}
 	},
 	playerData() {
@@ -1876,6 +1934,7 @@ export const Garden = {
 			bestExp: new Decimal(0),
 			trueBestEntropy: new Decimal(0),
 			trueBestIdea: new Decimal(0),
+			ATU1LastBought: Date.now(),
 		};
 		for (const i in GardenGenUpgs.generators) {
 			base.generators[<keyof typeof GardenGenUpgs.generators>(<unknown>i)] = new Decimal(0);
