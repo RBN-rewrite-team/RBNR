@@ -1953,4 +1953,11 @@ export default {
 	'garden.upg.54': '环境反射',
 	'garden.upg.55': '叶绿体',
 	'garden.gen.12': '真核生物',
+	'garden.upg.56': 'LSER1',
+	'garden.upg.56.desc': '本地速度加成对熵的效果降低到^0.8',
+	'garden.upg.57': 'I3',
+	'garden.upg.58': 'I4',
+	'garden.upg.59': 'E3',
+	'garden.upg.60': 'INS1',
+	'garden.upg.60.desc': '灵感获取指数提升到0.275。',
 };
