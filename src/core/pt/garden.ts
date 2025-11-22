@@ -1233,7 +1233,7 @@ export const GardenGenUpgs = {
 		},
 		49: {
 			isG: !true,
-			key: 38,
+			key: 49,
 			pos: [1000, 600],
 			currency: GardenCurrencies.inspiration,
 			cost: new Decimal(1e7),
@@ -1592,6 +1592,9 @@ export const Garden = {
 		let base = new Decimal(1);
 		base = base.mul(Garden.insPowerEffect());
 		base = base.mul(Garden.localspeedYield());
+		if (base.gte(1e5)) {
+			base = base.div(1e5).pow(0.5).mul(1e5);
+		}
 		return base;
 	},
 	gardenLoop(diff: number) {
