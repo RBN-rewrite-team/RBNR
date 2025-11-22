@@ -35,7 +35,6 @@ function titleStyle() {
 				<div class="main">
 					<template v-for="menu in menus">
 						<MenuObject :menu="menu" />
-						<span style="display: none">{{ player.lastUpdated }}</span>
 					</template>
 				</div>
 			</div>
