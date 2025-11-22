@@ -1085,7 +1085,7 @@ export default {
 	'upgs.mil.cb20':
 		"You can buy fractional amounts of chessboard tiles, chessboard tiles'\ purchasable amount is increased based on exponentiation energy.<br>Effect：×{effect}",
 	'upgs.mil.cb21': "Square M-CB-20's effect.",
-	'upgs.mil.cb22': "Square M-CB-20's effect, again! So interesting!",
+	'upgs.mil.cb22': "Square M-CB-20's effect, again",
 	'upgs.mil.cb23': "^1.1 M-CB-20's effect.",
 	'upgs.mil.cb24': "^pi M-CB-20's effect.",
 	'upgs.mil.log_law1': "Actually, this milestone is hidden, you shouldn't see it",
@@ -1257,7 +1257,7 @@ export default {
 	'dil.selfdes.aftertime': 'self-destruct after {time}',
 	'dil.selfdes.impossible': 'not self-destruct',
 
-	'dil.limitsol1': 'Certain solvent types will restrict the minimum grade of Solvent I!',
+	'dil.limitsol1': 'Certain solvent types will restrict the minimum grade of Solvent I',
 	'dil.solutioncap':
 		'The maximum number of solutions obtainable for the current solvent configuration: {cap}',
 	'dil.least1': 'Select at least one solvent and upgrade its level to enable dilution.',
