@@ -813,7 +813,7 @@ export default {
 		'The discovery of logarithms, by saving labor, has prolonged the life of the astronomer. — Laplace',
 	'exp.log.obsd': 'You have {amount} bytes of observation data,',
 	'exp.log.cald': 'You have {amount} bytes of computational data.',
-	'exp.log.conv': '1 Observation data -> {res} Calc. data',
+	'exp.log.conv': '1 Observation data -> {res} Comp. data',
 
 	'upgs.byl.lgr_emp': 'Employ an astronomer',
 
@@ -840,7 +840,7 @@ export default {
 	'exp.log.calc': 'Use LT to calculate',
 
 	'exp.log.tip': '3 laws need to reach computational data to active effect',
-	'exp.log.law.req': 'Need {amount} Calc. Datas',
+	'exp.log.law.req': 'Need {amount} Comp. Datas',
 	'exp.log.law.1': 'Law 1',
 	'exp.log.law.2': 'Law 2',
 	'exp.log.law.3': 'Law 3',
