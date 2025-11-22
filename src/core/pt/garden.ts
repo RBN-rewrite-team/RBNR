@@ -267,10 +267,11 @@ export const GardenGenUpgs = {
 			name: '原核生物',
 			pos: [50, -2250],
 			currency: GardenCurrencies.idea,
-			cost: new Decimal(5e10),
-			idea: new Decimal(3e9),
-			entropy: new Decimal(2.5),
+			cost: new Decimal(5e13),
+			idea: new Decimal(9e9),
+			entropy: new Decimal(25),
 			unlocked: (): boolean => Garden.boughtUpgrade(31),
+			show: (): boolean => Garden.boughtUpgrade(24),
 			connect: [[], [31]],
 		},
 		12: {
@@ -283,6 +284,7 @@ export const GardenGenUpgs = {
 			idea: new Decimal(3e13),
 			entropy: new Decimal(100000),
 			unlocked: (): boolean => Garden.boughtUpgrade(55),
+			show: (): boolean => Garden.boughtUpgrade(24),
 			connect: [[], [55]],
 		},
 	} satisfies {
@@ -1281,7 +1283,7 @@ export const GardenGenUpgs = {
 			name: '细胞质',
 			pos: [200, -2350],
 			currency: GardenCurrencies.idea,
-			cost: new Decimal(1e17),
+			cost: new Decimal(1e13),
 			effect: {
 				key: 11,
 				mult: new Decimal(3),
@@ -1289,6 +1291,7 @@ export const GardenGenUpgs = {
 			unlocked(): boolean {
 				return Garden.boughtGeneratorReach(11, new Decimal(1));
 			},
+			show: (): boolean => Garden.boughtUpgrade(24),
 			connect: [[11], []],
 		},
 
@@ -1306,6 +1309,7 @@ export const GardenGenUpgs = {
 			unlocked(): boolean {
 				return Garden.boughtGeneratorReach(11, new Decimal(30)) && Garden.boughtUpgrade(51);
 			},
+			show: (): boolean => Garden.boughtUpgrade(24),
 			connect: [[], [51]],
 		},
 
@@ -1322,6 +1326,7 @@ export const GardenGenUpgs = {
 			unlocked(): boolean {
 				return Garden.boughtGeneratorReach(11, new Decimal(60)) && Garden.boughtUpgrade(52);
 			},
+			show: (): boolean => Garden.boughtUpgrade(24),
 			connect: [[], [52]],
 		},
 
@@ -1338,6 +1343,7 @@ export const GardenGenUpgs = {
 			unlocked(): boolean {
 				return Garden.boughtGeneratorReach(11, new Decimal(60)) && Garden.boughtUpgrade(52);
 			},
+			show: (): boolean => Garden.boughtUpgrade(24),
 			connect: [[], [52]],
 		},
 		55: {
@@ -1357,6 +1363,7 @@ export const GardenGenUpgs = {
 					Garden.boughtUpgrade(53)
 				);
 			},
+			show: (): boolean => Garden.boughtUpgrade(24),
 			connect: [[], [52, 53, 54]],
 		},
 		56: {
