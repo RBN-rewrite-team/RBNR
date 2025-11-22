@@ -60,7 +60,7 @@ export default {
 	'tab.multipl': 'Multiplication',
 	'tab.primefactor': 'Prime Factors',
 	'tab.numbertheory': 'Number Theories',
-	'tab.multipchal': 'Mult. Challenges',
+	'tab.multipchal': 'Multi. Challenges',
 	'tab.log_c': 'Log. Calculation',
 	'tab.log_d': 'Log. Dilation',
 	'tab.singularity': 'Sing. Generator',
@@ -88,7 +88,7 @@ export default {
 	'about.balancing': 'Balancing',
 	'about.plot': 'Plot',
 	'about.mechanismdesign': 'Mechanism designing',
-	'about.mathemodeling': 'Mathematicial modeling',
+	'about.mathemodeling': 'Mathematical modeling',
 	'about.savebank': 'Save bank',
 	'about.heyiwei': 'Mascot',
 	'about.fiveyeargaokao': 'FiveYearGaokao💯',
@@ -177,7 +177,7 @@ export default {
 	'req.res': 'Requires {cost} {currency}',
 	'req.upg': 'Requires {upg}',
 	'upg.cost': 'Cost: {cost} {currency}',
-	'res.softcapped': '({amount} softcaps)',
+	'res.softcapped': '(softcapped^{amount})',
 	'currency.number': 'Number',
 	'currency.addition': 'Addition power',
 	'currency.multipl': 'Mult. power',
@@ -194,7 +194,7 @@ export default {
 		'The successor button power +*1.1 per U0 upgrade bought',
 		'12',
 	),
-	'upgs.13': dilated('Unlock Addition Layer', "Additon power's gain exponent +0.1", '13'),
+	'upgs.13': dilated('Unlock Addition Layer', "Addition power's gain exponent +0.1", '13'),
 	'upgs.byl.11': 'Do a successor operation per second.',
 	'upgs.21': dilated(
 		'U1 upgrades apply to the effect of U0-2',
@@ -211,7 +211,7 @@ export default {
 	),
 	'upgs.25': dilated(
 		'Upgrade Succession to Addition, Keep U0 upgrades after Addition reset',
-		"C1 effect's hardcap is changed to a softcap.",
+		"C1 effect's cap is changed to a soft cap.",
 		'25',
 	),
 	'upgs.26': 'Unlock Multiplication Layer',
@@ -239,8 +239,8 @@ export default {
 	'upgs.34': 'Keep B1-1 after multiplication reset',
 	'upgs.35': dilated('Unlock Number Theories', 'τ<sub>1</sub> Reduce dilate strength', '35'),
 	'upgs.36': dilated(
-		'Get a free p<sub>n-1</sub> per 2 Prime Factor p<sub>n</sub>boughts',
-		'Get a free p<sub>n+1</sub> per 4 Prime Factor p<sub>n</sub>boughts',
+		'Get a free p<sub>n-1</sub> per 2 Prime Factor p<sub>n</sub> purchase quantity',
+		'Get a free p<sub>n+1</sub> per 4 Prime Factor p<sub>n</sub> purchase quantity',
 		'36',
 	),
 	'upgs.37': dilated(
@@ -358,7 +358,7 @@ export default {
 	'chal.0.2.effect': 'Number gain×{effect}',
 	'chal.0.3': 'Reversal',
 	'chal.0.3.description': `All pre-multiplication resources might be multiplied by -1 with a 50% chance/tick.q The multiplication reset's requirement is much higher (1.79e308 AP). B2-2 is disabled and you're trapped in challenge 3 too.`,
-	'chal.0.3.effect': `First multiplication reset inside this challenge unlocks exponentiation Layer(1.79e308 Mult. Power outside challenge)<br>Multiplication Power×{effect}`,
+	'chal.0.3.effect': `First multiplication reset inside this challenge unlocks exponentiation Layer(1.79e308 Multi. Power outside challenge)<br>Multiplication Power×{effect}`,
 
 	'chal.tip': "Click to start challenge{'|'}exit challenge",
 	'modal.font': 'Enter and set font: ',
@@ -459,7 +459,7 @@ export default {
 		[
 			"Numerorum arrived at the astronomer's shop, perched on the cliff beside the tower.",
 			'Numerorum\tYou are the astronomer? I need some help from you right now.',
-			"Astronomer\tHello, I'm the leader of the astronomers. Do you need us to privide data, to help you with your calculations?",
+			"Astronomer\tHello, I'm the leader of the astronomers. Do you need us to provide data, to help you with your calculations?",
 			'Numerorum\tYes, I need this data now.',
 		],
 		[
@@ -507,7 +507,7 @@ export default {
 			'Numerorum\tMaybe I should start researching it.',
 			'Numerorum tried using various methods to modify the non-recursive energy, and it ultimately forged into non-recursive theorems.',
 			`Numerorum\tThis seems to be really useful. However, I think I should use them carefully. They don't come with ease.`,
-			'Suddenly, Numerorumsees a familiar figure in front of him.',
+			'Suddenly, Numerorum sees a familiar figure in front of him.',
 			`Numerorum\tIt's you!You, surprisingly, went up the tower. How?`,
 			'天文学家\tHehe, as an astronomer, naturally, I must stand up high.',
 			'天文学家\tYou might not know how the non-recursive theorems work...',
@@ -538,9 +538,9 @@ export default {
 			'VeryRDefie\tAlso, who the heck are you?',
 			`Numerorum\tCall me Numerorum. Also, what's the fuss about those traps?`,
 			'VeryRDefie\tThe hydra has scattered a lot of traps within this part of the tower, some being \\(\\frac{1}{0}\\) while some being \\(\\ln(-x)\\), you need to be extra EXTRA careful.',
-			`VeryRDefie\tEspecially the ω-virus. It's the most dangerous of them all. If you're infected with it, youre basically dead.`,
+			`VeryRDefie\tEspecially the ω-virus. It's the most dangerous of them all. If you're infected with it, you're basically dead.`,
 			'Numerorum\tI also saw some words being written on the walls……Are those……',
-			'The text written on the walls, it identifies to be a tragedy occuring to a climber right here...',
+			'The text written on the walls, it identifies to be a tragedy occurring to a climber right here...',
 			'VeryRDefie stared at it for a while, and thought deeply.',
 			`VeryRDefie\tIt's that this person's Hydra Energy suddenly became negative. In this case, theres no way for that player to... reboot himself out of this state...`,
 			'VeryRDefie\tJust a while ago, the Hydra has set up ω-virus traps in non-recursive challenge 1 and the exponentiation power (before you even reached the transfinite numbers!)',
@@ -634,8 +634,8 @@ export default {
 
 	'upgs.41': 'Add. Power and Mul. Power gain *10',
 	'upgs.42': 'Succ./Add. operation exponent+0.1',
-	'upgs.43': 'Number second softcap is delayed by ^2',
-	'upgs.44': 'Add. Power second softcap is delayed by ^2',
+	'upgs.43': 'Number second soft cap is delayed by ^2',
+	'upgs.44': 'Add. Power second soft cap is delayed by ^2',
 	'upgs.45': 'Unlock Number Theory #2',
 	'upgs.46':
 		'Gain 1% of pending multi. power passively. Produce Challenge 4 completions based on mul. power',
@@ -649,7 +649,7 @@ export default {
 	'upgs.byl.41': 'Factor power ^1.05',
 	'upgs.byl.42': 'Number ^1.05',
 	'upgs.byl.43': 'Addition power^1.03',
-	'upgs.byl.44': 'Mult. power^1.01',
+	'upgs.byl.44': 'Multi. power^1.01',
 
 	'upgs.400q': "*2 U2-1's effect, and unlock a new upgrade in Number theory #1",
 	'upgs.411q': 'Keep all successor upgrades and U2-2 .',
@@ -658,7 +658,7 @@ export default {
 	'upgs.414q': "Exp. Reset doesn't reset U2-R1-1.",
 	'upgs.415q': 'Automate buying prime factors 2, 3, 5 and 7.',
 	'upgs.421q': 'Keep all addition upgrades',
-	'upgs.422q': 'The number of B0-1 will always be gteater than 10.',
+	'upgs.422q': 'The number of B0-1 will always be greater than 10.',
 	'upgs.423q': "Exp. Reset doesn't reset the reward of Challenge 2",
 	'upgs.424q': "Exp. Reset doesn't reset B2-R1-1.",
 	'upgs.425q': 'Automate buying prime factors 11, 13, 17 and 19',
@@ -672,7 +672,7 @@ export default {
 	'upgs.443q': 'Challenge 4 amount will not be less than (total MP)^0.001.',
 	'upgs.444q': 'Automate ALL Buyables of Number theory #1',
 	'upgs.445q': "Exp. Reset doesn't reset Prime Factor Time",
-	'upgs.451q': 'Keep Mult. upgrades ',
+	'upgs.451q': 'Keep Multi. upgrades ',
 	'upgs.452q': 'Automate B2-1 and B2-2.',
 	'upgs.453q': 'C1, C2, C3 amounts are set to the highest number reached in this Expo. Reset.',
 	'upgs.454q': 'Keep NT1 upgrades.',
@@ -704,7 +704,7 @@ export default {
 	'ach.1.3.desc': 'Unlock number theory',
 	'ach.1.4': 'payment not needed',
 	'ach.1.4.desc': 'Buy U2-6',
-	'ach.1.5': 'Autobuyers',
+	'ach.1.5': 'Auto buyers',
 	'ach.1.5.desc': 'Buy U2-7',
 	'ach.1.6': 'TS181, Prestige Layer #2, same as AD.',
 	'ach.1.6.desc': 'Buy U2-8',
@@ -772,7 +772,7 @@ export default {
 	'ach.6.3': 'ψ(Ω<sup>ψ(Ω<sup>7</sup>)</sup>)',
 	'ach.6.3.desc': 'Get 10 days speeding time',
 	'ach.6.4': 'Stack overflow',
-	'ach.6.4.desc': 'Produce "Range error maxinum call stack exceeded" in Automator',
+	'ach.6.4.desc': 'Produce "Range error maximum call stack exceeded" in Automator',
 	'ach.6.5': 'EIXIAB',
 	'ach.6.5.desc': 'Click an "Baixie" Emoji when turn on color inversion',
 	'ach.6.6': 'Did I see that wrong?',
@@ -830,10 +830,10 @@ export default {
 	'timeshard.conv': 'Time shard converter {tier}',
 	'timeshard.conv.desc': 'Convert {amount} TS',
 	'timeshard.conv.desc2': 'More {amount}% Times',
-	'timeshard.gen.1': 'Colddown: 1 hr<br>Prod: 10~50',
-	'timeshard.gen.2': 'Colddown: 24 hrs<br>Prod: 80~400',
-	'timeshard.gen.3': 'Colddown: 168 hrs<br>Prod: 1000~5000',
-	'timeshard.gen.avaliable': 'Avaliable',
+	'timeshard.gen.1': 'Cooldown: 1 hr<br>Prod: 10~50',
+	'timeshard.gen.2': 'Cooldown: 24 hrs<br>Prod: 80~400',
+	'timeshard.gen.3': 'Cooldown: 168 hrs<br>Prod: 1000~5000',
+	'timeshard.gen.avaliable': 'Available',
 	'timeshard.gen.waituntil': 'Please wait until',
 	'plot.astronomer': 'Astronomer',
 	'exp.log.observe': 'Obs.',
@@ -1045,14 +1045,14 @@ export default {
 	'res.minute': 'min',
 	'res.second': 'sec',
 
-	'upgs.ts01.name': 'CHAPTER 0 ACCELRATION PACK',
-	'upgs.ts02.name': 'CHAPTER 0 PERMANANT PACK',
+	'upgs.ts01.name': 'CHAPTER 0 ACCELERATION PACK',
+	'upgs.ts02.name': 'CHAPTER 0 PERMANENT PACK',
 	'upgs.ts03.name': 'CHAPTER 0 HYPER PACK',
-	'upgs.ts11.name': 'CHAPTER 1 ACCELRATION PACK',
-	'upgs.ts12.name': 'CHAPTER 1 PERMANANT PACK',
+	'upgs.ts11.name': 'CHAPTER 1 ACCELERATION PACK',
+	'upgs.ts12.name': 'CHAPTER 1 PERMANENT PACK',
 	'upgs.ts13.name': 'CHAPTER 1 HYPER PACK',
-	'upgs.ts21.name': 'CHAPTER 2 ACCELRATION PACK',
-	'upgs.ts22.name': 'CHAPTER 2 PERMANANT PACK',
+	'upgs.ts21.name': 'CHAPTER 2 ACCELERATION PACK',
+	'upgs.ts22.name': 'CHAPTER 2 PERMANENT PACK',
 	'upgs.ts23.name': 'CHAPTER 2 HYPER PACK',
 	'hydra.prestiges.1': 'Prestige',
 	'hydra.prestiges.2': 'Ascension',
@@ -1064,7 +1064,7 @@ export default {
 	'upgs.mil.cb2': 'The formula for the cost of the chessboard tiles is improved.',
 	'upgs.mil.cb3': 'Increase Wheat Grains multi. base based on tiles in the chessboard.',
 	'upgs.mil.cb4': 'Exponentiation Power gain x10.',
-	'upgs.mil.cb5': 'UNLOCK THE LOGRARITHMIC OPERATION.',
+	'upgs.mil.cb5': 'UNLOCK THE LOGARITHMIC OPERATION.',
 	'upgs.mil.cb6':
 		'Based on exponentiation power，chessboard multi. base×{effect}，and nerf the overflows of the number and addition power.',
 	'upgs.mil.cb7': 'Double the effect of milestone 6.',
@@ -1081,7 +1081,7 @@ export default {
 	'upgs.mil.cb17': 'Astronomer lifespan ×2，But multiply the timespeed of astronomers by 200.',
 	'upgs.mil.cb18': "Based on observation data, chessboard tiles'.s base ×{effect}",
 	'upgs.mil.cb19':
-		'Boost the 5th effect of wheat grains and remove its softcap, and exponentiate the exponent of multiplictaion power by {effect}.',
+		'Boost the 5th effect of wheat grains and remove its softcap, and exponentiate the exponent of multiplication power by {effect}.',
 	'upgs.mil.cb20':
 		"You can buy fractional amounts of chessboard tiles, chessboard tiles'\ purchasable amount is increased based on exponentiation energy.<br>Effect：×{effect}",
 	'upgs.mil.cb21': "Square M-CB-20's effect.",
@@ -1103,9 +1103,9 @@ export default {
 
 	'upgs.mil.dut2': 'Automatically buy max all U5-x upgrades.',
 	'upgs.mil.dut3':
-		'Prestiging no longer resets anything, and permenantly unlock its automation. Only in Solvent VII, Show all upgrades at the beginning.',
+		'Prestiging no longer resets anything, and permanently unlock its automation. Only in Solvent VII, Show all upgrades at the beginning.',
 	'upgs.mil.dut4':
-		'Ascension no longer resets anything and permenantly unlock its automation. Keep U5-2',
+		'Ascension no longer resets anything and permanently unlock its automation. Keep U5-2',
 
 	//这里溶剂翻译成Solvent, 溶液翻译成Solution,稀释翻译成Dilute
 
@@ -1129,12 +1129,12 @@ export default {
 	'upgs.mil.dut16':
 		"The number of prions boost BMS progression speed. Dilution doesn't reset Prions anymore. <br>Effect: {operation}{effect}",
 	'upgs.mil.dut17':
-		'Total Hydra Energy accelrates the replication speed of Prions. <br>Current: *{effect}<br>',
+		'Total Hydra Energy accelerates the replication speed of Prions. <br>Current: *{effect}<br>',
 	'upgs.mil.dut18': "M-Dilute-5's effect boosts M-Dilute-17 and M-Dilute-16's effects.",
 	'upgs.mil.nonrec_1':
 		"1. Every non-recursive reset, *7.5 and +^0.01 Multiplier. <br> 2. Prestige/Ascension/Transcension/Recursion's Automation will be unlocked when the corresponding reset is done within a reset. <br> 3. BMS Progression speed *3.",
 	'upgs.mil.nonrec_2':
-		'All resets within the Hydra Energy tab no longer resets anything, and their thresholds are set to +0 and *1. <br>Kepp U5-2, and its effect will never go below 100%.',
+		'All resets within the Hydra Energy tab no longer resets anything, and their thresholds are set to +0 and *1. <br>Keep U5-2, and its effect will never go below 100%.',
 	'upgs.mil.nonrec_3':
 		"1. Based on non-recursive resets, increase the base effects for prestige and transcension.<br>2. Remove the 1st softcap of Hydra Energy, and nerf the 2nd softcap of Hydra energy by /+0.01 every reset.<br>3. Global speed doesn't alter the speed of the timer of Solvent III. Prions don't doing anything before purchasing U-S-9, and Solvent IV only bans Number Theories.",
 	'upgs.mil.nonrec_4':
@@ -1157,7 +1157,7 @@ export default {
 	'upgs.mil.nonrec_15': 'Non-recursive resets no longer reset the effect of U5-S-15.',
 
 	'upgs.mil.nonrec_16':
-		"Remove B5-1-2's hardcap and Ascension's 3rd and 4th softcap. Ascension's effect accelrates the replication speed of prions, if you're not in a non-recursive challenge.",
+		"Remove B5-1-2's hardcap and Ascension's 3rd and 4th softcap. Ascension's effect accelerates the replication speed of prions, if you're not in a non-recursive challenge.",
 	'upgs.mil.nonrec_17': 'Gain (NRC5 completions) non-recursive resets per second, passively.',
 	'upgs.mil.nonrec_18': "Unlock <i>non-recursive upgrades. The first one's at e230. </i>.",
 	'upgs.mil.nonrec_19': 'Unlocks <b>UNOCF</b>',
@@ -1219,7 +1219,7 @@ export default {
 		return (
 			'The U5-R1-5 buff applies a reduced effect to Ascension.' +
 			(player.retribution == 1
-				? '<br>This upgrade is bonused because of THE RETRIBUTION'
+				? '<br>THE RETRIBUTION bonuses this upgrade.'
 				: '')
 		);
 	},
@@ -1245,7 +1245,7 @@ export default {
 	'upgs.614S':
 		"Remove the 2nd softcap of Ascension and Recursion. Solvent III's debuff is nullified.",
 	'upgs.615S':
-		'Highest BMS progression reached within APOCAPLYSE will massively boost BMS progression speed. <br><i>the end is near...</i>',
+		'Highest BMS progression reached within APOCALYPSE will massively boost BMS progression speed. <br><i>the end is near...</i>',
 
 	'upgs.616S': 'UNLOCK <b>NON RECURSION-RECURSION</b>(need ψ(Ω<sub>ω</sub>) Ordinal)',
 
@@ -1270,7 +1270,7 @@ You progressed through BMS {b} times in {a}. You obtain {c}({d}) Solution becaus
 	'dil.solvdebuff':
 		'The progressing speed is divided by {a} because of the sum of the level of solvents.',
 
-	'dil.1': 'SOLVENT I: TEMPORAL BLACKHOLE',
+	'dil.1': 'SOLVENT I: TEMPORAL BLACK HOLE',
 	'dil.1.desc':
 		'"Though it\'s unfortunate, at least you can take comfort in the fact that you\'ve lived longer than others."',
 	'dil.1.eff': 'The progressing speed and multiplier-collecting speed are divided by {eff}.',
@@ -1283,13 +1283,13 @@ You progressed through BMS {b} times in {a}. You obtain {c}({d}) Solution becaus
 		'"Earth is about to explode, and to make matters worse, you don\'t have a spaceship..."',
 
 	'dil.3.eff':
-		'The dilution which selected this solvent, will self-destruct(exit this dilution forcely) in {time}.',
+		'The dilution which selected this solvent, will self-destruct(exit this dilution force) in {time}.',
 
 	'dil.4': 'SOLVENT IV: NUMBER THEORY HELL',
 	'dil.4.desc':
-		'"The Googologist\'s parented predeccessor sequence opened the gates of hell....."',
+		'"The Googologist\'s parented predecessor sequence opened the gates of hell....."',
 
-	'dil.4.eff': 'The effect of number theory #4 is inversed.',
+	'dil.4.eff': 'The effect of number theory #4 is reversed.',
 
 	'dil.5': 'SOLVENT V: Your best nightmare about prion virus',
 	'dil.5.desc': '\"P¤1-t2~u~ér.2-_/io~/5é &-cnh-\"',
@@ -1309,7 +1309,7 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'dil.8.desc': '"The humans who sought to ascend to heaven. But they met their doom."',
 	'dil.8.eff': 'You will not able to get any Hydra energy in 5 seconds after enable dilution.',
 
-	'dil.9': 'SOLVENT IX: APOCAPLYSE CALL ENC18.1',
+	'dil.9': 'SOLVENT IX: APOCALYPSE CALL ENC18.1',
 	'dil.9.desc': 'FAREWELL.',
 	'dil.9.eff': 'ALL SOLVENTS ARE MAXIMIZED. GLOBAL SPEED /1000.',
 
@@ -1374,7 +1374,7 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'dung.movement.moving': 'Moving... {a}/{b}',
 	'dung.battle.win': 'Battle complete',
 	'dung.battle.get': 'Get',
-	'dung.boxes.res': 'You opened the box, You get {res} Time shrad.',
+	'dung.boxes.res': 'You opened the box, You get {res} Time shard.',
 	'dung.guard.boss': 'Guard Leader',
 	'dung.guard.apostle': 'Apostle',
 	'dung.boxes.restrict': 'You have to kill the monsters around(7x7) box to open this box.',
@@ -1390,7 +1390,7 @@ The dilution will self-destruct if the number of the prion virus is greater than
 
 	'dung.gemstone.t': 'You gained gem stone, Global speed+0.25%',
 
-	'nonrec.youhavereset': 'You have non-recursion reseted for {times} times。',
+	'nonrec.youhavereset': 'You have done non-recursion resets for {times} times。',
 	'nonrec.youhavenrt': 'You have a total of {t} Non Rec. Theories, with {b} remaining.',
 	'nonrec.nrtbuy': 'Get one Non Rec. Theory',
 	'nonrec.respec': 'Reset Study tree, but do a Non Rec. Reset',
@@ -1548,7 +1548,7 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	},
 	'chal.1.2': 'DILUTE PRO MAX',
 	'chal.1.2.description': function () {
-		return 'Solvent I base is 20, Divide Solvent III threshold time by 5. DIsable U5-S-14 the last effect. Disable MD15. The level of the solvents must be an integer. Change Solvent VI effect to ^1-(challenge amount*0.2-0.2)x. Change Global speed to 1/1e(10*challenge amount) in Solvent IX. All Solution addition multiplier(and formula) is disabled.<br>Reward:';
+		return 'Solvent I base is 20, Divide Solvent III threshold time by 5. Disable U5-S-14 the last effect. Disable MD15. The level of the solvents must be an integer. Change Solvent VI effect to ^1-(challenge amount*0.2-0.2)x. Change Global speed to 1/1e(10*challenge amount) in Solvent IX. All Solution addition multiplier(and formula) is disabled.<br>Reward:';
 	},
 	'chal.1.3': 'REVERSE RESEARCH',
 	'chal.1.3.description': function () {
@@ -1614,8 +1614,8 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'dung.core.position.hea': 'Health Pos.',
 	'dung.core.position.atk': 'Attack Pos.',
 	'dung.core.position.def': 'Defend Pos.',
-	'dung.core.notequiped': 'Not Equiped {a}',
-	'dung.core.equiped': 'Equiped {a}',
+	'dung.core.notequiped': 'Not Equipped {a}',
+	'dung.core.equiped': 'Equipped {a}',
 	'dung.core.unequip': 'Unequip!',
 
 	'dil.preset.set': 'Add current solvent as a preset',
@@ -1644,7 +1644,7 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	chapa3: {
 		title: 'Chapter 3',
 		text1: 'Exponentiation',
-		text: 'Difficulter',
+		text: 'More Difficult',
 	},
 	chapa4: {
 		title: 'Chapter 4',
@@ -1659,7 +1659,7 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	chapa6: {
 		title: 'Chapter 6',
 		text1: 'Non Recursion',
-		text: 'Long & Uninterrupt',
+		text: 'Long & Uninterrupted',
 	},
 	'uselessconfirm.0.t': 'Addition Reset',
 	'uselessconfirm.0':
@@ -1795,7 +1795,7 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'tab.analyzemilestone': 'Analyzing milestone',
 	'tab.garden': 'Garden',
 
-	'nt.wellorderness.unlockedalemma': 'Unlocked a lemman',
+	'nt.wellorderness.unlockedalemma': 'Unlocked a lemma',
 	'nt.wellorderness.process.4':
 		'Define the expand function of PrSS, cost 1.000e15 Deduction Energy',
 	'nt.wellorderness.process.5': 'Unlock lemma 2, cost 1.0000e17 Deduction Energy',
@@ -1813,7 +1813,7 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'nt.wellorderness.effect.5': 'Lemma 3 reward:B6-R-1-3, Multiply the base of B6-R-1-4 again',
 	'nt.wellorderness.process.11': 'Unlock lemma 4, cost 1.000e690 Deduction Energy',
 	'nt.wellorderness.process.12': 'Prove lemma 4, cost 1.000e695 Deduction Energy',
-	'nt.wellorderness.effect.6': 'Lemma 4 reward: BMSprogresion speed (double exponent) ^1.2',
+	'nt.wellorderness.effect.6': 'Lemma 4 reward: BMS progression speed (double exponent) ^1.2',
 	'nt.wellorderness.process.13': 'Unlock lemma 5, cost 1.000e700 Deduction Energy',
 	'nt.wellorderness.process.14': 'Prove lemma 4, cost 1.000e695 Deduction Energy',
 	'nt.wellorderness.effect.7': 'Lemma 5 reward: Deduction Energy gain^1.5.',
@@ -1824,25 +1824,25 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'nt.wellorderness.process.17': 'Unlock lemma 2, cost {cost} Deduction Energy',
 	'nt.wellorderness.process.18': 'Prove lemma 2, cost 1.000e8320 Deduction Energy',
 	'nt.wellorderness.effect.9':
-		'Reward:Remove the softcap^2 of Hydra Energy, Reduce (tidiely) the growing speed of B6-R-2-1 cost.',
+		'Reward:Remove the softcap^2 of Hydra Energy, Reduce (tidily) the growing speed of B6-R-2-1 cost.',
 	'nt.wellorderness.process.19': 'Unlock lemma 3, cost 1.00e42,258 Deduction Energy',
 	'nt.wellorderness.process.20': 'Prove lemma 3, cost {cost} Deduction Energy',
-	'nt.wellorderness.effect.10': 'Reward:Singnificantly enhance BMS progressing speed.',
+	'nt.wellorderness.effect.10': 'Reward:Significantly enhance BMS progressing speed.',
 	'nt.wellorderness.process.21': 'Unlock lemma 4, cost {cost} Deduction Energy',
 	'nt.wellorderness.process.22': 'Prove lemma 4, cost {cost} Deduction Energy',
-	'nt.wellorderness.effect.11': 'Reward:Singnificantly enhance BMS progressing speed.',
+	'nt.wellorderness.effect.11': 'Reward:Significantly enhance BMS progressing speed.',
 	'nt.wellorderness.process.23':
 		'Prove the well-orderness of BMS, cost e100,000,000 Deduction Energy。',
 	'nt.wellorderness.effect.12':
-		'Reward: You can do the first RETRIBTION reset......after e150000000 Deduction Energy, BMS progressing speed slog+{effect}',
+		'Reward: You can do the first RETRIBUTION reset......after e150000000 Deduction Energy, BMS progressing speed slog+{effect}',
 
 	'nonrec.unocf.is': 'Your UNOCF Ordinal is',
 	'nonrec.unocf.tip':
-		'Because of the complexness of UNOCF, Not all progression will maped to ordinal',
+		'Because of the complexness of UNOCF, Not all progression will mapped to ordinal',
 	'nonrec.unocf.eff.1':
 		'UNOCF make BMS progressing speed^{effect}(Enable on BMS progressing speed>1)',
 	'nonrec.unocf.eff.2.unl': 'Reach 512 progresses to unlock 2nd UNOCF effect',
-	'nonrec.unocf.eff.2': 'UNOCF makes UNOCF progresing speed*{effect}',
+	'nonrec.unocf.eff.2': 'UNOCF makes UNOCF progressing speed*{effect}',
 	'nonrec.unocf.eff.3.unl': 'Reach 4096 progresses to unlock 3rd UNOCF effect',
 	'nonrec.unocf.eff.3': 'UNOCF makes Solution gain*{effect}',
 	'nonrec.unocf.eff.4.unl': 'Reach 16384 progresses to unlock 4th UNOCF effect',
@@ -1894,7 +1894,7 @@ THEN YOU CAN GET REVELATION.<br />
 	'upgs.623': 'Square the effect of U5-2-1~2',
 	'upgs.624': 'In any time, You have at least 1 First Y Seq. Dimension',
 	'upgs.625': 'All Dimensions production *3',
-	'upgs.626': 'Reduce 4 Dimensions cost growth rase to 50%',
+	'upgs.626': 'Reduce 4 Dimensions cost growth raise to 50%',
 	'upgs.627': 'Y Seq. Progressed times produces Fourth Y Seq. Dimension',
 	'upgs.628': 'Improve the formula of Ascension effect, Square the effect of U5-2-1',
 	'upgs.629': 'Get 100% of pending Comp. Hydra Energy /s passively',
