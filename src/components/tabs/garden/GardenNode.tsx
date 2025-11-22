@@ -1,5 +1,5 @@
 import { defineComponent, type CSSProperties, type PropType, type Ref } from 'vue';
-import { getNodeStyle } from './node';
+import { getNodeStyle, outOfScreen } from './node';
 import { extractAttributesFromProps, propsEvents } from '@/utils/htmlEvents';
 import { vHold, type HoldDirectiveValue, type HoldHandlers } from '@/utils/vHold';
 
@@ -35,17 +35,23 @@ export default defineComponent({
 	setup(props, ctx) {
 		return () => (
 			<>
-				<div
-					class="node"
-					style={{
-						...getNodeStyle(props.x, props.y, props.canvasRef, props.mini),
-						...props.nodestyle,
-					}}
-					{...extractAttributesFromProps(props)}
-					v-hold={props['hold']}
-				>
-					<span class="node_desc">{ctx.slots.default ? ctx.slots.default() : ''}</span>
-				</div>
+				{outOfScreen(props.x, props.y, props.canvasRef) ? (
+					''
+				) : (
+					<div
+						class="node"
+						style={{
+							...getNodeStyle(props.x, props.y, props.canvasRef, props.mini),
+							...props.nodestyle,
+						}}
+						{...extractAttributesFromProps(props)}
+						v-hold={props['hold']}
+					>
+						<span class="node_desc">
+							{ctx.slots.default ? ctx.slots.default() : ''}
+						</span>
+					</div>
+				)}
 			</>
 		);
 	},
