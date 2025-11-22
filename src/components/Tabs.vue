@@ -40,6 +40,9 @@ import Analysis from './tabs/pt/Analysis.vue';
 import AnalysisMilestones from './tabs/pt/AnalysisMilestones.vue';
 import SingularityGenerator from './tabs/group-1/SingularityGenerator.vue';
 import Garden from '@/components/tabs/garden/Garden.tsx';
+import DungeonTable from './tabs/minigame/DungeonTable.vue';
+import SkillTree from './tabs/minigame/SkillTree.vue';
+import EquipCore from './tabs/minigame/EquipCore.vue';
 
 const tabComponents: {
 	[key: string]: Component | (() => Component);
@@ -80,6 +83,9 @@ const tabComponents: {
 	300: SaveBank,
 	500: DeveloperMode,
 	1225: MiniGame,
+	1226: DungeonTable,
+	1227: SkillTree,
+	1228: EquipCore,
 };
 
 const currentComponent = computed(() => {

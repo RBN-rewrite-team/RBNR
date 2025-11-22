@@ -16,6 +16,8 @@ import { playerSafe, playerToDestination } from '@/core/minigame/path-searcher';
 import ModalService from '@/utils/Modal';
 import MiniGameTD from './MiniGameTD.vue';
 import { useI18n } from 'vue-i18n';
+import { handleKeyPress } from '@/core/minigame/minigame-loop';
+import NumerorumDetails from './NumerorumDetails.vue';
 const $t = useI18n().t;
 function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof getCurrentBlock>) {
 	console.log(room, x, y);
@@ -74,75 +76,141 @@ function clickBlock(room: number, x: bigint, y: bigint, block: ReturnType<typeof
 	}
 	putedblock = false;
 }
+
+function formatbigint(b: bigint) {
+	if (b < 1000n) return b.toString();
+	let a = b.toString();
+	const l = a.length - 1;
+	a = a.slice(0, 7);
+	a = a.slice(0, 1) + '.' + a.slice(1, 7) + 'e' + l.toString();
+	return a;
+}
 </script>
 
 <template>
-	<table
-		:style="{
-			position: 'absolute',
-			left: temp.dungeonsSP == 2 && temp.innerWidth < 800 ? '25%' : '75%',
-			top: temp.dungeonsSP == 2 && temp.innerWidth < 800 ? '25%' : '50%',
-			transform: 'translate(-50%, -50%)',
-			'z-index': '5',
-		}"
-		v-if="(temp.dungeonsSP == 2 || temp.innerWidth >= 800) && !temp.openingCore"
-	>
-		<tbody>
-			<template
-				v-for="y in range(
-					player.minigame.current_y - visibleBlocks(),
-					player.minigame.current_y + visibleBlocks() + 1n,
-				)"
-			>
+	<div class="main">
+		<NumerorumDetails />
+		<table style="margin-top: 5px">
+			<tbody>
 				<tr>
-					<template
-						v-for="x in range(
-							player.minigame.current_x - visibleBlocks(),
-							player.minigame.current_x + visibleBlocks() + 1n,
-						)"
-					>
+					<td style="width: 200px">
+						X: {{ formatbigint(player.minigame.current_x) }}<br />
+						Y: {{ formatbigint(player.minigame.current_y) }}
+					</td>
+					<td style="width: 200px">
+						<span v-html="temp.minigametip" />
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<table
+			:style="{
+				position: 'absolute',
+				left: temp.dungeonsSP == 2 && temp.innerWidth < 800 ? '25%' : '75%',
+				top: temp.dungeonsSP == 2 && temp.innerWidth < 800 ? '25%' : '50%',
+				transform: 'translate(-50%, -50%)',
+				'z-index': '5',
+			}"
+		>
+			<tbody>
+				<template
+					v-for="y in range(
+						player.minigame.current_y - visibleBlocks(),
+						player.minigame.current_y + visibleBlocks() + 1n,
+					)"
+				>
+					<tr>
 						<template
-							v-if="
-								player.minigame.current_x !== x || player.minigame.current_y !== y
-							"
+							v-for="x in range(
+								player.minigame.current_x - visibleBlocks(),
+								player.minigame.current_x + visibleBlocks() + 1n,
+							)"
 						>
-							<MiniGameTD
-								v-if="isPlayerVisible(x, y) && !inPathData(x, y)"
-								@mousedown="
-									clickBlock(
-										player.minigame.current_room,
-										x,
-										y,
-										getCurrentBlock(player.minigame.current_room, x, y),
-									)
+							<template
+								v-if="
+									player.minigame.current_x !== x ||
+									player.minigame.current_y !== y
 								"
-								:game_object="getCurrentBlock(player.minigame.current_room, x, y)"
-							></MiniGameTD>
+							>
+								<MiniGameTD
+									v-if="isPlayerVisible(x, y) && !inPathData(x, y)"
+									@mousedown="
+										clickBlock(
+											player.minigame.current_room,
+											x,
+											y,
+											getCurrentBlock(player.minigame.current_room, x, y),
+										)
+									"
+									:game_object="
+										getCurrentBlock(player.minigame.current_room, x, y)
+									"
+								></MiniGameTD>
+								<td
+									v-else-if="inPathData(x, y)"
+									style="
+										background-color: green;
+										height: 60px;
+										width: 60px;
+										min-height: 60px;
+										min-width: 60px;
+									"
+								></td>
+							</template>
+
 							<td
-								v-else-if="inPathData(x, y)"
+								v-else
 								style="
-									background-color: green;
-									height: 60px;
-									width: 60px;
-									min-height: 60px;
-									min-width: 60px;
+									background-image: url('./plot_image/NumerorumColor.png');
+									background-size: cover;
+									border: 1px solid gold;
 								"
 							></td>
 						</template>
-
-						<td
-							v-else
-							style="
-								background-image: url('./plot_image/NumerorumColor.png');
-								background-size: cover;
-								border: 1px solid gold;
-							"
-						></td>
-					</template>
-				</tr>
-			</template>
-		</tbody>
-	</table>
+					</tr>
+				</template>
+			</tbody>
+		</table>
+		<div
+			style="
+				position: absolute;
+				left: 30%;
+				bottom: 100px;
+				height: 300px;
+				width: 300px;
+				z-index: 5;
+			"
+		>
+			<button
+				@click="handleKeyPress('up', $t)"
+				class="movement_button"
+				style="top: 50px; left: 150px"
+			>
+				↑
+			</button>
+			<button
+				@click="handleKeyPress('down', $t)"
+				class="movement_button"
+				style="top: 250px; left: 150px"
+			>
+				↓
+			</button>
+			<button
+				@click="handleKeyPress('left', $t)"
+				class="movement_button"
+				style="top: 150px; left: 50px"
+			>
+				←
+			</button>
+			<button
+				@click="handleKeyPress('right', $t)"
+				class="movement_button"
+				style="top: 150px; left: 250px"
+			>
+				→
+			</button>
+		</div>
+	</div>
 </template>
 
 <style lang="scss" scoped>
@@ -162,5 +230,16 @@ td {
 	background-color: var(--background-color);
 	border: 1px solid red;
 	transition-duration: 0s;
+}
+
+.movement_button {
+	position: absolute;
+	width: 80px;
+	height: 80px;
+	transform: translate(-50%, -50%);
+	background-color: var(--background-color);
+	color: var(--color);
+	font-size: 30px;
+	border: 2px solid var(--color);
 }
 </style>
