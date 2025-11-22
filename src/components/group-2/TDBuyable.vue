@@ -3,6 +3,7 @@ import { currencyName, getCurrency } from '@/core/currencies';
 import { feature } from '@/core/global';
 import { buyables, BUYABLES } from '@/core/mechanic';
 import { player } from '@/core/save';
+import { useUpdate } from '@/lib/useUpdate';
 import { format, formatWhole } from '@/utils/format';
 import { OrdinalUtils } from '@/utils/ordinal';
 import Decimal from 'break_eternity.js';
@@ -13,7 +14,7 @@ const props = defineProps<{
 }>();
 // code...
 const id = props.bylid;
-function useClass() {
+const useClass = useUpdate(function () {
 	let useclass = 'upgrade_buttonbig';
 	if (buyables[id].capped(player.buyables[id])) useclass = 'upgrade_buttonbig_complete';
 	else if (
@@ -23,7 +24,7 @@ function useClass() {
 	)
 		useclass = 'upgrade_buttonbig_unable';
 	return useclass;
-}
+});
 const curbyl = buyables[props.bylid];
 function moreAmountString() {
 	const a = buyables[id].more();
@@ -81,7 +82,7 @@ function costHTML() {
 				interval: 5,
 			}"
 		>
-			<div :class="useClass()">
+			<div :class="useClass">
 				<span style="font-weight: bold">
 					{{
 						curbyl.name == 'B0-114514'

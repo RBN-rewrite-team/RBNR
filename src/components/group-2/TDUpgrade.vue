@@ -15,6 +15,7 @@ import { useI18n } from 'vue-i18n';
 import { computed } from 'vue';
 import { wordShift } from '@/core/word-shift';
 import { i18n } from '@/utils/i18n';
+import { useUpdate } from '@/lib/useUpdate';
 const $t = useI18n().t;
 
 const props = defineProps<{
@@ -22,7 +23,7 @@ const props = defineProps<{
 }>();
 const id = props.upgid as keyof typeof upgrades;
 // code...
-function useClass() {
+const useClass = useUpdate(function () {
 	let useclass = 'upgrade_buttonbig';
 	if (id.toString().startsWith('4') && id.toString().endsWith('q'))
 		useclass = 'upgrade_buttonsmall';
@@ -37,7 +38,7 @@ function useClass() {
 		useclass += ' upgrade_dilated';
 	}
 	return useclass;
-}
+});
 const curupg = upgrades[id];
 const permanent = curupg.keep != null && curupg.keep();
 const req = curupg.requirements();
@@ -82,7 +83,7 @@ const description = computed(function () {
 <template>
 	<td v-if="UPGRADES.lock(upgid).show">
 		<div class="upgrade tooltipBox" @mousedown="UPGRADES.buy(upgid)">
-			<div :class="useClass()">
+			<div :class="useClass">
 				<span style="font-weight: bold">
 					{{
 						curupg.name == 'U0-114514' ? $t('upgs.' + id + '.name') : curupg.name
