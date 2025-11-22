@@ -1023,3 +1023,15 @@ a {
 	height: 50px;
 	width: 300px;
 }
+
+.resource {
+	position: absolute;
+	margin-top: 5px;
+}
+.background {
+	width: 100%;
+	overflow: auto;
+}
+.resrouces > * {
+	white-space: nowrap;
+}

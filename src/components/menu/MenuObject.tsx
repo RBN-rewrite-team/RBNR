@@ -57,15 +57,13 @@ export default defineComponent({
 		return () => (
 			<>
 				<div>
-					<span style={{ display: 'none' }} key={a.value}>
-						{$t('upgs.byl.61R')}
-					</span>
 					{!show.value ? (
 						''
 					) : (
 						<>
 							{menuTitle(props, $t)}
 							{props.menu.contents.map((x) => toSubMenuObject(x, $t))}
+							<span style="display: none" key={a.value}></span>
 						</>
 					)}
 				</div>

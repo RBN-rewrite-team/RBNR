@@ -1,7 +1,7 @@
 import { defineComponent } from 'vue';
 import Side from './components/menu/Side.vue';
 import Newsticker from './components/group-2/Newsticker.vue';
-import Resources from './components/group-2/Resources.vue';
+import Resources from './components/group-2/Resources.tsx';
 import AdditionResetButton from './components/group-2/AdditionResetButton.vue';
 import MultipResetButton from './components/group-2/MultipResetButton.vue';
 import ExpResetButton from './components/group-2/ExpResetButton.vue';
