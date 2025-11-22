@@ -29,7 +29,7 @@ import { isDeveloper } from '@/core/save/testing';
 // ];
 const THRESHOLD = 10 * 60 * 1000;
 export async function timeCheck() {
-	// if (isDeveloper()) return;
+	if (isDeveloper()) return;
 	try {
 		const response = await fetch('.', {
 			headers: {
