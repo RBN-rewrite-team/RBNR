@@ -1960,4 +1960,10 @@ export default {
 	'garden.upg.59': 'E3',
 	'garden.upg.60': 'INS1',
 	'garden.upg.60.desc': '灵感获取指数提升到0.275。',
+	'garden.upg.61': 'LS4',
+	'garden.upg.62': 'LS5',
+	'garden.upg.63': 'IP1',
+	'garden.upg.63.desc': '想法获取x(log10(想法总量+1)+1)。',
+	'garden.upg.64': 'I5',
+	'garden.upg.65': 'I6',
 };

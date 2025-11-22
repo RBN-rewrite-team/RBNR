@@ -1466,6 +1466,109 @@ export const GardenGenUpgs = {
 				return getMessage('garden.upg.60.desc');
 			},
 		},
+		61: {
+			isG: !true,
+			key: 61,
+			name: 'LS4',
+			pos: [-800, 600],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(5e7),
+			effect: {
+				key: -3,
+				mult: new Decimal(2),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(39);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(39);
+			},
+			igNR: () => true,
+			connect: [[], [39]],
+		},
+		62: {
+			isG: !true,
+			key: 62,
+			name: 'LS5',
+			pos: [-1000, 600],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(1e11),
+			effect: {
+				key: -3,
+				mult: new Decimal(2),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(61);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(61);
+			},
+			igNR: () => true,
+			connect: [[], [61]],
+		},
+		63: {
+			isG: !true,
+			key: 63,
+			name: 'IP1',
+			pos: [-600, 1000],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(10000),
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(32);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(32);
+			},
+			igNR: () => true,
+			connect: [[], [32]],
+			effectDescription(): string {
+				return getMessage('garden.upg.63.desc');
+			},
+		},
+		64: {
+			isG: !true,
+			key: 64,
+			name: 'I5',
+			pos: [-1000, 1600],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(10000),
+			effect: {
+				key: -1,
+				mult: new Decimal(6),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(58);
+			},
+			show(): boolean {
+				return player.garden.igTimes.gt(0);
+			},
+			igNR: () => true,
+			connect: [[], [58]],
+		},
+		65: {
+			isG: !true,
+			key: 65,
+			name: 'I6',
+			pos: [-1200, 1800],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(1e5),
+			effect: {
+				key: -1,
+				mult: new Decimal(7),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(64);
+			},
+			show(): boolean {
+				return player.garden.igTimes.gt(0);
+			},
+			igNR: () => true,
+			connect: [[], [64]],
+		},
 	} satisfies {
 		[key in any]: GardenUpgrade;
 	},
@@ -1558,6 +1661,9 @@ export const Garden = {
 		}
 		base = base.mul(player.garden.generators[7].mul(0.01).add(1));
 		base = base.mul(player.garden.generators[8].mul(0.02).add(1));
+		if (Garden.boughtUpgrade(63)) {
+			base = base.mul(player.garden.totalIdea.add(1).clampMin(1).log10().add(1));
+		}
 		return base;
 	},
 	generatorEntropy(key: keyof typeof GardenGenUpgs.generators) {
@@ -1691,10 +1797,11 @@ export const Garden = {
 		let base = player.garden.trueBestIdea
 			.mul(player.garden.bestInspiration.pow(2))
 			.mul(player.garden.trueBestEntropy.pow(2));
-		return base.max(1).max(player.garden.bestExp);
+		return base.max(1).max(player.garden.bestExp).clampMax('9.9e99');
 	},
 	level(): Decimal {
 		let base = Garden.exp().log10().root(2);
+
 		return base.floor();
 	},
 	expPercent(): string {
