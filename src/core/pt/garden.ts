@@ -1281,7 +1281,7 @@ export const GardenGenUpgs = {
 			name: '细胞质',
 			pos: [200, -2350],
 			currency: GardenCurrencies.idea,
-			cost: new Decimal(1e13),
+			cost: new Decimal(1e17),
 			effect: {
 				key: 11,
 				mult: new Decimal(3),
@@ -1298,7 +1298,7 @@ export const GardenGenUpgs = {
 			name: '细胞膜',
 			pos: [150, -2450],
 			currency: GardenCurrencies.idea,
-			cost: new Decimal(1.5e14),
+			cost: new Decimal(1.5e18),
 			effect: {
 				key: 11,
 				mult: new Decimal(2),
@@ -1314,7 +1314,7 @@ export const GardenGenUpgs = {
 			key: 53,
 			pos: [50, -2550],
 			currency: GardenCurrencies.idea,
-			cost: new Decimal(2e14),
+			cost: new Decimal(2e18),
 			effect: {
 				key: 11,
 				mult: new Decimal(4),
@@ -1330,7 +1330,7 @@ export const GardenGenUpgs = {
 			key: 54,
 			pos: [250, -2550],
 			currency: GardenCurrencies.idea,
-			cost: new Decimal(5e14),
+			cost: new Decimal(5e18),
 			effect: {
 				key: 11,
 				mult: new Decimal(4),
@@ -1345,7 +1345,7 @@ export const GardenGenUpgs = {
 			key: 55,
 			pos: [150, -2650],
 			currency: GardenCurrencies.idea,
-			cost: new Decimal(5e15),
+			cost: new Decimal(5e19),
 			effect: {
 				key: 11,
 				mult: new Decimal(4.5),
