@@ -1330,6 +1330,8 @@ export const Garden = {
 				return $t('garden.improving.0');
 			case -2:
 				return $t('garden.improving.1');
+			case -3:
+				return $t('garden.improving.2');
 			default:
 				return '???';
 		}
