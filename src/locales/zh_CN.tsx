@@ -1948,4 +1948,9 @@ export default {
 	'dung.sp.2.0': '核心',
 	'dung.sp.2.1': '地下城',
 	'dung.keyreq': '你需要一个钥匙才能开门',
+	'garden.upg.52': '细胞膜',
+	'garden.upg.53': '生命活动',
+	'garden.upg.54': '环境反射',
+	'garden.upg.55': '叶绿体',
+	'garden.gen.12': '真核生物',
 };

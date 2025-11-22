@@ -223,6 +223,7 @@ function simulateText(canvasRef: any, $t: $t) {
 					</div>
 				),
 			)}
+
 			{mapping[1].map((g) =>
 				!(g.show?.() ?? true) ? null : g.unlocked() ? (
 					<>
@@ -350,6 +351,7 @@ function simulateText(canvasRef: any, $t: $t) {
 									<h2 style="color: orange">{format(Garden.igGain())}</h2>
 									{$t('currency.灵感')}
 								</h3>
+								<GardenLevelFormula />
 							</>
 						)}
 						<h2 style="position: absolute; left: 50%; bottom: -90px; transform: translate(-50%, -50%); color: orange">
@@ -393,7 +395,7 @@ function simulateText(canvasRef: any, $t: $t) {
 							{$t('garden.localspeedmult')}
 							<br />
 							<span style="color: rgb(127, 255, 2); font-weight: bold">
-								{format(Garden.insPowerEffect())}
+								{format(Garden.localSpeed())}
 							</span>
 						</span>
 					</GardenNode>

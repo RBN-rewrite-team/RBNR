@@ -19,6 +19,18 @@ export function getNodeStyle(
 	return base;
 }
 
+export function outOfScreen(relx: number, rely: number, canvasRef: Ref<HTMLDivElement | null>) {
+	const obj = canvasRef.value;
+	if (!obj) return {};
+	const width = obj.offsetWidth;
+	const height = obj.offsetHeight;
+	const base = {
+		top: height * 0.5 + rely - temp.garden.focus_pos[1],
+		left: width * 0.5 + relx - temp.garden.focus_pos[0],
+	};
+	return base.top < -100 || base.left < -100 || base.top > height || base.left > width;
+}
+
 export function getConnectStyle(
 	relx: number,
 	rely: number,
