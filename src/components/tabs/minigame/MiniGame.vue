@@ -84,48 +84,6 @@ function exitEditor() {
 			>
 				→
 			</button>
-			<!-- <button
-				class="clickable_button"
-				v-if="atDEV()"
-				@click="enterEditor"
-				style="position: absolute; top: 90%"
-			>
-				编辑模式
-			</button> -->
-			<!-- <button
-				class="clickable_button"
-				v-if="atDEV()"
-				@click="exitEditor"
-				style="position: absolute; top: 100%"
-			>
-				退出编辑模式
-			</button> -->
-		</div>
-		<div
-			v-if="player.minigame.ateditor && !temp.openingCore"
-			style="display: flex; flex-direction: row; justify-content: center"
-		>
-			<button class="clickable_button" @click="player.minigame.editor_mode = 'replace'">
-				放置方块
-			</button>
-			<button class="clickable_button" @click="player.minigame.editor_mode = 'remove'">
-				移除方块
-			</button>
-			<button class="clickable_button" @click="player.minigame.block = 'W'">
-				切换方块类型为 墙
-			</button>
-			<button class="clickable_button" @click="player.minigame.block = '0'">
-				切换方块类型为 空气
-			</button>
-			<button class="clickable_button" @click="player.minigame.block = 'FAKEWALL'">
-				切换方块类型为 假墙
-			</button>
-		</div>
-		<div
-			v-if="player.minigame.ateditor"
-			style="display: flex; flex-direction: row; justify-content: center"
-		>
-			<button class="clickable_button" @click="initializeEditorMap">地图方块初始化</button>
 		</div>
 		<div
 			style="position: absolute; left: 75%; top: 20px; transform: translateX(-50%)"
