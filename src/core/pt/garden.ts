@@ -279,7 +279,7 @@ export const GardenGenUpgs = {
 			name: '真核生物',
 			pos: [50, -2750],
 			currency: GardenCurrencies.idea,
-			cost: new Decimal(1e16),
+			cost: new Decimal(1e19),
 			idea: new Decimal(3e13),
 			entropy: new Decimal(100000),
 			unlocked: (): boolean => Garden.boughtUpgrade(55),
