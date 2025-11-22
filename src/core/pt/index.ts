@@ -137,21 +137,7 @@ export function realPTreset() {
 		title: getMessage('pt.reset.title'),
 		content: getMessage('pt.reset.desc'),
 		onConfirm() {
-			if (player.options.gammaTest) {
-				PTresetCore(true);
-				// ModalService.show({
-				// 	title: getMessage('pt.reset.title2'),
-				// 	content: getMessage('pt.reset.desc2'),
-				// 	onConfirm() {
-				// 		PTresetCore(true);
-				// 	},
-				// });
-			} else {
-				ModalService.show({
-					title: getMessage('pt.reset.title3'),
-					content: getMessage('pt.reset.desc3'),
-				});
-			}
+			PTresetCore(true);
 		},
 	});
 }

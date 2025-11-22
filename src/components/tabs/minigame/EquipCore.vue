@@ -41,162 +41,161 @@ function equipInformation() {
 </script>
 
 <template>
-	<div
-		style="
-			position: absolute;
-			right: 0px;
-			top: 50px;
-			height: 80%;
-			width: 400px;
-			z-index: 5;
-			border: 2px solid red;
-		"
-		align="center"
-		v-if="(temp.dungeonsSP == 2 || temp.innerWidth >= 800) && temp.openingCore"
-	>
-		{{ $t('dung.core.checkfor') }}
+	<div class="main">
 		<div
-			style="height: 40%; width: 95%; border: 2px solid red; position: relative"
-			:style="{ 'border-color': temp.coreViewColor() }"
+			style="margin: auto; width: 400px; margin-top: 5px; border: 2px solid red"
+			align="center"
 		>
-			<div v-if="temp.coreViewEquipment !== null">
-				<span v-html="equipmentDisplay(temp.coreViewEquipment, $t)" />
-				<span v-if="isEquipped(temp.coreViewEquipment)">{{
-					$t('dung.core.equiped', {
-						a: '',
-					})
-				}}</span>
-				<br />
-				<span v-html="equipInformation()"></span>
-				<div style="position: absolute; bottom: 0; width: 100%; height: 50px">
-					<div
-						style="height: 40px; width: 25%; border: 2px solid red"
-						v-if="!(temp.coreViewEquipment.equipped ?? false)"
-						@click="equip(temp.coreViewEquipment)"
-					>
-						{{ $t('dung.core.equip') }}
-					</div>
-					<div
-						style="height: 40px; width: 25%; border: 2px solid orange"
-						v-else
-						@click="unload(temp.coreViewEquipment)"
-					>
-						{{ $t('dung.core.unequip') }}
+			{{ $t('dung.core.checkfor') }}
+			<div
+				style="height: 200px; width: 95%; border: 2px solid red; position: relative"
+				:style="{ 'border-color': temp.coreViewColor() }"
+			>
+				<div v-if="temp.coreViewEquipment !== null">
+					<span v-html="equipmentDisplay(temp.coreViewEquipment, $t)" />
+					<span v-if="isEquipped(temp.coreViewEquipment)">{{
+						$t('dung.core.equiped', {
+							a: '',
+						})
+					}}</span>
+					<br />
+					<span v-html="equipInformation()"></span>
+					<div style="position: absolute; bottom: 0; width: 100%; height: 50px">
+						<div
+							style="height: 40px; width: 25%; border: 2px solid red"
+							v-if="!(temp.coreViewEquipment.equipped ?? false)"
+							@click="equip(temp.coreViewEquipment)"
+						>
+							{{ $t('dung.core.equip') }}
+						</div>
+						<div
+							style="height: 40px; width: 25%; border: 2px solid orange"
+							v-else
+							@click="unload(temp.coreViewEquipment)"
+						>
+							{{ $t('dung.core.unequip') }}
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div style="height: 50%; width: 95%; border: 2px solid red; overflow: auto">
-			<table>
-				<tbody>
-					<td style="width: 30%; border: 0px solid red">
-						<div
-							v-if="player.minigame.coreEquipments.hea.length > 0"
-							style="height: 50px; width: 100%; border: 2px solid red"
-							:style="{
-								'border-color': temp.coreViewColor(
-									player.minigame.coreEquipments.hea[0],
-								),
-							}"
-							@click="changeCoreView(player.minigame.coreEquipments.hea[0])"
-						>
-							{{
-								$t('dung.core.equiped', {
-									a: $t('dung.core.position.hea'),
-								})
-							}}<br /><span
-								v-html="equipmentDisplay(player.minigame.coreEquipments.hea[0], $t)"
-							/>
-						</div>
-						<div
-							style="height: 50px; width: 100%; border: 2px solid var(--color)"
-							v-else
-						>
-							{{
-								$t('dung.core.notequiped', {
-									a: $t('dung.core.position.hea'),
-								})
-							}}
-						</div>
-					</td>
-					<td style="width: 30%; border: 0px solid red">
-						<div
-							v-if="player.minigame.coreEquipments.atk.length > 0"
-							style="height: 50px; width: 100%; border: 2px solid red"
-							:style="{
-								'border-color': temp.coreViewColor(
-									player.minigame.coreEquipments.atk[0],
-								),
-							}"
-							@click="changeCoreView(player.minigame.coreEquipments.atk[0])"
-						>
-							{{
-								$t('dung.core.equiped', {
-									a: $t('dung.core.position.atk'),
-								})
-							}}<br /><span
-								v-html="equipmentDisplay(player.minigame.coreEquipments.atk[0], $t)"
-							/>
-						</div>
-						<div
-							style="height: 50px; width: 100%; border: 2px solid var(--color)"
-							v-else
-						>
-							{{
-								$t('dung.core.notequiped', {
-									a: $t('dung.core.position.atk'),
-								})
-							}}
-						</div>
-					</td>
-					<td style="width: 30%; border: 0px solid red">
-						<div
-							v-if="player.minigame.coreEquipments.def.length > 0"
-							style="height: 50px; width: 100%; border: 2px solid red"
-							:style="{
-								'border-color': temp.coreViewColor(
-									player.minigame.coreEquipments.def[0],
-								),
-							}"
-							@click="changeCoreView(player.minigame.coreEquipments.def[0])"
-						>
-							{{
-								$t('dung.core.equiped', {
-									a: $t('dung.core.position.def'),
-								})
-							}}<br /><span
-								v-html="equipmentDisplay(player.minigame.coreEquipments.def[0], $t)"
-							/>
-						</div>
-						<div
-							style="height: 50px; width: 100%; border: 2px solid var(--color)"
-							v-else
-						>
-							{{
-								$t('dung.core.notequiped', {
-									a: $t('dung.core.position.def'),
-								})
-							}}
-						</div>
-					</td>
-				</tbody>
-			</table>
+			<div style="height: 400px; width: 95%; border: 2px solid red; overflow: auto">
+				<table>
+					<tbody>
+						<td style="width: 30%; border: 0px solid red">
+							<div
+								v-if="player.minigame.coreEquipments.hea.length > 0"
+								style="height: 50px; width: 100%; border: 2px solid red"
+								:style="{
+									'border-color': temp.coreViewColor(
+										player.minigame.coreEquipments.hea[0],
+									),
+								}"
+								@click="changeCoreView(player.minigame.coreEquipments.hea[0])"
+							>
+								{{
+									$t('dung.core.equiped', {
+										a: $t('dung.core.position.hea'),
+									})
+								}}<br /><span
+									v-html="
+										equipmentDisplay(player.minigame.coreEquipments.hea[0], $t)
+									"
+								/>
+							</div>
+							<div
+								style="height: 50px; width: 100%; border: 2px solid var(--color)"
+								v-else
+							>
+								{{
+									$t('dung.core.notequiped', {
+										a: $t('dung.core.position.hea'),
+									})
+								}}
+							</div>
+						</td>
+						<td style="width: 30%; border: 0px solid red">
+							<div
+								v-if="player.minigame.coreEquipments.atk.length > 0"
+								style="height: 50px; width: 100%; border: 2px solid red"
+								:style="{
+									'border-color': temp.coreViewColor(
+										player.minigame.coreEquipments.atk[0],
+									),
+								}"
+								@click="changeCoreView(player.minigame.coreEquipments.atk[0])"
+							>
+								{{
+									$t('dung.core.equiped', {
+										a: $t('dung.core.position.atk'),
+									})
+								}}<br /><span
+									v-html="
+										equipmentDisplay(player.minigame.coreEquipments.atk[0], $t)
+									"
+								/>
+							</div>
+							<div
+								style="height: 50px; width: 100%; border: 2px solid var(--color)"
+								v-else
+							>
+								{{
+									$t('dung.core.notequiped', {
+										a: $t('dung.core.position.atk'),
+									})
+								}}
+							</div>
+						</td>
+						<td style="width: 30%; border: 0px solid red">
+							<div
+								v-if="player.minigame.coreEquipments.def.length > 0"
+								style="height: 50px; width: 100%; border: 2px solid red"
+								:style="{
+									'border-color': temp.coreViewColor(
+										player.minigame.coreEquipments.def[0],
+									),
+								}"
+								@click="changeCoreView(player.minigame.coreEquipments.def[0])"
+							>
+								{{
+									$t('dung.core.equiped', {
+										a: $t('dung.core.position.def'),
+									})
+								}}<br /><span
+									v-html="
+										equipmentDisplay(player.minigame.coreEquipments.def[0], $t)
+									"
+								/>
+							</div>
+							<div
+								style="height: 50px; width: 100%; border: 2px solid var(--color)"
+								v-else
+							>
+								{{
+									$t('dung.core.notequiped', {
+										a: $t('dung.core.position.def'),
+									})
+								}}
+							</div>
+						</td>
+					</tbody>
+				</table>
 
-			<div
-				style="
-					display: inline-block;
-					width: calc(90% / 3 - 20px);
-					margin: 10px;
-					border: 2px solid red;
-				"
-				v-for="(item, index) in player.minigame.storeEquipments.sort(function (a, b) {
-					return -a.level * a.rarity ** 2 + b.level * b.rarity ** 2;
-				})"
-				:key="index"
-				:style="{ 'border-color': temp.coreViewColor(item) }"
-				@click="changeCoreView(item)"
-			>
-				<span v-html="equipmentDisplay(item, $t)" />
+				<div
+					style="
+						display: inline-block;
+						width: calc(90% / 3 - 20px);
+						margin: 10px;
+						border: 2px solid red;
+					"
+					v-for="(item, index) in player.minigame.storeEquipments.sort(function (a, b) {
+						return -a.level * a.rarity ** 2 + b.level * b.rarity ** 2;
+					})"
+					:key="index"
+					:style="{ 'border-color': temp.coreViewColor(item) }"
+					@click="changeCoreView(item)"
+				>
+					<span v-html="equipmentDisplay(item, $t)" />
+				</div>
 			</div>
 		</div>
 	</div>

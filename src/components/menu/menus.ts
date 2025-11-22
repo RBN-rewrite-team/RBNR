@@ -19,15 +19,28 @@ export const menus = [
 	{
 		contents: [
 			{
-				text: 'tab.dungeon',
-				id: 1225,
-			},
-			{
 				text: 'tab.automator',
 				id: 167,
 				show() {
 					return player.timeshard.unlAuto && (player.firstResetBit & 0b10000) == 0b10000;
 				},
+			},
+		],
+	},
+	{
+		title: 'tab.dungeon',
+		contents: [
+			{
+				text: 'tab.dungeon',
+				id: 1226,
+			},
+			{
+				text: 'studies.dung.title',
+				id: 1227,
+			},
+			{
+				text: 'dung.core',
+				id: 1228,
 			},
 		],
 	},

@@ -39,6 +39,7 @@ function openCore() {
 }
 </script>
 
+<!-- v-if="temp.dungeonsSP == 0 || temp.innerWidth >= 800" -->
 <template>
 	<div
 		style="
@@ -49,7 +50,6 @@ function openCore() {
 			background-color: grey;
 			z-index: 6;
 		"
-		v-if="temp.dungeonsSP == 0 || temp.innerWidth >= 800"
 	>
 		Numerorum<br />
 		<div style="position: relative; height: 50px; width: 400px; background-color: black">
@@ -98,15 +98,18 @@ function openCore() {
 						}}
 					</td>
 				</tr>
-				<tr>
+				<tr style="height: 100px">
 					<td>
 						{{ $t('dung.ore') }}{{ player.minigame.ore_gets }}<br />{{
 							$t('dung.ore.1', {
 								effect: player.minigame.ore_gets * 0.25,
 							})
 						}}
+					</td>
+					<td>
 						<PrimaryButton
 							@click="player.options.openOreEffect = !player.options.openOreEffect"
+							style="font-size: 8px"
 						>
 							{{
 								$t('set.status', {
@@ -120,6 +123,8 @@ function openCore() {
 							}}
 						</PrimaryButton>
 					</td>
+				</tr>
+				<tr>
 					<td>
 						{{ $t('dung.boxes.collect')
 						}}<span
@@ -133,25 +138,24 @@ function openCore() {
 							v-html="player.minigame.box_gets[2]"
 						/>
 					</td>
-				</tr>
-				<tr>
 					<td>
 						<PrimaryButton @click="spawn(0)">Dungeon 1</PrimaryButton><br />
 						<PrimaryButton @click="spawn(1)" v-if="player.minigame.visited.includes(1)">
 							Dungeon 2
 						</PrimaryButton>
 					</td>
+				</tr>
+				<tr>
 					<td>
-						<PrimaryButton @click="openCore()">
-							{{ $t('dung.core') }}({{ $t('dung.core.equip')
-							}}{{
-								player.minigame.coreEquipments.hea.length +
-								player.minigame.coreEquipments.atk.length +
-								player.minigame.coreEquipments.def.length
-							}}/3)</PrimaryButton
-						><br />
-						{{ $t('dung.core.storeequipments')
-						}}{{ player.minigame.storeEquipments.length }}/50<span style="color: cyan"
+						{{ $t('dung.core') }}({{ $t('dung.core.equip')
+						}}{{
+							player.minigame.coreEquipments.hea.length +
+							player.minigame.coreEquipments.atk.length +
+							player.minigame.coreEquipments.def.length
+						}}/3)<br /><br />
+						{{ $t('dung.core.storeequipments') }}<br />{{
+							player.minigame.storeEquipments.length
+						}}/50<span style="color: cyan"
 							>({{ $t('dung.core.levels.5') }}x{{
 								player.minigame.storeEquipments.filter((item) => {
 									return item.rarity >= 1.9;
