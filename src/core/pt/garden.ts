@@ -1593,7 +1593,7 @@ export const Garden = {
 		base = base.mul(Garden.insPowerEffect());
 		base = base.mul(Garden.localspeedYield());
 		if (base.gte(1e5)) {
-			base = base.div(1e5).pow(0.5).mul(1e5);
+			base = base.div(1e5).pow(0.25).mul(1e5);
 		}
 		return base;
 	},
