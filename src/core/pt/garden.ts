@@ -1558,6 +1558,8 @@ export const Garden = {
 		}
 		base = base.mul(player.garden.generators[7].mul(0.01).add(1));
 		base = base.mul(player.garden.generators[8].mul(0.02).add(1));
+		base = base.mul(player.garden.generators[9].mul(0.03).add(1));
+		base = base.mul(player.garden.generators[10].mul(0.04).add(1));
 		return base;
 	},
 	generatorEntropy(key: keyof typeof GardenGenUpgs.generators) {
