@@ -265,13 +265,25 @@ export const GardenGenUpgs = {
 			isG: true,
 			key: 11,
 			name: '原核生物',
-			pos: [50, -2375],
+			pos: [50, -2250],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(5e10),
-			idea: new Decimal(7.5e8),
+			idea: new Decimal(3e9),
 			entropy: new Decimal(2.5),
 			unlocked: (): boolean => Garden.boughtUpgrade(31),
 			connect: [[], [31]],
+		},
+		12: {
+			isG: true,
+			key: 12,
+			name: '真核生物',
+			pos: [50, -2750],
+			currency: GardenCurrencies.idea,
+			cost: new Decimal(1e16),
+			idea: new Decimal(3e13),
+			entropy: new Decimal(100000),
+			unlocked: (): boolean => Garden.boughtUpgrade(55),
+			connect: [[], [55]],
 		},
 	} satisfies {
 		[key in any]: GardenGenerator;
@@ -834,7 +846,7 @@ export const GardenGenUpgs = {
 			isG: !true,
 			key: 31,
 			name: '遗传',
-			pos: [50, -2175],
+			pos: [50, -2100],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(1e11),
 			effect: {
@@ -1267,7 +1279,7 @@ export const GardenGenUpgs = {
 			isG: !true,
 			key: 51,
 			name: '细胞质',
-			pos: [250, -2575],
+			pos: [200, -2350],
 			currency: GardenCurrencies.idea,
 			cost: new Decimal(1e13),
 			effect: {
@@ -1278,6 +1290,74 @@ export const GardenGenUpgs = {
 				return Garden.boughtGeneratorReach(11, new Decimal(1));
 			},
 			connect: [[11], []],
+		},
+
+		52: {
+			isG: !true,
+			key: 52,
+			name: '细胞膜',
+			pos: [150, -2450],
+			currency: GardenCurrencies.idea,
+			cost: new Decimal(1.5e14),
+			effect: {
+				key: 11,
+				mult: new Decimal(2),
+			},
+			unlocked(): boolean {
+				return Garden.boughtGeneratorReach(11, new Decimal(30)) && Garden.boughtUpgrade(51);
+			},
+			connect: [[], [51]],
+		},
+
+		53: {
+			isG: !true,
+			key: 53,
+			pos: [50, -2550],
+			currency: GardenCurrencies.idea,
+			cost: new Decimal(2e14),
+			effect: {
+				key: 11,
+				mult: new Decimal(4),
+			},
+			unlocked(): boolean {
+				return Garden.boughtGeneratorReach(11, new Decimal(60)) && Garden.boughtUpgrade(52);
+			},
+			connect: [[], [52]],
+		},
+
+		54: {
+			isG: !true,
+			key: 54,
+			pos: [250, -2550],
+			currency: GardenCurrencies.idea,
+			cost: new Decimal(5e14),
+			effect: {
+				key: 11,
+				mult: new Decimal(4),
+			},
+			unlocked(): boolean {
+				return Garden.boughtGeneratorReach(11, new Decimal(60)) && Garden.boughtUpgrade(52);
+			},
+			connect: [[], [52]],
+		},
+		55: {
+			isG: !true,
+			key: 55,
+			pos: [150, -2650],
+			currency: GardenCurrencies.idea,
+			cost: new Decimal(5e15),
+			effect: {
+				key: 11,
+				mult: new Decimal(4.5),
+			},
+			unlocked(): boolean {
+				return (
+					Garden.boughtGeneratorReach(11, new Decimal(100)) &&
+					Garden.boughtUpgrade(54) &&
+					Garden.boughtUpgrade(53)
+				);
+			},
+			connect: [[], [52, 53, 54]],
 		},
 	} satisfies {
 		[key in any]: GardenUpgrade;

@@ -223,6 +223,7 @@ function simulateText(canvasRef: any, $t: $t) {
 					</div>
 				),
 			)}
+
 			{mapping[1].map((g) =>
 				!(g.show?.() ?? true) ? null : g.unlocked() ? (
 					<>
