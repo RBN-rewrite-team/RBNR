@@ -40,6 +40,7 @@ export default defineComponent({
 					rescolor2={
 						player.upgrades[61] ? 'rgba(170, 152, 247, 1)' : 'rgb(255, 127, 127)'
 					}
+					rescolor3="rgb(255, 63, 63)"
 					growingdisplay={() => {
 						if (player.upgrades[61]) {
 							return (
