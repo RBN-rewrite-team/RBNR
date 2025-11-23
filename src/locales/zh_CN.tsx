@@ -1969,19 +1969,19 @@ export default {
 	'garden.upg.66': 'E4',
 	'garden.upg.67': 'ATU1',
 	'garden.upg.67.desc': function () {
-		return `以30秒的间隔，自动购买原始升级。上次购买过了${(Math.abs(Date.now() - player.garden.ATU1LastBought) / 1000).toFixed(3)} s`;
+		return `以1秒的间隔，自动购买原始升级。上次购买过了${(Math.abs(Date.now() - player.garden.ATU1LastBought) / 1000).toFixed(3)} s`;
 	},
 	'garden.upg.68': 'ATB1',
 	'garden.upg.68.desc': function () {
-		return `以30秒的间隔，自动购买原始发电机。上次购买过了${(Math.abs(Date.now() - player.garden.ATB1LastBought) / 1000).toFixed(3)} s`;
+		return `以1秒的间隔，自动购买原始发电机。上次购买过了${(Math.abs(Date.now() - player.garden.ATB1LastBought) / 1000).toFixed(3)} s`;
 	},
 	'garden.upg.69': 'ATU2',
 	'garden.upg.69.desc': function () {
-		return `以45秒的间隔，自动购买远古升级。上次购买过了${(Math.abs(Date.now() - player.garden.ATU2LastBought) / 1000).toFixed(3)} s`;
+		return `以3秒的间隔，自动购买远古升级。上次购买过了${(Math.abs(Date.now() - player.garden.ATU2LastBought) / 1000).toFixed(3)} s`;
 	},
 	'garden.upg.70': 'ATB2',
 	'garden.upg.70.desc': function () {
-		return `以45秒的间隔，自动购买远古发电机。上次购买过了${(Math.abs(Date.now() - player.garden.ATB2LastBought) / 1000).toFixed(3)} s`;
+		return `以3秒的间隔，自动购买远古发电机。上次购买过了${(Math.abs(Date.now() - player.garden.ATB2LastBought) / 1000).toFixed(3)} s`;
 	},
 	'garden.upg.71': 'EP1',
 	'garden.upg.72': '细胞核',
