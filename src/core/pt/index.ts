@@ -12,6 +12,7 @@ import { deepCopy } from '../save';
 import { updateResetStatData } from '../stats';
 import { getMessage, i18n } from '@/utils/i18n';
 import type { $t } from '@/utils/types';
+import { Oracle } from './oracle/oracle.ts';
 
 export function dayOfWeek(): [number, string] {
 	let weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
