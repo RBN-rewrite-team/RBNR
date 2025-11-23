@@ -13,6 +13,7 @@ import { updateResetStatData } from '../stats';
 import { getMessage, i18n } from '@/utils/i18n';
 import type { $t } from '@/utils/types';
 import { Oracle } from './oracle/oracle.ts';
+import { Garden } from './garden.ts';
 
 export function dayOfWeek(): [number, string] {
 	let weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
@@ -286,5 +287,11 @@ export const Analysis = {
 			seedTimes: [0, 0, 0, 0, 0, 0, 0],
 			qolPointsCrystal: new Decimal(0),
 		};
+	},
+	ptPowerGain() {
+		if (Garden.level().lt(10) || player.hydra.deduceOrdinal[0].lt(DC.D_4T6))
+			return new Decimal(0);
+		const CHE = player.hydra.compressedPower;
+		return CHE.slog().pow(CHE.slog().sub(3).max(1)).mul(Garden.level().div(10).tetrate(2));
 	},
 } as const;

@@ -39,7 +39,7 @@ import bmswellorder4prove from '@/components/tabs/ordinalnt/ordinalnt5-content/b
 export default {
 	'title.rewritten': '大数之路重制版',
 	'title.idlen': '大数之路放置版',
-	'title.version': 'Garden Gamma/i18n Gamma',
+	'title.version': 'Fate Alpha/Garden',
 	'tab.dungeon': '地下城',
 	'tab.successor': '后继',
 	'tab.options': '杂项',
@@ -92,7 +92,7 @@ export default {
 	'about.dutexuehua': '独特雪花',
 	'about.jinghuoomega': '静火Ω',
 
-	'about.version': '版本: Garden Gamma/i18n Gamma (v0.7.2 Gamma)',
+	'about.version': '版本: Fate Alpha/Garden (v0.7.2)',
 
 	'succ.successor': '后继',
 	'succ.addition': '加法',
@@ -1998,4 +1998,6 @@ export default {
 	'garden.upg.79.desc': '灵感获取指数提升到0.375。',
 	'garden.upg.80': 'INS6',
 	'garden.upg.80.desc': '灵感获取指数提升到0.4。',
+	'res.ptpower': '证明论能量',
+	'tab.oracle': '神谕',
 };
