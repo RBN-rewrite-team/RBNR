@@ -1775,6 +1775,121 @@ export const GardenGenUpgs = {
 			},
 			connect: [[], [74]],
 		},
+		76: {
+			isG: !true,
+			key: 76,
+			name: 'INS2',
+			pos: [-1000, 1200],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(15000),
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(60);
+			},
+			show(): boolean {
+				return player.garden.igTimes.gt(0);
+			},
+			igNR: () => true,
+			connect: [[], [60]],
+			effectDescription(): string {
+				return getMessage('garden.upg.76.desc');
+			},
+		},
+		77: {
+			isG: !true,
+			key: 77,
+			name: 'INS3',
+			pos: [-1200, 1200],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(3.5e6),
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(76);
+			},
+			show(): boolean {
+				return player.garden.igTimes.gt(0);
+			},
+			igNR: () => true,
+			connect: [[], [76]],
+			effectDescription(): string {
+				return getMessage('garden.upg.77.desc');
+			},
+		},
+		78: {
+			isG: !true,
+			key: 78,
+			name: 'INS4',
+			pos: [-1400, 1200],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(2e8),
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(77);
+			},
+			show(): boolean {
+				return player.garden.igTimes.gt(0);
+			},
+			igNR: () => true,
+			connect: [[], [77]],
+			effectDescription(): string {
+				return getMessage('garden.upg.78.desc');
+			},
+		},
+		79: {
+			isG: !true,
+			key: 79,
+			name: 'INS4',
+			pos: [-1600, 1200],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(7e11),
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(78);
+			},
+			show(): boolean {
+				return player.garden.igTimes.gt(0);
+			},
+			igNR: () => true,
+			connect: [[], [78]],
+			effectDescription(): string {
+				return getMessage('garden.upg.79.desc');
+			},
+		},
+		80: {
+			isG: !true,
+			key: 80,
+			name: 'INS5',
+			pos: [-1800, 1200],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(1e14),
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(79);
+			},
+			show(): boolean {
+				return player.garden.igTimes.gt(0);
+			},
+			igNR: () => true,
+			connect: [[], [79]],
+			effectDescription(): string {
+				return getMessage('garden.upg.80.desc');
+			},
+		},
 	} satisfies {
 		[key in any]: GardenUpgrade;
 	},
@@ -1956,6 +2071,21 @@ export const Garden = {
 		let exp = new Decimal(0.25);
 		if (Garden.boughtUpgrade(60)) {
 			exp = new Decimal(0.275);
+		}
+		if (Garden.boughtUpgrade(76)) {
+			exp = new Decimal(0.3);
+		}
+		if (Garden.boughtUpgrade(77)) {
+			exp = new Decimal(0.325);
+		}
+		if (Garden.boughtUpgrade(78)) {
+			exp = new Decimal(0.35);
+		}
+		if (Garden.boughtUpgrade(79)) {
+			exp = new Decimal(0.375);
+		}
+		if (Garden.boughtUpgrade(80)) {
+			exp = new Decimal(0.4);
 		}
 		const base = player.garden.totalIdea.div(1e6).pow(exp);
 		return base;
