@@ -39,6 +39,9 @@ const resetBuyables = [
 ] as const satisfies (keyof typeof player.buyables)[];
 export function PTreset(fromPT = false) {
 	const backup = deepCopy(player.nonrecu.theories);
+	if (fromPT && Garden.level().gte(10) && player.hydra.deduceOrdinal[0].gte(DC.D_4T6)) {
+		player.pt.power = player.pt.power.add(Analysis.ptPowerGain());
+	}
 	player.nonrecu = NON_RECURSIVE.playerData();
 	if (player.upgrades['7t7q']) {
 		player.nonrecu.theories = backup;
