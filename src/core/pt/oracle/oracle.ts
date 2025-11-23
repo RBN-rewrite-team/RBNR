@@ -40,7 +40,7 @@ export const Oracle = {
 	canGainBit(): boolean {
 		return Oracle.bitGainProgress() >= 1;
 	},
-	oracleLoop(diff) {
+	oracleLoop(diff: number) {
 		if(!Oracle.isUnlocked())
 		{
 			player.oracle.startDate = Date.now();
