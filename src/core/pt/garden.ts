@@ -2193,31 +2193,35 @@ export const Garden = {
 				Garden.insPowerGain().mul(localDiff),
 			);
 
-			if (Garden.boughtUpgrade(67) && Date.now() - player.garden.ATU1LastBought >= 30000) {
+			if (Garden.boughtUpgrade(67) && Date.now() - player.garden.ATU1LastBought >= 1000) {
 				for (let i = 0; i <= 22; i++) {
 					if (Garden.canBoughtUpgrade(i as IntClosedRange<0, 22>)) {
+						Garden.buyUpgrade(i as IntClosedRange<0, 22>);
 						Garden.buyUpgrade(i as IntClosedRange<0, 22>);
 					}
 				}
 				player.garden.ATU1LastBought = Date.now();
 			}
-			if (Garden.boughtUpgrade(68) && Date.now() - player.garden.ATB1LastBought >= 30000) {
+			if (Garden.boughtUpgrade(68) && Date.now() - player.garden.ATB1LastBought >= 1000) {
 				for (let i = 0; i <= 4; i++) {
+					Garden.buyGenerator(i as IntClosedRange<0, 4>);
 					Garden.buyGenerator(i as IntClosedRange<0, 4>);
 				}
 				player.garden.ATB1LastBought = Date.now();
 			}
 			//27 28 29 30 31 51 52 53 54 55
-			if (Garden.boughtUpgrade(69) && Date.now() - player.garden.ATU2LastBought >= 45000) {
+			if (Garden.boughtUpgrade(69) && Date.now() - player.garden.ATU2LastBought >= 3000) {
 				for (const i of [27, 28, 29, 30, 31, 51, 52, 53, 54, 55] as const) {
 					if (Garden.canBoughtUpgrade(i)) {
+						Garden.buyUpgrade(i);
 						Garden.buyUpgrade(i);
 					}
 				}
 				player.garden.ATU2LastBought = Date.now();
 			}
-			if (Garden.boughtUpgrade(70) && Date.now() - player.garden.ATB2LastBought >= 45000) {
+			if (Garden.boughtUpgrade(70) && Date.now() - player.garden.ATB2LastBought >= 3000) {
 				for (const i of [5, 6, 11, 12] as const) {
+					Garden.buyGenerator(i);
 					Garden.buyGenerator(i);
 				}
 				player.garden.ATB2LastBought = Date.now();
