@@ -1807,7 +1807,7 @@ export const Garden = {
 		}
 		return base;
 	},
-	generatorLocalspeed(key: keyof typeof GardenGenUpgs.generators) {
+	localspeedYield() {
 		let base = new Decimal(1);
 		for (const i in player.garden.upgrades) {
 			if (
@@ -1819,7 +1819,7 @@ export const Garden = {
 						.effect.mult,
 				);
 		}
-		return base;
+		return base.pow(13);
 	},
 	ideaYield() {
 		let base = new Decimal(0);
@@ -1835,15 +1835,6 @@ export const Garden = {
 		for (const i in player.garden.generators) {
 			base = base.add(
 				Garden.generatorEntropy(i as unknown as keyof typeof player.garden.generators),
-			);
-		}
-		return base;
-	},
-	localspeedYield() {
-		let base = new Decimal(1);
-		for (const i in player.garden.generators) {
-			base = base.mul(
-				Garden.generatorLocalspeed(i as unknown as keyof typeof player.garden.generators),
 			);
 		}
 		return base;
