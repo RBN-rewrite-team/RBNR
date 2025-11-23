@@ -3,10 +3,12 @@ import { Oracle } from '@/core/pt/oracle/oracle.ts';
 import { player } from '@/core/save/index.ts';
 import { defineComponent } from 'vue';
 import { format, formatWhole } from '@/utils/format.ts';
+import { useUpdate } from '@/lib/useUpdate.ts';
 
 export default defineComponent({
 	name: 'Oracle',
 	setup(props, ctx) {
+		const progress = useUpdate(()=>Oracle.bitGainProgress());
 		return () => (
 			<>
 				<div style={{textAlign: "center", margin: "auto"}}>
@@ -24,7 +26,7 @@ export default defineComponent({
 						>
 							<div
 								style={{
-									width: Oracle.bitGainProgress() * 100 + '%',
+									width: progress.value * 100 + '%',
 									height: '100%',
 									'background-color': 'red',
 								}}
