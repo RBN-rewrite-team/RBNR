@@ -1147,7 +1147,7 @@ export const GardenGenUpgs = {
 		45: {
 			isG: !true,
 			key: 45,
-			pos: [2200, 600],
+			pos: [2400, 600],
 			currency: GardenCurrencies.inspiration,
 			cost: new Decimal(5e13),
 			effect: {
@@ -1169,7 +1169,7 @@ export const GardenGenUpgs = {
 		46: {
 			isG: !true,
 			key: 46,
-			pos: [2400, 600],
+			pos: [2600, 600],
 			currency: GardenCurrencies.inspiration,
 			cost: new Decimal(3e14),
 			effect: {
@@ -1191,7 +1191,7 @@ export const GardenGenUpgs = {
 		47: {
 			isG: !true,
 			key: 47,
-			pos: [2400, 600],
+			pos: [2800, 600],
 			currency: GardenCurrencies.inspiration,
 			cost: new Decimal(5e15),
 			effect: {
