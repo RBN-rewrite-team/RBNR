@@ -30,6 +30,7 @@ import { PTEffects } from './pt/index.ts';
 import { Garden } from './pt/garden.ts';
 import { getMessage } from '@/utils/i18n.ts';
 import { numberGrow } from './psd-number-grow.ts';
+import { Oracle } from './pt/oracle/oracle.ts';
 
 /**
  * 游戏循环经过了多少时间
@@ -441,6 +442,8 @@ export function simulate(diff: number) {
 	}
 
 	Garden.gardenLoop(realtime_diff / 1000);
+	
+	Oracle.oracleLoop(realtime_diff / 1000);
 
 	Logarithm.astronomerUpdate();
 	updateHighestStat();

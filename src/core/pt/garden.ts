@@ -1697,8 +1697,8 @@ export const GardenGenUpgs = {
 			currency: GardenCurrencies.inspiration,
 			cost: new Decimal(1e9),
 			effect: {
-				key: -2,
-				mult: new Decimal(3),
+				key: -999,
+				mult: new Decimal(1),
 			},
 			unlocked(): boolean {
 				return Garden.boughtUpgrade(33);
@@ -1708,6 +1708,9 @@ export const GardenGenUpgs = {
 			},
 			igNR: () => true,
 			connect: [[], [33]],
+			effectDescription(): string {
+				return getMessage('garden.upg.71.desc');
+			},
 		},
 		72: {
 			isG: !true,
@@ -1790,7 +1793,7 @@ export const GardenGenUpgs = {
 				return Garden.boughtUpgrade(60);
 			},
 			show(): boolean {
-				return player.garden.igTimes.gt(0);
+				return Garden.boughtUpgrade(60);
 			},
 			igNR: () => true,
 			connect: [[], [60]],
@@ -1813,7 +1816,7 @@ export const GardenGenUpgs = {
 				return Garden.boughtUpgrade(76);
 			},
 			show(): boolean {
-				return player.garden.igTimes.gt(0);
+				return Garden.boughtUpgrade(76);
 			},
 			igNR: () => true,
 			connect: [[], [76]],
@@ -1836,7 +1839,7 @@ export const GardenGenUpgs = {
 				return Garden.boughtUpgrade(77);
 			},
 			show(): boolean {
-				return player.garden.igTimes.gt(0);
+				return Garden.boughtUpgrade(77);
 			},
 			igNR: () => true,
 			connect: [[], [77]],
@@ -1859,7 +1862,7 @@ export const GardenGenUpgs = {
 				return Garden.boughtUpgrade(78);
 			},
 			show(): boolean {
-				return player.garden.igTimes.gt(0);
+				return Garden.boughtUpgrade(78);
 			},
 			igNR: () => true,
 			connect: [[], [78]],
@@ -1882,7 +1885,7 @@ export const GardenGenUpgs = {
 				return Garden.boughtUpgrade(79);
 			},
 			show(): boolean {
-				return player.garden.igTimes.gt(0);
+				return Garden.boughtUpgrade(79);
 			},
 			igNR: () => true,
 			connect: [[], [79]],
@@ -2001,13 +2004,13 @@ export const Garden = {
 				GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades].effect
 					.key == -2
 			)
-				base = base.div(
+				base = base.mul(
 					GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades]
 						.effect.mult,
 				);
 		}
 		if (Garden.boughtUpgrade(71)) {
-			base = base.div(player.garden.totalIdea.add(1).clampMin(1).log10().add(1));
+			base = base.mul(player.garden.totalIdea.add(1).clampMin(1).log10().add(1));
 		}
 		return base;
 	},
@@ -2169,7 +2172,7 @@ export const Garden = {
 	},
 	entropyGainLDebuff(): Decimal {
 		let base = new Decimal(1);
-		if (Garden.boughtUpgrade(56)) base = base.mul(0.8);
+		if (Garden.boughtUpgrade(56)) base = base.mul(1.025);
 		return base;
 	},
 	gardenLoop(diff: number) {

@@ -18,6 +18,7 @@ import { Hydra } from '../hydra/hydra.ts';
 import { POST_NONREC } from '../post-nonrec/index.ts';
 import { Analysis } from '../pt/index.ts';
 import { Garden } from '../pt/garden.ts';
+import { Oracle } from '../pt/oracle/oracle.ts';
 import ModalService from '@/utils/Modal.ts';
 import type { messages } from '@/utils/i18n.ts';
 
@@ -171,6 +172,7 @@ export interface Player {
 	postnonrec: ReturnType<typeof POST_NONREC.playerData>;
 	pt: ReturnType<typeof Analysis.playerData>;
 	garden: ReturnType<typeof Garden.playerData>;
+	oracle: ReturnType<typeof Oracle.playerData>;
 }
 
 function getInitialPlayerData(): Player {
@@ -318,6 +320,7 @@ function getInitialPlayerData(): Player {
 		postnonrec: POST_NONREC.playerData(),
 		pt: Analysis.playerData(),
 		garden: Garden.playerData(),
+		oracle: Oracle.playerData(),
 	};
 }
 

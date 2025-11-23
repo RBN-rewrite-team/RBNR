@@ -10,14 +10,52 @@ import { getMessage, i18n } from '@/utils/i18n';
 import type { $t } from '@/utils/types';
 import { Garden } from '../garden.ts';
 
+function nextDayDate(date: Date): Date {
+  const nextDay = new Date(date.getTime());
+  nextDay.setHours(0, 0, 0, 0);
+  nextDay.setDate(nextDay.getDate() + 1);
+  return nextDay;
+}
+
 export const Oracle = {
 	isUnlocked(): boolean {
 		return Garden.level().gte(10);
 	},
+	nowBitsHave(): Decimal {
+		return player.oracle.totalBits.sub(player.oracle.spendBits);
+	},
+	nextBitCD(): Decimal {
+		let baseTime = new Decimal(30000);
+		let scale = new Decimal(2);
+		return baseTime.mul(scale.pow(player.oracle.totalBits));
+	},
+	bitGainProgress(): number {
+		let diff = Oracle.bitGainSpeedMult().mul(Date.now() - player.oracle.startDate);
+		return diff.div(Oracle.nextBitCD()).toNumber();
+	},
+	bitGainSpeedMult(): Decimal {
+		let base = new Decimal(1);
+		return base;
+	},
+	canGainBit(): boolean {
+		return Oracle.bitGainProgress() >= 1;
+	},
+	oracleLoop(diff) {
+		if(!Oracle.isUnlocked())
+		{
+			player.oracle.startDate = Date.now();
+			return;
+		}
+		if(Oracle.canGainBit())
+		{
+			player.oracle.totalBits = player.oracle.totalBits.add(1);
+			player.oracle.startDate = Date.now();
+		}
+	},
 	playerData() {
 		return {
-			bits: new Decimal(0),
-			loop: new Decimal(0),
+			totalBits: new Decimal(0),
+			spendBits: new Decimal(0),
 			startDate: 0,
 		};
 	},
