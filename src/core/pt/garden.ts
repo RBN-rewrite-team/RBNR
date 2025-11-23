@@ -1939,9 +1939,9 @@ export const Garden = {
 			.mul(player.garden.bestInspiration.pow(2))
 			.mul(player.garden.trueBestEntropy.pow(2));
 		let q = base.max(1).max(player.garden.bestExp);
-		if (q.gte('1e81')) {
-			q = q.div('1e81').pow(0.5).mul('1e81');
-		}
+		// if (q.gte('1e81')) {
+		// 	q = q.div('1e81').pow(0.5).mul('1e81');
+		// }
 		return q;
 	},
 	level(): Decimal {
