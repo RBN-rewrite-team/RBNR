@@ -40,6 +40,10 @@ export const Oracle = {
 	canGainBit(): boolean {
 		return Oracle.bitGainProgress() >= 1;
 	},
+	fateCost(id: number): Decimal {
+		if(player.oracle.fateBought[id] < 3) return new Decimal(1);
+		else return new Decimal(3).pow(player.oracle.fateBought[id] - 3);
+	},
 	oracleLoop(diff: number) {
 		if(!Oracle.isUnlocked())
 		{
@@ -56,6 +60,8 @@ export const Oracle = {
 			totalBits: new Decimal(0),
 			spendBits: new Decimal(0),
 			startDate: 0,
+			fate: [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]],
+			fateBought: [0, 0, 0, 0, 0],
 		};
 	},
 } as const;
