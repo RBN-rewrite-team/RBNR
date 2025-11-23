@@ -1989,7 +1989,7 @@ export const Garden = {
 				player.garden.ATB1LastBought = Date.now();
 			}
 			//27 28 29 30 31 51 52 53 54 55
-			if (Garden.boughtUpgrade(69) && Date.now() - player.garden.ATU2LastBought >= 56000) {
+			if (Garden.boughtUpgrade(69) && Date.now() - player.garden.ATU2LastBought >= 45000) {
 				for (const i of [27, 28, 29, 30, 31, 51, 52, 53, 54, 55] as const) {
 					if (Garden.canBoughtUpgrade(i)) {
 						Garden.buyUpgrade(i);
