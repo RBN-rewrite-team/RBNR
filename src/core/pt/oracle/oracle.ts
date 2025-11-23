@@ -11,10 +11,10 @@ import type { $t } from '@/utils/types';
 import { Garden } from '../garden.ts';
 
 function nextDayDate(date: Date): Date {
-  const nextDay = new Date(date.getTime());
-  nextDay.setHours(0, 0, 0, 0);
-  nextDay.setDate(nextDay.getDate() + 1);
-  return nextDay;
+	const nextDay = new Date(date.getTime());
+	nextDay.setHours(0, 0, 0, 0);
+	nextDay.setDate(nextDay.getDate() + 1);
+	return nextDay;
 }
 
 export const Oracle = {
@@ -46,8 +46,7 @@ export const Oracle = {
 			player.oracle.startDate = Date.now();
 			return;
 		}
-		if(Oracle.canGainBit())
-		{
+		if (Oracle.canGainBit()) {
 			player.oracle.totalBits = player.oracle.totalBits.add(1);
 			player.oracle.startDate = Date.now();
 		}
