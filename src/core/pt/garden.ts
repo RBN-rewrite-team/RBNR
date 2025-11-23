@@ -2197,7 +2197,6 @@ export const Garden = {
 				for (let i = 0; i <= 22; i++) {
 					if (Garden.canBoughtUpgrade(i as IntClosedRange<0, 22>)) {
 						Garden.buyUpgrade(i as IntClosedRange<0, 22>);
-						Garden.buyUpgrade(i as IntClosedRange<0, 22>);
 					}
 				}
 				player.garden.ATU1LastBought = Date.now();
@@ -2211,9 +2210,8 @@ export const Garden = {
 			}
 			//27 28 29 30 31 51 52 53 54 55
 			if (Garden.boughtUpgrade(69) && Date.now() - player.garden.ATU2LastBought >= 3000) {
-				for (const i of [27, 28, 29, 30, 31, 51, 52, 53, 54, 55] as const) {
+				for (const i of [27, 28, 29, 30, 31, 51, 52, 53, 54, 55, 72, 73, 74, 75] as const) {
 					if (Garden.canBoughtUpgrade(i)) {
-						Garden.buyUpgrade(i);
 						Garden.buyUpgrade(i);
 					}
 				}
