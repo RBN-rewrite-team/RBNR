@@ -1984,4 +1984,8 @@ export default {
 		return `以45秒的间隔，自动购买远古发电机。上次购买过了${(Math.abs(Date.now() - player.garden.ATB2LastBought) / 1000).toFixed(3)} s`;
 	},
 	'garden.upg.71': 'EP1',
+	'garden.upg.72': '细胞核',
+	'garden.upg.73': '呼吸作用',
+	'garden.upg.74': '真菌',
+	'garden.upg.75': '突触',
 };

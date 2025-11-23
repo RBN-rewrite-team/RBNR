@@ -1709,6 +1709,72 @@ export const GardenGenUpgs = {
 			igNR: () => true,
 			connect: [[], [33]],
 		},
+		72: {
+			isG: !true,
+			key: 72,
+			pos: [150, -2850],
+			currency: GardenCurrencies.idea,
+			cost: new Decimal(5e31),
+			effect: {
+				key: 12,
+				mult: new Decimal(10),
+			},
+			unlocked(): boolean {
+				return Garden.boughtGeneratorReach(12, new Decimal(100));
+			},
+			connect: [[12], []],
+		},
+		73: {
+			isG: !true,
+			key: 73,
+			pos: [250, -2850],
+			currency: GardenCurrencies.idea,
+			cost: new Decimal(5e32),
+			effect: {
+				key: 12,
+				mult: new Decimal(5),
+			},
+			unlocked(): boolean {
+				return (
+					Garden.boughtGeneratorReach(12, new Decimal(250)) && Garden.boughtUpgrade(72)
+				);
+			},
+			connect: [[], [72]],
+		},
+		74: {
+			isG: !true,
+			key: 74,
+			pos: [350, -2950],
+			currency: GardenCurrencies.idea,
+			cost: new Decimal(5e33),
+			effect: {
+				key: 12,
+				mult: new Decimal(10),
+			},
+			unlocked(): boolean {
+				return (
+					Garden.boughtGeneratorReach(12, new Decimal(290)) && Garden.boughtUpgrade(73)
+				);
+			},
+			connect: [[], [73]],
+		},
+		75: {
+			isG: !true,
+			key: 75,
+			pos: [450, -2850],
+			currency: GardenCurrencies.idea,
+			cost: new Decimal(5e34),
+			effect: {
+				key: 12,
+				mult: new Decimal(20),
+			},
+			unlocked(): boolean {
+				return (
+					Garden.boughtGeneratorReach(12, new Decimal(320)) && Garden.boughtUpgrade(74)
+				);
+			},
+			connect: [[], [74]],
+		},
 	} satisfies {
 		[key in any]: GardenUpgrade;
 	},
