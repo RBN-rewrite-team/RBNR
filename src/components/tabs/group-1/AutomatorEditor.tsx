@@ -6,6 +6,7 @@ import PrimaryButton from '@/components/ui/PrimaryButton';
 import { runAutomator } from '@/core/automator';
 import { Compartment } from '@codemirror/state';
 import { useI18n } from 'vue-i18n';
+import { setInterrupt } from '@/core/automator/evaluator';
 // 为主题创建一个配置隔间
 const themeCompartment = new Compartment();
 
@@ -121,6 +122,7 @@ export default defineComponent({
 			AutomatorTextUI.div = a.value;
 			AutomatorTextUI.initialize();
 		});
+		const interrupt = () => setInterrupt(true);
 		const $t = useI18n().t;
 		return () => (
 			<>
@@ -173,6 +175,7 @@ import music;
 call music.freq(440, 1/2, 1/10);`}
 					</pre>
 					<PrimaryButton onClick={runAutomator}>Run automator</PrimaryButton>
+					<PrimaryButton onClick={interrupt}>Interrupt</PrimaryButton>
 				</div>
 			</>
 		);
