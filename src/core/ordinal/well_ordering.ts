@@ -364,7 +364,9 @@ const ProcceedingCost = [
 	new Decimal(1 / 0),
 ];
 export function stepProceed(x: number) {
+	console.log(x);
 	if (!nt.p.steps_proceeded.includes(x)) {
+		console.log(x);
 		if (nt.p.energy.gte(unwrapDecimalValue(ProcceedingCost[x] ?? new Decimal(1 / 0)))) {
 			nt.p.energy = nt.p.energy.sub(unwrapDecimalValue(ProcceedingCost[x]));
 			nt.p.steps_proceeded.push(x);

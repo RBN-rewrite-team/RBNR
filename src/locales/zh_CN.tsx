@@ -1720,7 +1720,7 @@ export default {
 	'nt.wellorderness.process.12': '证明引理4，消耗1.000e695推演能量',
 	'nt.wellorderness.effect.6': '引理4效果:BMS推演速度双指数^1.2',
 	'nt.wellorderness.process.13': '解锁引理5，消耗1.000e700推演能量',
-	'nt.wellorderness.process.14': '证明引理4，消耗1.000e695推演能量',
+	'nt.wellorderness.process.14': '证明引理5，消耗1.000e1125推演能量',
 	'nt.wellorderness.effect.7': '引理5效果:推演能量获取速度^1.5。',
 
 	'nt.wellorderness.process.15': '定义引理1，消耗1.000e2435推演能量',
@@ -1988,4 +1988,14 @@ export default {
 	'garden.upg.73': '呼吸作用',
 	'garden.upg.74': '真菌',
 	'garden.upg.75': '突触',
+	'garden.upg.76': 'INS2',
+	'garden.upg.76.desc': '灵感获取指数提升到0.3。',
+	'garden.upg.77': 'INS3',
+	'garden.upg.77.desc': '灵感获取指数提升到0.325。',
+	'garden.upg.78': 'INS4',
+	'garden.upg.78.desc': '灵感获取指数提升到0.35。',
+	'garden.upg.79': 'INS5',
+	'garden.upg.79.desc': '灵感获取指数提升到0.375。',
+	'garden.upg.80': 'INS6',
+	'garden.upg.80.desc': '灵感获取指数提升到0.4。',
 };
