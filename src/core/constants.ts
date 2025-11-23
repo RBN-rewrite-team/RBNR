@@ -73,6 +73,7 @@ export const DC = Object.freeze({
 	D_4P4P64: new Decimal('ee38.31147921299925'),
 	D_4P4P128: new Decimal('ee76.84331865798885'),
 	D_4P4P256: new Decimal('ee153.90699754796802'),
+	D_4T6: new Decimal('eeee153.90699754796802'),
 	D_EE18: new Decimal('ee18'),
 	D_EE3500: new Decimal('ee3500'),
 	D_INFINITY: new Decimal(1 / 0),

@@ -427,8 +427,6 @@ function simulateText(canvasRef: any, $t: $t) {
 export default defineComponent({
 	name: 'Garden',
 	setup(props, ctx) {
-		if (!player.options.gammaTest) return () => <></>;
-
 		const canvasRef = ref<HTMLDivElement | null>(null);
 		const $t = useI18n().t;
 		return () => (

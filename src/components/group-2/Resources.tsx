@@ -13,6 +13,7 @@ import { temp } from '@/core/temp-data';
 import PreRetributionRes from '../resources/PreRetributionRes';
 import { getCurrentOrdinal } from '@/utils/y-seq';
 import { Garden } from '@/core/pt/garden';
+import { PTO } from '@/core/post-nonrec/pto';
 
 export default defineComponent({
 	name: 'Resources',
@@ -63,6 +64,18 @@ export default defineComponent({
 										</>
 									)}
 									{nonrecRes()}
+									{Garden.level().gte(10) && (
+										<Resource
+											reskey="res.ptpower"
+											resdisplay={format(player.pt.power)}
+											posleft="1000"
+											rescolor="#00ffff"
+											rescolor2="#00ffff"
+											growingdisplay={() => {
+												return <>(+{format(PTO.ptPowerGain())})</>;
+											}}
+										/>
+									)}
 								</>
 							) : (
 								<>

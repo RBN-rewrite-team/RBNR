@@ -43,6 +43,7 @@ import Garden from '@/components/tabs/garden/Garden.tsx';
 import DungeonTable from './tabs/minigame/DungeonTable.vue';
 import SkillTree from './tabs/minigame/SkillTree.vue';
 import EquipCore from './tabs/minigame/EquipCore.vue';
+import Oracle from './tabs/oracle/Oracle.tsx';
 
 const tabComponents: {
 	[key: string]: Component | (() => Component);
@@ -79,6 +80,7 @@ const tabComponents: {
 	29: Analysis,
 	30: AnalysisMilestones,
 	31: Garden,
+	32: Oracle,
 	200: PlotTab,
 	300: SaveBank,
 	500: DeveloperMode,

@@ -1,5 +1,7 @@
 import { RETRIBUTION } from '@/core/post-nonrec/retribution';
+import { Oracle } from '@/core/pt/oracle/oracle';
 import { player } from '@/core/save';
+import { isDeveloper } from '@/core/save/testing';
 
 export type SubTabBase = {
 	text: string;
@@ -241,6 +243,13 @@ export const menus = [
 				text: 'tab.garden',
 				show() {
 					return player.milestones.pt_6;
+				},
+			},
+			{
+				id: 32,
+				text: 'tab.oracle',
+				show() {
+					return Oracle.isUnlocked() && isDeveloper();
 				},
 			},
 		],
