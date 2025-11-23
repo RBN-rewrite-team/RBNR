@@ -1689,6 +1689,26 @@ export const GardenGenUpgs = {
 				return getMessage('garden.upg.70.desc');
 			},
 		},
+		71: {
+			isG: !true,
+			key: 71,
+			name: 'EP1',
+			pos: [600, 1000],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(1e9),
+			effect: {
+				key: -2,
+				mult: new Decimal(3),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(33);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(33);
+			},
+			igNR: () => true,
+			connect: [[], [33]],
+		},
 	} satisfies {
 		[key in any]: GardenUpgrade;
 	},
@@ -1804,6 +1824,9 @@ export const Garden = {
 					GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades]
 						.effect.mult,
 				);
+		}
+		if (Garden.boughtUpgrade(71)) {
+			base = base.div(player.garden.totalIdea.add(1).clampMin(1).log10().add(1));
 		}
 		return base;
 	},
@@ -1996,6 +2019,12 @@ export const Garden = {
 					}
 				}
 				player.garden.ATU2LastBought = Date.now();
+			}
+			if (Garden.boughtUpgrade(70) && Date.now() - player.garden.ATU2LastBought >= 45000) {
+				for (const i of [5, 6, 11, 12] as const) {
+					Garden.buyGenerator(i);
+				}
+				player.garden.ATB2LastBought = Date.now();
 			}
 		}
 	},

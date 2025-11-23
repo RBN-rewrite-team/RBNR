@@ -1983,4 +1983,5 @@ export default {
 	'garden.upg.70.desc': function () {
 		return `以45秒的间隔，自动购买远古发电机。上次购买过了${(Math.abs(Date.now() - player.garden.ATB2LastBought) / 1000).toFixed(3)} s`;
 	},
+	'garden.upg.71': 'EP1',
 };
