@@ -1620,6 +1620,95 @@ export const GardenGenUpgs = {
 				return getMessage('garden.upg.67.desc');
 			},
 		},
+		68: {
+			isG: !true,
+			key: 68,
+			name: 'ATB1',
+			pos: [100, 800],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(4000),
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(23);
+			},
+			show(): boolean {
+				return player.garden.igTimes.gt(0);
+			},
+			connect: [[], [23]],
+			igNR: () => true,
+			effectDescription(): string {
+				return getMessage('garden.upg.68.desc');
+			},
+		},
+		69: {
+			isG: !true,
+			key: 69,
+			name: 'ATU2',
+			pos: [-250, 1000],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(1e7),
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(67);
+			},
+			show(): boolean {
+				return player.garden.igTimes.gt(0);
+			},
+			connect: [[], [67]],
+			igNR: () => true,
+			effectDescription(): string {
+				return getMessage('garden.upg.69.desc');
+			},
+		},
+		70: {
+			isG: !true,
+			key: 70,
+			name: 'ATB2',
+			pos: [150, 1000],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(2e7),
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(68);
+			},
+			show(): boolean {
+				return player.garden.igTimes.gt(0);
+			},
+			connect: [[], [68]],
+			igNR: () => true,
+			effectDescription(): string {
+				return getMessage('garden.upg.70.desc');
+			},
+		},
+		71: {
+			isG: !true,
+			key: 71,
+			name: 'EP1',
+			pos: [600, 1000],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(1e9),
+			effect: {
+				key: -2,
+				mult: new Decimal(3),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(33);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(33);
+			},
+			igNR: () => true,
+			connect: [[], [33]],
+		},
 	} satisfies {
 		[key in any]: GardenUpgrade;
 	},
@@ -1678,7 +1767,10 @@ export const Garden = {
 		}
 	},
 	buyGenerator(key: keyof typeof GardenGenUpgs.generators) {
-		if (GardenGenUpgs.generators[key].currency.value().gte(Garden.generatorCost(key))) {
+		if (
+			GardenGenUpgs.generators[key].unlocked() &&
+			GardenGenUpgs.generators[key].currency.value().gte(Garden.generatorCost(key))
+		) {
 			GardenGenUpgs.generators[key].currency.write(
 				GardenGenUpgs.generators[key].currency.value().sub(Garden.generatorCost(key)),
 			);
@@ -1733,9 +1825,12 @@ export const Garden = {
 						.effect.mult,
 				);
 		}
+		if (Garden.boughtUpgrade(71)) {
+			base = base.div(player.garden.totalIdea.add(1).clampMin(1).log10().add(1));
+		}
 		return base;
 	},
-	generatorLocalspeed(key: keyof typeof GardenGenUpgs.generators) {
+	localspeedYield() {
 		let base = new Decimal(1);
 		for (const i in player.garden.upgrades) {
 			if (
@@ -1747,7 +1842,7 @@ export const Garden = {
 						.effect.mult,
 				);
 		}
-		return base;
+		return base.pow(13);
 	},
 	ideaYield() {
 		let base = new Decimal(0);
@@ -1763,15 +1858,6 @@ export const Garden = {
 		for (const i in player.garden.generators) {
 			base = base.add(
 				Garden.generatorEntropy(i as unknown as keyof typeof player.garden.generators),
-			);
-		}
-		return base;
-	},
-	localspeedYield() {
-		let base = new Decimal(1);
-		for (const i in player.garden.generators) {
-			base = base.mul(
-				Garden.generatorLocalspeed(i as unknown as keyof typeof player.garden.generators),
 			);
 		}
 		return base;
@@ -1873,7 +1959,7 @@ export const Garden = {
 					.sub(thisLevelLog)
 					.div(nextLevelLog.sub(thisLevelLog))
 					.toNumber() * 100
-			).toFixed(4) + '%'
+			).toFixed(5) + '%'
 		);
 	},
 	localSpeed(): Decimal {
@@ -1919,6 +2005,27 @@ export const Garden = {
 				}
 				player.garden.ATU1LastBought = Date.now();
 			}
+			if (Garden.boughtUpgrade(68) && Date.now() - player.garden.ATB1LastBought >= 30000) {
+				for (let i = 0; i <= 4; i++) {
+					Garden.buyGenerator(i as IntClosedRange<0, 4>);
+				}
+				player.garden.ATB1LastBought = Date.now();
+			}
+			//27 28 29 30 31 51 52 53 54 55
+			if (Garden.boughtUpgrade(69) && Date.now() - player.garden.ATU2LastBought >= 45000) {
+				for (const i of [27, 28, 29, 30, 31, 51, 52, 53, 54, 55] as const) {
+					if (Garden.canBoughtUpgrade(i)) {
+						Garden.buyUpgrade(i);
+					}
+				}
+				player.garden.ATU2LastBought = Date.now();
+			}
+			if (Garden.boughtUpgrade(70) && Date.now() - player.garden.ATU2LastBought >= 45000) {
+				for (const i of [5, 6, 11, 12] as const) {
+					Garden.buyGenerator(i);
+				}
+				player.garden.ATB2LastBought = Date.now();
+			}
 		}
 	},
 	playerData() {
@@ -1945,6 +2052,9 @@ export const Garden = {
 			trueBestEntropy: new Decimal(0),
 			trueBestIdea: new Decimal(0),
 			ATU1LastBought: Date.now(),
+			ATB1LastBought: Date.now(),
+			ATU2LastBought: Date.now(),
+			ATB2LastBought: Date.now(),
 		};
 		for (const i in GardenGenUpgs.generators) {
 			base.generators[<keyof typeof GardenGenUpgs.generators>(<unknown>i)] = new Decimal(0);
