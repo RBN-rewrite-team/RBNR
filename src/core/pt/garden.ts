@@ -2020,7 +2020,7 @@ export const Garden = {
 				}
 				player.garden.ATU2LastBought = Date.now();
 			}
-			if (Garden.boughtUpgrade(70) && Date.now() - player.garden.ATU2LastBought >= 45000) {
+			if (Garden.boughtUpgrade(70) && Date.now() - player.garden.ATB2LastBought >= 45000) {
 				for (const i of [5, 6, 11, 12] as const) {
 					Garden.buyGenerator(i);
 				}
