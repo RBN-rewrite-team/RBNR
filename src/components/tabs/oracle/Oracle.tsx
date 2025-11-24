@@ -44,8 +44,12 @@ export default defineComponent({
 									width: progress.value * 100 + '%',
 									height: '100%',
 									'background-color': 'red',
+									'color': "var(--color)",
+									display: "flex",
+									alignItems: "center",
+									justifyContent: "center",
 								}}
-							></div>
+							>{(progress.value*100).toFixed(3)+"%"}</div>
 						</div>
 					</div>
 					<br />
