@@ -54,7 +54,11 @@ export default defineComponent({
 						<br />
 						使用神谕比特购买天命，相邻的同一命运会互相增强，相邻的不同命运会互相排斥。
 						<br />
-						<table align="center"><tbody><tr>
+						<table style={{
+    marginInlineStart: "0" ,
+    marginInlineEnd: "0",
+    margin: "auto"
+                        }}><tbody><tr>
 						<td><table>
 							<tbody>
 								<tr style='height: 100px'>
