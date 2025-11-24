@@ -17,7 +17,13 @@ export default defineComponent({
 				let f = [<></>, <></>, <></>, <></>, <></>]
 				for(let j = 0;j < 5;j++)
 				{
-					f[j] = <><td style="width: 100px"><div style={{width: '90px', height: '90px', border: '1px solid orange', 'background-color': 'rgb(63, 31, 0)', 'border-radius': '4px'}}></div></td></>
+					f[j] = <>
+						<td style="width: 100px">
+						<div style={{width: '90px', height: '90px', border: '1px solid orange', 'background-color': 'rgb(63, 31, 0)', 'border-radius': '4px'}}>
+
+						</div>
+					</td>
+					</>
 				}
 				r[i] = <><tr style='height: 100px'>{f[0]}{f[1]}{f[2]}{f[3]}{f[4]}</tr></>;
 			}

@@ -44,6 +44,14 @@ export const Oracle = {
 		if(player.oracle.fateBought[id] < 3) return new Decimal(1);
 		else return new Decimal(3).pow(player.oracle.fateBought[id] - 3);
 	},
+	buyFate(id: number, column: number) {
+		const cost = Oracle.fateCost(id);
+		if (cost.lte(Oracle.nowBitsHave())) {
+			player.oracle.spendBits = player.oracle.spendBits.add(cost);
+			player.oracle.fateBought[id]++
+			player.oracle.fate[id][column]++;
+		}
+	},
 	oracleLoop(diff: number) {
 		if(!Oracle.isUnlocked())
 		{
