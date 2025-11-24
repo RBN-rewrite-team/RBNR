@@ -169,7 +169,7 @@ export function format(decimal: DecimalSource, precision = 4): string {
 	if (decimal.sign < 0) return '-' + format(decimal.neg(), precision);
 	if (decimal.isNan()) return 'NaN';
 	if (decimal.gte(Decimal.dLayerMax)) return 'ω';
-	if (decimal.gte('eeee1000')) {
+	if (decimal.gte('eeee9')) {
 		const slog = decimal.slog();
 		if (slog.gte(1e6)) return 'F' + format(slog.floor());
 		else
