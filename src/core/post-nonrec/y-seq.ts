@@ -161,7 +161,17 @@ export const Y_SEQ = {
 				base.slog(10).sub(4.305916097091442).div(2).add(4.305916097091442).toNumber(),
 			);
 		}
-		return base;
+
+		if (base.gte("eeeee10")) {
+			base = Decimal.tetrate(10, base.slog(10).sub(6).div(4).add(6).toNumber());
+		}
+		if (base.gte("10^^15")) {
+			base = Decimal.tetrate(10, base.slog(14).pow(0.25).add(14).toNumber());
+		}
+		if (base.gte("10^^1000")) {
+			base = Decimal.tetrate(10, base.div(100).log10().pow(0.25).mul(100).toNumber());
+		}
+		return base.clampMax("f1.79e308");
 	},
 	reset() {
 		if (this.resetGain().lt(1)) return;

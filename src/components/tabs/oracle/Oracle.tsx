@@ -12,27 +12,57 @@ export default defineComponent({
 		const progress = useUpdate(()=>Oracle.bitGainProgress());
 		const s = useUpdate(() => {
 			let r = [<></>, <></>, <></>, <></>, <></>];
-			for(let i = 0;i < 5;i++)
-			{
-				let f = [<></>, <></>, <></>, <></>, <></>]
-				for(let j = 0;j < 5;j++)
-				{
-					f[j] = <>
-						<td style="width: 100px">
-						<div style={{width: '90px', height: '90px', border: '1px solid orange', 'background-color': 'rgb(63, 31, 0)', 'border-radius': '4px'}}>
+			for (let i = 0; i < 5; i++) {
+				let f = [<></>, <></>, <></>, <></>, <></>];
+				for (let j = 0; j < 5; j++) {
+					f[j] = (
+						<>
+							<td style="width: 100px" >
+								{player.oracle.fate[i][j] ? (
+									<div
+										class="fate-bought"
+									>买了</div>
 
-						</div>
-					</td>
-					</>
+								) : (
+									<div
+										onClick={()=>Oracle.buyFate(i, j)}
+										class="fate-buy"
+									></div>
+								)}
+							</td>
+						</>
+					);
 				}
-				r[i] = <><tr style='height: 100px'>{f[0]}{f[1]}{f[2]}{f[3]}{f[4]}</tr></>;
+				r[i] = (
+					<>
+						<tr style="height: 100px">
+							{f[0]}
+							{f[1]}
+							{f[2]}
+							{f[3]}
+							{f[4]}
+						</tr>
+					</>
+				);
 			}
-			let s = <><table><tbody>{r[0]}{r[1]}{r[2]}{r[3]}{r[4]}</tbody></table></>;
+			let s = (
+				<>
+					<table>
+						<tbody>
+							{r[0]}
+							{r[1]}
+							{r[2]}
+							{r[3]}
+							{r[4]}
+						</tbody>
+					</table>
+				</>
+			);
 			return s;
 		});
 		return () => (
 			<>
-				<div style={{textAlign: "center", margin: "auto"}}>
+				<div style={{textAlign: "center", margin: "auto"}} class="oracle">
 					<br />
 					<div style="width: calc(100% - 80px); height: 200px; padding: 5px; border: 1px solid red; color: red; margin: auto;">
 						<h2>神谕进程</h2>
@@ -59,7 +89,7 @@ export default defineComponent({
 						</div>
 					</div>
 					<br />
-					<div style="width: calc(100% - 80px); height: 600px; padding: 5px; border: 1px solid rgb(127, 63, 0); color: rgb(127, 63, 0); margin: auto; overflow: auto">
+					<div style="width: calc(100% - 80px); height: 700px; padding: 5px; border: 1px solid rgb(127, 63, 0); color: rgb(127, 63, 0); margin: auto; overflow: auto">
 						<h2>天命</h2>
 						<br />
 						使用神谕比特购买天命，相邻的同一命运会互相增强，相邻的不同命运会互相排斥。
@@ -104,6 +134,8 @@ export default defineComponent({
 							</tbody>
 						</table></td>
 						<td>{s.value}</td></tr></tbody></table>
+						Debuff: {player.oracle.debuffRemains}s(Test).
+						<button class="clickable_button" onClick={()=>Oracle.respec()}>Respec</button>
 					</div>
 				</div>
 			</>

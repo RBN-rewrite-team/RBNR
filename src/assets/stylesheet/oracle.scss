@@ -1,0 +1,16 @@
+.oracle {
+
+}
+.oracle .fate-buy,
+.oracle .fate-bought{
+  width: 90px;
+  height: 90px;
+  border: 1px solid orange;
+  background-color: rgb(63, 31, 0);
+  color: var(--color);
+  border-radius: 4px;
+  &:hover{
+    background-color: rgb(108, 57, 0);
+
+  }
+}

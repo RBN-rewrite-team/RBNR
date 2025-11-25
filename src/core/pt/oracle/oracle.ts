@@ -62,6 +62,7 @@ export const Oracle = {
 			player.oracle.totalBits = player.oracle.totalBits.add(1);
 			player.oracle.startDate = Date.now();
 		}
+		player.oracle.debuffRemains = Math.max(0, player.oracle.debuffRemains - diff)
 	},
 	playerData() {
 		return {
@@ -70,6 +71,18 @@ export const Oracle = {
 			startDate: 0,
 			fate: [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]],
 			fateBought: [0, 0, 0, 0, 0],
+			debuffRemains: 0,
 		};
 	},
+	respec() {
+		// check fates
+
+		const hasFate = player.oracle.fate.filter((x)=>x.filter((y)=>y>=1).length>=1).length>=1;
+		if (!hasFate) return;
+
+		player.oracle.debuffRemains+=60;
+		player.oracle.fate = player.oracle.fate.map((x)=>x.map(()=>0));
+		player.oracle.fateBought = player.oracle.fate.map(()=>0);
+		player.oracle.spendBits = new Decimal(0);
+	}
 } as const;
