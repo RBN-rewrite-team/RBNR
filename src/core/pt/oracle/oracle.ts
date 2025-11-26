@@ -45,11 +45,11 @@ export const Oracle = {
 		else return new Decimal(3).pow(player.oracle.fateBought[id] - 3);
 	},
 	buyFate(id: number, column: number) {
-		const cost = Oracle.fateCost(id);
+		const cost = Oracle.fateCost(player.oracle.fateChoose-1);
 		if (cost.lte(Oracle.nowBitsHave())) {
 			player.oracle.spendBits = player.oracle.spendBits.add(cost);
-			player.oracle.fateBought[id]++
-			player.oracle.fate[id][column]++;
+			player.oracle.fateBought[player.oracle.fateChoose-1]++
+			player.oracle.fate[id][column] = player.oracle.fateChoose;
 		}
 	},
 	oracleLoop(diff: number) {
@@ -61,8 +61,18 @@ export const Oracle = {
 		if (Oracle.canGainBit()) {
 			player.oracle.totalBits = player.oracle.totalBits.add(1);
 			player.oracle.startDate = Date.now();
+			player.oracle.vowPoints = player.oracle.vowPoints.add(20);
+
 		}
-		player.oracle.debuffRemains = Math.max(0, player.oracle.debuffRemains - diff)
+		if (player.oracle.gardenGenTimeProgress >= 1) {
+			player.oracle.gardenGenTimeProgress -= 1;
+			player.oracle.vowPoints  = player.oracle.vowPoints.add(7)
+		}
+		if (player.oracle.ptResetTimeProgress >= 1) {
+			player.oracle.ptResetTimeProgress -= 1;
+			player.oracle.vowPoints  = player.oracle.vowPoints.add(3)
+		}
+		player.oracle.vowPoints = player.oracle.vowPoints.clampMax(1000);
 	},
 	playerData() {
 		return {
@@ -71,7 +81,17 @@ export const Oracle = {
 			startDate: 0,
 			fate: [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]],
 			fateBought: [0, 0, 0, 0, 0],
-			debuffRemains: 0,
+
+			/**
+			 * @deprecated
+			 */
+			debuffRemains: 0 as never,
+			fateChoose: 1, // 1,2,3,4,5
+
+			vowPoints: new Decimal(0),
+
+			gardenGenTimeProgress: 0,
+			ptResetTimeProgress: 0,
 		};
 	},
 	respec() {
@@ -80,7 +100,6 @@ export const Oracle = {
 		const hasFate = player.oracle.fate.filter((x)=>x.filter((y)=>y>=1).length>=1).length>=1;
 		if (!hasFate) return;
 
-		player.oracle.debuffRemains+=60;
 		player.oracle.fate = player.oracle.fate.map((x)=>x.map(()=>0));
 		player.oracle.fateBought = player.oracle.fate.map(()=>0);
 		player.oracle.spendBits = new Decimal(0);

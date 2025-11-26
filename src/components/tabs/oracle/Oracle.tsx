@@ -21,7 +21,7 @@ export default defineComponent({
 								{player.oracle.fate[i][j] ? (
 									<div
 										class="fate-bought"
-									>买了</div>
+									>Type {player.oracle.fate[i][j]}</div>
 
 								) : (
 									<div
@@ -62,7 +62,7 @@ export default defineComponent({
 		});
 		return () => (
 			<>
-				<div style={{textAlign: "center", margin: "auto"}} class="oracle">
+				<div style={{ textAlign: 'center', margin: 'auto' }} class="oracle">
 					<br />
 					<div style="width: calc(100% - 80px); height: 200px; padding: 5px; border: 1px solid red; color: red; margin: auto;">
 						<h2>神谕进程</h2>
@@ -72,20 +72,20 @@ export default defineComponent({
 							{formatWhole(Oracle.nowBitsHave())}/
 							{formatWhole(player.oracle.totalBits)}
 						</h3>
-						<div
-							style="width: 100%; height: 40px; border: 1px solid orange; text-align: left"
-						>
+						<div style="width: 100%; height: 40px; border: 1px solid orange; text-align: left">
 							<div
 								style={{
 									width: progress.value * 100 + '%',
 									height: '100%',
 									'background-color': 'red',
-									'color': "var(--color)",
-									display: "flex",
-									alignItems: "center",
-									justifyContent: "center",
+									color: 'var(--color)',
+									display: 'flex',
+									alignItems: 'center',
+									justifyContent: 'center',
 								}}
-							>{(progress.value*100).toFixed(3)+"%"}</div>
+							>
+								{(progress.value * 100).toFixed(3) + '%'}
+							</div>
 						</div>
 					</div>
 					<br />
@@ -94,48 +94,115 @@ export default defineComponent({
 						<br />
 						使用神谕比特购买天命，相邻的同一命运会互相增强，相邻的不同命运会互相排斥。
 						<br />
-						<table style={{
-    marginInlineStart: "0" ,
-    marginInlineEnd: "0",
-    margin: "auto"
-                        }}><tbody><tr>
-						<td><table>
+						<table
+							style={{
+								marginInlineStart: '0',
+								marginInlineEnd: '0',
+								margin: 'auto',
+							}}
+						>
 							<tbody>
-								<tr style='height: 100px'>
-									<td><button style="width: 90px; height: 90px; border: 1px solid silver; background-color: var(--background-color); color: var(--color)">
-										空之命({player.oracle.fateBought[0]})<br/>
-										{formatWhole(Oracle.fateCost(0))}神谕比特
-									</button></td>
-								</tr>
-								<tr style='height: 100px'>
-									<td><button style="width: 90px; height: 90px; border: 1px solid lightgreen; background-color: var(--background-color); color: var(--color)">
-										时之命({player.oracle.fateBought[1]})<br/>
-										{formatWhole(Oracle.fateCost(1))}神谕比特
-									</button></td>
-								</tr>
-								<tr style='height: 100px'>
-									<td><button style="width: 90px; height: 90px; border: 1px solid cyan; background-color: var(--background-color); color: var(--color)">
-										生之命({player.oracle.fateBought[2]})<br/>
-										{formatWhole(Oracle.fateCost(2))}神谕比特
-									</button></td>
-								</tr>
-								<tr style='height: 100px'>
-									<td><button style="width: 90px; height: 90px; border: 1px solid red; background-color: var(--background-color); color: var(--color)">
-										死之命({player.oracle.fateBought[3]})<br/>
-										{formatWhole(Oracle.fateCost(3))}神谕比特
-									</button></td>
-								</tr>
-								<tr style='height: 100px'>
-									<td><button style="width: 90px; height: 90px; border: 1px solid blue; background-color: var(--background-color); color: var(--color)">
-										理之命({player.oracle.fateBought[4]})<br/>
-										{formatWhole(Oracle.fateCost(4))}神谕比特
-									</button></td>
+								<tr>
+									<td>
+										<table>
+											<tbody>
+												<tr style="height: 100px">
+													<td>
+														<button
+															style="border: 1px solid silver;"
+															class="fate-choose"
+															onClick={() =>
+																(player.oracle.fateChoose = 1)
+															}
+														>
+															空之命({player.oracle.fateBought[0]})
+															<br />
+															{formatWhole(Oracle.fateCost(0))}
+															神谕比特
+														</button>
+													</td>
+												</tr>
+												<tr style="height: 100px">
+													<td>
+														<button
+															style="border: 1px solid lightgreen; "
+															class="fate-choose"
+															onClick={() =>
+																(player.oracle.fateChoose = 2)
+															}
+														>
+															时之命({player.oracle.fateBought[1]})
+															<br />
+															{formatWhole(Oracle.fateCost(1))}
+															神谕比特
+														</button>
+													</td>
+												</tr>
+												<tr style="height: 100px">
+													<td>
+														<button
+															style="border: 1px solid cyan; "
+															class="fate-choose"
+															onClick={() =>
+																(player.oracle.fateChoose = 3)
+															}
+														>
+															生之命({player.oracle.fateBought[2]})
+															<br />
+															{formatWhole(Oracle.fateCost(2))}
+															神谕比特
+														</button>
+													</td>
+												</tr>
+												<tr style="height: 100px">
+													<td>
+														<button
+															style="border: 1px solid red; "
+															class="fate-choose"
+															onClick={() =>
+																(player.oracle.fateChoose = 4)
+															}
+														>
+															死之命({player.oracle.fateBought[3]})
+															<br />
+															{formatWhole(Oracle.fateCost(3))}
+															神谕比特
+														</button>
+													</td>
+												</tr>
+												<tr style="height: 100px">
+													<td>
+														<button
+															style="border: 1px solid blue; "
+															class="fate-choose"
+															onClick={() =>
+																(player.oracle.fateChoose = 5)
+															}
+														>
+															理之命({player.oracle.fateBought[4]})
+															<br />
+															{formatWhole(Oracle.fateCost(4))}
+															神谕比特
+														</button>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+									<td>{s.value}</td>
 								</tr>
 							</tbody>
-						</table></td>
-						<td>{s.value}</td></tr></tbody></table>
-						Debuff: {player.oracle.debuffRemains}s(Test).
-						<button class="clickable_button" onClick={()=>Oracle.respec()}>Respec</button>
+						</table>
+						Vow points: {formatWhole(player.oracle.vowPoints)}
+						<br />
+						GardenGenerator Progress
+						{(player.oracle.gardenGenTimeProgress * 100).toFixed(2)}%<br />
+						Proof-Theory Reset Progress
+						{(player.oracle.ptResetTimeProgress * 100).toFixed(2)}%
+						<br />
+						<button class="clickable_button" onClick={() => Oracle.respec()}>
+							Respec
+						</button>
 					</div>
 				</div>
 			</>

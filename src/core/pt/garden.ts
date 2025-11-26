@@ -1959,6 +1959,9 @@ export const Garden = {
 				GardenGenUpgs.generators[key].currency.value().sub(Garden.generatorCost(key)),
 			);
 			player.garden.generators[key] = player.garden.generators[key].add(1);
+			if (player.pt.power.gte(1)) {
+				player.oracle.gardenGenTimeProgress = player.oracle.gardenGenTimeProgress + 0.001
+			}
 		}
 	},
 	canBoughtUpgrade(key: keyof typeof GardenGenUpgs.upgrades): boolean {

@@ -42,6 +42,9 @@ export function PTreset(fromPT = false) {
 	if (fromPT && Garden.level().gte(10) && player.hydra.deduceOrdinal[0].gte(DC.D_4T6)) {
 		player.pt.power = player.pt.power.add(Analysis.ptPowerGain());
 	}
+	if (player.pt.power.gte(1) && fromPT) {
+		player.oracle.ptResetTimeProgress = player.oracle.ptResetTimeProgress + 0.001
+	}
 	player.nonrecu = NON_RECURSIVE.playerData();
 	if (player.upgrades['7t7q']) {
 		player.nonrecu.theories = backup;
@@ -60,6 +63,10 @@ export function PTreset(fromPT = false) {
 	}
 	for (const key of resetBuyables) {
 		player.buyables[key] = DC.D_0;
+	}
+	if (player.pt.power.gte(1)) {
+		player.upgrades['69R'] = true
+		player.upgrades['71UN'] = true
 	}
 	for (const key of [
 		'dut1',

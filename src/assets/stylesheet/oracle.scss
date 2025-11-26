@@ -14,3 +14,9 @@
 
   }
 }
+.oracle .fate-choose{
+  width: 90px; height: 90px; background-color: var(--background-color); color: var(--color)
+}
+.oracle .fate-choose:hover{
+  background-color: var(--hover-color)
+}
