@@ -1,3 +1,5 @@
+@use "sass:color";
+
 .oracle {
 
 }
@@ -14,9 +16,33 @@
 
   }
 }
+
+
+.oracle .fate-type-1 {
+  background-color: silver;
+  color: rgb(63, 31, 0);
+}
+
+.oracle .fate-type-2 {
+  background-color: lightgreen;
+  color: rgb(63, 31, 0);
+}
+.oracle .fate-type-3 {
+  background-color: cyan;
+  color: rgb(63, 31, 0);
+}
+.oracle .fate-type-4 {
+  background-color: red;
+  color: rgb(255, 255, 255);
+}
+.oracle .fate-type-5 {
+  background-color: blue;
+  color: rgb(255, 255, 255);
+}
+
 .oracle .fate-choose{
   width: 90px; height: 90px; background-color: var(--background-color); color: var(--color)
 }
 .oracle .fate-choose:hover{
-  background-color: var(--hover-color)
+  background-color: var(--hover-color);
 }

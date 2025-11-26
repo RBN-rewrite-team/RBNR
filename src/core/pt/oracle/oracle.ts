@@ -3,12 +3,13 @@ import { format } from '@/utils/format';
 import Decimal, { type DecimalSource } from 'break_eternity.js';
 import { DC } from '../../constants';
 import ModalService from '@/utils/Modal';
-import { predictableRandom } from '@/utils/algorithm.ts';
+import { getProgress, predictableRandom } from '@/utils/algorithm.ts';
 import { deepCopy } from '../../save';
 import { updateResetStatData } from '../../stats';
 import { getMessage, i18n } from '@/utils/i18n';
 import type { $t } from '@/utils/types';
 import { Garden } from '../garden.ts';
+import * as crypto from 'node:crypto';
 
 function nextDayDate(date: Date): Date {
 	const nextDay = new Date(date.getTime());
@@ -44,12 +45,46 @@ export const Oracle = {
 		if(player.oracle.fateBought[id] < 3) return new Decimal(1);
 		else return new Decimal(3).pow(player.oracle.fateBought[id] - 3);
 	},
+
+	/**
+	 * get Fate effect rate (+0.015 = +1.5%)
+	 * @param id 0-4
+	 * @param column 0-4
+	 */
+	getFateEffectRate(id: number, column: number) {
+		const type = Oracle.getFateType(id, column)
+		let betweenDifferences = 0;
+		betweenDifferences += Oracle.getFateType(id-1, column)===0?0 : Oracle.getFateType(id-1, column)!==type ? 1 : 0
+		betweenDifferences += Oracle.getFateType(id+1, column)===0?0 : Oracle.getFateType(id+1, column)!==type ? 1 : 0
+		betweenDifferences += Oracle.getFateType(id, column-1)===0? 0 :Oracle.getFateType(id, column-1)!==type ? 1 : 0
+		betweenDifferences +=  Oracle.getFateType(id, column+1)===0? 0 :Oracle.getFateType(id, column+1)!==type ? 1 : 0
+		let betweenSames = 0;
+		betweenSames +=  Oracle.getFateType(id-1, column)===0? 0 :Oracle.getFateType(id-1, column)===type ? 1 : 0
+		betweenSames += Oracle.getFateType(id+1, column)===0? 0 :Oracle.getFateType(id+1, column)===type ? 1 : 0
+		betweenSames += Oracle.getFateType(id, column-1)===0? 0 :Oracle.getFateType(id, column-1)===type ? 1 : 0
+		betweenSames += Oracle.getFateType(id, column+1)===0? 0 :Oracle.getFateType(id, column+1)===type ? 1 : 0
+
+		let effect = 1;
+		effect -= 0.2*betweenDifferences;
+		effect += 0.5*betweenSames;
+
+		return effect;
+	},
+	getFateType(id: number, column: number) {
+		return player.oracle.fate[id]?.[column] ?? 0
+	},
 	buyFate(id: number, column: number) {
 		const cost = Oracle.fateCost(player.oracle.fateChoose-1);
 		if (cost.lte(Oracle.nowBitsHave())) {
 			player.oracle.spendBits = player.oracle.spendBits.add(cost);
-			player.oracle.fateBought[player.oracle.fateChoose-1]++
+			const d = player.oracle.fateChoose-1
+			player.oracle.fateBought[d]++
 			player.oracle.fate[id][column] = player.oracle.fateChoose;
+
+			player.oracle.seedFateBought[d]++;
+			const fakeRandom = predictableRandom(player.oracle.seedFate[d] * player.oracle.seedFateBought[d]);
+
+			player.oracle.fateEffect[id][column] = getProgress(fakeRandom, 0.5, 1.5);
 		}
 	},
 	oracleLoop(diff: number) {
@@ -80,8 +115,16 @@ export const Oracle = {
 			spendBits: new Decimal(0),
 			startDate: 0,
 			fate: [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]],
+			fateEffect: [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]],
 			fateBought: [0, 0, 0, 0, 0],
-
+			seedFateBought: [0,0,0,0,0],
+			seedFate: [
+				Math.random(),
+				Math.random(),
+				Math.random(),
+				Math.random(),
+				Math.random(),
+			],
 			/**
 			 * @deprecated
 			 */

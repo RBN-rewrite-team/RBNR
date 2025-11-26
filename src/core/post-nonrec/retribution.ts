@@ -41,7 +41,7 @@ export const RETRIBUTION = {
 	},
 	resetable() {
 		if (player.retribution == 0) {
-			return player.hydra.deduceOrdinal[0].gte(DC.D_4P4P256);
+			return player.hydra.deduceOrdinal[0].gte(DC.D_4T6);
 		}
 		return false;
 	},

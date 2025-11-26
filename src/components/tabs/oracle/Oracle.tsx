@@ -17,15 +17,17 @@ export default defineComponent({
 				for (let j = 0; j < 5; j++) {
 					f[j] = (
 						<>
-							<td style="width: 100px" >
+							<td style="width: 100px">
 								{player.oracle.fate[i][j] ? (
-									<div
-										class="fate-bought"
-									>Type {player.oracle.fate[i][j]}</div>
-
+									<div class={['fate-bought', `fate-type-${player.oracle.fate[i][j]}`]}>
+										Type {player.oracle.fate[i][j]}
+										<br />
+										{(player.oracle.fateEffect[i][j] * 100).toFixed(3)}%<br />
+										×{Oracle.getFateEffectRate(i, j).toFixed(3)}
+									</div>
 								) : (
 									<div
-										onClick={()=>Oracle.buyFate(i, j)}
+										onClick={() => Oracle.buyFate(i, j)}
 										class="fate-buy"
 									></div>
 								)}
