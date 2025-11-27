@@ -115,12 +115,13 @@ export default defineComponent({
 												<tr style="height: 100px">
 													<td>
 														<button
-															style="border: 1px solid silver;"
 															class="fate-choose"
 															onClick={() =>
 																(player.oracle.fateChoose = 1)
 															}
-															style={{'background-color': player.oracle.fateChoose == 1 ? 'silver' : '', position: 'relative'}}
+															style={{'background-color': player.oracle.fateChoose == 1 ? 'silver' : '', position: 'relative',
+															border: "1px solid silver"
+															}}
 														>
 															空之命({player.oracle.fateBought[0]})
 															<br />
@@ -142,12 +143,12 @@ export default defineComponent({
 												<tr style="height: 100px">
 													<td>
 														<button
-															style="border: 1px solid lightgreen; "
 															class="fate-choose"
 															onClick={() =>
 																(player.oracle.fateChoose = 2)
 															}
-															style={{'background-color': player.oracle.fateChoose == 2 ? 'lightgreen' : '', position: 'relative'}}
+															style={{'background-color': player.oracle.fateChoose == 2 ? 'lightgreen' : '', position: 'relative',
+																border: "1px solid lightgreen"}}
 														>
 															时之命({player.oracle.fateBought[1]})
 															<br />
@@ -169,12 +170,12 @@ export default defineComponent({
 												<tr style="height: 100px">
 													<td>
 														<button
-															style="border: 1px solid cyan; "
 															class="fate-choose"
 															onClick={() =>
 																(player.oracle.fateChoose = 3)
 															}
-															style={{'background-color': player.oracle.fateChoose == 3 ? 'cyan' : '', position: 'relative'}}
+															style={{'background-color': player.oracle.fateChoose == 3 ? 'cyan' : '', position: 'relative',
+																border: "1px solid cyan"}}
 														>
 															生之命({player.oracle.fateBought[2]})
 															<br />
@@ -196,12 +197,12 @@ export default defineComponent({
 												<tr style="height: 100px">
 													<td>
 														<button
-															style="border: 1px solid red; "
 															class="fate-choose"
 															onClick={() =>
 																(player.oracle.fateChoose = 4)
 															}
-															style={{'background-color': player.oracle.fateChoose == 4 ? 'red' : '', position: 'relative'}}
+															style={{'background-color': player.oracle.fateChoose == 4 ? 'red' : '', position: 'relative',
+																border: "1px solid red"}}
 														>
 															死之命({player.oracle.fateBought[3]})
 															<br />
@@ -223,12 +224,12 @@ export default defineComponent({
 												<tr style="height: 100px">
 													<td>
 														<button
-															style="border: 1px solid blue; "
 															class="fate-choose"
 															onClick={() =>
 																(player.oracle.fateChoose = 5)
 															}
-															style={{'background-color': player.oracle.fateChoose == 5 ? 'blue' : '', position: 'relative'}}
+															style={{'background-color': player.oracle.fateChoose == 5 ? 'blue' : '', position: 'relative',
+																border: "1px solid blue"}}
 														>
 															理之命({player.oracle.fateBought[4]})
 															<br />

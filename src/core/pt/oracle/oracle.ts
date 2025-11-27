@@ -9,7 +9,6 @@ import { updateResetStatData } from '../../stats';
 import { getMessage, i18n } from '@/utils/i18n';
 import type { $t } from '@/utils/types';
 import { Garden } from '../garden.ts';
-import * as crypto from 'node:crypto';
 
 function nextDayDate(date: Date): Date {
 	const nextDay = new Date(date.getTime());
@@ -104,6 +103,8 @@ export const Oracle = {
 		if(type === 2) return new Decimal(1.5).pow(sum * 0); //WIP
 		if(type === 3) return new Decimal(1.5).pow(sum * 0); //WIP
 		if(type === 4) return new Decimal(1.25).pow(sum * 0); //WIP
+
+		return new Decimal(1)
 	},
 	getFateType(id: number, column: number) {
 		return player.oracle.fate[id]?.[column] ?? 0
