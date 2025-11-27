@@ -193,6 +193,12 @@ export const Y_SEQ = {
 				Y_SEQ.dimensionEffect((i + 1) as 0 | 1 | 2 | 3).mul(diff),
 			);
 		}
+		if (player.upgrades['6215']) {
+			Y_SEQ.buyDimensions(0)
+			Y_SEQ.buyDimensions(1)
+			Y_SEQ.buyDimensions(2)
+			Y_SEQ.buyDimensions(3)
+		}
 		if (player.upgrades[624]) {
 			player.postnonrec.yseq.dimensions[0][0] =
 				player.postnonrec.yseq.dimensions[0][0].clampMin(1);
@@ -212,6 +218,7 @@ export const Y_SEQ = {
 		if (player.upgrades['7c7q'] && player.hydra.deduceOrdinal[0].gte('eee9')) {
 			player.challenges[1][6] = new Decimal(1);
 		}
+
 	},
 	u627effect(): Decimal {
 		let base = player.hydra.deduceOrdinal[1].clampMin(1).log10().div(2);

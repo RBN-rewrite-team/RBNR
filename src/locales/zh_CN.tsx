@@ -2001,4 +2001,6 @@ export default {
 	'garden.upg.80.desc': '灵感获取指数提升到0.4。',
 	'res.ptpower': '证明论能量',
 	'tab.oracle': '神谕',
+	'upgs.6214': "压缩九头蛇能量加成非递归能量",
+	'upgs.6215': "自动购买Y序列维度"
 };
