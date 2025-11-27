@@ -1,7 +1,6 @@
 @use "sass:color";
 
 .oracle {
-
 }
 .oracle .fate-buy,
 .oracle .fate-bought{
@@ -45,4 +44,20 @@
 }
 .oracle .fate-choose:hover{
   background-color: var(--hover-color);
+}
+
+.fate-tooltip {
+	position: absolute;
+	top: -75px;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: var(--background-color);
+	color: var(--color);
+	width: 200px;
+	height: 60px;
+	border: 1px solid var(--color);
+	border-radius: 4px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

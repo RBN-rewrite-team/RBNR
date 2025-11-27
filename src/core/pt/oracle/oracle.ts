@@ -36,6 +36,8 @@ export const Oracle = {
 	},
 	bitGainSpeedMult(): Decimal {
 		let base = new Decimal(1);
+		base = base.mul(player.pt.totalPower.add(10).log10());
+		base = base.mul(player.garden.totalInspiration.add(10).log10().sub(10).div(4).add(1));
 		return base;
 	},
 	canGainBit(): boolean {
@@ -67,8 +69,41 @@ export const Oracle = {
 		let effect = 1;
 		effect -= 0.2*betweenDifferences;
 		effect += 0.5*betweenSames;
+		effect *= player.oracle.fateEffect[id][column];
+		
+		let dx = [-1, 1, 0, 0];
+		let dy = [0, 0, -1, 1];
+		for(let i = 0;i < 4;i++)
+		{
+			if(Oracle.getFateType(id + dx[i], column + dy[i]) === 5 && type !== 5)
+			{
+				let power = Oracle.getFateEffectRate(id + dx[i], column + dy[i]);
+				effect *= 1.8 ** power;
+			}
+		}
 
 		return effect;
+	},
+	getFateTotalEffectiveNumber(type: number) {
+		let sum = 0;
+		for(let i = 0;i < 5;i++)
+		{
+			for(let j = 0;j < 5;j++)
+			{
+				if(Oracle.getFateType(i, j) === type)
+				{
+					sum += Oracle.getFateEffectRate(i, j);
+				}
+			}
+		}
+		return sum;
+	},
+	getFateTotalEffect(type: number): Decimal {
+		let sum = Oracle.getFateTotalEffectiveNumber(type);
+		if(type === 1) return new Decimal(0.075 * sum);
+		if(type === 2) return new Decimal(1.5).pow(sum * 0); //WIP
+		if(type === 3) return new Decimal(1.5).pow(sum * 0); //WIP
+		if(type === 4) return new Decimal(1.25).pow(sum * 0); //WIP
 	},
 	getFateType(id: number, column: number) {
 		return player.oracle.fate[id]?.[column] ?? 0

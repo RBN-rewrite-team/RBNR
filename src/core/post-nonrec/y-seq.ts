@@ -2,6 +2,7 @@ import Decimal from 'break_eternity.js';
 import { upgrades } from '@/core/mechanic.ts';
 import { player } from '../save';
 import { Analysis } from '@/core/pt/index.ts';
+import { Oracle } from '@/core/pt/oracle/oracle.ts';
 
 export const Y_SEQ = {
 	playerData() {
@@ -155,6 +156,9 @@ export const Y_SEQ = {
 		if (player.upgrades[621]) base = base.mul(upgrades[621].effect());
 		if (player.upgrades['621R']) base = base.mul(player.numbertheory.GM.x.clampMin(1));
 		if (!player.nonrecu.studies_bought.includes(29)) base = base.clampMax('e1e10');
+		let slogAdd = 0;
+		slogAdd += Oracle.getFateTotalEffect(1).toNumber();
+		base = Decimal.tetrate(10, base.slog(10).add(slogAdd).toNumber());
 		if (base.gte('eee50') && player.pt.power.lt(1)) {
 			base = Decimal.tetrate(
 				10,

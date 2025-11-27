@@ -14,13 +14,14 @@ export default defineComponent({
 			let r = [<></>, <></>, <></>, <></>, <></>];
 			for (let i = 0; i < 5; i++) {
 				let f = [<></>, <></>, <></>, <></>, <></>];
+				let name = ['space', 'time', 'life', 'death', 'justice'];
 				for (let j = 0; j < 5; j++) {
 					f[j] = (
 						<>
 							<td style="width: 100px">
 								{player.oracle.fate[i][j] ? (
 									<div class={['fate-bought', `fate-type-${player.oracle.fate[i][j]}`]}>
-										Type {player.oracle.fate[i][j]}
+										{name[player.oracle.fate[i][j] - 1]}
 										<br />
 										{(player.oracle.fateEffect[i][j] * 100).toFixed(3)}%<br />
 										×{Oracle.getFateEffectRate(i, j).toFixed(3)}
@@ -89,6 +90,9 @@ export default defineComponent({
 								{(progress.value * 100).toFixed(3) + '%'}
 							</div>
 						</div>
+						当前神谕比特速度倍率：×{format(Oracle.bitGainSpeedMult())}<br/>
+						累计证明论能量令神谕比特获取速度×{format(player.pt.totalPower.add(10).log10())}<br/>
+						累计灵感令神谕比特获取速度×{format(player.garden.totalInspiration.add(10).log10().sub(10).div(4).add(1))}<br/>
 					</div>
 					<br />
 					<div style="width: calc(100% - 80px); height: 700px; padding: 5px; border: 1px solid rgb(127, 63, 0); color: rgb(127, 63, 0); margin: auto; overflow: auto">
@@ -116,11 +120,22 @@ export default defineComponent({
 															onClick={() =>
 																(player.oracle.fateChoose = 1)
 															}
+															style={{'background-color': player.oracle.fateChoose == 1 ? 'silver' : '', position: 'relative'}}
 														>
 															空之命({player.oracle.fateBought[0]})
 															<br />
 															{formatWhole(Oracle.fateCost(0))}
 															神谕比特
+															{player.oracle.fateChoose == 1 ? <>
+																<div
+																	class="fate-tooltip"
+																	style="border-color: silver"
+																>
+																	Space<br/>
+																	Base: CHE slog + 0.075<br/>
+																	Tot: +{format(Oracle.getFateTotalEffect(1))}
+																</div>
+															</> : <></>}
 														</button>
 													</td>
 												</tr>
@@ -132,11 +147,22 @@ export default defineComponent({
 															onClick={() =>
 																(player.oracle.fateChoose = 2)
 															}
+															style={{'background-color': player.oracle.fateChoose == 2 ? 'lightgreen' : '', position: 'relative'}}
 														>
 															时之命({player.oracle.fateBought[1]})
 															<br />
 															{formatWhole(Oracle.fateCost(1))}
 															神谕比特
+															{player.oracle.fateChoose == 2 ? <>
+																<div
+																	class="fate-tooltip"
+																	style="border-color: lightgreen"
+																>
+																	Time<br/>
+																	Base: Proof Power x 1.5<br/>
+																	Tot: x{format(Oracle.getFateTotalEffect(2))}
+																</div>
+															</> : <></>}
 														</button>
 													</td>
 												</tr>
@@ -148,11 +174,22 @@ export default defineComponent({
 															onClick={() =>
 																(player.oracle.fateChoose = 3)
 															}
+															style={{'background-color': player.oracle.fateChoose == 3 ? 'cyan' : '', position: 'relative'}}
 														>
 															生之命({player.oracle.fateBought[2]})
 															<br />
 															{formatWhole(Oracle.fateCost(2))}
 															神谕比特
+															{player.oracle.fateChoose == 3 ? <>
+																<div
+																	class="fate-tooltip"
+																	style="border-color: cyan"
+																>
+																	Life<br/>
+																	Base: Idea & Entropy x 1.5<br/>
+																	Tot: x{format(Oracle.getFateTotalEffect(3))}
+																</div>
+															</> : <></>}
 														</button>
 													</td>
 												</tr>
@@ -164,11 +201,22 @@ export default defineComponent({
 															onClick={() =>
 																(player.oracle.fateChoose = 4)
 															}
+															style={{'background-color': player.oracle.fateChoose == 4 ? 'red' : '', position: 'relative'}}
 														>
 															死之命({player.oracle.fateBought[3]})
 															<br />
 															{formatWhole(Oracle.fateCost(3))}
 															神谕比特
+															{player.oracle.fateChoose == 4 ? <>
+																<div
+																	class="fate-tooltip"
+																	style="border-color: red"
+																>
+																	Death<br/>
+																	Base: Garden Local Speed x 1.5<br/>
+																	Tot: x{format(Oracle.getFateTotalEffect(4))}
+																</div>
+															</> : <></>}
 														</button>
 													</td>
 												</tr>
@@ -180,11 +228,21 @@ export default defineComponent({
 															onClick={() =>
 																(player.oracle.fateChoose = 5)
 															}
+															style={{'background-color': player.oracle.fateChoose == 5 ? 'blue' : '', position: 'relative'}}
 														>
 															理之命({player.oracle.fateBought[4]})
 															<br />
 															{formatWhole(Oracle.fateCost(4))}
 															神谕比特
+															{player.oracle.fateChoose == 5 ? <>
+																<div
+																	class="fate-tooltip"
+																	style="border-color: blue"
+																>
+																	Justice<br/>
+																	Raise the sorrunding other fate x 1.8<br/>
+																</div>
+															</> : <></>}
 														</button>
 													</td>
 												</tr>
