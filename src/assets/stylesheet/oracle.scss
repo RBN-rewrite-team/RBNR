@@ -10,7 +10,7 @@
   background-color: rgb(63, 31, 0);
   color: var(--color);
   border-radius: 4px;
-  &:hover{
+  &:hover:not(.fate-type-1):not(.fate-type-2):not(.fate-type-3, .fate-type-4):not(.fate-type-5){
     background-color: rgb(108, 57, 0);
 
   }
