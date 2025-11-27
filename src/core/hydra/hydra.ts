@@ -532,6 +532,22 @@ export const Hydra = {
 				return player.retribution == 1;
 			}
 		})(),
+		'6214': new (class extends Upgrade {
+			cost = new Decimal('1.3f6');
+			name = 'U5-2-14';
+			currency: Currencies = Currencies.COMP_HYDRA;
+			show(): boolean {
+				return player.retribution == 1;
+			}
+		})(),
+		'6215': new (class extends Upgrade {
+			cost = new Decimal('1.4f6');
+			name = 'U5-2-15';
+			currency: Currencies = Currencies.COMP_HYDRA;
+			show(): boolean {
+				return player.retribution == 1;
+			}
+		})(),
 	},
 	buyables: {
 		'611': new (class B611 extends Buyable<Decimal> {

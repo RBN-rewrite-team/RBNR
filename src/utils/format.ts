@@ -170,7 +170,7 @@ export function format(decimal: DecimalSource, precision = 4): string {
 	if (decimal.isNan()) return 'NaN';
 	if (decimal.gte(Decimal.dLayerMax)) return 'ω';
 	if (decimal.gte('eeee9')) {
-		const slog = decimal.slog();
+		const slog = decimal.slog(10, 100, true);
 		if (slog.gte(1e6)) return 'F' + format(slog.floor());
 		else
 			return (
@@ -240,7 +240,9 @@ export function formatGain(a: DecimalSource, e: DecimalSource, resourceName: str
 				return (
 					'(+' +
 					format(oom) +
-					getMessage('res.oomsp').replace('{level}', tower.toString()) +
+					getMessage('res.oomsp', {
+						level: tower.toString()
+					}) +
 					'/s)'
 				);
 		}

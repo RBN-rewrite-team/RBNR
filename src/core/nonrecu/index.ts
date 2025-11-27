@@ -471,10 +471,13 @@ export const NON_RECURSIVE = {
 	},
 	addResetGain() {},
 	addPower(x: Decimal) {
-		player.nonrecu.power = player.nonrecu.power.add(x).min('ee8.07230472602822538e153');
+		player.nonrecu.power = player.nonrecu.power.add(x)
 		player.nonrecu.totalPower = player.nonrecu.totalPower
-			.add(x)
-			.min('ee8.07230472602822538e153');
+			.add(x);
+		if (player.pt.power.lt(1)) {
+			player.nonrecu.power = player.nonrecu.power.min('ee8.07230472602822538e153')
+			player.nonrecu.totalPower = player.nonrecu.totalPower.min('ee8.07230472602822538e153')
+		};
 	},
 	gainFactor(): [string, number, Decimal][] {
 		const ADD_EFF = 0,
@@ -508,6 +511,12 @@ export const NON_RECURSIVE = {
 				'九头蛇能量',
 				MUL_EFF,
 				player.hydra.power.max('e326649').log10().div(326649),
+			]);
+		if (player.upgrades['6214'])
+			factor.push([
+				'压缩九头蛇能量',
+				MUL_EFF,
+				player.hydra.compressedPower.max('e326649').log10().div(326649),
 			]);
 		if (player.nonrecu.studies_bought.includes(16)) {
 			factor.push([
@@ -557,7 +566,10 @@ export const NON_RECURSIVE = {
 		base = base.pow(NON_RECURSIVE.UNOCFeff()[3]);
 		if (!player.upgrades.U6R21 && base.gte(1e500))
 			base = base.log10().div(500).pow(0.5).mul(500).pow(10);
+		if (player.pt.power.lt(1))
 		return base.min('ee8.07230472602822538e153');
+
+		return base;
 	},
 	nonrecEffects(): [Decimal, Decimal] {
 		/**
