@@ -46,7 +46,7 @@ import bmswellorder4prove from '@/components/tabs/ordinalnt/ordinalnt5-content-e
 export default {
 	'title.rewritten': 'Road of Big Number Rewritten',
 	'title.idlen': 'Road of Big Number (Special Idle Version)',
-	'title.version': 'Garden Gamma/i18n Gamma',
+	'title.version': 'Fate Beta',
 	'tab.dungeon': 'Dungeon',
 	'tab.successor': 'Successor',
 	'tab.options': 'Options',

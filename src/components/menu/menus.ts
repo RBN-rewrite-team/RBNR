@@ -1,7 +1,7 @@
 import { RETRIBUTION } from '@/core/post-nonrec/retribution';
 import { Oracle } from '@/core/pt/oracle/oracle';
 import { player } from '@/core/save';
-import { isDeveloper } from '@/core/save/testing';
+import { isDeveloper, isTester } from '@/core/save/testing';
 
 export type SubTabBase = {
 	text: string;
@@ -249,7 +249,7 @@ export const menus = [
 				id: 32,
 				text: 'tab.oracle',
 				show() {
-					return Oracle.isUnlocked() && isDeveloper();
+					return Oracle.isUnlocked() && isTester();
 				},
 			},
 		],

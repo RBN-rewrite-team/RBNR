@@ -39,7 +39,7 @@ import bmswellorder4prove from '@/components/tabs/ordinalnt/ordinalnt5-content/b
 export default {
 	'title.rewritten': '大数之路重制版',
 	'title.idlen': '大数之路放置版',
-	'title.version': 'Fate Alpha/Garden',
+	'title.version': 'Fate Beta',
 	'tab.dungeon': '地下城',
 	'tab.successor': '后继',
 	'tab.options': '杂项',
