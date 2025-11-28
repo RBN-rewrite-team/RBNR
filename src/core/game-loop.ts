@@ -1,5 +1,5 @@
 import { player, feature } from './global';
-import { simulateTime } from './offline';
+import { simulateOffline } from './offline';
 import { upgrades, buyables, milestones } from './mechanic';
 import Decimal from 'break_eternity.js';
 import { NUMTHEORY } from './multiplication/numbertheory';
@@ -38,6 +38,10 @@ import { Oracle } from './pt/oracle/oracle.ts';
  * 单位为毫秒
  */
 export let diff = 40;
+/**
+ * 游戏的循环逻辑每秒运行多少次
+ */
+export const FPS = 25;
 export let loopInterval: number;
 export let saveInterval: number;
 setTimeout(() => {
@@ -46,8 +50,9 @@ setTimeout(() => {
 export let backupInterval: number;
 export let ordinalSpeedDerivative = DC.D_0;
 export let ordinalSpeedDerivative2 = DC.D_0;
+
 export function startGameLoop() {
-	loopInterval = setInterval(gameLoop, 40);
+	loopInterval = setInterval(gameLoop, 1000 / FPS);
 	backupInterval = setInterval(intervalBackup, 1000);
 }
 
@@ -126,7 +131,7 @@ export function gameLoop() {
 	diff = Date.now() - player.lastUpdated;
 	if (diff > 60000) {
 		if (player.options.allowOffline) {
-			simulateTime(diff);
+			simulateOffline(diff);
 			stopGameLoop();
 			return;
 		} else {
@@ -442,7 +447,7 @@ export function simulate(diff: number) {
 	}
 
 	Garden.gardenLoop(realtime_diff / 1000);
-	
+
 	Oracle.oracleLoop(realtime_diff / 1000);
 
 	Logarithm.astronomerUpdate();

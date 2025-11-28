@@ -3,7 +3,7 @@ import { feature, player } from './global';
 import { MULTI_CHALS } from './multiplication/challenges';
 import { NON_RECURSIVE } from './nonrecu';
 import { NONREC_CHALS } from './nonrecu/non-recursion-challenges';
-export type SingleChallenge<T extends {} = {}> = {
+export type SingleChallenge<T extends object = {}> = {
 	// name: string;
 	// descEasy: string;
 	// descHard: string;

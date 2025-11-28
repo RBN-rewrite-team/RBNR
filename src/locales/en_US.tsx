@@ -1218,9 +1218,7 @@ export default {
 	'upgs.68R': function () {
 		return (
 			'The U5-R1-5 buff applies a reduced effect to Ascension.' +
-			(player.retribution == 1
-				? '<br>THE RETRIBUTION bonuses this upgrade.'
-				: '')
+			(player.retribution == 1 ? '<br>THE RETRIBUTION bonuses this upgrade.' : '')
 		);
 	},
 	'upgs.69R': 'UNLOCK <b>DILUTION</b>',
@@ -1601,8 +1599,8 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'studies.dung.title': 'Skill Tree',
 
 	'offline.title': 'Calculating offline Progress',
-	'offline.tick': 'Calculated {a}/{b} frame',
-	'offline.tick2': 'Calculated {a}/{b} frame<br>Remain: {c}',
+	'offline.tick': 'Calculated {a}/{b}',
+	'offline.tick2': 'Calculated {a}/{b}',
 	'stat.ordlvl': 'Current Ordinal Level:{level}',
 	'stat.ordlvl2': 'Highest Ordinal Level: {level}',
 	'stat.ordlvlnext': 'Next Ordinal Level Requires ',

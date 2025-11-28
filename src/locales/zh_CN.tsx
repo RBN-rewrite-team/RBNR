@@ -1536,8 +1536,8 @@ export default {
 	'studies.dung.title': '技能树',
 
 	'offline.title': '离线进度计算中',
-	'offline.tick': '已完成{a}/{b}帧的计算',
-	'offline.tick2': '已完成{a}/{b}帧的计算<br>剩余时间：{c}',
+	'offline.tick': '已完成{a}/{b} 的计算',
+	'offline.tick2': '已完成{a}/{b} 的计算',
 	'stat.ordlvl': '当前序数等级：{level}',
 	'stat.ordlvl2': '累计最高序数等级：{level}',
 	'stat.ordlvlnext': '下一序数等级要求：',
@@ -2001,6 +2001,6 @@ export default {
 	'garden.upg.80.desc': '灵感获取指数提升到0.4。',
 	'res.ptpower': '证明论能量',
 	'tab.oracle': '神谕',
-	'upgs.6214': "压缩九头蛇能量加成非递归能量",
-	'upgs.6215': "自动购买Y序列维度"
+	'upgs.6214': '压缩九头蛇能量加成非递归能量',
+	'upgs.6215': '自动购买Y序列维度',
 };
