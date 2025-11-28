@@ -1,8 +1,11 @@
 import './assets/stylesheet/main.scss';
+
+import PowiainaNum from 'powiaina_num.js';
+
 import './core/anti-cheat.ts';
 import './core/automator/evaluator.ts';
 import { init } from './utils/init.ts';
-
+import { Performance } from './core/performance.tsx';
 import './core/save/index.ts';
 import './core/hydra/hydra.ts';
 import { Logarithm } from './core/exponention/logarithm';
@@ -11,13 +14,16 @@ declare global {
 	interface BigInt {
 		toJSON(): string;
 	}
+	interface Window {
+		RBNRPerformance: typeof Performance;
+	}
 }
+window.RBNRPerformance = Performance;
 BigInt.prototype.toJSON = function () {
 	return this.toString();
 };
 init();
 
-import PowiainaNum from 'powiaina_num.js';
 import { achievements } from './core/achievements.ts';
 import { milestones } from './core/mechanic.ts';
 
@@ -49,3 +55,4 @@ import { difference, xor } from 'lodash-es';
 
 import './test.tsx';
 import Decimal from 'break_eternity.js';
+import { Pow } from './core/automator/lexer.ts';

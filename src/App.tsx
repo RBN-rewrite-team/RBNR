@@ -13,13 +13,19 @@ import Chapter from './components/group-2/Chapter.vue';
 import PlotView from './components/tabs/plot/PlotView.vue';
 import { player } from './core/save';
 import { DC } from './core/constants';
-
+import P from './core/performance.tsx';
 export default defineComponent({
 	name: 'App',
 	setup() {
 		return () => (
 			<>
 				<Side />
+				<P />
+				{/* <div class="notify">
+					<div class="notify-content-box">Content Box</div>
+					<div class="notify-content-box">Content Box</div>
+					<div class="notify-content-box">Content Box</div>
+				</div> */}
 				<div class="content">
 					{player.options.ui.newsbar ? (
 						<div class="news" id="newsbar">
