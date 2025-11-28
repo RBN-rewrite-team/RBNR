@@ -48,8 +48,8 @@
 
 .fate-tooltip {
 	position: absolute;
-	top: 0px;
-	right: 0px;
+  top: -75px;
+	left: 50%;
 	transform: translateX(-50%);
 	background-color: var(--background-color);
 	color: var(--color);
@@ -60,4 +60,5 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+  opacity: 0.7;
 }

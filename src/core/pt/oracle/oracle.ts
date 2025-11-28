@@ -29,6 +29,7 @@ export const Oracle = {
 		let scale = new Decimal(2);
 		return baseTime.mul(scale.pow(player.oracle.totalBits));
 	},
+
 	bitGainProgress(): number {
 		let diff = Oracle.bitGainSpeedMult().mul(Date.now() - player.oracle.startDate);
 		return diff.div(Oracle.nextBitCD()).toNumber();
@@ -43,7 +44,7 @@ export const Oracle = {
 		return Oracle.bitGainProgress() >= 1;
 	},
 	fateCost(id: number): Decimal {
-		if(player.oracle.fateBought[id] < 3) return new Decimal(1);
+		if (player.oracle.fateBought[id] < 3) return new Decimal(1);
 		else return new Decimal(3).pow(player.oracle.fateBought[id] - 3);
 	},
 
@@ -53,29 +54,67 @@ export const Oracle = {
 	 * @param column 0-4
 	 */
 	getFateEffectRate(id: number, column: number) {
-		const type = Oracle.getFateType(id, column)
+		const type = Oracle.getFateType(id, column);
 		let betweenDifferences = 0;
-		betweenDifferences += Oracle.getFateType(id-1, column)===0?0 : Oracle.getFateType(id-1, column)!==type ? 1 : 0
-		betweenDifferences += Oracle.getFateType(id+1, column)===0?0 : Oracle.getFateType(id+1, column)!==type ? 1 : 0
-		betweenDifferences += Oracle.getFateType(id, column-1)===0? 0 :Oracle.getFateType(id, column-1)!==type ? 1 : 0
-		betweenDifferences +=  Oracle.getFateType(id, column+1)===0? 0 :Oracle.getFateType(id, column+1)!==type ? 1 : 0
+		betweenDifferences +=
+			Oracle.getFateType(id - 1, column) === 0
+				? 0
+				: Oracle.getFateType(id - 1, column) !== type
+					? 1
+					: 0;
+		betweenDifferences +=
+			Oracle.getFateType(id + 1, column) === 0
+				? 0
+				: Oracle.getFateType(id + 1, column) !== type
+					? 1
+					: 0;
+		betweenDifferences +=
+			Oracle.getFateType(id, column - 1) === 0
+				? 0
+				: Oracle.getFateType(id, column - 1) !== type
+					? 1
+					: 0;
+		betweenDifferences +=
+			Oracle.getFateType(id, column + 1) === 0
+				? 0
+				: Oracle.getFateType(id, column + 1) !== type
+					? 1
+					: 0;
 		let betweenSames = 0;
-		betweenSames +=  Oracle.getFateType(id-1, column)===0? 0 :Oracle.getFateType(id-1, column)===type ? 1 : 0
-		betweenSames += Oracle.getFateType(id+1, column)===0? 0 :Oracle.getFateType(id+1, column)===type ? 1 : 0
-		betweenSames += Oracle.getFateType(id, column-1)===0? 0 :Oracle.getFateType(id, column-1)===type ? 1 : 0
-		betweenSames += Oracle.getFateType(id, column+1)===0? 0 :Oracle.getFateType(id, column+1)===type ? 1 : 0
+		betweenSames +=
+			Oracle.getFateType(id - 1, column) === 0
+				? 0
+				: Oracle.getFateType(id - 1, column) === type
+					? 1
+					: 0;
+		betweenSames +=
+			Oracle.getFateType(id + 1, column) === 0
+				? 0
+				: Oracle.getFateType(id + 1, column) === type
+					? 1
+					: 0;
+		betweenSames +=
+			Oracle.getFateType(id, column - 1) === 0
+				? 0
+				: Oracle.getFateType(id, column - 1) === type
+					? 1
+					: 0;
+		betweenSames +=
+			Oracle.getFateType(id, column + 1) === 0
+				? 0
+				: Oracle.getFateType(id, column + 1) === type
+					? 1
+					: 0;
 
 		let effect = 1;
-		effect -= 0.2*betweenDifferences;
-		effect += 0.5*betweenSames;
+		effect -= 0.2 * betweenDifferences;
+		effect += 0.5 * betweenSames;
 		effect *= player.oracle.fateEffect[id][column];
-		
+
 		let dx = [-1, 1, 0, 0];
 		let dy = [0, 0, -1, 1];
-		for(let i = 0;i < 4;i++)
-		{
-			if(Oracle.getFateType(id + dx[i], column + dy[i]) === 5 && type !== 5)
-			{
+		for (let i = 0; i < 4; i++) {
+			if (Oracle.getFateType(id + dx[i], column + dy[i]) === 5 && type !== 5) {
 				let power = Oracle.getFateEffectRate(id + dx[i], column + dy[i]);
 				effect *= 1.8 ** power;
 			}
@@ -85,12 +124,9 @@ export const Oracle = {
 	},
 	getFateTotalEffectiveNumber(type: number) {
 		let sum = 0;
-		for(let i = 0;i < 5;i++)
-		{
-			for(let j = 0;j < 5;j++)
-			{
-				if(Oracle.getFateType(i, j) === type)
-				{
+		for (let i = 0; i < 5; i++) {
+			for (let j = 0; j < 5; j++) {
+				if (Oracle.getFateType(i, j) === type) {
 					sum += Oracle.getFateEffectRate(i, j);
 				}
 			}
@@ -99,33 +135,34 @@ export const Oracle = {
 	},
 	getFateTotalEffect(type: number): Decimal {
 		let sum = Oracle.getFateTotalEffectiveNumber(type);
-		if(type === 1) return new Decimal(0.075 * sum);
-		if(type === 2) return new Decimal(1.5).pow(sum * 0); //WIP
-		if(type === 3) return new Decimal(1.5).pow(sum * 0); //WIP
-		if(type === 4) return new Decimal(1.25).pow(sum * 0); //WIP
+		if (type === 1) return new Decimal(0.075 * sum);
+		if (type === 2) return new Decimal(1.5).pow(sum * 0); //WIP
+		if (type === 3) return new Decimal(1.5).pow(sum * 0); //WIP
+		if (type === 4) return new Decimal(1.25).pow(sum * 0); //WIP
 
-		return new Decimal(1)
+		return new Decimal(1);
 	},
 	getFateType(id: number, column: number) {
-		return player.oracle.fate[id]?.[column] ?? 0
+		return player.oracle.fate[id]?.[column] ?? 0;
 	},
 	buyFate(id: number, column: number) {
-		const cost = Oracle.fateCost(player.oracle.fateChoose-1);
+		const cost = Oracle.fateCost(player.oracle.fateChoose - 1);
 		if (cost.lte(Oracle.nowBitsHave())) {
 			player.oracle.spendBits = player.oracle.spendBits.add(cost);
-			const d = player.oracle.fateChoose-1
-			player.oracle.fateBought[d]++
+			const d = player.oracle.fateChoose - 1;
+			player.oracle.fateBought[d]++;
 			player.oracle.fate[id][column] = player.oracle.fateChoose;
 
 			player.oracle.seedFateBought[d]++;
-			const fakeRandom = predictableRandom(player.oracle.seedFate[d] * player.oracle.seedFateBought[d]);
+			const fakeRandom = predictableRandom(
+				player.oracle.seedFate[d] * player.oracle.seedFateBought[d],
+			);
 
 			player.oracle.fateEffect[id][column] = getProgress(fakeRandom, 0.5, 1.5);
 		}
 	},
 	oracleLoop(diff: number) {
-		if(!Oracle.isUnlocked())
-		{
+		if (!Oracle.isUnlocked()) {
 			player.oracle.startDate = Date.now();
 			return;
 		}
@@ -133,15 +170,14 @@ export const Oracle = {
 			player.oracle.totalBits = player.oracle.totalBits.add(1);
 			player.oracle.startDate = Date.now();
 			player.oracle.vowPoints = player.oracle.vowPoints.add(20);
-
 		}
 		if (player.oracle.gardenGenTimeProgress >= 1) {
 			player.oracle.gardenGenTimeProgress -= 1;
-			player.oracle.vowPoints  = player.oracle.vowPoints.add(7)
+			player.oracle.vowPoints = player.oracle.vowPoints.add(7);
 		}
 		if (player.oracle.ptResetTimeProgress >= 1) {
 			player.oracle.ptResetTimeProgress -= 1;
-			player.oracle.vowPoints  = player.oracle.vowPoints.add(3)
+			player.oracle.vowPoints = player.oracle.vowPoints.add(3);
 		}
 		player.oracle.vowPoints = player.oracle.vowPoints.clampMax(1000);
 	},
@@ -150,17 +186,23 @@ export const Oracle = {
 			totalBits: new Decimal(0),
 			spendBits: new Decimal(0),
 			startDate: 0,
-			fate: [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]],
-			fateEffect: [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]],
-			fateBought: [0, 0, 0, 0, 0],
-			seedFateBought: [0,0,0,0,0],
-			seedFate: [
-				Math.random(),
-				Math.random(),
-				Math.random(),
-				Math.random(),
-				Math.random(),
+			fate: [
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0],
 			],
+			fateEffect: [
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0],
+			],
+			fateBought: [0, 0, 0, 0, 0],
+			seedFateBought: [0, 0, 0, 0, 0],
+			seedFate: [Math.random(), Math.random(), Math.random(), Math.random(), Math.random()],
 			/**
 			 * @deprecated
 			 */
@@ -176,11 +218,12 @@ export const Oracle = {
 	respec() {
 		// check fates
 
-		const hasFate = player.oracle.fate.filter((x)=>x.filter((y)=>y>=1).length>=1).length>=1;
+		const hasFate =
+			player.oracle.fate.filter((x) => x.filter((y) => y >= 1).length >= 1).length >= 1;
 		if (!hasFate) return;
 
-		player.oracle.fate = player.oracle.fate.map((x)=>x.map(()=>0));
-		player.oracle.fateBought = player.oracle.fate.map(()=>0);
+		player.oracle.fate = player.oracle.fate.map((x) => x.map(() => 0));
+		player.oracle.fateBought = player.oracle.fate.map(() => 0);
 		player.oracle.spendBits = new Decimal(0);
-	}
+	},
 } as const;
