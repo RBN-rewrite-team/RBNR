@@ -14,6 +14,7 @@ import type { FixedLengthArray } from 'type-fest';
 import { updateResetStatData } from '../stats.ts';
 import { format } from '../../utils/format.ts';
 import { Analysis, PTEffects } from '../pt/index.ts';
+import { NON_REC_BMS } from './nonrec-bms/index.ts';
 type NonRecusionTreePreset = {
 	name: string;
 	preset: number[];
@@ -626,6 +627,9 @@ export const NON_RECURSIVE = {
 		}
 		if (player.upgrades['7ta3q']) {
 			addTheories(2);
+		}
+		if (player.pt.totalPower.gte(1e70)) {
+			NON_REC_BMS.loop(diff);
 		}
 	},
 	UNOCFdeduceSpeed() {
