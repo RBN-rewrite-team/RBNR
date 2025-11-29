@@ -44,6 +44,7 @@ import DungeonTable from './tabs/minigame/DungeonTable.vue';
 import SkillTree from './tabs/minigame/SkillTree.vue';
 import EquipCore from './tabs/minigame/EquipCore.vue';
 import Oracle from './tabs/oracle/Oracle.tsx';
+import NonRecursionBMS from './tabs/nonrecursion/NonRecursionBMS.vue';
 
 const tabComponents: {
 	[key: string]: Component | (() => Component);
@@ -81,6 +82,7 @@ const tabComponents: {
 	30: AnalysisMilestones,
 	31: Garden,
 	32: Oracle,
+	33: NonRecursionBMS,
 	200: PlotTab,
 	300: SaveBank,
 	500: DeveloperMode,

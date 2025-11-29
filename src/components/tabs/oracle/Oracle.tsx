@@ -6,6 +6,7 @@ import { format, formatWhole } from '@/utils/format.ts';
 import { useUpdate } from '@/lib/useUpdate.ts';
 import { DC } from '@/core/constants';
 import ProgressBar from '@/components/group-2/ProgressBar';
+import { useI18n } from 'vue-i18n';
 
 export default defineComponent({
 	name: 'Oracle',
@@ -70,14 +71,15 @@ export default defineComponent({
 			);
 			return s;
 		});
+		const $t = useI18n().t;
 		return () => (
 			<>
 				<div style={{ textAlign: 'center', margin: 'auto' }} class="oracle">
 					<br />
 					<div style="width: calc(100% - 80px); height: 200px; padding: 5px; border: 1px solid red; color: red; margin: auto;">
-						<h2>神谕进程</h2>
+						<h2>{$t('oracle.title')}</h2>
 						<br />
-						神谕比特
+						{$t('oracle.bit')}
 						<h3>
 							{formatWhole(Oracle.nowBitsHave())}/
 							{formatWhole(player.oracle.totalBits)}
@@ -97,22 +99,31 @@ export default defineComponent({
 								{(progress.value * 100).toFixed(3) + '%'}
 							</div>
 						</div>
-						当前神谕比特速度倍率：×{format(Oracle.bitGainSpeedMult())}
+						{$t('oracle.1', {
+							effect: format(Oracle.bitGainSpeedMult()),
+						})}
 						<br />
-						累计证明论能量令神谕比特获取速度×
-						{format(player.pt.totalPower.add(10).log10())}
+						{$t('oracle.2', {
+							effect: format(player.pt.totalPower.add(10).log10()),
+						})}
 						<br />
-						累计灵感令神谕比特获取速度×
-						{format(
-							player.garden.totalInspiration.add(10).log10().sub(10).div(4).add(1),
-						)}
+						{$t('oracle.3', {
+							effect: format(
+								player.garden.totalInspiration
+									.add(10)
+									.log10()
+									.sub(10)
+									.div(4)
+									.add(1),
+							),
+						})}
 						<br />
 					</div>
 					<br />
 					<div style="width: calc(100% - 80px); height: 700px; padding: 5px; border: 1px solid rgb(127, 63, 0); color: rgb(127, 63, 0); margin: auto; overflow: auto">
-						<h2>天命</h2>
+						<h2>{$t('oracle.fate')}</h2>
 						<br />
-						使用神谕比特购买天命，相邻的同一命运会互相增强，相邻的不同命运会互相排斥。
+						{$t('oracle.fate.desc')}
 						<br />
 						<table
 							style={{
@@ -145,7 +156,7 @@ export default defineComponent({
 															空之命({player.oracle.fateBought[0]})
 															<br />
 															{formatWhole(Oracle.fateCost(0))}
-															神谕比特
+															{$t('oracle.bit')}
 															{player.oracle.fateChoose == 1 ? (
 																<>
 																	<div
@@ -189,7 +200,7 @@ export default defineComponent({
 															时之命({player.oracle.fateBought[1]})
 															<br />
 															{formatWhole(Oracle.fateCost(1))}
-															神谕比特
+															{$t('oracle.bit')}
 															{player.oracle.fateChoose == 2 ? (
 																<>
 																	<div
@@ -233,7 +244,7 @@ export default defineComponent({
 															生之命({player.oracle.fateBought[2]})
 															<br />
 															{formatWhole(Oracle.fateCost(2))}
-															神谕比特
+															{$t('oracle.bit')}
 															{player.oracle.fateChoose == 3 ? (
 																<>
 																	<div
@@ -277,7 +288,7 @@ export default defineComponent({
 															死之命({player.oracle.fateBought[3]})
 															<br />
 															{formatWhole(Oracle.fateCost(3))}
-															神谕比特
+															{$t('oracle.bit')}
 															{player.oracle.fateChoose == 4 ? (
 																<>
 																	<div
@@ -322,7 +333,7 @@ export default defineComponent({
 															理之命({player.oracle.fateBought[4]})
 															<br />
 															{formatWhole(Oracle.fateCost(4))}
-															神谕比特
+															{$t('oracle.bit')}
 															{player.oracle.fateChoose == 5 ? (
 																<>
 																	<div

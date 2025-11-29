@@ -2007,4 +2007,13 @@ export default {
 		if (player.retribution == 0) return '????';
 		return '证明论重置保留非递归研究树';
 	},
+	'tab.nonrecbms': '非递归BMS',
+	'oracle.title': '神谕进程',
+	'oracle.bit': '神谕比特',
+	'oracle.1': '当前神谕比特速度倍率：×{effect}',
+	'oracle.2': '累计证明论能量令神谕比特获取速度×{effect}',
+	'oracle.3': '累计灵感神谕比特获取速度×{effect}',
+	'oracle.fate': '天命',
+	'oracle.fate.desc':
+		'使用神谕比特购买天命，相邻的同一命运会互相增强，相邻的不同命运会互相排斥。',
 };
