@@ -97,7 +97,6 @@ export default defineComponent({
 								{(progress.value * 100).toFixed(3) + '%'}
 							</div>
 						</div>
-<<<<<<< Updated upstream
 						当前神谕比特速度倍率：×{format(Oracle.bitGainSpeedMult())}
 						<br />
 						累计证明论能量令神谕比特获取速度×
@@ -108,11 +107,6 @@ export default defineComponent({
 							player.garden.totalInspiration.add(10).log10().sub(10).div(4).add(1),
 						)}
 						<br />
-=======
-						当前神谕比特速度倍率：×{format(Oracle.bitGainSpeedMult())}<br/>
-						证明论能量令神谕比特获取速度×{format(player.pt.power.add(10).log10())}<br/>
-						累计灵感令神谕比特获取速度×{format(player.garden.totalInspiration.add(10).log10().sub(10).div(4).add(1))}<br/>
->>>>>>> Stashed changes
 					</div>
 					<br />
 					<div style="width: calc(100% - 80px); height: 700px; padding: 5px; border: 1px solid rgb(127, 63, 0); color: rgb(127, 63, 0); margin: auto; overflow: auto">
