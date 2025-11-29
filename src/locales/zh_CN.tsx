@@ -2003,4 +2003,8 @@ export default {
 	'tab.oracle': '神谕',
 	'upgs.6214': '压缩九头蛇能量加成非递归能量',
 	'upgs.6215': '自动购买Y序列维度',
+	'studies.nonrec.31': function () {
+		if (player.retribution == 0) return '????';
+		return '证明论重置保留非递归研究树';
+	},
 };

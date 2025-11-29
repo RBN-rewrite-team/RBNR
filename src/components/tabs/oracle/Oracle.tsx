@@ -360,8 +360,8 @@ export default defineComponent({
 							Respec
 						</button>
 					</div>
-					{/* 下一个机制将在{format(DC.D_2T1024)}压缩九头蛇能量解锁
-					<br />
+					{player.pt.totalPower.lt('e70') && '下一个机制将在1e70证明论能量解锁'}
+					{/* <br />
 					<div
 						style={{
 							marginLeft: '50px',

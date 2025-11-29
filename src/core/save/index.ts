@@ -23,6 +23,7 @@ import ModalService from '@/utils/Modal.ts';
 import type { messages } from '@/utils/i18n.ts';
 import PowiainaNum from 'powiaina_num.js';
 import { Pow } from '../automator/lexer.ts';
+import { convertBEDecimalToPn } from '@/lib/PNBEConvert.ts';
 
 const version = 13 as const;
 export let current_save = 0;
@@ -375,9 +376,7 @@ function deepMerge<T>(source: T, target: DeepPartial<T>, expectedKey?: string[])
 			} else if (sourceItem instanceof PowiainaNum) {
 				result[i] =
 					typeof targetItem == 'object'
-						? new PowiainaNum(
-								targetItem.toString().replace(/\(e\^(\d+)\)/, '(10^)^$1 '),
-							)
+						? new PowiainaNum(convertBEDecimalToPn(targetItem))
 						: new PowiainaNum(targetItem);
 			} else if (sourceItem === undefined && targetItem !== undefined) {
 				result[i] = targetItem;

@@ -309,6 +309,13 @@ function nrtamount() {
 						@update:study="updateAllConnectors"
 					/>
 				</div>
+				<div class="studies_row">
+					<SingleStudy
+						:ref="(el) => registerStudyRef(31, el)"
+						:study_id="31"
+						@update:study="updateAllConnectors"
+					/>
+				</div>
 				<div ref="connectorsRef" class="connectors-container"></div>
 			</div>
 		</div>

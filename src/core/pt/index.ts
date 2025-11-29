@@ -39,6 +39,7 @@ const resetBuyables = [
 ] as const satisfies (keyof typeof player.buyables)[];
 export function PTreset(fromPT = false) {
 	const backup = deepCopy(player.nonrecu.theories);
+	const studiesbought = deepCopy(player.nonrecu.studies_bought);
 	if (fromPT && Garden.level().gte(10) && player.hydra.deduceOrdinal[0].gte(DC.D_4T6)) {
 		player.pt.power = player.pt.power.add(Analysis.ptPowerGain());
 		player.pt.totalPower = player.pt.totalPower.add(Analysis.ptPowerGain());
@@ -49,6 +50,9 @@ export function PTreset(fromPT = false) {
 	player.nonrecu = NON_RECURSIVE.playerData();
 	if (player.upgrades['7t7q']) {
 		player.nonrecu.theories = backup;
+	}
+	if (studiesbought.includes(31)) {
+		player.nonrecu.studies_bought = studiesbought;
 	}
 	player.hydra = Hydra.playerData();
 	if (!player.upgrades['7c1q']) player.challenges[1][0] = DC.D_0;
@@ -303,6 +307,11 @@ export const Analysis = {
 		if (Garden.level().lt(10) || player.hydra.deduceOrdinal[0].lt(DC.D_4T6))
 			return new Decimal(0);
 		const CHE = player.hydra.compressedPower;
-		return CHE.slog().pow(CHE.slog().sub(3).max(1)).mul(Garden.level().div(10).tetrate(2));
+		let base = CHE.slog()
+			.pow(CHE.slog().sub(3).max(1))
+			.mul(Garden.level().div(10).tetrate(2))
+			.clampMin(0);
+		base = base.mul(Oracle.getFateTotalEffect(2));
+		return base;
 	},
 } as const;

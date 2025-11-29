@@ -127,24 +127,13 @@ const description = computed(function () {
 					</div>
 				</div>
 			</div>
-			<!-- <span class="tooltip">
+			<span class="tooltip">
 				{{
 					$t('upg.automatoruseid', {
 						id: props.upgid,
 					})
 				}}
-				<template v-if="curupg.ordinal && useClass() == 'upgrade_buttonbig_unable'"
-					><br />购买升级需要{{
-						countdown(
-							typeof curupg.cost === 'function' ? curupg.cost() : curupg.cost,
-							player.ordinal.number,
-							ORDINAL.ordinalPerSecond(),
-							ORDINAL.isConstantSpeed(),
-							ORDINAL.speedDeri(),
-						)
-					}}</template
-				>
-			</span> -->
+			</span>
 		</div>
 	</td>
 </template>
