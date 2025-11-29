@@ -36,7 +36,7 @@ export const Oracle = {
 	},
 	bitGainSpeedMult(): Decimal {
 		let base = new Decimal(1);
-		base = base.mul(player.pt.totalPower.add(10).log10());
+		base = base.mul(player.pt.power.add(10).log10());
 		base = base.mul(player.garden.totalInspiration.add(10).log10().sub(10).div(4).add(1));
 		return base;
 	},
