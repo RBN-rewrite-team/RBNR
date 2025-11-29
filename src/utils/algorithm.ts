@@ -43,5 +43,5 @@ export function delay(millseconds: number) {
 }
 
 export function getProgress(prog: number, start: number, end: number) {
-	return prog*(end-start)+start
+	return prog * (end - start) + start;
 }
