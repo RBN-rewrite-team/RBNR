@@ -1,54 +1,55 @@
-@use "sass:color";
+@use 'sass:color';
 
 .oracle {
 }
 .oracle .fate-buy,
-.oracle .fate-bought{
-  width: 90px;
-  height: 90px;
-  border: 1px solid orange;
-  background-color: rgb(63, 31, 0);
-  color: var(--color);
-  border-radius: 4px;
-  &:hover:not(.fate-type-1):not(.fate-type-2):not(.fate-type-3, .fate-type-4):not(.fate-type-5){
-    background-color: rgb(108, 57, 0);
-
-  }
+.oracle .fate-bought {
+	width: 90px;
+	height: 90px;
+	border: 1px solid orange;
+	background-color: rgb(63, 31, 0);
+	color: var(--color);
+	border-radius: 4px;
+	&:hover:not(.fate-type-1):not(.fate-type-2):not(.fate-type-3, .fate-type-4):not(.fate-type-5) {
+		background-color: rgb(108, 57, 0);
+	}
 }
 
-
 .oracle .fate-type-1 {
-  background-color: silver;
-  color: rgb(63, 31, 0);
+	background-color: silver;
+	color: rgb(63, 31, 0);
 }
 
 .oracle .fate-type-2 {
-  background-color: lightgreen;
-  color: rgb(63, 31, 0);
+	background-color: lightgreen;
+	color: rgb(63, 31, 0);
 }
 .oracle .fate-type-3 {
-  background-color: cyan;
-  color: rgb(63, 31, 0);
+	background-color: cyan;
+	color: rgb(63, 31, 0);
 }
 .oracle .fate-type-4 {
-  background-color: red;
-  color: rgb(255, 255, 255);
+	background-color: red;
+	color: rgb(255, 255, 255);
 }
 .oracle .fate-type-5 {
-  background-color: blue;
-  color: rgb(255, 255, 255);
+	background-color: blue;
+	color: rgb(255, 255, 255);
 }
 
-.oracle .fate-choose{
-  width: 90px; height: 90px; background-color: var(--background-color); color: var(--color)
+.oracle .fate-choose {
+	width: 90px;
+	height: 90px;
+	background-color: var(--background-color);
+	color: var(--color);
 }
-.oracle .fate-choose:hover{
-  background-color: var(--hover-color);
+.oracle .fate-choose:hover {
+	background-color: var(--hover-color);
 }
 
 .fate-tooltip {
 	position: absolute;
-  top: -75px;
+	top: -75px;
 	left: 50%;
 	transform: translateX(-50%);
 	background-color: var(--background-color);
@@ -60,5 +61,5 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-  opacity: 0.7;
+	opacity: 0.7;
 }

@@ -166,16 +166,16 @@ export const Y_SEQ = {
 			);
 		}
 
-		if (base.gte("eeeee10")) {
+		if (base.gte('eeeee10')) {
 			base = Decimal.tetrate(10, base.slog(10).sub(6).div(4).add(6).toNumber());
 		}
-		if (base.gte("10^^15")) {
+		if (base.gte('10^^15')) {
 			base = Decimal.tetrate(10, base.slog(14).pow(0.25).add(14).toNumber());
 		}
-		if (base.gte("10^^1000")) {
+		if (base.gte('10^^1000')) {
 			base = Decimal.tetrate(10, base.div(100).log10().pow(0.25).mul(100).toNumber());
 		}
-		return base.clampMax("f1.79e308");
+		return base.clampMax('f1.79e308');
 	},
 	reset() {
 		if (this.resetGain().lt(1)) return;
@@ -194,10 +194,10 @@ export const Y_SEQ = {
 			);
 		}
 		if (player.upgrades['6215']) {
-			Y_SEQ.buyDimensions(0)
-			Y_SEQ.buyDimensions(1)
-			Y_SEQ.buyDimensions(2)
-			Y_SEQ.buyDimensions(3)
+			Y_SEQ.buyDimensions(0);
+			Y_SEQ.buyDimensions(1);
+			Y_SEQ.buyDimensions(2);
+			Y_SEQ.buyDimensions(3);
 		}
 		if (player.upgrades[624]) {
 			player.postnonrec.yseq.dimensions[0][0] =
@@ -218,7 +218,6 @@ export const Y_SEQ = {
 		if (player.upgrades['7c7q'] && player.hydra.deduceOrdinal[0].gte('eee9')) {
 			player.challenges[1][6] = new Decimal(1);
 		}
-
 	},
 	u627effect(): Decimal {
 		let base = player.hydra.deduceOrdinal[1].clampMin(1).log10().div(2);
