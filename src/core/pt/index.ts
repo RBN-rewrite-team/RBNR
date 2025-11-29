@@ -14,6 +14,7 @@ import { getMessage, i18n } from '@/utils/i18n';
 import type { $t } from '@/utils/types';
 import { Oracle } from './oracle/oracle.ts';
 import { Garden } from './garden.ts';
+import { NON_REC_BMS } from '../nonrecu/nonrec-bms/index.ts';
 
 export function dayOfWeek(): [number, string] {
 	let weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
@@ -301,6 +302,7 @@ export const Analysis = {
 			],
 			seedTimes: [0, 0, 0, 0, 0, 0, 0],
 			qolPointsCrystal: new Decimal(0),
+			nonrecBMS: NON_REC_BMS.playerData(),
 		};
 	},
 	ptPowerGain() {

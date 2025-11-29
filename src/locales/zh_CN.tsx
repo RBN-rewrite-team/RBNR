@@ -2007,4 +2007,5 @@ export default {
 		if (player.retribution == 0) return '????';
 		return '证明论重置保留非递归研究树';
 	},
+	'tab.nonrecbms': '非递归BMS',
 };
