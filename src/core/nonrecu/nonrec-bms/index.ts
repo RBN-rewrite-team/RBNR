@@ -19,4 +19,9 @@ export const NON_REC_BMS = {
 			NON_REC_BMS.deduceSpeed().mul(diffSecond),
 		);
 	},
+	effects() {
+		let base: [Decimal] = [new Decimal(1)];
+		base[0] = player.pt.nonrecBMS.deduce.pow_base(2);
+		return base;
+	},
 };

@@ -17,9 +17,11 @@ const cur = computed(() =>
 			}}<vue-latex
 				:expression="
 					cur[1] +
-					'=\\operatorname{deduce}(\\operatorname{floor}(' +
-					formatLaTeX(player.nonrecu.unocf_j) +
-					'))'
+					`=\\operatorname{deduce}(${
+						player.nonrecu.unocf_j.gte(4503599627370496)
+							? formatLaTeX(player.nonrecu.unocf_j)
+							: `\\operatorname{floor}(${formatLaTeX(player.nonrecu.unocf_j)})`
+					})`
 				"
 			/>(+{{ format(NON_RECURSIVE.UNOCFdeduceSpeed()) }}/s)
 		</p>

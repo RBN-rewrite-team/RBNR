@@ -314,6 +314,7 @@ export const Analysis = {
 			.mul(Garden.level().div(10).tetrate(2))
 			.clampMin(0);
 		base = base.mul(Oracle.getFateTotalEffect(2));
+		base = base.mul(NON_REC_BMS.effects()[0]);
 		return base;
 	},
 } as const;
