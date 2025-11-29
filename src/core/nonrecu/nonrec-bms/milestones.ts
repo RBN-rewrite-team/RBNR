@@ -24,9 +24,9 @@ export const NonRecBMSMilestones = [
 
 export function getCurrentNRBMSMilestoneIndex(target: Decimal): number {
 	if (target.lt(0) || target.isNan()) throw new Error('Unexpected Y Sequence Number.');
-	if (target.lte(27)) return Math.floor(target.toNumber());
+	if (target.lte(16)) return Math.floor(target.toNumber());
 
-	let left = 27;
+	let left = 16;
 	let right = NonRecBMSMilestones.length;
 	let resultIndex = -1;
 
