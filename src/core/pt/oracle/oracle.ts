@@ -9,6 +9,7 @@ import { updateResetStatData } from '../../stats';
 import { getMessage, i18n } from '@/utils/i18n';
 import type { $t } from '@/utils/types';
 import { Garden } from '../garden.ts';
+import { upgrades } from '@/core/mechanic.ts';
 
 function nextDayDate(date: Date): Date {
 	const nextDay = new Date(date.getTime());
@@ -107,7 +108,7 @@ export const Oracle = {
 					: 0;
 
 		let effect = 1;
-		effect -= 0.2 * betweenDifferences;
+		effect -= (player.upgrades[81] ? 0.15 : 0.2) * betweenDifferences;
 		effect += 0.5 * betweenSames;
 		effect *= player.oracle.fateEffect[id][column];
 
@@ -159,6 +160,9 @@ export const Oracle = {
 			);
 
 			player.oracle.fateEffect[id][column] = getProgress(fakeRandom, 0.5, 1.5);
+			if (player.upgrades[83]) {
+				player.oracle.fateEffect[id][column] += upgrades[83].effect() / 100;
+			}
 		}
 	},
 	oracleLoop(diff: number) {
@@ -222,8 +226,11 @@ export const Oracle = {
 			player.oracle.fate.filter((x) => x.filter((y) => y >= 1).length >= 1).length >= 1;
 		if (!hasFate) return;
 
+		if (player.oracle.vowPoints.lt(20)) return;
+
 		player.oracle.fate = player.oracle.fate.map((x) => x.map(() => 0));
 		player.oracle.fateBought = player.oracle.fate.map(() => 0);
 		player.oracle.spendBits = new Decimal(0);
+		player.oracle.vowPoints = player.oracle.vowPoints.sub(20);
 	},
 } as const;

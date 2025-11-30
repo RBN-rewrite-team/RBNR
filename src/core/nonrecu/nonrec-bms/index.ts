@@ -1,6 +1,7 @@
 // Non Rec BMS is in PT player data
 
 import { player } from '@/core/global';
+import { upgrades } from '@/core/mechanic';
 import Decimal from 'break_eternity.js';
 
 export const NON_REC_BMS = {
@@ -11,7 +12,12 @@ export const NON_REC_BMS = {
 	},
 	deduceSpeed() {
 		let base = new Decimal(0.1);
-
+		if (player.upgrades[82]) {
+			base = base.mul(upgrades[82].effect());
+		}
+		if (player.upgrades[84]) {
+			base = base.mul(upgrades[84].effect());
+		}
 		return base;
 	},
 	loop(diffSecond: number) {

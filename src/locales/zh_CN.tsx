@@ -2016,4 +2016,9 @@ export default {
 	'oracle.fate': '天命',
 	'oracle.fate.desc':
 		'使用神谕比特购买天命，相邻的同一命运会互相增强，相邻的不同命运会互相排斥。',
+	'currency.nrb_deduction': '非递归BMS推演次数',
+	'upgs.81': '非递归BMS推演次数小幅度减少 相邻不同命运排斥的效果',
+	'upgs.82': '非递归BMS推演次数加成自身',
+	'upgs.83': '非递归BMS推演次数小幅度加成天命的百分比（购买天命后）',
+	'upgs.84': '证明论能量加成非递归BMS推演次数',
 };
