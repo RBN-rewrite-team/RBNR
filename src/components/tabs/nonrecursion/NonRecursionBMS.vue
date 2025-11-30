@@ -16,6 +16,6 @@ import { format, formatGain } from '@/utils/format';
 				:expression="getCurrentNRBMSOrdinal(player.pt.nonrecBMS.deduce)"
 			/>{{ formatGain(player.pt.nonrecBMS.deduce, NON_REC_BMS.deduceSpeed(), '') }}
 		</p>
-		<p>非递归BMS使证明论能量获取×{{ format(NON_REC_BMS.effects()[0]) }}</p>
+		<p>非递归BMS使CHE slog +{{ format(NON_REC_BMS.effects()[0]) }}</p>
 	</div>
 </template>

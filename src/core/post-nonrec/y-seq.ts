@@ -3,6 +3,7 @@ import { upgrades } from '@/core/mechanic.ts';
 import { player } from '../save';
 import { Analysis } from '@/core/pt/index.ts';
 import { Oracle } from '@/core/pt/oracle/oracle.ts';
+import { NON_REC_BMS } from '../nonrecu/nonrec-bms';
 
 export const Y_SEQ = {
 	playerData() {
@@ -174,6 +175,9 @@ export const Y_SEQ = {
 		}
 		if (base.gte('10^^1000')) {
 			base = Decimal.tetrate(10, base.div(100).log10().pow(0.25).mul(100).toNumber());
+		}
+		if (player.pt.nonrecBMS.deduce.gte(1) && NON_REC_BMS.effects()[0].gt(0)) {
+			base = Decimal.tetrate(10, base.slog().add(NON_REC_BMS.effects()[0]).toNumber());
 		}
 		return base.clampMax('f1.79e308');
 	},

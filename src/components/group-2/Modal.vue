@@ -1,5 +1,5 @@
 <template>
-	<transition name="modal-slide">
+	<transition name="modal-slide" mode="out-in">
 		<div v-if="visible" class="modal-mask" @click.self="handleMaskClick">
 			<div class="modal-container" :style="{ width: modalWidth }">
 				<div class="modal-header">

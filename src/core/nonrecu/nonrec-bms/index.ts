@@ -21,7 +21,10 @@ export const NON_REC_BMS = {
 	},
 	effects() {
 		let base: [Decimal] = [new Decimal(1)];
-		base[0] = player.pt.nonrecBMS.deduce.pow_base(2);
+		base[0] = player.pt.nonrecBMS.deduce.clampMin(1).log10();
+		if (base[0].gte(1.55)) {
+			base[0] = base[0].div(1.55).pow(0.1).mul(1.55);
+		}
 		return base;
 	},
 };
