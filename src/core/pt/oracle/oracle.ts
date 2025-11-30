@@ -39,6 +39,9 @@ export const Oracle = {
 		let base = new Decimal(1);
 		base = base.mul(player.pt.totalPower.add(10).log10());
 		base = base.mul(player.garden.totalInspiration.add(10).log10().sub(10).div(4).add(1));
+		if (player.upgrades[85]) {
+			base = base.mul(upgrades[85].effect());
+		}
 		return base;
 	},
 	canGainBit(): boolean {
@@ -161,7 +164,14 @@ export const Oracle = {
 
 			player.oracle.fateEffect[id][column] = getProgress(fakeRandom, 0.5, 1.5);
 			if (player.upgrades[83]) {
-				player.oracle.fateEffect[id][column] += upgrades[83].effect() / 100;
+				let mult = 1;
+				if (
+					player.upgrades[86] &&
+					(player.oracle.fateChoose == 1 || player.oracle.fateChoose == 2)
+				) {
+					mult *= 2;
+				}
+				player.oracle.fateEffect[id][column] += (upgrades[83].effect() / 100) * mult;
 			}
 		}
 	},

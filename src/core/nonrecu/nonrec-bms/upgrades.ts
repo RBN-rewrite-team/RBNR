@@ -48,6 +48,38 @@ export const NRBUpgrades = {
 			return '×' + format(values) + '';
 		}
 	})(),
+	'85': new (class extends UpgradeWithEffect<Decimal> {
+		name = 'U7-5';
+		cost = new Decimal(8500);
+		currency: Currencies = Currencies.NRB_DEDUCTION;
+		effect(): Decimal {
+			return player.pt.nonrecBMS.deduce.pow(0.8).clampMin(1);
+		}
+		effectDescription(values: Decimal): string {
+			return '×' + format(values) + '';
+		}
+	})(),
+	'86': new (class extends Upgrade {
+		name = 'U7-6';
+		cost = new Decimal(114514);
+		currency: Currencies = Currencies.NRB_DEDUCTION;
+	})(),
+	'87': new (class extends UpgradeWithEffect<Decimal> {
+		name = 'U7-7';
+		cost = new Decimal(250000);
+		currency: Currencies = Currencies.NRB_DEDUCTION;
+		effect(): Decimal {
+			return player.hydra.compressedPower.clampMin(10).slog().pow(0.5);
+		}
+		effectDescription(values: Decimal): string {
+			return '×' + format(values) + '';
+		}
+	})(),
+	'88': new (class extends Upgrade {
+		name = 'U7-8';
+		cost = new Decimal('1f15');
+		currency: Currencies = Currencies.COMP_HYDRA;
+	})(),
 } as const satisfies {
 	[key: string]: Upgrade;
 };

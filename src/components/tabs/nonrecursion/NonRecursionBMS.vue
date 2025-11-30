@@ -26,6 +26,12 @@ import { format, formatGain } from '@/utils/format';
 					<TDUpgrade upgid="83" />
 					<TDUpgrade upgid="84" />
 				</tr>
+				<tr>
+					<TDUpgrade upgid="85" />
+					<TDUpgrade upgid="86" />
+					<TDUpgrade upgid="87" />
+					<TDUpgrade upgid="88" />
+				</tr>
 			</tbody>
 		</table>
 	</div>
