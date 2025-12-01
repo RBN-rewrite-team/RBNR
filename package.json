@@ -36,7 +36,7 @@
     "vue-i18n": "^11.1.12"
   },
   "devDependencies": {
-    "@tsconfig/node22": "^22.0.2",
+    "@tsconfig/node22": "^22.0.5",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^22.14.0",
     "@vitejs/plugin-vue": "^6.0.2",
