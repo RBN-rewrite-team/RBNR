@@ -10,7 +10,9 @@ import {
 import { format, formatGain } from '@/utils/format';
 
 const macro = {
-  '\\psd': "\\text{psd}"
+  '\\psd': "\\text{psd}",
+  '\\aft': "\\text{ aft }",
+  '\\nd': "\\text{nd}",
 } as const
 </script>
 
