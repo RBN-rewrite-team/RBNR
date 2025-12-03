@@ -31,7 +31,7 @@ export const NRBUpgrades = {
 			if (a.gte(20)) {
 				a = a.div(20).pow(3).mul(20);
 			}
-			return a.clampMax('1e100').toNumber();
+			return a.clampMax(500).toNumber();
 		}
 		effectDescription(values: number): string {
 			return '+' + format(values) + '%';
