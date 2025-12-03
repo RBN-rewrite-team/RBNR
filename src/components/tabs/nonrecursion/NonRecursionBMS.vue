@@ -9,7 +9,7 @@ import {
 } from '@/core/nonrecu/nonrec-bms/milestones';
 import { format, formatGain } from '@/utils/format';
 
-const macro = {
+const macros = {
   '\\psd': "\\text{psd}",
   '\\aft': "\\text{ aft }",
   '\\nd': "\\text{nd}",
@@ -20,7 +20,7 @@ const macro = {
 	<div class="main">
 		<p>
 			你的非递归BMS推演次数为{{ format(player.pt.nonrecBMS.deduce) }},序数为<vue-latex
-				:expression="getCurrentNRBMSOrdinal(player.pt.nonrecBMS.deduce)" :macro
+				:expression="getCurrentNRBMSOrdinal(player.pt.nonrecBMS.deduce)" :macros
 			/>{{ formatGain(player.pt.nonrecBMS.deduce, NON_REC_BMS.deduceSpeed(), '') }}
 		</p>
 		<p>非递归BMS使CHE slog +{{ format(NON_REC_BMS.effects()[0]) }}</p>
