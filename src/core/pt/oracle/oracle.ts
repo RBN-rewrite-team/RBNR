@@ -138,11 +138,17 @@ export const Oracle = {
 		return sum;
 	},
 	getFateTotalEffect(type: number): Decimal {
-		let sum = Oracle.getFateTotalEffectiveNumber(type);
+		const sum = Oracle.getFateTotalEffectiveNumber(type);
 		if (type === 1) return new Decimal(0.075 * sum);
 		if (type === 2) return new Decimal(1.5).pow(sum * 10); //WIP
 		if (type === 3) return new Decimal(1.5).pow(sum * 2); //WIP
-		if (type === 4) return new Decimal(1.25).pow(sum * 2); //WIP
+		if (type === 4) {
+			let a = new Decimal(1.25).pow(sum * 2);
+			if (a.gte('1e100')) {
+				a = a.div(1e100).pow(0.1).mul(1e100);
+			}
+			return a;
+		} //WIP
 
 		return new Decimal(1);
 	},

@@ -7,12 +7,12 @@ import { format } from '@/utils/format';
 export const NRBUpgrades = {
 	'81': new (class extends Upgrade {
 		name = 'U7-1';
-		cost = new Decimal(100);
+		cost = new Decimal(10);
 		currency: Currencies = Currencies.NRB_DEDUCTION;
 	})(),
 	'82': new (class extends UpgradeWithEffect<Decimal> {
 		name = 'U7-2';
-		cost = new Decimal(200);
+		cost = new Decimal(20);
 		currency: Currencies = Currencies.NRB_DEDUCTION;
 		effect(): Decimal {
 			return player.pt.nonrecBMS.deduce.clampMin(10).log10();
@@ -23,7 +23,7 @@ export const NRBUpgrades = {
 	})(),
 	'83': new (class extends UpgradeWithEffect<number> {
 		name = 'U7-3';
-		cost = new Decimal(400);
+		cost = new Decimal(50);
 		currency: Currencies = Currencies.NRB_DEDUCTION;
 		effect(): number {
 			let a = player.pt.nonrecBMS.deduce.clampMin(10).log10().mul(5);
@@ -39,7 +39,7 @@ export const NRBUpgrades = {
 	})(),
 	'84': new (class extends UpgradeWithEffect<Decimal> {
 		name = 'U7-4';
-		cost = new Decimal(1145.14);
+		cost = new Decimal(91.78);
 		currency: Currencies = Currencies.NRB_DEDUCTION;
 		effect(): Decimal {
 			return player.pt.totalPower.log10().mul(0.4);

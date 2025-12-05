@@ -24,6 +24,7 @@ export const NON_REC_BMS = {
 		return base;
 	},
 	loop(diffSecond: number) {
+		if (player.pt.power.lt(1e70)) return;
 		player.pt.nonrecBMS.deduce = player.pt.nonrecBMS.deduce.add(
 			NON_REC_BMS.deduceSpeed().mul(diffSecond),
 		);
