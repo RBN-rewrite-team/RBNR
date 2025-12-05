@@ -39,7 +39,7 @@ export const NRBUpgrades = {
 	})(),
 	'84': new (class extends UpgradeWithEffect<Decimal> {
 		name = 'U7-4';
-		cost = new Decimal(91.78);
+		cost = new Decimal(92.0);
 		currency: Currencies = Currencies.NRB_DEDUCTION;
 		effect(): Decimal {
 			return player.pt.totalPower.log10().mul(0.4);
