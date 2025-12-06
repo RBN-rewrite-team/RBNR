@@ -49,7 +49,14 @@ export const Oracle = {
 	},
 	fateCost(id: number): Decimal {
 		if (player.oracle.fateBought[id] < 3) return new Decimal(1);
-		else return new Decimal(3).pow(player.oracle.fateBought[id] - 3);
+		else {
+			let base = new Decimal(3);
+
+			if (player.upgrades['89']) {
+				base = base.div(2);
+			}
+			return base.pow(player.oracle.fateBought[id] - 3);
+		}
 	},
 
 	/**
@@ -145,7 +152,7 @@ export const Oracle = {
 		if (type === 4) {
 			let a = new Decimal(1.25).pow(sum * 2);
 			if (a.gte('1e100')) {
-				a = a.div(1e100).pow(0.1).mul(1e100);
+				a = a.div(1e100).log10().add(1).pow(0.1).pow_base(10).mul(1e100);
 			}
 			return a;
 		} //WIP
