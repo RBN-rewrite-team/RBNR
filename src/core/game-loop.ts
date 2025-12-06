@@ -249,6 +249,7 @@ export function preCardinalSpeed() {
 export function getPreCardinalDiff() {
 	let pre_cardinal_diff = diff;
 	pre_cardinal_diff *= preCardinalSpeed();
+	if (player.timeshard.openTf && player.timeshard.tf.gt(0)) diff *= 3
 	return pre_cardinal_diff;
 }
 /**
