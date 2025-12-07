@@ -253,7 +253,7 @@ export default defineComponent({
 																	>
 																		Life
 																		<br />
-																		Base: Idea & Entropy x 1.5
+																		Base: Idea & Entropy x+ 1.5
 																		<br />
 																		Tot: x
 																		{format(
@@ -297,7 +297,7 @@ export default defineComponent({
 																	>
 																		Death
 																		<br />
-																		Base: Garden Local Speed x
+																		Base: Garden Local Speed x+
 																		1.5
 																		<br />
 																		Tot: x
