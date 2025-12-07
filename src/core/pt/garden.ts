@@ -100,6 +100,17 @@ export const GardenCurrencies = {
 		},
 		entropyEffective: false,
 	},
+	enthalpy: {
+		name: '焓',
+		color: 'pink',
+		elementColor: 'purple',
+		value: (): Decimal => player.garden.enthalpy,
+		write(x: Decimal): Decimal {
+			player.garden.enthalpy = x;
+			return x;
+		},
+		entropyEffective: false,
+	},
 } as const;
 export const GardenGenUpgs = {
 	generators: {
@@ -2263,6 +2274,9 @@ export const Garden = {
 			ATB1LastBought: Date.now(),
 			ATU2LastBought: Date.now(),
 			ATB2LastBought: Date.now(),
+			enthalpy: new Decimal(0),
+			totalEnthalpy: new Decimal(0),
+			bestEnthalpy: new Decimal(0),
 		};
 		for (const i in GardenGenUpgs.generators) {
 			base.generators[<keyof typeof GardenGenUpgs.generators>(<unknown>i)] = new Decimal(0);

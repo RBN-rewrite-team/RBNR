@@ -12,7 +12,7 @@ import { format, formatGain } from '@/utils/format';
 const macros = {
 	'\\psd': '\\text{psd}',
 	'\\aft': '\\text{ aft }',
-	'\\nd': '\\text{nd}',
+	'\\nd': '\\text{nd }',
 } as const;
 </script>
 
