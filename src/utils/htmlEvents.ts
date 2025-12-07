@@ -67,7 +67,7 @@ export const propsEvents = {
 	onSeeked: ont<Event>(),
 	onSeeking: ont<Event>(),
 	onStalled: ont<Event>(),
-	onSuspend: ont<Evenwsdwdfwfwsdfwfefwfet>(),
+	onSuspend: ont<Event>(),
 	onTimeupdate: ont<Event>(),
 	onVolumechange: ont<Event>(),
 	onWaiting: ont<Event>(),

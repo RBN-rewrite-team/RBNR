@@ -47,9 +47,9 @@ class Study {
 		return this.config.id;
 	}
 	get description() {
-		if (this.isChallenge) {
-			return `非递归挑战${this.chalID + 1}${CHALLENGE.inChallenge(1, this.chalID) ? '(挑战中)' : ''}<br>目标:${this.config.description.split('\t')[1] ?? ''}`;
-		}
+		// if (this.isChallenge) {
+		// 	return `非递归挑战${this.chalID + 1}${CHALLENGE.inChallenge(1, this.chalID) ? '(挑战中)' : ''}<br>目标:${this.config.description.split('\t')[1] ?? ''}`;
+		// }
 		return this.config.description;
 	}
 	get cost() {

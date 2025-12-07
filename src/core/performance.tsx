@@ -2,7 +2,9 @@ import { useUpdate } from '@/lib/useUpdate';
 import { defineComponent, reactive } from 'vue';
 import { diff } from './game-loop';
 
-export const Performance = reactive({
+export const Performance: {
+	uiOpened: boolean;
+} = reactive({
 	uiOpened: false,
 });
 export default defineComponent({
