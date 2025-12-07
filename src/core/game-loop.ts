@@ -31,6 +31,7 @@ import { Garden } from './pt/garden.ts';
 import { getMessage } from '@/utils/i18n.ts';
 import { numberGrow } from './psd-number-grow.ts';
 import { Oracle } from './pt/oracle/oracle.ts';
+import { Performance } from './performance.tsx';
 
 /**
  * 游戏循环经过了多少时间
@@ -170,6 +171,9 @@ function getCurTitle() {
 	} else {
 		base = getMessage('title.rewritten');
 	}
+	if (Performance.uiOpened) {
+		base = 'Diff: ' + diff;
+	}
 	if (player.singularity.t < 630) {
 		base += ' - ' + format(player.number) + getMessage('res.number');
 	} else if (player.singularity.t < 666.6666666) {
@@ -183,13 +187,15 @@ function getCurTitle() {
 				.replace(/<sup>/g, '^{')
 				.replace(/<sub>/g, '_{')
 				.replace(/<\/sup>|<\/sub>/g, '}');
-	} else {
+	} else if (player.pt.power.lt(1)) {
 		base +=
 			' - ' +
 			OrdinalUtils.numberToBMS(player.hydra.deduceOrdinal[0], new Decimal(4), 15).replace(
 				'<sup>ω</sup>',
 				'^ω',
 			);
+	} else {
+		base += ` - ${format(player.hydra.compressedPower)} ` + getMessage('res.compress');
 	}
 	if (base.length > 20) {
 		base = base.replace(getMessage('title.rewritten'), 'RBNR');
@@ -243,6 +249,7 @@ export function preCardinalSpeed() {
 export function getPreCardinalDiff() {
 	let pre_cardinal_diff = diff;
 	pre_cardinal_diff *= preCardinalSpeed();
+	if (player.timeshard.openTf && player.timeshard.tf.gt(0)) diff *= 3
 	return pre_cardinal_diff;
 }
 /**

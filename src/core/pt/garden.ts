@@ -4,6 +4,7 @@ import { format } from '@/utils/format';
 import { player } from '../global';
 import type { $t } from '@/utils/types';
 import type { IntClosedRange } from 'type-fest';
+import { Oracle } from './oracle/oracle';
 
 export type GardenCurrency = {
 	name: string;
@@ -1971,7 +1972,7 @@ export const Garden = {
 			);
 			player.garden.generators[key] = player.garden.generators[key].add(1);
 			if (player.pt.power.gte(1)) {
-				player.oracle.gardenGenTimeProgress = player.oracle.gardenGenTimeProgress + 0.001
+				player.oracle.gardenGenTimeProgress = player.oracle.gardenGenTimeProgress + 0.001;
 			}
 		}
 	},
@@ -2040,6 +2041,7 @@ export const Garden = {
 						.effect.mult,
 				);
 		}
+		base = base.mul(Oracle.getFateTotalEffect(4));
 		return base.pow(13);
 	},
 	ideaYield() {
@@ -2049,6 +2051,7 @@ export const Garden = {
 				Garden.generatorIdea(i as unknown as keyof typeof player.garden.generators),
 			);
 		}
+		base = base.mul(Oracle.getFateTotalEffect(3));
 		return base;
 	},
 	entropyYield() {
@@ -2058,6 +2061,7 @@ export const Garden = {
 				Garden.generatorEntropy(i as unknown as keyof typeof player.garden.generators),
 			);
 		}
+		base = base.mul(Oracle.getFateTotalEffect(3));
 		return base;
 	},
 	igCD() {

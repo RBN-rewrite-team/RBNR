@@ -16,9 +16,11 @@ declare global {
 	}
 	interface Window {
 		RBNRPerformance: typeof Performance;
+		format: typeof format;
 	}
 }
 window.RBNRPerformance = Performance;
+window.format = format;
 BigInt.prototype.toJSON = function () {
 	return this.toString();
 };
@@ -56,3 +58,4 @@ import { difference, xor } from 'lodash-es';
 import './test.tsx';
 import Decimal from 'break_eternity.js';
 import { Pow } from './core/automator/lexer.ts';
+import { format } from './utils/format.ts';

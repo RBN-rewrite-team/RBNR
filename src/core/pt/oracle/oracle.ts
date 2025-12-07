@@ -9,6 +9,7 @@ import { updateResetStatData } from '../../stats';
 import { getMessage, i18n } from '@/utils/i18n';
 import type { $t } from '@/utils/types';
 import { Garden } from '../garden.ts';
+import { upgrades } from '@/core/mechanic.ts';
 
 function nextDayDate(date: Date): Date {
 	const nextDay = new Date(date.getTime());
@@ -38,6 +39,9 @@ export const Oracle = {
 		let base = new Decimal(1);
 		base = base.mul(player.pt.totalPower.add(10).log10());
 		base = base.mul(player.garden.totalInspiration.add(10).log10().sub(10).div(4).add(1));
+		if (player.upgrades[85]) {
+			base = base.mul(upgrades[85].effect());
+		}
 		return base;
 	},
 	canGainBit(): boolean {
@@ -107,7 +111,7 @@ export const Oracle = {
 					: 0;
 
 		let effect = 1;
-		effect -= 0.2 * betweenDifferences;
+		effect -= (player.upgrades[81] ? 0.15 : 0.2) * betweenDifferences;
 		effect += 0.5 * betweenSames;
 		effect *= player.oracle.fateEffect[id][column];
 
@@ -134,11 +138,17 @@ export const Oracle = {
 		return sum;
 	},
 	getFateTotalEffect(type: number): Decimal {
-		let sum = Oracle.getFateTotalEffectiveNumber(type);
+		const sum = Oracle.getFateTotalEffectiveNumber(type);
 		if (type === 1) return new Decimal(0.075 * sum);
-		if (type === 2) return new Decimal(1.5).pow(sum * 0); //WIP
-		if (type === 3) return new Decimal(1.5).pow(sum * 0); //WIP
-		if (type === 4) return new Decimal(1.25).pow(sum * 0); //WIP
+		if (type === 2) return new Decimal(1.5).pow(sum * 10); //WIP
+		if (type === 3) return new Decimal(1.5).pow(sum * 2); //WIP
+		if (type === 4) {
+			let a = new Decimal(1.25).pow(sum * 2);
+			if (a.gte('1e100')) {
+				a = a.div(1e100).pow(0.1).mul(1e100);
+			}
+			return a;
+		} //WIP
 
 		return new Decimal(1);
 	},
@@ -159,6 +169,16 @@ export const Oracle = {
 			);
 
 			player.oracle.fateEffect[id][column] = getProgress(fakeRandom, 0.5, 1.5);
+			if (player.upgrades[83]) {
+				let mult = 1;
+				if (
+					player.upgrades[86] &&
+					(player.oracle.fateChoose == 1 || player.oracle.fateChoose == 2)
+				) {
+					mult *= 2;
+				}
+				player.oracle.fateEffect[id][column] += (upgrades[83].effect() / 100) * mult;
+			}
 		}
 	},
 	oracleLoop(diff: number) {
@@ -222,8 +242,11 @@ export const Oracle = {
 			player.oracle.fate.filter((x) => x.filter((y) => y >= 1).length >= 1).length >= 1;
 		if (!hasFate) return;
 
+		if (player.oracle.vowPoints.lt(20)) return;
+
 		player.oracle.fate = player.oracle.fate.map((x) => x.map(() => 0));
 		player.oracle.fateBought = player.oracle.fate.map(() => 0);
 		player.oracle.spendBits = new Decimal(0);
+		player.oracle.vowPoints = player.oracle.vowPoints.sub(20);
 	},
 } as const;

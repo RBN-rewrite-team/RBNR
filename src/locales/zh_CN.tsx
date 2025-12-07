@@ -2005,4 +2005,26 @@ export default {
 	'upgs.6215': '自动购买Y序列维度',
 	
 	'currency.焓': '焓',
+	'studies.nonrec.31': function () {
+		if (player.retribution == 0) return '????';
+		return '证明论重置保留非递归研究树';
+	},
+	'tab.nonrecbms': '非递归BMS',
+	'oracle.title': '神谕进程',
+	'oracle.bit': '神谕比特',
+	'oracle.1': '当前神谕比特速度倍率：×{effect}',
+	'oracle.2': '累计证明论能量令神谕比特获取速度×{effect}',
+	'oracle.3': '累计灵感神谕比特获取速度×{effect}',
+	'oracle.fate': '天命',
+	'oracle.fate.desc':
+		'使用神谕比特购买天命，相邻的同一命运会互相增强，相邻的不同命运会互相排斥。',
+	'currency.nrb_deduction': '非递归BMS推演次数',
+	'upgs.81': '非递归BMS推演次数小幅度减少 相邻不同命运排斥的效果',
+	'upgs.82': '非递归BMS推演次数加成自身',
+	'upgs.83': '非递归BMS推演次数小幅度加成天命的百分比（购买天命后）',
+	'upgs.84': '证明论能量加成非递归BMS推演次数',
+	'upgs.85': '非递归BMS推演次数加成神谕比特获取速度',
+	'upgs.86': 'U7-3对空、时之命的效果×2',
+	'upgs.87': '压缩九头蛇能量加成非递归BMS推演次数',
+	'upgs.88': '移除非递归BMS效果软上限',
 };

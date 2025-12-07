@@ -241,7 +241,7 @@ export function formatGain(a: DecimalSource, e: DecimalSource, resourceName: str
 					'(+' +
 					format(oom) +
 					getMessage('res.oomsp', {
-						level: tower.toString()
+						level: tower.toString(),
 					}) +
 					'/s)'
 				);

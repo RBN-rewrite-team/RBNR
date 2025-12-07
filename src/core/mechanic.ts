@@ -28,6 +28,7 @@ import { TimeShard } from './timeshard/timeshard.ts';
 import { Qol7Upgrades } from './pt/qolcryupgs.ts';
 import type { $t } from '@/utils/types.ts';
 import { Requirement } from './requirements.ts';
+import { NRBUpgrades } from './nonrecu/nonrec-bms/upgrades.ts';
 
 const upgrades = {
 	...Successor.upgrades,
@@ -45,6 +46,7 @@ const upgrades = {
 	...WellOrderingUpgrades,
 	...TimeShard.upgrades,
 	...Qol7Upgrades.upgrades,
+	...NRBUpgrades,
 } as const;
 const buyables = {
 	...Successor.buyables,

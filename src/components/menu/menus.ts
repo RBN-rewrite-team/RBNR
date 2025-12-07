@@ -231,6 +231,13 @@ export const menus = [
 					return player.stat.chapter >= 6 && player.milestones.nonrec_19;
 				},
 			},
+			{
+				id: 33,
+				text: 'tab.nonrecbms',
+				show() {
+					return player.pt.totalPower.gte(1e70);
+				},
+			},
 		],
 	},
 	{

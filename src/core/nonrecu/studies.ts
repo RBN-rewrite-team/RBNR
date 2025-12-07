@@ -7,6 +7,7 @@ import { ref, nextTick, type ComponentPublicInstance, computed, type Ref } from 
 import SingleStudy from '@/components/tabs/nonrecursion/SingleStudy.vue';
 import { format, formatWhole } from '@/utils/format';
 import { secInThisReset52717273 } from './total-theories';
+import { DC } from '../constants';
 
 const StudyTreeRef = ref(null);
 
@@ -38,7 +39,7 @@ function sum(...ids: (number | boolean)[]): number {
 }
 export type StudyConfig = {
 	id: string;
-	description: string;
+	description?: string;
 	cost: Decimal;
 	canBuy?(): boolean;
 	effect?(): Decimal;
@@ -64,10 +65,7 @@ export class Study {
 		return this.config.id;
 	}
 	get description() {
-		if (this.isChallenge) {
-			return `非递归挑战${this.chalID + 1}${CHALLENGE.inChallenge(1, this.chalID) ? '(挑战中)' : ''}<br>目标:${this.config.description.split('\t')[1] ?? ''}`;
-		}
-		return this.config.description;
+		return 'DESTRUCTED BY PHY SOC';
 	}
 	get cost() {
 		return this.config.cost;
@@ -484,7 +482,9 @@ export const studies = [
 			if (player.retribution == 0) return '???';
 			return '移除压缩九头蛇能量上限';
 		},
-		cost: new Decimal(8),
+		get cost() {
+			return player.retribution == 0 ? DC.D_F9E15 : new Decimal(8);
+		},
 		canBuy() {
 			return or(16) && player.retribution >= 1;
 		},
@@ -495,9 +495,20 @@ export const studies = [
 			if (player.retribution == 0) return '???';
 			return '解锁证明论';
 		},
-		cost: new Decimal('e4e153'),
+		get cost() {
+			return player.retribution == 0 ? DC.D_F9E15 : new Decimal('e4e153');
+		},
 		canBuy() {
 			return or(28) && player.retribution >= 1;
+		},
+	}),
+	new Study({
+		id: '131', //31
+		get cost() {
+			return player.retribution == 0 ? DC.D_F9E15 : new Decimal('eeeee1.3');
+		},
+		canBuy() {
+			return or(30) && player.retribution >= 1;
 		},
 	}),
 ] as const;
@@ -667,6 +678,7 @@ const studyConnections = computed(() => {
 		{ from: 26, to: 28 },
 		{ from: 16, to: 29 },
 		{ from: 28, to: 30 },
+		{ from: 30, to: 31 },
 	];
 	if (player.nonrecu.studies_bought.includes(19)) {
 		connections.push(

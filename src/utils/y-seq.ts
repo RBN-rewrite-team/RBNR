@@ -399,7 +399,7 @@ export const Y_Milestones: YMilestone[] = [
 	[Decimal.tetrate(2, 5, 512), 'Y(1,6,35)'],
 	[Decimal.tetrate(2, 5, 1024), 'Y(1,6,36)'],
 	[Decimal.tetrate(2, 6, 1024), 'Y(1,6,36,216)'],
-	[Decimal.tetrate(2, 6, 1024), 'Y(1,6,36,216,1296)'],
+	[Decimal.tetrate(2, 6, 2 ** 128), 'Y(1,6,36,216,1296)'],
 	[Decimal.tetrate(2, 7, 1024), 'Y(1,7)'],
 	[Decimal.tetrate(2, 10, 1024), 'Y(1,8)'],
 	[Decimal.tetrate(2, 11, 1024), 'Y(1,9)'],

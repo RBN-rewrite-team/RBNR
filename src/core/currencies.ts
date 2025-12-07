@@ -21,6 +21,7 @@ export enum Currencies {
 	DEDUCE_ENERGY = 'deduce_energy',
 	TIME_SHARD = 'ts',
 	QOL_CRYSTAL_POINTS = 'qol_crystal_points',
+	NRB_DEDUCTION = 'nrb_deduction',
 }
 abstract class Currency {
 	static name: string = '未定义货币';
@@ -205,6 +206,13 @@ class QolCrystalCurrency extends Currency {
 		return player.pt.qolPointsCrystal;
 	}
 }
+class NRBDeductionCurrency extends Currency {
+	static set current(x: Decimal) {}
+
+	static get current() {
+		return player.pt.nonrecBMS.deduce;
+	}
+}
 const currencyMap: Map<Currencies, typeof Currency> = new Map([
 	[Currencies.NUMBER, NumberCurrency],
 	[Currencies.ADDITION_POWER, AdditionPowerCurrency],
@@ -222,6 +230,7 @@ const currencyMap: Map<Currencies, typeof Currency> = new Map([
 	[Currencies.COMP_HYDRA, CompressedHydraPowerCurrency],
 	[Currencies.TIME_SHARD, TimeShard],
 	[Currencies.QOL_CRYSTAL_POINTS, QolCrystalCurrency],
+	[Currencies.NRB_DEDUCTION, NRBDeductionCurrency],
 ]);
 
 export function setCurrency(currency: Currencies, value: Decimal) {

@@ -14,6 +14,7 @@ import type { FixedLengthArray } from 'type-fest';
 import { updateResetStatData } from '../stats.ts';
 import { format } from '../../utils/format.ts';
 import { Analysis, PTEffects } from '../pt/index.ts';
+import { NON_REC_BMS } from './nonrec-bms/index.ts';
 type NonRecusionTreePreset = {
 	name: string;
 	preset: number[];
@@ -434,7 +435,7 @@ export const NON_RECURSIVE = {
 			player.milestones[`dut${i}`] = false;
 		}
 		player.hydra.milestoneDut5Eff = DC.D_1;
-		if (!player.milestones.nonrec_2) player.hydra.pAuto = [!1, !1, !1, !1];
+		// if (!player.milestones.nonrec_2) player.hydra.pAuto = [!1, !1, !1, !1];
 		//player.hydra.dilute.solvent = [0, 0, 0, 0, 0, 0, !1, !1, !1];
 		player.hydra.dilute.lastSolvent = [0, 0, 0, 0, 0, 0, !1, !1, !1];
 		player.hydra.dilute.lastDeduce = DC.D_0;
@@ -471,13 +472,12 @@ export const NON_RECURSIVE = {
 	},
 	addResetGain() {},
 	addPower(x: Decimal) {
-		player.nonrecu.power = player.nonrecu.power.add(x)
-		player.nonrecu.totalPower = player.nonrecu.totalPower
-			.add(x);
+		player.nonrecu.power = player.nonrecu.power.add(x);
+		player.nonrecu.totalPower = player.nonrecu.totalPower.add(x);
 		if (player.pt.power.lt(1)) {
-			player.nonrecu.power = player.nonrecu.power.min('ee8.07230472602822538e153')
-			player.nonrecu.totalPower = player.nonrecu.totalPower.min('ee8.07230472602822538e153')
-		};
+			player.nonrecu.power = player.nonrecu.power.min('ee8.07230472602822538e153');
+			player.nonrecu.totalPower = player.nonrecu.totalPower.min('ee8.07230472602822538e153');
+		}
 	},
 	gainFactor(): [string, number, Decimal][] {
 		const ADD_EFF = 0,
@@ -566,8 +566,7 @@ export const NON_RECURSIVE = {
 		base = base.pow(NON_RECURSIVE.UNOCFeff()[3]);
 		if (!player.upgrades.U6R21 && base.gte(1e500))
 			base = base.log10().div(500).pow(0.5).mul(500).pow(10);
-		if (player.pt.power.lt(1))
-		return base.min('ee8.07230472602822538e153');
+		if (player.pt.power.lt(1)) return base.min('ee8.07230472602822538e153');
 
 		return base;
 	},
@@ -628,6 +627,9 @@ export const NON_RECURSIVE = {
 		}
 		if (player.upgrades['7ta3q']) {
 			addTheories(2);
+		}
+		if (player.pt.totalPower.gte(1e70)) {
+			NON_REC_BMS.loop(diff);
 		}
 	},
 	UNOCFdeduceSpeed() {

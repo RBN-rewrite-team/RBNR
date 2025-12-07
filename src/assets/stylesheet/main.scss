@@ -1038,33 +1038,33 @@ a {
 }
 
 .notify {
-  position: fixed;
-  top: 5px;
-  right: 5px;
-  z-index: 9998;
+	position: fixed;
+	top: 5px;
+	right: 5px;
+	z-index: 9998;
 }
 .notify-content-box {
-  height: 30px;
-  max-width: 250px;
-  font-size: 16px;
-  color: #eeeeee;
-  background-color: #00dddd80;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  flex-wrap: wrap;
+	height: 30px;
+	max-width: 250px;
+	font-size: 16px;
+	color: #eeeeee;
+	background-color: #00dddd80;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-content: center;
+	flex-wrap: wrap;
 
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-bottom: 10px;
-  animation: notify-start 0.5s infinite;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 10px;
+	animation: notify-start 0.5s infinite;
 }
 @keyframes notify-start {
 	from {
 		opacity: 0;
 	}
-	to{
+	to {
 		opacity: 1;
 	}
 }
@@ -1072,19 +1072,19 @@ a {
 	from {
 		opacity: 1;
 	}
-	to{
+	to {
 		opacity: 0;
 	}
 }
 .performance {
-  position: fixed;
-  bottom: 5px;
-  left: 5px;
-  z-index: 9998;
-  background-color: #ffffff;
+	position: fixed;
+	bottom: 5px;
+	left: 5px;
+	z-index: 9998;
+	background-color: #ffffff;
 	color: #000000;
-  padding-left: 10px;
-  padding-right: 10px;
-  width: 200px;
-  height: 100px;
+	padding-left: 10px;
+	padding-right: 10px;
+	width: 200px;
+	height: 100px;
 }
