@@ -15,7 +15,9 @@ export const NRBUpgrades = {
 		cost = new Decimal(20);
 		currency: Currencies = Currencies.NRB_DEDUCTION;
 		effect(): Decimal {
-			return player.pt.nonrecBMS.deduce.clampMin(10).log10();
+			if (player.pt.nonrecBMS.deduce.lt(3000000))
+				return player.pt.nonrecBMS.deduce.clampMin(10).log10();
+			return player.pt.nonrecBMS.deduce.clampMin(1).pow(0.5);
 		}
 		effectDescription(values: Decimal): string {
 			return '×' + format(values);
@@ -50,7 +52,7 @@ export const NRBUpgrades = {
 	})(),
 	'85': new (class extends UpgradeWithEffect<Decimal> {
 		name = 'U7-5';
-		cost = new Decimal(8500);
+		cost = new Decimal(1999);
 		currency: Currencies = Currencies.NRB_DEDUCTION;
 		effect(): Decimal {
 			return player.pt.nonrecBMS.deduce.pow(0.8).clampMin(1);
@@ -61,15 +63,15 @@ export const NRBUpgrades = {
 	})(),
 	'86': new (class extends Upgrade {
 		name = 'U7-6';
-		cost = new Decimal(114514);
+		cost = new Decimal(12000);
 		currency: Currencies = Currencies.NRB_DEDUCTION;
 	})(),
 	'87': new (class extends UpgradeWithEffect<Decimal> {
 		name = 'U7-7';
-		cost = new Decimal(250000);
+		cost = new Decimal(19501.0);
 		currency: Currencies = Currencies.NRB_DEDUCTION;
 		effect(): Decimal {
-			return player.hydra.compressedPower.clampMin(10).slog().pow(0.5);
+			return player.hydra.compressedPower.clampMin(10).slog();
 		}
 		effectDescription(values: Decimal): string {
 			return '×' + format(values) + '';
@@ -79,6 +81,11 @@ export const NRBUpgrades = {
 		name = 'U7-8';
 		cost = new Decimal('1f15');
 		currency: Currencies = Currencies.COMP_HYDRA;
+	})(),
+	'89': new (class extends Upgrade {
+		name = 'U7-9';
+		cost = new Decimal(1396000);
+		currency: Currencies = Currencies.NRB_DEDUCTION;
 	})(),
 } as const satisfies {
 	[key: string]: Upgrade;
