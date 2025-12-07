@@ -568,6 +568,14 @@ export const Hydra = {
 				return player.retribution == 1;
 			}
 		})(),
+		'6217': new (class extends Upgrade {
+			cost = new Decimal('1f10');
+			name = 'U5-2-17';
+			currency: Currencies = Currencies.COMP_HYDRA;
+			show(): boolean {
+				return player.retribution == 1;
+			}
+		})(),
 	},
 	buyables: {
 		'611': new (class B611 extends Buyable<Decimal> {

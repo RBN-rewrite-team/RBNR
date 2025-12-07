@@ -235,7 +235,7 @@ export const menus = [
 				id: 33,
 				text: 'tab.nonrecbms',
 				show() {
-					return player.pt.totalPower.gte(1e70);
+					return player.pt.totalPower.gte(1e9);
 				},
 			},
 		],

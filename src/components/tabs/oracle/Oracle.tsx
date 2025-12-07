@@ -371,7 +371,7 @@ export default defineComponent({
 							Respec
 						</button>
 					</div>
-					{player.pt.totalPower.lt('1e70') && '下一个机制将在1e70证明论能量解锁'}
+					{player.pt.totalPower.lt('1e9') && '下一个机制将在1e9证明论能量解锁'}
 					{/* <br />
 					<div
 						style={{

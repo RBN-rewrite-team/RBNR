@@ -628,7 +628,7 @@ export const NON_RECURSIVE = {
 		if (player.upgrades['7ta3q']) {
 			addTheories(2);
 		}
-		if (player.pt.totalPower.gte(1e70)) {
+		if (player.pt.totalPower.gte(1e9)) {
 			NON_REC_BMS.loop(diff);
 		}
 	},

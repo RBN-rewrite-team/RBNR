@@ -50,10 +50,10 @@ export const NRBUpgrades = {
 	})(),
 	'85': new (class extends UpgradeWithEffect<Decimal> {
 		name = 'U7-5';
-		cost = new Decimal(8500);
+		cost = new Decimal(5000);
 		currency: Currencies = Currencies.NRB_DEDUCTION;
 		effect(): Decimal {
-			return player.pt.nonrecBMS.deduce.pow(0.8).clampMin(1);
+			return player.pt.nonrecBMS.deduce.pow(0.5).clampMin(1);
 		}
 		effectDescription(values: Decimal): string {
 			return '×' + format(values) + '';
