@@ -2003,4 +2003,6 @@ export default {
 	'tab.oracle': '神谕',
 	'upgs.6214': '压缩九头蛇能量加成非递归能量',
 	'upgs.6215': '自动购买Y序列维度',
+	
+	'currency.焓': '焓',
 };

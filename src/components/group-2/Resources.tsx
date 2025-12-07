@@ -102,6 +102,11 @@ export default defineComponent({
 											{$t('currency.灵感')}&nbsp;
 											{format(player.garden.inspiration)}
 										</div>
+										<br />
+										<div style="font-weight: bold; color: pink">
+											{ $t('currency.焓') }&nbsp;
+											{ formatWhole(player.garden.enthalpy) }
+										</div>
 									</div>
 								</>
 							)

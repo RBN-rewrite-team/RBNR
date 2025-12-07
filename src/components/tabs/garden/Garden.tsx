@@ -245,7 +245,7 @@ function simulateText(canvasRef: any, $t: $t) {
 									'brightness(' +
 									(player.garden.upgrades[g.key] ? 1 : 0.75) +
 									')',
-								'border-color': player.garden.upgrades[g.key] ? 'green' : 'grey',
+								'border-color': player.garden.upgrades[g.key] ? g.currency.color : 'grey',
 								transform:
 									'scale(' +
 									(Garden.canBoughtUpgrade(
