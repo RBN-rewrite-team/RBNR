@@ -10,6 +10,7 @@ import { getMessage, i18n } from '@/utils/i18n';
 import type { $t } from '@/utils/types';
 import { Garden } from '../garden.ts';
 import { upgrades } from '@/core/mechanic.ts';
+import { SIN } from './sin.ts';
 
 function nextDayDate(date: Date): Date {
 	const nextDay = new Date(date.getTime());
@@ -118,7 +119,9 @@ export const Oracle = {
 					: 0;
 
 		let effect = 1;
-		effect -= (player.upgrades[81] ? 0.15 : 0.2) * betweenDifferences;
+		if (!player.milestones.sin_1) {
+			effect -= (player.upgrades[81] ? 0.15 : 0.2) * betweenDifferences;
+		}
 		effect += 0.5 * betweenSames;
 		effect *= player.oracle.fateEffect[id][column];
 
@@ -204,6 +207,9 @@ export const Oracle = {
 			player.oracle.vowPoints = player.oracle.vowPoints.add(3);
 		}
 		player.oracle.vowPoints = player.oracle.vowPoints.clampMax(1000);
+		if (SIN.isUnlocked()) {
+			SIN.loop(diff);
+		}
 	},
 	playerData() {
 		return {
@@ -228,7 +234,7 @@ export const Oracle = {
 			seedFateBought: [0, 0, 0, 0, 0],
 			seedFate: [Math.random(), Math.random(), Math.random(), Math.random(), Math.random()],
 			/**
-			 * @deprecated
+			 * @deprecated this debuff Remains is never used
 			 */
 			debuffRemains: 0 as never,
 			fateChoose: 1, // 1,2,3,4,5
@@ -237,6 +243,7 @@ export const Oracle = {
 
 			gardenGenTimeProgress: 0,
 			ptResetTimeProgress: 0,
+			originalsin: SIN.playerData(),
 		};
 	},
 	respec() {

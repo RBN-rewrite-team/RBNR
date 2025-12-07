@@ -1394,6 +1394,9 @@ export const Hydra = {
 	},
 	playerData() {
 		return {
+			/**
+			 * @deprecated This variable is useless
+			 */
 			visiting: 0 as const,
 			power: DC.D_0,
 			compressedPower: DC.D_0,

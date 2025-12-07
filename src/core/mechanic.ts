@@ -405,7 +405,7 @@ SOFTCAPS.create('mulpower^2', {
 	exponent: new Decimal(0.25),
 	meta: 1,
 });
-type IMilestone = {
+export type IMilestone = {
 	requirement: Decimal;
 	currency: string;
 	displayName: string;

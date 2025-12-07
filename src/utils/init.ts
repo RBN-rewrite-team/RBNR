@@ -21,6 +21,7 @@ import { timeCheck } from './time-check.ts';
 import { initPTMilestones } from '@/core/pt/milestones.ts';
 import App from '@/App.tsx';
 import { i18n } from './i18n.ts';
+import { initSINMiletones } from '@/core/pt/oracle/sin.ts';
 export function init() {
 	try {
 		timeCheck();
@@ -37,6 +38,7 @@ export function init() {
 		Dilute.initMechanics();
 		NON_RECURSIVE.initMechanics();
 		initPTMilestones();
+		initSINMiletones();
 		loadSaves();
 		if (player.foundNaN && player.backup) {
 			restoreBackup(player);

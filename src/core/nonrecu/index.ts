@@ -705,6 +705,9 @@ export const NON_RECURSIVE = {
 			theories: [DC.D_0, DC.D_0, DC.D_0],
 			spentTheories: DC.D_0,
 			secInThisReset: DC.D_0,
+			/**
+			 * @deprecated studies preset is never used
+			 */
 			studies_preset: Array(6)
 				.fill(null)
 				.map(

@@ -1,5 +1,6 @@
 import { RETRIBUTION } from '@/core/post-nonrec/retribution';
 import { Oracle } from '@/core/pt/oracle/oracle';
+import { SIN } from '@/core/pt/oracle/sin';
 import { player } from '@/core/save';
 import { isDeveloper, isTester } from '@/core/save/testing';
 
@@ -257,6 +258,13 @@ export const menus = [
 				text: 'tab.oracle',
 				show() {
 					return Oracle.isUnlocked() && isTester();
+				},
+			},
+			{
+				id: 34,
+				text: 'tab.sin',
+				show() {
+					return SIN.isUnlocked() && isTester();
 				},
 			},
 		],

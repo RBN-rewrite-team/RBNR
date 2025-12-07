@@ -2003,7 +2003,7 @@ export default {
 	'tab.oracle': '神谕',
 	'upgs.6214': '压缩九头蛇能量加成非递归能量',
 	'upgs.6215': '自动购买Y序列维度',
-	
+
 	'currency.焓': '焓',
 	'studies.nonrec.31': function () {
 		if (player.retribution == 0) return '????';
@@ -2030,4 +2030,7 @@ export default {
 	'upgs.6216': '保持前12个Y序列升级',
 	'upgs.6217': '非递归BMS的速度×10',
 	'upgs.89': '减少天命的价格增长',
+	'tab.sin': '原罪',
+	'currency.karma': '业',
+	'upgs.mil.sin_1': '不同的天命相邻放置不再减益',
 };
