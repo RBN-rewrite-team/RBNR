@@ -33,10 +33,10 @@ function className() {
 		<div style="text-align: left">
 			<span
 				>{{ dimensionTitle() }}({{
-					formatWhole(player.postnonrec.yseq.dimensions[0][0])
-				}}+{{ formatWhole(player.postnonrec.yseq.dimensions[1][0]) }})</span
+					formatWhole(player.postnonrec.yseq.dimensions[0][props.seq_id])
+				}}+{{ formatWhole(player.postnonrec.yseq.dimensions[1][props.seq_id]) }})</span
 			><br />
-			×{{ format(Y_SEQ.dimensionBoost(0)) }}
+			×{{ format(Y_SEQ.dimensionBoost(props.seq_id)) }}
 		</div>
 		<span>{{ dimensionText() }}</span>
 		<div class="buy" @click="() => POST_NONREC.Y_SEQ.buyDimensions(props.seq_id)">
