@@ -407,6 +407,7 @@ export const Hydra = {
 			show(): boolean {
 				return player.retribution >= 1;
 			}
+			keep(): boolean { return player.upgrades[6216]}
 		})(),
 		'622': new (class extends UpgradeWithEffect<Decimal> {
 			description = '每购买一个维度，它的效果变为原来的一定倍数';
@@ -425,6 +426,7 @@ export const Hydra = {
 			show(): boolean {
 				return player.retribution == 1;
 			}
+			keep(): boolean { return player.upgrades[6216]}
 		})(),
 		'623': new (class extends Upgrade {
 			description = '平方U5-2-1~2的效果';
@@ -434,6 +436,7 @@ export const Hydra = {
 			show(): boolean {
 				return player.retribution == 1;
 			}
+			keep(): boolean { return player.upgrades[6216]}
 		})(),
 		'624': new (class extends Upgrade {
 			description = '任意一个时刻至少会有一个第一Y序列维度';
@@ -443,6 +446,7 @@ export const Hydra = {
 			show(): boolean {
 				return player.retribution == 1;
 			}
+			keep(): boolean { return player.upgrades[6216]}
 		})(),
 		'625': new (class extends Upgrade {
 			description = '所有维度的生产为原来的3倍';
@@ -452,6 +456,7 @@ export const Hydra = {
 			show(): boolean {
 				return player.retribution == 1;
 			}
+			keep(): boolean { return player.upgrades[6216]}
 		})(),
 		'626': new (class extends Upgrade {
 			description = '4个维度的价格增长减少50%';
@@ -461,6 +466,7 @@ export const Hydra = {
 			show(): boolean {
 				return player.retribution == 1;
 			}
+			keep(): boolean { return player.upgrades[6216]}
 		})(),
 		'627': new (class extends UpgradeWithEffect<Decimal> {
 			description = 'Y序列推演次数生产第四Y序列维度';
@@ -476,6 +482,7 @@ export const Hydra = {
 			effectDescription(values: Decimal): string {
 				return formatMult(Y_SEQ.u627effect());
 			}
+			keep(): boolean { return player.upgrades[6216]}
 		})(),
 		'628': new (class extends Upgrade {
 			description = '飞升的效果公式变得更好，U5-2-1再次平方';
@@ -485,6 +492,7 @@ export const Hydra = {
 			show(): boolean {
 				return player.retribution == 1;
 			}
+			keep(): boolean { return player.upgrades[6216]}
 		})(),
 		'629': new (class extends Upgrade {
 			description = '每秒获得100%重置时获得的压缩九头蛇能量';
@@ -494,6 +502,7 @@ export const Hydra = {
 			show(): boolean {
 				return player.retribution == 1;
 			}
+			keep(): boolean { return player.upgrades[6216]}
 		})(),
 		'6210': new (class extends Upgrade {
 			description = '每购买一个第 2~4 Y序列维度，它的效果×(0.95+维度序号×0.05)';
@@ -503,6 +512,7 @@ export const Hydra = {
 			show(): boolean {
 				return player.retribution == 1;
 			}
+			keep(): boolean { return player.upgrades[6216]}
 		})(),
 		'6211': new (class extends Upgrade {
 			description = 'U5-2-7的效果立方';
@@ -512,6 +522,7 @@ export const Hydra = {
 			show(): boolean {
 				return player.retribution == 1;
 			}
+			keep(): boolean { return player.upgrades[6216]}
 		})(),
 		'6212': new (class extends Upgrade {
 			description = '转生~轮回不重置任何东西，且轮回效果+50%';
@@ -521,6 +532,7 @@ export const Hydra = {
 			show(): boolean {
 				return player.retribution == 1;
 			}
+			keep(): boolean { return player.upgrades[6216]}
 		})(),
 		'6213': new (class extends Upgrade {
 			description =
@@ -543,6 +555,14 @@ export const Hydra = {
 		'6215': new (class extends Upgrade {
 			cost = new Decimal('1.4f6');
 			name = 'U5-2-15';
+			currency: Currencies = Currencies.COMP_HYDRA;
+			show(): boolean {
+				return player.retribution == 1;
+			}
+		})(),
+		'6216': new (class extends Upgrade {
+			cost = new Decimal('1.1f7');
+			name = 'U5-2-16';
 			currency: Currencies = Currencies.COMP_HYDRA;
 			show(): boolean {
 				return player.retribution == 1;

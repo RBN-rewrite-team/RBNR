@@ -360,7 +360,7 @@ export default defineComponent({
 								</tr>
 							</tbody>
 						</table>
-						Vow points: {formatWhole(player.oracle.vowPoints)}
+						<h3>Vow points: {formatWhole(player.oracle.vowPoints)}/20</h3>
 						<br />
 						GardenGenerator Progress
 						{(player.oracle.gardenGenTimeProgress * 100).toFixed(2)}%<br />
@@ -371,7 +371,7 @@ export default defineComponent({
 							Respec
 						</button>
 					</div>
-					{player.pt.totalPower.lt('e70') && '下一个机制将在1e70证明论能量解锁'}
+					{player.pt.totalPower.lt('1e70') && '下一个机制将在1e70证明论能量解锁'}
 					{/* <br />
 					<div
 						style={{
