@@ -5,7 +5,7 @@ const news = [
 {id: "newsen1", text: "I tried to make an incremental game with AI. As a result, bugs are more than features."},
 {id: "newsen2", text: "<img src='baixie.png' /><img src='baixie.png' /><img src='baixie.png' />"},
 {id: "newsen3", text: "AD16 mod 2 = 1"},
-{id: "newsen4", text: "Did you know? Bourgain proved Δ(x)=O(x^517/1648+ε), but it's wrong.Think about him if you do your maths wrong."},
+{id: "newsen4", text: "<span style='color: #7289da; background: rgba(250,166,26,0.2); cursor: text;'>@everyone</span>"},
 {id: "newsen5", text: "Phy Soc is the last layer of this game."},
 {id: "newsen6", text: "The first one is always <i>free</i> fake."},
 {id: "newsen8", text: "Vorona said: antiest-booster gainest"},
