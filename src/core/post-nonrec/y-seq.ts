@@ -174,7 +174,7 @@ export const Y_SEQ = {
 			base = Decimal.tetrate(10, base.slog(14).pow(0.25).add(14).toNumber());
 		}
 		if (base.gte('10^^1000')) {
-			base = Decimal.tetrate(10, base.div(100).log10().pow(0.25).mul(100).toNumber());
+			base = Decimal.tetrate(10, base.slog().div(100).log10().pow(0.25).mul(100).toNumber());
 		}
 		if (player.pt.nonrecBMS.deduce.gte(1) && NON_REC_BMS.effects()[0].gt(0)) {
 			base = Decimal.tetrate(10, base.slog().add(NON_REC_BMS.effects()[0]).toNumber());
