@@ -31,8 +31,10 @@ function successorButton() {
 		<div class="clickable">
 			<PrimaryButton
 				@click="feature.SUCCESSOR.success()"
-				style="width: fit-content"
-				v-html="successorButton()"
+				:style="{
+					width: 'fit-content',
+				}"
+				:inner-h-t-m-l="successorButton()"
 			>
 			</PrimaryButton>
 		</div>

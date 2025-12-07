@@ -54,7 +54,9 @@ function m2GainLatex() {
 	<div class="main">
 		<div style="transform: translateY(60px)">
 			<PrimaryButton
-				style="position: absolute"
+				:style="{
+					position: 'absolute',
+				}"
 				@mousedown="
 					player.numbertheory.visiting = Math.max(player.numbertheory.visiting - 1, 1)
 				"
@@ -62,7 +64,10 @@ function m2GainLatex() {
 				-
 			</PrimaryButton>
 			<PrimaryButton
-				style="position: absolute; left: 60px"
+				:style="{
+					position: 'absolute',
+					left: '60px',
+				}"
 				@mousedown="
 					player.numbertheory.visiting = Math.min(player.numbertheory.visiting + 1, 9)
 				"
@@ -194,7 +199,7 @@ function m2GainLatex() {
 					<b
 						>{{ $t('nt.ration.effect.1') }}<vue-latex expression="\tau_2" />{{
 							$t('nt.ration.effect.2')
-						}}<<vue-latex expression="\tau_2^4"
+						}}<vue-latex expression="\tau_2^4"
 					/></b>
 				</p>
 				<br />
@@ -203,7 +208,10 @@ function m2GainLatex() {
 						player.numbertheory.rational_approx.n =
 							player.numbertheory.rational_approx.n.add(1)
 					"
-					style="display: inline-block; margin: 5px"
+					:style="{
+						display: 'inline-block',
+						margin: '5px',
+					}"
 				>
 					{{ $t('nt.ration.n') }}
 				</PrimaryButton>
@@ -213,7 +221,10 @@ function m2GainLatex() {
 							player.numbertheory.rational_approx.m.add(1)
 					"
 					v-if="player.milestones.cb8"
-					style="display: inline-block; margin: 5px"
+					:style="{
+						display: 'inline-block',
+						margin: '5px',
+					}"
 				>
 					{{ $t('nt.ration.m') }}
 				</PrimaryButton>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { player } from '@/core/save';
+import type { IntClosedRange } from 'type-fest';
 </script>
 
 <template>
@@ -9,10 +10,10 @@ import { player } from '@/core/save';
 			style="display: inline-block"
 			@click="
 				player.numbertheory.well_ordering.pages[
-					player.numbertheory.well_ordering.selecting - 1
+					(player.numbertheory.well_ordering.selecting - 1) as IntClosedRange<0, 9>
 				] = Math.max(
 					player.numbertheory.well_ordering.pages[
-						player.numbertheory.well_ordering.selecting - 1
+						(player.numbertheory.well_ordering.selecting - 1) as IntClosedRange<0, 9>
 					] - 1,
 					0,
 				)
@@ -25,7 +26,7 @@ import { player } from '@/core/save';
 			style="display: inline-block"
 			@click="
 				player.numbertheory.well_ordering.pages[
-					player.numbertheory.well_ordering.selecting - 1
+					(player.numbertheory.well_ordering.selecting - 1) as IntClosedRange<0, 9>
 				]++
 			"
 		>
@@ -34,7 +35,7 @@ import { player } from '@/core/save';
 			$t('page', {
 				page:
 					player.numbertheory.well_ordering.pages[
-						player.numbertheory.well_ordering.selecting - 1
+						(player.numbertheory.well_ordering.selecting - 1) as IntClosedRange<0, 9>
 					] + 1,
 			})
 		}})

@@ -5,7 +5,7 @@ import { format, formatWhole } from '@/utils/format';
 import { upgrades, buyables } from '../mechanic';
 import Decimal from 'break_eternity.js';
 import { player } from '../save';
-import type { FixedLengthArray } from 'type-fest';
+import type { FixedLengthArray, IntClosedRange } from 'type-fest';
 import { DC } from '../constants';
 import { getTotalTheories } from '../nonrecu/total-theories.ts';
 import { RETRIBUTION } from '@/core/post-nonrec/retribution';
@@ -375,7 +375,7 @@ export function stepProceed(x: number) {
 }
 export function wellOrderPlayerData() {
 	return {
-		selecting: 1,
+		selecting: 1 as IntClosedRange<0, 10>,
 		energy: DC.D_0,
 		pages: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] as FixedLengthArray<number, 10>,
 		steps_proceeded: [] as number[],

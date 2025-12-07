@@ -8,6 +8,7 @@ import { Buyable } from '../buyable';
 import { Currencies } from '../currencies';
 import { Upgrade, UpgradeWithEffect } from '../upgrade';
 import { Dilute } from '@/core/hydra/dilute';
+import type { IntClosedRange, IntRange } from 'type-fest';
 
 export const OrdinalNT = {
 	buyables: {
@@ -438,7 +439,9 @@ export const OrdinalNT = {
 				let prod = new Decimal(1);
 				const a = buyables['61R'].effect(player.buyables['61R']);
 				for (let i = 0; i < feature.Hydra.pMaxUnlock(); i++) {
-					prod = prod.mul(new Decimal(1).add(feature.Hydra.prestigeEff(i)));
+					prod = prod.mul(
+						new Decimal(1).add(feature.Hydra.prestigeEff(i as IntClosedRange<0, 3>)),
+					);
 				}
 				const prod2 = this.functionL4('f', prod).mul(a);
 

@@ -13,7 +13,7 @@ import {
 	tsbhBase,
 	type backupHydraType,
 } from './dilute';
-import type { FixedLengthArray } from 'type-fest';
+import type { FixedLengthArray, IntClosedRange, IntRange } from 'type-fest';
 import { NON_RECURSIVE } from '../nonrecu';
 import { CHALLENGE } from '../challenge';
 import { DC } from '@/core/constants';
@@ -407,7 +407,9 @@ export const Hydra = {
 			show(): boolean {
 				return player.retribution >= 1;
 			}
-			keep(): boolean { return player.upgrades[6216]}
+			keep(): boolean {
+				return player.upgrades[6216];
+			}
 		})(),
 		'622': new (class extends UpgradeWithEffect<Decimal> {
 			description = '每购买一个维度，它的效果变为原来的一定倍数';
@@ -426,7 +428,9 @@ export const Hydra = {
 			show(): boolean {
 				return player.retribution == 1;
 			}
-			keep(): boolean { return player.upgrades[6216]}
+			keep(): boolean {
+				return player.upgrades[6216];
+			}
 		})(),
 		'623': new (class extends Upgrade {
 			description = '平方U5-2-1~2的效果';
@@ -436,7 +440,9 @@ export const Hydra = {
 			show(): boolean {
 				return player.retribution == 1;
 			}
-			keep(): boolean { return player.upgrades[6216]}
+			keep(): boolean {
+				return player.upgrades[6216];
+			}
 		})(),
 		'624': new (class extends Upgrade {
 			description = '任意一个时刻至少会有一个第一Y序列维度';
@@ -446,7 +452,9 @@ export const Hydra = {
 			show(): boolean {
 				return player.retribution == 1;
 			}
-			keep(): boolean { return player.upgrades[6216]}
+			keep(): boolean {
+				return player.upgrades[6216];
+			}
 		})(),
 		'625': new (class extends Upgrade {
 			description = '所有维度的生产为原来的3倍';
@@ -456,7 +464,9 @@ export const Hydra = {
 			show(): boolean {
 				return player.retribution == 1;
 			}
-			keep(): boolean { return player.upgrades[6216]}
+			keep(): boolean {
+				return player.upgrades[6216];
+			}
 		})(),
 		'626': new (class extends Upgrade {
 			description = '4个维度的价格增长减少50%';
@@ -466,7 +476,9 @@ export const Hydra = {
 			show(): boolean {
 				return player.retribution == 1;
 			}
-			keep(): boolean { return player.upgrades[6216]}
+			keep(): boolean {
+				return player.upgrades[6216];
+			}
 		})(),
 		'627': new (class extends UpgradeWithEffect<Decimal> {
 			description = 'Y序列推演次数生产第四Y序列维度';
@@ -482,7 +494,9 @@ export const Hydra = {
 			effectDescription(values: Decimal): string {
 				return formatMult(Y_SEQ.u627effect());
 			}
-			keep(): boolean { return player.upgrades[6216]}
+			keep(): boolean {
+				return player.upgrades[6216];
+			}
 		})(),
 		'628': new (class extends Upgrade {
 			description = '飞升的效果公式变得更好，U5-2-1再次平方';
@@ -492,7 +506,9 @@ export const Hydra = {
 			show(): boolean {
 				return player.retribution == 1;
 			}
-			keep(): boolean { return player.upgrades[6216]}
+			keep(): boolean {
+				return player.upgrades[6216];
+			}
 		})(),
 		'629': new (class extends Upgrade {
 			description = '每秒获得100%重置时获得的压缩九头蛇能量';
@@ -502,7 +518,9 @@ export const Hydra = {
 			show(): boolean {
 				return player.retribution == 1;
 			}
-			keep(): boolean { return player.upgrades[6216]}
+			keep(): boolean {
+				return player.upgrades[6216];
+			}
 		})(),
 		'6210': new (class extends Upgrade {
 			description = '每购买一个第 2~4 Y序列维度，它的效果×(0.95+维度序号×0.05)';
@@ -512,7 +530,9 @@ export const Hydra = {
 			show(): boolean {
 				return player.retribution == 1;
 			}
-			keep(): boolean { return player.upgrades[6216]}
+			keep(): boolean {
+				return player.upgrades[6216];
+			}
 		})(),
 		'6211': new (class extends Upgrade {
 			description = 'U5-2-7的效果立方';
@@ -522,7 +542,9 @@ export const Hydra = {
 			show(): boolean {
 				return player.retribution == 1;
 			}
-			keep(): boolean { return player.upgrades[6216]}
+			keep(): boolean {
+				return player.upgrades[6216];
+			}
 		})(),
 		'6212': new (class extends Upgrade {
 			description = '转生~轮回不重置任何东西，且轮回效果+50%';
@@ -532,7 +554,9 @@ export const Hydra = {
 			show(): boolean {
 				return player.retribution == 1;
 			}
-			keep(): boolean { return player.upgrades[6216]}
+			keep(): boolean {
+				return player.upgrades[6216];
+			}
 		})(),
 		'6213': new (class extends Upgrade {
 			description =
@@ -1068,7 +1092,7 @@ export const Hydra = {
 	pMaxUnlock() {
 		for (let i = 0; i < 4; i++) {
 			if (this.pUnlock(i)) continue;
-			return i;
+			return i as 0 | 1 | 2 | 3;
 		}
 		return 4;
 	},
@@ -1125,12 +1149,12 @@ export const Hydra = {
 			};
 		else return { add: DC.D_0, mul: DC.D_1 };
 	},
-	prestigeBase(id = 0): Decimal {
+	prestigeBase(id: 0 | 1 | 2 | 3 = 0): Decimal {
 		if (id == 0) return Hydra.basePower();
-		else return Hydra.prestigeEff(id - 1, true);
+		else return Hydra.prestigeEff((id - 1) as 0 | 1 | 2, true);
 		return DC.D_0;
 	},
-	prestigeEff(id = 0, preview = false, relative = false): Decimal {
+	prestigeEff(id: 0 | 1 | 2 | 3 = 0, preview = false, relative = false): Decimal {
 		if (relative) {
 			return this.prestigeEff(id, true).div(this.prestigeEff(id, false));
 		}
@@ -1206,11 +1230,11 @@ export const Hydra = {
 		}
 		return base;
 	},
-	deduce(i = 0, bulk = DC.D_0): void {
+	deduce(i: 0 | 1 | 2 | 3 = 0, bulk = DC.D_0): void {
 		player.hydra.deduceOrdinal[i] = player.hydra.deduceOrdinal[i].add(bulk);
 		player.hydra.totalDeduceOrdinal[i] = player.hydra.totalDeduceOrdinal[i].add(bulk);
 	},
-	prestige(i = 0): void {
+	prestige(i: 0 | 1 | 2 | 3 = 0): void {
 		if (!Hydra.pUnlock(i)) return;
 		if (!Hydra.prestigeEff(i, true).gt(Hydra.prestigeEff(i, false))) return;
 		let keepHP = false,
@@ -1226,17 +1250,18 @@ export const Hydra = {
 		if (i == 2 && player.upgrades[64]) keepHP = true;
 		if (i == 0 && player.upgrades[63]) keepO = true;
 		if (i == 1 && player.upgrades[64]) keepO = true;
-		for (let j = 0; j < 4; j++) {
+		for (const j of [0, 1, 2, 3] as const) {
 			Hydra.hydraReset(j);
 			if (!keepO) player.hydra.powerMult[j] = DC.D_1;
 		}
-		for (let j = 0; j < i; j++) player.hydra.prestige[j] = DC.D_0;
+		for (let j = 0; j < i; j++)
+			player.hydra.prestige[j as IntClosedRange<0, typeof i>] = DC.D_0;
 		if (!keepHP) player.hydra.power = DC.D_0;
 	},
 	hydraUpdate(diff = 0): void {
 		if (Dilute.diluteAmount(8)) diff /= 1000;
 		temp.lastBMSDeduce = player.hydra.deduceOrdinal[0];
-		for (let i = 0; i < 4; i++) {
+		for (const i of [0, 1, 2, 3] as const) {
 			player.hydra.deduceProgress[i] = player.hydra.deduceProgress[i].add(
 				Hydra.deduceSpeed(i).mul(diff),
 			);
@@ -1267,7 +1292,7 @@ export const Hydra = {
 					.mul(NT4Boost),
 			);
 		}
-		for (let i = 0; i < 4; i++) {
+		for (const i of [0, 1, 2, 3] as const) {
 			if (player.hydra.pAuto[i] && Hydra.pAutoUnlock(i)) {
 				if (
 					Hydra.prestigeEff(i, true)
@@ -1305,7 +1330,7 @@ export const Hydra = {
 			.min('ee8.07230472602822538e153')
 			.clampMin(0);
 	},
-	hydraReset(i = 0): void {
+	hydraReset(i: 0 | 1 | 2 | 3 = 0): void {
 		if (player.hydra.deduceOrdinal[player.hydra.visiting].eq(0)) return;
 		player.hydra.powerMult[i] = player.hydra.powerMult[i].add(
 			Hydra.deduceEff(i).mul(player.hydra.deduceOrdinal[i]),
@@ -1369,7 +1394,7 @@ export const Hydra = {
 	},
 	playerData() {
 		return {
-			visiting: 0,
+			visiting: 0 as const,
 			power: DC.D_0,
 			compressedPower: DC.D_0,
 			totalCompressedPower: DC.D_0,

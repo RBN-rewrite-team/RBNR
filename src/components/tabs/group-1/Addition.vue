@@ -32,7 +32,9 @@ import PrimaryButton from '@/components/ui/PrimaryButton';
 				<template v-for="c in [2, 3, 4, 5]">
 					<PrimaryButton
 						@click="feature.ADDITION.setUPGc1(c as 2 | 3 | 4 | 5)"
-						style="display: inline-block"
+						:style="{
+							display: 'inline-block',
+						}"
 					>
 						{{ c }}
 					</PrimaryButton> </template
@@ -41,7 +43,9 @@ import PrimaryButton from '@/components/ui/PrimaryButton';
 					<template v-for="c in [2, 3, 4, 5]">
 						<PrimaryButton
 							@click="feature.ADDITION.setUPGc2(c as 2 | 3 | 4 | 5)"
-							style="display: inline-block"
+							:style="{
+								display: 'inline-block',
+							}"
 						>
 							{{ c }}
 						</PrimaryButton>

@@ -6,9 +6,9 @@ import { player } from '@/core/save';
 import { temp } from '@/core/temp-data';
 
 function spawn(id: number): void {
-	((player.minigame.current_room = id),
-		(player.minigame.current_x = 1n),
-		(player.minigame.current_y = 1n));
+	player.minigame.current_room = id;
+	player.minigame.current_x = 1n;
+	player.minigame.current_y = 1n;
 	player.minigame.hp = meBattleInfo().hpMax;
 	if (!player.minigame.visited.includes(id)) player.minigame.visited.push(id);
 	for (const k in player.minigame.replaces) {
@@ -109,7 +109,9 @@ function openCore() {
 					<td>
 						<PrimaryButton
 							@click="player.options.openOreEffect = !player.options.openOreEffect"
-							style="font-size: 8px"
+							:style="{
+								fontSize: '8px',
+							}"
 						>
 							{{
 								$t('set.status', {

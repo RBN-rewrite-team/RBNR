@@ -13,6 +13,7 @@ import { component as cttc } from '../help/text-to-component-convert.tsx';
 
 import PageSelect from './PageSelect.vue';
 import { useI18n } from 'vue-i18n';
+import type { IntClosedRange, IntRange } from 'type-fest';
 function getCurrentSequenceName(): string {
 	const selecting = player.numbertheory.well_ordering.selecting;
 	if (selecting === 0) return $t('nt.wellorderness.select.0');
@@ -40,7 +41,7 @@ function c() {
 				player.numbertheory.well_ordering.selecting = Math.max(
 					player.numbertheory.well_ordering.selecting - 1,
 					0,
-				)
+				) as IntClosedRange<0, 9>
 			"
 		>
 			←</button
@@ -55,7 +56,7 @@ function c() {
 				player.numbertheory.well_ordering.selecting = Math.min(
 					player.numbertheory.well_ordering.selecting + 1,
 					10,
-				)
+				) as IntClosedRange<0, 10>
 			"
 		>
 			→
