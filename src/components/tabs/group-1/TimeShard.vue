@@ -79,6 +79,8 @@ function t2() {
 										{{ $t('timeshard.gen', { tier: 'I' }) }}
 									</h3>
 									<br />
+									<span style="color: rgb(127, 63, 0); font-weight: bold">愿力阈值-5</span>
+									<br />
 									<span v-html="$t('timeshard.gen.1')"></span><br />
 									<span
 										v-if="Date.now() >= player.timeshard.cd[0]"
@@ -104,6 +106,8 @@ function t2() {
 										{{ $t('timeshard.gen', { tier: 'II' }) }}
 									</h3>
 									<br />
+									<span style="color: rgb(127, 63, 0); font-weight: bold">愿力阈值-25</span>
+									<br />
 									<span v-html="$t('timeshard.gen.2')"></span><br />
 									<span
 										v-if="Date.now() >= player.timeshard.cd[1]"
@@ -128,6 +132,8 @@ function t2() {
 									<h3 style="color: rgb(255, 63, 255)">
 										{{ $t('timeshard.gen', { tier: 'III' }) }}
 									</h3>
+									<br />
+									<span style="color: rgb(127, 63, 0); font-weight: bold">愿力阈值-125</span>
 									<br />
 									<span v-html="$t('timeshard.gen.3')"></span><br />
 									<span

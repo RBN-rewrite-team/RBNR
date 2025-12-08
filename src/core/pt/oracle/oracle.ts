@@ -264,7 +264,7 @@ export const Oracle = {
 			player.oracle.fate.filter((x) => x.filter((y) => y >= 1).length >= 1).length >= 1;
 		if (!hasFate) return;
 
-		if (player.oracle.vowPoints.lt(20)) return;
+		if (player.oracle.vowPoints.lt(player.oracle.vowCoe)) return;
 
 		player.oracle.fate = player.oracle.fate.map((x) => x.map(() => 0));
 		player.oracle.fateBought = player.oracle.fate.map(() => 0);
