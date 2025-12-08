@@ -10,7 +10,7 @@ export function initSINMiletones() {
 		displayName: 'M-SIN-1',
 		show: true,
 		get canDone() {
-			return player.oracle.originalsin.karma.gte(10000);
+			return player.oracle.originalsin.karma.gte(1000);
 		},
 	});
 }
