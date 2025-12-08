@@ -54,7 +54,7 @@
     "vite": "^7.2.6",
     "vite-plugin-html-minifier": "^1.0.5",
     "vite-plugin-vue-devtools": "^8.0.5",
-    "vue-tsc": "^3.1.5"
+    "vue-tsc": "^3.1.7"
   },
   "overrides": {
     "vatex": {
