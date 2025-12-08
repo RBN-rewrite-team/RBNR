@@ -18,6 +18,7 @@ import { VueLatex } from 'vatex';
 import type { $t } from '@/utils/types';
 import { useI18n } from 'vue-i18n';
 import { vHold } from '@/utils/vHold';
+import Decimal from 'break_eternity.js';
 export function onMousedown(m: MouseEvent) {
 	temp.garden.press = true;
 	temp.garden.press_last = [m.clientX, m.clientY];
