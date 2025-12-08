@@ -56,7 +56,7 @@ export const Oracle = {
 			if (player.upgrades['89']) {
 				base = base.div(2);
 			}
-			return base.pow(player.oracle.fateBought[id] - 3);
+			return base.pow(player.oracle.fateBought[id] - 3).floor();
 		}
 	},
 
@@ -273,6 +273,6 @@ export const Oracle = {
 		player.oracle.fateBought = player.oracle.fate.map(() => 0);
 		player.oracle.spendBits = new Decimal(0);
 		player.oracle.vowPoints = player.oracle.vowPoints.sub(player.oracle.vowCoe);
-		player.oracle.vowCoe = player.oracle.vowCoe.add(1);
+		player.oracle.vowCoe = player.oracle.vowCoe.add(1).min(50);
 	},
 } as const;
