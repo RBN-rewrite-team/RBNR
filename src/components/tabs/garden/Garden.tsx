@@ -522,25 +522,31 @@ export default defineComponent({
 								</>
 							) : (
 								<>
-									{$t('garden.enhance')}
-									{(player.garden.focusNode as GardenUpgrade).effect.key >= 0
-										? $t(
-												`garden.gen.${
-													GardenGenUpgs.generators[
-														(player.garden.focusNode as GardenUpgrade)
-															.effect
-															.key as unknown as keyof typeof GardenGenUpgs.generators
-													].key
-												}`,
-											)
-										: Garden.upgradeImproving(
-												(player.garden.focusNode as GardenUpgrade).effect
-													.key,
-												$t,
-											)}
-									: x
-									{format((player.garden.focusNode as GardenUpgrade).effect.mult)}
-									<br />
+									{
+										(player.garden.focusNode as GardenUpgrade).effect.key == -999 ?
+											<></>
+											: <>
+											{$t('garden.enhance')}
+											{(player.garden.focusNode as GardenUpgrade).effect.key >= 0
+												? $t(
+														`garden.gen.${
+															GardenGenUpgs.generators[
+																(player.garden.focusNode as GardenUpgrade)
+																	.effect
+																	.key as unknown as keyof typeof GardenGenUpgs.generators
+															].key
+														}`,
+													)
+												: Garden.upgradeImproving(
+														(player.garden.focusNode as GardenUpgrade).effect
+															.key,
+														$t,
+													)}
+											: x
+											{format((player.garden.focusNode as GardenUpgrade).effect.mult)}
+											<br />
+										</>
+									}
 									{Garden.upgradeEffectDescription(
 										player.garden.focusNode
 											.key as keyof typeof GardenGenUpgs.upgrades,

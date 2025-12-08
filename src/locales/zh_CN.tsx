@@ -2033,4 +2033,15 @@ export default {
 	'tab.sin': '原罪',
 	'currency.karma': '业',
 	'upgs.mil.sin_1': '不同的天命相邻放置不再减益',
+	'garden.improving.3': '自动发电机批量',
+	'garden.upg.81': 'ATBBK1',
+	'garden.upg.82': 'ATBBK2',
+	'garden.upg.83': 'ATBBK3',
+	'garden.upg.84': 'ATBBK4',
+	'garden.upg.85': 'ATBC1',
+	'garden.upg.85.desc': '需要想法的生成器消耗1/2的货币',
+	'garden.upg.86': 'ITCHE1',
+	'garden.upg.86.desc': function() {
+		return `累计灵感小幅提升压缩九头蛇能量slog。当前：+${format(player.garden.totalInspiration.add(1).log10().root(2).div(2).min(10))}`
+	},
 };

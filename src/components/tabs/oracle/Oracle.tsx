@@ -125,6 +125,8 @@ export default defineComponent({
 						<br />
 						{$t('oracle.fate.desc')}
 						<br />
+						{player.pt.totalPower.gte(1e30) ? <><span style="color: cyan; font-weight: bold;">累计证明论能量令天命效率+{format(Oracle.ptPowerEffectToFateEffect())}%</span></> : <></>}
+						<br />
 						<table
 							style={{
 								marginInlineStart: '0',
@@ -360,7 +362,7 @@ export default defineComponent({
 								</tr>
 							</tbody>
 						</table>
-						<h3>Vow points: {formatWhole(player.oracle.vowPoints)}/20</h3>
+						<h3>Vow points: {formatWhole(player.oracle.vowPoints)}/{formatWhole(player.oracle.vowCoe)}</h3>
 						<br />
 						GardenGenerator Progress
 						{(player.oracle.gardenGenTimeProgress * 100).toFixed(2)}%<br />

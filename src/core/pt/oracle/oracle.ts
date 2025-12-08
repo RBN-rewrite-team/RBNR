@@ -186,7 +186,17 @@ export const Oracle = {
 				}
 				player.oracle.fateEffect[id][column] += (upgrades[83].effect() / 100) * mult;
 			}
+			player.oracle.fateEffect[id][column] += Oracle.ptPowerEffectToFateEffect().toNumber() / 100;
 		}
+	},
+	ptPowerEffectToFateEffect() {
+		if(player.pt.totalPower.lt(1e30)) return new Decimal(0);
+		let base = player.pt.totalPower.add(10).log10().sub(29).root(2).sub(1);
+		if(base.gte(100))
+		{
+			base = base.div(10).log10().mul(100);
+		}
+		return base;
 	},
 	oracleLoop(diff: number) {
 		if (!Oracle.isUnlocked()) {
@@ -240,6 +250,7 @@ export const Oracle = {
 			fateChoose: 1, // 1,2,3,4,5
 
 			vowPoints: new Decimal(0),
+			vowCoe: new Decimal(20),
 
 			gardenGenTimeProgress: 0,
 			ptResetTimeProgress: 0,
@@ -258,6 +269,7 @@ export const Oracle = {
 		player.oracle.fate = player.oracle.fate.map((x) => x.map(() => 0));
 		player.oracle.fateBought = player.oracle.fate.map(() => 0);
 		player.oracle.spendBits = new Decimal(0);
-		player.oracle.vowPoints = player.oracle.vowPoints.sub(20);
+		player.oracle.vowPoints = player.oracle.vowPoints.sub(player.oracle.vowCoe);
+		player.oracle.vowCoe = player.oracle.vowCoe.add(1);
 	},
 } as const;

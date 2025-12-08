@@ -4,6 +4,7 @@ import { player } from '../save';
 import { Analysis } from '@/core/pt/index.ts';
 import { Oracle } from '@/core/pt/oracle/oracle.ts';
 import { NON_REC_BMS } from '../nonrecu/nonrec-bms';
+import { Garden } from '@/core/pt/garden.ts';
 
 export const Y_SEQ = {
 	playerData() {
@@ -159,6 +160,7 @@ export const Y_SEQ = {
 		if (!player.nonrecu.studies_bought.includes(29)) base = base.clampMax('e1e10');
 		let slogAdd = 0;
 		slogAdd += Oracle.getFateTotalEffect(1).toNumber();
+		if(Garden.boughtUpgrade(86)) slogAdd += player.garden.totalInspiration.add(1).log10().root(2).div(2).min(10);
 		base = Decimal.tetrate(10, base.slog(10).add(slogAdd).toNumber());
 		if (base.gte('eee50') && player.pt.power.lt(1)) {
 			base = Decimal.tetrate(
