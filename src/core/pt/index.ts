@@ -314,6 +314,7 @@ export const Analysis = {
 			.mul(Garden.level().div(10).tetrate(2))
 			.clampMin(0);
 		base = base.mul(Oracle.getFateTotalEffect(2));
+		if(player.upgrades[810]) base = base.pow(CHE.slog().max(1).root(3));
 		return base;
 	},
 } as const;

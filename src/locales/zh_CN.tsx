@@ -2049,5 +2049,6 @@ export default {
 		return `累计灵感提升非递归BMS效率。当前：x${format(player.garden.totalInspiration.add(10).log10().max(1).pow(0.5).pow10().div(10))}`;
 	},
 	'currency.pt_power': '证明论能量',
-	'upgs.810': 'Coming Soon',
+	'upgs.810': 'CHE影响证明论能量获取的公式增强',
+	'upgs.811': 'coming soon',
 };
