@@ -174,7 +174,8 @@ export const Y_SEQ = {
 			base = Decimal.tetrate(10, base.slog(10).sub(6).div(4).add(6).toNumber());
 		}
 		if (base.gte('10^^15')) {
-			base = Decimal.tetrate(10, base.slog(14).pow(0.25).add(14).toNumber());
+			let exp = player.pt.power.gte('e1.5e11') ? 0.375 : 0.25;
+			base = Decimal.tetrate(10, base.slog(14).pow(exp).add(14).toNumber());
 		}
 		if (base.gte('10^^1000')) {
 			base = Decimal.tetrate(10, base.slog().div(100).log10().pow(0.25).mul(1000).toNumber());

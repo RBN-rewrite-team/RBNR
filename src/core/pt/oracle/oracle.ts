@@ -137,6 +137,7 @@ export const Oracle = {
 		}
 		let jEsc = 10000;
 		if(player.upgrades[815]) jEsc *= 2;
+		if(player.upgrades[816]) jEsc *= 100;
 		if(justiceEffect > jEsc) justiceEffect = jEsc * Math.log10(justiceEffect / (jEsc / 10));
 		effect *= justiceEffect;
 
