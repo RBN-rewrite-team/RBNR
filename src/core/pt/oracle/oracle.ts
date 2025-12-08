@@ -43,6 +43,7 @@ export const Oracle = {
 		if (player.upgrades[85]) {
 			base = base.mul(upgrades[85].effect());
 		}
+		if(player.upgrades[6220]) base = base.pow(1.5);
 		return base;
 	},
 	canGainBit(): boolean {
@@ -190,6 +191,7 @@ export const Oracle = {
 				player.oracle.fateEffect[id][column] += (upgrades[83].effect() / 100) * mult;
 			}
 			player.oracle.fateEffect[id][column] += Oracle.ptPowerEffectToFateEffect().toNumber() / 100;
+			player.oracle.fateEffect[id][column] += player.oracle.totalBits.sub(87).max(0).root(2).toNumber();
 		}
 	},
 	ptPowerEffectToFateEffect() {

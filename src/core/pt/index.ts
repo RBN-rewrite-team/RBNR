@@ -315,6 +315,7 @@ export const Analysis = {
 			.clampMin(0);
 		base = base.mul(Oracle.getFateTotalEffect(2));
 		if(player.upgrades[810]) base = base.pow(CHE.slog().max(1).root(3));
+		if(player.pt.power.gte('ee7')) base = base.log10().pow(1.1).pow10();
 		return base;
 	},
 } as const;
