@@ -5,7 +5,7 @@ import { Oracle } from './oracle';
 import { MILESTONES } from '@/core/mechanic';
 export function initSINMiletones() {
 	MILESTONES.create('sin_1', {
-		requirement: new Decimal(10000),
+		requirement: new Decimal(1000),
 		currency: 'karma',
 		displayName: 'M-SIN-1',
 		show: true,
