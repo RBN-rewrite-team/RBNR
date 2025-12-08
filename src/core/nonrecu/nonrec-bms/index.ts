@@ -37,11 +37,13 @@ export const NON_REC_BMS = {
 	effects() {
 		let base: [Decimal] = [new Decimal(1)];
 		base[0] = player.pt.nonrecBMS.deduce.clampMin(1).log10();
+		if(player.upgrades[813]) base[0] = base[0].mul(10);
 		if (base[0].gte(1.55) && !player.upgrades[88]) {
 			base[0] = base[0].div(1.55).pow(0.25).mul(1.55);
 		}
 		if (base[0].gte(2) && !player.upgrades[812]) base[0] = base[0].div(2).pow(0.25).mul(2);
-		else if(base[0].gte(2)) base[0] = base[0].div(2).pow(0.5).mul(2);
+		else if(base[0].gte(2) && !player.upgrades[814]) base[0] = base[0].div(2).pow(0.5).mul(2);
+		else if(base[0].gte(4)) base[0] = base[0].div(4).pow(0.75).mul(4);
 		return base;
 	},
 };

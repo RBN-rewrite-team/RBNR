@@ -130,7 +130,7 @@ export default defineComponent({
 						<br />
 						<span style="color: rgb(255, 127, 0); font-weight: bold;">达到88神谕比特后，神谕比特总量令天命效率+{format(player.oracle.totalBits.sub(87).max(0).root(2).mul(100))}%</span>
 						<br />
-						{player.pt.totalPower.gte('e5e6') ? <><span style="color: cyan; font-weight: bold;">达到{format(new Decimal('ee7'))}证明论能量后，提升证明论能量公式</span></> : <></>}
+						{player.pt.totalPower.gte('e5e6') ? <><span style="color: cyan; font-weight: bold;">达到{format(new Decimal('ee7'))}证明论能量后，提升证明论能量公式，天命效率+{format(new Decimal(500))}%</span></> : <></>}
 						<table
 							style={{
 								marginInlineStart: '0',

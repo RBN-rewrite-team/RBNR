@@ -135,7 +135,9 @@ export const Oracle = {
 				justiceEffect *= 1.8 ** power;
 			}
 		}
-		if(justiceEffect > 10000) justiceEffect = 10000 * Math.log10(justiceEffect / 1000);
+		let jEsc = 10000;
+		if(player.upgrades[815]) jEsc *= 2;
+		if(justiceEffect > jEsc) justiceEffect = jEsc * Math.log10(justiceEffect / (jEsc / 10));
 		effect *= justiceEffect;
 
 		return effect;
@@ -192,6 +194,7 @@ export const Oracle = {
 			}
 			player.oracle.fateEffect[id][column] += Oracle.ptPowerEffectToFateEffect().toNumber() / 100;
 			player.oracle.fateEffect[id][column] += player.oracle.totalBits.sub(87).max(0).root(2).toNumber();
+			if(player.pt.power.gte('ee7')) player.oracle.fateEffect[id][column] += 5;
 		}
 	},
 	ptPowerEffectToFateEffect() {

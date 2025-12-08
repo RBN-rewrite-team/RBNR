@@ -110,6 +110,21 @@ export const NRBUpgrades = {
 		cost = new Decimal('e1.8e6');
 		currency: Currencies = Currencies.PT_POWER;
 	})(),
+	'813': new (class extends Upgrade {
+		name = 'U7-13';
+		cost = new Decimal('e1.5e8');
+		currency: Currencies = Currencies.PT_POWER;
+	})(),
+	'814': new (class extends Upgrade {
+		name = 'U7-14';
+		cost = new Decimal('e1.8e8');
+		currency: Currencies = Currencies.PT_POWER;
+	})(),
+	'815': new (class extends Upgrade {
+		name = 'U7-15';
+		cost = new Decimal('e2.5e8');
+		currency: Currencies = Currencies.PT_POWER;
+	})(),
 } as const satisfies {
 	[key: string]: Upgrade;
 };
