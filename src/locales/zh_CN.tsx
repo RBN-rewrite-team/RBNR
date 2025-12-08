@@ -2050,5 +2050,8 @@ export default {
 	},
 	'currency.pt_power': '证明论能量',
 	'upgs.810': 'CHE影响证明论能量获取的公式增强',
-	'upgs.811': 'coming soon',
+	'upgs.811': '证明论能量增幅CHE slog',
+	'upgs.812': '减弱非递归BMS效果的二重软上限',
+	'upgs.6218': '证明论能量增幅非递归BMS',
+	'upgs.6219': '降低天命的价格折算',
 };

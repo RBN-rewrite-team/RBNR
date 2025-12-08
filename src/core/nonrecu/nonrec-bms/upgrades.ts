@@ -33,7 +33,9 @@ export const NRBUpgrades = {
 			if (a.gte(20)) {
 				a = a.div(20).pow(3).mul(20);
 			}
-			return a.clampMax(500).toNumber();
+			
+			a = a.clampMax(500 + player.pt.nonrecBMS.deduce.div(1e11).log10().pow(2).mul(5).toNumber());
+			return a.clampMax(2000).toNumber();
 		}
 		effectDescription(values: number): string {
 			return '+' + format(values) + '%';
@@ -92,9 +94,20 @@ export const NRBUpgrades = {
 		cost = new Decimal('1e256000');
 		currency: Currencies = Currencies.PT_POWER;
 	})(),
-	'811': new (class extends Upgrade {
+	'811': new (class extends UpgradeWithEffect<Decimal> {
 		name = 'U7-11';
 		cost = new Decimal('ee6');
+		currency: Currencies = Currencies.PT_POWER;
+		effect(): Decimal {
+			return player.pt.power.add(10).log10().add(10).log10().root(2).mul(2);
+		}
+		effectDescription(values: Decimal): string {
+			return '+' + format(values);
+		}
+	})(),
+	'812': new (class extends Upgrade {
+		name = 'U7-12';
+		cost = new Decimal('e1.8e6');
 		currency: Currencies = Currencies.PT_POWER;
 	})(),
 } as const satisfies {

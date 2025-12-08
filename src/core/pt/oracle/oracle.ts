@@ -52,10 +52,10 @@ export const Oracle = {
 		if (player.oracle.fateBought[id] < 3) return new Decimal(1);
 		else {
 			let base = new Decimal(3);
-
 			if (player.upgrades['89']) {
-				base = base.div(2);
+				base = base.sub(1.5); //1.5
 			}
+			if (player.upgrades[6219]) base = base.sub(0.2); //1.3
 			return base.pow(player.oracle.fateBought[id] - 3).floor();
 		}
 	},

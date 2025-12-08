@@ -25,6 +25,7 @@ export const NON_REC_BMS = {
 		if(player.upgrades[6217]) base = base.mul(10);
 		if(base.gte(10)) base = base.div(10).root(2).mul(10);
 		if(Garden.boughtUpgrade(87)) base = base.mul(player.garden.totalInspiration.add(10).log10().sub(15).max(1).pow(0.5).pow10().div(10));
+		if(player.upgrades[6218]) base = base.mul(upgrades[6218].effect());
 		return base;
 	},
 	loop(diffSecond: number) {
@@ -39,7 +40,8 @@ export const NON_REC_BMS = {
 		if (base[0].gte(1.55) && !player.upgrades[88]) {
 			base[0] = base[0].div(1.55).pow(0.25).mul(1.55);
 		}
-		if (base[0].gte(2)) base[0] = base[0].div(2).pow(0.25).mul(2);
+		if (base[0].gte(2) && !player.upgrades[812]) base[0] = base[0].div(2).pow(0.25).mul(2);
+		else if(base[0].gte(2)) base[0] = base[0].div(2).pow(0.5).mul(2);
 		return base;
 	},
 };

@@ -600,6 +600,28 @@ export const Hydra = {
 				return player.retribution == 1;
 			}
 		})(),
+		'6218': new (class extends UpgradeWithEffect<Decimal> {
+			cost = new Decimal('1f35');
+			name = 'U5-2-18';
+			currency: Currencies = Currencies.COMP_HYDRA;
+			show(): boolean {
+				return player.retribution == 1;
+			}
+			effect(): Decimal {
+				return player.pt.power.add(10).log10().root(Math.E);
+			}
+			effectDescription(value: Decimal): string {
+				return 'x' + format(value);
+			}
+		})(),
+		'6219': new (class extends Upgrade {
+			cost = new Decimal('4f36');
+			name = 'U5-2-19';
+			currency: Currencies = Currencies.COMP_HYDRA;
+			show(): boolean {
+				return player.retribution == 1;
+			}
+		})(),
 	},
 	buyables: {
 		'611': new (class B611 extends Buyable<Decimal> {
