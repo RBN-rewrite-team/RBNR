@@ -7,6 +7,7 @@ import { useUpdate } from '@/lib/useUpdate.ts';
 import { DC } from '@/core/constants';
 import ProgressBar from '@/components/group-2/ProgressBar';
 import { useI18n } from 'vue-i18n';
+import Decimal from 'break_eternity.ts';
 
 export default defineComponent({
 	name: 'Oracle',
