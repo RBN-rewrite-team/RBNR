@@ -124,15 +124,18 @@ export const Oracle = {
 		}
 		effect += 0.5 * betweenSames;
 		effect *= player.oracle.fateEffect[id][column];
-
+		
+		let justiceEffect = 1;
 		let dx = [-1, 1, 0, 0];
 		let dy = [0, 0, -1, 1];
 		for (let i = 0; i < 4; i++) {
 			if (Oracle.getFateType(id + dx[i], column + dy[i]) === 5 && type !== 5) {
 				let power = Oracle.getFateEffectRate(id + dx[i], column + dy[i]);
-				effect *= 1.8 ** power;
+				justiceEffect *= 1.8 ** power;
 			}
 		}
+		if(justiceEffect > 10000) justiceEffect = 10000 * Math.log10(justiceEffect / 1000);
+		effect *= justiceEffect;
 
 		return effect;
 	},
