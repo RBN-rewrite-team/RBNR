@@ -157,6 +157,7 @@ function simulateText(canvasRef: any, $t: $t) {
 									)
 										Garden.buyGenerator(
 											g.key as keyof typeof GardenGenUpgs.generators,
+											new Decimal(1)
 										);
 									player.garden.focusNode = g;
 								},
@@ -176,6 +177,7 @@ function simulateText(canvasRef: any, $t: $t) {
 										)
 											Garden.buyGenerator(
 												g.key as keyof typeof GardenGenUpgs.generators,
+												new Decimal(1)
 											);
 										player.garden.focusNode = g;
 									}}
