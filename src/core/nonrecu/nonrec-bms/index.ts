@@ -3,6 +3,7 @@
 import { player } from '@/core/global';
 import { upgrades } from '@/core/mechanic';
 import Decimal from 'break_eternity.js';
+import { Garden } from '@/core/pt/garden.ts';
 
 export const NON_REC_BMS = {
 	playerData() {
@@ -23,6 +24,7 @@ export const NON_REC_BMS = {
 		}
 		if(player.upgrades[6217]) base = base.mul(10);
 		if(base.gte(10)) base = base.div(10).root(2).mul(10);
+		if(Garden.boughtUpgrade(87)) base = base.mul(player.garden.totalInspiration.add(10).log10().sub(15).max(1).pow(0.5).pow10().div(10));
 		return base;
 	},
 	loop(diffSecond: number) {

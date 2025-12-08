@@ -41,6 +41,7 @@ const macros = {
 				</tr>
 				<tr>
 					<TDUpgrade upgid="89" />
+					<TDUpgrade upgid="810" />
 				</tr>
 			</tbody>
 		</table>

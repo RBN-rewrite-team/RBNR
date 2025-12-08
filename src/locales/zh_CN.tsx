@@ -2042,6 +2042,12 @@ export default {
 	'garden.upg.85.desc': '需要想法的生成器消耗1/2的货币',
 	'garden.upg.86': 'ITCHE1',
 	'garden.upg.86.desc': function() {
-		return `累计灵感小幅提升压缩九头蛇能量slog。当前：+${format(player.garden.totalInspiration.add(1).log10().root(2).div(2).min(10))}`
+		return `累计灵感提升压缩九头蛇能量slog。当前：+${format(player.garden.totalInspiration.add(1).log10().root(2).div(2).min(10))}`;
 	},
+	'garden.upg.87': 'ITNRB1',
+	'garden.upg.87.desc': function() {
+		return `累计灵感提升非递归BMS效率。当前：x${format(player.garden.totalInspiration.add(10).log10().max(1).pow(0.5).pow10().div(10))}`;
+	},
+	'currency.pt_power': '证明论能量',
+	'upgs.810': 'Coming Soon',
 };

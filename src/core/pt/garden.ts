@@ -2031,6 +2031,29 @@ export const GardenGenUpgs = {
 				return getMessage('garden.upg.86.desc');
 			},
 		},
+		87: {
+			isG: !true,
+			key: 87,
+			name: 'ITNRB1',
+			pos: [-1200, 1600],
+			currency: GardenCurrencies.inspiration,
+			cost: new Decimal(1e22),
+			effect: {
+				key: -999,
+				mult: new Decimal(1),
+			},
+			unlocked(): boolean {
+				return Garden.boughtUpgrade(86);
+			},
+			show(): boolean {
+				return Garden.boughtUpgrade(86);
+			},
+			igNR: () => true,
+			connect: [[], [86]],
+			effectDescription(): string {
+				return getMessage('garden.upg.87.desc');
+			},
+		},
 	} satisfies {
 		[key in any]: GardenUpgrade;
 	},
