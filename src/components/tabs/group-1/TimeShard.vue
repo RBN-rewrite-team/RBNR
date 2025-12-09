@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { player, feature } from '@/core/global';
 import { format, formatTime } from '../../../utils/format.ts';
-import TDUpgrade from '@/components/group-2/TDUpgrade.vue';
 import { useI18n } from 'vue-i18n';
 
 const $t = useI18n().t;
@@ -31,6 +30,7 @@ function t2() {
 		amount: `<span style="color: rgb(127, 31, 128)">${formatTime(player.timeshard.tf.div(1000))}</span>`,
 	});
 }
+import Upgrades from '@/components/upg/Upgrades';
 </script>
 
 <template>
@@ -67,7 +67,7 @@ function t2() {
 			</div> -->
 			<table>
 				<tbody>
-					<tr>
+					<tr style="height: 180px">
 						<td>
 							<div class="upgrade">
 								<button
@@ -79,7 +79,9 @@ function t2() {
 										{{ $t('timeshard.gen', { tier: 'I' }) }}
 									</h3>
 									<br />
-									<span style="color: rgb(127, 63, 0); font-weight: bold">愿力阈值-5</span>
+									<span style="color: rgb(127, 63, 0); font-weight: bold"
+										>愿力阈值-5</span
+									>
 									<br />
 									<span v-html="$t('timeshard.gen.1')"></span><br />
 									<span
@@ -106,7 +108,9 @@ function t2() {
 										{{ $t('timeshard.gen', { tier: 'II' }) }}
 									</h3>
 									<br />
-									<span style="color: rgb(127, 63, 0); font-weight: bold">愿力阈值-25</span>
+									<span style="color: rgb(127, 63, 0); font-weight: bold"
+										>愿力阈值-25</span
+									>
 									<br />
 									<span v-html="$t('timeshard.gen.2')"></span><br />
 									<span
@@ -133,7 +137,9 @@ function t2() {
 										{{ $t('timeshard.gen', { tier: 'III' }) }}
 									</h3>
 									<br />
-									<span style="color: rgb(127, 63, 0); font-weight: bold">愿力阈值-125</span>
+									<span style="color: rgb(127, 63, 0); font-weight: bold"
+										>愿力阈值-125</span
+									>
 									<br />
 									<span v-html="$t('timeshard.gen.3')"></span><br />
 									<span
@@ -150,7 +156,7 @@ function t2() {
 							</div>
 						</td>
 					</tr>
-					<tr>
+					<tr style="height: 180px">
 						<td>
 							<div class="upgrade">
 								<button
@@ -214,7 +220,7 @@ function t2() {
 							</div>
 						</td>
 					</tr>
-					<tr>
+					<tr style="height: 180px">
 						<td>
 							<div class="upgrade">
 								<button
@@ -288,27 +294,17 @@ function t2() {
 							</div>
 						</td>
 					</tr>
-					<tr>
-						<TDUpgrade upgid="ts01" />
-						<TDUpgrade upgid="ts02" />
-						<TDUpgrade upgid="ts03" />
-					</tr>
-					<tr>
-						<TDUpgrade upgid="ts11" />
-						<TDUpgrade upgid="ts12" />
-						<TDUpgrade upgid="ts13" />
-					</tr>
-					<tr>
-						<TDUpgrade upgid="ts21" />
-						<TDUpgrade upgid="ts22" />
-						<TDUpgrade upgid="ts23" />
-					</tr>
-					<tr>
-						<TDUpgrade upgid="ts_auto_pkg_hydra" />
-						<TDUpgrade upgid="ts_auto_pkg_nonrec" />
-					</tr>
 				</tbody>
 			</table>
+
+			<Upgrades
+				:upgids="[
+					['uts01', 'uts02', 'uts03'],
+					['uts11', 'uts12', 'uts13'],
+					['uts21', 'uts22', 'uts23'],
+					['uts_auto_pkg_hydra', 'uts_auto_pkg_nonrec'],
+				]"
+			/>
 		</div>
 	</div>
 </template>

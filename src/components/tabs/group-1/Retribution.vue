@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { RETRIBUTION } from '@/core/post-nonrec/retribution';
 import { player } from '@/core/save';
-import TDUpgrade from '@/components/group-2/TDUpgrade.vue';
 import { useI18n } from 'vue-i18n';
-
+import Upgrades from '@/components/upg/Upgrades';
 const $t = useI18n().t;
 function retributionText() {
 	if (player.retribution < 1) {
@@ -23,11 +22,7 @@ function retributionText() {
 		<button class="retribution" @click="RETRIBUTION.resetUI">
 			{{ retributionText() }}
 		</button>
-		<table align="center">
-			<tr>
-				<TDUpgrade upgid="U6R18" />
-			</tr>
-		</table>
+		<Upgrades :upgids="[['uU6R18']]" />
 	</div>
 </template>
 

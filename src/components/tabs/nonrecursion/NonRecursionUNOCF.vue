@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import TDUpgrade from '@/components/group-2/TDUpgrade.vue';
 import { player } from '@/core/save';
 import { format, formatLaTeX, formatLaTeXWhole } from '@/utils/format';
 import { UNOCF } from '@/utils/unocf-mil';
 import { computed } from 'vue';
 import { NON_RECURSIVE } from '@/core/nonrecu';
+import Upgrades from '@/components/upg/Upgrades';
 const cur = computed(() =>
 	UNOCF.getUNOCFMilestone(UNOCF.getCurMilestoneIndex(player.nonrecu.unocf_j)),
 );
@@ -79,12 +79,6 @@ const cur = computed(() =>
 				"
 			/>
 		</p>
-		<table style="margin: auto" align="cewter">
-			<tbody>
-				<tr>
-					<TDUpgrade upgid="71UN"></TDUpgrade>
-				</tr>
-			</tbody>
-		</table>
+		<Upgrades :upgids="[['u71UN']]" />
 	</div>
 </template>
