@@ -2,11 +2,11 @@
 import { NUMTHEORY } from '@/core/multiplication/numbertheory';
 import { format, formatLaTeX, formatLaTeXWhole } from '@/utils/format';
 import { player } from '@/core/save';
-import TDUpgrade from '../../group-2/TDUpgrade.vue';
-import TDBuyable from '../../group-2/TDBuyable.vue';
 import Decimal from 'break_eternity.js';
 import PrimaryButton from '@/components/ui/PrimaryButton';
 
+import Upgrades from '@/components/upg/Upgrades';
+import { useUpdate } from '@/lib/useUpdate';
 function xGainLatex() {
 	let exp = new Decimal(1);
 	if (player.upgrades['32R']) exp = exp.add(0.3);
@@ -48,6 +48,27 @@ function m2GainLatex() {
 				formatLaTeX(NUMTHEORY.varM2gain())
 		: '';
 }
+// <tr>
+// 							<TDBuyable bylid="41R" />
+// 							<TDBuyable bylid="42R" />
+// 							<TDBuyable bylid="43R" v-if="player.singularity.stage < 3" />
+// 							<TDBuyable bylid="44R" v-if="player.singularity.stage < 3" />
+// 						</tr>
+// 						<tr v-if="player.singularity.stage < 3">
+// 							<TDUpgrade upgid="41R" />
+// 							<TDUpgrade upgid="42R" />
+// 							<TDUpgrade upgid="43R" />
+// 							<TDUpgrade upgid="44R" />
+// 						</tr>
+
+const expNT = useUpdate(function () {
+	if (player.singularity.stage < 3)
+		return [
+			['b41R', 'b42R', 'b43R', 'b44R'],
+			['u41R', 'u42R', 'u43R', 'u44R'],
+		] as [['b41R', 'b42R', 'b43R', 'b44R'], ['u41R', 'u42R', 'u43R', 'u44R']];
+	return [['b41R', 'b42R']] as [['b41R', 'b42R']];
+});
 </script>
 
 <template>
@@ -124,28 +145,13 @@ function m2GainLatex() {
 						></b
 					>
 				</p>
-				<table align="center">
-					<tbody>
-						<tr>
-							<TDBuyable bylid="31R" />
-							<TDBuyable bylid="32R" />
-							<TDBuyable bylid="33R" />
-							<TDBuyable bylid="34R" />
-						</tr>
-						<tr>
-							<TDBuyable bylid="35R" />
-							<TDBuyable bylid="36R" />
-							<TDBuyable bylid="37R" />
-							<TDBuyable bylid="38R" />
-						</tr>
-						<tr>
-							<TDUpgrade upgid="31R" />
-							<TDUpgrade upgid="32R" />
-							<TDUpgrade upgid="33R" />
-							<TDUpgrade upgid="34R" />
-						</tr>
-					</tbody>
-				</table>
+				<Upgrades
+					:upgids="[
+						['b31R', 'b32R', 'b33R', 'b34R'],
+						['b35R', 'b36R', 'b37R', 'b38R'],
+						['u31R', 'u32R', 'u33R', 'u34R'],
+					]"
+				/>
 			</div>
 			<div v-if="player.upgrades[45] && player.numbertheory.visiting == 2" align="center">
 				<h2>{{ $t('nt.rationalapprox') }}</h2>
@@ -228,22 +234,7 @@ function m2GainLatex() {
 				>
 					{{ $t('nt.ration.m') }}
 				</PrimaryButton>
-				<table>
-					<tbody>
-						<tr>
-							<TDBuyable bylid="41R" />
-							<TDBuyable bylid="42R" />
-							<TDBuyable bylid="43R" v-if="player.singularity.stage < 3" />
-							<TDBuyable bylid="44R" v-if="player.singularity.stage < 3" />
-						</tr>
-						<tr v-if="player.singularity.stage < 3">
-							<TDUpgrade upgid="41R" />
-							<TDUpgrade upgid="42R" />
-							<TDUpgrade upgid="43R" />
-							<TDUpgrade upgid="44R" />
-						</tr>
-					</tbody>
-				</table>
+				<Upgrades :upgids="expNT" />
 			</div>
 		</div>
 		<br />

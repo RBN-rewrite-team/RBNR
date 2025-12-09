@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { player } from '@/core/save';
 import { feature } from '@/core/global.ts';
-import TDUpgrade from '../../group-2/TDUpgrade.vue';
-import TDBuyable from '../../group-2/TDBuyable.vue';
 import { format, formatWhole } from '@/utils/format.ts';
 import Decimal from 'break_eternity.js';
 import { useI18n } from 'vue-i18n';
@@ -26,6 +24,8 @@ function qolpdis() {
 		)}</span>`,
 	});
 }
+import Upgrades from '@/components/upg/Upgrades';
+import type { upgrades } from '@/core/mechanic';
 </script>
 
 <template>
@@ -34,87 +34,31 @@ function qolpdis() {
 		<br />
 		<br />
 		<h2 style="color: rgb(127, 127, 255)">{{ $t('exp.normalupgs') }}</h2>
-		<table align="center">
-			<tbody>
-				<tr>
-					<TDUpgrade upgid="41" />
-					<TDUpgrade upgid="42" />
-					<TDUpgrade upgid="43" />
-					<TDUpgrade upgid="44" />
-				</tr>
-				<tr>
-					<TDUpgrade upgid="45" />
-					<TDUpgrade upgid="46" />
-					<TDUpgrade upgid="47" />
-					<TDUpgrade upgid="48" />
-				</tr>
-				<tr>
-					<TDUpgrade upgid="49" />
-					<TDUpgrade upgid="410" />
-					<TDUpgrade upgid="411" />
-				</tr>
-				<tr>
-					<TDBuyable bylid="41" />
-					<TDBuyable bylid="42" />
-					<TDBuyable bylid="43" />
-					<TDBuyable bylid="44" />
-				</tr>
-			</tbody>
-		</table>
+		<Upgrades
+			:upgids="[
+				['u41', 'u42', 'u43', 'u44'],
+				['u45', 'u46', 'u47', 'u48'],
+				['u49', 'u410', 'u411'],
+				['b41', 'b42', 'b43', 'b44'],
+			]"
+		/>
+
 		<br />
 		<br />
 		<br />
 		<br />
 		<h2 style="color: rgb(255, 127, 255)">{{ $t('exp.qolupgs') }}</h2>
 		<span v-html="qolpdis()"></span>
-
-		<table align="center">
-			<tbody class="smaller">
-				<tr>
-					<TDUpgrade upgid="400q" />
-				</tr>
-				<tr>
-					<TDUpgrade upgid="411q" />
-					<TDUpgrade upgid="412q" />
-					<TDUpgrade upgid="413q" />
-					<TDUpgrade upgid="414q" />
-					<TDUpgrade upgid="415q" />
-				</tr>
-				<tr>
-					<TDUpgrade upgid="421q" />
-					<TDUpgrade upgid="422q" />
-					<TDUpgrade upgid="423q" />
-					<TDUpgrade upgid="424q" />
-					<TDUpgrade upgid="425q" />
-				</tr>
-				<tr>
-					<TDUpgrade upgid="431q" />
-					<TDUpgrade upgid="432q" />
-					<TDUpgrade upgid="433q" />
-					<TDUpgrade upgid="434q" />
-					<TDUpgrade upgid="435q" />
-				</tr>
-				<tr>
-					<TDUpgrade upgid="441q" />
-					<TDUpgrade upgid="442q" />
-					<TDUpgrade upgid="443q" />
-					<TDUpgrade upgid="444q" />
-					<TDUpgrade upgid="445q" />
-				</tr>
-				<tr>
-					<TDUpgrade upgid="451q" />
-					<TDUpgrade upgid="452q" />
-					<TDUpgrade upgid="453q" />
-					<TDUpgrade upgid="454q" />
-					<TDUpgrade upgid="455q" />
-				</tr>
-			</tbody>
-		</table>
+		<Upgrades
+			:smaller="true"
+			:upgids="[
+				['u400q'],
+				['u411q', 'u412q', 'u413q', 'u414q', 'u415q'],
+				['u421q', 'u422q', 'u423q', 'u424q', 'u425q'],
+				['u431q', 'u432q', 'u433q', 'u434q', 'u435q'],
+				['u441q', 'u442q', 'u443q', 'u444q', 'u445q'],
+				['u451q', 'u452q', 'u453q', 'u454q', 'u455q'],
+			]"
+		/>
 	</div>
 </template>
-
-<style scoped>
-tbody.smaller > tr {
-	height: 135px;
-}
-</style>

@@ -3,7 +3,6 @@ import { format, formatMult, formatWhole } from '@/utils/format';
 import { feature, player } from '@/core/global';
 import { buyables } from '@/core/mechanic';
 const pflist = ['2', '3', '5', '7', '11', '13', '17', '19'] as const;
-import TDBuyable from '../../group-2/TDBuyable.vue';
 import type { PrimeFactorTypes } from '@/core/save';
 import { useI18n } from 'vue-i18n';
 const $t = useI18n().t;
@@ -21,6 +20,7 @@ function fpeffect() {
 				>`,
 	});
 }
+import Upgrades from '@/components/upg/Upgrades';
 </script>
 
 <template>
@@ -46,22 +46,12 @@ function fpeffect() {
 				><br />
 				<span v-html="fpeffect()"></span>
 			</div>
-			<table align="center">
-				<tbody>
-					<tr>
-						<TDBuyable bylid="pf2" />
-						<TDBuyable bylid="pf3" />
-						<TDBuyable bylid="pf5" />
-						<TDBuyable bylid="pf7" />
-					</tr>
-					<tr>
-						<TDBuyable bylid="pf11" />
-						<TDBuyable bylid="pf13" />
-						<TDBuyable bylid="pf17" />
-						<TDBuyable bylid="pf19" />
-					</tr>
-				</tbody>
-			</table>
+			<Upgrades
+				:upgids="[
+					['bpf2', 'bpf3', 'bpf5', 'bpf7'],
+					['bpf11', 'bpf13', 'bpf17', 'bpf19'],
+				]"
+			/>
 		</div>
 	</div>
 </template>

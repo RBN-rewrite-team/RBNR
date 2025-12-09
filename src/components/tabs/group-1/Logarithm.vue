@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Logarithm } from '@/core/exponention/logarithm';
-import TDBuyable from '../../group-2/TDBuyable.vue';
 import { format, formatGain, formatTime } from '@/utils/format';
 import { player } from '@/core/save';
 import ObserveButton from '../../group-2/ObserveButton.vue';
@@ -23,6 +22,7 @@ function datas() {
 			})}
 		</p>`;
 }
+import Upgrades from '@/components/upg/Upgrades';
 </script>
 
 <template>
@@ -49,14 +49,7 @@ function datas() {
 				})
 			}}
 		</p>
-		<table align="center">
-			<tbody>
-				<tr>
-					<TDBuyable bylid="lgr_emp" />
-					<TDBuyable bylid="lgr_impr" />
-				</tr>
-			</tbody>
-		</table>
+		<Upgrades :upgids="[['blgr_emp', 'blgr_impr']]" />
 		<div align="center" style="margin-top: 100px">
 			<div @click="Logarithm.observe">
 				<ObserveButton>{{ $t('exp.log.observe') }}</ObserveButton>

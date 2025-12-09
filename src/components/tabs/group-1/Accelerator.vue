@@ -1,9 +1,8 @@
 <script lang="ts" setup>
 import { ORDINAL_BOOSTER } from '@/core/ordinal/ordinal-booster';
-import TDBuyable from '../../group-2/TDBuyable.vue';
-import TDUpgrade from '../../group-2/TDUpgrade.vue';
 import { format, formatGain } from '@/utils/format';
 import { useI18n } from 'vue-i18n';
+import Upgrades from '@/components/upg/Upgrades';
 
 const $t = useI18n().t;
 function q() {
@@ -18,15 +17,6 @@ function q() {
 <template>
 	<div class="main">
 		<p v-html="q()"></p>
-		<table align="center">
-			<tbody>
-				<tr>
-					<TDBuyable bylid="51A" />
-					<TDBuyable bylid="52A" />
-					<TDBuyable bylid="53A" />
-					<TDUpgrade upgid="51A" />
-				</tr>
-			</tbody>
-		</table>
+		<Upgrades :upgids="[['b51A', 'b52A', 'b53A', 'u51A']]" />
 	</div>
 </template>

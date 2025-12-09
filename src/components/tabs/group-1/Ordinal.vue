@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { feature, player } from '@/core/global';
 import { formatWhole } from '@/utils/format';
-import TDUpgrade from '../../group-2/TDUpgrade.vue';
 import { useI18n } from 'vue-i18n';
 const $t = useI18n().t;
 function t() {
@@ -12,6 +11,25 @@ function t() {
 	>${formatWhole(feature.Ordinal.base())}</span>`,
 	});
 }
+import Upgrades from '@/components/upg/Upgrades';
+import { useUpdate } from '@/lib/useUpdate';
+const ordupgs = useUpdate(function () {
+	if (player.upgrades[51]) {
+		return [
+			['u51', 'u52', 'u53', 'u54'],
+			['u58', 'u59', 'u511', 'u512'],
+			['u513', 'u514', 'u515', 'u516'],
+			['u517'],
+		] as const;
+	}
+	return [
+		['u51', 'u52', 'u53', 'u54'],
+		['u55', 'u56', 'u57', 'u58'],
+		['u59', 'u510', 'u511', 'u512'],
+		['u513', 'u514', 'u515', 'u516'],
+		['u517'],
+	] as const;
+});
 </script>
 
 <template>
@@ -19,43 +37,7 @@ function t() {
 		<div style="transform: translateY(60px)">
 			<div align="center">
 				<span v-html="t()"></span><br />
-				<table>
-					<tbody>
-						<tr>
-							<TDUpgrade upgid="51" />
-							<TDUpgrade upgid="52" />
-							<TDUpgrade upgid="53" />
-							<TDUpgrade upgid="54" />
-						</tr>
-						<tr v-if="!player.upgrades[61]">
-							<TDUpgrade upgid="55" />
-							<TDUpgrade upgid="56" />
-							<TDUpgrade upgid="57" />
-							<TDUpgrade upgid="58" />
-						</tr>
-						<tr v-if="!player.upgrades[61]">
-							<TDUpgrade upgid="59" />
-							<TDUpgrade upgid="510" />
-							<TDUpgrade upgid="511" />
-							<TDUpgrade upgid="512" />
-						</tr>
-						<tr v-if="player.upgrades[61]">
-							<TDUpgrade upgid="58" />
-							<TDUpgrade upgid="59" />
-							<TDUpgrade upgid="511" />
-							<TDUpgrade upgid="512" />
-						</tr>
-						<tr>
-							<TDUpgrade upgid="513" />
-							<TDUpgrade upgid="514" />
-							<TDUpgrade upgid="515" />
-							<TDUpgrade upgid="516" />
-						</tr>
-						<tr>
-							<TDUpgrade upgid="517" />
-						</tr>
-					</tbody>
-				</table>
+				<Upgrades :upgids="ordupgs" />
 			</div>
 		</div>
 	</div>

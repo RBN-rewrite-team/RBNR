@@ -1,27 +1,25 @@
 <script lang="ts" setup>
-import TDUpgrade from '@/components/group-2/TDUpgrade.vue';
 import { player } from '@/core/save';
+
+import Upgrades from '@/components/upg/Upgrades';
+import type { buyables, upgrades } from '@/core/mechanic';
+import { useUpdate } from '@/lib/useUpdate';
+
+const upgids = useUpdate(function () {
+	const upgs = [['u71', 'u72', 'u73', 'u74']] as (
+		| `u${keyof typeof upgrades}`
+		| `b${keyof typeof buyables}`
+	)[][];
+
+	if (player.milestones.nonrec_26) {
+		upgs.push(['u75', 'u76', 'u77', 'u76']);
+	}
+	return upgs;
+});
 </script>
 
 <template>
 	<div class="main">
-		<table align="center">
-			<tbody>
-				<tr>
-					<TDUpgrade upgid="71"></TDUpgrade>
-					<TDUpgrade upgid="72"></TDUpgrade>
-					<TDUpgrade upgid="73"></TDUpgrade>
-					<TDUpgrade upgid="74"></TDUpgrade>
-				</tr>
-				<tr>
-					<template v-if="player.milestones.nonrec_26">
-						<TDUpgrade upgid="75"></TDUpgrade>
-						<TDUpgrade upgid="76"></TDUpgrade>
-						<TDUpgrade upgid="77"></TDUpgrade>
-						<TDUpgrade upgid="78"></TDUpgrade>
-					</template>
-				</tr>
-			</tbody>
-		</table>
+		<Upgrades :upgids="upgids" />
 	</div>
 </template>

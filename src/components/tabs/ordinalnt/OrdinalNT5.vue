@@ -7,13 +7,13 @@ import {
 	stepProceed,
 	wellOrderGainPerClick,
 } from '@/core/ordinal/well_ordering.ts';
-import TDUpgrade from '../../group-2/TDUpgrade.vue';
-import TDBuyable from '../../group-2/TDBuyable.vue';
 import { component as cttc } from '../help/text-to-component-convert.tsx';
 
 import PageSelect from './PageSelect.vue';
 import { useI18n } from 'vue-i18n';
-import type { IntClosedRange, IntRange } from 'type-fest';
+import type { IntClosedRange } from 'type-fest';
+
+import Upgrades from '@/components/upg/Upgrades.tsx';
 function getCurrentSequenceName(): string {
 	const selecting = player.numbertheory.well_ordering.selecting;
 	if (selecting === 0) return $t('nt.wellorderness.select.0');
@@ -75,34 +75,14 @@ function c() {
 		</div>
 	</div>
 	<div v-if="player.numbertheory.well_ordering.selecting === 0" align="center">
-		<table>
-			<tbody>
-				<tr>
-					<TDBuyable bylid="B6R11" />
-					<TDBuyable bylid="B6R12" />
-					<TDBuyable bylid="B6R13" />
-					<TDBuyable bylid="B6R14" />
-				</tr>
-				<tr>
-					<TDBuyable bylid="B6R15" />
-					<TDBuyable bylid="B6R21" />
-					<TDUpgrade upgid="U6R21" />
-					<TDUpgrade upgid="U6R22" />
-				</tr>
-				<tr>
-					<TDUpgrade upgid="U6R11" />
-					<TDUpgrade upgid="U6R12" />
-					<TDUpgrade upgid="U6R13" />
-					<TDUpgrade upgid="U6R14" />
-				</tr>
-				<tr>
-					<TDUpgrade upgid="U6R15" />
-					<TDUpgrade upgid="U6R16" />
-					<TDUpgrade upgid="U6R17" />
-					<TDUpgrade upgid="U6R18" />
-				</tr>
-			</tbody>
-		</table>
+		<Upgrades
+			:upgids="[
+				['bB6R11', 'bB6R12', 'bB6R13', 'bB6R14'],
+				['bB6R15', 'bB6R21', 'uU6R21', 'uU6R22'],
+				['uU6R11', 'bB6R12', 'uU6R13', 'uU6R14'],
+				['uU6R15', 'uU6R16', 'uU6R17', 'uU6R18'],
+			]"
+		/>
 	</div>
 	<div v-if="player.numbertheory.well_ordering.selecting === 1" align="center">
 		<cttc :text="$t('prssdefinition')" />

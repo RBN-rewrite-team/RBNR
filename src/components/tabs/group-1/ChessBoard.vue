@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { format, formatWhole } from '@/utils/format';
 import { feature, player } from '@/core/global';
-import TDBuyable from '../../group-2/TDBuyable.vue';
 import TRMilestone from '../../group-2/TRMilestone.vue';
 
 import type { $t } from '@/utils/types';
@@ -25,6 +24,7 @@ function t() {
 		f: `<b style="color: rgb(127, 127, 255)">${format(feature.ChessBoard.wgEffect()[4])}`,
 	});
 }
+import Upgrades from '@/components/upg/Upgrades';
 </script>
 
 <template>
@@ -81,13 +81,7 @@ function t() {
 					</tr>
 				</tbody>
 			</table>
-			<table>
-				<tbody>
-					<tr>
-						<TDBuyable bylid="cb1" />
-					</tr>
-				</tbody>
-			</table>
+			<Upgrades :upgids="[['bcb1']]" />
 			<br /><br />
 			<table style="margin: 50px">
 				<tbody class="milestones">

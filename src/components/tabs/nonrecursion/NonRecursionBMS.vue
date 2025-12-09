@@ -1,14 +1,9 @@
 <script setup lang="ts">
-import Baixie from '@/components/group-2/Baixie.vue';
-import TDUpgrade from '@/components/group-2/TDUpgrade.vue';
 import { player } from '@/core/global';
 import { NON_REC_BMS } from '@/core/nonrecu/nonrec-bms';
-import {
-	getCurrentNRBMSMilestone,
-	getCurrentNRBMSOrdinal,
-} from '@/core/nonrecu/nonrec-bms/milestones';
+import { getCurrentNRBMSOrdinal } from '@/core/nonrecu/nonrec-bms/milestones';
 import { format, formatGain } from '@/utils/format';
-
+import Upgrades from '@/components/upg/Upgrades';
 const macros = {
 	'\\psd': '\\text{psd}',
 	'\\aft': '\\text{ aft }',
@@ -25,33 +20,13 @@ const macros = {
 			/>{{ formatGain(player.pt.nonrecBMS.deduce, NON_REC_BMS.deduceSpeed(), '') }}
 		</p>
 		<p>非递归BMS使CHE slog +{{ format(NON_REC_BMS.effects()[0]) }}</p>
-		<table align="center">
-			<tbody>
-				<tr>
-					<TDUpgrade upgid="81" />
-					<TDUpgrade upgid="82" />
-					<TDUpgrade upgid="83" />
-					<TDUpgrade upgid="84" />
-				</tr>
-				<tr>
-					<TDUpgrade upgid="85" />
-					<TDUpgrade upgid="86" />
-					<TDUpgrade upgid="87" />
-					<TDUpgrade upgid="88" />
-				</tr>
-				<tr>
-					<TDUpgrade upgid="89" />
-					<TDUpgrade upgid="810" />
-					<TDUpgrade upgid="811" />
-					<TDUpgrade upgid="812" />
-				</tr>
-				<tr>
-					<TDUpgrade upgid="813" />
-					<TDUpgrade upgid="814" />
-					<TDUpgrade upgid="815" />
-					<TDUpgrade upgid="816" />
-				</tr>
-			</tbody>
-		</table>
+		<Upgrades
+			:upgids="[
+				['u81', 'u82', 'u83', 'u84'],
+				['u85', 'u86', 'u87', 'u88'],
+				['u89', 'u810', 'u811', 'u812'],
+				['u813', 'u814', 'u815', 'u816'],
+			]"
+		/>
 	</div>
 </template>

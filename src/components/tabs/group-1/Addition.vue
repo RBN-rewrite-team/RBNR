@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { feature } from '@/core/global';
 import { player } from '@/core/save';
-import TDUpgrade from '../../group-2/TDUpgrade.vue';
-import TDBuyable from '../../group-2/TDBuyable.vue';
+import Upgrades from '@/components/upg/Upgrades';
 import PrimaryButton from '@/components/ui/PrimaryButton';
 
 // code...
@@ -11,21 +10,12 @@ import PrimaryButton from '@/components/ui/PrimaryButton';
 <template>
 	<div class="main">
 		<div style="transform: translateY(60px)">
-			<table align="center">
-				<tbody>
-					<tr>
-						<TDUpgrade upgid="21" />
-						<TDUpgrade upgid="22" />
-						<TDUpgrade upgid="23" />
-						<TDUpgrade upgid="24" />
-					</tr>
-					<tr>
-						<TDBuyable bylid="21" />
-						<TDUpgrade upgid="25" />
-						<TDUpgrade upgid="26" />
-					</tr>
-				</tbody>
-			</table>
+			<Upgrades
+				:upgids="[
+					['u21', 'u22', 'u23', 'u24'],
+					['b21', 'u25', 'u26'],
+				]"
+			/>
 			<br />
 			<div align="center" v-if="player.upgrades[31]" style="transform: translateY(65px)">
 				{{ $t('mul.keep') }}<br />
@@ -54,9 +44,4 @@ import PrimaryButton from '@/components/ui/PrimaryButton';
 			</div>
 		</div>
 	</div>
-	<!-- code... -->
 </template>
-
-<style scoped>
-/* code... */
-</style>

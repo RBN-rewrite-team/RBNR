@@ -4,11 +4,12 @@ import { format, formatWhole, formatTime } from '@/utils/format';
 import Slider from '../../group-2/Slider.vue';
 import { Dilute, DiluteTS, tsbhBase } from '@/core/hydra/dilute.ts';
 import { computed, ref } from 'vue';
-import TDUpgrade from '../../group-2/TDUpgrade.vue';
 import TRMilestone from '../../group-2/TRMilestone.vue';
 import { Currencies, getCurrency } from '@/core/currencies.ts';
 import { CHALLENGE } from '@/core/challenge.ts';
 import { useI18n } from 'vue-i18n';
+
+import Upgrades from '@/components/upg/Upgrades';
 
 function getCurrentSolution() {
 	return player.hydra.dilute.solution;
@@ -438,34 +439,15 @@ function prionRes() {
 		}}<br />
 		<button class="clickable_button" @click="Dilute.respec">{{ $t('dil.respec') }}</button>
 	</div>
-	<table align="center">
-		<tbody>
-			<tr>
-				<TDUpgrade upgid="61S" />
-				<TDUpgrade upgid="62S" />
-				<TDUpgrade upgid="63S" />
-				<TDUpgrade upgid="64S" />
-			</tr>
-			<tr>
-				<TDUpgrade upgid="65S" />
-				<TDUpgrade upgid="66S" />
-				<TDUpgrade upgid="67S" />
-				<TDUpgrade upgid="68S" />
-			</tr>
-			<tr>
-				<TDUpgrade upgid="69S" />
-				<TDUpgrade upgid="610S" />
-				<TDUpgrade upgid="611S" />
-				<TDUpgrade upgid="612S" />
-			</tr>
-			<tr>
-				<TDUpgrade upgid="613S" />
-				<TDUpgrade upgid="614S" />
-				<TDUpgrade upgid="615S" />
-				<TDUpgrade upgid="616S" />
-			</tr>
-		</tbody>
-	</table>
+	<Upgrades
+		:upgids="[
+			['u61S', 'u62S', 'u63S', 'u64S'],
+			['u65S', 'u66S', 'u67S', 'u68S'],
+			['u69S', 'u610S', 'u611S', 'u612S'],
+			['u613S', 'u614S', 'u615S', 'u616S'],
+		]"
+	/>
+
 	<table align="center" style="transform: translateY(80px)">
 		<tbody class="milestones">
 			<TRMilestone :id="'dut' + i" v-for="i in 18" :key="i" />

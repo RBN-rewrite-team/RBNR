@@ -1,19 +1,16 @@
 <script setup lang="ts">
 import { player, feature } from '@/core/global';
 import { format, formatWhole, formatGain, formatTime, formatPercent } from '@/utils/format';
-import TDUpgrade from '../../group-2/TDUpgrade.vue';
-import TDBuyable from '../../group-2/TDBuyable.vue';
-import { OrdinalUtils } from '@/utils/ordinal';
-import Decimal from 'break_eternity.js';
+
 import { Dilute } from '@/core/hydra/dilute';
 import { Ordinal } from '@/lib/ordinal/';
 import { temp } from '@/core/temp-data.ts';
-import { PTEffects } from '@/core/pt';
-import Baixie from '@/components/group-2/Baixie.vue';
-import { Hydra } from '@/core/hydra/hydra';
 import HydraDeduceOrdinal from '../hydra/HydraDeduceOrdinal.vue';
 
 import { useI18n } from 'vue-i18n';
+import Upgrades from '@/components/upg/Upgrades';
+import { useUpdate } from '@/lib/useUpdate';
+import type { buyables, upgrades } from '@/core/mechanic';
 
 const $t = useI18n().t;
 
@@ -61,6 +58,31 @@ function autoResetButton() {
 		status: $t(player.hydra.autoHydraReset ? 'set.status.on' : 'set.status.off'),
 	});
 }
+const upgids = useUpdate(function () {
+	const upgs = [['u61', 'u62', 'u63', 'u64']] as (
+		| `u${keyof typeof upgrades}`
+		| `b${keyof typeof buyables}`
+	)[][];
+	if (player.retribution === 0 && (Dilute.diluteAmount(6) || player.upgrades[61])) {
+		upgs.push(['u611', 'u612', 'u613', 'u614']);
+	}
+	if (
+		player.retribution === 0 &&
+		(Dilute.diluteAmount(6) || (player.upgrades[61] && feature.Hydra.pUnlock(2)))
+	) {
+		upgs.push(['u615', 'u616', 'u617', 'u618']);
+	}
+	if (Dilute.diluteAmount(6) || player.upgrades[61]) {
+		upgs.push(['b611', 'b612', 'b613', 'b614']);
+	}
+	if (Dilute.diluteAmount(6) || player.upgrades[614]) {
+		upgs.push(['u65', 'u66', 'u6114', 'u6113']);
+	}
+	if (Dilute.diluteAmount(6) || player.upgrades[65]) {
+		upgs.push(['u619', 'u6110', 'u6111', 'u6112']);
+	}
+	return upgs;
+});
 </script>
 
 <template>
@@ -127,7 +149,7 @@ function autoResetButton() {
 		/></span> -->
 		<table style="width: 100%">
 			<tbody>
-				<tr>
+				<tr style="width: 180px">
 					<td style="width: 50%">
 						<HydraDeduceOrdinal />
 					</td>
@@ -172,9 +194,9 @@ function autoResetButton() {
 				</tr>
 			</tbody>
 		</table>
-		<table style="width: 100%; transform: translateY(-40px)">
+		<table style="width: 100%">
 			<tbody>
-				<tr>
+				<tr style="width: 180px">
 					<td style="width: 25%">
 						<button class="hydra-button-short" @click="feature.Hydra.prestige(0)">
 							<span class="hydra-text-short">
@@ -285,7 +307,7 @@ function autoResetButton() {
 						</button>
 					</td>
 				</tr>
-				<tr style="transform: translateY(-100px)">
+				<tr style="width: 180px">
 					<td style="width: 25%">
 						<button
 							class="hydra-button-sshort"
@@ -381,56 +403,9 @@ function autoResetButton() {
 				</tr>
 			</tbody>
 		</table>
-		<table style="transform: translateY(-220px)">
-			<tbody>
-				<tr>
-					<TDUpgrade upgid="61" />
-					<TDUpgrade upgid="62" />
-					<TDUpgrade upgid="63" />
-					<TDUpgrade upgid="64" />
-				</tr>
-				<tr
-					v-if="
-						player.retribution === 0 && (Dilute.diluteAmount(6) || player.upgrades[61])
-					"
-				>
-					<TDUpgrade upgid="611" />
-					<TDUpgrade upgid="612" />
-					<TDUpgrade upgid="613" />
-					<TDUpgrade upgid="614" />
-				</tr>
-				<tr
-					v-if="
-						player.retribution === 0 &&
-						(Dilute.diluteAmount(6) ||
-							(player.upgrades[61] && feature.Hydra.pUnlock(2)))
-					"
-				>
-					<TDUpgrade upgid="615" />
-					<TDUpgrade upgid="616" />
-					<TDUpgrade upgid="617" />
-					<TDUpgrade upgid="618" />
-				</tr>
-				<tr v-if="Dilute.diluteAmount(6) || player.upgrades[61]">
-					<TDBuyable bylid="611" />
-					<TDBuyable bylid="612" />
-					<TDBuyable bylid="613" />
-					<TDBuyable bylid="614" />
-				</tr>
-				<tr v-if="Dilute.diluteAmount(6) || player.upgrades[614]">
-					<TDUpgrade upgid="65" />
-					<TDUpgrade upgid="66" />
-					<TDUpgrade upgid="6114" />
-					<TDUpgrade upgid="6113" />
-				</tr>
-				<tr v-if="Dilute.diluteAmount(6) || player.upgrades[65]">
-					<TDUpgrade upgid="619" />
-					<TDUpgrade upgid="6110" />
-					<TDUpgrade upgid="6111" />
-					<TDUpgrade upgid="6112" />
-				</tr>
-			</tbody>
-		</table>
+		<div>
+			<Upgrades :upgids="upgids" />
+		</div>
 		<!-- <convertBMStoMatrixComponent matrix="(1,3,4,2,5,8,10)(3,4)(1,5045)(333,2005890)" /> -->
 	</div>
 </template>

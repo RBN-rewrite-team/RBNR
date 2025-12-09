@@ -28,6 +28,8 @@ export const vHold: Directive<HoldElement, HoldDirectiveValue> = {
 		if (handler === undefined) {
 			handler = {};
 		}
+		delay *= 1;
+		interval *= 1;
 		const holdData = {
 			pressTimer: null as ReturnType<typeof setTimeout> | null,
 			progressTimer: null as ReturnType<typeof setInterval> | null,

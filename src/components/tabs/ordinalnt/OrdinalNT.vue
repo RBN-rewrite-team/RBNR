@@ -3,8 +3,6 @@ import { OrdinalNT } from '@/core/ordinal/ordinalNT';
 import { format, formatLaTeX, formatLaTeXWhole } from '@/utils/format';
 import { player } from '@/core/save';
 import { feature } from '@/core/global';
-import TDUpgrade from '../../group-2/TDUpgrade.vue';
-import TDBuyable from '../../group-2/TDBuyable.vue';
 import { OrdinalUtils } from '@/utils/ordinal';
 import { Dilute } from '@/core/hydra/dilute';
 import OrdinalNT5 from './OrdinalNT5.vue';
@@ -39,6 +37,7 @@ function _g() {
 	if (player.upgrades['66R']) return '\\log_5 x';
 	return '\\lg x';
 }
+import Upgrades from '@/components/upg/Upgrades';
 </script>
 
 <template>
@@ -150,21 +149,12 @@ function _g() {
 						"
 						display-mode
 					/>
-					<table align="center">
-						<tbody>
-							<tr>
-								<TDBuyable bylid="51R" />
-								<TDBuyable bylid="52R" />
-								<TDBuyable bylid="53R" />
-								<TDBuyable bylid="54R" />
-							</tr>
-							<tr>
-								<TDBuyable bylid="55R" />
-								<TDUpgrade upgid="51R" />
-								<TDUpgrade upgid="52R" />
-							</tr>
-						</tbody>
-					</table>
+					<Upgrades
+						:upgids="[
+							['b51R', 'b52R', 'b53R', 'b54R'],
+							['b55R', 'u51R', 'u52R'],
+						]"
+					/>
 				</div>
 				<span v-else style="color: rgb(255, 63, 63)">{{ $t('nt.wait') }}</span>
 			</div>
@@ -211,31 +201,19 @@ function _g() {
 					display-mode
 				/>
 				<span v-html="$t('nt.growingmode.c')"></span>。
-				<table align="center">
-					<tbody>
-						<tr v-if="Dilute.diluteAmount(3) <= 0">
-							<TDBuyable bylid="61R" />
-							<TDBuyable bylid="62R" />
-						</tr>
-						<tr v-if="Dilute.diluteAmount(3) <= 0">
-							<TDUpgrade upgid="61R" />
-							<TDUpgrade upgid="62R" />
-							<TDUpgrade upgid="63R" />
-							<TDUpgrade upgid="64R" />
-						</tr>
-						<tr v-if="Dilute.diluteAmount(3) <= 0">
-							<TDUpgrade upgid="65R" />
-							<TDUpgrade upgid="66R" />
-							<TDUpgrade upgid="67R" />
-							<TDUpgrade upgid="68R" />
-						</tr>
-						<tr>
-							<TDUpgrade upgid="69R" />
-							<TDUpgrade upgid="621R" />
-							<TDUpgrade upgid="622R" />
-						</tr>
-					</tbody>
-				</table>
+				<template v-if="Dilute.diluteAmount(3) <= 0">
+					<Upgrades
+						:upgids="[
+							['b61R', 'b62R'],
+							['u61R', 'u62R', 'u63R', 'u64R'],
+							['u65R', 'u66R', 'u67R', 'u68R'],
+							['u69R', 'u621R', 'u622R'],
+						]"
+					/>
+				</template>
+				<template v-else>
+					<Upgrades :upgids="[['u69R', 'u621R', 'u622R']]" />
+				</template>
 			</div>
 			<OrdinalNT5 v-if="player.numbertheory.visiting == 5 && player.milestones.nonrec_26" />
 		</div>

@@ -2,10 +2,10 @@ import { defineComponent } from 'vue';
 import { Qol7Upgrades } from '@/core/pt/qolcryupgs';
 import { chunk as lodashchunk } from 'lodash-es';
 import { upgrades } from '@/core/mechanic';
-import TDUpgrade from '@/components/group-2/TDUpgrade.vue';
-const qol7keys = Object.keys(Qol7Upgrades.upgrades).filter(
-	(x) => x in upgrades,
-) as (keyof typeof upgrades)[];
+import Upgrades from '@/components/upg/Upgrades';
+const qol7keys = Object.keys(Qol7Upgrades.upgrades)
+	.filter((x) => x in upgrades)
+	.map((x) => 'u' + x) as `u${keyof typeof upgrades}`[];
 const qol7upgs_chunked = lodashchunk(qol7keys, 5);
 export default defineComponent({
 	name: 'QolCrystalUpgrade',
@@ -13,24 +13,7 @@ export default defineComponent({
 	setup() {
 		return () => (
 			<>
-				<table
-					style={{
-						marginInlineStart: 'auto',
-						marginInlineEnd: 'auto',
-					}}
-				>
-					<tbody>
-						{qol7upgs_chunked.map((a) => {
-							return (
-								<tr>
-									{a.map((b) => (
-										<TDUpgrade upgid={b} />
-									))}
-								</tr>
-							);
-						})}
-					</tbody>
-				</table>
+				<Upgrades upgids={qol7upgs_chunked} />
 			</>
 		);
 	},

@@ -3,8 +3,7 @@ import { feature } from '@/core/global';
 import { BUYABLES } from '@/core/mechanic';
 import { player } from '@/core/save';
 import { format, formatWhole } from '@/utils/format';
-import TDUpgrade from '../../group-2/TDUpgrade.vue';
-import TDBuyable from '../../group-2/TDBuyable.vue';
+import Upgrades from '@/components/upg/Upgrades';
 import PrimaryButton from '@/components/ui/PrimaryButton';
 import type { $t } from '@/utils/types';
 import { useI18n } from 'vue-i18n';
@@ -29,24 +28,23 @@ function successorButton() {
 <template>
 	<div class="main">
 		<div class="clickable">
-			<PrimaryButton
+			<div
 				@click="feature.SUCCESSOR.success()"
-				:style="{
-					width: 'fit-content',
+				v-hold="{
+					handler: {
+						onProgress: () => feature.SUCCESSOR.success(),
+					},
 				}"
-				:inner-h-t-m-l="successorButton()"
 			>
-			</PrimaryButton>
+				<PrimaryButton
+					:style="{
+						width: 'fit-content',
+					}"
+					:inner-h-t-m-l="successorButton()"
+				>
+				</PrimaryButton>
+			</div>
 		</div>
-		<table align="center">
-			<TDUpgrade upgid="11" />
-			<TDUpgrade upgid="12" />
-			<TDUpgrade upgid="13" />
-			<TDBuyable bylid="11" />
-		</table>
+		<Upgrades :upgids="[['u11', 'u12', 'u13', 'b11']]" />
 	</div>
 </template>
-
-<style scoped>
-/* code... */
-</style>

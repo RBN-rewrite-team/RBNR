@@ -4,48 +4,36 @@ import { player } from '@/core/save';
 import { format, formatWhole } from '@/utils/format';
 import { getCurrentYMilestone } from '@/utils/y-seq';
 import { computed } from 'vue';
-import TDUpgrade from '@/components/group-2/TDUpgrade.vue';
-import { Y_SEQ } from '@/core/post-nonrec/y-seq';
 import YSeqDimension from './YSeqDimension.vue';
+import { useUpdate } from '@/lib/useUpdate';
+import type { buyables, upgrades } from '@/core/mechanic';
+import Upgrades from '@/components/upg/Upgrades';
 
 const a = computed(() => {
 	return player.hydra.deduceProgress[1].toNumber() * 100 + '%';
 });
-const dim1progress = computed(() => {
-	return (
-		player.postnonrec.yseq.dimensions[1][0]
-			.sub(player.postnonrec.yseq.dimensions[1][0].floor())
-			.toNumber() *
-			100 +
-		'%'
-	);
-});
-const dim2progress = computed(() => {
-	return (
-		player.postnonrec.yseq.dimensions[1][1]
-			.sub(player.postnonrec.yseq.dimensions[1][1].floor())
-			.toNumber() *
-			100 +
-		'%'
-	);
-});
-const dim3progress = computed(() => {
-	return (
-		player.postnonrec.yseq.dimensions[1][2]
-			.sub(player.postnonrec.yseq.dimensions[1][2].floor())
-			.toNumber() *
-			100 +
-		'%'
-	);
-});
-const dim4progress = computed(() => {
-	return (
-		player.postnonrec.yseq.dimensions[1][3]
-			.sub(player.postnonrec.yseq.dimensions[1][3].floor())
-			.toNumber() *
-			100 +
-		'%'
-	);
+const upgids = useUpdate(function () {
+	const upgs = [['u621', 'u622', 'u623', 'u624']] as (
+		| `u${keyof typeof upgrades}`
+		| `b${keyof typeof buyables}`
+	)[][];
+
+	if (player.upgrades[624]) {
+		upgs.push(['u625', 'u626', 'u627', 'u628']);
+	}
+
+	if (player.upgrades[628]) {
+		upgs.push(['u629', 'u6210', 'u6211', 'u6212']);
+	}
+	if (player.upgrades[6212]) {
+		upgs.push(['u6213', 'u6214', 'u6215', 'u6216']);
+	}
+	if (player.upgrades[6216]) {
+		upgs.push(['u6217', 'u6218', 'u6219', 'u6220']);
+	}
+	upgs.push(['u65', 'u66']);
+
+	return upgs;
 });
 </script>
 
@@ -90,6 +78,7 @@ const dim4progress = computed(() => {
 				}}</span>
 			</div>
 		</div>
+		<Upgrades :upgids="upgids" />
 		<!-- <div class="resetbar">
 			<div class="resets">
 				<div class="text-psd-center">
@@ -100,42 +89,6 @@ const dim4progress = computed(() => {
 			<div class="resets"><div class="text-psd-center">Coming s∞n</div></div>
 			<div class="resets"><div class="text-psd-center">Coming s∞n</div></div>
 		</div> -->
-		<table align="center">
-			<tr>
-				<TDUpgrade upgid="621" />
-				<TDUpgrade upgid="622" />
-				<TDUpgrade upgid="623" />
-				<TDUpgrade upgid="624" />
-			</tr>
-			<tr v-if="player.upgrades[624]">
-				<TDUpgrade upgid="625" />
-				<TDUpgrade upgid="626" />
-				<TDUpgrade upgid="627" />
-				<TDUpgrade upgid="628" />
-			</tr>
-			<tr v-if="player.upgrades[628]">
-				<TDUpgrade upgid="629" />
-				<TDUpgrade upgid="6210" />
-				<TDUpgrade upgid="6211" />
-				<TDUpgrade upgid="6212" />
-			</tr>
-			<tr v-if="player.upgrades[6212]">
-				<TDUpgrade upgid="6213" />
-				<TDUpgrade upgid="6214" />
-				<TDUpgrade upgid="6215" />
-				<TDUpgrade upgid="6216" />
-			</tr>
-			<tr v-if="player.upgrades[6216]">
-				<TDUpgrade upgid="6217" />
-				<TDUpgrade upgid="6218" />
-				<TDUpgrade upgid="6219" />
-				<TDUpgrade upgid="6220" />
-			</tr>
-			<tr>
-				<TDUpgrade upgid="65" />
-				<TDUpgrade upgid="66" />
-			</tr>
-		</table>
 	</div>
 </template>
 
