@@ -16,6 +16,7 @@ import { computed } from 'vue';
 import { wordShift } from '@/core/word-shift';
 import { i18n } from '@/utils/i18n';
 import { useUpdate } from '@/lib/useUpdate';
+import { costHTML, getUpgradeDescription } from './displays';
 const $t = useI18n().t;
 
 const props = defineProps<{
@@ -43,41 +44,7 @@ const curupg = upgrades[id];
 const permanent = curupg.keep != null && curupg.keep();
 const req = curupg.requirements();
 
-function actualCost(curupg: Upgrade) {
-	let cost = typeof curupg.cost === 'function' ? curupg.cost() : curupg.cost;
-	if (
-		player.hydra.dilute.inDilute &&
-		id.startsWith('6') &&
-		(!id.endsWith('S') || player.challengein[0] == 1)
-	) {
-		cost = cost.pow(4 - 3 * 0.75 ** Dilute.diluteAmount(1));
-	}
-	return cost;
-}
-function costHTML() {
-	return $t('upg.cost', {
-		cost: curupg.ordinal
-			? OrdinalUtils.numberToOrdinal(actualCost(curupg), feature.Ordinal.base())
-			: format(actualCost(curupg)),
-		currency: currencyName(curupg.currency, $t),
-	});
-}
-const description = computed(function () {
-	if (props.upgid == '517') {
-		if (i18n.global.locale == 'zh-CN') {
-			return player.upgrades['516']
-				? '访问九头蛇Hydra'
-				: //                            Access 9 head snake Hydra
-					wordShift.randomCrossWords('A   s  9 h  d s   e H   a', 0.9, false) +
-						player.lastUpdated.toString().repeat(0);
-		}
-		return player.upgrades['516']
-			? 'Access Hydra'
-			: wordShift.randomCrossWords('访问九头蛇', 0.9, true) +
-					player.lastUpdated.toString().repeat(0);
-	}
-	return $t(`upgs.${props.upgid}`);
-});
+const description = computed(() => getUpgradeDescription(props.upgid, $t));
 </script>
 
 <template>
@@ -120,7 +87,7 @@ const description = computed(function () {
 				</template>
 				<div class="cost-bottom-1">
 					<div class="cost-bottom">
-						<div v-if="!permanent" v-html="costHTML()"></div>
+						<div v-if="!permanent" v-html="costHTML(props.upgid, $t)"></div>
 						<span v-else style="color: green; font-weight: bold">
 							{{ $t('upg.keep') }}<br />
 						</span>

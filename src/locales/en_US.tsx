@@ -2064,4 +2064,5 @@ THEN YOU CAN GET REVELATION.<br />
 	'about.termiunsfinitine': '一名無知的小鬼',
 	'about.englishlocalization': 'English Localization',
 	'dung.keyreq': 'You need a key to open this door',
+	'set.upgnewui': 'Element-like Upgrade UI',
 };

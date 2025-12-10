@@ -8,6 +8,9 @@ function retributionText() {
 	if (player.retribution < 1) {
 		return player.hydra.deduceOrdinal[0].lt('eeee10') ? '...' : $t('retri.2');
 	}
+	if (player.retribution < 2) {
+		if (player.hydra.totalCompressedPower.gte('1f1000')) return '...';
+	}
 	return '......';
 }
 // player.options.ui.theme = themes.DARK;
@@ -22,7 +25,6 @@ function retributionText() {
 		<button class="retribution" @click="RETRIBUTION.resetUI">
 			{{ retributionText() }}
 		</button>
-		<Upgrades :upgids="[['uU6R18']]" />
 	</div>
 </template>
 

@@ -121,6 +121,7 @@ export interface Player {
 			newsbar: boolean;
 			titlebar: boolean;
 			user_font?: string;
+			upgnewui: boolean;
 		};
 		challengeDetial: boolean;
 		allowOffline: boolean;
@@ -264,6 +265,7 @@ function getInitialPlayerData(): Player {
 				},
 				newsbar: true,
 				titlebar: true,
+				upgnewui: false,
 			},
 			music: 0,
 			music_url: '',
