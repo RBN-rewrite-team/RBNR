@@ -14,7 +14,7 @@ function t() {
 import Upgrades from '@/components/upg/Upgrades';
 import { useUpdate } from '@/lib/useUpdate';
 const ordupgs = useUpdate(function () {
-	if (player.upgrades[51]) {
+	if (player.upgrades[61]) {
 		return [
 			['u51', 'u52', 'u53', 'u54'],
 			['u58', 'u59', 'u511', 'u512'],

@@ -1285,7 +1285,7 @@ You progressed through BMS {b} times in {a}. You obtain {c}({d}) Solution becaus
 
 	'dil.4': 'SOLVENT IV: NUMBER THEORY HELL',
 	'dil.4.desc':
-		'"The Googologist\'s parented predecessor sequence opened the gates of hell....."',
+		'"The infinite descending chain of the parented predecessor sequence closed the gates of hell, but there\'re much hell......"',
 
 	'dil.4.eff': 'The effect of number theory #4 is reversed.',
 
@@ -1294,8 +1294,8 @@ You progressed through BMS {b} times in {a}. You obtain {c}({d}) Solution becaus
 	'dil.5.eff': `This solvent will produce prion virus continuously if you progressed BMS at least once. <br />The prion virus gain is {gen}^(Time in the dilution)-1. <br />
 The dilution will self-destruct if the number of the prion virus is greater than total progress count.`,
 
-	'dil.6': 'SOLVENT VI: 核食惊魂',
-	'dil.6.desc': '"He stroked his daughter\'s 2ND HEADS and said, Seafood is certainly edible."',
+	'dil.6': 'SOLVENT VI: T₂O',
+	'dil.6.desc': '"He stroked his daughter\'s SECOND HEAD and said, Seafood is certainly edible."',
 	'dil.6.eff': 'The progressing speed is ^{eff}(Before other multipliers reduce the effect)',
 
 	'dil.7': 'SOLVENT VII: OCCUPIED HEAVENS',
@@ -1304,10 +1304,11 @@ The dilution will self-destruct if the number of the prion virus is greater than
 
 	'dil.7.eff': 'B5-1-2, The prestiging, Ascention, Transcension and recursion are disabled.',
 	'dil.8': 'SOLVENT VIII: FALL',
-	'dil.8.desc': '"The humans who sought to ascend to heaven. But they met their doom."',
+	'dil.8.desc':
+		'"The googologits who tried to analyze PPS. But they met their doom, their hell."',
 	'dil.8.eff': 'You will not able to get any Hydra energy in 5 seconds after enable dilution.',
 
-	'dil.9': 'SOLVENT IX: APOCALYPSE CALL ENC18.1',
+	'dil.9': 'SOLVENT IX: APOCALYPSE',
 	'dil.9.desc': 'FAREWELL.',
 	'dil.9.eff': 'ALL SOLVENTS ARE MAXIMIZED. GLOBAL SPEED /1000.',
 
