@@ -162,6 +162,7 @@ export default {
 	'set.notation.24': '欧米伽记数法',
 	'set.notation.25': '1的指数',
 	'set.notation.26': '慢速增长层级',
+	'set.upgnewui': '元素式升级UI',
 
 	'stat.highest': '你最高的{currency}是: {amount}',
 	'stat.produced': '你产生了{amount}{currency}',
@@ -2041,11 +2042,11 @@ export default {
 	'garden.upg.85': 'ATBC1',
 	'garden.upg.85.desc': '需要想法的生成器消耗1/2的货币',
 	'garden.upg.86': 'ITCHE1',
-	'garden.upg.86.desc': function() {
+	'garden.upg.86.desc': function () {
 		return `累计灵感提升压缩九头蛇能量slog。当前：+${format(player.garden.totalInspiration.add(1).log10().root(2).div(2).min(10))}`;
 	},
 	'garden.upg.87': 'ITNRB1',
-	'garden.upg.87.desc': function() {
+	'garden.upg.87.desc': function () {
 		return `累计灵感提升非递归BMS效率。当前：x${format(player.garden.totalInspiration.add(10).log10().max(1).pow(0.5).pow10().div(10))}`;
 	},
 	'currency.pt_power': '证明论能量',

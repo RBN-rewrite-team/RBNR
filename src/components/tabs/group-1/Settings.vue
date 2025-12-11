@@ -176,6 +176,17 @@ function b() {
 				})
 			}}
 		</button>
+		<button
+			class="setting_button"
+			@click="player.options.ui.upgnewui = !player.options.ui.upgnewui"
+		>
+			{{
+				$t('set.status', {
+					label: $t('set.upgnewui'),
+					status: $t(player.options.ui.upgnewui ? 'set.status.on' : 'set.status.off'),
+				})
+			}}
+		</button>
 		<br />
 		<CenterLine />
 		<button class="setting_button" @click="incMusic">

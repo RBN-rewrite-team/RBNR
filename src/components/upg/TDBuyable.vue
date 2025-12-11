@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { currencyName, getCurrency } from '@/core/currencies';
-import { feature } from '@/core/global';
+import { getCurrency } from '@/core/currencies';
 import { buyables, BUYABLES } from '@/core/mechanic';
 import { player } from '@/core/save';
 import { useUpdate } from '@/lib/useUpdate';
-import { format, formatWhole } from '@/utils/format';
-import { OrdinalUtils } from '@/utils/ordinal';
+import { formatWhole } from '@/utils/format';
 import Decimal from 'break_eternity.js';
 import { useI18n } from 'vue-i18n';
+import { costHTMLBYL } from './displays';
 const $t = useI18n().t;
 const props = defineProps<{
 	bylid: keyof typeof player.buyables;
@@ -36,35 +35,6 @@ const req = curbyl.requirements();
 let canBuy = new Decimal(0);
 if (buyables[id].canBuyMax != null && buyables[id].canBuyMax()) {
 	if (buyables[id].canBuy != null) canBuy = buyables[id].canBuy(player.buyables[id]);
-}
-function costHTML() {
-	/**
-	 * <span
-					v-if="curbyl.ordinal"
-					v-html="
-						OrdinalUtils.numberToOrdinal(
-							buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0))),
-							feature.Ordinal.base(),
-						) + currencyName(curbyl.currency, $t)
-					"
-				/><span
-					v-else
-					v-html="
-						format(buyables[id].cost(player.buyables[id].add(canBuy.sub(1).max(0)))) +
-						currencyName(curbyl.currency, $t)
-					"
-				/>
-	 */
-
-	return $t('upg.cost', {
-		cost: curbyl.ordinal
-			? OrdinalUtils.numberToOrdinal(
-					curbyl.cost(player.buyables[id].add(canBuy.sub(1).max(0))),
-					feature.Ordinal.base(),
-				)
-			: format(curbyl.cost(player.buyables[id].add(canBuy.sub(1).max(0)))),
-		currency: currencyName(curbyl.currency, $t),
-	});
 }
 </script>
 
@@ -133,7 +103,7 @@ function costHTML() {
 				</template>
 				<div class="cost-bottom-1">
 					<div class="cost-bottom">
-						<span v-html="costHTML()"></span>
+						<span v-html="costHTMLBYL(props.bylid, $t)"></span>
 					</div>
 				</div>
 			</div>
