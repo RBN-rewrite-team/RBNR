@@ -160,8 +160,15 @@ export const Y_SEQ = {
 		if (!player.nonrecu.studies_bought.includes(29)) base = base.clampMax('e1e10');
 		let slogAdd = 0;
 		slogAdd += Oracle.getFateTotalEffect(1).toNumber();
-		if(Garden.boughtUpgrade(86)) slogAdd += player.garden.totalInspiration.add(1).log10().root(2).div(2).min(10).toNumber();
-		if(player.upgrades[811]) slogAdd += upgrades[811].effect().toNumber();
+		if (Garden.boughtUpgrade(86))
+			slogAdd += player.garden.totalInspiration
+				.add(1)
+				.log10()
+				.root(2)
+				.div(2)
+				.min(10)
+				.toNumber();
+		if (player.upgrades[811]) slogAdd += upgrades[811].effect().toNumber();
 		base = Decimal.tetrate(10, base.slog(10).add(slogAdd).toNumber());
 		if (base.gte('eee50') && player.pt.power.lt(1)) {
 			base = Decimal.tetrate(
@@ -178,22 +185,95 @@ export const Y_SEQ = {
 			base = Decimal.tetrate(10, base.slog(14).pow(exp).add(14).toNumber());
 		}
 		let sc3start = 1000;
-		if(player.milestones['sin_3'])
-		{
+		if (player.milestones['sin_3']) {
 			sc3start += player.pt.power.add(10).log10().log10().sub(11).max(0).mul(75).toNumber();
-			if(player.pt.power.gte('e3e12')) sc3start += player.pt.power.add(10).log10().div(3).log10().sub(12).max(0).mul(100).toNumber();
-			if(player.pt.power.gte('ee13')) sc3start += player.pt.power.add(10).log10().log10().sub(13).max(0).mul(50).toNumber();
-			if(player.pt.power.gte('e1.5e13')) sc3start += player.pt.power.add(10).log10().div(1.5).log10().sub(13).max(0).mul(75).toNumber();
-			if(player.pt.power.gte('e2e13')) sc3start += player.pt.power.add(10).log10().div(2).log10().sub(13).max(0).mul(125).toNumber();
-			if(player.pt.power.gte('e6.66e14')) sc3start += player.pt.power.add(10).log10().div(6.66).log10().sub(14).max(0).mul(300).toNumber();
+			if (player.pt.power.gte('e3e12'))
+				sc3start += player.pt.power
+					.add(10)
+					.log10()
+					.div(3)
+					.log10()
+					.sub(12)
+					.max(0)
+					.mul(100)
+					.toNumber();
+			if (player.pt.power.gte('ee13'))
+				sc3start += player.pt.power
+					.add(10)
+					.log10()
+					.log10()
+					.sub(13)
+					.max(0)
+					.mul(50)
+					.toNumber();
+			if (player.pt.power.gte('e1.5e13'))
+				sc3start += player.pt.power
+					.add(10)
+					.log10()
+					.div(1.5)
+					.log10()
+					.sub(13)
+					.max(0)
+					.mul(75)
+					.toNumber();
+			if (player.pt.power.gte('e2e13'))
+				sc3start += player.pt.power
+					.add(10)
+					.log10()
+					.div(2)
+					.log10()
+					.sub(13)
+					.max(0)
+					.mul(125)
+					.toNumber();
+			if (player.pt.power.gte('e6.66e14'))
+				sc3start += player.pt.power
+					.add(10)
+					.log10()
+					.div(6.66)
+					.log10()
+					.sub(14)
+					.max(0)
+					.mul(300)
+					.toNumber();
+			if (player.pt.power.gte('e2.5e17'))
+				sc3start += player.pt.power
+					.add(10)
+					.log10()
+					.div(2.5)
+					.log10()
+					.sub(17)
+					.max(0)
+					.mul(1000)
+					.toNumber();
 		}
 		if (base.gte('10^^' + sc3start)) {
-			base = Decimal.tetrate(10, base.slog().div(sc3start / 10).log10().pow(0.25).mul(sc3start).toNumber());
+			base = Decimal.tetrate(
+				10,
+				base
+					.slog()
+					.div(sc3start / 10)
+					.log10()
+					.pow(0.25)
+					.mul(sc3start)
+					.toNumber(),
+			);
 		}
 		if (player.pt.nonrecBMS.deduce.gte(1) && NON_REC_BMS.effects()[0].gt(0)) {
 			base = Decimal.tetrate(10, base.slog().add(NON_REC_BMS.effects()[0]).toNumber());
 		}
-		if(player.milestones['sin_6']) base = Decimal.tetrate(10, base.slog().add(player.oracle.originalsin.karma.div(100).min(player.oracle.originalsin.karma.root(4).mul(100))).toNumber());
+		if (player.milestones['sin_6'])
+			base = Decimal.tetrate(
+				10,
+				base
+					.slog()
+					.add(
+						player.oracle.originalsin.karma
+							.div(100)
+							.min(player.oracle.originalsin.karma.root(4).mul(100)),
+					)
+					.toNumber(),
+			);
 		return base.clampMax('f1.79e308');
 	},
 	reset() {
