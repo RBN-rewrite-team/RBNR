@@ -79,7 +79,7 @@ function c() {
 			:upgids="[
 				['bB6R11', 'bB6R12', 'bB6R13', 'bB6R14'],
 				['bB6R15', 'bB6R21', 'uU6R21', 'uU6R22'],
-				['uU6R11', 'bB6R12', 'uU6R13', 'uU6R14'],
+				['uU6R11', 'uU6R12', 'uU6R13', 'uU6R14'],
 				['uU6R15', 'uU6R16', 'uU6R17', 'uU6R18'],
 			]"
 		/>
