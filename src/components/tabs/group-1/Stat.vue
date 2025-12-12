@@ -133,6 +133,7 @@ function phase() {
 				})
 			}}
 		</p>
+		<p>UUID: {{ player.uuid }}</p>
 		<p :key="updateKey" v-html="phase()"></p>
 
 		<p>

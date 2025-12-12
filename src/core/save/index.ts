@@ -25,6 +25,8 @@ import PowiainaNum from 'powiaina_num.js';
 import { Pow } from '../automator/lexer.ts';
 import { convertBEDecimalToPn } from '@/lib/PNBEConvert.ts';
 
+import { v4 as uuidv4 } from 'uuid';
+
 const version = 13 as const;
 export let current_save = 0;
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
@@ -177,6 +179,9 @@ export interface Player {
 	pt: ReturnType<typeof Analysis.playerData>;
 	garden: ReturnType<typeof Garden.playerData>;
 	oracle: ReturnType<typeof Oracle.playerData>;
+
+	uuid: string;
+	fingerprint: string;
 }
 
 function getInitialPlayerData(): Player {
@@ -326,6 +331,9 @@ function getInitialPlayerData(): Player {
 		pt: Analysis.playerData(),
 		garden: Garden.playerData(),
 		oracle: Oracle.playerData(),
+
+		uuid: uuidv4(),
+		fingerprint: 'no-any-content',
 	};
 }
 

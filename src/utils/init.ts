@@ -22,6 +22,7 @@ import { initPTMilestones } from '@/core/pt/milestones.ts';
 import App from '@/App.tsx';
 import { i18n } from './i18n.ts';
 import { initSINMiletones } from '@/core/pt/oracle/sin.ts';
+import { tryGetFingerprintJS } from './fingerprint.ts';
 export function init() {
 	try {
 		timeCheck();
@@ -51,6 +52,13 @@ export function init() {
 		player.foundNaN = false;
 		player.frozen = false;
 		player.run_a_tick_and_froze = false;
+		if (player.fingerprint === 'no-any-content') {
+			console.log('Detected No any fingerprint data, trying to get');
+			tryGetFingerprintJS().then((x) => {
+				console.log('Got fingerprint, ', x);
+				player.fingerprint = x;
+			});
+		}
 		startGameLoop();
 		hotkeys('a', (event) => {
 			if (player.singularity.stage >= 11) return;
