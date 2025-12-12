@@ -177,12 +177,23 @@ export const Y_SEQ = {
 			let exp = player.pt.power.gte('e1.5e11') ? 0.375 : 0.25;
 			base = Decimal.tetrate(10, base.slog(14).pow(exp).add(14).toNumber());
 		}
-		if (base.gte('10^^1000')) {
-			base = Decimal.tetrate(10, base.slog().div(100).log10().pow(0.25).mul(1000).toNumber());
+		let sc3start = 1000;
+		if(player.milestones['sin_3'])
+		{
+			sc3start += player.pt.power.add(10).log10().log10().sub(11).max(0).mul(75).toNumber();
+			if(player.pt.power.gte('e3e12')) sc3start += player.pt.power.add(10).log10().div(3).log10().sub(12).max(0).mul(100).toNumber();
+			if(player.pt.power.gte('ee13')) sc3start += player.pt.power.add(10).log10().log10().sub(13).max(0).mul(50).toNumber();
+			if(player.pt.power.gte('e1.5e13')) sc3start += player.pt.power.add(10).log10().div(1.5).log10().sub(13).max(0).mul(75).toNumber();
+			if(player.pt.power.gte('e2e13')) sc3start += player.pt.power.add(10).log10().div(2).log10().sub(13).max(0).mul(125).toNumber();
+			if(player.pt.power.gte('e6.66e14')) sc3start += player.pt.power.add(10).log10().div(6.66).log10().sub(14).max(0).mul(300).toNumber();
+		}
+		if (base.gte('10^^' + sc3start)) {
+			base = Decimal.tetrate(10, base.slog().div(sc3start / 10).log10().pow(0.25).mul(sc3start).toNumber());
 		}
 		if (player.pt.nonrecBMS.deduce.gte(1) && NON_REC_BMS.effects()[0].gt(0)) {
 			base = Decimal.tetrate(10, base.slog().add(NON_REC_BMS.effects()[0]).toNumber());
 		}
+		if(player.milestones['sin_6']) base = Decimal.tetrate(10, base.slog().add(player.oracle.originalsin.karma.div(100).min(player.oracle.originalsin.karma.root(4).mul(100))).toNumber());
 		return base.clampMax('f1.79e308');
 	},
 	reset() {

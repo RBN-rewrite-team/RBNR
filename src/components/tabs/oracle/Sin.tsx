@@ -14,7 +14,7 @@ export default defineComponent({
 			<>
 				<div class="main">
 					<p>Sin value: {format(useSinValue.value)}</p>
-					<p>你有 {format(useKarma.value)} 业</p>
+					<p>你有 {format(useKarma.value)} 业{player.milestones['sin_6'] ? <>，令CHE在软上限后slog+{format(useKarma.value.div(100).min(useKarma.value.root(4).mul(100)))}</> : <></>}</p>
 					<table
 						style={{
 							marginInlineStart: '0',
@@ -24,6 +24,11 @@ export default defineComponent({
 					>
 						<tbody>
 							<TRMilestone id={'sin_1'} />
+							<TRMilestone id={'sin_2'} />
+							<TRMilestone id={'sin_3'} />
+							<TRMilestone id={'sin_4'} />
+							<TRMilestone id={'sin_5'} />
+							<TRMilestone id={'sin_6'} />
 						</tbody>
 					</table>
 				</div>

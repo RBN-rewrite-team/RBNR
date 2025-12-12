@@ -140,8 +140,10 @@ export const Oracle = {
 		if(player.upgrades[816]) jEsc *= 100;
 		if(justiceEffect > jEsc) justiceEffect = jEsc * Math.log10(justiceEffect / (jEsc / 10));
 		effect *= justiceEffect;
+		
+		if(player.milestones['sin_2'] && type !== 5) effect = effect ** (1.01 ** betweenSames);
 
-		return effect;
+		return Math.min(1e50, effect);
 	},
 	getFateTotalEffectiveNumber(type: number) {
 		let sum = 0;
@@ -196,6 +198,8 @@ export const Oracle = {
 			player.oracle.fateEffect[id][column] += Oracle.ptPowerEffectToFateEffect().toNumber() / 100;
 			player.oracle.fateEffect[id][column] += player.oracle.totalBits.sub(87).max(0).root(2).toNumber();
 			if(player.pt.power.gte('ee7')) player.oracle.fateEffect[id][column] += 5;
+			if(player.milestones['sin_5']) player.oracle.fateEffect[id][column] += 10;
+			player.oracle.fateEffect[id][column] = Math.min(player.oracle.fateChoose == 5 ? 50 : 75, player.oracle.fateEffect[id][column]);
 		}
 	},
 	ptPowerEffectToFateEffect() {

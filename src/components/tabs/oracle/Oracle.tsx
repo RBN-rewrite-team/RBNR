@@ -33,7 +33,7 @@ export default defineComponent({
 										{name[player.oracle.fate[i][j] - 1]}
 										<br />
 										{(player.oracle.fateEffect[i][j] * 100).toFixed(3)}%<br />×
-										{Oracle.getFateEffectRate(i, j).toFixed(3)}
+										{Oracle.getFateEffectRate(i, j) >= 1e5 ? Oracle.getFateEffectRate(i, j).toExponential(1) : Oracle.getFateEffectRate(i, j).toFixed(3)}
 									</div>
 								) : (
 									<div

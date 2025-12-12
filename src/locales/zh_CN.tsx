@@ -2060,4 +2060,10 @@ export default {
 	'upgs.814': '再次减弱并延迟非递归BMS效果的二重软上限',
 	'upgs.815': '理之命效果软上限推迟x2',
 	'upgs.816': '理之命效果软上限推迟x100',
+	'upgs.mil.sin_2': '四元素天命同类相邻使效率^1.01',
+	'upgs.mil.sin_3': '证明论能量延迟CHE的第三重指数塔软上限',
+	'upgs.mil.sin_4': 'CHE小幅度增幅证明论能量。',
+	'upgs.mil.sin_5': '天命效率+1000%',
+	'upgs.mil.sin_6': '业大幅提升CHE',
+	'upgs.mil.sin_7': '证明论能量增幅罪',
 };
