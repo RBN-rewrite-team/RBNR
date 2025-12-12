@@ -669,7 +669,11 @@ export function readSaveDetail(id: number) {
 	if (savecontent_str.stat.chapter >= 4) {
 		details.isOrdinal = true;
 		if (new Decimal(savecontent_str.hydra.deduceOrdinal[0]).gt(0)) {
-			details.number = format(savecontent_str.hydra.deduceOrdinal[0]);
+			if (savecontent_str.upgrades['81']) {
+				details.number = format(savecontent_str.hydra.compressedPower);
+			} else {
+				details.number = format(savecontent_str.hydra.deduceOrdinal[0]);
+			}
 		} else {
 			details.number = 'UNK';
 		}

@@ -14,6 +14,7 @@ import PreRetributionRes from '../resources/PreRetributionRes';
 import { getCurrentOrdinal } from '@/utils/y-seq';
 import { Garden } from '@/core/pt/garden';
 import { PTO } from '@/core/post-nonrec/pto';
+import { Y_SEQ } from '@/core/post-nonrec/y-seq';
 
 export default defineComponent({
 	name: 'Resources',
@@ -34,6 +35,19 @@ export default defineComponent({
 				/>
 			);
 		}
+		const compressPowerDisplay = useUpdate(() => {
+			if (player.retribution == 0) return '';
+			if (!player.upgrades[629]) {
+				return <>(+{Y_SEQ.resetGain()})</>;
+			}
+			return (
+				<>
+					<span
+						innerHTML={formatGain(player.hydra.compressedPower, Y_SEQ.resetGain())}
+					></span>
+				</>
+			);
+		});
 		return () => (
 			<>
 				<div class="resources" style="font-size: 20px" id="resources">
@@ -59,6 +73,15 @@ export default defineComponent({
 												<div style="font-weight: bold; color: #007f00">
 													{$t('res.compress')}&nbsp;
 													{formatWhole(player.hydra.compressedPower)}
+												</div>
+												<div
+													style={{
+														fontSize: '17px',
+														color: '#00c800ff',
+													}}
+												>
+													{compressPowerDisplay.value}
+													<br />
 												</div>
 											</div>
 										</>
@@ -104,8 +127,8 @@ export default defineComponent({
 										</div>
 										<br />
 										<div style="font-weight: bold; color: pink">
-											{ $t('currency.焓') }&nbsp;
-											{ formatWhole(player.garden.enthalpy) }
+											{$t('currency.焓')}&nbsp;
+											{formatWhole(player.garden.enthalpy)}
 										</div>
 									</div>
 								</>
