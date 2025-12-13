@@ -1,5 +1,6 @@
 export const LargeOrdList = [
-  [0, "α\\mapstoψ_Z\\left(α\\right)~\\mathrm{fp.}"],
+  [0, "ω"],
+  [315, "α\\mapstoψ_Z\\left(α\\right)~\\mathrm{fp.}"],
   [333, "\\mathrm{PTO}\\left(\\left(Π^2_1-CA\\right)_0\\right)"],
   [344, "\\mathrm{PTO}\\left(Z_3\\right)"],
   [350, "\\mathrm{PTO}\\left(Z_∞\\right)"],
