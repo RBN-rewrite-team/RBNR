@@ -518,6 +518,10 @@ const lt = useUpdate(() => ltEffect());
 				提升引理等级，需要{{ formatWhole(levelreq(0)) }}定理。<br />
 				引理证明速度/4，但是效果×1.5。
 			</button>
+			<button class="clickable_button" @click="() => levelup(1)" style="height: 72px">
+				提升定理等级，需要{{ formatWhole(levelreq(1)) }}定理。<br />
+				重置之前的内容，但是定理效果^1.5。
+			</button>
 			<button class="clickable_button" @click="() => leveldown(0)">
 				降低1引理等级，不返还被消耗的定理
 			</button>
@@ -541,7 +545,7 @@ const lt = useUpdate(() => ltEffect());
 				}}
 			</button>
 		</div>
-		<button class="clickable_button">证明Y序列良序性，需要F9.007e15推演能量</button>
-		<Upgrades :upgids="[['uU6R31', 'uU6R32', 'uU6R33', 'uU6R34'], ['uU6R35', 'uU6R36']]" />
+		<button class="clickable_button">证明Y序列良序性，需要F9.007e15推演能量(Coming Soon)</button>
+		<Upgrades :upgids="[['uU6R31', 'uU6R32', 'uU6R33', 'uU6R34'], ['uU6R35', 'uU6R36', 'uU6R37', 'uU6R38'], ['uU6R39', 'uU6R310', 'uU6R311', 'uU6R312']]" />
 	</div>
 </template>

@@ -279,6 +279,10 @@ export const Y_SEQ = {
 			const g = ltEffect()[0];
 			base = Decimal.tetrate(10, base.slog().add(g.clampMin(0)).toNumber());
 		}
+		if (base.gte('f1e15')) {
+			let exp = 0.275;
+			base = Decimal.tetrate(10, base.slog(10).div(1e15).pow(exp).mul(1e15).toNumber());
+		}
 		return base.clampMax('f1.79e308');
 	},
 	reset() {

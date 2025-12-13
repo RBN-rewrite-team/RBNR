@@ -342,7 +342,9 @@ export const WellOrderingUpgrades = {
 			return player.upgrades['U6R33'];
 		}
 		effect() {
-			return player.hydra.totalCompressedPower.slog().clampMin(10).log10();
+			let base = player.hydra.totalCompressedPower.slog().clampMin(10).log10();
+			if(player.upgrades['U6R38']) base = base.pow(2);
+			return base;
 		}
 		effectDescription(values: Decimal): string {
 			return `×${format(values)}`;
@@ -356,7 +358,9 @@ export const WellOrderingUpgrades = {
 			return player.upgrades['U6R34'];
 		}
 		effect() {
-			return player.hydra.totalCompressedPower.slog().clampMin(10).log10();
+			let base = player.hydra.totalCompressedPower.slog().clampMin(10).log10();
+			if(player.upgrades['U6R38']) base = base.pow(1.5);
+			return base;
 		}
 		effectDescription(values: Decimal): string {
 			return `×${format(values)}`;
@@ -368,6 +372,69 @@ export const WellOrderingUpgrades = {
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 		show(): boolean {
 			return player.upgrades['U6R34'];
+		}
+	})(),
+	U6R37: new (class extends Upgrade {
+		name = 'U6-R-3-7';
+		cost = () => new Decimal('f5e6');
+		currency: Currencies = Currencies.DEDUCE_ENERGY;
+		show(): boolean {
+			return player.upgrades['U6R34'];
+		}
+	})(),
+	U6R38: new (class extends Upgrade {
+		name = 'U6-R-3-8';
+		cost = () => new Decimal('f7.5e6');
+		currency: Currencies = Currencies.DEDUCE_ENERGY;
+		show(): boolean {
+			return player.upgrades['U6R34'];
+		}
+	})(),
+	U6R39: new (class extends Upgrade {
+		name = 'U6-R-3-9';
+		cost = () => new Decimal('f4e7');
+		currency: Currencies = Currencies.DEDUCE_ENERGY;
+		show(): boolean {
+			return player.upgrades['U6R38'];
+		}
+	})(),
+	U6R310: new (class extends UpgradeWithEffect<Decimal> {
+		name = 'U6-R-3-10';
+		cost = () => new Decimal('f2e8');
+		currency: Currencies = Currencies.DEDUCE_ENERGY;
+		show(): boolean {
+			return player.upgrades['U6R38'];
+		}
+		effect() {
+			let base = player.hydra.totalCompressedPower.slog().max(1).root(4);
+			return base;
+		}
+		effectDescription(values: Decimal): string {
+			return `×${format(values)}`;
+		}
+	})(),
+	U6R311: new (class extends UpgradeWithEffect<Decimal> {
+		name = 'U6-R-3-11';
+		cost = () => new Decimal('f2e10');
+		currency: Currencies = Currencies.DEDUCE_ENERGY;
+		show(): boolean {
+			return player.upgrades['U6R38'];
+		}
+		effect() {
+			let base = player.numbertheory.well_ordering.lemmas.mul(4).max(1).root(4).mul(10).sub(9);
+			if(player.upgrades['U6R312']) base = base.pow(1.5);
+			return base;
+		}
+		effectDescription(values: Decimal): string {
+			return `×${format(values)}`;
+		}
+	})(),
+	U6R312: new (class extends Upgrade {
+		name = 'U6-R-3-12';
+		cost = () => new Decimal('f4e11');
+		currency: Currencies = Currencies.DEDUCE_ENERGY;
+		show(): boolean {
+			return player.upgrades['U6R38'];
 		}
 	})(),
 } as const;
@@ -475,8 +542,10 @@ export function ltEffect() {
 	a[1] = player.numbertheory.well_ordering.theorems
 		.add(Math.E)
 		.ln()
-		.mul(Decimal.pow(1.5, player.numbertheory.well_ordering.theorem_level.sub(1)));
+		.pow(Decimal.pow(1.5, player.numbertheory.well_ordering.theorem_level.sub(1)));
 	a[0] = a[0].mul(a[1]);
+	if(player.upgrades['U6R37']) a[0] = a[0].mul(10);
+	if(player.upgrades['U6R39']) a[0] = a[0].pow(1.1);
 	return a;
 }
 
@@ -495,7 +564,17 @@ export function ltGain() {
 	if (player.upgrades['U6R35']) {
 		a[0] = a[0].mul(upgrades['U6R35'].effect());
 	}
-	a[0] = a[0].div(Decimal.pow(4, player.numbertheory.well_ordering.lemma_level.sub(1)));
+	if (player.upgrades['U6R37']) {
+		a[0] = a[0].mul(10);
+		a[1] = a[1].mul(10);
+	}
+	if (player.upgrades['U6R310']) {
+		a[0] = a[0].mul(upgrades['U6R310'].effect());
+	}
+	if (player.upgrades['U6R311']) {
+		a[1] = a[1].mul(upgrades['U6R311'].effect());
+	}
+	if (!player.upgrades['U6R312']) a[0] = a[0].div(Decimal.pow(4, player.numbertheory.well_ordering.lemma_level.sub(1)));
 	a[1] = a[1].div(Decimal.pow(4, player.numbertheory.well_ordering.theorem_level.sub(1)));
 	if (a[0].gte('1e10')) {
 		a[0] = a[0].div(1e10).pow(0.001).mul(1e10);
@@ -544,7 +623,8 @@ export function levelreq(x: 0 | 1) {
 	if (x == 0) {
 		return player.numbertheory.well_ordering.lemma_level.pow10();
 	}
-	return player.numbertheory.well_ordering.lemma_level.pow(2).pow10();
+	let base = player.numbertheory.well_ordering.theorem_level.add(1).pow(2).pow10();
+	return base;
 }
 export function levelup(x: 0 | 1) {
 	if (x == 0) {
@@ -554,6 +634,16 @@ export function levelup(x: 0 | 1) {
 				player.numbertheory.well_ordering.theorems.sub(req);
 			player.numbertheory.well_ordering.lemma_level =
 				player.numbertheory.well_ordering.lemma_level.add(1);
+		}
+	}
+	else {
+		const req = levelreq(1);
+		if (player.numbertheory.well_ordering.theorems.gte(req)) {
+			player.numbertheory.well_ordering.lemmas = new Decimal(0);
+			player.numbertheory.well_ordering.theorems = new Decimal(0);
+			player.numbertheory.well_ordering.lemma_level = new Decimal(1);
+			player.numbertheory.well_ordering.theorem_level =
+				player.numbertheory.well_ordering.theorem_level.add(1);
 		}
 	}
 }
