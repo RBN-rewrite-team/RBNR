@@ -27,7 +27,7 @@ import { convertBEDecimalToPn } from '@/lib/PNBEConvert.ts';
 
 import { v4 as uuidv4 } from 'uuid';
 
-const version = 13 as const;
+const version = 14 as const;
 export let current_save = 0;
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
 type KeyStringFromDecimal<T> = {
@@ -536,6 +536,9 @@ export function loadFromString(saveContent: string, non_options = false) {
 				player.pt.resetTimes.sub(2),
 			);
 		}
+	}
+	if (player.version <= 13) {
+		player.numbertheory.well_ordering.lemma_level = player.numbertheory.well_ordering.lemma_level.clampMin(0)
 	}
 	player.version = version;
 }
