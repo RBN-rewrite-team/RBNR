@@ -1680,6 +1680,7 @@ export default {
 	'nt.wellorderness.select.0': '无',
 	'nt.wellorderness.select.1': '初等序列 (Primitive Sequence System)的停机性',
 	'nt.wellorderness.select.2': 'BMS (Bashicu Matrix System)的良序性',
+	'nt.wellorderness.select.3': 'Y序列的良序性',
 
 	'nt.wellorderness.butt': '获得{a}推演能量',
 

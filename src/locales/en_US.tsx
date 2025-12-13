@@ -1768,6 +1768,7 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'nt.wellorderness.select.0': 'None',
 	'nt.wellorderness.select.1': 'The Well-orderness of PrSS (Primitive Sequence System)',
 	'nt.wellorderness.select.2': 'The Well-orderness of BMS (Bashicu Matrix System)',
+	'nt.wellorderness.select.3': 'The Well-orderness of Y Sequence System',
 
 	'nt.wellorderness.butt': 'Get {a} Deduction Energy',
 

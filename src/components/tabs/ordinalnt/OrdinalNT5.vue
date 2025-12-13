@@ -19,6 +19,7 @@ function getCurrentSequenceName(): string {
 	if (selecting === 0) return $t('nt.wellorderness.select.0');
 	if (selecting === 1) return $t('nt.wellorderness.select.1');
 	if (selecting === 2) return $t('nt.wellorderness.select.2');
+	if (selecting === 3 && player.milestones['sin_10']) return $t('nt.wellorderness.select.3');
 	return '???';
 }
 const $t = useI18n().t;
