@@ -2069,4 +2069,48 @@ THEN YOU CAN GET REVELATION.<br />
 
 	'currency.never': 'Singularity Energy',
 	'upgs.sing1': 'Restart Singularity Generator',
+	'ts.vowreduce': 'Fate respecing requirement -{value}',
+
+	'tab.nonrecbms': 'Non Rec. BMS',
+	'oracle.title': 'Oracle progress',
+	'oracle.bit': 'Oracle bit',
+	'oracle.1': 'Current Oracle bit collection speed multiplier×{effect}',
+	'oracle.2': 'Multiply oracle bit collection speed ×{effect},based on total Proof-theory power',
+	'oracle.3': 'Multiply oracle bit collection speed ×{effect},based on total Garden-Inspirations',
+	'oracle.fate': 'Fate',
+	'oracle.fate.desc':
+		'Use oracle bit to buy fate. Adjacent instances of the same fate will mutually reinforce each other (enhancing effects). Adjacent instances of different fates will mutually repel each other (weakening effects).',
+	'currency.nrb_deduction': 'Non Rec. BMS progressing speed',
+	'upgs.81':
+		'Non Rec. BMS progressing times slightly reduces the effect of adjacent different fates repelling each other.',
+	'upgs.82': 'Non Rec. BMS progressing times enhance progressing speed',
+	'upgs.83': 'Non Rec. BMS slightly enhance the rate of fates (after buying fate)',
+	'upgs.84': 'Proof-theory power enhanced Non Rec. BMS progressing speed',
+	'upgs.85': 'Non Rec. BMS progressing times enhance Oracle bit collection speed',
+	'upgs.86': 'The effect of U7-3 which applying to Space & Time fate, ×2 ',
+	'upgs.87': 'Compressed Hydra Energy enhances Non Rec. BMS progressing speed',
+	'upgs.88': 'Remove the softcap of Non Rec. BMS effect',
+	'upgs.6216': 'Keep The first 12 Y-Seq upgrades',
+	'upgs.6217': 'Multiply Non Rec. BMS progressing speed by 10',
+	'upgs.89': 'Reduce the growth rate of fates',
+	'tab.sin': 'Original Sin',
+	'currency.karma': 'Karma',
+	'upgs.mil.sin_1':
+		'Adjacent instances of different fates <span style="font-size: 24px"><b>WILL NOT</b></span> mutually repel each other (weakening effects).',
+	'garden.improving.3': 'Generator automatic batch',
+	'garden.upg.81': 'ATBBK1',
+	'garden.upg.82': 'ATBBK2',
+	'garden.upg.83': 'ATBBK3',
+	'garden.upg.84': 'ATBBK4',
+	'garden.upg.85': 'ATBC1',
+	'garden.upg.85.desc': 'The generator that requires ideas will spend only 1/2 currency',
+	'garden.upg.86': 'ITCHE1',
+	'garden.upg.86.desc': function () {
+		return `Enhance Compressed Hydra Energy slog, based on total inspirations. Currently: +${format(player.garden.totalInspiration.add(1).log10().root(2).div(2).min(10))}`;
+	},
+	'garden.upg.87': 'ITNRB1',
+	'garden.upg.87.desc': function () {
+		return `Enhance Non Rec. BMS progression speed, based on total inspirations. Currently: ×${format(player.garden.totalInspiration.add(10).log10().max(1).pow(0.5).pow10().div(10))}`;
+	},
+	'currency.pt_power': 'Proof-theory Power',
 };

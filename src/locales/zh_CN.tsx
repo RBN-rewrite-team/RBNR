@@ -2020,7 +2020,7 @@ export default {
 	'oracle.fate.desc':
 		'使用神谕比特购买天命，相邻的同一命运会互相增强，相邻的不同命运会互相排斥。',
 	'currency.nrb_deduction': '非递归BMS推演次数',
-	'upgs.81': '非递归BMS推演次数小幅度减少 相邻不同命运排斥的效果',
+	'upgs.81': '非递归BMS推演次数小幅度减少相邻不同命运排斥的效果',
 	'upgs.82': '非递归BMS推演次数加成自身',
 	'upgs.83': '非递归BMS推演次数小幅度加成天命的百分比（购买天命后）',
 	'upgs.84': '证明论能量加成非递归BMS推演次数',
@@ -2071,4 +2071,5 @@ export default {
 	'upgs.mil.sin_10': '解锁<b>Y序列</b>的良序性推演，解锁非递归BMS的第二效果',
 	'currency.never': '奇点能量',
 	'upgs.sing1': '启动奇点生成器',
+	'ts.vowreduce': '愿力阈值-{value}',
 };
