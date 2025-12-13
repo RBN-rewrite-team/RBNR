@@ -3,6 +3,7 @@ import Decimal from 'break_eternity.js';
 import { Garden } from '../garden';
 import { Oracle } from './oracle';
 import { MILESTONES } from '@/core/mechanic';
+import { NON_REC_BMS } from '../../nonrecu/nonrec-bms/index.ts';
 export function initSINMiletones() {
 	MILESTONES.create('sin_1', {
 		requirement: new Decimal(1000),
@@ -85,6 +86,15 @@ export function initSINMiletones() {
 			return player.oracle.originalsin.karma.gte(2000000);
 		},
 	});
+	MILESTONES.create('sin_10', {
+		requirement: new Decimal('66666666'),
+		currency: 'karma',
+		displayName: 'M-SIN-10',
+		show: true,
+		get canDone() {
+			return player.oracle.originalsin.karma.gte(66666666);
+		}
+	});
 }
 export const SIN = {
 	playerData() {
@@ -100,11 +110,8 @@ export const SIN = {
 			.pow(0.5)
 			.mul(Garden.level().div(2).sub(7.5).clampMin(0).pow(3))
 			.mul(player.pt.power.log10().pow(0.5).add(Math.E).ln())
-			.mul(
-				player.milestones['sin_7']
-					? player.pt.power.add(1e10).log10().log10().log10().add(1).pow(3).max(1)
-					: 1,
-			);
+			.mul(player.milestones['sin_7'] ? player.pt.power.add(1e10).log10().log10().log10().add(1).pow(3).max(1) : 1)
+			.mul(player.milestones['sin_10'] ? NON_REC_BMS.effects()[1] : 1);
 	},
 	isUnlocked() {
 		return (
