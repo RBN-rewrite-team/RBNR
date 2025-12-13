@@ -556,9 +556,10 @@ export function levelup(x: 0 | 1) {
 
 export function leveldown(x: 0 | 1) {
 	if (x == 0) {
-		if (player.numbertheory.well_ordering.theorems.gte(1)) {
+		if (player.numbertheory.well_ordering.lemma_level.gte(1)) {
 			player.numbertheory.well_ordering.lemma_level =
 				player.numbertheory.well_ordering.lemma_level.sub(1);
 		}
 	}
 }
+player.numbertheory.well_ordering.lemma_level = player.numbertheory.well_ordering.lemma_level.clampMin(0)
