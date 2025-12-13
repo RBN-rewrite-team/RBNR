@@ -249,6 +249,9 @@ export const Analysis = {
 		if (dayOfWeek()[0] == 0) return true;
 		return false;
 	},
+	/**
+	 * @deprecated move to ptPowerGain()
+	 */
 	powerGain() {
 		// if (player.hydra.compressedPower.gte("eee30")) return ne
 		return new Decimal(0);
@@ -314,13 +317,12 @@ export const Analysis = {
 			.mul(Garden.level().div(10).tetrate(2))
 			.clampMin(0);
 		base = base.mul(Oracle.getFateTotalEffect(2));
-		if(player.upgrades[810]) base = base.pow(CHE.slog().max(1).root(3));
-		if(player.pt.power.gte('ee7')) base = base.log10().pow(1.1).pow10();
-		if(player.milestones['sin_4'])
-		{
+		if (player.upgrades[810]) base = base.pow(CHE.slog().max(1).root(3));
+		if (player.pt.power.gte('ee7')) base = base.log10().pow(1.1).pow10();
+		if (player.milestones['sin_4']) {
 			base = base.pow(CHE.slog().sub(1150).div(75).max(1));
-			if(CHE.slog().gte(1280)) base = base.pow(CHE.slog().sub(1180).div(100).max(1));
-			if(CHE.slog().gte(1600)) base = base.pow(CHE.slog().sub(600).div(1000).root(2).max(1));
+			if (CHE.slog().gte(1280)) base = base.pow(CHE.slog().sub(1180).div(100).max(1));
+			if (CHE.slog().gte(1600)) base = base.pow(CHE.slog().sub(600).div(1000).root(2).max(1));
 		}
 		return base;
 	},

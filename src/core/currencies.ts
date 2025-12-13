@@ -23,6 +23,7 @@ export enum Currencies {
 	QOL_CRYSTAL_POINTS = 'qol_crystal_points',
 	NRB_DEDUCTION = 'nrb_deduction',
 	PT_POWER = 'pt_power',
+	NEVER = 'never',
 }
 abstract class Currency {
 	static name: string = '未定义货币';
@@ -218,9 +219,16 @@ class PTPower extends Currency {
 	static set current(x: Decimal) {
 		player.pt.power = x;
 	}
-	
+
 	static get current() {
 		return player.pt.power;
+	}
+}
+class Placeholder extends Currency {
+	static set current(x: Decimal) {}
+
+	static get current() {
+		return Decimal.dZero;
 	}
 }
 const currencyMap: Map<Currencies, typeof Currency> = new Map([
@@ -242,6 +250,7 @@ const currencyMap: Map<Currencies, typeof Currency> = new Map([
 	[Currencies.QOL_CRYSTAL_POINTS, QolCrystalCurrency],
 	[Currencies.NRB_DEDUCTION, NRBDeductionCurrency],
 	[Currencies.PT_POWER, PTPower],
+	[Currencies.NEVER, Placeholder],
 ]);
 
 export function setCurrency(currency: Currencies, value: Decimal) {

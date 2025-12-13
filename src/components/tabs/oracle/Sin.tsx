@@ -14,7 +14,19 @@ export default defineComponent({
 			<>
 				<div class="main">
 					<p>Sin value: {format(useSinValue.value)}</p>
-					<p>你有 {format(useKarma.value)} 业{player.milestones['sin_6'] ? <>，令CHE在软上限后slog+{format(useKarma.value.div(100).min(useKarma.value.root(4).mul(100)))}</> : <></>}</p>
+					<p>
+						你有 {format(useKarma.value)} 业
+						{player.milestones['sin_6'] ? (
+							<>
+								，令CHE在软上限后slog+
+								{format(
+									useKarma.value.div(100).min(useKarma.value.root(4).mul(100)),
+								)}
+							</>
+						) : (
+							<></>
+						)}
+					</p>
 					<table
 						style={{
 							marginInlineStart: '0',
@@ -31,6 +43,7 @@ export default defineComponent({
 							<TRMilestone id={'sin_6'} />
 							<TRMilestone id={'sin_7'} />
 							<TRMilestone id={'sin_8'} />
+							<TRMilestone id={'sin_9'} />
 							<TRMilestone id={'sin_10'} />
 						</tbody>
 					</table>

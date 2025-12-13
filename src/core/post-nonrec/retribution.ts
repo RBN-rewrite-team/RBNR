@@ -6,6 +6,11 @@ import { temp } from '../temp-data';
 import ModalService from '@/utils/Modal';
 import { PTreset } from '../pt';
 import { getMessage } from '@/utils/i18n';
+import { Upgrade } from '../upgrade';
+import type Decimal from 'break_eternity.js';
+import { feature } from '../global';
+import { Ordinal } from '@/lib/ordinal';
+import { Currencies } from '../currencies';
 
 export const RETRIBUTION = {
 	reset() {
@@ -47,3 +52,12 @@ export const RETRIBUTION = {
 	},
 	name: () => (player.options.isGuoGao ? '果糕' : '果报'),
 };
+
+export const psdupgrade = new (class U52 extends Upgrade {
+	cost: () => Decimal = function () {
+		return new Ordinal('w+4').toDecimal(feature.Ordinal.base());
+	};
+	ordinal = true;
+	name = '?????';
+	currency: Currencies = Currencies.NEVER;
+})();

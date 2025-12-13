@@ -951,7 +951,7 @@ export default {
 	'sing.g.2': `你有<b style="color: var(--sing-color); font-size: 25px">{se}</b>，这使数值，加法能量获取<b style="color: var(--sing-color)">^{exp}</b>`,
 	'sing.g.3': `你有<b style="color: var(--sing-color); font-size: 25px">{se}</b>，这使数值获取<b style="color: var(--sing-color)">^{exp}</b>`,
 	'sing.g.4': `你有<b style="color: var(--sing-color); font-size: 25px">{se}</b>，每秒生产<b style="color: var(--sing-color)">{exp}</b>数值`,
-	'sing.g.5': `你有<b style="color: var(--sing-color); font-size: 25px">ω</b>奇点能量`,
+	'sing.g.5': `你有<b style="color: var(--sing-color); font-size: 25px">{se}</b>奇点能量`,
 
 	'sing.t.1': ['数值', '加法能量', '乘法能量', '指数能量', '奇点能量'],
 	'sing.t.2': ['数值', '加法能量', '乘法能量', '奇点能量'],
@@ -2067,5 +2067,8 @@ export default {
 	'upgs.mil.sin_6': '业大幅提升CHE',
 	'upgs.mil.sin_7': '证明论能量增幅罪',
 	'upgs.mil.sin_8': '业的获取速度^1.75',
+	'upgs.mil.sin_9': '每秒获得100%证明论能量',
 	'upgs.mil.sin_10': '解锁<b>Y序列</b>的良序性推演，解锁非递归BMS的第二效果',
+	'currency.never': '奇点能量',
+	'upgs.sing1': '启动奇点生成器',
 };
