@@ -32,7 +32,7 @@ export default defineComponent({
 					growingdisplay={() => {
 					  if (feature.NON_RECURSIVE.passiveGain().gt(0)) return (<>
 					    <span
-						  innerHTML={formatGain(player.nonrecu.power, feature.NON_RECURSIVE.gain().mul(feature.NON_RECURSIVE.passiveGain()))}
+						  innerHTML={formatGain(player.nonrecu.power, feature.NON_RECURSIVE.passiveGain())}
 					    ></span>
 					  </>)
 						return <>(+{formatWhole(feature.NON_RECURSIVE.gain())})</>;
