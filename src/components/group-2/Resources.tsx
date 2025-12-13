@@ -38,7 +38,7 @@ export default defineComponent({
 		const compressPowerDisplay = useUpdate(() => {
 			if (player.retribution == 0) return '';
 			if (!player.upgrades[629]) {
-				return <>(+{Y_SEQ.resetGain()})</>;
+				return <>(+{formatWhole(Y_SEQ.resetGain())})</>;
 			}
 			return (
 				<>
