@@ -12,12 +12,24 @@
 @use './oracle.scss';
 @font-face {
 	font-family: 思源黑体Regular;
-	src: url('./NotoSansCJKsc-Regular.otf');
+	src: url('../NotoSansCJKsc-Regular.otf');
 }
 
 @font-face {
 	font-family: Computer Modern;
-	src: url('./cmunrm.ttf');
+	src: url('../cmunrm.ttf');
+}
+
+@font-face {
+	font-family: JetBrains Mono;
+	src: url('../JetBrainsMono-Regular.ttf');
+	font-style: normal;
+}
+
+@font-face {
+	font-family: JetBrains Mono;
+	src: url('../JetBrainsMonoNL-Italic.ttf');
+	font-style: italic;
 }
 
 :root {
@@ -52,9 +64,17 @@
 	touch-action: manipulation; // disable doubleclick zooming
 	text-size-adjust: none;
 
-	&:not(.katex):not(.katex *):not(.code-editor):not(.code-editor *) {
+	&:not(.katex):not(.katex *):not(.cm-content):not(.cm-content *):not(.cm-gutters):not(.cm-gutters *) {
 		font-family: var(--font);
 	}
+	
+	&.cm-content {
+    font-family: JetBrains Mono !important;
+  }
+  
+	&.cm-gutters {
+    font-family: JetBrains Mono !important;
+  }
 }
 
 .selectable,
