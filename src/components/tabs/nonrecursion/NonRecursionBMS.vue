@@ -20,6 +20,7 @@ const macros = {
 			/>{{ formatGain(player.pt.nonrecBMS.deduce, NON_REC_BMS.deduceSpeed(), '') }}
 		</p>
 		<p>非递归BMS使CHE slog +{{ format(NON_REC_BMS.effects()[0]) }}</p>
+		<p v-if="player.milestones.sin_9">业的获取速度 ×{{ format(NON_REC_BMS.effects()[1]) }}</p>
 		<Upgrades
 			:upgids="[
 				['u81', 'u82', 'u83', 'u84'],

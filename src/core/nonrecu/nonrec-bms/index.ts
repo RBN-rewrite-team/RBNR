@@ -35,7 +35,8 @@ export const NON_REC_BMS = {
 		);
 	},
 	effects() {
-		let base: [Decimal] = [new Decimal(1)];
+		let base: [Decimal] = [new Decimal(1), new Decimal(1)];
+		
 		base[0] = player.pt.nonrecBMS.deduce.clampMin(1).log10();
 		if(player.upgrades[813]) base[0] = base[0].mul(10);
 		if (base[0].gte(1.55) && !player.upgrades[88]) {
@@ -44,6 +45,9 @@ export const NON_REC_BMS = {
 		if (base[0].gte(2) && !player.upgrades[812]) base[0] = base[0].div(2).pow(0.25).mul(2);
 		else if(base[0].gte(2) && !player.upgrades[814]) base[0] = base[0].div(2).pow(0.5).mul(2);
 		else if(base[0].gte(4)) base[0] = base[0].div(4).pow(0.75).mul(4);
+		
+		if (player.milestones.sin_9) base[1] = player.pt.nonrecBMS.deduce.clampMin(1e30).div(1e30).pow(0.25)
+		if (base[1].gte(5)) base[1] = base[1].div(5).pow(0.5).sub(1).mul(2).add(1).mul(5)
 		return base;
 	},
 };
