@@ -1756,7 +1756,7 @@ export default {
 	'nonrec.unocf.nextord': '下一个序数为',
 
 	'tab.retribution': function () {
-		return player.retribution ? '果糕' : '果报';
+		return player.retribution ? '果报' : '果报';
 	},
 	'retri.text': `
 ¶此间便是尽头之路¶<br />
