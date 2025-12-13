@@ -1868,7 +1868,7 @@ THEN YOU CAN GET REVELATION.<br />
 	modalvalid2: 'Not valid',
 	tip: 'Tip',
 	'retri.reset':
-		'You will lost all your Non Rec. Progress, Hydra Progress, and upgrades<br>BUT YOU WILL GET REVELATION, TO GET THE STRONGER STRENGTH...',
+		'You will lost all your Non Rec. Progress, Hydra Progress, and upgrades<br>BUT YOU WILL GET REVELATION AND 1 <b>SINGULARITY ENERGY</b>, TO GET THE STRONGER STRENGTH...',
 	'retri.ok': 'Yes...',
 
 	'res.compress': 'Compressed Hydra Energy',
