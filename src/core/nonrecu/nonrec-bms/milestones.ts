@@ -375,7 +375,7 @@ export const NonRecBMSMilestones = [
 	[Decimal.tetrate(4, 4**48), '(1^8)', 'ψ_H(H^{H^{H^{H^H}}})'],
 	[Decimal.tetrate(4, 4**56), '(1^9)', 'ψ_H(H^{H^{H^{H^{H^H}}}})'],
 	[Decimal.tetrate(4, 4**60), '(1^{10})', 'ψ_H(H^{H^{H^{H^{H^{H^H}}}}})'],
-	[new Decimal('(e^3.402823669209385e+38)153.90699754796802'), '(1^ω)', 'ψ(ψ_H(ε_{H+1}))'],
+	[new Decimal('(e^3.402823669209385e+38)153.90699754796802'), '(1^ω)', 'ψ_H(ε_{H+1})'],
 ] as const;
 
 export function getCurrentNRBMSMilestoneIndex(target: Decimal): number {
