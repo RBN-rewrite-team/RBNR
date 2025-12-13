@@ -11,11 +11,11 @@ DisableDevtool({
 	onDevtoolOpen(type, next) {
 		clearInterval(loopInterval);
 		clearInterval(saveInterval);
-		document.body.innerHTML = '检测到恶意高危行为';
+		document.body.innerHTML = 'Malicious cheating behavior detected.';
 
 		next();
 	},
-	rewriteHTML: '检测到恶意高危行为',
+	rewriteHTML: 'Malicious cheating behavior detected.',
 	interval: 200,
 	md5: 'df17d82024bd335488f86e0c9c4ed23c',
 	url: 'https://localhost',
