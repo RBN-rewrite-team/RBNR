@@ -497,7 +497,9 @@ export function ltGain() {
 	}
 	a[0] = a[0].div(Decimal.pow(4, player.numbertheory.well_ordering.lemma_level.sub(1)));
 	a[1] = a[1].div(Decimal.pow(4, player.numbertheory.well_ordering.theorem_level.sub(1)));
-
+	if (a[0].gte('1e10')) {
+		a[0] = a[0].div(1e10).pow(0.001).mul(1e10);
+	}
 	return a;
 }
 export function wellOrderingLoop(diff: number) {
@@ -519,11 +521,13 @@ export function wellOrderingLoop(diff: number) {
 				.div(4)
 				.floor()
 				.min(player.numbertheory.well_ordering.theorems_th.floor());
-			if (player.upgrades['U6R36']) gain = player.numbertheory.well_ordering.theorems_th.floor()
+			if (player.upgrades['U6R36'])
+				gain = player.numbertheory.well_ordering.theorems_th.floor();
 			const cost = gain.mul(4);
 			if (cost.lte(player.numbertheory.well_ordering.lemmas) || player.upgrades['U6R36']) {
-				if (!player.upgrades['U6R36']) player.numbertheory.well_ordering.lemmas =
-					player.numbertheory.well_ordering.lemmas.sub(cost);
+				if (!player.upgrades['U6R36'])
+					player.numbertheory.well_ordering.lemmas =
+						player.numbertheory.well_ordering.lemmas.sub(cost);
 				player.numbertheory.well_ordering.theorems_th =
 					player.numbertheory.well_ordering.theorems_th.sub(gain);
 				player.numbertheory.well_ordering.theorems =
