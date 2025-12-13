@@ -33,8 +33,10 @@ export const NRBUpgrades = {
 			if (a.gte(20)) {
 				a = a.div(20).pow(3).mul(20);
 			}
-			
-			a = a.clampMax(500 + player.pt.nonrecBMS.deduce.div(1e11).log10().pow(2).mul(5).toNumber());
+
+			a = a.clampMax(
+				500 + player.pt.nonrecBMS.deduce.div(1e11).log10().pow(2).mul(5).toNumber(),
+			);
 			return a.clampMax(2000).toNumber();
 		}
 		effectDescription(values: number): string {

@@ -127,28 +127,28 @@
 
 .newui-upg {
 	width: 70px;
-  height: 70px;
-  border: solid 2px #777;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center
+	height: 70px;
+	border: solid 2px #777;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
 }
 .newui-upg:hover {
-  transform: scale(1.2)
+	transform: scale(1.2);
 }
 
 .newui-upg_bought {
-  background: rgba(0, 128,0,47%)
+	background: rgba(0, 128, 0, 47%);
 }
 
 .newui-upg_buyable {
-  background: rgba(128, 128, 128,47%);
-  &:hover {
-	cursor: pointer
-  }
+	background: rgba(128, 128, 128, 47%);
+	&:hover {
+		cursor: pointer;
+	}
 }
 .upg_text_box {
-  width: 100%;
-  height: 100px
+	width: 100%;
+	height: 100px;
 }

@@ -64,17 +64,19 @@
 	touch-action: manipulation; // disable doubleclick zooming
 	text-size-adjust: none;
 
-	&:not(.katex):not(.katex *):not(.cm-content):not(.cm-content *):not(.cm-gutters):not(.cm-gutters *) {
+	&:not(.katex):not(.katex *):not(.cm-content):not(.cm-content *):not(.cm-gutters):not(
+			.cm-gutters *
+		) {
 		font-family: var(--font);
 	}
-	
+
 	&.cm-content {
-    font-family: JetBrains Mono !important;
-  }
-  
+		font-family: JetBrains Mono !important;
+	}
+
 	&.cm-gutters {
-    font-family: JetBrains Mono !important;
-  }
+		font-family: JetBrains Mono !important;
+	}
 }
 
 .selectable,
@@ -674,7 +676,6 @@ h6 {
 	margin: 0;
 }
 
-
 .textbaixie {
 	height: 1em;
 	position: relative;
@@ -1107,13 +1108,13 @@ a {
 }
 
 .sky {
-  color: skyblue
+	color: skyblue;
 }
 
 .green {
-  color: green
+	color: green;
 }
 
 .aquamarine {
-  color: aquamarine
+	color: aquamarine;
 }

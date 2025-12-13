@@ -13,7 +13,7 @@ export const TimeShard = {
 				player.timeshard.cd[0] = dn + 60 * 60 * 1000;
 				player.timeshard.last[0] = player.timeshard.next[0];
 				player.timeshard.next[0] = r;
-				
+
 				player.oracle.vowCoe = player.oracle.vowCoe.sub(5).max(20);
 			}
 		} else if (id == 1) {
@@ -23,7 +23,7 @@ export const TimeShard = {
 				player.timeshard.cd[1] = dn + 24 * 60 * 60 * 1000;
 				player.timeshard.last[1] = player.timeshard.next[1];
 				player.timeshard.next[1] = r;
-				
+
 				player.oracle.vowCoe = player.oracle.vowCoe.sub(25).max(20);
 			}
 		} else if (id == 2) {
@@ -33,7 +33,7 @@ export const TimeShard = {
 				player.timeshard.cd[2] = dn + 7 * 24 * 60 * 60 * 1000;
 				player.timeshard.last[2] = player.timeshard.next[2];
 				player.timeshard.next[2] = r;
-				
+
 				player.oracle.vowCoe = player.oracle.vowCoe.sub(125).max(20);
 			}
 		}

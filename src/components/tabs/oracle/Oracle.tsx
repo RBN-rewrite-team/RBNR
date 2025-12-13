@@ -33,7 +33,9 @@ export default defineComponent({
 										{name[player.oracle.fate[i][j] - 1]}
 										<br />
 										{(player.oracle.fateEffect[i][j] * 100).toFixed(3)}%<br />×
-										{Oracle.getFateEffectRate(i, j) >= 1e5 ? Oracle.getFateEffectRate(i, j).toExponential(1) : Oracle.getFateEffectRate(i, j).toFixed(3)}
+										{Oracle.getFateEffectRate(i, j) >= 1e5
+											? Oracle.getFateEffectRate(i, j).toExponential(1)
+											: Oracle.getFateEffectRate(i, j).toFixed(3)}
 									</div>
 								) : (
 									<div
@@ -126,13 +128,44 @@ export default defineComponent({
 						<br />
 						{$t('oracle.fate.desc')}
 						<br />
-						{player.pt.totalPower.gte(1e30) ? <><span style="color: cyan; font-weight: bold;">累计证明论能量令天命效率+{format(Oracle.ptPowerEffectToFateEffect())}%</span></> : <></>}
+						{player.pt.totalPower.gte(1e30) ? (
+							<>
+								<span style="color: cyan; font-weight: bold;">
+									累计证明论能量令天命效率+
+									{format(Oracle.ptPowerEffectToFateEffect())}%
+								</span>
+							</>
+						) : (
+							<></>
+						)}
 						<br />
-						<span style="color: rgb(255, 127, 0); font-weight: bold;">达到88神谕比特后，神谕比特总量令天命效率+{format(player.oracle.totalBits.sub(87).max(0).root(2).mul(100))}%</span>
+						<span style="color: rgb(255, 127, 0); font-weight: bold;">
+							达到88神谕比特后，神谕比特总量令天命效率+
+							{format(player.oracle.totalBits.sub(87).max(0).root(2).mul(100))}%
+						</span>
 						<br />
-						{player.pt.totalPower.gte('e5e6') ? <><span style="color: cyan; font-weight: bold;">达到{format(new Decimal('ee7'))}证明论能量后，提升证明论能量公式，天命效率+{format(new Decimal(500))}%</span></> : <></>}
+						{player.pt.totalPower.gte('e5e6') ? (
+							<>
+								<span style="color: cyan; font-weight: bold;">
+									达到{format(new Decimal('ee7'))}
+									证明论能量后，提升证明论能量公式，天命效率+
+									{format(new Decimal(500))}%
+								</span>
+							</>
+						) : (
+							<></>
+						)}
 						<br />
-						{player.pt.totalPower.gte('ee10') ? <><span style="color: cyan; font-weight: bold;">达到{format(new Decimal('e1.5e11'))}证明论能量后，减弱CHE的第二重指数塔软上限</span></> : <></>}
+						{player.pt.totalPower.gte('ee10') ? (
+							<>
+								<span style="color: cyan; font-weight: bold;">
+									达到{format(new Decimal('e1.5e11'))}
+									证明论能量后，减弱CHE的第二重指数塔软上限
+								</span>
+							</>
+						) : (
+							<></>
+						)}
 						<br />
 						<table
 							style={{
@@ -369,7 +402,10 @@ export default defineComponent({
 								</tr>
 							</tbody>
 						</table>
-						<h3>Vow points: {formatWhole(player.oracle.vowPoints)}/{formatWhole(player.oracle.vowCoe)}</h3>
+						<h3>
+							Vow points: {formatWhole(player.oracle.vowPoints)}/
+							{formatWhole(player.oracle.vowCoe)}
+						</h3>
 						<br />
 						GardenGenerator Progress
 						{(player.oracle.gardenGenTimeProgress * 100).toFixed(2)}%<br />

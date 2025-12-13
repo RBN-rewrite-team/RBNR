@@ -2119,15 +2119,23 @@ export const Garden = {
 			GardenGenUpgs.generators[key].currency.value().gte(Garden.generatorCost(key))
 		) {
 			let scale = new Decimal(1.1);
-			let maxCanBuy = GardenGenUpgs.generators[key].currency.value().div(Garden.generatorCost(key)).log(scale).add(1);
+			let maxCanBuy = GardenGenUpgs.generators[key].currency
+				.value()
+				.div(Garden.generatorCost(key))
+				.log(scale)
+				.add(1);
 			let costRatio = new Decimal(1);
-			if(Garden.boughtUpgrade(85) && GardenGenUpgs.generators[key].currency.name == '想法') costRatio = new Decimal(1 / 2);
+			if (Garden.boughtUpgrade(85) && GardenGenUpgs.generators[key].currency.name == '想法')
+				costRatio = new Decimal(1 / 2);
 			GardenGenUpgs.generators[key].currency.write(
-				GardenGenUpgs.generators[key].currency.value().sub(Garden.generatorCost(key).mul(costRatio)),
+				GardenGenUpgs.generators[key].currency
+					.value()
+					.sub(Garden.generatorCost(key).mul(costRatio)),
 			);
 			player.garden.generators[key] = player.garden.generators[key].add(maxCanBuy.min(bulk));
 			if (player.pt.power.gte(1)) {
-				player.oracle.gardenGenTimeProgress = player.oracle.gardenGenTimeProgress + 0.001 * maxCanBuy.min(bulk).toNumber();
+				player.oracle.gardenGenTimeProgress =
+					player.oracle.gardenGenTimeProgress + 0.001 * maxCanBuy.min(bulk).toNumber();
 			}
 		}
 	},
@@ -2368,12 +2376,12 @@ export const Garden = {
 			player.garden.insPower = player.garden.insPower.add(
 				Garden.insPowerGain().mul(localDiff),
 			);
-			
+
 			let bulk = new Decimal(1);
 			for (const i in player.garden.upgrades) {
 				if (
-					GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades].effect
-						.key == -4
+					GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades]
+						.effect.key == -4
 				)
 					bulk = bulk.mul(
 						GardenGenUpgs.upgrades[i as unknown as keyof typeof GardenGenUpgs.upgrades]

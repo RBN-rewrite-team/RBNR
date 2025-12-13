@@ -158,7 +158,7 @@ function simulateText(canvasRef: any, $t: $t) {
 									)
 										Garden.buyGenerator(
 											g.key as keyof typeof GardenGenUpgs.generators,
-											new Decimal(1)
+											new Decimal(1),
 										);
 									player.garden.focusNode = g;
 								},
@@ -178,7 +178,7 @@ function simulateText(canvasRef: any, $t: $t) {
 										)
 											Garden.buyGenerator(
 												g.key as keyof typeof GardenGenUpgs.generators,
-												new Decimal(1)
+												new Decimal(1),
 											);
 										player.garden.focusNode = g;
 									}}
@@ -248,7 +248,9 @@ function simulateText(canvasRef: any, $t: $t) {
 									'brightness(' +
 									(player.garden.upgrades[g.key] ? 1 : 0.75) +
 									')',
-								'border-color': player.garden.upgrades[g.key] ? g.currency.color : 'grey',
+								'border-color': player.garden.upgrades[g.key]
+									? g.currency.color
+									: 'grey',
 								transform:
 									'scale(' +
 									(Garden.canBoughtUpgrade(
@@ -525,31 +527,38 @@ export default defineComponent({
 								</>
 							) : (
 								<>
-									{
-										(player.garden.focusNode as GardenUpgrade).effect.key == -999 ?
-											<></>
-											: <>
+									{(player.garden.focusNode as GardenUpgrade).effect.key ==
+									-999 ? (
+										<></>
+									) : (
+										<>
 											{$t('garden.enhance')}
-											{(player.garden.focusNode as GardenUpgrade).effect.key >= 0
+											{(player.garden.focusNode as GardenUpgrade).effect
+												.key >= 0
 												? $t(
 														`garden.gen.${
 															GardenGenUpgs.generators[
-																(player.garden.focusNode as GardenUpgrade)
-																	.effect
+																(
+																	player.garden
+																		.focusNode as GardenUpgrade
+																).effect
 																	.key as unknown as keyof typeof GardenGenUpgs.generators
 															].key
 														}`,
 													)
 												: Garden.upgradeImproving(
-														(player.garden.focusNode as GardenUpgrade).effect
-															.key,
+														(player.garden.focusNode as GardenUpgrade)
+															.effect.key,
 														$t,
 													)}
 											: x
-											{format((player.garden.focusNode as GardenUpgrade).effect.mult)}
+											{format(
+												(player.garden.focusNode as GardenUpgrade).effect
+													.mult,
+											)}
 											<br />
 										</>
-									}
+									)}
 									{Garden.upgradeEffectDescription(
 										player.garden.focusNode
 											.key as keyof typeof GardenGenUpgs.upgrades,
