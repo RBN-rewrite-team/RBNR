@@ -45,7 +45,7 @@ export const NON_REC_BMS = {
 		);
 	},
 	effects() {
-		let base: [Decimal] = [new Decimal(1), new Decimal(1)];
+		let base: [Decimal, Decimal] = [new Decimal(1), new Decimal(1)];
 
 		base[0] = player.pt.nonrecBMS.deduce.clampMin(1).log10();
 		if (player.upgrades[813]) base[0] = base[0].mul(10);

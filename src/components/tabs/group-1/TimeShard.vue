@@ -31,6 +31,8 @@ function t2() {
 	});
 }
 import Upgrades from '@/components/upg/Upgrades';
+import { isTester } from '@/core/save/testing.ts';
+import { Oracle } from '@/core/pt/oracle/oracle.ts';
 </script>
 
 <template>
@@ -78,9 +80,15 @@ import Upgrades from '@/components/upg/Upgrades';
 									<h3 style="color: rgb(255, 63, 255)">
 										{{ $t('timeshard.gen', { tier: 'I' }) }}
 									</h3>
-									<br />
-									<span style="color: rgb(127, 63, 0); font-weight: bold"
-										>愿力阈值-5</span
+									<span
+										style="color: rgb(127, 63, 0); font-weight: bold"
+										v-if="Oracle.isUnlocked()"
+									>
+										<br />{{
+											$t('ts.vowreduce', {
+												value: 5,
+											})
+										}}</span
 									>
 									<br />
 									<span v-html="$t('timeshard.gen.1')"></span><br />
@@ -107,9 +115,15 @@ import Upgrades from '@/components/upg/Upgrades';
 									<h3 style="color: rgb(255, 63, 255)">
 										{{ $t('timeshard.gen', { tier: 'II' }) }}
 									</h3>
-									<br />
-									<span style="color: rgb(127, 63, 0); font-weight: bold"
-										>愿力阈值-25</span
+									<span
+										style="color: rgb(127, 63, 0); font-weight: bold"
+										v-if="Oracle.isUnlocked()"
+									>
+										<br />{{
+											$t('ts.vowreduce', {
+												value: 25,
+											})
+										}}</span
 									>
 									<br />
 									<span v-html="$t('timeshard.gen.2')"></span><br />
@@ -136,9 +150,15 @@ import Upgrades from '@/components/upg/Upgrades';
 									<h3 style="color: rgb(255, 63, 255)">
 										{{ $t('timeshard.gen', { tier: 'III' }) }}
 									</h3>
-									<br />
-									<span style="color: rgb(127, 63, 0); font-weight: bold"
-										>愿力阈值-125</span
+									<span
+										style="color: rgb(127, 63, 0); font-weight: bold"
+										v-if="Oracle.isUnlocked()"
+									>
+										<br />{{
+											$t('ts.vowreduce', {
+												value: 125,
+											})
+										}}</span
 									>
 									<br />
 									<span v-html="$t('timeshard.gen.3')"></span><br />
