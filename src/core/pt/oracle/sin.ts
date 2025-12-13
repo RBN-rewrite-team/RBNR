@@ -87,12 +87,12 @@ export function initSINMiletones() {
 		},
 	});
 	MILESTONES.create('sin_10', {
-		requirement: new Decimal('66666666'),
+		requirement: new Decimal('10000000'),
 		currency: 'karma',
 		displayName: 'M-SIN-10',
 		show: true,
 		get canDone() {
-			return player.oracle.originalsin.karma.gte(66666666);
+			return player.oracle.originalsin.karma.gte(10000000);
 		},
 	});
 }
