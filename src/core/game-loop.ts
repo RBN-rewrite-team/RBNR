@@ -26,7 +26,7 @@ import { equipmentDestroyLoop } from '@/core/minigame';
 import { achLoop } from './achievements.ts';
 import { format } from '@/utils/format.ts';
 import { OrdinalUtils } from '@/utils/ordinal.ts';
-import { PTEffects } from './pt/index.ts';
+import { Analysis, PTEffects } from './pt/index.ts';
 import { Garden } from './pt/garden.ts';
 import { getMessage } from '@/utils/i18n.ts';
 import { numberGrow } from './psd-number-grow.ts';
@@ -249,7 +249,7 @@ export function preCardinalSpeed() {
 export function getPreCardinalDiff() {
 	let pre_cardinal_diff = diff;
 	pre_cardinal_diff *= preCardinalSpeed();
-	if (player.timeshard.openTf && player.timeshard.tf.gt(0)) diff *= 3
+	if (player.timeshard.openTf && player.timeshard.tf.gt(0)) diff *= 3;
 	return pre_cardinal_diff;
 }
 /**
@@ -456,7 +456,11 @@ export function simulate(diff: number) {
 	Garden.gardenLoop(realtime_diff / 1000);
 
 	Oracle.oracleLoop(realtime_diff / 1000);
-
+	if (player.milestones['sin_9']) {
+		const gain = Analysis.ptPowerGain();
+		player.pt.power = player.pt.power.add(gain.mul(pre_cardinal_diff / 1000));
+		player.pt.totalPower = player.pt.totalPower.add(gain.mul(pre_cardinal_diff / 1000));
+	}
 	Logarithm.astronomerUpdate();
 	updateHighestStat();
 	const next = player.upgrades[61] ? DC.D_0 : feature.Ordinal.ordinalPerSecond();

@@ -2067,4 +2067,5 @@ export default {
 	'upgs.mil.sin_6': '业大幅提升CHE',
 	'upgs.mil.sin_7': '证明论能量增幅罪',
 	'upgs.mil.sin_8': '业的获取速度^1.75',
+	'upgs.mil.sin_9': '每秒获得100%证明论能量',
 };

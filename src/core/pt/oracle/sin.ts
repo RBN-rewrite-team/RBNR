@@ -76,6 +76,15 @@ export function initSINMiletones() {
 			return player.oracle.originalsin.karma.gte(200000);
 		},
 	});
+	MILESTONES.create('sin_9', {
+		requirement: new Decimal('2000000'),
+		currency: 'karma',
+		displayName: 'M-SIN-9',
+		show: true,
+		get canDone() {
+			return player.oracle.originalsin.karma.gte(2000000);
+		},
+	});
 }
 export const SIN = {
 	playerData() {
@@ -91,7 +100,11 @@ export const SIN = {
 			.pow(0.5)
 			.mul(Garden.level().div(2).sub(7.5).clampMin(0).pow(3))
 			.mul(player.pt.power.log10().pow(0.5).add(Math.E).ln())
-			.mul(player.milestones['sin_7'] ? player.pt.power.add(1e10).log10().log10().log10().add(1).pow(3).max(1) : 1);
+			.mul(
+				player.milestones['sin_7']
+					? player.pt.power.add(1e10).log10().log10().log10().add(1).pow(3).max(1)
+					: 1,
+			);
 	},
 	isUnlocked() {
 		return (
@@ -100,9 +113,10 @@ export const SIN = {
 				player.oracle.originalsin.karma.gte(1))
 		);
 	},
+
 	loop(diff: number) {
 		let karmaGain = this.getSinValue().mul(2);
-		if(player.milestones['sin_8']) karmaGain = karmaGain.pow(1.75);
+		if (player.milestones['sin_8']) karmaGain = karmaGain.pow(1.75);
 		player.oracle.originalsin.karma = player.oracle.originalsin.karma.add(karmaGain.mul(diff));
 	},
 } as const;
