@@ -312,7 +312,7 @@ export const WellOrderingUpgrades = {
 	})(),
 	U6R32: new (class extends Upgrade {
 		name = 'U6-R-3-2';
-		cost = () => new Decimal('1f30000');
+		cost = () => new Decimal('1f26000');
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 		show(): boolean {
 			return player.milestones['sin_10'];
@@ -320,7 +320,7 @@ export const WellOrderingUpgrades = {
 	})(),
 	U6R33: new (class extends UpgradeWithEffect<Decimal> {
 		name = 'U6-R-3-3';
-		cost = () => new Decimal('1f40000');
+		cost = () => new Decimal('1f37000');
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 		show(): boolean {
 			return player.upgrades['U6R32'];
