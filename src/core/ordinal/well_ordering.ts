@@ -348,6 +348,20 @@ export const WellOrderingUpgrades = {
 			return `×${format(values)}`;
 		}
 	})(),
+	U6R35: new (class extends UpgradeWithEffect<Decimal> {
+		name = 'U6-R-3-5';
+		cost = () => new Decimal('f1e6');
+		currency: Currencies = Currencies.DEDUCE_ENERGY;
+		show(): boolean {
+			return player.upgrades['U6R32'];
+		}
+		effect() {
+			return player.hydra.totalCompressedPower.slog().clampMin(10).log10();
+		}
+		effectDescription(values: Decimal): string {
+			return `×${format(values)}`;
+		}
+	})(),
 } as const;
 
 export const nt = {
@@ -469,6 +483,9 @@ export function ltGain() {
 	if (player.upgrades['U6R34']) {
 		a[0] = a[0].mul(upgrades['U6R34'].effect());
 		a[1] = a[1].mul(upgrades['U6R34'].effect());
+	}
+	if (player.upgrades['U6R35']) {
+		a[0] = a[0].mul(upgrades['U6R35'].effect());
 	}
 	a[0] = a[0].div(Decimal.pow(4, player.numbertheory.well_ordering.lemma_level.sub(1)));
 	a[1] = a[1].div(Decimal.pow(4, player.numbertheory.well_ordering.theorem_level.sub(1)));

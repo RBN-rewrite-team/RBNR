@@ -538,6 +538,6 @@ const lt = useUpdate(() => ltEffect());
 			</button>
 		</div>
 		<button class="clickable_button">证明Y序列良序性，需要F9.007e15推演能量</button>
-		<Upgrades :upgids="[['uU6R31', 'uU6R32', 'uU6R33', 'uU6R34']]" />
+		<Upgrades :upgids="[['uU6R31', 'uU6R32', 'uU6R33', 'uU6R34'], ['uU6R35']]" />
 	</div>
 </template>

@@ -129,6 +129,8 @@ export const SIN = {
 		let karmaGain = this.getSinValue().mul(2);
 		if (player.milestones['sin_8']) karmaGain = karmaGain.pow(1.75);
 		if (player.upgrades['U6R33']) karmaGain = karmaGain.mul(upgrades['U6R33'].effect());
-		player.oracle.originalsin.karma = player.oracle.originalsin.karma.add(karmaGain.mul(diff));
+		player.oracle.originalsin.karma = player.oracle.originalsin.karma.add(
+			karmaGain.mul(diff).clampMax(1e30),
+		);
 	},
 } as const;
