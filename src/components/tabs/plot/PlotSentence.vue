@@ -9,7 +9,7 @@ defineProps<{
 </script>
 
 <template>
-	<tr>
+	<tr style="height: 15vh">
 		<td>
 			<div align="center" style="position: relative; width: 100%">
 				<div class="chara_pic" :style="{ 'background-image': image }"></div>

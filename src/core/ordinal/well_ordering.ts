@@ -302,6 +302,22 @@ export const WellOrderingUpgrades = {
 			return 'x' + format(this.effect());
 		}
 	})(),
+	U6R31: new (class extends Upgrade {
+		name = 'U6-R-3-1';
+		cost = () => new Decimal('1f23000');
+		currency: Currencies = Currencies.DEDUCE_ENERGY;
+		show(): boolean {
+			return player.milestones['sin_10'];
+		}
+	})(),
+	U6R32: new (class extends Upgrade {
+		name = 'U6-R-3-2';
+		cost = () => new Decimal('1f30000');
+		currency: Currencies = Currencies.DEDUCE_ENERGY;
+		show(): boolean {
+			return player.milestones['sin_10'];
+		}
+	})(),
 } as const;
 
 export const nt = {
@@ -379,6 +395,11 @@ export function wellOrderPlayerData() {
 		energy: DC.D_0,
 		pages: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] as FixedLengthArray<number, 10>,
 		steps_proceeded: [] as number[],
+		lemmas: new Decimal(0),
+		theorems: new Decimal(0),
+		theorems_th: new Decimal(0),
+		lemma_level: new Decimal(1),
+		theorem_level: new Decimal(1),
 	};
 }
 
@@ -392,12 +413,76 @@ export function wellOrderingGain(diff: number) {
 	}
 	return a;
 }
+export function ltEffect() {
+	const a: [Decimal, Decimal] = [new Decimal(0), new Decimal(0)];
+	a[0] = player.numbertheory.well_ordering.lemmas
+		.add(1)
+		.mul(0.1)
+		.mul(Decimal.pow(1.5, player.numbertheory.well_ordering.lemma_level.sub(1)));
+	a[1] = player.numbertheory.well_ordering.theorems
+		.add(Math.E)
+		.ln()
+		.mul(Decimal.pow(1.5, player.numbertheory.well_ordering.theorem_level.sub(1)));
+	a[0] = a[0].mul(a[1]);
+	return a;
+}
+
+export function ltGain() {
+	const a: [Decimal, Decimal] = [new Decimal(0), new Decimal(0)];
+	if (player.upgrades['U6R31']) {
+		a[0] = a[0].add(1 / 10);
+	}
+	if (player.upgrades['U6R32']) {
+		a[1] = a[1].add(1 / 100);
+	}
+	a[0] = a[0].div(Decimal.pow(4, player.numbertheory.well_ordering.lemma_level.sub(1)));
+	a[1] = a[1].div(Decimal.pow(4, player.numbertheory.well_ordering.theorem_level.sub(1)));
+
+	return a;
+}
 export function wellOrderingLoop(diff: number) {
 	player.numbertheory.well_ordering.energy = player.numbertheory.well_ordering.energy.add(
 		wellOrderingGain(diff),
 	);
+	if (player.upgrades['U6R31']) {
+		const [lemma, theorem] = ltGain();
+		player.numbertheory.well_ordering.lemmas = player.numbertheory.well_ordering.lemmas.add(
+			lemma.mul(diff),
+		);
+		player.numbertheory.well_ordering.theorems_th =
+			player.numbertheory.well_ordering.theorems_th.add(theorem.mul(diff));
+		if (player.numbertheory.well_ordering.theorems_th.gte(1)) {
+			const gain = player.numbertheory.well_ordering.theorems_th.floor();
+			const cost = gain.mul(4);
+			if (cost.lte(player.numbertheory.well_ordering.lemmas)) {
+				player.numbertheory.well_ordering.lemmas =
+					player.numbertheory.well_ordering.lemmas.sub(cost);
+				player.numbertheory.well_ordering.theorems_th =
+					player.numbertheory.well_ordering.theorems_th.sub(gain);
+				player.numbertheory.well_ordering.theorems =
+					player.numbertheory.well_ordering.theorems.add(gain);
+			}
+		}
+	}
 	if (player.retribution < 1) {
 		player.numbertheory.well_ordering.energy =
 			player.numbertheory.well_ordering.energy.clampMax('1e750000000');
+	}
+}
+export function levelreq(x: 0 | 1) {
+	if (x == 0) {
+		return player.numbertheory.well_ordering.lemma_level.pow10();
+	}
+	return player.numbertheory.well_ordering.lemma_level.pow(2).pow10();
+}
+export function levelup(x: 0 | 1) {
+	if (x == 0) {
+		const req = levelreq(0);
+		if (player.numbertheory.well_ordering.theorems.gte(req)) {
+			player.numbertheory.well_ordering.theorems =
+				player.numbertheory.well_ordering.theorems.sub(req);
+			player.numbertheory.well_ordering.lemma_level =
+				player.numbertheory.well_ordering.lemma_level.add(1);
+		}
 	}
 }

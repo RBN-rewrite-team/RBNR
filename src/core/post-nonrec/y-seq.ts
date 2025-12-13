@@ -5,6 +5,7 @@ import { Analysis } from '@/core/pt/index.ts';
 import { Oracle } from '@/core/pt/oracle/oracle.ts';
 import { NON_REC_BMS } from '../nonrecu/nonrec-bms';
 import { Garden } from '@/core/pt/garden.ts';
+import { ltEffect } from '../ordinal/well_ordering';
 
 export const Y_SEQ = {
 	playerData() {
@@ -274,6 +275,10 @@ export const Y_SEQ = {
 					)
 					.toNumber(),
 			);
+		if (player.milestones['sin_10']) {
+			const g = ltEffect()[0];
+			base = Decimal.tetrate(10, base.slog().add(g.clampMin(0)).toNumber());
+		}
 		return base.clampMax('f1.79e308');
 	},
 	reset() {
