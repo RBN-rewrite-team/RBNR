@@ -31,7 +31,7 @@ export default defineComponent({
 							<TRMilestone id={'sin_6'} />
 							<TRMilestone id={'sin_7'} />
 							<TRMilestone id={'sin_8'} />
-							<TRMilestone id={'sin_9'} />
+							<TRMilestone id={'sin_10'} />
 						</tbody>
 					</table>
 				</div>

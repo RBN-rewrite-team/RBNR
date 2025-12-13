@@ -77,10 +77,10 @@ export function initSINMiletones() {
 			return player.oracle.originalsin.karma.gte(200000);
 		},
 	});
-	MILESTONES.create('sin_9', {
+	MILESTONES.create('sin_10', {
 		requirement: new Decimal('66666666'),
 		currency: 'karma',
-		displayName: 'M-SIN-9',
+		displayName: 'M-SIN-10',
 		show: true,
 		get canDone() {
 			return player.oracle.originalsin.karma.gte(66666666);
@@ -102,7 +102,7 @@ export const SIN = {
 			.mul(Garden.level().div(2).sub(7.5).clampMin(0).pow(3))
 			.mul(player.pt.power.log10().pow(0.5).add(Math.E).ln())
 			.mul(player.milestones['sin_7'] ? player.pt.power.add(1e10).log10().log10().log10().add(1).pow(3).max(1) : 1)
-			.mul(player.milestones['sin_9'] ? NON_REC_BMS.effects()[1] : 1);
+			.mul(player.milestones['sin_10'] ? NON_REC_BMS.effects()[1] : 1);
 	},
 	isUnlocked() {
 		return (
