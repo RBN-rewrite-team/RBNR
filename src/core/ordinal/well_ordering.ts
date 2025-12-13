@@ -339,7 +339,7 @@ export const WellOrderingUpgrades = {
 		cost = () => new Decimal('1f165000');
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 		show(): boolean {
-			return player.upgrades['U6R32'];
+			return player.upgrades['U6R33'];
 		}
 		effect() {
 			return player.hydra.totalCompressedPower.slog().clampMin(10).log10();
@@ -353,13 +353,21 @@ export const WellOrderingUpgrades = {
 		cost = () => new Decimal('f1e6');
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 		show(): boolean {
-			return player.upgrades['U6R32'];
+			return player.upgrades['U6R34'];
 		}
 		effect() {
 			return player.hydra.totalCompressedPower.slog().clampMin(10).log10();
 		}
 		effectDescription(values: Decimal): string {
 			return `×${format(values)}`;
+		}
+	})(),
+	U6R36: new (class extends Upgrade {
+		name = 'U6-R-3-6';
+		cost = () => new Decimal('f2.5e6');
+		currency: Currencies = Currencies.DEDUCE_ENERGY;
+		show(): boolean {
+			return player.upgrades['U6R34'];
 		}
 	})(),
 } as const;
@@ -510,10 +518,11 @@ export function wellOrderingLoop(diff: number) {
 			let gain = player.numbertheory.well_ordering.lemmas
 				.div(4)
 				.floor()
-				.min(player.numbertheory.well_ordering.theorems_th);
+				.min(player.numbertheory.well_ordering.theorems_th.floor());
+			if (player.upgrades['U6R36']) gain = player.numbertheory.well_ordering.theorems_th.floor()
 			const cost = gain.mul(4);
-			if (cost.lte(player.numbertheory.well_ordering.lemmas)) {
-				player.numbertheory.well_ordering.lemmas =
+			if (cost.lte(player.numbertheory.well_ordering.lemmas) || player.upgrades['U6R36']) {
+				if (!player.upgrades['U6R36']) player.numbertheory.well_ordering.lemmas =
 					player.numbertheory.well_ordering.lemmas.sub(cost);
 				player.numbertheory.well_ordering.theorems_th =
 					player.numbertheory.well_ordering.theorems_th.sub(gain);
@@ -541,6 +550,15 @@ export function levelup(x: 0 | 1) {
 				player.numbertheory.well_ordering.theorems.sub(req);
 			player.numbertheory.well_ordering.lemma_level =
 				player.numbertheory.well_ordering.lemma_level.add(1);
+		}
+	}
+}
+
+export function leveldown(x: 0 | 1) {
+	if (x == 0) {
+		if (player.numbertheory.well_ordering.theorems.gte(1)) {
+			player.numbertheory.well_ordering.lemma_level =
+				player.numbertheory.well_ordering.lemma_level.sub(1);
 		}
 	}
 }
