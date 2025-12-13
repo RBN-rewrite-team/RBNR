@@ -43,7 +43,7 @@ export const Oracle = {
 		if (player.upgrades[85]) {
 			base = base.mul(upgrades[85].effect());
 		}
-		if(player.upgrades[6220]) base = base.pow(1.5);
+		if (player.upgrades[6220]) base = base.pow(1.5);
 		return base;
 	},
 	canGainBit(): boolean {
@@ -125,7 +125,7 @@ export const Oracle = {
 		}
 		effect += 0.5 * betweenSames;
 		effect *= player.oracle.fateEffect[id][column];
-		
+
 		let justiceEffect = 1;
 		let dx = [-1, 1, 0, 0];
 		let dy = [0, 0, -1, 1];
@@ -136,12 +136,12 @@ export const Oracle = {
 			}
 		}
 		let jEsc = 10000;
-		if(player.upgrades[815]) jEsc *= 2;
-		if(player.upgrades[816]) jEsc *= 100;
-		if(justiceEffect > jEsc) justiceEffect = jEsc * Math.log10(justiceEffect / (jEsc / 10));
+		if (player.upgrades[815]) jEsc *= 2;
+		if (player.upgrades[816]) jEsc *= 100;
+		if (justiceEffect > jEsc) justiceEffect = jEsc * Math.log10(justiceEffect / (jEsc / 10));
 		effect *= justiceEffect;
-		
-		if(player.milestones['sin_2'] && type !== 5) effect = effect ** (1.01 ** betweenSames);
+
+		if (player.milestones['sin_2'] && type !== 5) effect = effect ** (1.01 ** betweenSames);
 
 		return Math.min(1e50, effect);
 	},
@@ -195,18 +195,25 @@ export const Oracle = {
 				}
 				player.oracle.fateEffect[id][column] += (upgrades[83].effect() / 100) * mult;
 			}
-			player.oracle.fateEffect[id][column] += Oracle.ptPowerEffectToFateEffect().toNumber() / 100;
-			player.oracle.fateEffect[id][column] += player.oracle.totalBits.sub(87).max(0).root(2).toNumber();
-			if(player.pt.power.gte('ee7')) player.oracle.fateEffect[id][column] += 5;
-			if(player.milestones['sin_5']) player.oracle.fateEffect[id][column] += 10;
-			player.oracle.fateEffect[id][column] = Math.min(player.oracle.fateChoose == 5 ? 50 : 75, player.oracle.fateEffect[id][column]);
+			player.oracle.fateEffect[id][column] +=
+				Oracle.ptPowerEffectToFateEffect().toNumber() / 100;
+			player.oracle.fateEffect[id][column] += player.oracle.totalBits
+				.sub(87)
+				.max(0)
+				.root(2)
+				.toNumber();
+			if (player.pt.power.gte('ee7')) player.oracle.fateEffect[id][column] += 5;
+			if (player.milestones['sin_5']) player.oracle.fateEffect[id][column] += 10;
+			player.oracle.fateEffect[id][column] = Math.min(
+				player.oracle.fateChoose == 5 ? 50 : 75,
+				player.oracle.fateEffect[id][column],
+			);
 		}
 	},
 	ptPowerEffectToFateEffect() {
-		if(player.pt.totalPower.lt(1e30)) return new Decimal(0);
+		if (player.pt.totalPower.lt(1e30)) return new Decimal(0);
 		let base = player.pt.totalPower.add(10).log10().sub(29).root(2).sub(1);
-		if(base.gte(100))
-		{
+		if (base.gte(100)) {
 			base = base.div(10).log10().mul(100);
 		}
 		return base;
