@@ -10,6 +10,8 @@ import {
 	ltEffect,
 	stepProceed,
 	wellOrderGainPerClick,
+	proveYSeqWellorderness,
+	metaEnergyEffect,
 } from '@/core/ordinal/well_ordering.ts';
 import { component as cttc } from '../help/text-to-component-convert.tsx';
 
@@ -21,6 +23,8 @@ import Upgrades from '@/components/upg/Upgrades.tsx';
 import Decimal from 'break_eternity.js';
 import { useUpdate } from '@/lib/useUpdate.ts';
 import type PrimaryButton from '@/components/ui/PrimaryButton.tsx';
+import Baixie from '@/components/group-2/Baixie.vue';
+import { formatP } from '@/utils/format-pow.ts';
 function getCurrentSequenceName(): string {
 	const selecting = player.numbertheory.well_ordering.selecting;
 	if (selecting === 0) return $t('nt.wellorderness.select.0');
@@ -545,7 +549,29 @@ const lt = useUpdate(() => ltEffect());
 				}}
 			</button>
 		</div>
-		<button class="clickable_button">证明Y序列良序性，需要F9.007e15推演能量(Coming Soon)</button>
-		<Upgrades :upgids="[['uU6R31', 'uU6R32', 'uU6R33', 'uU6R34'], ['uU6R35', 'uU6R36', 'uU6R37', 'uU6R38'], ['uU6R39', 'uU6R310', 'uU6R311', 'uU6R312']]" />
+		<button
+			class="clickable_button"
+			@click="proveYSeqWellorderness"
+			v-if="!player.numbertheory.well_ordering.ySeqWellOrderness"
+		>
+			证明Y序列良序性，需要F9.007e15推演能量(Coming Soon)
+		</button>
+		<div v-else>
+			<div style="color: darkgreen">
+				Y序列良序性奖励： 获得一个<Baixie />，移除引理速度软上限。在到达F3.403e38压缩九头蛇能量后，你可以进行第二次果报
+				<br />你每秒获得1二重推演能量。
+			</div>
+			你有<b style="color: #c98300; font-size: 30px">{{
+				formatP(player.numbertheory.well_ordering.energy2)
+			}}</b
+			>二重推演能量，使引理证明速度×{{ formatP(metaEnergyEffect()) }}。
+		</div>
+		<Upgrades
+			:upgids="[
+				['uU6R31', 'uU6R32', 'uU6R33', 'uU6R34'],
+				['uU6R35', 'uU6R36', 'uU6R37', 'uU6R38'],
+				['uU6R39', 'uU6R310', 'uU6R311', 'uU6R312'],
+			]"
+		/>
 	</div>
 </template>

@@ -6,6 +6,7 @@ import { Oracle } from '@/core/pt/oracle/oracle.ts';
 import { NON_REC_BMS } from '../nonrecu/nonrec-bms';
 import { Garden } from '@/core/pt/garden.ts';
 import { ltEffect } from '../ordinal/well_ordering';
+import { DC } from '../constants';
 
 export const Y_SEQ = {
 	playerData() {
@@ -152,7 +153,7 @@ export const Y_SEQ = {
 	},
 	yseqDeduceSpeed() {
 		const base = this.dimensionEffect(0);
-		return base;
+		return base.clampMax(DC.D_F2P128);
 	},
 	resetGain() {
 		let base = player.hydra.deduceOrdinal[1];

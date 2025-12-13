@@ -79,5 +79,6 @@ export const DC = Object.freeze({
 	D_4T6: new Decimal('eeee153.90699754796802'),
 	D_2T1024: new Decimal('(e^1020)19727.78040560701'),
 	D_F9E15: Decimal.dLayerSafeMax,
+	D_F2P128: Decimal.tetrate(10, 2 ** 128),
 	D_INFINITY: new Decimal(1 / 0),
 });

@@ -6,6 +6,7 @@ import Decimal from 'break_eternity.js';
 import DisableDevtool from 'disable-devtool';
 import { isDeveloper } from './save/testing.ts';
 import { buyables, upgrades } from './mechanic.ts';
+import PowiainaNum from 'powiaina_num.js';
 
 DisableDevtool({
 	onDevtoolOpen(type, next) {
@@ -28,6 +29,7 @@ declare global {
 		player: Player;
 		Modal: typeof ModalService;
 		Decimal: typeof Decimal;
+		PowiainaNum: typeof PowiainaNum;
 		upgrades: typeof upgrades;
 		buyables: typeof buyables;
 	}
@@ -52,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		window.player = player;
 		window.Modal = ModalService;
 		window.Decimal = Decimal;
+		window.PowiainaNum = PowiainaNum;
 		window.buyables = buyables;
 		window.upgrades = upgrades;
 	}

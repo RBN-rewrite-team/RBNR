@@ -7,6 +7,7 @@ const qol7keys = Object.keys(Qol7Upgrades.upgrades)
 	.filter((x) => x in upgrades)
 	.map((x) => 'u' + x) as `u${keyof typeof upgrades}`[];
 const qol7upgs_chunked = lodashchunk(qol7keys, 5);
+console.log(qol7keys);
 export default defineComponent({
 	name: 'QolCrystalUpgrade',
 

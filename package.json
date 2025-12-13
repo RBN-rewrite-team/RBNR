@@ -17,6 +17,7 @@
     "@fingerprintjs/fingerprintjs": "^5.0.1",
     "@intlify/unplugin-vue-i18n": "^11.0.1",
     "@types/pako": "^2.0.4",
+    "@veryrrdefine/powiainanum-notations": "file:veryrrdefine-powiainanum-notations-0.1.0.tgz",
     "@vitejs/plugin-legacy": "^7.2.1",
     "break_eternity.js": "^2.1.3",
     "chevrotain": "^11.0.3",
