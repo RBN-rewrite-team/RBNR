@@ -41,20 +41,6 @@ const lt = useUpdate(() => ltEffect());
 <template>
 	<h2>{{ $t('nt.wellorderness') }}</h2>
 	<span v-html="c()"></span>
-	<div v-if="player.milestones.sin_10">
-		你已经证明了<b style="color: #c98300; font-size: 30px">{{
-			formatWhole(player.numbertheory.well_ordering.lemmas)
-		}}</b
-		>个引理(CHE+{{ format(lt[0]) }}slog)，<b style="color: #c98300; font-size: 30px">{{
-			formatWhole(player.numbertheory.well_ordering.theorems)
-		}}</b
-		>个定理(pending {{ format(player.numbertheory.well_ordering.theorems_th) }},引理效果×{{
-			format(lt[1])
-		}})。
-		<br />
-		你的引理等级为{{ formatWhole(player.numbertheory.well_ordering.lemma_level) }},
-		定理等级为1。
-	</div>
 	<div>
 		<button
 			class="clickable_button"
@@ -103,7 +89,6 @@ const lt = useUpdate(() => ltEffect());
 				['bB6R15', 'bB6R21', 'uU6R21', 'uU6R22'],
 				['uU6R11', 'uU6R12', 'uU6R13', 'uU6R14'],
 				['uU6R15', 'uU6R16', 'uU6R17', 'uU6R18'],
-				['uU6R31', 'uU6R32'],
 			]"
 		/>
 	</div>
@@ -513,13 +498,46 @@ const lt = useUpdate(() => ltEffect());
 		v-if="player.numbertheory.well_ordering.selecting === 3 && player.milestones['sin_10']"
 		align="center"
 	>
-		证明过程略。
+		<div v-if="player.milestones.sin_10">
+			你已经证明了<b style="color: #c98300; font-size: 30px">{{
+				format(player.numbertheory.well_ordering.lemmas)
+			}}</b
+			>个引理(CHE+{{ format(lt[0]) }}slog)，<b style="color: #c98300; font-size: 30px">{{
+				formatWhole(player.numbertheory.well_ordering.theorems)
+			}}</b
+			>个定理(pending {{ format(player.numbertheory.well_ordering.theorems_th) }},引理效果×{{
+				format(lt[1])
+			}})。
+			<br />
+			你的引理等级为{{ formatWhole(player.numbertheory.well_ordering.lemma_level) }},
+			定理等级为1。
+		</div>
 		<div>
 			<button class="clickable_button" @click="() => levelup(0)" style="height: 72px">
 				提升引理等级，需要{{ formatWhole(levelreq(0)) }}定理。<br />
 				引理证明速度/4，但是效果×1.5。
 			</button>
+			<button
+				class="clickable_button"
+				@click="
+					() =>
+						(player.numbertheory.well_ordering.theoremProveStatus =
+							!player.numbertheory.well_ordering.theoremProveStatus)
+				"
+			>
+				{{
+					$t('set.status', {
+						label: '启用定理证明器',
+						status: $t(
+							player.numbertheory.well_ordering.theoremProveStatus
+								? 'set.status.on'
+								: 'set.status.off',
+						),
+					})
+				}}
+			</button>
 		</div>
 		<button class="clickable_button">证明Y序列良序性，需要F9.007e15推演能量</button>
+		<Upgrades :upgids="[['uU6R31', 'uU6R32', 'uU6R33', 'uU6R34']]" />
 	</div>
 </template>

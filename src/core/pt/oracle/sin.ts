@@ -2,7 +2,7 @@ import { player } from '@/core/global';
 import Decimal from 'break_eternity.js';
 import { Garden } from '../garden';
 import { Oracle } from './oracle';
-import { MILESTONES } from '@/core/mechanic';
+import { MILESTONES, upgrades } from '@/core/mechanic';
 import { NON_REC_BMS } from '../../nonrecu/nonrec-bms/index.ts';
 export function initSINMiletones() {
 	MILESTONES.create('sin_1', {
@@ -128,6 +128,7 @@ export const SIN = {
 	loop(diff: number) {
 		let karmaGain = this.getSinValue().mul(2);
 		if (player.milestones['sin_8']) karmaGain = karmaGain.pow(1.75);
+		if (player.upgrades['U6R33']) karmaGain = karmaGain.mul(upgrades['U6R33'].effect());
 		player.oracle.originalsin.karma = player.oracle.originalsin.karma.add(karmaGain.mul(diff));
 	},
 } as const;

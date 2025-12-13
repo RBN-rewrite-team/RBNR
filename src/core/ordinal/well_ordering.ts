@@ -318,6 +318,36 @@ export const WellOrderingUpgrades = {
 			return player.milestones['sin_10'];
 		}
 	})(),
+	U6R33: new (class extends UpgradeWithEffect<Decimal> {
+		name = 'U6-R-3-3';
+		cost = () => new Decimal('1f40000');
+		currency: Currencies = Currencies.DEDUCE_ENERGY;
+		show(): boolean {
+			return player.upgrades['U6R32'];
+		}
+		effect() {
+			return player.numbertheory.well_ordering.lemmas.mul(
+				player.numbertheory.well_ordering.lemma_level.sub(1).pow_base(4),
+			);
+		}
+		effectDescription(values: Decimal): string {
+			return `×${format(values)}`;
+		}
+	})(),
+	U6R34: new (class extends UpgradeWithEffect<Decimal> {
+		name = 'U6-R-3-4';
+		cost = () => new Decimal('1f165000');
+		currency: Currencies = Currencies.DEDUCE_ENERGY;
+		show(): boolean {
+			return player.upgrades['U6R32'];
+		}
+		effect() {
+			return player.hydra.totalCompressedPower.slog().clampMin(10).log10();
+		}
+		effectDescription(values: Decimal): string {
+			return `×${format(values)}`;
+		}
+	})(),
 } as const;
 
 export const nt = {
@@ -400,6 +430,7 @@ export function wellOrderPlayerData() {
 		theorems_th: new Decimal(0),
 		lemma_level: new Decimal(1),
 		theorem_level: new Decimal(1),
+		theoremProveStatus: true,
 	};
 }
 
@@ -435,6 +466,10 @@ export function ltGain() {
 	if (player.upgrades['U6R32']) {
 		a[1] = a[1].add(1 / 100);
 	}
+	if (player.upgrades['U6R34']) {
+		a[0] = a[0].mul(upgrades['U6R34'].effect());
+		a[1] = a[1].mul(upgrades['U6R34'].effect());
+	}
 	a[0] = a[0].div(Decimal.pow(4, player.numbertheory.well_ordering.lemma_level.sub(1)));
 	a[1] = a[1].div(Decimal.pow(4, player.numbertheory.well_ordering.theorem_level.sub(1)));
 
@@ -451,8 +486,14 @@ export function wellOrderingLoop(diff: number) {
 		);
 		player.numbertheory.well_ordering.theorems_th =
 			player.numbertheory.well_ordering.theorems_th.add(theorem.mul(diff));
-		if (player.numbertheory.well_ordering.theorems_th.gte(1)) {
-			const gain = player.numbertheory.well_ordering.theorems_th.floor();
+		if (
+			player.numbertheory.well_ordering.theorems_th.gte(1) &&
+			player.numbertheory.well_ordering.theoremProveStatus
+		) {
+			let gain = player.numbertheory.well_ordering.lemmas
+				.div(4)
+				.floor()
+				.min(player.numbertheory.well_ordering.theorems_th);
 			const cost = gain.mul(4);
 			if (cost.lte(player.numbertheory.well_ordering.lemmas)) {
 				player.numbertheory.well_ordering.lemmas =
