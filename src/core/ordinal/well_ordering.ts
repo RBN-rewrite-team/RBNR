@@ -320,7 +320,7 @@ export const WellOrderingUpgrades = {
 	})(),
 	U6R33: new (class extends UpgradeWithEffect<Decimal> {
 		name = 'U6-R-3-3';
-		cost = () => new Decimal('1f37000');
+		cost = () => new Decimal('1f35000');
 		currency: Currencies = Currencies.DEDUCE_ENERGY;
 		show(): boolean {
 			return player.upgrades['U6R32'];
