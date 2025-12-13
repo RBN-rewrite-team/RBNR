@@ -936,7 +936,7 @@ export default {
 	'sing.g.2': `You have <b style="color: var(--sing-color); font-size: 25px">{se}</b> Singularity Energy. This makes Number and Addition Power, gain <b style="color: var(--sing-color)">^{exp}</b>`,
 	'sing.g.3': `You have <b style="color: var(--sing-color); font-size: 25px">{se}</b> Singularity Energy. This makes Number gain<b style="color: var(--sing-color)">^{exp}</b>`,
 	'sing.g.4': `You have <b style="color: var(--sing-color); font-size: 25px">{se}</b> Singularity Energy. Singularity Energy generates <b style="color: var(--sing-color)">{exp}</b> Number per second`,
-	'sing.g.5': `You have <b style="color: var(--sing-color); font-size: 25px">ω</b> Singularity Energy`,
+	'sing.g.5': `You have <b style="color: var(--sing-color); font-size: 25px">{se}</b> Singularity Energy`,
 
 	'sing.t.1': [
 		'Number',
@@ -2066,4 +2066,7 @@ THEN YOU CAN GET REVELATION.<br />
 	'about.englishlocalization': 'English Localization',
 	'dung.keyreq': 'You need a key to open this door',
 	'set.upgnewui': 'Element-like Upgrade UI',
+
+	'currency.never': 'Singularity Energy',
+	'upgs.sing1': 'Restart Singularity Generator',
 };

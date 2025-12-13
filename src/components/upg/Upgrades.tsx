@@ -88,12 +88,15 @@ function displayUpgrade(b: `u${keyof typeof upgrades}` | `b${keyof typeof buyabl
 								{
 									<div
 										innerHTML={$t('upg.cost', {
-											cost: curupg.ordinal
-												? OrdinalUtils.numberToOrdinal(
-														actualCost(curupg),
-														feature.Ordinal.base(),
-													)
-												: format(actualCost(curupg)),
+											cost:
+												b == 'using1'
+													? 'ω+4'
+													: curupg.ordinal
+														? OrdinalUtils.numberToOrdinal(
+																actualCost(curupg),
+																feature.Ordinal.base(),
+															)
+														: format(actualCost(curupg)),
 											currency: currencyName(curupg.currency, $t),
 										})}
 									></div>

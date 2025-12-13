@@ -7,6 +7,7 @@ import { CHALLENGE } from '@/core/challenge.ts';
 import { wordShift } from '@/core/word-shift.ts';
 import { useI18n } from 'vue-i18n';
 import { getMessage } from '@/utils/i18n';
+import Upgrades from '@/components/upg/Upgrades';
 
 function destroy(a: number) {
 	switch (a) {
@@ -295,6 +296,12 @@ function t_i18n() {
 	return 'sing.g.5';
 }
 function w() {
+	if (player.retribution >= 1) {
+		return $t('sing.g.5', {
+			se: `ω+${player.retribution}`,
+			exp: '???',
+		});
+	}
 	return $t(t_i18n(), {
 		se: format(feature.SingularityGenerator.getSingularityEnergy()),
 		exp: format(feature.SingularityGenerator.getSingularityEffect()),
@@ -309,6 +316,10 @@ function w() {
 			<br />
 			<span v-if="player.singularity.t < 667" v-html="q()"></span>
 			<span v-if="player.singularity.t >= 667" v-html="$t('sing.fin')"> </span>
+
+			<template v-if="player.singularity.t >= 667">
+				<Upgrades :upgids="[['using1']]" />
+			</template>
 			<template v-for="config in sacrificeConfigs" :key="config.stage">
 				<button
 					v-if="config.condition()"

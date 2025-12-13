@@ -42,9 +42,12 @@ export function actualCost(id: keyof typeof upgrades) {
 export function costHTML(id: keyof typeof upgrades, $t: $t) {
 	const curupg = upgrades[id];
 	return $t('upg.cost', {
-		cost: curupg.ordinal
-			? OrdinalUtils.numberToOrdinal(actualCost(id), feature.Ordinal.base())
-			: format(actualCost(id)),
+		cost:
+			id == 'sing1'
+				? 'ω+4'
+				: curupg.ordinal
+					? OrdinalUtils.numberToOrdinal(actualCost(id), feature.Ordinal.base())
+					: format(actualCost(id)),
 		currency: currencyName(curupg.currency, $t),
 	});
 }

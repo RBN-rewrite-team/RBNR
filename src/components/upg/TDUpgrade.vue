@@ -94,7 +94,7 @@ const description = computed(() => getUpgradeDescription(props.upgid, $t));
 					</div>
 				</div>
 			</div>
-			<span class="tooltip">
+			<span class="tooltip" v-if="player.timeshard.unlAuto">
 				{{
 					$t('upg.automatoruseid', {
 						id: props.upgid,

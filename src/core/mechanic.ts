@@ -29,6 +29,7 @@ import { Qol7Upgrades } from './pt/qolcryupgs.ts';
 import type { $t } from '@/utils/types.ts';
 import { Requirement } from './requirements.ts';
 import { NRBUpgrades } from './nonrecu/nonrec-bms/upgrades.ts';
+import { psdupgrade } from './post-nonrec/retribution.ts';
 
 const upgrades = {
 	...Successor.upgrades,
@@ -47,6 +48,7 @@ const upgrades = {
 	...TimeShard.upgrades,
 	...Qol7Upgrades.upgrades,
 	...NRBUpgrades,
+	sing1: psdupgrade,
 } as const;
 const buyables = {
 	...Successor.buyables,
