@@ -562,4 +562,3 @@ export function leveldown(x: 0 | 1) {
 		}
 	}
 }
-player.numbertheory.well_ordering.lemma_level = player.numbertheory.well_ordering.lemma_level.clampMin(0)
