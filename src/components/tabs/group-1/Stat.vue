@@ -17,7 +17,7 @@ import CenterLine from '@/components/ui/CenterLine.vue';
 import { currencyName, Currencies } from '@/core/currencies.ts';
 import { useI18n } from 'vue-i18n';
 import { i18n } from '@/utils/i18n.ts';
-import { preCardinalSpeed } from '@/core/game-loop.ts';
+import { preCardinalSpeed, diff } from '@/core/game-loop.ts';
 const $t = useI18n().t;
 const LunarMap = {
 	New: '新月',
@@ -135,6 +135,7 @@ function phase() {
 		</p>
 		<p>UUID: {{ player.uuid }}</p>
 		<p :key="updateKey" v-html="phase()"></p>
+		<p>TPS: {{ format(1000 / diff) }}, MSPT: {{ diff }}</p>
 
 		<p>
 			{{
