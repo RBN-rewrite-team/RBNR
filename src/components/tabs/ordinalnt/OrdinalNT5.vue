@@ -511,7 +511,7 @@ const lt = useUpdate(() => ltEffect());
 			}})。
 			<br />
 			你的引理等级为{{ formatWhole(player.numbertheory.well_ordering.lemma_level) }},
-			定理等级为1。
+			定理等级为{{ formatWhole(player.numbertheory.well_ordering.theorem_level) }}。
 		</div>
 		<div>
 			<button class="clickable_button" @click="() => levelup(0)" style="height: 72px">
