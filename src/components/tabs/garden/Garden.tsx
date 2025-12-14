@@ -600,10 +600,30 @@ export default defineComponent({
 								</div>
 							</div>
 							<>
-								<GardenNode x={500} y={500} canvasRef={canvasRef}>
+								<GardenNode
+									x={500}
+									y={500}
+									canvasRef={canvasRef}
+									nodestyle={{
+										border: '1px solid yellow',
+										'border-radius': '2px',
+										width: '300px',
+										textAlign: 'center',
+									}}
+								>
 									{$t('garden.tiplevel1')}
 								</GardenNode>
-								<GardenNode x={800} y={500} canvasRef={canvasRef}>
+								<GardenNode
+									x={1000}
+									y={500}
+									canvasRef={canvasRef}
+									nodestyle={{
+										border: '1px solid yellow',
+										'border-radius': '2px',
+										width: '300px',
+										textAlign: 'center',
+									}}
+								>
 									{$t('garden.tiplevel2')}
 								</GardenNode>
 							</>
