@@ -2120,4 +2120,6 @@ THEN YOU CAN GET REVELATION.<br />
 	'detectedmulti.title': 'Auto saving is disabled',
 	'detectedmulti.content':
 		"Detected there're more than 1 games are running. It may cause conflicts.",
+	'retri.reset2':
+		'You will lost all your Non Rec. Progress, Hydra Progress, Proof-theory Progress, and upgrades...<br>BUT YOU WILL GET REVELATION AND 1 <b>SINGULARITY ENERGY</b>, TO GET THE STRONGER STRENGTH...',
 };

@@ -143,7 +143,10 @@ export const RETRIBUTION = {
 		if (this.resetable()) {
 			ModalService.show({
 				title: getMessage('tab.retribution'),
-				content: getMessage('retri.reset'),
+				content: (function () {
+					if (player.retribution == 0) return getMessage('retri.reset');
+					return getMessage('retri.reset2');
+				})(),
 				confirmText: getMessage('retri.ok'),
 				onConfirm() {
 					if (!RETRIBUTION.resetable()) return;
