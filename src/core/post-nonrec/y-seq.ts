@@ -162,15 +162,10 @@ export const Y_SEQ = {
 		if (!player.nonrecu.studies_bought.includes(29)) base = base.clampMax('e1e10');
 		base = base.slog(10).add(Oracle.getFateTotalEffect(1));
 		if (Garden.boughtUpgrade(86))
-			base = base.add(player.garden.totalInspiration
-				.add(1)
-				.log10()
-				.root(2)
-				.div(2)
-				.min(10));
+			base = base.add(player.garden.totalInspiration.add(1).log10().root(2).div(2).min(10));
 		if (player.upgrades[811]) base = base.add(upgrades[811].effect());
 		if (base.gte(4.305916097091442) && player.pt.power.lt(1)) {
-			base = base.sub(4.305916097091442).div(2).add(4.305916097091442)
+			base = base.sub(4.305916097091442).div(2).add(4.305916097091442);
 		}
 
 		if (base.gte(6)) {
@@ -245,30 +240,29 @@ export const Y_SEQ = {
 		}
 		if (base.gte(sc3start)) {
 			base = base
-					.div(sc3start / 10)
-					.log10()
-					.pow(0.25)
-					.mul(sc3start)
+				.div(sc3start / 10)
+				.log10()
+				.pow(0.25)
+				.mul(sc3start);
 		}
 		if (player.pt.nonrecBMS.deduce.gte(1) && NON_REC_BMS.effects()[0].gt(0)) {
 			base = base.add(NON_REC_BMS.effects()[0]);
 		}
 		if (player.milestones['sin_6'])
-			base = base
-					.add(
-						player.oracle.originalsin.karma
-							.div(100)
-							.min(player.oracle.originalsin.karma.root(4).mul(100)),
-					)
+			base = base.add(
+				player.oracle.originalsin.karma
+					.div(100)
+					.min(player.oracle.originalsin.karma.root(4).mul(100)),
+			);
 		if (player.milestones['sin_10']) {
 			const g = ltEffect()[0];
-			base = base.add(g.clampMin(0))
+			base = base.add(g.clampMin(0));
 		}
 		if (base.gte(1e15)) {
 			let exp = 0.275;
-			base = base.div(1e15).pow(exp).mul(1e15)
+			base = base.div(1e15).pow(exp).mul(1e15);
 		}
-		base = Decimal.tetrate(10, base.toNumber())
+		base = Decimal.tetrate(10, base.toNumber());
 		return base.clampMax('f1.79e308');
 	},
 	reset() {

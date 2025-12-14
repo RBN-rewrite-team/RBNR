@@ -504,18 +504,16 @@ function checkNaN<T>(obj: T, path: string[]): void {
 				},
 			});
 			player.foundNaN = true;
-			obj.sign = 1
-			obj.mag = 1
-			obj.layer = 0
+			obj.sign = 1;
+			obj.mag = 1;
+			obj.layer = 0;
 		}
 		return;
 	}
 
 	// 处理数组
 	if (Array.isArray(obj)) {
-		obj.map((item, index) =>
-			checkNaN(item, path.concat(index.toString())),
-		);
+		obj.map((item, index) => checkNaN(item, path.concat(index.toString())));
 	}
 
 	// 处理对象

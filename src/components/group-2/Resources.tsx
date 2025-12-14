@@ -30,11 +30,17 @@ export default defineComponent({
 					rescolor="rgb(201, 131, 0)"
 					rescolor2="rgb(201, 131, 0)"
 					growingdisplay={() => {
-					  if (feature.NON_RECURSIVE.passiveGain().gt(0)) return (<>
-					    <span
-						  innerHTML={formatGain(player.nonrecu.power, feature.NON_RECURSIVE.passiveGain())}
-					    ></span>
-					  </>)
+						if (feature.NON_RECURSIVE.passiveGain().gt(0))
+							return (
+								<>
+									<span
+										innerHTML={formatGain(
+											player.nonrecu.power,
+											feature.NON_RECURSIVE.passiveGain(),
+										)}
+									></span>
+								</>
+							);
 						return <>(+{formatWhole(feature.NON_RECURSIVE.gain())})</>;
 					}}
 				/>
