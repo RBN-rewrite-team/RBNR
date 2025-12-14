@@ -171,20 +171,17 @@ export const Y_SEQ = {
 				.min(10)
 				.toNumber();
 		if (player.upgrades[811]) slogAdd += upgrades[811].effect().toNumber();
-		base = Decimal.tetrate(10, base.slog(10).add(slogAdd).toNumber());
-		if (base.gte('eee50') && player.pt.power.lt(1)) {
-			base = Decimal.tetrate(
-				10,
-				base.slog(10).sub(4.305916097091442).div(2).add(4.305916097091442).toNumber(),
-			);
+		base = base.slog(10).add(slogAdd)
+		if (base.gte(4.305916097091442) && player.pt.power.lt(1)) {
+			base = base.sub(4.305916097091442).div(2).add(4.305916097091442)
 		}
 
-		if (base.gte('eeeee10')) {
-			base = Decimal.tetrate(10, base.slog(10).sub(6).div(4).add(6).toNumber());
+		if (base.gte(6)) {
+			base = base.sub(6).div(4).add(6);
 		}
-		if (base.gte('10^^15')) {
+		if (base.gte(15)) {
 			let exp = player.pt.power.gte('e1.5e11') ? 0.375 : 0.25;
-			base = Decimal.tetrate(10, base.slog(10).sub(14).pow(exp).add(14).toNumber());
+			base = base.sub(14).pow(exp).add(14);
 		}
 		let sc3start = 1000;
 		if (player.milestones['sin_3']) {
@@ -249,41 +246,32 @@ export const Y_SEQ = {
 					.mul(1000)
 					.toNumber();
 		}
-		if (base.gte('10^^' + sc3start)) {
-			base = Decimal.tetrate(
-				10,
-				base
-					.slog()
+		if (base.gte(sc3start)) {
+			base = base
 					.div(sc3start / 10)
 					.log10()
 					.pow(0.25)
 					.mul(sc3start)
-					.toNumber(),
-			);
 		}
 		if (player.pt.nonrecBMS.deduce.gte(1) && NON_REC_BMS.effects()[0].gt(0)) {
-			base = Decimal.tetrate(10, base.slog().add(NON_REC_BMS.effects()[0]).toNumber());
+			base = base.add(NON_REC_BMS.effects()[0]);
 		}
 		if (player.milestones['sin_6'])
-			base = Decimal.tetrate(
-				10,
-				base
-					.slog()
+			base = base
 					.add(
 						player.oracle.originalsin.karma
 							.div(100)
 							.min(player.oracle.originalsin.karma.root(4).mul(100)),
 					)
-					.toNumber(),
-			);
 		if (player.milestones['sin_10']) {
 			const g = ltEffect()[0];
-			base = Decimal.tetrate(10, base.slog().add(g.clampMin(0)).toNumber());
+			base = base.add(g.clampMin(0))
 		}
-		if (base.gte('f1e15')) {
+		if (base.gte(1e15)) {
 			let exp = 0.275;
-			base = Decimal.tetrate(10, base.slog(10).div(1e15).pow(exp).mul(1e15).toNumber());
+			base = base.div(1e15).pow(exp).mul(1e15)
 		}
+		base = Decimal.tetrate(10, base)
 		return base.clampMax('f1.79e308');
 	},
 	reset() {
