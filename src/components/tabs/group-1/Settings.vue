@@ -13,6 +13,8 @@ import { openSetLangModel } from '@/components/i18nUI';
 import { useI18n } from 'vue-i18n';
 import type { $t } from '@/utils/types';
 import { i18n } from '@/utils/i18n';
+import { openedAutosave } from '@/core/game-loop';
+import { useUpdate } from '@/lib/useUpdate';
 
 const $t = useI18n().t;
 const validNotations = computed(() =>
@@ -27,11 +29,20 @@ function b() {
 	//@ts-expect-error
 	return i18n.global.locale.value == 'zh-CN';
 }
+const q = useUpdate(() => openedAutosave());
 </script>
 
 <template>
 	<div class="main" v-if="player.currentTab === 1" align="center">
 		<h3>{{ $t('set.title.saveset') }}</h3>
+		<div>
+			{{
+				$t('set.status', {
+					label: $t('set.autosave'),
+					status: $t(q ? 'set.status.on' : 'set.status.off'),
+				})
+			}}
+		</div>
 		<div>
 			<div class="setting_button" @click="save()">{{ $t('set.save') }}</div>
 			<div class="setting_button" @click="import_file()">{{ $t('set.import') }}</div>

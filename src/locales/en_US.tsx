@@ -2114,4 +2114,10 @@ THEN YOU CAN GET REVELATION.<br />
 		return `Enhance Non Rec. BMS progression speed, based on total inspirations. Currently: ×${format(player.garden.totalInspiration.add(10).log10().max(1).pow(0.5).pow10().div(10))}`;
 	},
 	'currency.pt_power': 'Proof-theory Power',
+
+	'set.autosave': 'Auto saving',
+
+	'detectedmulti.title': 'Auto saving is disabled',
+	'detectedmulti.content':
+		"Detected there're more than 1 games are running. It may cause conflicts.",
 };

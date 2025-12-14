@@ -70,6 +70,9 @@ export function stopSaveLoop() {
 	if (saveInterval) clearInterval(saveInterval);
 	saveInterval = null;
 }
+export function openedAutosave() {
+	return saveInterval !== null;
+}
 
 export function startSaveLoop() {
 	if (!saveInterval && !saveinterval_not_started) saveInterval = setInterval(save, 3000);

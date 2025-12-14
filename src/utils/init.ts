@@ -20,7 +20,7 @@ import { reinitializeMusic } from '@/core/music.ts';
 import { timeCheck } from './time-check.ts';
 import { initPTMilestones } from '@/core/pt/milestones.ts';
 import App from '@/App.tsx';
-import { i18n } from './i18n.ts';
+import { getMessage, i18n } from './i18n.ts';
 import { initSINMiletones } from '@/core/pt/oracle/sin.ts';
 import { tryGetFingerprintJS } from './fingerprint.ts';
 import { MultiTabDetector } from './tab-detector.ts';
@@ -121,8 +121,8 @@ export function init() {
 				// }
 				console.log('Detected multi tabs');
 				ModalService.show({
-					title: '自动存档已禁用',
-					content: '检测到多标签，为了防止存档冲突，已自动关闭自动存档',
+					title: getMessage('detectedmulti.title'),
+					content: getMessage('detectedmulti.content'),
 				});
 				stopSaveLoop();
 			},

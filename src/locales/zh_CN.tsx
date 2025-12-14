@@ -2085,4 +2085,9 @@ export default {
 	'upgs.U6R310': '基于CHE，大幅增加引理速度',
 	'upgs.U6R311': '基于引理，增加定理速度',
 	'upgs.U6R312': '引理等级不会降低引理速度，U6-R-3-11的效果^1.5',
+
+	'detectedmulti.title': '自动存档已禁用',
+	'detectedmulti.content': '检测到多标签，为了防止存档冲突，已自动关闭自动存档',
+
+	'set.autosave': '自动存档',
 };
