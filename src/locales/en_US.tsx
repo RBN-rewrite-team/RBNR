@@ -1,11 +1,4 @@
 //English Localization
-/**
-此文档对应RBN-rewritten-team/RBNR i18n分支中的src/core/locales/en_US.tsx文件
-不要删除标题的// 方便直接复制
-有问题写//单行注释或双行注释
-单引号双引号用\', \"代替
-😰小野绿是神😰
-*/
 import { Currencies, getCurrency } from '@/core/currencies';
 import { dilated } from '@/core/exponention/dilated-function';
 import { getTotalTheories, secInThisReset52717273 } from '@/core/nonrecu/total-theories';
@@ -13,7 +6,6 @@ import { player } from '@/core/save';
 import { wordShift } from '@/core/word-shift';
 import { format, formatWhole } from '@/utils/format';
 import Decimal from 'break_eternity.js';
-import { VueLatex } from 'vatex';
 
 import prssdefinition from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-definition.txt?raw';
 import prss1 from '@/components/tabs/ordinalnt/ordinalnt5-content-en/prss-page-1-Pdef.txt?raw';
@@ -523,7 +515,7 @@ export default {
 			'天文学家\tYes. Our astronomers are 100% confident om this topic. The entire sky shares the same mind.',
 			`Numerorum\t(If it's like this, maybe my destiny could be fulfil……)`,
 			`天文学家\tWell, it's almost just like that. Just keep continuing. There's many climbers in this tower, and some are trying to break through the barriers of the tyrants above.`,
-			`天文学家\tFor example, there's a person called VeryRDefie，when he was climbing, \\(\\log_{\\alpha}(0)\\)he had been infected by the ω-virus，and he's nearly dying.`,
+			`天文学家\tFor example, there's a person called VeryRDefie, when he was climbing, \\(\\log_{\\alpha}(0)\\)he had been infected by the ω-virus, and he's nearly dying.`,
 		],
 		[
 			'Numerorum finally completed one challenge.',
@@ -823,7 +815,7 @@ export default {
 	'timeshard.t': 'You have {amount} time shards. Convert it for 3x global time speed.',
 	'timeshard.t2': 'You have {amount} of potent time accelerants.',
 
-	'timeshard.u1': 'Get 1000 TS, But enter HARD MODE、',
+	'timeshard.u1': 'Get 1000 TS, But enter HARD MODE',
 	'set.status.locked': '(Locked)',
 	'set.status.unlocked': '(Disabled)',
 	'timeshard.gen': 'Time shard generator {tier}',
@@ -997,7 +989,7 @@ export default {
 	'hydra.prestiges.auto': 'Automation not available yet.',
 
 	'dung.ore.2': 'Activate Gemstone effect.',
-	'dung.boxes.collect': 'Chests collected：',
+	'dung.boxes.collect': 'Chests collected: ',
 	'dung.core': 'Core',
 	'dung.core.equip': 'Equip!',
 	'dung.core.storeequipments': 'Equipment in storage',
@@ -1066,7 +1058,7 @@ export default {
 	'upgs.mil.cb4': 'Exponentiation Power gain x10.',
 	'upgs.mil.cb5': 'UNLOCK THE LOGARITHMIC OPERATION.',
 	'upgs.mil.cb6':
-		'Based on exponentiation power，chessboard multi. base×{effect}，and nerf the overflows of the number and addition power.',
+		'Based on exponentiation power,chessboard multi. base×{effect},and nerf the overflows of the number and addition power.',
 	'upgs.mil.cb7': 'Double the effect of milestone 6.',
 	'upgs.mil.cb8': 'Unlock τ<sub>2B</sub>',
 	'upgs.mil.cb9':
@@ -1075,15 +1067,15 @@ export default {
 	'upgs.mil.cb11': 'Increase the base Wheat Grains multi. from 3 to 4',
 	'upgs.mil.cb12': "Divide chessboard tiles'\ buyables'\ costs by (Calculation data)<sup>2</sup>",
 	'upgs.mil.cb13': "Double calculation speed, and increase astronomer's base from 1.5 to 2",
-	'upgs.mil.cb14': 'Number gain exponent ^1.125，and nerf the 5th softcap of number gain.',
+	'upgs.mil.cb14': 'Number gain exponent ^1.125,and nerf the 5th softcap of number gain.',
 	'upgs.mil.cb15': 'x10 the lifespan and the calculation speed of the astronomers.',
 	'upgs.mil.cb16': 'Remove the softcap of current effects of wheat grains.',
-	'upgs.mil.cb17': 'Astronomer lifespan ×2，But multiply the timespeed of astronomers by 200.',
+	'upgs.mil.cb17': 'Astronomer lifespan ×2,But multiply the timespeed of astronomers by 200.',
 	'upgs.mil.cb18': "Based on observation data, chessboard tiles'.s base ×{effect}",
 	'upgs.mil.cb19':
 		'Boost the 5th effect of wheat grains and remove its softcap, and exponentiate the exponent of multiplication power by {effect}.',
 	'upgs.mil.cb20':
-		"You can buy fractional amounts of chessboard tiles, chessboard tiles'\ purchasable amount is increased based on exponentiation energy.<br>Effect：×{effect}",
+		"You can buy fractional amounts of chessboard tiles, chessboard tiles'\ purchasable amount is increased based on exponentiation energy.<br>Effect: ×{effect}",
 	'upgs.mil.cb21': "Square M-CB-20's effect.",
 	'upgs.mil.cb22': "Square M-CB-20's effect, again",
 	'upgs.mil.cb23': "^1.1 M-CB-20's effect.",
@@ -1099,7 +1091,7 @@ export default {
 	'upgs.mil.dil_5': 'Produce observation data based on calculation data.<br>Effect: +{effect}/s',
 	'upgs.mil.dil_6': 'Increase EP gain based on Wheat Grains.<br>Effect: ^{effect}',
 	'upgs.mil.dil_7': 'UNLOCK<b><i>SINGULARITY GENERATOR</i></b>',
-	'upgs.mil.dut1': 'Keep U5-1-1，and improve its formula.',
+	'upgs.mil.dut1': 'Keep U5-1-1,and improve its formula.',
 
 	'upgs.mil.dut2': 'Automatically buy max all U5-x upgrades.',
 	'upgs.mil.dut3':
@@ -1449,7 +1441,7 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	},
 	'studies.nonrec.15': 'Solution gain x1.2, ^1.01',
 	'studies.nonrec.16': function () {
-		return `Time spent in this Non Rec. reset increases Non Rec. Power gain<br>Effect：×${format(
+		return `Time spent in this Non Rec. reset increases Non Rec. Power gain<br>Effect: ×${format(
 			secInThisReset52717273().add(1).mul(10).pow(2).sub(99).root(2).pow(0.75).div(2).add(1),
 		)}`;
 	},
@@ -1475,7 +1467,7 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'studies.nonrec.24': 'Non Rec. Challenge 5\tChallenge amount is the highest progression times',
 	'studies.nonrec.25': 'Non Rec. Challenge 6\tChallenge amount is log10 log10 prion',
 	'studies.nonrec.26': function () {
-		return `Total NRT increases UNOCF progressing speed. This study need M6-25, 42 & 101<br>Effect：×${format(getTotalTheories().add(1))}`;
+		return `Total NRT increases UNOCF progressing speed. This study need M6-25, 42 & 101<br>Effect: ×${format(getTotalTheories().add(1))}`;
 	},
 	'studies.nonrec.27': function () {
 		return `Recursion Effect&Solution^x,x based on progressing times<br>Effect:  ^${format(
@@ -1785,7 +1777,7 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'nt.wellorderness.process.2': 'Prove lemma 1.1, cost 100,000 Deduction Energy',
 	'nt.wellorderness.process.3': 'Prove lemma 1.2, cost 500,000,000 Deduction Energy',
 	'nt.wellorderness.effect.0':
-		'Lemma 1.2 reward: Reduce softcap^2 of hydra energy, Automatically gain NRC5 challenge amount, prion gain speed×(Deduction Energy+1)^2，NRC6 challenge amount enhance Deduction Energy gain',
+		'Lemma 1.2 reward: Reduce softcap^2 of hydra energy, Automatically gain NRC5 challenge amount, prion gain speed×(Deduction Energy+1)^2, NRC6 challenge amount enhance Deduction Energy gain',
 
 	'nt.wellorderness.effect.1':
 		'Lemma 1.1 reward: You can auto update the amount of solution, Reduce the softcap^2 of Hydra energy. Deduction Energy gain*10.',
@@ -2059,7 +2051,7 @@ THEN YOU CAN GET REVELATION.<br />
 	'pt.reset.desc': 'Are you sure you want to reset? (Need Gamma test)',
 	'pt.reset.title2': 'Proof Theory Reset(again)',
 	'pt.reset.desc2':
-		'证明论重置还没做完，可能会导致：证明论效果失效，ω病毒，卡死病毒，你确实要重置?',
+		'证明论重置还没做完，可能会导致: 证明论效果失效，ω病毒，卡死病毒，你确实要重置?',
 	'pt.reset.title3': 'Cannot reset',
 	'pt.reset.desc3': 'Need Gamma test.<br>(The PT Layer is not stable.)',
 	'pt.reset.desc4': 'Need NRC7x1.',
