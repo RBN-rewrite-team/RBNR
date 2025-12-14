@@ -483,13 +483,13 @@ export function simulate(diff: number) {
 	player.lastUpdated = Date.now();
 }
 
-function checkNaN<T>(obj: T, path: string[]): T {
+function checkNaN<T>(obj: T, path: string[]): void {
 	if (obj === null || obj === undefined) {
-		return obj;
+		return;
 	}
 
 	// 发现并处理 Decimal NaN
-	if (obj instanceof Decimal && !Decimal.isFinite(obj)) {
+	if (obj instanceof Decimal && obj.mag === NaN) {
 		stopGameLoop();
 		if (!player.foundNaN) {
 			ModalService.show({
@@ -504,15 +504,18 @@ function checkNaN<T>(obj: T, path: string[]): T {
 				},
 			});
 			player.foundNaN = true;
+			obj.sign = 1
+			obj.mag = 1
+			obj.layer = 0
 		}
-		return DC.D_1 as unknown as T;
+		return;
 	}
 
 	// 处理数组
 	if (Array.isArray(obj)) {
-		return obj.map((item, index) =>
+		obj.map((item, index) =>
 			checkNaN(item, path.concat(index.toString())),
-		) as unknown as T;
+		);
 	}
 
 	// 处理对象
@@ -520,12 +523,12 @@ function checkNaN<T>(obj: T, path: string[]): T {
 		const result: any = {};
 		for (const key in obj) {
 			if (obj.hasOwnProperty(key)) {
-				result[key] = checkNaN((obj as any)[key], path.concat(key));
+				checkNaN((obj as any)[key], path.concat(key));
 			}
 		}
-		return result as T;
+		return;
 	}
 
 	// 其他基本类型
-	return obj;
+	return;
 }
