@@ -146,7 +146,12 @@ function phase() {
 				})
 			}}
 		</p>
-		<Mountain v-if="player.retribution === 1 && player.hydra.deduceOrdinal[1].lt('(e^3.402823669209385e+38)153.90699754796802')" />
+		<Mountain
+			v-if="
+				player.retribution === 1 &&
+				player.hydra.deduceOrdinal[1].lt('(e^3.402823669209385e+38)153.90699754796802')
+			"
+		/>
 		<CenterLine />
 		<!-- <template v-if="player.stat.recent10PTOReset.length >= 1">
 			<h1>证明论重置记录</h1>

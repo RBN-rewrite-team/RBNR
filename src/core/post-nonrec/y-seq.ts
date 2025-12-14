@@ -160,18 +160,10 @@ export const Y_SEQ = {
 		if (player.upgrades[621]) base = base.mul(upgrades[621].effect());
 		if (player.upgrades['621R']) base = base.mul(player.numbertheory.GM.x.clampMin(1));
 		if (!player.nonrecu.studies_bought.includes(29)) base = base.clampMax('e1e10');
-		let slogAdd = 0;
-		slogAdd += Oracle.getFateTotalEffect(1).toNumber();
+		base = base.slog(10).add(Oracle.getFateTotalEffect(1));
 		if (Garden.boughtUpgrade(86))
-			slogAdd += player.garden.totalInspiration
-				.add(1)
-				.log10()
-				.root(2)
-				.div(2)
-				.min(10)
-				.toNumber();
-		if (player.upgrades[811]) slogAdd += upgrades[811].effect().toNumber();
-		base = base.slog(10).add(slogAdd);
+			base = base.add(player.garden.totalInspiration.add(1).log10().root(2).div(2).min(10));
+		if (player.upgrades[811]) base = base.add(upgrades[811].effect());
 		if (base.gte(4.305916097091442) && player.pt.power.lt(1)) {
 			base = base.sub(4.305916097091442).div(2).add(4.305916097091442);
 		}

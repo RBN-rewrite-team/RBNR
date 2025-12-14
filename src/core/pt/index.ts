@@ -312,8 +312,7 @@ export const Analysis = {
 		if (Garden.level().lt(10) || player.hydra.deduceOrdinal[0].lt(DC.D_4T6))
 			return new Decimal(0);
 		const CHEslog = player.hydra.compressedPower.slog(10);
-		let base = CHEslog
-			.pow(CHEslog.sub(3).max(1))
+		let base = CHEslog.pow(CHEslog.sub(3).max(1))
 			.mul(Garden.level().div(10).tetrate(2))
 			.clampMin(0);
 		base = base.mul(Oracle.getFateTotalEffect(2));

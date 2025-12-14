@@ -103,66 +103,71 @@ function regularFormat(num: Decimal, precision: number) {
 }
 
 export function format(decimal: DecimalSource, precision = 4): string {
-	if (player.singularity.stage === 0) switch (player.options.notation) {
-		case notations.STANDARD:
-			return Standard.format(decimal);
-		case notations.LETTER:
-			return Letters.format(decimal);
-		case notations.EMPTY:
-			return '';
-		case notations.HYPER_E:
-			return HyperE.format(decimal);
-		case notations.BINARY:
-			return precision == 0 ? BinaryWhole.format(decimal) : BinaryFormat.format(decimal);
-		case notations.TERNARY:
-			return precision == 0 ? TernaryWhole.format(decimal) : TernaryFormat.format(decimal);
-		case notations.QUATERNARY:
-			return precision == 0
-				? QuaternaryWhole.format(decimal)
-				: QuaternaryFormat.format(decimal);
-		case notations.SEXIMAL:
-			return precision == 0 ? SeximalWhole.format(decimal) : SeximalFormat.format(decimal);
-		case notations.OCTAL:
-			return precision == 0 ? OctalWhole.format(decimal) : OctalFormat.format(decimal);
-		case notations.DUODECIMAL:
-			return precision == 0
-				? DuodecimalFormat.format(decimal)
-				: DuodecimalWhole.format(decimal);
-		case notations.HEXADECIMAL:
-			return precision == 0
-				? HexadecimalFormat.format(decimal)
-				: HexadecimalWhole.format(decimal);
-		case notations.BASE36:
-			return precision == 0 ? Base36Format.format(decimal) : Base36Whole.format(decimal);
-		case notations.BASE62:
-			return precision == 0 ? Base62Format.format(decimal) : Base62Whole.format(decimal);
-		case notations.BALANCED_TERNARY:
-			return precision == 0
-				? BalancedTernary.format(decimal)
-				: BalancedTernaryWhole.format(decimal);
-		case notations.BIJECTIVE_DECIMAL:
-			return BijectiveDecimal.format(decimal);
-		// case notations.OMEGA_META_ZERO:
-		//  return OmegaMetaZero.format(decimal)
-		case notations.FGH:
-			return FastGrowingHierarchy.format(decimal);
-		case notations.HH:
-			return HardyHierarchy.format(decimal);
-		case notations.BASE_THREE_HALVES:
-			return BaseThreeHalves.format(decimal);
-		case notations.BASE_PHI:
-			return BasePhi.format(decimal);
-		case notations.BASE_PI:
-			return BasePi.format(decimal);
-		case notations.BASE_E:
-			return BaseE.format(decimal);
-		case notations.OMEGA:
-			return Omega.format(decimal);
-		case notations.POWEROF1:
-			return (1).toFixed(precision);
-		case notations.SGH:
-			return SGH.format(decimal);
-	}
+	if (player.singularity.stage === 0)
+		switch (player.options.notation) {
+			case notations.STANDARD:
+				return Standard.format(decimal);
+			case notations.LETTER:
+				return Letters.format(decimal);
+			case notations.EMPTY:
+				return '';
+			case notations.HYPER_E:
+				return HyperE.format(decimal);
+			case notations.BINARY:
+				return precision == 0 ? BinaryWhole.format(decimal) : BinaryFormat.format(decimal);
+			case notations.TERNARY:
+				return precision == 0
+					? TernaryWhole.format(decimal)
+					: TernaryFormat.format(decimal);
+			case notations.QUATERNARY:
+				return precision == 0
+					? QuaternaryWhole.format(decimal)
+					: QuaternaryFormat.format(decimal);
+			case notations.SEXIMAL:
+				return precision == 0
+					? SeximalWhole.format(decimal)
+					: SeximalFormat.format(decimal);
+			case notations.OCTAL:
+				return precision == 0 ? OctalWhole.format(decimal) : OctalFormat.format(decimal);
+			case notations.DUODECIMAL:
+				return precision == 0
+					? DuodecimalFormat.format(decimal)
+					: DuodecimalWhole.format(decimal);
+			case notations.HEXADECIMAL:
+				return precision == 0
+					? HexadecimalFormat.format(decimal)
+					: HexadecimalWhole.format(decimal);
+			case notations.BASE36:
+				return precision == 0 ? Base36Format.format(decimal) : Base36Whole.format(decimal);
+			case notations.BASE62:
+				return precision == 0 ? Base62Format.format(decimal) : Base62Whole.format(decimal);
+			case notations.BALANCED_TERNARY:
+				return precision == 0
+					? BalancedTernary.format(decimal)
+					: BalancedTernaryWhole.format(decimal);
+			case notations.BIJECTIVE_DECIMAL:
+				return BijectiveDecimal.format(decimal);
+			// case notations.OMEGA_META_ZERO:
+			//  return OmegaMetaZero.format(decimal)
+			case notations.FGH:
+				return FastGrowingHierarchy.format(decimal);
+			case notations.HH:
+				return HardyHierarchy.format(decimal);
+			case notations.BASE_THREE_HALVES:
+				return BaseThreeHalves.format(decimal);
+			case notations.BASE_PHI:
+				return BasePhi.format(decimal);
+			case notations.BASE_PI:
+				return BasePi.format(decimal);
+			case notations.BASE_E:
+				return BaseE.format(decimal);
+			case notations.OMEGA:
+				return Omega.format(decimal);
+			case notations.POWEROF1:
+				return (1).toFixed(precision);
+			case notations.SGH:
+				return SGH.format(decimal);
+		}
 	// 科学计数法
 	decimal = new Decimal(decimal);
 	if (decimal.sign < 0) return '-' + format(decimal.neg(), precision);
