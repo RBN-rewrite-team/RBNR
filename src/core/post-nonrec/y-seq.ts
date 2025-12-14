@@ -171,20 +171,22 @@ export const Y_SEQ = {
 				.min(10)
 				.toNumber();
 		if (player.upgrades[811]) slogAdd += upgrades[811].effect().toNumber();
-		base = Decimal.tetrate(10, base.slog(10).add(slogAdd).toNumber());
-		if (base.gte('eee50') && player.pt.power.lt(1)) {
-			base = Decimal.tetrate(
-				10,
-				base.slog(10).sub(4.305916097091442).div(2).add(4.305916097091442).toNumber(),
-			);
-		}
 
-		if (base.gte('eeeee10')) {
-			base = Decimal.tetrate(10, base.slog(10).sub(6).div(4).add(6).toNumber());
+		let qslog = base.slog();
+		qslog = qslog.add(slogAdd);
+
+		if (qslog.gte(4.305916097091442) && player.pt.power.lt(1)) {
+			qslog = qslog.sub(4.305916097091442).div(2).add(4.305916097091442);
 		}
-		if (base.gte('10^^15')) {
+		if (qslog.gte(6)) {
+			qslog = qslog.sub(6).div(4).add(6);
+		}
+		if (qslog.gte(15)) {
 			let exp = player.pt.power.gte('e1.5e11') ? 0.375 : 0.25;
-			base = Decimal.tetrate(10, base.slog(14).pow(exp).add(14).toNumber());
+			qslog = Decimal.tetrate(
+				14,
+				Decimal.tetrate(10, qslog.toNumber()).slog(14).pow(exp).add(14).toNumber(),
+			).slog(10);
 		}
 		let sc3start = 1000;
 		if (player.milestones['sin_3']) {
@@ -249,41 +251,32 @@ export const Y_SEQ = {
 					.mul(1000)
 					.toNumber();
 		}
-		if (base.gte('10^^' + sc3start)) {
-			base = Decimal.tetrate(
-				10,
-				base
-					.slog()
-					.div(sc3start / 10)
-					.log10()
-					.pow(0.25)
-					.mul(sc3start)
-					.toNumber(),
-			);
+		if (qslog.gte(sc3start)) {
+			qslog = qslog
+				.div(sc3start / 10)
+				.log10()
+				.pow(0.25)
+				.mul(sc3start);
 		}
+
 		if (player.pt.nonrecBMS.deduce.gte(1) && NON_REC_BMS.effects()[0].gt(0)) {
-			base = Decimal.tetrate(10, base.slog().add(NON_REC_BMS.effects()[0]).toNumber());
+			qslog = qslog.add(NON_REC_BMS.effects()[0]);
 		}
 		if (player.milestones['sin_6'])
-			base = Decimal.tetrate(
-				10,
-				base
-					.slog()
-					.add(
-						player.oracle.originalsin.karma
-							.div(100)
-							.min(player.oracle.originalsin.karma.root(4).mul(100)),
-					)
-					.toNumber(),
+			qslog = qslog.add(
+				player.oracle.originalsin.karma
+					.div(100)
+					.min(player.oracle.originalsin.karma.root(4).mul(100)),
 			);
 		if (player.milestones['sin_10']) {
 			const g = ltEffect()[0];
-			base = Decimal.tetrate(10, base.slog().add(g.clampMin(0)).toNumber());
+			qslog = qslog.add(g.clampMin(0));
 		}
-		if (base.gte('f1e15')) {
+		if (qslog.gte('1e15')) {
 			let exp = 0.275;
-			base = Decimal.tetrate(10, base.slog(10).div(1e15).pow(exp).mul(1e15).toNumber());
+			qslog = qslog.div(1e15).pow(exp).mul(1e15);
 		}
+		base = Decimal.tetrate(10, base.slog().add(qslog).clampMax(1.77e308).toNumber());
 		return base.clampMax('f1.79e308');
 	},
 	reset() {
