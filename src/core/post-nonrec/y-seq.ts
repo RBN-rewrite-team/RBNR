@@ -184,7 +184,7 @@ export const Y_SEQ = {
 		}
 		if (base.gte('10^^15')) {
 			let exp = player.pt.power.gte('e1.5e11') ? 0.375 : 0.25;
-			base = Decimal.tetrate(10, base.slog(14).pow(exp).add(14).toNumber());
+			base = Decimal.tetrate(10, base.slog(10).sub(14).pow(exp).add(14).toNumber());
 		}
 		let sc3start = 1000;
 		if (player.milestones['sin_3']) {
