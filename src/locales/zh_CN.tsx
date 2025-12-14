@@ -1597,6 +1597,16 @@ export default {
 		text1: '非递归',
 		text: '长路无间',
 	},
+	chapa7: {
+		title: '第七章',
+		text1: '证明论',
+		text: '渺无人踪',
+	},
+	chapa8: {
+		title: '第八章',
+		text1: '基数',
+		text: '初识真我',
+	},
 	'uselessconfirm.0.t': '加法重置',
 	'uselessconfirm.0':
 		'你真的要重置吗？这将重置你之前的数值、大部分升级和购买项。<br>你将获得 {gain} 加法能量。',

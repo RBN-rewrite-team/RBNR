@@ -1620,22 +1620,22 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	chapa0: {
 		title: 'Prologue',
 		text1: 'Successor',
-		text: 'Successor',
+		text: 'Looking For Numbers',
 	},
 	chapa1: {
 		title: 'Chapter 1',
 		text1: 'Addition',
-		text: 'Addition',
+		text: 'Addiction To Numbers',
 	},
 	chapa2: {
 		title: 'Chapter 2',
 		text1: 'Multiplication',
-		text: 'Difficult',
+		text: 'Advance Despite Difficulties',
 	},
 	chapa3: {
 		title: 'Chapter 3',
 		text1: 'Exponentiation',
-		text: 'More Difficult',
+		text: 'Endless Hardships',
 	},
 	chapa4: {
 		title: 'Chapter 4',
@@ -1645,12 +1645,22 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	chapa5: {
 		title: 'Chapter 5',
 		text1: 'Hydra',
-		text: 'Hydra',
+		text: 'The Ultimate Power',
 	},
 	chapa6: {
 		title: 'Chapter 6',
 		text1: 'Non Recursion',
 		text: 'Long & Uninterrupted',
+	},
+	chapa7: {
+		title: 'Chapter 7',
+		text1: 'Proof Theory',
+		text: 'Depopulated Zone',
+	},
+	chapa8: {
+		title: 'Chapter 8',
+		text1: 'Cardinal',
+		text: 'The Actual Self',
 	},
 	'uselessconfirm.0.t': 'Addition Reset',
 	'uselessconfirm.0':
