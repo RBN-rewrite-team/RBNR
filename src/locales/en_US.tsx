@@ -1751,7 +1751,7 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'upgs.U6R12': 'You can buy at most 3 columns in row 5-7',
 	'upgs.U6R13': 'B6-R-1-1 effect^2',
 	'upgs.U6R14': 'Total NRT multiplies Non Rec. Energy gain',
-	'upgs.U6R15': 'You gan buy maxB6-R-1~4',
+	'upgs.U6R15': 'You can buy maxB6-R-1~4',
 	'upgs.U6R16': 'Enhance B6-R-1-5 by 5%',
 	'upgs.U6R17': 'Auto buy max B6-R-1~4',
 	'upgs.U6R21': 'Remove the softcap^2 of Non Rec.<sup>?</sup> Energy',
