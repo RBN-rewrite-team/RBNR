@@ -138,7 +138,6 @@ export function init() {
 			},
 		});
 		detector.detect();
-
 		// console.log(JSON.stringify(localization));
 	} catch (e) {
 		stopGameLoop();
