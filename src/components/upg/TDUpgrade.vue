@@ -21,42 +21,45 @@ const $t = useI18n().t;
 
 const props = defineProps<{
 	upgid: keyof typeof upgrades;
+	test?: string;
 }>();
-const id = props.upgid as keyof typeof upgrades;
-// code...
-const useClass = useUpdate(function () {
+const description = computed(() => {
+	// console.log(props.upgid, p);
+	return getUpgradeDescription(props.upgid, $t);
+});
+const useClass = computed(function () {
 	let useclass = 'upgrade_buttonbig';
-	if (id.toString().startsWith('4') && id.toString().endsWith('q'))
+	if (props.upgid.toString().startsWith('4') && props.upgid.toString().endsWith('q'))
 		useclass = 'upgrade_buttonsmall';
-	if (player.upgrades[id]) useclass += '_complete';
-	else if (!UPGRADES.lock(id).unlocked || !upgrades[id].canAfford()) useclass += '_unable';
+	if (player.upgrades[props.upgid]) useclass += '_complete';
+	else if (!UPGRADES.lock(props.upgid).unlocked || !upgrades[props.upgid].canAfford())
+		useclass += '_unable';
 
 	if (
 		player.singularity.stage < 1 &&
-		player.upgrades[id] &&
-		Logarithm.logarithm.upgrades_in_dilated.includes(id)
+		player.upgrades[props.upgid] &&
+		Logarithm.logarithm.upgrades_in_dilated.includes(props.upgid)
 	) {
 		useclass += ' upgrade_dilated';
 	}
 	return useclass;
 });
-const curupg = upgrades[id];
-const permanent = curupg.keep != null && curupg.keep();
-const req = curupg.requirements();
-
-const description = computed(() => getUpgradeDescription(props.upgid, $t));
+const curupg = computed(() => upgrades[props.upgid]);
+const permanent = computed(() => curupg.value.keep != null && curupg.value.keep());
+const req = computed(() => curupg.value.requirements());
+const name = computed(() =>
+	curupg.value.name == 'U0-114514' ? $t('upgs.' + props.upgid + '.name') : curupg.value.name,
+);
 </script>
 
 <template>
 	<td v-if="UPGRADES.lock(upgid).show">
 		<div class="upgrade tooltipBox" @mousedown="UPGRADES.buy(upgid)">
 			<div :class="useClass">
-				<span style="font-weight: bold">
-					{{
-						curupg.name == 'U0-114514' ? $t('upgs.' + id + '.name') : curupg.name
-					}} </span
-				><br />
-				<template v-if="!UPGRADES.lock(id).unlocked && !permanent && !player.upgrades[id]">
+				<span style="font-weight: bold"> {{ name }} </span><br />
+				<template
+					v-if="!UPGRADES.lock(upgid).unlocked && !permanent && !player.upgrades[upgid]"
+				>
 					{{ $t('upg.locked') }}<br />
 					<template v-for="sreq in Object.entries(req)">
 						<template v-if="sreq[0] != '0'"> ,<br /> </template>

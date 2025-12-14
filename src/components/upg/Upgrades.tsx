@@ -48,7 +48,7 @@ function showUpgrade(b: `u${keyof typeof upgrades}` | `b${keyof typeof buyables}
 	return isNotBuyable(b) ? UPGRADES.lock(sliceUpgID(b)).show : BUYABLES.lock(sliceUpgID(b)).show;
 }
 
-const isTouchDevice = navigator.maxTouchPoints > 0
+const isTouchDevice = navigator.maxTouchPoints > 0;
 
 function displayUpgrade(b: `u${keyof typeof upgrades}` | `b${keyof typeof buyables}`, $t: $t) {
 	return (
@@ -206,16 +206,22 @@ export default defineComponent({
 													{showUpgrade(b) && (
 														<div
 															class={getClass(b)}
-															onTouchstart={() =>
-																{if (isTouchDevice) hoverupg.value = b}
-															}
-															onTouchend={() =>
-																{if (isTouchDevice) hoverupg.value = null}
-															}
-															onMouseover={() => {if (!isTouchDevice) hoverupg.value = b}}
-															onMouseleave={() =>
-																{if (!isTouchDevice) hoverupg.value = null}
-															}
+															onTouchstart={() => {
+																if (isTouchDevice)
+																	hoverupg.value = b;
+															}}
+															onTouchend={() => {
+																if (isTouchDevice)
+																	hoverupg.value = null;
+															}}
+															onMouseover={() => {
+																if (!isTouchDevice)
+																	hoverupg.value = b;
+															}}
+															onMouseleave={() => {
+																if (!isTouchDevice)
+																	hoverupg.value = null;
+															}}
 															onClick={() => buyUpgrade(b)}
 															v-hold={{
 																handler: {
@@ -252,14 +258,20 @@ export default defineComponent({
 											height: props.smaller ? '135px' : '180px',
 										}}
 									>
-										{a.map((b) =>
-											isNotBuyable(b) ? (
-												<TDUpgrade upgid={sliceUpgID(b)} />
+										{a.map((b) => {
+											let unique = Math.random().toString();
+											return isNotBuyable(b) ? (
+												<>
+													<TDUpgrade
+														upgid={sliceUpgID(b)}
+														test={unique}
+													/>
+												</>
 											) : (
 												// b
 												<TDBuyable bylid={sliceUpgID(b)} />
-											),
-										)}
+											);
+										})}
 									</tr>
 								);
 							})}
