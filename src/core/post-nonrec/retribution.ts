@@ -152,8 +152,8 @@ export const RETRIBUTION = {
 					if (!RETRIBUTION.resetable()) return;
 					if (player.retribution >= 1) {
 						ModalService.show({
-							title: '2rd retribution reset is blocked',
-							content: '没做完',
+							title: '2nd retribution reset is blocked',
+							content: 'WIP',
 						});
 						return;
 					}
