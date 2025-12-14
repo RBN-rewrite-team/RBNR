@@ -489,7 +489,7 @@ function checkNaN<T>(obj: T, path: string[]): void {
 	}
 
 	// 发现并处理 Decimal NaN
-	if (obj instanceof Decimal && obj.mag === NaN) {
+	if (obj instanceof Decimal && !isFinite(obj.mag)) {
 		stopGameLoop();
 		if (!player.foundNaN) {
 			ModalService.show({
