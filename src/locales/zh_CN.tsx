@@ -947,10 +947,10 @@ export default {
 
 	'sing.gain': `你每秒获取 (奇点能量+1){exponent}</sup>/{division} 奇点能量<br />`,
 
-	'sing.g.1': `你有<b style="color: var(--sing-color); font-size: 25px">{se}</b>，这使数值，加法能量，乘法能量获取<b style="color: var(--sing-color)">^{exp}</b>`,
-	'sing.g.2': `你有<b style="color: var(--sing-color); font-size: 25px">{se}</b>，这使数值，加法能量获取<b style="color: var(--sing-color)">^{exp}</b>`,
-	'sing.g.3': `你有<b style="color: var(--sing-color); font-size: 25px">{se}</b>，这使数值获取<b style="color: var(--sing-color)">^{exp}</b>`,
-	'sing.g.4': `你有<b style="color: var(--sing-color); font-size: 25px">{se}</b>，每秒生产<b style="color: var(--sing-color)">{exp}</b>数值`,
+	'sing.g.1': `你有<b style="color: var(--sing-color); font-size: 25px">{se}</b>奇点能量，这使数值，加法能量，乘法能量获取<b style="color: var(--sing-color)">^{exp}</b>`,
+	'sing.g.2': `你有<b style="color: var(--sing-color); font-size: 25px">{se}</b>奇点能量，这使数值，加法能量获取<b style="color: var(--sing-color)">^{exp}</b>`,
+	'sing.g.3': `你有<b style="color: var(--sing-color); font-size: 25px">{se}</b>奇点能量，这使数值获取<b style="color: var(--sing-color)">^{exp}</b>`,
+	'sing.g.4': `你有<b style="color: var(--sing-color); font-size: 25px">{se}</b>奇点能量，每秒生产<b style="color: var(--sing-color)">{exp}</b>数值`,
 	'sing.g.5': `你有<b style="color: var(--sing-color); font-size: 25px">{se}</b>奇点能量`,
 
 	'sing.t.1': ['数值', '加法能量', '乘法能量', '指数能量', '奇点能量'],
