@@ -52,8 +52,8 @@ export const NON_REC_BMS = {
 		if (base[0].gte(1.55) && !player.upgrades[88]) {
 			base[0] = base[0].div(1.55).pow(0.25).mul(1.55);
 		}
-		if (base[0].gte(2) && !player.upgrades[812]) base[0] = base[0].div(2).pow(0.25).mul(2);
-		else if (base[0].gte(2) && !player.upgrades[814]) base[0] = base[0].div(2).pow(0.5).mul(2);
+		if (base[0].gte(2) && !player.upgrades[812]) base[0] = base[0].div(2).pow(0.7).mul(2);
+		else if (base[0].gte(2) && !player.upgrades[814]) base[0] = base[0].div(2).pow(0.9).mul(2);
 		else if (base[0].gte(4)) base[0] = base[0].div(4).pow(0.75).mul(4);
 
 		if (player.milestones.sin_10)

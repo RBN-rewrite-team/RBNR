@@ -2069,7 +2069,8 @@ export default {
 	'upgs.mil.sin_7': '证明论能量增幅罪',
 	'upgs.mil.sin_8': '业的获取速度^1.75',
 	'upgs.mil.sin_9': '每秒获得100%证明论能量',
-	'upgs.mil.sin_10': '解锁<b>Y序列</b>的良序性推演，解锁非递归BMS的第二效果',
+	'upgs.mil.sin_10':
+		'解锁<b>Y序列</b>的良序性推演，解锁非递归BMS的第二效果，证明论不再重置数论研究5',
 	'currency.never': '奇点能量',
 	'upgs.sing1': '启动奇点生成器',
 	'ts.vowreduce': '愿力阈值-{value}',
