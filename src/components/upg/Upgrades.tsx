@@ -48,6 +48,8 @@ function showUpgrade(b: `u${keyof typeof upgrades}` | `b${keyof typeof buyables}
 	return isNotBuyable(b) ? UPGRADES.lock(sliceUpgID(b)).show : BUYABLES.lock(sliceUpgID(b)).show;
 }
 
+const isTouchDevice = navigator.maxTouchPoints > 0
+
 function displayUpgrade(b: `u${keyof typeof upgrades}` | `b${keyof typeof buyables}`, $t: $t) {
 	return (
 		<>
@@ -179,17 +181,6 @@ export default defineComponent({
 			null,
 		);
 		const $t = useI18n().t;
-		/**
-		 * function () {
-  if(app.hover_upg == 0) return
-  let a =  `<span class="sky">[平方升级${app.hover_upg}]${app.squpgs2[app.hover_upg-1].desc}</span>
-  <br>价格：${app.squpgs2[app.hover_upg-1].cost.format(0)}点数<sup>2</sup>` + (typeof(app.squpgs2[app.hover_upg - 1].effectDisplay) == "undefined" ? "" : `<br><span class="green">当前：${app.squpgs2[app.hover_upg-1].effectDisplay}</span>`)
-  if (player.chal == 5) {
-    if (typeof (sq_upgs[app.hover_upg-1].disableInChal5) == "boolean") a = "<del>" + a + "</del>"
-  }
-  return a
-}
-		 */
 		return () => (
 			<>
 				{player.options.ui.upgnewui ? (
@@ -216,14 +207,14 @@ export default defineComponent({
 														<div
 															class={getClass(b)}
 															onTouchstart={() =>
-																(hoverupg.value = b)
+																{if (isTouchDevice) hoverupg.value = b}
 															}
 															onTouchend={() =>
-																(hoverupg.value = null)
+																{if (isTouchDevice) hoverupg.value = null}
 															}
-															onMouseover={() => (hoverupg.value = b)}
+															onMouseover={() => {if (!isTouchDevice) hoverupg.value = b}}
 															onMouseleave={() =>
-																(hoverupg.value = null)
+																{if (!isTouchDevice) hoverupg.value = null}
 															}
 															onClick={() => buyUpgrade(b)}
 															v-hold={{
