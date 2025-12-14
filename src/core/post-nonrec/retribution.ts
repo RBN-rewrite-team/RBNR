@@ -172,10 +172,13 @@ export const RETRIBUTION = {
 		if (player.retribution == 0) {
 			return player.hydra.deduceOrdinal[0].gte(DC.D_4T6);
 		}
-		return (
-			player.numbertheory.well_ordering.ySeqWellOrderness &&
-			player.hydra.deduceOrdinal[1].gte(DC.D_F2P128)
-		);
+		if (player.retribution == 1)
+			return (
+				player.numbertheory.well_ordering.ySeqWellOrderness &&
+				player.hydra.deduceOrdinal[1].gte(DC.D_F2P128)
+			);
+
+		return false;
 	},
 	name: () => (player.options.isGuoGao ? '果糕' : '果报'),
 };

@@ -1,5 +1,5 @@
 import { player } from '@/core/global.ts';
-import { loopInterval, saveInterval } from '@/core/game-loop';
+import { loopInterval, saveInterval, stopGameLoop, stopSaveLoop } from '@/core/game-loop';
 import ModalService from '@/utils/Modal';
 import type { Player } from './save';
 import Decimal from 'break_eternity.js';
@@ -10,8 +10,8 @@ import PowiainaNum from 'powiaina_num.js';
 
 DisableDevtool({
 	onDevtoolOpen(type, next) {
-		clearInterval(loopInterval);
-		clearInterval(saveInterval);
+		stopGameLoop();
+		stopSaveLoop();
 		document.body.innerHTML = 'Malicious cheating behavior detected.';
 
 		next();
@@ -40,7 +40,8 @@ Object.defineProperty(window, 'game', {
 		return JSON.parse(JSON.stringify(player));
 	},
 	set() {
-		clearInterval(loopInterval);
+		stopGameLoop();
+		stopSaveLoop();
 		for (let i = 1; i <= 100; i++) {
 			console.error('Uncaught Error: Unexpected behaviour.');
 		}
@@ -64,7 +65,8 @@ let cheat = false;
 function detectTimerHooker(): void {
 	if (document.getElementsByClassName('_th-container')[0] != void 0) {
 		if (cheat) throw new Error('?'); // 防止卡死
-		clearInterval(loopInterval);
+		stopGameLoop();
+		stopSaveLoop();
 		ModalService.show({
 			title: '作弊检测',
 			content: '检测到您正在使用作弊程序，请关闭后再试！',
