@@ -271,7 +271,7 @@ export const Y_SEQ = {
 			let exp = 0.275;
 			base = base.div(1e15).pow(exp).mul(1e15)
 		}
-		base = Decimal.tetrate(10, base)
+		base = Decimal.tetrate(10, base.toNumber())
 		return base.clampMax('f1.79e308');
 	},
 	reset() {
