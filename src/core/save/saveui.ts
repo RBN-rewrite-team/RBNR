@@ -1,6 +1,6 @@
 import ModalService from '@/utils/Modal';
 import { changeSave, hardReset, loadFromString, player, save as s, type Player } from '.';
-import { saveInterval } from '@/core/game-loop';
+import { saveInterval, stopSaveLoop } from '@/core/game-loop';
 import saveslot_display from './saveslot_display';
 import type { $t } from '@/utils/types';
 
@@ -53,7 +53,7 @@ export function UIHardReset() {
 				if ((v & 0b1000) === 0b1000) keylistKeeped.push('checkedPlots');
 			}
 			hardReset(keylistKeeped);
-			clearInterval(saveInterval);
+			stopSaveLoop();
 		},
 	});
 }
