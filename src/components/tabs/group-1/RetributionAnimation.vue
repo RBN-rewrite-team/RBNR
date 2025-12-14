@@ -200,6 +200,14 @@ function retributionClass() {
 		transform: translate(-50%, -50%) rotate(360deg);
 	}
 }
+@keyframes disappears {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
 
 .beam-1 {
 	animation-delay: 0s, 0s;
@@ -235,7 +243,7 @@ function retributionClass() {
 }
 
 .disappears {
-	transition: 5s;
-	opacity: 0;
+	z-index: 7;
+	animation: disappears 5s forwards;
 }
 </style>

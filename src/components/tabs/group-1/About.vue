@@ -4,7 +4,9 @@ import { i18n } from '@/utils/i18n';
 </script>
 <template>
 	<div class="main">
-		<h1 v-if="player.pt.resetTimes.lt(1)">{{ $t('title.rewritten') }}</h1>
+		<h1 v-if="player.pt.resetTimes.lt(1) && player.retribution <= 1">
+			{{ $t('title.rewritten') }}
+		</h1>
 		<h1 v-else>{{ $t('title.idlen') }}</h1>
 		{{ $t('about.version') }}<br />
 		<br />

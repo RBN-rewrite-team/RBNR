@@ -6,7 +6,9 @@ import { useI18n } from 'vue-i18n';
 const use = useI18n();
 const $t = use.t;
 function title() {
-	return player.pt.resetTimes.gte(1) ? $t('title.idlen') : $t('title.rewritten');
+	return player.pt.resetTimes.gte(1) || player.retribution >= 2
+		? $t('title.idlen')
+		: $t('title.rewritten');
 }
 function titleStyle() {
 	const size = use.locale.value == 'zh-CN' ? 24 : 16;

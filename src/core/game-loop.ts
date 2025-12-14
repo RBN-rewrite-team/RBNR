@@ -178,7 +178,7 @@ export function gameLoop() {
 }
 function getCurTitle() {
 	let base = '';
-	if (player.pt.resetTimes.gte(1)) {
+	if (player.pt.resetTimes.gte(1) || player.retribution >= 2) {
 		base = getMessage('title.idlen');
 	} else {
 		base = getMessage('title.rewritten');
