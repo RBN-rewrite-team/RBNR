@@ -43,27 +43,36 @@ export let diff = 40;
  * 游戏的循环逻辑每秒运行多少次
  */
 export const FPS = 25;
-export let loopInterval: number;
-export let saveInterval: number;
+export let loopInterval: number | null;
+export let saveInterval: number | null;
+let saveinterval_not_started = true;
 setTimeout(() => {
-	saveInterval = setInterval(save, 3000);
+	if (!saveInterval) saveInterval = setInterval(save, 3000);
+	saveinterval_not_started = false;
 }, 3000);
-export let backupInterval: number;
+export let backupInterval: number | null;
 export let ordinalSpeedDerivative = DC.D_0;
 export let ordinalSpeedDerivative2 = DC.D_0;
 
 export function startGameLoop() {
-	loopInterval = setInterval(gameLoop, 1000 / FPS);
-	backupInterval = setInterval(intervalBackup, 1000);
+	if (!loopInterval) loopInterval = setInterval(gameLoop, 1000 / FPS);
+	if (!backupInterval) backupInterval = setInterval(intervalBackup, 1000);
 }
 
 export function stopGameLoop() {
-	clearInterval(loopInterval);
-	clearInterval(backupInterval);
+	if (loopInterval) clearInterval(loopInterval);
+	if (backupInterval) clearInterval(backupInterval);
+	loopInterval = null;
+	backupInterval = null;
 }
 
 export function stopSaveLoop() {
-	clearInterval(saveInterval);
+	if (saveInterval) clearInterval(saveInterval);
+	saveInterval = null;
+}
+
+export function startSaveLoop() {
+	if (!saveInterval && !saveinterval_not_started) saveInterval = setInterval(save, 3000);
 }
 
 export function updateHighestStat() {
@@ -151,12 +160,12 @@ export function gameLoop() {
 	// }
 	if (player.singularity.stage >= 1) singularity_UI();
 
-	() => {
-		const unlp = unlockedPlots();
-		for (let i = 1; i <= unlp; i++) {
-			if (!player.checkedPlots.includes(i) && temp.plotdisplay == 0) enterPlot(i);
-		}
-	};
+	// () => {
+	// 	const unlp = unlockedPlots();
+	// 	for (let i = 1; i <= unlp; i++) {
+	// 		if (!player.checkedPlots.includes(i) && temp.plotdisplay == 0) enterPlot(i);
+	// 	}
+	// };
 	if (player.milestones.dut_10) {
 		player.hydra.dilute.solutionCost = new Decimal(0);
 	}
