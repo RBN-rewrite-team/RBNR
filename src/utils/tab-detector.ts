@@ -69,6 +69,7 @@ export class LocalStorageTabDetector {
 
 		// 监听页面卸载
 		window.addEventListener('beforeunload', this.handleBeforeUnload.bind(this));
+		window.addEventListener('unload', this.handleBeforeUnload.bind(this));
 
 		// 初始检测
 		this.detectMultipleTabs();
@@ -188,6 +189,7 @@ export class LocalStorageTabDetector {
 		this.isActive = false;
 		window.removeEventListener('storage', this.handleStorageEvent.bind(this));
 		window.removeEventListener('beforeunload', this.handleBeforeUnload.bind(this));
+		window.addEventListener('unload', this.handleBeforeUnload.bind(this));
 
 		// 清理当前标签页
 		const tabs = this.getActiveTabs();
