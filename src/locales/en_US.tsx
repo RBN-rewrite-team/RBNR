@@ -419,7 +419,7 @@ export default {
 			'As the first successor operation was done, Numerorum feels a familiar scent.',
 			'Numerorum\tThis familiar feeling.',
 			'Numerorum\tThese numbers strung together may be my only companions on this journey.',
-			'Numerorum\tThough the road ahead is long, a good start is already, half the battle.。',
+			'Numerorum\tThough the road ahead is long, a good start is already, half the battle..',
 			'Numerorum\tCome on?',
 			'Where is the path? The path lies beneath your feet.',
 		],
@@ -532,7 +532,7 @@ export default {
 			'Numerorum\tIt seems like in here, prions would not only not give me help, but land me closer to death.',
 			'There seems to be another person climbing nearby too, and he seems really nervous.',
 			'Numerorum\tWho the heck are you?',
-			'???\tVeryRDefie\tMy name is VeryRDefie。',
+			'???\tVeryRDefie\tMy name is VeryRDefie.',
 			`Numerorum\tHmm? So you're that person that the astronomer mentioned...`,
 			`VeryRDefie\tYeah. If it wasn't for my intelligence, I'd have died in that stupid trap.`,
 			'VeryRDefie\tAlso, who the heck are you?',
@@ -555,14 +555,14 @@ export default {
 		],
 		[
 			'Numerorum\tWoo! Those UNOCF milestones fell really great!',
-			`???\tHydra\tDon't be so cocky. You haven't even passed Small Hydra Ordinal。`,
+			`???\tHydra\tDon't be so cocky. You haven't even passed Small Hydra Ordinal.`,
 			'Numerorum\t...Time will prove your unworthiness one day.',
 			"???\tHydra\tYou don't know the 'time' length. It may very long....",
 		],
 		[
 			`Numerorum\tUNOCF is so powerful! But I somehow still couldn't reach (0)(1³)(2³)(3³)...`,
 			'VeryRDefie\tActually, you can do this...',
-			'VeryRDefie shows some new and ever-stronger non-recursive researches.(coming s∞n)。',
+			'VeryRDefie shows some new and ever-stronger non-recursive researches.(coming s∞n).',
 			'Numerorum\tWell, I do agree.',
 			'???\tHydra\t...',
 			'VeryRDefie\tHm? That mysterious sound appeared again. He is so <$bx>, but the one who spreads the ω-virus is him too.',
@@ -613,8 +613,8 @@ export default {
 			'Colossus\tOh! The ones who strive to defeat the dragons, will become the dragon himself.',
 			'Colossus\tInterestingly, after then, all attempts to exterminate the tyrant goes on the same path of the Hydra...',
 			'Colossus\tMaybe except one guy who brought up with BEEF, but he was sent to ill-defined HELL.',
-			'Colossus\t这是因循的果报。',
-			'Colossus\t这是宿命的轮回。',
+			'Colossus\t这是因循的果报.',
+			'Colossus\t这是宿命的轮回.',
 			`Numerorum\tPoof... I'm ready.`,
 			'Colossus\tThen, come.',
 			'Colossus\tWhat awaits you is a new era.',
@@ -665,7 +665,7 @@ export default {
 	'upgs.431q': "Exp. Reset doesn't reset U2-3 and U2-4.",
 	'upgs.432q': 'B1-1 effect will be enabled instantly',
 	'upgs.433q': "Exp. Reset doesn't reset Challenge 3",
-	'upgs.434q': "Exp. Reset doesn't reset B2-R1-2。",
+	'upgs.434q': "Exp. Reset doesn't reset B2-R1-2.",
 	'upgs.435q': "Mul. Reset doesn't reset Prime Factor Time",
 	'upgs.441q': 'Get 1% of add. power in reset passively.',
 	'upgs.442q': 'Keep 100 purchases of B0-1.',
@@ -1231,7 +1231,7 @@ export default {
 	'upgs.64S': 'Solution (unspend) boosts Progressing speed',
 	'upgs.65S': 'Total Solution boosts multiplier gain.',
 	'upgs.66S': 'Unlock 4 upgrade in Hydra Engine',
-	'upgs.67S': 'M-Dilute-5 effect ^1,35 if The level of Solvent III is 10。',
+	'upgs.67S': 'M-Dilute-5 effect ^1,35 if The level of Solvent III is 10.',
 	'upgs.68S': 'Reduce softcap^2 of Hydra Energy gain',
 	'upgs.69S':
 		'The prion virus will not destruct the dilution. The prion virus boosts Progressing speed. You can obtain the prion virus at anytime(×2/s)',
@@ -1389,7 +1389,7 @@ The dilution will self-destruct if the number of the prion virus is greater than
 
 	'dung.gemstone.t': 'You gained gem stone, Global speed+0.25%',
 
-	'nonrec.youhavereset': 'You have done non-recursion resets for {times} times。',
+	'nonrec.youhavereset': 'You have done non-recursion resets for {times} times.',
 	'nonrec.youhavenrt': 'You have a total of {t} Non Rec. Theories, with {b} remaining.',
 	'nonrec.nrtbuy': 'Get one Non Rec. Theory',
 	'nonrec.respec': 'Reset Study tree, but do a Non Rec. Reset',
@@ -1738,7 +1738,7 @@ The dilution will self-destruct if the number of the prion virus is greater than
 
 	'upgs.71': 'NRC1 challenge debuff reduced from 0.4667+X to 0.4667+0.3X',
 	'upgs.72':
-		'Keep Highest Solution amount if not in NRC。 Significantly reduce the softcap^2 of hydra energy',
+		'Keep Highest Solution amount if not in NRC. Significantly reduce the softcap^2 of hydra energy',
 	'upgs.73': "NRS 52{'|'}71{'|'}72{'|'}73 time speed is 1000 faster.",
 	'upgs.74': 'Significantly enhance the effect of solution',
 	'upgs.75': 'Deduction power gain^1.25',
@@ -1832,7 +1832,7 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'nt.wellorderness.process.22': 'Prove lemma 4, cost {cost} Deduction Energy',
 	'nt.wellorderness.effect.11': 'Reward:Significantly enhance BMS progressing speed.',
 	'nt.wellorderness.process.23':
-		'Prove the well-orderness of BMS, cost e100,000,000 Deduction Energy。',
+		'Prove the well-orderness of BMS, cost e100,000,000 Deduction Energy.',
 	'nt.wellorderness.effect.12':
 		'Reward: You can do the first RETRIBUTION reset......after e150000000 Deduction Energy, BMS progressing speed slog+{effect}',
 
@@ -2178,7 +2178,7 @@ THEN YOU CAN GET REVELATION.<br />
 	'garden.upg.61': 'LS4',
 	'garden.upg.62': 'LS5',
 	'garden.upg.63': 'IP1',
-	'garden.upg.63.desc': 'Idea gain ×(log10(Total ideas+1)+1)。',
+	'garden.upg.63.desc': 'Idea gain ×(log10(Total ideas+1)+1).',
 	'garden.upg.64': 'I5',
 	'garden.upg.65': 'I6',
 	'garden.upg.66': 'E4',
@@ -2199,7 +2199,7 @@ THEN YOU CAN GET REVELATION.<br />
 		return `Buy ancient generators per 3 seconds. Last bought: $${(Math.abs(Date.now() - player.garden.ATB2LastBought) / 1000).toFixed(3)} s`;
 	},
 	'garden.upg.71': 'EP1',
-	'garden.upg.71.desc': 'Entropy gain ×(log10(Total ideas+1)+1)。',
+	'garden.upg.71.desc': 'Entropy gain ×(log10(Total ideas+1)+1).',
 	'garden.upg.72': 'Nucleus',
 	'garden.upg.73': 'Respiration',
 	'garden.upg.74': 'Fungi',
@@ -2215,15 +2215,15 @@ THEN YOU CAN GET REVELATION.<br />
 	'garden.upg.80': 'INS6',
 	'garden.upg.80.desc': 'Increase Inspiration exponent to 0.4',
 
-	'res.ptpower': '证明论能量',
-	'tab.oracle': '神谕',
-	'upgs.6214': '压缩九头蛇能量加成非递归能量',
-	'upgs.6215': '自动购买Y序列维度',
+	'res.ptpower': 'Proof theory power',
+	'tab.oracle': 'Oracle',
+	'upgs.6214': 'Compressed Hydra Energy increases Non Rec. Energy',
+	'upgs.6215': 'Auto buy Y Seq Dimensions',
 
-	'currency.焓': '焓',
+	'currency.焓': 'Enthalpy',
 	'studies.nonrec.31': function () {
 		if (player.retribution == 0) return '????';
-		return '证明论重置保留非递归研究树';
+		return 'PT reset keep Non Rec. Study tree';
 	},
 
 	'upgs.810': 'Enhance the formula of CHE to PT Power',
@@ -2256,10 +2256,73 @@ THEN YOU CAN GET REVELATION.<br />
 	'upgs.U6R35': "Enhance lemma prover's speed, based on Compressed Hydra Energy",
 	'upgs.U6R36': 'Proving theorem will not spend lemmas',
 	'upgs.U6R37': "Multiply Lemma effect, lemma prover's speed and theorem prover's speed by 10",
-	'upgs.U6R38': 'U6-R-3-4的效果^2，U6-R-3-5的效果^1.5',
+	'upgs.U6R38': 'U6-R-3-4 effect ^2, U6-R-3-5 effect^1.5',
 	'upgs.U6R39': 'Lemma effect ^1.1',
 	'upgs.U6R310': "Significantly enhance lemma prover's speed, based on Compressed Hydra Energy",
 	'upgs.U6R311': "Significantly enhance theorem prover's speed, based on lemma counts",
 	'upgs.U6R312':
 		"Lemma level will not decrease lemma prover's speed, raise the effect of U6-R-3-11 by 1.5",
+
+	'oracle.fate.type.0': 'Space-fate',
+	'oracle.fate.type.1': 'Time-fate',
+	'oracle.fate.type.2': 'Life-fate',
+	'oracle.fate.type.3': 'Death-fate',
+	'oracle.fate.type.4': 'Justice-fate',
+
+	'oracle.fate.type.0.title': 'Space',
+	'oracle.fate.type.0.effect': 'Base: CHE slog +0.075',
+
+	'oracle.fate.type.1.title': 'Time',
+	'oracle.fate.type.1.effect': 'Base: Proof theory Power ×0.075',
+
+	'oracle.fate.type.2.title': 'Life',
+	'oracle.fate.type.2.effect': 'Base: Idea & Entropy ×+0.075',
+
+	'oracle.fate.type.3.title': 'Death',
+	'oracle.fate.type.3.effect': 'Base: Garden Local speed ×+0.075',
+
+	'oracle.fate.type.4.title': 'Justice',
+	'oracle.fate.type.4.effect': 'Raise the sorrunding other fates by ×1.8',
+
+	'oracle.fate.type.tot': 'Total: {effect}',
+
+	'oracle.fate.type.0.slot': 'Space',
+	'oracle.fate.type.1.slot': 'Time',
+	'oracle.fate.type.2.slot': 'Life',
+	'oracle.fate.type.3.slot': 'Death',
+	'oracle.fate.type.4.slot': 'Justice',
+
+	'oracle.fate.effect.1': 'Total PT Power makes fate rate+{effect}%',
+	'oracle.fate.effect.2': 'Total Oracle bit  makes fate rate+{effect}% after 88 oracle bits',
+	'oracle.fate.effect.3':
+		'After 1e10,000,000 PT Power, improve PT power gain formulat , and fate rate +500.0000%( static)',
+	'oracle.fate.effect.4':
+		'After e1.500e11 PT Power, reduce the softcap^2 of Compressed Hydra Energy',
+	'oracle.fate.tip': 'Unlock next feature after 1e9 PT Power',
+	'oracle.fate.vow': 'Vow points: ',
+	'oracle.fate.vow.p.0': 'Garden Generator Progress',
+	'oracle.fate.vow.p.1': 'Proof-Theory Reset Progress',
+	'oracle.fate.vow.respec': 'Respec',
+
+	'oracle.sin.value': 'You have {value} sin (not really sin)',
+	'oracle.sin.youhave': 'You have {value} karma',
+	'oracle.sin.effect2': ', makes Compressed Hydra Energy slog +{effect} after softcap',
+
+	'nonrecbms.value': 'You progressed Non Rec. BMS for {a} times, the ordinal is',
+	'nonrecbms.effect.0': 'Non Rec. BMS makes Compressed Hydra Energy slog +{effect}',
+	'nonrecbms.effect.1': 'Karma gain speed×{effect}',
+
+	'nt.wellorderness.y.a': `You have proved<b style="color: #c98300; font-size: 30px">{lemmas}</b
+			> lemmas (Compressed Hydra Energy+{effect1} slog)，<b style="color: #c98300; font-size: 30px">{theorems}</b
+			> theorems (pending {pending}, lemmas effect×{effect2}).`,
+
+	'nt.wellorderness.y.level.a': 'Your lemma level is {lemma}, theorem level is{theorem}.',
+	'nt.wellorderness.y.level.le': `Increase lemma level, requires {requires} theorems.<br />Lemma prover's speed/4, but lemmas effect×1.5.`,
+	'nt.wellorderness.y.level.th': `Increase theorem level, requires {requires} theorems. <br />Reset previous progresses, but theorems effect ^1.5.`,
+	'nt.wellorderness.y.level.re': `Decrease 1 lemma level(it doesn't refund theorems)`,
+	'nt.wellorderness.y.status': `Theorem prover`,
+	'nt.wellorderness.y.prove':
+		'Prove the well-orderness of Y sequence, requires F9.0070e15 Deduction Energy',
+	'nt.wellorderness.y.effect': `Reward (of the well-orderness of Y): Remove the softcap of lemmas. You can do 2nd retribution reset after F3.403e38 Compressed Hydra Energy.<br />You gain 1 deduction energy^2.`,
+	'nt.wellorderness.y.2': `You have <b style="color: #c98300; font-size: 30px">{a}</b> deduction energy^2, makes lemma prover\s speed ×{effect}.`,
 };

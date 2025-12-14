@@ -4,24 +4,35 @@ import { SIN } from '@/core/pt/oracle/sin';
 import { useUpdate } from '@/lib/useUpdate';
 import { format } from '@/utils/format';
 import { defineComponent } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 export default defineComponent({
 	name: 'Sin',
 	setup() {
+		const $t = useI18n().t;
 		const useSinValue = useUpdate(() => SIN.getSinValue());
 		const useKarma = useUpdate(() => player.oracle.originalsin.karma);
 		return () => (
 			<>
 				<div class="main">
-					<p>Sin value: {format(useSinValue.value)}</p>
 					<p>
-						你有 {format(useKarma.value)} 业
+						{$t('oracle.sin.value', {
+							value: format(useSinValue.value),
+						})}
+					</p>
+					<p>
+						{$t('oracle.sin.youhave', {
+							value: format(useKarma.value),
+						})}
 						{player.milestones['sin_6'] ? (
 							<>
-								，令CHE在软上限后slog+
-								{format(
-									useKarma.value.div(100).min(useKarma.value.root(4).mul(100)),
-								)}
+								{$t('oracle.sin.effect2', {
+									effect: format(
+										useKarma.value
+											.div(100)
+											.min(useKarma.value.root(4).mul(100)),
+									),
+								})}
 							</>
 						) : (
 							<></>

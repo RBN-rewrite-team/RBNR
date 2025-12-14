@@ -504,30 +504,48 @@ const lt = useUpdate(() => ltEffect());
 		align="center"
 	>
 		<div v-if="player.milestones.sin_10">
-			你已经证明了<b style="color: #c98300; font-size: 30px">{{
-				format(player.numbertheory.well_ordering.lemmas)
-			}}</b
-			>个引理(CHE+{{ format(lt[0]) }}slog)，<b style="color: #c98300; font-size: 30px">{{
-				formatWhole(player.numbertheory.well_ordering.theorems)
-			}}</b
-			>个定理(pending {{ format(player.numbertheory.well_ordering.theorems_th) }},引理效果×{{
-				format(lt[1])
-			}})。
+			<span
+				v-html="
+					$t('nt.wellorderness.y.a', {
+						lemmas: format(player.numbertheory.well_ordering.lemmas),
+						effect1: format(lt[0]),
+						theorems: formatWhole(player.numbertheory.well_ordering.theorems),
+						pending: format(player.numbertheory.well_ordering.theorems_th),
+						effect2: format(lt[1]),
+					})
+				"
+			></span>
 			<br />
-			你的引理等级为{{ formatWhole(player.numbertheory.well_ordering.lemma_level) }},
-			定理等级为{{ formatWhole(player.numbertheory.well_ordering.theorem_level) }}。
+			{{
+				$t('nt.wellorderness.y.level.a', {
+					lemma: formatWhole(player.numbertheory.well_ordering.lemma_level),
+					theorem: formatWhole(player.numbertheory.well_ordering.theorem_level),
+				})
+			}}
 		</div>
 		<div>
-			<button class="clickable_button" @click="() => levelup(0)" style="height: 72px">
-				提升引理等级，需要{{ formatWhole(levelreq(0)) }}定理。<br />
-				引理证明速度/4，但是效果×1.5。
-			</button>
-			<button class="clickable_button" @click="() => levelup(1)" style="height: 72px">
-				提升定理等级，需要{{ formatWhole(levelreq(1)) }}定理。<br />
-				重置之前的内容，但是定理效果^1.5。
-			</button>
+			<button
+				class="clickable_button"
+				@click="() => levelup(0)"
+				style="height: 72px"
+				v-html="
+					$t('nt.wellorderness.y.level.le', {
+						requires: formatWhole(levelreq(0)),
+					})
+				"
+			></button>
+			<button
+				class="clickable_button"
+				@click="() => levelup(1)"
+				style="height: 72px"
+				v-html="
+					$t('nt.wellorderness.y.level.th', {
+						requires: formatWhole(levelreq(1)),
+					})
+				"
+			></button>
 			<button class="clickable_button" @click="() => leveldown(0)">
-				降低1引理等级，不返还被消耗的定理
+				{{ $t('nt.wellorderness.y.level.re') }}
 			</button>
 			<button
 				class="clickable_button"
@@ -539,7 +557,7 @@ const lt = useUpdate(() => ltEffect());
 			>
 				{{
 					$t('set.status', {
-						label: '启用定理证明器',
+						label: $t('nt.wellorderness.y.status'),
 						status: $t(
 							player.numbertheory.well_ordering.theoremProveStatus
 								? 'set.status.on'
@@ -554,17 +572,18 @@ const lt = useUpdate(() => ltEffect());
 			@click="proveYSeqWellorderness"
 			v-if="!player.numbertheory.well_ordering.ySeqWellOrderness"
 		>
-			证明Y序列良序性，需要F9.007e15推演能量
+			{{ $t('nt.wellorderness.y.prove') }}
 		</button>
 		<div v-else>
-			<div style="color: darkgreen">
-				Y序列良序性奖励： 获得一个<Baixie />，移除引理速度软上限。在到达F3.403e38压缩九头蛇能量后，你可以进行第二次果报
-				<br />你每秒获得1二重推演能量。
-			</div>
-			你有<b style="color: #c98300; font-size: 30px">{{
-				formatP(player.numbertheory.well_ordering.energy2)
-			}}</b
-			>二重推演能量，使引理证明速度×{{ formatP(metaEnergyEffect()) }}。
+			<div style="color: darkgreen" v-html="$t('nt.wellorderness.y.effect')"></div>
+			<span
+				v-html="
+					$t('nt.wellorderness.y.2', {
+						a: formatP(player.numbertheory.well_ordering.energy2),
+						effect: formatP(metaEnergyEffect()),
+					})
+				"
+			></span>
 		</div>
 		<Upgrades
 			:upgids="[

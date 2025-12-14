@@ -13,6 +13,7 @@ export default defineComponent({
 	name: 'Oracle',
 
 	setup(props, ctx) {
+		const $t = useI18n().t;
 		const progress = useUpdate(() => Oracle.bitGainProgress());
 		const s = useUpdate(() => {
 			let r = [<></>, <></>, <></>, <></>, <></>];
@@ -30,7 +31,9 @@ export default defineComponent({
 											`fate-type-${player.oracle.fate[i][j]}`,
 										]}
 									>
-										{name[player.oracle.fate[i][j] - 1]}
+										{$t(
+											`oracle.fate.type.${player.oracle.fate[i][j] - 1}.slot`,
+										)}
 										<br />
 										{(player.oracle.fateEffect[i][j] * 100).toFixed(3)}%<br />×
 										{Oracle.getFateEffectRate(i, j) >= 1e5
@@ -74,7 +77,6 @@ export default defineComponent({
 			);
 			return s;
 		});
-		const $t = useI18n().t;
 		return () => (
 			<>
 				<div style={{ textAlign: 'center', margin: 'auto' }} class="oracle">
@@ -123,7 +125,7 @@ export default defineComponent({
 						<br />
 					</div>
 					<br />
-					<div style="width: calc(100% - 80px); height: 700px; padding: 5px; border: 1px solid rgb(127, 63, 0); color: rgb(127, 63, 0); margin: auto; overflow: auto">
+					<div style="width: calc(100% - 80px); height: 900px; padding: 5px; border: 1px solid rgb(127, 63, 0); color: rgb(127, 63, 0); margin: auto; overflow: auto">
 						<h2>{$t('oracle.fate')}</h2>
 						<br />
 						{$t('oracle.fate.desc')}
@@ -131,8 +133,9 @@ export default defineComponent({
 						{player.pt.totalPower.gte(1e30) ? (
 							<>
 								<span style="color: cyan; font-weight: bold;">
-									累计证明论能量令天命效率+
-									{format(Oracle.ptPowerEffectToFateEffect())}%
+									{$t('oracle.fate.effect.1', {
+										effect: format(Oracle.ptPowerEffectToFateEffect()),
+									})}
 								</span>
 							</>
 						) : (
@@ -140,16 +143,17 @@ export default defineComponent({
 						)}
 						<br />
 						<span style="color: rgb(255, 127, 0); font-weight: bold;">
-							达到88神谕比特后，神谕比特总量令天命效率+
-							{format(player.oracle.totalBits.sub(87).max(0).root(2).mul(100))}%
+							{$t('oracle.fate.effect.2', {
+								effect: format(
+									player.oracle.totalBits.sub(87).max(0).root(2).mul(100),
+								),
+							})}
 						</span>
 						<br />
 						{player.pt.totalPower.gte('e5e6') ? (
 							<>
 								<span style="color: cyan; font-weight: bold;">
-									达到{format(new Decimal('ee7'))}
-									证明论能量后，提升证明论能量公式，天命效率+
-									{format(new Decimal(500))}%
+									{$t('oracle.fate.effect.3')}
 								</span>
 							</>
 						) : (
@@ -159,8 +163,7 @@ export default defineComponent({
 						{player.pt.totalPower.gte('ee10') ? (
 							<>
 								<span style="color: cyan; font-weight: bold;">
-									达到{format(new Decimal('e1.5e11'))}
-									证明论能量后，减弱CHE的第二重指数塔软上限
+									{$t('oracle.fate.effect.4')}
 								</span>
 							</>
 						) : (
@@ -195,9 +198,10 @@ export default defineComponent({
 																border: '1px solid silver',
 															}}
 														>
-															空之命({player.oracle.fateBought[0]})
+															{$t('oracle.fate.type.0')}(
+															{player.oracle.fateBought[0]})
 															<br />
-															{formatWhole(Oracle.fateCost(0))}
+															{formatWhole(Oracle.fateCost(0))}&nbsp;
 															{$t('oracle.bit')}
 															{player.oracle.fateChoose == 1 ? (
 																<>
@@ -205,15 +209,23 @@ export default defineComponent({
 																		class="fate-tooltip"
 																		style="border-color: silver"
 																	>
-																		Space
+																		{$t(
+																			'oracle.fate.type.0.title',
+																		)}
 																		<br />
-																		Base: CHE slog + 0.075
+																		{$t(
+																			'oracle.fate.type.0.effect',
+																		)}
 																		<br />
-																		Tot: +
-																		{format(
-																			Oracle.getFateTotalEffect(
-																				1,
-																			),
+																		{$t(
+																			'oracle.fate.type.tot',
+																			{
+																				effect: `+${format(
+																					Oracle.getFateTotalEffect(
+																						1,
+																					),
+																				)}`,
+																			},
 																		)}
 																	</div>
 																</>
@@ -239,9 +251,10 @@ export default defineComponent({
 																border: '1px solid lightgreen',
 															}}
 														>
-															时之命({player.oracle.fateBought[1]})
+															{$t('oracle.fate.type.1')}(
+															{player.oracle.fateBought[1]})
 															<br />
-															{formatWhole(Oracle.fateCost(1))}
+															{formatWhole(Oracle.fateCost(1))}&nbsp;
 															{$t('oracle.bit')}
 															{player.oracle.fateChoose == 2 ? (
 																<>
@@ -249,15 +262,23 @@ export default defineComponent({
 																		class="fate-tooltip"
 																		style="border-color: lightgreen"
 																	>
-																		Time
+																		{$t(
+																			'oracle.fate.type.1.title',
+																		)}
 																		<br />
-																		Base: Proof Power x 1.5
+																		{$t(
+																			'oracle.fate.type.1.effect',
+																		)}
 																		<br />
-																		Tot: x
-																		{format(
-																			Oracle.getFateTotalEffect(
-																				2,
-																			),
+																		{$t(
+																			'oracle.fate.type.tot',
+																			{
+																				effect: `×${format(
+																					Oracle.getFateTotalEffect(
+																						2,
+																					),
+																				)}`,
+																			},
 																		)}
 																	</div>
 																</>
@@ -283,9 +304,10 @@ export default defineComponent({
 																border: '1px solid cyan',
 															}}
 														>
-															生之命({player.oracle.fateBought[2]})
+															{$t('oracle.fate.type.2')}(
+															{player.oracle.fateBought[2]})
 															<br />
-															{formatWhole(Oracle.fateCost(2))}
+															{formatWhole(Oracle.fateCost(2))}&nbsp;
 															{$t('oracle.bit')}
 															{player.oracle.fateChoose == 3 ? (
 																<>
@@ -293,15 +315,23 @@ export default defineComponent({
 																		class="fate-tooltip"
 																		style="border-color: cyan"
 																	>
-																		Life
+																		{$t(
+																			'oracle.fate.type.2.title',
+																		)}
 																		<br />
-																		Base: Idea & Entropy x+ 1.5
+																		{$t(
+																			'oracle.fate.type.2.effect',
+																		)}
 																		<br />
-																		Tot: x
-																		{format(
-																			Oracle.getFateTotalEffect(
-																				3,
-																			),
+																		{$t(
+																			'oracle.fate.type.tot',
+																			{
+																				effect: `×+${format(
+																					Oracle.getFateTotalEffect(
+																						3,
+																					),
+																				)}`,
+																			},
 																		)}
 																	</div>
 																</>
@@ -327,9 +357,10 @@ export default defineComponent({
 																border: '1px solid red',
 															}}
 														>
-															死之命({player.oracle.fateBought[3]})
+															{$t('oracle.fate.type.3')}(
+															{player.oracle.fateBought[3]})
 															<br />
-															{formatWhole(Oracle.fateCost(3))}
+															{formatWhole(Oracle.fateCost(3))}&nbsp;
 															{$t('oracle.bit')}
 															{player.oracle.fateChoose == 4 ? (
 																<>
@@ -337,16 +368,23 @@ export default defineComponent({
 																		class="fate-tooltip"
 																		style="border-color: red"
 																	>
-																		Death
+																		{$t(
+																			'oracle.fate.type.3.title',
+																		)}
 																		<br />
-																		Base: Garden Local Speed x+
-																		1.5
+																		{$t(
+																			'oracle.fate.type.3.effect',
+																		)}
 																		<br />
-																		Tot: x
-																		{format(
-																			Oracle.getFateTotalEffect(
-																				4,
-																			),
+																		{$t(
+																			'oracle.fate.type.tot',
+																			{
+																				effect: `×+${format(
+																					Oracle.getFateTotalEffect(
+																						4,
+																					),
+																				)}`,
+																			},
 																		)}
 																	</div>
 																</>
@@ -372,9 +410,10 @@ export default defineComponent({
 																border: '1px solid blue',
 															}}
 														>
-															理之命({player.oracle.fateBought[4]})
+															{$t('oracle.fate.type.4')}(
+															{player.oracle.fateBought[4]})
 															<br />
-															{formatWhole(Oracle.fateCost(4))}
+															{formatWhole(Oracle.fateCost(4))}&nbsp;
 															{$t('oracle.bit')}
 															{player.oracle.fateChoose == 5 ? (
 																<>
@@ -382,10 +421,13 @@ export default defineComponent({
 																		class="fate-tooltip"
 																		style="border-color: blue"
 																	>
-																		Justice
+																		{$t(
+																			'oracle.fate.type.4.title',
+																		)}
 																		<br />
-																		Raise the sorrunding other
-																		fate x 1.8
+																		{$t(
+																			'oracle.fate.type.4.effect',
+																		)}
 																		<br />
 																	</div>
 																</>
@@ -403,20 +445,25 @@ export default defineComponent({
 							</tbody>
 						</table>
 						<h3>
-							Vow points: {formatWhole(player.oracle.vowPoints)}/
+							{$t('oracle.fate.vow')}
+							{formatWhole(player.oracle.vowPoints)}/
 							{formatWhole(player.oracle.vowCoe)}
 						</h3>
 						<br />
-						GardenGenerator Progress
+						{$t('oracle.fate.vow.p.0')}
 						{(player.oracle.gardenGenTimeProgress * 100).toFixed(2)}%<br />
-						Proof-Theory Reset Progress
+						{$t('oracle.fate.vow.p.1')}
 						{(player.oracle.ptResetTimeProgress * 100).toFixed(2)}%
 						<br />
-						<button class="clickable_button" onClick={() => Oracle.respec()}>
-							Respec
+						<button
+							class="clickable_button"
+							onClick={() => Oracle.respec()}
+							style={{ textAlign: 'center', margin: 'auto' }}
+						>
+							{$t('oracle.fate.vow.respec')}
 						</button>
 					</div>
-					{player.pt.totalPower.lt('1e9') && '下一个机制将在1e9证明论能量解锁'}
+					{player.pt.totalPower.lt('1e9') && $t('oracle.fate.tip')}
 					{/* <br />
 					<div
 						style={{
