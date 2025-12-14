@@ -6,75 +6,75 @@ import { MILESTONES, upgrades } from '@/core/mechanic';
 import { NON_REC_BMS } from '../../nonrecu/nonrec-bms/index.ts';
 export function initSINMiletones() {
 	MILESTONES.create('sin_1', {
-		requirement: new Decimal(500),
+		requirement: new Decimal(1000),
 		currency: 'karma',
 		displayName: 'M-SIN-1',
 		show: true,
 		get canDone() {
-			return player.oracle.originalsin.karma.gte(500);
+			return player.oracle.originalsin.karma.gte(1000);
 		},
 	});
 	MILESTONES.create('sin_2', {
-		requirement: new Decimal(1500),
+		requirement: new Decimal(8000),
 		currency: 'karma',
 		displayName: 'M-SIN-2',
 		show: true,
 		get canDone() {
-			return player.oracle.originalsin.karma.gte(1500);
+			return player.oracle.originalsin.karma.gte(8000);
 		},
 	});
 	MILESTONES.create('sin_3', {
-		requirement: new Decimal('e1e12'),
+		requirement: new Decimal('e1.35e12'),
 		currency: 'pt_power',
 		displayName: 'M-SIN-3',
 		show: true,
 		get canDone() {
-			return player.pt.power.gte('e1e12');
+			return player.pt.power.gte('e1.35e12');
 		},
 	});
 	MILESTONES.create('sin_4', {
-		requirement: new Decimal('e1.1e12'),
+		requirement: new Decimal('e1.45e12'),
 		currency: 'pt_power',
 		displayName: 'M-SIN-4',
 		show: true,
 		get canDone() {
-			return player.pt.power.gte('e1.1e12');
+			return player.pt.power.gte('e1.45e12');
 		},
 	});
 	MILESTONES.create('sin_5', {
-		requirement: new Decimal('e1.4e12'),
+		requirement: new Decimal('e1.6e14'),
 		currency: 'pt_power',
 		displayName: 'M-SIN-5',
 		show: true,
 		get canDone() {
-			return player.pt.power.gte('e1.4e12');
+			return player.pt.power.gte('e1.6e14');
 		},
 	});
 	MILESTONES.create('sin_6', {
-		requirement: new Decimal('e1.2e13'),
+		requirement: new Decimal('ee15'),
 		currency: 'pt_power',
 		displayName: 'M-SIN-6',
 		show: true,
 		get canDone() {
-			return player.pt.power.gte('e1.2e13');
+			return player.pt.power.gte('ee15');
 		},
 	});
 	MILESTONES.create('sin_7', {
-		requirement: new Decimal('e6e13'),
+		requirement: new Decimal('e6e15'),
 		currency: 'pt_power',
 		displayName: 'M-SIN-7',
 		show: true,
 		get canDone() {
-			return player.pt.power.gte('e6e13');
+			return player.pt.power.gte('e6e15');
 		},
 	});
 	MILESTONES.create('sin_8', {
-		requirement: new Decimal('30000'),
+		requirement: new Decimal('200000'),
 		currency: 'karma',
 		displayName: 'M-SIN-8',
 		show: true,
 		get canDone() {
-			return player.oracle.originalsin.karma.gte(30000) && player.milestones.sin_7;
+			return player.oracle.originalsin.karma.gte(200000);
 		},
 	});
 	MILESTONES.create('sin_9', {
@@ -87,12 +87,12 @@ export function initSINMiletones() {
 		},
 	});
 	MILESTONES.create('sin_10', {
-		requirement: new Decimal('33333333'),
+		requirement: new Decimal('66666666'),
 		currency: 'karma',
 		displayName: 'M-SIN-10',
 		show: true,
 		get canDone() {
-			return player.oracle.originalsin.karma.gte(33333333);
+			return player.oracle.originalsin.karma.gte(66666666);
 		},
 	});
 }
@@ -112,7 +112,7 @@ export const SIN = {
 			.mul(player.pt.power.log10().pow(0.5).add(Math.E).ln())
 			.mul(
 				player.milestones['sin_7']
-					? player.pt.power.add(1e10).log10().log10().log10().add(1).pow(5).max(1)
+					? player.pt.power.add(1e10).log10().log10().log10().add(1).pow(3).max(1)
 					: 1,
 			)
 			.mul(player.milestones['sin_10'] ? NON_REC_BMS.effects()[1] : 1);
@@ -120,7 +120,7 @@ export const SIN = {
 	isUnlocked() {
 		return (
 			Oracle.isUnlocked() &&
-			(player.hydra.totalCompressedPower.gte('1f200') ||
+			(player.hydra.totalCompressedPower.gte('1f1022') ||
 				player.oracle.originalsin.karma.gte(1))
 		);
 	},

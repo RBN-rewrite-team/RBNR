@@ -93,15 +93,15 @@ export const NRBUpgrades = {
 	})(),
 	'810': new (class extends Upgrade {
 		name = 'U7-10';
-		cost = new Decimal('1e2000');
+		cost = new Decimal('1e256000');
 		currency: Currencies = Currencies.PT_POWER;
 	})(),
 	'811': new (class extends UpgradeWithEffect<Decimal> {
 		name = 'U7-11';
-		cost = new Decimal('e1e4');
+		cost = new Decimal('ee6');
 		currency: Currencies = Currencies.PT_POWER;
 		effect(): Decimal {
-			return player.pt.power.add(10).log10().add(10).log10().root(2).mul(4);
+			return player.pt.power.add(10).log10().add(10).log10().root(2).mul(2);
 		}
 		effectDescription(values: Decimal): string {
 			return '+' + format(values);
@@ -109,27 +109,27 @@ export const NRBUpgrades = {
 	})(),
 	'812': new (class extends Upgrade {
 		name = 'U7-12';
-		cost = new Decimal('e1.8e4');
+		cost = new Decimal('e1.8e6');
 		currency: Currencies = Currencies.PT_POWER;
 	})(),
 	'813': new (class extends Upgrade {
 		name = 'U7-13';
-		cost = new Decimal('e1.5e6');
+		cost = new Decimal('e1.5e8');
 		currency: Currencies = Currencies.PT_POWER;
 	})(),
 	'814': new (class extends Upgrade {
 		name = 'U7-14';
-		cost = new Decimal('e1.8e6');
+		cost = new Decimal('e1.8e8');
 		currency: Currencies = Currencies.PT_POWER;
 	})(),
 	'815': new (class extends Upgrade {
 		name = 'U7-15';
-		cost = new Decimal('e2.5e6');
+		cost = new Decimal('e2.5e8');
 		currency: Currencies = Currencies.PT_POWER;
 	})(),
 	'816': new (class extends Upgrade {
 		name = 'U7-16';
-		cost = new Decimal('e5e6');
+		cost = new Decimal('e5e8');
 		currency: Currencies = Currencies.PT_POWER;
 	})(),
 } as const satisfies {

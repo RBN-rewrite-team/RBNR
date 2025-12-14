@@ -601,7 +601,7 @@ export const Hydra = {
 			}
 		})(),
 		'6218': new (class extends UpgradeWithEffect<Decimal> {
-			cost = new Decimal('1f23');
+			cost = new Decimal('1f35');
 			name = 'U5-2-18';
 			currency: Currencies = Currencies.COMP_HYDRA;
 			show(): boolean {
@@ -615,7 +615,7 @@ export const Hydra = {
 			}
 		})(),
 		'6219': new (class extends Upgrade {
-			cost = new Decimal('4f27');
+			cost = new Decimal('4f36');
 			name = 'U5-2-19';
 			currency: Currencies = Currencies.COMP_HYDRA;
 			show(): boolean {
@@ -623,7 +623,7 @@ export const Hydra = {
 			}
 		})(),
 		'6220': new (class extends Upgrade {
-			cost = new Decimal('1.14514f30');
+			cost = new Decimal('1f40');
 			name = 'U5-2-20';
 			currency: Currencies = Currencies.COMP_HYDRA;
 			show(): boolean {
