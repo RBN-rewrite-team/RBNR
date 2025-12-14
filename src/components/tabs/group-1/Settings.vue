@@ -54,8 +54,8 @@ const q = useUpdate(() => openedAutosave());
 				{{ $t('set.saveslot') }}
 			</div>
 			<div class="setting_button" @click="() => UIEnterTesting($t)">{{ $t('set.beta') }}</div>
-			<div class="setting_button" @click="player.options.gammaTest = true">
-				{{ $t('set.gamma') }}
+			<div class="setting_button" style="opacity: 0.5">
+				{{ /*$t('set.gamma')*/ $t('set.gamma.unabled') }}
 			</div>
 			<button
 				class="setting_button"

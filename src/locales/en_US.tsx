@@ -2327,4 +2327,5 @@ THEN YOU CAN GET REVELATION.<br />
 		'Prove the well-orderness of Y sequence, requires F9.0070e15 Deduction Energy',
 	'nt.wellorderness.y.effect': `Reward (of the well-orderness of Y): Remove the softcap of lemmas. You can do 2nd retribution reset after F3.403e38 Compressed Hydra Energy.<br />You gain 1 deduction energy^2.`,
 	'nt.wellorderness.y.2': `You have <b style="color: #c98300; font-size: 30px">{a}</b> deduction energy^2, makes lemma prover\s speed ×{effect}.`,
+	'set.gamma.unabled': 'Because the existing Gamma test has entered a special stage, you can\'t enter the Gamma test now.',
 };

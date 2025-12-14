@@ -2166,4 +2166,5 @@ export default {
 	'nt.wellorderness.y.prove': '证明Y序列良序性，需要F9.007e15推演能量',
 	'nt.wellorderness.y.effect': `Y序列良序性奖励： 移除引理速度软上限。在到达F3.403e38压缩九头蛇能量后，你可以进行第二次果报<br />你每秒获得1二重推演能量。`,
 	'nt.wellorderness.y.2': `你有<b style="color: #c98300; font-size: 30px">{a}</b>二重推演能量，使引理证明速度×{effect}。`,
+	'set.gamma.unabled': '由于已有的Gamma测试进入特殊阶段，现在你不能进入Gamma测试',
 };
