@@ -12,6 +12,7 @@ function showChapter(id = 0): boolean {
 	if (id === 4) return player.singularity.t >= 675;
 	if (id === 5) return player.upgrades['517'];
 	if (id === 6) return player.nonrecu.power.gt(0);
+	if (id === 7) return player.pt.resetTimes.gt(0);
 	return false;
 }
 const chapters = [
@@ -57,11 +58,17 @@ const chapters = [
 		color: `#c98300`,
 		color2: `rgb(245, 193, 73)`,
 	},
+	{
+		id: 7,
+		symbol: 'Σ',
+		color: 'rgb(0, 255, 255)',
+		color2: 'rgb(0, 127, 127)',
+	},
 ] as const;
 </script>
 
 <template>
-	<template v-for="i in 7">
+	<template v-for="i in 8">
 		<div
 			v-if="showChapter(i - 1)"
 			@click="player.stat.chapter = Math.max(player.stat.chapter, chapters[i - 1].id)"

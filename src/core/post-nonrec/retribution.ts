@@ -17,6 +17,7 @@ import { wellOrderPlayerData } from '../ordinal/well_ordering';
 import { Y_SEQ } from './y-seq';
 import { Oracle } from '../pt/oracle/oracle';
 import { Garden } from '../pt/garden';
+import { isDeveloper } from '../save/testing';
 
 // prettier-ignore
 const resetUpgrades = [
@@ -151,11 +152,13 @@ export const RETRIBUTION = {
 				onConfirm() {
 					if (!RETRIBUTION.resetable()) return;
 					if (player.retribution >= 1) {
-						ModalService.show({
-							title: '2rd retribution reset is blocked',
-							content: '没做完',
-						});
-						return;
+						if (!isDeveloper()) {
+							ModalService.show({
+								title: '2nd retribution reset is blocked',
+								content: 'WIP',
+							});
+							return;
+						}
 					}
 					RETRIBUTION.replayAnimation();
 					setTimeout(function () {

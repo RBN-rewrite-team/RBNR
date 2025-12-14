@@ -257,14 +257,14 @@ export const menus = [
 				id: 32,
 				text: 'tab.oracle',
 				show() {
-					return Oracle.isUnlocked() && isTester();
+					return Oracle.isUnlocked() && player.options.gammaTest;
 				},
 			},
 			{
 				id: 34,
 				text: 'tab.sin',
 				show() {
-					return SIN.isUnlocked() && isTester();
+					return SIN.isUnlocked() && player.options.gammaTest;
 				},
 			},
 		],

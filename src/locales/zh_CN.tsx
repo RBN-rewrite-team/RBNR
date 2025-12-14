@@ -39,7 +39,7 @@ import bmswellorder4prove from '@/components/tabs/ordinalnt/ordinalnt5-content/b
 export default {
 	'title.rewritten': '大数之路重制版',
 	'title.idlen': '大数之路放置版',
-	'title.version': 'Fate Beta',
+	'title.version': 'Fate Gamma/2nd Retribution Alpha',
 	'tab.dungeon': '地下城',
 	'tab.successor': '后继',
 	'tab.options': '杂项',
@@ -92,7 +92,7 @@ export default {
 	'about.dutexuehua': '独特雪花',
 	'about.jinghuoomega': '静火Ω',
 
-	'about.version': '版本: Fate Alpha/Garden (v0.7.2)',
+	'about.version': '版本: Fate Gamma/2nd Retribution Alpha (v0.7.3 Gamma)',
 
 	'succ.successor': '后继',
 	'succ.addition': '加法',
@@ -1597,6 +1597,16 @@ export default {
 		text1: '非递归',
 		text: '长路无间',
 	},
+	chapa7: {
+		title: '第七章',
+		text1: '证明论',
+		text: '渺无人踪',
+	},
+	chapa8: {
+		title: '第八章',
+		text1: '基数',
+		text: '初识真我',
+	},
 	'uselessconfirm.0.t': '加法重置',
 	'uselessconfirm.0':
 		'你真的要重置吗？这将重置你之前的数值、大部分升级和购买项。<br>你将获得 {gain} 加法能量。',
@@ -2069,7 +2079,8 @@ export default {
 	'upgs.mil.sin_7': '证明论能量增幅罪',
 	'upgs.mil.sin_8': '业的获取速度^1.75',
 	'upgs.mil.sin_9': '每秒获得100%证明论能量',
-	'upgs.mil.sin_10': '解锁<b>Y序列</b>的良序性推演，解锁非递归BMS的第二效果，证明论不再重置数论研究5',
+	'upgs.mil.sin_10':
+		'解锁<b>Y序列</b>的良序性推演，解锁非递归BMS的第二效果，证明论不再重置数论研究5',
 	'currency.never': '奇点能量',
 	'upgs.sing1': '启动奇点生成器',
 	'ts.vowreduce': '愿力阈值-{value}',
@@ -2092,4 +2103,67 @@ export default {
 	'set.autosave': '自动存档',
 	'retri.reset2':
 		'你会失去你所有的非递归进度，九头蛇进度，证明论进度，以及升级...<br>但是你会获得启示和1<b>奇点能量</b>，获得更恐怖的力量...',
+
+	'oracle.fate.type.0': '空之命',
+	'oracle.fate.type.1': '时之命',
+	'oracle.fate.type.2': '生之命',
+	'oracle.fate.type.3': '死之命',
+	'oracle.fate.type.4': '理之命',
+
+	'oracle.fate.type.0.title': '空间',
+	'oracle.fate.type.0.effect': '压缩九头蛇能量slog +0.075',
+
+	'oracle.fate.type.1.title': '时间',
+	'oracle.fate.type.1.effect': '证明论能量 ×0.075',
+
+	'oracle.fate.type.2.title': '生',
+	'oracle.fate.type.2.effect': '想法 熵 ×+0.075',
+
+	'oracle.fate.type.3.title': '死',
+	'oracle.fate.type.3.effect': '花园本地速度 ×+0.075',
+
+	'oracle.fate.type.4.title': '理',
+	'oracle.fate.type.4.effect': '对周围的天命效果 ×1.8',
+
+	'oracle.fate.type.tot': '总计效果: {effect}',
+
+	'oracle.fate.type.0.slot': '空',
+	'oracle.fate.type.1.slot': '时',
+	'oracle.fate.type.2.slot': '生',
+	'oracle.fate.type.3.slot': '死',
+	'oracle.fate.type.4.slot': '理',
+
+	'oracle.fate.effect.1': '累计证明论能量令天命效率+{effect}%',
+	'oracle.fate.effect.2': '达到88神谕比特后，神谕比特总量令天命效率+{effect}%',
+	'oracle.fate.effect.3':
+		'达到1e10,000,000 证明论能量后，提升证明论能量公式，天命效率+500.0000%(静态)',
+	'oracle.fate.effect.4': '达到e1.500e11证明论能量后，减弱CHE的第二重指数塔软上限',
+
+	'oracle.fate.tip': '下一个机制将在1e9证明论能量解锁',
+
+	'oracle.fate.vow': '愿力: ',
+	'oracle.fate.vow.p.0': '花园发电机收集进度',
+	'oracle.fate.vow.p.1': '证明论重置收集进度',
+	'oracle.fate.vow.respec': '重置',
+
+	'oracle.sin.value': '你有 {value} 罪（不是真的罪）',
+	'oracle.sin.youhave': '你有 {value} 业',
+	'oracle.sin.effect2': '，令CHE在软上限后slog+{effect}',
+
+	'nonrecbms.value': '你的非递归BMS推演次数为{a},序数为',
+	'nonrecbms.effect.0': '非递归BMS使CHE slog +{effect}',
+	'nonrecbms.effect.1': '业的获取速度 ×{effect}',
+
+	'nt.wellorderness.y.a': `你已经证明了<b style="color: #c98300; font-size: 30px">{lemmas}</b
+			>个引理(CHE+{effect1}slog)，<b style="color: #c98300; font-size: 30px">{theorems}</b
+			>个定理({pending}未确认,引理效果×{effect2})。`,
+
+	'nt.wellorderness.y.level.a': '你的引理等级为{lemma}, 定理等级为{theorem}。',
+	'nt.wellorderness.y.level.le': `提升引理等级，需要{requires}定理。<br />引理证明速度/4，但是效果×1.5。`,
+	'nt.wellorderness.y.level.th': `提升定理等级，需要{requires}定理。<br />重置之前的内容，但是定理效果^1.5。`,
+	'nt.wellorderness.y.level.re': `降低1引理等级，不返还被消耗的定理`,
+	'nt.wellorderness.y.status': `启用定理证明器`,
+	'nt.wellorderness.y.prove': '证明Y序列良序性，需要F9.007e15推演能量',
+	'nt.wellorderness.y.effect': `Y序列良序性奖励： 移除引理速度软上限。在到达F3.403e38压缩九头蛇能量后，你可以进行第二次果报<br />你每秒获得1二重推演能量。`,
+	'nt.wellorderness.y.2': `你有<b style="color: #c98300; font-size: 30px">{a}</b>二重推演能量，使引理证明速度×{effect}。`,
 };
