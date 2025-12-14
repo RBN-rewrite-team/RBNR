@@ -692,5 +692,5 @@ export function metaEnergyEffect() {
 			.mul(18 / 4)
 			.clampMax(18)
 			.clampMin(1),
-	);
+	).log10().min(64).pow10();
 }
