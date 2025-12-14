@@ -39,7 +39,7 @@ import bmswellorder4prove from '@/components/tabs/ordinalnt/ordinalnt5-content/b
 export default {
 	'title.rewritten': '大数之路重制版',
 	'title.idlen': '大数之路放置版',
-	'title.version': 'Fate Beta',
+	'title.version': 'Fate Gamma/2nd Retribution Alpha',
 	'tab.dungeon': '地下城',
 	'tab.successor': '后继',
 	'tab.options': '杂项',
@@ -92,7 +92,7 @@ export default {
 	'about.dutexuehua': '独特雪花',
 	'about.jinghuoomega': '静火Ω',
 
-	'about.version': '版本: Fate Alpha/Garden (v0.7.2)',
+	'about.version': '版本: Fate Alpha/Garden (v0.7.3 Gamma)',
 
 	'succ.successor': '后继',
 	'succ.addition': '加法',

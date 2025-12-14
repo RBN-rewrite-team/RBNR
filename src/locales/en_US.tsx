@@ -46,7 +46,7 @@ import bmswellorder4prove from '@/components/tabs/ordinalnt/ordinalnt5-content-e
 export default {
 	'title.rewritten': 'Road of Big Number Rewritten',
 	'title.idlen': 'Road of Big Number (Special Idle Version)',
-	'title.version': 'Fate Beta',
+	'title.version': 'Fate Gamma/2nd Retribution Alpha',
 	'tab.dungeon': 'Dungeon',
 	'tab.successor': 'Successor',
 	'tab.options': 'Options',
@@ -96,7 +96,7 @@ export default {
 	'about.dutexuehua': 'Dutexuehua',
 	'about.jinghuoomega': 'GoldenApple125',
 
-	'about.version': 'Version:  Garden Gamma/i18n Gamma (v0.7.2 Gamma)',
+	'about.version': 'Version:  Fate Alpha/Garden (v0.7.3 Gamma)',
 
 	'set.title.saveset': 'Save settings',
 	'set.title.notations': 'Notations',
