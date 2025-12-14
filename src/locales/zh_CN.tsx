@@ -92,7 +92,7 @@ export default {
 	'about.dutexuehua': '独特雪花',
 	'about.jinghuoomega': '静火Ω',
 
-	'about.version': '版本: Fate Alpha/Garden (v0.7.3 Gamma)',
+	'about.version': '版本: Fate Gamma/2nd Retribution Alpha (v0.7.3 Gamma)',
 
 	'succ.successor': '后继',
 	'succ.addition': '加法',

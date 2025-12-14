@@ -96,7 +96,7 @@ export default {
 	'about.dutexuehua': 'Dutexuehua',
 	'about.jinghuoomega': 'GoldenApple125',
 
-	'about.version': 'Version:  Fate Alpha/Garden (v0.7.3 Gamma)',
+	'about.version': 'Version: Fate Gamma/2nd Retribution Alpha (v0.7.3 Gamma)',
 
 	'set.title.saveset': 'Save settings',
 	'set.title.notations': 'Notations',
