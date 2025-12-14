@@ -554,7 +554,7 @@ const lt = useUpdate(() => ltEffect());
 			@click="proveYSeqWellorderness"
 			v-if="!player.numbertheory.well_ordering.ySeqWellOrderness"
 		>
-			证明Y序列良序性，需要F9.007e15推演能量(Coming Soon)
+			证明Y序列良序性，需要F9.007e15推演能量
 		</button>
 		<div v-else>
 			<div style="color: darkgreen">
