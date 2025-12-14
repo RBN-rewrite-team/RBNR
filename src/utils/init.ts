@@ -111,8 +111,7 @@ export function init() {
 				import.meta.env.DEV ? 0 : 2000,
 			);
 		});
-		let isSingleTab = true
-		if (false)detector = new MultiTabDetector({
+		detector = new MultiTabDetector({
 			heartbeatInterval: 3000,
 			onMultipleTabs: (result) => {
 				// isMultiTab.value = result.isMultiTab;
@@ -121,24 +120,20 @@ export function init() {
 				//   options.onDetection(result);
 				// }
 				console.log('Detected multi tabs');
-				if (isSingleTab) {
-				  ModalService.show({
-					  title: getMessage('detectedmulti.title'),
-					  content: getMessage('detectedmulti.content'),
-				  });
-				  stopSaveLoop();
-				  isSingleTab = false
-				}
+				ModalService.show({
+					title: getMessage('detectedmulti.title'),
+					content: getMessage('detectedmulti.content'),
+				});
+				stopSaveLoop();
 			},
 			onSingleTab: (result) => {
 				console.log("There\'s no wrong");
 				// isMultiTab.value = false;
 				// tabCount.value = 1;
 				startSaveLoop();
-				isSingleTab = true
 			},
 		});
-		if (false)detector.detect();
+		detector.detect();
 
 		// console.log(JSON.stringify(localization));
 	} catch (e) {
