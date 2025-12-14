@@ -32,6 +32,7 @@ import { getMessage } from '@/utils/i18n.ts';
 import { numberGrow } from './psd-number-grow.ts';
 import { Oracle } from './pt/oracle/oracle.ts';
 import { Performance } from './performance.tsx';
+import { isDeveloper, isTester } from './save/testing.ts';
 
 /**
  * 游戏循环经过了多少时间
@@ -142,6 +143,10 @@ export function msToTimeshard(diff: number) {
 export function gameLoop() {
 	updateTheme();
 	diff = Date.now() - player.lastUpdated;
+
+	if (isTester() || isDeveloper()) {
+		player.options.gammaTest = true;
+	}
 	if (diff > 60000) {
 		if (player.options.allowOffline) {
 			simulateOffline(diff);
