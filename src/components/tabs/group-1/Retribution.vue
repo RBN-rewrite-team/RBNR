@@ -9,7 +9,7 @@ function retributionText() {
 		return player.hydra.deduceOrdinal[0].lt('eeee10') ? '...' : $t('retri.2');
 	}
 	if (player.retribution < 2) {
-		if (false) return $t('retri.2');
+		if (RETRIBUTION.resetable()) return $t('retri.2');
 		if (player.hydra.totalCompressedPower.gte('f1e24')) return ',.,.,.,.,.;-,.-,.;.,.-,.-';
 		if (player.hydra.totalCompressedPower.gte('f1e6')) return '...........................';
 		if (player.hydra.totalCompressedPower.gte('1f1000')) return '...';

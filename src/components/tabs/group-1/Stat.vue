@@ -17,7 +17,8 @@ import CenterLine from '@/components/ui/CenterLine.vue';
 import { currencyName, Currencies } from '@/core/currencies.ts';
 import { useI18n } from 'vue-i18n';
 import { i18n } from '@/utils/i18n.ts';
-import { preCardinalSpeed, diff } from '@/core/game-loop.ts';
+import { preCardinalSpeed, diff, openedAutosave } from '@/core/game-loop.ts';
+import { useUpdate } from '@/lib/useUpdate.ts';
 const $t = useI18n().t;
 const LunarMap = {
 	New: '新月',

@@ -91,6 +91,9 @@ export const UPGRADES = {
 		if (upgrades[id].name.startsWith('U5-1-') && player.retribution != 0) {
 			a = false;
 		}
+		if (upgrades[id].name.startsWith('U5-2-') && player.retribution != 1) {
+			a = false;
+		}
 		return { show: a, unlocked: flag, reach: reach };
 	},
 	/**

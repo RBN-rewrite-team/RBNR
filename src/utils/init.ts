@@ -10,7 +10,7 @@ import hotkeys from 'hotkeys-js';
 import { vHold } from './vHold.ts';
 import { Dilute } from '@/core/hydra/dilute.ts';
 
-import { startGameLoop, stopGameLoop, stopSaveLoop } from '@/core/game-loop';
+import { startGameLoop, startSaveLoop, stopGameLoop, stopSaveLoop } from '@/core/game-loop';
 import { NON_RECURSIVE } from '@/core/nonrecu/index.ts';
 import ModalService from './Modal.ts';
 import { keyboardEventListener } from '@/core/minigame/index.ts';
@@ -20,9 +20,11 @@ import { reinitializeMusic } from '@/core/music.ts';
 import { timeCheck } from './time-check.ts';
 import { initPTMilestones } from '@/core/pt/milestones.ts';
 import App from '@/App.tsx';
-import { i18n } from './i18n.ts';
+import { getMessage, i18n } from './i18n.ts';
 import { initSINMiletones } from '@/core/pt/oracle/sin.ts';
 import { tryGetFingerprintJS } from './fingerprint.ts';
+import { MultiTabDetector } from './tab-detector.ts';
+let detector;
 export function init() {
 	try {
 		timeCheck();
@@ -109,6 +111,29 @@ export function init() {
 				import.meta.env.DEV ? 0 : 2000,
 			);
 		});
+		detector = new MultiTabDetector({
+			heartbeatInterval: 3000,
+			onMultipleTabs: (result) => {
+				// isMultiTab.value = result.isMultiTab;
+				// tabCount.value = result.tabCount;
+				// if (options?.onDetection) {
+				//   options.onDetection(result);
+				// }
+				console.log('Detected multi tabs');
+				ModalService.show({
+					title: getMessage('detectedmulti.title'),
+					content: getMessage('detectedmulti.content'),
+				});
+				stopSaveLoop();
+			},
+			onSingleTab: (result) => {
+				console.log("There\'s no wrong");
+				// isMultiTab.value = false;
+				// tabCount.value = 1;
+				startSaveLoop();
+			},
+		});
+		detector.detect();
 
 		// console.log(JSON.stringify(localization));
 	} catch (e) {

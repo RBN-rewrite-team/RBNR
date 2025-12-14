@@ -21,7 +21,7 @@ import { Garden } from '../pt/garden.ts';
 import { Oracle } from '../pt/oracle/oracle.ts';
 import ModalService from '@/utils/Modal.ts';
 import type { messages } from '@/utils/i18n.ts';
-import PowiainaNum from 'powiaina_num.js';
+import PowiainaNum, { type PowiainaNumSource } from 'powiaina_num.js';
 import { Pow } from '../automator/lexer.ts';
 import { convertBEDecimalToPn } from '@/lib/PNBEConvert.ts';
 
@@ -374,7 +374,7 @@ function deepMerge<T>(source: T, target: DeepPartial<T>, expectedKey?: string[])
 				targetItem !== null &&
 				sourceItem !== null &&
 				typeof sourceItem === 'object' &&
-				!(sourceItem instanceof Decimal)
+				!(sourceItem instanceof Decimal || sourceItem instanceof PowiainaNum)
 			) {
 				result[i] = deepMerge(
 					sourceItem,
@@ -385,7 +385,7 @@ function deepMerge<T>(source: T, target: DeepPartial<T>, expectedKey?: string[])
 				result[i] = new Decimal(targetItem as DecimalSource);
 			} else if (sourceItem instanceof PowiainaNum) {
 				result[i] =
-					typeof targetItem == 'object'
+					typeof targetItem == 'object' && targetItem instanceof Decimal
 						? new PowiainaNum(convertBEDecimalToPn(targetItem))
 						: new PowiainaNum(targetItem);
 			} else if (sourceItem === undefined && targetItem !== undefined) {
@@ -422,7 +422,7 @@ function deepMerge<T>(source: T, target: DeepPartial<T>, expectedKey?: string[])
 			} else if (
 				sourceValue !== null &&
 				typeof sourceValue === 'object' &&
-				!(sourceValue instanceof Decimal)
+				!(sourceValue instanceof Decimal || sourceValue instanceof PowiainaNum)
 			) {
 				result[key] = deepMerge(sourceValue, targetValue, expectedKey) as T[Extract<
 					keyof T,
@@ -433,6 +433,14 @@ function deepMerge<T>(source: T, target: DeepPartial<T>, expectedKey?: string[])
 					keyof T,
 					string
 				>];
+			} else if (sourceValue instanceof PowiainaNum) {
+				result[key] =
+					typeof targetValue == 'object' && targetValue instanceof Decimal
+						? new PowiainaNum(convertBEDecimalToPn(targetValue))
+						: (new PowiainaNum(targetValue as PowiainaNumSource) as T[Extract<
+								keyof T,
+								string
+							>]);
 			} else if (targetValue !== null && typeof targetValue === 'object') {
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				result[key] = deepMerge(targetValue, sourceValue as any, expectedKey);
@@ -538,7 +546,8 @@ export function loadFromString(saveContent: string, non_options = false) {
 		}
 	}
 	if (player.version <= 13) {
-		player.numbertheory.well_ordering.lemma_level = player.numbertheory.well_ordering.lemma_level.clampMin(0)
+		player.numbertheory.well_ordering.lemma_level =
+			player.numbertheory.well_ordering.lemma_level.clampMin(0);
 	}
 	player.version = version;
 }

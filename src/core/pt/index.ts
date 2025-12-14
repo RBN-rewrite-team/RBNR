@@ -324,6 +324,6 @@ export const Analysis = {
 			if (CHE.slog().gte(1280)) base = base.pow(CHE.slog().sub(1180).div(100).max(1));
 			if (CHE.slog().gte(1600)) base = base.pow(CHE.slog().sub(600).div(1000).root(2).max(1));
 		}
-		return base.min("(e^3.402823669209385e+38)153.90699754796802");
+		return base.min('(e^3.402823669209385e+38)153.90699754796802');
 	},
 } as const;

@@ -11,6 +11,8 @@ import { getTotalTheories } from '../nonrecu/total-theories.ts';
 import { RETRIBUTION } from '@/core/post-nonrec/retribution';
 import { unwrapDecimalValue } from '@/lib/funcs.ts';
 import { Analysis } from '@/core/pt/index.ts';
+import PowiainaNum from 'powiaina_num.js';
+import { convertPNToBEDecimal } from '@/lib/PNBEConvert.ts';
 
 function B6R13_B6R14_base() {
 	let base = new Decimal(0.05);
@@ -343,7 +345,7 @@ export const WellOrderingUpgrades = {
 		}
 		effect() {
 			let base = player.hydra.totalCompressedPower.slog().clampMin(10).log10();
-			if(player.upgrades['U6R38']) base = base.pow(2);
+			if (player.upgrades['U6R38']) base = base.pow(2);
 			return base;
 		}
 		effectDescription(values: Decimal): string {
@@ -359,7 +361,7 @@ export const WellOrderingUpgrades = {
 		}
 		effect() {
 			let base = player.hydra.totalCompressedPower.slog().clampMin(10).log10();
-			if(player.upgrades['U6R38']) base = base.pow(1.5);
+			if (player.upgrades['U6R38']) base = base.pow(1.5);
 			return base;
 		}
 		effectDescription(values: Decimal): string {
@@ -421,8 +423,13 @@ export const WellOrderingUpgrades = {
 			return player.upgrades['U6R38'];
 		}
 		effect() {
-			let base = player.numbertheory.well_ordering.lemmas.mul(4).max(1).root(4).mul(10).sub(9);
-			if(player.upgrades['U6R312']) base = base.pow(1.5);
+			let base = player.numbertheory.well_ordering.lemmas
+				.mul(4)
+				.max(1)
+				.root(4)
+				.mul(10)
+				.sub(9);
+			if (player.upgrades['U6R312']) base = base.pow(1.5);
 			return base;
 		}
 		effectDescription(values: Decimal): string {
@@ -520,9 +527,16 @@ export function wellOrderPlayerData() {
 		lemma_level: new Decimal(1),
 		theorem_level: new Decimal(1),
 		theoremProveStatus: true,
+		ySeqWellOrderness: false,
+
+		energy2: new PowiainaNum(0),
 	};
 }
-
+export function proveYSeqWellorderness() {
+	if (player.numbertheory.well_ordering.energy.gte('f9.007e15')) {
+		player.numbertheory.well_ordering.ySeqWellOrderness = true;
+	}
+}
 export function energyToUNOCFSpeed() {
 	return player.numbertheory.well_ordering.energy.add(1).clampMin(1);
 }
@@ -544,8 +558,8 @@ export function ltEffect() {
 		.ln()
 		.pow(Decimal.pow(1.5, player.numbertheory.well_ordering.theorem_level.sub(1)));
 	a[0] = a[0].mul(a[1]);
-	if(player.upgrades['U6R37']) a[0] = a[0].mul(10);
-	if(player.upgrades['U6R39']) a[0] = a[0].pow(1.1);
+	if (player.upgrades['U6R37']) a[0] = a[0].mul(10);
+	if (player.upgrades['U6R39']) a[0] = a[0].pow(1.1);
 	return a;
 }
 
@@ -574,10 +588,14 @@ export function ltGain() {
 	if (player.upgrades['U6R311']) {
 		a[1] = a[1].mul(upgrades['U6R311'].effect());
 	}
-	if (!player.upgrades['U6R312']) a[0] = a[0].div(Decimal.pow(4, player.numbertheory.well_ordering.lemma_level.sub(1)));
+	if (!player.upgrades['U6R312'])
+		a[0] = a[0].div(Decimal.pow(4, player.numbertheory.well_ordering.lemma_level.sub(1)));
 	a[1] = a[1].div(Decimal.pow(4, player.numbertheory.well_ordering.theorem_level.sub(1)));
-	if (a[0].gte('1e10')) {
+	if (a[0].gte('1e10') && !player.numbertheory.well_ordering.ySeqWellOrderness) {
 		a[0] = a[0].div(1e10).pow(0.001).mul(1e10);
+	}
+	if (player.numbertheory.well_ordering.ySeqWellOrderness) {
+		a[0] = a[0].mul(convertPNToBEDecimal(metaEnergyEffect()));
 	}
 	return a;
 }
@@ -587,9 +605,9 @@ export function wellOrderingLoop(diff: number) {
 	);
 	if (player.upgrades['U6R31']) {
 		const [lemma, theorem] = ltGain();
-		player.numbertheory.well_ordering.lemmas = player.numbertheory.well_ordering.lemmas.add(
-			lemma.mul(diff),
-		);
+		player.numbertheory.well_ordering.lemmas = player.numbertheory.well_ordering.lemmas
+			.add(lemma.mul(diff))
+			.clampMax('2e81');
 		player.numbertheory.well_ordering.theorems_th =
 			player.numbertheory.well_ordering.theorems_th.add(theorem.mul(diff));
 		if (
@@ -610,9 +628,14 @@ export function wellOrderingLoop(diff: number) {
 				player.numbertheory.well_ordering.theorems_th =
 					player.numbertheory.well_ordering.theorems_th.sub(gain);
 				player.numbertheory.well_ordering.theorems =
-					player.numbertheory.well_ordering.theorems.add(gain);
+					player.numbertheory.well_ordering.theorems.add(gain).clampMax('1.7e35');
 			}
 		}
+	}
+	if (player.numbertheory.well_ordering.ySeqWellOrderness) {
+		player.numbertheory.well_ordering.energy2 = player.numbertheory.well_ordering.energy2
+			.add(metaEnergyGain().mul(diff))
+			.clampMax(6e3);
 	}
 	if (player.retribution < 1) {
 		player.numbertheory.well_ordering.energy =
@@ -635,8 +658,7 @@ export function levelup(x: 0 | 1) {
 			player.numbertheory.well_ordering.lemma_level =
 				player.numbertheory.well_ordering.lemma_level.add(1);
 		}
-	}
-	else {
+	} else {
 		const req = levelreq(1);
 		if (player.numbertheory.well_ordering.theorems.gte(req)) {
 			player.numbertheory.well_ordering.lemmas = new Decimal(0);
@@ -655,4 +677,20 @@ export function leveldown(x: 0 | 1) {
 				player.numbertheory.well_ordering.lemma_level.sub(1);
 		}
 	}
+}
+
+export function metaEnergyGain() {
+	let x = new PowiainaNum(1);
+
+	return x;
+}
+export function metaEnergyEffect() {
+	return player.numbertheory.well_ordering.energy2.add(1).pow(
+		player.numbertheory.well_ordering.energy2
+			.add(1)
+			.log10()
+			.mul(18 / 4)
+			.clampMax(18)
+			.clampMin(1),
+	);
 }
