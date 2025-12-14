@@ -147,13 +147,13 @@ export const RETRIBUTION = {
 				confirmText: getMessage('retri.ok'),
 				onConfirm() {
 					if (!RETRIBUTION.resetable()) return;
-					// if (player.retribution >= 1) {
-					// 	ModalService.show({
-					// 		title: '2rd retribution reset is blocked',
-					// 		content: '没做完',
-					// 	});
-					// 	return;
-					// }
+					if (player.retribution >= 1) {
+						ModalService.show({
+							title: '2rd retribution reset is blocked',
+							content: '没做完',
+						});
+						return;
+					}
 					RETRIBUTION.replayAnimation();
 					setTimeout(function () {
 						RETRIBUTION.reset();
