@@ -111,29 +111,29 @@ export function init() {
 				import.meta.env.DEV ? 0 : 2000,
 			);
 		});
-		detector = new MultiTabDetector({
-			heartbeatInterval: 3000,
-			onMultipleTabs: (result) => {
-				// isMultiTab.value = result.isMultiTab;
-				// tabCount.value = result.tabCount;
-				// if (options?.onDetection) {
-				//   options.onDetection(result);
-				// }
-				console.log('Detected multi tabs');
-				ModalService.show({
-					title: getMessage('detectedmulti.title'),
-					content: getMessage('detectedmulti.content'),
-				});
-				stopSaveLoop();
-			},
-			onSingleTab: (result) => {
-				console.log("There\'s no wrong");
-				// isMultiTab.value = false;
-				// tabCount.value = 1;
-				startSaveLoop();
-			},
-		});
-		detector.detect();
+		// detector = new MultiTabDetector({
+		// 	heartbeatInterval: 3000,
+		// 	onMultipleTabs: (result) => {
+		// 		// isMultiTab.value = result.isMultiTab;
+		// 		// tabCount.value = result.tabCount;
+		// 		// if (options?.onDetection) {
+		// 		//   options.onDetection(result);
+		// 		// }
+		// 		console.log('Detected multi tabs');
+		// 		ModalService.show({
+		// 			title: getMessage('detectedmulti.title'),
+		// 			content: getMessage('detectedmulti.content'),
+		// 		});
+		// 		stopSaveLoop();
+		// 	},
+		// 	onSingleTab: (result) => {
+		// 		console.log("There\'s no wrong");
+		// 		// isMultiTab.value = false;
+		// 		// tabCount.value = 1;
+		// 		startSaveLoop();
+		// 	},
+		// });
+		// detector.detect();
 
 		// console.log(JSON.stringify(localization));
 	} catch (e) {
