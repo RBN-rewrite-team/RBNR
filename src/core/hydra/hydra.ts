@@ -20,6 +20,7 @@ import { DC } from '@/core/constants';
 import { temp } from '../../core/temp-data.ts';
 import { Y_SEQ } from '../post-nonrec/y-seq.ts';
 import { Analysis, PTEffects } from '@/core/pt';
+import PowiainaNum from 'powiaina_num.js';
 
 const e326649slog = new Decimal('e326649').slog(Math.E);
 const ee154slog = new Decimal('e8.07230472602822538e153').slog(Math.E);
@@ -1361,14 +1362,14 @@ export const Hydra = {
 			.clampMin(0);
 	},
 	hydraReset(i: 0 | 1 | 2 | 3 = 0): void {
-		if (player.hydra.deduceOrdinal[player.hydra.visiting].eq(0)) return;
+		if (player.hydra.deduceOrdinal[0].eq(0)) return;
 		player.hydra.powerMult[i] = player.hydra.powerMult[i].add(
 			Hydra.deduceEff(i).mul(player.hydra.deduceOrdinal[i]),
 		);
 		const gain = Hydra.powerGain();
 		this.addPower(gain);
-		player.hydra.deduceProgress[player.hydra.visiting] = DC.D_0;
-		player.hydra.deduceOrdinal[player.hydra.visiting] = DC.D_0;
+		player.hydra.deduceProgress[0] = DC.D_0;
+		player.hydra.deduceOrdinal[0] = DC.D_0;
 	},
 	hydraPowerPassiveGeneration() {
 		if (!player.upgrades[62]) return DC.D_0;
@@ -1424,13 +1425,13 @@ export const Hydra = {
 	},
 	playerData() {
 		return {
-			/**
-			 * @deprecated This variable is useless
-			 */
-			visiting: 0 as const,
 			power: DC.D_0,
 			compressedPower: DC.D_0,
 			totalCompressedPower: DC.D_0,
+			chargedEnergy: new PowiainaNum(0),
+			totalChargedEnergy: new PowiainaNum(0),
+			overloadedEnergy: new PowiainaNum(0),
+			totalOverloadedEnergy: new PowiainaNum(0),
 			totalPower: DC.D_0,
 			trueTotalPower: DC.D_0,
 			milestoneDut5Eff: DC.D_1,
@@ -1492,6 +1493,6 @@ export const Hydra = {
 
 setInterval(() => {
 	if (player.hydra.autoHydraReset) {
-		feature.Hydra.hydraReset(player.hydra.visiting);
+		feature.Hydra.hydraReset(0);
 	}
 });
