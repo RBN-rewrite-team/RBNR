@@ -948,9 +948,7 @@ export const Hydra = {
 		return base;
 	},
 	basePower(): Decimal {
-		return player.hydra.powerMult[0].mul(
-			player.hydra.powerMult[1].mul(player.hydra.powerMult[2].mul(player.hydra.powerMult[3])),
-		);
+		return player.hydra.powerMult[0];
 	},
 	powerExp(): Decimal {
 		//能量指数
@@ -1261,7 +1259,7 @@ export const Hydra = {
 		}
 		return base;
 	},
-	deduce(i: 0 | 1 | 2 | 3 = 0, bulk = DC.D_0): void {
+	deduce(i: 0 | 1 = 0, bulk = DC.D_0): void {
 		player.hydra.deduceOrdinal[i] = player.hydra.deduceOrdinal[i].add(bulk);
 		player.hydra.totalDeduceOrdinal[i] = player.hydra.totalDeduceOrdinal[i].add(bulk);
 	},
@@ -1281,7 +1279,7 @@ export const Hydra = {
 		if (i == 2 && player.upgrades[64]) keepHP = true;
 		if (i == 0 && player.upgrades[63]) keepO = true;
 		if (i == 1 && player.upgrades[64]) keepO = true;
-		for (const j of [0, 1, 2, 3] as const) {
+		for (const j of [0] as const) {
 			Hydra.hydraReset(j);
 			if (!keepO) player.hydra.powerMult[j] = DC.D_1;
 		}
@@ -1292,7 +1290,7 @@ export const Hydra = {
 	hydraUpdate(diff = 0): void {
 		if (Dilute.diluteAmount(8)) diff /= 1000;
 		temp.lastBMSDeduce = player.hydra.deduceOrdinal[0];
-		for (const i of [0, 1, 2, 3] as const) {
+		for (const i of [0, 1] as const) {
 			player.hydra.deduceProgress[i] = player.hydra.deduceProgress[i].add(
 				Hydra.deduceSpeed(i).mul(diff),
 			);
@@ -1361,7 +1359,7 @@ export const Hydra = {
 			.min('ee8.07230472602822538e153')
 			.clampMin(0);
 	},
-	hydraReset(i: 0 | 1 | 2 | 3 = 0): void {
+	hydraReset(i: 0 = 0): void {
 		if (player.hydra.deduceOrdinal[0].eq(0)) return;
 		player.hydra.powerMult[i] = player.hydra.powerMult[i].add(
 			Hydra.deduceEff(i).mul(player.hydra.deduceOrdinal[i]),
@@ -1435,10 +1433,10 @@ export const Hydra = {
 			totalPower: DC.D_0,
 			trueTotalPower: DC.D_0,
 			milestoneDut5Eff: DC.D_1,
-			powerMult: [DC.D_1, DC.D_1, DC.D_1, DC.D_1] as FixedLengthArray<Decimal, 4>,
-			deduceProgress: [DC.D_0, DC.D_0, DC.D_0, DC.D_0] as FixedLengthArray<Decimal, 4>,
-			deduceOrdinal: [DC.D_0, DC.D_0, DC.D_0, DC.D_0] as FixedLengthArray<Decimal, 4>,
-			totalDeduceOrdinal: [DC.D_0, DC.D_0, DC.D_0, DC.D_0] as FixedLengthArray<Decimal, 4>,
+			powerMult: [DC.D_1] as [Decimal],
+			deduceProgress: [DC.D_0, DC.D_0] as [Decimal, Decimal],
+			deduceOrdinal: [DC.D_0, DC.D_0] as [Decimal, Decimal],
+			totalDeduceOrdinal: [DC.D_0, DC.D_0] as [Decimal, Decimal],
 			prestige: [DC.D_0, DC.D_0, DC.D_0, DC.D_0] as FixedLengthArray<Decimal, 4>,
 			pAuto: [false, false, false, false] as FixedLengthArray<boolean, 4>,
 			dilute: {

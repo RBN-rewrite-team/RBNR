@@ -475,7 +475,7 @@ export function loadFromString(saveContent: string, non_options = false) {
 		player.hydra.dilute = getInitialPlayerData().hydra.dilute;
 		player.upgrades['61S'] = false;
 		player.hydra.power = DC.D_E2466;
-		player.hydra.powerMult = [DC.D_1, DC.D_1, DC.D_1, DC.D_1];
+		player.hydra.powerMult = [DC.D_1];
 		player.hydra.prestige = [DC.D_E345, DC.D_E55, DC.D_3P7, DC.D_5E35];
 	}
 	if ((player?.version ?? 0) < 7 && player.upgrades['616S']) {
@@ -500,8 +500,6 @@ export function loadFromString(saveContent: string, non_options = false) {
 	}
 	if ((player?.version ?? 0) < 12) {
 		player.hydra.deduceOrdinal[1] = new Decimal(0);
-		player.hydra.deduceOrdinal[2] = new Decimal(0);
-		player.hydra.deduceOrdinal[3] = new Decimal(0);
 	}
 
 	player.minigame.current_x = BigInt(player.minigame.current_x);

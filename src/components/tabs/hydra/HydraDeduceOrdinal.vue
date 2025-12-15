@@ -9,7 +9,7 @@ import { useI18n } from 'vue-i18n';
 
 const $t = useI18n().t;
 function deduceButtonStyle(): string {
-	const pc = player.hydra.deduceProgress[player.hydra.visiting].mul(100).toNumber();
+	const pc = player.hydra.deduceProgress[0].mul(100).toNumber();
 	return (
 		'linear-gradient(to right, rgba(155, 125, 195, 0.5) ' +
 		pc +
@@ -20,24 +20,22 @@ function deduceButtonStyle(): string {
 }
 
 function hydraMilestone(): any {
-	const ms = Hydra.hydraMilestone[player.hydra.visiting];
+	const ms = Hydra.hydraMilestone[0];
 	let flag = -1;
 	for (const i in ms) {
-		if (player.hydra.deduceOrdinal[player.hydra.visiting].gte(ms[i][1])) flag++;
+		if (player.hydra.deduceOrdinal[0].gte(ms[i][1])) flag++;
 	}
 	const reached = flag == -1 ? '\\text{' + $t('hydra.milestonenotget') + '}' : ms[flag][0];
 	const next = ms[flag + 1][0];
 	const progress =
-		'\\text{' +
-		format(player.hydra.deduceOrdinal[player.hydra.visiting].div(ms[flag + 1][1]).mul(100)) +
-		'}\\%';
+		'\\text{' + format(player.hydra.deduceOrdinal[0].div(ms[flag + 1][1]).mul(100)) + '}\\%';
 	return { reached: reached, next: next, progress: progress };
 }
 
 function hydraMilestoneAxis(): any {
 	const axis = [];
-	const ms = Hydra.hydraMilestone[player.hydra.visiting];
-	const now = player.hydra.deduceOrdinal[player.hydra.visiting];
+	const ms = Hydra.hydraMilestone[0];
+	const now = player.hydra.deduceOrdinal[0];
 	let scale = 0;
 	if (now.gte('1e6')) scale = 1;
 	if (now.gte(4294967296)) scale = 2;

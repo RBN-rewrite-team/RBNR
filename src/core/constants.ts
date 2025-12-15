@@ -1,4 +1,5 @@
 import Decimal from 'break_eternity.js';
+import PowiainaNum from 'powiaina_num.js';
 
 export const DC = Object.freeze({
 	D_0: new Decimal(0),
@@ -81,4 +82,6 @@ export const DC = Object.freeze({
 	D_F9E15: Decimal.dLayerSafeMax,
 	D_F2P128: Decimal.tetrate(10, 2 ** 128),
 	D_INFINITY: new Decimal(1 / 0),
+
+	P_0: new PowiainaNum(0),
 });

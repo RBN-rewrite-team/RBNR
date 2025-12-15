@@ -82,7 +82,7 @@ export function init() {
 
 		hotkeys('h', (event) => {
 			event.preventDefault();
-			feature.Hydra.hydraReset(player.hydra.visiting);
+			feature.Hydra.hydraReset(0);
 		});
 		hotkeys('n', (event) => {
 			event.preventDefault();

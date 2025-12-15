@@ -156,11 +156,11 @@ const upgids = useUpdate(function () {
 					<td>
 						<button
 							class="hydra-button-reset"
-							@click="feature.Hydra.hydraReset(player.hydra.visiting)"
+							@click="feature.Hydra.hydraReset(0)"
 							v-hold="{
 								handler: {
 									onProgress() {
-										feature.Hydra.hydraReset(player.hydra.visiting);
+										feature.Hydra.hydraReset(0);
 									},
 								},
 							}"
@@ -175,8 +175,8 @@ const upgids = useUpdate(function () {
 								{{
 									$t('hydra.currentresetmakesmu', {
 										effect: format(
-											feature.Hydra.deduceEff(player.hydra.visiting).mul(
-												player.hydra.deduceOrdinal[player.hydra.visiting],
+											feature.Hydra.deduceEff(0).mul(
+												player.hydra.deduceOrdinal[0],
 											),
 										),
 									})
