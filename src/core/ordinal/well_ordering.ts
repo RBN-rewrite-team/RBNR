@@ -38,7 +38,7 @@ export const WellOrderingBuyables = {
 			return '+' + formatWhole(this.effect(x));
 		}
 		costInverse(x: Decimal): Decimal {
-			return x.div(100).log(1.3).add(1).floor();
+			return x.div(100).clampMin(0.76924).log(1.3).add(1).floor();
 		}
 		canBuyMax(): boolean {
 			return player.upgrades.U6R15 || player.upgrades['7nt5ubq'];
@@ -64,7 +64,7 @@ export const WellOrderingBuyables = {
 			return formatWhole(this.effect(x)) + '/s';
 		}
 		costInverse(x: Decimal): Decimal {
-			return x.div(500).log(1.5).add(1).floor();
+			return x.div(500).clampMin(0.67).log(1.5).add(1).floor();
 		}
 		canBuyMax(): boolean {
 			return player.upgrades.U6R15 || player.upgrades['7nt5ubq'];
@@ -96,6 +96,7 @@ export const WellOrderingBuyables = {
 			return x
 				.root(buyables.B6R21.effect(player.buyables.B6R21))
 				.div(1e15)
+				.clampMin(1)
 				.log(2)
 				.root(1.2)
 				.add(1)
@@ -124,7 +125,7 @@ export const WellOrderingBuyables = {
 			return '+' + format(this.effect(x));
 		}
 		costInverse(x: Decimal): Decimal {
-			return x.div(1e16).log(4).root(1.2).add(1).floor();
+			return x.div(1e16).clampMin(1).log(4).root(1.2).add(1).floor();
 		}
 		canBuyMax(): boolean {
 			return player.upgrades.U6R15 || player.upgrades['7nt5ubq'];
@@ -152,7 +153,7 @@ export const WellOrderingBuyables = {
 			return '+' + format(this.effect(x));
 		}
 		costInverse(x: Decimal): Decimal {
-			return x.div('1e325').log(1e50).add(1).log(1.2).add(1).floor();
+			return x.div('1e325').clampMin(1).log(1e50).add(1).log(1.2).add(1).floor();
 		}
 		canBuyMax(): boolean {
 			return player.upgrades['7nt5ubq'];
@@ -181,7 +182,7 @@ export const WellOrderingBuyables = {
 			return '^' + format(this.effect(x));
 		}
 		costInverse(x: Decimal): Decimal {
-			return x.div('1e2975').log('1e1800').add(1).log(this.base()).add(1).floor();
+			return x.div('1e2975').clampMin(1).log('1e1800').add(1).log(this.base()).add(1).floor();
 		}
 		canBuyMax(): boolean {
 			return player.upgrades['7nt5ubq'];
@@ -685,12 +686,17 @@ export function metaEnergyGain() {
 	return x;
 }
 export function metaEnergyEffect() {
-	return player.numbertheory.well_ordering.energy2.add(1).pow(
-		player.numbertheory.well_ordering.energy2
-			.add(1)
-			.log10()
-			.mul(18 / 4)
-			.clampMax(18)
-			.clampMin(1),
-	).log10().min(64).pow10();
+	return player.numbertheory.well_ordering.energy2
+		.add(1)
+		.pow(
+			player.numbertheory.well_ordering.energy2
+				.add(1)
+				.log10()
+				.mul(18 / 4)
+				.clampMax(18)
+				.clampMin(1),
+		)
+		.log10()
+		.min(64)
+		.pow10();
 }
