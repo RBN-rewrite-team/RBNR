@@ -537,6 +537,8 @@ export function loadFromString(saveContent: string, non_options = false) {
 	delete player.hydra.dilute.solvent?.[9];
 	// @ts-ignore
 	delete player.hydra.dilute.lastSolvent?.[9];
+	// @ts-ignore
+	delete player.hydra.visiting;
 
 	if (player.version <= 12 && player.pt) {
 		if (player.pt.resetTimes.gte(3)) {
