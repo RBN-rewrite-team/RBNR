@@ -11,11 +11,15 @@ function spawn(id: number): void {
 	player.minigame.current_y = 1n;
 	player.minigame.hp = meBattleInfo().hpMax;
 	if (!player.minigame.visited.includes(id)) player.minigame.visited.push(id);
+	player.minigame.interact = 1003;
 	for (const k in player.minigame.replaces) {
 		const repl = player.minigame.replaces[k];
 		for (const i in repl)
 			if (player.minigame.replaces[k][i].recover) delete player.minigame.replaces[k][i];
 	}
+	setTimeout(() => {
+		if (player.minigame.interact == 1003) player.minigame.interact = 0;
+	}, 200);
 }
 
 function openCore() {

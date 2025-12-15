@@ -171,6 +171,9 @@ export async function playerToDestination(destination_x: bigint, destination_y: 
 	for (const path of paths) {
 		a++;
 		const [rx, ry] = [player.minigame.current_x, player.minigame.current_y];
+		if (player.minigame.interact == 1003) {
+			break;
+		}
 		player.minigame.current_x = path.x;
 		player.minigame.current_y = path.y;
 		temp.minigametip = $t('dung.movement.moving', {
@@ -184,7 +187,15 @@ export async function playerToDestination(destination_x: bigint, destination_y: 
 			directionof(rx, ry, path.x, path.y),
 			$t,
 		);
-		await valueUntilTrue(() => player.minigame.interact == 0 || player.minigame.interact == 5);
+		await valueUntilTrue(
+			() =>
+				player.minigame.interact == 0 ||
+				player.minigame.interact == 5 ||
+				player.minigame.interact == 1003,
+		);
+		if (player.minigame.interact == 1003) {
+			break;
+		}
 		player.minigame.interact = 5;
 	}
 	player.minigame.interact = 0;

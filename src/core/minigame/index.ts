@@ -79,6 +79,18 @@ export interface PlayerMinigameData {
 		[key: string]: Replacements[];
 	};
 	hp: number;
+
+	/**
+	 * Interaction progress
+	 *
+	 * 0: Player can move
+	 *
+	 * 1: Action with Entities
+	 *
+	 * 5: Running fast-path
+	 *
+	 * 1003: Interrupt by Dungeon Teleporter
+	 */
 	interact: number;
 	xp: number;
 	ore_gets: number;
