@@ -2061,8 +2061,8 @@ export default {
 		return `累计灵感提升非递归BMS效率。当前：x${format(player.garden.totalInspiration.add(10).log10().max(1).pow(0.5).pow10().div(10))}`;
 	},
 	'currency.pt_power': '证明论能量',
-	'upgs.810': 'CHE影响证明论能量获取的公式增强',
-	'upgs.811': '证明论能量增幅CHE slog',
+	'upgs.810': '压缩九头蛇能量影响证明论能量获取的公式增强',
+	'upgs.811': '证明论能量增幅压缩九头蛇能量 slog',
 	'upgs.812': '减弱非递归BMS效果的二重软上限',
 	'upgs.6218': '证明论能量增幅非递归BMS',
 	'upgs.6219': '降低天命的价格折算',
@@ -2072,10 +2072,10 @@ export default {
 	'upgs.815': '理之命效果软上限推迟x2',
 	'upgs.816': '理之命效果软上限推迟x100',
 	'upgs.mil.sin_2': '四元素天命同类相邻使效率^1.01',
-	'upgs.mil.sin_3': '证明论能量延迟CHE的第三重指数塔软上限',
-	'upgs.mil.sin_4': 'CHE小幅度增幅证明论能量。',
+	'upgs.mil.sin_3': '证明论能量延迟压缩九头蛇能量的第三重指数塔软上限',
+	'upgs.mil.sin_4': '压缩九头蛇能量小幅度增幅证明论能量。',
 	'upgs.mil.sin_5': '天命效率+1000%',
-	'upgs.mil.sin_6': '业大幅提升CHE',
+	'upgs.mil.sin_6': '业大幅提升压缩九头蛇能量',
 	'upgs.mil.sin_7': '证明论能量增幅罪',
 	'upgs.mil.sin_8': '业的获取速度^1.75',
 	'upgs.mil.sin_9': '每秒获得100%证明论能量',
@@ -2087,13 +2087,13 @@ export default {
 	'upgs.U6R31': '解锁引理证明器，每10秒证明一个引理（引理等级每高一级，证明速度减慢到1/4）',
 	'upgs.U6R32': '解锁定理证明器，每100秒消耗4^(定理等级)证明一个定理',
 	'upgs.U6R33': '引理增加业获取',
-	'upgs.U6R34': '基于CHE，增加引理速度和定理速度',
-	'upgs.U6R35': '基于CHE，增加引理速度',
+	'upgs.U6R34': '基于压缩九头蛇能量，增加引理速度和定理速度',
+	'upgs.U6R35': '基于压缩九头蛇能量，增加引理速度',
 	'upgs.U6R36': '定理证明时不再消耗引理',
 	'upgs.U6R37': '引理效果、引理速度和定理速度x10',
 	'upgs.U6R38': 'U6-R-3-4的效果^2，U6-R-3-5的效果^1.5',
 	'upgs.U6R39': '引理效果^1.1',
-	'upgs.U6R310': '基于CHE，大幅增加引理速度',
+	'upgs.U6R310': '基于压缩九头蛇能量，大幅增加引理速度',
 	'upgs.U6R311': '基于引理，增加定理速度',
 	'upgs.U6R312': '引理等级不会降低引理速度，U6-R-3-11的效果^1.5',
 
@@ -2137,7 +2137,7 @@ export default {
 	'oracle.fate.effect.2': '达到88神谕比特后，神谕比特总量令天命效率+{effect}%',
 	'oracle.fate.effect.3':
 		'达到1e10,000,000 证明论能量后，提升证明论能量公式，天命效率+500.0000%(静态)',
-	'oracle.fate.effect.4': '达到e1.500e11证明论能量后，减弱CHE的第二重指数塔软上限',
+	'oracle.fate.effect.4': '达到e1.500e11证明论能量后，减弱压缩九头蛇能量的第二重指数塔软上限',
 
 	'oracle.fate.tip': '下一个机制将在1e9证明论能量解锁',
 
@@ -2148,14 +2148,14 @@ export default {
 
 	'oracle.sin.value': '你有 {value} 罪（不是真的罪）',
 	'oracle.sin.youhave': '你有 {value} 业',
-	'oracle.sin.effect2': '，令CHE在软上限后slog+{effect}',
+	'oracle.sin.effect2': '，令压缩九头蛇能量在软上限后slog+{effect}',
 
 	'nonrecbms.value': '你的非递归BMS推演次数为{a},序数为',
-	'nonrecbms.effect.0': '非递归BMS使CHE slog +{effect}',
+	'nonrecbms.effect.0': '非递归BMS使压缩九头蛇能量 slog +{effect}',
 	'nonrecbms.effect.1': '业的获取速度 ×{effect}',
 
 	'nt.wellorderness.y.a': `你已经证明了<b style="color: #c98300; font-size: 30px">{lemmas}</b
-			>个引理(CHE+{effect1}slog)，<b style="color: #c98300; font-size: 30px">{theorems}</b
+			>个引理(压缩九头蛇能量+{effect1}slog)，<b style="color: #c98300; font-size: 30px">{theorems}</b
 			>个定理({pending}未确认,引理效果×{effect2})。`,
 
 	'nt.wellorderness.y.level.a': '你的引理等级为{lemma}, 定理等级为{theorem}。',
