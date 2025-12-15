@@ -216,7 +216,7 @@ function getCurTitle() {
 	}
 	if (base.length > 20) {
 		base = base.replace(getMessage('title.rewritten'), 'RBNR');
-		base = base.replace(getMessage('title.idlen'), 'Idle');
+		base = base.replace(getMessage('title.idlen'), 'RBNI');
 	}
 	return base;
 }
