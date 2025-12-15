@@ -5,6 +5,7 @@ const code2 = '81be4713dd7648632e7a7f6bd6cd730c811c6ef188c9adec9ed5a95f2c42c09a'
 const salt = 'UkyBXtFiY0jL8ghg';
 
 export function isTester() {
+	if (isDeveloper()) return true;
 	const testcode = localStorage.getItem('testcode') ?? '';
 	return sha256(salt.slice(0, 8) + testcode + salt.slice(8)) === code;
 }

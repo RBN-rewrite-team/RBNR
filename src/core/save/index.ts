@@ -711,6 +711,9 @@ export function deepCopy<T>(obj: T): T {
 	if (obj instanceof Decimal) {
 		return new Decimal(obj) as T;
 	}
+	if (obj instanceof PowiainaNum) {
+		return new PowiainaNum(obj) as T;
+	}
 	const copied = {} as T;
 	for (const key in obj) {
 		if (obj.hasOwnProperty(key)) {
