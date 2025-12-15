@@ -33,6 +33,7 @@ import { numberGrow } from './psd-number-grow.ts';
 import { Oracle } from './pt/oracle/oracle.ts';
 import { Performance } from './performance.tsx';
 import { isDeveloper, isTester } from './save/testing.ts';
+import { MMS } from './post-nonrec/mms.ts';
 
 /**
  * 游戏循环经过了多少时间
@@ -460,6 +461,9 @@ export function simulate(diff: number) {
 	if (player.upgrades[517]) {
 		feature.Hydra.hydraUpdate(pre_cardinal_diff / 1000);
 		Dilute.diluteLoop(pre_cardinal_diff, diff);
+	}
+	if (player.retribution >= 2) {
+		MMS.loop(pre_cardinal_diff / 1000);
 	}
 
 	if (player.upgrades[58]) {

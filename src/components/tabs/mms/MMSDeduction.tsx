@@ -1,6 +1,9 @@
 import { MMS } from '@/core/post-nonrec/mms';
 import { player } from '@/core/save';
 import { useUpdate } from '@/lib/useUpdate';
+import { formatP } from '@/utils/format-pow';
+import { getCurrentMMSMilestone } from '@/utils/mms';
+import PowiainaNum from 'powiaina_num.js';
 import { defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -26,6 +29,8 @@ export default defineComponent({
 		const $t = useI18n().t;
 		const useStyle = useUpdate(() => deduceButtonStyle());
 		const useClass = useUpdate(() => buttonClass());
+		const useSpeed = useUpdate(() => MMS.deduceSpeed());
+		const useTime = useUpdate(() => player.hydra.mms.deduced);
 		return () => (
 			<>
 				<div>
@@ -33,7 +38,7 @@ export default defineComponent({
 						class={useClass.value}
 						style={{
 							backgroundColor: 'var(--background-color)',
-							color: 'var(--color)',
+							color: 'rgba(116, 155, 233, 1)',
 							height: '250px',
 							border: '2px solid',
 							borderImage: `linear-gradient(to right, #002aff, rgba(87, 138, 239, 1)) 1`,
@@ -43,9 +48,16 @@ export default defineComponent({
 							...useStyle.value,
 						}}
 					>
-						<span class="hydra-text">(1)(1)(4)(5)(1)(4)</span>
-						<span class="hydra-text" style="opacity: 0.5; font-size: 60px">
-							1.00e-1,919,810/s
+						<span class="hydra-text">{getCurrentMMSMilestone(useTime.value)[1]}</span>
+						<span class="hydra-text" style="opacity: 0.5; font-size: 60px; ">
+							{formatP(useSpeed.value)}/s
+						</span>
+						<span
+							class="hydra-text-bottom"
+							style="opacity: 0.5; font-size: 16px; bottom: 0px"
+						>
+							Progressed {formatP(useTime.value)}{' '}
+							{useTime.value.eq(1) ? 'time' : 'times'}
 						</span>
 					</button>
 				</div>
