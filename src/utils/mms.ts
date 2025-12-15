@@ -6,15 +6,27 @@ export const MMSMilestones = [
 	[new PowiainaNum(2), '()()', '2'],
 	[new PowiainaNum(3), '()()()', '3'],
 	[new PowiainaNum(4), '()(1)', '\\w'],
+	[new PowiainaNum(5), '()(1)(1)', '\\w^2'],
+	[new PowiainaNum(6), '()(1)(1)(1)', '\\w^3'],
+	[new PowiainaNum(7), '()(1)(1)(1)(1)', '\\w^4'],
+	[new PowiainaNum(8), '()(1)(2)', '\\w^{\\w}'],
+	[new PowiainaNum(9), '()(1)(2)(2)', '\\w^{\\w^{2}}'],
+	[new PowiainaNum(10), '()(1)(2)(2)(2)', '\\w^{\\w^{3}}'],
+	[new PowiainaNum(11), '()(1)(2)(2)(2)(2)', '\\w^{\\w^{4}}'],
+	[new PowiainaNum(12), '()(1)(2)(3)', '\\w^{\\w^{\\w}}'],
+	[new PowiainaNum(13), '()(1)(2)(3)(3)', '\\w^{\\w^{\\w^2}}'],
+	[new PowiainaNum(14), '()(1)(2)(3)(3)(3)', '\\w^{\\w^{\\w^3}}'],
+	[new PowiainaNum(15), '()(1)(2)(3)(3)(3)(3)', '\\w^{\\w^{\\w^4}}'],
+	[new PowiainaNum(16), '()(1)(2,1)', '\\varepsilon_0'],
 	[PowiainaNum.arrow(10, 4, 2 ** 128), '()(1,1,1,\\cdots)'],
 	[new PowiainaNum(1 / 0), '()(1,1,1,\\cdots)'],
 ] as const;
 
 export function getCurrentMMSMilestoneIndex(target: PowiainaNum): number {
 	if (target.lt(0) || target.isNaN()) throw new Error('Unexpected Y Sequence Number.');
-	if (target.lte(1)) return Math.floor(target.toNumber());
+	if (target.lte(16)) return Math.floor(target.toNumber());
 
-	let left = 1;
+	let left = 16;
 	let right = MMSMilestones.length;
 	let resultIndex = -1;
 
