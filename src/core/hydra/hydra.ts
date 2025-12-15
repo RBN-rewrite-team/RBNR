@@ -21,6 +21,7 @@ import { temp } from '../../core/temp-data.ts';
 import { Y_SEQ } from '../post-nonrec/y-seq.ts';
 import { Analysis, PTEffects } from '@/core/pt';
 import PowiainaNum from 'powiaina_num.js';
+import { MMS } from '../post-nonrec/mms.ts';
 
 const e326649slog = new Decimal('e326649').slog(Math.E);
 const ee154slog = new Decimal('e8.07230472602822538e153').slog(Math.E);
@@ -1485,6 +1486,7 @@ export const Hydra = {
 			},
 			autoHydraReset: false,
 			backupHydra: undefined as undefined | backupHydraType,
+			mms: MMS.playerData() as ReturnType<typeof MMS.playerData>,
 		};
 	},
 } as const;

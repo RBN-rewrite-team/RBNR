@@ -139,6 +139,12 @@ export const Y_SEQ = {
 	},
 	dimensionBoost(id: 0 | 1 | 2 | 3) {
 		const mul = [0.05, 0.1, 0.2, 0.4];
+		if (player.retribution >= 2) {
+			mul[0] = 0.5;
+			mul[1] = 1;
+			mul[2] = 2;
+			mul[3] = 3;
+		}
 		let boost = new Decimal(mul?.[id] ?? 0.05);
 		let base = new Decimal(1);
 		if (player.upgrades[622]) base = upgrades[622].effect();

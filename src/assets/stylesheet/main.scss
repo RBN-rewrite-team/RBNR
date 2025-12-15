@@ -1118,3 +1118,32 @@ a {
 .aquamarine {
 	color: aquamarine;
 }
+
+.mms-fast {
+		position: relative;
+		overflow: hidden;
+
+		&::before {
+			content: '';
+			position: absolute;
+			background: linear-gradient(
+				-45deg,
+				rgba(87, 138, 239, 0.3) 0,
+				rgba(87, 138, 239, 0.3) 25%,
+				rgba(87, 138, 239, 0.5) 25%,
+				rgba(87, 138, 239, 0.5) 50%,
+				rgba(87, 138, 239, 0.3) 50%,
+				rgba(87, 138, 239, 0.3) 75%,
+				rgba(87, 138, 239, 0.5) 75%,
+				rgba(87, 138, 239, 0.5)
+			);
+			top: 0px;
+			left: 0px;
+			right: 0px;
+			bottom: 0px;
+			background-size: 100px 100px;
+			background-repeat: repeat;
+			animation: scroll_left 1s linear infinite;
+			width: 200%;
+		}
+	}

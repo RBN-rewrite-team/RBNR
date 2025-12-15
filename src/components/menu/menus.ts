@@ -190,6 +190,13 @@ export const menus = [
 				},
 			},
 			{
+				id: 35,
+				text: 'tab.mms',
+				show() {
+					return player.retribution >= 2;
+				},
+			},
+			{
 				id: 20,
 				text: 'tab.dilute',
 				show() {

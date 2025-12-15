@@ -46,6 +46,7 @@ import EquipCore from './tabs/minigame/EquipCore.vue';
 import Oracle from './tabs/oracle/Oracle.tsx';
 import NonRecursionBMS from './tabs/nonrecursion/NonRecursionBMS.vue';
 import Sin from './tabs/oracle/Sin.tsx';
+import MMSEngine from './tabs/mms/MMSEngine.tsx';
 const tabComponents: {
 	[key: string]: Component | (() => Component);
 } = {
@@ -84,6 +85,7 @@ const tabComponents: {
 	32: Oracle,
 	33: NonRecursionBMS,
 	34: Sin,
+	35: MMSEngine,
 	200: PlotTab,
 	300: SaveBank,
 	500: DeveloperMode,
