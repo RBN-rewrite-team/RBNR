@@ -335,34 +335,29 @@ function w() {
 	</div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@mixin base-button {
+	width: 300px; 
+	border: 3px solid rgb(244, 25, 35); 
+	background-color: black; 
+	cursor: pointer; 
+	display: flex; 
+	justify-content: center; 
+	align-items: center; 
+	color: white; 
+	text-decoration: none; 
+	outline: none; 
+}
+
 .circle-button {
-	width: 300px; /* 按钮宽度 */
-	height: 300px; /* 按钮高度，与宽度相同形成圆形 */
-	border-radius: 50%; /* 设置为50%创建圆形 */
-	border: 3px solid rgb(244, 25, 35); /* 蓝色边框，3像素宽 */
-	background-color: black; /* 白色背景 */
-	cursor: pointer; /* 鼠标悬停时显示手型指针 */
-	display: flex; /* 使用flex布局便于内容居中 */
-	justify-content: center; /* 水平居中 */
-	align-items: center; /* 垂直居中 */
-	font-size: 28px; /* 文字大小 */
-	color: white; /* 文字颜色 */
-	text-decoration: none; /* 去除链接下划线（如果是a标签） */
-	outline: none; /* 去除点击时的轮廓线 */
+  @include base-button;
+	height: 300px; 
+	border-radius: 50%; 
+	font-size: 28px; 
 }
 .sacrifice {
-	width: 300px; /* 按钮宽度 */
-	height: 100px; /* 按钮高度，与宽度相同形成圆形 */
-	border: 3px solid rgb(244, 25, 35); /* 蓝色边框，3像素宽 */
-	background-color: black; /* 白色背景 */
-	cursor: pointer; /* 鼠标悬停时显示手型指针 */
-	display: flex; /* 使用flex布局便于内容居中 */
-	justify-content: center; /* 水平居中 */
-	align-items: center; /* 垂直居中 */
-	color: white; /* 文字颜色 */
-	text-decoration: none; /* 去除链接下划线（如果是a标签） */
-	outline: none; /* 去除点击时的轮廓线 */
+  @include base-button;
+	height: 100px; 
 	border-radius: 99%;
 }
 </style>
