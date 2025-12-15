@@ -5,8 +5,9 @@ export const MMSMilestones = [
 	[new PowiainaNum(1), '()', '1'],
 	[new PowiainaNum(2), '()()', '2'],
 	[new PowiainaNum(3), '()()()', '3'],
-	[new PowiainaNum(4), '()(1)', '\w'],
-	[PowiainaNum.arrow(10, 4, 2 ** 128), '()(1)', '\w'],
+	[new PowiainaNum(4), '()(1)', '\\w'],
+	[PowiainaNum.arrow(10, 4, 2 ** 128), '()(1,1,1,\\cdots)'],
+	[new PowiainaNum(1 / 0), '()(1,1,1,\\cdots)'],
 ] as const;
 
 export function getCurrentMMSMilestoneIndex(target: PowiainaNum): number {
