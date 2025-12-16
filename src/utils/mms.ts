@@ -34,15 +34,32 @@ export const MMSMilestones = [
 	[new PowiainaNum(30), '()(1)(2,1)(3,2)(4,2)(5,2)', '\\psi(Ω_2^{Ω_2})'],
 	[new PowiainaNum(31), '()(1)(2,1)(3,2)(4,3)', '\\psi(Ω_3)'],
 	[new PowiainaNum(32), '()(1)(2,1)(3,2,1)', '\\psi(Ω_ω)'],
+	[new PowiainaNum(33), '()(1)(2,1)(3,2,1)(3,2,1)', '\\psi(Ω_ω\\cdot2)'],
+	[new PowiainaNum(36), '()(1)(2,1)(3,2,1)(4,1)', '\\psi(Ω_ω\\cdotΩ)'],
+	[new PowiainaNum(40), '()(1)(2,1)(3,2,1)(4,1)(3,2,1)', '\\psi(Ω_ω\\cdotΩ+Ω_ω)'],
+	[new PowiainaNum(48), '()(1)(2,1)(3,2,1)(4,2)', '\\psi(Ω_ω\\cdotΩ_2)'],
+	[new PowiainaNum(52), '()(1)(2,1)(3,2,1)(4,2)(3,2,1)', '\\psi(Ω_ω^2)'],
+	[new PowiainaNum(64), '()(1)(2,1)(3,2,1)(4,2)(5,3)', '\\psi(Ω_{ω+1})'],
+	[new PowiainaNum(72), '()(1)(2,1)(3,2,1)(4,2,1)', '\\psi(Ω_{ω+1})'],
+	[new PowiainaNum(84), '()(1)(2,1)(3,2,1)(4,2,1)(5,2,1)', '\\psi(I_ω)'],
+	[new PowiainaNum(90), '()(1)(2,1)(3,2,1)(4,3)', '\\psi(Π_ω)'],
+	[
+		new PowiainaNum(98),
+		'()(1)(2,1)(3,2,1)(4,3,1)',
+		'\\psi(\\lambda\\alpha.\\Omega_{\\alpha+2}-\\Pi_1)',
+	],
+	[new PowiainaNum(106), '()(1)(2,1)(3,2,1)(4,3,2)', '\\psi(\\psi_\\alpha(\\alpha_\\omega))'],
+	[new PowiainaNum(112), '()(1)(2,1)(3,2,1)(4,3,2,1)', 'TSSO'],
+	[new PowiainaNum(128), '()(1,1)', 'SHO'],
 	[PowiainaNum.arrow(10, 4, 2 ** 128), '()(1,1,1,\\cdots)'],
 	[new PowiainaNum(1 / 0), '()(1,1,1,\\cdots)'],
 ] as const;
 
 export function getCurrentMMSMilestoneIndex(target: PowiainaNum): number {
 	if (target.lt(0) || target.isNaN()) throw new Error('Unexpected Y Sequence Number.');
-	if (target.lte(16)) return Math.floor(target.toNumber());
+	if (target.lte(13)) return Math.floor(target.toNumber());
 
-	let left = 16;
+	let left = 13;
 	let right = MMSMilestones.length;
 	let resultIndex = -1;
 

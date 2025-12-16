@@ -111,7 +111,7 @@ export default defineComponent({
 													/>
 												</div>
 											</div>
-											<div class="resource" style="margin-left: 350px">
+											<div class="resource" style="margin-left: 550px">
 												<div style="font-weight: bold; color: rgb(0,255,255)">
 													{$t('currency.charged_hydra')}&nbsp;
 													{formatP(player.hydra.chargedEnergy)}
