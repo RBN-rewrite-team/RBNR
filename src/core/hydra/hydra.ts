@@ -369,14 +369,14 @@ export const Hydra = {
 					Dilute.diluteAmount(6) ||
 					Hydra.pUnlock(3) ||
 					player.retribution >= 1
-				);
+				) && player.retribution < 2;
 			}
 			keep() {
-				return player.milestones.nonrec_5;
+				return player.milestones.nonrec_5 && player.retribution < 2;
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 			auto(): boolean {
-				return player.milestones.nonrec_10;
+				return player.milestones.nonrec_10 && player.retribution < 2;
 			}
 		})(),
 		'66': new (class U64 extends Upgrade {
@@ -384,11 +384,11 @@ export const Hydra = {
 			cost = new Decimal('1.337e1337');
 			name = 'U5-6';
 			show(): boolean {
-				return Dilute.diluteAmount(6) || Hydra.pUnlock(3) || player.milestones.nonrec_9;
+				return (Dilute.diluteAmount(6) || Hydra.pUnlock(3) || player.milestones.nonrec_9) && player.retribution < 2;
 			}
 			currency: Currencies = Currencies.HYDRA_POWER;
 			auto(): boolean {
-				return player.milestones.nonrec_10;
+				return player.milestones.nonrec_10 && player.retribution < 2;
 			}
 		})(),
 		'621': new (class U621 extends UpgradeWithEffect<Decimal> {
