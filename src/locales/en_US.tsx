@@ -2329,4 +2329,16 @@ THEN YOU CAN GET REVELATION.<br />
 	'nt.wellorderness.y.2': `You have <b style="color: #c98300; font-size: 30px">{a}</b> deduction energy^2, makes lemma prover\s speed ×{effect}.`,
 	'set.gamma.unabled':
 		"Because the existing Gamma test has entered a special stage, you can't enter the Gamma test now.",
+
+	'retri.effect': 'Effects/Penalties',
+	'retri.1.buff.0': 'Unlock Y Sequence',
+	'retri.1.debuff.0': 'Sacrifice U5-1-x series upgrades',
+	'retri.2.buff.0': 'Unlock Y Sequence',
+	'retri.2.buff.1': 'Unlock Mutant Matrix ystem',
+	'retri.2.debuff.0': 'Sacrifice U5-1-x series upgrades',
+	'retri.2.debuff.1': 'Sacrifice U5-2-x series upgrades',
+	'retri.2.debuff.2': 'Sacrifice some contents of Dilute, Hydra & Non Rec....',
+	'retri.1.buff.1': 'Get 1 Singlarity Energy',
+	'retri.2.buff.2': 'Get 2 Singlarity Energy',
+	'retri.how': 'Click above to do retribution reset.',
 };

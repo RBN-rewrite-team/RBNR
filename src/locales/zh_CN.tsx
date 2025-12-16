@@ -2169,6 +2169,18 @@ export default {
 	'set.gamma.unabled': '由于已有的Gamma测试进入特殊阶段，现在你不能进入Gamma测试',
 	'mms.t': 'MMS是一个非常强大的矩阵型记号，其设计强度超过ω-Y极限。',
 	'tab.mms': 'MMS',
-	
+
 	'currency.charged_hydra': '充能九头蛇能量',
+
+	'retri.effect': '效果/惩罚',
+	'retri.1.buff.0': '解锁Y序列',
+	'retri.1.debuff.0': '献祭U5-1-x系列升级',
+	'retri.2.buff.0': '解锁Y序列',
+	'retri.2.buff.1': '解锁MMS',
+	'retri.2.debuff.0': '献祭U5-1-x系列升级',
+	'retri.2.debuff.1': '献祭U5-2-x系列升级',
+	'retri.2.debuff.2': '献祭稀释和非递归层级大部分的内容...',
+	'retri.1.buff.1': '获得1奇点能量',
+	'retri.2.buff.2': '获得2奇点能量',
+	'retri.how': '点击上面的方框以进行果报重置',
 };

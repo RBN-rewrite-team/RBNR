@@ -27,7 +27,25 @@ function retributionText() {
 		<h3 v-html="$t('retri.text')"></h3>
 		<br />
 		<button class="retribution" @click="RETRIBUTION.resetUI">
-			{{ retributionText() }}
+			{{ retributionText() }}</button
+		><br />
+		<button class="retribution" style="width: 350px; height: 200px">
+			<div>{{ $t('retri.how') }}</div>
+			<span v-if="player.retribution == 1">
+				<div>{{ $t('retri.effect') }}</div>
+				<div style="color: green">+ {{ $t('retri.1.buff.0') }}</div>
+				<div style="color: green">+ {{ $t('retri.1.buff.1') }}</div>
+				<div style="color: red">- {{ $t('retri.1.debuff.0') }}</div>
+			</span>
+			<span v-if="player.retribution == 2">
+				<div>{{ $t('retri.effect') }}</div>
+				<div style="color: green">+ {{ $t('retri.2.buff.0') }}</div>
+				<div style="color: green">+ {{ $t('retri.2.buff.1') }}</div>
+				<div style="color: green">+ {{ $t('retri.2.buff.2') }}</div>
+				<div style="color: red">- {{ $t('retri.2.debuff.0') }}</div>
+				<div style="color: red">- {{ $t('retri.2.debuff.1') }}</div>
+				<div style="color: red">- {{ $t('retri.2.debuff.2') }}</div>
+			</span>
 		</button>
 	</div>
 </template>
