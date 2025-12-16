@@ -184,7 +184,7 @@ const upgids = useUpdate(function () {
 							</span>
 						</button>
 					</td>
-					<td style="width: 30px">
+					<td style="width: 30px" v-if="player.retribution < 2">
 						<button
 							class="hydra-button"
 							@click="player.hydra.autoHydraReset = !player.hydra.autoHydraReset"
@@ -194,7 +194,7 @@ const upgids = useUpdate(function () {
 				</tr>
 			</tbody>
 		</table>
-		<table style="width: 100%">
+		<table style="width: 100%" v-if="player.retribution < 2">
 			<tbody>
 				<tr style="width: 180px">
 					<td style="width: 25%">

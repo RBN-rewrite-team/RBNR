@@ -1102,6 +1102,7 @@ export const Hydra = {
 	 * 判断是否解锁了转生层级
 	 */
 	pUnlock(id = 0): boolean {
+		if (player.retribution >= 2) return false;
 		if (Dilute.diluteAmount(6)) return false;
 		//解锁转生
 		if (id != 3 && Hydra.pUnlock(id + 1)) return true;
