@@ -16,6 +16,8 @@ import { getCurrentMMSOrdinal } from '@/utils/mms';
 import { Garden } from '@/core/pt/garden';
 import { PTO } from '@/core/post-nonrec/pto';
 import { Y_SEQ } from '@/core/post-nonrec/y-seq';
+import PowiainaNum from 'powiaina_num.js';
+import { formatP } from '@/utils/format-pow';
 
 export default defineComponent({
 	name: 'Resources',
@@ -112,19 +114,9 @@ export default defineComponent({
 											<div class="resource" style="margin-left: 350px">
 												<div style="font-weight: bold; color: rgb(0,255,255)">
 													{$t('currency.charged_hydra')}&nbsp;
-													{(player.hydra.chargedEnergy)}
-												</div>
-												<div
-													style={{
-														fontSize: '17px',
-														color: 'rgb(0,239,239)',
-													}}
-												>
-													{compressPowerDisplay.value}
-													<br />
+													{formatP(player.hydra.chargedEnergy)}
 												</div>
 											</div>
-										
 										</>
 									)}
 									{nonrecRes()}
