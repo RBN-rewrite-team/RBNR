@@ -12,6 +12,7 @@ import { OrdinalUtils } from '@/utils/ordinal';
 import { temp } from '@/core/temp-data';
 import PreRetributionRes from '../resources/PreRetributionRes';
 import { getCurrentOrdinal } from '@/utils/y-seq';
+import { getCurrentMMSOrdinal } from '@/utils/mms';
 import { Garden } from '@/core/pt/garden';
 import { PTO } from '@/core/post-nonrec/pto';
 import { Y_SEQ } from '@/core/post-nonrec/y-seq';
@@ -68,7 +69,7 @@ export default defineComponent({
 								<>
 									{player.retribution == 0 ? (
 										<PreRetributionRes />
-									) : (
+									) : player.retribution == 1 ? (
 										<>
 											<div class="resource" style="margin-left: 15px">
 												<div style="font-weight: bold; color: #5d8aa8">
@@ -95,6 +96,35 @@ export default defineComponent({
 													<br />
 												</div>
 											</div>
+										</>
+									) : (
+										<>
+											<div class="resource" style="margin-left: 15px">
+												<div style="font-weight: bold; color: rgb(87,138,239)">
+													{$t('tab.ordinal')}&nbsp;
+													<vue-latex
+														expression={getCurrentMMSOrdinal(
+															player.hydra.mms.deduced,
+														)}
+													/>
+												</div>
+											</div>
+											<div class="resource" style="margin-left: 350px">
+												<div style="font-weight: bold; color: rgb(0,255,255)">
+													{$t('currency.charged_hydra')}&nbsp;
+													{(player.hydra.chargedEnergy)}
+												</div>
+												<div
+													style={{
+														fontSize: '17px',
+														color: 'rgb(0,239,239)',
+													}}
+												>
+													{compressPowerDisplay.value}
+													<br />
+												</div>
+											</div>
+										
 										</>
 									)}
 									{nonrecRes()}

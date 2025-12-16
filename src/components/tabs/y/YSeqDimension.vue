@@ -20,7 +20,7 @@ function dimensionTitle() {
 }
 function dimensionText() {
 	return $t('yeng.dim.' + props.seq_id + '.effect', {
-		effect: format(POST_NONREC.Y_SEQ.dimensionEffect(0)),
+		effect: format(POST_NONREC.Y_SEQ.dimensionEffect(props.seq_id)),
 	});
 }
 function className() {
