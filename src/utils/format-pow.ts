@@ -1,4 +1,4 @@
-import Notations from '@veryrrdefine/powiainanum-notations';
+import Notations from './format-powiainanum/src/index';
 import type { PowiainaNumSource } from 'powiaina_num.js';
 import PowiainaNum from 'powiaina_num.js';
 const fghjnotation = new Notations.FGHJNotation();
