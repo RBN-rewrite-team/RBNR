@@ -202,6 +202,7 @@ import { i18n } from '@/utils/i18n';
 					href="https://github.com/Patashu/break_eternity.js"
 				>
 					break_eternity.js </a
+				>、<a href="https://github.com/VeryrrDefine/PowiainaNum.js"> PowiainaNum.js </a
 				>，部分显示相关代码取自<a href="https://solarzone1010.github.io/bms-analyzer.html">
 					Solarzone1010的BMS Analyzer </a
 				>。 <br /><br /><a
@@ -216,7 +217,9 @@ import { i18n } from '@/utils/i18n';
 				<a href="https://nodeca.github.io/pako/" target="_blank">pako.js</a>,
 				<a href="https://github.com/Patashu/break_eternity.js" target="_blank"
 					>break_eternity.js</a
-				>, <br />partly displaying code chooses from
+				>,
+				<a href="https://github.com/VeryrrDefine/PowiainaNum.js"> PowiainaNum.js </a
+				>,<br />partly displaying code chooses from
 				<a href="https://solarzone1010.github.io/bms-analyzer.html" target="_blank">
 					Solarzone1010's BMS Analyzer </a
 				>. <br /><br /><a
