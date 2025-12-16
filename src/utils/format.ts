@@ -4,6 +4,8 @@ import type { DecimalSource } from 'break_eternity.js';
 import { diff } from '@/core/game-loop';
 import { player } from '@/core/global';
 import { getMessage } from './i18n';
+import { formatP } from '@/utils/format-pow';
+import PowiainaNum from 'powiaina_num.js';
 
 export enum notations {
 	SCIENTIFIC,
@@ -102,7 +104,8 @@ function regularFormat(num: Decimal, precision: number) {
 	return num.toStringWithDecimalPlaces(precision);
 }
 
-export function format(decimal: DecimalSource, precision = 4): string {
+export function format(decimal: DecimalSource | PowiainaNum, precision = 4): string {
+  if (decimal instanceof PowiainaNum) return formatP(decimal, precision)
 	if (player.singularity.stage === 0)
 		switch (player.options.notation) {
 			case notations.STANDARD:
@@ -326,13 +329,14 @@ export function formatPow(ex: DecimalSource, acc?: number) {
 	return '^' + format(ex, acc);
 }
 
-export function formatWhole(decimal: DecimalSource): string {
-	decimal = new Decimal(decimal).round();
+export function formatWhole(decimal: DecimalSource | PowiainaNum): string {
+	if (!(decimal instanceof PowiainaNum)) decimal = new Decimal(decimal).round();
 	if (decimal.gte(1e9)) return format(decimal, 4);
 	return format(decimal, 0);
 }
 
-export function formatLaTeX(decimal: DecimalSource) {
+export function formatLaTeX(decimal: DecimalSource | PowiainaNum) {
+  if (decimal instanceof PowiainaNum) return '\\text{' + format(decimal) + '}';
 	if (!Decimal.isFinite(decimal)) return '\\omega';
 	switch (player.options.notation) {
 		case notations.FGH:
@@ -348,7 +352,8 @@ export function formatLaTeX(decimal: DecimalSource) {
 	}
 }
 
-export function formatLaTeXWhole(decimal: DecimalSource) {
+export function formatLaTeXWhole(decimal: DecimalSource | PowiainaNum) {
+  if (decimal instanceof PowiainaNum) return '\\text{' + formatWhole(decimal) + '}';
 	if (!Decimal.isFinite(decimal)) return '\\omega';
 	switch (player.options.notation) {
 		case notations.FGH:
