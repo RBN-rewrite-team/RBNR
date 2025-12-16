@@ -1,7 +1,7 @@
 import { MMS } from '@/core/post-nonrec/mms';
 import { player } from '@/core/save';
 import { useUpdate } from '@/lib/useUpdate';
-import { formatP } from '@/utils/format-pow';
+import { format, formatWhole } from '@/utils/format';
 import { getCurrentMMSMilestone } from '@/utils/mms';
 import PowiainaNum from 'powiaina_num.js';
 import { defineComponent } from 'vue';
@@ -49,14 +49,14 @@ export default defineComponent({
 						}}
 					>
 						<span class="hydra-text">{getCurrentMMSMilestone(useTime.value)[1]}</span>
-						<span class="hydra-text" style="opacity: 0.5; font-size: 60px; ">
-							{formatP(useSpeed.value)}/s
-						</span>
+						{<span class="hydra-text" style="opacity: 0.5; font-size: 60px; ">
+							{useSpeed.value.gte(1) ? format(useSpeed.value) + "/s" : "1/" + format(useSpeed.value.rec()) + "s"}
+						</span>}
 						<span
 							class="hydra-text-bottom"
 							style="opacity: 0.5; font-size: 16px; bottom: 0px"
 						>
-							Deduced {formatP(useTime.value)}{' '}
+							Deduced {formatWhole(useTime.value)}{' '}
 							{useTime.value.eq(1) ? 'time' : 'times'}
 						</span>
 					</button>
