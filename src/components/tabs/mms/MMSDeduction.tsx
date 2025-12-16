@@ -56,7 +56,7 @@ export default defineComponent({
 							class="hydra-text-bottom"
 							style="opacity: 0.5; font-size: 16px; bottom: 0px"
 						>
-							Progressed {formatP(useTime.value)}{' '}
+							Deduced {formatP(useTime.value)}{' '}
 							{useTime.value.eq(1) ? 'time' : 'times'}
 						</span>
 					</button>

@@ -2,7 +2,7 @@
 import { POST_NONREC } from '@/core/post-nonrec';
 import { player } from '@/core/save';
 import { format, formatWhole } from '@/utils/format';
-import { getCurrentYMilestone } from '@/utils/y-seq';
+import { getCurrentYMilestone, getCurrentOrdinal } from '@/utils/y-seq';
 import { computed } from 'vue';
 import YSeqDimension from './YSeqDimension.vue';
 import { useUpdate } from '@/lib/useUpdate';
@@ -39,6 +39,15 @@ const upgids = useUpdate(function () {
 
 <template>
 	<div class="main">
+		<div style="color: rgb(93, 138, 168); display: block; height: 50px">
+			<h3 style="display: inline-block">{{$t('tab.ordinal')}}</h3>
+			&nbsp;
+			<vue-latex :expression="getCurrentOrdinal(player.hydra.deduceOrdinal[1])" />
+		</div>
+		<div style="color: #00c800ff; display: block;">
+			<h3 style="display: inline-block">{{$t('res.compress')}}</h3>
+			&nbsp;{{ formatWhole(player.hydra.compressedPower) }}
+		</div>
 		<div class="dims">
 			<h3>
 				{{ $t('yeng.totaleffect')
@@ -58,12 +67,15 @@ const upgids = useUpdate(function () {
 							left: 50%;
 							transform: translate(-50%, -50%);
 						"
-						v-html="
-							`${$t('yeng.progressed', {
-								x: formatWhole(player.hydra.deduceOrdinal[1]),
-							})}<br>` + getCurrentYMilestone(player.hydra.deduceOrdinal[1])[1]
-						"
-					></div>
+					>
+						<span
+							v-html="
+								`${$t('yeng.progressed', {
+									x: formatWhole(player.hydra.deduceOrdinal[1]),
+								})}<br>` + getCurrentYMilestone(player.hydra.deduceOrdinal[1])[1]
+							"
+						/>
+					</div>
 				</div>
 			</div>
 			<YSeqDimension :seq_id="0" />

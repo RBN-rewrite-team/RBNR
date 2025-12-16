@@ -123,7 +123,7 @@ export function PTreset(fromPT = false) {
 	]) {
 		player.milestones[key] = false;
 	}
-	if(!player.milestones['sin_10']) player.numbertheory.well_ordering = wellOrderPlayerData();
+	if (!player.milestones['sin_10']) player.numbertheory.well_ordering = wellOrderPlayerData();
 	player.numbertheory.GM.x = DC.D_0;
 	player.postnonrec.yseq = Y_SEQ.playerData();
 }

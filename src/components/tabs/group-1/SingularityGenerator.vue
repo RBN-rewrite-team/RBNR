@@ -337,27 +337,27 @@ function w() {
 
 <style scoped lang="scss">
 @mixin base-button {
-	width: 300px; 
-	border: 3px solid rgb(244, 25, 35); 
-	background-color: black; 
-	cursor: pointer; 
-	display: flex; 
-	justify-content: center; 
-	align-items: center; 
-	color: white; 
-	text-decoration: none; 
-	outline: none; 
+	width: 300px;
+	border: 3px solid rgb(244, 25, 35);
+	background-color: black;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	text-decoration: none;
+	outline: none;
 }
 
 .circle-button {
-  @include base-button;
-	height: 300px; 
-	border-radius: 50%; 
-	font-size: 28px; 
+	@include base-button;
+	height: 300px;
+	border-radius: 50%;
+	font-size: 28px;
 }
 .sacrifice {
-  @include base-button;
-	height: 100px; 
+	@include base-button;
+	height: 100px;
 	border-radius: 99%;
 }
 </style>
