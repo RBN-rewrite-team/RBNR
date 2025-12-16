@@ -38,7 +38,14 @@ export default defineComponent({
 					)}
 					<Resources />
 					<div class="main-content" id="main">
-						<div class="background">
+						<div
+							class="background"
+							style={{
+								marginLeft: '0px',
+								marginTop: '0px',
+								paddingLeft: '-5px',
+							}}
+						>
 							{player.upgrades[13] && player.singularity.stage < 10 ? (
 								<AdditionResetButton />
 							) : (

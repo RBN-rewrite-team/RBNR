@@ -174,11 +174,10 @@ body {
 
 .main-content {
 	width: 100%;
-	height: 0px;
-	margin: 0px 0px 10px 0px;
 	flex-grow: 1;
 	text-align: center;
 	overflow: auto;
+	margin: -5px 0px 5px -5px;
 }
 
 .background {
