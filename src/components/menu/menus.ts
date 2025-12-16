@@ -241,14 +241,14 @@ export const menus = [
 				id: 25,
 				text: 'tab.nrupg',
 				show() {
-					return player.milestones.nonrec_18;
+					return player.milestones.nonrec_18 && player.retribution < 2;
 				},
 			},
 			{
 				id: 26,
 				text: 'tab.unocf',
 				show() {
-					return player.stat.chapter >= 6 && player.milestones.nonrec_19;
+					return player.stat.chapter >= 6 && player.milestones.nonrec_19 && player.retribution < 2;
 				},
 			},
 			{

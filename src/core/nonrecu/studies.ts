@@ -379,9 +379,6 @@ export const studies = [
 		show() {
 			return player.nonrecu.studies_bought.includes(19);
 		},
-		show() {
-			return player.retribution < 2;
-		},
 	}),
 	new Study({
 		id: '73', //18
