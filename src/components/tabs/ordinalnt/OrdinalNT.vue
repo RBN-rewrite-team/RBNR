@@ -215,6 +215,11 @@ import Upgrades from '@/components/upg/Upgrades';
 					<Upgrades :upgids="[['u69R', 'u621R', 'u622R']]" />
 				</template>
 			</div>
+			<div v-if="player.numbertheory.visiting == 4 && player.retribution >= 2">
+			  			<span style="color: rgb(255, 63, 63)">{{
+				$t('nt.wait')
+			}}</span>
+			</div>
 			<OrdinalNT5 v-if="player.numbertheory.visiting == 5 && player.milestones.nonrec_26" />
 		</div>
 		<br />
