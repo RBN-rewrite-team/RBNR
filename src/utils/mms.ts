@@ -90,6 +90,7 @@ export const MMSMilestones = [
 		PowiainaNum.tetrate(4, PowiainaNum.tetrate(4, 16)),
 		'()(1,1)(2,2,1,1)(3,3,2,2,1,1)(4,4,3,3,2,2,1,1)',
 	],
+	[PowiainaNum.pentate(4, 8), '()(1,1,1)'],
 	[PowiainaNum.pentate(4, 16), '()(1,1,1)(2,2,2)'],
 	[PowiainaNum.pentate(4, 256), '()(1,1,1)(2,2,2,1,1,1)'],
 	[PowiainaNum.pentate(4, PowiainaNum.pow(4, 256)), '()(1,1,1)(2,2,2,1,1,1)(3)'],
