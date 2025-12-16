@@ -17,7 +17,6 @@ export default defineComponent({
 					>
 						<MMSDeduction />
 					</div>
-					<div>Coming s∞n</div>
 				</div>
 			</>
 		);

@@ -104,6 +104,9 @@ export const studies = [
 			player.hydra.trueTotalPower = player.hydra.trueTotalPower.add(20);
 			player.hydra.dilute.solution = player.hydra.dilute.solution.add(20);
 		},
+		show() {
+			return player.retribution < 2;
+		},
 	}),
 	new Study({
 		id: '12', //1
@@ -120,6 +123,9 @@ export const studies = [
 				player.nonrecu.studies_bought.includes(1)
 			);
 		},
+		show() {
+			return player.retribution < 2;
+		},
 	}),
 	new Study({
 		id: '22', //3
@@ -133,6 +139,9 @@ export const studies = [
 				player.nonrecu.studies_bought.includes(1)
 			);
 		},
+		show() {
+			return player.retribution < 2;
+		},
 	}),
 	new Study({
 		id: '31', //4
@@ -142,7 +151,7 @@ export const studies = [
 			return (
 				player.nonrecu.studies_bought.includes(2) ||
 				player.nonrecu.studies_bought.includes(3)
-			);
+			) || (player.retribution >= 2 && or(1));
 		},
 	}),
 	new Study({
@@ -160,6 +169,9 @@ export const studies = [
 		},
 		isChallenge: true,
 		chal_id: 0,
+		show() {
+			return player.retribution < 2;
+		},
 	}),
 	new Study({
 		id: '41', //6
@@ -178,6 +190,9 @@ export const studies = [
 		canBuy() {
 			return player.challenges[1][0].gte(2) && player.milestones.nrc_17;
 		},
+		show() {
+			return player.retribution < 2;
+		},
 	}),
 	new Study({
 		id: '51', // 8
@@ -188,6 +203,9 @@ export const studies = [
 			if (player.nonrecu.studies_bought.includes(19)) max = 2;
 			if (player.upgrades.U6R12) max = 3;
 			return sum(8, 9, 10) < max && or(6);
+		},
+		show() {
+			return player.retribution < 2;
 		},
 	}),
 	new Study({
@@ -228,6 +246,9 @@ export const studies = [
 			if (player.upgrades.U6R12) max = 3;
 			return sum(8, 9, 10) < max && or(6);
 		},
+		show() {
+			return player.retribution < 2;
+		},
 	}),
 	new Study({
 		id: 'NRC2', //11
@@ -244,6 +265,9 @@ export const studies = [
 		},
 		isChallenge: true,
 		chal_id: 1,
+		show() {
+			return player.retribution < 2;
+		},
 	}),
 	new Study({
 		id: 'NRC3', //12
@@ -260,6 +284,9 @@ export const studies = [
 		},
 		isChallenge: true,
 		chal_id: 2,
+		show() {
+			return player.retribution < 2;
+		},
 	}),
 	new Study({
 		id: '61', //13
@@ -271,6 +298,9 @@ export const studies = [
 			if (player.nonrecu.studies_bought.includes(19)) ((base = or(8, 9, 10)), (max = 2));
 			if (player.upgrades.U6R12) max = 3;
 			return base && sum(13, 14, 15) < max;
+		},
+		show() {
+			return player.retribution < 2;
 		},
 	}),
 	new Study({
@@ -301,6 +331,9 @@ export const studies = [
 			if (player.upgrades.U6R12) max = 3;
 			return base && sum(13, 14, 15) < max;
 		},
+		show() {
+			return player.retribution < 2;
+		},
 	}),
 	new Study({
 		id: '71', //16
@@ -326,6 +359,9 @@ export const studies = [
 			if (player.upgrades.U6R12) max = 3;
 			return base && sum(16, 17, 18) < max;
 		},
+		show() {
+			return player.retribution < 2;
+		},
 	}),
 	new Study({
 		id: '72', //17
@@ -342,6 +378,9 @@ export const studies = [
 		},
 		show() {
 			return player.nonrecu.studies_bought.includes(19);
+		},
+		show() {
+			return player.retribution < 2;
 		},
 	}),
 	new Study({
@@ -360,6 +399,9 @@ export const studies = [
 			if (player.upgrades.U6R12) max = 3;
 			return base && sum(16, 17, 18) < max;
 		},
+		show() {
+			return player.retribution < 2;
+		},
 	}),
 	new Study({
 		id: '81', //19
@@ -367,6 +409,9 @@ export const studies = [
 		cost: new Decimal(15),
 		canBuy() {
 			return or(16, 17, 18);
+		},
+		show() {
+			return player.retribution < 2;
 		},
 	}),
 	new Study({
@@ -376,6 +421,9 @@ export const studies = [
 		canBuy() {
 			return or(19);
 		},
+		show() {
+			return player.retribution < 2;
+		},
 	}),
 	new Study({
 		id: '92', //21
@@ -384,6 +432,9 @@ export const studies = [
 		canBuy() {
 			return or(19);
 		},
+		show() {
+			return player.retribution < 2;
+		},
 	}),
 	new Study({
 		id: '101', //22
@@ -391,6 +442,9 @@ export const studies = [
 		cost: new Decimal(30),
 		canBuy() {
 			return or(20, 21);
+		},
+		show() {
+			return player.retribution < 2;
 		},
 	}),
 	new Study({
@@ -413,6 +467,9 @@ export const studies = [
 		},
 		isChallenge: true,
 		chal_id: 3,
+		show() {
+			return player.retribution < 2;
+		},
 	}),
 	new Study({
 		id: 'NRC5', //24
@@ -423,6 +480,9 @@ export const studies = [
 		},
 		isChallenge: true,
 		chal_id: 4,
+		show() {
+			return player.retribution < 2;
+		},
 	}),
 	new Study({
 		//25
@@ -434,6 +494,9 @@ export const studies = [
 		},
 		isChallenge: true,
 		chal_id: 5,
+		show() {
+			return player.retribution < 2;
+		},
 	}),
 	new Study({
 		id: '112', //26
@@ -443,6 +506,9 @@ export const studies = [
 		cost: new Decimal(15000),
 		canBuy() {
 			return and(22, 7) && player.milestones.nonrec_25;
+		},
+		show() {
+			return player.retribution < 2;
 		},
 	}),
 	new Study({
@@ -463,6 +529,9 @@ export const studies = [
 		canBuy() {
 			return or(23) && player.challenges[1][3].gte(1);
 		},
+		show() {
+			return player.retribution < 2;
+		},
 	}),
 	new Study({
 		id: 'NRC7', //28
@@ -475,6 +544,9 @@ export const studies = [
 		},
 		isChallenge: true,
 		chal_id: 6,
+		show() {
+			return player.retribution < 2;
+		},
 	}),
 	new Study({
 		id: '70', //29
@@ -483,10 +555,12 @@ export const studies = [
 			return '移除压缩九头蛇能量上限';
 		},
 		get cost() {
+			if(player.retribution >= 2) return new Decimal(-10);
 			return player.retribution == 0 ? DC.D_F9E15 : new Decimal(8);
 		},
 		canBuy() {
-			return or(16) && player.retribution >= 1;
+			return (or(16) && player.retribution >= 1)
+			|| (or(6) && player.retribution >= 2);
 		},
 	}),
 	new Study({
@@ -505,10 +579,11 @@ export const studies = [
 	new Study({
 		id: '131', //31
 		get cost() {
+			if(player.retribution >= 2) return new Decimal(-10);
 			return player.retribution == 0 ? DC.D_F9E15 : new Decimal('eeeee1.3');
 		},
 		canBuy() {
-			return or(30) && player.retribution >= 1;
+			return or(30) && player.retribution >= 1 || player.retribution >= 2;
 		},
 	}),
 ] as const;

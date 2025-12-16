@@ -200,7 +200,7 @@ export const menus = [
 				id: 20,
 				text: 'tab.dilute',
 				show() {
-					return player.upgrades['69R'];
+					return player.upgrades['69R'] && player.retribution < 2;
 				},
 			},
 			{
@@ -221,10 +221,22 @@ export const menus = [
 			return (player.firstResetBit & 0b10000) == 0b10000 && player.stat.chapter >= 6;
 		},
 		contents: [
-			{ id: 21, text: 'tab.nonrecmils' },
+			{
+				id: 21,
+				text: 'tab.nonrecmils',
+				show() {
+					return player.retribution < 2;
+				},
+			},
 			// { id: 23, text: 'tab.energyfactor' },
 			{ id: 24, text: 'tab.nrs' },
-			{ id: 22, text: 'tab.nrc' },
+			{
+				id: 22,
+				text: 'tab.nrc',
+				show() {
+					return player.retribution < 2;
+				},
+			},
 			{
 				id: 25,
 				text: 'tab.nrupg',

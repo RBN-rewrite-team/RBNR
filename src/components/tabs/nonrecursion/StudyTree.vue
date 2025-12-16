@@ -65,7 +65,7 @@ function nrtamount() {
 					</div>
 				</div>
 			</div>
-			<div class="study">
+			<div class="study" v-if="player.retribution < 2">
 				<div class="study-name">NRT2</div>
 				<div
 					class="study-desc"
@@ -83,7 +83,7 @@ function nrtamount() {
 					</div>
 				</div>
 			</div>
-			<div class="study">
+			<div class="study" v-if="player.retribution < 2">
 				<div class="study-name">NRT3</div>
 				<div
 					class="study-desc"
@@ -110,7 +110,43 @@ function nrtamount() {
 	</div>
 	<div style="overflow-x: auto">
 		<div class="studies-container">
-			<div class="studies-tree">
+			<div class="studies-tree" v-if="player.retribution >= 2">
+				<div class="studies_row">
+					<SingleStudy
+						:ref="(el) => registerStudyRef(1, el)"
+						:study_id="1"
+						@update:study="updateAllConnectors"
+					/>
+					<SingleStudy
+						:ref="(el) => registerStudyRef(4, el)"
+						:study_id="4"
+						@update:study="updateAllConnectors"
+					/>
+					<SingleStudy
+						:ref="(el) => registerStudyRef(6, el)"
+						:study_id="6"
+						@update:study="updateAllConnectors"
+					/>
+				</div>
+				<div class="studies_row">
+					<SingleStudy
+						:ref="(el) => registerStudyRef(29, el)"
+						:study_id="29"
+						@update:study="updateAllConnectors"
+					/>
+					<SingleStudy
+						:ref="(el) => registerStudyRef(30, el)"
+						:study_id="30"
+						@update:study="updateAllConnectors"
+					/>
+					<SingleStudy
+						:ref="(el) => registerStudyRef(31, el)"
+						:study_id="31"
+						@update:study="updateAllConnectors"
+					/>
+				</div>
+			</div>
+			<div class="studies-tree" v-else>
 				<div class="studies_row">
 					<SingleStudy
 						:ref="(el) => registerStudyRef(0, el)"
