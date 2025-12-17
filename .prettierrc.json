@@ -13,6 +13,18 @@
       }
     },
     {
+      "files": "./src/utils/mms.ts",
+      "options": {
+        "printWidth": 1000
+      }
+    },
+    {
+      "files": "./src/utils/fffz.ts",
+      "options": {
+        "printWidth": 1000
+      }
+    },
+    {
       "files": "./src/core/nonrecu/nonrec-bms/milestones.ts",
       "options": {
         "printWidth": 1000
