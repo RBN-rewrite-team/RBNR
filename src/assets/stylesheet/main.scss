@@ -1147,3 +1147,25 @@ a {
 		width: 200%;
 	}
 }
+
+.rank_text {
+	font-size: large;
+}
+.rank_button {
+	border: 1px solid rgba(87, 138, 239);
+	margin:auto;
+	width: 200px;
+	padding: 5px;
+	font-size: small;
+	height: 150px;
+	&:hover {
+		background-color: var(--hover-color);
+		cursor: pointer;
+	}
+}
+
+.rank_div {
+	display: inline-table;
+	margin-left: 5px;
+	margin-right: 5px;
+}

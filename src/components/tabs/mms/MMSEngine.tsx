@@ -17,6 +17,31 @@ export default defineComponent({
 					>
 						<MMSDeduction />
 					</div>
+					<div
+						style={{
+							margin: 'auto',
+						}}
+					>
+						<div class="rank_div">
+							<b class="rank_text">Rank</b> 114,514
+							<div class={'rank_button'}>
+								Reset your MMS progression & 充能九头蛇能量, but Rank up. <br />
+								<br />
+								To Rank up, requires <br />
+								xxxx 充能九头蛇能量
+							</div>
+						</div>
+						<div class="rank_div">
+							<b class="rank_text">Tier</b> 114,514
+							<div class={'rank_button'}>
+								Reset your Rank, MMS progression & 充能九头蛇能量, but Tier up.{' '}
+								<br />
+								<br />
+								To Tier up, requires <br />
+								xxxx Rank
+							</div>
+						</div>
+					</div>
 				</div>
 			</>
 		);
