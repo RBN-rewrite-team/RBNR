@@ -58,10 +58,10 @@ export const FFFZMilestones = [
 ] as const;
 
 export const FFFZmacros = {
-  "\\z": function (context) {
+  "\\z": function (context: any) {
     let nextArg = context.consumeArg()
-    if (context.future().text === "EOF" || context.future().text === "}") return `ψ_Z\\left(${nextArg.tokens.reverse().map(x => x.text).join("")}\\right)`
-    return `ψ_Z\\left[${nextArg.tokens.reverse().map(x => x.text).join("")}\\right]\\left(${context.consumeArg().tokens.reverse().map(x => x.text).join("")}\\right)`
+    if (context.future().text === "EOF" || context.future().text === "}") return `ψ_Z\\left(${nextArg.tokens.reverse().map((x: any) => x.text).join("")}\\right)`
+    return `ψ_Z\\left[${nextArg.tokens.reverse().map((x: any) => x.text).join("")}\\right]\\left(${context.consumeArg().tokens.reverse().map((x: any) => x.text).join("")}\\right)`
   }
 }
 
