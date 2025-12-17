@@ -257,9 +257,9 @@ export const saveSerializer = {
 	},
 } as const;
 
-declare global {
-	interface Window {
-		saveSerializer: typeof saveSerializer;
-	}
-}
-window.saveSerializer = saveSerializer;
+// declare global {
+	// interface Window {
+		// saveSerializer: typeof saveSerializer;
+	// }
+// }
+// window.saveSerializer = saveSerializer;
