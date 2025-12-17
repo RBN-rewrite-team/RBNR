@@ -18,6 +18,7 @@ import { PTO } from '@/core/post-nonrec/pto';
 import { Y_SEQ } from '@/core/post-nonrec/y-seq';
 import PowiainaNum from 'powiaina_num.js';
 import { formatP } from '@/utils/format-pow';
+import { MMS } from '@/core/post-nonrec/mms';
 
 export default defineComponent({
 	name: 'Resources',
@@ -111,12 +112,16 @@ export default defineComponent({
 													/>
 												</div>
 											</div>
-											<div class="resource" style="margin-left: 550px">
-												<div style="font-weight: bold; color: rgb(0,255,255)">
-													{$t('currency.charged_hydra')}&nbsp;
-													{formatWhole(player.hydra.chargedEnergy)}
-												</div>
-											</div>
+											<Resource
+												reskey="currency.charged_hydra"
+												resdisplay={format(player.hydra.chargedEnergy)}
+												posleft="550"
+												rescolor="rgb(0,255,255)"
+												rescolor2="rgb(0,255,255)"
+												growingdisplay={() => {
+													return <>(+{format(MMS.resetGain())})</>;
+												}}
+											/>
 										</>
 									)}
 									{nonrecRes()}

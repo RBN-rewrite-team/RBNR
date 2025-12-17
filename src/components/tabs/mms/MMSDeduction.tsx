@@ -43,15 +43,21 @@ export default defineComponent({
 							border: '2px solid',
 							borderImage: `linear-gradient(to right, #002aff, rgba(87, 138, 239, 1)) 1`,
 							position: 'relative',
+							display: 'block',
+							margin: 'auto',
 							zIndex: '1',
 							width: '50%',
 							...useStyle.value,
 						}}
 					>
 						<span class="hydra-text">{getCurrentMMSMilestone(useTime.value)[1]}</span>
-						{<span class="hydra-text" style="opacity: 0.5; font-size: 60px; ">
-							{useSpeed.value.gte(1) ? format(useSpeed.value) + "/s" : "1/" + format(useSpeed.value.rec()) + "s"}
-						</span>}
+						{
+							<span class="hydra-text" style="opacity: 0.5; font-size: 60px; ">
+								{useSpeed.value.gte(1)
+									? format(useSpeed.value) + '/s'
+									: '1/' + format(useSpeed.value.rec()) + 's'}
+							</span>
+						}
 						<span
 							class="hydra-text-bottom"
 							style="opacity: 0.5; font-size: 16px; bottom: 0px"
@@ -59,6 +65,23 @@ export default defineComponent({
 							Deduced {formatWhole(useTime.value)}{' '}
 							{useTime.value.eq(1) ? 'time' : 'times'}
 						</span>
+					</button>
+
+					<button
+						style={{
+							width: '50%',
+							display: 'block',
+							margin: 'auto',
+							backgroundColor: 'var(--background-color)',
+							color: 'rgba(116, 155, 233, 1)',
+							height: '50px',
+							border: '2px solid',
+							position: 'relative',
+							zIndex: '1',
+						}}
+						onClick={() => MMS.reset()}
+					>
+						重置MMS推演次数，获得{format(MMS.resetGain())}充能九头蛇能量
 					</button>
 				</div>
 			</>
