@@ -60,9 +60,10 @@ export default defineComponent({
 						</div>
 						<div class="rank_div">
 							<b class="rank_text">Tier</b>&nbsp;{formatWhole(player.hydra.mms.tier)}
-							<div class={'rank_button'}>
+							<div class={'rank_button'} onClick={() => MMS.rank.levelUp(1)}>
 								Reset your Rank, MMS progression & 充能九头蛇能量, but Tier up.{' '}
 								<br />
+								{getRankDisplay(1, player.hydra.mms.tier, 'Tier')}
 								<br />
 								To Tier up, requires <br />
 								{formatWhole(MMS.rank.levelRequirement(1))} Rank
