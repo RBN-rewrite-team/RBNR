@@ -19,7 +19,12 @@ function milestoneDisplay(mil: RankMilestone | undefined | null, currency?: stri
 				</>
 			)}
 			, {mil[1]()}.
-			{eff && <><br />Currently: {eff[1](eff[0]())}</>}
+			{eff && (
+				<>
+					<br />
+					Currently: {eff[1](eff[0]())}
+				</>
+			)}
 			<br />
 		</>
 	);
@@ -72,6 +77,9 @@ export default defineComponent({
 					</div>
 					{MMS.rank.rankMilestones[0].map(
 						(x) => x[0].lte(player.hydra.mms.rank) && milestoneDisplay(x, 'Rank'),
+					)}
+					{MMS.rank.rankMilestones[1].map(
+						(x) => x[0].lte(player.hydra.mms.tier) && milestoneDisplay(x, 'Tier'),
 					)}
 				</div>
 			</>
