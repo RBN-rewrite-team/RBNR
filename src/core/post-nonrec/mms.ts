@@ -24,6 +24,7 @@ export const MMS = {
 		let base = new PowiainaNum(0.025);
 		if (player.hydra.mms.rank.gte(1)) base = base.mul(MMS.rank.rankMilestones[0][0][2][0]());
 		if (player.hydra.mms.rank.gte(3)) base = base.mul(4);
+		if (player.hydra.mms.rank.gte(4)) base = base.mul(MMS.rank.rankMilestones[0][3][2][0]());
 		return base;
 	},
 	resetGain() {
@@ -126,7 +127,7 @@ export const MMS = {
 						},
 						(x: PowiainaNum) => `×${format(x)}`,
 					],
-				]
+				],
 			],
 		} as const satisfies { [key: number]: RankMilestone[] },
 		getRankMilestones(q: number, rank: PowiainaNum) {
