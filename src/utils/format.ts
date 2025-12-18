@@ -105,7 +105,7 @@ function regularFormat(num: Decimal, precision: number) {
 }
 
 export function format(decimal: DecimalSource | PowiainaNum, precision = 4): string {
-  if (decimal instanceof PowiainaNum) return formatP(decimal, precision)
+	if (decimal instanceof PowiainaNum) return formatP(decimal, precision);
 	if (player.singularity.stage === 0)
 		switch (player.options.notation) {
 			case notations.STANDARD:
@@ -331,12 +331,12 @@ export function formatPow(ex: DecimalSource, acc?: number) {
 
 export function formatWhole(decimal: DecimalSource | PowiainaNum): string {
 	if (!(decimal instanceof PowiainaNum)) decimal = new Decimal(decimal).round();
-	if (decimal.gte(1e9)) return format(decimal, 4);
+	if (decimal.gte(1e3)) return format(decimal, 4);
 	return format(decimal, 0);
 }
 
 export function formatLaTeX(decimal: DecimalSource | PowiainaNum) {
-  if (decimal instanceof PowiainaNum) return '\\text{' + format(decimal) + '}';
+	if (decimal instanceof PowiainaNum) return '\\text{' + format(decimal) + '}';
 	if (!Decimal.isFinite(decimal)) return '\\omega';
 	switch (player.options.notation) {
 		case notations.FGH:
@@ -353,7 +353,7 @@ export function formatLaTeX(decimal: DecimalSource | PowiainaNum) {
 }
 
 export function formatLaTeXWhole(decimal: DecimalSource | PowiainaNum) {
-  if (decimal instanceof PowiainaNum) return '\\text{' + formatWhole(decimal) + '}';
+	if (decimal instanceof PowiainaNum) return '\\text{' + formatWhole(decimal) + '}';
 	if (!Decimal.isFinite(decimal)) return '\\omega';
 	switch (player.options.notation) {
 		case notations.FGH:

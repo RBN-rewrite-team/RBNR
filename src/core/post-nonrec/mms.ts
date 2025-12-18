@@ -19,6 +19,9 @@ export const MMS = {
 			tier: new PowiainaNum(0),
 		};
 	},
+	displayDeduceSpeed() {
+		return MMS.deduceSpeed().div(player.hydra.mms.deduced.mul(2).add(1));
+	},
 	deduceSpeed() {
 		if (player.retribution < 2) return new PowiainaNum(0);
 		let base = new PowiainaNum(0.025);

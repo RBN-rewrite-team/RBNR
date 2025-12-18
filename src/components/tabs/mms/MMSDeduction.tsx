@@ -8,8 +8,11 @@ import { defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 function deduceButtonStyle() {
-	if (MMS.deduceSpeed().gte(10)) return {};
-	const pc = player.hydra.mms.progress.div(player.hydra.mms.deduced.mul(2).add(1)).mul(100).toNumber();
+	if (MMS.displayDeduceSpeed().gte(10)) return {};
+	const pc = player.hydra.mms.progress
+		.div(player.hydra.mms.deduced.mul(2).add(1))
+		.mul(100)
+		.toNumber();
 	return {
 		backgroundImage:
 			'linear-gradient(to right, rgba(125, 152, 195, 0.5) ' +
@@ -20,7 +23,7 @@ function deduceButtonStyle() {
 	};
 }
 function buttonClass() {
-	if (MMS.deduceSpeed().gte(10)) return 'mms-fast';
+	if (MMS.displayDeduceSpeed().gte(10)) return 'mms-fast';
 	return '';
 }
 export default defineComponent({
@@ -29,7 +32,7 @@ export default defineComponent({
 		const $t = useI18n().t;
 		const useStyle = useUpdate(() => deduceButtonStyle());
 		const useClass = useUpdate(() => buttonClass());
-		const useSpeed = useUpdate(() => MMS.deduceSpeed().div(player.hydra.mms.deduced.mul(2).add(1)));
+		const useSpeed = useUpdate(() => MMS.displayDeduceSpeed());
 		const useTime = useUpdate(() => player.hydra.mms.deduced);
 		return () => (
 			<>
