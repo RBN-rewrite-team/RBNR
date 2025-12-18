@@ -58,9 +58,34 @@ export const MMS = {
 			let res = PowiainaNum.POSITIVE_INFINITY.clone();
 
 			if (x.eq(0)) {
+				let rank = player.hydra.mms.rank;
+				//超级折算
+				if (rank.gte(1e10)) {
+					rank = rank.div(1e10).root(0.25).mul(1e10);
+				}
+				if (rank.gte(10)) {
+					rank = rank.div(10).root(0.75).mul(10);
+				}
 				res = player.hydra.mms.rank.add(1).pow(2).mul(5);
 			}
 			return res;
+		},
+		levelReqReverse(q: PowiainaNum | number, res: PowiainaNum) {
+			const x = new PowiainaNum(q);
+			if (!x.isInt()) throw new Error('Input is not integer.');
+			let res2 = PowiainaNum.ZERO.clone();
+
+			if (x.eq(0)) {
+				res2 = res.div(5).root(2).sub(1);
+				//软上限
+				if (res2.gte(10)) {
+					res2 = res2.div(10).pow(0.75).mul(10);
+				}
+				if (res2.gte(1e10)) {
+					res2 = res2.div(1e10).pow(0.25).mul(1e10);
+				}
+			}
+			return res2.ceil();
 		},
 		levelUp(q: PowiainaNum | number) {
 			const x = new PowiainaNum(q);
@@ -103,3 +128,5 @@ export const MMS = {
 		},
 	} as const,
 } as const;
+
+// window.MMS = MMS;
