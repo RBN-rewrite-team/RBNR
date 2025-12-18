@@ -194,7 +194,14 @@ export const OrdinalNT = {
 				let expReduce = new Decimal(1);
 				if (player.hydra.dilute.inDilute)
 					expReduce = expReduce.mul(4 - 3 * 0.75 ** player.hydra.dilute.solvent[1]);
-				return x.root(expReduce.clampMin(1)).div(cbase).max(1).log(1e50).floor().add(1);
+				return x
+					.clampMin(1)
+					.root(expReduce.clampMin(1))
+					.div(cbase)
+					.max(1)
+					.log(1e50)
+					.floor()
+					.add(1);
 			}
 		})(),
 		'62R': new (class B62R extends Buyable<Decimal> {
@@ -487,7 +494,8 @@ export const OrdinalNT = {
 		}
 		if (Dilute.diluteAmount(3) > 0 || player.upgrades[65]) {
 			player.numbertheory.GM.x = player.numbertheory.GM.x.add(this.varGain('x', 4).mul(diff));
-			if (player.numbertheory.GM.x.mag === NaN) player.numbertheory.GM.x = new Decimal(0)
+			if (Number.isNaN(player.numbertheory.GM.x.mag))
+				player.numbertheory.GM.x = new Decimal(0);
 		}
 	},
 	varComputed(id = 'tau', layer = 3): Decimal {
