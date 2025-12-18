@@ -4,12 +4,26 @@
 
 import PowiainaNum, { type PowiainaNumSource } from 'powiaina_num.js';
 import { player } from '../global';
-import { format } from '@/utils/format';
+import { format, formatWhole } from '@/utils/format';
+import { numberToChinese } from '@/libs/funcs';
 export type RankMilestone = [
 	PowiainaNum,
 	() => string,
 	[() => PowiainaNum, (x: PowiainaNum) => string]?,
 ];
+
+const RankTierNames = [
+  ["Rank", "Tier", "Tetr", "Pent", "Hex", "Hept", "Oct", "Enne"],
+  ["", "dec", "icos"],
+  ["", "hect"]
+]
+
+const RankTierNames2 = [
+    ['','un','do','tri','tetra','penta','hexa','hepta','octa','nona'],
+    ['','un','du','tria','tetra','penta','hexa','hepta','octa','nona'],
+    ['','un','di','tri','tetra','penta','hexa','hepta','octa','nona'],
+]
+
 export const MMS = {
 	playerData() {
 		return {
@@ -276,6 +290,33 @@ export const MMS = {
 			}
 			return null;
 		},
+		getRankTierNameEN(tier: PowiainaNumSource) {
+		  let newTier = new PowiainaNum(tier)
+		  if (newTier.gte(998)) return `[${formatWhole(newTier.add(2))}]`
+		  let i = newTier.toNumber()
+		  if (i < 8) return RankTierNames[0][i]
+		  i += 2
+		    let m = ''
+        let h = Math.floor(i / 100), d = Math.floor(i / 10) % 10, o = i % 10
+
+        if (d > 1 && o == 1) m += 'hen' 
+        else if (d == 2 && o == 3) m += 'tr' 
+        else m += RankTierNames2[0][o]
+        if (d > 2) m += RankTierNames2[1][d] + 'cont'
+        else m += RankTierNames[1][d]
+        if (h > 0 && d > 0) m += 'a'
+        if (h > 0) m += (h > 1 ? RankTierNames2[2][h] + 'ct' : 'hect')
+
+        return m[0].toUpperCase() + m.slice(1)
+		},
+		getRankTierNameCN(tier: PowiainaNumSource) {
+		  let newTier = new PowiainaNum(tier)
+		  if (newTier.gte(9998)) return `${formatWhole(newTier.add(2))}重阶层`
+		  let i = newTier.toNumber()
+		  if (i === 0) return "级别"
+		  if (i === 1) return "阶层"
+		  return `${numberToChinese(i + 2)}重阶层`
+		}
 	} as const,
 } as const;
 
