@@ -17,6 +17,7 @@ export const MMS = {
 			progress: new PowiainaNum(0),
 			rank: new PowiainaNum(0),
 			tier: new PowiainaNum(0),
+			lastReset: 0,
 		};
 	},
 	displayDeduceSpeed() {
@@ -28,6 +29,8 @@ export const MMS = {
 		if (player.hydra.mms.rank.gte(1)) base = base.mul(MMS.rank.rankMilestones[0][0][2][0]());
 		if (player.hydra.mms.rank.gte(3)) base = base.mul(4);
 		if (player.hydra.mms.rank.gte(4)) base = base.mul(MMS.rank.rankMilestones[0][3][2][0]());
+		if (player.hydra.mms.rank.gte(8)) base = base.mul(MMS.rank.rankMilestones[0][4][2][0]());
+
 		return base;
 	},
 	resetGain() {
@@ -44,6 +47,12 @@ export const MMS = {
 		MMS.addEnergy(gain);
 		player.hydra.mms.deduced = new PowiainaNum(0);
 		player.hydra.mms.progress = new PowiainaNum(0);
+		player.hydra.mms.lastReset = Date.now();
+	},
+	resetGainPerMinute() {
+		return this.resetGain()
+			.div((Date.now() - player.hydra.mms.lastReset) / 1000)
+			.mul(60);
 	},
 	addEnergy(x: PowiainaNumSource) {
 		player.hydra.chargedEnergy = player.hydra.chargedEnergy.add(x);
@@ -149,6 +158,22 @@ export const MMS = {
 					[
 						() => {
 							let effect: PowiainaNum = player.hydra.mms.rank.root(1.5).add(1);
+
+							return effect;
+						},
+						(x: PowiainaNum) => `×${format(x)}`,
+					],
+				] as const,
+				[
+					new PowiainaNum(8),
+					() => 'Multiply MMS deduce speed, based on time spent on reset' as const,
+					[
+						() => {
+							let effect: PowiainaNum = new PowiainaNum(
+								(Date.now() - player.hydra.mms.lastReset) / 1000,
+							)
+								.add(1)
+								.pow(0.25);
 
 							return effect;
 						},
