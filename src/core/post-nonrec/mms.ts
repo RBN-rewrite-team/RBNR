@@ -100,7 +100,7 @@ export const MMS = {
 				}
 			}
 			if (x.eq(1)) {
-				res2 = res.sub(2).div(3).clampMin(0).root(2).sub(1);
+				res2 = res.sub(5).clampMin(0).root(2).sub(1);
 				// let tier = player.hydra.mms.tier;
 				// res = tier.add(1).pow(2).mul(3).add(2);
 			}
