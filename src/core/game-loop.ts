@@ -264,7 +264,7 @@ export function preCardinalSpeed() {
 	}
 	return pre_cardinal_speed;
 }
-export function getPreCardinalDiff() {
+export function getPreCardinalDiff(diff: number) {
 	let pre_cardinal_diff = diff;
 	pre_cardinal_diff *= preCardinalSpeed();
 	if (player.timeshard.openTf && player.timeshard.tf.gt(0)) diff *= 3;
@@ -289,7 +289,7 @@ export function simulate(diff: number) {
 	const last = player.upgrades[61] ? DC.D_0 : feature.Ordinal.ordinalPerSecond();
 	const last2 = feature.Ordinal.speedDeri();
 	if (player.options.openOreEffect) diff *= 1 + player.minigame.ore_gets * 0.0025;
-	let pre_cardinal_diff = getPreCardinalDiff();
+	let pre_cardinal_diff = getPreCardinalDiff(diff);
 
 	let nonrecuDiffForSecInThisReset = new Decimal(pre_cardinal_diff / 1000);
 	if (player.upgrades[77])
