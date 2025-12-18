@@ -67,7 +67,7 @@ export const MMS = {
 				if (rank.gte(10)) {
 					rank = rank.div(10).root(0.75).mul(10);
 				}
-				res = new PowiainaNum(3).pow(res);
+				res = new PowiainaNum(3).pow(rank);
 			}
 			return res;
 		},
