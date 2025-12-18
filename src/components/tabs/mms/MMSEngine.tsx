@@ -20,7 +20,6 @@ function milestoneDisplay(mil: RankMilestone | undefined | null, currency?: stri
 			)}
 			, {mil[1]()}.
 			{eff && <><br />Currently: {eff[1](eff[0]())}</>}
-			On 
 			<br />
 		</>
 	);
