@@ -80,7 +80,7 @@ export const MMS = {
 			}
 			if (x.eq(1)) {
 				let tier = player.hydra.mms.tier;
-				res = tier.add(1).pow(2).mul(3).add(2);
+				res = tier.add(1).pow(2).add(5);
 			}
 			return res;
 		},
