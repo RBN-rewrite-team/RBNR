@@ -40,14 +40,14 @@ export const MMSMilestones = [
 	[new PowiainaNum(48), '()(1)(2,1)(3,2,1)(4,2)', '\\psi(Ω_ω\\cdotΩ_2)'],
 	[new PowiainaNum(52), '()(1)(2,1)(3,2,1)(4,2)(3,2,1)', '\\psi(Ω_ω^2)'],
 	[new PowiainaNum(64), '()(1)(2,1)(3,2,1)(4,2)(5,3)', '\\psi(Ω_{ω+1})'],
-	[new PowiainaNum(72), '()(1)(2,1)(3,2,1)(4,2,1)', '\\psi(Ω_{ω+1})'],
+	[new PowiainaNum(72), '()(1)(2,1)(3,2,1)(4,2,1)', '\\psi(Ω_{ω^2})'],
+	[new PowiainaNum(73), '()(1)(2,1)(3,2,1)(4,2,1)(5)', '\\psi(Ω_{ω^ω})'],
+	[new PowiainaNum(74), '()(1)(2,1)(3,2,1)(4,2,1)(5,1)', '\\psi(Ω_{Ω})'],
+	[new PowiainaNum(76), '()(1)(2,1)(3,2,1)(4,2,1)(5,2)', '\\psi(Ω_{Ω_2})'],
+	[new PowiainaNum(78), '()(1)(2,1)(3,2,1)(4,2,1)(5,2)(4,2,1)', '\\psi(Iω)'],
 	[new PowiainaNum(84), '()(1)(2,1)(3,2,1)(4,2,1)(5,2,1)', '\\psi(I_ω)'],
 	[new PowiainaNum(90), '()(1)(2,1)(3,2,1)(4,3)', '\\psi(Π_ω)'],
-	[
-		new PowiainaNum(98),
-		'()(1)(2,1)(3,2,1)(4,3,1)',
-		'\\psi(\\lambda\\alpha.\\Omega_{\\alpha+2}-\\Pi_1)',
-	],
+	[new PowiainaNum(98), '()(1)(2,1)(3,2,1)(4,3,1)', '\\psi(\\lambda\\alpha.\\Omega_{\\alpha+2}-\\Pi_1)'],
 	[new PowiainaNum(106), '()(1)(2,1)(3,2,1)(4,3,2)', '\\psi(\\psi_\\alpha(\\alpha_\\omega))'],
 	[new PowiainaNum(112), '()(1)(2,1)(3,2,1)(4,3,2,1)', '\\text{TSSO}'],
 	[new PowiainaNum(128), '()(1,1)', '\\text{SHO}'],
@@ -70,26 +70,11 @@ export const MMSMilestones = [
 	[PowiainaNum.tetrate(4, PowiainaNum.pow(4, 64)), '()(1,1)(2,2,1,1)(3,3,2,2,1,1)(4,3,3,2)'],
 	[PowiainaNum.tetrate(4, PowiainaNum.pow(4, 128)), '()(1,1)(2,2,1,1)(3,3,2,2,1,1)(4,3,3,2,2)'],
 	[PowiainaNum.tetrate(4, PowiainaNum.pow(4, 256)), '()(1,1)(2,2,1,1)(3,3,2,2,1,1)(4,3,3,2,2,1)'],
-	[
-		PowiainaNum.tetrate(4, PowiainaNum.pow(4, PowiainaNum.pow(4, 5))),
-		'()(1,1)(2,2,1,1)(3,3,2,2,1,1)(4,3,3,2,2,1,1)',
-	],
-	[
-		PowiainaNum.tetrate(4, PowiainaNum.pow(4, PowiainaNum.pow(4, 16))),
-		'()(1,1)(2,2,1,1)(3,3,2,2,1,1)(4,4)',
-	],
-	[
-		PowiainaNum.tetrate(4, PowiainaNum.pow(4, PowiainaNum.pow(4, 32))),
-		'()(1,1)(2,2,1,1)(3,3,2,2,1,1)(4,4,3)',
-	],
-	[
-		PowiainaNum.tetrate(4, PowiainaNum.tetrate(4, 6)),
-		'()(1,1)(2,2,1,1)(3,3,2,2,1,1)(4,4,3,3,2,2,1)',
-	],
-	[
-		PowiainaNum.tetrate(4, PowiainaNum.tetrate(4, 16)),
-		'()(1,1)(2,2,1,1)(3,3,2,2,1,1)(4,4,3,3,2,2,1,1)',
-	],
+	[PowiainaNum.tetrate(4, PowiainaNum.pow(4, PowiainaNum.pow(4, 5))), '()(1,1)(2,2,1,1)(3,3,2,2,1,1)(4,3,3,2,2,1,1)'],
+	[PowiainaNum.tetrate(4, PowiainaNum.pow(4, PowiainaNum.pow(4, 16))), '()(1,1)(2,2,1,1)(3,3,2,2,1,1)(4,4)'],
+	[PowiainaNum.tetrate(4, PowiainaNum.pow(4, PowiainaNum.pow(4, 32))), '()(1,1)(2,2,1,1)(3,3,2,2,1,1)(4,4,3)'],
+	[PowiainaNum.tetrate(4, PowiainaNum.tetrate(4, 6)), '()(1,1)(2,2,1,1)(3,3,2,2,1,1)(4,4,3,3,2,2,1)'],
+	[PowiainaNum.tetrate(4, PowiainaNum.tetrate(4, 16)), '()(1,1)(2,2,1,1)(3,3,2,2,1,1)(4,4,3,3,2,2,1,1)'],
 	[PowiainaNum.pentate(4, 8), '()(1,1,1)'],
 	[PowiainaNum.pentate(4, 16), '()(1,1,1)(2,2,2)'],
 	[PowiainaNum.pentate(4, 256), '()(1,1,1)(2,2,2,1,1,1)'],
@@ -107,12 +92,8 @@ export const MMSMilestones = [
 	[PowiainaNum.arrow(4, 4, 2 ** 124), '()(1,1,1,1,1,1,1,1)'],
 	[PowiainaNum.arrow(4, 4, 2 ** 126), '()(1,1,1,1,1,1,1,1,1)'],
 	[PowiainaNum.arrow(4, 4, 2 ** 127), '()(1,1,1,1,1,1,1,1,1,1)'],
-	[
-		PowiainaNum.arrow(4, 4, 2 ** 128),
-		'()(1,1,1,\\cdots)',
-		'\\text{zFOS}(0,1,ω,ε_0,ζ_0,\\varphi(ω,0))',
-	],
-	[new PowiainaNum(1 / 0), '()(1,1,1,\\cdots)'],
+	[PowiainaNum.arrow(4, 4, 2 ** 128), '()(1,1,1,...)', '\\text{zFOS}(0,1,ω,ε_0,ζ_0,\\varphi(ω,0))'],
+	[new PowiainaNum(1 / 0), '()(1,1,1,...)'],
 ] as const;
 
 export function getCurrentMMSMilestoneIndex(target: PowiainaNum): number {
@@ -141,10 +122,7 @@ export function getCurrentMMSMilestoneIndex(target: PowiainaNum): number {
 }
 
 export const getCurrentMMSMilestone = (target: PowiainaNum) => {
-	const base = MMSMilestones[getCurrentMMSMilestoneIndex(target)] ?? [
-		new PowiainaNum(NaN),
-		'Not a Ordinal',
-	];
+	const base = MMSMilestones[getCurrentMMSMilestoneIndex(target)] ?? [new PowiainaNum(NaN), 'Not a Ordinal'];
 	// const last = base[base.length - 1];
 	// if (typeof last === 'function') {
 	//   if (target.eq(base[0])) return base.slice(-1) as [Decimal, string, ...string[]];

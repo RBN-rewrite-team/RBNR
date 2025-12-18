@@ -18,6 +18,7 @@ export const MMS = {
 			rank: new PowiainaNum(0),
 			tier: new PowiainaNum(0),
 			rankEnergy: new PowiainaNum(0),
+			lastReset: 0,
 		};
 	},
 	displayDeduceSpeed() {
@@ -50,6 +51,12 @@ export const MMS = {
 		MMS.addEnergy(gain);
 		player.hydra.mms.deduced = new PowiainaNum(0);
 		player.hydra.mms.progress = new PowiainaNum(0);
+		player.hydra.mms.lastReset = Date.now();
+	},
+	resetGainPerMinute() {
+		return this.resetGain()
+			.div((Date.now() - player.hydra.mms.lastReset) / 1000)
+			.mul(60);
 	},
 	addEnergy(x: PowiainaNumSource) {
 		player.hydra.chargedEnergy = player.hydra.chargedEnergy.add(x);
@@ -200,7 +207,6 @@ export const MMS = {
 					[
 						() => {
 							let effect: PowiainaNum = player.hydra.mms.deduced.mul(5).add(1).root(6);
-							
 							return effect;
 						},
 						(x: PowiainaNum) => `×${format(x)}`,
