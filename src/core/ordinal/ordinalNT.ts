@@ -485,8 +485,10 @@ export const OrdinalNT = {
 			if (player.upgrades[512])
 				player.numbertheory.GH.t33 = player.numbertheory.GH.t33.add(diff);
 		}
-		if (Dilute.diluteAmount(3) > 0 || player.upgrades[65])
+		if (Dilute.diluteAmount(3) > 0 || player.upgrades[65]) {
 			player.numbertheory.GM.x = player.numbertheory.GM.x.add(this.varGain('x', 4).mul(diff));
+			if (player.numbertheory.GM.x.mag === NaN) player.numbertheory.GM.x = new Decimal(0)
+		}
 	},
 	varComputed(id = 'tau', layer = 3): Decimal {
 		if (layer == 3) {
