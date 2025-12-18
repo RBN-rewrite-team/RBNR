@@ -23,14 +23,14 @@ export const MMS = {
 		if (player.retribution < 2) return new PowiainaNum(0);
 		let base = new PowiainaNum(0.025);
 		if (player.hydra.mms.rank.gte(1)) base = base.mul(MMS.rank.rankMilestones[0][0][2][0]());
-
+		if (player.hydra.mms.rank.gte(3)) base = base.mul(4);
 		return base;
 	},
 	resetGain() {
 		if (player.retribution < 2) return new PowiainaNum(0);
-		let base = player.hydra.mms.deduced.add(player.hydra.mms.progress);
+		let base = player.hydra.mms.deduced;
 		if (player.hydra.mms.rank.gte(2)) base = base.mul(2);
-		return base;
+		return base.floor();
 	},
 	reset() {
 		if (player.hydra.mms.deduced.lt(1)) return;
@@ -46,9 +46,10 @@ export const MMS = {
 	loop(diff: number) {
 		player.hydra.mms.progress = player.hydra.mms.progress.add(this.deduceSpeed().mul(diff));
 		if (player.hydra.mms.progress.gte(1)) {
-			const int = player.hydra.mms.progress.floor();
-			player.hydra.mms.progress = player.hydra.mms.progress.sub(int);
-			player.hydra.mms.deduced = player.hydra.mms.deduced.add(int);
+			let ori = player.hydra.mms.deduced;
+			const int = player.hydra.mms.progress.add(player.hydra.mms.deduced.pow(2)).root(2).floor();
+			player.hydra.mms.progress = player.hydra.mms.progress.sub(int.pow(2).sub(ori.pow(2)));
+			player.hydra.mms.deduced = int;
 		}
 	},
 	rank: {
@@ -56,7 +57,7 @@ export const MMS = {
 			const x = new PowiainaNum(q);
 			if (!x.isInt()) throw new Error('Input is not integer.');
 			let res = PowiainaNum.POSITIVE_INFINITY.clone();
-
+			
 			if (x.eq(0)) {
 				let rank = player.hydra.mms.rank;
 				//超级折算
@@ -66,7 +67,7 @@ export const MMS = {
 				if (rank.gte(10)) {
 					rank = rank.div(10).root(0.75).mul(10);
 				}
-				res = player.hydra.mms.rank.add(1).pow(2).mul(5);
+				res = new PowiainaNum(3).pow(res);
 			}
 			return res;
 		},
@@ -103,16 +104,29 @@ export const MMS = {
 			0: [
 				[
 					new PowiainaNum(1),
-					() => 'Multiply MMS progression speed, based on Charged Hydra Energy' as const,
+					() => 'Multiply MMS deduce speed, based on Charged Hydra Energy' as const,
 					[
 						() => {
 							let effect: PowiainaNum = player.hydra.chargedEnergy.add(1).pow(0.5);
+							if(effect.gte(100)) effect = effect.div(100).pow(0.25).mul(100);
 							return effect;
 						},
 						(x: PowiainaNum) => `×${format(x)}`,
 					],
 				] as const,
 				[new PowiainaNum(2), () => 'Charged Hydra Energy gain ×2' as const] as const,
+				[new PowiainaNum(3), () => 'MMS deduce speed x4' as const] as const,
+				[
+					new PowiainaNum(4),
+					() => 'Multiply MMS deduce speed, based on Rank' as const,
+					[
+						() => {
+							let effect: PowiainaNum = player.hydra.mms.rank.root(1.5).add(1);
+							return effect;
+						},
+						(x: PowiainaNum) => `×${format(x)}`,
+					],
+				]
 			],
 		} as const satisfies { [key: number]: RankMilestone[] },
 		getRankMilestones(q: number, rank: PowiainaNum) {

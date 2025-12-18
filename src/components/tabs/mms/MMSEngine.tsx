@@ -18,8 +18,9 @@ function milestoneDisplay(mil: RankMilestone | undefined | null, currency?: stri
 					&nbsp;{currency} {formatWhole(mil[0])}
 				</>
 			)}
-			, {mil[1]()}.<br />
-			{eff && <>Currently: {eff[1](eff[0]())}</>}
+			, {mil[1]()}.
+			{eff && <><br />Currently: {eff[1](eff[0]())}</>}
+			On 
 			<br />
 		</>
 	);
