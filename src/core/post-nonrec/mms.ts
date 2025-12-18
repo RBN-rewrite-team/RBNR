@@ -17,6 +17,7 @@ export const MMS = {
 			progress: new PowiainaNum(0),
 			rank: new PowiainaNum(0),
 			tier: new PowiainaNum(0),
+			rankEnergy: new PowiainaNum(0),
 		};
 	},
 	displayDeduceSpeed() {
@@ -28,14 +29,19 @@ export const MMS = {
 		if (player.hydra.mms.rank.gte(1)) base = base.mul(MMS.rank.rankMilestones[0][0][2][0]());
 		if (player.hydra.mms.rank.gte(3)) base = base.mul(4);
 		if (player.hydra.mms.rank.gte(4)) base = base.mul(MMS.rank.rankMilestones[0][3][2][0]());
+		if (player.hydra.mms.tier.gte(3)) base = base.mul(4);
+		if (player.hydra.mms.rank.gte(17)) base = base.mul(MMS.rank.rankMilestones[0][9][2][0]());
 		return base;
 	},
 	resetGain() {
 		if (player.retribution < 2) return new PowiainaNum(0);
 		let base = player.hydra.mms.deduced;
 		if (player.hydra.mms.rank.gte(2)) base = base.mul(2);
-
 		if (player.hydra.mms.tier.gte(1)) base = base.mul(MMS.rank.rankMilestones[1][0][2][0]());
+		if (player.hydra.mms.rank.gte(9)) base = base.mul(MMS.rank.rankMilestones[0][5][2][0]());
+		if (MMS.rank.rankEnergies[0].unlocked()) base = base.mul(MMS.rank.rankEnergies[0].effect());
+		if (player.hydra.mms.rank.gte(12)) base = base.mul(15);
+		if (player.hydra.mms.rank.gte(14)) base = base.mul(MMS.rank.rankMilestones[0][8][2][0]());
 		return base.floor();
 	},
 	reset() {
@@ -60,8 +66,16 @@ export const MMS = {
 			player.hydra.mms.progress = player.hydra.mms.progress.sub(int.pow(2).sub(ori.pow(2)));
 			player.hydra.mms.deduced = int;
 		}
+		player.hydra.mms.rankEnergy = player.hydra.mms.rankEnergy.add(this.rank.rankEnergies[0].gain().mul(diff));
 	},
 	rank: {
+		scaling: {
+			0: [[new PowiainaNum(10), () => {
+				let base = new PowiainaNum(0.75);
+				if(player.hydra.mms.rank.gte(19)) base = base.pow(0.75);
+				return base;
+			}], [new PowiainaNum(1e10), () => new PowiainaNum(0.25)]],
+		},
 		levelRequirement(q: PowiainaNum | number) {
 			const x = new PowiainaNum(q);
 			if (!x.isInt()) throw new Error('Input is not integer.');
@@ -70,11 +84,11 @@ export const MMS = {
 			if (x.eq(0)) {
 				let rank = player.hydra.mms.rank;
 				//超级折算
-				if (rank.gte(1e10)) {
-					rank = rank.div(1e10).root(0.25).mul(1e10);
+				if (rank.gte(this.scaling[0][1][0])) {
+					rank = rank.div(this.scaling[0][1][0]).root(this.scaling[0][1][1]()).mul(this.scaling[0][1][0]);
 				}
-				if (rank.gte(10)) {
-					rank = rank.div(10).root(0.75).mul(10);
+				if (rank.gte(this.scaling[0][0][0])) {
+					rank = rank.div(this.scaling[0][0][0]).root(this.scaling[0][0][1]()).mul(this.scaling[0][0][0]);
 				}
 				res = new PowiainaNum(3).pow(rank);
 			}
@@ -90,13 +104,13 @@ export const MMS = {
 			let res2 = PowiainaNum.ZERO.clone();
 
 			if (x.eq(0)) {
-				res2 = res.div(5).root(2).sub(1);
+				res2 = res.log(3);
 				//软上限
-				if (res2.gte(10)) {
-					res2 = res2.div(10).pow(0.75).mul(10);
+				if (res2.gte(this.scaling[0][0][0])) {
+					res2 = res2.div(this.scaling[0][0][0]).pow(this.scaling[0][0][1]()).mul(this.scaling[0][0][0]);
 				}
-				if (res2.gte(1e10)) {
-					res2 = res2.div(1e10).pow(0.25).mul(1e10);
+				if (res2.gte(this.scaling[0][1][0])) {
+					res2 = res2.div(this.scaling[0][1][0]).pow(this.scaling[0][1][1]()).mul(this.scaling[0][1][0]);
 				}
 			}
 			if (x.eq(1)) {
@@ -114,6 +128,7 @@ export const MMS = {
 					player.hydra.mms.deduced = new PowiainaNum(0);
 					player.hydra.mms.progress = new PowiainaNum(0);
 					player.hydra.chargedEnergy = new PowiainaNum(0);
+					
 					player.hydra.mms.rank = player.hydra.mms.rank.add(1);
 				}
 			}
@@ -123,9 +138,30 @@ export const MMS = {
 					player.hydra.mms.progress = new PowiainaNum(0);
 					player.hydra.chargedEnergy = new PowiainaNum(0);
 					player.hydra.mms.rank = new PowiainaNum(0);
+					player.hydra.mms.rankEnergy = new PowiainaNum(0);
+					
 					player.hydra.mms.tier = player.hydra.mms.tier.add(1);
 				}
 			}
+		},
+		rankEnergies: {
+			0: {
+				unlocked(): boolean {return player.hydra.mms.rank.gte(10);},
+				gain(): PowiainaNum {
+					if(!this.unlocked()) return new PowiainaNum(0);
+					let base = new PowiainaNum(10).pow(player.hydra.mms.rank.max(10).log10().pow(3));
+					return base;
+				},
+				effect(): PowiainaNum {
+					let base = player.hydra.mms.rankEnergy.add(1).root(5);
+					if(base.gte(10)) base = base.add(base.pow(2).sub(90)).div(2); //its a soft bottom
+					return base;
+				},
+				effectDescription(): string {
+					let e = this.effect();
+					return `ChHE gain ×${format(e)}`;
+				},
+			},
 		},
 		rankMilestones: {
 			0: [
@@ -135,6 +171,8 @@ export const MMS = {
 					[
 						() => {
 							let effect: PowiainaNum = player.hydra.chargedEnergy.add(1).pow(0.5);
+							if (player.hydra.mms.tier.gte(2)) effect = effect.add(2);
+							if (player.hydra.mms.rank.gte(7)) effect = effect.pow(1.5);
 							if (effect.gte(100)) effect = effect.div(100).pow(0.25).mul(100);
 							return effect;
 						},
@@ -155,6 +193,55 @@ export const MMS = {
 						(x: PowiainaNum) => `×${format(x)}`,
 					],
 				] as const,
+				[new PowiainaNum(7), () => 'Rank 1 Effect ^1.5' as const] as const,
+				[
+					new PowiainaNum(9),
+					() => 'Multiply Charged Hydra Energy, based on MMS' as const,
+					[
+						() => {
+							let effect: PowiainaNum = player.hydra.mms.deduced.mul(5).add(1).root(6);
+							
+							return effect;
+						},
+						(x: PowiainaNum) => `×${format(x)}`,
+					],
+				] as const,
+				[
+					new PowiainaNum(10),
+					() => 'Start producing Rank Energy, based on Rank' as const,
+					[
+						() => {
+							return MMS.rank.rankEnergies[0].gain();
+						},
+						(x: PowiainaNum) => `+${format(x)}/s`,
+					],
+				] as const,
+				[new PowiainaNum(12), () => 'Charged Hydra Energy gain x15' as const] as const,
+				[
+					new PowiainaNum(14),
+					() => 'Multiply Charged Hydra Energy, based on Tier' as const,
+					[
+						() => {
+							let effect: PowiainaNum = player.hydra.mms.tier.add(2).pow(2).sub(3);
+							
+							return effect;
+						},
+						(x: PowiainaNum) => `×${format(x)}`,
+					],
+				] as const,
+				[
+					new PowiainaNum(17),
+					() => 'Multiply MMS deduce speed, based on Tier' as const,
+					[
+						() => {
+							let effect: PowiainaNum = player.hydra.mms.tier.max(1).add(1).pow(3).sub(7);
+							
+							return effect;
+						},
+						(x: PowiainaNum) => `×${format(x)}`,
+					],
+				] as const,
+				[new PowiainaNum(19), () => 'First Rank scaling is weakened to 75%' as const] as const,
 			],
 			1: [
 				[
@@ -162,12 +249,14 @@ export const MMS = {
 					() => 'Multiply Charged Hydra Energy, based on Tier' as const,
 					[
 						() => {
-							let effect: PowiainaNum = player.hydra.mms.tier.add(1).pow(0.5);
+							let effect: PowiainaNum = player.hydra.mms.tier.add(1);
 							return effect;
 						},
 						(x: PowiainaNum) => `×${format(x)}`,
 					],
 				] as const,
+				[new PowiainaNum(2), () => 'Rank 1 Effect +2' as const] as const,
+				[new PowiainaNum(3), () => 'MMS deduce speed x4' as const] as const,
 			] as const,
 		} as const satisfies { [key: number]: RankMilestone[] },
 		getRankMilestones(q: number, rank: PowiainaNum) {
