@@ -64,14 +64,18 @@ export default defineComponent({
 								To Rank up, requires <br />
 								{formatWhole(MMS.rank.levelRequirement(0))} 充能九头蛇能量
 							</div>
-							{
-								MMS.rank.rankEnergies[0].unlocked() ? <>
+							{MMS.rank.rankEnergies[0].unlocked() ? (
+								<>
 									<span style="font-size: 14px">
-										<b>Rank Energy</b>&nbsp;{formatWhole(player.hydra.mms.rankEnergy)}<br />
+										<b>Rank Energy</b>&nbsp;
+										{formatWhole(player.hydra.mms.rankEnergy)}
+										<br />
 										{MMS.rank.rankEnergies[0].effectDescription()}
 									</span>
-								</> : <></>
-							}
+								</>
+							) : (
+								<></>
+							)}
 						</div>
 						<div class="rank_div">
 							<b class="rank_text">Tier</b>&nbsp;{formatWhole(player.hydra.mms.tier)}

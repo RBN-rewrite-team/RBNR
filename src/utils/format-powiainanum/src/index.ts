@@ -1,3 +1,3 @@
-import * as Notations from "./notations/notations";
+import * as Notations from './notations/notations';
 
 export default Notations;

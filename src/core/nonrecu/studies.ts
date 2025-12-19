@@ -150,8 +150,9 @@ export const studies = [
 		canBuy() {
 			return (
 				player.nonrecu.studies_bought.includes(2) ||
-				player.nonrecu.studies_bought.includes(3)
-			) || (player.retribution >= 2 && or(1));
+				player.nonrecu.studies_bought.includes(3) ||
+				(player.retribution >= 2 && or(1))
+			);
 		},
 	}),
 	new Study({
@@ -552,12 +553,11 @@ export const studies = [
 			return '移除压缩九头蛇能量上限';
 		},
 		get cost() {
-			if(player.retribution >= 2) return new Decimal(-10);
+			if (player.retribution >= 2) return new Decimal(-10);
 			return player.retribution == 0 ? DC.D_F9E15 : new Decimal(8);
 		},
 		canBuy() {
-			return (or(16) && player.retribution >= 1)
-			|| (or(6) && player.retribution >= 2);
+			return (or(16) && player.retribution >= 1) || (or(6) && player.retribution >= 2);
 		},
 	}),
 	new Study({
@@ -576,11 +576,11 @@ export const studies = [
 	new Study({
 		id: '131', //31
 		get cost() {
-			if(player.retribution >= 2) return new Decimal(-10);
+			if (player.retribution >= 2) return new Decimal(-10);
 			return player.retribution == 0 ? DC.D_F9E15 : new Decimal('eeeee1.3');
 		},
 		canBuy() {
-			return or(30) && player.retribution >= 1 || player.retribution >= 2;
+			return (or(30) && player.retribution >= 1) || player.retribution >= 2;
 		},
 	}),
 ] as const;

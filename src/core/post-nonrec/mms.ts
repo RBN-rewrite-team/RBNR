@@ -13,16 +13,16 @@ export type RankMilestone = [
 ];
 
 const RankTierNames = [
-  ["Rank", "Tier", "Tetr", "Pent", "Hex", "Hept", "Oct", "Enne"],
-  ["", "dec", "icos"],
-  ["", "hect"]
-]
+	['Rank', 'Tier', 'Tetr', 'Pent', 'Hex', 'Hept', 'Oct', 'Enne'],
+	['', 'dec', 'icos'],
+	['', 'hect'],
+];
 
 const RankTierNames2 = [
-    ['','un','do','tri','tetra','penta','hexa','hepta','octa','nona'],
-    ['','un','du','tria','tetra','penta','hexa','hepta','octa','nona'],
-    ['','un','di','tri','tetra','penta','hexa','hepta','octa','nona'],
-]
+	['', 'un', 'do', 'tri', 'tetra', 'penta', 'hexa', 'hepta', 'octa', 'nona'],
+	['', 'un', 'du', 'tria', 'tetra', 'penta', 'hexa', 'hepta', 'octa', 'nona'],
+	['', 'un', 'di', 'tri', 'tetra', 'penta', 'hexa', 'hepta', 'octa', 'nona'],
+];
 
 export const MMS = {
 	playerData() {
@@ -87,15 +87,23 @@ export const MMS = {
 			player.hydra.mms.progress = player.hydra.mms.progress.sub(int.pow(2).sub(ori.pow(2)));
 			player.hydra.mms.deduced = int;
 		}
-		player.hydra.mms.rankEnergy = player.hydra.mms.rankEnergy.add(this.rank.rankEnergies[0].gain().mul(diff));
+		player.hydra.mms.rankEnergy = player.hydra.mms.rankEnergy.add(
+			this.rank.rankEnergies[0].gain().mul(diff),
+		);
 	},
 	rank: {
 		scaling: {
-			0: [[new PowiainaNum(10), () => {
-				let base = new PowiainaNum(0.75);
-				if(player.hydra.mms.rank.gte(19)) base = base.pow(0.75);
-				return base;
-			}], [new PowiainaNum(1e10), () => new PowiainaNum(0.25)]],
+			0: [
+				[
+					new PowiainaNum(10),
+					() => {
+						let base = new PowiainaNum(0.75);
+						if (player.hydra.mms.rank.gte(19)) base = base.pow(0.75);
+						return base;
+					},
+				],
+				[new PowiainaNum(1e10), () => new PowiainaNum(0.25)],
+			],
 		},
 		levelRequirement(q: PowiainaNum | number) {
 			const x = new PowiainaNum(q);
@@ -106,10 +114,16 @@ export const MMS = {
 				let rank = player.hydra.mms.rank;
 				//超级折算
 				if (rank.gte(this.scaling[0][1][0])) {
-					rank = rank.div(this.scaling[0][1][0]).root(this.scaling[0][1][1]()).mul(this.scaling[0][1][0]);
+					rank = rank
+						.div(this.scaling[0][1][0])
+						.root(this.scaling[0][1][1]())
+						.mul(this.scaling[0][1][0]);
 				}
 				if (rank.gte(this.scaling[0][0][0])) {
-					rank = rank.div(this.scaling[0][0][0]).root(this.scaling[0][0][1]()).mul(this.scaling[0][0][0]);
+					rank = rank
+						.div(this.scaling[0][0][0])
+						.root(this.scaling[0][0][1]())
+						.mul(this.scaling[0][0][0]);
 				}
 				res = new PowiainaNum(3).pow(rank);
 			}
@@ -128,10 +142,16 @@ export const MMS = {
 				res2 = res.log(3);
 				//软上限
 				if (res2.gte(this.scaling[0][0][0])) {
-					res2 = res2.div(this.scaling[0][0][0]).pow(this.scaling[0][0][1]()).mul(this.scaling[0][0][0]);
+					res2 = res2
+						.div(this.scaling[0][0][0])
+						.pow(this.scaling[0][0][1]())
+						.mul(this.scaling[0][0][0]);
 				}
 				if (res2.gte(this.scaling[0][1][0])) {
-					res2 = res2.div(this.scaling[0][1][0]).pow(this.scaling[0][1][1]()).mul(this.scaling[0][1][0]);
+					res2 = res2
+						.div(this.scaling[0][1][0])
+						.pow(this.scaling[0][1][1]())
+						.mul(this.scaling[0][1][0]);
 				}
 			}
 			if (x.eq(1)) {
@@ -149,7 +169,7 @@ export const MMS = {
 					player.hydra.mms.deduced = new PowiainaNum(0);
 					player.hydra.mms.progress = new PowiainaNum(0);
 					player.hydra.chargedEnergy = new PowiainaNum(0);
-					
+
 					player.hydra.mms.rank = player.hydra.mms.rank.add(1);
 				}
 			}
@@ -160,22 +180,26 @@ export const MMS = {
 					player.hydra.chargedEnergy = new PowiainaNum(0);
 					player.hydra.mms.rank = new PowiainaNum(0);
 					player.hydra.mms.rankEnergy = new PowiainaNum(0);
-					
+
 					player.hydra.mms.tier = player.hydra.mms.tier.add(1);
 				}
 			}
 		},
 		rankEnergies: {
 			0: {
-				unlocked(): boolean {return player.hydra.mms.rank.gte(10);},
+				unlocked(): boolean {
+					return player.hydra.mms.rank.gte(10);
+				},
 				gain(): PowiainaNum {
-					if(!this.unlocked()) return new PowiainaNum(0);
-					let base = new PowiainaNum(10).pow(player.hydra.mms.rank.max(10).log10().pow(3));
+					if (!this.unlocked()) return new PowiainaNum(0);
+					let base = new PowiainaNum(10).pow(
+						player.hydra.mms.rank.max(10).log10().pow(3),
+					);
 					return base;
 				},
 				effect(): PowiainaNum {
 					let base = player.hydra.mms.rankEnergy.add(1).root(5);
-					if(base.gte(10)) base = base.add(base.pow(2).sub(90)).div(2); //its a soft bottom
+					if (base.gte(10)) base = base.add(base.pow(2).sub(90)).div(2); //its a soft bottom
 					return base;
 				},
 				effectDescription(): string {
@@ -220,7 +244,10 @@ export const MMS = {
 					() => 'Multiply Charged Hydra Energy, based on MMS' as const,
 					[
 						() => {
-							let effect: PowiainaNum = player.hydra.mms.deduced.mul(5).add(1).root(6);
+							let effect: PowiainaNum = player.hydra.mms.deduced
+								.mul(5)
+								.add(1)
+								.root(6);
 							return effect;
 						},
 						(x: PowiainaNum) => `×${format(x)}`,
@@ -243,7 +270,7 @@ export const MMS = {
 					[
 						() => {
 							let effect: PowiainaNum = player.hydra.mms.tier.add(2).pow(2).sub(3);
-							
+
 							return effect;
 						},
 						(x: PowiainaNum) => `×${format(x)}`,
@@ -254,14 +281,21 @@ export const MMS = {
 					() => 'Multiply MMS deduce speed, based on Tier' as const,
 					[
 						() => {
-							let effect: PowiainaNum = player.hydra.mms.tier.max(1).add(1).pow(3).sub(7);
-							
+							let effect: PowiainaNum = player.hydra.mms.tier
+								.max(1)
+								.add(1)
+								.pow(3)
+								.sub(7);
+
 							return effect;
 						},
 						(x: PowiainaNum) => `×${format(x)}`,
 					],
 				] as const,
-				[new PowiainaNum(19), () => 'First Rank scaling is weakened to 75%' as const] as const,
+				[
+					new PowiainaNum(19),
+					() => 'First Rank scaling is weakened to 75%' as const,
+				] as const,
 			],
 			1: [
 				[
@@ -291,32 +325,34 @@ export const MMS = {
 			return null;
 		},
 		getRankTierNameEN(tier: PowiainaNumSource) {
-		  let newTier = new PowiainaNum(tier)
-		  if (newTier.gte(998)) return `[${formatWhole(newTier.add(2))}]`
-		  let i = newTier.toNumber()
-		  if (i < 8) return RankTierNames[0][i]
-		  i += 2
-		    let m = ''
-        let h = Math.floor(i / 100), d = Math.floor(i / 10) % 10, o = i % 10
+			let newTier = new PowiainaNum(tier);
+			if (newTier.gte(998)) return `[${formatWhole(newTier.add(2))}]`;
+			let i = newTier.toNumber();
+			if (i < 8) return RankTierNames[0][i];
+			i += 2;
+			let m = '';
+			let h = Math.floor(i / 100),
+				d = Math.floor(i / 10) % 10,
+				o = i % 10;
 
-        if (d > 1 && o == 1) m += 'hen' 
-        else if (d == 2 && o == 3) m += 'tr' 
-        else m += RankTierNames2[0][o]
-        if (d > 2) m += RankTierNames2[1][d] + 'cont'
-        else m += RankTierNames[1][d]
-        if (h > 0 && d > 0) m += 'a'
-        if (h > 0) m += (h > 1 ? RankTierNames2[2][h] + 'ct' : 'hect')
+			if (d > 1 && o == 1) m += 'hen';
+			else if (d == 2 && o == 3) m += 'tr';
+			else m += RankTierNames2[0][o];
+			if (d > 2) m += RankTierNames2[1][d] + 'cont';
+			else m += RankTierNames[1][d];
+			if (h > 0 && d > 0) m += 'a';
+			if (h > 0) m += h > 1 ? RankTierNames2[2][h] + 'ct' : 'hect';
 
-        return m[0].toUpperCase() + m.slice(1)
+			return m[0].toUpperCase() + m.slice(1);
 		},
 		getRankTierNameCN(tier: PowiainaNumSource) {
-		  let newTier = new PowiainaNum(tier)
-		  if (newTier.gte(9998)) return `${formatWhole(newTier.add(2))}重阶层`
-		  let i = newTier.toNumber()
-		  if (i === 0) return "级别"
-		  if (i === 1) return "阶层"
-		  return `${numberToChinese(i + 2)}重阶层`
-		}
+			let newTier = new PowiainaNum(tier);
+			if (newTier.gte(9998)) return `${formatWhole(newTier.add(2))}重阶层`;
+			let i = newTier.toNumber();
+			if (i === 0) return '级别';
+			if (i === 1) return '阶层';
+			return `${numberToChinese(i + 2)}重阶层`;
+		},
 	} as const,
 } as const;
 

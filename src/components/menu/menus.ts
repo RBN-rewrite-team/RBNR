@@ -248,7 +248,11 @@ export const menus = [
 				id: 26,
 				text: 'tab.unocf',
 				show() {
-					return player.stat.chapter >= 6 && player.milestones.nonrec_19 && player.retribution < 2;
+					return (
+						player.stat.chapter >= 6 &&
+						player.milestones.nonrec_19 &&
+						player.retribution < 2
+					);
 				},
 			},
 			{

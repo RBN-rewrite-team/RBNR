@@ -1,2 +1,2 @@
-import { EngineeringNotation, FGHJNotation } from "./fgh-j";
+import { EngineeringNotation, FGHJNotation } from './fgh-j';
 export { FGHJNotation, EngineeringNotation };
