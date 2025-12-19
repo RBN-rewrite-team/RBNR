@@ -102,6 +102,27 @@ export default defineComponent({
 								{MMS.rank.getRankTierName(0)}
 							</div>
 						</div>
+						{
+							player.hydra.mms.tier.gte(4) || player.hydra.mms.tri.gte(1) ? <>
+								<div class="rank_div">
+									<b class="rank_text">{MMS.rank.getRankTierName(2)}</b>&nbsp;
+									{formatWhole(player.hydra.mms.tri)}
+									<div class={'rank_button'} onClick={() => MMS.rank.levelUp(2)}>
+										{$t('mms.rank.reset.2')} <br />
+										{getRankDisplay(
+											2,
+											player.hydra.mms.tri,
+											MMS.rank.getRankTierName(2),
+										)}
+										<br />
+										{$t('mms.rank.requirement', { up: MMS.rank.getRankTierName(2) })}
+										<br />
+										{formatWhole(MMS.rank.levelRequirement(2))}{' '}
+										{MMS.rank.getRankTierName(1)}
+									</div>
+								</div>
+							</> : <></>
+						}
 					</div>
 					<br />
 					{MMS.rank.rankMilestones[0].map(
@@ -109,11 +130,17 @@ export default defineComponent({
 							x[0].lte(player.hydra.mms.rank) &&
 							milestoneDisplay(x, MMS.rank.getRankTierName(0)),
 					)}
-					<br />
+					{ player.hydra.mms.tier.gte(1) ? <><br /></> : <></> }
 					{MMS.rank.rankMilestones[1].map(
 						(x) =>
 							x[0].lte(player.hydra.mms.tier) &&
 							milestoneDisplay(x, MMS.rank.getRankTierName(1)),
+					)}
+					{ player.hydra.mms.tri.gte(1) ? <><br /></> : <></> }
+					{MMS.rank.rankMilestones[2].map(
+						(x) =>
+							x[0].lte(player.hydra.mms.tri) &&
+							milestoneDisplay(x, MMS.rank.getRankTierName(2)),
 					)}
 				</div>
 			</>

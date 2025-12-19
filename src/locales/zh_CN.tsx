@@ -2189,6 +2189,7 @@ export default {
 	'mms.rank.mil': '在{goal}，{do}。',
 	'mms.rank.reset.0': '重置你的MMS推演进度和充能九头蛇能量，但提升级别。',
 	'mms.rank.reset.1': '重置你的级别，MMS推演进度和充能九头蛇能量，但提升阶层。',
+	'mms.rank.reset.2': '重置你的阶层，级别，MMS和ChHE，但提升三重阶层。',
 	'mms.rank.requirement': '提升你的{up}需要',
 
 	'mms.rank.mil.0.0': '基于充能九头蛇能量提升MMS推演速度',
@@ -2206,4 +2207,5 @@ export default {
 	'mms.rank.mil.1.1': '级别1效果+2',
 	'mms.rank.mil.1.2': 'MMS推演速度×4',
 	'mms.rank.mil.1.3': '基于阶层，提升级别能量获取',
+	'mms.rank.mil.2.0': '基于级别，提升MMS推演速度',
 };
