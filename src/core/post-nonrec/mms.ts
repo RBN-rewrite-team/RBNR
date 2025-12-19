@@ -37,7 +37,7 @@ export const MMS = {
 		};
 	},
 	displayDeduceSpeed(): PowiainaNum {
-		return MMS.deduceSpeed().div(player.hydra.mms.deduced.mul(2).add(1));
+		return MMS.deduceSpeed().div(player.hydra.mms.deduced.add(1).root(this.staticExp()).sub(player.hydra.mms.deduced.root(this.staticExp())));
 	},
 	deduceSpeed(): PowiainaNum {
 		if (player.retribution < 2) return new PowiainaNum(0);
@@ -82,15 +82,19 @@ export const MMS = {
 		if (player.hydra.mms.progress.gte(1)) {
 			let ori = player.hydra.mms.deduced;
 			const int = player.hydra.mms.progress
-				.add(player.hydra.mms.deduced.pow(2))
-				.root(2)
+				.add(player.hydra.mms.deduced.root(this.staticExp()))
+				.pow(this.staticExp())
 				.floor();
-			player.hydra.mms.progress = player.hydra.mms.progress.sub(int.pow(2).sub(ori.pow(2)));
+			player.hydra.mms.progress = player.hydra.mms.progress.sub(int.root(this.staticExp()).sub(ori.root(this.staticExp())));
 			player.hydra.mms.deduced = int;
 		}
 		player.hydra.mms.rankEnergy = player.hydra.mms.rankEnergy.add(
 			this.rank.rankEnergies[0].gain().mul(diff),
 		);
+	},
+	staticExp(): PowiainaNum {
+		let base = new PowiainaNum(0.5);
+		return base;
 	},
 	rank: {
 		scaling: {
@@ -196,6 +200,7 @@ export const MMS = {
 					let base = new PowiainaNum(10).pow(
 						player.hydra.mms.rank.max(10).log10().pow(3),
 					);
+					if(player.hydra.mms.tier.gte(4)) base = base.mul(MMS.rank.rankMilestones[1][3][2][0]());
 					return base;
 				},
 				effect(): PowiainaNum {
@@ -309,6 +314,17 @@ export const MMS = {
 				] as const,
 				[new PowiainaNum(2), () => getMessage('mms.rank.mil.1.1')] as const,
 				[new PowiainaNum(3), () => getMessage('mms.rank.mil.1.2')] as const,
+				[
+					new PowiainaNum(4),
+					() => getMessage('mms.rank.mil.1.3'),
+					[
+						() => {
+							let effect: PowiainaNum = player.hydra.mms.tier.add(1).pow(1.5);
+							return effect;
+						},
+						(x: PowiainaNum) => `×${format(x)}`,
+					],
+				] as const,
 			] as const,
 		} as const satisfies { [key: number]: RankMilestone[] },
 		getRankMilestones(q: number, rank: PowiainaNum) {

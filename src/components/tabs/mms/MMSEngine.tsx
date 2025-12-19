@@ -43,6 +43,7 @@ export default defineComponent({
 			<>
 				<div class="main">
 					<p style="color: grey; table-align: center">{$t('mms.t')}</p>
+					<b style="color: cyan">{$t('mms.staticExp')}&nbsp;{format(MMS.staticExp())}</b>
 					<div
 						style={{
 							margin: 'auto',

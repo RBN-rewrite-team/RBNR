@@ -2183,7 +2183,9 @@ export default {
 	'retri.1.buff.1': '获得1奇点能量',
 	'retri.2.buff.2': '获得2奇点能量',
 	'retri.how': '点击上面的方框以进行果报重置',
-
+	
+	'mms.staticExp': '静态指数',
+	
 	'mms.rank.mil': '在{goal}，{do}。',
 	'mms.rank.reset.0': '重置你的MMS推演进度和充能九头蛇能量，但提升级别。',
 	'mms.rank.reset.1': '重置你的级别，MMS推演进度和充能九头蛇能量，但提升阶层。',
@@ -2195,7 +2197,7 @@ export default {
 	'mms.rank.mil.0.3': '基于级别，提升MMS推演速度',
 	'mms.rank.mil.0.4': '级别1效果^1.5',
 	'mms.rank.mil.0.5': '基于MMS，提升充能九头蛇能量获取',
-	'mms.rank.mil.0.6': '基于当前级别，开始生产Rank Energy',
+	'mms.rank.mil.0.6': '基于当前级别，开始生产级别能量',
 	'mms.rank.mil.0.7': '充能九头蛇能量获取x15',
 	'mms.rank.mil.0.8': '基于阶层，提升充能九头蛇能量获取',
 	'mms.rank.mil.0.9': '基于阶层，提升MMS推演速度',
@@ -2203,4 +2205,5 @@ export default {
 	'mms.rank.mil.1.0': '基于阶层，提升充能九头蛇能量获取',
 	'mms.rank.mil.1.1': '级别1效果+2',
 	'mms.rank.mil.1.2': 'MMS推演速度×4',
+	'mms.rank.mil.1.3': '基于阶层，提升级别能量获取',
 };

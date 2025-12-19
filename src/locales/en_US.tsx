@@ -2349,6 +2349,8 @@ THEN YOU CAN GET REVELATION.<br />
 	'currency.charged_hydra': 'Charged Hydra Energy',
 	'mms.t': 'MMS is a powerful matrix notation, its limit may reach ω-Y.',
 	'tab.mms': 'MMS',
+	
+	'mms.staticExp': 'Static Exp.',
 
 	'mms.rank.mil.0.0': 'Multiply MMS deduce speed, based on Charged Hydra Energy',
 	'mms.rank.mil.0.1': 'Charged Hydra Energy gain ×2',
