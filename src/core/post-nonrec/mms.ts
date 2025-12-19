@@ -35,10 +35,10 @@ export const MMS = {
 			lastReset: 0,
 		};
 	},
-	displayDeduceSpeed() {
+	displayDeduceSpeed(): PowiainaNum {
 		return MMS.deduceSpeed().div(player.hydra.mms.deduced.mul(2).add(1));
 	},
-	deduceSpeed() {
+	deduceSpeed(): PowiainaNum {
 		if (player.retribution < 2) return new PowiainaNum(0);
 		let base = new PowiainaNum(0.025);
 		if (player.hydra.mms.rank.gte(1)) base = base.mul(MMS.rank.rankMilestones[0][0][2][0]());
@@ -48,7 +48,7 @@ export const MMS = {
 		if (player.hydra.mms.rank.gte(17)) base = base.mul(MMS.rank.rankMilestones[0][9][2][0]());
 		return base;
 	},
-	resetGain() {
+	resetGain(): PowiainaNum {
 		if (player.retribution < 2) return new PowiainaNum(0);
 		let base = player.hydra.mms.deduced;
 		if (player.hydra.mms.rank.gte(2)) base = base.mul(2);
@@ -257,7 +257,7 @@ export const MMS = {
 					new PowiainaNum(10),
 					() => 'Start producing Rank Energy, based on Rank' as const,
 					[
-						() => {
+						(): PowiainaNum => {
 							return MMS.rank.rankEnergies[0].gain();
 						},
 						(x: PowiainaNum) => `+${format(x)}/s`,
