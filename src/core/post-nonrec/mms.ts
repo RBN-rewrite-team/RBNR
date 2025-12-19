@@ -5,7 +5,7 @@
 import PowiainaNum, { type PowiainaNumSource } from 'powiaina_num.js';
 import { player } from '../global';
 import { format, formatWhole } from '@/utils/format';
-import { numberToChinese } from '@/libs/funcs';
+import { numberToChinese } from '@/lib/funcs';
 export type RankMilestone = [
 	PowiainaNum,
 	() => string,
