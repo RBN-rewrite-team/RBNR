@@ -15,7 +15,7 @@ const MAX_INTEGER_LENGTH = LARGE_UNITS.length * 4;
 const DEFAULT_MAX_DECIMALS = 3;
 
 export function numberToChinese(num: number): string {
-  let numberStr = Math.truc(num).toLocaleString("fullwide", { useGrouping: false }).replace(/^0+/, '');
+  let numberStr = Math.trunc(num).toLocaleString("fullwide", { useGrouping: false }).replace(/^0+/, '');
   
   if (numberStr === '' || numberStr === '-') return '零';
   if (isNaN(Number(numberStr))) throw new Error('不是数字');
@@ -65,10 +65,8 @@ export function numberToChinese(num: number): string {
   
   result = result.replace(/^一十/, '十');
   
-  result = result.replace(/零+/g, '零');
-  
   if (result === '' || result === sign) {
-    return sign + '零';
+    return '零';
   }
   
   return result;
