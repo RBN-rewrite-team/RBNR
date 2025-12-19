@@ -88,10 +88,10 @@ export const UPGRADES = {
 			if (!reach[i]) flag = false;
 		}
 		let a = upgrades[id].show();
-		if (upgrades[id].name.startsWith('U5-1-') && player.retribution != 0) {
+		if (upgrades[id].name.startsWith('U5-1-') && player.retribution >= 1) {
 			a = false;
 		}
-		if (upgrades[id].name.startsWith('U5-2-') && player.retribution != 1) {
+		if (upgrades[id].name.startsWith('U5-2-') && player.retribution >= 2) {
 			a = false;
 		}
 		return { show: a, unlocked: flag, reach: reach };
