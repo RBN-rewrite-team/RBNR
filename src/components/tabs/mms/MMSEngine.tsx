@@ -98,8 +98,8 @@ export default defineComponent({
 								<br />
 								{$t('mms.rank.requirement', { up: MMS.rank.getRankTierName(1) })}
 								<br />
-								{formatWhole(MMS.rank.levelRequirement(1))}{' '}
 								{MMS.rank.getRankTierName(0)}
+								{formatWhole(MMS.rank.levelRequirement(1))}{' '}
 							</div>
 						</div>
 						{
