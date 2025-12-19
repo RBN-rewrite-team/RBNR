@@ -39,12 +39,12 @@ const upgids = useUpdate(function () {
 
 <template>
 	<div class="main">
-		<div style="color: rgb(93, 138, 168); display: block; height: 50px">
+		<div style="color: rgb(93, 138, 168); display: block; height: 50px" v-if="player.retribution >= 2">
 			<h3 style="display: inline-block">{{ $t('tab.ordinal') }}</h3>
 			&nbsp;
 			<vue-latex :expression="getCurrentOrdinal(player.hydra.deduceOrdinal[1])" />
 		</div>
-		<div style="color: #00c800ff; display: block">
+		<div style="color: #00c800ff; display: block" v-if="player.retribution >= 2">
 			<h3 style="display: inline-block">{{ $t('res.compress') }}</h3>
 			&nbsp;{{ formatWhole(player.hydra.compressedPower) }}
 		</div>
