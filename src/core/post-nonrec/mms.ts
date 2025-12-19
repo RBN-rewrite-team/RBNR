@@ -14,7 +14,7 @@ export type RankMilestone = [
 ];
 
 const RankTierNames = [
-	['Rank', 'Tier', 'Tetr', 'Pent', 'Hex', 'Hept', 'Oct', 'Enne'],
+	['Rank', 'Tier', "Tri", 'Tetr', 'Pent', 'Hex', 'Hept', 'Oct', 'Enne'],
 	['', 'dec', 'icos'],
 	['', 'hect'],
 ];
@@ -330,10 +330,10 @@ export const MMS = {
 		},
 		getRankTierNameEN(tier: PowiainaNumSource) {
 			let newTier = new PowiainaNum(tier);
-			if (newTier.gte(998)) return `[${formatWhole(newTier.add(2))}]`;
+			if (newTier.gte(999)) return `[${formatWhole(newTier.add(1))}]`;
 			let i = newTier.toNumber();
-			if (i < 8) return RankTierNames[0][i];
-			i += 2;
+			if (i < 9) return RankTierNames[0][i];
+			i += 1;
 			let m = '';
 			let h = Math.floor(i / 100),
 				d = Math.floor(i / 10) % 10,
@@ -351,11 +351,11 @@ export const MMS = {
 		},
 		getRankTierNameCN(tier: PowiainaNumSource) {
 			let newTier = new PowiainaNum(tier);
-			if (newTier.gte(9998)) return `${formatWhole(newTier.add(2))}重阶层`;
+			if (newTier.gte(9999)) return `${formatWhole(newTier.add(1))}重阶层`;
 			let i = newTier.toNumber();
 			if (i === 0) return '级别';
 			if (i === 1) return '阶层';
-			return `${numberToChinese(i + 2)}重阶层`;
+			return `${numberToChinese(i + 1)}重阶层`;
 		},
 	} as const,
 } as const;
