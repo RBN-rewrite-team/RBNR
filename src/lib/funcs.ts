@@ -26,5 +26,5 @@ export function numberToChinese(e: number): string {
   if (o.length > 44) return "错误：数值过大！";
   if (a = new Array("零", "一", "二", "三", "四", "五", "六", "七", "八", "九"), l = new Array("", "十", "百", "千"), i = new Array("", "万", "亿", "兆", "京", "垓", "杼", "穰", "沟", "涧", "正"), t = "", Number(o) > 0)
     for (u = 0, m = 0; m < o.length; m++) h = (c = o.length - m - 1) / 4, f = c % 4, "0" == (g = o.substr(m, 1)) ? u++ : (u > 0 && (t += a[0]), u = 0, t += a[Number(g)] + l[f]), 0 == f && u < 4 && (t += i[h]);
-  return (t = "" + r + t).replace("一十", "十")
+  return (t = "" + r + t).replace(/^一十/, "十")
 }
