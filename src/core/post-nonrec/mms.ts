@@ -6,6 +6,7 @@ import PowiainaNum, { type PowiainaNumSource } from 'powiaina_num.js';
 import { player } from '../global';
 import { format, formatWhole } from '@/utils/format';
 import { numberToChinese } from '@/lib/funcs';
+import { getMessage, i18n } from '@/utils/i18n';
 export type RankMilestone = [
 	PowiainaNum,
 	() => string,
@@ -212,7 +213,7 @@ export const MMS = {
 			0: [
 				[
 					new PowiainaNum(1),
-					() => 'Multiply MMS deduce speed, based on Charged Hydra Energy' as const,
+					() => getMessage('mms.rank.mil.0.0'),
 					[
 						() => {
 							let effect: PowiainaNum = player.hydra.chargedEnergy.add(1).pow(0.5);
@@ -224,11 +225,11 @@ export const MMS = {
 						(x: PowiainaNum) => `×${format(x)}`,
 					],
 				] as const,
-				[new PowiainaNum(2), () => 'Charged Hydra Energy gain ×2' as const] as const,
-				[new PowiainaNum(3), () => 'MMS deduce speed x4' as const] as const,
+				[new PowiainaNum(2), () => getMessage('mms.rank.mil.0.1')] as const,
+				[new PowiainaNum(3), () => getMessage('mms.rank.mil.0.2')] as const,
 				[
 					new PowiainaNum(4),
-					() => 'Multiply MMS deduce speed, based on Rank' as const,
+					() => getMessage('mms.rank.mil.0.3'),
 					[
 						() => {
 							let effect: PowiainaNum = player.hydra.mms.rank.root(1.5).add(1);
@@ -238,10 +239,10 @@ export const MMS = {
 						(x: PowiainaNum) => `×${format(x)}`,
 					],
 				] as const,
-				[new PowiainaNum(7), () => 'Rank 1 Effect ^1.5' as const] as const,
+				[new PowiainaNum(7), () => getMessage('mms.rank.mil.0.4')] as const,
 				[
 					new PowiainaNum(9),
-					() => 'Multiply Charged Hydra Energy, based on MMS' as const,
+					() => getMessage('mms.rank.mil.0.5'),
 					[
 						() => {
 							let effect: PowiainaNum = player.hydra.mms.deduced
@@ -255,7 +256,7 @@ export const MMS = {
 				] as const,
 				[
 					new PowiainaNum(10),
-					() => 'Start producing Rank Energy, based on Rank' as const,
+					() => getMessage('mms.rank.mil.0.6'),
 					[
 						(): PowiainaNum => {
 							return MMS.rank.rankEnergies[0].gain();
@@ -263,10 +264,10 @@ export const MMS = {
 						(x: PowiainaNum) => `+${format(x)}/s`,
 					],
 				] as const,
-				[new PowiainaNum(12), () => 'Charged Hydra Energy gain x15' as const] as const,
+				[new PowiainaNum(12), () => getMessage('mms.rank.mil.0.7')] as const,
 				[
 					new PowiainaNum(14),
-					() => 'Multiply Charged Hydra Energy, based on Tier' as const,
+					() => getMessage('mms.rank.mil.0.8'),
 					[
 						() => {
 							let effect: PowiainaNum = player.hydra.mms.tier.add(2).pow(2).sub(3);
@@ -278,7 +279,7 @@ export const MMS = {
 				] as const,
 				[
 					new PowiainaNum(17),
-					() => 'Multiply MMS deduce speed, based on Tier' as const,
+					() => getMessage('mms.rank.mil.0.9'),
 					[
 						() => {
 							let effect: PowiainaNum = player.hydra.mms.tier
@@ -292,15 +293,12 @@ export const MMS = {
 						(x: PowiainaNum) => `×${format(x)}`,
 					],
 				] as const,
-				[
-					new PowiainaNum(19),
-					() => 'First Rank scaling is weakened to 75%' as const,
-				] as const,
+				[new PowiainaNum(19), () => getMessage('mms.rank.mil.0.10')] as const,
 			],
 			1: [
 				[
 					new PowiainaNum(1),
-					() => 'Multiply Charged Hydra Energy, based on Tier' as const,
+					() => getMessage('mms.rank.mil.1.0'),
 					[
 						() => {
 							let effect: PowiainaNum = player.hydra.mms.tier.add(1);
@@ -309,8 +307,8 @@ export const MMS = {
 						(x: PowiainaNum) => `×${format(x)}`,
 					],
 				] as const,
-				[new PowiainaNum(2), () => 'Rank 1 Effect +2' as const] as const,
-				[new PowiainaNum(3), () => 'MMS deduce speed x4' as const] as const,
+				[new PowiainaNum(2), () => getMessage('mms.rank.mil.1.1')] as const,
+				[new PowiainaNum(3), () => getMessage('mms.rank.mil.1.2')] as const,
 			] as const,
 		} as const satisfies { [key: number]: RankMilestone[] },
 		getRankMilestones(q: number, rank: PowiainaNum) {
@@ -323,6 +321,12 @@ export const MMS = {
 				}
 			}
 			return null;
+		},
+		getRankTierName(tier: PowiainaNumSource) {
+			// @ts-expect-error
+			let locale: string = i18n.global.locale.value;
+			if (locale == 'zh-CN') return MMS.rank.getRankTierNameCN(tier);
+			return MMS.rank.getRankTierNameEN(tier);
 		},
 		getRankTierNameEN(tier: PowiainaNumSource) {
 			let newTier = new PowiainaNum(tier);

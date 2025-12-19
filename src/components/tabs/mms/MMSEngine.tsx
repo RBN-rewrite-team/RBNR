@@ -6,6 +6,7 @@ import { formatWhole } from '@/utils/format';
 import { player } from '@/core/save';
 import type PowiainaNum from 'powiaina_num.js';
 import { useUpdate } from '@/lib/useUpdate';
+import { getMessage } from '@/utils/i18n';
 function milestoneDisplay(mil: RankMilestone | undefined | null, currency?: string) {
 	let eff: (undefined | [() => PowiainaNum, (x: PowiainaNum) => string]) | null = null;
 	if (!mil) return <></>;
@@ -13,17 +14,16 @@ function milestoneDisplay(mil: RankMilestone | undefined | null, currency?: stri
 	eff = mil[2];
 	return (
 		<>
-			On
-			{currency && (
-				<>
-					&nbsp;{currency} {formatWhole(mil[0])}
-				</>
-			)}
-			, {mil[1]()}.
+			<span
+				innerHTML={getMessage('mms.rank.mil', {
+					goal: `${currency} ${formatWhole(mil[0])}`,
+					do: mil[1](),
+				})}
+			></span>
 			{eff && (
 				<>
 					<br />
-					Currently: {eff[1](eff[0]())}
+					{getMessage('upg.effect', { effect: eff[1](eff[0]()) })}
 					<span style="display: none">{player.lastUpdated}</span>
 				</>
 			)}
@@ -56,13 +56,20 @@ export default defineComponent({
 						}}
 					>
 						<div class="rank_div">
-							<b class="rank_text">Rank</b>&nbsp;{formatWhole(player.hydra.mms.rank)}
+							<b class="rank_text">{MMS.rank.getRankTierName(0)}</b>&nbsp;
+							{formatWhole(player.hydra.mms.rank)}
 							<div class={'rank_button'} onClick={() => MMS.rank.levelUp(0)}>
-								Reset your MMS progression & 充能九头蛇能量, but Rank up. <br />
-								{getRankDisplay(0, player.hydra.mms.rank, 'Rank')}
+								{$t('mms.rank.reset.0')} <br />
+								{getRankDisplay(
+									0,
+									player.hydra.mms.rank,
+									MMS.rank.getRankTierName(0),
+								)}
 								<br />
-								To Rank up, requires <br />
-								{formatWhole(MMS.rank.levelRequirement(0))} 充能九头蛇能量
+								{$t('mms.rank.requirement', { up: MMS.rank.getRankTierName(0) })}
+								<br />
+								{formatWhole(MMS.rank.levelRequirement(0))}{' '}
+								{$t('currency.charged_hydra')}
 							</div>
 							{MMS.rank.rankEnergies[0].unlocked() ? (
 								<>
@@ -78,24 +85,34 @@ export default defineComponent({
 							)}
 						</div>
 						<div class="rank_div">
-							<b class="rank_text">Tier</b>&nbsp;{formatWhole(player.hydra.mms.tier)}
+							<b class="rank_text">{MMS.rank.getRankTierName(1)}</b>&nbsp;
+							{formatWhole(player.hydra.mms.tier)}
 							<div class={'rank_button'} onClick={() => MMS.rank.levelUp(1)}>
-								Reset your Rank, MMS progression & 充能九头蛇能量, but Tier up.{' '}
+								{$t('mms.rank.reset.1')} <br />
+								{getRankDisplay(
+									1,
+									player.hydra.mms.tier,
+									MMS.rank.getRankTierName(1),
+								)}
 								<br />
-								{getRankDisplay(1, player.hydra.mms.tier, 'Tier')}
+								{$t('mms.rank.requirement', { up: MMS.rank.getRankTierName(1) })}
 								<br />
-								To Tier up, requires <br />
-								{formatWhole(MMS.rank.levelRequirement(1))} Rank
+								{formatWhole(MMS.rank.levelRequirement(1))}{' '}
+								{MMS.rank.getRankTierName(0)}
 							</div>
 						</div>
 					</div>
 					<br />
 					{MMS.rank.rankMilestones[0].map(
-						(x) => x[0].lte(player.hydra.mms.rank) && milestoneDisplay(x, 'Rank'),
+						(x) =>
+							x[0].lte(player.hydra.mms.rank) &&
+							milestoneDisplay(x, MMS.rank.getRankTierName(0)),
 					)}
 					<br />
 					{MMS.rank.rankMilestones[1].map(
-						(x) => x[0].lte(player.hydra.mms.tier) && milestoneDisplay(x, 'Tier'),
+						(x) =>
+							x[0].lte(player.hydra.mms.tier) &&
+							milestoneDisplay(x, MMS.rank.getRankTierName(1)),
 					)}
 				</div>
 			</>
