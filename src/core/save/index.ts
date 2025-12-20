@@ -26,6 +26,7 @@ import { Pow } from '../automator/lexer.ts';
 import { convertBEDecimalToPn } from '@/lib/PNBEConvert.ts';
 
 import { v4 as uuidv4 } from 'uuid';
+import { pnbuyables, pnupgrades } from '../PN-upg-byl.ts';
 
 const version = 14 as const;
 export let current_save = 0;
@@ -57,6 +58,8 @@ export interface Player {
 	saveCreateTime: number;
 	upgrades: Record<keyof typeof upgrades, boolean>;
 	buyables: Record<keyof typeof buyables, Decimal>;
+	pnupgrades: Record<keyof typeof pnupgrades, boolean>;
+	pnbuyables: Record<keyof typeof pnbuyables, PowiainaNum>;
 	milestones: Record<keyof typeof milestones, boolean>;
 	buyable11More: Decimal;
 	automationCD: {
@@ -203,6 +206,12 @@ function getInitialPlayerData(): Player {
 			keyof typeof buyables,
 			Decimal
 		>,
+		pnupgrades: Object.fromEntries(
+			Object.keys(pnupgrades).map((key) => [key, false]),
+		) as Record<keyof typeof pnupgrades, boolean>,
+		pnbuyables: Object.fromEntries(
+			Object.keys(pnbuyables).map((key) => [key, DC.P_0.clone()]),
+		) as Record<keyof typeof pnbuyables, PowiainaNum>,
 		milestones: Object.fromEntries(
 			Object.keys(milestones).map((key) => [key, false]),
 		) as Record<keyof typeof milestones, boolean>,
