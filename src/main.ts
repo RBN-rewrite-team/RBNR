@@ -14,13 +14,7 @@ declare global {
 	interface BigInt {
 		toJSON(): string;
 	}
-	interface Window {
-		RBNRPerformance: typeof Performance;
-		format: typeof format;
-	}
 }
-window.RBNRPerformance = Performance;
-window.format = format;
 BigInt.prototype.toJSON = function () {
 	return this.toString();
 };
