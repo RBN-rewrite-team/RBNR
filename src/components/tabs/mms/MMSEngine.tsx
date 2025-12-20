@@ -162,7 +162,7 @@ export default defineComponent({
 							milestoneDisplay(x, MMS.rank.getRankTierName(2)),
 					)}
 
-					<UpgradesPN upgids={[['u631']]} />
+					{/* <UpgradesPN upgids={[['u631']]} /> */}
 				</div>
 			</>
 		);
