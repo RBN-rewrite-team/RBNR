@@ -6,7 +6,7 @@ import type { $t } from '@/utils/types';
 import type PowiainaNum from 'powiaina_num.js';
 
 export enum PNCurrencies {
-	CHARGED_HYDRA_ENERGY,
+	CHARGED_HYDRA_ENERGY = 'charged_hydra',
 }
 abstract class PNCurrency {
 	static name: string = '未定义货币';
@@ -18,9 +18,18 @@ abstract class PNCurrency {
 		throw new ReferenceError('Undefined currency.');
 	}
 }
+class ChargedHydraEnergyCurrency extends PNCurrency {
+	static set current(x: PowiainaNum) {
+		player.hydra.chargedEnergy = x;
+	}
+
+	static get current(): PowiainaNum {
+		return player.hydra.chargedEnergy;
+	}
+}
 
 const pncurrencyMap: Map<PNCurrencies, typeof PNCurrency> = new Map([
-	// [PNCurrencies.CHARGED_HYDRA_ENERGY, ],
+	[PNCurrencies.CHARGED_HYDRA_ENERGY, ChargedHydraEnergyCurrency],
 ]);
 
 export function setCurrency(currency: PNCurrencies, value: PowiainaNum) {

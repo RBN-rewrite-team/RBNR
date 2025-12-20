@@ -41,7 +41,9 @@ export class PNBuyable {
 	currency: PNCurrencies = PNCurrencies.CHARGED_HYDRA_ENERGY;
 }
 export const pnupgrades = {
-	'631': new PNUpgrade(),
+	'631': new (class extends PNUpgrade {
+		name = 'test';
+	})(),
 } as const;
 export const pnbuyables = {
 	'631': new PNBuyable(),
@@ -67,12 +69,12 @@ export const PN_UPGRADES = {
 	 */
 	buy(id: keyof typeof pnupgrades) {
 		if (!player.pnupgrades[id] && this.lock(id).unlocked && pnupgrades[id].canAfford()) {
-			decreaseCurrency(
-				pnupgrades[id].currency,
+			const cost =
 				typeof pnupgrades[id].cost === 'function'
 					? pnupgrades[id].cost()
-					: pnupgrades[id].cost,
-			);
+					: pnupgrades[id].cost;
+			if (cost.lte(getCurrency(pnupgrades[id].currency))) return;
+			decreaseCurrency(pnupgrades[id].currency, cost);
 			player.pnupgrades[id] = true;
 		}
 	},

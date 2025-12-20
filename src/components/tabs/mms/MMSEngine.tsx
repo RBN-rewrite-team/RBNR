@@ -7,6 +7,7 @@ import { player } from '@/core/save';
 import type PowiainaNum from 'powiaina_num.js';
 import { useUpdate } from '@/lib/useUpdate';
 import { getMessage } from '@/utils/i18n';
+import UpgradesPN from '@/components/upg/UpgradesPN';
 function milestoneDisplay(mil: RankMilestone | undefined | null, currency?: string) {
 	let eff: (undefined | [() => PowiainaNum, (x: PowiainaNum) => string]) | null = null;
 	if (!mil) return <></>;
@@ -43,7 +44,9 @@ export default defineComponent({
 			<>
 				<div class="main">
 					<p style="color: grey; table-align: center">{$t('mms.t')}</p>
-					<b style="color: cyan">{$t('mms.staticExp')}&nbsp;{format(MMS.staticExp())}</b>
+					<b style="color: cyan">
+						{$t('mms.staticExp')}&nbsp;{format(MMS.staticExp())}
+					</b>
 					<div
 						style={{
 							margin: 'auto',
@@ -102,8 +105,8 @@ export default defineComponent({
 								{formatWhole(MMS.rank.levelRequirement(1))}
 							</div>
 						</div>
-						{
-							player.hydra.mms.tier.gte(4) || player.hydra.mms.tri.gte(1) ? <>
+						{player.hydra.mms.tier.gte(4) || player.hydra.mms.tri.gte(1) ? (
+							<>
 								<div class="rank_div">
 									<b class="rank_text">{MMS.rank.getRankTierName(2)}</b>&nbsp;
 									{formatWhole(player.hydra.mms.tri)}
@@ -115,14 +118,18 @@ export default defineComponent({
 											MMS.rank.getRankTierName(2),
 										)}
 										<br />
-										{$t('mms.rank.requirement', { up: MMS.rank.getRankTierName(2) })}
+										{$t('mms.rank.requirement', {
+											up: MMS.rank.getRankTierName(2),
+										})}
 										<br />
 										{MMS.rank.getRankTierName(1)}{' '}
 										{formatWhole(MMS.rank.levelRequirement(2))}
 									</div>
 								</div>
-							</> : <></>
-						}
+							</>
+						) : (
+							<></>
+						)}
 					</div>
 					<br />
 					{MMS.rank.rankMilestones[0].map(
@@ -130,18 +137,32 @@ export default defineComponent({
 							x[0].lte(player.hydra.mms.rank) &&
 							milestoneDisplay(x, MMS.rank.getRankTierName(0)),
 					)}
-					{ player.hydra.mms.tier.gte(1) ? <><br /></> : <></> }
+					{player.hydra.mms.tier.gte(1) ? (
+						<>
+							<br />
+						</>
+					) : (
+						<></>
+					)}
 					{MMS.rank.rankMilestones[1].map(
 						(x) =>
 							x[0].lte(player.hydra.mms.tier) &&
 							milestoneDisplay(x, MMS.rank.getRankTierName(1)),
 					)}
-					{ player.hydra.mms.tri.gte(1) ? <><br /></> : <></> }
+					{player.hydra.mms.tri.gte(1) ? (
+						<>
+							<br />
+						</>
+					) : (
+						<></>
+					)}
 					{MMS.rank.rankMilestones[2].map(
 						(x) =>
 							x[0].lte(player.hydra.mms.tri) &&
 							milestoneDisplay(x, MMS.rank.getRankTierName(2)),
 					)}
+
+					<UpgradesPN upgids={[['u631']]} />
 				</div>
 			</>
 		);
