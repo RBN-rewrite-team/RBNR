@@ -2,7 +2,7 @@ import { defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 import MMSDeduction from './MMSDeduction';
 import { MMS, type RankMilestone } from '@/core/post-nonrec/mms';
-import { formatWhole } from '@/utils/format';
+import { formatWhole, format } from '@/utils/format';
 import { player } from '@/core/save';
 import type PowiainaNum from 'powiaina_num.js';
 import { useUpdate } from '@/lib/useUpdate';
