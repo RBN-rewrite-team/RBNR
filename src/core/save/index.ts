@@ -8,6 +8,8 @@ import type { IAstronomer } from '../exponention/logarithm';
 import { buyables, upgrades, milestones } from '../mechanic';
 import { Dilute } from '../hydra/dilute';
 import { stopGameLoop } from '../game-loop';
+
+import { createDeepValidatedReactive } from '../check-decimal-nan';
 import { NON_RECURSIVE } from '../nonrecu/index.ts';
 import { initMiniGameData, hardResetMiniGame, type PlayerMinigameData } from '../minigame/index.ts';
 import { DC } from '@/core/constants';
@@ -579,7 +581,7 @@ export function loadSaves() {
 			content: '存档加载中出现问题',
 		});
 	}
-	player = reactive(player);
+	player = createDeepValidatedReactive(player);
 }
 
 export function save() {
@@ -614,7 +616,7 @@ export function import_file(): void {
 					if (save === SpecialCheatedSave) throw new Error('?');
 					player = getInitialPlayerData();
 					loadFromString(save);
-					player = reactive(player);
+					player = createDeepValidatedReactive(player);
 					savefunc();
 					location.reload();
 				} catch {
