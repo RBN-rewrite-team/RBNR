@@ -28,6 +28,14 @@ function parseMEtoEnginnering2(m: PowiainaNum, e: PowiainaNum) {
 	}
 	return [m, e];
 }
+function commaFormat(num: PowiainaNum) {
+	if (num === null || num === undefined) return 'NaN';
+	const init = num.round().toString();
+	const portions = init.split('.');
+	portions[0] = portions[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+	if (portions.length == 1) return portions[0];
+	return portions[0];
+}
 const formatXEY = (
 	value: PowiainaNum,
 	precision: number = 4,
@@ -72,7 +80,7 @@ const formatXEY = (
 			.toNumber();
 		const restval = value.iteratedlog(elayers);
 		let append = '';
-		if (restval.gte(1000)) {
+		if (restval.gte(1e9)) {
 			const exp = restval.log10().floor();
 			const mant = restval.div(exp.pow10());
 			let exp2 = exp;
@@ -82,7 +90,9 @@ const formatXEY = (
 			}
 			append = `${mant2.toNumber().toFixed(precision)}e${formatWholeXEY(exp2)}`;
 		} else {
-			append = restval.toNumber().toString();
+			if (restval.gte(1e3) && restval.lt(1e9)) {
+				append = commaFormat(restval);
+			} else append = restval.toNumber().toString();
 		}
 		// console.log(elayers)
 		return (

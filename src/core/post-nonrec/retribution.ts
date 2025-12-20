@@ -151,15 +151,6 @@ export const RETRIBUTION = {
 				confirmText: getMessage('retri.ok'),
 				onConfirm() {
 					if (!RETRIBUTION.resetable()) return;
-					if (player.retribution >= 1) {
-						if (!isDeveloper()) {
-							ModalService.show({
-								title: '2nd retribution reset is blocked',
-								content: 'WIP',
-							});
-							return;
-						}
-					}
 					RETRIBUTION.replayAnimation();
 					setTimeout(function () {
 						RETRIBUTION.reset();

@@ -114,12 +114,12 @@ export default defineComponent({
 											</div>
 											<Resource
 												reskey="currency.charged_hydra"
-												resdisplay={format(player.hydra.chargedEnergy)}
+												resdisplay={formatWhole(player.hydra.chargedEnergy)}
 												posleft="550"
 												rescolor="rgb(0,255,255)"
 												rescolor2="rgb(0,255,255)"
 												growingdisplay={() => {
-													return <>(+{format(MMS.resetGain())})</>;
+													return <>(+{formatWhole(MMS.resetGain())})</>;
 												}}
 											/>
 										</>
