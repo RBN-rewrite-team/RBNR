@@ -98,8 +98,8 @@ export default defineComponent({
 								<br />
 								{$t('mms.rank.requirement', { up: MMS.rank.getRankTierName(1) })}
 								<br />
-								{MMS.rank.getRankTierName(0)}
-								{formatWhole(MMS.rank.levelRequirement(1))}{' '}
+								{MMS.rank.getRankTierName(0)}{' '}
+								{formatWhole(MMS.rank.levelRequirement(1))}
 							</div>
 						</div>
 						{
@@ -117,8 +117,8 @@ export default defineComponent({
 										<br />
 										{$t('mms.rank.requirement', { up: MMS.rank.getRankTierName(2) })}
 										<br />
-										{formatWhole(MMS.rank.levelRequirement(2))}{' '}
-										{MMS.rank.getRankTierName(1)}
+										{MMS.rank.getRankTierName(1)}{' '}
+										{formatWhole(MMS.rank.levelRequirement(2))}
 									</div>
 								</div>
 							</> : <></>

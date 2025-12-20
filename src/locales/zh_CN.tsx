@@ -2203,6 +2203,7 @@ export default {
 	'mms.rank.mil.0.8': '基于阶层，提升充能九头蛇能量获取',
 	'mms.rank.mil.0.9': '基于阶层，提升MMS推演速度',
 	'mms.rank.mil.0.10': '级别的第一个超级折算弱化25%',
+	'mms.rank.mil.0.11': '每秒获取100%重置时获取的充能九头蛇能量',
 	'mms.rank.mil.1.0': '基于阶层，提升充能九头蛇能量获取',
 	'mms.rank.mil.1.1': '级别1效果+2',
 	'mms.rank.mil.1.2': 'MMS推演速度×4',
