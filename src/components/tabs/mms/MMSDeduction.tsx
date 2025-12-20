@@ -85,7 +85,7 @@ export default defineComponent({
 						}}
 						onClick={() => MMS.reset()}
 					>
-						重置MMS推演次数，获得{format(MMS.resetGain())}充能九头蛇能量(
+						重置MMS推演次数，获得{formatWhole(MMS.resetGain())}充能九头蛇能量(
 						{format(useGainPerminute.value)}/min)
 					</button>
 				</div>

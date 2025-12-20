@@ -93,6 +93,7 @@ export const MMS = {
 		player.hydra.mms.rankEnergy = player.hydra.mms.rankEnergy.add(
 			this.rank.rankEnergies[0].gain().mul(diff),
 		);
+		if (player.hydra.mms.rank.gte(25)) this.addEnergy(MMS.resetGain().mul(diff))
 	},
 	staticExp(): PowiainaNum {
 		let base = new PowiainaNum(0.5);
@@ -320,6 +321,7 @@ export const MMS = {
 					],
 				] as const,
 				[new PowiainaNum(19), () => getMessage('mms.rank.mil.0.10')] as const,
+				[new PowiainaNum(25), () => getMessage('mms.rank.mil.0.11')] as const,
 			],
 			1: [
 				[
