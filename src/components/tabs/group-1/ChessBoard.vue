@@ -108,6 +108,7 @@ import Upgrades from '@/components/upg/Upgrades';
 					<TRMilestone id="cb21" />
 					<TRMilestone id="cb22" />
 					<TRMilestone id="cb23" />
+					<TRMilestone id="cb24" />
 				</tbody>
 			</table>
 		</div>
