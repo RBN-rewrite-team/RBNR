@@ -9,7 +9,7 @@ export default defineComponent({
     setup(props, ctx) {
 		const $t = useI18n().t;
 		function differ() {
-			const WIP_MS = 1 * 172000;
+			const WIP_MS = 1 * 160000;
 			
 			let d = Date.now();
 			if(!player.thedoorofcardinalstate) return 0;
