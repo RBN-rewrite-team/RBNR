@@ -50,7 +50,7 @@ export function theDoorOfCardinalLoop() {
     if (!player.thedoorofcardinalstate) return;
     if ((Date.now()-player.thedoorofcardinaltime)>=170000 && player.thedoorofcardinalcrisis < 1) {
         let a = randomNumber();
-        if (a>=86) {
+        if (a>=86 && !isDeveloper()) {
             player.thedoorofcardinalcrisis = 999
             enterTheCardinalWorldTrigger();
         } else {
