@@ -33,6 +33,7 @@ export default defineComponent({
 				opacity: diff.value < 5000 ? diff.value / 5000 : 1,
 			}}>
 				{diff.value > 5000 ? <>
+			{diff.value}
 				<div style={{
 					position: 'absolute',
 					width: '50px',
@@ -219,17 +220,20 @@ export default defineComponent({
 								left: '50%',
 								transform: 'translate(-50%, -50%) rotate(' + x[1] + 'deg)'
 							}}>
-								<div style={{
+								{(() => {
+									const t = ((diff.value - (15350 + x[0] * 100)) * x[2] + x[3]);
+									if (t > ((document.body.offsetHeight*0.5) **2 + (document.body.offsetWidth*0.5) **2)**0.5) return <></>
+									return  <div style={{
 									position: 'absolute',
 									display: diff.value < 160000 ? 'block' : 'none',
 									width: '6px',
 									height: '6px',
 									top: '50%',
 									left: '50%',
-									transform: 'translate(-50%, -50%) translateX(' + ((diff.value - (15350 + x[0] * 100)) * x[2] + x[3]) + 'px)',
+									transform: 'translate(-50%, -50%) translateX(' + t + 'px)',
 									'background-color': 'white',
 									'border-radius': '3px',
-								}} />
+								}} /> })()}
 							</div>
 						</>
 					}
