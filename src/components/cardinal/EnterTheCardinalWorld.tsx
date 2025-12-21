@@ -9,13 +9,18 @@ export default defineComponent({
     setup(props, ctx) {
 		const $t = useI18n().t;
 		function differ() {
-			const WIP_MS = 15350;
+			const WIP_MS = 1 * 120000;
 			
 			if(!player.thedoorofcardinalstate) return 0;
 			if(Date.now() - player.thedoorofcardinaltime >= WIP_MS) player.thedoorofcardinaltime = Date.now() - WIP_MS;
 			return Date.now() - player.thedoorofcardinaltime;
 		}
 		const diff = useUpdate(differ);
+		let point_list = [];
+		for(let i = 0;i < 1000;i++)
+		{
+			point_list.push([i, Math.random() * 360, (Math.random() + 0.5) * 0.02, Math.random() * 600 + 100]);
+		}
         return () => (diff.value > 0 ? <>
             <div style={{
 				position: 'absolute',
@@ -37,6 +42,7 @@ export default defineComponent({
 					transform: 'translate(-50%, -50%)',
 					opacity: diff.value < 8000 ? Math.sin((diff.value - 8000) / 3000 * 4.5 * Math.PI) / 2 + 0.5 : 1,
 					'background-image': 'linear-gradient(to right, black 0%, white 50%, black 100%)',
+					'z-index': 12,
 				}} />
 				<div style={{
 					position: 'absolute',
@@ -47,6 +53,7 @@ export default defineComponent({
 					transform: 'translate(-50%, -50%)',
 					opacity: diff.value < 8000 ? Math.sin((diff.value - 8000) / 3000 * 4.5 * Math.PI) / 2 + 0.5 : 1,
 					'background-image': 'linear-gradient(to bottom, black 0%, white 50%, black 100%)',
+					'z-index': 12,
 				}} />
 				<div style={{
 					position: 'absolute',
@@ -59,6 +66,7 @@ export default defineComponent({
 					'box-shadow': '0px 0px 3px 3px white',
 					'background-color': 'white',
 					'border-radius': '4px',
+					'z-index': 12,
 				}} />
 				<div style={{
 					position: 'absolute',
@@ -168,6 +176,78 @@ export default defineComponent({
 					'border': '2px solid white',
 					'border-radius': (diff.value - 11350) / 1 + 'px',
 				}} />
+				
+				<div style={{
+					position: 'absolute',
+					display: diff.value < 12350 && diff.value > 9150 ? 'block': 'none',
+					width: (diff.value - 9150) * 6 + 'px',
+					height: '2px',
+					top: '50%',
+					left: '50%',
+					transform: 'translate(-50%, -50%) rotate(35deg)',
+					'background-color': 'white',
+				}} />
+				
+				<div style={{
+					position: 'absolute',
+					display: diff.value < 12350 && diff.value > 10550 ? 'block': 'none',
+					width: (diff.value - 10550) * 6 + 'px',
+					height: '2px',
+					top: '50%',
+					left: '50%',
+					transform: 'translate(-50%, -50%) rotate(85deg)',
+					'background-color': 'white',
+				}} />
+				
+				<div style={{
+					position: 'absolute',
+					display: diff.value < 12350 && diff.value > 11250 ? 'block': 'none',
+					width: (diff.value - 11250) * 6 + 'px',
+					height: '2px',
+					top: '50%',
+					left: '50%',
+					transform: 'translate(-50%, -50%) rotate(25deg)',
+					'background-color': 'white',
+				}} />
+				
+				{point_list.map(
+					(x) => {
+						return diff.value >= 15350 + x[0] * 100 && <>
+							<div style={{
+								position: 'absolute',
+								top: '50%',
+								left: '50%',
+								transform: 'translate(-50%, -50%) rotate(' + x[1] + 'deg)'
+							}}>
+								<div style={{
+									position: 'absolute',
+									display: diff.value < 120000 ? 'block' : 'none',
+									width: '6px',
+									height: '6px',
+									top: '50%',
+									left: '50%',
+									transform: 'translate(-50%, -50%) translateX(' + ((diff.value - (15350 + x[0] * 100)) * x[2] + x[3]) + 'px)',
+									'background-color': 'white',
+									'border-radius': '3px',
+								}} />
+							</div>
+						</>
+					}
+				)}
+				
+				{diff.value >= 15350 ? <>
+					<div style={{
+						position: 'absolute',
+						display: diff.value < 120000 ? 'block' : 'none',
+						width: '100%',
+						height: '100%',
+						top: 0,
+						left: 0,
+						'background-image': 'radial-gradient(circle, black ' + (100 - (diff.value - 15350) / (120000 - 15350) * 100) + '%, red 100%)',
+						opacity: 0.25,
+					}} />
+				</> : <></>}
+				
 				</> : <></>}
 			</div>
         </> : <></>);
