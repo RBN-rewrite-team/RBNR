@@ -7,6 +7,7 @@ import { runAutomator } from '@/core/automator';
 import { Compartment } from '@codemirror/state';
 import { useI18n } from 'vue-i18n';
 import { setInterrupt } from '@/core/automator/evaluator';
+import { i18n } from '@/utils/i18n';
 // 为主题创建一个配置隔间
 const themeCompartment = new Compartment();
 
@@ -127,55 +128,107 @@ export default defineComponent({
 		return () => (
 			<>
 				<div
-					ref={a}
+					
 					style={{
 						/** Keep alive */
 						marginTop: '10px',
 						display: player.currentTab !== 167 ? 'none' : 'block',
 					}}
 				>
-					{$t('examplecode')}
-					<pre
-						style={{
-							textAlign: 'left',
-							marginLeft: '30px',
-						}}
-					>
-						{`var a = 3; 
-a=3+2**114514***1919810; 
-a=a**a; 
+					<div ref={a}>
 
-var b = "114514"; 
-b = b + "11"; 
-
-function c() {
-    return 5;
-} 
-call c();
-
-var d = {
-    alphabeta: "gammadelta",
-    epsilonzeta: "etatheta",
-};
-
-call get(d, 0); 
-
-var e = ["1145","1419"]; 
-call get(e, 0);
-
-call puts(a);
-call puts(b);
-call puts(c);
-
-import math;
-call puts(call math.max(3,12,1));
-
-
-import music;
-call music.freq(440, 1/2, 1/10);`}
-					</pre>
+					</div>
+					
 					<PrimaryButton onClick={runAutomator}>Run automator</PrimaryButton>
 					<PrimaryButton onClick={interrupt}>Interrupt</PrimaryButton>
+
+					{
+//@ts-expect-error
+i18n.global.locale.value == 'zh-CN' ? <>
+<h1>自动机语法</h1>
+<h2>字面量</h2>
+<p>如 1, "xxxx", [1,3,4,3] 为字面量</p>
+<h3>数字</h3>
+<p>形如1, f3.4e38为数字字面量</p>
+<h3>字符串</h3>
+<p>形如"hello world", "jenesaispas"为字符串字面量</p>
+<h3>数组</h3>
+<p>形如[1,1,4,5,1,4] [1,3,4,2,5,8,10]为数组字面量</p>
+<h3>哈希表</h3>
+<p>形如{'{'} a: xx, b: cc, d:ee{"}"}为哈希表字面量</p>
+<p>其中a, b, d为键， xx, cc, ee为值（可以为任何字面量）</p>
+<h2>语句</h2>
+<p>每一个语句（除非有特殊说明），在末尾需要加分号</p>
+<p>例如: delay(100); var a = 0;</p>
+<h2>变量</h2>
+<p>使用var a = 3;声明变量</p>
+<p>变量需要使用var a才能用a = 字面量; 形式</p>
+<h2>函数</h2>
+<p>使用function name(x, y, z) {'{'} ...return y;{'}'}声明函数</p>
+<p>后面不需要加分号</p>
+<p>x,y,z为参数，数量任定，可无。</p>
+<p>name为函数名</p>
+<p>return y;为函数的返回结果。</p>
+<h3>函数调用</h3>
+<p>使用 name(); 或 name(a,b,c); 调用函数。</p>
+<p>也可使用 call name();</p>
+<h2>循环</h2>
+<h3>for循环</h3>
+<p>使用 for (var x = y; xxx;yyy) {'{'}....{'}'}</p>
+<p>其中xxx是循环不停止的条件, yyy是每一次循环末尾执行的语句</p>
+<h3>while循环</h3>
+<p>使用 while (xxx) {'{'}....{'}'}</p>
+<p>其中xxx是循环不停止的条件</p>
+<h2>导入导出机制</h2>
+<p>可以使用语句include xxx; import xxx; #include xxx;导入某个Module。</p>
+<h3>Module列表</h3>
+<p>math: 数学 module</p>
+<p>music: 音乐 module</p>
+<p>rbnr: RBNR module</p>
+</>:<>
+<h1>Automator syntaxes</h1>
+<h2>Literal</h2>
+<p>1, "xxxx", [1,3,4,3] are literals</p>
+<h3>Number</h3>
+<p>1, e300, 1.79e308, f3.422e38, 1f33 are number literals</p>
+<h3>String</h3>
+<p>"hello world", "jenesaispas" are string literals</p>
+<h3 style="color: #ff0000">Array</h3>
+<p>[1,1,4,5,1,4] [1,3,4,2,5,8,10] are array literals</p>
+<h3>Hash Table</h3>
+<p>{'{'} a: xx, b: cc, d:ee{"}"} is an hash table literal</p>
+<p>a, b, d are keys, xx, cc, ee are values(can be any literals)</p>
+<h2>Sentence</h2>
+<p>each sentence (except for some special cases), needs to add semicolon on the end of sentence</p>
+<p>such as: delay(100); var a = 0;</p>
+<h2>Variable</h2>
+<p>Use var a = 3; to declare a variable</p>
+<p>the variable need to use `var a` to use `a = literal;`</p>
+<h2>Function</h2>
+<p>use function name(x, y, z) {'{'} ...return y;{'}'} to declare a function</p>
+<p>don't add semicolon after declaration</p>
+<p>x,y,z are arguments.</p>
+<p>`name` is the function name</p>
+<p>return y; is the result of function</p>
+<h3>Function call</h3>
+<p>use name(); or name(a,b,c); to call function.</p>
+<p>or use  call name();</p>
+<h2>Loop </h2>
+<h3>for Loop</h3>
+<p>use for (var x = y; xxx;yyy) {'{'}....{'}'}</p>
+<p>其中xxx是循环不停止的条件, yyy是每一次循环末尾执行的语句</p>
+<h3>while循环</h3>
+<p>使用 while (xxx) {'{'}....{'}'}</p>
+<p>其中xxx是循环不停止的条件</p>
+<h2>导入导出机制</h2>
+<p>可以使用语句include xxx; import xxx; #include xxx;导入某个Module。</p>
+<h3>Module列表</h3>
+<p>math: 数学 module</p>
+<p>music: 音乐 module</p>
+<p>rbnr: RBNR module</p>
+</>
+
+					}
 				</div>
 			</>
 		);
