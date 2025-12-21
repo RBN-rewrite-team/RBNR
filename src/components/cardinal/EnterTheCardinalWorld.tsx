@@ -9,7 +9,7 @@ export default defineComponent({
     setup(props, ctx) {
 		const $t = useI18n().t;
 		function differ() {
-			const WIP_MS = 1 * 120000;
+			const WIP_MS = 1 * 160000;
 			
 			if(!player.thedoorofcardinalstate) return 0;
 			if(Date.now() - player.thedoorofcardinaltime >= WIP_MS) player.thedoorofcardinaltime = Date.now() - WIP_MS;
@@ -221,7 +221,7 @@ export default defineComponent({
 							}}>
 								<div style={{
 									position: 'absolute',
-									display: diff.value < 120000 ? 'block' : 'none',
+									display: diff.value < 160000 ? 'block' : 'none',
 									width: '6px',
 									height: '6px',
 									top: '50%',
@@ -238,7 +238,7 @@ export default defineComponent({
 				{diff.value >= 15350 ? <>
 					<div style={{
 						position: 'absolute',
-						display: diff.value < 120000 ? 'block' : 'none',
+						display: diff.value <= 160000 ? 'block' : 'none',
 						width: '100%',
 						height: '100%',
 						top: 0,
