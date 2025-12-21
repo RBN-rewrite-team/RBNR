@@ -48,6 +48,7 @@ import NonRecursionBMS from './tabs/nonrecursion/NonRecursionBMS.vue';
 import Sin from './tabs/oracle/Sin.tsx';
 import MMSEngine from './tabs/mms/MMSEngine.tsx';
 import FFFZEngine from './tabs/fffz/FFFZEngine.vue';
+import TheDoorOfCardinal from './cardinal/TheDoorOfCardinal.tsx';
 const tabComponents: {
 	[key: string]: Component | (() => Component);
 } = {
@@ -88,6 +89,7 @@ const tabComponents: {
 	34: Sin,
 	35: MMSEngine,
 	36: FFFZEngine,
+	37: TheDoorOfCardinal,
 	200: PlotTab,
 	300: SaveBank,
 	500: DeveloperMode,

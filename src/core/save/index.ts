@@ -187,12 +187,19 @@ export interface Player {
 
 	uuid: string;
 	fingerprint: string;
+
+	thedoorofcardinalstate: boolean;
+	thedoorofcardinaltime: number;
 }
 
 function getInitialPlayerData(): Player {
 	return {
 		version: version,
 		number: DC.D_0,
+
+		thedoorofcardinalstate: false,
+		thedoorofcardinaltime: 0,
+
 		frozen: false,
 		achievements: [],
 		run_a_tick_and_froze: false,

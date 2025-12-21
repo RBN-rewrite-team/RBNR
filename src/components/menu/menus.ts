@@ -297,6 +297,17 @@ export const menus = [
 		},
 	},
 	{
+		title: "???",
+		contents: [
+			{ id: 37, text: '???' },
+		],
+
+		show() {
+			return player.retribution >= 1 && isTester()
+		},
+
+	},
+	{
 		title: 'tab.options',
 		contents: [
 			{ id: 1, text: 'tab.settings' },

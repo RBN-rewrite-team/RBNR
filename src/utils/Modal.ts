@@ -151,6 +151,8 @@ const ModalService = {
 						modalWidth: options.width,
 						showCancelButton: options.showCancelButton,
 						showConfirmButton: options.showConfirmButton,
+						confirmText: options.confirmText,
+						cancelText: options.cancelText,
 						closeOnClickMask: options.closeOnClickMask,
 						onClose: options.onClose,
 						validateOnChange: options.validateOnChange,
