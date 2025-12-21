@@ -33,6 +33,7 @@ export const MMS = {
 			rank: new PowiainaNum(0),
 			tier: new PowiainaNum(0),
 			tri: new PowiainaNum(0),
+			tetr: new PowiainaNum(0),
 			rankEnergy: new PowiainaNum(0),
 			lastReset: 0,
 		};
