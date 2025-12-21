@@ -248,6 +248,21 @@ export default defineComponent({
 					}} />
 				</> : <></>}
 				
+				<div style={{
+					position: 'absolute',
+					left: '50%',
+					top: '70%',
+					'font-size': '14px',
+					'color': 'rgb(192, 0, 0)',
+					transform: 'translate(-50%, -50%)',
+				}}>
+					{diff.value > 155000 && diff.value <= 156000 ? '警报：检测到强力压制' : ''}
+					{diff.value > 156000 && diff.value <= 157000 ? '世界隧道出现异常！' : ''}
+					{diff.value > 157000 && diff.value <= 158000 ? '附近时空结构开始塌陷' : ''}
+					{diff.value > 158000 && diff.value <= 159000 ? '异常加深，请注意！' : ''}
+					{diff.value > 159000 && diff.value <= 160000 ? '世界隧道部分区域崩溃，请注意避开' : ''}
+				</div>
+				
 				</> : <></>}
 			</div>
         </> : <></>);
