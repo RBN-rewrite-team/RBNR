@@ -61,6 +61,7 @@ export function startGameLoop() {
 	if (!backupInterval) backupInterval = setInterval(intervalBackup, 1000);
 }
 
+
 export function stopGameLoop() {
 	if (loopInterval) clearInterval(loopInterval);
 	if (backupInterval) clearInterval(backupInterval);
@@ -68,6 +69,7 @@ export function stopGameLoop() {
 	backupInterval = null;
 }
 
+window.stopGameLoop = stopGameLoop
 export function stopSaveLoop() {
 	if (saveInterval) clearInterval(saveInterval);
 	saveInterval = null;
