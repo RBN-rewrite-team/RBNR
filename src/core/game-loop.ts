@@ -69,7 +69,6 @@ export function stopGameLoop() {
 	backupInterval = null;
 }
 
-window.stopGameLoop = stopGameLoop
 export function stopSaveLoop() {
 	if (saveInterval) clearInterval(saveInterval);
 	saveInterval = null;

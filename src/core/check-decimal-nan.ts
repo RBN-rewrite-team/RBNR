@@ -68,7 +68,7 @@ function createProxy(target: any): any {
 }
 
 export function createDeepValidatedReactive<T>(obj: T): T {
-  const reactiveObj = reactive(obj);
+  const reactiveObj = reactive(obj as object);
   
   return createProxy(reactiveObj);
 }
