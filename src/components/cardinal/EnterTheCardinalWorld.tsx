@@ -11,9 +11,10 @@ export default defineComponent({
 		function differ() {
 			const WIP_MS = 1 * 160000;
 			
+			let d = Date.now();
 			if(!player.thedoorofcardinalstate) return 0;
-			if(Date.now() - player.thedoorofcardinaltime >= WIP_MS) player.thedoorofcardinaltime = Date.now() - WIP_MS;
-			return Date.now() - player.thedoorofcardinaltime;
+			if(d - player.thedoorofcardinaltime >= WIP_MS) player.thedoorofcardinaltime = d - WIP_MS;
+			return d - player.thedoorofcardinaltime;
 		}
 		const diff = useUpdate(differ);
 		let point_list = [];
