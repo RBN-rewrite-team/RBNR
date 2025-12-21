@@ -1,0 +1,175 @@
+import { player } from '@/core/save';
+import { wordShift } from "@/core/word-shift";
+import { useUpdate } from "@/lib/useUpdate";
+import { defineComponent } from "vue";
+import { useI18n } from 'vue-i18n';
+
+export default defineComponent({
+    name: "EnterTheCardinalWorld",
+    setup(props, ctx) {
+		const $t = useI18n().t;
+		function differ() {
+			const WIP_MS = 15350;
+			
+			if(!player.thedoorofcardinalstate) return 0;
+			if(Date.now() - player.thedoorofcardinaltime >= WIP_MS) player.thedoorofcardinaltime = Date.now() - WIP_MS;
+			return Date.now() - player.thedoorofcardinaltime;
+		}
+		const diff = useUpdate(differ);
+        return () => (diff.value > 0 ? <>
+            <div style={{
+				position: 'absolute',
+				width: '100%',
+				height: '100%',
+				top: 0,
+				left: 0,
+				'z-index': 10,
+				'background-color': 'black',
+				opacity: diff.value < 5000 ? diff.value / 5000 : 1,
+			}}>
+				{diff.value > 5000 ? <>
+				<div style={{
+					position: 'absolute',
+					width: '50px',
+					height: '4px',
+					top: '50%',
+					left: '50%',
+					transform: 'translate(-50%, -50%)',
+					opacity: diff.value < 8000 ? Math.sin((diff.value - 8000) / 3000 * 4.5 * Math.PI) / 2 + 0.5 : 1,
+					'background-image': 'linear-gradient(to right, black 0%, white 50%, black 100%)',
+				}} />
+				<div style={{
+					position: 'absolute',
+					width: '4px',
+					height: '50px',
+					top: '50%',
+					left: '50%',
+					transform: 'translate(-50%, -50%)',
+					opacity: diff.value < 8000 ? Math.sin((diff.value - 8000) / 3000 * 4.5 * Math.PI) / 2 + 0.5 : 1,
+					'background-image': 'linear-gradient(to bottom, black 0%, white 50%, black 100%)',
+				}} />
+				<div style={{
+					position: 'absolute',
+					width: '8px',
+					height: '8px',
+					top: '50%',
+					left: '50%',
+					transform: 'translate(-50%, -50%)',
+					opacity: diff.value < 8000 ? Math.sin((diff.value - 8000) / 3000 * 4.5 * Math.PI) / 2 + 0.5 : 1,
+					'box-shadow': '0px 0px 3px 3px white',
+					'background-color': 'white',
+					'border-radius': '4px',
+				}} />
+				<div style={{
+					position: 'absolute',
+					display: diff.value < 12000 && diff.value > 8000 ? 'block' : 'none',
+					width: (diff.value - 8000) / 1 + 'px',
+					height: (diff.value - 8000) / 1 + 'px',
+					top: '50%',
+					left: '50%',
+					transform: 'translate(-50%, -50%)',
+					'background-color': 'rgba(0, 0, 0, 0)',
+					'border': '2px solid white',
+					'border-radius': (diff.value - 8000) / 2 + 'px',
+				}} />
+				<div style={{
+					position: 'absolute',
+					display: diff.value < 12500 && diff.value > 8500 ? 'block' : 'none',
+					width: (diff.value - 8500) / 0.975 + 'px',
+					height: (diff.value - 8500) / 0.975 + 'px',
+					top: '50%',
+					left: '50%',
+					transform: 'translate(-50%, -50%)',
+					'background-color': 'rgba(0, 0, 0, 0)',
+					'border': '2px solid white',
+					'border-radius': (diff.value - 8500) / 1.95 + 'px',
+				}} />
+				<div style={{
+					position: 'absolute',
+					display: diff.value < 13000 && diff.value > 9000 ? 'block' : 'none',
+					width: (diff.value - 9000) / 0.95 + 'px',
+					height: (diff.value - 9000) / 0.95 + 'px',
+					top: '50%',
+					left: '50%',
+					transform: 'translate(-50%, -50%)',
+					'background-color': 'rgba(0, 0, 0, 0)',
+					'border': '2px solid white',
+					'border-radius': (diff.value - 8500) / 1.9 + 'px',
+				}} />
+				<div style={{
+					position: 'absolute',
+					display: diff.value < 13500 && diff.value > 9500 ? 'block' : 'none',
+					width: (diff.value - 9500) / 0.9 + 'px',
+					height: (diff.value - 9500) / 0.9 + 'px',
+					top: '50%',
+					left: '50%',
+					transform: 'translate(-50%, -50%)',
+					'background-color': 'rgba(0, 0, 0, 0)',
+					'border': '2px solid white',
+					'border-radius': (diff.value - 8500) / 1.8 + 'px',
+				}} />
+				<div style={{
+					position: 'absolute',
+					display: diff.value < 14000 && diff.value > 10000 ? 'block' : 'none',
+					width: (diff.value - 10000) / 0.85 + 'px',
+					height: (diff.value - 10000) / 0.85 + 'px',
+					top: '50%',
+					left: '50%',
+					transform: 'translate(-50%, -50%)',
+					'background-color': 'rgba(0, 0, 0, 0)',
+					'border': '2px solid white',
+					'border-radius': (diff.value - 8500) / 1.7 + 'px',
+				}} />
+				<div style={{
+					position: 'absolute',
+					display: diff.value < 14400 && diff.value > 10400 ? 'block' : 'none',
+					width: (diff.value - 10400) / 0.775 + 'px',
+					height: (diff.value - 10400) / 0.775 + 'px',
+					top: '50%',
+					left: '50%',
+					transform: 'translate(-50%, -50%)',
+					'background-color': 'rgba(0, 0, 0, 0)',
+					'border': '2px solid white',
+					'border-radius': (diff.value - 8500) / 1.55 + 'px',
+				}} />
+				<div style={{
+					position: 'absolute',
+					display: diff.value < 14800 && diff.value > 10800 ? 'block' : 'none',
+					width: (diff.value - 10800) / 0.7 + 'px',
+					height: (diff.value - 10800) / 0.7 + 'px',
+					top: '50%',
+					left: '50%',
+					transform: 'translate(-50%, -50%)',
+					'background-color': 'rgba(0, 0, 0, 0)',
+					'border': '2px solid white',
+					'border-radius': (diff.value - 10800) / 1.4 + 'px',
+				}} />
+				<div style={{
+					position: 'absolute',
+					display: diff.value < 15100 && diff.value > 11100 ? 'block' : 'none',
+					width: (diff.value - 11100) / 0.6 + 'px',
+					height: (diff.value - 11100) / 0.6 + 'px',
+					top: '50%',
+					left: '50%',
+					transform: 'translate(-50%, -50%)',
+					'background-color': 'rgba(0, 0, 0, 0)',
+					'border': '2px solid white',
+					'border-radius': (diff.value - 11100) / 1.2 + 'px',
+				}} />
+				<div style={{
+					position: 'absolute',
+					display: diff.value < 15350 && diff.value > 11350 ? 'block' : 'none',
+					width: (diff.value - 11350) / 0.5 + 'px',
+					height: (diff.value - 11350) / 0.5 + 'px',
+					top: '50%',
+					left: '50%',
+					transform: 'translate(-50%, -50%)',
+					'background-color': 'rgba(0, 0, 0, 0)',
+					'border': '2px solid white',
+					'border-radius': (diff.value - 11350) / 1 + 'px',
+				}} />
+				</> : <></>}
+			</div>
+        </> : <></>);
+    },
+})

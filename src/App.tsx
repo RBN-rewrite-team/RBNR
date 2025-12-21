@@ -15,6 +15,7 @@ import { player } from './core/save';
 import { DC } from './core/constants';
 import P from './core/performance.tsx';
 import Notifies from './components/notify/Notifies.tsx';
+import EnterTheCardinalWorld from './components/cardinal/EnterTheCardinalWorld.tsx';
 export default defineComponent({
 	name: 'App',
 	setup() {
@@ -68,6 +69,7 @@ export default defineComponent({
 				<RetributionAnimation />
 				<Chapter />
 				<PlotView />
+				<EnterTheCardinalWorld />
 			</>
 		);
 	},
