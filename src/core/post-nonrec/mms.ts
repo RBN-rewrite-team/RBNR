@@ -463,13 +463,13 @@ export const MMS = {
 		  if (x.gte(10)) x = x.div(10).root(1.6).mul(10)
 		  return x.add(3).floor()
 		},
-		getRankFromTetr(tier = MMS.rank.getCurrentTierFromTetr(), tetr = player.hydra.mms.tetr) {
+		getRankFromTetr(tier = this.getCurrentTierFromTetr(), tetr = player.hydra.mms.tetr) {
 		  let x = tier.sub(3)
 		  if (x.gte(10)) x = x.mul(10).pow(1.6).div(10)
       let hp = new PowiainaNum(10).pow(x.sub(1).root(0.8)).ceil()
       return tetr.div(hp).floor()
     },
-		getBeyondRankRequirement(tier = MMS.rank.getCurrentTierFromTetr(), current = MMS.rank.getRankFromTetr(), tierDifference = 1) {
+		getBeyondRankRequirement(tier = this.getCurrentTierFromTetr(), current = this.getRankFromTetr(), tierDifference = 1) {
 		  let x = tier.sub(3)
 		  let p = tier.sub(3)
 		  if (x.gte(10)) x = x.add(1).mul(10).pow(1.6).div(10).sub(1)
