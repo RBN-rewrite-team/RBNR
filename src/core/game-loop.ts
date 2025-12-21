@@ -45,6 +45,17 @@ export let diff = 40;
  * 游戏的循环逻辑每秒运行多少次
  */
 export const FPS = 25;
+
+
+function singularity() {
+	const r = Math.min(255, 127 + player.singularity.t / 5);
+	const g = Math.max(0, 127 - player.singularity.t / 5);
+	const b = Math.max(0, 255 - player.singularity.t / 4);
+	return 'rgb(' + r + ',' + g + ',' + b + ')';
+}
+setInterval(function () {
+	document.documentElement.style.setProperty('--sing-color', singularity());
+}, 40);
 export let loopInterval: number | null;
 export let saveInterval: number | null;
 let saveinterval_not_started = true;
@@ -88,6 +99,7 @@ export function updateHighestStat() {
 	player.stat.highestExppower = player.stat.highestExppower.max(player.exponention.exppower);
 	player.stat.highestOrdLevel = Math.max(player.stat.highestOrdLevel, getOrdinalLevel());
 }
+
 export function qolLoop() {
 	if (player.buyables['lgr_emp'].gte(1)) {
 		player.stat.chapter = Math.max(player.stat.chapter, 3.1);
@@ -132,7 +144,7 @@ export function qolLoop() {
 	}
 }
 function enterPlot(i: number) {
-	if (unlockedPlots() >= i) {
+	if (unlockedPlots().includes(i)) {
 		temp.plotdisplay = i;
 	}
 }

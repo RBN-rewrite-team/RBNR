@@ -22,7 +22,7 @@ function exitView() {
 	}, 250);
 }
 function canExitView(): boolean {
-	if (import.meta.env.DEV) return true;
+	if (import.meta.env.DEV || (1+1==2)) return true;
 	if (player.checkedPlots.includes(temp.plotdisplay)) return true;
 	return temp.plotstep >= plotLength(temp.plotdisplay, $tm);
 }
@@ -90,7 +90,7 @@ const a: number = -115;
 				</table>
 			</span>
 		</div>
-		<button class="exit" @click="exitView()" :style="{ opacity: canExitView() ? 1 : 0.75 }">
+		<button class="exit" @click="exitView()">
 			×<span style="font-size: 8px" v-if="!canExitView()"><br />{{ $t('limited') }}</span>
 		</button>
 		<button class="next" @click="nextStep()">{{ $t('next') }}</button>

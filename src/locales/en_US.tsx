@@ -2366,4 +2366,7 @@ THEN YOU CAN GET REVELATION.<br />
 	'mms.rank.mil.1.0': 'Multiply Charged Hydra Energy, based on Tier',
 	'mms.rank.mil.1.1': 'Rank 1 Effect +2',
 	'mms.rank.mil.1.2': 'MMS deduce speed x4',
+
+	'plottab.1': "(Not watched)",
+	'plottab.2': "You have no unwatched plots | You have an unwatched plot | You have {count} unwatched plots"
 };

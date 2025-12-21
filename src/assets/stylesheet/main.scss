@@ -10,6 +10,7 @@
 @use './garden.scss';
 @use './hydra.scss';
 @use './oracle.scss';
+
 @font-face {
 	font-family: 思源黑体Regular;
 	src: url('../NotoSansCJKsc-Regular.otf');
@@ -64,9 +65,7 @@
 	touch-action: manipulation; // disable doubleclick zooming
 	text-size-adjust: none;
 
-	&:not(.katex):not(.katex *):not(.cm-content):not(.cm-content *):not(.cm-gutters):not(
-			.cm-gutters *
-		) {
+	&:not(.katex):not(.katex *):not(.cm-content):not(.cm-content *):not(.cm-gutters):not(.cm-gutters *) {
 		font-family: var(--font);
 	}
 
@@ -258,6 +257,7 @@ body {
 .upgrade_dilated {
 	border-color: #00ff00;
 }
+
 .center_line {
 	width: 80%;
 	height: 1.5px;
@@ -466,10 +466,12 @@ body {
 	line-height: 24px;
 	// overflow: auto;
 }
-.nonrec-chals > * > * > * > .challenge {
+
+.nonrec-chals>*>*>*>.challenge {
 	font-size: 13px;
 	line-height: 17px;
 }
+
 .challenge_button {
 	position: relative;
 	display: block;
@@ -758,18 +760,22 @@ a {
 	border: 2px solid var(--border-color);
 	width: fit-content;
 	padding: 5px;
+
 	&.blank {
 		border: 2px solid var(--background-color);
 	}
 }
+
 .study-name {
 	text-align: left;
 	z-index: 2;
 	position: relative;
+
 	&.blank {
 		color: var(--background-color);
 	}
 }
+
 .study-desc {
 	z-index: 2;
 	width: 150px;
@@ -783,32 +789,39 @@ a {
 	flex-direction: column;
 	justify-content: center;
 	position: relative;
+
 	&:hover {
 		background-color: var(--hover-color);
 		cursor: pointer;
 	}
+
 	&.blank {
 		border: var(--background-color);
 		background-color: var(--background-color);
 		cursor: default;
 	}
 }
+
 .study-buyable {
 	background-color: #644100;
 	transform: scale(1.05);
 }
+
 .study-actived {
 	background-color: #c98300;
 	border: 2px solid var(--border-color);
+
 	&:hover {
 		background-color: color.adjust($color: #c98300, $lightness: 10%);
 		cursor: pointer;
 	}
 }
+
 .study-nrc {
 	box-shadow: 0px 0px 20px 20px #c98300;
 	background-color: #644100;
 }
+
 .study-nrc-in {
 	background-color: var(--background-color);
 }
@@ -870,7 +883,7 @@ a {
 	flex-shrink: none;
 }
 
-.studies_row > .study {
+.studies_row>.study {
 	margin: 15px;
 	position: relative;
 }
@@ -892,22 +905,26 @@ a {
 }
 
 @keyframes corrupted_text {
+
 	0%,
 	100% {
 		text-shadow:
 			-2px -2px 0px #5555ff,
 			2px 2px 0px #ff5555;
 	}
+
 	25% {
 		text-shadow:
 			-2px 2px 0px #5555ff,
 			2px -2px 0px #ff5555;
 	}
+
 	50% {
 		text-shadow:
 			2px 2px 0px #5555ff,
 			-2px -2px 0px #ff5555;
 	}
+
 	75% {
 		text-shadow:
 			2px -2px 0px #5555ff,
@@ -916,22 +933,26 @@ a {
 }
 
 @-webkit-keyframes corrupted_text {
+
 	0%,
 	100% {
 		text-shadow:
 			-2px -2px 0px #5555ff,
 			2px 2px 0px #ff5555;
 	}
+
 	25% {
 		text-shadow:
 			-2px 2px 0px #5555ff,
 			2px -2px 0px #ff5555;
 	}
+
 	50% {
 		text-shadow:
 			2px 2px 0px #5555ff,
 			-2px -2px 0px #ff5555;
 	}
+
 	75% {
 		text-shadow:
 			2px -2px 0px #5555ff,
@@ -952,6 +973,7 @@ a {
 	width: 95%;
 	margin: auto;
 }
+
 @mixin dim_progress_bar($width-var, $color) {
 	position: relative;
 	border: 2px solid $color;
@@ -971,23 +993,22 @@ a {
 	}
 
 	&.fast::before {
-		background: linear-gradient(
-			-45deg,
-			color.adjust($color, $alpha: -0.7) 0,
-			color.adjust($color, $alpha: -0.7) 25%,
-			color.adjust($color, $alpha: -0.5) 25%,
-			color.adjust($color, $alpha: -0.5) 50%,
-			color.adjust($color, $alpha: -0.7) 50%,
-			color.adjust($color, $alpha: -0.7) 75%,
-			color.adjust($color, $alpha: -0.5) 75%,
-			color.adjust($color, $alpha: -0.5)
-		);
+		background: linear-gradient(-45deg,
+				color.adjust($color, $alpha: -0.7) 0,
+				color.adjust($color, $alpha: -0.7) 25%,
+				color.adjust($color, $alpha: -0.5) 25%,
+				color.adjust($color, $alpha: -0.5) 50%,
+				color.adjust($color, $alpha: -0.7) 50%,
+				color.adjust($color, $alpha: -0.7) 75%,
+				color.adjust($color, $alpha: -0.5) 75%,
+				color.adjust($color, $alpha: -0.5));
 		background-size: 200px 200px;
 		background-repeat: repeat;
 		animation: scroll_left 3s linear infinite;
 		width: 200%;
 	}
 }
+
 .dim-single {
 	min-height: 70px;
 	display: flex;
@@ -1013,6 +1034,7 @@ a {
 		@include dim_progress_bar(v-bind(dim4progress), #c17f00);
 	}
 }
+
 .dim-single-centered {
 	min-height: 70px;
 	display: flex;
@@ -1047,11 +1069,13 @@ a {
 	position: absolute;
 	margin-top: 5px;
 }
+
 .background {
 	width: 100%;
 	overflow: auto;
 }
-.resrouces > * {
+
+.resrouces>* {
 	white-space: nowrap;
 }
 
@@ -1061,6 +1085,7 @@ a {
 	right: 5px;
 	z-index: 9998;
 }
+
 .notify-content-box {
 	height: 30px;
 	max-width: 250px;
@@ -1076,24 +1101,35 @@ a {
 	padding-left: 10px;
 	padding-right: 10px;
 	margin-bottom: 10px;
-	animation: notify-start 0.5s infinite;
+
+	animation: notify-start 0.5s;
+
+	&.quiting {
+		animation: notify-end 0.5s;
+
+	}
 }
+
 @keyframes notify-start {
 	from {
 		opacity: 0;
 	}
+
 	to {
 		opacity: 1;
 	}
 }
+
 @keyframes notify-end {
 	from {
 		opacity: 1;
 	}
+
 	to {
 		opacity: 0;
 	}
 }
+
 .performance {
 	position: fixed;
 	bottom: 5px;
@@ -1126,17 +1162,15 @@ a {
 	&::before {
 		content: '';
 		position: absolute;
-		background: linear-gradient(
-			-45deg,
-			rgba(87, 138, 239, 0.3) 0,
-			rgba(87, 138, 239, 0.3) 25%,
-			rgba(87, 138, 239, 0.5) 25%,
-			rgba(87, 138, 239, 0.5) 50%,
-			rgba(87, 138, 239, 0.3) 50%,
-			rgba(87, 138, 239, 0.3) 75%,
-			rgba(87, 138, 239, 0.5) 75%,
-			rgba(87, 138, 239, 0.5)
-		);
+		background: linear-gradient(-45deg,
+				rgba(87, 138, 239, 0.3) 0,
+				rgba(87, 138, 239, 0.3) 25%,
+				rgba(87, 138, 239, 0.5) 25%,
+				rgba(87, 138, 239, 0.5) 50%,
+				rgba(87, 138, 239, 0.3) 50%,
+				rgba(87, 138, 239, 0.3) 75%,
+				rgba(87, 138, 239, 0.5) 75%,
+				rgba(87, 138, 239, 0.5));
 		top: 0px;
 		left: 0px;
 		right: 0px;
@@ -1151,6 +1185,7 @@ a {
 .rank_text {
 	font-size: large;
 }
+
 .rank_button {
 	border: 1px solid rgba(87, 138, 239);
 	margin: auto;
@@ -1158,6 +1193,7 @@ a {
 	padding: 5px;
 	font-size: small;
 	height: 200px;
+
 	&:hover {
 		background-color: var(--hover-color);
 		cursor: pointer;

@@ -14,6 +14,7 @@ import PlotView from './components/tabs/plot/PlotView.vue';
 import { player } from './core/save';
 import { DC } from './core/constants';
 import P from './core/performance.tsx';
+import Notifies from './components/notify/Notifies.tsx';
 export default defineComponent({
 	name: 'App',
 	setup() {
@@ -21,11 +22,7 @@ export default defineComponent({
 			<>
 				<Side />
 				<P />
-				{/* <div class="notify">
-					<div class="notify-content-box">Content Box</div>
-					<div class="notify-content-box">Content Box</div>
-					<div class="notify-content-box">Content Box</div>
-				</div> */}
+				<Notifies />
 				<div class="content">
 					{player.options.ui.newsbar ? (
 						<div class="news" id="newsbar">

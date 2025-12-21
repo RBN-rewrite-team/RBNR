@@ -53,3 +53,5 @@ import './test.tsx';
 import Decimal from 'break_eternity.js';
 import { Pow } from './core/automator/lexer.ts';
 import { format } from './utils/format.ts';
+import { addNotify } from './components/notify/index.ts';
+// window.addNotify = addNotify

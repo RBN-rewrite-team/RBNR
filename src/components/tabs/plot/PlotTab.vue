@@ -7,19 +7,20 @@ import { zeroToHundred } from '@/utils/zeroToHundred';
 
 import type { $t } from '@/utils/types';
 import { useI18n } from 'vue-i18n';
+import { player } from '@/core/global';
 
 const $t = useI18n().t;
 
 function enterPlot(i: number) {
 	console.log(i);
-	if (unlockedPlots() >= i) {
+	if (unlockedPlots().includes(i-1)) {
 		temp.plotdisplay = i;
 	}
 }
 
 // 数据源 - 字符串列表
 const options = computed(function (): number[] {
-	return zeroToHundred.slice(0, unlockedPlots()) as unknown as number[];
+	return unlockedPlots() as unknown as number[];
 });
 
 let actualIndex = 0;
@@ -103,7 +104,7 @@ onMounted(() => {
 							}"
 							@click="selectOption(option)"
 						>
-							<convertTextToComponent :text="$t('plot.' + option)" />
+							<convertTextToComponent :text="$t('plot.' + option)" />{{ player.checkedPlots.includes(option+1) ? "": $t("plottab.1")}}
 						</li>
 						<li v-if="filteredOptions.length === 0" class="no-options">
 							{{ $t('plot.couldntfound') }}

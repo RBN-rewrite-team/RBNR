@@ -6,8 +6,9 @@ import { ref } from 'vue';
 import { CHALLENGE } from '@/core/challenge.ts';
 import { wordShift } from '@/core/word-shift.ts';
 import { useI18n } from 'vue-i18n';
-import { getMessage } from '@/utils/i18n';
+import { findRaw, getMessage } from '@/utils/i18n';
 import Upgrades from '@/components/upg/Upgrades';
+import { useUpdate } from '@/lib/useUpdate';
 
 function destroy(a: number) {
 	switch (a) {
@@ -179,18 +180,8 @@ function destroy(a: number) {
 	}
 }
 
-function color() {
-	const r = Math.min(255, 127 + player.singularity.t / 5);
-	const g = Math.max(0, 127 - player.singularity.t / 5);
-	const b = Math.max(0, 255 - player.singularity.t / 4);
-	return 'rgb(' + r + ',' + g + ',' + b + ')';
-}
+const t = useUpdate(()=>Date.now());
 
-const t = ref(Date.now());
-setInterval(function () {
-	t.value = Date.now();
-	document.documentElement.style.setProperty('--sing-color', color());
-}, 40);
 const $tm = useI18n().tm;
 // 定义献祭按钮配置
 const sacrificeConfigs = [
@@ -325,7 +316,7 @@ function w() {
 					v-if="config.condition()"
 					class="sacrifice"
 					@click="handleSacrifice(config.stage, config.destroyArg)"
-					v-html="config.text(wordShift.wordCycle(getMessage(config.words), false, t))"
+					v-html="config.text(wordShift.wordCycle(findRaw(config.words), false, t))"
 				/>
 			</template>
 		</div>

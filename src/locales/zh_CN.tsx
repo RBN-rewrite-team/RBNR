@@ -2217,4 +2217,7 @@ export default {
 	'mms.rank.mil.2.0': '基于级别，提升MMS推演速度',
 
 	'upgs.631': 'test',
+
+	'plottab.1': "(未观看)",
+	'plottab.2': "你有{count}未观看的剧情"
 };

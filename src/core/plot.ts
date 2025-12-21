@@ -48,11 +48,19 @@ export const plotTitles = [
 	'到达BMS极限',
 	'Retribution',
 ] as const;
-export function unlockedPlots() {
+export function unlockedPlots2() {
 	for (let unlocked = PlotMilestones.length - 1; unlocked >= 0; unlocked--) {
 		if (PlotMilestones[unlocked]()) return unlocked + 1;
 	}
 	return 0;
+}
+export function unlockedPlots(): number[] {
+	const unlockedp = [] as number[]
+	let a = unlockedPlots2();
+	for (let i = 0; i < a; i++) {
+		unlockedp.push(i);
+	}
+	return unlockedp
 }
 export function viewedPlotLength() {
 	return player.checkedPlots.length;

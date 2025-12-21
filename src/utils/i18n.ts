@@ -100,7 +100,10 @@ window.addEventListener(
 // }
 
 export const getMessage = i18n.global.t as $t;
-
+export function findRaw(x: string) : any {
+	// @ts-expect-error
+	return messages[i18n.global.locale.value][x]
+}
 const array1 = Object.keys(messages['en-US']);
 const array2 = Object.keys(messages['zh-CN']);
 // 找出 arr1 中有但 arr2 中没有的元素

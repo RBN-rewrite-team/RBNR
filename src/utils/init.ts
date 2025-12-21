@@ -24,6 +24,9 @@ import { getMessage, i18n } from './i18n.ts';
 import { initSINMiletones } from '@/core/pt/oracle/sin.ts';
 import { tryGetFingerprintJS } from './fingerprint.ts';
 import { MultiTabDetector } from './tab-detector.ts';
+import { addNotify } from '@/components/notify/index.ts';
+import { unlockedPlots } from '@/core/plot.ts';
+import { difference } from 'lodash-es';
 let detector;
 export function init() {
 	try {
@@ -138,6 +141,20 @@ export function init() {
 			},
 		});
 		detector.detect();
+		setTimeout(function () {
+			const array1 = Object.keys(unlockedPlots());
+			const array2 = Object.keys(player.checkedPlots);
+			// console.log(convertJSXtoPlain(a));
+			const onlyInFirst = difference(array1, array2);
+			
+			if (onlyInFirst.length > 0) {
+				addNotify(getMessage("plottab.2", {
+					count: onlyInFirst.length
+				}))
+			}
+			// console.log(onlyInFirst);
+			// addNotify(unlockedPlots())
+		}, 2000)
 		// console.log(JSON.stringify(localization));
 	} catch (e) {
 		stopGameLoop();
