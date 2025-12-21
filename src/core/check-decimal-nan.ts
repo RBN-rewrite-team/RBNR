@@ -121,7 +121,7 @@ function createValidatedReactiveProxy(target: any, path: string = ''): any {
       
       if (value instanceof Decimal) {
         if (isInvalid(value)) {
-          if (!(allowNegativePath.includes(path) && !isStrictInvalid(value))) {
+          if (!(allowNegativePath.includes(currentPath) && !isStrictInvalid(value))) {
             console.error(`Invalid Decimal at path: ${currentPath}`);
             console.error('Value:', value.toString());
             console.trace();
@@ -163,9 +163,10 @@ function createValidatedReactiveProxy(target: any, path: string = ''): any {
 
         if (value instanceof Decimal) {
           if (isInvalid(value)) {
+            if (!(allowNegativePath.includes(currentPath) && !isStrictInvalid(value))){
 			addNotify(`Invalid Decimal in defineProperty at path: ${currentPath}, value: ${value.toString()}`)
             console.error(`Invalid Decimal in defineProperty at path: ${currentPath}`);
-            return false;
+            return false;}
           }
           descriptor.value = markRaw(value);
         } else if (value !== null && typeof value === 'object') {
