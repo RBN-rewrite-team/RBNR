@@ -120,7 +120,7 @@ function createValidatedReactiveProxy(target: any, path: string = ''): any {
       
       if (value instanceof Decimal) {
         if (isInvalid(value)) {
-          if (!(allowNegativePath.includes(path.join(".")) && !isStrictInvalid(value))) {
+          if (!(allowNegativePath.includes(path) && !isStrictInvalid(value))) {
             console.error(`Invalid Decimal at path: ${currentPath}`);
             console.error('Value:', value.toString());
             console.trace();
