@@ -122,6 +122,7 @@ import { i18n } from '@/utils/i18n';
 				<h2>{{ $t('about.mechanismdesign') }}</h2>
 				<br />
 				RAXH<br />
+				{{ $t('about.dlsdl') }}<br />
 				Seanxlx<br />
 			</div>
 			<div
