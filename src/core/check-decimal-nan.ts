@@ -5,7 +5,6 @@ function isInvalid(x: Decimal) {
   return x.isNan() || !x.isFinite() || x.lt(0);
 }
 
-// 缓存已处理的 Proxy，避免重复创建
 const proxyCache = new WeakMap<object, any>();
 
 function createProxy(target: any): any {
