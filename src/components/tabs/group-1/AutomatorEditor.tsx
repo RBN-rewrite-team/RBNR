@@ -187,13 +187,15 @@ i18n.global.locale.value == 'zh-CN' ? <>
 <p>rbnr: RBNR module</p>
 </>:<>
 <h1>Automator syntaxes</h1>
+<p  style="color: #ffcc00ff">It's not all translated</p>
+
 <h2>Literal</h2>
 <p>1, "xxxx", [1,3,4,3] are literals</p>
 <h3>Number</h3>
 <p>1, e300, 1.79e308, f3.422e38, 1f33 are number literals</p>
 <h3>String</h3>
 <p>"hello world", "jenesaispas" are string literals</p>
-<h3 style="color: #ff0000">Array</h3>
+<h3>Array</h3>
 <p>[1,1,4,5,1,4] [1,3,4,2,5,8,10] are array literals</p>
 <h3>Hash Table</h3>
 <p>{'{'} a: xx, b: cc, d:ee{"}"} is an hash table literal</p>
