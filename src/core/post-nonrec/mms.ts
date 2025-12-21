@@ -154,6 +154,10 @@ export const MMS = {
 				let tri = player.hydra.mms.tri;
 				res = tri.mul(4).add(4);
 			}
+			if (x.eq(3)) {
+				let tetr = player.hydra.mms.tetr;
+				res = tetr.pow(1.25).mul(4).add(10).ceil();
+			}
 			return res;
 		},
 		levelReqReverse(q: PowiainaNum | number, res: PowiainaNum) {
@@ -184,6 +188,9 @@ export const MMS = {
 			}
 			if (x.eq(2)) {
 				res2 = res.sub(4).clampMin(0).div(4);
+			}
+			if (x.eq(3)) {
+				res2 = res.sub(10).clampMin(0).div(4).root(1.25);
 			}
 			return res2.ceil();
 		},
