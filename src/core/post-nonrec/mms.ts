@@ -456,6 +456,34 @@ export const MMS = {
 			if (i === 1) return '阶层';
 			return `${numberToChinese(i + 1)}重阶层`;
 		},
+
+		
+		// 普通超-阶层
+		getCurrentTierFromTetr(tetr2?: PowiainaNum) {
+			const tetr: PowiainaNum = tetr2 ??  player.hydra.mms.tetr
+			if (tetr.eq(0)) return new PowiainaNum(3)
+			let x = tetr.log10().max(0).pow(0.8).add(1)
+			if (x.gte(10)) x = x.div(10).root(1.6).mul(10)
+			return x.add(3).floor()
+		},
+		getRankFromTetr(tier2?: PowiainaNum, tetr2?: PowiainaNum) {
+			const tier: PowiainaNum = tier2 ?? MMS.rank.getCurrentTierFromTetr()
+			const tetr: PowiainaNum = tetr2 ?? player.hydra.mms.tetr
+			let x = tier.sub(3)
+			if (x.gte(10)) x = x.mul(10).pow(1.6).div(10)
+			let hp = new PowiainaNum(10).pow(x.sub(1).root(0.8)).ceil()
+			return tetr.div(hp).floor()
+		},
+		getBeyondRankRequirement(tier2?:PowiainaNum, current2?:PowiainaNum, tierDifference2?: number) {
+			const tier: PowiainaNum = tier2 ?? MMS.rank.getCurrentTierFromTetr()
+			const current: PowiainaNum = current2 ?? MMS.rank.getRankFromTetr();
+			const tierDifference: number = tierDifference2 ?? 1
+			let x = tier.sub(3)
+			let p = tier.sub(3)
+			if (x.gte(10)) x = x.add(1).mul(10).pow(1.6).div(10).sub(1)
+			if (p.gte(10)) p = p.sub(tierDifference).add(1).mul(10).pow(1.6).div(10).sub(1)
+			return new PowiainaNum(10).pow(x.root(0.8).sub(p.root(0.8))).mul(current.add(1)).ceil()
+		},
 	} as const,
 } as const;
 
