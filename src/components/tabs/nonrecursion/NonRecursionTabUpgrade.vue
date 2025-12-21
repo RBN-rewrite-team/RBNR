@@ -12,7 +12,7 @@ const upgids = useUpdate(function () {
 	)[][];
 
 	if (player.milestones.nonrec_26) {
-		upgs.push(['u75', 'u76', 'u77', 'u76']);
+		upgs.push(['u75', 'u76', 'u77', 'u78']);
 	}
 	return upgs;
 });
