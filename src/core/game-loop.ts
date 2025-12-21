@@ -489,7 +489,6 @@ export function simulate(diff: number) {
 	ordinalSpeedDerivative = next.sub(last).div(diff / 1000);
 	const next2 = feature.Ordinal.speedDeri();
 	ordinalSpeedDerivative2 = next2.sub(last2).div(diff / 1000);
-	checkNaN(player, ['player']);
 	player.lastUpdated = Date.now();
 }
 
