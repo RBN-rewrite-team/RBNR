@@ -51,7 +51,6 @@ function getSaveID(id: number) {
 		return `RBN-rewritten-save-${id}`;
 	}
 }
-
 export interface Player {
 	number: Decimal;
 	version: typeof version;
@@ -190,6 +189,18 @@ export interface Player {
 
 	thedoorofcardinalstate: boolean;
 	thedoorofcardinaltime: number;
+	/**
+	 * Crisis.
+	 * 
+	 * 1: 170s
+	 * 
+	 * 2: 300s
+	 * 
+	 * 3: 510s
+	 * 
+	 * 999: destructed
+	 */
+	thedoorofcardinalcrisis: 0|1|2|3|999;
 }
 
 function getInitialPlayerData(): Player {
@@ -199,6 +210,7 @@ function getInitialPlayerData(): Player {
 
 		thedoorofcardinalstate: false,
 		thedoorofcardinaltime: 0,
+		thedoorofcardinalcrisis:0,
 
 		frozen: false,
 		achievements: [],
@@ -474,7 +486,38 @@ function deepMerge<T>(source: T, target: DeepPartial<T>, expectedKey?: string[])
 }
 
 export let player: Player = getInitialPlayerData();
+export function checkBlacklist(): string[] {
+	let value = localStorage.getItem("rbnr-uuid-blacklist")
+	if (value === null) {
+		localStorage.setItem("rbnr-uuid-blacklist", "[]");
+		return [];
+	}
+	try{
+		let valuet = JSON.parse(value);
 
+		return valuet;
+	} catch {
+		return []
+	}
+
+}
+export function addBlacklist(x: string) {
+	let value = localStorage.getItem("rbnr-uuid-blacklist")
+	let q = []
+	if (value === null) {
+		localStorage.setItem("rbnr-uuid-blacklist", "[]");
+		value = "[]"
+	}
+	try{
+		let valuet = JSON.parse(value);
+		valuet.push(x)
+		localStorage.setItem("rbnr-uuid-blacklist", JSON.stringify(valuet))
+		
+	} catch {
+		
+	}
+
+}
 export function loadFromString(saveContent: string, non_options = false) {
 	const deserialized = saveSerializer.deserialize(saveContent);
 	Object.assign(
@@ -485,6 +528,12 @@ export function loadFromString(saveContent: string, non_options = false) {
 			non_options ? (['options'] satisfies (keyof Player)[]) : [],
 		),
 	);
+
+	if (player.uuid) {
+		if (checkBlacklist().includes(player.uuid)) {
+			hardReset();
+		}
+	}
 	if ((player?.version ?? 0) < 4) {
 		player.hydra.dilute.solvent = [0, 0, 0, 0, 0, 0, false, false, false];
 	}
@@ -606,6 +655,12 @@ export function hardReset(excludeKey?: (keyof Player)[]) {
 
 	save();
 	// location.reload();
+}
+
+export function enterTheCardinalWorldTrigger() {
+	addBlacklist(player.uuid);
+	// hardReset();
+
 }
 
 export function import_file(): void {

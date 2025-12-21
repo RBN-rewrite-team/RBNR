@@ -1,4 +1,4 @@
-import { player } from "@/core/save";
+import { enterTheCardinalWorldTrigger, player } from "@/core/save";
 import { isDeveloper } from "@/core/save/testing";
 import ModalService from "@/utils/Modal";
 
@@ -39,4 +39,23 @@ export function activateTheDoorOfCardinal() {
         cancelText: "It's too dangerous"
     })
     
+}
+export function randomNumber() {
+    let a = new Uint8Array(1)
+    crypto.getRandomValues(a)
+    return a[0]
+}
+
+export function theDoorOfCardinalLoop() {
+    if (!player.thedoorofcardinalstate) return;
+    if ((Date.now()-player.thedoorofcardinaltime)>=170000 && player.thedoorofcardinalcrisis < 1) {
+        let a = randomNumber();
+        if (a>=86) {
+            player.thedoorofcardinalcrisis = 999
+            enterTheCardinalWorldTrigger();
+        } else {
+            
+            player.thedoorofcardinalcrisis = 1;
+        }
+    }
 }

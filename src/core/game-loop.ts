@@ -34,6 +34,7 @@ import { Oracle } from './pt/oracle/oracle.ts';
 import { Performance } from './performance.tsx';
 import { isDeveloper, isTester } from './save/testing.ts';
 import { MMS } from './post-nonrec/mms.ts';
+import { theDoorOfCardinalLoop } from './post-nonrec/cardinal/the-door-of-cardinal.ts';
 
 /**
  * 游戏循环经过了多少时间
@@ -501,7 +502,12 @@ export function simulate(diff: number) {
 	ordinalSpeedDerivative = next.sub(last).div(diff / 1000);
 	const next2 = feature.Ordinal.speedDeri();
 	ordinalSpeedDerivative2 = next2.sub(last2).div(diff / 1000);
+
+	
+	theDoorOfCardinalLoop()
+
 	player.lastUpdated = Date.now();
+
 }
 
 function checkNaN<T>(obj: T, path: string[]): void {

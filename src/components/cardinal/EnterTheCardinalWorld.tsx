@@ -9,7 +9,7 @@ export default defineComponent({
     setup(props, ctx) {
 		const $t = useI18n().t;
 		function differ() {
-			const WIP_MS = 1 * 160000;
+			const WIP_MS = 1 * 172000;
 			
 			let d = Date.now();
 			if(!player.thedoorofcardinalstate) return 0;
@@ -34,7 +34,7 @@ export default defineComponent({
 				opacity: diff.value < 5000 ? diff.value / 5000 : 1,
 			}}>
 				{diff.value > 5000 ? <>
-			{diff.value}
+			{diff.value},{player.thedoorofcardinalcrisis}
 				<div style={{
 					position: 'absolute',
 					width: '50px',
