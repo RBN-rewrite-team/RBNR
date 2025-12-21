@@ -1,73 +1,223 @@
 import Decimal from 'break_eternity.js';
-import { reactive, shallowReactive } from 'vue';
+import { reactive, markRaw } from 'vue';
 
 function isInvalid(x: Decimal) {
-  return x.isNan() || !x.isFinite() || x.lt(0);
+  return x.isNan() || !x.isFinite() || x.lt(0)
 }
 
-const proxyCache = new WeakMap<object, any>();
+function isStrictInvalid(x: Decimal) {
+  return x.isNan() || !x.isFinite()
+}
 
-function createProxy(target: any): any {
-  if (proxyCache.has(target)) {
-    return proxyCache.get(target);
+const reactiveCache = new WeakMap<object, any>();
+
+const allowNegativePath = ["player.nonrecu.spentTheories", "player.backup.nonrecu.spentTheories"]
+
+function deepValidateObject(obj: any, path: string[] = []): boolean {
+  if (obj === null || typeof obj !== 'object') {
+    return true;
   }
 
-  const proxy = new Proxy(target, {
-    get(target, key, receiver) {
-      if (key === '__v_raw' || key === '__v_isReactive') {
-        return Reflect.get(target, key, receiver);
+  if (obj.__v_checked) {
+    return true;
+  }
+
+  try {
+    Object.defineProperty(obj, '__v_checked', {
+      value: true,
+      writable: false,
+      configurable: true,
+      enumerable: false
+    });
+  } catch {
+    return true;
+  }
+
+  try {
+    if (obj instanceof Decimal) {
+      if (isInvalid(obj)) {
+        if (allowNegativePath.includes(path.join('.'))) return !isStrictInvalid(obj)
+        console.error(`Invalid Decimal found at path: ${path.join('.') || 'player'}`);
+        console.error('Value:', obj.toString());
+        return false;
       }
-      
-      const value = Reflect.get(target, key, receiver);
-      
-      if (value instanceof Decimal) {
-        return value;
-      }
-      
-      if (value !== null && typeof value === 'object' && !Array.isArray(value)) {
-        if (value.__v_isReactive) {
-          return value;
+      return true;
+    }
+
+    if (Array.isArray(obj)) {
+      for (let i = 0; i < obj.length; i++) {
+        if (!deepValidateObject(obj[i], [...path, `[${i}]`])) {
+          return false;
         }
-        return createProxy(value);
       }
-      
+    } else {
+      for (const key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          if (key.startsWith('__v_')) continue;
+          
+          if (!deepValidateObject(obj[key], [...path, key])) {
+            return false;
+          }
+        }
+      }
+    }
+
+    return true;
+  } finally {
+    try {
+      delete obj.__v_checked;
+    } catch {
+    }
+  }
+}
+
+function createValidatedReactiveProxy(target: any, path: string = ''): any {
+  if (reactiveCache.has(target)) {
+    return reactiveCache.get(target);
+  }
+
+  if (target === null || typeof target !== 'object' || target instanceof Decimal) {
+    return target;
+  }
+
+  if (target.__v_isReactive && target.__v_isValidated) {
+    return target;
+  }
+
+  const reactiveTarget = reactive(target);
+
+  Object.defineProperty(reactiveTarget, '__v_isValidated', {
+    value: true,
+    writable: false,
+    configurable: true,
+    enumerable: false
+  });
+
+  const proxy = new Proxy(reactiveTarget, {
+    get(target, key, receiver) {
+      if (key === '__v_raw') return target;
+      if (key === '__v_isReactive') return true;
+      if (key === '__v_isValidated') return true;
+
+      const value = Reflect.get(target, key, receiver);
+
+      if (value instanceof Decimal) {
+        return markRaw(value);
+      }
+
+      if (value !== null && typeof value === 'object') {
+        return createValidatedReactiveProxy(value, path ? `${path}.${String(key)}` : String(key));
+      }
+
       return value;
     },
+
     set(target, key, value, receiver) {
-      if (value instanceof Decimal && isInvalid(value)) {
-        console.error(`The game find something suspicious is writing invalid value`);
-        console.error(`Target: `, target, `, Key:`, key);
-        console.error(
-          'If you see this, it means the game may meet problems and needs to checked',
-        );
-        console.error(value.toString());
-        console.trace();
-        return true;
+      const keyStr = String(key);
+      const currentPath = path ? `${path}.${keyStr}` : keyStr;
+
+      let isValid = true;
+      
+      if (value instanceof Decimal) {
+        if (isInvalid(value)) {
+          if (!(allowNegativePath.includes(path.join(".")) && !isStrictInvalid(value))) {
+            console.error(`Invalid Decimal at path: ${currentPath}`);
+            console.error('Value:', value.toString());
+            console.trace();
+            return false;
+          }
+        }
+      } else if (value !== null && typeof value === 'object') {
+        if (!deepValidateObject(value, [currentPath])) {
+          console.error(`Invalid object at path: ${currentPath}`);
+          console.trace();
+          return false;
+        }
       }
 
       let processedValue = value;
-      if (value !== null && typeof value === 'object' && !(value instanceof Decimal)) {
-        if (!value.__v_isReactive) {
-          processedValue = createProxy(value);
-        }
+      
+      if (value instanceof Decimal) {
+        processedValue = markRaw(value);
+      } else if (value !== null && typeof value === 'object') {
+        processedValue = createValidatedReactiveProxy(value, currentPath);
       }
 
       const result = Reflect.set(target, key, processedValue, receiver);
       
-      if (processedValue !== value && processedValue !== null && typeof processedValue === 'object') {
-        proxyCache.delete(processedValue);
+      if (result && processedValue !== null && typeof processedValue === 'object') {
+        reactiveCache.set(value, processedValue);
       }
       
       return result;
     },
+
+    defineProperty(target, key, descriptor) {
+      if (descriptor.value !== undefined) {
+        const keyStr = String(key);
+        const currentPath = path ? `${path}.${keyStr}` : keyStr;
+        const value = descriptor.value;
+
+        if (value instanceof Decimal) {
+          if (isInvalid(value)) {
+            console.error(`Invalid Decimal in defineProperty at path: ${currentPath}`);
+            return false;
+          }
+          descriptor.value = markRaw(value);
+        } else if (value !== null && typeof value === 'object') {
+          if (!deepValidateObject(value, [currentPath])) {
+            console.error(`Invalid object in defineProperty at path: ${currentPath}`);
+            return false;
+          }
+          descriptor.value = createValidatedReactiveProxy(value, currentPath);
+        }
+      }
+
+      return Reflect.defineProperty(target, key, descriptor);
+    },
+
+    deleteProperty(target, key) {
+      const result = Reflect.deleteProperty(target, key);
+      
+      return result;
+    }
   });
 
-  proxyCache.set(target, proxy);
+  const processExistingProperties = (obj: any, currentPath: string) => {
+    if (Array.isArray(obj)) {
+      for (let i = 0; i < obj.length; i++) {
+        const item = obj[i];
+        if (item !== null && typeof item === 'object') {
+          const itemPath = `${currentPath}[${i}]`;
+          obj[i] = createValidatedReactiveProxy(item, itemPath);
+        }
+      }
+    } else {
+      for (const key in obj) {
+        if (obj.hasOwnProperty(key) && !key.startsWith('__v_')) {
+          const value = obj[key];
+          if (value !== null && typeof value === 'object' && !(value instanceof Decimal)) {
+            const itemPath = currentPath ? `${currentPath}.${key}` : key;
+            obj[key] = createValidatedReactiveProxy(value, itemPath);
+          }
+        }
+      }
+    }
+  };
+
+  processExistingProperties(reactiveTarget, path);
+
+  reactiveCache.set(target, proxy);
+  reactiveCache.set(reactiveTarget, proxy);
+
   return proxy;
 }
 
 export function createDeepValidatedReactive<T>(obj: T): T {
-  const reactiveObj = reactive(obj as object);
-  
-  return createProxy(reactiveObj);
+  if (!deepValidateObject(obj, ['player'])) {
+    console.error('Initial object contains invalid values!');
+    throw new Error('Initial object contains invalid Decimal values');
+  }
+
+  return createValidatedReactiveProxy(obj, "player") as T;
 }
