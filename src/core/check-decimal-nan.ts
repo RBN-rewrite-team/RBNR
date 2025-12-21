@@ -1,3 +1,4 @@
+import { addNotify } from '@/components/notify';
 import Decimal from 'break_eternity.js';
 import { reactive, markRaw } from 'vue';
 
@@ -37,7 +38,7 @@ function deepValidateObject(obj: any, path: string[] = []): boolean {
     if (obj instanceof Decimal) {
       if (isInvalid(obj)) {
         if (allowNegativePath.includes(path.join('.'))) return !isStrictInvalid(obj)
-        console.error(`Invalid Decimal found at path: ${path.join('.') || 'player'}`);
+        console.error(`Invalid Dec., path: ${path.join('.') || 'player'}`);
         console.error('Value:', obj.toString());
         return false;
       }
@@ -120,15 +121,17 @@ function createValidatedReactiveProxy(target: any, path: string = ''): any {
       
       if (value instanceof Decimal) {
         if (isInvalid(value)) {
-          if (!(allowNegativePath.includes(path.join(".")) && !isStrictInvalid(value))) {
+          if (!(allowNegativePath.includes(path) && !isStrictInvalid(value))) {
             console.error(`Invalid Decimal at path: ${currentPath}`);
             console.error('Value:', value.toString());
             console.trace();
+			addNotify(`Invalid Dec., path: ${currentPath}, value: ${value.toString()}`)
             return false;
           }
         }
       } else if (value !== null && typeof value === 'object') {
         if (!deepValidateObject(value, [currentPath])) {
+			addNotify(`Invalid object at path: ${currentPath}`)
           console.error(`Invalid object at path: ${currentPath}`);
           console.trace();
           return false;
@@ -160,12 +163,14 @@ function createValidatedReactiveProxy(target: any, path: string = ''): any {
 
         if (value instanceof Decimal) {
           if (isInvalid(value)) {
+			addNotify(`Invalid Decimal in defineProperty at path: ${currentPath}, value: ${value.toString()}`)
             console.error(`Invalid Decimal in defineProperty at path: ${currentPath}`);
             return false;
           }
           descriptor.value = markRaw(value);
         } else if (value !== null && typeof value === 'object') {
           if (!deepValidateObject(value, [currentPath])) {
+			addNotify(`Invalid object in defineProperty at path: ${currentPath}`)
             console.error(`Invalid object in defineProperty at path: ${currentPath}`);
             return false;
           }
