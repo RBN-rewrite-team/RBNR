@@ -1,4 +1,5 @@
 import { player } from "@/core/save";
+import { isDeveloper } from "@/core/save/testing";
 import ModalService from "@/utils/Modal";
 
 export function activateTheDoorOfCardinal() {
@@ -12,6 +13,9 @@ export function activateTheDoorOfCardinal() {
                 onConfirm(values) {
                     //window.open("https://www.bilibili.com/video/BV1GJ411x7h7");
                     // player.thedoorofcardinalstate = true;
+                    if (!isDeveloper()) return ModalService.show({
+                        content: "blocked by developer"
+                    })
 					if(player.retribution != 4)
 					{
 						ModalService.show({
