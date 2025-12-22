@@ -1,6 +1,7 @@
 import { addNotify } from '@/components/notify';
 import Decimal from 'break_eternity.js';
 import { reactive, markRaw } from 'vue';
+import PowiainaNum from 'powiaina_num.js';
 
 function isInvalid(x: Decimal) {
   return x.isNan() || !x.isFinite() || x.lt(0)
@@ -21,6 +22,10 @@ function deepValidateObject(obj: any, path: string[] = []): boolean {
 
   if (obj.__v_checked) {
     return true;
+  }
+  
+  if (obj instanceof PowiainaNum) {
+    return !obj.isNaN()
   }
 
   try {
