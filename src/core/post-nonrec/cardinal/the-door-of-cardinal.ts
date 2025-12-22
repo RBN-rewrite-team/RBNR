@@ -56,30 +56,32 @@ export function randomNumber() {
 }
 
 export function theDoorOfCardinalLoop() {
-	if (!player.thedoorofcardinalstate) return;
-	if (Date.now() - player.thedoorofcardinaltime >= 170000 && player.thedoorofcardinalcrisis < 1) {
-		let a = randomNumber();
-		if (a >= 86 && !isDeveloper()) {
-			enterTheCardinalWorldTrigger();
-		} else {
-			player.thedoorofcardinalcrisis = 1;
-		}
-	}
-	if (Date.now() - player.thedoorofcardinaltime >= 345000 && player.thedoorofcardinalcrisis < 2) {
-		let a = randomNumber();
-		if (a >= 86 && !isDeveloper()) {
-			enterTheCardinalWorldTrigger();
-		} else {
-			player.thedoorofcardinalcrisis = 2;
-		}
-	}
-	if (Date.now() - player.thedoorofcardinaltime >= 666666 && player.thedoorofcardinalcrisis < 3) {
-		let a = randomNumber();
-		if (a >= 86 && !isDeveloper()) {
-			enterTheCardinalWorldTrigger();
-		} else {
-			//And after that, you will enter the cardinal world.
-			player.thedoorofcardinalcrisis = 3;
-		}
-	}
+    if (!player.thedoorofcardinalstate) return;
+    if ((Date.now()-player.thedoorofcardinaltime)>=170000 && player.thedoorofcardinalcrisis < 1) {
+        let a = randomNumber();
+        if (a>=86 && !isDeveloper()  && player.retribution<=1) {
+            enterTheCardinalWorldTrigger();
+        } else {
+            player.thedoorofcardinalcrisis = 1;
+        }
+    }
+    if ((Date.now()-player.thedoorofcardinaltime)>=345000 && player.thedoorofcardinalcrisis < 2) {
+        let a = randomNumber();
+        if (a>=86 && !isDeveloper()  && player.retribution<=2) {
+            enterTheCardinalWorldTrigger();
+        } else {
+            player.thedoorofcardinalcrisis = 2;
+        }
+    }
+    if ((Date.now()-player.thedoorofcardinaltime)>=666666 && player.thedoorofcardinalcrisis < 3) {
+        let a = randomNumber();
+        if (a>=86 && !isDeveloper()  && player.retribution<=3) {
+            enterTheCardinalWorldTrigger();
+        } else {
+            //And after that, you will enter the cardinal world.
+            player.thedoorofcardinalcrisis = 3;
+        }
+    }
+
+
 }
