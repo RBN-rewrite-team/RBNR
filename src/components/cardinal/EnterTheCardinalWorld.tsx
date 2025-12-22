@@ -9,7 +9,7 @@ export default defineComponent({
     setup(props, ctx) {
 		const $t = useI18n().t;
 		function differ() {
-			const WIP_MS = 1 * 160000;
+			const WIP_MS = 1 * 220000;
 			
 			let d = Date.now();
 			if(!player.thedoorofcardinalstate) return 0;
@@ -20,7 +20,7 @@ export default defineComponent({
 		let point_list = [];
 		for(let i = 0;i < 1000;i++)
 		{
-			point_list.push([i, Math.random() * 360, (Math.random() + 0.5) * 0.02, Math.random() * 600 + 100]);
+			point_list.push([i, Math.random() * 360, (Math.random() + 0.5) * 0.025, Math.random() * 600 + 100]);
 		}
         return () => (diff.value > 0 ? <>
             <div style={{
@@ -231,7 +231,8 @@ export default defineComponent({
 									height: '6px',
 									top: '50%',
 									left: '50%',
-									transform: 'translate(-50%, -50%) translateX(' + t + 'px)',
+									transform: 'translate(-50%, -50%) translateX(' + t + 'px) scale(' + ((t - x[3]) / x[2]) / 10000 + ')',
+									filter: 'blur(' + (0.15 - x[2]) * 5 + 'px)',
 									'background-color': 'white',
 									'border-radius': '3px',
 								}} /> })()}
@@ -243,13 +244,12 @@ export default defineComponent({
 				{diff.value >= 15350 ? <>
 					<div style={{
 						position: 'absolute',
-						display: diff.value <= 160000 ? 'block' : 'none',
 						width: '100%',
 						height: '100%',
 						top: 0,
 						left: 0,
 						'background-image': 'radial-gradient(circle, black ' + (100 - (diff.value - 15350) / (120000 - 15350) * 100) + '%, red 100%)',
-						opacity: 0.25,
+						opacity: diff.value >= 160000 ? 0.25 - (diff.value - 160000) / 4000 : 0.25,
 					}} />
 				</> : <></>}
 				
@@ -267,6 +267,73 @@ export default defineComponent({
 					{diff.value > 156000 && diff.value <= 158000 ? '异常加深，请注意！' : ''}
 					{diff.value > 158000 && diff.value <= 160000 ? '世界隧道部分区域崩溃，请注意避开' : ''}
 				</div>
+				
+				<div style={{
+					position: 'absolute',
+					left: '50%',
+					top: 'calc(70% + 24px)',
+					'font-size': '14px',
+					'color': 'gold',
+					transform: 'translate(-50%, -50%)',
+				}}>
+					{diff.value > 75000 && diff.value <= 77000 ? '（收到VeryRDefie的专频信号）' : ''}
+					{diff.value > 77000 && diff.value <= 79000 ? 'VeryRDefie: 你好！' : ''}
+					{diff.value > 79000 && diff.value <= 81000 ? 'VeryRDefie: 现在你可能看不到我。' : ''}
+					{diff.value > 81000 && diff.value <= 83000 ? 'VeryRDefie: 但是我与你一起进入了隧道。' : ''}
+					{diff.value > 83000 && diff.value <= 85000 ? 'VeryRDefie: 刚刚暴君九头蛇对你发动了一次打击，不过偏了。' : ''}
+					{diff.value > 85000 && diff.value <= 87000 ? 'VeryRDefie: 小心了！这里不再安全。一会在说吧。' : ''}
+					{diff.value > 87000 && diff.value <= 180000 ? '（VeryRDefie频道静默）' : ''}
+					{diff.value > 180000 && diff.value <= 182000 ? 'VeryRDefie：这里已经是世界之间的绝对深空了。' : ''}
+					{diff.value > 182000 && diff.value <= 184000 ? 'VeryRDefie：在脱离了刚刚的打击之后，九头蛇一时半会也无法锁定你。' : ''}
+					{diff.value > 184000 && diff.value <= 186000 ? 'VeryRDefie：但这只是暂时，接下来的下一次打击，恐怕……' : ''}
+					{diff.value > 186000 && diff.value <= 188000 ? 'VeryRDefie：……' : ''}
+					{diff.value > 188000 && diff.value <= Infinity ? '（VeryRDefie频道静默）' : ''}
+				</div>
+				
+				{player.retribution >= 2 ? <><div style={{
+					position: 'absolute',
+					left: '50%',
+					top: 'calc(70% + 48px)',
+					'font-size': '14px',
+					'color': 'red',
+					transform: 'translate(-50%, -50%)',
+				}}>
+					{diff.value > 160000 && diff.value <= 162000 ? '（收到Alpha VII的专频信号）' : ''}
+					{diff.value > 162000 && diff.value <= 164000 ? 'Alpha VII：你在吗？我检查到了危险。' : ''}
+					{diff.value > 164000 && diff.value <= 166000 ? 'Alpha VII：没错，我也跟过来了。' : ''}
+					{diff.value > 166000 && diff.value <= 168000 ? 'Alpha VII：你既然能打开基数通道，我们肯定不会放过机会。' : ''}
+					{diff.value > 168000 && diff.value <= 170000 ? 'Alpha VII：这边我暂时屏蔽了这一次打击。' : ''}
+					{diff.value > 170000 && diff.value <= 172000 ? 'Alpha VII：据我所知，世界隧道的长度可能容纳四次袭击……' : ''}
+					{diff.value > 172000 && diff.value <= 174000 ? 'Alpha VII：行程已经过半。' : ''}
+					{diff.value > 174000 && diff.value <= 176000 ? 'Alpha VII：后面的路途仍然充满危险。回见。' : ''}
+					{diff.value > 176000 && diff.value <= 210000 ? '（Alpha VII频道静默）' : ''}
+					{diff.value > 210000 && diff.value <= 212000 ? 'Alpha VII：我大致定位了下一次打击的位置……' : ''}
+					{diff.value > 212000 && diff.value <= 214000 ? 'Alpha VII：……但这并不能帮助你躲过。' : ''}
+					{diff.value > 214000 && diff.value <= 216000 ? 'Alpha VII：我发现大数世界已经在排斥我们的存在。' : ''}
+					{diff.value > 216000 && diff.value <= 218000 ? 'Alpha VII：这意味着如果你被摧毁，通道和我们都会不复存在。' : ''}
+					{diff.value > 218000 && diff.value <= 220000 ? 'Alpha VII：……' : ''}
+					{diff.value > 220000 && diff.value <= Infinity ? '（Alpha VII频道静默）' : ''}
+				</div></> : <></>}
+				
+				{player.retribution >= 3 ? <><div style={{
+					position: 'absolute',
+					left: '50%',
+					top: 'calc(70% + 72px)',
+					'font-size': '14px',
+					'color': 'cyan',
+					transform: 'translate(-50%, -50%)',
+				}}>
+					{diff.value > 340000 && diff.value <= 342000 ? '（收到Damofrost的专频信号）' : ''}
+					{diff.value > 342000 && diff.value <= 344000 ? 'Damofrost：危。' : ''}
+					{diff.value > 344000 && diff.value <= 346000 ? 'Damofrost：刚刚你又被锁定了一次。' : ''}
+					{diff.value > 346000 && diff.value <= 348000 ? 'Damofrost：……我用自身能量屏蔽了它。' : ''}
+					{diff.value > 348000 && diff.value <= 350000 ? 'Damofrost：基数世界就在前方。' : ''}
+					{diff.value > 350000 && diff.value <= 352000 ? 'Damofrost：九头蛇不会容许你轻易过去。' : ''}
+					{diff.value > 352000 && diff.value <= 354000 ? 'Damofrost：祂一定会在最后关头再次试图阻止你。' : ''}
+					{diff.value > 354000 && diff.value <= 356000 ? 'Damofrost：一定注意。' : ''}
+					{diff.value > 356000 && diff.value <= Infinity ? '（Damofrost频道静默）' : ''}
+				</div></> : <></>}
+				
 				{player.thedoorofcardinalcrisis === 999 && <div style={{
 					position: 'absolute',
 					left: '50%',
