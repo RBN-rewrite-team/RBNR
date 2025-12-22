@@ -1,10 +1,12 @@
 import { player } from "@/core/global";
 import { defineComponent, ref } from "vue";
+import './cardinal.css';
 
 export default defineComponent({
     name: "Failed",
     setup(props, ctx) {
         const counter = ref(0);
+		const nextCanTouch = ref(Date.now());
         
         return () => <>
         <div
@@ -17,22 +19,28 @@ export default defineComponent({
 					'z-index': 10,
 					'background-color': 'white',
 					opacity: 1,
-				}}
+				}} onClick={()=>{
+					if(Date.now() >= nextCanTouch.value)
+					{
+						counter.value++;
+						nextCanTouch.value = Date.now() + 2000;
+					}
+				}} 
 				>
 				<div style={{
 					position: 'absolute',
 					left: '50%',
 					top: '50%',
-					'font-size': '14px',
+					'font-size': '19px',
 					'color': 'rgb(0, 0, 0)',
 					transform: 'translate(-50%, -50%)',
-				}} onClick={()=>counter.value++}>
-					{counter.value == 0 && "可怕的袭击中断了你的去路"}
-					{counter.value == 1 && "世界隧道在你的面前断裂"}
-					{counter.value == 2 && "在最后的瞬间，你的眼神捕捉到了某个飞过的实体"}
-					{counter.value == 3 && "它似乎没有察觉你的存在，转眼便划过天际"}
-					{counter.value == 4 && "你的一切在白光中被抹除"}
-                    {counter.value == 5 && (player.meetcrisisbefore = false)}
+				}}align="center">
+					{counter.value >= 0 && <><span class="failedText">可怕的袭击中断了你的去路</span></>}
+					{counter.value >= 1 && <><span class="failedText"><br/>世界隧道在你的面前断裂</span></>}
+					{counter.value >= 2 && <><span class="failedText"><br/>在最后的瞬间，你感觉到了某个飞过的实体</span></>}
+					{counter.value >= 3 && <><span class="failedText"><br/>它似乎没有察觉你的存在，转眼便划过天际</span></>}
+					{counter.value >= 4 && <><span class="failedText"><br/>你的一切在白光中被抹除</span></>}
+                    {counter.value >= 5 && (player.meetcrisisbefore = false)}
 				</div>
 					
 				</div>

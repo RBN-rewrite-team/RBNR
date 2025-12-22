@@ -1,0 +1,15 @@
+@keyframes failedAnimation {
+	0% {
+		opacity: 0;
+		color: red;
+	}
+	100% {
+		opacity: 1;
+		color: black;
+	}
+}
+
+.failedText {
+	animation: failedAnimation 2s linear 1;
+	letter-spacing: 2px;
+}
