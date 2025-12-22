@@ -20,7 +20,6 @@ import Failed from './components/cardinal/Failed.tsx';
 export default defineComponent({
 	name: 'App',
 	setup() {
-
 		return () => (
 			<>
 				<Side />
@@ -72,7 +71,7 @@ export default defineComponent({
 				<Chapter />
 				<PlotView />
 				<EnterTheCardinalWorld />
-				{player.meetcrisisbefore&&<Failed />}
+				{player.meetcrisisbefore && <Failed />}
 			</>
 		);
 	},

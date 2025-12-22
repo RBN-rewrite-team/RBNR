@@ -47,7 +47,6 @@ export let diff = 40;
  */
 export const FPS = 25;
 
-
 function singularity() {
 	const r = Math.min(255, 127 + player.singularity.t / 5);
 	const g = Math.max(0, 127 - player.singularity.t / 5);
@@ -72,7 +71,6 @@ export function startGameLoop() {
 	if (!loopInterval) loopInterval = setInterval(gameLoop, 1000 / FPS);
 	if (!backupInterval) backupInterval = setInterval(intervalBackup, 1000);
 }
-
 
 export function stopGameLoop() {
 	if (loopInterval) clearInterval(loopInterval);
@@ -503,11 +501,9 @@ export function simulate(diff: number) {
 	const next2 = feature.Ordinal.speedDeri();
 	ordinalSpeedDerivative2 = next2.sub(last2).div(diff / 1000);
 
-	
-	theDoorOfCardinalLoop()
+	theDoorOfCardinalLoop();
 
 	player.lastUpdated = Date.now();
-
 }
 
 function checkNaN<T>(obj: T, path: string[]): void {

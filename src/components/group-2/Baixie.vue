@@ -13,6 +13,6 @@ function clickBaixie() {
 	if (player.options.ui.otherwise['color_inversion']) {
 		player.achievements.push(-6);
 	}
-	addNotify("Baixie!!!")
+	addNotify('Baixie!!!');
 }
 </script>

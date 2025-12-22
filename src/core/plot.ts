@@ -55,12 +55,12 @@ export function unlockedPlots2() {
 	return 0;
 }
 export function unlockedPlots(): number[] {
-	const unlockedp = [] as number[]
+	const unlockedp = [] as number[];
 	let a = unlockedPlots2();
 	for (let i = 0; i < a; i++) {
 		unlockedp.push(i);
 	}
-	return unlockedp
+	return unlockedp;
 }
 export function viewedPlotLength() {
 	return player.checkedPlots.length;

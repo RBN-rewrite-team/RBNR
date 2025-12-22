@@ -2218,6 +2218,6 @@ export default {
 
 	'upgs.631': 'test',
 
-	'plottab.1': "(未观看)",
-	'plottab.2': "你有{count}未观看的剧情"
+	'plottab.1': '(未观看)',
+	'plottab.2': '你有{count}未观看的剧情',
 };
