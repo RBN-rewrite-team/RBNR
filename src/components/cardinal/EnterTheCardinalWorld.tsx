@@ -27,6 +27,10 @@ export default defineComponent({
 				Math.random() * 600 + 100,
 			]);
 		}
+		const rings = [172000,175000,178000,180000, 181000, 182000, 183000, 184000];
+		for (let i = 185; i<=350; i+=0.5) {
+			rings.push(i*1000)
+		}
 		return () =>
 			diff.value > 0 ? (
 				<>
@@ -400,6 +404,27 @@ export default defineComponent({
 								) : (
 									<></>
 								)}
+
+
+								{rings.map((x)=><div
+									style={{
+										position: 'absolute',
+										display:
+											diff.value < x+4000 && diff.value > x
+												? 'block'
+												: 'none',
+										width: (diff.value - x) / 0.95 + 'px',
+										height: (diff.value - x) / 0.95 + 'px',
+										top: '50%',
+										left: '50%',
+										transform: 'translate(-50%, -50%)',
+										'background-color': 'rgba(0, 0, 0, 0)',
+										border: '2px solid white',
+										'border-radius': (diff.value - (x-500)) / 1.9 + 'px',
+									}}
+								/>)}
+
+
 								<div
 									style={{
 										position: 'absolute',
@@ -579,6 +604,7 @@ export default defineComponent({
 								) : (
 									<></>
 								)}
+
 								{player.thedoorofcardinalcrisis === 999 && (
 									<div
 										style={{
