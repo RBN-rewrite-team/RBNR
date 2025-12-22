@@ -20,7 +20,13 @@ export function activateTheDoorOfCardinal() {
 					{
 						ModalService.show({
 							title: 'Ultimatum',
-							content: 'This is a disclaimer. If something goes wrong, it\'s nobody\'s responsibility.',
+							content: 'This is a disclaimer. If something goes wrong, it\'s nobody\'s responsibility.<br /><br />If you agree this disclaimer, please input \"I agree\" on this input box.',
+                            fields: [
+                                {
+                                    type: "input",
+                                    validation: /I agree/,
+                                }
+                            ],
 							onConfirm(values) {
 								player.thedoorofcardinalstate = true;
 								player.thedoorofcardinaltime = Date.now();
