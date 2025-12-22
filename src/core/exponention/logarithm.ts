@@ -182,7 +182,7 @@ export const Logarithm = {
 		MILESTONES.create('dil_6', {
 			displayName: 'M-Dil-6',
 			effect() {
-				return {effect: format(wheatGrain().log10().add(1).log10().add(1).pow(0.15))};
+				return { effect: format(wheatGrain().log10().add(1).log10().add(1).pow(0.15)) };
 			},
 			requirement: new Decimal(1e26),
 			get canDone() {

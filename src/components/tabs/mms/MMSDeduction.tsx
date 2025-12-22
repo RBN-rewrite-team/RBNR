@@ -10,7 +10,12 @@ import { useI18n } from 'vue-i18n';
 function deduceButtonStyle() {
 	if (MMS.displayDeduceSpeed().gte(10)) return {};
 	const pc = player.hydra.mms.progress
-		.div(player.hydra.mms.deduced.add(1).root(MMS.staticExp()).sub(player.hydra.mms.deduced.root(MMS.staticExp())))
+		.div(
+			player.hydra.mms.deduced
+				.add(1)
+				.root(MMS.staticExp())
+				.sub(player.hydra.mms.deduced.root(MMS.staticExp())),
+		)
 		.mul(100)
 		.toNumber();
 	return {

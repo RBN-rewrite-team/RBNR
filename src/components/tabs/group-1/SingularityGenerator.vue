@@ -180,7 +180,7 @@ function destroy(a: number) {
 	}
 }
 
-const t = useUpdate(()=>Date.now());
+const t = useUpdate(() => Date.now());
 
 const $tm = useI18n().tm;
 // 定义献祭按钮配置

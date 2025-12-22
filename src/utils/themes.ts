@@ -18,7 +18,7 @@ export const themeDetailsMap = new Map([
 		themes.CLASSIC,
 		{
 			ordinary: {
-				'--red-border-color': "#ffa1a1",
+				'--red-border-color': '#ffa1a1',
 				'--app-background-color': '#f3f3f3',
 				'--background-color': '#fdfdfd',
 				'--color': '#000000',
@@ -54,7 +54,7 @@ export const themeDetailsMap = new Map([
 		themes.SUN,
 		{
 			ordinary: {
-				'--red-border-color': "#ffa1a1",
+				'--red-border-color': '#ffa1a1',
 				'--app-background-color': '#ffcc00',
 				'--background-color': '#ff9900',
 				'--color': '#ffffff',
@@ -72,7 +72,7 @@ export const themeDetailsMap = new Map([
 		themes.OCEAN,
 		{
 			ordinary: {
-				'--red-border-color': "#ffa1a1",
+				'--red-border-color': '#ffa1a1',
 				'--app-background-color': '#00ccff',
 				'--background-color': '#0066cc',
 				'--color': '#ffffff',

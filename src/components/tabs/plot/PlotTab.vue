@@ -13,7 +13,7 @@ const $t = useI18n().t;
 
 function enterPlot(i: number) {
 	console.log(i);
-	if (unlockedPlots().includes(i-1)) {
+	if (unlockedPlots().includes(i - 1)) {
 		temp.plotdisplay = i;
 	}
 }
@@ -104,7 +104,9 @@ onMounted(() => {
 							}"
 							@click="selectOption(option)"
 						>
-							<convertTextToComponent :text="$t('plot.' + option)" />{{ player.checkedPlots.includes(option+1) ? "": $t("plottab.1")}}
+							<convertTextToComponent :text="$t('plot.' + option)" />{{
+								player.checkedPlots.includes(option + 1) ? '' : $t('plottab.1')
+							}}
 						</li>
 						<li v-if="filteredOptions.length === 0" class="no-options">
 							{{ $t('plot.couldntfound') }}

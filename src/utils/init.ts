@@ -146,15 +146,17 @@ export function init() {
 			const array2 = Object.keys(player.checkedPlots);
 			// console.log(convertJSXtoPlain(a));
 			const onlyInFirst = difference(array1, array2);
-			
+
 			if (onlyInFirst.length > 0) {
-				addNotify(getMessage("plottab.2", {
-					count: onlyInFirst.length
-				}))
+				addNotify(
+					getMessage('plottab.2', {
+						count: onlyInFirst.length,
+					}),
+				);
 			}
 			// console.log(onlyInFirst);
 			// addNotify(unlockedPlots())
-		}, 2000)
+		}, 2000);
 		// console.log(JSON.stringify(localization));
 	} catch (e) {
 		stopGameLoop();

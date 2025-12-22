@@ -2349,7 +2349,7 @@ THEN YOU CAN GET REVELATION.<br />
 	'currency.charged_hydra': 'Charged Hydra Energy',
 	'mms.t': 'MMS is a powerful matrix notation, its limit may reach ω-Y.',
 	'tab.mms': 'MMS',
-	
+
 	'mms.staticExp': 'Static Exp.',
 
 	'mms.rank.mil.0.0': 'Multiply MMS deduce speed, based on Charged Hydra Energy',
@@ -2367,6 +2367,7 @@ THEN YOU CAN GET REVELATION.<br />
 	'mms.rank.mil.1.1': 'Rank 1 Effect +2',
 	'mms.rank.mil.1.2': 'MMS deduce speed x4',
 
-	'plottab.1': "(Not watched)",
-	'plottab.2': "You have no unwatched plots | You have an unwatched plot | You have {count} unwatched plots"
+	'plottab.1': '(Not watched)',
+	'plottab.2':
+		'You have no unwatched plots | You have an unwatched plot | You have {count} unwatched plots',
 };

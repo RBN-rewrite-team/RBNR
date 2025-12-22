@@ -192,16 +192,16 @@ export interface Player {
 	thedoorofcardinaltime: number;
 	/**
 	 * Crisis.
-	 * 
+	 *
 	 * 1: 170s
-	 * 
+	 *
 	 * 2: 300s
-	 * 
+	 *
 	 * 3: 510s
-	 * 
+	 *
 	 * 999: destructed
 	 */
-	thedoorofcardinalcrisis: 0|1|2|3|999;
+	thedoorofcardinalcrisis: 0 | 1 | 2 | 3 | 999;
 	/**
 	 * If the last save meet "crisis" and force hard reseted, this value will set to "true"
 	 */
@@ -215,7 +215,7 @@ function getInitialPlayerData(): Player {
 
 		thedoorofcardinalstate: false,
 		thedoorofcardinaltime: 0,
-		thedoorofcardinalcrisis:0,
+		thedoorofcardinalcrisis: 0,
 
 		frozen: false,
 		achievements: [],
@@ -369,7 +369,7 @@ function getInitialPlayerData(): Player {
 
 		uuid: uuidv4(),
 		fingerprint: 'no-any-content',
-		meetcrisisbefore: false
+		meetcrisisbefore: false,
 	};
 }
 
@@ -493,36 +493,31 @@ function deepMerge<T>(source: T, target: DeepPartial<T>, expectedKey?: string[])
 
 export let player: Player = getInitialPlayerData();
 export function checkBlacklist(): string[] {
-	let value = localStorage.getItem("rbnr-uuid-blacklist")
+	let value = localStorage.getItem('rbnr-uuid-blacklist');
 	if (value === null) {
-		localStorage.setItem("rbnr-uuid-blacklist", "[]");
+		localStorage.setItem('rbnr-uuid-blacklist', '[]');
 		return [];
 	}
-	try{
+	try {
 		let valuet = JSON.parse(value);
 
 		return valuet;
 	} catch {
-		return []
+		return [];
 	}
-
 }
 export function addBlacklist(x: string) {
-	let value = localStorage.getItem("rbnr-uuid-blacklist")
-	let q = []
+	let value = localStorage.getItem('rbnr-uuid-blacklist');
+	let q = [];
 	if (value === null) {
-		localStorage.setItem("rbnr-uuid-blacklist", "[]");
-		value = "[]"
+		localStorage.setItem('rbnr-uuid-blacklist', '[]');
+		value = '[]';
 	}
-	try{
+	try {
 		let valuet = JSON.parse(value);
-		valuet.push(x)
-		localStorage.setItem("rbnr-uuid-blacklist", JSON.stringify(valuet))
-		
-	} catch {
-		
-	}
-
+		valuet.push(x);
+		localStorage.setItem('rbnr-uuid-blacklist', JSON.stringify(valuet));
+	} catch {}
 }
 export function loadFromString(saveContent: string, non_options = false) {
 	const deserialized = saveSerializer.deserialize(saveContent);
@@ -624,8 +619,7 @@ export function loadFromString(saveContent: string, non_options = false) {
 	}
 
 	let difftttt = Date.now() - player.lastUpdated;
-	if (player.thedoorofcardinalstate)
-		player.thedoorofcardinaltime+=difftttt
+	if (player.thedoorofcardinalstate) player.thedoorofcardinaltime += difftttt;
 	player.version = version;
 }
 
@@ -668,14 +662,13 @@ export function hardReset(excludeKey?: (keyof Player)[]) {
 }
 
 export function enterTheCardinalWorldTrigger() {
-    player.thedoorofcardinalcrisis = 999
+	player.thedoorofcardinalcrisis = 999;
 	addBlacklist(player.uuid);
 	// hardReset();
 	setTimeout(function () {
 		hardReset();
 		player.meetcrisisbefore = true;
-	},5000)
-
+	}, 5000);
 }
 export function import_file(): void {
 	const a = document.createElement('input');
