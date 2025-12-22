@@ -29,6 +29,7 @@ import { convertBEDecimalToPn } from '@/lib/PNBEConvert.ts';
 
 import { v4 as uuidv4 } from 'uuid';
 import { pnbuyables, pnupgrades } from '../PN-upg-byl.ts';
+import { isDeveloper } from './testing.ts';
 
 const version = 14 as const;
 export let current_save = 0;
@@ -201,6 +202,10 @@ export interface Player {
 	 * 999: destructed
 	 */
 	thedoorofcardinalcrisis: 0|1|2|3|999;
+	/**
+	 * If the last save meet "crisis" and force hard reseted, this value will set to "true"
+	 */
+	meetcrisisbefore: boolean;
 }
 
 function getInitialPlayerData(): Player {
@@ -364,6 +369,7 @@ function getInitialPlayerData(): Player {
 
 		uuid: uuidv4(),
 		fingerprint: 'no-any-content',
+		meetcrisisbefore: false
 	};
 }
 
@@ -616,6 +622,10 @@ export function loadFromString(saveContent: string, non_options = false) {
 		player.numbertheory.well_ordering.lemma_level =
 			player.numbertheory.well_ordering.lemma_level.clampMin(0);
 	}
+
+	let difftttt = Date.now() - player.lastUpdated;
+	if (player.thedoorofcardinalstate)
+		player.thedoorofcardinaltime+=difftttt
 	player.version = version;
 }
 
@@ -658,11 +668,15 @@ export function hardReset(excludeKey?: (keyof Player)[]) {
 }
 
 export function enterTheCardinalWorldTrigger() {
+    player.thedoorofcardinalcrisis = 999
 	addBlacklist(player.uuid);
 	// hardReset();
+	setTimeout(function () {
+		hardReset();
+		player.meetcrisisbefore = true;
+	},5000)
 
 }
-
 export function import_file(): void {
 	const a = document.createElement('input');
 	a.setAttribute('type', 'file');

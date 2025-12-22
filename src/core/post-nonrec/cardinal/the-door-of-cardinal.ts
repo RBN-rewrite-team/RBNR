@@ -57,11 +57,28 @@ export function theDoorOfCardinalLoop() {
     if ((Date.now()-player.thedoorofcardinaltime)>=170000 && player.thedoorofcardinalcrisis < 1) {
         let a = randomNumber();
         if (a>=86 && !isDeveloper()) {
-            player.thedoorofcardinalcrisis = 999
             enterTheCardinalWorldTrigger();
         } else {
-            
             player.thedoorofcardinalcrisis = 1;
         }
     }
+    if ((Date.now()-player.thedoorofcardinaltime)>=345000 && player.thedoorofcardinalcrisis < 2) {
+        let a = randomNumber();
+        if (a>=86 && !isDeveloper()) {
+            enterTheCardinalWorldTrigger();
+        } else {
+            player.thedoorofcardinalcrisis = 2;
+        }
+    }
+    if ((Date.now()-player.thedoorofcardinaltime)>=666666 && player.thedoorofcardinalcrisis < 3) {
+        let a = randomNumber();
+        if (a>=86 && !isDeveloper()) {
+            enterTheCardinalWorldTrigger();
+        } else {
+            //And after that, you will enter the cardinal world.
+            player.thedoorofcardinalcrisis = 3;
+        }
+    }
+
+
 }

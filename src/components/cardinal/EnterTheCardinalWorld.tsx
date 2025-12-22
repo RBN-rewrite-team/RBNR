@@ -267,7 +267,20 @@ export default defineComponent({
 					{diff.value > 156000 && diff.value <= 158000 ? '异常加深，请注意！' : ''}
 					{diff.value > 158000 && diff.value <= 160000 ? '世界隧道部分区域崩溃，请注意避开' : ''}
 				</div>
-				
+				{player.thedoorofcardinalcrisis === 999 && <div style={{
+					position: 'absolute',
+					left: '50%',
+					top: '50%',
+					width: '200vw',
+					height: '200vh',
+					'font-size': '14px',
+					background: '#ffffff',
+					zIndex: 10000,
+					boxShadow: 'white 0px 0px 500px 4px'
+				}}
+				class={"crisis"}>
+				</div>
+				}
 				</> : <></>}
 			</div>
         </> : <></>);

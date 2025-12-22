@@ -1205,3 +1205,18 @@ a {
 	margin-left: 5px;
 	margin-right: 5px;
 }
+
+@keyframes crisis {
+	from {
+		transform: translate(30%, -50%),
+	}
+
+	to {
+		transform: translate(-50%, -50%),
+	}
+}
+
+.crisis {
+	animation: crisis 0.5s ease-out;
+	transform: translate(-50%, -50%)
+}

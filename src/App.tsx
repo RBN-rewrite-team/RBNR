@@ -16,9 +16,11 @@ import { DC } from './core/constants';
 import P from './core/performance.tsx';
 import Notifies from './components/notify/Notifies.tsx';
 import EnterTheCardinalWorld from './components/cardinal/EnterTheCardinalWorld.tsx';
+import Failed from './components/cardinal/Failed.tsx';
 export default defineComponent({
 	name: 'App',
 	setup() {
+
 		return () => (
 			<>
 				<Side />
@@ -70,6 +72,7 @@ export default defineComponent({
 				<Chapter />
 				<PlotView />
 				<EnterTheCardinalWorld />
+				{player.meetcrisisbefore&&<Failed />}
 			</>
 		);
 	},
