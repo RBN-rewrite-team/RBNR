@@ -34,7 +34,8 @@ export default defineComponent({
 					'font-size': '19px',
 					'color': 'rgb(0, 0, 0)',
 					transform: 'translate(-50%, -50%)',
-				}}align="center">
+				//@ts-ignore
+				}} align="center">
 					{counter.value >= 0 && <><span class="failedText">可怕的袭击中断了你的去路</span></>}
 					{counter.value >= 1 && <><span class="failedText"><br/>世界隧道在你的面前断裂</span></>}
 					{counter.value >= 2 && <><span class="failedText"><br/>在最后的瞬间，你感觉到了某个飞过的实体</span></>}
