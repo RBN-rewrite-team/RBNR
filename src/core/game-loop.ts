@@ -216,15 +216,19 @@ function getCurTitle() {
 				.replace(/<sup>/g, '^{')
 				.replace(/<sub>/g, '_{')
 				.replace(/<\/sup>|<\/sub>/g, '}');
-	} else if (player.pt.power.lt(1)) {
+	} else if (player.pt.power.lt(1) && player.retribution < 2) {
 		base +=
 			' - ' +
 			OrdinalUtils.numberToBMS(player.hydra.deduceOrdinal[0], new Decimal(4), 15).replace(
 				'<sup>ω</sup>',
 				'^ω',
 			);
-	} else {
+	} else if(player.retribution == 1 && !player.thedoorofcardinalstate) {
 		base += ` - ${format(player.hydra.compressedPower)} ` + getMessage('res.compress');
+	} else if(player.retribution == 2 && !player.thedoorofcardinalstate) {
+		base += ` - ${format(player.hydra.mms.deduced)} MMS`;
+	} else if(player.thedoorofcardinalstate) {
+		base += ' - in the shuttle';
 	}
 	if (base.length > 20) {
 		base = base.replace(getMessage('title.rewritten'), 'RBNR');
