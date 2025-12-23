@@ -87,7 +87,6 @@ export function theDoorOfCardinalLoop() {
     }
 	if ((Date.now()-player.thedoorofcardinaltime)>=670000 && player.thedoorofcardinalcrisis == 3) {
 		// Cardinal !!!
+		player.withinCardinal = true;
 	}
-
-
 }

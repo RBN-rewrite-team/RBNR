@@ -3,6 +3,7 @@ import { wordShift } from '@/core/word-shift';
 import { useUpdate } from '@/lib/useUpdate';
 import { defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
+import './cardinal.css';
 
 export default defineComponent({
 	name: 'EnterTheCardinalWorld',
@@ -671,26 +672,54 @@ export default defineComponent({
 									<></>
 								)}
 
-{player.thedoorofcardinalcrisis !==999 && diff.value > 370000 && (
-	<div>
-		<div
-										style={{
+								{player.thedoorofcardinalcrisis !==999 && diff.value > 370000 && diff.value < 670000 && (
+									<div>
+										<div
+											style={{
+												position: 'absolute',
+												left: '50%',
+												top: '50%',
+												width: `${(diff.value - 370000)/296666*document.body.offsetWidth*1.25}px`,
+												height: `${(diff.value - 370000)/296666*document.body.offsetWidth*1.25}px`,
+												'font-size': '14px',
+												borderRadius: `${(diff.value - 370000)/296666*document.body.offsetWidth*1.25/2}px`,
+												background: '#ffffff',
+												zIndex: 10000,
+												opacity: `${(diff.value - 370000)/296666*100}%`,
+												boxShadow: 'white 0px 0px 4px 4px',
+												transform: "translate(-50%, -50%)"
+											}}
+										></div>
+									</div>
+								)}
+								{player.thedoorofcardinalcrisis !== 999 && diff.value > 666666 && (
+									<div style={{
+										position: 'absolute',
+										left: '50%',
+										top: '50%',
+										width: '300%',
+										height: '300%',
+										fontSize: '64px',
+										background: 'white',
+										zIndex: 10000,
+										color: 'black',
+										transform: 'translate(-50%, -50%)',
+									}}
+									>
+										<div style={{
 											position: 'absolute',
 											left: '50%',
 											top: '50%',
-											width: `${(diff.value - 370000)/296666*document.body.offsetWidth*1.25}px`,
-											height: `${(diff.value - 370000)/296666*document.body.offsetWidth*1.25}px`,
-											'font-size': '14px',
-											borderRadius: `${(diff.value - 370000)/296666*document.body.offsetWidth*1.25/2}px`,
-											background: '#ffffff',
-											zIndex: 10000,
-											opacity: `${(diff.value - 370000)/296666*100}%`,
-											boxShadow: 'white 0px 0px 4px 4px',
-											transform: "translate(-50%, -50%)"
-										}}
-									></div>
-	</div>
-)}
+											transform: 'translate(-50%, -50%)',
+										}} class="enteredText">基数世界</div>
+										<div style={{
+											position: 'absolute',
+											left: '50%',
+											top: 'calc(50% + 54px)',
+											transform: 'translate(-50%, -50%) scale(0.5)',
+										}} class="enteredText">Cardinal World</div>
+									</div>
+								)}
 								{(player.thedoorofcardinalcrisis === 999 && player.thedoorofcardinaltime<666000) && (
 									<div
 										style={{

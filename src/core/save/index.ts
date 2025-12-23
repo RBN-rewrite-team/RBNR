@@ -32,6 +32,8 @@ import { pnbuyables, pnupgrades } from '../PN-upg-byl.ts';
 import { isDeveloper } from './testing.ts';
 import { TAGED_SAVE } from './taged_save_data_source.ts';
 
+import { Cardinal } from '../cardinal/index.ts';
+
 const version = 14 as const;
 export let current_save = 0;
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
@@ -208,6 +210,9 @@ export interface Player {
 	 * If the last save meet "crisis" and force hard reseted, this value will set to "true"
 	 */
 	meetcrisisbefore: boolean;
+	
+	withinCardinal: boolean;
+	cardinal: ReturnType<typeof Cardinal.playerData>;
 }
 
 function getInitialPlayerData(): Player {
@@ -372,6 +377,9 @@ function getInitialPlayerData(): Player {
 		uuid: uuidv4(),
 		fingerprint: 'no-any-content',
 		meetcrisisbefore: false,
+		
+		withinCardinal: false,
+		cardinal: Cardinal.playerData(),
 	};
 }
 
