@@ -2216,6 +2216,7 @@ export default {
 	'mms.rank.mil.1.5': '级别9效果^3',
 	'mms.rank.mil.1.6': '充能九头蛇能量获取^1.25',
 	'mms.rank.mil.2.0': '基于级别，提升MMS推演速度',
+	'mms.rank.mil.2.1': '基于级别，提升级别能量获取速度',
 
 	'upgs.631': 'test',
 

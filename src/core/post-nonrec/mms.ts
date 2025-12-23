@@ -248,6 +248,7 @@ export const MMS = {
 					);
 					if (player.hydra.mms.tier.gte(4))
 						base = base.mul(MMS.rank.rankMilestones[1][3][2][0]());
+					if (player.hydra.mms.tri.gte(2)) base = base.mul(MMS.rank.rankMilestones[2][1][2][0]());
 					return base;
 				},
 				effect(): PowiainaNum {
@@ -410,6 +411,17 @@ export const MMS = {
 					[
 						() => {
 							let effect: PowiainaNum = player.hydra.mms.rank.add(1).pow(2.5);
+							return effect;
+						},
+						(x: PowiainaNum) => `×${format(x)}`,
+					],
+				] as const,
+				[
+					new PowiainaNum(2),
+					() => getMessage('mms.rank.mil.2.1'),
+					[
+						() => {
+							let effect: PowiainaNum = player.hydra.mms.rank.add(1).pow(1.5);
 							return effect;
 						},
 						(x: PowiainaNum) => `×${format(x)}`,
