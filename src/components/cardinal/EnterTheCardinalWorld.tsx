@@ -9,7 +9,7 @@ export default defineComponent({
 	setup(props, ctx) {
 		const $t = useI18n().t;
 		function differ() {
-			const WIP_MS = 1 * 220000;
+			const WIP_MS = 1 * 670000;
 
 			let d = Date.now();
 			if (!player.thedoorofcardinalstate) return 0;
@@ -27,7 +27,7 @@ export default defineComponent({
 				Math.random() * 600 + 100,
 			]);
 		}
-		const rings = [172000,175000,178000,180000, 181000, 182000, 183000, 184000];
+		const rings = [172000,175000,178000,180000, 181000, 182000, 183000, 184000,570000,610000];
 		for (let i = 185; i<=350; i+=0.5) {
 			rings.push(i*1000)
 		}
@@ -425,6 +425,60 @@ export default defineComponent({
 								/>)}
 
 
+									
+								{diff.value >= 180000 ? (
+									<>
+										<div
+											style={{
+												position: 'absolute',
+												width: '100%',
+												height: '100%',
+												top: 0,
+												left: 0,
+												'background-image':
+													'radial-gradient(circle, black ' +
+													(100 -
+														((diff.value - 180000) / (284650 - 180000)) *
+															100) +
+													'%, red 100%)',
+												opacity:
+													diff.value >= 324650
+														? 0.25 - (diff.value - 324650) / 4000
+														: 0.25,
+											}}
+										/>
+									</>
+								) : (
+									<></>
+								)}
+
+
+
+								{diff.value >= 500000 ? (
+									<>
+										<div
+											style={{
+												position: 'absolute',
+												width: '100%',
+												height: '100%',
+												top: 0,
+												left: 0,
+												'background-image':
+													'radial-gradient(circle, black ' +
+													(100 -
+														((diff.value - 500000) / (604650 - 500000)) *
+															100) +
+													'%, red 100%)',
+												opacity:
+													diff.value >= 644650
+														? 0.25 - (diff.value - 644650) / 4000
+														: 0.25,
+											}}
+										/>
+									</>
+								) : (
+									<></>
+								)}
 								<div
 									style={{
 										position: 'absolute',
@@ -494,7 +548,19 @@ export default defineComponent({
 									{diff.value > 186000 && diff.value <= 188000
 										? 'VeryRDefie：……'
 										: ''}
-									{diff.value > 188000 && diff.value <= Infinity
+									{diff.value > 188000 && diff.value <= 270000
+										? '（VeryRDefie频道静默）'
+										: ''}
+									{diff.value > 270000 && diff.value <= 274000
+										? 'VeryRDefie：差不多九头蛇应该又要来了...'
+										: ''}
+									{diff.value > 274000 && diff.value <= 400000
+										? '（VeryRDefie频道静默）'
+										: ''}
+									{diff.value > 400000 && diff.value <= 404000
+										? 'VeryRDefie：400.000秒。'
+										: ''}
+									{diff.value > 404000 && diff.value <= Infinity
 										? '（VeryRDefie频道静默）'
 										: ''}
 								</div>
@@ -605,7 +671,27 @@ export default defineComponent({
 									<></>
 								)}
 
-								{player.thedoorofcardinalcrisis === 999 && (
+{player.thedoorofcardinalcrisis !==999 && diff.value > 370000 && (
+	<div>
+		<div
+										style={{
+											position: 'absolute',
+											left: '50%',
+											top: '50%',
+											width: `${(diff.value - 370000)/296666*document.body.offsetWidth*1.25}px`,
+											height: `${(diff.value - 370000)/296666*document.body.offsetWidth*1.25}px`,
+											'font-size': '14px',
+											borderRadius: `${(diff.value - 370000)/296666*document.body.offsetWidth*1.25/2}px`,
+											background: '#ffffff',
+											zIndex: 10000,
+											opacity: `${(diff.value - 370000)/296666*100}%`,
+											boxShadow: 'white 0px 0px 4px 4px',
+											transform: "translate(-50%, -50%)"
+										}}
+									></div>
+	</div>
+)}
+								{(player.thedoorofcardinalcrisis === 999 && player.thedoorofcardinaltime<666000) && (
 									<div
 										style={{
 											position: 'absolute',

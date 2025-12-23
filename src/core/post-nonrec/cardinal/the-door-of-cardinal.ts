@@ -1,4 +1,4 @@
-import { enterTheCardinalWorldTrigger, player } from '@/core/save';
+import { enterTheCardinalWorldTrigger as failedTrigger, player } from '@/core/save';
 import { isDeveloper } from '@/core/save/testing';
 import ModalService from '@/utils/Modal';
 
@@ -60,7 +60,7 @@ export function theDoorOfCardinalLoop() {
     if ((Date.now()-player.thedoorofcardinaltime)>=170000 && player.thedoorofcardinalcrisis < 1) {
         let a = randomNumber();
         if (a>=86 && !isDeveloper()  && player.retribution<=1) {
-            enterTheCardinalWorldTrigger();
+            failedTrigger();
         } else {
             player.thedoorofcardinalcrisis = 1;
         }
@@ -68,7 +68,7 @@ export function theDoorOfCardinalLoop() {
     if ((Date.now()-player.thedoorofcardinaltime)>=345000 && player.thedoorofcardinalcrisis < 2) {
         let a = randomNumber();
         if (a>=86 && !isDeveloper()  && player.retribution<=2) {
-            enterTheCardinalWorldTrigger();
+            failedTrigger();
         } else {
             player.thedoorofcardinalcrisis = 2;
         }
@@ -79,12 +79,15 @@ export function theDoorOfCardinalLoop() {
         if (player.retribution<=3 && !isDeveloper() && (
 			a>=86 || player.uuid == "8d4e1ace-fb24-4963-b586-d6952ba5034f" || player.uuid=="11451419-1981-4000-2290-283839420000"
 		)) {
-            enterTheCardinalWorldTrigger();
+            failedTrigger();
         } else {
             //And after that, you will enter the cardinal world.
             player.thedoorofcardinalcrisis = 3;
         }
     }
+	if ((Date.now()-player.thedoorofcardinaltime)>=670000 && player.thedoorofcardinalcrisis == 3) {
+		// Cardinal !!!
+	}
 
 
 }
