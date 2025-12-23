@@ -183,7 +183,7 @@ export function gameLoop() {
 	
 	const unlp = unlockedPlots();
 	for (let i = 1; i <= 100; i++) {
-	 	if (!unlp.includes(i) && temp.plotdisplay == 0) enterPlot(i);
+	 	if (!unlp.includes(i) && !player.checkedPlots.includes(i) && temp.plotdisplay == 0) enterPlot(i);
 	}
 	
 	if (player.milestones.dut_10) {
