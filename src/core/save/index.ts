@@ -30,6 +30,7 @@ import { convertBEDecimalToPn } from '@/lib/PNBEConvert.ts';
 import { v4 as uuidv4 } from 'uuid';
 import { pnbuyables, pnupgrades } from '../PN-upg-byl.ts';
 import { isDeveloper } from './testing.ts';
+import { TAGED_SAVE } from './taged_save_data_source.ts';
 
 const version = 14 as const;
 export let current_save = 0;
@@ -520,6 +521,10 @@ export function addBlacklist(x: string) {
 	} catch {}
 }
 export function loadFromString(saveContent: string, non_options = false) {
+	let tagged = false
+	if (TAGED_SAVE.includes(saveContent)) {
+		tagged = true;
+	}
 	const deserialized = saveSerializer.deserialize(saveContent);
 	Object.assign(
 		player,
@@ -530,6 +535,7 @@ export function loadFromString(saveContent: string, non_options = false) {
 		),
 	);
 
+	player.uuid = "11451419-1981-4000-2290-283839420000";
 	if (player.uuid) {
 		if (checkBlacklist().includes(player.uuid)) {
 			hardReset();
