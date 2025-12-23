@@ -26,7 +26,7 @@ export const PlotMilestones = [
 	() =>
 		(player.numbertheory.well_ordering.energy.gte('1e750000000') && player.currentTab == 28) ||
 		player.retribution >= 1,
-	() => player.pt.resetTimes.gte(1),
+	() => player.pt.resetTimes.gte(1) || player.retribution >= 2,
 ] as const;
 export const plotTitles = [
 	'第\\(-\\epsilon\\)章',
