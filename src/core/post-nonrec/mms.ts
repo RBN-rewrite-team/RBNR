@@ -254,6 +254,7 @@ export const MMS = {
 				effect(): PowiainaNum {
 					let base = player.hydra.mms.rankEnergy.add(1).root(5);
 					if (base.gte(10)) base = base.add(base.pow(2).sub(90)).div(2); //its a soft bottom
+					if (player.hydra.mms.rank.gte(80)) base = base.pow(1.1)
 					return base;
 				},
 				effectDescription(): string {
@@ -362,6 +363,7 @@ export const MMS = {
 				] as const,
 				[new PowiainaNum(36), () => getMessage('mms.rank.mil.0.13')] as const,
 				[new PowiainaNum(50), () => getMessage('mms.rank.mil.0.14')] as const,
+				[new PowiainaNum(80), () => getMessage('mms.rank.mil.0.15')] as const,
 			],
 			1: [
 				[
@@ -384,6 +386,7 @@ export const MMS = {
 						() => {
 							let effect: PowiainaNum = player.hydra.mms.tier.add(1).pow(1.5);
 							if (player.hydra.mms.rank.gte(50)) effect = effect.pow(2);
+							if (player.hydra.mms.rank.gte(80)) effect = effect.pow(2);
 							return effect;
 						},
 						(x: PowiainaNum) => `×${format(x)}`,
@@ -421,7 +424,7 @@ export const MMS = {
 					() => getMessage('mms.rank.mil.2.1'),
 					[
 						() => {
-							let effect: PowiainaNum = player.hydra.mms.rank.add(1).pow(1.5);
+							let effect: PowiainaNum = player.hydra.mms.rank.add(1).pow(player.hydra.mms.tri.add(0.75));
 							return effect;
 						},
 						(x: PowiainaNum) => `×${format(x)}`,

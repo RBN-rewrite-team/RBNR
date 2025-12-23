@@ -2247,6 +2247,7 @@ export default {
 	'mms.rank.mil.0.12': '基于三重阶层，延迟级别的第一个超级折算',
 	'mms.rank.mil.0.13': '级别14效果^3',
 	'mms.rank.mil.0.14': '阶层4效果^2，阶层5效果×2',
+	'mms.rank.mil.0.15': '阶层4效果^2，级别能量效果^1.1',
 	'mms.rank.mil.1.0': '基于阶层，提升充能九头蛇能量获取',
 	'mms.rank.mil.1.1': '级别1效果+2',
 	'mms.rank.mil.1.2': 'MMS推演速度×4',
@@ -2255,7 +2256,7 @@ export default {
 	'mms.rank.mil.1.5': '级别9效果^3',
 	'mms.rank.mil.1.6': '充能九头蛇能量获取^1.25',
 	'mms.rank.mil.2.0': '基于级别，提升MMS推演速度',
-	'mms.rank.mil.2.1': '基于级别，提升级别能量获取速度',
+	'mms.rank.mil.2.1': '基于级别和三重阶层，提升级别能量获取速度',
 
 	'upgs.631': 'test',
 
