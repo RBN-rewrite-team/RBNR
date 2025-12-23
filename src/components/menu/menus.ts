@@ -197,6 +197,13 @@ export const menus = [
 				},
 			},
 			{
+				id: 36,
+				text: 'tab.fffz',
+				show() {
+					return player.retribution >= 3 || isDeveloper();
+				},
+			},
+			{
 				id: 20,
 				text: 'tab.dilute',
 				show() {
