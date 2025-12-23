@@ -2207,6 +2207,7 @@ export default {
 	'set.gamma.unabled': '由于已有的Gamma测试进入特殊阶段，现在你不能进入Gamma测试',
 	'mms.t': 'MMS是一个非常强大的矩阵型记号，其设计强度超过ω-Y极限。',
 	'tab.mms': 'MMS',
+	'tab.fffz': 'FFFZ',
 
 	'currency.charged_hydra': '充能九头蛇能量',
 

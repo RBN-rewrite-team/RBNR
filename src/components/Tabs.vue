@@ -47,7 +47,7 @@ import Oracle from './tabs/oracle/Oracle.tsx';
 import NonRecursionBMS from './tabs/nonrecursion/NonRecursionBMS.vue';
 import Sin from './tabs/oracle/Sin.tsx';
 import MMSEngine from './tabs/mms/MMSEngine.tsx';
-import FFFZEngine from './tabs/fffz/FFFZEngine.vue';
+import FFFZEngine from './tabs/fffz/FFFZEngine.tsx';
 import TheDoorOfCardinal from './cardinal/TheDoorOfCardinal.tsx';
 const tabComponents: {
 	[key: string]: Component | (() => Component);
