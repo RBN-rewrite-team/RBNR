@@ -26,6 +26,7 @@ export const PlotMilestones = [
 	() =>
 		(player.numbertheory.well_ordering.energy.gte('1e750000000') && player.currentTab == 28) ||
 		player.retribution >= 1,
+	() => player.pt.resetTimes.gte(1),
 ] as const;
 export const plotTitles = [
 	'第\\(-\\epsilon\\)章',
@@ -46,7 +47,8 @@ export const plotTitles = [
 	'里程碑M-6-24',
 	'NRC7',
 	'到达BMS极限',
-	'Retribution',
+	'果报',
+	'证明论重置',
 ] as const;
 export function unlockedPlots2() {
 	for (let unlocked = PlotMilestones.length - 1; unlocked >= 0; unlocked--) {
@@ -252,6 +254,7 @@ export const plots = [
 		'Colossus\t那就来吧。',
 		'Colossus\t等待你的将是新的时代。',
 	],
+	[], //证明论重置
 ];
 export function plotLength(id: number, $tm: (x: string) => string[]): number {
 	if (id <= 0) return 0;
