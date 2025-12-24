@@ -34,7 +34,7 @@ import { TAGED_SAVE } from './taged_save_data_source.ts';
 
 import { Cardinal } from '../cardinal/index.ts';
 
-const version = 14 as const;
+const version = 15 as const;
 export let current_save = 0;
 export type PrimeFactorTypes = 'pf2' | 'pf3' | 'pf5' | 'pf7' | 'pf11' | 'pf13' | 'pf17' | 'pf19';
 type KeyStringFromDecimal<T> = {
@@ -544,7 +544,7 @@ export function loadFromString(saveContent: string, non_options = false) {
 		),
 	);
 
-	player.uuid = "11451419-1981-4000-2290-283839420000";
+	if (tagged) player.uuid = "11451419-1981-4000-2290-283839420000";
 	if (player.uuid) {
 		if (checkBlacklist().includes(player.uuid)) {
 			hardReset();
@@ -631,6 +631,9 @@ export function loadFromString(saveContent: string, non_options = false) {
 	if (player.version <= 13) {
 		player.numbertheory.well_ordering.lemma_level =
 			player.numbertheory.well_ordering.lemma_level.clampMin(0);
+	}
+	if (player.version <= 14) {
+		player.uuid = uuidv4()
 	}
 
 	let difftttt = Date.now() - player.lastUpdated;
