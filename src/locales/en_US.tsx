@@ -2414,4 +2414,11 @@ THEN YOU CAN GET REVELATION.<br />
 	'plottab.1': '(Not watched)',
 	'plottab.2':
 		'You have no unwatched plots | You have an unwatched plot | You have {count} unwatched plots',
+		
+	'card.warn': 'Warning',
+	'card.desc1': 'The Road to cardinal is dangerous, force enter may cause CRITICAL effects. Are you sure you want to force enter?',
+	'card.desc2': "Ensure confirm! The Road to cardinal is dangerous, force enter may cause CRITICAL effects. Are you sure you want to force enter?",
+	'card.ultimatum': "Untimatum",
+	'card.desc3': 'This is a disclaimer. If something goes wrong, <b>your save may be <i>permanently</i> lost and <i>unrecoverable</i></b>, it\'s your responsibility.<br /><br />If you agree with this disclaimer, please input "{verify}" in this input box.',
+	'card.verify': 'I confirm that I accept full responsibility for all risks'
 };
