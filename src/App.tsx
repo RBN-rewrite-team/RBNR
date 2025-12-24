@@ -22,9 +22,9 @@ export default defineComponent({
 	setup() {
 		return () => (
 			<>
-				<Side />
-				<P />
 				<Notifies />
+				<P />
+				{(!player.withinCardinal) && <><Side />
 				<div class="content">
 					{player.options.ui.newsbar ? (
 						<div class="news" id="newsbar">
@@ -67,10 +67,10 @@ export default defineComponent({
 					</div>
 				</div>
 				<BlackHole />
-				<RetributionAnimation />
+				<RetributionAnimation /></>}
 				<Chapter />
-				<PlotView />
-				<EnterTheCardinalWorld />
+				<PlotView /> 
+				{!player.closedWorldTitle && <EnterTheCardinalWorld />}
 				{player.meetcrisisbefore && <Failed />}
 			</>
 		);

@@ -212,6 +212,7 @@ export interface Player {
 	meetcrisisbefore: boolean;
 
 	withinCardinal: boolean;
+	closedWorldTitle: boolean;
 	cardinal: ReturnType<typeof Cardinal.playerData>;
 }
 
@@ -379,6 +380,7 @@ function getInitialPlayerData(): Player {
 		meetcrisisbefore: false,
 
 		withinCardinal: false,
+		closedWorldTitle: false,
 		cardinal: Cardinal.playerData(),
 	};
 }

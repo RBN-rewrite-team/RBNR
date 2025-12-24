@@ -204,7 +204,10 @@ function getCurTitle() {
 	if (Performance.uiOpened) {
 		base = 'Diff: ' + diff;
 	}
-	if (player.singularity.t < 630) {
+	if (player.withinCardinal) {
+		base += " - Cardinal World!"
+	}
+	else if (player.singularity.t < 630) {
 		base += ' - ' + format(player.number) + getMessage('res.number');
 	} else if (player.singularity.t < 666.6666666) {
 		base += ' - >' + numberGrow(player.singularity.t) + getMessage('res.number');
@@ -302,211 +305,217 @@ export function simulate(diff: number) {
 			diff *= 3;
 		}
 	}
-	const last = player.upgrades[61] ? DC.D_0 : feature.Ordinal.ordinalPerSecond();
-	const last2 = feature.Ordinal.speedDeri();
-	if (player.options.openOreEffect) diff *= 1 + player.minigame.ore_gets * 0.0025;
-	let pre_cardinal_diff = getPreCardinalDiff(diff);
 
-	let nonrecuDiffForSecInThisReset = new Decimal(pre_cardinal_diff / 1000);
-	if (player.upgrades[77])
-		nonrecuDiffForSecInThisReset = nonrecuDiffForSecInThisReset.mul(upgrades[77].effect());
-	player.nonrecu.secInThisReset = player.nonrecu.secInThisReset.add(nonrecuDiffForSecInThisReset);
-	qolLoop();
-	CHALLENGE.challengeLoop();
-	if (player.singularity.stage < 11) {
-		if (feature.SUCCESSOR.autoSuccessPerSecond().gte(0.001)) {
-			player.automationCD.successor += diff;
+	if (!player.withinCardinal) {
 
-			//每几秒点击一次后继按钮
-			const cd = new Decimal(1000).div(feature.SUCCESSOR.autoSuccessPerSecond());
 
-			if (cd.lt(player.automationCD.successor)) {
-				const bulk = Math.floor(player.automationCD.successor / Number(cd));
-				player.automationCD.successor %= Number(cd);
-				feature.SUCCESSOR.success(bulk);
+		const last = player.upgrades[61] ? DC.D_0 : feature.Ordinal.ordinalPerSecond();
+		const last2 = feature.Ordinal.speedDeri();
+		if (player.options.openOreEffect) diff *= 1 + player.minigame.ore_gets * 0.0025;
+		let pre_cardinal_diff = getPreCardinalDiff(diff);
+
+		let nonrecuDiffForSecInThisReset = new Decimal(pre_cardinal_diff / 1000);
+		if (player.upgrades[77])
+			nonrecuDiffForSecInThisReset = nonrecuDiffForSecInThisReset.mul(upgrades[77].effect());
+		player.nonrecu.secInThisReset = player.nonrecu.secInThisReset.add(nonrecuDiffForSecInThisReset);
+		qolLoop();
+		CHALLENGE.challengeLoop();
+		if (player.singularity.stage < 11) {
+			if (feature.SUCCESSOR.autoSuccessPerSecond().gte(0.001)) {
+				player.automationCD.successor += diff;
+
+				//每几秒点击一次后继按钮
+				const cd = new Decimal(1000).div(feature.SUCCESSOR.autoSuccessPerSecond());
+
+				if (cd.lt(player.automationCD.successor)) {
+					const bulk = Math.floor(player.automationCD.successor / Number(cd));
+					player.automationCD.successor %= Number(cd);
+					feature.SUCCESSOR.success(bulk);
+				}
 			}
-		}
 
-		if (feature.resourceGain.addpower().passive.gt(0)) {
-			const bulk = new Decimal(diff / 1000).mul(feature.resourceGain.addpower().passive);
-			feature.ADDITION.addpower_gain(bulk);
-		}
-
-		if (player.upgrades[46]) {
-			player.challenges[0][3] = player.challenges[0][3].add(
-				player.multiplication.mulpower.root(200).mul(diff / 1000),
-			);
-		}
-
-		if (feature.resourceGain.mulpower().passive.gt(0)) {
-			const bulk = new Decimal(diff / 1000).mul(feature.resourceGain.mulpower().passive);
-			feature.MULTIPLICATION.mulpower_gain(bulk);
-		}
-
-		if (feature.resourceGain.exppower().passive.gt(0)) {
-			const bulk = new Decimal(diff / 1000).mul(feature.resourceGain.exppower().passive);
-			feature.EXPONENTION.exppower_gain(bulk);
-		}
-
-		if (player.firstResetBit & 0b10) {
-			let dPfTime = diff;
-			if (CHALLENGE.inChallenge(0, 3)) {
-				dPfTime *= predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1;
+			if (feature.resourceGain.addpower().passive.gt(0)) {
+				const bulk = new Decimal(diff / 1000).mul(feature.resourceGain.addpower().passive);
+				feature.ADDITION.addpower_gain(bulk);
 			}
-			let dPfTimeDecimal = new Decimal(dPfTime);
-			if (player.upgrades[45]) dPfTimeDecimal = dPfTimeDecimal.mul(NUMTHEORY.tau2().pow(4));
-			player.multiplication.pfTime = player.multiplication.pfTime.add(dPfTimeDecimal).max(0);
-			player.numbertheory.euler.x = player.numbertheory.euler.x
-				.add(NUMTHEORY.varXgain().mul(diff).mul(1e-3))
-				.max(1);
-			player.numbertheory.euler.y = player.numbertheory.euler.y
-				.add(NUMTHEORY.varYgain().mul(diff).mul(1e-3))
-				.max(1);
-			player.numbertheory.euler.z = player.numbertheory.euler.z
-				.add(NUMTHEORY.varZgain().mul(diff).mul(1e-3))
-				.max(1);
-			player.numbertheory.euler.s = player.numbertheory.euler.s
-				.add(NUMTHEORY.tickspeedGain().mul(diff).mul(1e-3))
-				.max(1);
-		}
 
-		if (player.upgrades[45]) {
-			const dPf2TimeDecimal = new Decimal(diff);
-			player.numbertheory.rational_approx.n = player.numbertheory.rational_approx.n
-				.add(NUMTHEORY.varX2gain().mul(diff).mul(1e-3))
-				.max(1);
-			player.numbertheory.rational_approx.m = player.numbertheory.rational_approx.m
-				.add(NUMTHEORY.varM2gain().mul(diff).mul(1e-3))
-				.max(1);
-			player.numbertheory.rational_approx.y = player.numbertheory.rational_approx.y
-				.add(NUMTHEORY.varY2gain().mul(diff).mul(1e-3))
-				.max(1);
-		}
-
-		if (player.milestones.dil_5)
-			player.exponention.logarithm.observe_datas =
-				player.exponention.logarithm.observe_datas.add(
-					player.exponention.logarithm.calculate_datas
-						.add(1)
-						.log10()
-						.pow(2)
-						.mul(diff / 1000),
+			if (player.upgrades[46]) {
+				player.challenges[0][3] = player.challenges[0][3].add(
+					player.multiplication.mulpower.root(200).mul(diff / 1000),
 				);
-	}
+			}
 
-	if (player.firstResetBit & 0b1000) {
-		player.ordinal.number = player.ordinal.number.add(
-			feature.resourceGain.ordinalNumber().value.mul(diff / 1000),
-		);
-		if (player.buyables['54R'].gte(1)) {
-			player.numbertheory.GH.t31 = player.numbertheory.GH.t31.add(diff / 1000);
-		}
-		if (player.buyables['55R'].gte(1)) {
-			player.numbertheory.GH.t32 = player.numbertheory.GH.t32.add(diff / 1000);
-		}
-		const base = feature.Ordinal.base();
-		if (player.ordinal.number.gte(base.tetrate(base.toNumber()))) player.help.epsilon = true;
-		if ([0, 2, 4, 5, 9, 10, 12, 13].includes(player.currentTab)) {
-			player.currentTab = 14;
-		}
-	}
-	ORDINAL_BOOSTER.boosterLoop();
-	for (const upg_i in upgrades) {
-		const i = upg_i as keyof typeof upgrades;
+			if (feature.resourceGain.mulpower().passive.gt(0)) {
+				const bulk = new Decimal(diff / 1000).mul(feature.resourceGain.mulpower().passive);
+				feature.MULTIPLICATION.mulpower_gain(bulk);
+			}
 
-		if (upgrades[i] && upgrades[i].keep != null && upgrades[i].keep()) {
-			if (upgrades[i].name.startsWith('U5-1-') && player.retribution != 0) {
-			} else {
+			if (feature.resourceGain.exppower().passive.gt(0)) {
+				const bulk = new Decimal(diff / 1000).mul(feature.resourceGain.exppower().passive);
+				feature.EXPONENTION.exppower_gain(bulk);
+			}
+
+			if (player.firstResetBit & 0b10) {
+				let dPfTime = diff;
+				if (CHALLENGE.inChallenge(0, 3)) {
+					dPfTime *= predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1;
+				}
+				let dPfTimeDecimal = new Decimal(dPfTime);
+				if (player.upgrades[45]) dPfTimeDecimal = dPfTimeDecimal.mul(NUMTHEORY.tau2().pow(4));
+				player.multiplication.pfTime = player.multiplication.pfTime.add(dPfTimeDecimal).max(0);
+				player.numbertheory.euler.x = player.numbertheory.euler.x
+					.add(NUMTHEORY.varXgain().mul(diff).mul(1e-3))
+					.max(1);
+				player.numbertheory.euler.y = player.numbertheory.euler.y
+					.add(NUMTHEORY.varYgain().mul(diff).mul(1e-3))
+					.max(1);
+				player.numbertheory.euler.z = player.numbertheory.euler.z
+					.add(NUMTHEORY.varZgain().mul(diff).mul(1e-3))
+					.max(1);
+				player.numbertheory.euler.s = player.numbertheory.euler.s
+					.add(NUMTHEORY.tickspeedGain().mul(diff).mul(1e-3))
+					.max(1);
+			}
+
+			if (player.upgrades[45]) {
+				const dPf2TimeDecimal = new Decimal(diff);
+				player.numbertheory.rational_approx.n = player.numbertheory.rational_approx.n
+					.add(NUMTHEORY.varX2gain().mul(diff).mul(1e-3))
+					.max(1);
+				player.numbertheory.rational_approx.m = player.numbertheory.rational_approx.m
+					.add(NUMTHEORY.varM2gain().mul(diff).mul(1e-3))
+					.max(1);
+				player.numbertheory.rational_approx.y = player.numbertheory.rational_approx.y
+					.add(NUMTHEORY.varY2gain().mul(diff).mul(1e-3))
+					.max(1);
+			}
+
+			if (player.milestones.dil_5)
+				player.exponention.logarithm.observe_datas =
+					player.exponention.logarithm.observe_datas.add(
+						player.exponention.logarithm.calculate_datas
+							.add(1)
+							.log10()
+							.pow(2)
+							.mul(diff / 1000),
+					);
+		}
+
+		if (player.firstResetBit & 0b1000) {
+			player.ordinal.number = player.ordinal.number.add(
+				feature.resourceGain.ordinalNumber().value.mul(diff / 1000),
+			);
+			if (player.buyables['54R'].gte(1)) {
+				player.numbertheory.GH.t31 = player.numbertheory.GH.t31.add(diff / 1000);
+			}
+			if (player.buyables['55R'].gte(1)) {
+				player.numbertheory.GH.t32 = player.numbertheory.GH.t32.add(diff / 1000);
+			}
+			const base = feature.Ordinal.base();
+			if (player.ordinal.number.gte(base.tetrate(base.toNumber()))) player.help.epsilon = true;
+			if ([0, 2, 4, 5, 9, 10, 12, 13].includes(player.currentTab)) {
+				player.currentTab = 14;
+			}
+		}
+		ORDINAL_BOOSTER.boosterLoop();
+		for (const upg_i in upgrades) {
+			const i = upg_i as keyof typeof upgrades;
+
+			if (upgrades[i] && upgrades[i].keep != null && upgrades[i].keep()) {
+				if (upgrades[i].name.startsWith('U5-1-') && player.retribution != 0) {
+				} else {
+					player.upgrades[i as keyof typeof player.upgrades] = true;
+				}
+			}
+			if (
+				upgrades[i] &&
+				upgrades[i].auto != null &&
+				upgrades[i].auto() &&
+				upgrades[i].canAfford()
+			) {
 				player.upgrades[i as keyof typeof player.upgrades] = true;
 			}
 		}
-		if (
-			upgrades[i] &&
-			upgrades[i].auto != null &&
-			upgrades[i].auto() &&
-			upgrades[i].canAfford()
-		) {
-			player.upgrades[i as keyof typeof player.upgrades] = true;
-		}
-	}
 
-	for (const byl_i in buyables) {
-		const i = byl_i as keyof typeof buyables;
-		if (buyables[i].canBuyMax != null && buyables[i].canBuyMax()) {
-			if (buyables[i].autoBuyMax != null && buyables[i].autoBuyMax()) {
-				buyables[i].postBuyMax();
-				player.buyables[i] = Decimal.max(
-					player.buyables[i],
-					buyables[i].costInverse(getCurrency(buyables[i].currency)),
-				);
+		for (const byl_i in buyables) {
+			const i = byl_i as keyof typeof buyables;
+			if (buyables[i].canBuyMax != null && buyables[i].canBuyMax()) {
+				if (buyables[i].autoBuyMax != null && buyables[i].autoBuyMax()) {
+					buyables[i].postBuyMax();
+					player.buyables[i] = Decimal.max(
+						player.buyables[i],
+						buyables[i].costInverse(getCurrency(buyables[i].currency)),
+					);
+				}
 			}
 		}
-	}
 
-	for (const i in milestones) {
-		if (!player.milestones[i] && milestones[i].canDone) {
-			player.milestones[i as keyof typeof player.milestones] = true;
-			milestones[i]?.onDone?.();
+		for (const i in milestones) {
+			if (!player.milestones[i] && milestones[i].canDone) {
+				player.milestones[i as keyof typeof player.milestones] = true;
+				milestones[i]?.onDone?.();
+			}
 		}
-	}
 
-	if (!(player.firstResetBit & 0b1000) && player.singularity.stage >= 11) {
-		player.number = player.number.add(feature.resourceGain.number().value.mul(diff / 1000));
-		player.totalNumber = player.totalNumber.add(
-			feature.resourceGain.number().value.mul(diff / 1000),
-		);
-	}
-	if (player.stat.chapter >= 6) {
-		NON_RECURSIVE.loop(diff / 1000);
-	}
-	if (player.singularity.enabled || Logarithm.logarithm.upgrades_in_dilated.includes('39')) {
-		if (player.singularity.enabled) player.singularity.t += diff / 1000;
-		if (player.singularity.stage < 1 && player.singularity.t > 205) player.singularity.t = 205;
-		if (player.singularity.stage < 2 && player.singularity.t > 250) player.singularity.t = 250;
-		if (player.singularity.stage < 3 && player.singularity.t > 300) player.singularity.t = 300;
-		if (player.singularity.stage < 4 && player.singularity.t > 350) player.singularity.t = 350;
-		if (player.singularity.stage < 6 && player.singularity.t > 400) player.singularity.t = 400;
-		if (player.singularity.stage < 7 && player.singularity.t > 430) player.singularity.t = 430;
-		if (player.singularity.stage < 8 && player.singularity.t > 450) player.singularity.t = 450;
-		if (player.singularity.stage < 9 && player.singularity.t > 470) player.singularity.t = 470;
-		if (player.singularity.stage < 10 && player.singularity.t > 490) player.singularity.t = 490;
-		if (player.singularity.stage < 11 && player.singularity.t > 500) player.singularity.t = 500;
-		if (player.singularity.t >= 695) player.firstResetBit |= 0b1000;
-		player.singularity.t = Math.min(player.singularity.t, 710);
-	}
-	if (player.upgrades[517]) {
-		feature.Hydra.hydraUpdate(pre_cardinal_diff / 1000);
-		Dilute.diluteLoop(pre_cardinal_diff, diff);
-	}
-	if (player.retribution >= 2) {
-		MMS.loop(pre_cardinal_diff / 1000);
-	}
+		if (!(player.firstResetBit & 0b1000) && player.singularity.stage >= 11) {
+			player.number = player.number.add(feature.resourceGain.number().value.mul(diff / 1000));
+			player.totalNumber = player.totalNumber.add(
+				feature.resourceGain.number().value.mul(diff / 1000),
+			);
+		}
+		if (player.stat.chapter >= 6) {
+			NON_RECURSIVE.loop(diff / 1000);
+		}
+		if (player.singularity.enabled || Logarithm.logarithm.upgrades_in_dilated.includes('39')) {
+			if (player.singularity.enabled) player.singularity.t += diff / 1000;
+			if (player.singularity.stage < 1 && player.singularity.t > 205) player.singularity.t = 205;
+			if (player.singularity.stage < 2 && player.singularity.t > 250) player.singularity.t = 250;
+			if (player.singularity.stage < 3 && player.singularity.t > 300) player.singularity.t = 300;
+			if (player.singularity.stage < 4 && player.singularity.t > 350) player.singularity.t = 350;
+			if (player.singularity.stage < 6 && player.singularity.t > 400) player.singularity.t = 400;
+			if (player.singularity.stage < 7 && player.singularity.t > 430) player.singularity.t = 430;
+			if (player.singularity.stage < 8 && player.singularity.t > 450) player.singularity.t = 450;
+			if (player.singularity.stage < 9 && player.singularity.t > 470) player.singularity.t = 470;
+			if (player.singularity.stage < 10 && player.singularity.t > 490) player.singularity.t = 490;
+			if (player.singularity.stage < 11 && player.singularity.t > 500) player.singularity.t = 500;
+			if (player.singularity.t >= 695) player.firstResetBit |= 0b1000;
+			player.singularity.t = Math.min(player.singularity.t, 710);
+		}
+		if (player.upgrades[517]) {
+			feature.Hydra.hydraUpdate(pre_cardinal_diff / 1000);
+			Dilute.diluteLoop(pre_cardinal_diff, diff);
+		}
+		if (player.retribution >= 2) {
+			MMS.loop(pre_cardinal_diff / 1000);
+		}
 
-	if (player.upgrades[58]) {
-		feature.OrdinalNT.varGainLoop(pre_cardinal_diff / 1000);
+		if (player.upgrades[58]) {
+			feature.OrdinalNT.varGainLoop(pre_cardinal_diff / 1000);
+		}
+
+		if (player.milestones.nonrec_26) {
+			wellOrderingLoop(pre_cardinal_diff / 1000);
+		}
+
+		Garden.gardenLoop(realtime_diff / 1000);
+
+		Oracle.oracleLoop(realtime_diff / 1000);
+		if (player.milestones['sin_9']) {
+			const gain = Analysis.ptPowerGain();
+			player.pt.power = player.pt.power.add(gain.mul(pre_cardinal_diff / 1000));
+			player.pt.totalPower = player.pt.totalPower.add(gain.mul(pre_cardinal_diff / 1000));
+		}
+		Logarithm.astronomerUpdate();
+		updateHighestStat();
+		const next = player.upgrades[61] ? DC.D_0 : feature.Ordinal.ordinalPerSecond();
+		ordinalSpeedDerivative = next.sub(last).div(diff / 1000);
+		const next2 = feature.Ordinal.speedDeri();
+		ordinalSpeedDerivative2 = next2.sub(last2).div(diff / 1000);
 	}
-
-	if (player.milestones.nonrec_26) {
-		wellOrderingLoop(pre_cardinal_diff / 1000);
-	}
-
-	Garden.gardenLoop(realtime_diff / 1000);
-
-	Oracle.oracleLoop(realtime_diff / 1000);
-	if (player.milestones['sin_9']) {
-		const gain = Analysis.ptPowerGain();
-		player.pt.power = player.pt.power.add(gain.mul(pre_cardinal_diff / 1000));
-		player.pt.totalPower = player.pt.totalPower.add(gain.mul(pre_cardinal_diff / 1000));
-	}
-	Logarithm.astronomerUpdate();
-	updateHighestStat();
-	const next = player.upgrades[61] ? DC.D_0 : feature.Ordinal.ordinalPerSecond();
-	ordinalSpeedDerivative = next.sub(last).div(diff / 1000);
-	const next2 = feature.Ordinal.speedDeri();
-	ordinalSpeedDerivative2 = next2.sub(last2).div(diff / 1000);
-
 	theDoorOfCardinalLoop();
-
+	if (player.withinCardinal) {
+		player.timeshard.openTf = false;
+	}
 	player.lastUpdated = Date.now();
 }
 
