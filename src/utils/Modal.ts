@@ -45,6 +45,7 @@ export interface ModalOptions {
 	component?: Component;
 	componentProps?: Record<string, any>;
 	slots?: Record<string, () => VNode | VNode[]>;
+	dangerous?: boolean;
 }
 
 export interface ModalInstance {
@@ -176,6 +177,7 @@ const ModalService = {
 							options.onCancel?.();
 							controller.close();
 						},
+						dangerous: options.dangerous
 					});
 			},
 		});
