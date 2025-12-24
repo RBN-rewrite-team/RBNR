@@ -17,14 +17,15 @@ import P from './core/performance.tsx';
 import Notifies from './components/notify/Notifies.tsx';
 import EnterTheCardinalWorld from './components/cardinal/EnterTheCardinalWorld.tsx';
 import Failed from './components/cardinal/Failed.tsx';
+import CardinalWorld from './components/cardinal/CardinalWorld.tsx';
 export default defineComponent({
 	name: 'App',
 	setup() {
 		return () => (
 			<>
-				<Side />
-				<P />
 				<Notifies />
+				<P />
+				{(!player.withinCardinal) && <><Side />
 				<div class="content">
 					{player.options.ui.newsbar ? (
 						<div class="news" id="newsbar">
@@ -67,10 +68,11 @@ export default defineComponent({
 					</div>
 				</div>
 				<BlackHole />
-				<RetributionAnimation />
+				<RetributionAnimation /></>}
 				<Chapter />
-				<PlotView />
-				<EnterTheCardinalWorld />
+				<PlotView /> 
+				{!player.closedWorldTitle && <EnterTheCardinalWorld />}
+				{player.withinCardinal && <CardinalWorld />}
 				{player.meetcrisisbefore && <Failed />}
 			</>
 		);

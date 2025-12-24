@@ -4,7 +4,11 @@ import { useUpdate } from '@/lib/useUpdate';
 import { defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 import './cardinal.css';
+import { formatTime } from '@/utils/format';
 
+function clickon() {
+	if (player.withinCardinal) player.closedWorldTitle = true
+}
 export default defineComponent({
 	name: 'EnterTheCardinalWorld',
 	setup(props, ctx) {
@@ -48,6 +52,7 @@ export default defineComponent({
 							'background-color': 'black',
 							opacity: diff.value < 5000 ? diff.value / 5000 : 1,
 						}}
+						onClick={clickon}
 					>
 						{diff.value > 5000 ? (
 							<>
@@ -691,7 +696,7 @@ export default defineComponent({
 											></div>
 										</div>
 									)}
-								{player.thedoorofcardinalcrisis !== 999 && diff.value > 666666 && (
+								{player.thedoorofcardinalcrisis !== 999 && diff.value > 666666 && (!player.closedWorldTitle) &&(
 									<div
 										style={{
 											position: 'absolute',
@@ -727,6 +732,17 @@ export default defineComponent({
 											class="enteredText"
 										>
 											Cardinal World
+										</div>
+										<div
+											style={{
+												position: 'absolute',
+												left: '50%',
+												top: 'calc(50% + 90px)',
+												transform: 'translate(-50%, -50%) scale(0.5)',
+											}}
+											class="enteredText"
+										>
+											Tap to Continue
 										</div>
 									</div>
 								)}
