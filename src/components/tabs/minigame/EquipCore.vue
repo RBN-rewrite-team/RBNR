@@ -187,9 +187,7 @@ function equipInformation() {
 						margin: 10px;
 						border: 2px solid red;
 					"
-					v-for="(item, index) in player.minigame.storeEquipments.sort(function (a, b) {
-						return -a.level * a.rarity ** 2 + b.level * b.rarity ** 2;
-					})"
+					v-for="(item, index) in player.minigame.storeEquipments"
 					:key="index"
 					:style="{ 'border-color': temp.coreViewColor(item) }"
 					@click="changeCoreView(item)"
