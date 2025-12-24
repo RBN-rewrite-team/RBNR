@@ -26,7 +26,7 @@ export function activateTheDoorOfCardinal() {
 							fields: [
 								{
 									type: 'input',
-									validation: /I confirm that I accept all responsibility and risks\./,
+									validation: /I confirm that I accept full responsibility for all risks\./,
 								},
 							],
 							onConfirm(values) {
