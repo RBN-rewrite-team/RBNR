@@ -3,6 +3,7 @@
 		opacity: 0;
 		color: red;
 	}
+
 	100% {
 		opacity: 1;
 		color: black;
@@ -19,6 +20,7 @@
 		opacity: 0;
 		color: cyan;
 	}
+
 	100% {
 		opacity: 1;
 		color: black;
@@ -29,4 +31,8 @@
 	animation: enteredAnimation 6s linear 1;
 	letter-spacing: 8px;
 	text-shadow: 1px 0px 1px black -1px 0px 1px black;
+}
+
+.cardinal-button:hover {
+	background-color: var(--hover-color);
 }
