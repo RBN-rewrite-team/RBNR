@@ -1,17 +1,18 @@
 import { enterTheCardinalWorldTrigger as failedTrigger, player } from '@/core/save';
 import { isDeveloper } from '@/core/save/testing';
 import ModalService from '@/utils/Modal';
+import { getMessage, i18n } from '@/utils/i18n';
 
 export function activateTheDoorOfCardinal() {
 	ModalService.show({
-		title: 'Warning',
+		title: getMessage("card.warn"),
 		content:
-			'The Road to cardinal is dangerous, force enter may cause CRITICAL effects. Are you sure you want to force enter?',
+			getMessage("card.desc1"),
 		onConfirm(values) {
 			ModalService.show({
-				title: 'Warning',
+				title: getMessage("card.warn"),
 				content:
-					'Ensure confirm! The Road to cardinal is very dangerous, force enter may cause CRITICAL effects! Are you sure you want to force enter?',
+					getMessage("card.desc2"),
 				onConfirm(values) {
 					// player.thedoorofcardinalstate = true;
 					if (!isDeveloper())
@@ -20,13 +21,15 @@ export function activateTheDoorOfCardinal() {
 						});
 					if (player.retribution != 4) {
 						ModalService.show({
-							title: 'Ultimatum',
+							title: getMessage("card.ultimatum"),
 							content:
-								'This is a disclaimer. If something goes wrong, <b>your save may be <i>permanently</i> lost</b>, it\'s your responsibility.<br /><br />If you agree with this disclaimer, please input "I confirm that I accept full responsibility for all risks." in this input box.',
+								getMessage("card.desc3", {
+								  verify: getMessage("card.verify")
+								}),
 							fields: [
 								{
 									type: 'input',
-									validation: /I confirm that I accept full responsibility for all risks\./,
+									validation: new RegExp(getMessage("card.verify")),
 								},
 							],
 							onConfirm(values) {
@@ -41,12 +44,10 @@ export function activateTheDoorOfCardinal() {
 						((player.thedoorofcardinalstate = true),
 							(player.thedoorofcardinaltime = Date.now()));
 				},
-				confirmText: 'Yes',
 				cancelText: "It's too dangerous",
 				dangerous: true
 			});
 		},
-		confirmText: 'Yes',
 		cancelText: "It's too dangerous",
 		dangerous: true
 	});
