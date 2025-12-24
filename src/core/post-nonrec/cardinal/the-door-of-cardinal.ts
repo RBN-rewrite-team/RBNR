@@ -6,12 +6,12 @@ export function activateTheDoorOfCardinal() {
 	ModalService.show({
 		title: 'Warning',
 		content:
-			'The Road to cardinal is dangerous, force enter may cause unknown effects. Are you sure you want to force enter?',
+			'The Road to cardinal is dangerous, force enter may cause CRITICAL effects. Are you sure you want to force enter?',
 		onConfirm(values) {
 			ModalService.show({
 				title: 'Warning',
 				content:
-					'Ensure confirm! The Road to cardinal is very dangerous, force enter may cause unknown effects! Are you sure you want to force enter?',
+					'Ensure confirm! The Road to cardinal is very dangerous, force enter may cause CRITICAL effects! Are you sure you want to force enter?',
 				onConfirm(values) {
 					//window.open("https://www.bilibili.com/video/BV1GJ411x7h7");
 					// player.thedoorofcardinalstate = true;
@@ -23,7 +23,7 @@ export function activateTheDoorOfCardinal() {
 						ModalService.show({
 							title: 'Ultimatum',
 							content:
-								'This is a disclaimer. If something goes wrong, it\'s nobody\'s responsibility.<br /><br />If you agree this disclaimer, please input \"I agree\" on this input box.',
+								'This is a disclaimer. If something goes wrong, your save may be permanently lost, it\'s nobody\'s responsibility.<br /><br />If you agree this disclaimer, please input \"I agree\" on this input box.',
 							fields: [
 								{
 									type: 'input',
