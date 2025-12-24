@@ -111,6 +111,7 @@ interface Props {
 	customComponent?: Component;
 	componentProps?: Record<string, any>;
 	customSlots?: Record<string, () => VNode | VNode[]>;
+	dangerous?: boolean
 }
 const $t = useI18n().t;
 const props = withDefaults(defineProps<Props>(), {
@@ -132,6 +133,7 @@ const props = withDefaults(defineProps<Props>(), {
 	customComponent: undefined,
 	componentProps: () => ({}),
 	customSlots: () => ({}),
+	dangerous: false
 });
 
 const emit = defineEmits([
@@ -159,16 +161,17 @@ const processedButtons = computed(() => {
 		buttons.push({
 			text: props.cancelText,
 			handler: handleCancel,
-			class: 'cancel-btn',
+			class: props.dangerous ? 'confirm-btn' : 'cancel-btn',
 			disabled: props.loading,
 		});
 	}
 
+console.log(props)
 	if (!props.showProgress && props.showConfirmButton) {
 		buttons.push({
 			text: props.confirmText,
 			handler: handleConfirm,
-			class: 'confirm-btn',
+			class: props.dangerous ? 'danger-btn' : 'confirm-btn',
 			disabled: hasErrors.value || props.loading,
 		});
 	}
