@@ -4,10 +4,12 @@ import { FFFZmacros } from '../../../utils/fffz.ts';
 import FFFZDeduction from './FFFZDeduction';
 
 export default defineComponent({
-  name: "FFFZEngine",
-  setup() {
-    return () => (<>
-      <FFFZDeduction />
-    </>)
-  }
-})
+	name: 'FFFZEngine',
+	setup() {
+		return () => (
+			<>
+				<FFFZDeduction />
+			</>
+		);
+	},
+});

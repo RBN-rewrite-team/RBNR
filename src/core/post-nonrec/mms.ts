@@ -248,13 +248,14 @@ export const MMS = {
 					);
 					if (player.hydra.mms.tier.gte(4))
 						base = base.mul(MMS.rank.rankMilestones[1][3][2][0]());
-					if (player.hydra.mms.tri.gte(2)) base = base.mul(MMS.rank.rankMilestones[2][1][2][0]());
+					if (player.hydra.mms.tri.gte(2))
+						base = base.mul(MMS.rank.rankMilestones[2][1][2][0]());
 					return base;
 				},
 				effect(): PowiainaNum {
 					let base = player.hydra.mms.rankEnergy.add(1).root(5);
 					if (base.gte(10)) base = base.add(base.pow(2).sub(90)).div(2); //its a soft bottom
-					if (player.hydra.mms.rank.gte(80)) base = base.pow(1.1)
+					if (player.hydra.mms.rank.gte(80)) base = base.pow(1.1);
 					return base;
 				},
 				effectDescription(): string {
@@ -424,7 +425,9 @@ export const MMS = {
 					() => getMessage('mms.rank.mil.2.1'),
 					[
 						() => {
-							let effect: PowiainaNum = player.hydra.mms.rank.add(1).pow(player.hydra.mms.tri.add(0.75));
+							let effect: PowiainaNum = player.hydra.mms.rank
+								.add(1)
+								.pow(player.hydra.mms.tri.add(0.75));
 							return effect;
 						},
 						(x: PowiainaNum) => `×${format(x)}`,

@@ -28,15 +28,18 @@ export default defineComponent({
 						}
 					}}
 				>
-				<div style={{
-					position: 'absolute',
-					left: '50%',
-					top: '50%',
-					'font-size': '19px',
-					'color': 'rgb(0, 0, 0)',
-					transform: 'translate(-50%, -50%)',
-				//@ts-ignore
-				}} align="center">
+					<div
+						style={{
+							position: 'absolute',
+							left: '50%',
+							top: '50%',
+							'font-size': '19px',
+							color: 'rgb(0, 0, 0)',
+							transform: 'translate(-50%, -50%)',
+							//@ts-ignore
+						}}
+						align="center"
+					>
 						{counter.value >= 0 && (
 							<>
 								<span class="failedText">可怕的袭击中断了你的去路</span>

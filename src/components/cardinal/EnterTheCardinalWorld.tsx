@@ -28,9 +28,11 @@ export default defineComponent({
 				Math.random() * 600 + 100,
 			]);
 		}
-		const rings = [172000,175000,178000,180000, 181000, 182000, 183000, 184000,570000,610000];
-		for (let i = 185; i<=350; i+=0.5) {
-			rings.push(i*1000)
+		const rings = [
+			172000, 175000, 178000, 180000, 181000, 182000, 183000, 184000, 570000, 610000,
+		];
+		for (let i = 185; i <= 350; i += 0.5) {
+			rings.push(i * 1000);
 		}
 		return () =>
 			diff.value > 0 ? (
@@ -405,28 +407,25 @@ export default defineComponent({
 								) : (
 									<></>
 								)}
-
-
-								{rings.map((x)=><div
-									style={{
-										position: 'absolute',
-										display:
-											diff.value < x+4000 && diff.value > x
-												? 'block'
-												: 'none',
-										width: (diff.value - x) / 0.95 + 'px',
-										height: (diff.value - x) / 0.95 + 'px',
-										top: '50%',
-										left: '50%',
-										transform: 'translate(-50%, -50%)',
-										'background-color': 'rgba(0, 0, 0, 0)',
-										border: '2px solid white',
-										'border-radius': (diff.value - (x-500)) / 1.9 + 'px',
-									}}
-								/>)}
-
-
-									
+								{rings.map((x) => (
+									<div
+										style={{
+											position: 'absolute',
+											display:
+												diff.value < x + 4000 && diff.value > x
+													? 'block'
+													: 'none',
+											width: (diff.value - x) / 0.95 + 'px',
+											height: (diff.value - x) / 0.95 + 'px',
+											top: '50%',
+											left: '50%',
+											transform: 'translate(-50%, -50%)',
+											'background-color': 'rgba(0, 0, 0, 0)',
+											border: '2px solid white',
+											'border-radius': (diff.value - (x - 500)) / 1.9 + 'px',
+										}}
+									/>
+								))}
 								{diff.value >= 180000 ? (
 									<>
 										<div
@@ -439,7 +438,8 @@ export default defineComponent({
 												'background-image':
 													'radial-gradient(circle, black ' +
 													(100 -
-														((diff.value - 180000) / (284650 - 180000)) *
+														((diff.value - 180000) /
+															(284650 - 180000)) *
 															100) +
 													'%, red 100%)',
 												opacity:
@@ -452,9 +452,6 @@ export default defineComponent({
 								) : (
 									<></>
 								)}
-
-
-
 								{diff.value >= 500000 ? (
 									<>
 										<div
@@ -467,7 +464,8 @@ export default defineComponent({
 												'background-image':
 													'radial-gradient(circle, black ' +
 													(100 -
-														((diff.value - 500000) / (604650 - 500000)) *
+														((diff.value - 500000) /
+															(604650 - 500000)) *
 															100) +
 													'%, red 100%)',
 												opacity:
@@ -671,71 +669,84 @@ export default defineComponent({
 								) : (
 									<></>
 								)}
-
-								{player.thedoorofcardinalcrisis !==999 && diff.value > 370000 && diff.value < 670000 && (
-									<div>
-										<div
-											style={{
-												position: 'absolute',
-												left: '50%',
-												top: '50%',
-												width: `${(diff.value - 370000)/296666*document.body.offsetWidth*1.25}px`,
-												height: `${(diff.value - 370000)/296666*document.body.offsetWidth*1.25}px`,
-												'font-size': '14px',
-												borderRadius: `${(diff.value - 370000)/296666*document.body.offsetWidth*1.25/2}px`,
-												background: '#ffffff',
-												zIndex: 10000,
-												opacity: `${(diff.value - 370000)/296666*100}%`,
-												boxShadow: 'white 0px 0px 4px 4px',
-												transform: "translate(-50%, -50%)"
-											}}
-										></div>
-									</div>
-								)}
+								{player.thedoorofcardinalcrisis !== 999 &&
+									diff.value > 370000 &&
+									diff.value < 670000 && (
+										<div>
+											<div
+												style={{
+													position: 'absolute',
+													left: '50%',
+													top: '50%',
+													width: `${((diff.value - 370000) / 296666) * document.body.offsetWidth * 1.25}px`,
+													height: `${((diff.value - 370000) / 296666) * document.body.offsetWidth * 1.25}px`,
+													'font-size': '14px',
+													borderRadius: `${(((diff.value - 370000) / 296666) * document.body.offsetWidth * 1.25) / 2}px`,
+													background: '#ffffff',
+													zIndex: 10000,
+													opacity: `${((diff.value - 370000) / 296666) * 100}%`,
+													boxShadow: 'white 0px 0px 4px 4px',
+													transform: 'translate(-50%, -50%)',
+												}}
+											></div>
+										</div>
+									)}
 								{player.thedoorofcardinalcrisis !== 999 && diff.value > 666666 && (
-									<div style={{
-										position: 'absolute',
-										left: '50%',
-										top: '50%',
-										width: '300%',
-										height: '300%',
-										fontSize: '64px',
-										background: 'white',
-										zIndex: 10000,
-										color: 'black',
-										transform: 'translate(-50%, -50%)',
-									}}
-									>
-										<div style={{
-											position: 'absolute',
-											left: '50%',
-											top: '50%',
-											transform: 'translate(-50%, -50%)',
-										}} class="enteredText">基数世界</div>
-										<div style={{
-											position: 'absolute',
-											left: '50%',
-											top: 'calc(50% + 54px)',
-											transform: 'translate(-50%, -50%) scale(0.5)',
-										}} class="enteredText">Cardinal World</div>
-									</div>
-								)}
-								{(player.thedoorofcardinalcrisis === 999 && player.thedoorofcardinaltime<666000) && (
 									<div
 										style={{
 											position: 'absolute',
 											left: '50%',
 											top: '50%',
-											width: '200vw',
-											height: '200vh',
-											'font-size': '14px',
-											background: '#ffffff',
+											width: '300%',
+											height: '300%',
+											fontSize: '64px',
+											background: 'white',
 											zIndex: 10000,
-											boxShadow: 'white 0px 0px 500px 4px',
+											color: 'black',
+											transform: 'translate(-50%, -50%)',
 										}}
-										class={'crisis'}
-									></div>
+									>
+										<div
+											style={{
+												position: 'absolute',
+												left: '50%',
+												top: '50%',
+												transform: 'translate(-50%, -50%)',
+											}}
+											class="enteredText"
+										>
+											基数世界
+										</div>
+										<div
+											style={{
+												position: 'absolute',
+												left: '50%',
+												top: 'calc(50% + 54px)',
+												transform: 'translate(-50%, -50%) scale(0.5)',
+											}}
+											class="enteredText"
+										>
+											Cardinal World
+										</div>
+									</div>
 								)}
+								{player.thedoorofcardinalcrisis === 999 &&
+									player.thedoorofcardinaltime < 666000 && (
+										<div
+											style={{
+												position: 'absolute',
+												left: '50%',
+												top: '50%',
+												width: '200vw',
+												height: '200vh',
+												'font-size': '14px',
+												background: '#ffffff',
+												zIndex: 10000,
+												boxShadow: 'white 0px 0px 500px 4px',
+											}}
+											class={'crisis'}
+										></div>
+									)}
 							</>
 						) : (
 							<></>

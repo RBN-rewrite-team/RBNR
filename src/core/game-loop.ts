@@ -180,12 +180,13 @@ export function gameLoop() {
 	//	throw e;
 	// }
 	if (player.singularity.stage >= 1) singularity_UI();
-	
+
 	const unlp = unlockedPlots();
 	for (let i = 1; i <= 100; i++) {
-	 	if (!unlp.includes(i) && !player.checkedPlots.includes(i) && temp.plotdisplay == 0) enterPlot(i);
+		if (!unlp.includes(i) && !player.checkedPlots.includes(i) && temp.plotdisplay == 0)
+			enterPlot(i);
 	}
-	
+
 	if (player.milestones.dut_10) {
 		player.hydra.dilute.solutionCost = new Decimal(0);
 	}
@@ -223,11 +224,11 @@ function getCurTitle() {
 				'<sup>ω</sup>',
 				'^ω',
 			);
-	} else if(player.retribution == 1 && !player.thedoorofcardinalstate) {
+	} else if (player.retribution == 1 && !player.thedoorofcardinalstate) {
 		base += ` - ${format(player.hydra.compressedPower)} ` + getMessage('res.compress');
-	} else if(player.retribution == 2 && !player.thedoorofcardinalstate) {
+	} else if (player.retribution == 2 && !player.thedoorofcardinalstate) {
 		base += ` - ${format(player.hydra.mms.deduced)} MMS`;
-	} else if(player.thedoorofcardinalstate) {
+	} else if (player.thedoorofcardinalstate) {
 		base += ' - in the shuttle';
 	}
 	if (base.length > 20) {

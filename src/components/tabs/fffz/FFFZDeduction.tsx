@@ -1,14 +1,16 @@
 import { defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { FFFZmacros } from '../../../utils/fffz.ts';
-import styles from "./styles.scss"
+import styles from './styles.scss';
 
 export default defineComponent({
-  name: "FFFZDeduction",
-  setup() {
-    return () => (<>
-      <div>
-        <div style={{
+	name: 'FFFZDeduction',
+	setup() {
+		return () => (
+			<>
+				<div>
+					<div
+						style={{
 							backgroundColor: 'var(--background-color)',
 							color: 'rgba(116, 155, 233, 1)',
 							height: '250px',
@@ -19,9 +21,10 @@ export default defineComponent({
 							margin: 'auto',
 							zIndex: '1',
 							width: '50%',
-						}}>
-        </div>
-      </div>
-    </>)
-  }
-})
+						}}
+					></div>
+				</div>
+			</>
+		);
+	},
+});

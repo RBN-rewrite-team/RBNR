@@ -7,5 +7,5 @@ export const Cardinal = {
 			stability: 100,
 			cardinality: 0,
 		};
-	}
+	},
 };

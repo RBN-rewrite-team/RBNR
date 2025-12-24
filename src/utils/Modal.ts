@@ -177,7 +177,7 @@ const ModalService = {
 							options.onCancel?.();
 							controller.close();
 						},
-						dangerous: options.dangerous
+						dangerous: options.dangerous,
 					});
 			},
 		});

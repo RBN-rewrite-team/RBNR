@@ -620,17 +620,17 @@ export default {
 			'Numerorum\tI reached the last layer.',
 			'Numerorum\tHydra? YOU must wait...',
 			'Numerorum suddenly feels someone is coming.',
-			'???\tAlpha VII\tAha, there\'re also a uninformed.',
+			"???\tAlpha VII\tAha, there're also a uninformed.",
 			'Numerorum\tWho are you?',
 			'???\tAlpha VII\tAlpha VII, you might used my AUTOMATOR.',
 			'Numerorum\tIs you? This thing is useful, and it saved me a lot of trouble.',
 			'Alpha VII\tHehe, being able to get to this point, shows how strong you are.',
 			'Alpha VII\tBut blind confidence, will only get you killed by Hydra.',
 			'Numerorum\tI......',
-			'Alpha VII\tYou may don\'t know.',
-			'Alpha VII\tThere\'re a world,',
+			"Alpha VII\tYou may don't know.",
+			"Alpha VII\tThere're a world,",
 			'Alpha VII\tOutside our big-number world.',
-			'Alpha VII\tIt\'s, CARDINAL world.',
+			"Alpha VII\tIt's, CARDINAL world.",
 			'Numerorum\tCardinal world?',
 			'Alpha VII\tYes, Cardinal world?',
 			'Alpha VII\tThis world is so vast. ',
@@ -650,7 +650,7 @@ export default {
 			'Alpha VII\tAs long as you are still here, the connection between the two worlds cannot be severed by Hydra.',
 			'Numerorum\tSo, does that mean you can come with me too?',
 			'Alpha VII\t说得好。这就是我们这些来到证明论层次的实体千载难逢的机会。',
-			'Numerorum\tBut Hydra will try to prevent this. It don\'t want us to be stronger.',
+			"Numerorum\tBut Hydra will try to prevent this. It don't want us to be stronger.",
 			'Alpha VII\tYes。但路途遥远，它所能做的事，对于我们尚有一线抵抗的可能。',
 			'Alpha VII\tSo that, please work hard, to improve yourself.',
 			'Numerorum\t......',
@@ -2414,11 +2414,14 @@ THEN YOU CAN GET REVELATION.<br />
 	'plottab.1': '(Not watched)',
 	'plottab.2':
 		'You have no unwatched plots | You have an unwatched plot | You have {count} unwatched plots',
-		
+
 	'card.warn': 'Warning',
-	'card.desc1': 'The Road to cardinal is dangerous, force enter may cause CRITICAL effects. Are you sure you want to force enter?',
-	'card.desc2': "Ensure confirm! The Road to cardinal is dangerous, force enter may cause CRITICAL effects. Are you sure you want to force enter?",
-	'card.ultimatum': "Untimatum",
-	'card.desc3': 'This is a disclaimer. If something goes wrong, <b>your save may be <i>permanently</i> lost and <i>unrecoverable</i></b>, it\'s your responsibility.<br /><br />If you agree with this disclaimer, please input "{verify}" in this input box.',
-	'card.verify': 'I confirm that I accept full responsibility for all risks'
+	'card.desc1':
+		'The Road to cardinal is dangerous, force enter may cause CRITICAL effects. Are you sure you want to force enter?',
+	'card.desc2':
+		'Ensure confirm! The Road to cardinal is dangerous, force enter may cause CRITICAL effects. Are you sure you want to force enter?',
+	'card.ultimatum': 'Untimatum',
+	'card.desc3':
+		'This is a disclaimer. If something goes wrong, <b>your save may be <i>permanently</i> lost and <i>unrecoverable</i></b>, it\'s your responsibility.<br /><br />If you agree with this disclaimer, please input "{verify}" in this input box.',
+	'card.verify': 'I confirm that I accept full responsibility for all risks',
 };

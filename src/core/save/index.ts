@@ -210,7 +210,7 @@ export interface Player {
 	 * If the last save meet "crisis" and force hard reseted, this value will set to "true"
 	 */
 	meetcrisisbefore: boolean;
-	
+
 	withinCardinal: boolean;
 	cardinal: ReturnType<typeof Cardinal.playerData>;
 }
@@ -377,7 +377,7 @@ function getInitialPlayerData(): Player {
 		uuid: uuidv4(),
 		fingerprint: 'no-any-content',
 		meetcrisisbefore: false,
-		
+
 		withinCardinal: false,
 		cardinal: Cardinal.playerData(),
 	};
@@ -530,7 +530,7 @@ export function addBlacklist(x: string) {
 	} catch {}
 }
 export function loadFromString(saveContent: string, non_options = false) {
-	let tagged = false
+	let tagged = false;
 	if (TAGED_SAVE.includes(saveContent)) {
 		tagged = true;
 	}
@@ -544,7 +544,7 @@ export function loadFromString(saveContent: string, non_options = false) {
 		),
 	);
 
-	if (tagged) player.uuid = "11451419-1981-4000-2290-283839420000";
+	if (tagged) player.uuid = '11451419-1981-4000-2290-283839420000';
 	if (player.uuid) {
 		if (checkBlacklist().includes(player.uuid)) {
 			hardReset();
@@ -633,7 +633,7 @@ export function loadFromString(saveContent: string, non_options = false) {
 			player.numbertheory.well_ordering.lemma_level.clampMin(0);
 	}
 	if (player.version <= 14) {
-		player.uuid = uuidv4()
+		player.uuid = uuidv4();
 	}
 
 	let difftttt = Date.now() - player.lastUpdated;

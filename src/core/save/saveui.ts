@@ -55,7 +55,7 @@ export function UIHardReset() {
 			hardReset(keylistKeeped);
 			stopSaveLoop();
 		},
-		dangerous: true
+		dangerous: true,
 	});
 }
 
