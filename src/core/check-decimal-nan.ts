@@ -238,7 +238,6 @@ function createValidatedReactiveProxy(target: any, path: string = ''): any {
 export function createDeepValidatedReactive<T>(obj: T): T {
 	if (!deepValidateObject(obj, ['player'])) {
 		console.error('Initial object contains invalid values!');
-		throw new Error('Initial object contains invalid Decimal values');
 	}
 
 	return createValidatedReactiveProxy(obj, 'player') as T;

@@ -17,6 +17,7 @@ import P from './core/performance.tsx';
 import Notifies from './components/notify/Notifies.tsx';
 import EnterTheCardinalWorld from './components/cardinal/EnterTheCardinalWorld.tsx';
 import Failed from './components/cardinal/Failed.tsx';
+import CardinalWorld from './components/cardinal/CardinalWorld.tsx';
 export default defineComponent({
 	name: 'App',
 	setup() {
@@ -71,6 +72,7 @@ export default defineComponent({
 				<Chapter />
 				<PlotView /> 
 				{!player.closedWorldTitle && <EnterTheCardinalWorld />}
+				{player.withinCardinal && <CardinalWorld />}
 				{player.meetcrisisbefore && <Failed />}
 			</>
 		);
