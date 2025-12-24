@@ -22,11 +22,11 @@ export function activateTheDoorOfCardinal() {
 						ModalService.show({
 							title: 'Ultimatum',
 							content:
-								'This is a disclaimer. If something goes wrong, <b>your save may be <i>permanently</i> lost</b>, it\'s nobody\'s responsibility.<br /><br />If you agree this disclaimer, please input \"I agree\" on this input box.',
+								'This is a disclaimer. If something goes wrong, <b>your save may be <i>permanently</i> lost</b>, it\'s your responsibility.<br /><br />If you agree with this disclaimer, please input "I confirm that I accept full responsibility for all risks." in this input box.',
 							fields: [
 								{
 									type: 'input',
-									validation: /I agree/,
+									validation: /I confirm that I accept all responsibility and risks\./,
 								},
 							],
 							onConfirm(values) {
