@@ -650,7 +650,7 @@ export function theoriesAmountPossible(id: 0 | 1 | 2) {
 			const res = player.nonrecu.power.log(5);
 			let temp = res.div(215).sqrt().mul(215);
 			if (temp.lt(215)) temp = res;
-			return temp.ceil();
+			return temp.ceil().clampMin(0);
 		default:
 			const a: never = id;
 	}
@@ -673,7 +673,7 @@ export function addTheories(id: 0 | 1 | 2) {
 				player.nonrecu.theories[0] = theoriesAmountPossible(0).sub(1);
 				const a = theoriesAmountPossible(0);
 				player.hydra.power = player.hydra.power.sub(theoriesCost(0)).clampMin(0);
-				player.nonrecu.theories[0] = a;
+				player.nonrecu.theories[0] = a.clampMin(0);
 			}
 			break;
 		case 1:
@@ -683,7 +683,7 @@ export function addTheories(id: 0 | 1 | 2) {
 				player.hydra.dilute.solutionCost = player.hydra.dilute.solutionCost.add(
 					theoriesCost(1),
 				);
-				player.nonrecu.theories[1] = b;
+				player.nonrecu.theories[1] = b.clampMin(0);
 			}
 			break;
 		case 2:
@@ -692,7 +692,7 @@ export function addTheories(id: 0 | 1 | 2) {
 				const c = theoriesAmountPossible(2);
 				if (player.nonrecu.power.lt('1e30000'))
 					player.nonrecu.power = player.nonrecu.power.sub(theoriesCost(2)).clampMin(0);
-				player.nonrecu.theories[2] = c;
+				player.nonrecu.theories[2] = c.clampMin(0);
 			}
 			break;
 		default:
