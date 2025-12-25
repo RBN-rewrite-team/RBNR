@@ -2,7 +2,7 @@ import { defineComponent } from 'vue';
 
 import './cardinal.css';
 import { player } from '@/core/global';
-import { worldPosChange } from '@/core/cardinal';
+import { posis, worldPosChange } from '@/core/cardinal';
 import { UIHardReset } from '@/core/save/saveui';
 import { openSetLangModel } from '../i18nUI';
 import { useI18n } from 'vue-i18n';
@@ -36,7 +36,7 @@ export default defineComponent({
 					}}
 				>
 					{player.cardinal.world_pos.join(',')}
-					{player.cardinal.world_pos[0] == 0 && player.cardinal.world_pos[1] == 0 && (
+					{posis(0, 0) && (
 						<div
 							style={{
 								color: 'red',
@@ -66,7 +66,7 @@ export default defineComponent({
 							</div>
 						</div>
 					)}
-					{player.cardinal.world_pos[0] == 1 && player.cardinal.world_pos[1] == 0 && (
+					{posis(1, 0) && (
 						<div>
 							<div
 								style={{
