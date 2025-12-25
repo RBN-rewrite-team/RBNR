@@ -547,11 +547,7 @@ export function loadFromString(saveContent: string, non_options = false) {
 	);
 
 	if (tagged) player.uuid = '11451419-1981-4000-2290-283839420000';
-	if (player.uuid) {
-		if (checkBlacklist().includes(player.uuid)) {
-			hardReset();
-		}
-	}
+
 	if ((player?.version ?? 0) < 4) {
 		player.hydra.dilute.solvent = [0, 0, 0, 0, 0, 0, false, false, false];
 	}
