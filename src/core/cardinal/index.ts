@@ -39,3 +39,8 @@ export function worldPosChange(direction: 'up' | 'down' | 'right' | 'left') {
 			break;
 	}
 }
+
+export function posName(x: number, y: number) {
+	if (x == 0 && y == 0) return 'Spawnpoint';
+	if (x == 1 && y == 0) return 'Settings';
+}
