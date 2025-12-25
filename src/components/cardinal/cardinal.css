@@ -36,3 +36,40 @@
 .cardinal-button:hover {
 	background-color: var(--hover-color);
 }
+
+.respawn-beacon-off {
+	position: absolute;
+	width: 300px;
+	height: 300px;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 2px solid grey;
+}
+
+@keyframes respawn-beacon-animation {
+	0%, 100% {
+		border: 2px solid green;
+		box-shadow: 0px 0px 2px 2px green;
+	}
+	33% {
+		border: 2px solid red;
+		box-shadow: 0px 0px 2px 2px red;
+	}
+	66% {
+		border: 2px solid blue;
+		box-shadow: 0px 0px 2px 2px blue;
+	}
+}
+
+.respawn-beacon-on {
+	position: absolute;
+	width: 300px;
+	height: 300px;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	animation: respawn-beacon-animation 6s linear Infinite;
+}
