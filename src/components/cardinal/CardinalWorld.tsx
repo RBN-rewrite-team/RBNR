@@ -9,6 +9,7 @@ import { useI18n } from 'vue-i18n';
 import ModalService from '@/utils/Modal';
 import type { $t } from '@/utils/types';
 import fontUI from '@/core/save/fontUI';
+import { AWAKEN_BEACONS, RESPAWN_BEACONS } from '@/core/cardinal/beacons';
 
 const buttonstyle = {
 	position: 'absolute',
@@ -35,7 +36,46 @@ export default defineComponent({
 						fontSize: '28px',
 					}}
 				>
+					<button>Map</button>
 					{player.cardinal.world_pos.join(',')}
+
+					{AWAKEN_BEACONS.map((v) => {
+						if (posis(v[0], v[1]))
+							return (
+								<>
+									<div
+										style={{
+											position: 'absolute',
+											left: '50%',
+											top: 'calc(50% )',
+
+											transform: 'translate(-50%, -50%)',
+										}}
+									>
+										复苏信标
+									</div>
+								</>
+							);
+					})}
+					{RESPAWN_BEACONS.map((v) => {
+						if (posis(v[0], v[1]))
+							return (
+								<>
+									<div
+										style={{
+											position: 'absolute',
+											left: '50%',
+											top: 'calc(50% )',
+
+											transform: 'translate(-50%, -50%)',
+										}}
+									>
+										重生信标
+									</div>
+								</>
+							);
+					})}
+
 					{posis(0, 0) && (
 						<div
 							style={{

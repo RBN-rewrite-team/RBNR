@@ -8,6 +8,8 @@ export const Cardinal = {
 			cardinality: 0,
 
 			world_pos: [0, 0] as [number, number],
+
+			openedmap: false,
 		};
 	},
 };
