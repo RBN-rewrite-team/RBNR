@@ -3,6 +3,7 @@ import { player } from '../save';
 import { isUnreachable, getCurrentBlock } from './block';
 import { positionDirection } from './room';
 import { getMessage } from '@/utils/i18n';
+import { cardinalKeyboardListener } from '../cardinal/cardinal-keyboard-listener';
 
 export function miniGameLoop(diff: number) {}
 export type KeyPresses = 'up' | 'down' | 'left' | 'right';
@@ -46,6 +47,9 @@ export function handleKeyPress(key: KeyPresses, $t: $t) {
 }
 
 export function keyboardEventListener(e: Event) {
+	if (player.withinCardinal && player.closedWorldTitle) {
+		cardinalKeyboardListener(e);
+	}
 	if (player.currentTab !== 1226) return;
 	if (e instanceof KeyboardEvent) {
 		switch (e.key) {

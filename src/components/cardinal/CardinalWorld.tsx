@@ -2,7 +2,7 @@ import { defineComponent } from 'vue';
 
 import './cardinal.css';
 import { player } from '@/core/global';
-import { Cardinal, posis, worldPosChange, beaconsActivated } from '@/core/cardinal';
+import { Cardinal, posis, posName, worldPosChange, beaconsActivated } from '@/core/cardinal';
 import { useI18n } from 'vue-i18n';
 import { AWAKEN_BEACONS, RESPAWN_BEACONS } from '@/core/cardinal/beacons';
 import Settings from './tabs/Settings';
@@ -142,6 +142,22 @@ export default defineComponent({
 						>
 							←
 						</div>
+						<div
+							style={{
+								left: '10px',
+								top: 'calc(50% - 50px)',
+								position: 'absolute',
+								transform: 'translate(0%, -50%)',
+								fontSize: '15px',
+								textAlign: 'center',
+								width: '80px',
+							}}
+						>
+							{posName(
+								player.cardinal.world_pos[0] - 1,
+								player.cardinal.world_pos[1],
+							)}
+						</div>
 
 						<div
 							style={{
@@ -156,6 +172,22 @@ export default defineComponent({
 							onClick={() => worldPosChange('right')}
 						>
 							→
+						</div>
+						<div
+							style={{
+								right: '10px',
+								top: 'calc(50% - 50px)',
+								position: 'absolute',
+								transform: 'translate(0%, -50%)',
+								fontSize: '15px',
+								textAlign: 'center',
+								width: '80px',
+							}}
+						>
+							{posName(
+								player.cardinal.world_pos[0] + 1,
+								player.cardinal.world_pos[1],
+							)}
 						</div>
 
 						<div
@@ -172,6 +204,23 @@ export default defineComponent({
 						>
 							↑
 						</div>
+						<div
+							style={{
+								right: 'calc(50% - 80px)',
+								top: '80px',
+								position: 'absolute',
+								transform: 'translate(-50%, 0%)',
+								fontSize: '15px',
+								textAlign: 'center',
+								height: '80px',
+								width: '80px',
+							}}
+						>
+							{posName(
+								player.cardinal.world_pos[0],
+								player.cardinal.world_pos[1] + 1,
+							)}
+						</div>
 
 						<div
 							style={{
@@ -186,6 +235,22 @@ export default defineComponent({
 							onClick={() => worldPosChange('down')}
 						>
 							↓
+						</div>
+						<div
+							style={{
+								right: 'calc(50% - 80px)',
+								bottom: '90px',
+								position: 'absolute',
+								transform: 'translate(-50%, 0%)',
+								fontSize: '15px',
+								textAlign: 'center',
+								width: '80px',
+							}}
+						>
+							{posName(
+								player.cardinal.world_pos[0],
+								player.cardinal.world_pos[1] - 1,
+							)}
 						</div>
 					</div>
 				</div>

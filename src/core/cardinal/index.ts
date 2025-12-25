@@ -90,3 +90,7 @@ export function beaconsActivated(type: number, pos: [number, number]): boolean {
 	if(type == 0) return player.cardinal.beacons.respawn.includes(pos);
 	return player.cardinal.beacons.awaken.includes(pos);
 }
+export function posName(x: number, y: number) {
+	if (x == 0 && y == 0) return 'Spawnpoint';
+	if (x == 1 && y == 0) return 'Settings';
+}
