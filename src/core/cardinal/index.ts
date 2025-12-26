@@ -19,42 +19,42 @@ export const Cardinal = {
 		health: {
 			value(): number {
 				let base = 100;
-				base += cardinality * 100;
+				base += player.cardinal.cardinality * 100;
 				return base;
 			},
 		},
 		attack: {
 			value(): number {
 				let base = 10;
-				base += cardinality * 10;
+				base += player.cardinal.cardinality * 10;
 				return base;
 			},
 		},
 		defeat: {
 			value(): number {
 				let base = 10;
-				base += cardinality * 10;
+				base += player.cardinal.cardinality * 10;
 				return base;
 			},
 		},
 		speed: {
 			value(): number {
 				let base = 5;
-				base += cardinality * 5;
+				base += player.cardinal.cardinality * 5;
 				return base;
 			},
 		},
 		miss: {
 			value(): number {
 				let base = 5;
-				base += cardinality * 5;
+				base += player.cardinal.cardinality * 5;
 				return base;
 			},
 		},
 		accuracy: {
 			value(): number {
 				let base = 5;
-				base += cardinality * 5;
+				base += player.cardinal.cardinality * 5;
 				return base;
 			},
 		},
@@ -87,12 +87,10 @@ export function worldPosChange(direction: 'up' | 'down' | 'right' | 'left') {
 	}
 }
 export function beaconsActivated(type: number, pos: [number, number]): boolean {
-	if (type == 0)
-	{
-		for(let i in player.cardinal.beacons.respawn)
-		{
+	if (type == 0) {
+		for (let i in player.cardinal.beacons.respawn) {
 			let pos1 = player.cardinal.beacons.respawn[i];
-			if(pos1[0] == pos[0] && pos1[1] == pos[1]) return true;
+			if (pos1[0] == pos[0] && pos1[1] == pos[1]) return true;
 		}
 		return false;
 	}
