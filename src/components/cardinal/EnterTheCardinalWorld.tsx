@@ -7,7 +7,7 @@ import './cardinal.css';
 import { formatTime } from '@/utils/format';
 
 function clickon() {
-	if (player.withinCardinal) player.closedWorldTitle = true
+	if (player.withinCardinal) player.closedWorldTitle = true;
 }
 export default defineComponent({
 	name: 'EnterTheCardinalWorld',
@@ -696,56 +696,58 @@ export default defineComponent({
 											></div>
 										</div>
 									)}
-								{player.thedoorofcardinalcrisis !== 999 && diff.value > 666666 && (!player.closedWorldTitle) &&(
-									<div
-										style={{
-											position: 'absolute',
-											left: '50%',
-											top: '50%',
-											width: '300%',
-											height: '300%',
-											fontSize: '64px',
-											background: 'white',
-											zIndex: 10000,
-											color: 'black',
-											transform: 'translate(-50%, -50%)',
-										}}
-									>
+								{player.thedoorofcardinalcrisis !== 999 &&
+									diff.value > 666666 &&
+									!player.closedWorldTitle && (
 										<div
 											style={{
 												position: 'absolute',
 												left: '50%',
 												top: '50%',
+												width: '300%',
+												height: '300%',
+												fontSize: '64px',
+												background: 'white',
+												zIndex: 10000,
+												color: 'black',
 												transform: 'translate(-50%, -50%)',
 											}}
-											class="enteredText"
 										>
-											基数世界
+											<div
+												style={{
+													position: 'absolute',
+													left: '50%',
+													top: '50%',
+													transform: 'translate(-50%, -50%)',
+												}}
+												class="enteredText"
+											>
+												基数世界
+											</div>
+											<div
+												style={{
+													position: 'absolute',
+													left: '50%',
+													top: 'calc(50% + 54px)',
+													transform: 'translate(-50%, -50%) scale(0.5)',
+												}}
+												class="enteredText"
+											>
+												Cardinal World
+											</div>
+											<div
+												style={{
+													position: 'absolute',
+													left: '50%',
+													top: 'calc(50% + 90px)',
+													transform: 'translate(-50%, -50%) scale(0.5)',
+												}}
+												class="enteredText"
+											>
+												Tap to Continue
+											</div>
 										</div>
-										<div
-											style={{
-												position: 'absolute',
-												left: '50%',
-												top: 'calc(50% + 54px)',
-												transform: 'translate(-50%, -50%) scale(0.5)',
-											}}
-											class="enteredText"
-										>
-											Cardinal World
-										</div>
-										<div
-											style={{
-												position: 'absolute',
-												left: '50%',
-												top: 'calc(50% + 90px)',
-												transform: 'translate(-50%, -50%) scale(0.5)',
-											}}
-											class="enteredText"
-										>
-											Tap to Continue
-										</div>
-									</div>
-								)}
+									)}
 								{player.thedoorofcardinalcrisis === 999 &&
 									player.thedoorofcardinaltime < 666000 && (
 										<div

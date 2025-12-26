@@ -6,7 +6,7 @@ export const Cardinal = {
 		return {
 			stability: 100,
 			cardinality: 0,
-			
+
 			world_pos: [0, 0] as [number, number],
 			openedmap: false,
 			beacons: {
@@ -21,42 +21,42 @@ export const Cardinal = {
 				let base = 100;
 				base += cardinality * 100;
 				return base;
-			}
+			},
 		},
 		attack: {
 			value(): number {
 				let base = 10;
 				base += cardinality * 10;
 				return base;
-			}
+			},
 		},
 		defeat: {
 			value(): number {
 				let base = 10;
 				base += cardinality * 10;
 				return base;
-			}
+			},
 		},
 		speed: {
 			value(): number {
 				let base = 5;
 				base += cardinality * 5;
 				return base;
-			}
+			},
 		},
 		miss: {
 			value(): number {
 				let base = 5;
 				base += cardinality * 5;
 				return base;
-			}
+			},
 		},
 		accuracy: {
 			value(): number {
 				let base = 5;
 				base += cardinality * 5;
 				return base;
-			}
+			},
 		},
 	},
 };
@@ -87,7 +87,7 @@ export function worldPosChange(direction: 'up' | 'down' | 'right' | 'left') {
 	}
 }
 export function beaconsActivated(type: number, pos: [number, number]): boolean {
-	if(type == 0) return player.cardinal.beacons.respawn.includes(pos);
+	if (type == 0) return player.cardinal.beacons.respawn.includes(pos);
 	return player.cardinal.beacons.awaken.includes(pos);
 }
 export function posName(x: number, y: number) {

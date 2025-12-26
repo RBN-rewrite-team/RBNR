@@ -25,52 +25,56 @@ export default defineComponent({
 			<>
 				<Notifies />
 				<P />
-				{(!player.withinCardinal) && <><Side />
-				<div class="content">
-					{player.options.ui.newsbar ? (
-						<div class="news" id="newsbar">
-							<div class="background">
-								<Newsticker />
+				{!player.withinCardinal && (
+					<>
+						<Side />
+						<div class="content">
+							{player.options.ui.newsbar ? (
+								<div class="news" id="newsbar">
+									<div class="background">
+										<Newsticker />
+									</div>
+								</div>
+							) : (
+								''
+							)}
+							<Resources />
+							<div class="main-content" id="main">
+								<div
+									class="background"
+									style={{
+										marginLeft: '0px',
+										marginTop: '0px',
+										paddingLeft: '-5px',
+									}}
+								>
+									{player.upgrades[13] && player.singularity.stage < 10 ? (
+										<AdditionResetButton />
+									) : (
+										''
+									)}
+									{player.upgrades[26] && player.singularity.stage < 9 ? (
+										<MultipResetButton />
+									) : (
+										''
+									)}
+									{player.singularity.stage < 4 &&
+									player.stat.highestMulpower.gte(DC.D_2P1024) ? (
+										<ExpResetButton />
+									) : (
+										''
+									)}
+									{player.upgrades['616S'] ? <NonRecursionResetButton /> : ''}
+									<Tabs />
+								</div>
 							</div>
 						</div>
-					) : (
-						''
-					)}
-					<Resources />
-					<div class="main-content" id="main">
-						<div
-							class="background"
-							style={{
-								marginLeft: '0px',
-								marginTop: '0px',
-								paddingLeft: '-5px',
-							}}
-						>
-							{player.upgrades[13] && player.singularity.stage < 10 ? (
-								<AdditionResetButton />
-							) : (
-								''
-							)}
-							{player.upgrades[26] && player.singularity.stage < 9 ? (
-								<MultipResetButton />
-							) : (
-								''
-							)}
-							{player.singularity.stage < 4 &&
-							player.stat.highestMulpower.gte(DC.D_2P1024) ? (
-								<ExpResetButton />
-							) : (
-								''
-							)}
-							{player.upgrades['616S'] ? <NonRecursionResetButton /> : ''}
-							<Tabs />
-						</div>
-					</div>
-				</div>
-				<BlackHole />
-				<RetributionAnimation /></>}
+						<BlackHole />
+						<RetributionAnimation />
+					</>
+				)}
 				<Chapter />
-				<PlotView /> 
+				<PlotView />
 				{!player.closedWorldTitle && <EnterTheCardinalWorld />}
 				{player.withinCardinal && <CardinalWorld />}
 				{player.meetcrisisbefore && <Failed />}
