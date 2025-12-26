@@ -87,10 +87,26 @@ export function worldPosChange(direction: 'up' | 'down' | 'right' | 'left') {
 	}
 }
 export function beaconsActivated(type: number, pos: [number, number]): boolean {
-	if (type == 0) return player.cardinal.beacons.respawn.includes(pos);
-	return player.cardinal.beacons.awaken.includes(pos);
+	if (type == 0)
+	{
+		for(let i in player.cardinal.beacons.respawn)
+		{
+			let pos1 = player.cardinal.beacons.respawn[i];
+			if(pos1[0] == pos[0] && pos1[1] == pos[1]) return true;
+		}
+		return false;
+	}
+	return player.cardinal.beacons.respawn.includes([pos[0], pos[1]]);
+	return player.cardinal.beacons.awaken.includes([pos[0], pos[1]]);
 }
 export function posName(x: number, y: number) {
 	if (x == 0 && y == 0) return 'Spawnpoint';
 	if (x == 1 && y == 0) return 'Settings';
+	if (x == 0 && y == 1) return 'Respawn - Origin';
+}
+export function posColor(x: number, y: number) {
+	if (x == 0 && y == 0) return 'green';
+	if (x == 1 && y == 0) return 'grey';
+	if (x == 0 && y == 1) return 'gold';
+	return '';
 }

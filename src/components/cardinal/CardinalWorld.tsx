@@ -2,10 +2,45 @@ import { defineComponent } from 'vue';
 
 import './cardinal.css';
 import { player } from '@/core/global';
-import { Cardinal, posis, posName, worldPosChange, beaconsActivated } from '@/core/cardinal';
+import { Cardinal, posis, posName, posColor, worldPosChange, beaconsActivated } from '@/core/cardinal';
 import { useI18n } from 'vue-i18n';
 import { AWAKEN_BEACONS, RESPAWN_BEACONS } from '@/core/cardinal/beacons';
 import Settings from './tabs/Settings';
+
+function mapDisplay() {
+	let pos = player.cardinal.world_pos;
+	let display = <></>;
+	let row = [<></>, <></>, <></>, <></>, <></>, <></>, <></>, <></>, <></>];
+	for(let i = pos[0] - 4, cnti = 0;i <= pos[0] + 4;i++, cnti++)
+	{
+		let element = [<></>, <></>, <></>, <></>, <></>, <></>, <></>, <></>, <></>];
+		for(let j = pos[1] - 4, cntj = 0;j <= pos[1] + 4;j++, cntj++)
+		{
+			element[j - (pos[0] - 4)] = <>
+				<td><div style={{
+					position: 'absolute',
+					width: '40px',
+					height: '40px',
+					top: (250 * (player.cardinal.openedmap ? 1 : 0.2) + (j - pos[1]) * 50 * (player.cardinal.openedmap ? 1 : 0.2)) + 'px',
+					left: (250 * (player.cardinal.openedmap ? 1 : 0.2) + (i - pos[0]) * 50 * (player.cardinal.openedmap ? 1 : 0.2)) + 'px',
+					transform: 'translate(-50%, -50%) scale(' + (player.cardinal.openedmap ? 1 : 0.2) + ')',
+					opacity: 1 - Math.max(Math.abs(cnti - 4), Math.abs(cntj - 4)) / 5,
+					'background-color': posColor(i, j),
+					'font-size': '9px',
+				}}>
+					{beaconsActivated(0, [i, j]) ? posName(i, j) : ''}
+				</div></td>
+			</>;
+		}
+		row[i - (pos[0] - 4)] = <><tr>
+			{element.map((v) => v)}
+		</tr></>
+	}
+	display = <><table><tbody>
+		{row.map((v) => v)}
+	</tbody></table></>
+	return display;
+}
 
 const buttonstyle = {
 	position: 'absolute',
@@ -36,7 +71,22 @@ export default defineComponent({
 						fontSize: '28px',
 					}}
 				>
-					<button>Map</button>
+					<div style={{
+						position: 'absolute',
+						top: player.cardinal.openedmap ? '250px' : '25px',
+						left: player.cardinal.openedmap ? '250px' : '25px',
+						width: player.cardinal.openedmap ? '500px' : '100px',
+						height: player.cardinal.openedmap ? '500px' : '100px',
+						border: '1px solid grey',
+						'background-color': 'black',
+						zIndex: 15,
+					}} onClick={() => {player.cardinal.openedmap = !player.cardinal.openedmap}}>
+						<div style={{
+							position: 'relative',
+							width: '100%',
+							height: '100%',
+						}}>{mapDisplay()}</div>
+					</div>
 					{player.cardinal.world_pos.join(',')}
 
 					{AWAKEN_BEACONS.map((v) => {
@@ -59,7 +109,7 @@ export default defineComponent({
 					})}
 					{RESPAWN_BEACONS.map((v) => {
 						if (posis(v.x, v.y) && v.showed())
-							return !beaconsActivated(0, v.x, v.y) ? (
+							return !beaconsActivated(0, [v.x, v.y]) ? (
 								<>
 									<div
 										style={{
@@ -72,7 +122,7 @@ export default defineComponent({
 										class={'respawn-beacon-off'}
 										onClick={() => {
 											if (v.unlocked()) {
-												player.cardinal.beacons.respawn.push(v.x, v.y);
+												player.cardinal.beacons.respawn.push([v.x, v.y]);
 											}
 										}}
 									>
