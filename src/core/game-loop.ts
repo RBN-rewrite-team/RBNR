@@ -205,9 +205,8 @@ function getCurTitle() {
 		base = 'Diff: ' + diff;
 	}
 	if (player.withinCardinal) {
-		base += " - Cardinal World!"
-	}
-	else if (player.singularity.t < 630) {
+		base += ' - Cardinal World!';
+	} else if (player.singularity.t < 630) {
 		base += ' - ' + format(player.number) + getMessage('res.number');
 	} else if (player.singularity.t < 666.6666666) {
 		base += ' - >' + numberGrow(player.singularity.t) + getMessage('res.number');
@@ -307,8 +306,6 @@ export function simulate(diff: number) {
 	}
 
 	if (!player.withinCardinal) {
-
-
 		const last = player.upgrades[61] ? DC.D_0 : feature.Ordinal.ordinalPerSecond();
 		const last2 = feature.Ordinal.speedDeri();
 		if (player.options.openOreEffect) diff *= 1 + player.minigame.ore_gets * 0.0025;
@@ -317,7 +314,9 @@ export function simulate(diff: number) {
 		let nonrecuDiffForSecInThisReset = new Decimal(pre_cardinal_diff / 1000);
 		if (player.upgrades[77])
 			nonrecuDiffForSecInThisReset = nonrecuDiffForSecInThisReset.mul(upgrades[77].effect());
-		player.nonrecu.secInThisReset = player.nonrecu.secInThisReset.add(nonrecuDiffForSecInThisReset);
+		player.nonrecu.secInThisReset = player.nonrecu.secInThisReset.add(
+			nonrecuDiffForSecInThisReset,
+		);
 		qolLoop();
 		CHALLENGE.challengeLoop();
 		if (player.singularity.stage < 11) {
@@ -361,8 +360,11 @@ export function simulate(diff: number) {
 					dPfTime *= predictableRandom(Math.floor(Date.now() / 40)) > 0.5 ? -1 : 1;
 				}
 				let dPfTimeDecimal = new Decimal(dPfTime);
-				if (player.upgrades[45]) dPfTimeDecimal = dPfTimeDecimal.mul(NUMTHEORY.tau2().pow(4));
-				player.multiplication.pfTime = player.multiplication.pfTime.add(dPfTimeDecimal).max(0);
+				if (player.upgrades[45])
+					dPfTimeDecimal = dPfTimeDecimal.mul(NUMTHEORY.tau2().pow(4));
+				player.multiplication.pfTime = player.multiplication.pfTime
+					.add(dPfTimeDecimal)
+					.max(0);
 				player.numbertheory.euler.x = player.numbertheory.euler.x
 					.add(NUMTHEORY.varXgain().mul(diff).mul(1e-3))
 					.max(1);
@@ -412,7 +414,8 @@ export function simulate(diff: number) {
 				player.numbertheory.GH.t32 = player.numbertheory.GH.t32.add(diff / 1000);
 			}
 			const base = feature.Ordinal.base();
-			if (player.ordinal.number.gte(base.tetrate(base.toNumber()))) player.help.epsilon = true;
+			if (player.ordinal.number.gte(base.tetrate(base.toNumber())))
+				player.help.epsilon = true;
 			if ([0, 2, 4, 5, 9, 10, 12, 13].includes(player.currentTab)) {
 				player.currentTab = 14;
 			}
@@ -468,16 +471,26 @@ export function simulate(diff: number) {
 		}
 		if (player.singularity.enabled || Logarithm.logarithm.upgrades_in_dilated.includes('39')) {
 			if (player.singularity.enabled) player.singularity.t += diff / 1000;
-			if (player.singularity.stage < 1 && player.singularity.t > 205) player.singularity.t = 205;
-			if (player.singularity.stage < 2 && player.singularity.t > 250) player.singularity.t = 250;
-			if (player.singularity.stage < 3 && player.singularity.t > 300) player.singularity.t = 300;
-			if (player.singularity.stage < 4 && player.singularity.t > 350) player.singularity.t = 350;
-			if (player.singularity.stage < 6 && player.singularity.t > 400) player.singularity.t = 400;
-			if (player.singularity.stage < 7 && player.singularity.t > 430) player.singularity.t = 430;
-			if (player.singularity.stage < 8 && player.singularity.t > 450) player.singularity.t = 450;
-			if (player.singularity.stage < 9 && player.singularity.t > 470) player.singularity.t = 470;
-			if (player.singularity.stage < 10 && player.singularity.t > 490) player.singularity.t = 490;
-			if (player.singularity.stage < 11 && player.singularity.t > 500) player.singularity.t = 500;
+			if (player.singularity.stage < 1 && player.singularity.t > 205)
+				player.singularity.t = 205;
+			if (player.singularity.stage < 2 && player.singularity.t > 250)
+				player.singularity.t = 250;
+			if (player.singularity.stage < 3 && player.singularity.t > 300)
+				player.singularity.t = 300;
+			if (player.singularity.stage < 4 && player.singularity.t > 350)
+				player.singularity.t = 350;
+			if (player.singularity.stage < 6 && player.singularity.t > 400)
+				player.singularity.t = 400;
+			if (player.singularity.stage < 7 && player.singularity.t > 430)
+				player.singularity.t = 430;
+			if (player.singularity.stage < 8 && player.singularity.t > 450)
+				player.singularity.t = 450;
+			if (player.singularity.stage < 9 && player.singularity.t > 470)
+				player.singularity.t = 470;
+			if (player.singularity.stage < 10 && player.singularity.t > 490)
+				player.singularity.t = 490;
+			if (player.singularity.stage < 11 && player.singularity.t > 500)
+				player.singularity.t = 500;
 			if (player.singularity.t >= 695) player.firstResetBit |= 0b1000;
 			player.singularity.t = Math.min(player.singularity.t, 710);
 		}

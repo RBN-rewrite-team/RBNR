@@ -36,10 +36,9 @@ export default defineComponent({
 							'font-size': '19px',
 							color: 'rgb(0, 0, 0)',
 							transform: 'translate(-50%, -50%)',
-							textAlign: "center",
+							textAlign: 'center',
 							//@ts-ignore
 						}}
-						
 					>
 						{counter.value >= 0 && (
 							<>

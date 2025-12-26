@@ -28,7 +28,10 @@ export default defineComponent({
 						height: '1000px',
 						top: '50%',
 						left: '50%',
-						transform: 'translate(-50%, -50%) scale(' + ((Math.min(window.innerWidth, window.innerHeight) / 1000)) + ')',
+						transform:
+							'translate(-50%, -50%) scale(' +
+							Math.min(window.innerWidth, window.innerHeight) / 1000 +
+							')',
 						'background-color': 'black',
 						fontSize: '28px',
 					}}
@@ -68,13 +71,13 @@ export default defineComponent({
 										}}
 										class={'respawn-beacon-off'}
 										onClick={() => {
-											if(v.unlocked())
-											{
+											if (v.unlocked()) {
 												player.cardinal.beacons.respawn.push(v.x, v.y);
 											}
 										}}
 									>
-										重生信标<br />
+										重生信标
+										<br />
 										点击激活
 									</div>
 								</>
