@@ -27,9 +27,6 @@ import { MultiTabDetector } from './tab-detector.ts';
 import { addNotify } from '@/components/notify/index.ts';
 import { unlockedPlots } from '@/core/plot.ts';
 import { difference } from 'lodash-es';
-
-import plugintest from './i18n-plugin.ts';
-
 let detector;
 export function init() {
 	try {
@@ -104,7 +101,7 @@ export function init() {
 		setTimeout(function () {
 			const app = createApp(App);
 
-			app.use(i18n).use(VueLatex).directive('hold', vHold).use(plugintest).mount('#app');
+			app.use(i18n).use(VueLatex).directive('hold', vHold).mount('#app');
 		}, 500);
 
 		document.addEventListener('DOMContentLoaded', function () {
