@@ -1,0 +1,11 @@
+.deduction_container {
+  background-color: var(--background-color);
+	height: 250px;
+	border: 2px solid;
+	border-image: linear-gradient(135deg, #1a6c5e, #1fb286, #ef2dfd) 1;
+	position: relative;
+	display: block;
+	margin: auto;
+	z-index: 1;
+	width: 50%;
+}
