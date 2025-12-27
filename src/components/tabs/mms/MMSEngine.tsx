@@ -15,6 +15,18 @@ function milestoneDisplay(mil: RankMilestone | undefined | null, currency?: stri
 	eff = mil[3];
 	return (
 		<>
+			{
+				mil[2].map((x) => 
+					<><button style={{
+						border: '2px solid ' + MMS.rank.rankMilTags.filter((item) => {return item.id === x})[0].color,
+						backgroundColor: 'var(--background-color)',
+						color: MMS.rank.rankMilTags.filter((item) => {return item.id === x})[0].color,
+						width: '60px',
+						height: '30px',
+					}}>{x}
+					</button></>
+				)
+			}
 			<span
 				innerHTML={getMessage('mms.rank.mil', {
 					goal: `${currency} ${formatWhole(mil[0])}`,
@@ -48,7 +60,7 @@ export default defineComponent({
 	name: 'MMSEngine',
 	setup() {
 		const $t = useI18n().t;
-		const tag = ref({unlocked: true, deduce: true, energy: true, tier: true});
+		const tag = ref({});
 		return () => (
 			<>
 				<div class="main">
