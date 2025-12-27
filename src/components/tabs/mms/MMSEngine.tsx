@@ -170,6 +170,32 @@ export default defineComponent({
 						) : (
 							<></>
 						)}
+
+						{player.hydra.mms.tri.gte(10) || player.hydra.mms.tetr.gte(1) ? (
+							<>
+								<div class="rank_div">
+									<b class="rank_text">{MMS.rank.getRankTierName(3)}</b>&nbsp;
+									{formatWhole(player.hydra.mms.tetr)}
+									<div class={'rank_button'} onClick={() => MMS.rank.levelUp(3)}>
+										{$t('mms.rank.reset.3')} <br />
+										{getRankDisplay(
+											3,
+											player.hydra.mms.tri,
+											MMS.rank.getRankTierName(3),
+										)}
+										<br />
+										{$t('mms.rank.requirement', {
+											up: MMS.rank.getRankTierName(3),
+										})}
+										<br />
+										{MMS.rank.getRankTierName(2)}{' '}
+										{formatWhole(MMS.rank.levelRequirement(3))}
+									</div>
+								</div>
+							</>
+						) : (
+							<></>
+						)}
 					</div>
 					<br />
 					{MMS.rank.rankMilTags.map((x) => (
