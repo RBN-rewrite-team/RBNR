@@ -1,4 +1,4 @@
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, type Ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import MMSDeduction from './MMSDeduction';
 import { MMS, type RankMilestone } from '@/core/post-nonrec/mms';
@@ -15,18 +15,27 @@ function milestoneDisplay(mil: RankMilestone | undefined | null, currency?: stri
 	eff = mil[3];
 	return (
 		<>
-			{
-				mil[2].map((x) => 
-					<><button style={{
-						border: '2px solid ' + MMS.rank.rankMilTags.filter((item) => {return item.id === x})[0].color,
-						backgroundColor: 'var(--background-color)',
-						color: MMS.rank.rankMilTags.filter((item) => {return item.id === x})[0].color,
-						width: '60px',
-						height: '30px',
-					}}>{x}
-					</button></>
-				)
-			}
+			{mil[2].map((x) => (
+				<>
+					<button
+						style={{
+							border:
+								'2px solid ' +
+								MMS.rank.rankMilTags.filter((item) => {
+									return item.id === x;
+								})[0].color,
+							backgroundColor: 'var(--background-color)',
+							color: MMS.rank.rankMilTags.filter((item) => {
+								return item.id === x;
+							})[0].color,
+							width: '60px',
+							height: '30px',
+						}}
+					>
+						{x}
+					</button>
+				</>
+			))}
 			<span
 				innerHTML={getMessage('mms.rank.mil', {
 					goal: `${currency} ${formatWhole(mil[0])}`,
@@ -43,12 +52,10 @@ function milestoneDisplay(mil: RankMilestone | undefined | null, currency?: stri
 		</>
 	);
 }
-function tagAccord(tagOpened: string[], pending: string[])
-{
-	if(pending.length === 0) return true;
-	for(let i = 0;i < pending.length;i++)
-	{
-		if(tagOpened[pending[i]]) return true;
+function tagAccord(tagOpened: { [key: string]: boolean }, pending: string[]) {
+	if (pending.length === 0) return true;
+	for (let i = 0; i < pending.length; i++) {
+		if (tagOpened[pending[i]]) return true;
 	}
 	return false;
 }
@@ -60,7 +67,7 @@ export default defineComponent({
 	name: 'MMSEngine',
 	setup() {
 		const $t = useI18n().t;
-		const tag = ref({});
+		const tag = ref({}) as Ref<{ [key: string]: boolean }>;
 		return () => (
 			<>
 				<div class="main">
@@ -165,21 +172,30 @@ export default defineComponent({
 						)}
 					</div>
 					<br />
-					{MMS.rank.rankMilTags.map((x) => <><button style={{
-						border: '2px solid ' + x.color,
-						backgroundColor: 'var(--background-color)',
-						color: x.color,
-						width: '60px',
-						height: '30px',
-						opacity: tag[x.id] ? 1 : 0.5,
-					}} onClick={() => {tag[x.id] = !tag[x.id]}}>
-					{x.id}</button>
-					</>)}
+					{MMS.rank.rankMilTags.map((x) => (
+						<>
+							<button
+								style={{
+									border: '2px solid ' + x.color,
+									backgroundColor: 'var(--background-color)',
+									color: x.color,
+									width: '60px',
+									height: '30px',
+									opacity: tag.value[x.id] ? 1 : 0.5,
+								}}
+								onClick={() => {
+									tag.value[x.id] = !tag.value[x.id];
+								}}
+							>
+								{x.id}
+							</button>
+						</>
+					))}
 					<br />
 					{MMS.rank.rankMilestones[0].map(
 						(x) =>
 							x[0].lte(player.hydra.mms.rank) &&
-							tagAccord(tag, x[2]) &&
+							tagAccord(tag.value, x[2]) &&
 							milestoneDisplay(x, MMS.rank.getRankTierName(0)),
 					)}
 					{player.hydra.mms.tier.gte(1) ? (
@@ -192,7 +208,7 @@ export default defineComponent({
 					{MMS.rank.rankMilestones[1].map(
 						(x) =>
 							x[0].lte(player.hydra.mms.tier) &&
-							tagAccord(tag, x[2]) &&
+							tagAccord(tag.value, x[2]) &&
 							milestoneDisplay(x, MMS.rank.getRankTierName(1)),
 					)}
 					{player.hydra.mms.tri.gte(1) ? (
@@ -205,7 +221,7 @@ export default defineComponent({
 					{MMS.rank.rankMilestones[2].map(
 						(x) =>
 							x[0].lte(player.hydra.mms.tri) &&
-							tagAccord(tag, x[2]) &&
+							tagAccord(tag.value, x[2]) &&
 							milestoneDisplay(x, MMS.rank.getRankTierName(2)),
 					)}
 
