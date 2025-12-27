@@ -7,6 +7,7 @@ import './core/automator/evaluator.ts';
 import { init } from './utils/init.ts';
 import './core/save/index.ts';
 import './core/hydra/hydra.ts';
+import { Logarithm } from './core/exponention/logarithm';
 
 declare global {
 	interface BigInt {
