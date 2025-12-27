@@ -134,6 +134,55 @@ const formatXEY = (
 			return `H`.repeat(repeat) + formatXEY(num2, precision, options);
 		}
 		return `H${formatWholeXEY(value.getOperator(3) + 2)}`;
+	} else if (value.lt('10{999999}10')) {
+		const pol = myPolarize(value.arr01);
+		return `${(pol.repeation + Math.log10(pol.bottom)).toFixed(precision)}J${formatWholeXEY(pol.arrows)}`;
+	} else if (value.lt('10{!}10{!}10{!}10{10}10')) {
+		const repeat = value.getOperator(1 / 0);
+		if (repeat > 0) {
+			const num2 = value.clone();
+			num2.setOperator(0, 1 / 0);
+			num2.normalize();
+			return `J`.repeat(repeat) + formatXEY(num2, precision, options);
+		}
+		return `J${formatWholeXEY(value.array[value.array.length - 1].arrow)}`;
+	} else if (value.lt('(10{!})^999998 10{10}10')) {
+		const pol = myPolarize(value.arr01, true, true);
+		return `${pol.bottom.toFixed(precision)}K${formatWholeXEY(pol.repeation)}`;
+		return `${JSON.stringify(pol)}`;
+	} else if (value.lt('10{1,2}10{1,2}10{1,2}10{1,2}10')) {
+		const repeat = value.getOperator(1, 2);
+		if (repeat > 0) {
+			const num2 = value.clone();
+			num2.setOperator(0, 1, 2);
+			num2.normalize();
+			return `K`.repeat(repeat) + formatXEY(num2, precision, options);
+		}
+		return `K${formatWholeXEY(value.getOperator(1 / 0) + 2)}`;
+	} else if (value.lt('10{2,2}1000000')) {
+		const pol = myPolarize(value.arr01);
+		return `${pol.bottom.toFixed(precision)}L${formatWholeXEY(pol.repeation)}`;
+	} else if (value.lt('10{2,2}10{2,2}10{2,2}10{2,2}10')) {
+		const repeat = value.getOperator(2, 2);
+		if (repeat > 0) {
+			const num2 = value.clone();
+			num2.setOperator(0, 2, 2);
+			num2.normalize();
+			return `L`.repeat(repeat) + formatXEY(num2, precision, options);
+		}
+		return `L${formatWholeXEY(value.getOperator(1, 2) + 2)}`;
+	} else if (value.lt('10{999999,2}10')) {
+		const pol = myPolarize(value.arr01);
+		return `${(pol.repeation + Math.log10(pol.bottom)).toFixed(precision)}M${formatWholeXEY(pol.arrows)}`;
+	} else if (value.lt('10{!,2}10{!,2}10{!,2}10{10,2}10')) {
+		const repeat = value.getOperator(1 / 0, 2);
+		if (repeat > 0) {
+			const num2 = value.clone();
+			num2.setOperator(0, 1 / 0, 2);
+			num2.normalize();
+			return `M`.repeat(repeat) + formatXEY(num2, precision, options);
+		}
+		return `M${formatWholeXEY(value.array[value.array.length - 1].arrow)}`;
 	} else {
 		return value.toString();
 	}
