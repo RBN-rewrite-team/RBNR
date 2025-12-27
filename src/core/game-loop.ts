@@ -404,9 +404,9 @@ export function simulate(diff: number) {
 		}
 
 		if (player.firstResetBit & 0b1000) {
-			player.ordinal.number = player.ordinal.number.add(
-				feature.resourceGain.ordinalNumber().value.mul(diff / 1000),
-			);
+			player.ordinal.number = player.ordinal.number
+				.add(feature.resourceGain.ordinalNumber().value.mul(diff / 1000))
+				.clampMin(0);
 			if (player.buyables['54R'].gte(1)) {
 				player.numbertheory.GH.t31 = player.numbertheory.GH.t31.add(diff / 1000);
 			}
