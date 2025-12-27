@@ -14,7 +14,7 @@ function deduceButtonStyle() {
 			player.hydra.mms.deduced
 				.add(1)
 				.root(MMS.staticExp())
-				.sub(player.hydra.mms.deduced.root(MMS.staticExp())),
+				.sub(player.hydra.mms.deduced.root(MMS.staticExp()))
 		)
 		.mul(100)
 		.toNumber();

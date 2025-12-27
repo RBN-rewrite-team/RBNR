@@ -104,6 +104,18 @@ export default defineComponent({
 								{MMS.rank.getRankTierName(0)}{' '}
 								{formatWhole(MMS.rank.levelRequirement(1))}
 							</div>
+							{MMS.rank.rankEnergies[1].unlocked() ? (
+								<>
+									<span style="font-size: 14px">
+										<b>Tier Energy</b>&nbsp;
+										{formatWhole(player.hydra.mms.tierEnergy)}
+										<br />
+										{MMS.rank.rankEnergies[1].effectDescription()}
+									</span>
+								</>
+							) : (
+								<></>
+							)}
 						</div>
 						{player.hydra.mms.tier.gte(4) || player.hydra.mms.tri.gte(1) ? (
 							<>
