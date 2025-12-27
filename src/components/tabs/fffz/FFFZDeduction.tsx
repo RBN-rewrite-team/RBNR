@@ -12,7 +12,11 @@ export default defineComponent({
 				<div>
 					<div
 						class={{
-						  [styles.deduction_container]: true
+						  [styles.deduction_container]: true,
+						  [styles.fast]: true
+						}}
+						style={{
+						  "--progress": 63.65 + "%"
 						}}
 					>
 					<VueLatex expression="test" macros={FFFZmacros} />
