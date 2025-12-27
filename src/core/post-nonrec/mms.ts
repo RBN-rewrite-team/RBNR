@@ -533,6 +533,7 @@ export const MMS = {
 			return null;
 		},
 		getRankTierName(tier: PowiainaNumSource) {
+			// @ts-expect-error
 			let locale: string = i18n.global.locale.value;
 			if (locale == 'zh-CN') return MMS.rank.getRankTierNameCN(tier);
 			return MMS.rank.getRankTierNameEN(tier);

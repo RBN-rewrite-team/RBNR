@@ -568,9 +568,11 @@ export function viewedPlotLength() {
  * @returns
  */
 export function getPlotContent(id: number) {
+	// @ts-expect-error
 	return plotcontents[i18n.global.locale.value][id - 1];
 }
 export function getPlotContentAll() {
+	// @ts-expect-error
 	return plotcontents[i18n.global.locale.value];
 }
 

@@ -18,6 +18,7 @@ import { NON_REC_BMS } from '../nonrecu/nonrec-bms/index.ts';
 
 export function dayOfWeek(): [number, string] {
 	let weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+	// @ts-expect-error
 	if (i18n.global.locale.value == 'en-US') {
 		weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 	}

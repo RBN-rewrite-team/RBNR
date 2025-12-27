@@ -12,6 +12,7 @@ import type { $t } from '@/utils/types';
 
 export function getUpgradeDescription(upgid: keyof typeof upgrades, $t: $t) {
 	if (upgid == '517') {
+		// @ts-expect-error
 		if (i18n.global.locale.value == 'zh-CN') {
 			return player.upgrades['516']
 				? '访问九头蛇Hydra'

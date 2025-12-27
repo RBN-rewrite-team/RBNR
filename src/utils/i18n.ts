@@ -55,7 +55,7 @@ export const i18n = createI18n({
 
 	fallbackWarn: false,
 	missingWarn: false,
-} as any);
+} as const);
 
 export const messagesLength = (function () {
 	const a = {
@@ -72,10 +72,12 @@ export const messagesLength = (function () {
 })();
 
 export function setI18NLocal(loc: keyof typeof messages) {
+	// @ts-expect-error I must change this value with type error
 	i18n.global.locale.value = loc;
 	localStorage.setItem('rbnr-lang', loc);
 }
 export function getI18NLocal(): string {
+	// @ts-expect-error I must change this value with type error
 	return i18n.global.locale.value;
 }
 window.addEventListener(
@@ -99,6 +101,7 @@ window.addEventListener(
 
 export const getMessage = i18n.global.t as $t;
 export function findRaw(x: string): any {
+	// @ts-expect-error
 	return messages[i18n.global.locale.value][x];
 }
 const array1 = Object.keys(messages['en-US']);

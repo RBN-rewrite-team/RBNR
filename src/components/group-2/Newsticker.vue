@@ -66,6 +66,7 @@ const prepareNextMessage = () => {
 
 	const canShow = (item: NewsMessage) => item.unlocked?.() ?? true; // && !recentTickers.value.includes(item.id);
 
+	// @ts-expect-error
 	const goalnews = i18n.global.locale.value == 'zh-CN' ? news : newsen;
 	if (nextNewsMessageId.value) {
 		const specified = goalnews.find((m) => m.id === nextNewsMessageId.value);
