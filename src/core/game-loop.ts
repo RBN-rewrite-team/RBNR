@@ -31,7 +31,6 @@ import { Garden } from './pt/garden.ts';
 import { getMessage, i18n } from '@/utils/i18n.ts';
 import { numberGrow } from './psd-number-grow.ts';
 import { Oracle } from './pt/oracle/oracle.ts';
-import { Performance } from './performance.tsx';
 import { isDeveloper, isTester } from './save/testing.ts';
 import { MMS } from './post-nonrec/mms.ts';
 import { theDoorOfCardinalLoop } from './post-nonrec/cardinal/the-door-of-cardinal.ts';
@@ -195,9 +194,6 @@ function getCurTitle() {
 		base = getMessage('title.idlen');
 	} else {
 		base = getMessage('title.rewritten');
-	}
-	if (Performance.uiOpened) {
-		base = 'Diff: ' + diff;
 	}
 	if (player.withinCardinal) {
 		base += ' - Cardinal World!';

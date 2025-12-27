@@ -19,6 +19,8 @@ import type { $t } from '@/utils/types';
 import { useI18n } from 'vue-i18n';
 import { vHold } from '@/utils/vHold';
 import Decimal from 'break_eternity.js';
+import GardenGeneratorC from './GardenGenerator';
+import GardenUpgradeC from './GardenUpgrade';
 export function onMousedown(m: MouseEvent) {
 	temp.garden.press = true;
 	temp.garden.press_last = [m.clientX, m.clientY];
@@ -147,163 +149,12 @@ function simulateText(canvasRef: any, $t: $t) {
 		<>
 			{mapping[0].map((g) =>
 				!(g.show?.() ?? true) ? null : (
-					<div
-						v-hold={{
-							handler: {
-								onProgress() {
-									if (
-										isGardenGenerator(player.garden.focusNode) &&
-										player.garden.focusNode.key == g.key &&
-										g.unlocked()
-									)
-										Garden.buyGenerator(
-											g.key as keyof typeof GardenGenUpgs.generators,
-											new Decimal(1),
-										);
-									player.garden.focusNode = g;
-								},
-							},
-						}}
-					>
-						{g.unlocked() ? (
-							<>
-								<GardenNode
-									x={g.pos[0]}
-									y={g.pos[1]}
-									canvasRef={canvasRef}
-									onClick={function () {
-										if (
-											isGardenGenerator(player.garden.focusNode) &&
-											player.garden.focusNode.key == g.key
-										)
-											Garden.buyGenerator(
-												g.key as keyof typeof GardenGenUpgs.generators,
-												new Decimal(1),
-											);
-										player.garden.focusNode = g;
-									}}
-								>
-									<h2 style="position: absolute; left: 50%; bottom: -90px; transform: translate(-50%, -50%)">
-										<span style={{ color: g.currency.elementColor }}>
-											{$t(`garden.gen.${g.key}`)}
-										</span>
-									</h2>
-									<h3 style="position: absolute; top: -60px; left: -60px">
-										x
-										{formatWhole(
-											player.garden.generators[
-												g.key as unknown as keyof typeof GardenGenUpgs.generators
-											],
-										)}
-									</h3>
-									<span style="position: absolute; left: 50%; bottom: -100px; transform: translate(-50%, -50%)">
-										{format(
-											Garden.generatorCost(
-												g.key as keyof typeof GardenGenUpgs.generators,
-											),
-											6,
-										)}{' '}
-										<span style={{ color: g.currency.color }}>
-											{$t(`currency.${g.currency.name}`)}
-										</span>
-									</span>
-								</GardenNode>
-							</>
-						) : (
-							<>
-								<GardenNode
-									x={g.pos[0]}
-									y={g.pos[1]}
-									canvasRef={canvasRef}
-									nodestyle={{ filter: 'brightness(0.75)' }}
-								>
-									<h2 style="position: absolute; left: 50%; bottom: -90px; transform: translate(-50%, -50%)">
-										???
-									</h2>
-								</GardenNode>
-							</>
-						)}
-					</div>
+					<GardenGeneratorC canvasRef={canvasRef} upgrade={g} />
 				),
 			)}
 
 			{mapping[1].map((g) =>
-				!(g.show?.() ?? true) ? null : g.unlocked() ? (
-					<>
-						<GardenNode
-							x={g.pos[0]}
-							y={g.pos[1]}
-							canvasRef={canvasRef}
-							mini={true}
-							onClick={function () {
-								if (
-									isGardenUpgrade(player.garden.focusNode) &&
-									player.garden.focusNode.key == g.key
-								)
-									Garden.buyUpgrade(g.key as keyof typeof GardenGenUpgs.upgrades);
-								player.garden.focusNode = g;
-							}}
-							nodestyle={{
-								filter:
-									'brightness(' +
-									(player.garden.upgrades[g.key] ? 1 : 0.75) +
-									')',
-								'border-color': player.garden.upgrades[g.key]
-									? g.currency.color
-									: 'grey',
-								transform:
-									'scale(' +
-									(Garden.canBoughtUpgrade(
-										g.key as keyof typeof GardenGenUpgs.upgrades,
-									) &&
-									!Garden.boughtUpgrade(
-										g.key as keyof typeof GardenGenUpgs.upgrades,
-									)
-										? '1.15'
-										: '1'),
-							}}
-						>
-							<h3 style="position: absolute; left: 50%; bottom: -60px; transform: translate(-50%, -50%)">
-								<span style={{ color: g.currency.elementColor }}>
-									{$t(`garden.upg.${g.key}`)}
-								</span>
-							</h3>
-							{!Garden.boughtUpgrade(g.key as keyof typeof GardenGenUpgs.upgrades) ? (
-								<>
-									<span style="position: absolute; left: 50%; bottom: -73px; transform: translate(-50%, -50%)">
-										{format(
-											Garden.upgradeCost(
-												g.key as keyof typeof GardenGenUpgs.upgrades,
-											),
-											6,
-										)}{' '}
-										<span style={{ color: g.currency.color }}>
-											{$t(`currency.${g.currency.name}`)}
-										</span>
-									</span>
-								</>
-							) : (
-								<></>
-							)}
-						</GardenNode>
-					</>
-				) : (
-					<>
-						<GardenNode
-							x={g.pos[0]}
-							y={g.pos[1]}
-							canvasRef={canvasRef}
-							mini={true}
-							nodestyle={{
-								filter: 'brightness(0.75)',
-							}}
-						>
-							<h3 style="position: absolute; left: 50%; bottom: -60px; transform: translate(-50%, -50%)">
-								???
-							</h3>
-						</GardenNode>
-					</>
-				),
+				!(g.show?.() ?? true) ? null : <GardenUpgradeC canvasRef={canvasRef} upgrade={g} />,
 			)}
 			{connecting.map((c) =>
 				true ? (

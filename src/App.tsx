@@ -13,7 +13,6 @@ import Chapter from './components/group-2/Chapter.vue';
 import PlotView from './components/tabs/plot/PlotView.vue';
 import { player } from './core/save';
 import { DC } from './core/constants';
-import P from './core/performance.tsx';
 import Notifies from './components/notify/Notifies.tsx';
 import EnterTheCardinalWorld from './components/cardinal/EnterTheCardinalWorld.tsx';
 import Failed from './components/cardinal/Failed.tsx';
@@ -24,7 +23,6 @@ export default defineComponent({
 		return () => (
 			<>
 				<Notifies />
-				<P />
 				{!player.withinCardinal && (
 					<>
 						<Side />
