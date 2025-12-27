@@ -10,6 +10,7 @@ import { getMessage, i18n } from '@/utils/i18n';
 export type RankMilestone = [
 	PowiainaNum,
 	() => string,
+	string[],
 	[() => PowiainaNum, (x: PowiainaNum) => string]?,
 ];
 
