@@ -668,7 +668,6 @@ export function hardReset(excludeKey?: (keyof Player)[]) {
 	const tempplayer = getInitialPlayerData();
 	(Object.keys(tempplayer) as (keyof Player)[]).forEach((key) => {
 		if (!excludeKey?.includes?.(key)) {
-			// @ts-expect-error
 			player[key] = tempplayer[key];
 		}
 	});
