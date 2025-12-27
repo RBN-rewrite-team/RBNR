@@ -58,7 +58,7 @@
         0 0,          
         0 0;          
       
-      animation: stripe-move 2s linear infinite;
+      animation: stripe-move 1s linear infinite;
     }
   }
 }
@@ -72,7 +72,7 @@
   }
   100% {
     background-position: 
-      -50% 0, 
+      -200px 0, 
       0 0;          
   }
 }
