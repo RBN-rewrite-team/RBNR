@@ -240,7 +240,7 @@ export const ORDINAL = {
 		base = base.mul(ORDINAL_BOOSTER.boosterEffect().max(1));
 
 		if (player.upgrades[514]) base = base.pow(1.53);
-		return base;
+		return base.clampMin(0);
 	},
 	speedDeri() {
 		return ordinalSpeedDerivative;
