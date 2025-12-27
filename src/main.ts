@@ -1,7 +1,7 @@
 import './assets/stylesheet/main.scss';
 
 import PowiainaNum from 'powiaina_num.js';
-
+PowiainaNum.throwErrorOnResultNaN = true;
 import './core/anti-cheat.ts';
 import './core/automator/evaluator.ts';
 import { init } from './utils/init.ts';
