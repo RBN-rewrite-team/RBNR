@@ -55,7 +55,7 @@ export const i18n = createI18n({
 
 	fallbackWarn: false,
 	missingWarn: false,
-} as const);
+} as any);
 
 export const messagesLength = (function () {
 	const a = {
