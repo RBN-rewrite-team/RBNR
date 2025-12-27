@@ -21,7 +21,7 @@ function exitView() {
 	}, 250);
 }
 function canExitView(): boolean {
-	if (import.meta.env.DEV || 1 + 1 == 2) return true;
+	if (import.meta.env.DEV) return true;
 	if (player.checkedPlots.includes(temp.plotdisplay)) return true;
 	return temp.plotStack.length == 1;
 }
