@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { FFFZmacros } from '../../../utils/fffz.ts';
+import { FFFZmacros, FFFZMilestones } from '../../../utils/fffz.ts';
 import styles from './styles.scss';
 
 export default defineComponent({
