@@ -3,13 +3,12 @@ import { temp } from '@/core/temp-data';
 import { computed, onMounted, ref } from 'vue';
 import PlotSentence from './PlotSentence.vue';
 import { player } from '@/core/save';
-import { stringToPlot, plotLength } from '@/core/plot';
+import { stringToPlot, plotLength, getPlotContent, getPlotContentAll } from '@/core/plot';
 import { useI18n } from 'vue-i18n';
 const plotview = ref<HTMLDivElement | null>(null);
 const plotcont = ref<HTMLSpanElement | null>(null);
-const $tm = useI18n().tm;
 const plots = computed(() => {
-	return $tm('plotcontent');
+	return getPlotContentAll();
 });
 function exitView() {
 	if (!canExitView()) return;
@@ -24,7 +23,7 @@ function exitView() {
 function canExitView(): boolean {
 	if (import.meta.env.DEV || 1 + 1 == 2) return true;
 	if (player.checkedPlots.includes(temp.plotdisplay)) return true;
-	return temp.plotstep >= plotLength(temp.plotdisplay, $tm);
+	return temp.plotStack.length == 1;
 }
 onMounted(() => {
 	if (plotview.value) {
@@ -53,7 +52,8 @@ function stepPrev() {
 }*/
 function nextStep() {
 	if (Date.now() >= temp.plotcd) {
-		temp.plotstep++;
+		if (temp.plotStack.length == 1) return;
+		temp.plotStack.splice(0, 1);
 		temp.plotcd = Date.now() + (canExitView() ? 0 : 750);
 	}
 }
@@ -78,7 +78,7 @@ const a: number = -115;
 					"
 				>
 					<template v-if="temp.plotdisplay">
-						<template v-for="(plotobj, key) in plots[temp.plotdisplay - 1]">
+						<template v-for="(plotobj, key) in [temp.plotStack[0]]">
 							<PlotSentence
 								v-if="temp.plotstep > key - 1"
 								:name="stringToPlot(plotobj, $t).name"

@@ -40,6 +40,7 @@ export const temp = reactive({
 		tpress_last: [0, 0] as [number, number],
 		focus_pos: [0, 0] as [number, number],
 	}),
+	plotStack: [] as string[],
 });
 export function inPathData(x: bigint, y: bigint) {
 	if (player.minigame.interact !== 5) return false;

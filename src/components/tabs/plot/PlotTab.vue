@@ -1,22 +1,14 @@
 <script setup lang="ts">
 import { temp } from '@/core/temp-data';
-import { plotTitles, unlockedPlots } from '@/core/plot';
+import { enterPlot, unlockedPlots } from '@/core/plot';
 import { computed, onMounted, ref } from 'vue';
 import { component as convertTextToComponent } from '../help/text-to-component-convert';
-import { zeroToHundred } from '@/utils/zeroToHundred';
 
 import type { $t } from '@/utils/types';
 import { useI18n } from 'vue-i18n';
 import { player } from '@/core/global';
 
 const $t = useI18n().t;
-
-function enterPlot(i: number) {
-	console.log(i);
-	if (unlockedPlots().includes(i - 1)) {
-		temp.plotdisplay = i;
-	}
-}
 
 // 数据源 - 字符串列表
 const options = computed(function (): number[] {
