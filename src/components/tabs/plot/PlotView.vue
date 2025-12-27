@@ -3,13 +3,13 @@ import { temp } from '@/core/temp-data';
 import { computed, onMounted, ref } from 'vue';
 import PlotSentence from './PlotSentence.vue';
 import { player } from '@/core/save';
-import { stringToPlot, plotLength } from '@/core/plot';
+import { stringToPlot, plotLength, getPlotContent, getPlotContentAll } from '@/core/plot';
 import { useI18n } from 'vue-i18n';
 const plotview = ref<HTMLDivElement | null>(null);
 const plotcont = ref<HTMLSpanElement | null>(null);
 const $tm = useI18n().tm;
 const plots = computed(() => {
-	return $tm('plotcontent');
+	return getPlotContentAll($tm);
 });
 function exitView() {
 	if (!canExitView()) return;

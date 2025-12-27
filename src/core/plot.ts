@@ -28,28 +28,6 @@ export const PlotMilestones = [
 		player.retribution >= 1,
 	() => player.pt.resetTimes.gte(1) || player.retribution >= 2,
 ] as const;
-export const plotTitles = [
-	'第\\(-\\epsilon\\)章',
-	'第0章',
-	'第1章',
-	'第2章',
-	'乘法挑战',
-	'第3章',
-	'天文学家',
-	'对数膨胀',
-	'奇点生成器',
-	'第4章',
-	'第5章',
-	'稀释',
-	'朊病毒',
-	'第6章',
-	'完成第一次NRC1',
-	'里程碑M-6-24',
-	'NRC7',
-	'到达BMS极限',
-	'果报',
-	'证明论重置',
-] as const;
 export function unlockedPlots2() {
 	for (let unlocked = PlotMilestones.length - 1; unlocked >= 0; unlocked--) {
 		if (PlotMilestones[unlocked]()) return unlocked + 1;
@@ -68,9 +46,21 @@ export function viewedPlotLength() {
 	return player.checkedPlots.length;
 }
 
+/**
+ *
+ * @param id 1+
+ * @returns
+ */
+export function getPlotContent(id: number, $tm: (x: string) => string[]) {
+	return $tm('plotcontent')[id - 1];
+}
+export function getPlotContentAll($tm: (x: string) => string[]) {
+	return $tm('plotcontent');
+}
+
 export function plotLength(id: number, $tm: (x: string) => string[]): number {
 	if (id <= 0) return 0;
-	return $tm('plotcontent')[id - 1].length;
+	return getPlotContent(id, $tm).length;
 }
 export const characterImages = {
 	Numerorum: 'url(./plot_image/NumerorumColor.png)',

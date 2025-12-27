@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { temp } from '@/core/temp-data';
-import { plotTitles, unlockedPlots } from '@/core/plot';
+import {  unlockedPlots } from '@/core/plot';
 import { computed, onMounted, ref } from 'vue';
 import { component as convertTextToComponent } from '../help/text-to-component-convert';
-import { zeroToHundred } from '@/utils/zeroToHundred';
 
 import type { $t } from '@/utils/types';
 import { useI18n } from 'vue-i18n';
