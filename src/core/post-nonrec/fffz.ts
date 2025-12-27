@@ -10,4 +10,8 @@ export const FFFZ = {
 			progress: new PowiainaNum(0),
 		};
 	},
+	deduceSpeed(): PowiainaNum {
+	  let base = new PowiainaNum(1/80)
+	  return base
+	}
 };
