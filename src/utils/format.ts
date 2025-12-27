@@ -330,9 +330,9 @@ export function formatPow(ex: DecimalSource, acc?: number) {
 }
 
 export function formatWhole(decimal: DecimalSource | PowiainaNum): string {
-	if (!(decimal instanceof PowiainaNum)) decimal = new Decimal(decimal).round();
-	if (decimal.gte(1e3)) return format(decimal, 4);
-	return format(decimal, 0);
+	if (!(decimal instanceof PowiainaNum)) decimal = new Decimal(decimal)
+	if (decimal.gte(1e3)) return format(decimal.round(), 4);
+	return format(decimal.round(), 0);
 }
 
 export function formatLaTeX(decimal: DecimalSource | PowiainaNum) {
