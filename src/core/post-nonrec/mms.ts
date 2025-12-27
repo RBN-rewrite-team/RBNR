@@ -566,7 +566,7 @@ export const MMS = {
 					['energy', 'tier', 'qol'],
 				] as const,
 				[
-					new PowiainaNum(3),
+					new PowiainaNum(4),
 					() => getMessage('mms.rank.mil.2.3'),
 					['energy', 'softcap', 'tier'],
 					[
