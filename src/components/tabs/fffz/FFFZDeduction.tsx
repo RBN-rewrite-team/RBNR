@@ -23,6 +23,7 @@ export default defineComponent({
 							width: '50%',
 						}}
 					></div>
+					<VueLatex expression="test" macros={FFFZmacros} />
 				</div>
 			</>
 		);

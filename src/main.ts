@@ -8,7 +8,6 @@ import { init } from './utils/init.ts';
 import { Performance } from './core/performance.tsx';
 import './core/save/index.ts';
 import './core/hydra/hydra.ts';
-//import './utils/fffz.ts';
 import { Logarithm } from './core/exponention/logarithm';
 
 declare global {
