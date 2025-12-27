@@ -17,7 +17,7 @@ import { Dilute } from './hydra/dilute.ts';
 import ModalService from '@/utils/Modal.ts';
 
 import { temp } from '@/core/temp-data';
-import { unlockedPlots } from '@/core/plot';
+import { enterPlot, getPlotContent, unlockedPlots } from '@/core/plot';
 import { NON_RECURSIVE } from './nonrecu/index.ts';
 
 import { DC } from '@/core/constants';
@@ -28,7 +28,7 @@ import { format } from '@/utils/format.ts';
 import { OrdinalUtils } from '@/utils/ordinal.ts';
 import { Analysis, PTEffects } from './pt/index.ts';
 import { Garden } from './pt/garden.ts';
-import { getMessage } from '@/utils/i18n.ts';
+import { getMessage, i18n } from '@/utils/i18n.ts';
 import { numberGrow } from './psd-number-grow.ts';
 import { Oracle } from './pt/oracle/oracle.ts';
 import { Performance } from './performance.tsx';
@@ -140,11 +140,6 @@ export function qolLoop() {
 	}
 	if (player.pt.resetTimes.gte(6)) {
 		player.nonrecu.resetTimes = player.nonrecu.resetTimes.clampMin(4);
-	}
-}
-function enterPlot(i: number) {
-	if (unlockedPlots().includes(i - 1)) {
-		temp.plotdisplay = i;
 	}
 }
 export function msToTimeshard(diff: number) {
