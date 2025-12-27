@@ -185,7 +185,7 @@ export const MMS = {
 			}
 			if (x.eq(3)) {
 				let tetr = player.hydra.mms.tetr;
-				res = tetr.pow(1.25).mul(4).add(10).ceil();
+				res = tetr.pow(1.25).mul(4).add(7).ceil();
 			}
 			return res;
 		},
@@ -223,7 +223,7 @@ export const MMS = {
 				res2 = res.sub(4).clampMin(0).div(4);
 			}
 			if (x.eq(3)) {
-				res2 = res.sub(10).clampMin(0).div(4).root(1.25);
+				res2 = res.sub(7).clampMin(0).div(4).root(1.25);
 			}
 			return res2.ceil();
 		},
@@ -244,8 +244,10 @@ export const MMS = {
 					player.hydra.mms.deduced = new PowiainaNum(0);
 					player.hydra.mms.progress = new PowiainaNum(0);
 					player.hydra.chargedEnergy = new PowiainaNum(0);
-					player.hydra.mms.rank = new PowiainaNum(0);
-					player.hydra.mms.rankEnergy = new PowiainaNum(0);
+					if (player.hydra.mms.tetr.lt(1)) {
+						player.hydra.mms.rank = new PowiainaNum(0);
+						player.hydra.mms.rankEnergy = new PowiainaNum(0);
+					}
 
 					player.hydra.mms.tier = player.hydra.mms.tier.add(1);
 				}
@@ -603,6 +605,9 @@ export const MMS = {
 						(x: PowiainaNum) => `^${format(x)}`,
 					],
 				] as const,
+			] as const,
+			3: [
+				[new PowiainaNum(1), () => getMessage('mms.rank.mil.3.0'), ['qol']] as const,
 			] as const,
 		} as const satisfies { [key: number]: RankMilestone[] },
 		getRankMilestones(q: number, rank: PowiainaNum) {

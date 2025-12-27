@@ -171,7 +171,7 @@ export default defineComponent({
 							<></>
 						)}
 
-						{player.hydra.mms.tri.gte(10) || player.hydra.mms.tetr.gte(1) ? (
+						{player.hydra.mms.tri.gte(6) || player.hydra.mms.tetr.gte(1) ? (
 							<>
 								<div class="rank_div">
 									<b class="rank_text">{MMS.rank.getRankTierName(3)}</b>&nbsp;
@@ -180,7 +180,7 @@ export default defineComponent({
 										{$t('mms.rank.reset.3')} <br />
 										{getRankDisplay(
 											3,
-											player.hydra.mms.tri,
+											player.hydra.mms.tetr,
 											MMS.rank.getRankTierName(3),
 										)}
 										<br />
@@ -249,6 +249,19 @@ export default defineComponent({
 							x[0].lte(player.hydra.mms.tri) &&
 							tagAccord(tag.value, x[2]) &&
 							milestoneDisplay(x, MMS.rank.getRankTierName(2)),
+					)}
+					{player.hydra.mms.tetr.gte(1) ? (
+						<>
+							<br />
+						</>
+					) : (
+						<></>
+					)}
+					{MMS.rank.rankMilestones[3].map(
+						(x) =>
+							x[0].lte(player.hydra.mms.tetr) &&
+							tagAccord(tag.value, x[2]) &&
+							milestoneDisplay(x, MMS.rank.getRankTierName(3)),
 					)}
 
 					{/* <UpgradesPN upgids={[['u631']]} /> */}
