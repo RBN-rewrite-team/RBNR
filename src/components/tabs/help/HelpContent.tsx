@@ -12,7 +12,6 @@ export const HELP_CONTENT = [
     {
         page: 1,
         get content() {
-            // @ts-expect-error
             return i18n.global.locale.value == 'zh-CN' ? gamecontent1 : gamecontent1e
         },
         unlocked() {return true},
@@ -20,7 +19,6 @@ export const HELP_CONTENT = [
     {
         page: 2,
         get content() {
-            // @ts-expect-error
             return i18n.global.locale.value == 'zh-CN' ? gamecontent2 : gamecontent2e
         },
         unlocked() {return true},

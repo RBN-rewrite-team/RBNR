@@ -26,7 +26,6 @@ const setFontUI = () =>
 	ModalService.show(($t: $t) => ({ title: $t('modal.font2'), component: fontUI }), $t);
 
 function b() {
-	//@ts-expect-error
 	return i18n.global.locale.value == 'zh-CN';
 }
 const q = useUpdate(() => openedAutosave());

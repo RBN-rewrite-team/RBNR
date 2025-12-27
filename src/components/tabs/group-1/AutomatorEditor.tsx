@@ -140,7 +140,6 @@ export default defineComponent({
 					<PrimaryButton onClick={interrupt}>Interrupt</PrimaryButton>
 
 					{
-						//@ts-expect-error
 						i18n.global.locale.value == 'zh-CN' ? (
 							<>
 								<h1>自动机语法</h1>
