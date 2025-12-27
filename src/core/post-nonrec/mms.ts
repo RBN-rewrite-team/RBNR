@@ -58,6 +58,7 @@ export const MMS = {
 		if (player.hydra.mms.tier.gte(3)) base = base.mul(4);
 		if (player.hydra.mms.rank.gte(17)) base = base.mul(MMS.rank.rankMilestones[0][9][3][0]());
 		if (player.hydra.mms.tri.gte(1)) base = base.mul(MMS.rank.rankMilestones[2][0][3][0]());
+		if (player.hydra.mms.tier.gte(20)) base = base.mul(MMS.rank.rankMilestones[1][10][3][0]());
 		return base;
 	},
 	resetGain(): PowiainaNum {
@@ -168,7 +169,11 @@ export const MMS = {
 						.root(this.scaling[0][0][1]())
 						.mul(this.scaling[0][0][0]());
 				}
-				res = new PowiainaNum(3).pow(rank);
+				let base = new PowiainaNum(3);
+				if (player.hydra.mms.rank.gte(514)) {
+					base = new PowiainaNum(2.7);
+				}
+				res = base.pow(rank);
 			}
 			if (x.eq(1)) {
 				let tier = player.hydra.mms.tier;
@@ -190,7 +195,11 @@ export const MMS = {
 			let res2 = PowiainaNum.ZERO.clone();
 
 			if (x.eq(0)) {
-				res2 = res.log(3);
+				let base = new PowiainaNum(3);
+				if (player.hydra.mms.rank.gte(514)) {
+					base = new PowiainaNum(2.7);
+				}
+				res2 = res.log(base);
 				//软上限
 				if (res2.gte(this.scaling[0][0][0]())) {
 					res2 = res2
@@ -464,6 +473,7 @@ export const MMS = {
 					['energy', 'tier'],
 				] as const,
 				[new PowiainaNum(128), () => getMessage('mms.rank.mil.0.17'), ['energy']] as const,
+				[new PowiainaNum(514), () => getMessage('mms.rank.mil.0.18'), ['softcap']] as const,
 			],
 			1: [
 				[
@@ -532,6 +542,17 @@ export const MMS = {
 					],
 				] as const,
 				[new PowiainaNum(18), () => getMessage('mms.rank.mil.1.9'), ['softcap']] as const,
+				[
+					new PowiainaNum(20),
+					() => getMessage('mms.rank.mil.1.10'),
+					['deduce', 'energy'],
+					[
+						(): PowiainaNum => {
+							return player.hydra.mms.tierEnergy.add(1).pow(1.1);
+						},
+						(x: PowiainaNum) => `×${format(x)}`,
+					],
+				] as const,
 			] as const,
 			2: [
 				[
