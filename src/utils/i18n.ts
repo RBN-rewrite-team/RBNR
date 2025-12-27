@@ -72,12 +72,10 @@ export const messagesLength = (function () {
 })();
 
 export function setI18NLocal(loc: keyof typeof messages) {
-	// @ts-expect-error I must change this value with type error
 	i18n.global.locale.value = loc;
 	localStorage.setItem('rbnr-lang', loc);
 }
 export function getI18NLocal(): string {
-	// @ts-expect-error I must change this value with type error
 	return i18n.global.locale.value;
 }
 window.addEventListener(
