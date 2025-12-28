@@ -121,7 +121,7 @@ export const MMS = {
 	},
 	staticExp(): PowiainaNum {
 		let base = new PowiainaNum(0.5);
-		if (player.hydra.mms.tri.gte(6)) base = base.pow(MMS.rank.rankMilestones[2][5][3][0]())
+		if (player.hydra.mms.tri.gte(6)) base = base.pow(MMS.rank.rankMilestones[2][5][3][0]());
 		return base;
 	},
 	rank: {
@@ -142,7 +142,7 @@ export const MMS = {
 					() => {
 						let base = new PowiainaNum(0.75);
 						if (player.hydra.mms.rank.gte(19)) base = base.pow(0.75);
-						if (player.hydra.mms.tri.gte(5))
+						if (player.hydra.mms.tri.gte(4))
 							base = base.pow(MMS.rank.rankMilestones[2][3][3][0]());
 						return base;
 					},
@@ -170,8 +170,8 @@ export const MMS = {
 						.root(this.scaling[0][0][1]())
 						.mul(this.scaling[0][0][0]());
 				}
-				let base = new PowiainaNum(3)
-				if (player.hydra.mms.rank.gte(514)) base = new PowiainaNum(2.85)
+				let base = new PowiainaNum(3);
+				if (player.hydra.mms.rank.gte(514)) base = new PowiainaNum(2.85);
 				res = new PowiainaNum(3).pow(rank);
 			}
 			if (x.eq(1)) {
@@ -194,8 +194,8 @@ export const MMS = {
 			let res2 = PowiainaNum.ZERO.clone();
 
 			if (x.eq(0)) {
-			  let base = new PowiainaNum(3)
-				if (player.hydra.mms.rank.gte(514)) base = new PowiainaNum(2.85)
+				let base = new PowiainaNum(3);
+				if (player.hydra.mms.rank.gte(514)) base = new PowiainaNum(2.85);
 				res2 = res.log(base);
 				//软上限
 				if (res2.gte(this.scaling[0][0][0]())) {
@@ -474,7 +474,7 @@ export const MMS = {
 					['energy', 'tier'],
 				] as const,
 				[new PowiainaNum(128), () => getMessage('mms.rank.mil.0.17'), ['energy']] as const,
-				[new PowiainaNum(514), () => getMessage('mms.rank.mil.0.18'), ['softcap']] as const
+				[new PowiainaNum(514), () => getMessage('mms.rank.mil.0.18'), ['softcap']] as const,
 			],
 			1: [
 				[
@@ -608,10 +608,13 @@ export const MMS = {
 				[
 					new PowiainaNum(6),
 					() => getMessage('mms.rank.mil.2.5'),
-					['deduce', "energy", "softcap"],
+					['deduce', 'energy', 'softcap'],
 					[
 						() => {
-							let effect: PowiainaNum = player.hydra.mms.tierEnergy.max(1e6).log(1e6).recip();
+							let effect: PowiainaNum = player.hydra.mms.tierEnergy
+								.max(1e6)
+								.log(1e6)
+								.recip();
 							return effect;
 						},
 						(x: PowiainaNum) => `^${format(x)}`,
