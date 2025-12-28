@@ -669,6 +669,10 @@ export const MMS = {
 		},
 
 		// 普通超-阶层
+		/**
+		 * @param tetr2 当前的四重阶层数量
+		 * @returns 目前最高的超阶层重数
+		 */
 		getCurrentTierFromTetr(tetr2?: PowiainaNum) {
 			const tetr: PowiainaNum = tetr2 ?? player.hydra.mms.tetr;
 			if (tetr.eq(0)) return new PowiainaNum(3);
@@ -676,6 +680,11 @@ export const MMS = {
 			if (x.gte(10)) x = x.div(10).root(1.6).mul(10);
 			return x.add(3).floor();
 		},
+		/**
+		 * @param tier2 超阶层重数
+		 * @param tetr2 当前的四重阶层数量
+		 * @returns 当前超阶层重的等级
+		 */
 		getRankFromTetr(tier2?: PowiainaNum, tetr2?: PowiainaNum) {
 			const tier: PowiainaNum = tier2 ?? MMS.rank.getCurrentTierFromTetr();
 			const tetr: PowiainaNum = tetr2 ?? player.hydra.mms.tetr;
@@ -684,6 +693,12 @@ export const MMS = {
 			let hp = new PowiainaNum(10).pow(x.sub(1).root(0.8)).ceil();
 			return tetr.div(hp).floor();
 		},
+		/**
+		 * @param tier2 超阶层重数
+		 * @param current2 当前的四重阶层数量
+		 * @param tierDifference2 1个十重阶层需要x个`tierDifference2-2`重阶层
+		 * @returns 当前超阶层重的需求
+		 */
 		getBeyondRankRequirement(
 			tier2?: PowiainaNum,
 			current2?: PowiainaNum,
