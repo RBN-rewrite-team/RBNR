@@ -798,4 +798,4 @@ export const MMS = {
 	} as const,
 } as const;
 
-window.MMS = MMS;
+// window.MMS = MMS;
