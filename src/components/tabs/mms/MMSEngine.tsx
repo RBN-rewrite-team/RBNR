@@ -168,6 +168,16 @@ export default defineComponent({
 										{MMS.rank.getRankTierName(1)}{' '}
 										{formatWhole(MMS.rank.levelRequirement(2))}
 									</div>
+									{MMS.rank.rankEnergies[2].unlocked() && (
+										<>
+											<span style="font-size: 14px">
+												<b>Tri Energy</b>&nbsp;
+												{formatWhole(player.hydra.mms.triEnergy)}
+												<br />
+												{MMS.rank.rankEnergies[2].effectDescription()}
+											</span>
+										</>
+									)}
 								</div>
 							</>
 						) : (

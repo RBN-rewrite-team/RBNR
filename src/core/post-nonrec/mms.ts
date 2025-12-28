@@ -41,6 +41,7 @@ export const MMS = {
 			bestTetr: new PowiainaNum(0),
 			rankEnergy: new PowiainaNum(0),
 			tierEnergy: new PowiainaNum(0),
+			triEnergy: new PowiainaNum(0),
 			compressed: {
 				rank: new PowiainaNum(0),
 				bestRank: new PowiainaNum(0),
@@ -86,6 +87,9 @@ export const MMS = {
 		if (player.hydra.mms.tier.gte(7)) base = base.pow(1.25);
 		if (MMS.rank.rankEnergies[1].unlocked()) base = base.pow(MMS.rank.rankEnergies[1].effect());
 
+		if (MMS.rank.rankEnergies[2].unlocked() && base.gte(1e10))
+			base = base.log10().log10().add(MMS.rank.rankEnergies[2].effect()).pow10().pow10();
+
 		if (base.gte('1e888'))
 			base = base.log10().div(888).pow(0.5).sub(1).mul(2).add(1).mul(888).pow10();
 		return base.floor();
@@ -125,6 +129,9 @@ export const MMS = {
 		);
 		player.hydra.mms.tierEnergy = player.hydra.mms.tierEnergy.add(
 			this.rank.rankEnergies[1].gain().mul(diff),
+		);
+		player.hydra.mms.triEnergy = player.hydra.mms.triEnergy.add(
+			this.rank.rankEnergies[2].gain().mul(diff),
 		);
 		if (player.hydra.mms.rank.gte(25) || player.hydra.mms.tri.gte(3))
 			this.addEnergy(MMS.resetGain().mul(diff));
@@ -323,6 +330,7 @@ export const MMS = {
 					player.hydra.mms.tier = new PowiainaNum(0);
 					player.hydra.mms.tierEnergy = new PowiainaNum(0);
 					player.hydra.mms.tri = new PowiainaNum(0);
+					player.hydra.mms.triEnergy = new PowiainaNum(0);
 
 					player.hydra.mms.tetr = player.hydra.mms.tetr.add(1);
 				}
@@ -385,6 +393,25 @@ export const MMS = {
 				effectDescription(): string {
 					let e = this.effect();
 					return `ChHE gain ^${format(e)}`;
+				},
+			},
+			2: {
+				unlocked(): boolean {
+					return player.hydra.mms.tri.gte(15);
+				},
+				gain(): PowiainaNum {
+					if (!this.unlocked()) return new PowiainaNum(0);
+					let base = new PowiainaNum(10).pow(player.hydra.mms.tri.max(10).log10().pow(3));
+					return base;
+				},
+				effect(): PowiainaNum {
+					let base = player.hydra.mms.triEnergy.add(1).log(2).pow(2).div(2000);
+					if (base.gte(1)) base = base.div(1).pow(0.5).mul(1);
+					return base;
+				},
+				effectDescription(): string {
+					let e = this.effect();
+					return `ChHE gain double exponent +${format(e)}`;
 				},
 			},
 		},
@@ -701,6 +728,7 @@ export const MMS = {
 					],
 				] as const,
 				[new PowiainaNum(13), () => getMessage('mms.rank.mil.2.6'), ['tier']] as const,
+				[new PowiainaNum(15), () => getMessage('mms.rank.mil.2.7'), ['energy']] as const,
 			] as const,
 			3: [
 				[
