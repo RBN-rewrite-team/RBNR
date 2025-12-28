@@ -200,6 +200,24 @@ export default defineComponent({
 						)}
 					</div>
 					<br />
+					<button
+						style={{
+							border: '2px solid white',
+							backgroundColor: 'var(--background-color)',
+							color: 'white',
+							width: '60px',
+							height: '30px',
+							opacity: 1,
+						}}
+						onClick={() => {
+							for(let i in MMS.rank.rankMilTags)
+							{
+								tag.value[MMS.rank.rankMilTags[i].id] = !tag.value[MMS.rank.rankMilTags[i].id];
+							}
+						}}
+					>
+						ALL
+					</button>&nbsp;&nbsp;
 					{MMS.rank.rankMilTags.map((x) => (
 						<>
 							<button
