@@ -1619,7 +1619,7 @@ The dilution will self-destruct if the number of the prion virus is greater than
 	'nt.wellorderness.process.23':
 		'Prove the well-orderness of BMS, cost e100,000,000 Deduction Energy.',
 	'nt.wellorderness.effect.12':
-		'Reward: You can do the first RETRIBUTION reset......after e150000000 Deduction Energy, BMS progressing speed slog+{effect}',
+		'Reward: You can do the first RETRIBUTION reset after Notation limit......after e150000000 Deduction Energy, BMS progressing speed slog+{effect}',
 
 	'nonrec.unocf.is': 'Your UNOCF Ordinal is',
 	'nonrec.unocf.tip':

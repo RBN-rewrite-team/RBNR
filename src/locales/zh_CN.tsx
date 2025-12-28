@@ -1542,7 +1542,7 @@ export default {
 	'nt.wellorderness.effect.11': '奖励：大幅度加成BMS推演速度。',
 	'nt.wellorderness.process.23': '证明BMS的良序性，消耗e100,000,000推演能量。',
 	'nt.wellorderness.effect.12':
-		'奖励：你可以进行第一次果报重置......在e150000000推演能量之后，BMS推演速度的slog+{effect}',
+		'奖励：你可以在到达记号极限后进行第一次果报重置......在e150000000推演能量之后，BMS推演速度的slog+{effect}',
 
 	'nonrec.unocf.is': '你的UNOCF序数为',
 	'nonrec.unocf.tip': '由于UNOCF机制太复杂，并不是每一次推演都会得到对应的序数',
