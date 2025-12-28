@@ -787,9 +787,9 @@ export const MMS = {
 			const current: PowiainaNum = current2 ?? MMS.rank.getRankFromTetr(tier);
 			const tierDifference: number = tierDifference2 ?? 1;
 			let x = tier.sub(3);
-			let p = tier.sub(3);
+			let p = tier.sub(3 + tierDifference);
 			if (x.gte(10)) x = x.add(1).mul(10).pow(1.6).div(10).sub(1);
-			if (p.gte(10)) p = p.sub(tierDifference).add(1).mul(10).pow(1.6).div(10).sub(1);
+			if (p.gte(10)) p = p.add(1).mul(10).pow(1.6).div(10).sub(1);
 			return new PowiainaNum(10)
 				.pow(x.root(0.8).sub(p.root(0.8)))
 				.mul(current.add(1))
@@ -798,4 +798,4 @@ export const MMS = {
 	} as const,
 } as const;
 
-// window.MMS = MMS;
+window.MMS = MMS;
