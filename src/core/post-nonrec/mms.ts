@@ -123,9 +123,8 @@ export const MMS = {
 		);
 		if (player.hydra.mms.rank.gte(25) || player.hydra.mms.tri.gte(3))
 			this.addEnergy(MMS.resetGain().mul(diff));
-		player.hydra.mms.bestTetr = player.hydra.mms.bestTetr.max(player.hydra.mms.tetr)
-		if (player.hydra.mms.bestTetr.gte(1))
-			this.addEnergy(MMS.resetGain().mul(5 * diff));
+		player.hydra.mms.bestTetr = player.hydra.mms.bestTetr.max(player.hydra.mms.tetr);
+		if (player.hydra.mms.bestTetr.gte(1)) this.addEnergy(MMS.resetGain().mul(5 * diff));
 		if (player.hydra.mms.tier.gte(10) || player.hydra.mms.tri.gte(3)) {
 			player.hydra.mms.rank = player.hydra.mms.rank.max(
 				this.rank.levelReqReverse(0, player.hydra.chargedEnergy),
@@ -201,6 +200,9 @@ export const MMS = {
 				let tetr = player.hydra.mms.tetr;
 				res = tetr.pow(1.25).mul(4).add(10).ceil();
 			}
+			if (x.gte(4)) {
+				return MMS.rank.getBeyondRankRequirement(new PowiainaNum(4));
+			}
 			return res;
 		},
 		levelReqReverse(q: PowiainaNum | number, res: PowiainaNum) {
@@ -245,14 +247,16 @@ export const MMS = {
 			if (!x.isInt()) throw new Error('Input is not integer.');
 			if (x.eq(0)) {
 				if (MMS.rank.levelRequirement(x).lte(player.hydra.chargedEnergy)) {
-				  if (player.hydra.mms.bestTetr.lt(1)) {
-  					player.hydra.mms.deduced = new PowiainaNum(0);
-  					player.hydra.mms.progress = new PowiainaNum(0);
-  					player.hydra.chargedEnergy = new PowiainaNum(0);
-				  }
+					if (player.hydra.mms.bestTetr.lt(1)) {
+						player.hydra.mms.deduced = new PowiainaNum(0);
+						player.hydra.mms.progress = new PowiainaNum(0);
+						player.hydra.chargedEnergy = new PowiainaNum(0);
+					}
 
 					player.hydra.mms.rank = player.hydra.mms.rank.add(1);
-					player.hydra.mms.bestRank = player.hydra.mms.bestRank.max(player.hydra.mms.rank);
+					player.hydra.mms.bestRank = player.hydra.mms.bestRank.max(
+						player.hydra.mms.rank,
+					);
 				}
 			}
 			if (x.eq(1)) {
@@ -261,13 +265,16 @@ export const MMS = {
 					player.hydra.mms.progress = new PowiainaNum(0);
 					player.hydra.chargedEnergy = new PowiainaNum(0);
 					if (player.hydra.mms.bestTetr.lt(1)) {
-						if (player.hydra.mms.bestTier.gte(20)) player.hydra.mms.rank = player.hydra.mms.rank.div(100).ceil();
+						if (player.hydra.mms.bestTier.gte(20))
+							player.hydra.mms.rank = player.hydra.mms.rank.div(100).ceil();
 						else player.hydra.mms.rank = new PowiainaNum(0);
 						player.hydra.mms.rankEnergy = new PowiainaNum(0);
 					}
 
 					player.hydra.mms.tier = player.hydra.mms.tier.add(1);
-					player.hydra.mms.bestTier = player.hydra.mms.bestTier.max(player.hydra.mms.tier);
+					player.hydra.mms.bestTier = player.hydra.mms.bestTier.max(
+						player.hydra.mms.tier,
+					);
 				}
 			}
 			if (x.eq(2)) {
@@ -315,8 +322,7 @@ export const MMS = {
 						base = base.mul(MMS.rank.rankMilestones[2][1][3][0]());
 					if (player.hydra.mms.tier.gte(17))
 						base = base.mul(MMS.rank.rankMilestones[1][8][3][0]());
-					if (player.hydra.mms.bestTetr.gte(1))
-					  base = base.mul(10)
+					if (player.hydra.mms.bestTetr.gte(1)) base = base.mul(10);
 
 					if (base.gte('1e100'))
 						base = base.log10().div(100).pow(0.5).sub(1).mul(2).add(1).mul(100).pow10();
@@ -347,8 +353,7 @@ export const MMS = {
 					);
 					if (player.hydra.mms.tri.gte(5))
 						base = base.mul(MMS.rank.rankMilestones[2][4][3][0]());
-					if (player.hydra.mms.bestTetr.gte(1))
-					  base = base.mul(10)
+					if (player.hydra.mms.bestTetr.gte(1)) base = base.mul(10);
 					return base;
 				},
 				effect(): PowiainaNum {
@@ -591,7 +596,11 @@ export const MMS = {
 					],
 				] as const,
 				[new PowiainaNum(18), () => getMessage('mms.rank.mil.1.9'), ['softcap']] as const,
-				[new PowiainaNum(20), () => getMessage('mms.rank.mil.1.10'), ['perm.', 'qol']] as const,
+				[
+					new PowiainaNum(20),
+					() => getMessage('mms.rank.mil.1.10'),
+					['perm.', 'qol'],
+				] as const,
 			] as const,
 			2: [
 				[
@@ -671,7 +680,11 @@ export const MMS = {
 				] as const,
 			] as const,
 			3: [
-				[new PowiainaNum(1), () => getMessage('mms.rank.mil.3.0'), ['perm.', 'qol', 'energy']] as const,
+				[
+					new PowiainaNum(1),
+					() => getMessage('mms.rank.mil.3.0'),
+					['qol', 'perm.'],
+				] as const,
 			] as const,
 		} as const satisfies { [key: number]: RankMilestone[] },
 		getRankMilestones(q: number, rank: PowiainaNum) {

@@ -8,6 +8,7 @@ import type PowiainaNum from 'powiaina_num.js';
 import { useUpdate } from '@/lib/useUpdate';
 import { getMessage } from '@/utils/i18n';
 import UpgradesPN from '@/components/upg/UpgradesPN';
+import RankBeyond from './RankBeyond';
 function milestoneDisplay(mil: RankMilestone | undefined | null, currency?: string) {
 	let eff: (undefined | [() => PowiainaNum, (x: PowiainaNum) => string]) | null = null;
 	if (!mil) return <></>;
@@ -192,6 +193,8 @@ export default defineComponent({
 										<br />
 										{MMS.rank.getRankTierName(2)}{' '}
 										{formatWhole(MMS.rank.levelRequirement(3))}
+										<br />
+										<RankBeyond />
 									</div>
 								</div>
 							</>
@@ -210,14 +213,15 @@ export default defineComponent({
 							opacity: 1,
 						}}
 						onClick={() => {
-							for(let i in MMS.rank.rankMilTags)
-							{
-								tag.value[MMS.rank.rankMilTags[i].id] = !tag.value[MMS.rank.rankMilTags[i].id];
+							for (let i in MMS.rank.rankMilTags) {
+								tag.value[MMS.rank.rankMilTags[i].id] =
+									!tag.value[MMS.rank.rankMilTags[i].id];
 							}
 						}}
 					>
 						ALL
-					</button>&nbsp;&nbsp;
+					</button>
+					&nbsp;&nbsp;
 					{MMS.rank.rankMilTags.map((x) => (
 						<>
 							<button
@@ -240,7 +244,11 @@ export default defineComponent({
 					<br />
 					{MMS.rank.rankMilestones[0].map(
 						(x) =>
-							x[0].lte((x[2] as string[]).includes('perm.') ? player.hydra.mms.bestRank : player.hydra.mms.rank) &&
+							x[0].lte(
+								(x[2] as string[]).includes('perm.')
+									? player.hydra.mms.bestRank
+									: player.hydra.mms.rank,
+							) &&
 							tagAccord(tag.value, x[2]) &&
 							milestoneDisplay(x, MMS.rank.getRankTierName(0)),
 					)}
@@ -253,7 +261,11 @@ export default defineComponent({
 					)}
 					{MMS.rank.rankMilestones[1].map(
 						(x) =>
-							x[0].lte((x[2] as string[]).includes('perm.') ? player.hydra.mms.bestTier : player.hydra.mms.tier) &&
+							x[0].lte(
+								(x[2] as string[]).includes('perm.')
+									? player.hydra.mms.bestTier
+									: player.hydra.mms.tier,
+							) &&
 							tagAccord(tag.value, x[2]) &&
 							milestoneDisplay(x, MMS.rank.getRankTierName(1)),
 					)}
@@ -266,7 +278,11 @@ export default defineComponent({
 					)}
 					{MMS.rank.rankMilestones[2].map(
 						(x) =>
-							x[0].lte((x[2] as string[]).includes('perm.') ? player.hydra.mms.bestTri : player.hydra.mms.tri) &&
+							x[0].lte(
+								(x[2] as string[]).includes('perm.')
+									? player.hydra.mms.bestTri
+									: player.hydra.mms.tri,
+							) &&
 							tagAccord(tag.value, x[2]) &&
 							milestoneDisplay(x, MMS.rank.getRankTierName(2)),
 					)}
@@ -279,11 +295,14 @@ export default defineComponent({
 					)}
 					{MMS.rank.rankMilestones[3].map(
 						(x) =>
-							x[0].lte((x[2] as string[]).includes('perm.') ? player.hydra.mms.bestTetr : player.hydra.mms.tetr) &&
+							x[0].lte(
+								(x[2] as string[]).includes('perm.')
+									? player.hydra.mms.bestTetr
+									: player.hydra.mms.tetr,
+							) &&
 							tagAccord(tag.value, x[2]) &&
 							milestoneDisplay(x, MMS.rank.getRankTierName(3)),
 					)}
-
 					{/* <UpgradesPN upgids={[['u631']]} /> */}
 				</div>
 			</>
