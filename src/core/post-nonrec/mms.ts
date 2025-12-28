@@ -757,7 +757,7 @@ export const MMS = {
 			if (tetr.eq(0)) return new PowiainaNum(3);
 			let x = tetr.log10().max(0).pow(0.8).add(1);
 			if (x.gte(10)) x = x.div(10).root(1.6).mul(10);
-			return x.add(3).floor();
+			return x.add(2).floor();
 		},
 		/**
 		 * @param tier2 超阶层重数
