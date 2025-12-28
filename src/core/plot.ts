@@ -251,6 +251,28 @@ const plotcontents = {
 			'Alpha VII\t没错。但路途遥远，它所能做的事，对于我们尚有一线抵抗的可能。',
 			'Alpha VII\t因此，努力提升自己。',
 		],
+		[
+			'Numerorum\t到达了MHO，但是还有更高级别的结构。',
+			'Numerorum\t真是令人<$bx>啊...',
+			'Hydra\t...',
+			'VeryRDefie\tNumerorum，你想知道当时我感染了ω病毒怎么活下来的吗？',
+			'VeryRDefie\t我的能力是将周围加速0.01-100倍，',
+			'VeryRDefie\t然后我能力被ω病毒顺带的负数感染，',
+			'VeryRDefie\t变成了负0.01-负100倍，',
+			'VeryRDefie\t然后就把ω病毒“时空倒转”，驱赶了。',
+			'Numerorum\t天才啊！我就说当时怎么下面突然一片黑。',
+			'VeryRDefie\t但是这样的效果并不能持续多久，大概只持续了\\(1.182\\times10^5\\mu s\\)就没了。',
+			'VeryRDefie\t我其实并不是大数世界的原实体，一开始并不是出生在这里。',
+			'VeryRDefie\t我来自另外一个世界。',
+			'VeryRDefie\t我大概在\\(6.9\\times10^7s\\)前出生的吧。',
+			'VeryRDefie\t当时和我一起出生的人有Iyreo Jegirn。',
+			'VeryRDefie\t大约\\(5.5\\times10^7s\\)前，有个说话很像九头蛇的人，突然发出声音，把Iyreo Jegirn袭击了，然后Iyreo Jegirn不见了。',
+			'Numerorum\t...',
+			'VeryRDefie\t至今我都找不到他确切的位置，但自从世界隧道开启之后，我就听到了“它”的回响。',
+			'Numerorum\t是基数世界那边吗？',
+			'VeryRDefie\t我不确定。',
+			'Numerorum\t那我们就继续探索。',
+		],
 	],
 	'en-US': [
 		[
@@ -514,6 +536,28 @@ const plotcontents = {
 			'Alpha VII\tSo that, please work hard, to improve yourself.',
 			'Numerorum\t......',
 		],
+		[
+			"Numerorum\tI reached MHO, but there're stronger structures...",
+			"Numerorum\tIt's really <$bx>...",
+			'VeryRDefie\tNumerorum, Would you like to know how did I live when I met ω-virus?',
+			'VeryRDefie\tMy ability is that, accelerate 0.01~100x surround space-time.',
+			'VeryRDefie\tThen my ability was infected by negative-numbers (with ω-virus)',
+			'VeryRDefie\tbecame negative 0.01~negative 100x.',
+			'VeryRDefie\tAnd I made ω-virus "Time reversal, it disappeared',
+			'Numerorum\tGenius! I was wondering why it suddenly went dark down there.',
+			'VeryRDefie\tHowever, such an effect cannot last for long, it only lasted \\(1.182\\times10^5\\mu s\\).',
+			"VeryRDefie\tI'm not the original entity of Big-number world. I didn't bear in this world.",
+			'VeryRDefie\tI came from another world.',
+			'VeryRDefie\tI was born, \\(6.9\\times10^7s\\) ago.',
+			'VeryRDefie\tand Iyreo Jegirn was born in this time.',
+			'VeryRDefie\t\\(5.5\\times10^7s\\) ago, Someone (sounded like Hydra),attacked Iyreo Jegirn, and then Iyreo Jegirn disappeared.',
+			'Numerorum\t...',
+			"VeryRDefie\tI couldn't find where (exactly) is it. ",
+			'VeryRDefie\tHowever, since the WORLD SHUTTLE opened, I heard its echo.',
+			'Numerorum\tIs it in the cardinal world?',
+			"VeryRDefie\tI'm not sure.",
+			'Numerorum\tThen, we keep exploring!',
+		],
 	],
 };
 
@@ -543,6 +587,7 @@ export const PlotMilestones = [
 		(player.numbertheory.well_ordering.energy.gte('1e750000000') && player.currentTab == 28) ||
 		player.retribution >= 1,
 	() => player.pt.resetTimes.gte(1) || player.retribution >= 2,
+	() => player.retribution >= 3 || player.hydra.mms.deduced.gte('e308.25471555991675'),
 ] as const;
 export function unlockedPlots2() {
 	for (let unlocked = PlotMilestones.length - 1; unlocked >= 0; unlocked--) {

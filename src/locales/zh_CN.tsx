@@ -2045,4 +2045,6 @@ export default {
 	'mms.rank.mil.3.1': '充能九头蛇能量获取+1，降低级别的价格底数(2.85→2.5),三重阶层不会重置阶层',
 
 	'about.special': '特殊',
+
+	'plot.20': 'MHO in MMS',
 };
