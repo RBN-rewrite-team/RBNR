@@ -386,6 +386,8 @@ export default {
 		16: 'NRC7',
 		17: 'Reach the limit of BMS',
 		18: 'Retribution',
+		19: 'Proof Theory',
+		20: 'MHO in MMS',
 	},
 	'plot.narrator': 'Narrator',
 	'plot.title': 'Plot',
@@ -2159,7 +2161,7 @@ THEN YOU CAN GET REVELATION.<br />
 		'Ensure confirm! The Road to cardinal is dangerous, force enter may cause CRITICAL effects. Are you sure you want to force enter?',
 	'card.ultimatum': 'Untimatum',
 	'card.desc3':
-		'This is a disclaimer. If something goes wrong, <b>your save may be <i>permanently</i> lost and <i>unrecoverable</i></b>, it\'s your responsibility.<br /><br />If you agree with this disclaimer, please input "{verify}" in this input box.',
+		'This is a disclaimer. If something goes wrong, <b>Numerorum may be <i>DESTROYED</i> in the process</b>, it\'s your responsibility.<br /><br />If you agree with this disclaimer, please input "{verify}" in this input box.',
 	'card.verify': 'I confirm that I accept full responsibility for all risks',
 
 	'about.special': 'Special',

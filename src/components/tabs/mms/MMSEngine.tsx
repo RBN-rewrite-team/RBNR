@@ -60,8 +60,8 @@ function tagAccord(tagOpened: { [key: string]: boolean }, pending: string[]) {
 	}
 	return false;
 }
-function getRankDisplay(q: number, rank: PowiainaNum, currency?: string) {
-	let mil = MMS.rank.getRankMilestones(q, rank);
+function getRankDisplay(q: [number, number], rank: PowiainaNum, currency?: string) {
+	let mil = MMS.rank.getRankMilestones(q[0], rank, q[1]);
 	return milestoneDisplay(mil, currency);
 }
 export default defineComponent({
@@ -94,7 +94,7 @@ export default defineComponent({
 							<div class={'rank_button'} onClick={() => MMS.rank.levelUp(0)}>
 								{$t('mms.rank.reset.0')} <br />
 								{getRankDisplay(
-									0,
+									[0, 0],
 									player.hydra.mms.rank,
 									MMS.rank.getRankTierName(0),
 								)}
@@ -123,7 +123,7 @@ export default defineComponent({
 							<div class={'rank_button'} onClick={() => MMS.rank.levelUp(1)}>
 								{$t('mms.rank.reset.1')} <br />
 								{getRankDisplay(
-									1,
+									[1, 0],
 									player.hydra.mms.tier,
 									MMS.rank.getRankTierName(1),
 								)}
@@ -156,7 +156,7 @@ export default defineComponent({
 									<div class={'rank_button'} onClick={() => MMS.rank.levelUp(2)}>
 										{$t('mms.rank.reset.2')} <br />
 										{getRankDisplay(
-											2,
+											[2, 0],
 											player.hydra.mms.tri,
 											MMS.rank.getRankTierName(2),
 										)}
@@ -192,7 +192,7 @@ export default defineComponent({
 									<div class={'rank_button'} onClick={() => MMS.rank.levelUp(3)}>
 										{$t('mms.rank.reset.3')} <br />
 										{getRankDisplay(
-											3,
+											[3, 0],
 											player.hydra.mms.tetr,
 											MMS.rank.getRankTierName(3),
 										)}
@@ -212,7 +212,7 @@ export default defineComponent({
 							<></>
 						)}
 					</div>
-					{player.hydra.mms.tetr.gte(1) && (
+					{(player.hydra.mms.tetr.gte(1) || player.hydra.mms.bestTetr.gte(1)) && (
 						<>
 							<br />
 							<div
@@ -230,12 +230,12 @@ export default defineComponent({
 										class={'rank_button'}
 										style={{
 											borderColor: 'green',
-										}} /*onClick={() => MMS.rank.levelUp(0, 1)}*/
+										}} onClick={() => MMS.rank.levelUp(0, 1)}
 									>
 										{$t('mms.rank.reset.0.1')} <br />
-										{false &&
+										{
 											getRankDisplay(
-												0,
+												[0, 1],
 												player.hydra.mms.compressed.rank,
 												$t('mms.rank.prefix.1') +
 													MMS.rank.getRankTierName(0),
@@ -294,7 +294,7 @@ export default defineComponent({
 						</>
 					))}
 					<br />
-					{MMS.rank.rankMilestones[0].map(
+					{MMS.rank.rankMilestones[0][0].map(
 						(x) =>
 							x[0].lte(
 								(x[2] as string[]).includes('perm.')
@@ -311,7 +311,7 @@ export default defineComponent({
 					) : (
 						<></>
 					)}
-					{MMS.rank.rankMilestones[1].map(
+					{MMS.rank.rankMilestones[0][1].map(
 						(x) =>
 							x[0].lte(
 								(x[2] as string[]).includes('perm.')
@@ -328,7 +328,7 @@ export default defineComponent({
 					) : (
 						<></>
 					)}
-					{MMS.rank.rankMilestones[2].map(
+					{MMS.rank.rankMilestones[0][2].map(
 						(x) =>
 							x[0].lte(
 								(x[2] as string[]).includes('perm.')
@@ -345,7 +345,7 @@ export default defineComponent({
 					) : (
 						<></>
 					)}
-					{MMS.rank.rankMilestones[3].map(
+					{MMS.rank.rankMilestones[0][3].map(
 						(x) =>
 							x[0].lte(
 								(x[2] as string[]).includes('perm.')
@@ -354,6 +354,23 @@ export default defineComponent({
 							) &&
 							tagAccord(tag.value, x[2]) &&
 							milestoneDisplay(x, MMS.rank.getRankTierName(3)),
+					)}
+					{player.hydra.mms.compressed.rank.gte(1) ? (
+						<>
+							<br />
+						</>
+					) : (
+						<></>
+					)}
+					{MMS.rank.rankMilestones[1][0].map(
+						(x) =>
+							x[0].lte(
+								(x[2] as string[]).includes('perm.')
+									? player.hydra.mms.bestTetr
+									: player.hydra.mms.tetr,
+							) &&
+							tagAccord(tag.value, x[2]) &&
+							milestoneDisplay(x, $t('mms.rank.prefix.1') + MMS.rank.getRankTierName(0)),
 					)}
 					{/* <UpgradesPN upgids={[['u631']]} /> */}
 				</div>
