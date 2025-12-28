@@ -1,78 +1,78 @@
 .deduction_container {
-  background-color: var(--background-color);
-  height: 250px;
-  border: 2px solid;
-  border-image: linear-gradient(135deg, #1a6c5e, #1fb286, #ef2dfd) 1;
-  position: relative;
-  display: block;
-  margin: auto;
-  z-index: 1;
-  width: 50%;
-  overflow: hidden;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    background-image: linear-gradient(135deg, 
-      rgba(26, 108, 94, .5) 0%, 
-      rgba(31, 178, 134, .5), 
-      rgba(239, 45, 253, .5)
-    );
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    
-    clip-path: polygon(0 0, var(--progress, 0%) 0, var(--progress, 0%) 100%, 0 100%);
-    transition: clip-path 0.5s ease;
-  }
-  
-  &.fast {
-    &::before {
-      clip-path: unset;
-      transition: unset;
-      width: 100%;
-      background-image: 
-        repeating-linear-gradient(
-          -45deg,
-          transparent,
-          transparent 25%,
-          rgba(255, 255, 255, 0.1) 25%,
-          rgba(255, 255, 255, 0.1) 50%,
-          transparent 50%,
-          transparent 75%,
-          rgba(255, 255, 255, 0.1) 75%,
-          rgba(255, 255, 255, 0.1) 100%,
-        ),
-        linear-gradient(
-          135deg, 
-          rgba(26, 108, 94, .5) 0%, 
-          rgba(31, 178, 134, .5), 
-          rgba(239, 45, 253, .5)
-        );
-      background-size: 
-        200px 200px,  
-        100% 100%;    
-      background-position: 
-        0 0,          
-        0 0;          
-      
-      animation: stripe-move 1s linear infinite;
-    }
-  }
+	background-color: var(--background-color);
+	height: 250px;
+	border: 2px solid;
+	border-image: linear-gradient(135deg, #1a6c5e, #1fb286, #ef2dfd) 1;
+	position: relative;
+	display: block;
+	margin: auto;
+	z-index: 1;
+	width: 50%;
+	overflow: hidden;
+
+	&::before {
+		content: '';
+		position: absolute;
+		background-image: linear-gradient(
+			135deg,
+			rgba(26, 108, 94, 0.5) 0%,
+			rgba(31, 178, 134, 0.5),
+			rgba(239, 45, 253, 0.5)
+		);
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		width: 100%;
+
+		clip-path: polygon(0 0, var(--progress, 0%) 0, var(--progress, 0%) 100%, 0 100%);
+		transition: clip-path 0.5s ease;
+	}
+
+	&.fast {
+		&::before {
+			clip-path: unset;
+			transition: unset;
+			width: 100%;
+			background-image:
+				repeating-linear-gradient(
+					-45deg,
+					transparent,
+					transparent 25%,
+					rgba(255, 255, 255, 0.1) 25%,
+					rgba(255, 255, 255, 0.1) 50%,
+					transparent 50%,
+					transparent 75%,
+					rgba(255, 255, 255, 0.1) 75%,
+					rgba(255, 255, 255, 0.1) 100%
+				),
+				linear-gradient(
+					135deg,
+					rgba(26, 108, 94, 0.5) 0%,
+					rgba(31, 178, 134, 0.5),
+					rgba(239, 45, 253, 0.5)
+				);
+			background-size:
+				200px 200px,
+				100% 100%;
+			background-position:
+				0 0,
+				0 0;
+
+			animation: stripe-move 1s linear infinite;
+		}
+	}
 }
 
-
 @keyframes stripe-move {
-  0% {
-    background-position: 
-      0 0,          
-      0 0;          
-  }
-  100% {
-    background-position: 
-      -200px 0, 
-      0 0;          
-  }
+	0% {
+		background-position:
+			0 0,
+			0 0;
+	}
+	100% {
+		background-position:
+			-200px 0,
+			0 0;
+	}
 }

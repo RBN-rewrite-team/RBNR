@@ -11,7 +11,7 @@ export const FFFZ = {
 		};
 	},
 	deduceSpeed(): PowiainaNum {
-	  let base = new PowiainaNum(1/80)
-	  return base
-	}
+		let base = new PowiainaNum(1 / 80);
+		return base;
+	},
 };
