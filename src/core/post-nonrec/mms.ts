@@ -315,6 +315,8 @@ export const MMS = {
 						base = base.mul(MMS.rank.rankMilestones[2][1][3][0]());
 					if (player.hydra.mms.tier.gte(17))
 						base = base.mul(MMS.rank.rankMilestones[1][8][3][0]());
+					if (player.hydra.mms.bestTetr.gte(1))
+					  base = base.mul(10)
 
 					if (base.gte('1e100'))
 						base = base.log10().div(100).pow(0.5).sub(1).mul(2).add(1).mul(100).pow10();
@@ -327,6 +329,8 @@ export const MMS = {
 					if (player.hydra.mms.rank.gte(80)) base = base.pow(1.1);
 					if (player.hydra.mms.rank.gte(90)) base = base.pow(1.5);
 					if (player.hydra.mms.tri.gte(3)) base = base.pow(1.5);
+					if (player.hydra.mms.bestTetr.gte(1))
+					  base = base.mul(10)
 					return base;
 				},
 				effectDescription(): string {
@@ -667,7 +671,7 @@ export const MMS = {
 				] as const,
 			] as const,
 			3: [
-				[new PowiainaNum(1), () => getMessage('mms.rank.mil.3.0'), ['qol', 'perm.']] as const,
+				[new PowiainaNum(1), () => getMessage('mms.rank.mil.3.0'), ['perm.', 'qol', 'energy']] as const,
 			] as const,
 		} as const satisfies { [key: number]: RankMilestone[] },
 		getRankMilestones(q: number, rank: PowiainaNum) {
