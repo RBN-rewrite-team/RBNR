@@ -2036,4 +2036,5 @@ export default {
 	'mms.rank.mil.0.18': '降低级别的价格底数(3→2.7)',
 
 	'mms.rank.mil.3.0': '阶层重置保留级别',
+	'mms.rank.mil.2.4': '基于三重阶层提高阶层能量获取速度',
 };
