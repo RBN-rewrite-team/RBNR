@@ -127,6 +127,7 @@ export const MMS = {
 			player.hydra.mms.rank = player.hydra.mms.rank.max(
 				this.rank.levelReqReverse(0, player.hydra.chargedEnergy),
 			);
+			player.hydra.mms.bestRank = player.hydra.mms.bestRank.max(player.hydra.mms.rank);
 		}
 	},
 	staticExp(): PowiainaNum {
