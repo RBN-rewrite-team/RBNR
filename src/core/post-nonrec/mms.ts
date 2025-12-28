@@ -180,7 +180,7 @@ export const MMS = {
 			}
 			if (x.eq(1)) {
 				let tier = player.hydra.mms.tier;
-				if (tier.gte(50)) tier = tier.sub(50).pow_base(1.25).add(tier).sub(1)
+				if (tier.gte(50)) tier = tier.sub(50).pow_base(1.04).mul(50)
 				res = tier.add(1).pow(2).add(5);
 			}
 			if (x.eq(2)) {
@@ -218,6 +218,7 @@ export const MMS = {
 			}
 			if (x.eq(1)) {
 				res2 = res.sub(5).clampMin(0).root(2).sub(1);
+				if (res2.gte(50)) res2 = res2.div(50).max(1).log(1.04).mul(50)
 				// let tier = player.hydra.mms.tier;
 				// res = tier.add(1).pow(2).mul(3).add(2);
 			}
