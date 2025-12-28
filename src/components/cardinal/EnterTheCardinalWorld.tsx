@@ -216,11 +216,12 @@ export default defineComponent({
 
 							ctx.globalAlpha = globalOpacity;
 							ctx.fillStyle = 'white';
-							ctx.filter = `blur(${blur}px)`
+							ctx.shadowColor = 'white';
+							ctx.shadowBlur = blur;
 							ctx.beginPath();
 							ctx.arc(x, y, 3 * scale, 0, Math.PI * 2);
 							ctx.fill();
-							ctx.filter = `none`
+							ctx.shadowBlur = 0;
 						}
 					});
 				}
