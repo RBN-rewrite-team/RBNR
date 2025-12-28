@@ -1,3 +1,4 @@
+import './decimal-extended.ts';
 import './assets/stylesheet/main.scss';
 
 import PowiainaNum from 'powiaina_num.js';
