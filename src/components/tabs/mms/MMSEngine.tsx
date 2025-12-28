@@ -145,7 +145,9 @@ export default defineComponent({
 								<></>
 							)}
 						</div>
-						{player.hydra.mms.tier.gte(4) || player.hydra.mms.tri.gte(1) ? (
+						{player.hydra.mms.tier.gte(4) ||
+						player.hydra.mms.tri.gte(1) ||
+						player.hydra.mms.tetr.gte(1) ? (
 							<>
 								<div class="rank_div">
 									<b class="rank_text">{MMS.rank.getRankTierName(2)}</b>&nbsp;
