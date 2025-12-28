@@ -59,6 +59,8 @@ export const MMS = {
 		if (player.hydra.mms.rank.gte(17)) base = base.mul(MMS.rank.rankMilestones[0][9][3][0]());
 		if (player.hydra.mms.tri.gte(1)) base = base.mul(MMS.rank.rankMilestones[2][0][3][0]());
 		if (player.hydra.mms.tri.gte(6)) base = base.mul(10);
+
+		if (base.gte("1e250")) base = base.log10().div(250).pow(0.5).sub(1).mul(2).add(1).mul(250).pow10()
 		return base;
 	},
 	resetGain(): PowiainaNum {
