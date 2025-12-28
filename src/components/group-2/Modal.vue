@@ -166,7 +166,6 @@ const processedButtons = computed(() => {
 		});
 	}
 
-	console.log(props);
 	if (!props.showProgress && props.showConfirmButton) {
 		buttons.push({
 			text: props.confirmText,

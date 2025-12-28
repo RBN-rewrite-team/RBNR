@@ -152,28 +152,34 @@ export default defineComponent({
 					}
 				});
 
-				const lineConfigs = [
-					{ start: 9150, end: 12350, angle: 35 },
-					{ start: 10550, end: 12350, angle: 85 },
-					{ start: 11250, end: 12350, angle: 25 },
-				];
-
-				lineConfigs.forEach(config => {
-					if (diff >= config.start && diff <= config.end) {
-						const length = (diff - config.start) * 6;
-						const angleRad = (config.angle * Math.PI) / 180;
-						const endX = centerX + Math.cos(angleRad) * length;
-						const endY = centerY + Math.sin(angleRad) * length;
-						
-						ctx.strokeStyle = 'white';
-						ctx.lineWidth = 2;
-						ctx.globalAlpha = globalOpacity;
-						ctx.beginPath();
-						ctx.moveTo(centerX, centerY);
-						ctx.lineTo(endX, endY);
-						ctx.stroke();
-					}
-				});
+        const lineConfigs = [
+            { start: 9150, end: 12350, angle: 35 },
+            { start: 10550, end: 12350, angle: 85 },
+            { start: 11250, end: 12350, angle: 25 },
+        ];
+        
+        lineConfigs.forEach(config => {
+            if (diff >= config.start && diff <= config.end) {
+                const length = (diff - config.start) * 6;
+                const angleRad = (config.angle * Math.PI) / 180;
+                
+                const dirX = Math.cos(angleRad);
+                const dirY = Math.sin(angleRad);
+                
+                const startX = centerX - dirX * length;
+                const startY = centerY - dirY * length;
+                const endX = centerX + dirX * length;
+                const endY = centerY + dirY * length;
+                
+                ctx.strokeStyle = 'white';
+                ctx.lineWidth = 2;
+                ctx.globalAlpha = globalOpacity;
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                ctx.lineTo(endX, endY);
+                ctx.stroke();
+            }
+        });
 
 				if (diff >= 15350) {
 					pointList.forEach((point, index) => {
