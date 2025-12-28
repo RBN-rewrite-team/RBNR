@@ -154,6 +154,9 @@ export const MMS = {
 						if (player.hydra.mms.tier.gte(18)) {
 							base = base.mul(2);
 						}
+						if (player.hydra.mms.tri.gte(13)) {
+							base = new PowiainaNum(1/0)
+						}
 						return base;
 					},
 					() => {
@@ -691,6 +694,11 @@ export const MMS = {
 						},
 						(x: PowiainaNum) => `^${format(x)}`,
 					],
+				] as const,
+				[
+					new PowiainaNum(13),
+					() => getMessage('mms.rank.mil.2.6'),
+					['tier'],
 				] as const,
 			] as const,
 			3: [
