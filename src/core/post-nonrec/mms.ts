@@ -123,6 +123,9 @@ export const MMS = {
 		);
 		if (player.hydra.mms.rank.gte(25) || player.hydra.mms.tri.gte(3))
 			this.addEnergy(MMS.resetGain().mul(diff));
+		player.hydra.mms.bestTetr = player.hydra.mms.bestTetr.max(player.hydra.mms.tetr)
+		if (player.hydra.mms.bestTetr.gte(1))
+			this.addEnergy(MMS.resetGain().mul(5 * diff));
 		if (player.hydra.mms.tier.gte(10) || player.hydra.mms.tri.gte(3)) {
 			player.hydra.mms.rank = player.hydra.mms.rank.max(
 				this.rank.levelReqReverse(0, player.hydra.chargedEnergy),
@@ -242,9 +245,11 @@ export const MMS = {
 			if (!x.isInt()) throw new Error('Input is not integer.');
 			if (x.eq(0)) {
 				if (MMS.rank.levelRequirement(x).lte(player.hydra.chargedEnergy)) {
-					player.hydra.mms.deduced = new PowiainaNum(0);
-					player.hydra.mms.progress = new PowiainaNum(0);
-					player.hydra.chargedEnergy = new PowiainaNum(0);
+				  if (player.hydra.mms.bestTetr.lt(1)) {
+  					player.hydra.mms.deduced = new PowiainaNum(0);
+  					player.hydra.mms.progress = new PowiainaNum(0);
+  					player.hydra.chargedEnergy = new PowiainaNum(0);
+				  }
 
 					player.hydra.mms.rank = player.hydra.mms.rank.add(1);
 					player.hydra.mms.bestRank = player.hydra.mms.bestRank.max(player.hydra.mms.rank);
@@ -255,7 +260,7 @@ export const MMS = {
 					player.hydra.mms.deduced = new PowiainaNum(0);
 					player.hydra.mms.progress = new PowiainaNum(0);
 					player.hydra.chargedEnergy = new PowiainaNum(0);
-					if (player.hydra.mms.tetr.lt(1)) {
+					if (player.hydra.mms.bestTetr.lt(1)) {
 						if (player.hydra.mms.bestTier.gte(20)) player.hydra.mms.rank = player.hydra.mms.rank.div(100).ceil();
 						else player.hydra.mms.rank = new PowiainaNum(0);
 						player.hydra.mms.rankEnergy = new PowiainaNum(0);
@@ -662,7 +667,7 @@ export const MMS = {
 				] as const,
 			] as const,
 			3: [
-				[new PowiainaNum(1), () => getMessage('mms.rank.mil.3.0'), ['qol']] as const,
+				[new PowiainaNum(1), () => getMessage('mms.rank.mil.3.0'), ['qol', 'perm.']] as const,
 			] as const,
 		} as const satisfies { [key: number]: RankMilestone[] },
 		getRankMilestones(q: number, rank: PowiainaNum) {
