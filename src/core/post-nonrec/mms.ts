@@ -286,7 +286,7 @@ export const MMS = {
 					if (player.hydra.mms.tier.gte(17))
 						base = base.mul(MMS.rank.rankMilestones[1][8][3][0]());
 					
-		if (base.gte("1e100")) base = base.log10().div(100).pow(0.5).mul(100).pow10()
+		if (base.gte("1e100")) base = base.log10().div(100).pow(0.5).sub(1).mul(2).add(1).mul(100).pow10()
 
 					return base;
 				},
