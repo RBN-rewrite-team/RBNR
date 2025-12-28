@@ -35,7 +35,7 @@
     "uuid": "^13.0.0",
     "vatex": "^0.1.0",
     "vue": "^3.5.26",
-    "vue-i18n": "^11.2.2"
+    "vue-i18n": "^11.2.7"
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.5",
