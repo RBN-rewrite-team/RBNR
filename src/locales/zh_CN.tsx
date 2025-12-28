@@ -2038,4 +2038,6 @@ export default {
 	'mms.rank.mil.3.0': '阶层重置保留级别',
 	'mms.rank.mil.2.4': '基于三重阶层提高阶层能量获取速度',
 	'mms.rank.mil.2.5': 'MMS推演速度×10，基于阶层能量提高静态指数(1,000,000阶层能量后)',
+
+	'about.special': '特殊',
 };

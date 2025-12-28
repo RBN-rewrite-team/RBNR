@@ -190,8 +190,17 @@ import { i18n } from '@/utils/i18n';
 				hard_shuati<br />
 				Endless_e308<br />
 			</div>
+
+			<div style="position: absolute; top: 400px; height: 100px; width: 100%" align="center">
+				<h2>{{ $t('about.special') }}</h2>
+				<br />
+				yswyyy<br />
+				qwerty<br />
+				𝓢𝓲𝓰𝓶𝓪<br />
+				绝对论 斯马特262<br />
+			</div>
 		</div>
-		<div style="transform: translateY(400px)" class="selectable">
+		<div style="transform: translateY(800px)" class="selectable">
 			<template v-if="(i18n.global.locale as unknown as { value: string }).value == 'zh-CN'"
 				>本项目使用了<a href="https://cn.vuejs.org/"> Vue </a>、<a
 					href="https://cn.vitejs.dev/"

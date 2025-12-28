@@ -2161,4 +2161,6 @@ THEN YOU CAN GET REVELATION.<br />
 	'card.desc3':
 		'This is a disclaimer. If something goes wrong, <b>your save may be <i>permanently</i> lost and <i>unrecoverable</i></b>, it\'s your responsibility.<br /><br />If you agree with this disclaimer, please input "{verify}" in this input box.',
 	'card.verify': 'I confirm that I accept full responsibility for all risks',
+
+	'about.special': 'Special',
 };
