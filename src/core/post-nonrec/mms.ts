@@ -356,7 +356,7 @@ export const MMS = {
 						player.hydra.mms.triEnergy = new PowiainaNum(0);
 
 						player.hydra.mms.tetr = player.hydra.mms.tetr.add(1);
-						player.hydra.mms.besetTetr = player.hydra.mms.bestTetr.max(player.hydra.mms.tetr);
+						player.hydra.mms.bestTetr = player.hydra.mms.bestTetr.max(player.hydra.mms.tetr);
 					}
 				}
 			}
@@ -815,9 +815,9 @@ export const MMS = {
 		} as const,
 		getRankMilestones(q: number, rank: PowiainaNum, layer: number) {
 			if (!(layer in MMS.rank.rankMilestones)) return null;
-			if (!(q in MMS.rank.rankMilestones[layer])) return null;
+			if (!(q in (MMS.rank.rankMilestones as any)[layer])) return null;
 			let b = q as keyof typeof MMS.rank.rankMilestones;
-			let mils = MMS.rank.rankMilestones[layer][b];
+			let mils = (MMS.rank.rankMilestones as any)[layer][b];
 			for (let i = 0; i < mils.length; i++) {
 				if (mils[i][0].gt(rank)) {
 					return mils[i];
