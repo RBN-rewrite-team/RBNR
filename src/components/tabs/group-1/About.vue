@@ -69,7 +69,6 @@ import { i18n } from '@/utils/i18n';
 				RAXH<br />
 				Seanxlx<br />
 				LSO - The Reflection Arc<br />
-				{{ $t('about.dlsdl') }}<br />
 				EdenGameMaster<br />
 			</div>
 			<div
