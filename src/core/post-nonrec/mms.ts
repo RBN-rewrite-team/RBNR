@@ -143,6 +143,10 @@ export const MMS = {
 			);
 			player.hydra.mms.bestRank = player.hydra.mms.bestRank.max(player.hydra.mms.rank);
 		}
+
+		player.hydra.mms.bestTier = player.hydra.mms.bestTier.max(player.hydra.mms.tier);
+		player.hydra.mms.bestTri = player.hydra.mms.bestTri.max(player.hydra.mms.tri);
+		player.hydra.mms.bestTetr = player.hydra.mms.bestTetr.max(player.hydra.mms.tetr);
 	},
 	staticExp(): PowiainaNum {
 		let base = new PowiainaNum(0.5);
@@ -333,6 +337,9 @@ export const MMS = {
 					player.hydra.mms.triEnergy = new PowiainaNum(0);
 
 					player.hydra.mms.tetr = player.hydra.mms.tetr.add(1);
+					player.hydra.mms.bestTetr = player.hydra.mms.bestTetr.max(
+						player.hydra.mms.tetr,
+					);
 				}
 			}
 		},
