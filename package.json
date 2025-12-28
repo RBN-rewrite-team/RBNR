@@ -15,7 +15,7 @@
   "dependencies": {
     "@codemirror/legacy-modes": "^6.5.2",
     "@fingerprintjs/fingerprintjs": "^5.0.1",
-    "@intlify/unplugin-vue-i18n": "^11.0.1",
+    "@intlify/unplugin-vue-i18n": "^11.0.3",
     "@types/pako": "^2.0.4",
     "@vitejs/plugin-legacy": "^7.2.1",
     "break_eternity.js": "^2.1.3",
