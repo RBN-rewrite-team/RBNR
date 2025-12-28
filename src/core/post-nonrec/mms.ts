@@ -329,8 +329,6 @@ export const MMS = {
 					if (player.hydra.mms.rank.gte(80)) base = base.pow(1.1);
 					if (player.hydra.mms.rank.gte(90)) base = base.pow(1.5);
 					if (player.hydra.mms.tri.gte(3)) base = base.pow(1.5);
-					if (player.hydra.mms.bestTetr.gte(1))
-					  base = base.mul(10)
 					return base;
 				},
 				effectDescription(): string {
@@ -349,6 +347,8 @@ export const MMS = {
 					);
 					if (player.hydra.mms.tri.gte(5))
 						base = base.mul(MMS.rank.rankMilestones[2][4][3][0]());
+					if (player.hydra.mms.bestTetr.gte(1))
+					  base = base.mul(10)
 					return base;
 				},
 				effect(): PowiainaNum {
