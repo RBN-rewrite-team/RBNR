@@ -29,11 +29,11 @@ export default defineComponent({
 
 		return () => (
 			<>
-				{rankreq(MMS.rank.getCurrentTierFromTetr(usetetr.value).sub(2), $t)}
-				<br />
 				{rankreq(MMS.rank.getCurrentTierFromTetr(usetetr.value).sub(1), $t)}
 				<br />
 				{rankreq(MMS.rank.getCurrentTierFromTetr(usetetr.value), $t)}
+				<br />
+				{rankreq(MMS.rank.getCurrentTierFromTetr(usetetr.value).add(1), $t)}
 			</>
 		);
 	},
