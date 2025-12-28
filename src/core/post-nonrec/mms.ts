@@ -32,9 +32,13 @@ export const MMS = {
 			deduced: new PowiainaNum(0),
 			progress: new PowiainaNum(0),
 			rank: new PowiainaNum(0),
+			bestRank: new PowiainaNum(0),
 			tier: new PowiainaNum(0),
+			bestTier: new PowiainaNum(0),
 			tri: new PowiainaNum(0),
+			bestTri: new PowiainaNum(0),
 			tetr: new PowiainaNum(0),
+			bestTetr: new PowiainaNum(0),
 			rankEnergy: new PowiainaNum(0),
 			tierEnergy: new PowiainaNum(0),
 			lastReset: 0,
@@ -240,6 +244,7 @@ export const MMS = {
 					player.hydra.chargedEnergy = new PowiainaNum(0);
 
 					player.hydra.mms.rank = player.hydra.mms.rank.add(1);
+					player.hydra.mms.bestRank = player.hydra.mms.bestRank.max(player.hydra.mms.rank);
 				}
 			}
 			if (x.eq(1)) {
@@ -248,11 +253,13 @@ export const MMS = {
 					player.hydra.mms.progress = new PowiainaNum(0);
 					player.hydra.chargedEnergy = new PowiainaNum(0);
 					if (player.hydra.mms.tetr.lt(1)) {
-						player.hydra.mms.rank = new PowiainaNum(0);
+						if (player.hydra.mms.bestTier.gte(20)) player.hydra.mms.rank = player.hydra.mms.rank.div(100).ceil();
+						else player.hydra.mms.rank = new PowiainaNum(0);
 						player.hydra.mms.rankEnergy = new PowiainaNum(0);
 					}
 
 					player.hydra.mms.tier = player.hydra.mms.tier.add(1);
+					player.hydra.mms.bestTier = player.hydra.mms.bestTier.max(player.hydra.mms.tier);
 				}
 			}
 			if (x.eq(2)) {
@@ -266,6 +273,7 @@ export const MMS = {
 					player.hydra.mms.tierEnergy = new PowiainaNum(0);
 
 					player.hydra.mms.tri = player.hydra.mms.tri.add(1);
+					player.hydra.mms.bestTri = player.hydra.mms.bestTri.max(player.hydra.mms.tri);
 				}
 			}
 		},
@@ -327,6 +335,10 @@ export const MMS = {
 			},
 		},
 		rankMilTags: [
+			{
+				id: 'perm.',
+				color: 'lightgreen',
+			},
 			{
 				id: 'unlock',
 				color: 'orange',
@@ -552,6 +564,7 @@ export const MMS = {
 					],
 				] as const,
 				[new PowiainaNum(18), () => getMessage('mms.rank.mil.1.9'), ['softcap']] as const,
+				[new PowiainaNum(20), () => getMessage('mms.rank.mil.1.10'), ['perm.', 'qol']] as const,
 			] as const,
 			2: [
 				[
