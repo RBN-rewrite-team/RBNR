@@ -753,7 +753,7 @@ export const MMS = {
 			tierDifference2?: number,
 		) {
 			const tier: PowiainaNum = tier2 ?? MMS.rank.getCurrentTierFromTetr();
-			const current: PowiainaNum = current2 ?? MMS.rank.getRankFromTetr();
+			const current: PowiainaNum = current2 ?? MMS.rank.getRankFromTetr(tier);
 			const tierDifference: number = tierDifference2 ?? 1;
 			let x = tier.sub(3);
 			let p = tier.sub(3);
