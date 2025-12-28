@@ -240,7 +240,7 @@ export default defineComponent({
 					<br />
 					{MMS.rank.rankMilestones[0].map(
 						(x) =>
-							x[0].lte(x[2].includes('perm.') ? player.hydra.mms.bestRank : player.hydra.mms.rank) &&
+							x[0].lte((x[2] as string[]).includes('perm.') ? player.hydra.mms.bestRank : player.hydra.mms.rank) &&
 							tagAccord(tag.value, x[2]) &&
 							milestoneDisplay(x, MMS.rank.getRankTierName(0)),
 					)}
@@ -253,7 +253,7 @@ export default defineComponent({
 					)}
 					{MMS.rank.rankMilestones[1].map(
 						(x) =>
-							x[0].lte(x[2].includes('perm.') ? player.hydra.mms.bestTier : player.hydra.mms.tier) &&
+							x[0].lte((x[2] as string[]).includes('perm.') ? player.hydra.mms.bestTier : player.hydra.mms.tier) &&
 							tagAccord(tag.value, x[2]) &&
 							milestoneDisplay(x, MMS.rank.getRankTierName(1)),
 					)}
@@ -266,7 +266,7 @@ export default defineComponent({
 					)}
 					{MMS.rank.rankMilestones[2].map(
 						(x) =>
-							x[0].lte(x[2].includes('perm.') ? player.hydra.mms.bestTri : player.hydra.mms.tri) &&
+							x[0].lte((x[2] as string[]).includes('perm.') ? player.hydra.mms.bestTri : player.hydra.mms.tri) &&
 							tagAccord(tag.value, x[2]) &&
 							milestoneDisplay(x, MMS.rank.getRankTierName(2)),
 					)}
@@ -279,7 +279,7 @@ export default defineComponent({
 					)}
 					{MMS.rank.rankMilestones[3].map(
 						(x) =>
-							x[0].lte(x[2].includes('perm.') ? player.hydra.mms.bestTetr : player.hydra.mms.tetr) &&
+							x[0].lte((x[2] as string[]).includes('perm.') ? player.hydra.mms.bestTetr : player.hydra.mms.tetr) &&
 							tagAccord(tag.value, x[2]) &&
 							milestoneDisplay(x, MMS.rank.getRankTierName(3)),
 					)}
