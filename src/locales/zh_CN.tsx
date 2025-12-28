@@ -1983,7 +1983,9 @@ export default {
 	'mms.rank.reset.1': '重置你的级别，MMS推演进度和充能九头蛇能量，但提升阶层。',
 	'mms.rank.reset.2': '重置你的阶层，级别，MMS和ChHE，但提升三重阶层。',
 	'mms.rank.reset.3': '重置你的阶层，级别，三重阶层，MMS和ChHE，但提升四重阶层。',
+	'mms.rank.reset.0.1': '重置普通阶层，但提升压缩级别。',
 	'mms.rank.requirement': '提升你的{up}需要',
+	'mms.rank.prefix.1': '压缩',
 
 	'mms.rank.mil.0.0': '基于充能九头蛇能量提升MMS推演速度',
 	'mms.rank.mil.0.1': '充能九头蛇能量获取×2',

@@ -41,6 +41,10 @@ export const MMS = {
 			bestTetr: new PowiainaNum(0),
 			rankEnergy: new PowiainaNum(0),
 			tierEnergy: new PowiainaNum(0),
+			compressed: {
+				rank: new PowiainaNum(0),
+				bestRank: new PowiainaNum(0),
+			},
 			lastReset: 0,
 		};
 	},
@@ -164,10 +168,21 @@ export const MMS = {
 				[() => new PowiainaNum(1e10), () => new PowiainaNum(0.25)],
 			],
 		},
-		levelRequirement(q: PowiainaNum | number) {
-			const x = new PowiainaNum(q);
+		levelRequirement(q: PowiainaNum | number, layer: PowiainaNum | number) {
+			const x = new PowiainaNum(q), l = new PowiainaNum(layer);
 			if (!x.isInt()) throw new Error('Input is not integer.');
 			let res = PowiainaNum.POSITIVE_INFINITY.clone();
+			
+			if(l.eq(1))
+			{
+				if(x.eq(0))
+				{
+					let rank = player.hydra.mms.compressed.rank;
+					let base = new PowiainaNum(1.2);
+					res = base.pow(rank).mul(10000);
+				}
+				return res;
+			}
 
 			if (x.eq(0)) {
 				let rank = player.hydra.mms.rank;
