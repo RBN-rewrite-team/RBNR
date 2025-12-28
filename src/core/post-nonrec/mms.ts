@@ -172,7 +172,7 @@ export const MMS = {
 				}
 				let base = new PowiainaNum(3)
 				if (player.hydra.mms.rank.gte(514)) base = new PowiainaNum(2.85)
-				res = new PowiainaNum(3).pow(rank);
+				res = base.pow(rank);
 			}
 			if (x.eq(1)) {
 				let tier = player.hydra.mms.tier;
