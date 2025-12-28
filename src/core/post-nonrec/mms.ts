@@ -167,7 +167,7 @@ export const MMS = {
 				[() => new PowiainaNum(1e10), () => new PowiainaNum(0.25)],
 			],
 		},
-		levelRequirement(q: PowiainaNum | number, layer: PowiainaNum | number = 1) {
+		levelRequirement(q: PowiainaNum | number, layer: PowiainaNum | number = 0) {
 			const x = new PowiainaNum(q),
 				l = new PowiainaNum(layer);
 			if (!x.isInt()) throw new Error('Input is not integer.');
