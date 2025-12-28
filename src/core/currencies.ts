@@ -151,6 +151,7 @@ class SolutionCurrency extends Currency {
 		if (player.milestones.dut10) return;
 		player.hydra.dilute.solutionCost = new Decimal(player.hydra.dilute.solution)
 			.sub(x)
+			.clampMax(player.hydra.dilute.solution)
 			.clamp(0, Number.MAX_VALUE);
 	}
 
