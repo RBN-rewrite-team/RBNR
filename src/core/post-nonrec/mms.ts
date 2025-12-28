@@ -180,6 +180,7 @@ export const MMS = {
 			}
 			if (x.eq(1)) {
 				let tier = player.hydra.mms.tier;
+				if (tier.gte(50)) tier = tier.sub(50).pow_base(1.25).add(tier).sub(1)
 				res = tier.add(1).pow(2).add(5);
 			}
 			if (x.eq(2)) {
@@ -283,6 +284,9 @@ export const MMS = {
 						base = base.mul(MMS.rank.rankMilestones[2][1][3][0]());
 					if (player.hydra.mms.tier.gte(17))
 						base = base.mul(MMS.rank.rankMilestones[1][8][3][0]());
+					
+		if (base.gte("1e100")) base = base.log10().div(100).pow(0.5).mul(100).pow10()
+
 					return base;
 				},
 				effect(): PowiainaNum {
