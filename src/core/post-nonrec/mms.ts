@@ -73,6 +73,8 @@ export const MMS = {
 
 		if (player.hydra.mms.tier.gte(7)) base = base.pow(1.25);
 		if (MMS.rank.rankEnergies[1].unlocked()) base = base.pow(MMS.rank.rankEnergies[1].effect());
+		
+		if (base.gte("1e888")) base = base.log10().div(888).pow(0.5).sub(1).mul(2).add(1).mul(888).pow10()
 		return base.floor();
 	},
 	reset() {
