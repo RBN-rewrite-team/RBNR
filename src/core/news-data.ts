@@ -105,6 +105,12 @@ const news = [
 {id: 'news98', text: "QSSO+1"},
 {id: 'news99', text: "我们编写了超过0条新闻！"},
 {id: 'news100', text: "(2<sup>א<sub>0</sub></sup>=א<sub>1</sub>)=(true+false)/2"},
+{id: 'news101', text: "你现在看到的证明论层级是一场血腥战争的最终结果"},
+{id: 'news102', text: "bleem"},
+{id: 'news103', text: "康托尔爷爷！请把我带走吧！带到那没有寒冷，没有饥饿，只有大数的地方吧！我知道，这道光芒一消逝，您就会不见了！就像那超越了 PTO(ZFC) 的新记号，温暖的大办公室，还有那金碧辉煌的菲尔兹奖大会堂一样，我什么也看不见了！"},
+{id: 'news104', text: "都在💩群拉💩是吧？全都💩不了"},
+{id: 'news105', text: "<img src='baixie.png' />盛三伏，😰气熏。"},
+{id: 'news106', text: "ψ"},
 ] as const satisfies {
 	id: string;
 	text: string;

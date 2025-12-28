@@ -121,7 +121,7 @@ export const MMS = {
 	},
 	staticExp(): PowiainaNum {
 		let base = new PowiainaNum(0.5);
-		if (player.hydra.mms.tri.gte(6)) base = base.pow(MMS.rank.rankMilestones[2][5][3][0]())
+		if (player.hydra.mms.tri.gte(6)) base = base.pow(MMS.rank.rankMilestones[2][5][3][0]());
 		return base;
 	},
 	rank: {
@@ -142,7 +142,7 @@ export const MMS = {
 					() => {
 						let base = new PowiainaNum(0.75);
 						if (player.hydra.mms.rank.gte(19)) base = base.pow(0.75);
-						if (player.hydra.mms.tri.gte(5))
+						if (player.hydra.mms.tri.gte(4))
 							base = base.pow(MMS.rank.rankMilestones[2][3][3][0]());
 						return base;
 					},
@@ -194,8 +194,8 @@ export const MMS = {
 			let res2 = PowiainaNum.ZERO.clone();
 
 			if (x.eq(0)) {
-			  let base = new PowiainaNum(3)
-				if (player.hydra.mms.rank.gte(514)) base = new PowiainaNum(2.85)
+				let base = new PowiainaNum(3);
+				if (player.hydra.mms.rank.gte(514)) base = new PowiainaNum(2.85);
 				res2 = res.log(base);
 				//软上限
 				if (res2.gte(this.scaling[0][0][0]())) {
@@ -474,7 +474,7 @@ export const MMS = {
 					['energy', 'tier'],
 				] as const,
 				[new PowiainaNum(128), () => getMessage('mms.rank.mil.0.17'), ['energy']] as const,
-				[new PowiainaNum(514), () => getMessage('mms.rank.mil.0.18'), ['softcap']] as const
+				[new PowiainaNum(514), () => getMessage('mms.rank.mil.0.18'), ['softcap']] as const,
 			],
 			1: [
 				[
@@ -608,10 +608,13 @@ export const MMS = {
 				[
 					new PowiainaNum(6),
 					() => getMessage('mms.rank.mil.2.5'),
-					['deduce', "energy", "softcap"],
+					['deduce', 'energy', 'softcap'],
 					[
 						() => {
-							let effect: PowiainaNum = player.hydra.mms.tierEnergy.max(1e6).log(1e6).recip();
+							let effect: PowiainaNum = player.hydra.mms.tierEnergy
+								.max(1e6)
+								.log(1e6)
+								.recip();
 							return effect;
 						},
 						(x: PowiainaNum) => `^${format(x)}`,
@@ -669,6 +672,10 @@ export const MMS = {
 		},
 
 		// 普通超-阶层
+		/**
+		 * @param tetr2 当前的四重阶层数量
+		 * @returns 目前最高的超阶层重数
+		 */
 		getCurrentTierFromTetr(tetr2?: PowiainaNum) {
 			const tetr: PowiainaNum = tetr2 ?? player.hydra.mms.tetr;
 			if (tetr.eq(0)) return new PowiainaNum(3);
@@ -676,6 +683,11 @@ export const MMS = {
 			if (x.gte(10)) x = x.div(10).root(1.6).mul(10);
 			return x.add(3).floor();
 		},
+		/**
+		 * @param tier2 超阶层重数
+		 * @param tetr2 当前的四重阶层数量
+		 * @returns 当前超阶层重的等级
+		 */
 		getRankFromTetr(tier2?: PowiainaNum, tetr2?: PowiainaNum) {
 			const tier: PowiainaNum = tier2 ?? MMS.rank.getCurrentTierFromTetr();
 			const tetr: PowiainaNum = tetr2 ?? player.hydra.mms.tetr;
@@ -684,6 +696,12 @@ export const MMS = {
 			let hp = new PowiainaNum(10).pow(x.sub(1).root(0.8)).ceil();
 			return tetr.div(hp).floor();
 		},
+		/**
+		 * @param tier2 超阶层重数
+		 * @param current2 当前的四重阶层数量
+		 * @param tierDifference2 1个十重阶层需要x个`tierDifference2-2`重阶层
+		 * @returns 当前超阶层重的需求
+		 */
 		getBeyondRankRequirement(
 			tier2?: PowiainaNum,
 			current2?: PowiainaNum,
