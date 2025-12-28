@@ -215,7 +215,7 @@ export const MMS = {
 				res = tetr.pow(1.25).mul(4).add(10).ceil();
 			}
 			if (x.gte(4)) {
-				return MMS.rank.getBeyondRankRequirement(new PowiainaNum(4));
+				return MMS.rank.getBeyondRankRequirement(x);
 			}
 			return res;
 		},

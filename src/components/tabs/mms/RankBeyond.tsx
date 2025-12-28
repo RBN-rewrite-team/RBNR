@@ -10,6 +10,9 @@ function rankreq(x: PowiainaNum, $t: $t) {
 	if (x.lt(4)) return;
 	return (
 		<>
+			{MMS.rank.getRankTierName(x)}&nbsp;
+			<span style="font-size: large">{MMS.rank.getRankFromTetr(x)}</span>
+			<br />
 			{$t('mms.rank.requirement', {
 				up: MMS.rank.getRankTierName(x),
 			})}
