@@ -46,14 +46,14 @@ export default defineComponent({
 
 		const drawCanvas = () => {
 			if (!canvasRef.value) return;
-			
+
 			const canvas = canvasRef.value;
 			const ctx = canvas.getContext('2d');
 			if (!ctx) return;
 
 			const diff = diffRef.value;
-			const width = canvas.width = canvas.clientWidth;
-			const height = canvas.height = canvas.clientHeight;
+			const width = (canvas.width = canvas.clientWidth);
+			const height = (canvas.height = canvas.clientHeight);
 			const centerX = width / 2;
 			const centerY = height / 2;
 			const maxDistance = Math.sqrt(Math.pow(width / 2, 2) + Math.pow(height / 2, 2));
@@ -67,21 +67,31 @@ export default defineComponent({
 				if (diff < 8000) {
 					const crossOpacity = Math.sin(((diff - 8000) / 3000) * 4.5 * Math.PI) / 2 + 0.5;
 					ctx.globalAlpha = crossOpacity * globalOpacity;
-					
-					const gradientX = ctx.createLinearGradient(centerX - 25, centerY, centerX + 25, centerY);
+
+					const gradientX = ctx.createLinearGradient(
+						centerX - 25,
+						centerY,
+						centerX + 25,
+						centerY,
+					);
 					gradientX.addColorStop(0, 'black');
 					gradientX.addColorStop(0.5, 'white');
 					gradientX.addColorStop(1, 'black');
 					ctx.fillStyle = gradientX;
 					ctx.fillRect(centerX - 25, centerY - 2, 50, 4);
-					
-					const gradientY = ctx.createLinearGradient(centerX, centerY - 25, centerX, centerY + 25);
+
+					const gradientY = ctx.createLinearGradient(
+						centerX,
+						centerY - 25,
+						centerX,
+						centerY + 25,
+					);
 					gradientY.addColorStop(0, 'black');
 					gradientY.addColorStop(0.5, 'white');
 					gradientY.addColorStop(1, 'black');
 					ctx.fillStyle = gradientY;
 					ctx.fillRect(centerX - 2, centerY - 25, 4, 50);
-					
+
 					ctx.fillStyle = 'white';
 					ctx.beginPath();
 					ctx.arc(centerX, centerY, 4, 0, Math.PI * 2);
@@ -92,20 +102,30 @@ export default defineComponent({
 					ctx.shadowBlur = 0;
 				} else {
 					ctx.globalAlpha = globalOpacity;
-					const gradientX = ctx.createLinearGradient(centerX - 25, centerY, centerX + 25, centerY);
+					const gradientX = ctx.createLinearGradient(
+						centerX - 25,
+						centerY,
+						centerX + 25,
+						centerY,
+					);
 					gradientX.addColorStop(0, 'black');
 					gradientX.addColorStop(0.5, 'white');
 					gradientX.addColorStop(1, 'black');
 					ctx.fillStyle = gradientX;
 					ctx.fillRect(centerX - 25, centerY - 2, 50, 4);
-					
-					const gradientY = ctx.createLinearGradient(centerX, centerY - 25, centerX, centerY + 25);
+
+					const gradientY = ctx.createLinearGradient(
+						centerX,
+						centerY - 25,
+						centerX,
+						centerY + 25,
+					);
 					gradientY.addColorStop(0, 'black');
 					gradientY.addColorStop(0.5, 'white');
 					gradientY.addColorStop(1, 'black');
 					ctx.fillStyle = gradientY;
 					ctx.fillRect(centerX - 2, centerY - 25, 4, 50);
-					
+
 					ctx.fillStyle = 'white';
 					ctx.beginPath();
 					ctx.arc(centerX, centerY, 4, 0, Math.PI * 2);
@@ -116,7 +136,7 @@ export default defineComponent({
 					ctx.shadowBlur = 0;
 				}
 
-				rings.forEach(ringTime => {
+				rings.forEach((ringTime) => {
 					if (diff >= ringTime && diff <= ringTime + 4000) {
 						const radius = (diff - ringTime) / 0.95;
 						ctx.strokeStyle = 'white';
@@ -140,7 +160,7 @@ export default defineComponent({
 					{ start: 11350, end: 15350, divisor: 0.5 },
 				];
 
-				ringConfigs.forEach(config => {
+				ringConfigs.forEach((config) => {
 					if (diff >= config.start && diff <= config.end) {
 						const radius = (diff - config.start) / config.divisor;
 						ctx.strokeStyle = 'white';
@@ -152,34 +172,34 @@ export default defineComponent({
 					}
 				});
 
-        const lineConfigs = [
-            { start: 9150, end: 12350, angle: 35 },
-            { start: 10550, end: 12350, angle: 85 },
-            { start: 11250, end: 12350, angle: 25 },
-        ];
-        
-        lineConfigs.forEach(config => {
-            if (diff >= config.start && diff <= config.end) {
-                const length = (diff - config.start) * 6;
-                const angleRad = (config.angle * Math.PI) / 180;
-                
-                const dirX = Math.cos(angleRad);
-                const dirY = Math.sin(angleRad);
-                
-                const startX = centerX - dirX * length;
-                const startY = centerY - dirY * length;
-                const endX = centerX + dirX * length;
-                const endY = centerY + dirY * length;
-                
-                ctx.strokeStyle = 'white';
-                ctx.lineWidth = 2;
-                ctx.globalAlpha = globalOpacity;
-                ctx.beginPath();
-                ctx.moveTo(startX, startY);
-                ctx.lineTo(endX, endY);
-                ctx.stroke();
-            }
-        });
+				const lineConfigs = [
+					{ start: 9150, end: 12350, angle: 35 },
+					{ start: 10550, end: 12350, angle: 85 },
+					{ start: 11250, end: 12350, angle: 25 },
+				];
+
+				lineConfigs.forEach((config) => {
+					if (diff >= config.start && diff <= config.end) {
+						const length = (diff - config.start) * 6;
+						const angleRad = (config.angle * Math.PI) / 180;
+
+						const dirX = Math.cos(angleRad);
+						const dirY = Math.sin(angleRad);
+
+						const startX = centerX - dirX * length;
+						const startY = centerY - dirY * length;
+						const endX = centerX + dirX * length;
+						const endY = centerY + dirY * length;
+
+						ctx.strokeStyle = 'white';
+						ctx.lineWidth = 2;
+						ctx.globalAlpha = globalOpacity;
+						ctx.beginPath();
+						ctx.moveTo(startX, startY);
+						ctx.lineTo(endX, endY);
+						ctx.stroke();
+					}
+				});
 
 				if (diff >= 15350) {
 					pointList.forEach((point, index) => {
@@ -187,13 +207,13 @@ export default defineComponent({
 						if (diff >= pointTime && diff < 160000) {
 							const t = (diff - pointTime) * point.speed + point.distance;
 							if (t > maxDistance) return;
-							
+
 							const radian = (point.angle * Math.PI) / 180;
 							const x = centerX + Math.cos(radian) * t;
 							const y = centerY + Math.sin(radian) * t;
 							const scale = (t - point.distance) / point.speed / 10000;
 							const blur = (0.15 - point.speed) * 5;
-							
+
 							ctx.globalAlpha = globalOpacity;
 							ctx.fillStyle = 'white';
 							ctx.shadowColor = 'white';
@@ -208,17 +228,21 @@ export default defineComponent({
 
 				if (diff >= 15350) {
 					const gradient1 = ctx.createRadialGradient(
-						centerX, centerY, 0,
-						centerX, centerY, maxDistance
+						centerX,
+						centerY,
+						0,
+						centerX,
+						centerY,
+						maxDistance,
 					);
 					const progress1 = Math.min(1, (diff - 15350) / (120000 - 15350));
 					gradient1.addColorStop(0, 'rgba(0, 0, 0, 0)');
 					gradient1.addColorStop(1 - progress1, 'rgba(0, 0, 0, 0)');
 					gradient1.addColorStop(1, 'red');
-					
+
 					let opacity1 = diff >= 160000 ? 0.25 - (diff - 160000) / 4000 : 0.25;
 					opacity1 = Math.max(0, opacity1);
-					
+
 					ctx.globalAlpha = opacity1 * globalOpacity;
 					ctx.fillStyle = gradient1;
 					ctx.fillRect(0, 0, width, height);
@@ -226,17 +250,21 @@ export default defineComponent({
 
 				if (diff >= 180000) {
 					const gradient2 = ctx.createRadialGradient(
-						centerX, centerY, 0,
-						centerX, centerY, maxDistance
+						centerX,
+						centerY,
+						0,
+						centerX,
+						centerY,
+						maxDistance,
 					);
 					const progress2 = Math.min(1, (diff - 180000) / (284650 - 180000));
 					gradient2.addColorStop(0, 'rgba(0, 0, 0, 0)');
 					gradient2.addColorStop(1 - progress2, 'rgba(0, 0, 0, 0)');
 					gradient2.addColorStop(1, 'red');
-					
+
 					let opacity2 = diff >= 324650 ? 0.25 - (diff - 324650) / 4000 : 0.25;
 					opacity2 = Math.max(0, opacity2);
-					
+
 					ctx.globalAlpha = opacity2 * globalOpacity;
 					ctx.fillStyle = gradient2;
 					ctx.fillRect(0, 0, width, height);
@@ -244,17 +272,21 @@ export default defineComponent({
 
 				if (diff >= 500000) {
 					const gradient3 = ctx.createRadialGradient(
-						centerX, centerY, 0,
-						centerX, centerY, maxDistance
+						centerX,
+						centerY,
+						0,
+						centerX,
+						centerY,
+						maxDistance,
 					);
 					const progress3 = Math.min(1, (diff - 500000) / (604650 - 500000));
 					gradient3.addColorStop(0, 'rgba(0, 0, 0, 0)');
 					gradient3.addColorStop(1 - progress3, 'rgba(0, 0, 0, 0)');
 					gradient3.addColorStop(1, 'red');
-					
+
 					let opacity3 = diff >= 644650 ? 0.25 - (diff - 644650) / 4000 : 0.25;
 					opacity3 = Math.max(0, opacity3);
-					
+
 					ctx.globalAlpha = opacity3 * globalOpacity;
 					ctx.fillStyle = gradient3;
 					ctx.fillRect(0, 0, width, height);
@@ -296,12 +328,17 @@ export default defineComponent({
 			if (diff > 77000 && diff <= 79000) return 'VeryRDefie: 你好！';
 			if (diff > 79000 && diff <= 81000) return 'VeryRDefie: 现在你可能看不到我。';
 			if (diff > 81000 && diff <= 83000) return 'VeryRDefie: 但是我与你一起进入了隧道。';
-			if (diff > 83000 && diff <= 85000) return 'VeryRDefie: 刚刚暴君九头蛇对你发动了一次打击，不过偏了。';
-			if (diff > 85000 && diff <= 87000) return 'VeryRDefie: 小心了！这里不再安全。一会在说吧。';
+			if (diff > 83000 && diff <= 85000)
+				return 'VeryRDefie: 刚刚暴君九头蛇对你发动了一次打击，不过偏了。';
+			if (diff > 85000 && diff <= 87000)
+				return 'VeryRDefie: 小心了！这里不再安全。一会在说吧。';
 			if (diff > 87000 && diff <= 180000) return '（VeryRDefie频道静默）';
-			if (diff > 180000 && diff <= 182000) return 'VeryRDefie：这里已经是世界之间的绝对深空了。';
-			if (diff > 182000 && diff <= 184000) return 'VeryRDefie：在脱离了刚刚的打击之后，九头蛇一时半会也无法锁定你。';
-			if (diff > 184000 && diff <= 186000) return 'VeryRDefie：但这只是暂时，接下来的下一次打击，恐怕……';
+			if (diff > 180000 && diff <= 182000)
+				return 'VeryRDefie：这里已经是世界之间的绝对深空了。';
+			if (diff > 182000 && diff <= 184000)
+				return 'VeryRDefie：在脱离了刚刚的打击之后，九头蛇一时半会也无法锁定你。';
+			if (diff > 184000 && diff <= 186000)
+				return 'VeryRDefie：但这只是暂时，接下来的下一次打击，恐怕……';
 			if (diff > 186000 && diff <= 188000) return 'VeryRDefie：……';
 			if (diff > 188000 && diff <= 270000) return '（VeryRDefie频道静默）';
 			if (diff > 270000 && diff <= 274000) return 'VeryRDefie：差不多九头蛇应该又要来了...';
@@ -317,16 +354,23 @@ export default defineComponent({
 				if (diff > 160000 && diff <= 162000) return '（收到Alpha VII的专频信号）';
 				if (diff > 162000 && diff <= 164000) return 'Alpha VII：你在吗？我检查到了危险。';
 				if (diff > 164000 && diff <= 166000) return 'Alpha VII：没错，我也跟过来了。';
-				if (diff > 166000 && diff <= 168000) return 'Alpha VII：你既然能打开基数通道，我们肯定不会放过机会。';
-				if (diff > 168000 && diff <= 170000) return 'Alpha VII：这边我暂时屏蔽了这一次打击。';
-				if (diff > 170000 && diff <= 172000) return 'Alpha VII：据我所知，世界隧道的长度可能容纳四次袭击……';
+				if (diff > 166000 && diff <= 168000)
+					return 'Alpha VII：你既然能打开基数通道，我们肯定不会放过机会。';
+				if (diff > 168000 && diff <= 170000)
+					return 'Alpha VII：这边我暂时屏蔽了这一次打击。';
+				if (diff > 170000 && diff <= 172000)
+					return 'Alpha VII：据我所知，世界隧道的长度可能容纳四次袭击……';
 				if (diff > 172000 && diff <= 174000) return 'Alpha VII：行程已经过半。';
-				if (diff > 174000 && diff <= 176000) return 'Alpha VII：后面的路途仍然充满危险。回见。';
+				if (diff > 174000 && diff <= 176000)
+					return 'Alpha VII：后面的路途仍然充满危险。回见。';
 				if (diff > 176000 && diff <= 210000) return '（Alpha VII频道静默）';
-				if (diff > 210000 && diff <= 212000) return 'Alpha VII：我大致定位了下一次打击的位置……';
+				if (diff > 210000 && diff <= 212000)
+					return 'Alpha VII：我大致定位了下一次打击的位置……';
 				if (diff > 212000 && diff <= 214000) return 'Alpha VII：……但这并不能帮助你躲过。';
-				if (diff > 214000 && diff <= 216000) return 'Alpha VII：我发现大数世界已经在排斥我们的存在。';
-				if (diff > 216000 && diff <= 218000) return 'Alpha VII：这意味着如果你被摧毁，通道和我们都会不复存在。';
+				if (diff > 214000 && diff <= 216000)
+					return 'Alpha VII：我发现大数世界已经在排斥我们的存在。';
+				if (diff > 216000 && diff <= 218000)
+					return 'Alpha VII：这意味着如果你被摧毁，通道和我们都会不复存在。';
 				if (diff > 218000 && diff <= 220000) return 'Alpha VII：……';
 				if (diff > 220000 && diff <= Infinity) return '（Alpha VII频道静默）';
 			}
@@ -342,7 +386,8 @@ export default defineComponent({
 				if (diff > 346000 && diff <= 348000) return 'Damofrost：……我用自身能量屏蔽了它。';
 				if (diff > 348000 && diff <= 350000) return 'Damofrost：基数世界就在前方。';
 				if (diff > 350000 && diff <= 352000) return 'Damofrost：九头蛇不会容许你轻易过去。';
-				if (diff > 352000 && diff <= 354000) return 'Damofrost：祂一定会在最后关头再次试图阻止你。';
+				if (diff > 352000 && diff <= 354000)
+					return 'Damofrost：祂一定会在最后关头再次试图阻止你。';
 				if (diff > 354000 && diff <= 356000) return 'Damofrost：一定注意。';
 				if (diff > 356000 && diff <= Infinity) return '（Damofrost频道静默）';
 			}
@@ -381,7 +426,7 @@ export default defineComponent({
 										zIndex: 11,
 									}}
 								/>
-								
+
 								<div
 									style={{
 										position: 'absolute',
@@ -438,7 +483,7 @@ export default defineComponent({
 										{getDamofrostText()}
 									</div>
 								)}
-								
+
 								{player.thedoorofcardinalcrisis !== 999 &&
 									diff > 370000 &&
 									diff < 670000 && (
@@ -461,7 +506,7 @@ export default defineComponent({
 											></div>
 										</div>
 									)}
-								
+
 								{player.thedoorofcardinalcrisis !== 999 &&
 									diff > 666666 &&
 									!player.closedWorldTitle && (
@@ -514,7 +559,7 @@ export default defineComponent({
 											</div>
 										</div>
 									)}
-								
+
 								{player.thedoorofcardinalcrisis === 999 &&
 									player.thedoorofcardinaltime < 666000 && (
 										<div

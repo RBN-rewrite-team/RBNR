@@ -202,32 +202,48 @@ export default defineComponent({
 							<></>
 						)}
 					</div>
-					{ player.hydra.mms.tetr.gte(1) && <>
-						<br />
-						<div style={{
-							margin: 'auto',
-						}}>
-							<div class="rank_div">
-								<b class="rank_text">{$t('mms.rank.prefix.1') + MMS.rank.getRankTierName(0)}</b>&nbsp;
-								{formatWhole(player.hydra.mms.compressed.rank)}
-								<div class={'rank_button'} style={{borderColor: 'green'}} /*onClick={() => MMS.rank.levelUp(0, 1)}*/>
-									{$t('mms.rank.reset.0.1')} <br />
-									{false && getRankDisplay(
-										0,
-										player.hydra.mms.compressed.rank,
-										$t('mms.rank.prefix.1') + MMS.rank.getRankTierName(0),
-									)}
-									<br />
-									{$t('mms.rank.requirement', {
-										up: $t('mms.rank.prefix.1') + MMS.rank.getRankTierName(0),
-									})}
-									<br />
-									{MMS.rank.getRankTierName(0)}{' '}
-									{formatWhole(MMS.rank.levelRequirement(0, 1))}
+					{player.hydra.mms.tetr.gte(1) && (
+						<>
+							<br />
+							<div
+								style={{
+									margin: 'auto',
+								}}
+							>
+								<div class="rank_div">
+									<b class="rank_text">
+										{$t('mms.rank.prefix.1') + MMS.rank.getRankTierName(0)}
+									</b>
+									&nbsp;
+									{formatWhole(player.hydra.mms.compressed.rank)}
+									<div
+										class={'rank_button'}
+										style={{
+											borderColor: 'green',
+										}} /*onClick={() => MMS.rank.levelUp(0, 1)}*/
+									>
+										{$t('mms.rank.reset.0.1')} <br />
+										{false &&
+											getRankDisplay(
+												0,
+												player.hydra.mms.compressed.rank,
+												$t('mms.rank.prefix.1') +
+													MMS.rank.getRankTierName(0),
+											)}
+										<br />
+										{$t('mms.rank.requirement', {
+											up:
+												$t('mms.rank.prefix.1') +
+												MMS.rank.getRankTierName(0),
+										})}
+										<br />
+										{MMS.rank.getRankTierName(0)}{' '}
+										{formatWhole(MMS.rank.levelRequirement(0, 1))}
+									</div>
 								</div>
 							</div>
-						</div>
-					</> }
+						</>
+					)}
 					<br />
 					<button
 						style={{
