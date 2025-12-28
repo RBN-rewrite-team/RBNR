@@ -757,7 +757,7 @@ export const MMS = {
 			if (tetr.eq(0)) return new PowiainaNum(3);
 			let x = tetr.log10().max(0).pow(0.8).add(1);
 			if (x.gte(10)) x = x.div(10).root(1.6).mul(10);
-			return x.add(3).floor();
+			return x.add(2).floor();
 		},
 		/**
 		 * @param tier2 超阶层重数
@@ -767,7 +767,7 @@ export const MMS = {
 		getRankFromTetr(tier2?: PowiainaNum, tetr2?: PowiainaNum) {
 			const tier: PowiainaNum = tier2 ?? MMS.rank.getCurrentTierFromTetr();
 			const tetr: PowiainaNum = tetr2 ?? player.hydra.mms.tetr;
-			let x = tier.sub(3);
+			let x = tier.sub(2);
 			if (x.gte(10)) x = x.mul(10).pow(1.6).div(10);
 			let hp = new PowiainaNum(10).pow(x.sub(1).root(0.8)).ceil();
 			return tetr.div(hp).floor();
@@ -786,8 +786,8 @@ export const MMS = {
 			const tier: PowiainaNum = tier2 ?? MMS.rank.getCurrentTierFromTetr();
 			const current: PowiainaNum = current2 ?? MMS.rank.getRankFromTetr(tier);
 			const tierDifference: number = tierDifference2 ?? 1;
-			let x = tier.sub(3);
-			let p = tier.sub(3 + tierDifference);
+			let x = tier.sub(2);
+			let p = tier.sub(2 + tierDifference);
 			if (x.gte(10)) x = x.add(1).mul(10).pow(1.6).div(10).sub(1);
 			if (p.gte(10)) p = p.add(1).mul(10).pow(1.6).div(10).sub(1);
 			return new PowiainaNum(10)
