@@ -75,6 +75,7 @@ export const MMS = {
 	resetGain(): PowiainaNum {
 		if (player.retribution < 2) return new PowiainaNum(0);
 		let base = player.hydra.mms.deduced;
+		if (player.hydra.mms.bestTetr.gte(2)) base = base.add(1);
 		if (player.hydra.mms.rank.gte(2)) base = base.mul(2);
 		if (player.hydra.mms.tier.gte(1)) base = base.mul(MMS.rank.rankMilestones[1][0][3][0]());
 		if (player.hydra.mms.rank.gte(9)) base = base.mul(MMS.rank.rankMilestones[0][5][3][0]());
@@ -155,7 +156,7 @@ export const MMS = {
 							base = base.mul(2);
 						}
 						if (player.hydra.mms.tri.gte(13)) {
-							base = new PowiainaNum(1/0)
+							base = new PowiainaNum(1 / 0);
 						}
 						return base;
 					},
@@ -202,6 +203,7 @@ export const MMS = {
 				}
 				let base = new PowiainaNum(3);
 				if (player.hydra.mms.rank.gte(514)) base = new PowiainaNum(2.85);
+				if (player.hydra.mms.bestTetr.gte(2)) base = new PowiainaNum(2.5);
 				res = base.pow(rank);
 			}
 			if (x.eq(1)) {
@@ -230,6 +232,7 @@ export const MMS = {
 			if (x.eq(0)) {
 				let base = new PowiainaNum(3);
 				if (player.hydra.mms.rank.gte(514)) base = new PowiainaNum(2.85);
+				if (player.hydra.mms.bestTetr.gte(2)) base = new PowiainaNum(2.5);
 				res2 = res.log(base);
 				//软上限
 				if (res2.gte(this.scaling[0][0][0]())) {
@@ -301,8 +304,10 @@ export const MMS = {
 					player.hydra.chargedEnergy = new PowiainaNum(0);
 					player.hydra.mms.rank = new PowiainaNum(0);
 					player.hydra.mms.rankEnergy = new PowiainaNum(0);
-					player.hydra.mms.tier = new PowiainaNum(0);
-					player.hydra.mms.tierEnergy = new PowiainaNum(0);
+					if (player.hydra.mms.bestTetr.lt(2)) {
+						player.hydra.mms.tier = new PowiainaNum(0);
+						player.hydra.mms.tierEnergy = new PowiainaNum(0);
+					}
 
 					player.hydra.mms.tri = player.hydra.mms.tri.add(1);
 					player.hydra.mms.bestTri = player.hydra.mms.bestTri.max(player.hydra.mms.tri);
@@ -695,16 +700,17 @@ export const MMS = {
 						(x: PowiainaNum) => `^${format(x)}`,
 					],
 				] as const,
-				[
-					new PowiainaNum(13),
-					() => getMessage('mms.rank.mil.2.6'),
-					['tier'],
-				] as const,
+				[new PowiainaNum(13), () => getMessage('mms.rank.mil.2.6'), ['tier']] as const,
 			] as const,
 			3: [
 				[
 					new PowiainaNum(1),
 					() => getMessage('mms.rank.mil.3.0'),
+					['qol', 'perm.'],
+				] as const,
+				[
+					new PowiainaNum(2),
+					() => getMessage('mms.rank.mil.3.1'),
 					['qol', 'perm.'],
 				] as const,
 			] as const,
