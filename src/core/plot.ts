@@ -252,7 +252,7 @@ const plotcontents = {
 			'Alpha VII\t因此，努力提升自己。',
 		],
 		[
-			'Numerorum\t到达了MHO，但是还有更高级别的结构。',
+			'Numerorum\t到达了()(1,1)(2,2,1,1)(3)，但是还有更高级别的结构。',
 			'Numerorum\t真是令人<$bx>啊...',
 			'Hydra\t...',
 			'VeryRDefie\tNumerorum，你想知道当时我感染了ω病毒怎么活下来的吗？',
@@ -537,7 +537,7 @@ const plotcontents = {
 			'Numerorum\t......',
 		],
 		[
-			"Numerorum\tI reached MHO, but there're stronger structures...",
+			"Numerorum\tI reached ()(1,1)(2,2,1,1)(3), but there're stronger structures...",
 			"Numerorum\tIt's really <$bx>...",
 			'VeryRDefie\tNumerorum, Would you like to know how did I live when I met ω-virus?',
 			'VeryRDefie\tMy ability is that, accelerate 0.01~100x surround space-time.',
