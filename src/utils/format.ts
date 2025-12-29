@@ -10671,19 +10671,3 @@ export const formatTimestamp = (timestamp: number): string => {
 		second: '2-digit',
 	});
 };
-
-Decimal.prototype.format = function (precision: number = 4) {
-	return format(this, precision);
-};
-
-Decimal.prototype.formatWhole = function () {
-	return formatWhole(this);
-};
-
-PowiainaNum.prototype.format = function (precision: number = 4) {
-	return format(this, precision);
-};
-
-PowiainaNum.prototype.formatWhole = function () {
-	return formatWhole(this);
-};
