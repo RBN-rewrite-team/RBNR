@@ -387,7 +387,7 @@ export default {
 		17: 'Reach the limit of BMS',
 		18: 'Retribution',
 		19: 'Proof Theory',
-		20: 'MHO in MMS',
+		20: '()(1,1)(2,2,1,1)(3) in MMS',
 	},
 	'plot.narrator': 'Narrator',
 	'plot.title': 'Plot',
