@@ -18,3 +18,7 @@ PowiainaNum.prototype.format = function(precision: number = 4) {
 PowiainaNum.prototype.formatWhole = function() {
   return formatWhole(this)
 }
+
+BigInt.prototype.toJSON = function () {
+	return this.toString();
+};
