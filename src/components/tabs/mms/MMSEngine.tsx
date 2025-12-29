@@ -366,8 +366,8 @@ export default defineComponent({
 						(x) =>
 							x[0].lte(
 								(x[2] as string[]).includes('perm.')
-									? player.hydra.mms.bestTetr
-									: player.hydra.mms.tetr,
+									? player.hydra.mms.compressed.bestRank
+									: player.hydra.mms.compressed.rank,
 							) &&
 							tagAccord(tag.value, x[2]) &&
 							milestoneDisplay(x, $t('mms.rank.prefix.1') + MMS.rank.getRankTierName(0)),
