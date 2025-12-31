@@ -53,7 +53,7 @@ jobs:
             -H "Accept: application/vnd.github.v3+json" \
             -d '{
               "commit_title": "🎊 Happy New Year",
-              "commit_message": "Happy New Year 2026!\n\n- 更新时间为 2026-01-01 00:00:00 (UTC+8)\n- 所有测试内容已转为正式版\n- 自动部署完成",
+              "commit_message": "Happy New Year 2026!\n\nCo-authored-by: VeryrrDefine <veryrrdefine@users.noreply.github.com>\nCo-authored-by: 0i00000000a7 <0i00000000a7@users.noreply.github.com>\nCo-authored-by: seanxlx2011 <seanxlx2011@users.noreply.github.com>",
               "merge_method": "merge"
             }' \
             "https://api.github.com/repos/${{ github.repository }}/pulls/1504/merge" 2>&1)
