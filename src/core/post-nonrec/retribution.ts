@@ -142,6 +142,13 @@ export const RETRIBUTION = {
 	},
 	resetUI() {
 		if (this.resetable()) {
+		  if (player.retribution == 1 && !player.options.gammaTest) {
+		    ModalService.show({
+							title: 'Unable to reset',
+							content: 'You need to enter the Gamma test.',
+						});
+						return;
+		  }
 			ModalService.show({
 				title: getMessage('tab.retribution'),
 				content: (function () {
