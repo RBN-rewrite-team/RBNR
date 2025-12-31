@@ -230,16 +230,15 @@ export default defineComponent({
 										class={'rank_button'}
 										style={{
 											borderColor: 'green',
-										}} onClick={() => MMS.rank.levelUp(0, 1)}
+										}}
+										onClick={() => MMS.rank.levelUp(0, 1)}
 									>
 										{$t('mms.rank.reset.0.1')} <br />
-										{
-											getRankDisplay(
-												[0, 1],
-												player.hydra.mms.compressed.rank,
-												$t('mms.rank.prefix.1') +
-													MMS.rank.getRankTierName(0),
-											)}
+										{getRankDisplay(
+											[0, 1],
+											player.hydra.mms.compressed.rank,
+											$t('mms.rank.prefix.1') + MMS.rank.getRankTierName(0),
+										)}
 										<br />
 										{$t('mms.rank.requirement', {
 											up:
@@ -370,7 +369,10 @@ export default defineComponent({
 									: player.hydra.mms.compressed.rank,
 							) &&
 							tagAccord(tag.value, x[2]) &&
-							milestoneDisplay(x, $t('mms.rank.prefix.1') + MMS.rank.getRankTierName(0)),
+							milestoneDisplay(
+								x,
+								$t('mms.rank.prefix.1') + MMS.rank.getRankTierName(0),
+							),
 					)}
 					{/* <UpgradesPN upgids={[['u631']]} /> */}
 				</div>
