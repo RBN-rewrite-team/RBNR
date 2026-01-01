@@ -142,9 +142,9 @@ export const MMSMilestones = [
 
 export function getCurrentMMSMilestoneIndex(target: PowiainaNum): number {
 	if (target.lt(0) || target.isNaN()) throw new Error('Unexpected Y Sequence Number.');
-	if (target.lte(13)) return Math.floor(target.toNumber());
+	if (target.lte(64)) return Math.floor(target.toNumber());
 
-	let left = 13;
+	let left = 64;
 	let right = MMSMilestones.length;
 	let resultIndex = -1;
 
