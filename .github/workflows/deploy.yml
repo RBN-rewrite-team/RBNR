@@ -29,8 +29,8 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            **/.tsbuildinfo
-            node_modules/.cache/tsc
+            node_modules/.tmp/tsconfig.app.tsbuildinfo
+            node_modules/.tmp/tsconfig.node.tsbuildinfo
           key: ${{ runner.os }}-tsc-${{ hashFiles('package-lock.json') }}-${{ hashFiles('tsconfig*.json') }}
           restore-keys: |
             ${{ runner.os }}-tsc-${{ hashFiles('package-lock.json') }}
@@ -46,8 +46,8 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            node_modules/.tmp/.tsbuildinfo
-            node_modules/.cache/tsc
+            node_modules/.tmp/tsconfig.app.tsbuildinfo
+            node_modules/.tmp/tsconfig.node.tsbuildinfo
           key: ${{ runner.os }}-tsc-${{ hashFiles('package-lock.json') }}-${{ hashFiles('tsconfig*.json') }}
 
       - name: Clean old artifacts (if any)
