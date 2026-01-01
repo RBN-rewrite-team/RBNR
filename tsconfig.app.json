@@ -11,9 +11,9 @@
     "jsx": "preserve",
     "jsxFactory": "h",
     "jsxFragmentFactory": "Fragment",
-"experimentalDecorators": true
+"experimentalDecorators": true,
+  "incremental": true
   },
   "allowJs": true,
-  "strict": true,
-  "incremental": true
+  "strict": true
 }

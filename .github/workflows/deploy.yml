@@ -25,11 +25,33 @@ jobs:
           node-version: 24
           cache: npm
 
+      - name: Restore TypeScript incremental cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            **/.tsbuildinfo
+            node_modules/.cache/tsc
+          key: ${{ runner.os }}-tsc-${{ hashFiles('package-lock.json') }}-${{ hashFiles('tsconfig*.json') }}
+          restore-keys: |
+            ${{ runner.os }}-tsc-${{ hashFiles('package-lock.json') }}
+            ${{ runner.os }}-tsc-
+
       - name: Install dependencies
         run: npm ci
 
+      - name: Type check (with incremental compilation)
+        run: npx tsc --noEmit --incremental
+
       - name: Build project
         run: npm run build
+
+      - name: Save TypeScript incremental cache
+        uses: actions/cache@vache@v4
+        with:
+          path: |
+            **/.tsbuildinfo
+            node_modules/.cache/tsc
+          key: ${{ runner.os }}-tsc-${{ hashFiles('package-lock.json') }}-${{ hashFiles('tsconfig*.json') }}
 
       - name: Clean old artifacts (if any)
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/develop' }}
