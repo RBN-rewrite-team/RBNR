@@ -46,7 +46,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            **/.tsbuildinfo
+            node_modules/.tmp/.tsbuildinfo
             node_modules/.cache/tsc
           key: ${{ runner.os }}-tsc-${{ hashFiles('package-lock.json') }}-${{ hashFiles('tsconfig*.json') }}
 
