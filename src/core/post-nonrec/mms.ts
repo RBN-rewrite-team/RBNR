@@ -929,11 +929,11 @@ export const MMS = {
 						() => getMessage('mms.rank.mil.2.7'),
 						['unlock', 'energy'],
 						[
-							() => {
+							(): PowiainaNum => {
 								return MMS.rank.rankEnergies[2].gain();
 							},
 							(x: PowiainaNum) => `+${format(x)}/s`,
-						],
+						] as const,
 					] as const,
 					[
 						new PowiainaNum(22),

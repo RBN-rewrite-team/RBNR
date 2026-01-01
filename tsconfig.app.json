@@ -14,5 +14,6 @@
 "experimentalDecorators": true
   },
   "allowJs": true,
-  "strict": true
+  "strict": true,
+  "incremental": true
 }

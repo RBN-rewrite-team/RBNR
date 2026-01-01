@@ -12,7 +12,6 @@ import {
 import { LunarPhase, Moon } from 'lunarphase-js';
 import { ref, onUnmounted } from 'vue';
 import Mountain from '../y/Mountain.vue';
-import ResetTables from '../stat/ResetTables.tsx';
 import CenterLine from '@/components/ui/CenterLine.vue';
 import { currencyName, Currencies } from '@/core/currencies.ts';
 import { useI18n } from 'vue-i18n';
