@@ -1001,7 +1001,7 @@ export const MMS = {
 									.max(1e7)
 									.log10()
 									.sub(7)
-									.div(10)
+									.div(player.hydra.mms.rank.gte(1e6) ? 10 : 20)
 									.add(1)
 									.recip();
 								return effect;
