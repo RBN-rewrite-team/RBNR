@@ -4,7 +4,6 @@ import { initializeEditorMap } from '@/core/minigame/room';
 import { handleKeyPress } from '@/core/minigame/minigame-loop';
 import { temp } from '../../../core/temp-data';
 import SkillTree from '../minigame/SkillTree.vue';
-import MobileTable from './mobileTable.vue';
 import NumerorumDetails from './NumerorumDetails.vue';
 import DungeonTable from './DungeonTable.vue';
 import EquipCore from './EquipCore.vue';

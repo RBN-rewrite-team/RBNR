@@ -26,7 +26,6 @@ import HydraDilute from './tabs/group-1/HydraDilute.vue';
 import PlotTab from './tabs/plot/PlotTab.vue';
 import SaveBank from './tabs/group-1/SaveBank.vue';
 import NonRecursionMilestones from './tabs/nonrecursion/NonRecursionMilestones.vue';
-import NonRecursionFactor from './tabs/nonrecursion/NonRecursionFactor.vue';
 import NonRecursionTabChal from './tabs/nonrecursion/NonRecursionTabChal.vue';
 import StudyTree from './tabs/nonrecursion/StudyTree.vue';
 import MiniGame from './tabs/minigame/MiniGame.vue';
