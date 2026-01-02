@@ -22,9 +22,9 @@ enum RefinedTierType {
   OMEGA
 }
 
-export type RefinedTier = {
-  level: PowiainaNum,
+export type RefinedTiers = {
   type: RefinedTierType,
+  amounts: [PowiainaNum, PowiainaNum, PowiainaNum, PowiainaNum, PowiainaNum, PowiainaNum]
 }
 
 const RankTierNames = [
@@ -64,7 +64,16 @@ export const MMS = {
 			refined: {
 			  level: new PowiainaNum(0),
 			  basicRefinedShard: new PowiainaNum(0),
-			  refinedTiers: [] as RefinedTier[]
+			  refinedTiers: [
+			    RefinedTierType.ALPHA,
+			    RefinedTierType.BETA,
+			    RefinedTierType.GAMMA,
+			    RefinedTierType.PSI,
+			    RefinedTierType.OMEGA,
+			  ].map(type => ({
+			    type,
+			    amounts: Array.from({ length: 6 }, () => new PowiainaNum(0))
+			  })) as RefinedTiers[]
 			}
 		};
 	},
