@@ -14,6 +14,19 @@ export type RankMilestone = [
 	[() => PowiainaNum, (x: PowiainaNum) => string]?,
 ];
 
+enum RefinedTierType {
+  ALPHA,
+  BETA,
+  GAMMA,
+  PSI,
+  OMEGA
+}
+
+export type RefinedTier = {
+  level: PowiainaNum,
+  type: RefinedTierType,
+}
+
 const RankTierNames = [
 	['Rank', 'Tier', 'Tri', 'Tetr', 'Pent', 'Hex', 'Hept', 'Oct', 'Enne'],
 	['', 'dec', 'icos'],
@@ -47,6 +60,12 @@ export const MMS = {
 				bestRank: new PowiainaNum(0),
 			},
 			lastReset: 0,
+			currentPage: 1,
+			refined: {
+			  level: new PowiainaNum(0),
+			  basicRefinedShard: new PowiainaNum(0),
+			  refinedTiers: [] as RefinedTier[]
+			}
 		};
 	},
 	displayDeduceSpeed(): PowiainaNum {
