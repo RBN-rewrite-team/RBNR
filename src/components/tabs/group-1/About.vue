@@ -188,7 +188,7 @@ import { i18n } from '@/utils/i18n';
 				<br />
 				{{ $t('about.dlsdl') }}<br />
 				hard_shuati<br />
-				Endless_e308<br />
+				AntiDim_Redemption<br />
 			</div>
 
 			<div style="position: absolute; top: 400px; height: 100px; width: 100%" align="center">
