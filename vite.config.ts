@@ -1,5 +1,5 @@
 import { fileURLToPath, URL } from 'node:url';
-import vueDevTools from 'vite-plugin-vue-devtools'
+import vueDevTools from 'vite-plugin-vue-devtools';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import legacy from '@vitejs/plugin-legacy';
@@ -38,6 +38,13 @@ export default defineConfig({
 	base: './',
 	server: {
 		host: '0.0.0.0',
+		proxy: {
+			'/api': {
+				// Replace on prod
+				target: 'http://localhost:3000',
+				changeOrigin: true,
+			},
+		},
 	},
 	build: {
 		rollupOptions: {
@@ -52,8 +59,8 @@ export default defineConfig({
 		},
 	},
 	css: {
-    modules: {
-      generateScopedName: '[name]__[local]___[hash:base64:5]',
-    }
-  }
+		modules: {
+			generateScopedName: '[name]__[local]___[hash:base64:5]',
+		},
+	},
 });
